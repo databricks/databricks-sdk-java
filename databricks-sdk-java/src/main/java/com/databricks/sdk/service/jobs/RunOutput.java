@@ -1,0 +1,152 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.jobs;
+
+import java.util.Map;
+
+import javax.annotation.Generated;
+import com.databricks.sdk.annotation.QueryParam;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
+
+@Generated("databricks-sdk-generator")
+public class RunOutput {
+    /**
+     * The output of a dbt task, if available.
+     */
+    @JsonProperty("dbt_output")
+    private DbtOutput dbtOutput;
+    
+    /**
+     * An error message indicating why a task failed or why output is not
+     * available. The message is unstructured, and its exact format is subject
+     * to change.
+     */
+    @JsonProperty("error")
+    private String error;
+    
+    /**
+     * If there was an error executing the run, this field contains any
+     * available stack traces.
+     */
+    @JsonProperty("error_trace")
+    private String errorTrace;
+    
+    /**
+     * The output from tasks that write to standard streams (stdout/stderr) such
+     * as :schema:sparkjartask, :schema:sparkpythontask,
+     * :schema:pythonwheeltask.
+     * 
+     * It's not supported for the :schema:notebooktask, :schema:pipelinetask or
+     * :schema:sparksubmittask.
+     * 
+     * Databricks restricts this API to return the last 5 MB of these logs.
+     */
+    @JsonProperty("logs")
+    private String logs;
+    
+    /**
+     * Whether the logs are truncated.
+     */
+    @JsonProperty("logs_truncated")
+    private Boolean logsTruncated;
+    
+    /**
+     * All details of the run except for its output.
+     */
+    @JsonProperty("metadata")
+    private Run metadata;
+    
+    /**
+     * The output of a notebook task, if available. A notebook task that
+     * terminates (either successfully or with a failure) without calling
+     * `dbutils.notebook.exit()` is considered to have an empty output. This
+     * field is set but its result value is empty. <Databricks> restricts this
+     * API to return the first 5 MB of the output. To return a larger result,
+     * use the
+     * [ClusterLogConf](/dev-tools/api/latest/clusters.html#clusterlogconf)
+     * field to configure log storage for the job cluster.
+     */
+    @JsonProperty("notebook_output")
+    private NotebookOutput notebookOutput;
+    
+    /**
+     * The output of a SQL task, if available.
+     */
+    @JsonProperty("sql_output")
+    private SqlOutput sqlOutput;
+    
+    public RunOutput setDbtOutput(DbtOutput dbtOutput) {
+        this.dbtOutput = dbtOutput;
+        return this;
+    }
+
+    public DbtOutput getDbtOutput() {
+        return dbtOutput;
+    }
+    
+    public RunOutput setError(String error) {
+        this.error = error;
+        return this;
+    }
+
+    public String getError() {
+        return error;
+    }
+    
+    public RunOutput setErrorTrace(String errorTrace) {
+        this.errorTrace = errorTrace;
+        return this;
+    }
+
+    public String getErrorTrace() {
+        return errorTrace;
+    }
+    
+    public RunOutput setLogs(String logs) {
+        this.logs = logs;
+        return this;
+    }
+
+    public String getLogs() {
+        return logs;
+    }
+    
+    public RunOutput setLogsTruncated(Boolean logsTruncated) {
+        this.logsTruncated = logsTruncated;
+        return this;
+    }
+
+    public Boolean getLogsTruncated() {
+        return logsTruncated;
+    }
+    
+    public RunOutput setMetadata(Run metadata) {
+        this.metadata = metadata;
+        return this;
+    }
+
+    public Run getMetadata() {
+        return metadata;
+    }
+    
+    public RunOutput setNotebookOutput(NotebookOutput notebookOutput) {
+        this.notebookOutput = notebookOutput;
+        return this;
+    }
+
+    public NotebookOutput getNotebookOutput() {
+        return notebookOutput;
+    }
+    
+    public RunOutput setSqlOutput(SqlOutput sqlOutput) {
+        this.sqlOutput = sqlOutput;
+        return this;
+    }
+
+    public SqlOutput getSqlOutput() {
+        return sqlOutput;
+    }
+    
+}

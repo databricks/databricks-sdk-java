@@ -1,0 +1,37 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+package com.databricks.sdk.service.{{.Package.Name}};
+
+import javax.annotation.Generated;
+import java.util.List;
+import java.util.Map;
+
+/**
+ {{.Comment " * " 80}}
+ *
+ * This is the high-level interface, that contains generated methods.
+ *
+ * Evolving: this interface is under development. Method signatures may change.
+ */
+@Generated("databricks-sdk-generator")
+public interface {{.PascalName}}Service {
+	{{- range .Methods}}
+	{{if .Description}}/**
+     {{.Comment "     * " 80}}
+     */{{end}}
+    {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} {{.Request.CamelName}}{{if .IsNameReserved}}Content{{end}}{{end}});
+    {{end}}
+}
+{{- define "type" -}}
+	{{- if not . }}Object /* ERROR */
+	{{- else if .IsString}}String
+	{{- else if .IsBool}}boolean
+	{{- else if .IsInt64}}long
+	{{- else if .IsFloat64}}float
+	{{- else if .IsInt}}int
+	{{- else if .ArrayValue }}List<{{template "type" .ArrayValue}}>
+	{{- else if .MapValue }}Map<String,{{template "type" .MapValue}}>
+	{{- else if .IsObject }}{{.PascalName}}
+	{{- else if .Enum }}{{.PascalName}}
+	{{- else}}Object /* MISSING TYPE */
+	{{- end -}}
+{{- end -}}

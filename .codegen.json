@@ -1,0 +1,14 @@
+{
+  "formatter": "echo 1",
+  "types": {
+    ".codegen/model.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}.java"
+  },
+  "services": {
+    ".codegen/interface.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}Service.java",
+    ".codegen/api.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}API.java"
+  },
+  "batch": {
+    ".codegen/workspace.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/DatabricksWorkspace.java",
+    ".codegen/account.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/DatabricksAccount.java"
+  }
+}
