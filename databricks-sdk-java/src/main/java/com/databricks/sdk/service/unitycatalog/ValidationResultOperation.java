@@ -1,6 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.sql;
+package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
@@ -10,13 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Name of the channel
+ * The operation tested.
  */
-public enum ChannelName{
-    CHANNEL_NAME_CURRENT,
-    CHANNEL_NAME_CUSTOM,
-    CHANNEL_NAME_PREVIEW,
-    CHANNEL_NAME_PREVIOUS,
-    CHANNEL_NAME_UNSPECIFIED,
+public enum ValidationResultOperation{
+    DELETE,
+    LIST,
+    READ,
+    WRITE,
     
 }

@@ -1,0 +1,24 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.sql;
+
+import java.util.Map;
+
+import javax.annotation.Generated;
+import com.databricks.sdk.annotation.QueryParam;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+
+/**
+ * When called in synchronous mode (`wait_timeout > 0s`), determines action when
+ * timeout reached:
+ * 
+ * `CONTINUE` → statement execution continues asynchronously; the call returns
+ * a statement ID immediately. `CANCEL` → statement execution canceled; call
+ * returns immediately with `CANCELED` state.
+ */
+public enum TimeoutAction{
+    CANCEL,
+    CONTINUE,
+    
+}

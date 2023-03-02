@@ -1,6 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.sql;
+package com.databricks.sdk.service.endpoints;
 
 import java.util.Map;
 
@@ -10,13 +10,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Name of the channel
+ * The permission level of the principal making the request.
  */
-public enum ChannelName{
-    CHANNEL_NAME_CURRENT,
-    CHANNEL_NAME_CUSTOM,
-    CHANNEL_NAME_PREVIEW,
-    CHANNEL_NAME_PREVIOUS,
-    CHANNEL_NAME_UNSPECIFIED,
+public enum ServingEndpointDetailedPermissionLevel{
+    CAN_MANAGE,
+    CAN_QUERY,
+    CAN_VIEW,
     
 }
