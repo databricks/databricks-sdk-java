@@ -29,7 +29,7 @@ public class SqlQueryOutput {
      * Information about SQL statements executed in the run.
      */
     @JsonProperty("sql_statements")
-    private SqlStatementOutput sqlStatements;
+    private java.util.List<SqlStatementOutput> sqlStatements;
     
     /**
      * The canonical identifier of the SQL warehouse.
@@ -55,12 +55,12 @@ public class SqlQueryOutput {
         return queryText;
     }
     
-    public SqlQueryOutput setSqlStatements(SqlStatementOutput sqlStatements) {
+    public SqlQueryOutput setSqlStatements(java.util.List<SqlStatementOutput> sqlStatements) {
         this.sqlStatements = sqlStatements;
         return this;
     }
 
-    public SqlStatementOutput getSqlStatements() {
+    public java.util.List<SqlStatementOutput> getSqlStatements() {
         return sqlStatements;
     }
     

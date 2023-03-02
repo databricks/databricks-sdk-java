@@ -15,13 +15,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class DeleteCatalogRequest {
     /**
-     * Force deletion even if the catalog is notempty.
+     * Force deletion even if the catalog is not empty.
      */
     @QueryParam("force")
     private Boolean force;
     
     /**
-     * Required. The name of the catalog.
+     * The name of the catalog.
      */
     
     private String name;

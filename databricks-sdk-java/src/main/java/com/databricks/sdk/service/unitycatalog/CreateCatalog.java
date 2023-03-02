@@ -19,13 +19,13 @@ public class CreateCatalog {
     private String comment;
     
     /**
-     * Name of Catalog.
+     * Name of catalog.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     
+     * A map of key-value properties attached to the securable.
      */
     @JsonProperty("properties")
     private Map<String,String> properties;
@@ -33,7 +33,7 @@ public class CreateCatalog {
     /**
      * The name of delta sharing provider.
      * 
-     * A Delta Sharing Catalog is a catalog that is based on a Delta share on a
+     * A Delta Sharing catalog is a catalog that is based on a Delta share on a
      * remote sharing server.
      */
     @JsonProperty("provider_name")
@@ -46,7 +46,7 @@ public class CreateCatalog {
     private String shareName;
     
     /**
-     * Storage root URL for managed tables within Catalog.
+     * Storage root URL for managed tables within catalog.
      */
     @JsonProperty("storage_root")
     private String storageRoot;

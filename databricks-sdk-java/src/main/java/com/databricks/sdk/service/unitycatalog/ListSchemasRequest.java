@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class ListSchemasRequest {
     /**
-     * Optional. Parent catalog for schemas of interest.
+     * Parent catalog for schemas of interest.
      */
     @QueryParam("catalog_name")
     private String catalogName;

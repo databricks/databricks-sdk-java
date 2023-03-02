@@ -25,37 +25,37 @@ public class CatalogInfo {
     private String comment;
     
     /**
-     * Time at which this Catalog was created, in epoch milliseconds.
+     * Time at which this catalog was created, in epoch milliseconds.
      */
     @JsonProperty("created_at")
     private Long createdAt;
     
     /**
-     * Username of Catalog creator.
+     * Username of catalog creator.
      */
     @JsonProperty("created_by")
     private String createdBy;
     
     /**
-     * Unique identifier of parent Metastore.
+     * Unique identifier of parent metastore.
      */
     @JsonProperty("metastore_id")
     private String metastoreId;
     
     /**
-     * Name of Catalog.
+     * Name of catalog.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * Username of current owner of Catalog.
+     * Username of current owner of catalog.
      */
     @JsonProperty("owner")
     private String owner;
     
     /**
-     
+     * A map of key-value properties attached to the securable.
      */
     @JsonProperty("properties")
     private Map<String,String> properties;
@@ -63,7 +63,7 @@ public class CatalogInfo {
     /**
      * The name of delta sharing provider.
      * 
-     * A Delta Sharing Catalog is a catalog that is based on a Delta share on a
+     * A Delta Sharing catalog is a catalog that is based on a Delta share on a
      * remote sharing server.
      */
     @JsonProperty("provider_name")
@@ -76,25 +76,25 @@ public class CatalogInfo {
     private String shareName;
     
     /**
-     * Storage Location URL (full path) for managed tables within Catalog.
+     * Storage Location URL (full path) for managed tables within catalog.
      */
     @JsonProperty("storage_location")
     private String storageLocation;
     
     /**
-     * Storage root URL for managed tables within Catalog.
+     * Storage root URL for managed tables within catalog.
      */
     @JsonProperty("storage_root")
     private String storageRoot;
     
     /**
-     * Time at which this Catalog was last modified, in epoch milliseconds.
+     * Time at which this catalog was last modified, in epoch milliseconds.
      */
     @JsonProperty("updated_at")
     private Long updatedAt;
     
     /**
-     * Username of user who last modified Catalog.
+     * Username of user who last modified catalog.
      */
     @JsonProperty("updated_by")
     private String updatedBy;

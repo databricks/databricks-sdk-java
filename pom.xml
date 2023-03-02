@@ -13,14 +13,6 @@
         <module>databricks-sdk-java</module>
     </modules>
 
-    <properties>
-        <jackson.version>2.12.2</jackson.version>
-        <httpclient.version>4.5.13</httpclient.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <build>
         <plugins>
             <plugin>

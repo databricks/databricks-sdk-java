@@ -30,6 +30,21 @@ public class UpdateRecipient {
     @JsonProperty("name")
     private String name;
     
+    /**
+     * Username of the recipient owner.
+     */
+    @JsonProperty("owner")
+    private String owner;
+    
+    /**
+     * Recipient properties as map of string key-value pairs.\n When provided in
+     * update request, the specified properties will override the existing
+     * properties. To add and remove properties, one would need to perform a
+     * read-modify-write.
+     */
+    @JsonProperty("properties_kvpairs")
+    private Object /* MISSING TYPE */ propertiesKvpairs;
+    
     public UpdateRecipient setComment(String comment) {
         this.comment = comment;
         return this;
@@ -55,6 +70,24 @@ public class UpdateRecipient {
 
     public String getName() {
         return name;
+    }
+    
+    public UpdateRecipient setOwner(String owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+    
+    public UpdateRecipient setPropertiesKvpairs(Object /* MISSING TYPE */ propertiesKvpairs) {
+        this.propertiesKvpairs = propertiesKvpairs;
+        return this;
+    }
+
+    public Object /* MISSING TYPE */ getPropertiesKvpairs() {
+        return propertiesKvpairs;
     }
     
 }

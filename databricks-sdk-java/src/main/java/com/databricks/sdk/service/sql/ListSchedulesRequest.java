@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Get refresh schedules
+ * [DEPRECATED] Get refresh schedules
  */
 @Generated("databricks-sdk-generator")
 public class ListSchedulesRequest {

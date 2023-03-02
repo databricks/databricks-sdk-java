@@ -13,8 +13,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * This describes an enum
  */
 public enum ListRunsRunType{
-    JOB_RUN,// Normal job run. A run created with :method:runNow.
-    SUBMIT_RUN,// Submit run. A run created with :method:submit.
+    JOB_RUN,// Normal job run. A run created with :method:jobs/runNow.
+    SUBMIT_RUN,// Submit run. A run created with :method:jobs/submit.
     WORKFLOW_RUN,// Workflow run. A run created with
 // [dbutils.notebook.run](/dev-tools/databricks-utils.html#dbutils-workflow).
     

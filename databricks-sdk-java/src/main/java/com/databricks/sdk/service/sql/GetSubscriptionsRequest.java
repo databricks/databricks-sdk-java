@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Get an alert's subscriptions
+ * [DEPRECATED] Get an alert's subscriptions
  */
 @Generated("databricks-sdk-generator")
 public class GetSubscriptionsRequest {

@@ -19,19 +19,19 @@ public class UpdateCatalog {
     private String comment;
     
     /**
-     * Name of Catalog.
+     * Name of catalog.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * Username of current owner of Catalog.
+     * Username of current owner of catalog.
      */
     @JsonProperty("owner")
     private String owner;
     
     /**
-     
+     * A map of key-value properties attached to the securable.
      */
     @JsonProperty("properties")
     private Map<String,String> properties;

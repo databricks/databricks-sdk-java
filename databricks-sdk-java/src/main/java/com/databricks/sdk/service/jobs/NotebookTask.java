@@ -14,8 +14,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class NotebookTask {
     /**
      * Base parameters to be used for each run of this job. If the run is
-     * initiated by a call to :method:runNow with parameters specified, the two
-     * parameters maps are merged. If the same key is specified in
+     * initiated by a call to :method:jobs/runNow with parameters specified, the
+     * two parameters maps are merged. If the same key is specified in
      * `base_parameters` and in `run-now`, the value from `run-now` is used.
      * 
      * Use [Task parameter variables] to set parameters containing information

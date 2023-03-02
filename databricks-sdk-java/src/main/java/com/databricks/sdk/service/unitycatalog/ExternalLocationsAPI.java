@@ -24,7 +24,7 @@ import com.databricks.sdk.client.DatabricksException;
  * credentials directly.
  * 
  * To create external locations, you must be a metastore admin or a user with
- * the CREATE_EXTERNAL_LOCATION privilege.
+ * the **CREATE_EXTERNAL_LOCATION** privilege.
  */
 @Generated("databricks-sdk-generator")
 public class ExternalLocationsAPI implements ExternalLocationsService {
@@ -37,9 +37,9 @@ public class ExternalLocationsAPI implements ExternalLocationsService {
 	/**
      * Create an external location.
      * 
-     * Creates a new External Location entry in the Metastore. The caller must
-     * be a Metastore admin or have the CREATE_EXTERNAL_LOCATION privilege on
-     * both the Metastore and the associated storage credential.
+     * Creates a new external location entry in the metastore. The caller must
+     * be a metastore admin or have the **CREATE_EXTERNAL_LOCATION** privilege
+     * on both the metastore and the associated storage credential.
      */
     @Override
     public ExternalLocationInfo create(CreateExternalLocation request) {
@@ -50,7 +50,7 @@ public class ExternalLocationsAPI implements ExternalLocationsService {
 	/**
      * Delete an external location.
      * 
-     * Deletes the specified external location from the Metastore. The caller
+     * Deletes the specified external location from the metastore. The caller
      * must be the owner of the external location.
      */
     @Override
@@ -62,9 +62,9 @@ public class ExternalLocationsAPI implements ExternalLocationsService {
 	/**
      * Get an external location.
      * 
-     * Gets an external location from the Metastore. The caller must be either a
-     * Metastore admin, the owner of the external location, or has some
-     * privilege on the external location.
+     * Gets an external location from the metastore. The caller must be either a
+     * metastore admin, the owner of the external location, or a user that has
+     * some privilege on the external location.
      */
     @Override
     public ExternalLocationInfo get(GetExternalLocationRequest request) {
@@ -75,9 +75,11 @@ public class ExternalLocationsAPI implements ExternalLocationsService {
 	/**
      * List external locations.
      * 
-     * Gets an array of External Locations (ExternalLocationInfo objects) from
-     * the Metastore. The caller must be a Metastore admin, is the owner of the
-     * external location, or has some privilege on the external location.
+     * Gets an array of external locations (__ExternalLocationInfo__ objects)
+     * from the metastore. The caller must be a metastore admin, the owner of
+     * the external location, or a user that has some privilege on the external
+     * location. There is no guarantee of a specific ordering of the elements in
+     * the array.
      */
     @Override
     public ListExternalLocationsResponse list() {
@@ -88,8 +90,8 @@ public class ExternalLocationsAPI implements ExternalLocationsService {
 	/**
      * Update an external location.
      * 
-     * Updates an external location in the Metastore. The caller must be the
-     * owner of the external location, or be a Metastore admin. In the second
+     * Updates an external location in the metastore. The caller must be the
+     * owner of the external location, or be a metastore admin. In the second
      * case, the admin can only update the name of the external location.
      */
     @Override

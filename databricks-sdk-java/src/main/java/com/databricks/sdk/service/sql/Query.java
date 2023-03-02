@@ -112,6 +112,13 @@ public class Query {
     private QueryOptions options;
     
     /**
+     * The identifier of the parent folder containing the query. Available for
+     * queries in workspace.
+     */
+    @JsonProperty("parent")
+    private String parent;
+    
+    /**
      * This describes an enum
      */
     @JsonProperty("permission_tier")
@@ -289,6 +296,15 @@ public class Query {
 
     public QueryOptions getOptions() {
         return options;
+    }
+    
+    public Query setParent(String parent) {
+        this.parent = parent;
+        return this;
+    }
+
+    public String getParent() {
+        return parent;
     }
     
     public Query setPermissionTier(PermissionLevel permissionTier) {

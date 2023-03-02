@@ -13,25 +13,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class GetMetastoreSummaryResponse {
     /**
-     * Cloud vendor of the Metastore home shard (e.g., `aws`, `azure`, `gcp`).
+     * Cloud vendor of the metastore home shard (e.g., `aws`, `azure`, `gcp`).
      */
     @JsonProperty("cloud")
     private String cloud;
     
     /**
-     * Time at which this Metastore was created, in epoch milliseconds.
+     * Time at which this metastore was created, in epoch milliseconds.
      */
     @JsonProperty("created_at")
     private Long createdAt;
     
     /**
-     * Username of Metastore creator.
+     * Username of metastore creator.
      */
     @JsonProperty("created_by")
     private String createdBy;
     
     /**
-     * Unique identifier of the Metastore's (Default) Data Access Configuration.
+     * Unique identifier of the metastore's (Default) Data Access Configuration.
      */
     @JsonProperty("default_data_access_config_id")
     private String defaultDataAccessConfigId;
@@ -50,7 +50,7 @@ public class GetMetastoreSummaryResponse {
     private Long deltaSharingRecipientTokenLifetimeInSeconds;
     
     /**
-     * The scope of Delta Sharing enabled for the Metastore
+     * The scope of Delta Sharing enabled for the metastore.
      */
     @JsonProperty("delta_sharing_scope")
     private GetMetastoreSummaryResponseDeltaSharingScope deltaSharingScope;
@@ -63,13 +63,13 @@ public class GetMetastoreSummaryResponse {
     private String globalMetastoreId;
     
     /**
-     * The unique ID (UUID) of the Metastore.
+     * Unique identifier of metastore.
      */
     @JsonProperty("metastore_id")
     private String metastoreId;
     
     /**
-     * The user-specified name of the Metastore.
+     * The user-specified name of the metastore.
      */
     @JsonProperty("name")
     private String name;
@@ -82,19 +82,19 @@ public class GetMetastoreSummaryResponse {
     
     /**
      * Privilege model version of the metastore, of the form `major.minor`
-     * (e.g., `1.0`)
+     * (e.g., `1.0`).
      */
     @JsonProperty("privilege_model_version")
     private String privilegeModelVersion;
     
     /**
-     * Cloud region of the Metastore home shard (e.g., `us-west-2`, `westus`).
+     * Cloud region which the metastore serves (e.g., `us-west-2`, `westus`).
      */
     @JsonProperty("region")
     private String region;
     
     /**
-     * The storage root URL for the Metastore.
+     * The storage root URL for metastore
      */
     @JsonProperty("storage_root")
     private String storageRoot;
@@ -112,13 +112,13 @@ public class GetMetastoreSummaryResponse {
     private String storageRootCredentialName;
     
     /**
-     * Time at which this Metastore was last modified, in epoch milliseconds.
+     * Time at which the metastore was last modified, in epoch milliseconds.
      */
     @JsonProperty("updated_at")
     private Long updatedAt;
     
     /**
-     * Username of user who last modified the External Location.
+     * Username of user who last modified the metastore.
      */
     @JsonProperty("updated_by")
     private String updatedBy;

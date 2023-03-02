@@ -19,6 +19,14 @@ public class CreateJob {
     private java.util.List<Object /* MISSING TYPE */> accessControlList;
     
     /**
+     * An optional continuous property for this job. The continuous property
+     * will ensure that there is always one run executing. Only one of
+     * `schedule` and `continuous` can be used.
+     */
+    @JsonProperty("continuous")
+    private Continuous continuous;
+    
+    /**
      * An optional set of email addresses that is notified when runs of this job
      * begin or complete as well as when this job is deleted. The default
      * behavior is to not send any emails.
@@ -120,6 +128,15 @@ public class CreateJob {
 
     public java.util.List<Object /* MISSING TYPE */> getAccessControlList() {
         return accessControlList;
+    }
+    
+    public CreateJob setContinuous(Continuous continuous) {
+        this.continuous = continuous;
+        return this;
+    }
+
+    public Continuous getContinuous() {
+        return continuous;
     }
     
     public CreateJob setEmailNotifications(JobEmailNotifications emailNotifications) {

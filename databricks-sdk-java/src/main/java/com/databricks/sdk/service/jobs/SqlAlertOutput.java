@@ -13,6 +13,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class SqlAlertOutput {
     /**
+     * The state of the SQL alert.
+     * 
+     * * UNKNOWN: alert yet to be evaluated * OK: alert evaluated and did not
+     * fulfill trigger conditions * TRIGGERED: alert evaluated and fulfilled
+     * trigger conditions
+     */
+    @JsonProperty("alert_state")
+    private SqlAlertState alertState;
+    
+    /**
      * The link to find the output results.
      */
     @JsonProperty("output_link")
@@ -29,13 +39,22 @@ public class SqlAlertOutput {
      * Information about SQL statements executed in the run.
      */
     @JsonProperty("sql_statements")
-    private SqlStatementOutput sqlStatements;
+    private java.util.List<SqlStatementOutput> sqlStatements;
     
     /**
      * The canonical identifier of the SQL warehouse.
      */
     @JsonProperty("warehouse_id")
     private String warehouseId;
+    
+    public SqlAlertOutput setAlertState(SqlAlertState alertState) {
+        this.alertState = alertState;
+        return this;
+    }
+
+    public SqlAlertState getAlertState() {
+        return alertState;
+    }
     
     public SqlAlertOutput setOutputLink(String outputLink) {
         this.outputLink = outputLink;
@@ -55,12 +74,12 @@ public class SqlAlertOutput {
         return queryText;
     }
     
-    public SqlAlertOutput setSqlStatements(SqlStatementOutput sqlStatements) {
+    public SqlAlertOutput setSqlStatements(java.util.List<SqlStatementOutput> sqlStatements) {
         this.sqlStatements = sqlStatements;
         return this;
     }
 
-    public SqlStatementOutput getSqlStatements() {
+    public java.util.List<SqlStatementOutput> getSqlStatements() {
         return sqlStatements;
     }
     

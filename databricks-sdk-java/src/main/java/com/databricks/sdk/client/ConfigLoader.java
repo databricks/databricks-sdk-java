@@ -65,6 +65,9 @@ public class ConfigLoader {
         Ini ini = parseDatabricksCfg(cfg);
         if (ini == null) return;
         String profile = cfg.getProfile();
+        if (profile == null) {
+            return;
+        }
         boolean hasExplicitProfile = !profile.equals("");
         if (!hasExplicitProfile) {
             profile = "DEFAULT";

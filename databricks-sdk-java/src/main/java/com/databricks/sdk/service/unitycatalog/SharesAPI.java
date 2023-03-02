@@ -26,8 +26,8 @@ public class SharesAPI implements SharesService {
      * Create a share.
      * 
      * Creates a new share for data objects. Data objects can be added at this
-     * time or after creation with **update**. The caller must be a Metastore
-     * admin or have the CREATE_SHARE privilege on the Metastore.
+     * time or after creation with **update**. The caller must be a metastore
+     * admin or have the **CREATE_SHARE** privilege on the metastore.
      */
     @Override
     public ShareInfo create(CreateShare request) {
@@ -38,7 +38,7 @@ public class SharesAPI implements SharesService {
 	/**
      * Delete a share.
      * 
-     * Deletes a data object share from the Metastore. The caller must be an
+     * Deletes a data object share from the metastore. The caller must be an
      * owner of the share.
      */
     @Override
@@ -50,8 +50,8 @@ public class SharesAPI implements SharesService {
 	/**
      * Get a share.
      * 
-     * Gets a data object share from the Metastore. The caller must be a
-     * Metastore admin or the owner of the share.
+     * Gets a data object share from the metastore. The caller must be a
+     * metastore admin or the owner of the share.
      */
     @Override
     public ShareInfo get(GetShareRequest request) {
@@ -62,8 +62,9 @@ public class SharesAPI implements SharesService {
 	/**
      * List shares.
      * 
-     * Gets an array of data object shares from the Metastore. The caller must
-     * be a Metastore admin or the owner of the share.
+     * Gets an array of data object shares from the metastore. The caller must
+     * be a metastore admin or the owner of the share. There is no guarantee of
+     * a specific ordering of the elements in the array.
      */
     @Override
     public ListSharesResponse list() {
@@ -74,29 +75,29 @@ public class SharesAPI implements SharesService {
 	/**
      * Get permissions.
      * 
-     * Gets the permissions for a data share from the Metastore. The caller must
-     * be a Metastore admin or the owner of the share.
+     * Gets the permissions for a data share from the metastore. The caller must
+     * be a metastore admin or the owner of the share.
      */
     @Override
-    public GetSharePermissionsResponse sharePermissions(SharePermissionsRequest request) {
+    public PermissionsList sharePermissions(SharePermissionsRequest request) {
         String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
-        return apiClient.GET(path, request, GetSharePermissionsResponse.class);
+        return apiClient.GET(path, request, PermissionsList.class);
     }
     
 	/**
      * Update a share.
      * 
      * Updates the share with the changes and data objects in the request. The
-     * caller must be the owner of the share or a Metastore admin.
+     * caller must be the owner of the share or a metastore admin.
      * 
-     * When the caller is a Metastore admin, only the __owner__ field can be
+     * When the caller is a metastore admin, only the __owner__ field can be
      * updated.
      * 
-     * In the case that the Share name is changed, **updateShare** requires that
-     * the caller is both the share owner and a Metastore admin.
+     * In the case that the share name is changed, **updateShare** requires that
+     * the caller is both the share owner and a metastore admin.
      * 
      * For each table that is added through this method, the share owner must
-     * also have SELECT privilege on the table. This privilege must be
+     * also have **SELECT** privilege on the table. This privilege must be
      * maintained indefinitely for recipients to be able to access the table.
      * Typically, you should use a group as the share owner.
      * 
@@ -111,8 +112,8 @@ public class SharesAPI implements SharesService {
 	/**
      * Update permissions.
      * 
-     * Updates the permissions for a data share in the Metastore. The caller
-     * must be a Metastore admin or an owner of the share.
+     * Updates the permissions for a data share in the metastore. The caller
+     * must be a metastore admin or an owner of the share.
      * 
      * For new recipient grants, the user must also be the owner of the
      * recipients. recipient revocations do not require additional privileges.

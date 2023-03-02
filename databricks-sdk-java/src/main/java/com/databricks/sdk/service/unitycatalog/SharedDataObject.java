@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class SharedDataObject {
     /**
-     * The time when this data object is added to the Share, in epoch
+     * The time when this data object is added to the share, in epoch
      * milliseconds.
      */
     @JsonProperty("added_at")
@@ -61,9 +61,9 @@ public class SharedDataObject {
     
     /**
      * A user-provided new name for the data object within the share. If this
-     * new name is not not provided, the object's original name will be used as
-     * the `shared_as` name. The `shared_as` name must be unique within a Share.
-     * For tables, the new name must follow the format of `<schema>.<table>`.
+     * new name is not provided, the object's original name will be used as the
+     * `shared_as` name. The `shared_as` name must be unique within a share. For
+     * tables, the new name must follow the format of `<schema>.<table>`.
      */
     @JsonProperty("shared_as")
     private String sharedAs;

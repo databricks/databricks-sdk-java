@@ -18,14 +18,14 @@ public interface ProvidersService {
      * Create an auth provider.
      * 
      * Creates a new authentication provider minimally based on a name and
-     * authentication type. The caller must be an admin on the Metastore.
+     * authentication type. The caller must be an admin on the metastore.
      */
     ProviderInfo create(CreateProvider createProvider);
     
 	/**
      * Delete a provider.
      * 
-     * Deletes an authentication provider, if the caller is a Metastore admin or
+     * Deletes an authentication provider, if the caller is a metastore admin or
      * is the owner of the provider.
      */
     void delete(DeleteProviderRequest deleteProviderRequest);
@@ -34,7 +34,7 @@ public interface ProvidersService {
      * Get a provider.
      * 
      * Gets a specific authentication provider. The caller must supply the name
-     * of the provider, and must either be a Metastore admin or the owner of the
+     * of the provider, and must either be a metastore admin or the owner of the
      * provider.
      */
     ProviderInfo get(GetProviderRequest getProviderRequest);
@@ -43,17 +43,19 @@ public interface ProvidersService {
      * List providers.
      * 
      * Gets an array of available authentication providers. The caller must
-     * either be a Metastore admin or the owner of the providers. Providers not
-     * owned by the caller are not included in the response.
+     * either be a metastore admin or the owner of the providers. Providers not
+     * owned by the caller are not included in the response. There is no
+     * guarantee of a specific ordering of the elements in the array.
      */
     ListProvidersResponse list(ListProvidersRequest listProvidersRequest);
     
 	/**
-     * List shares.
+     * List shares by Provider.
      * 
-     * Gets an array of all shares within the Metastore where:
+     * Gets an array of a specified provider's shares within the metastore
+     * where:
      * 
-     * * the caller is a Metastore admin, or * the caller is the owner.
+     * * the caller is a metastore admin, or * the caller is the owner.
      */
     ListProviderSharesResponse listShares(ListSharesRequest listSharesRequest);
     
@@ -61,8 +63,8 @@ public interface ProvidersService {
      * Update a provider.
      * 
      * Updates the information for an authentication provider, if the caller is
-     * a Metastore admin or is the owner of the provider. If the update changes
-     * the provider name, the caller must be both a Metastore admin and the
+     * a metastore admin or is the owner of the provider. If the update changes
+     * the provider name, the caller must be both a metastore admin and the
      * owner of the provider.
      */
     ProviderInfo update(UpdateProvider updateProvider);

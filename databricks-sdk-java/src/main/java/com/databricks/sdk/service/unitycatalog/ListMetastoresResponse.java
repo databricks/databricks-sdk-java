@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class ListMetastoresResponse {
     /**
-     * An array of Metastore information objects.
+     * An array of metastore information objects.
      */
     @JsonProperty("metastores")
     private java.util.List<MetastoreInfo> metastores;

@@ -19,13 +19,13 @@ public class UpdateShare {
     private String comment;
     
     /**
-     * Name of the Share.
+     * Name of the share.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * Username of current owner of Share.
+     * Username of current owner of share.
      */
     @JsonProperty("owner")
     private String owner;

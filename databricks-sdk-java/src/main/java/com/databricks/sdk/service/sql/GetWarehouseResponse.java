@@ -50,8 +50,7 @@ public class GetWarehouseResponse {
      * Configures whether the endpoint should use Databricks Compute (aka
      * Nephos)
      * 
-     * Deprecated: Use enable_serverless_compute TODO(SC-79930): Remove the
-     * field once clients are updated
+     * Deprecated: Use enable_serverless_compute
      */
     @JsonProperty("enable_databricks_compute")
     private Boolean enableDatabricksCompute;

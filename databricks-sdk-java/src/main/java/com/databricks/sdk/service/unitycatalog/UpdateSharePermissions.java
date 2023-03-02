@@ -19,7 +19,7 @@ public class UpdateSharePermissions {
     private java.util.List<PermissionsChange> changes;
     
     /**
-     * Required. The name of the share.
+     * The name of the share.
      */
     
     private String name;

@@ -18,6 +18,18 @@ public class SqlTaskAlert {
     @JsonProperty("alert_id")
     private String alertId;
     
+    /**
+     * If true, the alert notifications are not sent to subscribers.
+     */
+    @JsonProperty("pause_subscriptions")
+    private Boolean pauseSubscriptions;
+    
+    /**
+     * If specified, alert notifications are sent to subscribers.
+     */
+    @JsonProperty("subscriptions")
+    private java.util.List<SqlTaskSubscription> subscriptions;
+    
     public SqlTaskAlert setAlertId(String alertId) {
         this.alertId = alertId;
         return this;
@@ -25,6 +37,24 @@ public class SqlTaskAlert {
 
     public String getAlertId() {
         return alertId;
+    }
+    
+    public SqlTaskAlert setPauseSubscriptions(Boolean pauseSubscriptions) {
+        this.pauseSubscriptions = pauseSubscriptions;
+        return this;
+    }
+
+    public Boolean getPauseSubscriptions() {
+        return pauseSubscriptions;
+    }
+    
+    public SqlTaskAlert setSubscriptions(java.util.List<SqlTaskSubscription> subscriptions) {
+        this.subscriptions = subscriptions;
+        return this;
+    }
+
+    public java.util.List<SqlTaskSubscription> getSubscriptions() {
+        return subscriptions;
     }
     
 }

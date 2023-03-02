@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class CreateSchema {
     /**
-     * Name of parent Catalog.
+     * Name of parent catalog.
      */
     @JsonProperty("catalog_name")
     private String catalogName;
@@ -25,16 +25,22 @@ public class CreateSchema {
     private String comment;
     
     /**
-     * Name of Schema, relative to parent Catalog.
+     * Name of schema, relative to parent catalog.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     
+     * A map of key-value properties attached to the securable.
      */
     @JsonProperty("properties")
     private Map<String,String> properties;
+    
+    /**
+     * Storage root URL for managed tables within schema.
+     */
+    @JsonProperty("storage_root")
+    private String storageRoot;
     
     public CreateSchema setCatalogName(String catalogName) {
         this.catalogName = catalogName;
@@ -70,6 +76,15 @@ public class CreateSchema {
 
     public Map<String,String> getProperties() {
         return properties;
+    }
+    
+    public CreateSchema setStorageRoot(String storageRoot) {
+        this.storageRoot = storageRoot;
+        return this;
+    }
+
+    public String getStorageRoot() {
+        return storageRoot;
     }
     
 }

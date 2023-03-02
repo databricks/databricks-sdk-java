@@ -60,7 +60,7 @@ public class ListRuns {
     
     /**
      * The type of runs to return. For a description of run types, see
-     * :method:getRun.
+     * :method:jobs/getRun.
      */
     @QueryParam("run_type")
     private ListRunsRunType runType;

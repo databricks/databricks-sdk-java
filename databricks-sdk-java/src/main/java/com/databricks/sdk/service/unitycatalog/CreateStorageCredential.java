@@ -37,14 +37,26 @@ public class CreateStorageCredential {
     private GcpServiceAccountKey gcpServiceAccountKey;
     
     /**
-     * The credential name. The name MUST be unique within the Metastore.
+     * Databricks Unity Catalog metastore ID
+     */
+    
+    private String metastoreId;
+    
+    /**
+     * The credential name. The name must be unique within the metastore.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * Optional. Supplying true to this argument skips validation of the created
-     * set of credentials.
+     * Whether the storage credential is only usable for read operations.
+     */
+    @JsonProperty("read_only")
+    private Boolean readOnly;
+    
+    /**
+     * Supplying true to this argument skips validation of the created
+     * credential.
      */
     @JsonProperty("skip_validation")
     private Boolean skipValidation;
@@ -85,6 +97,15 @@ public class CreateStorageCredential {
         return gcpServiceAccountKey;
     }
     
+    public CreateStorageCredential setMetastoreId(String metastoreId) {
+        this.metastoreId = metastoreId;
+        return this;
+    }
+
+    public String getMetastoreId() {
+        return metastoreId;
+    }
+    
     public CreateStorageCredential setName(String name) {
         this.name = name;
         return this;
@@ -92,6 +113,15 @@ public class CreateStorageCredential {
 
     public String getName() {
         return name;
+    }
+    
+    public CreateStorageCredential setReadOnly(Boolean readOnly) {
+        this.readOnly = readOnly;
+        return this;
+    }
+
+    public Boolean getReadOnly() {
+        return readOnly;
     }
     
     public CreateStorageCredential setSkipValidation(Boolean skipValidation) {

@@ -13,10 +13,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class SchemaInfo {
     /**
-     * Name of parent Catalog.
+     * Name of parent catalog.
      */
     @JsonProperty("catalog_name")
     private String catalogName;
+    
+    /**
+     * The type of the parent catalog.
+     */
+    @JsonProperty("catalog_type")
+    private String catalogType;
     
     /**
      * User-provided free-form text description.
@@ -25,43 +31,43 @@ public class SchemaInfo {
     private String comment;
     
     /**
-     * Time at which this Schema was created, in epoch milliseconds.
+     * Time at which this schema was created, in epoch milliseconds.
      */
     @JsonProperty("created_at")
     private Long createdAt;
     
     /**
-     * Username of Schema creator.
+     * Username of schema creator.
      */
     @JsonProperty("created_by")
     private String createdBy;
     
     /**
-     * Full name of Schema, in form of <catalog_name>.<schema_name>.
+     * Full name of schema, in form of __catalog_name__.__schema_name__.
      */
     @JsonProperty("full_name")
     private String fullName;
     
     /**
-     * Unique identifier of parent Metastore.
+     * Unique identifier of parent metastore.
      */
     @JsonProperty("metastore_id")
     private String metastoreId;
     
     /**
-     * Name of Schema, relative to parent Catalog.
+     * Name of schema, relative to parent catalog.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * Username of current owner of Schema.
+     * Username of current owner of schema.
      */
     @JsonProperty("owner")
     private String owner;
     
     /**
-     
+     * A map of key-value properties attached to the securable.
      */
     @JsonProperty("properties")
     private Map<String,String> properties;
@@ -79,13 +85,13 @@ public class SchemaInfo {
     private String storageRoot;
     
     /**
-     * Time at which this Schema was created, in epoch milliseconds.
+     * Time at which this schema was created, in epoch milliseconds.
      */
     @JsonProperty("updated_at")
     private Long updatedAt;
     
     /**
-     * Username of user who last modified Schema.
+     * Username of user who last modified schema.
      */
     @JsonProperty("updated_by")
     private String updatedBy;
@@ -97,6 +103,15 @@ public class SchemaInfo {
 
     public String getCatalogName() {
         return catalogName;
+    }
+    
+    public SchemaInfo setCatalogType(String catalogType) {
+        this.catalogType = catalogType;
+        return this;
+    }
+
+    public String getCatalogType() {
+        return catalogType;
     }
     
     public SchemaInfo setComment(String comment) {

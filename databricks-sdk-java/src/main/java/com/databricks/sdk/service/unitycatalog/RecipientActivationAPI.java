@@ -25,7 +25,7 @@ public class RecipientActivationAPI implements RecipientActivationService {
 	/**
      * Get a share activation URL.
      * 
-     * Gets information about an Activation URL.
+     * Gets an activation URL for a share.
      */
     @Override
     public void getActivationUrlInfo(GetActivationUrlInfoRequest request) {
@@ -36,8 +36,8 @@ public class RecipientActivationAPI implements RecipientActivationService {
 	/**
      * Get an access token.
      * 
-     * RPC to retrieve access token with an activation token. This is a public
-     * API without any authentication.
+     * Retrieve access token with an activation url. This is a public API
+     * without any authentication.
      */
     @Override
     public RetrieveTokenResponse retrieveToken(RetrieveTokenRequest request) {

@@ -23,7 +23,7 @@ public class ListRunsResponse {
      * A list of runs, from most recently started to least.
      */
     @JsonProperty("runs")
-    private java.util.List<Run> runs;
+    private java.util.List<BaseRun> runs;
     
     public ListRunsResponse setHasMore(Boolean hasMore) {
         this.hasMore = hasMore;
@@ -34,12 +34,12 @@ public class ListRunsResponse {
         return hasMore;
     }
     
-    public ListRunsResponse setRuns(java.util.List<Run> runs) {
+    public ListRunsResponse setRuns(java.util.List<BaseRun> runs) {
         this.runs = runs;
         return this;
     }
 
-    public java.util.List<Run> getRuns() {
+    public java.util.List<BaseRun> getRuns() {
         return runs;
     }
     

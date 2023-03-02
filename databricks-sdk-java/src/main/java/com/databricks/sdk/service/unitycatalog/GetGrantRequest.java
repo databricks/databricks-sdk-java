@@ -15,22 +15,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class GetGrantRequest {
     /**
-     * Required. Unique identifier (full name) of Securable (from URL).
+     * Full name of securable.
      */
     
     private String fullName;
     
     /**
-     * Optional. List permissions granted to this principal.
+     * If provided, only the permissions for the specified principal (user or
+     * group) are returned.
      */
     @QueryParam("principal")
     private String principal;
     
     /**
-     * Required. Type of Securable (from URL).
+     * Type of securable.
      */
     
-    private String securableType;
+    private SecurableType securableType;
     
     public GetGrantRequest setFullName(String fullName) {
         this.fullName = fullName;
@@ -50,12 +51,12 @@ public class GetGrantRequest {
         return principal;
     }
     
-    public GetGrantRequest setSecurableType(String securableType) {
+    public GetGrantRequest setSecurableType(SecurableType securableType) {
         this.securableType = securableType;
         return this;
     }
 
-    public String getSecurableType() {
+    public SecurableType getSecurableType() {
         return securableType;
     }
     

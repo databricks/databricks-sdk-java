@@ -55,23 +55,28 @@ public class StorageCredentialInfo {
     private String id;
     
     /**
-     * Unique identifier of parent Metastore.
+     * Unique identifier of parent metastore.
      */
     @JsonProperty("metastore_id")
     private String metastoreId;
     
     /**
-     * The credential name. The name MUST be unique within the Metastore.
+     * The credential name. The name must be unique within the metastore.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * Optional. Supplying true to this argument skips validation of the created
-     * set of credentials.
+     * Username of current owner of credential.
      */
-    @JsonProperty("skip_validation")
-    private Boolean skipValidation;
+    @JsonProperty("owner")
+    private String owner;
+    
+    /**
+     * Whether the storage credential is only usable for read operations.
+     */
+    @JsonProperty("read_only")
+    private Boolean readOnly;
     
     /**
      * Time at which this credential was last modified, in epoch milliseconds.
@@ -84,6 +89,13 @@ public class StorageCredentialInfo {
      */
     @JsonProperty("updated_by")
     private String updatedBy;
+    
+    /**
+     * Whether this credential is the current metastore's root storage
+     * credential.
+     */
+    @JsonProperty("used_for_managed_storage")
+    private Boolean usedForManagedStorage;
     
     public StorageCredentialInfo setAwsIamRole(AwsIamRole awsIamRole) {
         this.awsIamRole = awsIamRole;
@@ -166,13 +178,22 @@ public class StorageCredentialInfo {
         return name;
     }
     
-    public StorageCredentialInfo setSkipValidation(Boolean skipValidation) {
-        this.skipValidation = skipValidation;
+    public StorageCredentialInfo setOwner(String owner) {
+        this.owner = owner;
         return this;
     }
 
-    public Boolean getSkipValidation() {
-        return skipValidation;
+    public String getOwner() {
+        return owner;
+    }
+    
+    public StorageCredentialInfo setReadOnly(Boolean readOnly) {
+        this.readOnly = readOnly;
+        return this;
+    }
+
+    public Boolean getReadOnly() {
+        return readOnly;
     }
     
     public StorageCredentialInfo setUpdatedAt(Long updatedAt) {
@@ -191,6 +212,15 @@ public class StorageCredentialInfo {
 
     public String getUpdatedBy() {
         return updatedBy;
+    }
+    
+    public StorageCredentialInfo setUsedForManagedStorage(Boolean usedForManagedStorage) {
+        this.usedForManagedStorage = usedForManagedStorage;
+        return this;
+    }
+
+    public Boolean getUsedForManagedStorage() {
+        return usedForManagedStorage;
     }
     
 }

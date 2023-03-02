@@ -13,31 +13,38 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class UpdateMetastore {
     /**
-     * Unique identifier of (Default) Data Access Configuration
+     * The organization name of a Delta Sharing entity, to be used in
+     * Databricks-to-Databricks Delta Sharing as the official name.
      */
-    @JsonProperty("default_data_access_config_id")
-    private String defaultDataAccessConfigId;
+    @JsonProperty("delta_sharing_organization_name")
+    private String deltaSharingOrganizationName;
     
     /**
-     * Whether Delta Sharing is enabled on this metastore.
-     */
-    @JsonProperty("delta_sharing_enabled")
-    private Boolean deltaSharingEnabled;
-    
-    /**
-     * The lifetime of delta sharing recipient token in seconds
+     * The lifetime of delta sharing recipient token in seconds.
      */
     @JsonProperty("delta_sharing_recipient_token_lifetime_in_seconds")
     private Long deltaSharingRecipientTokenLifetimeInSeconds;
     
     /**
-     * Required. Unique ID of the Metastore (from URL).
+     * The scope of Delta Sharing enabled for the metastore.
+     */
+    @JsonProperty("delta_sharing_scope")
+    private UpdateMetastoreDeltaSharingScope deltaSharingScope;
+    
+    /**
+     * Unique ID of the metastore.
      */
     
     private String id;
     
     /**
-     * Name of Metastore.
+     * Databricks Unity Catalog metastore ID
+     */
+    
+    private String metastoreId;
+    
+    /**
+     * The user-specified name of the metastore.
      */
     @JsonProperty("name")
     private String name;
@@ -49,27 +56,25 @@ public class UpdateMetastore {
     private String owner;
     
     /**
-     * UUID of storage credential to access storage_root
+     * Privilege model version of the metastore, of the form `major.minor`
+     * (e.g., `1.0`).
+     */
+    @JsonProperty("privilege_model_version")
+    private String privilegeModelVersion;
+    
+    /**
+     * UUID of storage credential to access the metastore storage_root.
      */
     @JsonProperty("storage_root_credential_id")
     private String storageRootCredentialId;
     
-    public UpdateMetastore setDefaultDataAccessConfigId(String defaultDataAccessConfigId) {
-        this.defaultDataAccessConfigId = defaultDataAccessConfigId;
+    public UpdateMetastore setDeltaSharingOrganizationName(String deltaSharingOrganizationName) {
+        this.deltaSharingOrganizationName = deltaSharingOrganizationName;
         return this;
     }
 
-    public String getDefaultDataAccessConfigId() {
-        return defaultDataAccessConfigId;
-    }
-    
-    public UpdateMetastore setDeltaSharingEnabled(Boolean deltaSharingEnabled) {
-        this.deltaSharingEnabled = deltaSharingEnabled;
-        return this;
-    }
-
-    public Boolean getDeltaSharingEnabled() {
-        return deltaSharingEnabled;
+    public String getDeltaSharingOrganizationName() {
+        return deltaSharingOrganizationName;
     }
     
     public UpdateMetastore setDeltaSharingRecipientTokenLifetimeInSeconds(Long deltaSharingRecipientTokenLifetimeInSeconds) {
@@ -81,6 +86,15 @@ public class UpdateMetastore {
         return deltaSharingRecipientTokenLifetimeInSeconds;
     }
     
+    public UpdateMetastore setDeltaSharingScope(UpdateMetastoreDeltaSharingScope deltaSharingScope) {
+        this.deltaSharingScope = deltaSharingScope;
+        return this;
+    }
+
+    public UpdateMetastoreDeltaSharingScope getDeltaSharingScope() {
+        return deltaSharingScope;
+    }
+    
     public UpdateMetastore setId(String id) {
         this.id = id;
         return this;
@@ -88,6 +102,15 @@ public class UpdateMetastore {
 
     public String getId() {
         return id;
+    }
+    
+    public UpdateMetastore setMetastoreId(String metastoreId) {
+        this.metastoreId = metastoreId;
+        return this;
+    }
+
+    public String getMetastoreId() {
+        return metastoreId;
     }
     
     public UpdateMetastore setName(String name) {
@@ -106,6 +129,15 @@ public class UpdateMetastore {
 
     public String getOwner() {
         return owner;
+    }
+    
+    public UpdateMetastore setPrivilegeModelVersion(String privilegeModelVersion) {
+        this.privilegeModelVersion = privilegeModelVersion;
+        return this;
+    }
+
+    public String getPrivilegeModelVersion() {
+        return privilegeModelVersion;
     }
     
     public UpdateMetastore setStorageRootCredentialId(String storageRootCredentialId) {

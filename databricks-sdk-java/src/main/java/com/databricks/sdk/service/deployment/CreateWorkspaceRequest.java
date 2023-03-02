@@ -29,8 +29,8 @@ public class CreateWorkspaceRequest {
      * The general workspace configurations that are specific to cloud
      * providers.
      */
-    @JsonProperty("cloud_resource_bucket")
-    private CloudResourceBucket cloudResourceBucket;
+    @JsonProperty("cloud_resource_container")
+    private CloudResourceContainer cloudResourceContainer;
     
     /**
      * ID of the workspace's credential configuration object.
@@ -94,41 +94,7 @@ public class CreateWorkspaceRequest {
     private String managedServicesCustomerManagedKeyId;
     
     /**
-     * The network configurations for the workspace. If you provide a network
-     * configuration ID for a new workspace, Databricks deploys the new
-     * workspace into that associated customer-managed VPC. If omitted, by
-     * default Databricks creates a new Databricks-managed VPC for the workspace
-     * in your Google account and manages its lifecycle.
-     * 
-     * All the IP range configurations must be mutually exclusive. An attempt to
-     * create a workspace fails if Databricks detects an IP range overlap.
-     * 
-     * Specify custom IP ranges in CIDR format. The IP ranges for these fields
-     * must not overlap, and all IP addresses must be entirely within the
-     * following ranges: `10.0.0.0/8`, `100.64.0.0/10`, `172.16.0.0/12`,
-     * `192.168.0.0/16`, and `240.0.0.0/4`.
-     * 
-     * The sizes of these IP ranges affect the maximum number of nodes for the
-     * workspace.
-     * 
-     * **Important**: Confirm the IP ranges used by your Databricks workspace
-     * before creating the workspace. You cannot change them after your
-     * workspace is deployed. If the IP address ranges for your Databricks are
-     * too small, IP exhaustion can occur, causing your Databricks jobs to fail.
-     * To determine the address range sizes that you need, Databricks provides a
-     * calculator as a Microsoft Excel spreadsheet. See [calculate subnet sizes
-     * for a new workspace].
-     * 
-     * [calculate subnet sizes for a new workspace]: https://docs.gcp.databricks.com/administration-guide/cloud-configurations/gcp/network-sizing.html
-     */
-    @JsonProperty("network")
-    private CreateGcpNetwork network;
-    
-    /**
-     * The ID of the workspace's network configuration object. To use [AWS
-     * PrivateLink] (Public Preview), this field is required.
-     * 
-     * [AWS PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+     
      */
     @JsonProperty("network_id")
     private String networkId;
@@ -197,13 +163,13 @@ public class CreateWorkspaceRequest {
         return cloud;
     }
     
-    public CreateWorkspaceRequest setCloudResourceBucket(CloudResourceBucket cloudResourceBucket) {
-        this.cloudResourceBucket = cloudResourceBucket;
+    public CreateWorkspaceRequest setCloudResourceContainer(CloudResourceContainer cloudResourceContainer) {
+        this.cloudResourceContainer = cloudResourceContainer;
         return this;
     }
 
-    public CloudResourceBucket getCloudResourceBucket() {
-        return cloudResourceBucket;
+    public CloudResourceContainer getCloudResourceContainer() {
+        return cloudResourceContainer;
     }
     
     public CreateWorkspaceRequest setCredentialsId(String credentialsId) {
@@ -240,15 +206,6 @@ public class CreateWorkspaceRequest {
 
     public String getManagedServicesCustomerManagedKeyId() {
         return managedServicesCustomerManagedKeyId;
-    }
-    
-    public CreateWorkspaceRequest setNetwork(CreateGcpNetwork network) {
-        this.network = network;
-        return this;
-    }
-
-    public CreateGcpNetwork getNetwork() {
-        return network;
     }
     
     public CreateWorkspaceRequest setNetworkId(String networkId) {

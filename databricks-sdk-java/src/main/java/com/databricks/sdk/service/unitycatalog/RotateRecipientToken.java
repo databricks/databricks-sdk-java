@@ -13,15 +13,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class RotateRecipientToken {
     /**
-     * Required. This will set the expiration_time of existing token only to a
-     * smaller timestamp, it cannot extend the expiration_time. Use 0 to expire
-     * the existing token immediately, negative number will return an error.
+     * The expiration time of the bearer token in ISO 8601 format. This will set
+     * the expiration_time of existing token only to a smaller timestamp, it
+     * cannot extend the expiration_time. Use 0 to expire the existing token
+     * immediately, negative number will return an error.
      */
     @JsonProperty("existing_token_expire_in_seconds")
     private Long existingTokenExpireInSeconds;
     
     /**
-     * Required. The name of the recipient.
+     * The name of the recipient.
      */
     
     private String name;

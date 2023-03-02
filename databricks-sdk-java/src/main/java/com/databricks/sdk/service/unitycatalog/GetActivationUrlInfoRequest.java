@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class GetActivationUrlInfoRequest {
     /**
-     * Required. The one time activation url. It also accepts activation token.
+     * The one time activation url. It also accepts activation token.
      */
     
     private String activationUrl;

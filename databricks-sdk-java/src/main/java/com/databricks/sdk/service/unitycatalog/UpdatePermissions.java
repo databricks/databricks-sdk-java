@@ -19,22 +19,16 @@ public class UpdatePermissions {
     private java.util.List<PermissionsChange> changes;
     
     /**
-     * Required. Unique identifier (full name) of Securable (from URL).
+     * Full name of securable.
      */
     
     private String fullName;
     
     /**
-     * Optional. List permissions granted to this principal.
-     */
-    @QueryParam("principal")
-    private String principal;
-    
-    /**
-     * Required. Type of Securable (from URL).
+     * Type of securable.
      */
     
-    private String securableType;
+    private SecurableType securableType;
     
     public UpdatePermissions setChanges(java.util.List<PermissionsChange> changes) {
         this.changes = changes;
@@ -54,21 +48,12 @@ public class UpdatePermissions {
         return fullName;
     }
     
-    public UpdatePermissions setPrincipal(String principal) {
-        this.principal = principal;
-        return this;
-    }
-
-    public String getPrincipal() {
-        return principal;
-    }
-    
-    public UpdatePermissions setSecurableType(String securableType) {
+    public UpdatePermissions setSecurableType(SecurableType securableType) {
         this.securableType = securableType;
         return this;
     }
 
-    public String getSecurableType() {
+    public SecurableType getSecurableType() {
         return securableType;
     }
     

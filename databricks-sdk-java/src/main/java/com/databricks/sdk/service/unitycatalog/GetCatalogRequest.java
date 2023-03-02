@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class GetCatalogRequest {
     /**
-     * Required. The name of the catalog.
+     * The name of the catalog.
      */
     
     private String name;

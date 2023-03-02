@@ -13,43 +13,63 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class MetastoreInfo {
     /**
-     * Time at which this Metastore was created, in epoch milliseconds.
+     * Cloud vendor of the metastore home shard (e.g., `aws`, `azure`, `gcp`).
+     */
+    @JsonProperty("cloud")
+    private String cloud;
+    
+    /**
+     * Time at which this metastore was created, in epoch milliseconds.
      */
     @JsonProperty("created_at")
     private Long createdAt;
     
     /**
-     * Username of Metastore creator.
+     * Username of metastore creator.
      */
     @JsonProperty("created_by")
     private String createdBy;
     
     /**
-     * Unique identifier of (Default) Data Access Configuration
+     * Unique identifier of the metastore's (Default) Data Access Configuration.
      */
     @JsonProperty("default_data_access_config_id")
     private String defaultDataAccessConfigId;
     
     /**
-     * Whether Delta Sharing is enabled on this metastore.
+     * The organization name of a Delta Sharing entity, to be used in
+     * Databricks-to-Databricks Delta Sharing as the official name.
      */
-    @JsonProperty("delta_sharing_enabled")
-    private Boolean deltaSharingEnabled;
+    @JsonProperty("delta_sharing_organization_name")
+    private String deltaSharingOrganizationName;
     
     /**
-     * The lifetime of delta sharing recipient token in seconds
+     * The lifetime of delta sharing recipient token in seconds.
      */
     @JsonProperty("delta_sharing_recipient_token_lifetime_in_seconds")
     private Long deltaSharingRecipientTokenLifetimeInSeconds;
     
     /**
-     * Unique identifier of Metastore.
+     * The scope of Delta Sharing enabled for the metastore.
+     */
+    @JsonProperty("delta_sharing_scope")
+    private MetastoreInfoDeltaSharingScope deltaSharingScope;
+    
+    /**
+     * Globally unique metastore ID across clouds and regions, of the form
+     * `cloud:region:metastore_id`.
+     */
+    @JsonProperty("global_metastore_id")
+    private String globalMetastoreId;
+    
+    /**
+     * Unique identifier of metastore.
      */
     @JsonProperty("metastore_id")
     private String metastoreId;
     
     /**
-     * Name of Metastore.
+     * The user-specified name of the metastore.
      */
     @JsonProperty("name")
     private String name;
@@ -61,35 +81,56 @@ public class MetastoreInfo {
     private String owner;
     
     /**
-     * The region this metastore has an afinity to. This is used by
-     * accounts-manager. Ignored by Unity Catalog.
+     * Privilege model version of the metastore, of the form `major.minor`
+     * (e.g., `1.0`).
+     */
+    @JsonProperty("privilege_model_version")
+    private String privilegeModelVersion;
+    
+    /**
+     * Cloud region which the metastore serves (e.g., `us-west-2`, `westus`).
      */
     @JsonProperty("region")
     private String region;
     
     /**
-     * Storage root URL for Metastore
+     * The storage root URL for metastore
      */
     @JsonProperty("storage_root")
     private String storageRoot;
     
     /**
-     * UUID of storage credential to access storage_root
+     * UUID of storage credential to access the metastore storage_root.
      */
     @JsonProperty("storage_root_credential_id")
     private String storageRootCredentialId;
     
     /**
-     * Time at which the Metastore was last modified, in epoch milliseconds.
+     * Name of the storage credential to access the metastore storage_root.
+     */
+    @JsonProperty("storage_root_credential_name")
+    private String storageRootCredentialName;
+    
+    /**
+     * Time at which the metastore was last modified, in epoch milliseconds.
      */
     @JsonProperty("updated_at")
     private Long updatedAt;
     
     /**
-     * Username of user who last modified the Metastore.
+     * Username of user who last modified the metastore.
      */
     @JsonProperty("updated_by")
     private String updatedBy;
+    
+    public MetastoreInfo setCloud(String cloud) {
+        this.cloud = cloud;
+        return this;
+    }
+
+    public String getCloud() {
+        return cloud;
+    }
     
     public MetastoreInfo setCreatedAt(Long createdAt) {
         this.createdAt = createdAt;
@@ -118,13 +159,13 @@ public class MetastoreInfo {
         return defaultDataAccessConfigId;
     }
     
-    public MetastoreInfo setDeltaSharingEnabled(Boolean deltaSharingEnabled) {
-        this.deltaSharingEnabled = deltaSharingEnabled;
+    public MetastoreInfo setDeltaSharingOrganizationName(String deltaSharingOrganizationName) {
+        this.deltaSharingOrganizationName = deltaSharingOrganizationName;
         return this;
     }
 
-    public Boolean getDeltaSharingEnabled() {
-        return deltaSharingEnabled;
+    public String getDeltaSharingOrganizationName() {
+        return deltaSharingOrganizationName;
     }
     
     public MetastoreInfo setDeltaSharingRecipientTokenLifetimeInSeconds(Long deltaSharingRecipientTokenLifetimeInSeconds) {
@@ -134,6 +175,24 @@ public class MetastoreInfo {
 
     public Long getDeltaSharingRecipientTokenLifetimeInSeconds() {
         return deltaSharingRecipientTokenLifetimeInSeconds;
+    }
+    
+    public MetastoreInfo setDeltaSharingScope(MetastoreInfoDeltaSharingScope deltaSharingScope) {
+        this.deltaSharingScope = deltaSharingScope;
+        return this;
+    }
+
+    public MetastoreInfoDeltaSharingScope getDeltaSharingScope() {
+        return deltaSharingScope;
+    }
+    
+    public MetastoreInfo setGlobalMetastoreId(String globalMetastoreId) {
+        this.globalMetastoreId = globalMetastoreId;
+        return this;
+    }
+
+    public String getGlobalMetastoreId() {
+        return globalMetastoreId;
     }
     
     public MetastoreInfo setMetastoreId(String metastoreId) {
@@ -163,6 +222,15 @@ public class MetastoreInfo {
         return owner;
     }
     
+    public MetastoreInfo setPrivilegeModelVersion(String privilegeModelVersion) {
+        this.privilegeModelVersion = privilegeModelVersion;
+        return this;
+    }
+
+    public String getPrivilegeModelVersion() {
+        return privilegeModelVersion;
+    }
+    
     public MetastoreInfo setRegion(String region) {
         this.region = region;
         return this;
@@ -188,6 +256,15 @@ public class MetastoreInfo {
 
     public String getStorageRootCredentialId() {
         return storageRootCredentialId;
+    }
+    
+    public MetastoreInfo setStorageRootCredentialName(String storageRootCredentialName) {
+        this.storageRootCredentialName = storageRootCredentialName;
+        return this;
+    }
+
+    public String getStorageRootCredentialName() {
+        return storageRootCredentialName;
     }
     
     public MetastoreInfo setUpdatedAt(Long updatedAt) {

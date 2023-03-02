@@ -22,7 +22,7 @@ public class DeleteStorageCredentialRequest {
     private Boolean force;
     
     /**
-     * Required. Name of the storage credential.
+     * Name of the storage credential.
      */
     
     private String name;

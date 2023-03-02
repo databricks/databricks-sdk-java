@@ -32,8 +32,8 @@ public class CatalogsAPI implements CatalogsService {
 	/**
      * Create a catalog.
      * 
-     * Creates a new catalog instance in the parent Metastore if the caller is a
-     * Metastore admin or has the CREATE_CATALOG privilege.
+     * Creates a new catalog instance in the parent metastore if the caller is a
+     * metastore admin or has the **CREATE_CATALOG** privilege.
      */
     @Override
     public CatalogInfo create(CreateCatalog request) {
@@ -45,7 +45,7 @@ public class CatalogsAPI implements CatalogsService {
      * Delete a catalog.
      * 
      * Deletes the catalog that matches the supplied name. The caller must be a
-     * Metastore admin or the owner of the catalog.
+     * metastore admin or the owner of the catalog.
      */
     @Override
     public void delete(DeleteCatalogRequest request) {
@@ -56,9 +56,9 @@ public class CatalogsAPI implements CatalogsService {
 	/**
      * Get a catalog.
      * 
-     * Gets an array of all catalogs in the current Metastore for which the user
-     * is an admin or Catalog owner, or has the USE_CATALOG privilege set for
-     * their account.
+     * Gets the specified catalog in a metastore. The caller must be a metastore
+     * admin, the owner of the catalog, or a user that has the **USE_CATALOG**
+     * privilege set for their account.
      */
     @Override
     public CatalogInfo get(GetCatalogRequest request) {
@@ -69,10 +69,11 @@ public class CatalogsAPI implements CatalogsService {
 	/**
      * List catalogs.
      * 
-     * Gets an array of catalogs in the Metastore. If the caller is the
-     * Metastore admin, all catalogs will be retrieved. Otherwise, only catalogs
-     * owned by the caller (or for which the caller has the USE_CATALOG
-     * privilege) will be retrieved.
+     * Gets an array of catalogs in the metastore. If the caller is the
+     * metastore admin, all catalogs will be retrieved. Otherwise, only catalogs
+     * owned by the caller (or for which the caller has the **USE_CATALOG**
+     * privilege) will be retrieved. There is no guarantee of a specific
+     * ordering of the elements in the array.
      */
     @Override
     public ListCatalogsResponse list() {
@@ -84,7 +85,7 @@ public class CatalogsAPI implements CatalogsService {
      * Update a catalog.
      * 
      * Updates the catalog that matches the supplied name. The caller must be
-     * either the owner of the catalog, or a Metastore admin (when changing the
+     * either the owner of the catalog, or a metastore admin (when changing the
      * owner field of the catalog).
      */
     @Override

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class DeleteTableRequest {
     /**
-     * Required. Full name of the Table (from URL).
+     * Full name of the table.
      */
     
     private String fullName;

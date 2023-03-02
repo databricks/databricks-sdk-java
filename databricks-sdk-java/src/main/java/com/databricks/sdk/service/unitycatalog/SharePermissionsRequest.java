@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Get share permissions
+ * Get recipient share permissions
  */
 @Generated("databricks-sdk-generator")
 public class SharePermissionsRequest {
     /**
-     * Required. The name of the Recipient.
+     * The name of the Recipient.
      */
     
     private String name;

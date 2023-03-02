@@ -59,7 +59,7 @@ public class Results {
      * The table schema
      */
     @JsonProperty("schema")
-    private java.util.List<java.util.List<Object /* MISSING TYPE */>> schema;
+    private java.util.List<Map<String,Object /* MISSING TYPE */>> schema;
     
     /**
      * The summary of the error
@@ -136,12 +136,12 @@ public class Results {
         return resultType;
     }
     
-    public Results setSchema(java.util.List<java.util.List<Object /* MISSING TYPE */>> schema) {
+    public Results setSchema(java.util.List<Map<String,Object /* MISSING TYPE */>> schema) {
         this.schema = schema;
         return this;
     }
 
-    public java.util.List<java.util.List<Object /* MISSING TYPE */>> getSchema() {
+    public java.util.List<Map<String,Object /* MISSING TYPE */>> getSchema() {
         return schema;
     }
     

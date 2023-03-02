@@ -30,6 +30,8 @@ import com.databricks.sdk.service.mlflow.ExperimentsAPI;
 import com.databricks.sdk.service.mlflow.ExperimentsService;
 import com.databricks.sdk.service.unitycatalog.ExternalLocationsAPI;
 import com.databricks.sdk.service.unitycatalog.ExternalLocationsService;
+import com.databricks.sdk.service.unitycatalog.FunctionsAPI;
+import com.databricks.sdk.service.unitycatalog.FunctionsService;
 import com.databricks.sdk.service.gitcredentials.GitCredentialsAPI;
 import com.databricks.sdk.service.gitcredentials.GitCredentialsService;
 import com.databricks.sdk.service.globalinitscripts.GlobalInitScriptsAPI;
@@ -90,10 +92,16 @@ import com.databricks.sdk.service.secrets.SecretsAPI;
 import com.databricks.sdk.service.secrets.SecretsService;
 import com.databricks.sdk.service.scim.ServicePrincipalsAPI;
 import com.databricks.sdk.service.scim.ServicePrincipalsService;
+import com.databricks.sdk.service.endpoints.ServingEndpointsAPI;
+import com.databricks.sdk.service.endpoints.ServingEndpointsService;
 import com.databricks.sdk.service.unitycatalog.SharesAPI;
 import com.databricks.sdk.service.unitycatalog.SharesService;
+import com.databricks.sdk.service.sql.StatementExecutionAPI;
+import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.unitycatalog.StorageCredentialsAPI;
 import com.databricks.sdk.service.unitycatalog.StorageCredentialsService;
+import com.databricks.sdk.service.unitycatalog.TableConstraintsAPI;
+import com.databricks.sdk.service.unitycatalog.TableConstraintsService;
 import com.databricks.sdk.service.unitycatalog.TablesAPI;
 import com.databricks.sdk.service.unitycatalog.TablesService;
 import com.databricks.sdk.service.tokenmanagement.TokenManagementAPI;
@@ -130,6 +138,7 @@ public class DatabricksWorkspace {
     private DbsqlPermissionsService dbsqlPermissionsService;
     private ExperimentsService experimentsService;
     private ExternalLocationsService externalLocationsService;
+    private FunctionsService functionsService;
     private GitCredentialsService gitCredentialsService;
     private GlobalInitScriptsService globalInitScriptsService;
     private GrantsService grantsService;
@@ -160,8 +169,11 @@ public class DatabricksWorkspace {
     private SchemasService schemasService;
     private SecretsService secretsService;
     private ServicePrincipalsService servicePrincipalsService;
+    private ServingEndpointsService servingEndpointsService;
     private SharesService sharesService;
+    private StatementExecutionService statementExecutionService;
     private StorageCredentialsService storageCredentialsService;
+    private TableConstraintsService tableConstraintsService;
     private TablesService tablesService;
     private TokenManagementService tokenManagementService;
     private TokensService tokensService;
@@ -191,6 +203,7 @@ public class DatabricksWorkspace {
         dbsqlPermissionsService = new DbsqlPermissionsAPI(apiClient);
         experimentsService = new ExperimentsAPI(apiClient);
         externalLocationsService = new ExternalLocationsAPI(apiClient);
+        functionsService = new FunctionsAPI(apiClient);
         gitCredentialsService = new GitCredentialsAPI(apiClient);
         globalInitScriptsService = new GlobalInitScriptsAPI(apiClient);
         grantsService = new GrantsAPI(apiClient);
@@ -221,8 +234,11 @@ public class DatabricksWorkspace {
         schemasService = new SchemasAPI(apiClient);
         secretsService = new SecretsAPI(apiClient);
         servicePrincipalsService = new ServicePrincipalsAPI(apiClient);
+        servingEndpointsService = new ServingEndpointsAPI(apiClient);
         sharesService = new SharesAPI(apiClient);
+        statementExecutionService = new StatementExecutionAPI(apiClient);
         storageCredentialsService = new StorageCredentialsAPI(apiClient);
+        tableConstraintsService = new TableConstraintsAPI(apiClient);
         tablesService = new TablesAPI(apiClient);
         tokenManagementService = new TokenManagementAPI(apiClient);
         tokensService = new TokensAPI(apiClient);
@@ -238,6 +254,10 @@ public class DatabricksWorkspace {
      * is a Databricks SQL object that periodically runs a query, evaluates a
      * condition of its result, and notifies one or more users and/or alert
      * destinations if the condition was met.
+     * 
+     * **Note**: Programmatic operations on refresh schedules via the Databricks
+     * SQL API are deprecated. Alert refresh schedules can be created, updated,
+     * fetched and deleted using Jobs API, e.g. :method:jobs/create.
      */
     public AlertsService alerts() {
         return alertsService;
@@ -342,6 +362,10 @@ public class DatabricksWorkspace {
      * collection of related query IDs. The API can also be used to duplicate
      * multiple dashboards at once since you can get a dashboard definition with
      * a GET request and then POST it to create a new one.
+     * 
+     * **Note**: Programmatic operations on refresh schedules via the Databricks
+     * SQL API are deprecated. Dashboard refresh schedules can be created,
+     * updated, fetched and deleted using Jobs API, e.g. :method:jobs/create.
      */
     public DashboardsService dashboards() {
         return dashboardsService;
@@ -373,9 +397,9 @@ public class DatabricksWorkspace {
     
     /**
      * The SQL Permissions API is similar to the endpoints of the
-     * :method:permissions/setobjectpermissions. However, this exposes only one
-     * endpoint, which gets the Access Control List for a given object. You
-     * cannot modify any permissions using this API.
+     * :method:permissions/set. However, this exposes only one endpoint, which
+     * gets the Access Control List for a given object. You cannot modify any
+     * permissions using this API.
      * 
      * There are three levels of permission:
      * 
@@ -408,10 +432,23 @@ public class DatabricksWorkspace {
      * credentials directly.
      * 
      * To create external locations, you must be a metastore admin or a user
-     * with the CREATE_EXTERNAL_LOCATION privilege.
+     * with the **CREATE_EXTERNAL_LOCATION** privilege.
      */
     public ExternalLocationsService externalLocations() {
         return externalLocationsService;
+    }
+    
+    /**
+     * Functions implement User-Defined Functions (UDFs) in Unity Catalog.
+     * 
+     * The function implementation can be any SQL expression or Query, and it
+     * can be invoked wherever a table reference is allowed in a query. In Unity
+     * Catalog, a function resides at the same level as a table, so it can be
+     * referenced with the form
+     * __catalog_name__.__schema_name__.__function_name__.
+     */
+    public FunctionsService functions() {
+        return functionsService;
     }
     
     /**
@@ -448,10 +485,6 @@ public class DatabricksWorkspace {
      * metastore admin, the owner of an object, or the owner of the catalog or
      * schema that contains the object. Securable objects in Unity Catalog are
      * hierarchical and privileges are inherited downward.
-     * 
-     * Initially, users have no access to data in a metastore. Access can be
-     * granted by either a metastore admin, the owner of an object, or the owner
-     * of the catalog or schema that contains the object.
      * 
      * Securable objects in Unity Catalog are hierarchical and privileges are
      * inherited downward. This means that granting a privilege on the catalog
@@ -513,8 +546,7 @@ public class DatabricksWorkspace {
     }
     
     /**
-     * The IP Access List API enables Databricks admins to configure IP access
-     * lists for a workspace.
+     * IP Access List enables admins to configure IP access lists.
      * 
      * IP access lists affect web application access and REST API access to this
      * workspace only. If the feature is disabled for a workspace, all access is
@@ -629,7 +661,7 @@ public class DatabricksWorkspace {
      * NOTE: This metastore is distinct from the metastore included in
      * Databricks workspaces created before Unity Catalog was released. If your
      * workspace includes a legacy Hive metastore, the data in that metastore is
-     * available in Unity Catalog in a catalog named hive_metastore.
+     * available in a catalog named hive_metastore.
      */
     public MetastoresService metastores() {
         return metastoresService;
@@ -700,6 +732,10 @@ public class DatabricksWorkspace {
      * These endpoints are used for CRUD operations on query definitions. Query
      * definitions include the target SQL warehouse, query text, name,
      * description, tags, execution schedule, parameters, and visualizations.
+     * 
+     * **Note**: Programmatic operations on refresh schedules via the Databricks
+     * SQL API are deprecated. Query refresh schedules can be created, updated,
+     * fetched and deleted using Jobs API, e.g. :method:jobs/create.
      */
     public QueriesService queries() {
         return queriesService;
@@ -755,10 +791,10 @@ public class DatabricksWorkspace {
     
     /**
      * A schema (also called a database) is the second layer of Unity
-     * Catalog’s three-level namespace. A schema organizes tables and views.
-     * To access (or list) a table or view in a schema, users must have the
-     * USE_SCHEMA data permission on the schema and its parent catalog, and they
-     * must have the SELECT permission on the table or view.
+     * Catalog’s three-level namespace. A schema organizes tables, views and
+     * functions. To access (or list) a table or view in a schema, users must
+     * have the USE_SCHEMA data permission on the schema and its parent catalog,
+     * and they must have the SELECT permission on the table or view.
      */
     public SchemasService schemas() {
         return schemasService;
@@ -796,6 +832,25 @@ public class DatabricksWorkspace {
     }
     
     /**
+     * The Serverless Real-Time Inference Serving Endpoints API allows you to
+     * create, update, and delete model serving endpoints.
+     * 
+     * You can use a serving endpoint to serve models from the Databricks Model
+     * Registry. Endpoints expose the underlying models as scalable REST API
+     * endpoints using serverless compute. This means the endpoints and
+     * associated compute resources are fully managed by Databricks and will not
+     * appear in your cloud account. A serving endpoint can consist of one or
+     * more MLflow models from the Databricks Model Registry, called served
+     * models. A serving endpoint can have at most ten served models. You can
+     * configure traffic settings to define how requests should be routed to
+     * your served models behind an endpoint. Additionally, you can configure
+     * the scale of resources that should be applied to each served model.
+     */
+    public ServingEndpointsService servingEndpoints() {
+        return servingEndpointsService;
+    }
+    
+    /**
      * Databricks Delta Sharing: Shares REST API
      */
     public SharesService shares() {
@@ -803,13 +858,203 @@ public class DatabricksWorkspace {
     }
     
     /**
+     * The SQL Statement Execution API manages the execution of arbitrary SQL
+     * statements and the fetching of result data.
+     * 
+     * **Release status**
+     * 
+     * This feature is in [Public Preview].
+     * 
+     * **Getting started**
+     * 
+     * We suggest beginning with the [SQL Statement Execution API tutorial].
+     * 
+     * **Overview of statement execution and result fetching**
+     * 
+     * Statement execution begins by issuing a
+     * :method:statementexecution/executeStatement request with a valid SQL
+     * statement and warehouse ID, along with optional parameters such as the
+     * data catalog and output format.
+     * 
+     * When submitting the statement, the call can behave synchronously or
+     * asynchronously, based on the `wait_timeout` setting. When set between
+     * 5-50 seconds (default: 10) the call behaves synchronously and waits for
+     * results up to the specified timeout; when set to `0s`, the call is
+     * asynchronous and responds immediately with a statement ID that can be
+     * used to fetch the results in a separate call.
+     * 
+     * **Call mode: synchronous**
+     * 
+     * In synchronous mode, when statement execution completes within the `wait
+     * timeout`, the result data is returned directly in the response. This
+     * response will contain `statement_id`, `status`, `manifest`, and `result`
+     * fields. The `status` field confirms success whereas the `manifest` field
+     * contains the result data column schema and metadata about the result set.
+     * The `result` field contains the first chunk of result data according to
+     * the specified `disposition`, and links to fetch any remaining chunks.
+     * 
+     * If the execution does not complete before `wait_timeout`, the setting
+     * `on_wait_timeout` determines how the system responds.
+     * 
+     * By default, `on_wait_timeout=CONTINUE`, and after reaching
+     * `wait_timeout`, a response is returned and statement execution continues
+     * asynchronously. The response will contain only `statement_id` and
+     * `status` fields, and the caller must now follow the flow described for
+     * asynchronous call mode to poll and fetch the result.
+     * 
+     * Alternatively, `on_wait_timeout` can also be set to `CANCEL`; in this
+     * case if the timeout is reached before execution completes, the underlying
+     * statement execution is canceled, and a `CANCELED` status is returned in
+     * the response.
+     * 
+     * **Call mode: asynchronous**
+     * 
+     * In asynchronous mode, or after a timed-out synchronous request continues,
+     * a `statement_id` and `status` will be returned. In this case polling
+     * :method:statementexecution/getStatement calls are required to fetch the
+     * result and metadata.
+     * 
+     * Next, a caller must poll until execution completes (`SUCCEEDED`,
+     * `FAILED`, etc.) by issuing :method:statementexecution/getStatement
+     * requests for the given `statement_id`.
+     * 
+     * When execution has succeeded, the response will contain `status`,
+     * `manifest`, and `result` fields. These fields and the structure are
+     * identical to those in the response to a successful synchronous
+     * submission. The `result` field will contain the first chunk of result
+     * data, either `INLINE` or as `EXTERNAL_LINKS` depending on `disposition`.
+     * Additional chunks of result data can be fetched by checking for the
+     * presence of the `next_chunk_internal_link` field, and iteratively `GET`
+     * those paths until that field is unset: `GET
+     * https://$DATABRICKS_HOST/{next_chunk_internal_link}`.
+     * 
+     * **Fetching result data: format and disposition**
+     * 
+     * Result data from statement execution is available in two formats: JSON,
+     * and [Apache Arrow Columnar]. Statements producing a result set smaller
+     * than 16 MiB can be fetched as `format=JSON_ARRAY`, using the
+     * `disposition=INLINE`. When a statement executed in `INLINE` disposition
+     * exceeds this limit, the execution is aborted, and no result can be
+     * fetched. Using `format=ARROW_STREAM` and `disposition=EXTERNAL_LINKS`
+     * allows large result sets, and with higher throughput.
+     * 
+     * The API uses defaults of `format=JSON_ARRAY` and `disposition=INLINE`.
+     * `We advise explicitly setting format and disposition in all production
+     * use cases.
+     * 
+     * **Statement response: statement_id, status, manifest, and result**
+     * 
+     * The base call :method:statementexecution/getStatement returns a single
+     * response combining `statement_id`, `status`, a result `manifest`, and a
+     * `result` data chunk or link, depending on the `disposition`. The
+     * `manifest` contains the result schema definition and the result summary
+     * metadata. When using `disposition=EXTERNAL_LINKS`, it also contains a
+     * full listing of all chunks and their summary metadata.
+     * 
+     * **Use case: small result sets with INLINE + JSON_ARRAY**
+     * 
+     * For flows that generate small and predictable result sets (<= 16 MiB),
+     * `INLINE` downloads of `JSON_ARRAY` result data are typically the simplest
+     * way to execute and fetch result data.
+     * 
+     * When the result set with `disposition=INLINE` is larger, the result can
+     * be transferred in chunks. After receiving the initial chunk with
+     * :method:statementexecution/executeStatement or
+     * :method:statementexecution/getStatement subsequent calls are required to
+     * iteratively fetch each chunk. Each result response contains a link to the
+     * next chunk, when there are additional chunks to fetch; it can be found in
+     * the field `.next_chunk_internal_link`. This link is an absolute `path` to
+     * be joined with your `$DATABRICKS_HOST`, and of the form
+     * `/api/2.0/sql/statements/{statement_id}/result/chunks/{chunk_index}`. The
+     * next chunk can be fetched by issuing a
+     * :method:statementexecution/getStatementResultChunkN request.
+     * 
+     * When using this mode, each chunk may be fetched once, and in order. A
+     * chunk without a field `next_chunk_internal_link` indicates we reached the
+     * last chunk and all chunks have been fetched from the result set.
+     * 
+     * **Use case: large result sets with EXTERNAL_LINKS + ARROW_STREAM**
+     * 
+     * Using `EXTERNAL_LINKS` to fetch result data in Arrow format allows you to
+     * fetch large result sets efficiently. The primary difference from using
+     * `INLINE` disposition is that fetched result chunks contain resolved
+     * `external_links` URLs, which can be fetched with standard HTTP.
+     * 
+     * **Presigned URLs**
+     * 
+     * External links point to data stored within your workspace's internal
+     * DBFS, in the form of a presigned URL. The URLs are valid for only a short
+     * period, <= 15 minutes. Alongside each `external_link` is an expiration
+     * field indicating the time at which the URL is no longer valid. In
+     * `EXTERNAL_LINKS` mode, chunks can be resolved and fetched multiple times
+     * and in parallel.
+     * 
+     * ----
+     * 
+     * ### **Warning: drop the authorization header when fetching data through
+     * external links**
+     * 
+     * External link URLs do not require an Authorization header or token, and
+     * thus all calls to fetch external links must remove the Authorization
+     * header.
+     * 
+     * ----
+     * 
+     * Similar to `INLINE` mode, callers can iterate through the result set, by
+     * using the `next_chunk_internal_link` field. Each internal link response
+     * will contain an external link to the raw chunk data, and additionally
+     * contain the `next_chunk_internal_link` if there are more chunks.
+     * 
+     * Unlike `INLINE` mode, when using `EXTERNAL_LINKS`, chunks may be fetched
+     * out of order, and in parallel to achieve higher throughput.
+     * 
+     * **Limits and limitations**
+     * 
+     * Note: All byte limits are calculated based on internal storage metrics
+     * and will not match byte counts of actual payloads.
+     * 
+     * - Statements with `disposition=INLINE` are limited to 16 MiB and will
+     * abort when this limit is exceeded. - Statements with
+     * `disposition=EXTERNAL_LINKS` are limited to 100 GiB. - The maximum query
+     * text size is 16 MiB. - Cancelation may silently fail. A successful
+     * response from a cancel request indicates that the cancel request was
+     * successfully received and sent to the processing engine. However, for
+     * example, an outstanding statement may complete execution during signal
+     * delivery, with the cancel signal arriving too late to be meaningful.
+     * Polling for status until a terminal state is reached is a reliable way to
+     * determine the final state. - Wait timeouts are approximate, occur
+     * server-side, and cannot account for caller delays, network latency from
+     * caller to service, and similarly. - After a statement has been submitted
+     * and a statement_id is returned, that statement's status and result will
+     * automatically close after either of 2 conditions: - The last result chunk
+     * is fetched (or resolved to an external link). - Ten (10) minutes pass
+     * with no calls to get status or fetch result data. Best practice: in
+     * asynchronous clients, poll for status regularly (and with backoff) to
+     * keep the statement open and alive. - After a `CANCEL` or `CLOSE`
+     * operation, the statement will no longer be visible from the API which
+     * means that a subsequent poll request may return an HTTP 404 NOT FOUND
+     * error. - After fetching the last result chunk (including chunk_index=0),
+     * the statement is closed; shortly after closure the statement will no
+     * longer be visible to the API and so, further calls such as
+     * :method:statementexecution/getStatement may return an HTTP 404 NOT FOUND
+     * error.
+     * 
+     * [Apache Arrow Columnar]: https://arrow.apache.org/overview/
+     * [Public Preview]: https://docs.databricks.com/release-notes/release-types.html
+     * [SQL Statement Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
+     */
+    public StatementExecutionService statementExecution() {
+        return statementExecutionService;
+    }
+    
+    /**
      * A storage credential represents an authentication and authorization
-     * mechanism for accessing data stored on your cloud tenant, using an IAM
-     * role. Each storage credential is subject to Unity Catalog access-control
-     * policies that control which users and groups can access the credential.
-     * If a user does not have access to a storage credential in Unity Catalog,
-     * the request fails and Unity Catalog does not attempt to authenticate to
-     * your cloud tenant on the user’s behalf.
+     * mechanism for accessing data stored on your cloud tenant. Each storage
+     * credential is subject to Unity Catalog access-control policies that
+     * control which users and groups can access the credential. If a user does
+     * not have access to a storage credential in Unity Catalog, the request
+     * fails and Unity Catalog does not attempt to authenticate to your cloud
+     * tenant on the user’s behalf.
      * 
      * Databricks recommends using external locations rather than using storage
      * credentials directly.
@@ -823,6 +1068,25 @@ public class DatabricksWorkspace {
     }
     
     /**
+     * Primary key and foreign key constraints encode relationships between
+     * fields in tables.
+     * 
+     * Primary and foreign keys are informational only and are not enforced.
+     * Foreign keys must reference a primary key in another table. This primary
+     * key is the parent constraint of the foreign key and the table this
+     * primary key is on is the parent table of the foreign key. Similarly, the
+     * foreign key is the child constraint of its referenced primary key; the
+     * table of the foreign key is the child table of the primary key.
+     * 
+     * You can declare primary keys and foreign keys as part of the table
+     * specification during table creation. You can also add or drop constraints
+     * on existing tables.
+     */
+    public TableConstraintsService tableConstraints() {
+        return tableConstraintsService;
+    }
+    
+    /**
      * A table resides in the third layer of Unity Catalog’s three-level
      * namespace. It contains rows of data. To create a table, users must have
      * CREATE_TABLE and USE_SCHEMA permissions on the schema, and they must have
@@ -831,7 +1095,8 @@ public class DatabricksWorkspace {
      * USE_CATALOG permission on its parent catalog and the USE_SCHEMA
      * permission on its parent schema.
      * 
-     * A table can be managed or external.
+     * A table can be managed or external. From an API perspective, a __VIEW__
+     * is a particular kind of table (rather than a managed or external table).
      */
     public TablesService tables() {
         return tablesService;
@@ -998,6 +1263,14 @@ public class DatabricksWorkspace {
      */
     public DatabricksWorkspace setExternalLocationsService(ExternalLocationsService externalLocations) {
         externalLocationsService = externalLocations;
+        return this;
+    }
+    
+    /**
+     * Override FunctionsService with mock
+     */
+    public DatabricksWorkspace setFunctionsService(FunctionsService functions) {
+        functionsService = functions;
         return this;
     }
     
@@ -1242,6 +1515,14 @@ public class DatabricksWorkspace {
     }
     
     /**
+     * Override ServingEndpointsService with mock
+     */
+    public DatabricksWorkspace setServingEndpointsService(ServingEndpointsService servingEndpoints) {
+        servingEndpointsService = servingEndpoints;
+        return this;
+    }
+    
+    /**
      * Override SharesService with mock
      */
     public DatabricksWorkspace setSharesService(SharesService shares) {
@@ -1250,10 +1531,26 @@ public class DatabricksWorkspace {
     }
     
     /**
+     * Override StatementExecutionService with mock
+     */
+    public DatabricksWorkspace setStatementExecutionService(StatementExecutionService statementExecution) {
+        statementExecutionService = statementExecution;
+        return this;
+    }
+    
+    /**
      * Override StorageCredentialsService with mock
      */
     public DatabricksWorkspace setStorageCredentialsService(StorageCredentialsService storageCredentials) {
         storageCredentialsService = storageCredentials;
+        return this;
+    }
+    
+    /**
+     * Override TableConstraintsService with mock
+     */
+    public DatabricksWorkspace setTableConstraintsService(TableConstraintsService tableConstraints) {
+        tableConstraintsService = tableConstraints;
         return this;
     }
     

@@ -34,8 +34,7 @@ public class SetWorkspaceWarehouseConfigRequest {
     /**
      * Enable Serverless compute for SQL Endpoints
      * 
-     * Deprecated: Use enable_serverless_compute TODO(SC-79930): Remove the
-     * field once clients are updated
+     * Deprecated: Use enable_serverless_compute
      */
     @JsonProperty("enable_databricks_compute")
     private Boolean enableDatabricksCompute;

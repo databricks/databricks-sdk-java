@@ -19,7 +19,7 @@ public class UpdateExternalLocation {
     private String comment;
     
     /**
-     * Current name of the Storage Credential this location uses.
+     * Name of the storage credential used with this location.
      */
     @JsonProperty("credential_name")
     private String credentialName;
@@ -32,13 +32,13 @@ public class UpdateExternalLocation {
     private Boolean force;
     
     /**
-     * Name of the External Location.
+     * Name of the external location.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * The owner of the External Location.
+     * The owner of the external location.
      */
     @JsonProperty("owner")
     private String owner;
@@ -50,14 +50,7 @@ public class UpdateExternalLocation {
     private Boolean readOnly;
     
     /**
-     * Skips validation of the storage credential associated with the external
-     * location.
-     */
-    @JsonProperty("skip_validation")
-    private Boolean skipValidation;
-    
-    /**
-     * Path URL of the External Location.
+     * Path URL of the external location.
      */
     @JsonProperty("url")
     private String url;
@@ -114,15 +107,6 @@ public class UpdateExternalLocation {
 
     public Boolean getReadOnly() {
         return readOnly;
-    }
-    
-    public UpdateExternalLocation setSkipValidation(Boolean skipValidation) {
-        this.skipValidation = skipValidation;
-        return this;
-    }
-
-    public Boolean getSkipValidation() {
-        return skipValidation;
     }
     
     public UpdateExternalLocation setUrl(String url) {

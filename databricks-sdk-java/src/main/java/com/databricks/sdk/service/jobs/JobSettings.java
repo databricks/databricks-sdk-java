@@ -13,6 +13,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class JobSettings {
     /**
+     * An optional continuous property for this job. The continuous property
+     * will ensure that there is always one run executing. Only one of
+     * `schedule` and `continuous` can be used.
+     */
+    @JsonProperty("continuous")
+    private Continuous continuous;
+    
+    /**
      * An optional set of email addresses that is notified when runs of this job
      * begin or complete as well as when this job is deleted. The default
      * behavior is to not send any emails.
@@ -106,6 +114,15 @@ public class JobSettings {
      */
     @JsonProperty("webhook_notifications")
     private JobWebhookNotifications webhookNotifications;
+    
+    public JobSettings setContinuous(Continuous continuous) {
+        this.continuous = continuous;
+        return this;
+    }
+
+    public Continuous getContinuous() {
+        return continuous;
+    }
     
     public JobSettings setEmailNotifications(JobEmailNotifications emailNotifications) {
         this.emailNotifications = emailNotifications;

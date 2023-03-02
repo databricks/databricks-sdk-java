@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Get a Metastore
+ * Get a metastore
  */
 @Generated("databricks-sdk-generator")
 public class GetMetastoreRequest {
     /**
-     * Required. Unique ID of the Metastore (from URL).
+     * Unique ID of the metastore.
      */
     
     private String id;

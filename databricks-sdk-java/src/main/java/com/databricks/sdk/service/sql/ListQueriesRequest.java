@@ -22,9 +22,8 @@ public class ListQueriesRequest {
      * 
      * - `created_at`: The timestamp the query was created.
      * 
-     * - `schedule`: The refresh interval for each query. For example: "Every 5
-     * Hours" or "Every 5 Minutes". "Never" is treated as the highest value for
-     * sorting.
+     * - `schedule`: [DEPRECATED] Sorting results by refresh schedule is
+     * deprecated. Use :method:jobs/list to list jobs and filter for a query.
      * 
      * - `runtime`: The time it took to run this query. This is blank for
      * parameterized queries. A blank value is treated as the highest value for

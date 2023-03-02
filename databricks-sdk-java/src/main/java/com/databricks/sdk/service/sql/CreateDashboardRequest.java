@@ -42,6 +42,13 @@ public class CreateDashboardRequest {
     private String name;
     
     /**
+     * The identifier of the workspace folder containing the dashboard. The
+     * default is the user's home folder.
+     */
+    @JsonProperty("parent")
+    private String parent;
+    
+    /**
      
      */
     @JsonProperty("tags")
@@ -90,6 +97,15 @@ public class CreateDashboardRequest {
 
     public String getName() {
         return name;
+    }
+    
+    public CreateDashboardRequest setParent(String parent) {
+        this.parent = parent;
+        return this;
+    }
+
+    public String getParent() {
+        return parent;
     }
     
     public CreateDashboardRequest setTags(java.util.List<String> tags) {

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class GetExternalLocationRequest {
     /**
-     * Required. Name of the storage credential.
+     * Name of the external location.
      */
     
     private String name;

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class DeleteRecipientRequest {
     /**
-     * Required. Name of the recipient.
+     * Name of the recipient.
      */
     
     private String name;

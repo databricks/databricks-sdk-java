@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class UnassignRequest {
     /**
-     * Query for the ID of the Metastore to delete.
+     * Query for the ID of the metastore to delete.
      */
     @QueryParam("metastore_id")
     private String metastoreId;

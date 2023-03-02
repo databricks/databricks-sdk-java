@@ -18,15 +18,15 @@ public interface SharesService {
      * Create a share.
      * 
      * Creates a new share for data objects. Data objects can be added at this
-     * time or after creation with **update**. The caller must be a Metastore
-     * admin or have the CREATE_SHARE privilege on the Metastore.
+     * time or after creation with **update**. The caller must be a metastore
+     * admin or have the **CREATE_SHARE** privilege on the metastore.
      */
     ShareInfo create(CreateShare createShare);
     
 	/**
      * Delete a share.
      * 
-     * Deletes a data object share from the Metastore. The caller must be an
+     * Deletes a data object share from the metastore. The caller must be an
      * owner of the share.
      */
     void delete(DeleteShareRequest deleteShareRequest);
@@ -34,41 +34,42 @@ public interface SharesService {
 	/**
      * Get a share.
      * 
-     * Gets a data object share from the Metastore. The caller must be a
-     * Metastore admin or the owner of the share.
+     * Gets a data object share from the metastore. The caller must be a
+     * metastore admin or the owner of the share.
      */
     ShareInfo get(GetShareRequest getShareRequest);
     
 	/**
      * List shares.
      * 
-     * Gets an array of data object shares from the Metastore. The caller must
-     * be a Metastore admin or the owner of the share.
+     * Gets an array of data object shares from the metastore. The caller must
+     * be a metastore admin or the owner of the share. There is no guarantee of
+     * a specific ordering of the elements in the array.
      */
     ListSharesResponse list();
     
 	/**
      * Get permissions.
      * 
-     * Gets the permissions for a data share from the Metastore. The caller must
-     * be a Metastore admin or the owner of the share.
+     * Gets the permissions for a data share from the metastore. The caller must
+     * be a metastore admin or the owner of the share.
      */
-    GetSharePermissionsResponse sharePermissions(SharePermissionsRequest sharePermissionsRequest);
+    PermissionsList sharePermissions(SharePermissionsRequest sharePermissionsRequest);
     
 	/**
      * Update a share.
      * 
      * Updates the share with the changes and data objects in the request. The
-     * caller must be the owner of the share or a Metastore admin.
+     * caller must be the owner of the share or a metastore admin.
      * 
-     * When the caller is a Metastore admin, only the __owner__ field can be
+     * When the caller is a metastore admin, only the __owner__ field can be
      * updated.
      * 
-     * In the case that the Share name is changed, **updateShare** requires that
-     * the caller is both the share owner and a Metastore admin.
+     * In the case that the share name is changed, **updateShare** requires that
+     * the caller is both the share owner and a metastore admin.
      * 
      * For each table that is added through this method, the share owner must
-     * also have SELECT privilege on the table. This privilege must be
+     * also have **SELECT** privilege on the table. This privilege must be
      * maintained indefinitely for recipients to be able to access the table.
      * Typically, you should use a group as the share owner.
      * 
@@ -79,8 +80,8 @@ public interface SharesService {
 	/**
      * Update permissions.
      * 
-     * Updates the permissions for a data share in the Metastore. The caller
-     * must be a Metastore admin or an owner of the share.
+     * Updates the permissions for a data share in the metastore. The caller
+     * must be a metastore admin or an owner of the share.
      * 
      * For new recipient grants, the user must also be the owner of the
      * recipients. recipient revocations do not require additional privileges.

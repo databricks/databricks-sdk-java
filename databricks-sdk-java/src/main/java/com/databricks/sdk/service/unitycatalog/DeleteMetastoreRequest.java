@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Delete a Metastore
+ * Delete a metastore
  */
 @Generated("databricks-sdk-generator")
 public class DeleteMetastoreRequest {
@@ -21,7 +21,7 @@ public class DeleteMetastoreRequest {
     private Boolean force;
     
     /**
-     * Required. Unique ID of the Metastore (from URL).
+     * Unique ID of the metastore.
      */
     
     private String id;
