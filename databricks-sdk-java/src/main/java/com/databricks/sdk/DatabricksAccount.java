@@ -18,6 +18,10 @@ import com.databricks.sdk.service.scim.AccountGroupsAPI;
 import com.databricks.sdk.service.scim.AccountGroupsService;
 import com.databricks.sdk.service.billing.LogDeliveryAPI;
 import com.databricks.sdk.service.billing.LogDeliveryService;
+import com.databricks.sdk.service.unitycatalog.AccountMetastoreAssignmentsAPI;
+import com.databricks.sdk.service.unitycatalog.AccountMetastoreAssignmentsService;
+import com.databricks.sdk.service.unitycatalog.AccountMetastoresAPI;
+import com.databricks.sdk.service.unitycatalog.AccountMetastoresService;
 import com.databricks.sdk.service.deployment.NetworksAPI;
 import com.databricks.sdk.service.deployment.NetworksService;
 import com.databricks.sdk.service.deployment.PrivateAccessAPI;
@@ -26,6 +30,8 @@ import com.databricks.sdk.service.scim.AccountServicePrincipalsAPI;
 import com.databricks.sdk.service.scim.AccountServicePrincipalsService;
 import com.databricks.sdk.service.deployment.StorageAPI;
 import com.databricks.sdk.service.deployment.StorageService;
+import com.databricks.sdk.service.unitycatalog.AccountStorageCredentialsAPI;
+import com.databricks.sdk.service.unitycatalog.AccountStorageCredentialsService;
 import com.databricks.sdk.service.scim.AccountUsersAPI;
 import com.databricks.sdk.service.scim.AccountUsersService;
 import com.databricks.sdk.service.deployment.VpcEndpointsAPI;
@@ -48,10 +54,13 @@ public class DatabricksAccount {
     private EncryptionKeysService encryptionKeysService;
     private AccountGroupsService accountGroupsService;
     private LogDeliveryService logDeliveryService;
+    private AccountMetastoreAssignmentsService accountMetastoreAssignmentsService;
+    private AccountMetastoresService accountMetastoresService;
     private NetworksService networksService;
     private PrivateAccessService privateAccessService;
     private AccountServicePrincipalsService accountServicePrincipalsService;
     private StorageService storageService;
+    private AccountStorageCredentialsService accountStorageCredentialsService;
     private AccountUsersService accountUsersService;
     private VpcEndpointsService vpcEndpointsService;
     private WorkspaceAssignmentService workspaceAssignmentService;
@@ -71,10 +80,13 @@ public class DatabricksAccount {
         encryptionKeysService = new EncryptionKeysAPI(apiClient);
         accountGroupsService = new AccountGroupsAPI(apiClient);
         logDeliveryService = new LogDeliveryAPI(apiClient);
+        accountMetastoreAssignmentsService = new AccountMetastoreAssignmentsAPI(apiClient);
+        accountMetastoresService = new AccountMetastoresAPI(apiClient);
         networksService = new NetworksAPI(apiClient);
         privateAccessService = new PrivateAccessAPI(apiClient);
         accountServicePrincipalsService = new AccountServicePrincipalsAPI(apiClient);
         storageService = new StorageAPI(apiClient);
+        accountStorageCredentialsService = new AccountStorageCredentialsAPI(apiClient);
         accountUsersService = new AccountUsersAPI(apiClient);
         vpcEndpointsService = new VpcEndpointsAPI(apiClient);
         workspaceAssignmentService = new WorkspaceAssignmentAPI(apiClient);
@@ -215,10 +227,24 @@ public class DatabricksAccount {
     }
     
     /**
+     * These APIs manage metastore assignments to a workspace.
+     */
+    public AccountMetastoreAssignmentsService accountMetastoreAssignments() {
+        return accountMetastoreAssignmentsService;
+    }
+    
+    /**
+     * These APIs manage Unity Catalog metastores for an account. A metastore
+     * contains catalogs that can be associated with workspaces
+     */
+    public AccountMetastoresService accountMetastores() {
+        return accountMetastoresService;
+    }
+    
+    /**
      * These APIs manage network configurations for customer-managed VPCs
-     * (optional). A network configuration encapsulates the IDs for AWS VPCs,
-     * subnets, and security groups. Its ID is used when creating a new
-     * workspace if you use customer-managed VPCs.
+     * (optional). Its ID is used when creating a new workspace if you use
+     * customer-managed VPCs.
      */
     public NetworksService networks() {
         return networksService;
@@ -262,6 +288,13 @@ public class DatabricksAccount {
      */
     public StorageService storage() {
         return storageService;
+    }
+    
+    /**
+     * These APIs manage storage credentials for a particular metastore.
+     */
+    public AccountStorageCredentialsService accountStorageCredentials() {
+        return accountStorageCredentialsService;
     }
     
     /**
@@ -371,6 +404,22 @@ public class DatabricksAccount {
     }
     
     /**
+     * Override AccountMetastoreAssignmentsService with mock
+     */
+    public DatabricksAccount setAccountMetastoreAssignmentsService(AccountMetastoreAssignmentsService accountMetastoreAssignments) {
+        accountMetastoreAssignmentsService = accountMetastoreAssignments;
+        return this;
+    }
+    
+    /**
+     * Override AccountMetastoresService with mock
+     */
+    public DatabricksAccount setAccountMetastoresService(AccountMetastoresService accountMetastores) {
+        accountMetastoresService = accountMetastores;
+        return this;
+    }
+    
+    /**
      * Override NetworksService with mock
      */
     public DatabricksAccount setNetworksService(NetworksService networks) {
@@ -399,6 +448,14 @@ public class DatabricksAccount {
      */
     public DatabricksAccount setStorageService(StorageService storage) {
         storageService = storage;
+        return this;
+    }
+    
+    /**
+     * Override AccountStorageCredentialsService with mock
+     */
+    public DatabricksAccount setAccountStorageCredentialsService(AccountStorageCredentialsService accountStorageCredentials) {
+        accountStorageCredentialsService = accountStorageCredentials;
         return this;
     }
     

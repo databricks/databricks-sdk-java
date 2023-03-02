@@ -11,12 +11,21 @@
 
     <artifactId>databricks-sdk-java</artifactId>
 
+    <properties>
+        <jackson.version>2.12.2</jackson.version>
+        <httpclient.version>4.5.13</httpclient.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit-bom.version>5.9.2</junit-bom.version>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>5.9.2</version>
+                <version>${junit-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

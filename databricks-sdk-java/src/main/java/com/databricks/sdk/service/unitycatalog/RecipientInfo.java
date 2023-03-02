@@ -34,7 +34,7 @@ public class RecipientInfo {
     
     /**
      * Cloud vendor of the recipient's Unity Catalog Metstore. This field is
-     * only present when the authentication type is `DATABRICKS`.
+     * only present when the __authentication_type__ is **DATABRICKS**`.
      */
     @JsonProperty("cloud")
     private String cloud;
@@ -59,9 +59,9 @@ public class RecipientInfo {
     
     /**
      * The global Unity Catalog metastore id provided by the data recipient.\n
-     * This field is only present when the authentication type is
-     * `DATABRICKS`.\n The identifier is of format
-     * <cloud>:<region>:<metastore-uuid>.
+     * This field is only present when the __authentication_type__ is
+     * **DATABRICKS**.\n The identifier is of format
+     * __cloud__:__region__:__metastore-uuid__.
      */
     @JsonProperty("data_recipient_global_metastore_id")
     private Object /* MISSING TYPE */ dataRecipientGlobalMetastoreId;
@@ -73,8 +73,8 @@ public class RecipientInfo {
     private IpAccessList ipAccessList;
     
     /**
-     * Unique identifier of recipient's Unity Catalog Metastore. This field is
-     * only present when the authentication type is `DATABRICKS`
+     * Unique identifier of recipient's Unity Catalog metastore. This field is
+     * only present when the __authentication_type__ is **DATABRICKS**
      */
     @JsonProperty("metastore_id")
     private String metastoreId;
@@ -86,21 +86,33 @@ public class RecipientInfo {
     private String name;
     
     /**
+     * Username of the recipient owner.
+     */
+    @JsonProperty("owner")
+    private String owner;
+    
+    /**
+     * Recipient properties as map of string key-value pairs.\n
+     */
+    @JsonProperty("properties_kvpairs")
+    private Object /* MISSING TYPE */ propertiesKvpairs;
+    
+    /**
      * Cloud region of the recipient's Unity Catalog Metstore. This field is
-     * only present when the authentication type is `DATABRICKS`.
+     * only present when the __authentication_type__ is **DATABRICKS**.
      */
     @JsonProperty("region")
     private String region;
     
     /**
      * The one-time sharing code provided by the data recipient. This field is
-     * only present when the authentication type is `DATABRICKS`.
+     * only present when the __authentication_type__ is **DATABRICKS**.
      */
     @JsonProperty("sharing_code")
     private String sharingCode;
     
     /**
-     * This field is only present when the authentication type is `TOKEN`.
+     * This field is only present when the __authentication_type__ is **TOKEN**.
      */
     @JsonProperty("tokens")
     private java.util.List<RecipientTokenInfo> tokens;
@@ -214,6 +226,24 @@ public class RecipientInfo {
 
     public String getName() {
         return name;
+    }
+    
+    public RecipientInfo setOwner(String owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+    
+    public RecipientInfo setPropertiesKvpairs(Object /* MISSING TYPE */ propertiesKvpairs) {
+        this.propertiesKvpairs = propertiesKvpairs;
+        return this;
+    }
+
+    public Object /* MISSING TYPE */ getPropertiesKvpairs() {
+        return propertiesKvpairs;
     }
     
     public RecipientInfo setRegion(String region) {

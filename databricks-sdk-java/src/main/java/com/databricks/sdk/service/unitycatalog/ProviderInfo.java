@@ -19,8 +19,8 @@ public class ProviderInfo {
     private AuthenticationType authenticationType;
     
     /**
-     * Cloud vendor of the provider's UC Metastore. This field is only present
-     * when the authentication_type is `DATABRICKS`.
+     * Cloud vendor of the provider's UC metastore. This field is only present
+     * when the __authentication_type__ is **DATABRICKS**.
      */
     @JsonProperty("cloud")
     private String cloud;
@@ -45,15 +45,15 @@ public class ProviderInfo {
     
     /**
      * The global UC metastore id of the data provider. This field is only
-     * present when the authentication type is `DATABRICKS`. The identifier is
-     * of format <cloud>:<region>:<metastore-uuid>.
+     * present when the __authentication_type__ is **DATABRICKS**. The
+     * identifier is of format <cloud>:<region>:<metastore-uuid>.
      */
     @JsonProperty("data_provider_global_metastore_id")
     private String dataProviderGlobalMetastoreId;
     
     /**
-     * UUID of the provider's UC Metastore. This field is only present when the
-     * authentication type is `DATABRICKS`.
+     * UUID of the provider's UC metastore. This field is only present when the
+     * __authentication_type__ is **DATABRICKS**.
      */
     @JsonProperty("metastore_id")
     private String metastoreId;
@@ -78,15 +78,15 @@ public class ProviderInfo {
     private RecipientProfile recipientProfile;
     
     /**
-     * This field is required when the authentication_type is `TOKEN` or not
+     * This field is only present when the authentication_type is `TOKEN` or not
      * provided.
      */
     @JsonProperty("recipient_profile_str")
     private String recipientProfileStr;
     
     /**
-     * Cloud region of the provider's UC Metastore. This field is only present
-     * when the authentication type is `DATABRICKS`.
+     * Cloud region of the provider's UC metastore. This field is only present
+     * when the __authentication_type__ is **DATABRICKS**.
      */
     @JsonProperty("region")
     private String region;

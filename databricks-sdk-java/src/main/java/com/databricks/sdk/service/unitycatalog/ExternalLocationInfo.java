@@ -19,43 +19,43 @@ public class ExternalLocationInfo {
     private String comment;
     
     /**
-     * Time at which this External Location was created, in epoch milliseconds.
+     * Time at which this external location was created, in epoch milliseconds.
      */
     @JsonProperty("created_at")
     private Long createdAt;
     
     /**
-     * Username of External Location creator.
+     * Username of external location creator.
      */
     @JsonProperty("created_by")
     private String createdBy;
     
     /**
-     * Unique ID of the location's Storage Credential.
+     * Unique ID of the location's storage credential.
      */
     @JsonProperty("credential_id")
     private String credentialId;
     
     /**
-     * Current name of the Storage Credential this location uses.
+     * Name of the storage credential used with this location.
      */
     @JsonProperty("credential_name")
     private String credentialName;
     
     /**
-     * Unique identifier of Metastore hosting the External Location.
+     * Unique identifier of metastore hosting the external location.
      */
     @JsonProperty("metastore_id")
     private String metastoreId;
     
     /**
-     * Name of the External Location.
+     * Name of the external location.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * The owner of the External Location.
+     * The owner of the external location.
      */
     @JsonProperty("owner")
     private String owner;
@@ -67,20 +67,20 @@ public class ExternalLocationInfo {
     private Boolean readOnly;
     
     /**
-     * Time at which External Location this was last modified, in epoch
+     * Time at which external location this was last modified, in epoch
      * milliseconds.
      */
     @JsonProperty("updated_at")
     private Long updatedAt;
     
     /**
-     * Username of user who last modified the External Location.
+     * Username of user who last modified the external location.
      */
     @JsonProperty("updated_by")
     private String updatedBy;
     
     /**
-     * Path URL of the External Location.
+     * Path URL of the external location.
      */
     @JsonProperty("url")
     private String url;

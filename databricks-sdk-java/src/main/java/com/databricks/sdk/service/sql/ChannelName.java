@@ -9,9 +9,7 @@ import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-/**
- * Name of the channel
- */
+
 public enum ChannelName{
     CHANNEL_NAME_CURRENT,
     CHANNEL_NAME_CUSTOM,

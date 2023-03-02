@@ -31,14 +31,8 @@ public class CreateProvider {
     private String name;
     
     /**
-     * Username of Provider owner.
-     */
-    @JsonProperty("owner")
-    private String owner;
-    
-    /**
-     * This field is required when the authentication_type is `TOKEN` or not
-     * provided.
+     * This field is required when the __authentication_type__ is **TOKEN** or
+     * not provided.
      */
     @JsonProperty("recipient_profile_str")
     private String recipientProfileStr;
@@ -68,15 +62,6 @@ public class CreateProvider {
 
     public String getName() {
         return name;
-    }
-    
-    public CreateProvider setOwner(String owner) {
-        this.owner = owner;
-        return this;
-    }
-
-    public String getOwner() {
-        return owner;
     }
     
     public CreateProvider setRecipientProfileStr(String recipientProfileStr) {

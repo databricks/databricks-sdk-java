@@ -139,7 +139,7 @@ public interface DbfsService {
      * be thrown if this limit is exceeded.
      * 
      * If you want to upload large files, use the streaming upload. For details,
-     * see :method:create, :method:addBlock, :method:close.
+     * see :method:dbfs/create, :method:dbfs/addBlock, :method:dbfs/close.
      */
     void put(Put put);
     

@@ -13,13 +13,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class CreateMetastore {
     /**
-     * Name of Metastore.
+     * The user-specified name of the metastore.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * Storage root URL for Metastore
+     * Cloud region which the metastore serves (e.g., `us-west-2`, `westus`). If
+     * this field is omitted, the region of the workspace receiving the request
+     * will be used.
+     */
+    @JsonProperty("region")
+    private String region;
+    
+    /**
+     * The storage root URL for metastore
      */
     @JsonProperty("storage_root")
     private String storageRoot;
@@ -31,6 +39,15 @@ public class CreateMetastore {
 
     public String getName() {
         return name;
+    }
+    
+    public CreateMetastore setRegion(String region) {
+        this.region = region;
+        return this;
+    }
+
+    public String getRegion() {
+        return region;
     }
     
     public CreateMetastore setStorageRoot(String storageRoot) {

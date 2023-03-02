@@ -26,9 +26,9 @@ public class CreateRecipient {
     
     /**
      * The global Unity Catalog metastore id provided by the data recipient.\n
-     * This field is only present when the authentication type is
-     * `DATABRICKS`.\n The identifier is of format
-     * <cloud>:<region>:<metastore-uuid>.
+     * This field is required when the __authentication_type__ is
+     * **DATABRICKS**.\n The identifier is of format
+     * __cloud__:__region__:__metastore-uuid__.
      */
     @JsonProperty("data_recipient_global_metastore_id")
     private Object /* MISSING TYPE */ dataRecipientGlobalMetastoreId;
@@ -46,8 +46,20 @@ public class CreateRecipient {
     private String name;
     
     /**
+     * Username of the recipient owner.
+     */
+    @JsonProperty("owner")
+    private String owner;
+    
+    /**
+     * Recipient properties as map of string key-value pairs.\n
+     */
+    @JsonProperty("properties_kvpairs")
+    private Object /* MISSING TYPE */ propertiesKvpairs;
+    
+    /**
      * The one-time sharing code provided by the data recipient. This field is
-     * only present when the authentication type is `DATABRICKS`.
+     * required when the __authentication_type__ is **DATABRICKS**.
      */
     @JsonProperty("sharing_code")
     private String sharingCode;
@@ -95,6 +107,24 @@ public class CreateRecipient {
 
     public String getName() {
         return name;
+    }
+    
+    public CreateRecipient setOwner(String owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+    
+    public CreateRecipient setPropertiesKvpairs(Object /* MISSING TYPE */ propertiesKvpairs) {
+        this.propertiesKvpairs = propertiesKvpairs;
+        return this;
+    }
+
+    public Object /* MISSING TYPE */ getPropertiesKvpairs() {
+        return propertiesKvpairs;
     }
     
     public CreateRecipient setSharingCode(String sharingCode) {

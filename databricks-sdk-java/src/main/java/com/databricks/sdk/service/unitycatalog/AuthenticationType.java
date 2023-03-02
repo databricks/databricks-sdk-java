@@ -15,6 +15,5 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public enum AuthenticationType{
     DATABRICKS,
     TOKEN,
-    UNKNOWN,
     
 }

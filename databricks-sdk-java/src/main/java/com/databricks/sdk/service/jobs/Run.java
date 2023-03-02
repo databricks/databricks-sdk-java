@@ -50,6 +50,12 @@ public class Run {
     private ClusterSpec clusterSpec;
     
     /**
+     * The continuous trigger that triggered this run.
+     */
+    @JsonProperty("continuous")
+    private Continuous continuous;
+    
+    /**
      * The creator user name. This field won’t be included in the response if
      * the user has already been deleted.
      */
@@ -197,7 +203,7 @@ public class Run {
     private java.util.List<RunTask> tasks;
     
     /**
-     * The type of trigger that fired this run.
+     * This describes an enum
      */
     @JsonProperty("trigger")
     private TriggerType trigger;
@@ -236,6 +242,15 @@ public class Run {
 
     public ClusterSpec getClusterSpec() {
         return clusterSpec;
+    }
+    
+    public Run setContinuous(Continuous continuous) {
+        this.continuous = continuous;
+        return this;
+    }
+
+    public Continuous getContinuous() {
+        return continuous;
     }
     
     public Run setCreatorUserName(String creatorUserName) {

@@ -18,15 +18,15 @@ public interface RecipientsService {
      * Create a share recipient.
      * 
      * Creates a new recipient with the delta sharing authentication type in the
-     * Metastore. The caller must be a Metastore admin or has the
-     * CREATE_RECIPIENT privilege on the Metastore.
+     * metastore. The caller must be a metastore admin or has the
+     * **CREATE_RECIPIENT** privilege on the metastore.
      */
     RecipientInfo create(CreateRecipient createRecipient);
     
 	/**
      * Delete a share recipient.
      * 
-     * Deletes the specified recipient from the Metastore. The caller must be
+     * Deletes the specified recipient from the metastore. The caller must be
      * the owner of the recipient.
      */
     void delete(DeleteRecipientRequest deleteRecipientRequest);
@@ -34,9 +34,9 @@ public interface RecipientsService {
 	/**
      * Get a share recipient.
      * 
-     * Gets a share recipient from the Metastore if:
+     * Gets a share recipient from the metastore if:
      * 
-     * * the caller is the owner of the share recipient, or: * is a Metastore
+     * * the caller is the owner of the share recipient, or: * is a metastore
      * admin
      */
     RecipientInfo get(GetRecipientRequest getRecipientRequest);
@@ -44,9 +44,10 @@ public interface RecipientsService {
 	/**
      * List share recipients.
      * 
-     * Gets an array of all share recipients within the current Metastore where:
+     * Gets an array of all share recipients within the current metastore where:
      * 
-     * * the caller is a Metastore admin, or * the caller is the owner.
+     * * the caller is a metastore admin, or * the caller is the owner. There is
+     * no guarantee of a specific ordering of the elements in the array.
      */
     ListRecipientsResponse list(ListRecipientsRequest listRecipientsRequest);
     
@@ -60,19 +61,19 @@ public interface RecipientsService {
     RecipientInfo rotateToken(RotateRecipientToken rotateRecipientToken);
     
 	/**
-     * Get share permissions.
+     * Get recipient share permissions.
      * 
      * Gets the share permissions for the specified Recipient. The caller must
-     * be a Metastore admin or the owner of the Recipient.
+     * be a metastore admin or the owner of the Recipient.
      */
     GetRecipientSharePermissionsResponse sharePermissions(SharePermissionsRequest sharePermissionsRequest);
     
 	/**
      * Update a share recipient.
      * 
-     * Updates an existing recipient in the Metastore. The caller must be a
-     * Metastore admin or the owner of the recipient. If the recipient name will
-     * be updated, the user must be both a Metastore admin and the owner of the
+     * Updates an existing recipient in the metastore. The caller must be a
+     * metastore admin or the owner of the recipient. If the recipient name will
+     * be updated, the user must be both a metastore admin and the owner of the
      * recipient.
      */
     void update(UpdateRecipient updateRecipient);

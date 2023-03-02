@@ -43,6 +43,13 @@ public class Alert {
     private AlertOptions options;
     
     /**
+     * The identifier of the parent folder containing the alert. Available for
+     * alerts in workspace.
+     */
+    @JsonProperty("parent")
+    private String parent;
+    
+    /**
      
      */
     @JsonProperty("query")
@@ -119,6 +126,15 @@ public class Alert {
 
     public AlertOptions getOptions() {
         return options;
+    }
+    
+    public Alert setParent(String parent) {
+        this.parent = parent;
+        return this;
+    }
+
+    public String getParent() {
+        return parent;
     }
     
     public Alert setQuery(Query query) {

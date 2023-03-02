@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Get workspace
+ * Get a workspace
  */
 @Generated("databricks-sdk-generator")
 public class GetWorkspaceRequest {

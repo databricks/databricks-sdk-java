@@ -1,6 +1,7 @@
 package com.databricks.sdk.client;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.service.deployment.KeyUseCase;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -68,6 +69,13 @@ public class ApiClient {
         hc = makeClosableHttpClient();
         mapper = makeObjectMapper();
         random = new Random();
+
+        try {
+            KeyUseCase deserialize = deserialize("\"FOOOOOO\"", KeyUseCase.class);
+            System.out.println(deserialize);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private ObjectMapper makeObjectMapper() {
@@ -253,7 +261,7 @@ public class ApiClient {
         return request;
     }
 
-    private <T> T deserialize(String body, Class<T> target) throws JsonProcessingException {
+    public  <T> T deserialize(String body, Class<T> target) throws JsonProcessingException {
         return mapper.readValue(body, target);
     }
 

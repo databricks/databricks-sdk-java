@@ -17,15 +17,15 @@ public interface RecipientActivationService {
 	/**
      * Get a share activation URL.
      * 
-     * Gets information about an Activation URL.
+     * Gets an activation URL for a share.
      */
     void getActivationUrlInfo(GetActivationUrlInfoRequest getActivationUrlInfoRequest);
     
 	/**
      * Get an access token.
      * 
-     * RPC to retrieve access token with an activation token. This is a public
-     * API without any authentication.
+     * Retrieve access token with an activation url. This is a public API
+     * without any authentication.
      */
     RetrieveTokenResponse retrieveToken(RetrieveTokenRequest retrieveTokenRequest);
     

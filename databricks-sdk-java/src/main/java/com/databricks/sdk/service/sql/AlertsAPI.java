@@ -16,6 +16,10 @@ import com.databricks.sdk.client.DatabricksException;
  * a Databricks SQL object that periodically runs a query, evaluates a condition
  * of its result, and notifies one or more users and/or alert destinations if
  * the condition was met.
+ * 
+ * **Note**: Programmatic operations on refresh schedules via the Databricks SQL
+ * API are deprecated. Alert refresh schedules can be created, updated, fetched
+ * and deleted using Jobs API, e.g. :method:jobs/create.
  */
 @Generated("databricks-sdk-generator")
 public class AlertsAPI implements AlertsService {
@@ -33,17 +37,20 @@ public class AlertsAPI implements AlertsService {
      * alert destinations if the condition was met.
      */
     @Override
-    public Alert create(EditAlert request) {
+    public Alert create(CreateAlert request) {
         String path = "/api/2.0/preview/sql/alerts";
         return apiClient.POST(path, request, Alert.class);
     }
     
 	/**
-     * Create a refresh schedule.
+     * [DEPRECATED] Create a refresh schedule.
      * 
      * Creates a new refresh schedule for an alert.
      * 
      * **Note:** The structure of refresh schedules is subject to change.
+     * 
+     * **Note:** This API is deprecated: Use :method:jobs/create to create a job
+     * with the alert.
      */
     @Override
     public RefreshSchedule createSchedule(CreateRefreshSchedule request) {
@@ -65,10 +72,13 @@ public class AlertsAPI implements AlertsService {
     }
     
 	/**
-     * Delete a refresh schedule.
+     * [DEPRECATED] Delete a refresh schedule.
      * 
      * Deletes an alert's refresh schedule. The refresh schedule specifies when
      * to refresh and evaluate the associated query result.
+     * 
+     * **Note:** This API is deprecated: Use :method:jobs/delete to delete a job
+     * for the alert.
      */
     @Override
     public void deleteSchedule(DeleteScheduleRequest request) {
@@ -88,13 +98,16 @@ public class AlertsAPI implements AlertsService {
     }
     
 	/**
-     * Get an alert's subscriptions.
+     * [DEPRECATED] Get an alert's subscriptions.
      * 
      * Get the subscriptions for an alert. An alert subscription represents
      * exactly one recipient being notified whenever the alert is triggered. The
      * alert recipient is specified by either the `user` field or the
      * `destination` field. The `user` field is ignored if `destination` is
      * non-`null`.
+     * 
+     * **Note:** This API is deprecated: Use :method:jobs/get to get the
+     * subscriptions associated with a job for an alert.
      */
     @Override
     public List<Subscription> getSubscriptions(GetSubscriptionsRequest request) {
@@ -114,7 +127,7 @@ public class AlertsAPI implements AlertsService {
     }
     
 	/**
-     * Get refresh schedules.
+     * [DEPRECATED] Get refresh schedules.
      * 
      * Gets the refresh schedules for the specified alert. Alerts can have
      * refresh schedules that specify when to refresh and evaluate the
@@ -123,6 +136,9 @@ public class AlertsAPI implements AlertsService {
      * **Note:** Although refresh schedules are returned in a list, only one
      * refresh schedule per alert is currently supported. The structure of
      * refresh schedules is subject to change.
+     * 
+     * **Note:** This API is deprecated: Use :method:jobs/list to list jobs and
+     * filter by the alert.
      */
     @Override
     public List<RefreshSchedule> listSchedules(ListSchedulesRequest request) {
@@ -131,7 +147,10 @@ public class AlertsAPI implements AlertsService {
     }
     
 	/**
-     * Subscribe to an alert.
+     * [DEPRECATED] Subscribe to an alert.
+     * 
+     * **Note:** This API is deprecated: Use :method:jobs/update to subscribe to
+     * a job for an alert.
      */
     @Override
     public Subscription subscribe(CreateSubscription request) {
@@ -140,9 +159,12 @@ public class AlertsAPI implements AlertsService {
     }
     
 	/**
-     * Unsubscribe to an alert.
+     * [DEPRECATED] Unsubscribe to an alert.
      * 
      * Unsubscribes a user or a destination to an alert.
+     * 
+     * **Note:** This API is deprecated: Use :method:jobs/update to unsubscribe
+     * to a job for an alert.
      */
     @Override
     public void unsubscribe(UnsubscribeRequest request) {

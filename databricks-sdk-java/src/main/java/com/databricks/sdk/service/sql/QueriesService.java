@@ -9,6 +9,10 @@ import java.util.Map;
  * These endpoints are used for CRUD operations on query definitions. Query
  * definitions include the target SQL warehouse, query text, name, description,
  * tags, execution schedule, parameters, and visualizations.
+ * 
+ * **Note**: Programmatic operations on refresh schedules via the Databricks SQL
+ * API are deprecated. Query refresh schedules can be created, updated, fetched
+ * and deleted using Jobs API, e.g. :method:jobs/create.
  *
  * This is the high-level interface, that contains generated methods.
  *
@@ -72,6 +76,6 @@ public interface QueriesService {
      * 
      * **Note**: You cannot undo this operation.
      */
-    Query update(QueryPostContent queryPostContent);
+    Query update(QueryEditContent queryEditContent);
     
 }

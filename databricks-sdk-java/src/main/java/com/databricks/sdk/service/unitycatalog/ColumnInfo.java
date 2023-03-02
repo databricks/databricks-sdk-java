@@ -13,70 +13,73 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class ColumnInfo {
     /**
-     * [Create,Update:OPT] User-provided free-form text description.
+     * User-provided free-form text description.
      */
     @JsonProperty("comment")
     private String comment;
     
     /**
-     * [Create:REQ Update:OPT] Name of Column.
+     
+     */
+    @JsonProperty("mask")
+    private ColumnMask mask;
+    
+    /**
+     * Name of Column.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * [Create,Update:OPT] Whether field may be Null (default: True).
+     * Whether field may be Null (default: true).
      */
     @JsonProperty("nullable")
     private Boolean nullable;
     
     /**
-     * [Create,Update:OPT] Partition index for column.
+     * Partition index for column.
      */
     @JsonProperty("partition_index")
     private Long partitionIndex;
     
     /**
-     * [Create:REQ Update:OPT] Ordinal position of column (starting at position
-     * 0).
+     * Ordinal position of column (starting at position 0).
      */
     @JsonProperty("position")
     private Long position;
     
     /**
-     * [Create: OPT, Update: OPT] Format of IntervalType.
+     * Format of IntervalType.
      */
     @JsonProperty("type_interval_type")
     private String typeIntervalType;
     
     /**
-     * [Create:OPT Update:OPT] Full data type spec, JSON-serialized.
+     * Full data type specification, JSON-serialized.
      */
     @JsonProperty("type_json")
     private String typeJson;
     
     /**
-     * [Create: REQ Update: OPT] Name of type (INT, STRUCT, MAP, etc.)
+     * Name of type (INT, STRUCT, MAP, etc.).
      */
     @JsonProperty("type_name")
-    private ColumnInfoTypeName typeName;
+    private ColumnTypeName typeName;
     
     /**
-     * [Create: OPT, Update: OPT] Digits of precision; required on Create for
-     * DecimalTypes.
+     * Digits of precision; required for DecimalTypes.
      */
     @JsonProperty("type_precision")
     private Long typePrecision;
     
     /**
-     * [Create: OPT, Update: OPT] Digits to right of decimal; Required on Create
-     * for DecimalTypes.
+     * Digits to right of decimal; Required for DecimalTypes.
      */
     @JsonProperty("type_scale")
     private Long typeScale;
     
     /**
-     * [Create:REQ Update:OPT] Full data type spec, SQL/catalogString text.
+     * Full data type specification as SQL/catalogString text.
      */
     @JsonProperty("type_text")
     private String typeText;
@@ -88,6 +91,15 @@ public class ColumnInfo {
 
     public String getComment() {
         return comment;
+    }
+    
+    public ColumnInfo setMask(ColumnMask mask) {
+        this.mask = mask;
+        return this;
+    }
+
+    public ColumnMask getMask() {
+        return mask;
     }
     
     public ColumnInfo setName(String name) {
@@ -144,12 +156,12 @@ public class ColumnInfo {
         return typeJson;
     }
     
-    public ColumnInfo setTypeName(ColumnInfoTypeName typeName) {
+    public ColumnInfo setTypeName(ColumnTypeName typeName) {
         this.typeName = typeName;
         return this;
     }
 
-    public ColumnInfoTypeName getTypeName() {
+    public ColumnTypeName getTypeName() {
         return typeName;
     }
     

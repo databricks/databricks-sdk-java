@@ -19,7 +19,7 @@ public class CreateShare {
     private String comment;
     
     /**
-     * Name of the Share.
+     * Name of the share.
      */
     @JsonProperty("name")
     private String name;

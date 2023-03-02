@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class DeleteSchemaRequest {
     /**
-     * Required. Full name of the schema (from URL).
+     * Full name of the schema.
      */
     
     private String fullName;

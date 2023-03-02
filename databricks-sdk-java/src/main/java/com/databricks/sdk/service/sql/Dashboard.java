@@ -78,6 +78,13 @@ public class Dashboard {
     private DashboardOptions options;
     
     /**
+     * The identifier of the parent folder containing the dashboard. Available
+     * for dashboards in workspace.
+     */
+    @JsonProperty("parent")
+    private String parent;
+    
+    /**
      * This describes an enum
      */
     @JsonProperty("permission_tier")
@@ -199,6 +206,15 @@ public class Dashboard {
 
     public DashboardOptions getOptions() {
         return options;
+    }
+    
+    public Dashboard setParent(String parent) {
+        this.parent = parent;
+        return this;
+    }
+
+    public String getParent() {
+        return parent;
     }
     
     public Dashboard setPermissionTier(PermissionLevel permissionTier) {

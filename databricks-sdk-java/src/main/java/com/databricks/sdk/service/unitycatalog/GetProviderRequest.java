@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class GetProviderRequest {
     /**
-     * Required. Name of the provider.
+     * Name of the provider.
      */
     
     private String name;

@@ -27,7 +27,8 @@ public class QueryMetrics {
     private Long executionTimeMs;
     
     /**
-     * Total amount of data sent over the network, in bytes.
+     * Total amount of data sent over the network between executor nodes during
+     * shuffle, in bytes.
      */
     @JsonProperty("network_sent_bytes")
     private Long networkSentBytes;

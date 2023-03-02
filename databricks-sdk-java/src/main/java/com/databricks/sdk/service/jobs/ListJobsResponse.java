@@ -22,7 +22,7 @@ public class ListJobsResponse {
      * The list of jobs.
      */
     @JsonProperty("jobs")
-    private java.util.List<Job> jobs;
+    private java.util.List<BaseJob> jobs;
     
     public ListJobsResponse setHasMore(Boolean hasMore) {
         this.hasMore = hasMore;
@@ -33,12 +33,12 @@ public class ListJobsResponse {
         return hasMore;
     }
     
-    public ListJobsResponse setJobs(java.util.List<Job> jobs) {
+    public ListJobsResponse setJobs(java.util.List<BaseJob> jobs) {
         this.jobs = jobs;
         return this;
     }
 
-    public java.util.List<Job> getJobs() {
+    public java.util.List<BaseJob> getJobs() {
         return jobs;
     }
     

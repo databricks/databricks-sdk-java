@@ -13,6 +13,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class DbtTask {
     /**
+     * Optional name of the catalog to use. The value is the top level in the
+     * 3-level namespace of Unity Catalog (catalog / schema / relation). The
+     * catalog value can only be specified if a warehouse_id is specified.
+     * Requires dbt-databricks >= 1.1.1.
+     */
+    @JsonProperty("catalog")
+    private String catalog;
+    
+    /**
      * A list of dbt commands to execute. All commands must start with `dbt`.
      * This parameter must not be empty. A maximum of up to 10 commands can be
      * provided.
@@ -51,6 +60,15 @@ public class DbtTask {
      */
     @JsonProperty("warehouse_id")
     private String warehouseId;
+    
+    public DbtTask setCatalog(String catalog) {
+        this.catalog = catalog;
+        return this;
+    }
+
+    public String getCatalog() {
+        return catalog;
+    }
     
     public DbtTask setCommands(java.util.List<String> commands) {
         this.commands = commands;

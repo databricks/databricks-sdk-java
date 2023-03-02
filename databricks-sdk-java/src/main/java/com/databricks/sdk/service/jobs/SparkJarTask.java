@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SparkJarTask {
     /**
      * Deprecated since 04/2016\\. Provide a `jar` through the `libraries` field
-     * instead. For an example, see :method:create.
+     * instead. For an example, see :method:jobs/create.
      */
     @JsonProperty("jar_uri")
     private String jarUri;

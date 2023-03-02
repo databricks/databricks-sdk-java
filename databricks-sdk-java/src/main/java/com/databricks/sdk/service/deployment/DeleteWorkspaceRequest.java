@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Delete workspace
+ * Delete a workspace
  */
 @Generated("databricks-sdk-generator")
 public class DeleteWorkspaceRequest {

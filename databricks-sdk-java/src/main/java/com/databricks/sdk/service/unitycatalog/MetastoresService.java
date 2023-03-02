@@ -19,7 +19,7 @@ import java.util.Map;
  * NOTE: This metastore is distinct from the metastore included in Databricks
  * workspaces created before Unity Catalog was released. If your workspace
  * includes a legacy Hive metastore, the data in that metastore is available in
- * Unity Catalog in a catalog named hive_metastore.
+ * a catalog named hive_metastore.
  *
  * This is the high-level interface, that contains generated methods.
  *
@@ -30,7 +30,7 @@ public interface MetastoresService {
 	/**
      * Create an assignment.
      * 
-     * Creates a new Metastore assignment. If an assignment for the same
+     * Creates a new metastore assignment. If an assignment for the same
      * __workspace_id__ exists, it will be overwritten by the new
      * __metastore_id__ and __default_catalog_name__. The caller must be an
      * account admin.
@@ -38,40 +38,48 @@ public interface MetastoresService {
     void assign(CreateMetastoreAssignment createMetastoreAssignment);
     
 	/**
-     * Create a Metastore.
+     * Create a metastore.
      * 
-     * Creates a new Metastore based on a provided name and storage root path.
+     * Creates a new metastore based on a provided name and storage root path.
      */
     MetastoreInfo create(CreateMetastore createMetastore);
     
 	/**
-     * Delete a Metastore.
+     * Get metastore assignment for workspace.
      * 
-     * Deletes a Metastore. The caller must be a Metastore admin.
+     * Gets the metastore assignment for the workspace being accessed.
+     */
+    MetastoreAssignment current();
+    
+	/**
+     * Delete a metastore.
+     * 
+     * Deletes a metastore. The caller must be a metastore admin.
      */
     void delete(DeleteMetastoreRequest deleteMetastoreRequest);
     
 	/**
-     * Get a Metastore.
+     * Get a metastore.
      * 
-     * Gets a Metastore that matches the supplied ID. The caller must be a
-     * Metastore admin to retrieve this info.
+     * Gets a metastore that matches the supplied ID. The caller must be a
+     * metastore admin to retrieve this info.
      */
     MetastoreInfo get(GetMetastoreRequest getMetastoreRequest);
     
 	/**
-     * List Metastores.
+     * List metastores.
      * 
-     * Gets an array of the available Metastores (as MetastoreInfo objects). The
-     * caller must be an admin to retrieve this info.
+     * Gets an array of the available metastores (as __MetastoreInfo__ objects).
+     * The caller must be an admin to retrieve this info. There is no guarantee
+     * of a specific ordering of the elements in the array.
      */
     ListMetastoresResponse list();
     
 	/**
-     * Get a summary.
+     * Get a metastore summary.
      * 
-     * Gets information about a Metastore. This summary includes the storage
-     * credential, the cloud vendor, the cloud region, and the global Metastore
+     * Gets information about a metastore. This summary includes the storage
+     * credential, the cloud vendor, the cloud region, and the global metastore
      * ID.
      */
     GetMetastoreSummaryResponse summary();
@@ -79,25 +87,25 @@ public interface MetastoresService {
 	/**
      * Delete an assignment.
      * 
-     * Deletes a Metastore assignment. The caller must be an account
+     * Deletes a metastore assignment. The caller must be an account
      * administrator.
      */
     void unassign(UnassignRequest unassignRequest);
     
 	/**
-     * Update a Metastore.
+     * Update a metastore.
      * 
-     * Updates information for a specific Metastore. The caller must be a
-     * Metastore admin.
+     * Updates information for a specific metastore. The caller must be a
+     * metastore admin.
      */
     MetastoreInfo update(UpdateMetastore updateMetastore);
     
 	/**
      * Update an assignment.
      * 
-     * Updates a Metastore assignment. This operation can be used to update
+     * Updates a metastore assignment. This operation can be used to update
      * __metastore_id__ or __default_catalog_name__ for a specified Workspace,
-     * if the Workspace is already assigned a Metastore. The caller must be an
+     * if the Workspace is already assigned a metastore. The caller must be an
      * account admin to update __metastore_id__; otherwise, the caller can be a
      * Workspace admin.
      */

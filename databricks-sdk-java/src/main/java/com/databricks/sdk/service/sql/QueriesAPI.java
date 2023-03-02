@@ -15,6 +15,10 @@ import com.databricks.sdk.client.DatabricksException;
  * These endpoints are used for CRUD operations on query definitions. Query
  * definitions include the target SQL warehouse, query text, name, description,
  * tags, execution schedule, parameters, and visualizations.
+ * 
+ * **Note**: Programmatic operations on refresh schedules via the Databricks SQL
+ * API are deprecated. Query refresh schedules can be created, updated, fetched
+ * and deleted using Jobs API, e.g. :method:jobs/create.
  */
 @Generated("databricks-sdk-generator")
 public class QueriesAPI implements QueriesService {
@@ -101,7 +105,7 @@ public class QueriesAPI implements QueriesService {
      * **Note**: You cannot undo this operation.
      */
     @Override
-    public Query update(QueryPostContent request) {
+    public Query update(QueryEditContent request) {
         String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
         return apiClient.POST(path, request, Query.class);
     }

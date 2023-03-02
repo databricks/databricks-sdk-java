@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * List shares
+ * List shares by Provider
  */
 @Generated("databricks-sdk-generator")
 public class ListSharesRequest {
     /**
-     * Required. Name of the provider in which to list shares.
+     * Name of the provider in which to list shares.
      */
     
     private String name;

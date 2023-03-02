@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Delete network configuration
+ * Delete a network configuration
  */
 @Generated("databricks-sdk-generator")
 public class DeleteNetworkRequest {

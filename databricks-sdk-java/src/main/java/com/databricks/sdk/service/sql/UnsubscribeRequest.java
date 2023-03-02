@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Unsubscribe to an alert
+ * [DEPRECATED] Unsubscribe to an alert
  */
 @Generated("databricks-sdk-generator")
 public class UnsubscribeRequest {

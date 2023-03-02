@@ -15,13 +15,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class ListTablesRequest {
     /**
-     * Required. Name of parent catalog for tables of interest.
+     * Name of parent catalog for tables of interest.
      */
     @QueryParam("catalog_name")
     private String catalogName;
     
     /**
-     * Required (for now -- may be optional for wildcard search in future).
+     * Whether delta metadata should be included in the response.
+     */
+    @QueryParam("include_delta_metadata")
+    private Boolean includeDeltaMetadata;
+    
+    /**
      * Parent schema of tables.
      */
     @QueryParam("schema_name")
@@ -34,6 +39,15 @@ public class ListTablesRequest {
 
     public String getCatalogName() {
         return catalogName;
+    }
+    
+    public ListTablesRequest setIncludeDeltaMetadata(Boolean includeDeltaMetadata) {
+        this.includeDeltaMetadata = includeDeltaMetadata;
+        return this;
+    }
+
+    public Boolean getIncludeDeltaMetadata() {
+        return includeDeltaMetadata;
     }
     
     public ListTablesRequest setSchemaName(String schemaName) {

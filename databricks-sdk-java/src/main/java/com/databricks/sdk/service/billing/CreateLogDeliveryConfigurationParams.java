@@ -20,10 +20,9 @@ public class CreateLogDeliveryConfigurationParams {
     private String configName;
     
     /**
-     * The ID for a method:CredetialConfigurations/createCredentialConfig that
-     * represents the AWS IAM role with policy and trust relationship as
-     * described in the main billable usage documentation page. See [Configure
-     * billable usage delivery].
+     * The ID for a method:credentials/create that represents the AWS IAM role
+     * with policy and trust relationship as described in the main billable
+     * usage documentation page. See [Configure billable usage delivery].
      * 
      * [Configure billable usage delivery]: https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
      */
@@ -91,10 +90,9 @@ public class CreateLogDeliveryConfigurationParams {
     private LogDeliveryConfigStatus status;
     
     /**
-     * "The ID for a method:StorageConfiguration/createCredentialConfig that
-     * represents the S3 bucket with bucket policy as described in the main
-     * billable usage documentation page. See [Configure billable usage
-     * delivery]."
+     * "The ID for a method:storage/create that represents the S3 bucket with
+     * bucket policy as described in the main billable usage documentation page.
+     * See [Configure billable usage delivery]."
      * 
      * [Configure billable usage delivery]: https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
      */

@@ -13,15 +13,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class TableInfo {
     /**
-     * Name of parent Catalog.
+     * Name of parent catalog.
      */
     @JsonProperty("catalog_name")
     private String catalogName;
     
     /**
-     * This name ('columns') is what the client actually sees as the field name
-     * in messages that include PropertiesKVPairs using 'json_inline' (e.g.,
-     * TableInfo).
+     * The array of __ColumnInfo__ definitions of the table's columns.
      */
     @JsonProperty("columns")
     private java.util.List<ColumnInfo> columns;
@@ -33,19 +31,19 @@ public class TableInfo {
     private String comment;
     
     /**
-     * Time at which this Table was created, in epoch milliseconds.
+     * Time at which this table was created, in epoch milliseconds.
      */
     @JsonProperty("created_at")
     private Long createdAt;
     
     /**
-     * Username of Table creator.
+     * Username of table creator.
      */
     @JsonProperty("created_by")
     private String createdBy;
     
     /**
-     * Unique ID of the data_access_configuration to use.
+     * Unique ID of the Data Access Configuration to use with the table data.
      */
     @JsonProperty("data_access_configuration_id")
     private String dataAccessConfigurationId;
@@ -57,37 +55,57 @@ public class TableInfo {
     private DataSourceFormat dataSourceFormat;
     
     /**
-     * Full name of Table, in form of <catalog_name>.<schema_name>.<table_name>
+     * Time at which this table was deleted, in epoch milliseconds. Field is
+     * omitted if table is not deleted.
+     */
+    @JsonProperty("deleted_at")
+    private Long deletedAt;
+    
+    /**
+     * Information pertaining to current state of the delta table.
+     */
+    @JsonProperty("delta_runtime_properties_kvpairs")
+    private Object /* MISSING TYPE */ deltaRuntimePropertiesKvpairs;
+    
+    /**
+     * Full name of table, in form of
+     * __catalog_name__.__schema_name__.__table_name__
      */
     @JsonProperty("full_name")
     private String fullName;
     
     /**
-     * Unique identifier of parent Metastore.
+     * Unique identifier of parent metastore.
      */
     @JsonProperty("metastore_id")
     private String metastoreId;
     
     /**
-     * Name of Table, relative to parent Schema.
+     * Name of table, relative to parent schema.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * Username of current owner of Table.
+     * Username of current owner of table.
      */
     @JsonProperty("owner")
     private String owner;
     
     /**
-     
+     * A map of key-value properties attached to the securable.
      */
     @JsonProperty("properties")
     private Map<String,String> properties;
     
     /**
-     * Name of parent Schema relative to its parent Catalog.
+     
+     */
+    @JsonProperty("row_filter")
+    private TableRowFilter rowFilter;
+    
+    /**
+     * Name of parent schema relative to its parent catalog.
      */
     @JsonProperty("schema_name")
     private String schemaName;
@@ -99,19 +117,26 @@ public class TableInfo {
     private String sqlPath;
     
     /**
-     * Name of the storage credential this table used
+     * Name of the storage credential, when a storage credential is configured
+     * for use with this table.
      */
     @JsonProperty("storage_credential_name")
     private String storageCredentialName;
     
     /**
-     * Storage root URL for table (for MANAGED, EXTERNAL tables)
+     * Storage root URL for table (for **MANAGED**, **EXTERNAL** tables)
      */
     @JsonProperty("storage_location")
     private String storageLocation;
     
     /**
-     * Name of Table, relative to parent Schema.
+     
+     */
+    @JsonProperty("table_constraints")
+    private TableConstraintList tableConstraints;
+    
+    /**
+     * Name of table, relative to parent schema.
      */
     @JsonProperty("table_id")
     private String tableId;
@@ -123,22 +148,33 @@ public class TableInfo {
     private TableType tableType;
     
     /**
-     * Time at which this Table was last modified, in epoch milliseconds.
+     * Time at which this table was last modified, in epoch milliseconds.
      */
     @JsonProperty("updated_at")
     private Long updatedAt;
     
     /**
-     * Username of user who last modified the Table.
+     * Username of user who last modified the table.
      */
     @JsonProperty("updated_by")
     private String updatedBy;
     
     /**
-     * View definition SQL (when table_type == "VIEW")
+     * View definition SQL (when __table_type__ is **VIEW**,
+     * **MATERIALIZED_VIEW**, or **STREAMING_TABLE**)
      */
     @JsonProperty("view_definition")
     private String viewDefinition;
+    
+    /**
+     * View dependencies (when table_type == **VIEW** or **MATERIALIZED_VIEW**,
+     * **STREAMING_TABLE**) - when DependencyList is None, the dependency is not
+     * provided; - when DependencyList is an empty list, the dependency is
+     * provided but is empty; - when DependencyList is not an empty list,
+     * dependencies are provided and recorded.
+     */
+    @JsonProperty("view_dependencies")
+    private java.util.List<Dependency> viewDependencies;
     
     public TableInfo setCatalogName(String catalogName) {
         this.catalogName = catalogName;
@@ -203,6 +239,24 @@ public class TableInfo {
         return dataSourceFormat;
     }
     
+    public TableInfo setDeletedAt(Long deletedAt) {
+        this.deletedAt = deletedAt;
+        return this;
+    }
+
+    public Long getDeletedAt() {
+        return deletedAt;
+    }
+    
+    public TableInfo setDeltaRuntimePropertiesKvpairs(Object /* MISSING TYPE */ deltaRuntimePropertiesKvpairs) {
+        this.deltaRuntimePropertiesKvpairs = deltaRuntimePropertiesKvpairs;
+        return this;
+    }
+
+    public Object /* MISSING TYPE */ getDeltaRuntimePropertiesKvpairs() {
+        return deltaRuntimePropertiesKvpairs;
+    }
+    
     public TableInfo setFullName(String fullName) {
         this.fullName = fullName;
         return this;
@@ -248,6 +302,15 @@ public class TableInfo {
         return properties;
     }
     
+    public TableInfo setRowFilter(TableRowFilter rowFilter) {
+        this.rowFilter = rowFilter;
+        return this;
+    }
+
+    public TableRowFilter getRowFilter() {
+        return rowFilter;
+    }
+    
     public TableInfo setSchemaName(String schemaName) {
         this.schemaName = schemaName;
         return this;
@@ -282,6 +345,15 @@ public class TableInfo {
 
     public String getStorageLocation() {
         return storageLocation;
+    }
+    
+    public TableInfo setTableConstraints(TableConstraintList tableConstraints) {
+        this.tableConstraints = tableConstraints;
+        return this;
+    }
+
+    public TableConstraintList getTableConstraints() {
+        return tableConstraints;
     }
     
     public TableInfo setTableId(String tableId) {
@@ -327,6 +399,15 @@ public class TableInfo {
 
     public String getViewDefinition() {
         return viewDefinition;
+    }
+    
+    public TableInfo setViewDependencies(java.util.List<Dependency> viewDependencies) {
+        this.viewDependencies = viewDependencies;
+        return this;
+    }
+
+    public java.util.List<Dependency> getViewDependencies() {
+        return viewDependencies;
     }
     
 }

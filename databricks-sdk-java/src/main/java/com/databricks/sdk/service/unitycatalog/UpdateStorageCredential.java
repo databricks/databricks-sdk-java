@@ -31,13 +31,20 @@ public class UpdateStorageCredential {
     private String comment;
     
     /**
+     * Force update even if there are dependent external locations or external
+     * tables.
+     */
+    @JsonProperty("force")
+    private Boolean force;
+    
+    /**
      * The GCP service account key configuration.
      */
     @JsonProperty("gcp_service_account_key")
     private GcpServiceAccountKey gcpServiceAccountKey;
     
     /**
-     * The credential name. The name MUST be unique within the Metastore.
+     * The credential name. The name must be unique within the metastore.
      */
     @JsonProperty("name")
     private String name;
@@ -47,6 +54,19 @@ public class UpdateStorageCredential {
      */
     @JsonProperty("owner")
     private String owner;
+    
+    /**
+     * Whether the storage credential is only usable for read operations.
+     */
+    @JsonProperty("read_only")
+    private Boolean readOnly;
+    
+    /**
+     * Supplying true to this argument skips validation of the updated
+     * credential.
+     */
+    @JsonProperty("skip_validation")
+    private Boolean skipValidation;
     
     public UpdateStorageCredential setAwsIamRole(AwsIamRole awsIamRole) {
         this.awsIamRole = awsIamRole;
@@ -75,6 +95,15 @@ public class UpdateStorageCredential {
         return comment;
     }
     
+    public UpdateStorageCredential setForce(Boolean force) {
+        this.force = force;
+        return this;
+    }
+
+    public Boolean getForce() {
+        return force;
+    }
+    
     public UpdateStorageCredential setGcpServiceAccountKey(GcpServiceAccountKey gcpServiceAccountKey) {
         this.gcpServiceAccountKey = gcpServiceAccountKey;
         return this;
@@ -100,6 +129,24 @@ public class UpdateStorageCredential {
 
     public String getOwner() {
         return owner;
+    }
+    
+    public UpdateStorageCredential setReadOnly(Boolean readOnly) {
+        this.readOnly = readOnly;
+        return this;
+    }
+
+    public Boolean getReadOnly() {
+        return readOnly;
+    }
+    
+    public UpdateStorageCredential setSkipValidation(Boolean skipValidation) {
+        this.skipValidation = skipValidation;
+        return this;
+    }
+
+    public Boolean getSkipValidation() {
+        return skipValidation;
     }
     
 }

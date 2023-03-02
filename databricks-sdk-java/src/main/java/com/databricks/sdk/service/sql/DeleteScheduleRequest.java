@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Delete a refresh schedule
+ * [DEPRECATED] Delete a refresh schedule
  */
 @Generated("databricks-sdk-generator")
 public class DeleteScheduleRequest {

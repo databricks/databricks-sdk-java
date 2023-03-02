@@ -19,13 +19,13 @@ public class CreateExternalLocation {
     private String comment;
     
     /**
-     * Current name of the Storage Credential this location uses.
+     * Name of the storage credential used with this location.
      */
     @JsonProperty("credential_name")
     private String credentialName;
     
     /**
-     * Name of the External Location.
+     * Name of the external location.
      */
     @JsonProperty("name")
     private String name;
@@ -44,7 +44,7 @@ public class CreateExternalLocation {
     private Boolean skipValidation;
     
     /**
-     * Path URL of the External Location.
+     * Path URL of the external location.
      */
     @JsonProperty("url")
     private String url;

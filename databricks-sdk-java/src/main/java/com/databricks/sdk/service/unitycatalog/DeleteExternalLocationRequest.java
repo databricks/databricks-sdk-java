@@ -21,7 +21,7 @@ public class DeleteExternalLocationRequest {
     private Boolean force;
     
     /**
-     * Required. Name of the storage credential.
+     * Name of the external location.
      */
     
     private String name;

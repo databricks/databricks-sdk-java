@@ -19,40 +19,46 @@ public class ShareInfo {
     private String comment;
     
     /**
-     * Time at which this Share was created, in epoch milliseconds.
+     * Time at which this share was created, in epoch milliseconds.
      */
     @JsonProperty("created_at")
     private Long createdAt;
     
     /**
-     * Username of Share creator.
+     * Username of share creator.
      */
     @JsonProperty("created_by")
     private String createdBy;
     
     /**
-     * Name of the Share.
+     * Name of the share.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * A list of shared data objects within the Share.
+     * A list of shared data objects within the share.
      */
     @JsonProperty("objects")
     private java.util.List<SharedDataObject> objects;
     
     /**
-     * Username of current owner of Share.
+     * Username of current owner of share.
      */
     @JsonProperty("owner")
     private String owner;
     
     /**
-     * Array of shared data object updates.
+     * Time at which this share was updated, in epoch milliseconds.
      */
-    @JsonProperty("updates")
-    private java.util.List<SharedDataObjectUpdate> updates;
+    @JsonProperty("updated_at")
+    private Long updatedAt;
+    
+    /**
+     * Username of share updater.
+     */
+    @JsonProperty("updated_by")
+    private String updatedBy;
     
     public ShareInfo setComment(String comment) {
         this.comment = comment;
@@ -108,13 +114,22 @@ public class ShareInfo {
         return owner;
     }
     
-    public ShareInfo setUpdates(java.util.List<SharedDataObjectUpdate> updates) {
-        this.updates = updates;
+    public ShareInfo setUpdatedAt(Long updatedAt) {
+        this.updatedAt = updatedAt;
         return this;
     }
 
-    public java.util.List<SharedDataObjectUpdate> getUpdates() {
-        return updates;
+    public Long getUpdatedAt() {
+        return updatedAt;
+    }
+    
+    public ShareInfo setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+        return this;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
     }
     
 }

@@ -13,14 +13,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class ListTableSummariesResponse {
     /**
-     * Optional. Opaque token for pagination. Empty if there's no more page.
+     * Opaque token for pagination. Omitted if there are no more results.
      */
     @JsonProperty("next_page_token")
     private String nextPageToken;
     
     /**
-     * Only name, catalog_name, schema_name, full_name and table_type will be
-     * set.
+     * List of table summaries.
      */
     @JsonProperty("tables")
     private java.util.List<TableSummary> tables;

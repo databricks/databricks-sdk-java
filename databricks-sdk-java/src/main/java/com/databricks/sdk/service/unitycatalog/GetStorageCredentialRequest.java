@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class GetStorageCredentialRequest {
     /**
-     * Required. Name of the storage credential.
+     * Name of the storage credential.
      */
     
     private String name;

@@ -13,55 +13,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class UpdateSchema {
     /**
-     * Name of parent Catalog.
-     */
-    @JsonProperty("catalog_name")
-    private String catalogName;
-    
-    /**
      * User-provided free-form text description.
      */
     @JsonProperty("comment")
     private String comment;
     
     /**
-     * Required. Full name of the schema (from URL).
+     * Full name of the schema.
      */
     
     private String fullName;
     
     /**
-     * Name of Schema, relative to parent Catalog.
+     * Name of schema, relative to parent catalog.
      */
     @JsonProperty("name")
     private String name;
     
     /**
-     * Username of current owner of Schema.
+     * Username of current owner of schema.
      */
     @JsonProperty("owner")
     private String owner;
     
     /**
-     
+     * A map of key-value properties attached to the securable.
      */
     @JsonProperty("properties")
     private Map<String,String> properties;
-    
-    /**
-     * Storage root URL for managed tables within schema.
-     */
-    @JsonProperty("storage_root")
-    private String storageRoot;
-    
-    public UpdateSchema setCatalogName(String catalogName) {
-        this.catalogName = catalogName;
-        return this;
-    }
-
-    public String getCatalogName() {
-        return catalogName;
-    }
     
     public UpdateSchema setComment(String comment) {
         this.comment = comment;
@@ -106,15 +85,6 @@ public class UpdateSchema {
 
     public Map<String,String> getProperties() {
         return properties;
-    }
-    
-    public UpdateSchema setStorageRoot(String storageRoot) {
-        this.storageRoot = storageRoot;
-        return this;
-    }
-
-    public String getStorageRoot() {
-        return storageRoot;
     }
     
 }

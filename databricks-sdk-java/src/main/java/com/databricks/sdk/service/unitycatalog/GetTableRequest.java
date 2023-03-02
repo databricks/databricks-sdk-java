@@ -15,10 +15,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class GetTableRequest {
     /**
-     * Required. Full name of the Table (from URL).
+     * Full name of the table.
      */
     
     private String fullName;
+    
+    /**
+     * Whether delta metadata should be included in the response.
+     */
+    @QueryParam("include_delta_metadata")
+    private Boolean includeDeltaMetadata;
     
     public GetTableRequest setFullName(String fullName) {
         this.fullName = fullName;
@@ -27,6 +33,15 @@ public class GetTableRequest {
 
     public String getFullName() {
         return fullName;
+    }
+    
+    public GetTableRequest setIncludeDeltaMetadata(Boolean includeDeltaMetadata) {
+        this.includeDeltaMetadata = includeDeltaMetadata;
+        return this;
+    }
+
+    public Boolean getIncludeDeltaMetadata() {
+        return includeDeltaMetadata;
     }
     
 }

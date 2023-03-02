@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * The scope of Delta Sharing enabled for the Metastore
+ * The scope of Delta Sharing enabled for the metastore.
  */
 public enum GetMetastoreSummaryResponseDeltaSharingScope{
     INTERNAL,

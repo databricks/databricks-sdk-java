@@ -40,16 +40,17 @@ public class QueryPostContent {
     private Object /* MISSING TYPE */ options;
     
     /**
+     * The identifier of the workspace folder containing the query. The default
+     * is the user's home folder.
+     */
+    @JsonProperty("parent")
+    private String parent;
+    
+    /**
      * The text of the query.
      */
     @JsonProperty("query")
     private String query;
-    
-    /**
-     
-     */
-    
-    private String queryId;
     
     /**
      * JSON object that describes the scheduled execution frequency. A schedule
@@ -96,6 +97,15 @@ public class QueryPostContent {
         return options;
     }
     
+    public QueryPostContent setParent(String parent) {
+        this.parent = parent;
+        return this;
+    }
+
+    public String getParent() {
+        return parent;
+    }
+    
     public QueryPostContent setQuery(String query) {
         this.query = query;
         return this;
@@ -103,15 +113,6 @@ public class QueryPostContent {
 
     public String getQuery() {
         return query;
-    }
-    
-    public QueryPostContent setQueryId(String queryId) {
-        this.queryId = queryId;
-        return this;
-    }
-
-    public String getQueryId() {
-        return queryId;
     }
     
     public QueryPostContent setSchedule(QueryInterval schedule) {

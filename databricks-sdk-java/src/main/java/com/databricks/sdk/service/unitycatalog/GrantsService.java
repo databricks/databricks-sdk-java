@@ -12,10 +12,6 @@ import java.util.Map;
  * the object. Securable objects in Unity Catalog are hierarchical and
  * privileges are inherited downward.
  * 
- * Initially, users have no access to data in a metastore. Access can be granted
- * by either a metastore admin, the owner of an object, or the owner of the
- * catalog or schema that contains the object.
- * 
  * Securable objects in Unity Catalog are hierarchical and privileges are
  * inherited downward. This means that granting a privilege on the catalog
  * automatically grants the privilege to all current and future objects within
@@ -31,15 +27,22 @@ public interface GrantsService {
 	/**
      * Get permissions.
      * 
-     * Gets the permissions for a Securable type.
+     * Gets the permissions for a securable.
      */
-    GetPermissionsResponse get(GetGrantRequest getGrantRequest);
+    PermissionsList get(GetGrantRequest getGrantRequest);
+    
+	/**
+     * Get effective permissions.
+     * 
+     * Gets the effective permissions for a securable.
+     */
+    EffectivePermissionsList getEffective(GetEffectiveRequest getEffectiveRequest);
     
 	/**
      * Update permissions.
      * 
-     * Updates the permissions for a Securable type.
+     * Updates the permissions for a securable.
      */
-    void update(UpdatePermissions updatePermissions);
+    PermissionsList update(UpdatePermissions updatePermissions);
     
 }

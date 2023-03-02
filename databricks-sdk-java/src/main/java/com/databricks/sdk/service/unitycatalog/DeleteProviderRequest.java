@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class DeleteProviderRequest {
     /**
-     * Required. Name of the provider.
+     * Name of the provider.
      */
     
     private String name;

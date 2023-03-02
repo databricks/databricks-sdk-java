@@ -34,8 +34,8 @@ public class Workspace {
      * The general workspace configurations that are specific to cloud
      * providers.
      */
-    @JsonProperty("cloud_resource_bucket")
-    private CloudResourceBucket cloudResourceBucket;
+    @JsonProperty("cloud_resource_container")
+    private CloudResourceContainer cloudResourceContainer;
     
     /**
      * Time in epoch milliseconds when the workspace was created.
@@ -61,6 +61,40 @@ public class Workspace {
     private String deploymentName;
     
     /**
+     * The network settings for the workspace. The configurations are only for
+     * Databricks-managed VPCs. It is ignored if you specify a customer-managed
+     * VPC in the `network_id` field.", All the IP range configurations must be
+     * mutually exclusive. An attempt to create a workspace fails if Databricks
+     * detects an IP range overlap.
+     * 
+     * Specify custom IP ranges in CIDR format. The IP ranges for these fields
+     * must not overlap, and all IP addresses must be entirely within the
+     * following ranges: `10.0.0.0/8`, `100.64.0.0/10`, `172.16.0.0/12`,
+     * `192.168.0.0/16`, and `240.0.0.0/4`.
+     * 
+     * The sizes of these IP ranges affect the maximum number of nodes for the
+     * workspace.
+     * 
+     * **Important**: Confirm the IP ranges used by your Databricks workspace
+     * before creating the workspace. You cannot change them after your
+     * workspace is deployed. If the IP address ranges for your Databricks are
+     * too small, IP exhaustion can occur, causing your Databricks jobs to fail.
+     * To determine the address range sizes that you need, Databricks provides a
+     * calculator as a Microsoft Excel spreadsheet. See [calculate subnet sizes
+     * for a new workspace].
+     * 
+     * [calculate subnet sizes for a new workspace]: https://docs.gcp.databricks.com/administration-guide/cloud-configurations/gcp/network-sizing.html
+     */
+    @JsonProperty("gcp_managed_network_config")
+    private GcpManagedNetworkConfig gcpManagedNetworkConfig;
+    
+    /**
+     * The configurations for the GKE cluster of a Databricks workspace.
+     */
+    @JsonProperty("gke_config")
+    private GkeConfig gkeConfig;
+    
+    /**
      * The Google Cloud region of the workspace data plane in your Google
      * account (for example, `us-east4`).
      */
@@ -74,10 +108,11 @@ public class Workspace {
     private String managedServicesCustomerManagedKeyId;
     
     /**
-     
+     * The network configuration ID that is attached to the workspace. This
+     * field is available only if the network is a customer-managed network.
      */
-    @JsonProperty("network")
-    private GcpNetwork network;
+    @JsonProperty("network_id")
+    private String networkId;
     
     /**
      * The pricing tier of the workspace. For pricing tier information, see [AWS
@@ -117,7 +152,7 @@ public class Workspace {
     private String storageCustomerManagedKeyId;
     
     /**
-     * Workspace ID.
+     * A unique integer ID for the workspace
      */
     @JsonProperty("workspace_id")
     private Long workspaceId;
@@ -169,13 +204,13 @@ public class Workspace {
         return cloud;
     }
     
-    public Workspace setCloudResourceBucket(CloudResourceBucket cloudResourceBucket) {
-        this.cloudResourceBucket = cloudResourceBucket;
+    public Workspace setCloudResourceContainer(CloudResourceContainer cloudResourceContainer) {
+        this.cloudResourceContainer = cloudResourceContainer;
         return this;
     }
 
-    public CloudResourceBucket getCloudResourceBucket() {
-        return cloudResourceBucket;
+    public CloudResourceContainer getCloudResourceContainer() {
+        return cloudResourceContainer;
     }
     
     public Workspace setCreationTime(Long creationTime) {
@@ -205,6 +240,24 @@ public class Workspace {
         return deploymentName;
     }
     
+    public Workspace setGcpManagedNetworkConfig(GcpManagedNetworkConfig gcpManagedNetworkConfig) {
+        this.gcpManagedNetworkConfig = gcpManagedNetworkConfig;
+        return this;
+    }
+
+    public GcpManagedNetworkConfig getGcpManagedNetworkConfig() {
+        return gcpManagedNetworkConfig;
+    }
+    
+    public Workspace setGkeConfig(GkeConfig gkeConfig) {
+        this.gkeConfig = gkeConfig;
+        return this;
+    }
+
+    public GkeConfig getGkeConfig() {
+        return gkeConfig;
+    }
+    
     public Workspace setLocation(String location) {
         this.location = location;
         return this;
@@ -223,13 +276,13 @@ public class Workspace {
         return managedServicesCustomerManagedKeyId;
     }
     
-    public Workspace setNetwork(GcpNetwork network) {
-        this.network = network;
+    public Workspace setNetworkId(String networkId) {
+        this.networkId = networkId;
         return this;
     }
 
-    public GcpNetwork getNetwork() {
-        return network;
+    public String getNetworkId() {
+        return networkId;
     }
     
     public Workspace setPricingTier(PricingTier pricingTier) {

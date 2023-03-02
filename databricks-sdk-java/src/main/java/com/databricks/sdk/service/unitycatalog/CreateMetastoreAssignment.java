@@ -13,19 +13,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated("databricks-sdk-generator")
 public class CreateMetastoreAssignment {
     /**
-     * The name of the default catalog in the Metastore.
+     * The name of the default catalog in the metastore.
      */
     @JsonProperty("default_catalog_name")
     private String defaultCatalogName;
     
     /**
-     * The ID of the Metastore.
+     * The unique ID of the metastore.
      */
     @JsonProperty("metastore_id")
     private String metastoreId;
     
     /**
-     * A workspace ID.
+     * Workspace ID.
      */
     
     private Long workspaceId;
