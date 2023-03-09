@@ -4,13 +4,11 @@ package com.databricks.sdk.service.clusterpolicies;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class ListPolicyFamiliesResponse {
     /**
      * A token that can be used to get the next page of results. If not present,

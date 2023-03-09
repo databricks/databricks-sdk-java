@@ -4,13 +4,11 @@ package com.databricks.sdk.service.deployment;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class VpcEndpoint {
     /**
      * The Databricks account ID that hosts the VPC endpoint configuration.

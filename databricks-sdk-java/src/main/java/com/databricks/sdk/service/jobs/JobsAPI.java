@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.jobs;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,6 @@ import com.databricks.sdk.client.DatabricksException;
  * [Databricks CLI]: https://docs.databricks.com/dev-tools/cli/index.html
  * [Secrets utility]: https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
  */
-@Generated("databricks-sdk-generator")
 public class JobsAPI implements JobsService {
     private final ApiClient apiClient;
 

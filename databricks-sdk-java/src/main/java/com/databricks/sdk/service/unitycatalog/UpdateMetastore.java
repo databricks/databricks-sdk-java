@@ -4,13 +4,11 @@ package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class UpdateMetastore {
     /**
      * The organization name of a Delta Sharing entity, to be used in

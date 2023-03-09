@@ -4,7 +4,6 @@ package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * A dependency of a SQL object. Either the __table__ field or the __function__
  * field must be defined.
  */
-@Generated("databricks-sdk-generator")
 public class Dependency {
     /**
      * A function that is dependent on a SQL object.

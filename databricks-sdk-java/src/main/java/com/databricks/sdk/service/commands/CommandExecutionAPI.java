@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.commands;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import com.databricks.sdk.client.DatabricksException;
  * This API allows execution of Python, Scala, SQL, or R commands on running
  * Databricks Clusters.
  */
-@Generated("databricks-sdk-generator")
 public class CommandExecutionAPI implements CommandExecutionService {
     private final ApiClient apiClient;
 

@@ -4,13 +4,11 @@ package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class SchemaInfo {
     /**
      * Name of parent catalog.
@@ -41,6 +39,19 @@ public class SchemaInfo {
      */
     @JsonProperty("created_by")
     private String createdBy;
+    
+    /**
+     
+     */
+    @JsonProperty("effective_auto_maintenance_flag")
+    private EffectiveAutoMaintenanceFlag effectiveAutoMaintenanceFlag;
+    
+    /**
+     * Whether auto maintenance should be enabled for this object and objects
+     * under it.
+     */
+    @JsonProperty("enable_auto_maintenance")
+    private EnableAutoMaintenance enableAutoMaintenance;
     
     /**
      * Full name of schema, in form of __catalog_name__.__schema_name__.
@@ -139,6 +150,24 @@ public class SchemaInfo {
 
     public String getCreatedBy() {
         return createdBy;
+    }
+    
+    public SchemaInfo setEffectiveAutoMaintenanceFlag(EffectiveAutoMaintenanceFlag effectiveAutoMaintenanceFlag) {
+        this.effectiveAutoMaintenanceFlag = effectiveAutoMaintenanceFlag;
+        return this;
+    }
+
+    public EffectiveAutoMaintenanceFlag getEffectiveAutoMaintenanceFlag() {
+        return effectiveAutoMaintenanceFlag;
+    }
+    
+    public SchemaInfo setEnableAutoMaintenance(EnableAutoMaintenance enableAutoMaintenance) {
+        this.enableAutoMaintenance = enableAutoMaintenance;
+        return this;
+    }
+
+    public EnableAutoMaintenance getEnableAutoMaintenance() {
+        return enableAutoMaintenance;
     }
     
     public SchemaInfo setFullName(String fullName) {

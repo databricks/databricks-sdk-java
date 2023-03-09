@@ -254,10 +254,6 @@ public class DatabricksWorkspace {
      * is a Databricks SQL object that periodically runs a query, evaluates a
      * condition of its result, and notifies one or more users and/or alert
      * destinations if the condition was met.
-     * 
-     * **Note**: Programmatic operations on refresh schedules via the Databricks
-     * SQL API are deprecated. Alert refresh schedules can be created, updated,
-     * fetched and deleted using Jobs API, e.g. :method:jobs/create.
      */
     public AlertsService alerts() {
         return alertsService;
@@ -362,10 +358,6 @@ public class DatabricksWorkspace {
      * collection of related query IDs. The API can also be used to duplicate
      * multiple dashboards at once since you can get a dashboard definition with
      * a GET request and then POST it to create a new one.
-     * 
-     * **Note**: Programmatic operations on refresh schedules via the Databricks
-     * SQL API are deprecated. Dashboard refresh schedules can be created,
-     * updated, fetched and deleted using Jobs API, e.g. :method:jobs/create.
      */
     public DashboardsService dashboards() {
         return dashboardsService;
@@ -731,11 +723,7 @@ public class DatabricksWorkspace {
     /**
      * These endpoints are used for CRUD operations on query definitions. Query
      * definitions include the target SQL warehouse, query text, name,
-     * description, tags, execution schedule, parameters, and visualizations.
-     * 
-     * **Note**: Programmatic operations on refresh schedules via the Databricks
-     * SQL API are deprecated. Query refresh schedules can be created, updated,
-     * fetched and deleted using Jobs API, e.g. :method:jobs/create.
+     * description, tags, parameters, and visualizations.
      */
     public QueriesService queries() {
         return queriesService;
@@ -832,8 +820,8 @@ public class DatabricksWorkspace {
     }
     
     /**
-     * The Serverless Real-Time Inference Serving Endpoints API allows you to
-     * create, update, and delete model serving endpoints.
+     * The Serving Endpoints API allows you to create, update, and delete model
+     * serving endpoints.
      * 
      * You can use a serving endpoint to serve models from the Databricks Model
      * Registry. Endpoints expose the underlying models as scalable REST API
@@ -881,7 +869,7 @@ public class DatabricksWorkspace {
      * 5-50 seconds (default: 10) the call behaves synchronously and waits for
      * results up to the specified timeout; when set to `0s`, the call is
      * asynchronous and responds immediately with a statement ID that can be
-     * used to fetch the results in a separate call.
+     * used to poll for status or fetch the results in a separate call.
      * 
      * **Call mode: synchronous**
      * 
@@ -970,8 +958,8 @@ public class DatabricksWorkspace {
      * :method:statementexecution/getStatementResultChunkN request.
      * 
      * When using this mode, each chunk may be fetched once, and in order. A
-     * chunk without a field `next_chunk_internal_link` indicates we reached the
-     * last chunk and all chunks have been fetched from the result set.
+     * chunk without a field `next_chunk_internal_link` indicates the last chunk
+     * was reached and all chunks have been fetched from the result set.
      * 
      * **Use case: large result sets with EXTERNAL_LINKS + ARROW_STREAM**
      * 

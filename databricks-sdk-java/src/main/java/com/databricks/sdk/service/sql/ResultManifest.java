@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * The result manifest provides schema and metadata for the result set.
  */
-@Generated("databricks-sdk-generator")
 public class ResultManifest {
     /**
      * Array of result set chunk metadata.
@@ -44,9 +42,9 @@ public class ResultManifest {
      * 
      * When specifying `format=ARROW_STREAM`, results fetched through
      * `external_links` will be chunks of result data, formatted as Apache Arrow
-     * Stream. See
-     * [https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format]
-     * for more details.
+     * Stream. See [Apache Arrow Streaming Format] for more details.
+     * 
+     * [Apache Arrow Streaming Format]: https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format
      */
     @JsonProperty("format")
     private Format format;

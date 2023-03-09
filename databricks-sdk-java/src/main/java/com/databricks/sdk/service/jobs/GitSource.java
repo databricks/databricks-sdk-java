@@ -4,7 +4,6 @@ package com.databricks.sdk.service.jobs;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * An optional specification for a remote repository containing the notebooks
  * used by this job's notebook tasks.
  */
-@Generated("databricks-sdk-generator")
 public class GitSource {
     /**
      * Name of the branch to be checked out and used by this job. This field

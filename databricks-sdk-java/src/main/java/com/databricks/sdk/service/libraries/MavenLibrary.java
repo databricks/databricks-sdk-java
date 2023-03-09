@@ -4,13 +4,11 @@ package com.databricks.sdk.service.libraries;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class MavenLibrary {
     /**
      * Gradle-style maven coordinates. For example: "org.jsoup:jsoup:1.7.2".

@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.mlflow;
 
-import javax.annotation.Generated;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import java.util.Map;
  *
  * Evolving: this interface is under development. Method signatures may change.
  */
-@Generated("databricks-sdk-generator")
 public interface ExperimentsService {
 	/**
      * Create experiment.
@@ -51,8 +49,8 @@ public interface ExperimentsService {
      * 
      * This endpoint will return deleted experiments, but prefers the active
      * experiment if an active and deleted experiment share the same name. If
-     * multiple deleted\nexperiments share the same name, the API will return
-     * one of them.
+     * multiple deleted experiments share the same name, the API will return one
+     * of them.
      * 
      * Throws `RESOURCE_DOES_NOT_EXIST` if no experiment with the specified name
      * exists.S
@@ -69,11 +67,12 @@ public interface ExperimentsService {
 	/**
      * Restores an experiment.
      * 
-     * "Restore an experiment marked for deletion. This also
-     * restores\nassociated metadata, runs, metrics, params, and tags. If
-     * experiment uses FileStore, underlying\nartifacts associated with
-     * experiment are also restored.\n\nThrows `RESOURCE_DOES_NOT_EXIST` if
-     * experiment was never created or was permanently deleted.",
+     * "Restore an experiment marked for deletion. This also restores associated
+     * metadata, runs, metrics, params, and tags. If experiment uses FileStore,
+     * underlying artifacts associated with experiment are also restored.
+     * 
+     * Throws `RESOURCE_DOES_NOT_EXIST` if experiment was never created or was
+     * permanently deleted.",
      */
     void restore(RestoreExperiment restoreExperiment);
     

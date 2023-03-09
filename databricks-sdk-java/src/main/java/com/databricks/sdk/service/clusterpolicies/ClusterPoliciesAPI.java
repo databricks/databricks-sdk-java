@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.clusterpolicies;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -37,7 +36,6 @@ import com.databricks.sdk.client.DatabricksException;
  * Only admin users can create, edit, and delete policies. Admin users also have
  * access to all policies.
  */
-@Generated("databricks-sdk-generator")
 public class ClusterPoliciesAPI implements ClusterPoliciesService {
     private final ApiClient apiClient;
 

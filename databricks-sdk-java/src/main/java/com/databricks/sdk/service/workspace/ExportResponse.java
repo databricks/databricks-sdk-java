@@ -4,13 +4,11 @@ package com.databricks.sdk.service.workspace;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class ExportResponse {
     /**
      * The base64-encoded content. If the limit (10MB) is exceeded, exception

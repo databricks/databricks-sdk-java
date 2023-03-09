@@ -4,13 +4,11 @@ package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class CatalogInfo {
     /**
      * The type of the catalog.
@@ -35,6 +33,19 @@ public class CatalogInfo {
      */
     @JsonProperty("created_by")
     private String createdBy;
+    
+    /**
+     
+     */
+    @JsonProperty("effective_auto_maintenance_flag")
+    private EffectiveAutoMaintenanceFlag effectiveAutoMaintenanceFlag;
+    
+    /**
+     * Whether auto maintenance should be enabled for this object and objects
+     * under it.
+     */
+    @JsonProperty("enable_auto_maintenance")
+    private EnableAutoMaintenance enableAutoMaintenance;
     
     /**
      * Unique identifier of parent metastore.
@@ -133,6 +144,24 @@ public class CatalogInfo {
 
     public String getCreatedBy() {
         return createdBy;
+    }
+    
+    public CatalogInfo setEffectiveAutoMaintenanceFlag(EffectiveAutoMaintenanceFlag effectiveAutoMaintenanceFlag) {
+        this.effectiveAutoMaintenanceFlag = effectiveAutoMaintenanceFlag;
+        return this;
+    }
+
+    public EffectiveAutoMaintenanceFlag getEffectiveAutoMaintenanceFlag() {
+        return effectiveAutoMaintenanceFlag;
+    }
+    
+    public CatalogInfo setEnableAutoMaintenance(EnableAutoMaintenance enableAutoMaintenance) {
+        this.enableAutoMaintenance = enableAutoMaintenance;
+        return this;
+    }
+
+    public EnableAutoMaintenance getEnableAutoMaintenance() {
+        return enableAutoMaintenance;
     }
     
     public CatalogInfo setMetastoreId(String metastoreId) {

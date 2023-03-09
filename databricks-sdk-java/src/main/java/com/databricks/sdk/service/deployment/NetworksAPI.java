@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import com.databricks.sdk.client.DatabricksException;
  * (optional). Its ID is used when creating a new workspace if you use
  * customer-managed VPCs.
  */
-@Generated("databricks-sdk-generator")
 public class NetworksAPI implements NetworksService {
     private final ApiClient apiClient;
 

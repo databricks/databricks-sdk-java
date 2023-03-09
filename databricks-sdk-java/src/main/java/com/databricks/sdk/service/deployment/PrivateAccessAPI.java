@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ import com.databricks.sdk.client.DatabricksException;
  * 
  * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
  */
-@Generated("databricks-sdk-generator")
 public class PrivateAccessAPI implements PrivateAccessService {
     private final ApiClient apiClient;
 
@@ -46,11 +44,6 @@ public class PrivateAccessAPI implements PrivateAccessService {
      * Before configuring PrivateLink, read the [Databricks article about
      * PrivateLink].
      * 
-     * This operation is available only if your account is on the E2 version of
-     * the platform and your Databricks account is enabled for PrivateLink
-     * (Public Preview). Contact your Databricks representative to enable your
-     * account for PrivateLink.
-     * 
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
      */
@@ -68,11 +61,6 @@ public class PrivateAccessAPI implements PrivateAccessService {
      * 
      * Before configuring PrivateLink, read the [Databricks article about
      * PrivateLink].
-     * 
-     * This operation is available only if your account is on the E2 version of
-     * the platform and your Databricks account is enabled for PrivateLink
-     * (Public Preview). Contact your Databricks representative to enable your
-     * account for PrivateLink.
      * 
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
@@ -92,11 +80,6 @@ public class PrivateAccessAPI implements PrivateAccessService {
      * Before configuring PrivateLink, read the [Databricks article about
      * PrivateLink].
      * 
-     * This operation is available only if your account is on the E2 version of
-     * the platform and your Databricks account is enabled for PrivateLink
-     * (Public Preview). Contact your Databricks representative to enable your
-     * account for PrivateLink.
-     * 
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
      */
@@ -111,11 +94,6 @@ public class PrivateAccessAPI implements PrivateAccessService {
      * 
      * Gets a list of all private access settings objects for an account,
      * specified by ID.
-     * 
-     * This operation is available only if your account is on the E2 version of
-     * the platform and your Databricks account is enabled for AWS PrivateLink
-     * (Public Preview). Contact your Databricks representative to enable your
-     * account for PrivateLink.
      */
     @Override
     public List<PrivateAccessSettings> list() {
@@ -137,19 +115,15 @@ public class PrivateAccessAPI implements PrivateAccessService {
      * the private access settings are affected by any change. If
      * `public_access_enabled`, `private_access_level`, or
      * `allowed_vpc_endpoint_ids` are updated, effects of these changes might
-     * take several minutes to propagate to the workspace API. You can share one
-     * private access settings object with multiple workspaces in a single
-     * account. However, private access settings are specific to AWS regions, so
-     * only workspaces in the same AWS region can use a given private access
-     * settings object.
+     * take several minutes to propagate to the workspace API.
+     * 
+     * You can share one private access settings object with multiple workspaces
+     * in a single account. However, private access settings are specific to AWS
+     * regions, so only workspaces in the same AWS region can use a given
+     * private access settings object.
      * 
      * Before configuring PrivateLink, read the [Databricks article about
      * PrivateLink].
-     * 
-     * This operation is available only if your account is on the E2 version of
-     * the platform and your Databricks account is enabled for PrivateLink
-     * (Public Preview). Contact your Databricks representative to enable your
-     * account for PrivateLink.
      * 
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html

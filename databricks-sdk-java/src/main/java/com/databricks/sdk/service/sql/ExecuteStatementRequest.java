@@ -4,18 +4,16 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class ExecuteStatementRequest {
     /**
-     * Applies given byte limit to execution and result size; byte counts based
-     * upon internal representations, and may not match measureable sizes in
-     * requested `format`.
+     * Applies the given byte limit to the statement's result size. Byte counts
+     * are based on internal representations and may not match measurable sizes
+     * in the requested `format`.
      */
     @JsonProperty("byte_limit")
     private Long byteLimit;
@@ -30,8 +28,8 @@ public class ExecuteStatementRequest {
     private String catalog;
     
     /**
-     * The fetch disposition provides for two modes of fetching results:
-     * `INLINE`, and `EXTERNAL_LINKS`.
+     * The fetch disposition provides two modes of fetching results: `INLINE`
+     * and `EXTERNAL_LINKS`.
      * 
      * Statements executed with `INLINE` disposition will return result data
      * inline, in `JSON_ARRAY` format, in a series of chunks. If a given
@@ -84,30 +82,25 @@ public class ExecuteStatementRequest {
      * 
      * When specifying `format=ARROW_STREAM`, results fetched through
      * `external_links` will be chunks of result data, formatted as Apache Arrow
-     * Stream. See
-     * [https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format]
-     * for more details.
+     * Stream. See [Apache Arrow Streaming Format] for more details.
+     * 
+     * [Apache Arrow Streaming Format]: https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format
      */
     @JsonProperty("format")
     private Format format;
     
     /**
-     * When called in synchronous mode (`wait_timeout > 0s`), determines action
-     * when timeout reached:
+     * When in synchronous mode with `wait_timeout > 0s` it determines the
+     * action taken when the timeout is reached:
      * 
-     * `CONTINUE` → statement execution continues asynchronously; the call
-     * returns a statement ID immediately. `CANCEL` → statement execution
-     * canceled; call returns immediately with `CANCELED` state.
+     * `CONTINUE` → the statement execution continues asynchronously and the
+     * call returns a statement ID immediately.
+     * 
+     * `CANCEL` → the statement execution is canceled and the call returns
+     * immediately with a `CANCELED` state.
      */
     @JsonProperty("on_wait_timeout")
     private TimeoutAction onWaitTimeout;
-    
-    /**
-     * Applies given row limit to execution and result set, identical in
-     * semantics to SQL term `LIMIT $N`.
-     */
-    @JsonProperty("row_limit")
-    private Long rowLimit;
     
     /**
      * Sets default schema for statement execution, similar to [`USE SCHEMA`] in
@@ -125,9 +118,9 @@ public class ExecuteStatementRequest {
     private String statement;
     
     /**
-     * Time that the API service will wait for the statement result, in format
-     * '{N}s'. N may be '0s' for asynchronous, or may wait between 5-50
-     * seconds."
+     * The time in seconds the API service will wait for the statement's result
+     * set as `Ns`, where `N` can be set to 0 or to a value between 5 and 50.
+     * When set to '0s' the statement will execute in asynchronous mode."
      */
     @JsonProperty("wait_timeout")
     private String waitTimeout;
@@ -182,15 +175,6 @@ public class ExecuteStatementRequest {
 
     public TimeoutAction getOnWaitTimeout() {
         return onWaitTimeout;
-    }
-    
-    public ExecuteStatementRequest setRowLimit(Long rowLimit) {
-        this.rowLimit = rowLimit;
-        return this;
-    }
-
-    public Long getRowLimit() {
-        return rowLimit;
     }
     
     public ExecuteStatementRequest setSchema(String schema) {

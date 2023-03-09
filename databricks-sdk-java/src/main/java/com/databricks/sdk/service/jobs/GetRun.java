@@ -4,7 +4,6 @@ package com.databricks.sdk.service.jobs;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Get a single job run
  */
-@Generated("databricks-sdk-generator")
 public class GetRun {
     /**
      * Whether to include the repair history in the response.

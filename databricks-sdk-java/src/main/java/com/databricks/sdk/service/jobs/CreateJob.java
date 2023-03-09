@@ -4,13 +4,11 @@ package com.databricks.sdk.service.jobs;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class CreateJob {
     /**
      * List of permissions to set on the job.
@@ -113,6 +111,15 @@ public class CreateJob {
      */
     @JsonProperty("timeout_seconds")
     private Long timeoutSeconds;
+    
+    /**
+     * Trigger settings for the job. Can be used to trigger a run when new files
+     * arrive in an external location. The default behavior is that the job runs
+     * only when triggered by clicking “Run Now” in the Jobs UI or sending
+     * an API request to `runNow`.
+     */
+    @JsonProperty("trigger")
+    private TriggerSettings trigger;
     
     /**
      * A collection of system notification IDs to notify when the run begins or
@@ -227,6 +234,15 @@ public class CreateJob {
 
     public Long getTimeoutSeconds() {
         return timeoutSeconds;
+    }
+    
+    public CreateJob setTrigger(TriggerSettings trigger) {
+        this.trigger = trigger;
+        return this;
+    }
+
+    public TriggerSettings getTrigger() {
+        return trigger;
     }
     
     public CreateJob setWebhookNotifications(JobWebhookNotifications webhookNotifications) {

@@ -4,7 +4,6 @@ package com.databricks.sdk.service.secrets;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * List secret keys
  */
-@Generated("databricks-sdk-generator")
 public class ListSecrets {
     /**
      * The name of the scope to list secrets within.

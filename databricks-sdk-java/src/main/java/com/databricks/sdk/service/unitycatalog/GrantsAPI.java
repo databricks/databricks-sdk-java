@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,6 @@ import com.databricks.sdk.client.DatabricksException;
  * the catalog. Similarly, privileges granted on a schema are inherited by all
  * current and future objects within that schema.
  */
-@Generated("databricks-sdk-generator")
 public class GrantsAPI implements GrantsService {
     private final ApiClient apiClient;
 

@@ -4,13 +4,11 @@ package com.databricks.sdk.service.jobs;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class Job {
     /**
      * The time at which this job was created in epoch milliseconds
@@ -47,6 +45,12 @@ public class Job {
      */
     @JsonProperty("settings")
     private JobSettings settings;
+    
+    /**
+     * History of the file arrival trigger associated with the job.
+     */
+    @JsonProperty("trigger_history")
+    private TriggerHistory triggerHistory;
     
     public Job setCreatedTime(Long createdTime) {
         this.createdTime = createdTime;
@@ -91,6 +95,15 @@ public class Job {
 
     public JobSettings getSettings() {
         return settings;
+    }
+    
+    public Job setTriggerHistory(TriggerHistory triggerHistory) {
+        this.triggerHistory = triggerHistory;
+        return this;
+    }
+
+    public TriggerHistory getTriggerHistory() {
+        return triggerHistory;
     }
     
 }

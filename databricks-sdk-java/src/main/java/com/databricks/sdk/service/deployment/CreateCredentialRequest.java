@@ -4,19 +4,17 @@ package com.databricks.sdk.service.deployment;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class CreateCredentialRequest {
     /**
      
      */
     @JsonProperty("aws_credentials")
-    private AwsCredentials awsCredentials;
+    private CreateCredentialAwsCredentials awsCredentials;
     
     /**
      * The human-readable name of the credential configuration object.
@@ -24,12 +22,12 @@ public class CreateCredentialRequest {
     @JsonProperty("credentials_name")
     private String credentialsName;
     
-    public CreateCredentialRequest setAwsCredentials(AwsCredentials awsCredentials) {
+    public CreateCredentialRequest setAwsCredentials(CreateCredentialAwsCredentials awsCredentials) {
         this.awsCredentials = awsCredentials;
         return this;
     }
 
-    public AwsCredentials getAwsCredentials() {
+    public CreateCredentialAwsCredentials getAwsCredentials() {
         return awsCredentials;
     }
     

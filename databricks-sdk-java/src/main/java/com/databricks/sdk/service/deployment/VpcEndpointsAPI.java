@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,6 @@ import com.databricks.sdk.client.DatabricksException;
  * 
  * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
  */
-@Generated("databricks-sdk-generator")
 public class VpcEndpointsAPI implements VpcEndpointsService {
     private final ApiClient apiClient;
 
@@ -38,27 +36,11 @@ public class VpcEndpointsAPI implements VpcEndpointsService {
      * object in AWS used to communicate privately with Databricks over [AWS
      * PrivateLink].
      * 
-     * **Important**: When you register a VPC endpoint to the Databricks
-     * workspace VPC endpoint service for any workspace, **in this release
-     * Databricks enables front-end (web application and REST API) access from
-     * the source network of the VPC endpoint to all workspaces in that AWS
-     * region in your Databricks account if the workspaces have any PrivateLink
-     * connections in their workspace configuration**. If you have questions
-     * about this behavior, contact your Databricks representative.
-     * 
-     * Within AWS, your VPC endpoint stays in `pendingAcceptance` state until
-     * you register it in a VPC endpoint configuration through the Account API.
-     * After you register the VPC endpoint configuration, the Databricks
-     * [endpoint service] automatically accepts the VPC endpoint and it
-     * eventually transitions to the `available` state.
+     * After you create the VPC endpoint configuration, the Databricks [endpoint
+     * service] automatically accepts the VPC endpoint.
      * 
      * Before configuring PrivateLink, read the [Databricks article about
      * PrivateLink].
-     * 
-     * This operation is available only if your account is on the E2 version of
-     * the platform and your Databricks account is enabled for PrivateLink
-     * (Public Preview). Contact your Databricks representative to enable your
-     * account for PrivateLink.
      * 
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
@@ -85,11 +67,6 @@ public class VpcEndpointsAPI implements VpcEndpointsService {
      * Before configuring PrivateLink, read the [Databricks article about
      * PrivateLink].
      * 
-     * This operation is available only if your account is on the E2 version of
-     * the platform and your Databricks account is enabled for PrivateLink
-     * (Public Preview). Contact your Databricks representative to enable your
-     * account for PrivateLink.
-     * 
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [AWS VPC endpoint]: https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
@@ -107,11 +84,6 @@ public class VpcEndpointsAPI implements VpcEndpointsService {
      * object in AWS used to communicate privately with Databricks over [AWS
      * PrivateLink].
      * 
-     * This operation is available only if your account is on the E2 version of
-     * the platform and your Databricks account is enabled for PrivateLink
-     * (Public Preview). Contact your Databricks representative to enable your
-     * account for PrivateLink.
-     * 
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [VPC endpoint]: https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html
      */
@@ -128,11 +100,6 @@ public class VpcEndpointsAPI implements VpcEndpointsService {
      * 
      * Before configuring PrivateLink, read the [Databricks article about
      * PrivateLink].
-     * 
-     * This operation is available only if your account is on the E2 version of
-     * the platform and your Databricks account is enabled for PrivateLink
-     * (Public Preview). Contact your Databricks representative to enable your
-     * account for PrivateLink.
      * 
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
      */

@@ -4,7 +4,6 @@ package com.databricks.sdk.service.repos;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Get repos
  */
-@Generated("databricks-sdk-generator")
 public class List {
     /**
      * Token used to get the next page of results. If not specified, returns the

@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.secrets;
 
-import javax.annotation.Generated;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +22,6 @@ import java.util.Map;
  *
  * Evolving: this interface is under development. Method signatures may change.
  */
-@Generated("databricks-sdk-generator")
 public interface SecretsService {
 	/**
      * Create a new secret scope.
@@ -132,7 +130,7 @@ public interface SecretsService {
      * available.
      * 
      * Note that in general, secret values can only be read from within a
-     * command\non a cluster (for example, through a notebook). There is no API
+     * command on a cluster (for example, through a notebook). There is no API
      * to read the actual secret value material outside of a cluster. However,
      * the user's permission will be applied based on who is executing the
      * command, and they must have at least READ permission.

@@ -4,13 +4,11 @@ package com.databricks.sdk.service.endpoints;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class ServedModelOutput {
     /**
      * The creation timestamp of the served model in Unix time.
@@ -54,6 +52,18 @@ public class ServedModelOutput {
      */
     @JsonProperty("state")
     private ServedModelState state;
+    
+    /**
+     * The workload size of the served model. The workload size corresponds to a
+     * range of provisioned concurrency that the compute will autoscale between.
+     * A single unit of provisioned concurrency can process one request at a
+     * time. Valid workload sizes are "Small" (4 - 4 provisioned concurrency),
+     * "Medium" (8 - 16 provisioned concurrency), and "Large" (16 - 64
+     * provisioned concurrency). If scale-to-zero is enabled, the lower bound of
+     * the provisioned concurrency for each workload size will be 0.
+     */
+    @JsonProperty("workload_size")
+    private String workloadSize;
     
     public ServedModelOutput setCreationTimestamp(Long creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
@@ -116,6 +126,15 @@ public class ServedModelOutput {
 
     public ServedModelState getState() {
         return state;
+    }
+    
+    public ServedModelOutput setWorkloadSize(String workloadSize) {
+        this.workloadSize = workloadSize;
+        return this;
+    }
+
+    public String getWorkloadSize() {
+        return workloadSize;
     }
     
 }

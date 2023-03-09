@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.mlflow;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +11,6 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 
-@Generated("databricks-sdk-generator")
 public class ExperimentsAPI implements ExperimentsService {
     private final ApiClient apiClient;
 
@@ -69,8 +67,8 @@ public class ExperimentsAPI implements ExperimentsService {
      * 
      * This endpoint will return deleted experiments, but prefers the active
      * experiment if an active and deleted experiment share the same name. If
-     * multiple deleted\nexperiments share the same name, the API will return
-     * one of them.
+     * multiple deleted experiments share the same name, the API will return one
+     * of them.
      * 
      * Throws `RESOURCE_DOES_NOT_EXIST` if no experiment with the specified name
      * exists.S
@@ -95,11 +93,12 @@ public class ExperimentsAPI implements ExperimentsService {
 	/**
      * Restores an experiment.
      * 
-     * "Restore an experiment marked for deletion. This also
-     * restores\nassociated metadata, runs, metrics, params, and tags. If
-     * experiment uses FileStore, underlying\nartifacts associated with
-     * experiment are also restored.\n\nThrows `RESOURCE_DOES_NOT_EXIST` if
-     * experiment was never created or was permanently deleted.",
+     * "Restore an experiment marked for deletion. This also restores associated
+     * metadata, runs, metrics, params, and tags. If experiment uses FileStore,
+     * underlying artifacts associated with experiment are also restored.
+     * 
+     * Throws `RESOURCE_DOES_NOT_EXIST` if experiment was never created or was
+     * permanently deleted.",
      */
     @Override
     public void restore(RestoreExperiment request) {

@@ -4,7 +4,6 @@ package com.databricks.sdk.service.jobs;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Get the output for a single run
  */
-@Generated("databricks-sdk-generator")
 public class GetRunOutput {
     /**
      * The canonical identifier for the run. This field is required.

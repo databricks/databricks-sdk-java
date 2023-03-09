@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,6 @@ import com.databricks.sdk.client.DatabricksException;
  * includes a legacy Hive metastore, the data in that metastore is available in
  * a catalog named hive_metastore.
  */
-@Generated("databricks-sdk-generator")
 public class MetastoresAPI implements MetastoresService {
     private final ApiClient apiClient;
 

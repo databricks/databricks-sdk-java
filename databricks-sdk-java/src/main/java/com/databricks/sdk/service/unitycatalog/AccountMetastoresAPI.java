@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import com.databricks.sdk.client.DatabricksException;
  * These APIs manage Unity Catalog metastores for an account. A metastore
  * contains catalogs that can be associated with workspaces
  */
-@Generated("databricks-sdk-generator")
 public class AccountMetastoresAPI implements AccountMetastoresService {
     private final ApiClient apiClient;
 

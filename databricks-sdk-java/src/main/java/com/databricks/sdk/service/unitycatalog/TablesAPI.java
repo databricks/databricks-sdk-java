@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,6 @@ import com.databricks.sdk.client.DatabricksException;
  * A table can be managed or external. From an API perspective, a __VIEW__ is a
  * particular kind of table (rather than a managed or external table).
  */
-@Generated("databricks-sdk-generator")
 public class TablesAPI implements TablesService {
     private final ApiClient apiClient;
 

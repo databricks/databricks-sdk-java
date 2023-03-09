@@ -1,13 +1,12 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.endpoints;
 
-import javax.annotation.Generated;
 import java.util.List;
 import java.util.Map;
 
 /**
- * The Serverless Real-Time Inference Serving Endpoints API allows you to
- * create, update, and delete model serving endpoints.
+ * The Serving Endpoints API allows you to create, update, and delete model
+ * serving endpoints.
  * 
  * You can use a serving endpoint to serve models from the Databricks Model
  * Registry. Endpoints expose the underlying models as scalable REST API
@@ -24,14 +23,12 @@ import java.util.Map;
  *
  * Evolving: this interface is under development. Method signatures may change.
  */
-@Generated("databricks-sdk-generator")
 public interface ServingEndpointsService {
 	/**
      * Retrieve the logs associated with building the model's environment for a
      * given serving endpoint's served model.
      * 
      * Retrieves the build logs associated with the provided served model.
-     * Please note that this API is in preview and may change in the future.
      */
     BuildLogsResponse buildLogs(BuildLogsRequest buildLogsRequest);
     
@@ -50,8 +47,7 @@ public interface ServingEndpointsService {
      * time in Prometheus or OpenMetrics exposition format.
      * 
      * Retrieves the metrics associated with the provided serving endpoint in
-     * either Prometheus or OpenMetrics exposition format. Please note that this
-     * API is in preview and may change in the future.
+     * either Prometheus or OpenMetrics exposition format.
      */
     void exportMetrics(ExportMetricsRequest exportMetricsRequest);
     
@@ -72,7 +68,6 @@ public interface ServingEndpointsService {
      * endpoint's served model.
      * 
      * Retrieves the service logs associated with the provided served model.
-     * Please note that this API is in preview and may change in the future.
      */
     ServerLogsResponse logs(LogsRequest logsRequest);
     

@@ -4,14 +4,13 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * The fetch disposition provides for two modes of fetching results: `INLINE`,
- * and `EXTERNAL_LINKS`.
+ * The fetch disposition provides two modes of fetching results: `INLINE` and
+ * `EXTERNAL_LINKS`.
  * 
  * Statements executed with `INLINE` disposition will return result data inline,
  * in `JSON_ARRAY` format, in a series of chunks. If a given statement produces

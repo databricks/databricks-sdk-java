@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * structure is used both within a manifest, and when fetching individual chunk
  * data or links.
  */
-@Generated("databricks-sdk-generator")
 public class ChunkInfo {
     /**
      * Number of bytes in the result chunk.

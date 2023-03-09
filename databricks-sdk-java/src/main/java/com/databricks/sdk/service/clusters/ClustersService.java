@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.clusters;
 
-import javax.annotation.Generated;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +37,6 @@ import java.util.Map;
  *
  * Evolving: this interface is under development. Method signatures may change.
  */
-@Generated("databricks-sdk-generator")
 public interface ClustersService {
 	/**
      * Change cluster owner.
@@ -54,7 +52,7 @@ public interface ClustersService {
      * Creates a new Spark cluster. This method will acquire new instances from
      * the cloud provider if necessary. This method is asynchronous; the
      * returned `cluster_id` can be used to poll the cluster status. When this
-     * method returns, the cluster will be in\na `PENDING` state. The cluster
+     * method returns, the cluster will be in a `PENDING` state. The cluster
      * will be usable once it enters a `RUNNING` state.
      * 
      * Note: Databricks may not be able to acquire some of the requested nodes,
@@ -117,16 +115,16 @@ public interface ClustersService {
 	/**
      * List all clusters.
      * 
-     * Returns information about all pinned clusters, currently active clusters,
-     * up to 70 of the most recently terminated interactive clusters in the past
-     * 7 days, and up to 30 of the most recently terminated job clusters in the
-     * past 7 days.
+     * Return information about all pinned clusters, active clusters, up to 200
+     * of the most recently terminated all-purpose clusters in the past 30 days,
+     * and up to 30 of the most recently terminated job clusters in the past 30
+     * days.
      * 
      * For example, if there is 1 pinned cluster, 4 active clusters, 45
-     * terminated interactive clusters in the past 7 days, and 50 terminated job
-     * clusters\nin the past 7 days, then this API returns the 1 pinned cluster,
-     * 4 active clusters, all 45 terminated interactive clusters, and the 30
-     * most recently terminated job clusters.
+     * terminated all-purpose clusters in the past 30 days, and 50 terminated
+     * job clusters in the past 30 days, then this API returns the 1 pinned
+     * cluster, 4 active clusters, all 45 terminated all-purpose clusters, and
+     * the 30 most recently terminated job clusters.
      */
     ListClustersResponse list(List list);
     

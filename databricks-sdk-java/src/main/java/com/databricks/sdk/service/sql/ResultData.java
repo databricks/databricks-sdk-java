@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * `INLINE` disposition, or in the `external_link` field when using
  * `EXTERNAL_LINKS` disposition. Exactly one of these will be set.
  */
-@Generated("databricks-sdk-generator")
 public class ResultData {
     /**
      * Number of bytes in the result chunk.

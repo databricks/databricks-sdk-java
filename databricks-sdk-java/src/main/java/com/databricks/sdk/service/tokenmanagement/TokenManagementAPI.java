@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.tokenmanagement;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import com.databricks.sdk.client.DatabricksException;
  * Admins can either get every token, get a specific token by ID, or get all
  * tokens for a particular user.
  */
-@Generated("databricks-sdk-generator")
 public class TokenManagementAPI implements TokenManagementService {
     private final ApiClient apiClient;
 

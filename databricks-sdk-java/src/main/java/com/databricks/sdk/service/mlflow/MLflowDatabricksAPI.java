@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.mlflow;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import com.databricks.sdk.client.DatabricksException;
  * These endpoints are modified versions of the MLflow API that accept
  * additional input parameters or return additional information.
  */
-@Generated("databricks-sdk-generator")
 public class MLflowDatabricksAPI implements MLflowDatabricksService {
     private final ApiClient apiClient;
 

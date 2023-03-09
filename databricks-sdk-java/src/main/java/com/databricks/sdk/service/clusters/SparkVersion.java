@@ -4,13 +4,11 @@ package com.databricks.sdk.service.clusters;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class SparkVersion {
     /**
      * Spark version key, for example "2.1.x-scala2.11". This is the value which

@@ -4,13 +4,11 @@ package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class CreateRecipient {
     /**
      * The delta sharing authentication type.
@@ -25,10 +23,12 @@ public class CreateRecipient {
     private String comment;
     
     /**
-     * The global Unity Catalog metastore id provided by the data recipient.\n
+     * The global Unity Catalog metastore id provided by the data recipient.
+     * 
      * This field is required when the __authentication_type__ is
-     * **DATABRICKS**.\n The identifier is of format
-     * __cloud__:__region__:__metastore-uuid__.
+     * **DATABRICKS**.
+     * 
+     * The identifier is of format __cloud__:__region__:__metastore-uuid__.
      */
     @JsonProperty("data_recipient_global_metastore_id")
     private Object /* MISSING TYPE */ dataRecipientGlobalMetastoreId;
@@ -52,7 +52,7 @@ public class CreateRecipient {
     private String owner;
     
     /**
-     * Recipient properties as map of string key-value pairs.\n
+     * Recipient properties as map of string key-value pairs. 
      */
     @JsonProperty("properties_kvpairs")
     private Object /* MISSING TYPE */ propertiesKvpairs;

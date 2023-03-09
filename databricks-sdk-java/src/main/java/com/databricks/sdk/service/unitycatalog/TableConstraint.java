@@ -4,7 +4,6 @@ package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * __primary_key_constraint__, __foreign_key_constraint__,
  * __named_table_constraint__.
  */
-@Generated("databricks-sdk-generator")
 public class TableConstraint {
     /**
      

@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.workspace;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,6 @@ import com.databricks.sdk.client.DatabricksException;
  * A notebook is a web-based interface to a document that contains runnable
  * code, visualizations, and explanatory text.
  */
-@Generated("databricks-sdk-generator")
 public class WorkspaceAPI implements WorkspaceService {
     private final ApiClient apiClient;
 
@@ -109,7 +107,7 @@ public class WorkspaceAPI implements WorkspaceService {
      * the input path, this call returns an error `RESOURCE_ALREADY_EXISTS`.
      * 
      * Note that if this operation fails it may have succeeded in creating some
-     * of the necessary\nparrent directories.
+     * of the necessary parrent directories.
      */
     @Override
     public void mkdirs(Mkdirs request) {

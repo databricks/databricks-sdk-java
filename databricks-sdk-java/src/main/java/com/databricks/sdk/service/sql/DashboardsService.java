@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
-import javax.annotation.Generated;
 import java.util.List;
 import java.util.Map;
 
@@ -11,16 +10,11 @@ import java.util.Map;
  * query IDs. The API can also be used to duplicate multiple dashboards at once
  * since you can get a dashboard definition with a GET request and then POST it
  * to create a new one.
- * 
- * **Note**: Programmatic operations on refresh schedules via the Databricks SQL
- * API are deprecated. Dashboard refresh schedules can be created, updated,
- * fetched and deleted using Jobs API, e.g. :method:jobs/create.
  *
  * This is the high-level interface, that contains generated methods.
  *
  * Evolving: this interface is under development. Method signatures may change.
  */
-@Generated("databricks-sdk-generator")
 public interface DashboardsService {
 	/**
      * Create a dashboard object.

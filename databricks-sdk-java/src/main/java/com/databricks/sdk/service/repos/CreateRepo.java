@@ -4,13 +4,11 @@ package com.databricks.sdk.service.repos;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class CreateRepo {
     /**
      * Desired path for the repo in the workspace. Must be in the format

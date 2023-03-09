@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.scim;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,6 @@ import com.databricks.sdk.client.DatabricksException;
  * Databricks Workspace. This ensures a consistent offboarding process and
  * prevents unauthorized users from accessing sensitive data.
  */
-@Generated("databricks-sdk-generator")
 public class UsersAPI implements UsersService {
     private final ApiClient apiClient;
 

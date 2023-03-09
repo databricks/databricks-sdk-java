@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.dbfs;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import com.databricks.sdk.client.DatabricksException;
  * DBFS API makes it simple to interact with various data sources without having
  * to include a users credentials every time to read a file.
  */
-@Generated("databricks-sdk-generator")
 public class DbfsAPI implements DbfsService {
     private final ApiClient apiClient;
 
@@ -194,7 +192,7 @@ public class DbfsAPI implements DbfsService {
      * throws an exception with `RESOURCE_DOES_NOT_EXIST`. If the path is a
      * directory, the read length is negative, or if the offset is negative,
      * this call throws an exception with `INVALID_PARAMETER_VALUE`. If the read
-     * length exceeds 1 MB, this call throws an\nexception with
+     * length exceeds 1 MB, this call throws an exception with
      * `MAX_READ_SIZE_EXCEEDED`.
      * 
      * If `offset + length` exceeds the number of bytes in a file, it reads the

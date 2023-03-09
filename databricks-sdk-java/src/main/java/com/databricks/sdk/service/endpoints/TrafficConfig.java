@@ -4,13 +4,11 @@ package com.databricks.sdk.service.endpoints;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class TrafficConfig {
     /**
      * The list of routes that define traffic to each served model.

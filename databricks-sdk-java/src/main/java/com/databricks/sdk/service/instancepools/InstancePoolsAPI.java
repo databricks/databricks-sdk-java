@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.instancepools;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,6 @@ import com.databricks.sdk.client.DatabricksException;
  * Databricks does not charge DBUs while instances are idle in the pool.
  * Instance provider billing does apply. See pricing.
  */
-@Generated("databricks-sdk-generator")
 public class InstancePoolsAPI implements InstancePoolsService {
     private final ApiClient apiClient;
 

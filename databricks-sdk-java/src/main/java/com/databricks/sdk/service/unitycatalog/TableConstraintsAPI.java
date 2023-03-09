@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import com.databricks.sdk.client.DatabricksException;
  * specification during table creation. You can also add or drop constraints on
  * existing tables.
  */
-@Generated("databricks-sdk-generator")
 public class TableConstraintsAPI implements TableConstraintsService {
     private final ApiClient apiClient;
 

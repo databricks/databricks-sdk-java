@@ -4,13 +4,11 @@ package com.databricks.sdk.service.mlflow;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class HttpUrlSpec {
     /**
      * Value of the authorization header that should be sent in the request sent

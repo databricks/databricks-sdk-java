@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * A filter to limit query history results. This field is optional.
  */
-@Generated("databricks-sdk-generator")
 public class QueryFilter {
     /**
      

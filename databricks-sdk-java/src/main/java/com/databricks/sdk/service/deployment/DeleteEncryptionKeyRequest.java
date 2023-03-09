@@ -4,7 +4,6 @@ package com.databricks.sdk.service.deployment;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Delete encryption key configuration
  */
-@Generated("databricks-sdk-generator")
 public class DeleteEncryptionKeyRequest {
     /**
      * Databricks encryption key configuration ID.

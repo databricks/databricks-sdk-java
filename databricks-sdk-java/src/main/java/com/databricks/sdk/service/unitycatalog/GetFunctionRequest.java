@@ -4,7 +4,6 @@ package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Get a function
  */
-@Generated("databricks-sdk-generator")
 public class GetFunctionRequest {
     /**
      * The fully-qualified name of the function (of the form

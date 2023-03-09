@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.tokens;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import com.databricks.sdk.client.DatabricksException;
  * The Token API allows you to create, list, and revoke tokens that can be used
  * to authenticate and access Databricks REST APIs.
  */
-@Generated("databricks-sdk-generator")
 public class TokensAPI implements TokensService {
     private final ApiClient apiClient;
 

@@ -4,13 +4,11 @@ package com.databricks.sdk.service.scim;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class ListGroupsResponse {
     /**
      * Total results returned in the response.

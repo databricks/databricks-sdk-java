@@ -4,7 +4,6 @@ package com.databricks.sdk.service.mlflow;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * List registry webhooks
  */
-@Generated("databricks-sdk-generator")
 public class ListRegistryWebhooksRequest {
     /**
      * If `events` is specified, any webhook with one or more of the specified

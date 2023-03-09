@@ -4,13 +4,11 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class Query {
     /**
      * Describes whether the authenticated user is allowed to edit the
@@ -135,12 +133,6 @@ public class Query {
      */
     @JsonProperty("query_hash")
     private String queryHash;
-    
-    /**
-     
-     */
-    @JsonProperty("schedule")
-    private QueryInterval schedule;
     
     /**
      
@@ -332,15 +324,6 @@ public class Query {
 
     public String getQueryHash() {
         return queryHash;
-    }
-    
-    public Query setSchedule(QueryInterval schedule) {
-        this.schedule = schedule;
-        return this;
-    }
-
-    public QueryInterval getSchedule() {
-        return schedule;
     }
     
     public Query setTags(java.util.List<String> tags) {

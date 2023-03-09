@@ -4,7 +4,6 @@ package com.databricks.sdk.service.jobs;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * List runs for a job
  */
-@Generated("databricks-sdk-generator")
 public class ListRuns {
     /**
      * If active_only is `true`, only active runs are included in the results;

@@ -4,7 +4,6 @@ package com.databricks.sdk.service.endpoints;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Retrieve the logs associated with building the model's environment for a
  * given serving endpoint's served model.
  */
-@Generated("databricks-sdk-generator")
 public class BuildLogsRequest {
     /**
      * The name of the serving endpoint that the served model belongs to. This

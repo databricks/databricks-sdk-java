@@ -4,13 +4,11 @@ package com.databricks.sdk.service.endpoints;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class ServingEndpoint {
     /**
      * The config that is currently being served by the endpoint.

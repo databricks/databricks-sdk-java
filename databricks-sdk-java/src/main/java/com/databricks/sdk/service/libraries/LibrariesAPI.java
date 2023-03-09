@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.libraries;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +32,6 @@ import com.databricks.sdk.client.DatabricksException;
  * you restart the cluster. Until you restart the cluster, the status of the
  * uninstalled library appears as Uninstall pending restart.
  */
-@Generated("databricks-sdk-generator")
 public class LibrariesAPI implements LibrariesService {
     private final ApiClient apiClient;
 

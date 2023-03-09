@@ -4,7 +4,6 @@ package com.databricks.sdk.service.globalinitscripts;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Delete init script
  */
-@Generated("databricks-sdk-generator")
 public class Delete {
     /**
      * The ID of the global init script.

@@ -4,13 +4,11 @@ package com.databricks.sdk.service.secrets;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class PutAcl {
     /**
      * The permission level applied to the principal.

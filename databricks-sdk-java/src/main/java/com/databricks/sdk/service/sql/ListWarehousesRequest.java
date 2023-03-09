@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * List warehouses
  */
-@Generated("databricks-sdk-generator")
 public class ListWarehousesRequest {
     /**
      * Service Principal which will be used to fetch the list of endpoints. If

@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,6 @@ import com.databricks.sdk.client.DatabricksException;
  * client, or `grep` to search the response from this API for the name of your
  * SQL warehouse as it appears in Databricks SQL.
  */
-@Generated("databricks-sdk-generator")
 public class DataSourcesAPI implements DataSourcesService {
     private final ApiClient apiClient;
 

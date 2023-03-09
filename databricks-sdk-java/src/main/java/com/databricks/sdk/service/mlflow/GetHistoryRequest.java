@@ -4,7 +4,6 @@ package com.databricks.sdk.service.mlflow;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Get history of a given metric within a run
  */
-@Generated("databricks-sdk-generator")
 public class GetHistoryRequest {
     /**
      * Maximum number of Metric records to return per paginated request. Default

@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +26,8 @@ import com.databricks.sdk.client.DatabricksException;
  * version of the platform. Updating a running workspace with workspace storage
  * encryption requires that the workspace is on the E2 version of the platform.
  * If you have an older workspace, it might not be on the E2 version of the
- * platform. If you are not sure, contact your Databricks reprsentative.
+ * platform. If you are not sure, contact your Databricks representative.
  */
-@Generated("databricks-sdk-generator")
 public class EncryptionKeysAPI implements EncryptionKeysService {
     private final ApiClient apiClient;
 

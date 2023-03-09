@@ -4,7 +4,6 @@ package com.databricks.sdk.service.dbfs;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Get the contents of a file
  */
-@Generated("databricks-sdk-generator")
 public class Read {
     /**
      * The number of bytes to read starting from the offset. This has a limit of

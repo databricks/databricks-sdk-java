@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.clusterpolicies;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ import com.databricks.sdk.client.DatabricksException;
  * create cluster policies using a policy family. Cluster policies created using
  * a policy family inherit the policy family's policy definition.
  */
-@Generated("databricks-sdk-generator")
 public class PolicyFamiliesAPI implements PolicyFamiliesService {
     private final ApiClient apiClient;
 

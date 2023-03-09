@@ -4,7 +4,6 @@ package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,10 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Delete a table constraint
  */
-@Generated("databricks-sdk-generator")
 public class DeleteTableConstraintRequest {
     /**
-     * If true, try deleting all child constraints of the current constraint.\n
+     * If true, try deleting all child constraints of the current constraint.
+     * 
      * If false, reject this operation if the current constraint has any child
      * constraints.
      */

@@ -4,13 +4,11 @@ package com.databricks.sdk.service.deployment;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class UpdateWorkspaceRequest {
     /**
      * The AWS region of the workspace's data plane (for example, `us-west-2`).
@@ -35,14 +33,9 @@ public class UpdateWorkspaceRequest {
     
     /**
      * The ID of the workspace's network configuration object. Used only if you
-     * already use a customer-managed VPC. This change is supported only if you
-     * specified a network configuration ID when the workspace was created. In
-     * other words, you cannot switch from a Databricks-managed VPC to a
-     * customer-managed VPC. This parameter is available for updating both
-     * failed and running workspaces. **Note**: You cannot use a network
-     * configuration update in this API to add support for PrivateLink (Public
-     * Preview). To add PrivateLink to an existing workspace, contact your
-     * Databricks representative.
+     * already use a customer-managed VPC. For failed workspaces only, you can
+     * switch from a Databricks-managed VPC to a customer-managed VPC by
+     * updating the workspace to add a network configuration ID.
      */
     @JsonProperty("network_id")
     private String networkId;

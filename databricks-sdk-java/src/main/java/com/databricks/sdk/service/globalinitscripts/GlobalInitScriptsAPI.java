@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.globalinitscripts;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,6 @@ import com.databricks.sdk.client.DatabricksException;
  * fail, the entire cluster fails with a `GLOBAL_INIT_SCRIPT_FAILURE` error
  * code.
  */
-@Generated("databricks-sdk-generator")
 public class GlobalInitScriptsAPI implements GlobalInitScriptsService {
     private final ApiClient apiClient;
 

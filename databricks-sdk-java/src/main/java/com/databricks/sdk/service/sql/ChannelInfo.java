@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Channel information for the SQL warehouse at the time of query execution
  */
-@Generated("databricks-sdk-generator")
 public class ChannelInfo {
     /**
      * DBSQL Version the channel is mapped to

@@ -138,7 +138,7 @@ public class DatabricksAccount {
      * workspace storage encryption requires that the workspace is on the E2
      * version of the platform. If you have an older workspace, it might not be
      * on the E2 version of the platform. If you are not sure, contact your
-     * Databricks reprsentative.
+     * Databricks representative.
      */
     public EncryptionKeysService encryptionKeys() {
         return encryptionKeysService;

@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import com.databricks.sdk.client.DatabricksException;
  * - `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify
  * permissions (superset of `CAN_RUN`)
  */
-@Generated("databricks-sdk-generator")
 public class DbsqlPermissionsAPI implements DbsqlPermissionsService {
     private final ApiClient apiClient;
 

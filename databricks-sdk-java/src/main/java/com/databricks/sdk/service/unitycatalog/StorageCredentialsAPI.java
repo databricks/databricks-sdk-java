@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import com.databricks.sdk.client.DatabricksException;
  * account admin who creates the storage credential can delegate ownership to
  * another user or group to manage permissions on it.
  */
-@Generated("databricks-sdk-generator")
 public class StorageCredentialsAPI implements StorageCredentialsService {
     private final ApiClient apiClient;
 

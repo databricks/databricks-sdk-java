@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.repos;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,6 @@ import com.databricks.sdk.client.DatabricksException;
  * science and engineering code development best practices using Git for version
  * control, collaboration, and CI/CD.
  */
-@Generated("databricks-sdk-generator")
 public class ReposAPI implements ReposService {
     private final ApiClient apiClient;
 

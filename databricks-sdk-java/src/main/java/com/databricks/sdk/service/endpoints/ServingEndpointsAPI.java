@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.endpoints;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -12,8 +11,8 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 /**
- * The Serverless Real-Time Inference Serving Endpoints API allows you to
- * create, update, and delete model serving endpoints.
+ * The Serving Endpoints API allows you to create, update, and delete model
+ * serving endpoints.
  * 
  * You can use a serving endpoint to serve models from the Databricks Model
  * Registry. Endpoints expose the underlying models as scalable REST API
@@ -26,7 +25,6 @@ import com.databricks.sdk.client.DatabricksException;
  * endpoint. Additionally, you can configure the scale of resources that should
  * be applied to each served model.
  */
-@Generated("databricks-sdk-generator")
 public class ServingEndpointsAPI implements ServingEndpointsService {
     private final ApiClient apiClient;
 
@@ -39,7 +37,6 @@ public class ServingEndpointsAPI implements ServingEndpointsService {
      * given serving endpoint's served model.
      * 
      * Retrieves the build logs associated with the provided served model.
-     * Please note that this API is in preview and may change in the future.
      */
     @Override
     public BuildLogsResponse buildLogs(BuildLogsRequest request) {
@@ -70,8 +67,7 @@ public class ServingEndpointsAPI implements ServingEndpointsService {
      * time in Prometheus or OpenMetrics exposition format.
      * 
      * Retrieves the metrics associated with the provided serving endpoint in
-     * either Prometheus or OpenMetrics exposition format. Please note that this
-     * API is in preview and may change in the future.
+     * either Prometheus or OpenMetrics exposition format.
      */
     @Override
     public void exportMetrics(ExportMetricsRequest request) {
@@ -104,7 +100,6 @@ public class ServingEndpointsAPI implements ServingEndpointsService {
      * endpoint's served model.
      * 
      * Retrieves the service logs associated with the provided served model.
-     * Please note that this API is in preview and may change in the future.
      */
     @Override
     public ServerLogsResponse logs(LogsRequest request) {

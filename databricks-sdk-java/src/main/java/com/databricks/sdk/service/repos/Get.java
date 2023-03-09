@@ -4,7 +4,6 @@ package com.databricks.sdk.service.repos;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Get a repo
  */
-@Generated("databricks-sdk-generator")
 public class Get {
     /**
      * The ID for the corresponding repo to access.

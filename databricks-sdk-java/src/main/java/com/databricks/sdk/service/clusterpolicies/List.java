@@ -4,7 +4,6 @@ package com.databricks.sdk.service.clusterpolicies;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Get a cluster policy
  */
-@Generated("databricks-sdk-generator")
 public class List {
     /**
      * The cluster policy attribute to sort by. * `POLICY_CREATION_TIME` - Sort

@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +33,8 @@ import com.databricks.sdk.client.DatabricksException;
  * asynchronously, based on the `wait_timeout` setting. When set between 5-50
  * seconds (default: 10) the call behaves synchronously and waits for results up
  * to the specified timeout; when set to `0s`, the call is asynchronous and
- * responds immediately with a statement ID that can be used to fetch the
- * results in a separate call.
+ * responds immediately with a statement ID that can be used to poll for status
+ * or fetch the results in a separate call.
  * 
  * **Call mode: synchronous**
  * 
@@ -121,8 +120,8 @@ import com.databricks.sdk.client.DatabricksException;
  * :method:statementexecution/getStatementResultChunkN request.
  * 
  * When using this mode, each chunk may be fetched once, and in order. A chunk
- * without a field `next_chunk_internal_link` indicates we reached the last
- * chunk and all chunks have been fetched from the result set.
+ * without a field `next_chunk_internal_link` indicates the last chunk was
+ * reached and all chunks have been fetched from the result set.
  * 
  * **Use case: large result sets with EXTERNAL_LINKS + ARROW_STREAM**
  * 
@@ -190,7 +189,6 @@ import com.databricks.sdk.client.DatabricksException;
  * [Public Preview]: https://docs.databricks.com/release-notes/release-types.html
  * [SQL Statement Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
  */
-@Generated("databricks-sdk-generator")
 public class StatementExecutionAPI implements StatementExecutionService {
     private final ApiClient apiClient;
 
@@ -211,9 +209,9 @@ public class StatementExecutionAPI implements StatementExecutionService {
     }
     
 	/**
-     * Execute an SQL statement.
+     * Execute a SQL statement.
      * 
-     * Execute an SQL statement, and if flagged as such, await its result for a
+     * Execute a SQL statement, and if flagged as such, await its result for a
      * specified time.
      */
     @Override
@@ -225,8 +223,8 @@ public class StatementExecutionAPI implements StatementExecutionService {
 	/**
      * Get status, manifest, and result first chunk.
      * 
-     * Polls for statement status; when status.state=SUCCEEDED will also return
-     * the result manifest, and the first chunk of result data.
+     * Polls for the statement's status; when `status.state=SUCCEEDED` it will
+     * also return the result manifest and the first chunk of the result data.
      * 
      * **NOTE** This call currently may take up to 5 seconds to get the latest
      * status and result.

@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.scim;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import com.databricks.sdk.client.DatabricksException;
  * any write, delete, or modify privileges in production. This eliminates the
  * risk of a user overwriting production data by accident.
  */
-@Generated("databricks-sdk-generator")
 public class ServicePrincipalsAPI implements ServicePrincipalsService {
     private final ApiClient apiClient;
 

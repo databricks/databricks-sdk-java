@@ -4,13 +4,11 @@ package com.databricks.sdk.service.endpoints;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class EndpointState {
     /**
      * The state of an endpoint's config update. This informs the user if the

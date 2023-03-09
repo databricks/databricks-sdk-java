@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.permissions;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import com.databricks.sdk.client.DatabricksException;
  * Permissions API are used to create read, write, edit, update and manage
  * access for various users on different objects and endpoints.
  */
-@Generated("databricks-sdk-generator")
 public class PermissionsAPI implements PermissionsService {
     private final ApiClient apiClient;
 

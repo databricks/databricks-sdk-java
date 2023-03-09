@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.ipaccesslists;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +33,6 @@ import com.databricks.sdk.client.DatabricksException;
  * After changes to the IP access list feature, it can take a few minutes for
  * changes to take effect.
  */
-@Generated("databricks-sdk-generator")
 public class IpAccessListsAPI implements IpAccessListsService {
     private final ApiClient apiClient;
 

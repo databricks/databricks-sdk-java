@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import com.databricks.sdk.client.DatabricksException;
 /**
  * Databricks Delta Sharing: Shares REST API
  */
-@Generated("databricks-sdk-generator")
 public class SharesAPI implements SharesService {
     private final ApiClient apiClient;
 

@@ -4,13 +4,11 @@ package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class RecipientInfo {
     /**
      * A boolean status field showing whether the Recipient's activation URL has
@@ -58,10 +56,12 @@ public class RecipientInfo {
     private String createdBy;
     
     /**
-     * The global Unity Catalog metastore id provided by the data recipient.\n
+     * The global Unity Catalog metastore id provided by the data recipient.
+     * 
      * This field is only present when the __authentication_type__ is
-     * **DATABRICKS**.\n The identifier is of format
-     * __cloud__:__region__:__metastore-uuid__.
+     * **DATABRICKS**.
+     * 
+     * The identifier is of format __cloud__:__region__:__metastore-uuid__.
      */
     @JsonProperty("data_recipient_global_metastore_id")
     private Object /* MISSING TYPE */ dataRecipientGlobalMetastoreId;
@@ -92,7 +92,7 @@ public class RecipientInfo {
     private String owner;
     
     /**
-     * Recipient properties as map of string key-value pairs.\n
+     * Recipient properties as map of string key-value pairs. 
      */
     @JsonProperty("properties_kvpairs")
     private Object /* MISSING TYPE */ propertiesKvpairs;

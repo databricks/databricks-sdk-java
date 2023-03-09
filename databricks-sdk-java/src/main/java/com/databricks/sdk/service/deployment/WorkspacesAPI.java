@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ import com.databricks.sdk.client.DatabricksException;
  * platform or on a select custom plan that allows multiple workspaces per
  * account.
  */
-@Generated("databricks-sdk-generator")
 public class WorkspacesAPI implements WorkspacesService {
     private final ApiClient apiClient;
 
@@ -120,15 +118,25 @@ public class WorkspacesAPI implements WorkspacesService {
      * configuration for failed workspace deployment for some fields, but not
      * all fields. For a failed workspace, this request supports updates to the
      * following fields only: - Credential configuration ID - Storage
-     * configuration ID - Network configuration ID. Used only if you use
-     * customer-managed VPC. - Key configuration ID for managed services
-     * (control plane storage, such as notebook source and Databricks SQL
-     * queries). Used only if you use customer-managed keys for managed
-     * services. - Key configuration ID for workspace storage (root S3 bucket
-     * and, optionally, EBS volumes). Used only if you use customer-managed keys
-     * for workspace storage. **Important**: If the workspace was ever in the
-     * running state, even if briefly before becoming a failed workspace, you
-     * cannot add a new key configuration ID for workspace storage.
+     * configuration ID - Network configuration ID. Used only to add or change a
+     * network configuration for a customer-managed VPC. For a failed workspace
+     * only, you can convert a workspace with Databricks-managed VPC to use a
+     * customer-managed VPC by adding this ID. You cannot downgrade a workspace
+     * with a customer-managed VPC to be a Databricks-managed VPC. You can
+     * update the network configuration for a failed or running workspace to add
+     * PrivateLink support, though you must also add a private access settings
+     * object. - Key configuration ID for managed services (control plane
+     * storage, such as notebook source and Databricks SQL queries). Used only
+     * if you use customer-managed keys for managed services. - Key
+     * configuration ID for workspace storage (root S3 bucket and, optionally,
+     * EBS volumes). Used only if you use customer-managed keys for workspace
+     * storage. **Important**: If the workspace was ever in the running state,
+     * even if briefly before becoming a failed workspace, you cannot add a new
+     * key configuration ID for workspace storage. - Private access settings ID
+     * to add PrivateLink support. You can add or update the private access
+     * settings ID to upgrade a workspace to add support for front-end,
+     * back-end, or both types of connectivity. You cannot remove (downgrade)
+     * any existing front-end or back-end PrivateLink support on a workspace.
      * 
      * After calling the `PATCH` operation to update the workspace
      * configuration, make repeated `GET` requests with the workspace ID and
@@ -144,14 +152,12 @@ public class WorkspacesAPI implements WorkspacesService {
      * For a running workspace, this request supports updating the following
      * fields only: - Credential configuration ID
      * 
-     * - Network configuration ID. Used only if you already use use
-     * customer-managed VPC. This change is supported only if you specified a
-     * network configuration ID in your original workspace creation. In other
-     * words, you cannot switch from a Databricks-managed VPC to a
-     * customer-managed VPC. **Note**: You cannot use a network configuration
-     * update in this API to add support for PrivateLink (in Public Preview). To
-     * add PrivateLink to an existing workspace, contact your Databricks
-     * representative.
+     * - Network configuration ID. Used only if you already use a
+     * customer-managed VPC. You cannot convert a running workspace from a
+     * Databricks-managed VPC to a customer-managed VPC. You can use a network
+     * configuration update in this API for a failed or running workspace to add
+     * support for PrivateLink, although you also need to add a private access
+     * settings object.
      * 
      * - Key configuration ID for managed services (control plane storage, such
      * as notebook source and Databricks SQL queries). Databricks does not
@@ -168,17 +174,18 @@ public class WorkspacesAPI implements WorkspacesService {
      * new CMK. - Key configuration ID for workspace storage (root S3 bucket
      * and, optionally, EBS volumes). You can set this only if the workspace
      * does not already have a customer-managed key configuration for workspace
-     * storage.
-     * 
-     * **Important**: For updating running workspaces, this API is unavailable
-     * on Mondays, Tuesdays, and Thursdays from 4:30pm-7:30pm PST due to routine
-     * maintenance. Plan your workspace updates accordingly. For questions about
-     * this schedule, contact your Databricks representative.
+     * storage. - Private access settings ID to add PrivateLink support. You can
+     * add or update the private access settings ID to upgrade a workspace to
+     * add support for front-end, back-end, or both types of connectivity. You
+     * cannot remove (downgrade) any existing front-end or back-end PrivateLink
+     * support on a workspace.
      * 
      * **Important**: To update a running workspace, your workspace must have no
-     * running cluster instances, which includes all-purpose clusters, job
-     * clusters, and pools that might have running clusters. Terminate all
-     * cluster instances in the workspace before calling this API.
+     * running compute resources that run in your workspace's VPC in the Classic
+     * data plane. For example, stop all all-purpose clusters, job clusters,
+     * pools with running clusters, and Classic SQL warehouses. If you do not
+     * terminate all cluster instances in the workspace before calling this API,
+     * the request will fail.
      * 
      * ### Wait until changes take effect. After calling the `PATCH` operation
      * to update the workspace configuration, make repeated `GET` requests with

@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.scim;
 
-import javax.annotation.Generated;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,6 @@ import java.util.Map;
  *
  * Evolving: this interface is under development. Method signatures may change.
  */
-@Generated("databricks-sdk-generator")
 public interface AccountUsersService {
 	/**
      * Create a new user.

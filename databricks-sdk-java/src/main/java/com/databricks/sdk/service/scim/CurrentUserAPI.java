@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.scim;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import com.databricks.sdk.client.DatabricksException;
  * This API allows retrieving information about currently authenticated user or
  * service principal.
  */
-@Generated("databricks-sdk-generator")
 public class CurrentUserAPI implements CurrentUserService {
     private final ApiClient apiClient;
 

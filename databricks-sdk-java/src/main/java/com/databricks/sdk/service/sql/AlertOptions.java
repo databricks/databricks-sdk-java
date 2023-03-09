@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Alert configuration options.
  */
-@Generated("databricks-sdk-generator")
 public class AlertOptions {
     /**
      * Name of column in the query result to compare in alert evaluation.
@@ -52,13 +50,6 @@ public class AlertOptions {
      */
     @JsonProperty("op")
     private String op;
-    
-    /**
-     * Number of failures encountered during alert refresh. This counter is used
-     * for sending aggregated alert failure email notifications.
-     */
-    @JsonProperty("schedule_failures")
-    private Long scheduleFailures;
     
     /**
      * Value used to compare in alert evaluation.
@@ -109,15 +100,6 @@ public class AlertOptions {
 
     public String getOp() {
         return op;
-    }
-    
-    public AlertOptions setScheduleFailures(Long scheduleFailures) {
-        this.scheduleFailures = scheduleFailures;
-        return this;
-    }
-
-    public Long getScheduleFailures() {
-        return scheduleFailures;
     }
     
     public AlertOptions setValue(String value) {

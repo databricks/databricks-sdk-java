@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.billing;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +14,6 @@ import com.databricks.sdk.client.DatabricksException;
  * These APIs manage budget configuration including notifications for exceeding
  * a budget for a period. They can also retrieve the status of each budget.
  */
-@Generated("databricks-sdk-generator")
 public class BudgetsAPI implements BudgetsService {
     private final ApiClient apiClient;
 

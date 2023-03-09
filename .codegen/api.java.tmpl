@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.{{.Package.Name}};
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import com.databricks.sdk.client.DatabricksException;
 {{if .Description}}/**
  {{.Comment " * " 80}}
  */{{end}}
-@Generated("databricks-sdk-generator")
 public class {{.PascalName}}API implements {{.PascalName}}Service {
     private final ApiClient apiClient;
 

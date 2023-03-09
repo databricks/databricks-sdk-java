@@ -4,13 +4,11 @@ package com.databricks.sdk.service.globalinitscripts;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class GlobalInitScriptCreateRequest {
     /**
      * Specifies whether the script is enabled. The script runs only if enabled.

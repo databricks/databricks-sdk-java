@@ -4,7 +4,6 @@ package com.databricks.sdk.service.workspace;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Export a notebook
  */
-@Generated("databricks-sdk-generator")
 public class Export {
     /**
      * Flag to enable direct download. If it is `true`, the response will be the

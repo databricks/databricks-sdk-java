@@ -1,24 +1,18 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
-import javax.annotation.Generated;
 import java.util.List;
 import java.util.Map;
 
 /**
  * These endpoints are used for CRUD operations on query definitions. Query
  * definitions include the target SQL warehouse, query text, name, description,
- * tags, execution schedule, parameters, and visualizations.
- * 
- * **Note**: Programmatic operations on refresh schedules via the Databricks SQL
- * API are deprecated. Query refresh schedules can be created, updated, fetched
- * and deleted using Jobs API, e.g. :method:jobs/create.
+ * tags, parameters, and visualizations.
  *
  * This is the high-level interface, that contains generated methods.
  *
  * Evolving: this interface is under development. Method signatures may change.
  */
-@Generated("databricks-sdk-generator")
 public interface QueriesService {
 	/**
      * Create a new query definition.

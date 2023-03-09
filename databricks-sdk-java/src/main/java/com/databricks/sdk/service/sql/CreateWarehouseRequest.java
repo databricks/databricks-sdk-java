@@ -4,13 +4,11 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class CreateWarehouseRequest {
     /**
      * The amount of time in minutes that a SQL Endpoint must be idle (i.e., no

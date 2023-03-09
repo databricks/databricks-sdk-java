@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import com.databricks.sdk.client.DatabricksException;
  * objects within Databricks SQL. Compute resources are infrastructure resources
  * that provide processing capabilities in the cloud.
  */
-@Generated("databricks-sdk-generator")
 public class WarehousesAPI implements WarehousesService {
     private final ApiClient apiClient;
 

@@ -4,13 +4,11 @@ package com.databricks.sdk.service.unitycatalog;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class UpdateRecipient {
     /**
      * Description about the recipient.
@@ -37,10 +35,11 @@ public class UpdateRecipient {
     private String owner;
     
     /**
-     * Recipient properties as map of string key-value pairs.\n When provided in
-     * update request, the specified properties will override the existing
-     * properties. To add and remove properties, one would need to perform a
-     * read-modify-write.
+     * Recipient properties as map of string key-value pairs.
+     * 
+     * When provided in update request, the specified properties will override
+     * the existing properties. To add and remove properties, one would need to
+     * perform a read-modify-write.
      */
     @JsonProperty("properties_kvpairs")
     private Object /* MISSING TYPE */ propertiesKvpairs;

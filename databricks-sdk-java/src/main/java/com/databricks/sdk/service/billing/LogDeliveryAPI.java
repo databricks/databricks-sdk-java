@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.billing;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -75,7 +74,6 @@ import com.databricks.sdk.client.DatabricksException;
  * [Usage page]: https://docs.databricks.com/administration-guide/account-settings/usage.html
  * [create a new AWS S3 bucket]: https://docs.databricks.com/administration-guide/account-api/aws-storage.html
  */
-@Generated("databricks-sdk-generator")
 public class LogDeliveryAPI implements LogDeliveryService {
     private final ApiClient apiClient;
 

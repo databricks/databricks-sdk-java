@@ -4,7 +4,6 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Get a list of queries
  */
-@Generated("databricks-sdk-generator")
 public class ListQueriesRequest {
     /**
      * Name of query attribute to order by. Default sort order is ascending.
@@ -21,9 +19,6 @@ public class ListQueriesRequest {
      * - `name`: The name of the query.
      * 
      * - `created_at`: The timestamp the query was created.
-     * 
-     * - `schedule`: [DEPRECATED] Sorting results by refresh schedule is
-     * deprecated. Use :method:jobs/list to list jobs and filter for a query.
      * 
      * - `runtime`: The time it took to run this query. This is blank for
      * parameterized queries. A blank value is treated as the highest value for

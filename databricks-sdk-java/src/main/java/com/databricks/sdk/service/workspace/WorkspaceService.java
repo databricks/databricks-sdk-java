@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.workspace;
 
-import javax.annotation.Generated;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +15,6 @@ import java.util.Map;
  *
  * Evolving: this interface is under development. Method signatures may change.
  */
-@Generated("databricks-sdk-generator")
 public interface WorkspaceService {
 	/**
      * Delete a workspace object.
@@ -81,7 +79,7 @@ public interface WorkspaceService {
      * the input path, this call returns an error `RESOURCE_ALREADY_EXISTS`.
      * 
      * Note that if this operation fails it may have succeeded in creating some
-     * of the necessary\nparrent directories.
+     * of the necessary parrent directories.
      */
     void mkdirs(Mkdirs mkdirs);
     

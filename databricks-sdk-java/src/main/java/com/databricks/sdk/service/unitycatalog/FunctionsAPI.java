@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import com.databricks.sdk.client.DatabricksException;
  * function resides at the same level as a table, so it can be referenced with
  * the form __catalog_name__.__schema_name__.__function_name__.
  */
-@Generated("databricks-sdk-generator")
 public class FunctionsAPI implements FunctionsService {
     private final ApiClient apiClient;
 

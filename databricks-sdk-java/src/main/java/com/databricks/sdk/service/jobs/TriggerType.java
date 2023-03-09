@@ -4,7 +4,6 @@ package com.databricks.sdk.service.jobs;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * This describes an enum
  */
 public enum TriggerType{
+    FILE_ARRIVAL,// Indicates a run that is triggered by a file arrival.
     ONE_TIME,// One time triggers that fire a single run. This occurs you triggered a single
 // run on demand through the UI or the API.
     PERIODIC,// Schedules that periodically trigger runs, such as a cron scheduler.

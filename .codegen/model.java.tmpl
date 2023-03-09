@@ -4,7 +4,6 @@ package com.databricks.sdk.service.{{.Package.Name}};
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 {{if .Description}}/**
  {{.Comment " * " 80}}
  */{{end}}
-{{if .Fields -}}@Generated("databricks-sdk-generator")
+{{if .Fields -}}
 public class {{.PascalName}} {
     {{- range .Fields}}
     /**

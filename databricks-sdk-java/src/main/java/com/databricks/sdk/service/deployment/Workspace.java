@@ -4,13 +4,11 @@ package com.databricks.sdk.service.deployment;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class Workspace {
     /**
      * Databricks account ID.
@@ -125,10 +123,9 @@ public class Workspace {
     
     /**
      * ID of the workspace's private access settings object. Only used for
-     * PrivateLink (Public Preview). You must specify this ID if you are using
-     * [AWS PrivateLink] for either front-end (user-to-workspace connection),
-     * back-end (data plane to control plane connection), or both connection
-     * types.
+     * PrivateLink. You must specify this ID if you are using [AWS PrivateLink]
+     * for either front-end (user-to-workspace connection), back-end (data plane
+     * to control plane connection), or both connection types.
      * 
      * Before configuring PrivateLink, read the [Databricks article about
      * PrivateLink].

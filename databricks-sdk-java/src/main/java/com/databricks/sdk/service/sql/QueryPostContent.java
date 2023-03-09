@@ -4,13 +4,11 @@ package com.databricks.sdk.service.sql;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class QueryPostContent {
     /**
      * The ID of the data source / SQL warehouse where this query will run.
@@ -51,15 +49,6 @@ public class QueryPostContent {
      */
     @JsonProperty("query")
     private String query;
-    
-    /**
-     * JSON object that describes the scheduled execution frequency. A schedule
-     * object includes `interval`, `time`, `day_of_week`, and `until` fields. If
-     * a scheduled is supplied, then only `interval` is required. All other
-     * field can be `null`.
-     */
-    @JsonProperty("schedule")
-    private QueryInterval schedule;
     
     public QueryPostContent setDataSourceId(String dataSourceId) {
         this.dataSourceId = dataSourceId;
@@ -113,15 +102,6 @@ public class QueryPostContent {
 
     public String getQuery() {
         return query;
-    }
-    
-    public QueryPostContent setSchedule(QueryInterval schedule) {
-        this.schedule = schedule;
-        return this;
-    }
-
-    public QueryInterval getSchedule() {
-        return schedule;
     }
     
 }

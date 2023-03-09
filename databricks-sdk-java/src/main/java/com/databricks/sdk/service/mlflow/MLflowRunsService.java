@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.mlflow;
 
-import javax.annotation.Generated;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import java.util.Map;
  *
  * Evolving: this interface is under development. Method signatures may change.
  */
-@Generated("databricks-sdk-generator")
 public interface MLflowRunsService {
 	/**
      * Create a run.
@@ -86,7 +84,7 @@ public interface MLflowRunsService {
      * API request may be up to 1 MB in size and contain:
      * 
      * * No more than 1000 metrics, params, and tags in total * Up to 1000
-     * metrics\n- Up to 100 params * Up to 100 tags
+     * metrics - Up to 100 params * Up to 100 tags
      * 
      * For example, a valid request might contain 900 metrics, 50 params, and 50
      * tags, but logging 900 metrics, 50 params, and 51 tags is invalid.

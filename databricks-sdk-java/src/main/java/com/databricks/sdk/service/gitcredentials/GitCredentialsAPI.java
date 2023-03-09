@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.gitcredentials;
 
-import javax.annotation.Generated;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,6 @@ import com.databricks.sdk.client.DatabricksException;
  * 
  * [more info]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
  */
-@Generated("databricks-sdk-generator")
 public class GitCredentialsAPI implements GitCredentialsService {
     private final ApiClient apiClient;
 

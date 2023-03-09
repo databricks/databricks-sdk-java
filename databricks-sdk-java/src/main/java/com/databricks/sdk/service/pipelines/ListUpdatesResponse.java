@@ -4,13 +4,11 @@ package com.databricks.sdk.service.pipelines;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class ListUpdatesResponse {
     /**
      * If present, then there are more results, and this a token to be used in a

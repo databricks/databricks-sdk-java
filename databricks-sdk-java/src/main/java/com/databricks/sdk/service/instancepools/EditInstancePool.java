@@ -4,13 +4,11 @@ package com.databricks.sdk.service.instancepools;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 
-@Generated("databricks-sdk-generator")
 public class EditInstancePool {
     /**
      * Attributes related to pool running on Amazon Web Services. If not
