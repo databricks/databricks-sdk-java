@@ -4,7 +4,6 @@ package com.databricks.sdk.service.deployment;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -37,7 +36,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * 
  * [calculate subnet sizes for a new workspace]: https://docs.gcp.databricks.com/administration-guide/cloud-configurations/gcp/network-sizing.html
  */
-@Generated("databricks-sdk-generator")
 public class CreateGcpNetwork {
     /**
      * The common network configuration fields that can be used by both
