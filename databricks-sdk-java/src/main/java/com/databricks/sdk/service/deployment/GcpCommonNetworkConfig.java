@@ -4,7 +4,6 @@ package com.databricks.sdk.service.deployment;
 
 import java.util.Map;
 
-import javax.annotation.Generated;
 import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -13,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * The common network configuration fields that can be used by both
  * Databricks-managed VPCs and customer-managed VPCs.
  */
-@Generated("databricks-sdk-generator")
 public class GcpCommonNetworkConfig {
     /**
      * The IP range from which to allocate GKE cluster master resources. This
