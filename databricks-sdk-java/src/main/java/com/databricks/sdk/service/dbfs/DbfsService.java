@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.dbfs;
 
-import java.util.List;
 import java.util.Map;
 
 /**
