@@ -2,16 +2,12 @@ package com.databricks.sdk.client;
 
 import org.apache.http.HttpMessage;
 
-import java.lang.reflect.Field;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 public class DatabricksConfig {
     public static final String DEFAULT_CONFIG_FILE = "~/.databrickscfg";
 
-    private Credentials credentials;
+    private CredentialsProvider credentialsProvider;
 
     @ConfigAttribute(value = "host", env = "DATABRICKS_HOST")
     private String host;
@@ -108,6 +104,7 @@ public class DatabricksConfig {
     private int rateLimit = 15;
 
     private volatile boolean resolved;
+    private HeaderFactory headerFactory;
 
     synchronized DatabricksConfig resolve() {
         ConfigLoader.resolve(this);
@@ -115,10 +112,15 @@ public class DatabricksConfig {
     }
 
     public synchronized void authenticate(HttpMessage request) {
-        if (credentials == null) {
-            credentials = new DefaultCredentials(this);
+        if (credentialsProvider == null) {
+            credentialsProvider = new DefaultCredentialsProvider();
         }
-        credentials.visit(request);
+        headerFactory = credentialsProvider.configure(this);
+
+        Map<String, String> headers = headerFactory.headers();
+        for (Map.Entry<String, String> e : headers.entrySet()) {
+            request.setHeader(e.getKey(), e.getValue());
+        }
     }
 
     public String getHost() {
