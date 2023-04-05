@@ -3,14 +3,13 @@
 
 package com.databricks.sdk;
 
-import com.databricks.sdk.client.ConfigLoader;
-import org.junit.jupiter.api.Test;
 import com.databricks.sdk.client.DatabricksConfig;
+import org.junit.jupiter.api.Test;
+
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,12 +18,12 @@ public class DatabricksAuthTest {
     @Test
     public void test{{.PascalName}}() {
         {{with .Env}}// Set environment variables
-        StaticEnv env = new StaticEnv(){{range $k,$v := .}}{{if eq $k "HOME"}}// TODO: $HOME{{end}}
-          .with("{{$k}}", "{{$v}}"){{end}};{{end}}
+        StaticEnv env = new StaticEnv(){{range $k,$v := .}}
+          .with("{{$k}}", {{if eq $k "HOME"}}resource("/{{$v}}"){{else}}"{{$v}}"{{end}}){{end}};{{end}}
         {{- with .AssertError}}raises("{{.}}", () -> { {{end}}
             DatabricksConfig config = new DatabricksConfig(){{range .Fields}}
-              .set{{.PascalName}}("{{.Value}}"){{end}};
-            {{with .Env}}ConfigLoader.resolve(config, env);{{end}}
+              .set{{.PascalName}}("{{.Value}}"){{end}}{{with .Env}}
+              .resolve(env){{end}};
             config.authenticate();
 
           {{with .AssertAuth}}
@@ -35,51 +34,12 @@ public class DatabricksAuthTest {
     }
     {{end}}
 
-    @Test
-    public void testConfigNoParams() {
-        raises("default auth: cannot configure default credentials", () -> {
-            DatabricksConfig config = new DatabricksConfig();
-            config.authenticate();
-        });
-    }
-
-    @Test
-    public void testConfigHostEnv() {
-        // Set environment variables
-        StaticEnv env = new StaticEnv().with("DATABRICKS_HOST", "x");
-        raises("default auth: cannot configure default credentials", () -> {
-            DatabricksConfig config = new DatabricksConfig();
-            ConfigLoader.resolve(config, env);
-            config.authenticate();
-        });
-    }
-
-    @Test
-    public void testConfigTokenEnv() {
-        // Set environment variables
-        StaticEnv env = new StaticEnv().with("DATABRICKS_HOST", "x");
-        raises("default auth: cannot configure default credentials", () -> {
-            DatabricksConfig config = new DatabricksConfig();
-            ConfigLoader.resolve(config, env);
-            config.authenticate();
-        });
-    }
-
-    @Test
-    public void testConfigHostTokenEnv() {
-        // Set environment variables
-        StaticEnv env = new StaticEnv().with("DATABRICKS_HOST", "x").with("DATABRICKS_TOKEN", "x");
-
-        DatabricksConfig config = new DatabricksConfig();
-        ConfigLoader.resolve(config, env);
-
-        // This is being done here as opposed to DatabricksConfig constructor because
-        // we are reading env variables from another map which gets populated later.
-        config.fixHostIfNeeded();
-        config.authenticate();
-
-        assertEquals("https://x", config.getHost());
-        assertEquals("pat", config.getAuthType());
+    private String resource(String file) {
+        URL resource = getClass().getResource(file);
+        if (resource == null) {
+            fail("Asset not found: " + file);
+        }
+        return resource.getFile();
     }
 
     static class StaticEnv implements Function<String,String> {

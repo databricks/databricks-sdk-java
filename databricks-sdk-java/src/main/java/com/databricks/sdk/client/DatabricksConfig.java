@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 public class DatabricksConfig {
 
@@ -112,12 +113,16 @@ public class DatabricksConfig {
     private HeaderFactory headerFactory;
 
     public DatabricksConfig() {
-        this.fixHostIfNeeded();
 //        this.authenticate();
     }
 
-    synchronized DatabricksConfig resolve() {
-        ConfigLoader.resolve(this, System::getenv);
+    public synchronized DatabricksConfig resolve() {
+        return resolve(System::getenv);
+    }
+
+    public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
+        ConfigLoader.resolve(this, getEnv);
+        fixHostIfNeeded();
         return this;
     }
 
