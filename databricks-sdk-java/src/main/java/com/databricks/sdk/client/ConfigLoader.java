@@ -91,8 +91,8 @@ public class ConfigLoader {
 
     private static Ini parseDatabricksCfg(DatabricksConfig cfg) {
         String configFile = cfg.getConfigFile();
-        configFile = configFile.replaceFirst("^~", System.getProperty("user.home"));
         boolean isDefaultConfig = configFile.equals(DatabricksConfig.DEFAULT_CONFIG_FILE);
+        configFile = configFile.replaceFirst("^~", System.getProperty("user.home"));
         Ini ini = new Ini();
         try {
             ini.load(new File(configFile));
