@@ -19,12 +19,16 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     @Override
     public synchronized HeaderFactory configure(DatabricksConfig config) {
         for (CredentialsProvider provider : providers) {
-            HeaderFactory headerFactory = provider.configure(config);
-            if (headerFactory == null) {
-                continue;
+            try {
+                HeaderFactory headerFactory = provider.configure(config);
+                if (headerFactory == null) {
+                    continue;
+                }
+                authType = provider.authType();
+                return headerFactory;
+            } catch (Exception e) {
+                throw new DatabricksException(String.format("%s: %s", this.authType , e.getMessage()));
             }
-            this.authType = provider.authType();
-            return headerFactory;
         }
         throw new DatabricksException("cannot configure default credentials");
     }

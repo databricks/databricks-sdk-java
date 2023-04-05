@@ -14,7 +14,8 @@ public class PatCredentialsProvider implements CredentialsProvider {
     @Override
     public HeaderFactory configure(DatabricksConfig config) {
         String token = config.getToken();
-        if (token == null) {
+        String host = config.getHost();
+        if (token == null || host == null) {
             return null;
         }
         Map<String, String> headers = new HashMap<>();
