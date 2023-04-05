@@ -348,4 +348,25 @@ public class DatabricksConfig {
         this.rateLimit = rateLimit;
         return this;
     }
+
+    public boolean isAzure() {
+        if (azureWorkspaceResourceId != null) {
+            return true;
+        }
+        if (host == null) {
+            return false;
+        }
+        return host.contains(".azuredatabricks.");
+    }
+
+    public boolean isGcp() {
+        if (host == null) {
+            return false;
+        }
+        return host.contains(".gcp.databricks.com");
+    }
+
+    public boolean isAws() {
+        return !isAzure() && !isGcp();
+    }
 }

@@ -1,0 +1,114 @@
+// These are auto-generated tests for Unified Authentication
+// In case of editing this file, make sure the change is propagated to all Databricks SDK codebases
+
+package com.databricks.sdk;
+
+import com.databricks.sdk.client.ConfigLoader;
+import org.junit.jupiter.api.Test;
+import com.databricks.sdk.client.DatabricksConfig;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class DatabricksAuthTest {
+    {{range .}}
+    @Test
+    public void test{{.PascalName}}() {
+        {{with .Env}}// Set environment variables
+        StaticEnv env = new StaticEnv(){{range $k,$v := .}}{{if eq $k "HOME"}}// TODO: $HOME{{end}}
+          .with("{{$k}}", "{{$v}}"){{end}};{{end}}
+        {{- with .AssertError}}raises("{{.}}", () -> { {{end}}
+            DatabricksConfig config = new DatabricksConfig(){{range .Fields}}
+              .set{{.PascalName}}("{{.Value}}"){{end}};
+            {{with .Env}}ConfigLoader.resolve(config, env);{{end}}
+            config.authenticate();
+
+          {{with .AssertAuth}}
+          assertEquals("{{.}}", config.getAuthType());{{end}}{{with .AssertHost}}
+          assertEquals("{{.}}", config.getHost());{{end}}{{if .AssertAzure}}
+          assertTrue(config.isAzure());{{end}}
+        {{- with .AssertError}} });{{end}}
+    }
+    {{end}}
+
+    @Test
+    public void testConfigNoParams() {
+        raises("default auth: cannot configure default credentials", () -> {
+            DatabricksConfig config = new DatabricksConfig();
+            config.authenticate();
+        });
+    }
+
+    @Test
+    public void testConfigHostEnv() {
+        // Set environment variables
+        StaticEnv env = new StaticEnv().with("DATABRICKS_HOST", "x");
+        raises("default auth: cannot configure default credentials", () -> {
+            DatabricksConfig config = new DatabricksConfig();
+            ConfigLoader.resolve(config, env);
+            config.authenticate();
+        });
+    }
+
+    @Test
+    public void testConfigTokenEnv() {
+        // Set environment variables
+        StaticEnv env = new StaticEnv().with("DATABRICKS_HOST", "x");
+        raises("default auth: cannot configure default credentials", () -> {
+            DatabricksConfig config = new DatabricksConfig();
+            ConfigLoader.resolve(config, env);
+            config.authenticate();
+        });
+    }
+
+    @Test
+    public void testConfigHostTokenEnv() {
+        // Set environment variables
+        StaticEnv env = new StaticEnv().with("DATABRICKS_HOST", "x").with("DATABRICKS_TOKEN", "x");
+
+        DatabricksConfig config = new DatabricksConfig();
+        ConfigLoader.resolve(config, env);
+
+        // This is being done here as opposed to DatabricksConfig constructor because
+        // we are reading env variables from another map which gets populated later.
+        config.fixHostIfNeeded();
+        config.authenticate();
+
+        assertEquals("https://x", config.getHost());
+        assertEquals("pat", config.getAuthType());
+    }
+
+    static class StaticEnv implements Function<String,String> {
+        private final Map<String,String> env = new HashMap<>();
+
+        public StaticEnv with(String key, String value) {
+            env.put(key, value);
+            return this;
+        }
+
+        @Override
+        public String apply(String var) {
+            return env.getOrDefault(var, "");
+        }
+    }
+
+    private void raises(String contains, Runnable cb) {
+        boolean raised = false;
+        try {
+            cb.run();
+        } catch (Exception e) {
+            raised = true;
+            String message = e.getMessage();
+            if (!message.contains(contains)) {
+                fail(String.format("Expected exception to contain '%s'", contains), e);
+            }
+        }
+        if (!raised) {
+            fail("Expected exception, none thrown");
+        }
+    }
+}
