@@ -2,9 +2,14 @@ package com.databricks.sdk.client;
 
 import org.apache.http.HttpMessage;
 
+import javax.xml.crypto.Data;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 public class DatabricksConfig {
+
     public static final String DEFAULT_CONFIG_FILE = "~/.databrickscfg";
 
     private CredentialsProvider credentialsProvider;
@@ -106,22 +111,54 @@ public class DatabricksConfig {
     private volatile boolean resolved;
     private HeaderFactory headerFactory;
 
+    public DatabricksConfig() {
+        this.fixHostIfNeeded();
+//        this.authenticate();
+    }
+
     synchronized DatabricksConfig resolve() {
-        ConfigLoader.resolve(this);
+        ConfigLoader.resolve(this, System::getenv);
         return this;
     }
 
-    public synchronized void authenticate(HttpMessage request) {
-        if (credentialsProvider == null) {
-            credentialsProvider = new DefaultCredentialsProvider();
+    public synchronized Map<String,String> authenticate() {
+        try {
+            if (credentialsProvider == null) {
+                credentialsProvider = new DefaultCredentialsProvider();
+                setAuthType(credentialsProvider.authType());
+            }
+            headerFactory = credentialsProvider.configure(this);
+            setAuthType(credentialsProvider.authType());
+            return headerFactory.headers();
+        } catch (Exception authException) {
+            throw new DatabricksException(String.format("%s auth: %s", this.authType , authException.getMessage()));
         }
-        headerFactory = credentialsProvider.configure(this);
+    }
 
-        Map<String, String> headers = headerFactory.headers();
+    // tanmaytodo TODO: refactor callsite to use Map<String,String> authenticate()
+    public synchronized void authenticate(HttpMessage request) {
+        Map<String, String> headers = authenticate();;
         for (Map.Entry<String, String> e : headers.entrySet()) {
             request.setHeader(e.getKey(), e.getValue());
         }
     }
+
+    public void fixHostIfNeeded() {
+        if (this.host == null || this.host.isEmpty()) {
+            return;
+        }
+
+        URL url;
+        try {
+            url = new URL(this.host);
+        } catch (MalformedURLException e) {
+            // only hostname is specified
+            this.host = "https://" + this.host;
+            return;
+        }
+        this.host = url.getProtocol() + "://" + url.getAuthority();
+    }
+
 
     public String getHost() {
         return host;

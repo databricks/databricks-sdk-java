@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 import org.ini4j.Ini;
 import org.ini4j.Profile;
@@ -29,33 +30,28 @@ public class ConfigLoader {
         try {
             DatabricksConfig cfg = new DatabricksConfig();
             loadFromConfig(cfg);
-            loadFromEnvironmentVariables(cfg);
+            loadFromEnvironmentVariables(cfg, System::getenv);
             return cfg;
         } catch (IllegalAccessException e) {
             throw new DatabricksException("Cannot create default config", e);
         }
     }
 
-    static DatabricksConfig resolve(DatabricksConfig cfg) {
+    public static DatabricksConfig resolve(DatabricksConfig cfg, Function<String,String> getEnv) {
         try {
             loadFromConfig(cfg); // TODO: just return new config?..
-            loadFromEnvironmentVariables(cfg);
+            loadFromEnvironmentVariables(cfg, getEnv);
             return cfg;
         } catch (IllegalAccessException e) {
             throw new DatabricksException("Cannot create default config", e);
         }
     }
 
-    private static void loadFromEnvironmentVariables(DatabricksConfig cfg)
+    private static void loadFromEnvironmentVariables(DatabricksConfig cfg, Function<String, String> getEnv)
             throws IllegalAccessException {
         for (ConfigAttributeAccessor accessor : accessors) {
-            String env = accessor.getEnv();
-            if (env == null) {
-                continue;
-            }
-            if (env.equals("")) {
-                continue;
-            }
+            String env = accessor.getEnv(getEnv);
+            if (env == null || env == "") continue;
             accessor.setValue(cfg, env);
         }
     }

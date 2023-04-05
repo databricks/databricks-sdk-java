@@ -2,6 +2,7 @@ package com.databricks.sdk.client;
 
 import java.lang.reflect.Field;
 import java.util.Objects;
+import java.util.function.Function;
 
 class ConfigAttributeAccessor {
     private ConfigAttribute configAttribute;
@@ -16,11 +17,11 @@ class ConfigAttributeAccessor {
         return configAttribute.value();
     }
 
-    public String getEnv() {
+    public String getEnv(Function<String, String> getEnv) {
         if (configAttribute.env().isEmpty()) {
             return "";
         }
-        return System.getenv(configAttribute.env());
+        return getEnv.apply(configAttribute.env());
     }
 
     public void setValue(DatabricksConfig cfg, String value) throws IllegalAccessException {
