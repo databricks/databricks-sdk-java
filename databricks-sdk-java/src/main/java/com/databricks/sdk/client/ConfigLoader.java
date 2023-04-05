@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
+import jdk.internal.joptsimple.internal.Strings;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 
@@ -27,19 +28,12 @@ public class ConfigLoader {
     }
 
     public static DatabricksConfig getDefault() {
-        try {
-            DatabricksConfig cfg = new DatabricksConfig();
-            loadFromConfig(cfg);
-            loadFromEnvironmentVariables(cfg, System::getenv);
-            return cfg;
-        } catch (IllegalAccessException e) {
-            throw new DatabricksException("Cannot create default config", e);
-        }
+        return new DatabricksConfig().resolve();
     }
 
     public static DatabricksConfig resolve(DatabricksConfig cfg, Function<String,String> getEnv) {
         try {
-            loadFromConfig(cfg); // TODO: just return new config?..
+            loadFromConfig(cfg, getEnv); // TODO: just return new config?..
             loadFromEnvironmentVariables(cfg, getEnv);
             return cfg;
         } catch (IllegalAccessException e) {
@@ -47,24 +41,25 @@ public class ConfigLoader {
         }
     }
 
-    private static void loadFromEnvironmentVariables(DatabricksConfig cfg, Function<String, String> getEnv)
+    static void loadFromEnvironmentVariables(DatabricksConfig cfg, Function<String, String> getEnv)
             throws IllegalAccessException {
         for (ConfigAttributeAccessor accessor : accessors) {
             String env = accessor.getEnv(getEnv);
-            if (env == null || env == "") continue;
+            if (env == null || env.equals("")) continue;
             accessor.setValue(cfg, env);
         }
     }
 
-    private static void loadFromConfig(DatabricksConfig cfg)
+    private static boolean isNullOrEmpty(String target) {
+        return target == null || target.isEmpty();
+    }
+
+    static void loadFromConfig(DatabricksConfig cfg, Function<String, String> getEnv)
             throws IllegalAccessException {
-        Ini ini = parseDatabricksCfg(cfg);
+        Ini ini = parseDatabricksCfg(cfg, getEnv);
         if (ini == null) return;
         String profile = cfg.getProfile();
-        if (profile == null) {
-            return;
-        }
-        boolean hasExplicitProfile = !profile.equals("");
+        boolean hasExplicitProfile = !isNullOrEmpty(profile);
         if (!hasExplicitProfile) {
             profile = "DEFAULT";
         }
@@ -79,20 +74,21 @@ public class ConfigLoader {
         }
         for (ConfigAttributeAccessor accessor : accessors) {
             String value = section.get(accessor.getName());
-            if (value == null) {
-                continue;
-            }
-            if (value.equals("")) {
+            if (isNullOrEmpty(value)) {
                 continue;
             }
             accessor.setValue(cfg, value);
         }
     }
 
-    private static Ini parseDatabricksCfg(DatabricksConfig cfg) {
+    private static Ini parseDatabricksCfg(DatabricksConfig cfg, Function<String, String> getEnv) {
         String configFile = cfg.getConfigFile();
         boolean isDefaultConfig = configFile.equals(DatabricksConfig.DEFAULT_CONFIG_FILE);
-        configFile = configFile.replaceFirst("^~", System.getProperty("user.home"));
+        String userHome = getEnv.apply("HOME");
+        if (userHome.equals("")) {
+            userHome = System.getProperty("user.home");
+        }
+        configFile = configFile.replaceFirst("^~", userHome);
         Ini ini = new Ini();
         try {
             ini.load(new File(configFile));

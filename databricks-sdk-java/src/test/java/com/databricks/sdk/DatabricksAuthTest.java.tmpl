@@ -1,0 +1,74 @@
+// These are auto-generated tests for Unified Authentication
+// In case of editing this file, make sure the change is propagated to all Databricks SDK codebases
+
+package com.databricks.sdk;
+
+import com.databricks.sdk.client.DatabricksConfig;
+import org.junit.jupiter.api.Test;
+
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class DatabricksAuthTest {
+    {{range .}}
+    @Test
+    public void test{{.PascalName}}() {
+        {{with .Env}}// Set environment variables
+        StaticEnv env = new StaticEnv(){{range $k,$v := .}}
+          .with("{{$k}}", {{if eq $k "HOME"}}resource("/{{$v}}"){{else}}"{{$v}}"{{end}}){{end}};{{end}}
+        {{- with .AssertError}}raises("{{.}}", () -> { {{end}}
+            DatabricksConfig config = new DatabricksConfig(){{range .Fields}}
+              .set{{.PascalName}}("{{.Value}}"){{end}}{{with .Env}}
+              .resolve(env){{end}};
+            config.authenticate();
+
+          {{with .AssertAuth}}
+          assertEquals("{{.}}", config.getAuthType());{{end}}{{with .AssertHost}}
+          assertEquals("{{.}}", config.getHost());{{end}}{{if .AssertAzure}}
+          assertTrue(config.isAzure());{{end}}
+        {{- with .AssertError}} });{{end}}
+    }
+    {{end}}
+
+    private String resource(String file) {
+        URL resource = getClass().getResource(file);
+        if (resource == null) {
+            fail("Asset not found: " + file);
+        }
+        return resource.getFile();
+    }
+
+    static class StaticEnv implements Function<String,String> {
+        private final Map<String,String> env = new HashMap<>();
+
+        public StaticEnv with(String key, String value) {
+            env.put(key, value);
+            return this;
+        }
+
+        @Override
+        public String apply(String var) {
+            return env.getOrDefault(var, "");
+        }
+    }
+
+    private void raises(String contains, Runnable cb) {
+        boolean raised = false;
+        try {
+            cb.run();
+        } catch (Exception e) {
+            raised = true;
+            String message = e.getMessage();
+            if (!message.contains(contains)) {
+                fail(String.format("Expected exception to contain '%s'", contains), e);
+            }
+        }
+        if (!raised) {
+            fail("Expected exception, none thrown");
+        }
+    }
+}
