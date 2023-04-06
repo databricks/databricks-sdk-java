@@ -11,9 +11,14 @@ import java.util.function.Function;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 
+import javax.xml.crypto.Data;
+
 
 public class ConfigLoader {
     private static List<ConfigAttributeAccessor> accessors = attributeAccessors();
+
+    private static ArrayList<String> attrsUsed = new ArrayList<>();
+    private static ArrayList<String> envsUsed = new ArrayList<>();
 
     static List<ConfigAttributeAccessor> attributeAccessors() {
         ArrayList<ConfigAttributeAccessor> attrs = new ArrayList<>();
@@ -30,7 +35,7 @@ public class ConfigLoader {
         return makeNicerError(message, 200);
     }
     public static DatabricksException makeNicerError(String message, Integer statusCode) {
-        boolean isHttpUnauthorizedOrForbidden = true; // tanmaytodo - pass status code with exception, default this to false
+        boolean isHttpUnauthorizedOrForbidden = true; // TODO - pass status code with exception, default this to false
         if (statusCode == 401 || statusCode == 402) isHttpUnauthorizedOrForbidden = true;
         String debugString = debugString();
         if (!debugString.isEmpty() && isHttpUnauthorizedOrForbidden) {
@@ -40,17 +45,12 @@ public class ConfigLoader {
     }
     public static String debugString() {
         ArrayList<String> buf = new ArrayList<>();
-        ArrayList<String> attrsUsed = new ArrayList<>();
-        ArrayList<String> envsUsed = new ArrayList<>();
-
-        accessors.forEach(attrAccessor -> {
-            System.out.println(attrAccessor.toString());
-
-        });
-
-        if (!attrsUsed.isEmpty()) buf.add(String.format("Config: %s", String.join(", ", attrsUsed)));
-        if (!envsUsed.isEmpty()) buf.add(String.format("Env: %s", String.join(", ", envsUsed)));
-
+        if (!attrsUsed.isEmpty()) {
+            buf.add(String.format("Config: %s", String.join(", ", attrsUsed)));
+        }
+        if (!envsUsed.isEmpty()) {
+            buf.add(String.format("Env: %s", String.join(", ", envsUsed)));
+        }
         return String.join(". ", buf);
     }
 
@@ -68,6 +68,34 @@ public class ConfigLoader {
         }
     }
 
+    public static void checkUsedAttrsAndEnvs(Function<String, String> getEnv) {
+        try {
+            for (ConfigAttributeAccessor accessor: accessors) {
+                String envName = accessor.getEnvName();
+                String envValue = accessor.getEnv(getEnv);
+                if (!isNullOrEmpty(envValue) && !isNullOrEmpty(envName)) {
+                    envsUsed.add(String.format("%s", envName));
+                }
+
+                String name = accessor.getName();
+                String value = ""; // TODO - how to get this.
+                if(isNullOrEmpty(value)) {
+                    continue;
+                }
+                if(accessor.isSensitive()) {
+                    value = "***";
+                }
+                attrsUsed.add(String.format("%s=%s", name, value));
+            }
+        } catch (Exception e) {
+            // Do nothing else we would have to change tests?
+        }
+    }
+
+    private static boolean isNullOrEmpty(String target) {
+        return target == null || target.isEmpty();
+    }
+
     static void loadFromEnvironmentVariables(DatabricksConfig cfg, Function<String, String> getEnv)
             throws IllegalAccessException {
         for (ConfigAttributeAccessor accessor : accessors) {
@@ -75,10 +103,6 @@ public class ConfigLoader {
             if (env == null || env.equals("")) continue;
             accessor.setValue(cfg, env);
         }
-    }
-
-    private static boolean isNullOrEmpty(String target) {
-        return target == null || target.isEmpty();
     }
 
     static void loadFromConfig(DatabricksConfig cfg, Function<String, String> getEnv)

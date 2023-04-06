@@ -17,6 +17,14 @@ class ConfigAttributeAccessor {
         return configAttribute.value();
     }
 
+    public String getEnvName() {
+        return configAttribute.env();
+    }
+
+    public Boolean isSensitive() {
+        return configAttribute.sensitive();
+    }
+
     public String getEnv(Function<String, String> getEnv) {
         if (configAttribute.env().isEmpty()) {
             return "";
