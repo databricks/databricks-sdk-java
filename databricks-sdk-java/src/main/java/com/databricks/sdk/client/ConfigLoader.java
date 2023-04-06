@@ -78,7 +78,10 @@ public class ConfigLoader {
                 }
 
                 String name = accessor.getName();
-                String value = ""; // TODO - how to get this.
+                // Using reflection to get the attribute value
+                Field field = DatabricksConfig.class.getDeclaredField(name);
+                field.setAccessible(true);
+                String value = (String) field.get(null); // TODO - failing
                 if(isNullOrEmpty(value)) {
                     continue;
                 }
