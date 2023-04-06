@@ -88,7 +88,7 @@ public class ConfigLoader {
                 attrsUsed.add(String.format("%s=%s", name, value));
             }
         } catch (Exception e) {
-            // Do nothing else we would have to change tests?
+            throw new DatabricksException(e.getMessage());
         }
     }
 
