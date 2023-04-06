@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
-import jdk.internal.joptsimple.internal.Strings;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 
@@ -25,6 +24,34 @@ public class ConfigLoader {
             }
         }
         return attrs;
+    }
+
+    public static DatabricksException makeNicerError(String message) {
+        return makeNicerError(message, 200);
+    }
+    public static DatabricksException makeNicerError(String message, Integer statusCode) {
+        boolean isHttpUnauthorizedOrForbidden = true; // tanmaytodo - pass status code with exception, default this to false
+        if (statusCode == 401 || statusCode == 402) isHttpUnauthorizedOrForbidden = true;
+        String debugString = debugString();
+        if (!debugString.isEmpty() && isHttpUnauthorizedOrForbidden) {
+            message = String.format("%s. %s", message, debugString);
+        }
+        return new DatabricksException(message);
+    }
+    public static String debugString() {
+        ArrayList<String> buf = new ArrayList<>();
+        ArrayList<String> attrsUsed = new ArrayList<>();
+        ArrayList<String> envsUsed = new ArrayList<>();
+
+        accessors.forEach(attrAccessor -> {
+            System.out.println(attrAccessor.toString());
+
+        });
+
+        if (!attrsUsed.isEmpty()) buf.add(String.format("Config: %s", String.join(", ", attrsUsed)));
+        if (!envsUsed.isEmpty()) buf.add(String.format("Env: %s", String.join(", ", envsUsed)));
+
+        return String.join(". ", buf);
     }
 
     public static DatabricksConfig getDefault() {

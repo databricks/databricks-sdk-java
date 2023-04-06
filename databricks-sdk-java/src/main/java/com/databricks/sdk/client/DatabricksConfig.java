@@ -112,10 +112,6 @@ public class DatabricksConfig {
     private volatile boolean resolved;
     private HeaderFactory headerFactory;
 
-    public DatabricksConfig() {
-//        this.authenticate();
-    }
-
     public synchronized DatabricksConfig resolve() {
         return resolve(System::getenv);
     }
@@ -126,7 +122,7 @@ public class DatabricksConfig {
         return this;
     }
 
-    public synchronized Map<String,String> authenticate() {
+    public synchronized Map<String,String> initAuth() {
         try {
             if (credentialsProvider == null) {
                 credentialsProvider = new DefaultCredentialsProvider();
@@ -135,12 +131,24 @@ public class DatabricksConfig {
             headerFactory = credentialsProvider.configure(this);
             setAuthType(credentialsProvider.authType());
             return headerFactory.headers();
-        } catch (Exception authException) {
-            throw new DatabricksException(String.format("%s auth: %s", this.authType , authException.getMessage()));
+        } catch (DatabricksException authException) {
+            throw ConfigLoader.makeNicerError(authException.getMessage());
+        } catch (Exception e) {
+            throw e;
         }
     }
 
-    // tanmaytodo TODO: refactor callsite to use Map<String,String> authenticate()
+    public synchronized Map<String,String> authenticate() {
+        try {
+            Map<String, String> headers = initAuth();
+            return headers;
+        } catch (DatabricksException authException) {
+            throw new DatabricksException(String.format("%s auth: %s", this.authType , authException.getMessage()));
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
     public synchronized void authenticate(HttpMessage request) {
         Map<String, String> headers = authenticate();;
         for (Map.Entry<String, String> e : headers.entrySet()) {
