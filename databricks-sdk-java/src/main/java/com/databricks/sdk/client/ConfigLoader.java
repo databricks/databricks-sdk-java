@@ -11,9 +11,6 @@ import java.util.function.Function;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 
-import javax.xml.crypto.Data;
-
-
 public class ConfigLoader {
     private static List<ConfigAttributeAccessor> accessors = attributeAccessors();
 
