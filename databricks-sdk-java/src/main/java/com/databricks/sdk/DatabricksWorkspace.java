@@ -1605,5 +1605,8 @@ public class DatabricksWorkspace {
         workspaceConfService = workspaceConf;
         return this;
     }
-    
+
+    public ApiClient getApiClient() {
+        return apiClient;
+    }
 }
