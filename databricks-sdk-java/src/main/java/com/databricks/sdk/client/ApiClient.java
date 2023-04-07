@@ -69,13 +69,6 @@ public class ApiClient {
         hc = makeClosableHttpClient();
         mapper = makeObjectMapper();
         random = new Random();
-
-        try {
-            KeyUseCase deserialize = deserialize("\"FOOOOOO\"", KeyUseCase.class);
-            System.out.println(deserialize);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private ObjectMapper makeObjectMapper() {
@@ -195,6 +188,10 @@ public class ApiClient {
         CloseableHttpResponse success = null;
         CloseableHttpResponse lastResponse = null;
         //log.info(s"Requesting ${request.getRequestLine}")
+
+        String userAgent = UserAgent.asString();
+        // TODO: add auth/<auth-type> once PR#9 is merged
+        request.setHeader("User-Agent", userAgent);
         request.setHeader("Accept", "application/json");
 
         while (attemptNumber <= maxRetries && success == null) {
