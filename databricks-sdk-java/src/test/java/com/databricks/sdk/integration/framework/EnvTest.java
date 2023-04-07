@@ -3,6 +3,7 @@ package com.databricks.sdk.integration.framework;
 import com.databricks.sdk.DatabricksAccount;
 import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.client.UserAgent;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -23,6 +24,9 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class EnvTest implements Extension, ParameterResolver, ExecutionCondition {
+    static {
+        UserAgent.withProduct("integration-tests", "0.0.1");
+    }
 
     private static final String ENV_STORE_KEY = "env";
 
