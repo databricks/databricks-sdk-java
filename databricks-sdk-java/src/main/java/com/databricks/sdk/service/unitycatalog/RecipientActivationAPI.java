@@ -18,6 +18,10 @@ public class RecipientActivationAPI {
     impl = mock;
   }
 
+  public void getActivationUrlInfo(String activationUrl) {
+    getActivationUrlInfo(new GetActivationUrlInfoRequest().setActivationUrl(activationUrl));
+  }
+
   /**
    * Get a share activation URL.
    *
@@ -25,6 +29,10 @@ public class RecipientActivationAPI {
    */
   public void getActivationUrlInfo(GetActivationUrlInfoRequest request) {
     impl.getActivationUrlInfo(request);
+  }
+
+  public RetrieveTokenResponse retrieveToken(String activationUrl) {
+    return retrieveToken(new RetrieveTokenRequest().setActivationUrl(activationUrl));
   }
 
   /**

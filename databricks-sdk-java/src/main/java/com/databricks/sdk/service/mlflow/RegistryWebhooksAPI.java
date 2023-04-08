@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
+import java.util.List;
 import org.apache.http.client.methods.*;
 
 public class RegistryWebhooksAPI {
@@ -15,6 +16,10 @@ public class RegistryWebhooksAPI {
   /** Constructor for mocks */
   public RegistryWebhooksAPI(RegistryWebhooksService mock) {
     impl = mock;
+  }
+
+  public CreateResponse create(List<RegistryWebhookEvent> events) {
+    return create(new CreateRegistryWebhook().setEvents(events));
   }
 
   /**
@@ -50,6 +55,10 @@ public class RegistryWebhooksAPI {
     return impl.list(request);
   }
 
+  public TestRegistryWebhookResponse test(String id) {
+    return test(new TestRegistryWebhookRequest().setId(id));
+  }
+
   /**
    * Test a webhook.
    *
@@ -59,6 +68,10 @@ public class RegistryWebhooksAPI {
    */
   public TestRegistryWebhookResponse test(TestRegistryWebhookRequest request) {
     return impl.test(request);
+  }
+
+  public void update(String id) {
+    update(new UpdateRegistryWebhook().setId(id));
   }
 
   /**

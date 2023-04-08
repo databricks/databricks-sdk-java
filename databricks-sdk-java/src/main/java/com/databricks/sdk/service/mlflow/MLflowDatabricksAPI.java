@@ -21,6 +21,10 @@ public class MLflowDatabricksAPI {
     impl = mock;
   }
 
+  public GetResponse get(String name) {
+    return get(new GetMLflowDatabrickRequest().setName(name));
+  }
+
   /**
    * Get model.
    *
@@ -32,6 +36,16 @@ public class MLflowDatabricksAPI {
    */
   public GetResponse get(GetMLflowDatabrickRequest request) {
     return impl.get(request);
+  }
+
+  public TransitionStageResponse transitionStage(
+      String name, String version, Stage stage, boolean archiveExistingVersions) {
+    return transitionStage(
+        new TransitionModelVersionStageDatabricks()
+            .setName(name)
+            .setVersion(version)
+            .setStage(stage)
+            .setArchiveExistingVersions(archiveExistingVersions));
   }
 
   /**

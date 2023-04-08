@@ -29,6 +29,11 @@ public class TableConstraintsAPI {
     impl = mock;
   }
 
+  public TableConstraint create(String fullNameArg, TableConstraint constraint) {
+    return create(
+        new CreateTableConstraint().setFullNameArg(fullNameArg).setConstraint(constraint));
+  }
+
   /**
    * Create a table constraint.
    *
@@ -43,6 +48,14 @@ public class TableConstraintsAPI {
    */
   public TableConstraint create(CreateTableConstraint request) {
     return impl.create(request);
+  }
+
+  public void delete(String fullName, String constraintName, boolean cascade) {
+    delete(
+        new DeleteTableConstraintRequest()
+            .setFullName(fullName)
+            .setConstraintName(constraintName)
+            .setCascade(cascade));
   }
 
   /**

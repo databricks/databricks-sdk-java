@@ -28,6 +28,10 @@ public class UsersAPI {
     impl = mock;
   }
 
+  public User create(String id) {
+    return create(new User().setId(id));
+  }
+
   /**
    * Create a new user.
    *
@@ -38,6 +42,10 @@ public class UsersAPI {
     return impl.create(request);
   }
 
+  public void delete(String id) {
+    delete(new DeleteUserRequest().setId(id));
+  }
+
   /**
    * Delete a user.
    *
@@ -46,6 +54,10 @@ public class UsersAPI {
    */
   public void delete(DeleteUserRequest request) {
     impl.delete(request);
+  }
+
+  public User get(String id) {
+    return get(new GetUserRequest().setId(id));
   }
 
   /**
@@ -66,6 +78,10 @@ public class UsersAPI {
     return impl.list(request);
   }
 
+  public void patch(String id) {
+    patch(new PartialUpdate().setId(id));
+  }
+
   /**
    * Update user details.
    *
@@ -74,6 +90,10 @@ public class UsersAPI {
    */
   public void patch(PartialUpdate request) {
     impl.patch(request);
+  }
+
+  public void update(String id) {
+    update(new User().setId(id));
   }
 
   /**

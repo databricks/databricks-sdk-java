@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.libraries;
 
 import com.databricks.sdk.client.ApiClient;
+import java.util.List;
 import org.apache.http.client.methods.*;
 
 /**
@@ -49,6 +50,10 @@ public class LibrariesAPI {
     return impl.allClusterStatuses();
   }
 
+  public ClusterLibraryStatuses clusterStatus(String clusterId) {
+    return clusterStatus(new ClusterStatus().setClusterId(clusterId));
+  }
+
   /**
    * Get status.
    *
@@ -70,6 +75,10 @@ public class LibrariesAPI {
     return impl.clusterStatus(request);
   }
 
+  public void install(String clusterId, List<Library> libraries) {
+    install(new InstallLibraries().setClusterId(clusterId).setLibraries(libraries));
+  }
+
   /**
    * Add a library.
    *
@@ -82,6 +91,10 @@ public class LibrariesAPI {
    */
   public void install(InstallLibraries request) {
     impl.install(request);
+  }
+
+  public void uninstall(String clusterId, List<Library> libraries) {
+    uninstall(new UninstallLibraries().setClusterId(clusterId).setLibraries(libraries));
   }
 
   /**

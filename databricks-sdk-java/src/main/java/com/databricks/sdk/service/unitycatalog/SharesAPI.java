@@ -18,6 +18,10 @@ public class SharesAPI {
     impl = mock;
   }
 
+  public ShareInfo create(String name) {
+    return create(new CreateShare().setName(name));
+  }
+
   /**
    * Create a share.
    *
@@ -29,6 +33,10 @@ public class SharesAPI {
     return impl.create(request);
   }
 
+  public void delete(String name) {
+    delete(new DeleteShareRequest().setName(name));
+  }
+
   /**
    * Delete a share.
    *
@@ -36,6 +44,10 @@ public class SharesAPI {
    */
   public void delete(DeleteShareRequest request) {
     impl.delete(request);
+  }
+
+  public ShareInfo get(String name) {
+    return get(new GetShareRequest().setName(name));
   }
 
   /**
@@ -59,6 +71,10 @@ public class SharesAPI {
     return impl.list();
   }
 
+  public PermissionsList sharePermissions(String name) {
+    return sharePermissions(new SharePermissionsRequest().setName(name));
+  }
+
   /**
    * Get permissions.
    *
@@ -67,6 +83,10 @@ public class SharesAPI {
    */
   public PermissionsList sharePermissions(SharePermissionsRequest request) {
     return impl.sharePermissions(request);
+  }
+
+  public ShareInfo update(String name) {
+    return update(new UpdateShare().setName(name));
   }
 
   /**
@@ -88,6 +108,10 @@ public class SharesAPI {
    */
   public ShareInfo update(UpdateShare request) {
     return impl.update(request);
+  }
+
+  public void updatePermissions(String name) {
+    updatePermissions(new UpdateSharePermissions().setName(name));
   }
 
   /**

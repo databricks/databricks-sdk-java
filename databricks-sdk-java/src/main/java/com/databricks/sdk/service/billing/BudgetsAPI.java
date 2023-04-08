@@ -21,6 +21,10 @@ public class BudgetsAPI {
     impl = mock;
   }
 
+  public WrappedBudgetWithStatus create(Budget budget, String budgetId) {
+    return create(new WrappedBudget().setBudget(budget).setBudgetId(budgetId));
+  }
+
   /**
    * Create a new budget.
    *
@@ -30,6 +34,10 @@ public class BudgetsAPI {
     return impl.create(request);
   }
 
+  public void delete(String budgetId) {
+    delete(new DeleteBudgetRequest().setBudgetId(budgetId));
+  }
+
   /**
    * Delete budget.
    *
@@ -37,6 +45,10 @@ public class BudgetsAPI {
    */
   public void delete(DeleteBudgetRequest request) {
     impl.delete(request);
+  }
+
+  public WrappedBudgetWithStatus get(String budgetId) {
+    return get(new GetBudgetRequest().setBudgetId(budgetId));
   }
 
   /**
@@ -57,6 +69,10 @@ public class BudgetsAPI {
    */
   public BudgetList list() {
     return impl.list();
+  }
+
+  public void update(Budget budget, String budgetId) {
+    update(new WrappedBudget().setBudget(budget).setBudgetId(budgetId));
   }
 
   /**

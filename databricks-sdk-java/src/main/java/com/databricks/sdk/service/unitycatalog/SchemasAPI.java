@@ -23,6 +23,10 @@ public class SchemasAPI {
     impl = mock;
   }
 
+  public SchemaInfo create(String name, String catalogName) {
+    return create(new CreateSchema().setName(name).setCatalogName(catalogName));
+  }
+
   /**
    * Create a schema.
    *
@@ -31,6 +35,10 @@ public class SchemasAPI {
    */
   public SchemaInfo create(CreateSchema request) {
     return impl.create(request);
+  }
+
+  public void delete(String fullName) {
+    delete(new DeleteSchemaRequest().setFullName(fullName));
   }
 
   /**
@@ -43,6 +51,10 @@ public class SchemasAPI {
     impl.delete(request);
   }
 
+  public SchemaInfo get(String fullName) {
+    return get(new GetSchemaRequest().setFullName(fullName));
+  }
+
   /**
    * Get a schema.
    *
@@ -51,6 +63,10 @@ public class SchemasAPI {
    */
   public SchemaInfo get(GetSchemaRequest request) {
     return impl.get(request);
+  }
+
+  public ListSchemasResponse list(String catalogName) {
+    return list(new ListSchemasRequest().setCatalogName(catalogName));
   }
 
   /**
@@ -64,6 +80,10 @@ public class SchemasAPI {
    */
   public ListSchemasResponse list(ListSchemasRequest request) {
     return impl.list(request);
+  }
+
+  public SchemaInfo update(String fullName) {
+    return update(new UpdateSchema().setFullName(fullName));
   }
 
   /**

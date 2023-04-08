@@ -35,6 +35,10 @@ public class PublishedAppIntegrationAPI {
     return impl.create(request);
   }
 
+  public void delete(String integrationId) {
+    delete(new DeletePublishedAppIntegrationRequest().setIntegrationId(integrationId));
+  }
+
   /**
    * Delete Published OAuth App Integration.
    *
@@ -43,6 +47,10 @@ public class PublishedAppIntegrationAPI {
    */
   public void delete(DeletePublishedAppIntegrationRequest request) {
     impl.delete(request);
+  }
+
+  public GetPublishedAppIntegrationOutput get(String integrationId) {
+    return get(new GetPublishedAppIntegrationRequest().setIntegrationId(integrationId));
   }
 
   /**
@@ -61,6 +69,10 @@ public class PublishedAppIntegrationAPI {
    */
   public GetPublishedAppIntegrationsOutput list() {
     return impl.list();
+  }
+
+  public void update(String integrationId) {
+    update(new UpdatePublishedAppIntegration().setIntegrationId(integrationId));
   }
 
   /**

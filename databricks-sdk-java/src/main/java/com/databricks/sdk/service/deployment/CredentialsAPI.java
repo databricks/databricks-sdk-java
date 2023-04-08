@@ -24,6 +24,13 @@ public class CredentialsAPI {
     impl = mock;
   }
 
+  public Credential create(String credentialsName, CreateCredentialAwsCredentials awsCredentials) {
+    return create(
+        new CreateCredentialRequest()
+            .setCredentialsName(credentialsName)
+            .setAwsCredentials(awsCredentials));
+  }
+
   /**
    * Create credential configuration.
    *
@@ -46,6 +53,10 @@ public class CredentialsAPI {
     return impl.create(request);
   }
 
+  public void delete(String credentialsId) {
+    delete(new DeleteCredentialRequest().setCredentialsId(credentialsId));
+  }
+
   /**
    * Delete credential configuration.
    *
@@ -54,6 +65,10 @@ public class CredentialsAPI {
    */
   public void delete(DeleteCredentialRequest request) {
     impl.delete(request);
+  }
+
+  public Credential get(String credentialsId) {
+    return get(new GetCredentialRequest().setCredentialsId(credentialsId));
   }
 
   /**

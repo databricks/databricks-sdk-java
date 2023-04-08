@@ -25,6 +25,10 @@ public class InstanceProfilesAPI {
     impl = mock;
   }
 
+  public void add(String instanceProfileArn) {
+    add(new AddInstanceProfile().setInstanceProfileArn(instanceProfileArn));
+  }
+
   /**
    * Register an instance profile.
    *
@@ -33,6 +37,10 @@ public class InstanceProfilesAPI {
    */
   public void add(AddInstanceProfile request) {
     impl.add(request);
+  }
+
+  public void edit(String instanceProfileArn) {
+    edit(new InstanceProfile().setInstanceProfileArn(instanceProfileArn));
   }
 
   /**
@@ -65,6 +73,10 @@ public class InstanceProfilesAPI {
    */
   public ListInstanceProfilesResponse list() {
     return impl.list();
+  }
+
+  public void remove(String instanceProfileArn) {
+    remove(new RemoveInstanceProfile().setInstanceProfileArn(instanceProfileArn));
   }
 
   /**

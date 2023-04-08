@@ -17,6 +17,10 @@ public class ExperimentsAPI {
     impl = mock;
   }
 
+  public CreateExperimentResponse create(String name) {
+    return create(new CreateExperiment().setName(name));
+  }
+
   /**
    * Create experiment.
    *
@@ -30,6 +34,10 @@ public class ExperimentsAPI {
     return impl.create(request);
   }
 
+  public void delete(String experimentId) {
+    delete(new DeleteExperiment().setExperimentId(experimentId));
+  }
+
   /**
    * Delete an experiment.
    *
@@ -40,6 +48,10 @@ public class ExperimentsAPI {
     impl.delete(request);
   }
 
+  public Experiment get(String experimentId) {
+    return get(new GetExperimentRequest().setExperimentId(experimentId));
+  }
+
   /**
    * Get an experiment.
    *
@@ -47,6 +59,10 @@ public class ExperimentsAPI {
    */
   public Experiment get(GetExperimentRequest request) {
     return impl.get(request);
+  }
+
+  public GetExperimentByNameResponse getByName(String experimentName) {
+    return getByName(new GetByNameRequest().setExperimentName(experimentName));
   }
 
   /**
@@ -73,6 +89,10 @@ public class ExperimentsAPI {
     return impl.list(request);
   }
 
+  public void restore(String experimentId) {
+    restore(new RestoreExperiment().setExperimentId(experimentId));
+  }
+
   /**
    * Restores an experiment.
    *
@@ -96,6 +116,11 @@ public class ExperimentsAPI {
     return impl.search(request);
   }
 
+  public void setExperimentTag(String experimentId, String key, String value) {
+    setExperimentTag(
+        new SetExperimentTag().setExperimentId(experimentId).setKey(key).setValue(value));
+  }
+
   /**
    * Set a tag.
    *
@@ -103,6 +128,10 @@ public class ExperimentsAPI {
    */
   public void setExperimentTag(SetExperimentTag request) {
     impl.setExperimentTag(request);
+  }
+
+  public void update(String experimentId) {
+    update(new UpdateExperiment().setExperimentId(experimentId));
   }
 
   /**

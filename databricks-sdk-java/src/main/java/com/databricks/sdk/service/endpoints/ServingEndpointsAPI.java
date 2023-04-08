@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.endpoints;
 
 import com.databricks.sdk.client.ApiClient;
+import java.util.List;
 import org.apache.http.client.methods.*;
 
 /**
@@ -29,6 +30,10 @@ public class ServingEndpointsAPI {
     impl = mock;
   }
 
+  public BuildLogsResponse buildLogs(String name, String servedModelName) {
+    return buildLogs(new BuildLogsRequest().setName(name).setServedModelName(servedModelName));
+  }
+
   /**
    * Retrieve the logs associated with building the model's environment for a given serving
    * endpoint's served model.
@@ -39,14 +44,26 @@ public class ServingEndpointsAPI {
     return impl.buildLogs(request);
   }
 
+  public ServingEndpointDetailed create(String name, EndpointCoreConfigInput config) {
+    return create(new CreateServingEndpoint().setName(name).setConfig(config));
+  }
+
   /** Create a new serving endpoint. */
   public ServingEndpointDetailed create(CreateServingEndpoint request) {
     return impl.create(request);
   }
 
+  public void delete(String name) {
+    delete(new DeleteServingEndpointRequest().setName(name));
+  }
+
   /** Delete a serving endpoint. */
   public void delete(DeleteServingEndpointRequest request) {
     impl.delete(request);
+  }
+
+  public void exportMetrics(String name) {
+    exportMetrics(new ExportMetricsRequest().setName(name));
   }
 
   /**
@@ -58,6 +75,10 @@ public class ServingEndpointsAPI {
    */
   public void exportMetrics(ExportMetricsRequest request) {
     impl.exportMetrics(request);
+  }
+
+  public ServingEndpointDetailed get(String name) {
+    return get(new GetServingEndpointRequest().setName(name));
   }
 
   /**
@@ -74,6 +95,10 @@ public class ServingEndpointsAPI {
     return impl.list();
   }
 
+  public ServerLogsResponse logs(String name, String servedModelName) {
+    return logs(new LogsRequest().setName(name).setServedModelName(servedModelName));
+  }
+
   /**
    * Retrieve the most recent log lines associated with a given serving endpoint's served model.
    *
@@ -83,9 +108,17 @@ public class ServingEndpointsAPI {
     return impl.logs(request);
   }
 
+  public QueryEndpointResponse query(String name) {
+    return query(new QueryRequest().setName(name));
+  }
+
   /** Query a serving endpoint with provided model input. */
   public QueryEndpointResponse query(QueryRequest request) {
     return impl.query(request);
+  }
+
+  public ServingEndpointDetailed updateConfig(List<ServedModelInput> servedModels, String name) {
+    return updateConfig(new EndpointCoreConfigInput().setServedModels(servedModels).setName(name));
   }
 
   /**

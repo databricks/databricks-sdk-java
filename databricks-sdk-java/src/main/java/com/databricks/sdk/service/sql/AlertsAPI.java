@@ -23,6 +23,10 @@ public class AlertsAPI {
     impl = mock;
   }
 
+  public Alert create(String name, AlertOptions options, String queryId) {
+    return create(new CreateAlert().setName(name).setOptions(options).setQueryId(queryId));
+  }
+
   /**
    * Create an alert.
    *
@@ -34,6 +38,10 @@ public class AlertsAPI {
     return impl.create(request);
   }
 
+  public void delete(String alertId) {
+    delete(new DeleteAlertRequest().setAlertId(alertId));
+  }
+
   /**
    * Delete an alert.
    *
@@ -42,6 +50,10 @@ public class AlertsAPI {
    */
   public void delete(DeleteAlertRequest request) {
     impl.delete(request);
+  }
+
+  public Alert get(String alertId) {
+    return get(new GetAlertRequest().setAlertId(alertId));
   }
 
   /**
@@ -60,6 +72,11 @@ public class AlertsAPI {
    */
   public List<Alert> list() {
     return impl.list();
+  }
+
+  public void update(String name, AlertOptions options, String queryId, String alertId) {
+    update(
+        new EditAlert().setName(name).setOptions(options).setQueryId(queryId).setAlertId(alertId));
   }
 
   /**

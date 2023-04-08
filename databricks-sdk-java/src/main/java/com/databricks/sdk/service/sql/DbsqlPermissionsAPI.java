@@ -31,6 +31,10 @@ public class DbsqlPermissionsAPI {
     impl = mock;
   }
 
+  public GetResponse get(ObjectTypePlural objectType, String objectId) {
+    return get(new GetDbsqlPermissionRequest().setObjectType(objectType).setObjectId(objectId));
+  }
+
   /**
    * Get object ACL.
    *
@@ -38,6 +42,10 @@ public class DbsqlPermissionsAPI {
    */
   public GetResponse get(GetDbsqlPermissionRequest request) {
     return impl.get(request);
+  }
+
+  public SetResponse set(ObjectTypePlural objectType, String objectId) {
+    return set(new SetRequest().setObjectType(objectType).setObjectId(objectId));
   }
 
   /**
@@ -48,6 +56,12 @@ public class DbsqlPermissionsAPI {
    */
   public SetResponse set(SetRequest request) {
     return impl.set(request);
+  }
+
+  public Success transferOwnership(
+      OwnableObjectType objectType, TransferOwnershipObjectId objectId) {
+    return transferOwnership(
+        new TransferOwnershipRequest().setObjectType(objectType).setObjectId(objectId));
   }
 
   /**

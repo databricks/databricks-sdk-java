@@ -33,6 +33,11 @@ public class EncryptionKeysAPI {
     impl = mock;
   }
 
+  public CustomerManagedKey create(CreateAwsKeyInfo awsKeyInfo, List<KeyUseCase> useCases) {
+    return create(
+        new CreateCustomerManagedKeyRequest().setAwsKeyInfo(awsKeyInfo).setUseCases(useCases));
+  }
+
   /**
    * Create encryption key configuration.
    *
@@ -54,6 +59,10 @@ public class EncryptionKeysAPI {
     return impl.create(request);
   }
 
+  public void delete(String customerManagedKeyId) {
+    delete(new DeleteEncryptionKeyRequest().setCustomerManagedKeyId(customerManagedKeyId));
+  }
+
   /**
    * Delete encryption key configuration.
    *
@@ -62,6 +71,10 @@ public class EncryptionKeysAPI {
    */
   public void delete(DeleteEncryptionKeyRequest request) {
     impl.delete(request);
+  }
+
+  public CustomerManagedKey get(String customerManagedKeyId) {
+    return get(new GetEncryptionKeyRequest().setCustomerManagedKeyId(customerManagedKeyId));
   }
 
   /**

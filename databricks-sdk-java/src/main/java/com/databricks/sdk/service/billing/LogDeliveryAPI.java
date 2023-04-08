@@ -105,6 +105,11 @@ public class LogDeliveryAPI {
     return impl.create(request);
   }
 
+  public WrappedLogDeliveryConfiguration get(String logDeliveryConfigurationId) {
+    return get(
+        new GetLogDeliveryRequest().setLogDeliveryConfigurationId(logDeliveryConfigurationId));
+  }
+
   /**
    * Get log delivery configuration.
    *
@@ -121,6 +126,13 @@ public class LogDeliveryAPI {
    */
   public WrappedLogDeliveryConfigurations list(ListLogDeliveryRequest request) {
     return impl.list(request);
+  }
+
+  public void patchStatus(LogDeliveryConfigStatus status, String logDeliveryConfigurationId) {
+    patchStatus(
+        new UpdateLogDeliveryConfigurationStatusRequest()
+            .setStatus(status)
+            .setLogDeliveryConfigurationId(logDeliveryConfigurationId));
   }
 
   /**

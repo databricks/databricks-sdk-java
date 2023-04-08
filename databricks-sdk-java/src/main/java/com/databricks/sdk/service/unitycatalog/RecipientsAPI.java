@@ -18,6 +18,10 @@ public class RecipientsAPI {
     impl = mock;
   }
 
+  public RecipientInfo create(String name, AuthenticationType authenticationType) {
+    return create(new CreateRecipient().setName(name).setAuthenticationType(authenticationType));
+  }
+
   /**
    * Create a share recipient.
    *
@@ -28,6 +32,10 @@ public class RecipientsAPI {
     return impl.create(request);
   }
 
+  public void delete(String name) {
+    delete(new DeleteRecipientRequest().setName(name));
+  }
+
   /**
    * Delete a share recipient.
    *
@@ -36,6 +44,10 @@ public class RecipientsAPI {
    */
   public void delete(DeleteRecipientRequest request) {
     impl.delete(request);
+  }
+
+  public RecipientInfo get(String name) {
+    return get(new GetRecipientRequest().setName(name));
   }
 
   /**
@@ -61,6 +73,13 @@ public class RecipientsAPI {
     return impl.list(request);
   }
 
+  public RecipientInfo rotateToken(long existingTokenExpireInSeconds, String name) {
+    return rotateToken(
+        new RotateRecipientToken()
+            .setExistingTokenExpireInSeconds(existingTokenExpireInSeconds)
+            .setName(name));
+  }
+
   /**
    * Rotate a token.
    *
@@ -71,6 +90,10 @@ public class RecipientsAPI {
     return impl.rotateToken(request);
   }
 
+  public GetRecipientSharePermissionsResponse sharePermissions(String name) {
+    return sharePermissions(new SharePermissionsRequest().setName(name));
+  }
+
   /**
    * Get recipient share permissions.
    *
@@ -79,6 +102,10 @@ public class RecipientsAPI {
    */
   public GetRecipientSharePermissionsResponse sharePermissions(SharePermissionsRequest request) {
     return impl.sharePermissions(request);
+  }
+
+  public void update(String name) {
+    update(new UpdateRecipient().setName(name));
   }
 
   /**

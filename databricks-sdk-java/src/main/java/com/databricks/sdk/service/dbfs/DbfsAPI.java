@@ -22,6 +22,10 @@ public class DbfsAPI {
     impl = mock;
   }
 
+  public void addBlock(long handle, String data) {
+    addBlock(new AddBlock().setHandle(handle).setData(data));
+  }
+
   /**
    * Append data block.
    *
@@ -35,6 +39,10 @@ public class DbfsAPI {
     impl.addBlock(request);
   }
 
+  public void close(long handle) {
+    close(new Close().setHandle(handle));
+  }
+
   /**
    * Close the stream.
    *
@@ -43,6 +51,10 @@ public class DbfsAPI {
    */
   public void close(Close request) {
     impl.close(request);
+  }
+
+  public CreateResponse create(String path) {
+    return create(new Create().setPath(path));
   }
 
   /**
@@ -59,6 +71,10 @@ public class DbfsAPI {
    */
   public CreateResponse create(Create request) {
     return impl.create(request);
+  }
+
+  public void delete(String path) {
+    delete(new Delete().setPath(path));
   }
 
   /**
@@ -84,6 +100,10 @@ public class DbfsAPI {
     impl.delete(request);
   }
 
+  public FileInfo getStatus(String path) {
+    return getStatus(new GetStatus().setPath(path));
+  }
+
   /**
    * Get the information of a file or directory.
    *
@@ -92,6 +112,10 @@ public class DbfsAPI {
    */
   public FileInfo getStatus(GetStatus request) {
     return impl.getStatus(request);
+  }
+
+  public ListStatusResponse list(String path) {
+    return list(new List().setPath(path));
   }
 
   /**
@@ -111,6 +135,10 @@ public class DbfsAPI {
     return impl.list(request);
   }
 
+  public void mkdirs(String path) {
+    mkdirs(new MkDirs().setPath(path));
+  }
+
   /**
    * Create a directory.
    *
@@ -123,6 +151,10 @@ public class DbfsAPI {
     impl.mkdirs(request);
   }
 
+  public void move(String sourcePath, String destinationPath) {
+    move(new Move().setSourcePath(sourcePath).setDestinationPath(destinationPath));
+  }
+
   /**
    * Move a file.
    *
@@ -133,6 +165,10 @@ public class DbfsAPI {
    */
   public void move(Move request) {
     impl.move(request);
+  }
+
+  public void put(String path) {
+    put(new Put().setPath(path));
   }
 
   /**
@@ -151,6 +187,10 @@ public class DbfsAPI {
    */
   public void put(Put request) {
     impl.put(request);
+  }
+
+  public ReadResponse read(String path) {
+    return read(new Read().setPath(path));
   }
 
   /**

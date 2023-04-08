@@ -21,6 +21,11 @@ public class PermissionsAPI {
     impl = mock;
   }
 
+  public ObjectPermissions get(String requestObjectType, String requestObjectId) {
+    return get(
+        new Get().setRequestObjectType(requestObjectType).setRequestObjectId(requestObjectId));
+  }
+
   /**
    * Get object permissions.
    *
@@ -29,6 +34,14 @@ public class PermissionsAPI {
    */
   public ObjectPermissions get(Get request) {
     return impl.get(request);
+  }
+
+  public GetPermissionLevelsResponse getPermissionLevels(
+      String requestObjectType, String requestObjectId) {
+    return getPermissionLevels(
+        new GetPermissionLevels()
+            .setRequestObjectType(requestObjectType)
+            .setRequestObjectId(requestObjectId));
   }
 
   /**
@@ -40,6 +53,13 @@ public class PermissionsAPI {
     return impl.getPermissionLevels(request);
   }
 
+  public void set(String requestObjectType, String requestObjectId) {
+    set(
+        new PermissionsRequest()
+            .setRequestObjectType(requestObjectType)
+            .setRequestObjectId(requestObjectId));
+  }
+
   /**
    * Set permissions.
    *
@@ -48,6 +68,13 @@ public class PermissionsAPI {
    */
   public void set(PermissionsRequest request) {
     impl.set(request);
+  }
+
+  public void update(String requestObjectType, String requestObjectId) {
+    update(
+        new PermissionsRequest()
+            .setRequestObjectType(requestObjectType)
+            .setRequestObjectId(requestObjectId));
   }
 
   /**

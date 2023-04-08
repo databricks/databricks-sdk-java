@@ -25,6 +25,14 @@ public class StorageAPI {
     impl = mock;
   }
 
+  public StorageConfiguration create(
+      String storageConfigurationName, RootBucketInfo rootBucketInfo) {
+    return create(
+        new CreateStorageConfigurationRequest()
+            .setStorageConfigurationName(storageConfigurationName)
+            .setRootBucketInfo(rootBucketInfo));
+  }
+
   /**
    * Create new storage configuration.
    *
@@ -43,6 +51,10 @@ public class StorageAPI {
     return impl.create(request);
   }
 
+  public void delete(String storageConfigurationId) {
+    delete(new DeleteStorageRequest().setStorageConfigurationId(storageConfigurationId));
+  }
+
   /**
    * Delete storage configuration.
    *
@@ -51,6 +63,10 @@ public class StorageAPI {
    */
   public void delete(DeleteStorageRequest request) {
     impl.delete(request);
+  }
+
+  public StorageConfiguration get(String storageConfigurationId) {
+    return get(new GetStorageRequest().setStorageConfigurationId(storageConfigurationId));
   }
 
   /**

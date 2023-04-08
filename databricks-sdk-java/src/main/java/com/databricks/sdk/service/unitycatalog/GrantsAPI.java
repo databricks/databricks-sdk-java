@@ -28,6 +28,10 @@ public class GrantsAPI {
     impl = mock;
   }
 
+  public PermissionsList get(SecurableType securableType, String fullName) {
+    return get(new GetGrantRequest().setSecurableType(securableType).setFullName(fullName));
+  }
+
   /**
    * Get permissions.
    *
@@ -37,6 +41,11 @@ public class GrantsAPI {
     return impl.get(request);
   }
 
+  public EffectivePermissionsList getEffective(SecurableType securableType, String fullName) {
+    return getEffective(
+        new GetEffectiveRequest().setSecurableType(securableType).setFullName(fullName));
+  }
+
   /**
    * Get effective permissions.
    *
@@ -44,6 +53,10 @@ public class GrantsAPI {
    */
   public EffectivePermissionsList getEffective(GetEffectiveRequest request) {
     return impl.getEffective(request);
+  }
+
+  public PermissionsList update(SecurableType securableType, String fullName) {
+    return update(new UpdatePermissions().setSecurableType(securableType).setFullName(fullName));
   }
 
   /**

@@ -17,6 +17,10 @@ public class RegisteredModelsAPI {
     impl = mock;
   }
 
+  public CreateRegisteredModelResponse create(String name) {
+    return create(new CreateRegisteredModelRequest().setName(name));
+  }
+
   /**
    * Create a model.
    *
@@ -28,6 +32,10 @@ public class RegisteredModelsAPI {
     return impl.create(request);
   }
 
+  public void delete(String name) {
+    delete(new DeleteRegisteredModelRequest().setName(name));
+  }
+
   /**
    * Delete a model.
    *
@@ -35,6 +43,10 @@ public class RegisteredModelsAPI {
    */
   public void delete(DeleteRegisteredModelRequest request) {
     impl.delete(request);
+  }
+
+  public void deleteTag(String name, String key) {
+    deleteTag(new DeleteRegisteredModelTagRequest().setName(name).setKey(key));
   }
 
   /**
@@ -46,6 +58,10 @@ public class RegisteredModelsAPI {
     impl.deleteTag(request);
   }
 
+  public GetRegisteredModelResponse get(String name) {
+    return get(new GetRegisteredModelRequest().setName(name));
+  }
+
   /**
    * Get a model.
    *
@@ -53,6 +69,10 @@ public class RegisteredModelsAPI {
    */
   public GetRegisteredModelResponse get(GetRegisteredModelRequest request) {
     return impl.get(request);
+  }
+
+  public GetLatestVersionsResponse getLatestVersions(String name) {
+    return getLatestVersions(new GetLatestVersionsRequest().setName(name));
   }
 
   /**
@@ -73,6 +93,10 @@ public class RegisteredModelsAPI {
     return impl.list(request);
   }
 
+  public RenameRegisteredModelResponse rename(String name) {
+    return rename(new RenameRegisteredModelRequest().setName(name));
+  }
+
   /**
    * Rename a model.
    *
@@ -91,6 +115,10 @@ public class RegisteredModelsAPI {
     return impl.search(request);
   }
 
+  public void setTag(String name, String key, String value) {
+    setTag(new SetRegisteredModelTagRequest().setName(name).setKey(key).setValue(value));
+  }
+
   /**
    * Set a tag.
    *
@@ -98,6 +126,10 @@ public class RegisteredModelsAPI {
    */
   public void setTag(SetRegisteredModelTagRequest request) {
     impl.setTag(request);
+  }
+
+  public void update(String name) {
+    update(new UpdateRegisteredModelRequest().setName(name));
   }
 
   /**

@@ -22,6 +22,13 @@ public class TokenManagementAPI {
     impl = mock;
   }
 
+  public CreateOboTokenResponse createOboToken(String applicationId, long lifetimeSeconds) {
+    return createOboToken(
+        new CreateOboTokenRequest()
+            .setApplicationId(applicationId)
+            .setLifetimeSeconds(lifetimeSeconds));
+  }
+
   /**
    * Create on-behalf token.
    *
@@ -31,6 +38,10 @@ public class TokenManagementAPI {
     return impl.createOboToken(request);
   }
 
+  public void delete(String tokenId) {
+    delete(new Delete().setTokenId(tokenId));
+  }
+
   /**
    * Delete a token.
    *
@@ -38,6 +49,10 @@ public class TokenManagementAPI {
    */
   public void delete(Delete request) {
     impl.delete(request);
+  }
+
+  public TokenInfo get(String tokenId) {
+    return get(new Get().setTokenId(tokenId));
   }
 
   /**
