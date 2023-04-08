@@ -9,18 +9,29 @@ import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.NodeTypeSelector;
 import com.databricks.sdk.mixin.SparkVersionSelector;
+import com.databricks.sdk.service.clusters.ClusterEvent;
 import com.databricks.sdk.service.clusters.GetEvents;
 import com.databricks.sdk.service.clusters.GetEventsResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
+import java.util.*;
 
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
 public class ClustersIT {
   @Test
   void listsEvents(DatabricksWorkspace w, @EnvOrSkip("TEST_DEFAULT_CLUSTER_ID") String clusterId) {
-    GetEventsResponse events = w.clusters().events(new GetEvents().setClusterId(clusterId));
-    assertFalse(events.getEvents().isEmpty());
+    Iterable<ClusterEvent> events = w.clusters().events(clusterId);
+
+    Set<ClusterEvent> unique = new HashSet<>();
+    events.forEach(unique::add);
+    assertTrue(unique.size() > 1);
+
+    Iterable<ClusterEvent> secondPass = w.clusters().events(clusterId);
+    List<ClusterEvent> all = new ArrayList<>();
+    secondPass.forEach(all::add);
+    assertEquals(unique.size(), all.size());
   }
 
   @Test

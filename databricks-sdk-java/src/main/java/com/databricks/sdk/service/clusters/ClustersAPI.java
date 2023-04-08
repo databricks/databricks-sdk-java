@@ -2,7 +2,10 @@
 package com.databricks.sdk.service.clusters;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.mixin.Paginator;
 import org.apache.http.client.methods.*;
+
+import java.util.Iterator;
 
 /**
  * The Clusters API allows you to create, start, edit, list, terminate, and delete clusters.
@@ -115,7 +118,7 @@ public class ClustersAPI {
     impl.edit(request);
   }
 
-  public GetEventsResponse events(String clusterId) {
+  public Iterable<ClusterEvent> events(String clusterId) {
     return events(new GetEvents().setClusterId(clusterId));
   }
 
@@ -126,8 +129,8 @@ public class ClustersAPI {
    * are more events to read, the response includes all the nparameters necessary to request the
    * next page of events.
    */
-  public GetEventsResponse events(GetEvents request) {
-    return impl.events(request);
+  public Iterable<ClusterEvent> events(GetEvents request) {
+    return new Paginator<>(request, impl::events, GetEventsResponse::getEvents, GetEventsResponse::getNextPage);
   }
 
   public ClusterInfo get(String clusterId) {
