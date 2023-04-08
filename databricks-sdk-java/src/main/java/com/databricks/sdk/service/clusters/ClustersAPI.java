@@ -42,6 +42,10 @@ public class ClustersAPI {
     impl = mock;
   }
 
+  public void changeOwner(String clusterId, String ownerUsername) {
+    changeOwner(new ChangeClusterOwner().setClusterId(clusterId).setOwnerUsername(ownerUsername));
+  }
+
   /**
    * Change cluster owner.
    *
@@ -49,6 +53,10 @@ public class ClustersAPI {
    */
   public void changeOwner(ChangeClusterOwner request) {
     impl.changeOwner(request);
+  }
+
+  public CreateClusterResponse create(String sparkVersion) {
+    return create(new CreateCluster().setSparkVersion(sparkVersion));
   }
 
   /**
@@ -69,6 +77,10 @@ public class ClustersAPI {
     return impl.create(request);
   }
 
+  public void delete(String clusterId) {
+    delete(new DeleteCluster().setClusterId(clusterId));
+  }
+
   /**
    * Terminate cluster.
    *
@@ -78,6 +90,10 @@ public class ClustersAPI {
    */
   public void delete(DeleteCluster request) {
     impl.delete(request);
+  }
+
+  public void edit(String clusterId, String sparkVersion) {
+    edit(new EditCluster().setClusterId(clusterId).setSparkVersion(sparkVersion));
   }
 
   /**
@@ -100,6 +116,10 @@ public class ClustersAPI {
     impl.edit(request);
   }
 
+  public GetEventsResponse events(String clusterId) {
+    return events(new GetEvents().setClusterId(clusterId));
+  }
+
   /**
    * List cluster activity events.
    *
@@ -109,6 +129,10 @@ public class ClustersAPI {
    */
   public GetEventsResponse events(GetEvents request) {
     return impl.events(request);
+  }
+
+  public ClusterInfo get(String clusterId) {
+    return get(new Get().setClusterId(clusterId));
   }
 
   /**
@@ -157,6 +181,10 @@ public class ClustersAPI {
     return impl.listZones();
   }
 
+  public void permanentDelete(String clusterId) {
+    permanentDelete(new PermanentDeleteCluster().setClusterId(clusterId));
+  }
+
   /**
    * Permanently delete cluster.
    *
@@ -170,6 +198,10 @@ public class ClustersAPI {
     impl.permanentDelete(request);
   }
 
+  public void pin(String clusterId) {
+    pin(new PinCluster().setClusterId(clusterId));
+  }
+
   /**
    * Pin cluster.
    *
@@ -181,6 +213,10 @@ public class ClustersAPI {
     impl.pin(request);
   }
 
+  public void resize(String clusterId) {
+    resize(new ResizeCluster().setClusterId(clusterId));
+  }
+
   /**
    * Resize cluster.
    *
@@ -189,6 +225,10 @@ public class ClustersAPI {
    */
   public void resize(ResizeCluster request) {
     impl.resize(request);
+  }
+
+  public void restart(String clusterId) {
+    restart(new RestartCluster().setClusterId(clusterId));
   }
 
   /**
@@ -211,6 +251,10 @@ public class ClustersAPI {
     return impl.sparkVersions();
   }
 
+  public void start(String clusterId) {
+    start(new StartCluster().setClusterId(clusterId));
+  }
+
   /**
    * Start terminated cluster.
    *
@@ -224,6 +268,10 @@ public class ClustersAPI {
    */
   public void start(StartCluster request) {
     impl.start(request);
+  }
+
+  public void unpin(String clusterId) {
+    unpin(new UnpinCluster().setClusterId(clusterId));
   }
 
   /**

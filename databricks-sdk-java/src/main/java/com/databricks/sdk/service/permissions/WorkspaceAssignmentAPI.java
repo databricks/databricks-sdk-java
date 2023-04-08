@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.permissions;
 
 import com.databricks.sdk.client.ApiClient;
+import java.util.List;
 import org.apache.http.client.methods.*;
 
 /**
@@ -21,6 +22,13 @@ public class WorkspaceAssignmentAPI {
     impl = mock;
   }
 
+  public void delete(long workspaceId, long principalId) {
+    delete(
+        new DeleteWorkspaceAssignmentRequest()
+            .setWorkspaceId(workspaceId)
+            .setPrincipalId(principalId));
+  }
+
   /**
    * Delete permissions assignment.
    *
@@ -29,6 +37,10 @@ public class WorkspaceAssignmentAPI {
    */
   public void delete(DeleteWorkspaceAssignmentRequest request) {
     impl.delete(request);
+  }
+
+  public WorkspacePermissions get(long workspaceId) {
+    return get(new GetWorkspaceAssignmentRequest().setWorkspaceId(workspaceId));
   }
 
   /**
@@ -40,6 +52,10 @@ public class WorkspaceAssignmentAPI {
     return impl.get(request);
   }
 
+  public PermissionAssignments list(long workspaceId) {
+    return list(new ListWorkspaceAssignmentRequest().setWorkspaceId(workspaceId));
+  }
+
   /**
    * Get permission assignments.
    *
@@ -48,6 +64,14 @@ public class WorkspaceAssignmentAPI {
    */
   public PermissionAssignments list(ListWorkspaceAssignmentRequest request) {
     return impl.list(request);
+  }
+
+  public void update(List<WorkspacePermission> permissions, long workspaceId, long principalId) {
+    update(
+        new UpdateWorkspaceAssignments()
+            .setPermissions(permissions)
+            .setWorkspaceId(workspaceId)
+            .setPrincipalId(principalId));
   }
 
   /**

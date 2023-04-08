@@ -19,6 +19,10 @@ public class WorkspaceConfAPI {
     impl = mock;
   }
 
+  public Map<String, String> getStatus(String keys) {
+    return getStatus(new GetStatus().setKeys(keys));
+  }
+
   /**
    * Check configuration status.
    *

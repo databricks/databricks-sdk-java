@@ -24,6 +24,10 @@ public class AccountServicePrincipalsAPI {
     impl = mock;
   }
 
+  public ServicePrincipal create(String id) {
+    return create(new ServicePrincipal().setId(id));
+  }
+
   /**
    * Create a service principal.
    *
@@ -33,6 +37,10 @@ public class AccountServicePrincipalsAPI {
     return impl.create(request);
   }
 
+  public void delete(String id) {
+    delete(new DeleteServicePrincipalRequest().setId(id));
+  }
+
   /**
    * Delete a service principal.
    *
@@ -40,6 +48,10 @@ public class AccountServicePrincipalsAPI {
    */
   public void delete(DeleteServicePrincipalRequest request) {
     impl.delete(request);
+  }
+
+  public ServicePrincipal get(String id) {
+    return get(new GetServicePrincipalRequest().setId(id));
   }
 
   /**
@@ -60,6 +72,10 @@ public class AccountServicePrincipalsAPI {
     return impl.list(request);
   }
 
+  public void patch(String id) {
+    patch(new PartialUpdate().setId(id));
+  }
+
   /**
    * Update service principal details.
    *
@@ -67,6 +83,10 @@ public class AccountServicePrincipalsAPI {
    */
   public void patch(PartialUpdate request) {
     impl.patch(request);
+  }
+
+  public void update(String id) {
+    update(new ServicePrincipal().setId(id));
   }
 
   /**

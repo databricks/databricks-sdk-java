@@ -17,6 +17,10 @@ public class MLflowMetricsAPI {
     impl = mock;
   }
 
+  public GetMetricHistoryResponse getHistory(String metricKey) {
+    return getHistory(new GetHistoryRequest().setMetricKey(metricKey));
+  }
+
   /**
    * Get history of a given metric within a run.
    *

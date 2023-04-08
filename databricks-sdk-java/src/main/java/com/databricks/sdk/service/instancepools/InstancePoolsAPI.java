@@ -34,6 +34,11 @@ public class InstancePoolsAPI {
     impl = mock;
   }
 
+  public CreateInstancePoolResponse create(String instancePoolName, String nodeTypeId) {
+    return create(
+        new CreateInstancePool().setInstancePoolName(instancePoolName).setNodeTypeId(nodeTypeId));
+  }
+
   /**
    * Create a new instance pool.
    *
@@ -41,6 +46,10 @@ public class InstancePoolsAPI {
    */
   public CreateInstancePoolResponse create(CreateInstancePool request) {
     return impl.create(request);
+  }
+
+  public void delete(String instancePoolId) {
+    delete(new DeleteInstancePool().setInstancePoolId(instancePoolId));
   }
 
   /**
@@ -53,6 +62,14 @@ public class InstancePoolsAPI {
     impl.delete(request);
   }
 
+  public void edit(String instancePoolId, String instancePoolName, String nodeTypeId) {
+    edit(
+        new EditInstancePool()
+            .setInstancePoolId(instancePoolId)
+            .setInstancePoolName(instancePoolName)
+            .setNodeTypeId(nodeTypeId));
+  }
+
   /**
    * Edit an existing instance pool.
    *
@@ -60,6 +77,10 @@ public class InstancePoolsAPI {
    */
   public void edit(EditInstancePool request) {
     impl.edit(request);
+  }
+
+  public GetInstancePool get(String instancePoolId) {
+    return get(new Get().setInstancePoolId(instancePoolId));
   }
 
   /**

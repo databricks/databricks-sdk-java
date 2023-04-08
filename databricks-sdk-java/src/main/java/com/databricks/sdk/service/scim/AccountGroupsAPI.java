@@ -25,6 +25,10 @@ public class AccountGroupsAPI {
     impl = mock;
   }
 
+  public Group create(String id) {
+    return create(new Group().setId(id));
+  }
+
   /**
    * Create a new group.
    *
@@ -35,6 +39,10 @@ public class AccountGroupsAPI {
     return impl.create(request);
   }
 
+  public void delete(String id) {
+    delete(new DeleteGroupRequest().setId(id));
+  }
+
   /**
    * Delete a group.
    *
@@ -42,6 +50,10 @@ public class AccountGroupsAPI {
    */
   public void delete(DeleteGroupRequest request) {
     impl.delete(request);
+  }
+
+  public Group get(String id) {
+    return get(new GetGroupRequest().setId(id));
   }
 
   /**
@@ -62,6 +74,10 @@ public class AccountGroupsAPI {
     return impl.list(request);
   }
 
+  public void patch(String id) {
+    patch(new PartialUpdate().setId(id));
+  }
+
   /**
    * Update group details.
    *
@@ -69,6 +85,10 @@ public class AccountGroupsAPI {
    */
   public void patch(PartialUpdate request) {
     impl.patch(request);
+  }
+
+  public void update(String id) {
+    update(new Group().setId(id));
   }
 
   /**

@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
+import java.util.List;
 import org.apache.http.client.methods.*;
 
 /**
@@ -25,6 +26,43 @@ public class FunctionsAPI {
     impl = mock;
   }
 
+  public FunctionInfo create(
+      String name,
+      String catalogName,
+      String schemaName,
+      List<FunctionParameterInfo> inputParams,
+      ColumnTypeName dataType,
+      String fullDataType,
+      List<FunctionParameterInfo> returnParams,
+      CreateFunctionRoutineBody routineBody,
+      String routineDefinition,
+      List<Dependency> routineDependencies,
+      CreateFunctionParameterStyle parameterStyle,
+      boolean isDeterministic,
+      CreateFunctionSqlDataAccess sqlDataAccess,
+      boolean isNullCall,
+      CreateFunctionSecurityType securityType,
+      String specificName) {
+    return create(
+        new CreateFunction()
+            .setName(name)
+            .setCatalogName(catalogName)
+            .setSchemaName(schemaName)
+            .setInputParams(inputParams)
+            .setDataType(dataType)
+            .setFullDataType(fullDataType)
+            .setReturnParams(returnParams)
+            .setRoutineBody(routineBody)
+            .setRoutineDefinition(routineDefinition)
+            .setRoutineDependencies(routineDependencies)
+            .setParameterStyle(parameterStyle)
+            .setIsDeterministic(isDeterministic)
+            .setSqlDataAccess(sqlDataAccess)
+            .setIsNullCall(isNullCall)
+            .setSecurityType(securityType)
+            .setSpecificName(specificName));
+  }
+
   /**
    * Create a function.
    *
@@ -38,6 +76,10 @@ public class FunctionsAPI {
     return impl.create(request);
   }
 
+  public void delete(String name) {
+    delete(new DeleteFunctionRequest().setName(name));
+  }
+
   /**
    * Delete a function.
    *
@@ -49,6 +91,10 @@ public class FunctionsAPI {
    */
   public void delete(DeleteFunctionRequest request) {
     impl.delete(request);
+  }
+
+  public FunctionInfo get(String name) {
+    return get(new GetFunctionRequest().setName(name));
   }
 
   /**
@@ -65,6 +111,10 @@ public class FunctionsAPI {
     return impl.get(request);
   }
 
+  public ListFunctionsResponse list(String catalogName, String schemaName) {
+    return list(new ListFunctionsRequest().setCatalogName(catalogName).setSchemaName(schemaName));
+  }
+
   /**
    * List functions.
    *
@@ -77,6 +127,10 @@ public class FunctionsAPI {
    */
   public ListFunctionsResponse list(ListFunctionsRequest request) {
     return impl.list(request);
+  }
+
+  public FunctionInfo update(String name) {
+    return update(new UpdateFunction().setName(name));
   }
 
   /**

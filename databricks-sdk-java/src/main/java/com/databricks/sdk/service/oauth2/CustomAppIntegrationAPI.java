@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.client.ApiClient;
+import java.util.List;
 import org.apache.http.client.methods.*;
 
 /**
@@ -24,6 +25,10 @@ public class CustomAppIntegrationAPI {
     impl = mock;
   }
 
+  public CreateCustomAppIntegrationOutput create(String name, List<String> redirectUrls) {
+    return create(new CreateCustomAppIntegration().setName(name).setRedirectUrls(redirectUrls));
+  }
+
   /**
    * Create Custom OAuth App Integration.
    *
@@ -35,6 +40,10 @@ public class CustomAppIntegrationAPI {
     return impl.create(request);
   }
 
+  public void delete(String integrationId) {
+    delete(new DeleteCustomAppIntegrationRequest().setIntegrationId(integrationId));
+  }
+
   /**
    * Delete Custom OAuth App Integration.
    *
@@ -43,6 +52,10 @@ public class CustomAppIntegrationAPI {
    */
   public void delete(DeleteCustomAppIntegrationRequest request) {
     impl.delete(request);
+  }
+
+  public GetCustomAppIntegrationOutput get(String integrationId) {
+    return get(new GetCustomAppIntegrationRequest().setIntegrationId(integrationId));
   }
 
   /**
@@ -61,6 +74,10 @@ public class CustomAppIntegrationAPI {
    */
   public GetCustomAppIntegrationsOutput list() {
     return impl.list();
+  }
+
+  public void update(String integrationId) {
+    update(new UpdateCustomAppIntegration().setIntegrationId(integrationId));
   }
 
   /**

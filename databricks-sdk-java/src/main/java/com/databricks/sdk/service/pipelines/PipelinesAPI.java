@@ -42,6 +42,10 @@ public class PipelinesAPI {
     return impl.create(request);
   }
 
+  public void delete(String pipelineId) {
+    delete(new Delete().setPipelineId(pipelineId));
+  }
+
   /**
    * Delete a pipeline.
    *
@@ -51,9 +55,17 @@ public class PipelinesAPI {
     impl.delete(request);
   }
 
+  public GetPipelineResponse get(String pipelineId) {
+    return get(new Get().setPipelineId(pipelineId));
+  }
+
   /** Get a pipeline. */
   public GetPipelineResponse get(Get request) {
     return impl.get(request);
+  }
+
+  public GetUpdateResponse getUpdate(String pipelineId, String updateId) {
+    return getUpdate(new GetUpdate().setPipelineId(pipelineId).setUpdateId(updateId));
   }
 
   /**
@@ -63,6 +75,10 @@ public class PipelinesAPI {
    */
   public GetUpdateResponse getUpdate(GetUpdate request) {
     return impl.getUpdate(request);
+  }
+
+  public ListPipelineEventsResponse listPipelineEvents(String pipelineId) {
+    return listPipelineEvents(new ListPipelineEvents().setPipelineId(pipelineId));
   }
 
   /**
@@ -83,6 +99,10 @@ public class PipelinesAPI {
     return impl.listPipelines(request);
   }
 
+  public ListUpdatesResponse listUpdates(String pipelineId) {
+    return listUpdates(new ListUpdates().setPipelineId(pipelineId));
+  }
+
   /**
    * List pipeline updates.
    *
@@ -90,6 +110,10 @@ public class PipelinesAPI {
    */
   public ListUpdatesResponse listUpdates(ListUpdates request) {
     return impl.listUpdates(request);
+  }
+
+  public void reset(String pipelineId) {
+    reset(new Reset().setPipelineId(pipelineId));
   }
 
   /**
@@ -101,6 +125,10 @@ public class PipelinesAPI {
     impl.reset(request);
   }
 
+  public StartUpdateResponse startUpdate(String pipelineId) {
+    return startUpdate(new StartUpdate().setPipelineId(pipelineId));
+  }
+
   /**
    * Queue a pipeline update.
    *
@@ -110,6 +138,10 @@ public class PipelinesAPI {
     return impl.startUpdate(request);
   }
 
+  public void stop(String pipelineId) {
+    stop(new Stop().setPipelineId(pipelineId));
+  }
+
   /**
    * Stop a pipeline.
    *
@@ -117,6 +149,10 @@ public class PipelinesAPI {
    */
   public void stop(Stop request) {
     impl.stop(request);
+  }
+
+  public void update(String pipelineId) {
+    update(new EditPipeline().setPipelineId(pipelineId));
   }
 
   /**

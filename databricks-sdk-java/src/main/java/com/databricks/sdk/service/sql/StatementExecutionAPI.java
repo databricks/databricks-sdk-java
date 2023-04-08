@@ -179,6 +179,10 @@ public class StatementExecutionAPI {
     impl = mock;
   }
 
+  public void cancelExecution(String statementId) {
+    cancelExecution(new CancelExecutionRequest().setStatementId(statementId));
+  }
+
   /**
    * Cancel statement execution.
    *
@@ -198,6 +202,10 @@ public class StatementExecutionAPI {
     return impl.executeStatement(request);
   }
 
+  public GetStatementResponse getStatement(String statementId) {
+    return getStatement(new GetStatementRequest().setStatementId(statementId));
+  }
+
   /**
    * Get status, manifest, and result first chunk.
    *
@@ -208,6 +216,13 @@ public class StatementExecutionAPI {
    */
   public GetStatementResponse getStatement(GetStatementRequest request) {
     return impl.getStatement(request);
+  }
+
+  public ResultData getStatementResultChunkN(String statementId, int chunkIndex) {
+    return getStatementResultChunkN(
+        new GetStatementResultChunkNRequest()
+            .setStatementId(statementId)
+            .setChunkIndex(chunkIndex));
   }
 
   /**

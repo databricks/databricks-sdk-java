@@ -27,6 +27,10 @@ public class TablesAPI {
     impl = mock;
   }
 
+  public void delete(String fullName) {
+    delete(new DeleteTableRequest().setFullName(fullName));
+  }
+
   /**
    * Delete a table.
    *
@@ -37,6 +41,10 @@ public class TablesAPI {
    */
   public void delete(DeleteTableRequest request) {
     impl.delete(request);
+  }
+
+  public TableInfo get(String fullName) {
+    return get(new GetTableRequest().setFullName(fullName));
   }
 
   /**
@@ -51,6 +59,10 @@ public class TablesAPI {
     return impl.get(request);
   }
 
+  public ListTablesResponse list(String catalogName, String schemaName) {
+    return list(new ListTablesRequest().setCatalogName(catalogName).setSchemaName(schemaName));
+  }
+
   /**
    * List tables.
    *
@@ -62,6 +74,10 @@ public class TablesAPI {
    */
   public ListTablesResponse list(ListTablesRequest request) {
     return impl.list(request);
+  }
+
+  public ListTableSummariesResponse listSummaries(String catalogName) {
+    return listSummaries(new ListSummariesRequest().setCatalogName(catalogName));
   }
 
   /**

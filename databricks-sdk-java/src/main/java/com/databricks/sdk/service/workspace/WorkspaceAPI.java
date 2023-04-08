@@ -24,6 +24,10 @@ public class WorkspaceAPI {
     impl = mock;
   }
 
+  public void delete(String path) {
+    delete(new Delete().setPath(path));
+  }
+
   /**
    * Delete a workspace object.
    *
@@ -36,6 +40,10 @@ public class WorkspaceAPI {
    */
   public void delete(Delete request) {
     impl.delete(request);
+  }
+
+  public ExportResponse export(String path) {
+    return export(new Export().setPath(path));
   }
 
   /**
@@ -53,6 +61,10 @@ public class WorkspaceAPI {
     return impl.export(request);
   }
 
+  public ObjectInfo getStatus(String path) {
+    return getStatus(new GetStatus().setPath(path));
+  }
+
   /**
    * Get status.
    *
@@ -61,6 +73,10 @@ public class WorkspaceAPI {
    */
   public ObjectInfo getStatus(GetStatus request) {
     return impl.getStatus(request);
+  }
+
+  public void importContent(String path) {
+    importContent(new Import().setPath(path));
   }
 
   /**
@@ -74,6 +90,10 @@ public class WorkspaceAPI {
     impl.importContent(request);
   }
 
+  public ListResponse list(String path) {
+    return list(new List().setPath(path));
+  }
+
   /**
    * List contents.
    *
@@ -82,6 +102,10 @@ public class WorkspaceAPI {
    */
   public ListResponse list(List request) {
     return impl.list(request);
+  }
+
+  public void mkdirs(String path) {
+    mkdirs(new Mkdirs().setPath(path));
   }
 
   /**

@@ -40,6 +40,10 @@ public class ClusterPoliciesAPI {
     impl = mock;
   }
 
+  public CreatePolicyResponse create(String name) {
+    return create(new CreatePolicy().setName(name));
+  }
+
   /**
    * Create a new policy.
    *
@@ -47,6 +51,10 @@ public class ClusterPoliciesAPI {
    */
   public CreatePolicyResponse create(CreatePolicy request) {
     return impl.create(request);
+  }
+
+  public void delete(String policyId) {
+    delete(new DeletePolicy().setPolicyId(policyId));
   }
 
   /**
@@ -59,6 +67,10 @@ public class ClusterPoliciesAPI {
     impl.delete(request);
   }
 
+  public void edit(String policyId, String name) {
+    edit(new EditPolicy().setPolicyId(policyId).setName(name));
+  }
+
   /**
    * Update a cluster policy.
    *
@@ -67,6 +79,10 @@ public class ClusterPoliciesAPI {
    */
   public void edit(EditPolicy request) {
     impl.edit(request);
+  }
+
+  public Policy get(String policyId) {
+    return get(new Get().setPolicyId(policyId));
   }
 
   /**

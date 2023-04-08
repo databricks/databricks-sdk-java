@@ -30,6 +30,10 @@ public class ReposAPI {
     impl = mock;
   }
 
+  public RepoInfo create(String url, String provider) {
+    return create(new CreateRepo().setUrl(url).setProvider(provider));
+  }
+
   /**
    * Create a repo.
    *
@@ -41,6 +45,10 @@ public class ReposAPI {
     return impl.create(request);
   }
 
+  public void delete(long repoId) {
+    delete(new Delete().setRepoId(repoId));
+  }
+
   /**
    * Delete a repo.
    *
@@ -48,6 +56,10 @@ public class ReposAPI {
    */
   public void delete(Delete request) {
     impl.delete(request);
+  }
+
+  public RepoInfo get(long repoId) {
+    return get(new Get().setRepoId(repoId));
   }
 
   /**
@@ -67,6 +79,10 @@ public class ReposAPI {
    */
   public ListReposResponse list(List request) {
     return impl.list(request);
+  }
+
+  public void update(long repoId) {
+    update(new UpdateRepo().setRepoId(repoId));
   }
 
   /**

@@ -21,6 +21,10 @@ public class AccountMetastoresAPI {
     impl = mock;
   }
 
+  public MetastoreInfo create(String name, String storageRoot) {
+    return create(new CreateMetastore().setName(name).setStorageRoot(storageRoot));
+  }
+
   /**
    * Create metastore.
    *
@@ -30,6 +34,10 @@ public class AccountMetastoresAPI {
     return impl.create(request);
   }
 
+  public void delete(String metastoreId) {
+    delete(new DeleteAccountMetastoreRequest().setMetastoreId(metastoreId));
+  }
+
   /**
    * Delete a metastore.
    *
@@ -37,6 +45,10 @@ public class AccountMetastoresAPI {
    */
   public void delete(DeleteAccountMetastoreRequest request) {
     impl.delete(request);
+  }
+
+  public MetastoreInfo get(String metastoreId) {
+    return get(new GetAccountMetastoreRequest().setMetastoreId(metastoreId));
   }
 
   /**
@@ -55,6 +67,10 @@ public class AccountMetastoresAPI {
    */
   public ListMetastoresResponse list() {
     return impl.list();
+  }
+
+  public MetastoreInfo update(String metastoreId, String id) {
+    return update(new UpdateMetastore().setMetastoreId(metastoreId).setId(id));
   }
 
   /**

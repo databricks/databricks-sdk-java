@@ -19,6 +19,10 @@ public class AccountStorageCredentialsAPI {
     impl = mock;
   }
 
+  public StorageCredentialInfo create(String name, String metastoreId) {
+    return create(new CreateStorageCredential().setName(name).setMetastoreId(metastoreId));
+  }
+
   /**
    * Create a storage credential.
    *
@@ -34,6 +38,10 @@ public class AccountStorageCredentialsAPI {
     return impl.create(request);
   }
 
+  public StorageCredentialInfo get(String metastoreId, String name) {
+    return get(new GetAccountStorageCredentialRequest().setMetastoreId(metastoreId).setName(name));
+  }
+
   /**
    * Gets the named storage credential.
    *
@@ -42,6 +50,10 @@ public class AccountStorageCredentialsAPI {
    */
   public StorageCredentialInfo get(GetAccountStorageCredentialRequest request) {
     return impl.get(request);
+  }
+
+  public List<StorageCredentialInfo> list(String metastoreId) {
+    return list(new ListAccountStorageCredentialsRequest().setMetastoreId(metastoreId));
   }
 
   /**

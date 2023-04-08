@@ -28,6 +28,10 @@ public class MLflowRunsAPI {
     return impl.create(request);
   }
 
+  public void delete(String runId) {
+    delete(new DeleteRun().setRunId(runId));
+  }
+
   /**
    * Delete a run.
    *
@@ -35,6 +39,10 @@ public class MLflowRunsAPI {
    */
   public void delete(DeleteRun request) {
     impl.delete(request);
+  }
+
+  public void deleteTag(String runId, String key) {
+    deleteTag(new DeleteTag().setRunId(runId).setKey(key));
   }
 
   /**
@@ -45,6 +53,10 @@ public class MLflowRunsAPI {
    */
   public void deleteTag(DeleteTag request) {
     impl.deleteTag(request);
+  }
+
+  public GetRunResponse get(String runId) {
+    return get(new GetRunRequest().setRunId(runId));
   }
 
   /**
@@ -103,6 +115,10 @@ public class MLflowRunsAPI {
     impl.logBatch(request);
   }
 
+  public void logMetric(String key, float value, long timestamp) {
+    logMetric(new LogMetric().setKey(key).setValue(value).setTimestamp(timestamp));
+  }
+
   /**
    * Log a metric.
    *
@@ -124,6 +140,10 @@ public class MLflowRunsAPI {
     impl.logModel(request);
   }
 
+  public void logParameter(String key, String value) {
+    logParameter(new LogParam().setKey(key).setValue(value));
+  }
+
   /**
    * Log a param.
    *
@@ -133,6 +153,10 @@ public class MLflowRunsAPI {
    */
   public void logParameter(LogParam request) {
     impl.logParameter(request);
+  }
+
+  public void restore(String runId) {
+    restore(new RestoreRun().setRunId(runId));
   }
 
   /**
@@ -153,6 +177,10 @@ public class MLflowRunsAPI {
    */
   public SearchRunsResponse search(SearchRuns request) {
     return impl.search(request);
+  }
+
+  public void setTag(String key, String value) {
+    setTag(new SetTag().setKey(key).setValue(value));
   }
 
   /**

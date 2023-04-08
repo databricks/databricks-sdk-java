@@ -22,6 +22,10 @@ public class NetworksAPI {
     impl = mock;
   }
 
+  public Network create(String networkName) {
+    return create(new CreateNetworkRequest().setNetworkName(networkName));
+  }
+
   /**
    * Create network configuration.
    *
@@ -30,6 +34,10 @@ public class NetworksAPI {
    */
   public Network create(CreateNetworkRequest request) {
     return impl.create(request);
+  }
+
+  public void delete(String networkId) {
+    delete(new DeleteNetworkRequest().setNetworkId(networkId));
   }
 
   /**
@@ -42,6 +50,10 @@ public class NetworksAPI {
    */
   public void delete(DeleteNetworkRequest request) {
     impl.delete(request);
+  }
+
+  public Network get(String networkId) {
+    return get(new GetNetworkRequest().setNetworkId(networkId));
   }
 
   /**

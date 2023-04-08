@@ -30,6 +30,14 @@ public class VpcEndpointsAPI {
     impl = mock;
   }
 
+  public VpcEndpoint create(String vpcEndpointName, String awsVpcEndpointId, String region) {
+    return create(
+        new CreateVpcEndpointRequest()
+            .setVpcEndpointName(vpcEndpointName)
+            .setAwsVpcEndpointId(awsVpcEndpointId)
+            .setRegion(region));
+  }
+
   /**
    * Create VPC endpoint configuration.
    *
@@ -52,6 +60,10 @@ public class VpcEndpointsAPI {
     return impl.create(request);
   }
 
+  public void delete(String vpcEndpointId) {
+    delete(new DeleteVpcEndpointRequest().setVpcEndpointId(vpcEndpointId));
+  }
+
   /**
    * Delete VPC endpoint configuration.
    *
@@ -70,6 +82,10 @@ public class VpcEndpointsAPI {
    */
   public void delete(DeleteVpcEndpointRequest request) {
     impl.delete(request);
+  }
+
+  public VpcEndpoint get(String vpcEndpointId) {
+    return get(new GetVpcEndpointRequest().setVpcEndpointId(vpcEndpointId));
   }
 
   /**

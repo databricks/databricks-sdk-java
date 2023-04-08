@@ -17,6 +17,10 @@ public class ModelVersionCommentsAPI {
     impl = mock;
   }
 
+  public CreateResponse create(String name, String version, String comment) {
+    return create(new CreateComment().setName(name).setVersion(version).setComment(comment));
+  }
+
   /**
    * Post a comment.
    *
@@ -28,6 +32,10 @@ public class ModelVersionCommentsAPI {
     return impl.create(request);
   }
 
+  public void delete(String id) {
+    delete(new DeleteModelVersionCommentRequest().setId(id));
+  }
+
   /**
    * Delete a comment.
    *
@@ -35,6 +43,10 @@ public class ModelVersionCommentsAPI {
    */
   public void delete(DeleteModelVersionCommentRequest request) {
     impl.delete(request);
+  }
+
+  public UpdateResponse update(String id, String comment) {
+    return update(new UpdateComment().setId(id).setComment(comment));
   }
 
   /**

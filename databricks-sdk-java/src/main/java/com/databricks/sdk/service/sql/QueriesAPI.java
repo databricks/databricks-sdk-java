@@ -37,6 +37,10 @@ public class QueriesAPI {
     return impl.create(request);
   }
 
+  public void delete(String queryId) {
+    delete(new DeleteQueryRequest().setQueryId(queryId));
+  }
+
   /**
    * Delete a query.
    *
@@ -45,6 +49,10 @@ public class QueriesAPI {
    */
   public void delete(DeleteQueryRequest request) {
     impl.delete(request);
+  }
+
+  public Query get(String queryId) {
+    return get(new GetQueryRequest().setQueryId(queryId));
   }
 
   /**
@@ -66,6 +74,10 @@ public class QueriesAPI {
     return impl.list(request);
   }
 
+  public void restore(String queryId) {
+    restore(new RestoreQueryRequest().setQueryId(queryId));
+  }
+
   /**
    * Restore a query.
    *
@@ -74,6 +86,10 @@ public class QueriesAPI {
    */
   public void restore(RestoreQueryRequest request) {
     impl.restore(request);
+  }
+
+  public Query update(String queryId) {
+    return update(new QueryEditContent().setQueryId(queryId));
   }
 
   /**

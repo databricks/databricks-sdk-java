@@ -29,6 +29,15 @@ public class PrivateAccessAPI {
     impl = mock;
   }
 
+  public PrivateAccessSettings create(
+      String privateAccessSettingsName, String region, String privateAccessSettingsId) {
+    return create(
+        new UpsertPrivateAccessSettingsRequest()
+            .setPrivateAccessSettingsName(privateAccessSettingsName)
+            .setRegion(region)
+            .setPrivateAccessSettingsId(privateAccessSettingsId));
+  }
+
   /**
    * Create private access settings.
    *
@@ -50,6 +59,10 @@ public class PrivateAccessAPI {
     return impl.create(request);
   }
 
+  public void delete(String privateAccessSettingsId) {
+    delete(new DeletePrivateAccesRequest().setPrivateAccessSettingsId(privateAccessSettingsId));
+  }
+
   /**
    * Delete a private access settings object.
    *
@@ -64,6 +77,10 @@ public class PrivateAccessAPI {
    */
   public void delete(DeletePrivateAccesRequest request) {
     impl.delete(request);
+  }
+
+  public PrivateAccessSettings get(String privateAccessSettingsId) {
+    return get(new GetPrivateAccesRequest().setPrivateAccessSettingsId(privateAccessSettingsId));
   }
 
   /**
@@ -89,6 +106,15 @@ public class PrivateAccessAPI {
    */
   public List<PrivateAccessSettings> list() {
     return impl.list();
+  }
+
+  public void replace(
+      String privateAccessSettingsName, String region, String privateAccessSettingsId) {
+    replace(
+        new UpsertPrivateAccessSettingsRequest()
+            .setPrivateAccessSettingsName(privateAccessSettingsName)
+            .setRegion(region)
+            .setPrivateAccessSettingsId(privateAccessSettingsId));
   }
 
   /**

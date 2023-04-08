@@ -36,6 +36,10 @@ public class JobsAPI {
     impl = mock;
   }
 
+  public void cancelAllRuns(long jobId) {
+    cancelAllRuns(new CancelAllRuns().setJobId(jobId));
+  }
+
   /**
    * Cancel all runs of a job.
    *
@@ -44,6 +48,10 @@ public class JobsAPI {
    */
   public void cancelAllRuns(CancelAllRuns request) {
     impl.cancelAllRuns(request);
+  }
+
+  public void cancelRun(long runId) {
+    cancelRun(new CancelRun().setRunId(runId));
   }
 
   /**
@@ -65,6 +73,10 @@ public class JobsAPI {
     return impl.create(request);
   }
 
+  public void delete(long jobId) {
+    delete(new DeleteJob().setJobId(jobId));
+  }
+
   /**
    * Delete a job.
    *
@@ -72,6 +84,10 @@ public class JobsAPI {
    */
   public void delete(DeleteJob request) {
     impl.delete(request);
+  }
+
+  public void deleteRun(long runId) {
+    deleteRun(new DeleteRun().setRunId(runId));
   }
 
   /**
@@ -83,6 +99,10 @@ public class JobsAPI {
     impl.deleteRun(request);
   }
 
+  public ExportRunOutput exportRun(long runId) {
+    return exportRun(new ExportRun().setRunId(runId));
+  }
+
   /**
    * Export and retrieve a job run.
    *
@@ -90,6 +110,10 @@ public class JobsAPI {
    */
   public ExportRunOutput exportRun(ExportRun request) {
     return impl.exportRun(request);
+  }
+
+  public Job get(long jobId) {
+    return get(new Get().setJobId(jobId));
   }
 
   /**
@@ -101,6 +125,10 @@ public class JobsAPI {
     return impl.get(request);
   }
 
+  public Run getRun(long runId) {
+    return getRun(new GetRun().setRunId(runId));
+  }
+
   /**
    * Get a single job run.
    *
@@ -108,6 +136,10 @@ public class JobsAPI {
    */
   public Run getRun(GetRun request) {
     return impl.getRun(request);
+  }
+
+  public RunOutput getRunOutput(long runId) {
+    return getRunOutput(new GetRunOutput().setRunId(runId));
   }
 
   /**
@@ -145,6 +177,10 @@ public class JobsAPI {
     return impl.listRuns(request);
   }
 
+  public RepairRunResponse repairRun(long runId) {
+    return repairRun(new RepairRun().setRunId(runId));
+  }
+
   /**
    * Repair a job run.
    *
@@ -155,6 +191,10 @@ public class JobsAPI {
     return impl.repairRun(request);
   }
 
+  public void reset(long jobId, JobSettings newSettings) {
+    reset(new ResetJob().setJobId(jobId).setNewSettings(newSettings));
+  }
+
   /**
    * Overwrites all settings for a job.
    *
@@ -163,6 +203,10 @@ public class JobsAPI {
    */
   public void reset(ResetJob request) {
     impl.reset(request);
+  }
+
+  public RunNowResponse runNow(long jobId) {
+    return runNow(new RunNow().setJobId(jobId));
   }
 
   /**
@@ -183,6 +227,10 @@ public class JobsAPI {
    */
   public SubmitRunResponse submit(SubmitRun request) {
     return impl.submit(request);
+  }
+
+  public void update(long jobId) {
+    update(new UpdateJob().setJobId(jobId));
   }
 
   /**

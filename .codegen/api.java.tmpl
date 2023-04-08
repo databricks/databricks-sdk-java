@@ -26,6 +26,15 @@ public class {{.PascalName}}API {
     impl = mock;
   }
 	{{range .Methods}}
+	{{if and .Request .Request.RequiredFields}}
+  public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{range $i, $p := .Request.RequiredFields -}}
+    {{if $i}}, {{end}}{{template "type" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}}
+  {{- end}}) {
+    {{if .Response -}}return {{end}}{{.CamelName}}{{if .IsNameReserved}}Content{{end}}(new {{.Request.PascalName}}(){{range .Request.RequiredFields}}
+      .set{{.PascalName}}({{.CamelName}}){{end}});
+  }
+  {{end}}
+
 	{{if .Description}}/**
    {{.Comment "   * " 80}}
    */{{end}}

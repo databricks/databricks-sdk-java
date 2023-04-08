@@ -26,6 +26,10 @@ public class GlobalInitScriptsAPI {
     impl = mock;
   }
 
+  public CreateResponse create(String name, String script) {
+    return create(new GlobalInitScriptCreateRequest().setName(name).setScript(script));
+  }
+
   /**
    * Create init script.
    *
@@ -35,6 +39,10 @@ public class GlobalInitScriptsAPI {
     return impl.create(request);
   }
 
+  public void delete(String scriptId) {
+    delete(new Delete().setScriptId(scriptId));
+  }
+
   /**
    * Delete init script.
    *
@@ -42,6 +50,10 @@ public class GlobalInitScriptsAPI {
    */
   public void delete(Delete request) {
     impl.delete(request);
+  }
+
+  public GlobalInitScriptDetailsWithContent get(String scriptId) {
+    return get(new Get().setScriptId(scriptId));
   }
 
   /**
@@ -62,6 +74,11 @@ public class GlobalInitScriptsAPI {
    */
   public ListGlobalInitScriptsResponse list() {
     return impl.list();
+  }
+
+  public void update(String name, String script, String scriptId) {
+    update(
+        new GlobalInitScriptUpdateRequest().setName(name).setScript(script).setScriptId(scriptId));
   }
 
   /**

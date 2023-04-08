@@ -31,6 +31,10 @@ public class WarehousesAPI {
     return impl.create(request);
   }
 
+  public void delete(String id) {
+    delete(new DeleteWarehouseRequest().setId(id));
+  }
+
   /**
    * Delete a warehouse.
    *
@@ -40,6 +44,10 @@ public class WarehousesAPI {
     impl.delete(request);
   }
 
+  public void edit(String id) {
+    edit(new EditWarehouseRequest().setId(id));
+  }
+
   /**
    * Update a warehouse.
    *
@@ -47,6 +55,10 @@ public class WarehousesAPI {
    */
   public void edit(EditWarehouseRequest request) {
     impl.edit(request);
+  }
+
+  public GetWarehouseResponse get(String id) {
+    return get(new GetWarehouseRequest().setId(id));
   }
 
   /**
@@ -85,6 +97,10 @@ public class WarehousesAPI {
     impl.setWorkspaceWarehouseConfig(request);
   }
 
+  public void start(String id) {
+    start(new StartRequest().setId(id));
+  }
+
   /**
    * Start a warehouse.
    *
@@ -92,6 +108,10 @@ public class WarehousesAPI {
    */
   public void start(StartRequest request) {
     impl.start(request);
+  }
+
+  public void stop(String id) {
+    stop(new StopRequest().setId(id));
   }
 
   /**

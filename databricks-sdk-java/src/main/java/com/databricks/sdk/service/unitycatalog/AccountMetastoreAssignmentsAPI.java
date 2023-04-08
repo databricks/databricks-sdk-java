@@ -19,6 +19,15 @@ public class AccountMetastoreAssignmentsAPI {
     impl = mock;
   }
 
+  public MetastoreAssignment create(
+      String metastoreId, String defaultCatalogName, long workspaceId) {
+    return create(
+        new CreateMetastoreAssignment()
+            .setMetastoreId(metastoreId)
+            .setDefaultCatalogName(defaultCatalogName)
+            .setWorkspaceId(workspaceId));
+  }
+
   /**
    * Assigns a workspace to a metastore.
    *
@@ -28,6 +37,13 @@ public class AccountMetastoreAssignmentsAPI {
     return impl.create(request);
   }
 
+  public void delete(long workspaceId, String metastoreId) {
+    delete(
+        new DeleteAccountMetastoreAssignmentRequest()
+            .setWorkspaceId(workspaceId)
+            .setMetastoreId(metastoreId));
+  }
+
   /**
    * Delete a metastore assignment.
    *
@@ -35,6 +51,10 @@ public class AccountMetastoreAssignmentsAPI {
    */
   public void delete(DeleteAccountMetastoreAssignmentRequest request) {
     impl.delete(request);
+  }
+
+  public MetastoreAssignment get(long workspaceId) {
+    return get(new GetAccountMetastoreAssignmentRequest().setWorkspaceId(workspaceId));
   }
 
   /**
@@ -48,6 +68,10 @@ public class AccountMetastoreAssignmentsAPI {
     return impl.get(request);
   }
 
+  public List<MetastoreAssignment> list(String metastoreId) {
+    return list(new ListAccountMetastoreAssignmentsRequest().setMetastoreId(metastoreId));
+  }
+
   /**
    * Get all workspaces assigned to a metastore.
    *
@@ -55,6 +79,11 @@ public class AccountMetastoreAssignmentsAPI {
    */
   public List<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
     return impl.list(request);
+  }
+
+  public MetastoreAssignment update(long workspaceId, String metastoreId) {
+    return update(
+        new UpdateMetastoreAssignment().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
   }
 
   /**

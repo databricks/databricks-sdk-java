@@ -17,6 +17,16 @@ public class TransitionRequestsAPI {
     impl = mock;
   }
 
+  public ApproveResponse approve(
+      String name, String version, Stage stage, boolean archiveExistingVersions) {
+    return approve(
+        new ApproveTransitionRequest()
+            .setName(name)
+            .setVersion(version)
+            .setStage(stage)
+            .setArchiveExistingVersions(archiveExistingVersions));
+  }
+
   /**
    * Approve transition requests.
    *
@@ -24,6 +34,10 @@ public class TransitionRequestsAPI {
    */
   public ApproveResponse approve(ApproveTransitionRequest request) {
     return impl.approve(request);
+  }
+
+  public CreateResponse create(String name, String version, Stage stage) {
+    return create(new CreateTransitionRequest().setName(name).setVersion(version).setStage(stage));
   }
 
   /**
@@ -35,6 +49,15 @@ public class TransitionRequestsAPI {
     return impl.create(request);
   }
 
+  public void delete(String name, String version, String stage, String creator) {
+    delete(
+        new DeleteTransitionRequestRequest()
+            .setName(name)
+            .setVersion(version)
+            .setStage(stage)
+            .setCreator(creator));
+  }
+
   /**
    * Delete a ransition request.
    *
@@ -44,6 +67,10 @@ public class TransitionRequestsAPI {
     impl.delete(request);
   }
 
+  public ListResponse list(String name, String version) {
+    return list(new ListTransitionRequestsRequest().setName(name).setVersion(version));
+  }
+
   /**
    * List transition requests.
    *
@@ -51,6 +78,10 @@ public class TransitionRequestsAPI {
    */
   public ListResponse list(ListTransitionRequestsRequest request) {
     return impl.list(request);
+  }
+
+  public RejectResponse reject(String name, String version, Stage stage) {
+    return reject(new RejectTransitionRequest().setName(name).setVersion(version).setStage(stage));
   }
 
   /**

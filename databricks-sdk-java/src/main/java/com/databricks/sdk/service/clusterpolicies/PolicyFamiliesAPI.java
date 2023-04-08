@@ -28,6 +28,10 @@ public class PolicyFamiliesAPI {
     impl = mock;
   }
 
+  public PolicyFamily get(String policyFamilyId) {
+    return get(new GetPolicyFamilyRequest().setPolicyFamilyId(policyFamilyId));
+  }
+
   public PolicyFamily get(GetPolicyFamilyRequest request) {
     return impl.get(request);
   }

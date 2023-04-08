@@ -18,6 +18,10 @@ public class ProvidersAPI {
     impl = mock;
   }
 
+  public ProviderInfo create(String name, AuthenticationType authenticationType) {
+    return create(new CreateProvider().setName(name).setAuthenticationType(authenticationType));
+  }
+
   /**
    * Create an auth provider.
    *
@@ -28,6 +32,10 @@ public class ProvidersAPI {
     return impl.create(request);
   }
 
+  public void delete(String name) {
+    delete(new DeleteProviderRequest().setName(name));
+  }
+
   /**
    * Delete a provider.
    *
@@ -36,6 +44,10 @@ public class ProvidersAPI {
    */
   public void delete(DeleteProviderRequest request) {
     impl.delete(request);
+  }
+
+  public ProviderInfo get(String name) {
+    return get(new GetProviderRequest().setName(name));
   }
 
   /**
@@ -59,6 +71,10 @@ public class ProvidersAPI {
     return impl.list(request);
   }
 
+  public ListProviderSharesResponse listShares(String name) {
+    return listShares(new ListSharesRequest().setName(name));
+  }
+
   /**
    * List shares by Provider.
    *
@@ -68,6 +84,10 @@ public class ProvidersAPI {
    */
   public ListProviderSharesResponse listShares(ListSharesRequest request) {
     return impl.listShares(request);
+  }
+
+  public ProviderInfo update(String name) {
+    return update(new UpdateProvider().setName(name));
   }
 
   /**

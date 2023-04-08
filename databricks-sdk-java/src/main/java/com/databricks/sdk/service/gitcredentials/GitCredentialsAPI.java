@@ -24,6 +24,10 @@ public class GitCredentialsAPI {
     impl = mock;
   }
 
+  public CreateCredentialsResponse create(String gitProvider) {
+    return create(new CreateCredentials().setGitProvider(gitProvider));
+  }
+
   /**
    * Create a credential entry.
    *
@@ -35,6 +39,10 @@ public class GitCredentialsAPI {
     return impl.create(request);
   }
 
+  public void delete(long credentialId) {
+    delete(new Delete().setCredentialId(credentialId));
+  }
+
   /**
    * Delete a credential.
    *
@@ -42,6 +50,10 @@ public class GitCredentialsAPI {
    */
   public void delete(Delete request) {
     impl.delete(request);
+  }
+
+  public CredentialInfo get(long credentialId) {
+    return get(new Get().setCredentialId(credentialId));
   }
 
   /**
@@ -60,6 +72,10 @@ public class GitCredentialsAPI {
    */
   public GetCredentialsResponse list() {
     return impl.list();
+  }
+
+  public void update(long credentialId) {
+    update(new UpdateCredentials().setCredentialId(credentialId));
   }
 
   /**

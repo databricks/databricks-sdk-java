@@ -28,6 +28,10 @@ public class DashboardsAPI {
     return impl.create(request);
   }
 
+  public void delete(String dashboardId) {
+    delete(new DeleteDashboardRequest().setDashboardId(dashboardId));
+  }
+
   /**
    * Remove a dashboard.
    *
@@ -36,6 +40,10 @@ public class DashboardsAPI {
    */
   public void delete(DeleteDashboardRequest request) {
     impl.delete(request);
+  }
+
+  public Dashboard get(String dashboardId) {
+    return get(new GetDashboardRequest().setDashboardId(dashboardId));
   }
 
   /**
@@ -55,6 +63,10 @@ public class DashboardsAPI {
    */
   public ListResponse list(ListDashboardsRequest request) {
     return impl.list(request);
+  }
+
+  public void restore(String dashboardId) {
+    restore(new RestoreDashboardRequest().setDashboardId(dashboardId));
   }
 
   /**

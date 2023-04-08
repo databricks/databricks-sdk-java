@@ -21,6 +21,10 @@ public class BillableUsageAPI {
     impl = mock;
   }
 
+  public void download(String startMonth, String endMonth) {
+    download(new DownloadRequest().setStartMonth(startMonth).setEndMonth(endMonth));
+  }
+
   /**
    * Return billable usage logs.
    *

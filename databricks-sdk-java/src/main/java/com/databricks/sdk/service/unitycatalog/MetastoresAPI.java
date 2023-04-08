@@ -30,6 +30,14 @@ public class MetastoresAPI {
     impl = mock;
   }
 
+  public void assign(String metastoreId, String defaultCatalogName, long workspaceId) {
+    assign(
+        new CreateMetastoreAssignment()
+            .setMetastoreId(metastoreId)
+            .setDefaultCatalogName(defaultCatalogName)
+            .setWorkspaceId(workspaceId));
+  }
+
   /**
    * Create an assignment.
    *
@@ -39,6 +47,10 @@ public class MetastoresAPI {
    */
   public void assign(CreateMetastoreAssignment request) {
     impl.assign(request);
+  }
+
+  public MetastoreInfo create(String name, String storageRoot) {
+    return create(new CreateMetastore().setName(name).setStorageRoot(storageRoot));
   }
 
   /**
@@ -59,6 +71,10 @@ public class MetastoresAPI {
     return impl.current();
   }
 
+  public void delete(String id) {
+    delete(new DeleteMetastoreRequest().setId(id));
+  }
+
   /**
    * Delete a metastore.
    *
@@ -66,6 +82,10 @@ public class MetastoresAPI {
    */
   public void delete(DeleteMetastoreRequest request) {
     impl.delete(request);
+  }
+
+  public MetastoreInfo get(String id) {
+    return get(new GetMetastoreRequest().setId(id));
   }
 
   /**
@@ -99,6 +119,10 @@ public class MetastoresAPI {
     return impl.summary();
   }
 
+  public void unassign(long workspaceId, String metastoreId) {
+    unassign(new UnassignRequest().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
+  }
+
   /**
    * Delete an assignment.
    *
@@ -108,6 +132,10 @@ public class MetastoresAPI {
     impl.unassign(request);
   }
 
+  public MetastoreInfo update(String metastoreId, String id) {
+    return update(new UpdateMetastore().setMetastoreId(metastoreId).setId(id));
+  }
+
   /**
    * Update a metastore.
    *
@@ -115,6 +143,11 @@ public class MetastoresAPI {
    */
   public MetastoreInfo update(UpdateMetastore request) {
     return impl.update(request);
+  }
+
+  public void updateAssignment(long workspaceId, String metastoreId) {
+    updateAssignment(
+        new UpdateMetastoreAssignment().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
   }
 
   /**

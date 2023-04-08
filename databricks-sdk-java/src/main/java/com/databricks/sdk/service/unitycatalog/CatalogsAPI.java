@@ -26,6 +26,10 @@ public class CatalogsAPI {
     impl = mock;
   }
 
+  public CatalogInfo create(String name) {
+    return create(new CreateCatalog().setName(name));
+  }
+
   /**
    * Create a catalog.
    *
@@ -36,6 +40,10 @@ public class CatalogsAPI {
     return impl.create(request);
   }
 
+  public void delete(String name) {
+    delete(new DeleteCatalogRequest().setName(name));
+  }
+
   /**
    * Delete a catalog.
    *
@@ -44,6 +52,10 @@ public class CatalogsAPI {
    */
   public void delete(DeleteCatalogRequest request) {
     impl.delete(request);
+  }
+
+  public CatalogInfo get(String name) {
+    return get(new GetCatalogRequest().setName(name));
   }
 
   /**
@@ -66,6 +78,10 @@ public class CatalogsAPI {
    */
   public ListCatalogsResponse list() {
     return impl.list();
+  }
+
+  public CatalogInfo update(String name) {
+    return update(new UpdateCatalog().setName(name));
   }
 
   /**

@@ -31,6 +31,14 @@ public class CommandExecutionAPI {
     impl.cancel(request);
   }
 
+  public CommandStatusResponse commandStatus(String clusterId, String contextId, String commandId) {
+    return commandStatus(
+        new CommandStatusRequest()
+            .setClusterId(clusterId)
+            .setContextId(contextId)
+            .setCommandId(commandId));
+  }
+
   /**
    * Get command info.
    *
@@ -40,6 +48,11 @@ public class CommandExecutionAPI {
    */
   public CommandStatusResponse commandStatus(CommandStatusRequest request) {
     return impl.commandStatus(request);
+  }
+
+  public ContextStatusResponse contextStatus(String clusterId, String contextId) {
+    return contextStatus(
+        new ContextStatusRequest().setClusterId(clusterId).setContextId(contextId));
   }
 
   /**
@@ -60,6 +73,10 @@ public class CommandExecutionAPI {
    */
   public Created create(CreateContext request) {
     return impl.create(request);
+  }
+
+  public void destroy(String clusterId, String contextId) {
+    destroy(new DestroyContext().setClusterId(clusterId).setContextId(contextId));
   }
 
   /**

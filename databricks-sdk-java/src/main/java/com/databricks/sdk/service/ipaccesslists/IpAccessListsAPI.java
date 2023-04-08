@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.ipaccesslists;
 
 import com.databricks.sdk.client.ApiClient;
+import java.util.List;
 import org.apache.http.client.methods.*;
 
 /**
@@ -38,6 +39,12 @@ public class IpAccessListsAPI {
     impl = mock;
   }
 
+  public CreateIpAccessListResponse create(
+      String label, ListType listType, List<String> ipAddresses) {
+    return create(
+        new CreateIpAccessList().setLabel(label).setListType(listType).setIpAddresses(ipAddresses));
+  }
+
   /**
    * Create access list.
    *
@@ -60,6 +67,10 @@ public class IpAccessListsAPI {
     return impl.create(request);
   }
 
+  public void delete(String ipAccessListId) {
+    delete(new Delete().setIpAccessListId(ipAccessListId));
+  }
+
   /**
    * Delete access list.
    *
@@ -67,6 +78,10 @@ public class IpAccessListsAPI {
    */
   public void delete(Delete request) {
     impl.delete(request);
+  }
+
+  public FetchIpAccessListResponse get(String ipAccessListId) {
+    return get(new Get().setIpAccessListId(ipAccessListId));
   }
 
   /**
@@ -87,6 +102,21 @@ public class IpAccessListsAPI {
     return impl.list();
   }
 
+  public void replace(
+      String label,
+      ListType listType,
+      List<String> ipAddresses,
+      boolean enabled,
+      String ipAccessListId) {
+    replace(
+        new ReplaceIpAccessList()
+            .setLabel(label)
+            .setListType(listType)
+            .setIpAddresses(ipAddresses)
+            .setEnabled(enabled)
+            .setIpAccessListId(ipAccessListId));
+  }
+
   /**
    * Replace access list.
    *
@@ -103,6 +133,21 @@ public class IpAccessListsAPI {
    */
   public void replace(ReplaceIpAccessList request) {
     impl.replace(request);
+  }
+
+  public void update(
+      String label,
+      ListType listType,
+      List<String> ipAddresses,
+      boolean enabled,
+      String ipAccessListId) {
+    update(
+        new UpdateIpAccessList()
+            .setLabel(label)
+            .setListType(listType)
+            .setIpAddresses(ipAddresses)
+            .setEnabled(enabled)
+            .setIpAccessListId(ipAccessListId));
   }
 
   /**

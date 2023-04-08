@@ -32,6 +32,10 @@ public class TokensAPI {
     return impl.create(request);
   }
 
+  public void delete(String tokenId) {
+    delete(new RevokeTokenRequest().setTokenId(tokenId));
+  }
+
   /**
    * Revoke token.
    *

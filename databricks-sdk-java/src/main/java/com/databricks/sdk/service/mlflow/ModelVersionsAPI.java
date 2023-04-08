@@ -17,6 +17,10 @@ public class ModelVersionsAPI {
     impl = mock;
   }
 
+  public CreateModelVersionResponse create(String name, String source) {
+    return create(new CreateModelVersionRequest().setName(name).setSource(source));
+  }
+
   /**
    * Create a model version.
    *
@@ -24,6 +28,10 @@ public class ModelVersionsAPI {
    */
   public CreateModelVersionResponse create(CreateModelVersionRequest request) {
     return impl.create(request);
+  }
+
+  public void delete(String name, String version) {
+    delete(new DeleteModelVersionRequest().setName(name).setVersion(version));
   }
 
   /**
@@ -35,6 +43,10 @@ public class ModelVersionsAPI {
     impl.delete(request);
   }
 
+  public void deleteTag(String name, String version, String key) {
+    deleteTag(new DeleteModelVersionTagRequest().setName(name).setVersion(version).setKey(key));
+  }
+
   /**
    * Delete a model version tag.
    *
@@ -44,6 +56,10 @@ public class ModelVersionsAPI {
     impl.deleteTag(request);
   }
 
+  public GetModelVersionResponse get(String name, String version) {
+    return get(new GetModelVersionRequest().setName(name).setVersion(version));
+  }
+
   /**
    * Get a model version.
    *
@@ -51,6 +67,11 @@ public class ModelVersionsAPI {
    */
   public GetModelVersionResponse get(GetModelVersionRequest request) {
     return impl.get(request);
+  }
+
+  public GetModelVersionDownloadUriResponse getDownloadUri(String name, String version) {
+    return getDownloadUri(
+        new GetModelVersionDownloadUriRequest().setName(name).setVersion(version));
   }
 
   /**
@@ -72,6 +93,15 @@ public class ModelVersionsAPI {
     return impl.search(request);
   }
 
+  public void setTag(String name, String version, String key, String value) {
+    setTag(
+        new SetModelVersionTagRequest()
+            .setName(name)
+            .setVersion(version)
+            .setKey(key)
+            .setValue(value));
+  }
+
   /**
    * Set a version tag.
    *
@@ -81,6 +111,16 @@ public class ModelVersionsAPI {
     impl.setTag(request);
   }
 
+  public TransitionModelVersionStageResponse transitionStage(
+      String name, String version, String stage, boolean archiveExistingVersions) {
+    return transitionStage(
+        new TransitionModelVersionStage()
+            .setName(name)
+            .setVersion(version)
+            .setStage(stage)
+            .setArchiveExistingVersions(archiveExistingVersions));
+  }
+
   /**
    * Transition a stage.
    *
@@ -88,6 +128,10 @@ public class ModelVersionsAPI {
    */
   public TransitionModelVersionStageResponse transitionStage(TransitionModelVersionStage request) {
     return impl.transitionStage(request);
+  }
+
+  public void update(String name, String version) {
+    update(new UpdateModelVersionRequest().setName(name).setVersion(version));
   }
 
   /**

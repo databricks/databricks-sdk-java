@@ -27,6 +27,10 @@ public class WorkspacesAPI {
     impl = mock;
   }
 
+  public Workspace create(String workspaceName) {
+    return create(new CreateWorkspaceRequest().setWorkspaceName(workspaceName));
+  }
+
   /**
    * Create a new workspace.
    *
@@ -43,6 +47,10 @@ public class WorkspacesAPI {
     return impl.create(request);
   }
 
+  public void delete(long workspaceId) {
+    delete(new DeleteWorkspaceRequest().setWorkspaceId(workspaceId));
+  }
+
   /**
    * Delete a workspace.
    *
@@ -55,6 +63,10 @@ public class WorkspacesAPI {
    */
   public void delete(DeleteWorkspaceRequest request) {
     impl.delete(request);
+  }
+
+  public Workspace get(long workspaceId) {
+    return get(new GetWorkspaceRequest().setWorkspaceId(workspaceId));
   }
 
   /**
@@ -88,6 +100,10 @@ public class WorkspacesAPI {
    */
   public List<Workspace> list() {
     return impl.list();
+  }
+
+  public void update(long workspaceId) {
+    update(new UpdateWorkspaceRequest().setWorkspaceId(workspaceId));
   }
 
   /**

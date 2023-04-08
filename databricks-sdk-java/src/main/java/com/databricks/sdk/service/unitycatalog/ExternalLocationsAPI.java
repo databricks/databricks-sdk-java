@@ -29,6 +29,11 @@ public class ExternalLocationsAPI {
     impl = mock;
   }
 
+  public ExternalLocationInfo create(String name, String url, String credentialName) {
+    return create(
+        new CreateExternalLocation().setName(name).setUrl(url).setCredentialName(credentialName));
+  }
+
   /**
    * Create an external location.
    *
@@ -40,6 +45,10 @@ public class ExternalLocationsAPI {
     return impl.create(request);
   }
 
+  public void delete(String name) {
+    delete(new DeleteExternalLocationRequest().setName(name));
+  }
+
   /**
    * Delete an external location.
    *
@@ -48,6 +57,10 @@ public class ExternalLocationsAPI {
    */
   public void delete(DeleteExternalLocationRequest request) {
     impl.delete(request);
+  }
+
+  public ExternalLocationInfo get(String name) {
+    return get(new GetExternalLocationRequest().setName(name));
   }
 
   /**
@@ -70,6 +83,10 @@ public class ExternalLocationsAPI {
    */
   public ListExternalLocationsResponse list() {
     return impl.list();
+  }
+
+  public ExternalLocationInfo update(String name) {
+    return update(new UpdateExternalLocation().setName(name));
   }
 
   /**

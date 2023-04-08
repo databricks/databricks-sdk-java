@@ -28,6 +28,10 @@ public class SecretsAPI {
     impl = mock;
   }
 
+  public void createScope(String scope) {
+    createScope(new CreateScope().setScope(scope));
+  }
+
   /**
    * Create a new secret scope.
    *
@@ -36,6 +40,10 @@ public class SecretsAPI {
    */
   public void createScope(CreateScope request) {
     impl.createScope(request);
+  }
+
+  public void deleteAcl(String scope, String principal) {
+    deleteAcl(new DeleteAcl().setScope(scope).setPrincipal(principal));
   }
 
   /**
@@ -51,6 +59,10 @@ public class SecretsAPI {
     impl.deleteAcl(request);
   }
 
+  public void deleteScope(String scope) {
+    deleteScope(new DeleteScope().setScope(scope));
+  }
+
   /**
    * Delete a secret scope.
    *
@@ -61,6 +73,10 @@ public class SecretsAPI {
    */
   public void deleteScope(DeleteScope request) {
     impl.deleteScope(request);
+  }
+
+  public void deleteSecret(String scope, String key) {
+    deleteSecret(new DeleteSecret().setScope(scope).setKey(key));
   }
 
   /**
@@ -76,6 +92,10 @@ public class SecretsAPI {
     impl.deleteSecret(request);
   }
 
+  public AclItem getAcl(String scope, String principal) {
+    return getAcl(new GetAcl().setScope(scope).setPrincipal(principal));
+  }
+
   /**
    * Get secret ACL details.
    *
@@ -87,6 +107,10 @@ public class SecretsAPI {
    */
   public AclItem getAcl(GetAcl request) {
     return impl.getAcl(request);
+  }
+
+  public ListAclsResponse listAcls(String scope) {
+    return listAcls(new ListAcls().setScope(scope));
   }
 
   /**
@@ -113,6 +137,10 @@ public class SecretsAPI {
     return impl.listScopes();
   }
 
+  public ListSecretsResponse listSecrets(String scope) {
+    return listSecrets(new ListSecrets().setScope(scope));
+  }
+
   /**
    * List secret keys.
    *
@@ -126,6 +154,10 @@ public class SecretsAPI {
    */
   public ListSecretsResponse listSecrets(ListSecrets request) {
     return impl.listSecrets(request);
+  }
+
+  public void putAcl(String scope, String principal, AclPermission permission) {
+    putAcl(new PutAcl().setScope(scope).setPrincipal(principal).setPermission(permission));
   }
 
   /**
@@ -158,6 +190,10 @@ public class SecretsAPI {
    */
   public void putAcl(PutAcl request) {
     impl.putAcl(request);
+  }
+
+  public void putSecret(String scope, String key) {
+    putSecret(new PutSecret().setScope(scope).setKey(key));
   }
 
   /**
