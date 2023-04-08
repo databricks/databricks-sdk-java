@@ -13,47 +13,47 @@ import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;{{end
  * Entry point for accessing Databricks account-level APIs
  */
 public class DatabricksAccount {
-    private final ApiClient apiClient;
-    private final DatabricksConfig config;
+  private final ApiClient apiClient;
+  private final DatabricksConfig config;
+  {{range .Services}}{{if .IsAccounts}}
+  private {{.PascalName}}API {{.CamelName}}API;{{end}}{{end}}
+
+  public DatabricksAccount() {
+    this(ConfigLoader.getDefault());
+  }
+
+  public DatabricksAccount(DatabricksConfig config) {
+    this.config = config;
+    apiClient = new ApiClient(config);
     {{range .Services}}{{if .IsAccounts}}
-    private {{.PascalName}}API {{.CamelName}}API;{{end}}{{end}}
+    {{.CamelName}}API = new {{.PascalName}}API(apiClient);{{end}}{{end}}
+  }
 
-    public DatabricksAccount() {
-        this(ConfigLoader.getDefault());
-    }
+  /** Constructor for mocks */
+  public DatabricksAccount(boolean mock) {
+    apiClient = null;
+    config = null;
+  }
+  {{range .Services}}{{if .IsAccounts}}
+  {{if .Description}}/**
+   {{.Comment "   * " 80}}
+   */{{end}}
+  public {{.PascalName}}API {{.CamelName}}() {
+    return {{.CamelName}}API;
+  }
+  {{end}}{{end}}
+  {{range .Services}}{{if .IsAccounts}}
+  /** Override {{.PascalName}}API with mock */
+  public DatabricksAccount with{{.PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
+    {{.CamelName}}API = new {{.PascalName}}API({{.CamelName}});
+    return this;
+  }
+  {{end}}{{end}}
+  public ApiClient apiClient() {
+    return apiClient;
+  }
 
-    public DatabricksAccount(DatabricksConfig config) {
-        this.config = config;
-        apiClient = new ApiClient(config);
-        {{range .Services}}{{if .IsAccounts}}
-        {{.CamelName}}API = new {{.PascalName}}API(apiClient);{{end}}{{end}}
-    }
-
-    /** Constructor for mocks */
-    public DatabricksAccount(boolean mock) {
-        apiClient = null;
-        config = null;
-    }
-    {{range .Services}}{{if .IsAccounts}}
-    {{if .Description}}/**
-     {{.Comment "     * " 80}}
-     */{{end}}
-    public {{.PascalName}}API {{.CamelName}}() {
-        return {{.CamelName}}API;
-    }
-    {{end}}{{end}}
-    {{range .Services}}{{if .IsAccounts}}
-    /** Override {{.PascalName}}API with mock */
-    public DatabricksAccount with{{.PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
-        {{.CamelName}}API = new {{.PascalName}}API({{.CamelName}});
-        return this;
-    }
-    {{end}}{{end}}
-    public ApiClient apiClient() {
-        return apiClient;
-    }
-
-    public DatabricksConfig config() {
-        return config;
-    }
+  public DatabricksConfig config() {
+    return config;
+  }
 }
