@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Run {
   /** Run data. */
@@ -29,5 +31,23 @@ public class Run {
 
   public RunInfo getInfo() {
     return info;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Run that = (Run) o;
+    return Objects.equals(data, that.data) && Objects.equals(info, that.info);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(data, info);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Run.class).add("data", data).add("info", info).toString();
   }
 }

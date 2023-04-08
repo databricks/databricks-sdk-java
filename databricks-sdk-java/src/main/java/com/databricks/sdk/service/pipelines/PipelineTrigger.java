@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PipelineTrigger {
   /** */
@@ -29,5 +31,23 @@ public class PipelineTrigger {
 
   public Object /* MISSING TYPE */ getManual() {
     return manual;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PipelineTrigger that = (PipelineTrigger) o;
+    return Objects.equals(cron, that.cron) && Objects.equals(manual, that.manual);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cron, manual);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PipelineTrigger.class).add("cron", cron).add("manual", manual).toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Parameter {
   /** The literal parameter marker that appears between double curly braces in the query text. */
@@ -55,5 +57,31 @@ public class Parameter {
 
   public Object /* MISSING TYPE */ getValue() {
     return value;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Parameter that = (Parameter) o;
+    return Objects.equals(name, that.name)
+        && Objects.equals(title, that.title)
+        && Objects.equals(typeValue, that.typeValue)
+        && Objects.equals(value, that.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, title, typeValue, value);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Parameter.class)
+        .add("name", name)
+        .add("title", title)
+        .add("typeValue", typeValue)
+        .add("value", value)
+        .toString();
   }
 }

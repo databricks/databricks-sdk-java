@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -25,7 +25,7 @@ public class CustomAppIntegrationAPI {
     impl = mock;
   }
 
-  public CreateCustomAppIntegrationOutput create(String name, List<String> redirectUrls) {
+  public CreateCustomAppIntegrationOutput create(String name, Collection<String> redirectUrls) {
     return create(new CreateCustomAppIntegration().setName(name).setRedirectUrls(redirectUrls));
   }
 

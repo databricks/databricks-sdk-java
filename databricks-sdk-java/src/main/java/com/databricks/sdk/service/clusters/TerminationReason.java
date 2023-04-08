@@ -2,8 +2,10 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import java.util.Objects;
 
 public class TerminationReason {
   /** status code indicating why the cluster was terminated */
@@ -43,5 +45,29 @@ public class TerminationReason {
 
   public TerminationReasonType getType() {
     return typeValue;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TerminationReason that = (TerminationReason) o;
+    return Objects.equals(code, that.code)
+        && Objects.equals(parameters, that.parameters)
+        && Objects.equals(typeValue, that.typeValue);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(code, parameters, typeValue);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TerminationReason.class)
+        .add("code", code)
+        .add("parameters", parameters)
+        .add("typeValue", typeValue)
+        .toString();
   }
 }

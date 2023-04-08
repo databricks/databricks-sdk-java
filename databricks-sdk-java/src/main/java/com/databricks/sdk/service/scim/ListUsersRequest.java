@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.scim;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List users */
 public class ListUsersRequest {
@@ -105,5 +107,38 @@ public class ListUsersRequest {
 
   public Long getStartIndex() {
     return startIndex;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListUsersRequest that = (ListUsersRequest) o;
+    return Objects.equals(attributes, that.attributes)
+        && Objects.equals(count, that.count)
+        && Objects.equals(excludedAttributes, that.excludedAttributes)
+        && Objects.equals(filter, that.filter)
+        && Objects.equals(sortBy, that.sortBy)
+        && Objects.equals(sortOrder, that.sortOrder)
+        && Objects.equals(startIndex, that.startIndex);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        attributes, count, excludedAttributes, filter, sortBy, sortOrder, startIndex);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListUsersRequest.class)
+        .add("attributes", attributes)
+        .add("count", count)
+        .add("excludedAttributes", excludedAttributes)
+        .add("filter", filter)
+        .add("sortBy", sortBy)
+        .add("sortOrder", sortOrder)
+        .add("startIndex", startIndex)
+        .toString();
   }
 }

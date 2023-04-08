@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class GetEvents {
   /** The ID of the cluster to retrieve events about. */
@@ -15,7 +18,7 @@ public class GetEvents {
 
   /** An optional set of event types to filter on. If empty, all event types are returned. */
   @JsonProperty("event_types")
-  private java.util.List<EventType> eventTypes;
+  private Collection<EventType> eventTypes;
 
   /**
    * The maximum number of events to include in a page of events. Defaults to 50, and maximum
@@ -60,12 +63,12 @@ public class GetEvents {
     return endTime;
   }
 
-  public GetEvents setEventTypes(java.util.List<EventType> eventTypes) {
+  public GetEvents setEventTypes(Collection<EventType> eventTypes) {
     this.eventTypes = eventTypes;
     return this;
   }
 
-  public java.util.List<EventType> getEventTypes() {
+  public Collection<EventType> getEventTypes() {
     return eventTypes;
   }
 
@@ -103,5 +106,37 @@ public class GetEvents {
 
   public Long getStartTime() {
     return startTime;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetEvents that = (GetEvents) o;
+    return Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(endTime, that.endTime)
+        && Objects.equals(eventTypes, that.eventTypes)
+        && Objects.equals(limit, that.limit)
+        && Objects.equals(offset, that.offset)
+        && Objects.equals(order, that.order)
+        && Objects.equals(startTime, that.startTime);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId, endTime, eventTypes, limit, offset, order, startTime);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetEvents.class)
+        .add("clusterId", clusterId)
+        .add("endTime", endTime)
+        .add("eventTypes", eventTypes)
+        .add("limit", limit)
+        .add("offset", offset)
+        .add("order", order)
+        .add("startTime", startTime)
+        .toString();
   }
 }

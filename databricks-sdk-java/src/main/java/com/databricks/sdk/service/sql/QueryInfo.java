@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class QueryInfo {
   /** Channel information for the SQL warehouse at the time of query execution */
@@ -289,5 +291,89 @@ public class QueryInfo {
 
   public String getWarehouseId() {
     return warehouseId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    QueryInfo that = (QueryInfo) o;
+    return Objects.equals(channelUsed, that.channelUsed)
+        && Objects.equals(duration, that.duration)
+        && Objects.equals(endpointId, that.endpointId)
+        && Objects.equals(errorMessage, that.errorMessage)
+        && Objects.equals(executedAsUserId, that.executedAsUserId)
+        && Objects.equals(executedAsUserName, that.executedAsUserName)
+        && Objects.equals(executionEndTimeMs, that.executionEndTimeMs)
+        && Objects.equals(isFinal, that.isFinal)
+        && Objects.equals(lookupKey, that.lookupKey)
+        && Objects.equals(metrics, that.metrics)
+        && Objects.equals(plansState, that.plansState)
+        && Objects.equals(queryEndTimeMs, that.queryEndTimeMs)
+        && Objects.equals(queryId, that.queryId)
+        && Objects.equals(queryStartTimeMs, that.queryStartTimeMs)
+        && Objects.equals(queryText, that.queryText)
+        && Objects.equals(rowsProduced, that.rowsProduced)
+        && Objects.equals(sparkUiUrl, that.sparkUiUrl)
+        && Objects.equals(statementType, that.statementType)
+        && Objects.equals(status, that.status)
+        && Objects.equals(userId, that.userId)
+        && Objects.equals(userName, that.userName)
+        && Objects.equals(warehouseId, that.warehouseId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        channelUsed,
+        duration,
+        endpointId,
+        errorMessage,
+        executedAsUserId,
+        executedAsUserName,
+        executionEndTimeMs,
+        isFinal,
+        lookupKey,
+        metrics,
+        plansState,
+        queryEndTimeMs,
+        queryId,
+        queryStartTimeMs,
+        queryText,
+        rowsProduced,
+        sparkUiUrl,
+        statementType,
+        status,
+        userId,
+        userName,
+        warehouseId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(QueryInfo.class)
+        .add("channelUsed", channelUsed)
+        .add("duration", duration)
+        .add("endpointId", endpointId)
+        .add("errorMessage", errorMessage)
+        .add("executedAsUserId", executedAsUserId)
+        .add("executedAsUserName", executedAsUserName)
+        .add("executionEndTimeMs", executionEndTimeMs)
+        .add("isFinal", isFinal)
+        .add("lookupKey", lookupKey)
+        .add("metrics", metrics)
+        .add("plansState", plansState)
+        .add("queryEndTimeMs", queryEndTimeMs)
+        .add("queryId", queryId)
+        .add("queryStartTimeMs", queryStartTimeMs)
+        .add("queryText", queryText)
+        .add("rowsProduced", rowsProduced)
+        .add("sparkUiUrl", sparkUiUrl)
+        .add("statementType", statementType)
+        .add("status", status)
+        .add("userId", userId)
+        .add("userName", userName)
+        .add("warehouseId", warehouseId)
+        .toString();
   }
 }

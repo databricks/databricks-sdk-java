@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Get a credential */
 public class GetStorageCredentialRequest {
   /** Name of the storage credential. */
@@ -14,5 +17,23 @@ public class GetStorageCredentialRequest {
 
   public String getName() {
     return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetStorageCredentialRequest that = (GetStorageCredentialRequest) o;
+    return Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetStorageCredentialRequest.class).add("name", name).toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Workspace {
   /** Databricks account ID. */
@@ -312,5 +314,84 @@ public class Workspace {
 
   public String getWorkspaceStatusMessage() {
     return workspaceStatusMessage;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Workspace that = (Workspace) o;
+    return Objects.equals(accountId, that.accountId)
+        && Objects.equals(awsRegion, that.awsRegion)
+        && Objects.equals(cloud, that.cloud)
+        && Objects.equals(cloudResourceContainer, that.cloudResourceContainer)
+        && Objects.equals(creationTime, that.creationTime)
+        && Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(deploymentName, that.deploymentName)
+        && Objects.equals(gcpManagedNetworkConfig, that.gcpManagedNetworkConfig)
+        && Objects.equals(gkeConfig, that.gkeConfig)
+        && Objects.equals(location, that.location)
+        && Objects.equals(
+            managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
+        && Objects.equals(networkId, that.networkId)
+        && Objects.equals(pricingTier, that.pricingTier)
+        && Objects.equals(privateAccessSettingsId, that.privateAccessSettingsId)
+        && Objects.equals(storageConfigurationId, that.storageConfigurationId)
+        && Objects.equals(storageCustomerManagedKeyId, that.storageCustomerManagedKeyId)
+        && Objects.equals(workspaceId, that.workspaceId)
+        && Objects.equals(workspaceName, that.workspaceName)
+        && Objects.equals(workspaceStatus, that.workspaceStatus)
+        && Objects.equals(workspaceStatusMessage, that.workspaceStatusMessage);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        accountId,
+        awsRegion,
+        cloud,
+        cloudResourceContainer,
+        creationTime,
+        credentialsId,
+        deploymentName,
+        gcpManagedNetworkConfig,
+        gkeConfig,
+        location,
+        managedServicesCustomerManagedKeyId,
+        networkId,
+        pricingTier,
+        privateAccessSettingsId,
+        storageConfigurationId,
+        storageCustomerManagedKeyId,
+        workspaceId,
+        workspaceName,
+        workspaceStatus,
+        workspaceStatusMessage);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Workspace.class)
+        .add("accountId", accountId)
+        .add("awsRegion", awsRegion)
+        .add("cloud", cloud)
+        .add("cloudResourceContainer", cloudResourceContainer)
+        .add("creationTime", creationTime)
+        .add("credentialsId", credentialsId)
+        .add("deploymentName", deploymentName)
+        .add("gcpManagedNetworkConfig", gcpManagedNetworkConfig)
+        .add("gkeConfig", gkeConfig)
+        .add("location", location)
+        .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
+        .add("networkId", networkId)
+        .add("pricingTier", pricingTier)
+        .add("privateAccessSettingsId", privateAccessSettingsId)
+        .add("storageConfigurationId", storageConfigurationId)
+        .add("storageCustomerManagedKeyId", storageCustomerManagedKeyId)
+        .add("workspaceId", workspaceId)
+        .add("workspaceName", workspaceName)
+        .add("workspaceStatus", workspaceStatus)
+        .add("workspaceStatusMessage", workspaceStatusMessage)
+        .toString();
   }
 }

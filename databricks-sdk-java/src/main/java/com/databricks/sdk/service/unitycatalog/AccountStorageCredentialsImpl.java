@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of AccountStorageCredentials */
@@ -30,10 +30,10 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   }
 
   @Override
-  public List<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
+  public Collection<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts//metastores/%s/storage-credentials", request.getMetastoreId());
-    return apiClient.GET(path, request, List.class);
+    return apiClient.GET(path, request, Collection.class);
   }
 }

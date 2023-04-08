@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.permissions;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Get permission levels */
 public class GetPermissionLevels {
   /** <needs content> */
@@ -26,5 +29,27 @@ public class GetPermissionLevels {
 
   public String getRequestObjectType() {
     return requestObjectType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetPermissionLevels that = (GetPermissionLevels) o;
+    return Objects.equals(requestObjectId, that.requestObjectId)
+        && Objects.equals(requestObjectType, that.requestObjectType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(requestObjectId, requestObjectType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetPermissionLevels.class)
+        .add("requestObjectId", requestObjectId)
+        .add("requestObjectType", requestObjectType)
+        .toString();
   }
 }

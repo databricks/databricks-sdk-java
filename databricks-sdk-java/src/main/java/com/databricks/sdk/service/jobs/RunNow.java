@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class RunNow {
   /**
@@ -11,7 +14,7 @@ public class RunNow {
    * deps", "dbt seed", "dbt run"]`
    */
   @JsonProperty("dbt_commands")
-  private java.util.List<String> dbtCommands;
+  private Collection<String> dbtCommands;
 
   /**
    * An optional token to guarantee the idempotency of job run requests. If a run with the provided
@@ -41,7 +44,7 @@ public class RunNow {
    * containing information about job runs.
    */
   @JsonProperty("jar_params")
-  private java.util.List<String> jarParams;
+  private Collection<String> jarParams;
 
   /** The ID of the job to be executed */
   @JsonProperty("job_id")
@@ -96,7 +99,7 @@ public class RunNow {
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("python_params")
-  private java.util.List<String> pythonParams;
+  private Collection<String> pythonParams;
 
   /**
    * A list of parameters for jobs with spark submit task, for example `\"spark_submit_params\":
@@ -116,7 +119,7 @@ public class RunNow {
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("spark_submit_params")
-  private java.util.List<String> sparkSubmitParams;
+  private Collection<String> sparkSubmitParams;
 
   /**
    * A map from keys to values for jobs with SQL task, for example `"sql_params": {"name": "john
@@ -125,12 +128,12 @@ public class RunNow {
   @JsonProperty("sql_params")
   private Map<String, String> sqlParams;
 
-  public RunNow setDbtCommands(java.util.List<String> dbtCommands) {
+  public RunNow setDbtCommands(Collection<String> dbtCommands) {
     this.dbtCommands = dbtCommands;
     return this;
   }
 
-  public java.util.List<String> getDbtCommands() {
+  public Collection<String> getDbtCommands() {
     return dbtCommands;
   }
 
@@ -143,12 +146,12 @@ public class RunNow {
     return idempotencyToken;
   }
 
-  public RunNow setJarParams(java.util.List<String> jarParams) {
+  public RunNow setJarParams(Collection<String> jarParams) {
     this.jarParams = jarParams;
     return this;
   }
 
-  public java.util.List<String> getJarParams() {
+  public Collection<String> getJarParams() {
     return jarParams;
   }
 
@@ -188,21 +191,21 @@ public class RunNow {
     return pythonNamedParams;
   }
 
-  public RunNow setPythonParams(java.util.List<String> pythonParams) {
+  public RunNow setPythonParams(Collection<String> pythonParams) {
     this.pythonParams = pythonParams;
     return this;
   }
 
-  public java.util.List<String> getPythonParams() {
+  public Collection<String> getPythonParams() {
     return pythonParams;
   }
 
-  public RunNow setSparkSubmitParams(java.util.List<String> sparkSubmitParams) {
+  public RunNow setSparkSubmitParams(Collection<String> sparkSubmitParams) {
     this.sparkSubmitParams = sparkSubmitParams;
     return this;
   }
 
-  public java.util.List<String> getSparkSubmitParams() {
+  public Collection<String> getSparkSubmitParams() {
     return sparkSubmitParams;
   }
 
@@ -213,5 +216,53 @@ public class RunNow {
 
   public Map<String, String> getSqlParams() {
     return sqlParams;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RunNow that = (RunNow) o;
+    return Objects.equals(dbtCommands, that.dbtCommands)
+        && Objects.equals(idempotencyToken, that.idempotencyToken)
+        && Objects.equals(jarParams, that.jarParams)
+        && Objects.equals(jobId, that.jobId)
+        && Objects.equals(notebookParams, that.notebookParams)
+        && Objects.equals(pipelineParams, that.pipelineParams)
+        && Objects.equals(pythonNamedParams, that.pythonNamedParams)
+        && Objects.equals(pythonParams, that.pythonParams)
+        && Objects.equals(sparkSubmitParams, that.sparkSubmitParams)
+        && Objects.equals(sqlParams, that.sqlParams);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        dbtCommands,
+        idempotencyToken,
+        jarParams,
+        jobId,
+        notebookParams,
+        pipelineParams,
+        pythonNamedParams,
+        pythonParams,
+        sparkSubmitParams,
+        sqlParams);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RunNow.class)
+        .add("dbtCommands", dbtCommands)
+        .add("idempotencyToken", idempotencyToken)
+        .add("jarParams", jarParams)
+        .add("jobId", jobId)
+        .add("notebookParams", notebookParams)
+        .add("pipelineParams", pipelineParams)
+        .add("pythonNamedParams", pythonNamedParams)
+        .add("pythonParams", pythonParams)
+        .add("sparkSubmitParams", sparkSubmitParams)
+        .add("sqlParams", sqlParams)
+        .toString();
   }
 }

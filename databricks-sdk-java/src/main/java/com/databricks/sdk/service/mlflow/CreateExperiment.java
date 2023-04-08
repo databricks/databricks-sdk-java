@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class CreateExperiment {
   /**
@@ -23,7 +26,7 @@ public class CreateExperiment {
    * guaranteed to support up to 20 tags per request.
    */
   @JsonProperty("tags")
-  private java.util.List<ExperimentTag> tags;
+  private Collection<ExperimentTag> tags;
 
   public CreateExperiment setArtifactLocation(String artifactLocation) {
     this.artifactLocation = artifactLocation;
@@ -43,12 +46,36 @@ public class CreateExperiment {
     return name;
   }
 
-  public CreateExperiment setTags(java.util.List<ExperimentTag> tags) {
+  public CreateExperiment setTags(Collection<ExperimentTag> tags) {
     this.tags = tags;
     return this;
   }
 
-  public java.util.List<ExperimentTag> getTags() {
+  public Collection<ExperimentTag> getTags() {
     return tags;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateExperiment that = (CreateExperiment) o;
+    return Objects.equals(artifactLocation, that.artifactLocation)
+        && Objects.equals(name, that.name)
+        && Objects.equals(tags, that.tags);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(artifactLocation, name, tags);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateExperiment.class)
+        .add("artifactLocation", artifactLocation)
+        .add("name", name)
+        .add("tags", tags)
+        .toString();
   }
 }

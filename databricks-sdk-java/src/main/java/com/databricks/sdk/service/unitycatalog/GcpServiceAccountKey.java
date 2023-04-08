@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class GcpServiceAccountKey {
   /** The email of the service account. */
@@ -42,5 +44,29 @@ public class GcpServiceAccountKey {
 
   public String getPrivateKeyId() {
     return privateKeyId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GcpServiceAccountKey that = (GcpServiceAccountKey) o;
+    return Objects.equals(email, that.email)
+        && Objects.equals(privateKey, that.privateKey)
+        && Objects.equals(privateKeyId, that.privateKeyId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(email, privateKey, privateKeyId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GcpServiceAccountKey.class)
+        .add("email", email)
+        .add("privateKey", privateKey)
+        .add("privateKeyId", privateKeyId)
+        .toString();
   }
 }

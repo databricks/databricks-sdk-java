@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class Query {
   /** Describes whether the authenticated user is allowed to edit the definition of this query. */
@@ -103,7 +106,7 @@ public class Query {
 
   /** */
   @JsonProperty("tags")
-  private java.util.List<String> tags;
+  private Collection<String> tags;
 
   /** The timestamp at which this query was last updated. */
   @JsonProperty("updated_at")
@@ -119,7 +122,7 @@ public class Query {
 
   /** */
   @JsonProperty("visualizations")
-  private java.util.List<Visualization> visualizations;
+  private Collection<Visualization> visualizations;
 
   public Query setCanEdit(Boolean canEdit) {
     this.canEdit = canEdit;
@@ -283,12 +286,12 @@ public class Query {
     return queryHash;
   }
 
-  public Query setTags(java.util.List<String> tags) {
+  public Query setTags(Collection<String> tags) {
     this.tags = tags;
     return this;
   }
 
-  public java.util.List<String> getTags() {
+  public Collection<String> getTags() {
     return tags;
   }
 
@@ -319,12 +322,99 @@ public class Query {
     return userId;
   }
 
-  public Query setVisualizations(java.util.List<Visualization> visualizations) {
+  public Query setVisualizations(Collection<Visualization> visualizations) {
     this.visualizations = visualizations;
     return this;
   }
 
-  public java.util.List<Visualization> getVisualizations() {
+  public Collection<Visualization> getVisualizations() {
     return visualizations;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Query that = (Query) o;
+    return Objects.equals(canEdit, that.canEdit)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(dataSourceId, that.dataSourceId)
+        && Objects.equals(description, that.description)
+        && Objects.equals(id, that.id)
+        && Objects.equals(isArchived, that.isArchived)
+        && Objects.equals(isDraft, that.isDraft)
+        && Objects.equals(isFavorite, that.isFavorite)
+        && Objects.equals(isSafe, that.isSafe)
+        && Objects.equals(lastModifiedBy, that.lastModifiedBy)
+        && Objects.equals(lastModifiedById, that.lastModifiedById)
+        && Objects.equals(latestQueryDataId, that.latestQueryDataId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(options, that.options)
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(permissionTier, that.permissionTier)
+        && Objects.equals(query, that.query)
+        && Objects.equals(queryHash, that.queryHash)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(user, that.user)
+        && Objects.equals(userId, that.userId)
+        && Objects.equals(visualizations, that.visualizations);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        canEdit,
+        createdAt,
+        dataSourceId,
+        description,
+        id,
+        isArchived,
+        isDraft,
+        isFavorite,
+        isSafe,
+        lastModifiedBy,
+        lastModifiedById,
+        latestQueryDataId,
+        name,
+        options,
+        parent,
+        permissionTier,
+        query,
+        queryHash,
+        tags,
+        updatedAt,
+        user,
+        userId,
+        visualizations);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Query.class)
+        .add("canEdit", canEdit)
+        .add("createdAt", createdAt)
+        .add("dataSourceId", dataSourceId)
+        .add("description", description)
+        .add("id", id)
+        .add("isArchived", isArchived)
+        .add("isDraft", isDraft)
+        .add("isFavorite", isFavorite)
+        .add("isSafe", isSafe)
+        .add("lastModifiedBy", lastModifiedBy)
+        .add("lastModifiedById", lastModifiedById)
+        .add("latestQueryDataId", latestQueryDataId)
+        .add("name", name)
+        .add("options", options)
+        .add("parent", parent)
+        .add("permissionTier", permissionTier)
+        .add("query", query)
+        .add("queryHash", queryHash)
+        .add("tags", tags)
+        .add("updatedAt", updatedAt)
+        .add("user", user)
+        .add("userId", userId)
+        .add("visualizations", visualizations)
+        .toString();
   }
 }

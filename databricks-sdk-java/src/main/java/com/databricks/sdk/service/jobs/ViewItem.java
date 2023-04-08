@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ViewItem {
   /** Content of the view. */
@@ -45,5 +47,29 @@ public class ViewItem {
 
   public ViewType getType() {
     return typeValue;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ViewItem that = (ViewItem) o;
+    return Objects.equals(content, that.content)
+        && Objects.equals(name, that.name)
+        && Objects.equals(typeValue, that.typeValue);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(content, name, typeValue);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ViewItem.class)
+        .add("content", content)
+        .add("name", name)
+        .add("typeValue", typeValue)
+        .toString();
   }
 }

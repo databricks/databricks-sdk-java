@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 public class RegistryWebhooksAPI {
@@ -18,7 +18,7 @@ public class RegistryWebhooksAPI {
     impl = mock;
   }
 
-  public CreateResponse create(List<RegistryWebhookEvent> events) {
+  public CreateResponse create(Collection<RegistryWebhookEvent> events) {
     return create(new CreateRegistryWebhook().setEvents(events));
   }
 

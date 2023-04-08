@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class AwsIamRole {
   /** The external ID used in role assumption to prevent confused deputy problem.. */
@@ -45,5 +47,29 @@ public class AwsIamRole {
 
   public String getUnityCatalogIamArn() {
     return unityCatalogIamArn;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AwsIamRole that = (AwsIamRole) o;
+    return Objects.equals(externalId, that.externalId)
+        && Objects.equals(roleArn, that.roleArn)
+        && Objects.equals(unityCatalogIamArn, that.unityCatalogIamArn);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(externalId, roleArn, unityCatalogIamArn);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(AwsIamRole.class)
+        .add("externalId", externalId)
+        .add("roleArn", roleArn)
+        .add("unityCatalogIamArn", unityCatalogIamArn)
+        .toString();
   }
 }

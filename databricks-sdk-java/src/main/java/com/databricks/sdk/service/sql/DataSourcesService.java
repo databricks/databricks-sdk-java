@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * This API is provided to assist you in making new query objects. When creating a query object, you
@@ -25,5 +25,5 @@ public interface DataSourcesService {
    * in this API response are enumerated for clarity. However, you need only a SQL warehouse's `id`
    * to create new queries against it.
    */
-  List<DataSource> list();
+  Collection<DataSource> list();
 }

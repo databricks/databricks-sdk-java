@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateMetastore {
   /** The user-specified name of the metastore. */
@@ -45,5 +47,29 @@ public class CreateMetastore {
 
   public String getStorageRoot() {
     return storageRoot;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateMetastore that = (CreateMetastore) o;
+    return Objects.equals(name, that.name)
+        && Objects.equals(region, that.region)
+        && Objects.equals(storageRoot, that.storageRoot);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, region, storageRoot);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateMetastore.class)
+        .add("name", name)
+        .add("region", region)
+        .add("storageRoot", storageRoot)
+        .toString();
   }
 }

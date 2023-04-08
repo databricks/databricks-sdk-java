@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /** The configurations for the GKE cluster of a Databricks workspace. */
 public class GkeConfig {
@@ -43,5 +45,27 @@ public class GkeConfig {
 
   public String getMasterIpRange() {
     return masterIpRange;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GkeConfig that = (GkeConfig) o;
+    return Objects.equals(connectivityType, that.connectivityType)
+        && Objects.equals(masterIpRange, that.masterIpRange);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(connectivityType, masterIpRange);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GkeConfig.class)
+        .add("connectivityType", connectivityType)
+        .add("masterIpRange", masterIpRange)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.commands;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Command {
   /** Running cluster id */
@@ -55,5 +57,31 @@ public class Command {
 
   public Language getLanguage() {
     return language;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Command that = (Command) o;
+    return Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(command, that.command)
+        && Objects.equals(contextId, that.contextId)
+        && Objects.equals(language, that.language);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId, command, contextId, language);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Command.class)
+        .add("clusterId", clusterId)
+        .add("command", command)
+        .add("contextId", contextId)
+        .add("language", language)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.dbfs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Create {
   /** The flag that specifies whether to overwrite existing file/files. */
@@ -29,5 +31,23 @@ public class Create {
 
   public String getPath() {
     return path;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Create that = (Create) o;
+    return Objects.equals(overwrite, that.overwrite) && Objects.equals(path, that.path);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(overwrite, path);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Create.class).add("overwrite", overwrite).add("path", path).toString();
   }
 }

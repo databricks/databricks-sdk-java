@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 /**
  * If specified, contains the VPC endpoints used to allow cluster communication from this VPC over
@@ -25,7 +28,7 @@ public class NetworkVpcEndpoints {
    * https://docs.databricks.com/security/secure-cluster-connectivity.html
    */
   @JsonProperty("dataplane_relay")
-  private java.util.List<String> dataplaneRelay;
+  private Collection<String> dataplaneRelay;
 
   /**
    * The VPC endpoint ID used by this network to access the Databricks REST API. Databricks clusters
@@ -39,23 +42,45 @@ public class NetworkVpcEndpoints {
    * not the AWS VPC endpoint ID that you see for your endpoint in the AWS Console.
    */
   @JsonProperty("rest_api")
-  private java.util.List<String> restApi;
+  private Collection<String> restApi;
 
-  public NetworkVpcEndpoints setDataplaneRelay(java.util.List<String> dataplaneRelay) {
+  public NetworkVpcEndpoints setDataplaneRelay(Collection<String> dataplaneRelay) {
     this.dataplaneRelay = dataplaneRelay;
     return this;
   }
 
-  public java.util.List<String> getDataplaneRelay() {
+  public Collection<String> getDataplaneRelay() {
     return dataplaneRelay;
   }
 
-  public NetworkVpcEndpoints setRestApi(java.util.List<String> restApi) {
+  public NetworkVpcEndpoints setRestApi(Collection<String> restApi) {
     this.restApi = restApi;
     return this;
   }
 
-  public java.util.List<String> getRestApi() {
+  public Collection<String> getRestApi() {
     return restApi;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NetworkVpcEndpoints that = (NetworkVpcEndpoints) o;
+    return Objects.equals(dataplaneRelay, that.dataplaneRelay)
+        && Objects.equals(restApi, that.restApi);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(dataplaneRelay, restApi);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(NetworkVpcEndpoints.class)
+        .add("dataplaneRelay", dataplaneRelay)
+        .add("restApi", restApi)
+        .toString();
   }
 }

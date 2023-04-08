@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.secrets;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateScope {
   /** The principal that is initially granted `MANAGE` permission to the created scope. */
@@ -57,5 +59,31 @@ public class CreateScope {
 
   public ScopeBackendType getScopeBackendType() {
     return scopeBackendType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateScope that = (CreateScope) o;
+    return Objects.equals(initialManagePrincipal, that.initialManagePrincipal)
+        && Objects.equals(keyvaultMetadata, that.keyvaultMetadata)
+        && Objects.equals(scope, that.scope)
+        && Objects.equals(scopeBackendType, that.scopeBackendType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(initialManagePrincipal, keyvaultMetadata, scope, scopeBackendType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateScope.class)
+        .add("initialManagePrincipal", initialManagePrincipal)
+        .add("keyvaultMetadata", keyvaultMetadata)
+        .add("scope", scope)
+        .add("scopeBackendType", scopeBackendType)
+        .toString();
   }
 }

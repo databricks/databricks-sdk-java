@@ -2,19 +2,40 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ListSchemasResponse {
   /** An array of schema information objects. */
   @JsonProperty("schemas")
-  private java.util.List<SchemaInfo> schemas;
+  private Collection<SchemaInfo> schemas;
 
-  public ListSchemasResponse setSchemas(java.util.List<SchemaInfo> schemas) {
+  public ListSchemasResponse setSchemas(Collection<SchemaInfo> schemas) {
     this.schemas = schemas;
     return this;
   }
 
-  public java.util.List<SchemaInfo> getSchemas() {
+  public Collection<SchemaInfo> getSchemas() {
     return schemas;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListSchemasResponse that = (ListSchemasResponse) o;
+    return Objects.equals(schemas, that.schemas);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(schemas);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListSchemasResponse.class).add("schemas", schemas).toString();
   }
 }

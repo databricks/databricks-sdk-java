@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class AddInstanceProfile {
   /**
@@ -75,5 +77,31 @@ public class AddInstanceProfile {
 
   public Boolean getSkipValidation() {
     return skipValidation;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AddInstanceProfile that = (AddInstanceProfile) o;
+    return Objects.equals(iamRoleArn, that.iamRoleArn)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(isMetaInstanceProfile, that.isMetaInstanceProfile)
+        && Objects.equals(skipValidation, that.skipValidation);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(iamRoleArn, instanceProfileArn, isMetaInstanceProfile, skipValidation);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(AddInstanceProfile.class)
+        .add("iamRoleArn", iamRoleArn)
+        .add("instanceProfileArn", instanceProfileArn)
+        .add("isMetaInstanceProfile", isMetaInstanceProfile)
+        .add("skipValidation", skipValidation)
+        .toString();
   }
 }

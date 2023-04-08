@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
@@ -42,7 +42,7 @@ public interface AlertsService {
    *
    * <p>Gets a list of alerts.
    */
-  List<Alert> list();
+  Collection<Alert> list();
 
   /**
    * Update an alert.

@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of StorageCredentials */
@@ -32,9 +32,9 @@ class StorageCredentialsImpl implements StorageCredentialsService {
   }
 
   @Override
-  public List<StorageCredentialInfo> list() {
+  public Collection<StorageCredentialInfo> list() {
     String path = "/api/2.1/unity-catalog/storage-credentials";
-    return apiClient.GET(path, List.class);
+    return apiClient.GET(path, Collection.class);
   }
 
   @Override

@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ListTableSummariesResponse {
   /** Opaque token for pagination. Omitted if there are no more results. */
@@ -11,7 +14,7 @@ public class ListTableSummariesResponse {
 
   /** List of table summaries. */
   @JsonProperty("tables")
-  private java.util.List<TableSummary> tables;
+  private Collection<TableSummary> tables;
 
   public ListTableSummariesResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
@@ -22,12 +25,33 @@ public class ListTableSummariesResponse {
     return nextPageToken;
   }
 
-  public ListTableSummariesResponse setTables(java.util.List<TableSummary> tables) {
+  public ListTableSummariesResponse setTables(Collection<TableSummary> tables) {
     this.tables = tables;
     return this;
   }
 
-  public java.util.List<TableSummary> getTables() {
+  public Collection<TableSummary> getTables() {
     return tables;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListTableSummariesResponse that = (ListTableSummariesResponse) o;
+    return Objects.equals(nextPageToken, that.nextPageToken) && Objects.equals(tables, that.tables);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nextPageToken, tables);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListTableSummariesResponse.class)
+        .add("nextPageToken", nextPageToken)
+        .add("tables", tables)
+        .toString();
   }
 }

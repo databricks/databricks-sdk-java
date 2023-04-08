@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.tokenmanagement;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List all tokens */
 public class List {
@@ -30,5 +32,27 @@ public class List {
 
   public String getCreatedByUsername() {
     return createdByUsername;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    List that = (List) o;
+    return Objects.equals(createdById, that.createdById)
+        && Objects.equals(createdByUsername, that.createdByUsername);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(createdById, createdByUsername);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(List.class)
+        .add("createdById", createdById)
+        .add("createdByUsername", createdByUsername)
+        .toString();
   }
 }

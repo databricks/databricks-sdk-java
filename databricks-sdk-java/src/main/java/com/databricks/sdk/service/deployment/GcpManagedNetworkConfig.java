@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /**
  * The network settings for the workspace. The configurations are only for Databricks-managed VPCs.
@@ -72,5 +74,29 @@ public class GcpManagedNetworkConfig {
 
   public String getSubnetCidr() {
     return subnetCidr;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GcpManagedNetworkConfig that = (GcpManagedNetworkConfig) o;
+    return Objects.equals(gkeClusterPodIpRange, that.gkeClusterPodIpRange)
+        && Objects.equals(gkeClusterServiceIpRange, that.gkeClusterServiceIpRange)
+        && Objects.equals(subnetCidr, that.subnetCidr);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(gkeClusterPodIpRange, gkeClusterServiceIpRange, subnetCidr);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GcpManagedNetworkConfig.class)
+        .add("gkeClusterPodIpRange", gkeClusterPodIpRange)
+        .add("gkeClusterServiceIpRange", gkeClusterServiceIpRange)
+        .add("subnetCidr", subnetCidr)
+        .toString();
   }
 }

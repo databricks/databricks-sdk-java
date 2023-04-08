@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /** Alert configuration options. */
 public class AlertOptions {
@@ -94,5 +96,35 @@ public class AlertOptions {
 
   public String getValue() {
     return value;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AlertOptions that = (AlertOptions) o;
+    return Objects.equals(column, that.column)
+        && Objects.equals(customBody, that.customBody)
+        && Objects.equals(customSubject, that.customSubject)
+        && Objects.equals(muted, that.muted)
+        && Objects.equals(op, that.op)
+        && Objects.equals(value, that.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(column, customBody, customSubject, muted, op, value);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(AlertOptions.class)
+        .add("column", column)
+        .add("customBody", customBody)
+        .add("customSubject", customSubject)
+        .add("muted", muted)
+        .add("op", op)
+        .add("value", value)
+        .toString();
   }
 }

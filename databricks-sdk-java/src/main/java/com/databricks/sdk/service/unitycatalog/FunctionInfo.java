@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class FunctionInfo {
   /** Name of parent catalog. */
@@ -48,7 +51,7 @@ public class FunctionInfo {
 
   /** The array of __FunctionParameterInfo__ definitions of the function's parameters. */
   @JsonProperty("input_params")
-  private java.util.List<FunctionParameterInfo> inputParams;
+  private Collection<FunctionParameterInfo> inputParams;
 
   /** Whether the function is deterministic. */
   @JsonProperty("is_deterministic")
@@ -80,7 +83,7 @@ public class FunctionInfo {
 
   /** Table function return parameters. */
   @JsonProperty("return_params")
-  private java.util.List<FunctionParameterInfo> returnParams;
+  private Collection<FunctionParameterInfo> returnParams;
 
   /**
    * Function language. When **EXTERNAL** is used, the language of the routine function should be
@@ -97,7 +100,7 @@ public class FunctionInfo {
 
   /** Function dependencies. */
   @JsonProperty("routine_dependencies")
-  private java.util.List<Dependency> routineDependencies;
+  private Collection<Dependency> routineDependencies;
 
   /** Name of parent schema relative to its parent catalog. */
   @JsonProperty("schema_name")
@@ -217,12 +220,12 @@ public class FunctionInfo {
     return functionId;
   }
 
-  public FunctionInfo setInputParams(java.util.List<FunctionParameterInfo> inputParams) {
+  public FunctionInfo setInputParams(Collection<FunctionParameterInfo> inputParams) {
     this.inputParams = inputParams;
     return this;
   }
 
-  public java.util.List<FunctionParameterInfo> getInputParams() {
+  public Collection<FunctionParameterInfo> getInputParams() {
     return inputParams;
   }
 
@@ -289,12 +292,12 @@ public class FunctionInfo {
     return properties;
   }
 
-  public FunctionInfo setReturnParams(java.util.List<FunctionParameterInfo> returnParams) {
+  public FunctionInfo setReturnParams(Collection<FunctionParameterInfo> returnParams) {
     this.returnParams = returnParams;
     return this;
   }
 
-  public java.util.List<FunctionParameterInfo> getReturnParams() {
+  public Collection<FunctionParameterInfo> getReturnParams() {
     return returnParams;
   }
 
@@ -316,12 +319,12 @@ public class FunctionInfo {
     return routineDefinition;
   }
 
-  public FunctionInfo setRoutineDependencies(java.util.List<Dependency> routineDependencies) {
+  public FunctionInfo setRoutineDependencies(Collection<Dependency> routineDependencies) {
     this.routineDependencies = routineDependencies;
     return this;
   }
 
-  public java.util.List<Dependency> getRoutineDependencies() {
+  public Collection<Dependency> getRoutineDependencies() {
     return routineDependencies;
   }
 
@@ -386,5 +389,110 @@ public class FunctionInfo {
 
   public String getUpdatedBy() {
     return updatedBy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    FunctionInfo that = (FunctionInfo) o;
+    return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(dataType, that.dataType)
+        && Objects.equals(externalLanguage, that.externalLanguage)
+        && Objects.equals(externalName, that.externalName)
+        && Objects.equals(fullDataType, that.fullDataType)
+        && Objects.equals(fullName, that.fullName)
+        && Objects.equals(functionId, that.functionId)
+        && Objects.equals(inputParams, that.inputParams)
+        && Objects.equals(isDeterministic, that.isDeterministic)
+        && Objects.equals(isNullCall, that.isNullCall)
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(parameterStyle, that.parameterStyle)
+        && Objects.equals(properties, that.properties)
+        && Objects.equals(returnParams, that.returnParams)
+        && Objects.equals(routineBody, that.routineBody)
+        && Objects.equals(routineDefinition, that.routineDefinition)
+        && Objects.equals(routineDependencies, that.routineDependencies)
+        && Objects.equals(schemaName, that.schemaName)
+        && Objects.equals(securityType, that.securityType)
+        && Objects.equals(specificName, that.specificName)
+        && Objects.equals(sqlDataAccess, that.sqlDataAccess)
+        && Objects.equals(sqlPath, that.sqlPath)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        catalogName,
+        comment,
+        createdAt,
+        createdBy,
+        dataType,
+        externalLanguage,
+        externalName,
+        fullDataType,
+        fullName,
+        functionId,
+        inputParams,
+        isDeterministic,
+        isNullCall,
+        metastoreId,
+        name,
+        owner,
+        parameterStyle,
+        properties,
+        returnParams,
+        routineBody,
+        routineDefinition,
+        routineDependencies,
+        schemaName,
+        securityType,
+        specificName,
+        sqlDataAccess,
+        sqlPath,
+        updatedAt,
+        updatedBy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(FunctionInfo.class)
+        .add("catalogName", catalogName)
+        .add("comment", comment)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("dataType", dataType)
+        .add("externalLanguage", externalLanguage)
+        .add("externalName", externalName)
+        .add("fullDataType", fullDataType)
+        .add("fullName", fullName)
+        .add("functionId", functionId)
+        .add("inputParams", inputParams)
+        .add("isDeterministic", isDeterministic)
+        .add("isNullCall", isNullCall)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .add("owner", owner)
+        .add("parameterStyle", parameterStyle)
+        .add("properties", properties)
+        .add("returnParams", returnParams)
+        .add("routineBody", routineBody)
+        .add("routineDefinition", routineDefinition)
+        .add("routineDependencies", routineDependencies)
+        .add("schemaName", schemaName)
+        .add("securityType", securityType)
+        .add("specificName", specificName)
+        .add("sqlDataAccess", sqlDataAccess)
+        .add("sqlPath", sqlPath)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
+        .toString();
   }
 }

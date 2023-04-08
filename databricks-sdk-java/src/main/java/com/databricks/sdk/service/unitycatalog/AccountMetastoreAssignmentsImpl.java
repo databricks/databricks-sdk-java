@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of AccountMetastoreAssignments */
@@ -39,10 +39,10 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public List<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
+  public Collection<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
     String path =
         String.format("/api/2.0/accounts//metastores/%s/workspaces", request.getMetastoreId());
-    return apiClient.GET(path, request, List.class);
+    return apiClient.GET(path, request, Collection.class);
   }
 
   @Override

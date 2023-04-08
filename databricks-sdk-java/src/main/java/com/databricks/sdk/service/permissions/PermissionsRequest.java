@@ -2,12 +2,15 @@
 
 package com.databricks.sdk.service.permissions;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class PermissionsRequest {
   /** */
   @JsonProperty("access_control_list")
-  private java.util.List<AccessControlRequest> accessControlList;
+  private Collection<AccessControlRequest> accessControlList;
 
   /** */
   private String requestObjectId;
@@ -16,12 +19,12 @@ public class PermissionsRequest {
   private String requestObjectType;
 
   public PermissionsRequest setAccessControlList(
-      java.util.List<AccessControlRequest> accessControlList) {
+      Collection<AccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public java.util.List<AccessControlRequest> getAccessControlList() {
+  public Collection<AccessControlRequest> getAccessControlList() {
     return accessControlList;
   }
 
@@ -41,5 +44,29 @@ public class PermissionsRequest {
 
   public String getRequestObjectType() {
     return requestObjectType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PermissionsRequest that = (PermissionsRequest) o;
+    return Objects.equals(accessControlList, that.accessControlList)
+        && Objects.equals(requestObjectId, that.requestObjectId)
+        && Objects.equals(requestObjectType, that.requestObjectType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accessControlList, requestObjectId, requestObjectType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PermissionsRequest.class)
+        .add("accessControlList", accessControlList)
+        .add("requestObjectId", requestObjectId)
+        .add("requestObjectType", requestObjectType)
+        .toString();
   }
 }

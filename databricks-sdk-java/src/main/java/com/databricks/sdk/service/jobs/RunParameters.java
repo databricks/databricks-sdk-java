@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class RunParameters {
   /**
@@ -11,7 +14,7 @@ public class RunParameters {
    * deps", "dbt seed", "dbt run"]`
    */
   @JsonProperty("dbt_commands")
-  private java.util.List<String> dbtCommands;
+  private Collection<String> dbtCommands;
 
   /**
    * A list of parameters for jobs with Spark JAR tasks, for example `\"jar_params\": [\"john doe\",
@@ -24,7 +27,7 @@ public class RunParameters {
    * containing information about job runs.
    */
   @JsonProperty("jar_params")
-  private java.util.List<String> jarParams;
+  private Collection<String> jarParams;
 
   /**
    * A map from keys to values for jobs with notebook task, for example `\"notebook_params\":
@@ -75,7 +78,7 @@ public class RunParameters {
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("python_params")
-  private java.util.List<String> pythonParams;
+  private Collection<String> pythonParams;
 
   /**
    * A list of parameters for jobs with spark submit task, for example `\"spark_submit_params\":
@@ -95,7 +98,7 @@ public class RunParameters {
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("spark_submit_params")
-  private java.util.List<String> sparkSubmitParams;
+  private Collection<String> sparkSubmitParams;
 
   /**
    * A map from keys to values for jobs with SQL task, for example `"sql_params": {"name": "john
@@ -104,21 +107,21 @@ public class RunParameters {
   @JsonProperty("sql_params")
   private Map<String, String> sqlParams;
 
-  public RunParameters setDbtCommands(java.util.List<String> dbtCommands) {
+  public RunParameters setDbtCommands(Collection<String> dbtCommands) {
     this.dbtCommands = dbtCommands;
     return this;
   }
 
-  public java.util.List<String> getDbtCommands() {
+  public Collection<String> getDbtCommands() {
     return dbtCommands;
   }
 
-  public RunParameters setJarParams(java.util.List<String> jarParams) {
+  public RunParameters setJarParams(Collection<String> jarParams) {
     this.jarParams = jarParams;
     return this;
   }
 
-  public java.util.List<String> getJarParams() {
+  public Collection<String> getJarParams() {
     return jarParams;
   }
 
@@ -149,21 +152,21 @@ public class RunParameters {
     return pythonNamedParams;
   }
 
-  public RunParameters setPythonParams(java.util.List<String> pythonParams) {
+  public RunParameters setPythonParams(Collection<String> pythonParams) {
     this.pythonParams = pythonParams;
     return this;
   }
 
-  public java.util.List<String> getPythonParams() {
+  public Collection<String> getPythonParams() {
     return pythonParams;
   }
 
-  public RunParameters setSparkSubmitParams(java.util.List<String> sparkSubmitParams) {
+  public RunParameters setSparkSubmitParams(Collection<String> sparkSubmitParams) {
     this.sparkSubmitParams = sparkSubmitParams;
     return this;
   }
 
-  public java.util.List<String> getSparkSubmitParams() {
+  public Collection<String> getSparkSubmitParams() {
     return sparkSubmitParams;
   }
 
@@ -174,5 +177,47 @@ public class RunParameters {
 
   public Map<String, String> getSqlParams() {
     return sqlParams;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RunParameters that = (RunParameters) o;
+    return Objects.equals(dbtCommands, that.dbtCommands)
+        && Objects.equals(jarParams, that.jarParams)
+        && Objects.equals(notebookParams, that.notebookParams)
+        && Objects.equals(pipelineParams, that.pipelineParams)
+        && Objects.equals(pythonNamedParams, that.pythonNamedParams)
+        && Objects.equals(pythonParams, that.pythonParams)
+        && Objects.equals(sparkSubmitParams, that.sparkSubmitParams)
+        && Objects.equals(sqlParams, that.sqlParams);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        dbtCommands,
+        jarParams,
+        notebookParams,
+        pipelineParams,
+        pythonNamedParams,
+        pythonParams,
+        sparkSubmitParams,
+        sqlParams);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RunParameters.class)
+        .add("dbtCommands", dbtCommands)
+        .add("jarParams", jarParams)
+        .add("notebookParams", notebookParams)
+        .add("pipelineParams", pipelineParams)
+        .add("pythonNamedParams", pythonNamedParams)
+        .add("pythonParams", pythonParams)
+        .add("sparkSubmitParams", sparkSubmitParams)
+        .add("sqlParams", sqlParams)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Continuous {
   /**
@@ -18,5 +20,23 @@ public class Continuous {
 
   public ContinuousPauseStatus getPauseStatus() {
     return pauseStatus;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Continuous that = (Continuous) o;
+    return Objects.equals(pauseStatus, that.pauseStatus);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(pauseStatus);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Continuous.class).add("pauseStatus", pauseStatus).toString();
   }
 }

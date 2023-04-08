@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class CreateModelVersionRequest {
   /** Optional description for model version. */
@@ -33,7 +36,7 @@ public class CreateModelVersionRequest {
 
   /** Additional metadata for model version. */
   @JsonProperty("tags")
-  private java.util.List<ModelVersionTag> tags;
+  private Collection<ModelVersionTag> tags;
 
   public CreateModelVersionRequest setDescription(String description) {
     this.description = description;
@@ -80,12 +83,42 @@ public class CreateModelVersionRequest {
     return source;
   }
 
-  public CreateModelVersionRequest setTags(java.util.List<ModelVersionTag> tags) {
+  public CreateModelVersionRequest setTags(Collection<ModelVersionTag> tags) {
     this.tags = tags;
     return this;
   }
 
-  public java.util.List<ModelVersionTag> getTags() {
+  public Collection<ModelVersionTag> getTags() {
     return tags;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateModelVersionRequest that = (CreateModelVersionRequest) o;
+    return Objects.equals(description, that.description)
+        && Objects.equals(name, that.name)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(runLink, that.runLink)
+        && Objects.equals(source, that.source)
+        && Objects.equals(tags, that.tags);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(description, name, runId, runLink, source, tags);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateModelVersionRequest.class)
+        .add("description", description)
+        .add("name", name)
+        .add("runId", runId)
+        .add("runLink", runLink)
+        .add("source", source)
+        .add("tags", tags)
+        .toString();
   }
 }

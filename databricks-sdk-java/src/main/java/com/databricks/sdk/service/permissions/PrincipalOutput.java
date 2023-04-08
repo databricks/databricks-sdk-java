@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.permissions;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PrincipalOutput {
   /** The display name of the principal. */
@@ -68,5 +70,33 @@ public class PrincipalOutput {
 
   public String getUserName() {
     return userName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PrincipalOutput that = (PrincipalOutput) o;
+    return Objects.equals(displayName, that.displayName)
+        && Objects.equals(groupName, that.groupName)
+        && Objects.equals(principalId, that.principalId)
+        && Objects.equals(servicePrincipalName, that.servicePrincipalName)
+        && Objects.equals(userName, that.userName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(displayName, groupName, principalId, servicePrincipalName, userName);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PrincipalOutput.class)
+        .add("displayName", displayName)
+        .add("groupName", groupName)
+        .add("principalId", principalId)
+        .add("servicePrincipalName", servicePrincipalName)
+        .add("userName", userName)
+        .toString();
   }
 }

@@ -1,8 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.dbfs;
 
-import java.util.List;
-
 /**
  * DBFS API makes it simple to interact with various data sources without having to include a users
  * credentials every time to read a file.

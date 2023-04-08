@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateWorkspaceRequest {
   /**
@@ -113,5 +115,45 @@ public class UpdateWorkspaceRequest {
 
   public Long getWorkspaceId() {
     return workspaceId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateWorkspaceRequest that = (UpdateWorkspaceRequest) o;
+    return Objects.equals(awsRegion, that.awsRegion)
+        && Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(
+            managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
+        && Objects.equals(networkId, that.networkId)
+        && Objects.equals(storageConfigurationId, that.storageConfigurationId)
+        && Objects.equals(storageCustomerManagedKeyId, that.storageCustomerManagedKeyId)
+        && Objects.equals(workspaceId, that.workspaceId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        awsRegion,
+        credentialsId,
+        managedServicesCustomerManagedKeyId,
+        networkId,
+        storageConfigurationId,
+        storageCustomerManagedKeyId,
+        workspaceId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateWorkspaceRequest.class)
+        .add("awsRegion", awsRegion)
+        .add("credentialsId", credentialsId)
+        .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
+        .add("networkId", networkId)
+        .add("storageConfigurationId", storageConfigurationId)
+        .add("storageCustomerManagedKeyId", storageCustomerManagedKeyId)
+        .add("workspaceId", workspaceId)
+        .toString();
   }
 }

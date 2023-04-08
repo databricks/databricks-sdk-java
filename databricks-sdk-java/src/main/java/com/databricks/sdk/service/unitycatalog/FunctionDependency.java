@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /** A function that is dependent on a SQL object. */
 public class FunctionDependency {
@@ -20,5 +22,25 @@ public class FunctionDependency {
 
   public String getFunctionFullName() {
     return functionFullName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    FunctionDependency that = (FunctionDependency) o;
+    return Objects.equals(functionFullName, that.functionFullName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(functionFullName);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(FunctionDependency.class)
+        .add("functionFullName", functionFullName)
+        .toString();
   }
 }

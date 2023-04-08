@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.ipaccesslists;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class IpAccessListInfo {
   /** Total number of IP or CIDR values. */
@@ -23,7 +26,7 @@ public class IpAccessListInfo {
 
   /** Array of IP addresses or CIDR values to be added to the IP access list. */
   @JsonProperty("ip_addresses")
-  private java.util.List<String> ipAddresses;
+  private Collection<String> ipAddresses;
 
   /** Label for the IP access list. This **cannot** be empty. */
   @JsonProperty("label")
@@ -81,12 +84,12 @@ public class IpAccessListInfo {
     return enabled;
   }
 
-  public IpAccessListInfo setIpAddresses(java.util.List<String> ipAddresses) {
+  public IpAccessListInfo setIpAddresses(Collection<String> ipAddresses) {
     this.ipAddresses = ipAddresses;
     return this;
   }
 
-  public java.util.List<String> getIpAddresses() {
+  public Collection<String> getIpAddresses() {
     return ipAddresses;
   }
 
@@ -133,5 +136,53 @@ public class IpAccessListInfo {
 
   public Long getUpdatedBy() {
     return updatedBy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    IpAccessListInfo that = (IpAccessListInfo) o;
+    return Objects.equals(addressCount, that.addressCount)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(enabled, that.enabled)
+        && Objects.equals(ipAddresses, that.ipAddresses)
+        && Objects.equals(label, that.label)
+        && Objects.equals(listId, that.listId)
+        && Objects.equals(listType, that.listType)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        addressCount,
+        createdAt,
+        createdBy,
+        enabled,
+        ipAddresses,
+        label,
+        listId,
+        listType,
+        updatedAt,
+        updatedBy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(IpAccessListInfo.class)
+        .add("addressCount", addressCount)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("enabled", enabled)
+        .add("ipAddresses", ipAddresses)
+        .add("label", label)
+        .add("listId", listId)
+        .add("listType", listType)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
+        .toString();
   }
 }

@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Get encryption key configuration */
 public class GetEncryptionKeyRequest {
   /** Databricks encryption key configuration ID. */
@@ -14,5 +17,25 @@ public class GetEncryptionKeyRequest {
 
   public String getCustomerManagedKeyId() {
     return customerManagedKeyId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetEncryptionKeyRequest that = (GetEncryptionKeyRequest) o;
+    return Objects.equals(customerManagedKeyId, that.customerManagedKeyId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(customerManagedKeyId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetEncryptionKeyRequest.class)
+        .add("customerManagedKeyId", customerManagedKeyId)
+        .toString();
   }
 }

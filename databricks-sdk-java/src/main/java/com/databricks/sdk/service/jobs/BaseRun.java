@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class BaseRun {
   /**
@@ -76,7 +79,7 @@ public class BaseRun {
    * task settings.
    */
   @JsonProperty("job_clusters")
-  private java.util.List<JobCluster> jobClusters;
+  private Collection<JobCluster> jobClusters;
 
   /** The canonical identifier of the job that contains this run. */
   @JsonProperty("job_id")
@@ -148,7 +151,7 @@ public class BaseRun {
    * call `JobsGetOutput` to retrieve the run resutls.
    */
   @JsonProperty("tasks")
-  private java.util.List<RunTask> tasks;
+  private Collection<RunTask> tasks;
 
   /** This describes an enum */
   @JsonProperty("trigger")
@@ -235,12 +238,12 @@ public class BaseRun {
     return gitSource;
   }
 
-  public BaseRun setJobClusters(java.util.List<JobCluster> jobClusters) {
+  public BaseRun setJobClusters(Collection<JobCluster> jobClusters) {
     this.jobClusters = jobClusters;
     return this;
   }
 
-  public java.util.List<JobCluster> getJobClusters() {
+  public Collection<JobCluster> getJobClusters() {
     return jobClusters;
   }
 
@@ -361,12 +364,12 @@ public class BaseRun {
     return state;
   }
 
-  public BaseRun setTasks(java.util.List<RunTask> tasks) {
+  public BaseRun setTasks(Collection<RunTask> tasks) {
     this.tasks = tasks;
     return this;
   }
 
-  public java.util.List<RunTask> getTasks() {
+  public Collection<RunTask> getTasks() {
     return tasks;
   }
 
@@ -377,5 +380,98 @@ public class BaseRun {
 
   public TriggerType getTrigger() {
     return trigger;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    BaseRun that = (BaseRun) o;
+    return Objects.equals(attemptNumber, that.attemptNumber)
+        && Objects.equals(cleanupDuration, that.cleanupDuration)
+        && Objects.equals(clusterInstance, that.clusterInstance)
+        && Objects.equals(clusterSpec, that.clusterSpec)
+        && Objects.equals(continuous, that.continuous)
+        && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(endTime, that.endTime)
+        && Objects.equals(executionDuration, that.executionDuration)
+        && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(jobClusters, that.jobClusters)
+        && Objects.equals(jobId, that.jobId)
+        && Objects.equals(numberInJob, that.numberInJob)
+        && Objects.equals(originalAttemptRunId, that.originalAttemptRunId)
+        && Objects.equals(overridingParameters, that.overridingParameters)
+        && Objects.equals(runDuration, that.runDuration)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(runName, that.runName)
+        && Objects.equals(runPageUrl, that.runPageUrl)
+        && Objects.equals(runType, that.runType)
+        && Objects.equals(schedule, that.schedule)
+        && Objects.equals(setupDuration, that.setupDuration)
+        && Objects.equals(startTime, that.startTime)
+        && Objects.equals(state, that.state)
+        && Objects.equals(tasks, that.tasks)
+        && Objects.equals(trigger, that.trigger);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        attemptNumber,
+        cleanupDuration,
+        clusterInstance,
+        clusterSpec,
+        continuous,
+        creatorUserName,
+        endTime,
+        executionDuration,
+        gitSource,
+        jobClusters,
+        jobId,
+        numberInJob,
+        originalAttemptRunId,
+        overridingParameters,
+        runDuration,
+        runId,
+        runName,
+        runPageUrl,
+        runType,
+        schedule,
+        setupDuration,
+        startTime,
+        state,
+        tasks,
+        trigger);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(BaseRun.class)
+        .add("attemptNumber", attemptNumber)
+        .add("cleanupDuration", cleanupDuration)
+        .add("clusterInstance", clusterInstance)
+        .add("clusterSpec", clusterSpec)
+        .add("continuous", continuous)
+        .add("creatorUserName", creatorUserName)
+        .add("endTime", endTime)
+        .add("executionDuration", executionDuration)
+        .add("gitSource", gitSource)
+        .add("jobClusters", jobClusters)
+        .add("jobId", jobId)
+        .add("numberInJob", numberInJob)
+        .add("originalAttemptRunId", originalAttemptRunId)
+        .add("overridingParameters", overridingParameters)
+        .add("runDuration", runDuration)
+        .add("runId", runId)
+        .add("runName", runName)
+        .add("runPageUrl", runPageUrl)
+        .add("runType", runType)
+        .add("schedule", schedule)
+        .add("setupDuration", setupDuration)
+        .add("startTime", startTime)
+        .add("state", state)
+        .add("tasks", tasks)
+        .add("trigger", trigger)
+        .toString();
   }
 }

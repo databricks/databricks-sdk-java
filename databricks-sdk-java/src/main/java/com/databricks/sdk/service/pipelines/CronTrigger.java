@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CronTrigger {
   /** */
@@ -29,5 +31,27 @@ public class CronTrigger {
 
   public String getTimezoneId() {
     return timezoneId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CronTrigger that = (CronTrigger) o;
+    return Objects.equals(quartzCronSchedule, that.quartzCronSchedule)
+        && Objects.equals(timezoneId, that.timezoneId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(quartzCronSchedule, timezoneId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CronTrigger.class)
+        .add("quartzCronSchedule", quartzCronSchedule)
+        .add("timezoneId", timezoneId)
+        .toString();
   }
 }

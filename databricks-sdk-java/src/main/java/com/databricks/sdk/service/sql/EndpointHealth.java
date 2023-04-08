@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class EndpointHealth {
   /** Details about errors that are causing current degraded/failed status. */
@@ -71,5 +73,33 @@ public class EndpointHealth {
 
   public String getSummary() {
     return summary;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EndpointHealth that = (EndpointHealth) o;
+    return Objects.equals(details, that.details)
+        && Objects.equals(failureReason, that.failureReason)
+        && Objects.equals(message, that.message)
+        && Objects.equals(status, that.status)
+        && Objects.equals(summary, that.summary);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(details, failureReason, message, status, summary);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EndpointHealth.class)
+        .add("details", details)
+        .add("failureReason", failureReason)
+        .add("message", message)
+        .add("status", status)
+        .add("summary", summary)
+        .toString();
   }
 }

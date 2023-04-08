@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class NetworkHealth {
   /** Details of the error. */
@@ -32,5 +34,27 @@ public class NetworkHealth {
 
   public ErrorType getErrorType() {
     return errorType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NetworkHealth that = (NetworkHealth) o;
+    return Objects.equals(errorMessage, that.errorMessage)
+        && Objects.equals(errorType, that.errorType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(errorMessage, errorType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(NetworkHealth.class)
+        .add("errorMessage", errorMessage)
+        .add("errorType", errorType)
+        .toString();
   }
 }

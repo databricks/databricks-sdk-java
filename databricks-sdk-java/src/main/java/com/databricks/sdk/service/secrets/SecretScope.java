@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.secrets;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class SecretScope {
   /** The type of secret scope backend. */
@@ -42,5 +44,29 @@ public class SecretScope {
 
   public String getName() {
     return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SecretScope that = (SecretScope) o;
+    return Objects.equals(backendType, that.backendType)
+        && Objects.equals(keyvaultMetadata, that.keyvaultMetadata)
+        && Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(backendType, keyvaultMetadata, name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SecretScope.class)
+        .add("backendType", backendType)
+        .add("keyvaultMetadata", keyvaultMetadata)
+        .add("name", name)
+        .toString();
   }
 }

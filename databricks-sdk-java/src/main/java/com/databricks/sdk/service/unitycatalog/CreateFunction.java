@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreateFunction {
   /** Name of parent catalog. */
@@ -32,7 +35,7 @@ public class CreateFunction {
 
   /** The array of __FunctionParameterInfo__ definitions of the function's parameters. */
   @JsonProperty("input_params")
-  private java.util.List<FunctionParameterInfo> inputParams;
+  private Collection<FunctionParameterInfo> inputParams;
 
   /** Whether the function is deterministic. */
   @JsonProperty("is_deterministic")
@@ -56,7 +59,7 @@ public class CreateFunction {
 
   /** Table function return parameters. */
   @JsonProperty("return_params")
-  private java.util.List<FunctionParameterInfo> returnParams;
+  private Collection<FunctionParameterInfo> returnParams;
 
   /**
    * Function language. When **EXTERNAL** is used, the language of the routine function should be
@@ -73,7 +76,7 @@ public class CreateFunction {
 
   /** Function dependencies. */
   @JsonProperty("routine_dependencies")
-  private java.util.List<Dependency> routineDependencies;
+  private Collection<Dependency> routineDependencies;
 
   /** Name of parent schema relative to its parent catalog. */
   @JsonProperty("schema_name")
@@ -149,12 +152,12 @@ public class CreateFunction {
     return fullDataType;
   }
 
-  public CreateFunction setInputParams(java.util.List<FunctionParameterInfo> inputParams) {
+  public CreateFunction setInputParams(Collection<FunctionParameterInfo> inputParams) {
     this.inputParams = inputParams;
     return this;
   }
 
-  public java.util.List<FunctionParameterInfo> getInputParams() {
+  public Collection<FunctionParameterInfo> getInputParams() {
     return inputParams;
   }
 
@@ -203,12 +206,12 @@ public class CreateFunction {
     return properties;
   }
 
-  public CreateFunction setReturnParams(java.util.List<FunctionParameterInfo> returnParams) {
+  public CreateFunction setReturnParams(Collection<FunctionParameterInfo> returnParams) {
     this.returnParams = returnParams;
     return this;
   }
 
-  public java.util.List<FunctionParameterInfo> getReturnParams() {
+  public Collection<FunctionParameterInfo> getReturnParams() {
     return returnParams;
   }
 
@@ -230,12 +233,12 @@ public class CreateFunction {
     return routineDefinition;
   }
 
-  public CreateFunction setRoutineDependencies(java.util.List<Dependency> routineDependencies) {
+  public CreateFunction setRoutineDependencies(Collection<Dependency> routineDependencies) {
     this.routineDependencies = routineDependencies;
     return this;
   }
 
-  public java.util.List<Dependency> getRoutineDependencies() {
+  public Collection<Dependency> getRoutineDependencies() {
     return routineDependencies;
   }
 
@@ -282,5 +285,86 @@ public class CreateFunction {
 
   public String getSqlPath() {
     return sqlPath;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateFunction that = (CreateFunction) o;
+    return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(dataType, that.dataType)
+        && Objects.equals(externalLanguage, that.externalLanguage)
+        && Objects.equals(externalName, that.externalName)
+        && Objects.equals(fullDataType, that.fullDataType)
+        && Objects.equals(inputParams, that.inputParams)
+        && Objects.equals(isDeterministic, that.isDeterministic)
+        && Objects.equals(isNullCall, that.isNullCall)
+        && Objects.equals(name, that.name)
+        && Objects.equals(parameterStyle, that.parameterStyle)
+        && Objects.equals(properties, that.properties)
+        && Objects.equals(returnParams, that.returnParams)
+        && Objects.equals(routineBody, that.routineBody)
+        && Objects.equals(routineDefinition, that.routineDefinition)
+        && Objects.equals(routineDependencies, that.routineDependencies)
+        && Objects.equals(schemaName, that.schemaName)
+        && Objects.equals(securityType, that.securityType)
+        && Objects.equals(specificName, that.specificName)
+        && Objects.equals(sqlDataAccess, that.sqlDataAccess)
+        && Objects.equals(sqlPath, that.sqlPath);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        catalogName,
+        comment,
+        dataType,
+        externalLanguage,
+        externalName,
+        fullDataType,
+        inputParams,
+        isDeterministic,
+        isNullCall,
+        name,
+        parameterStyle,
+        properties,
+        returnParams,
+        routineBody,
+        routineDefinition,
+        routineDependencies,
+        schemaName,
+        securityType,
+        specificName,
+        sqlDataAccess,
+        sqlPath);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateFunction.class)
+        .add("catalogName", catalogName)
+        .add("comment", comment)
+        .add("dataType", dataType)
+        .add("externalLanguage", externalLanguage)
+        .add("externalName", externalName)
+        .add("fullDataType", fullDataType)
+        .add("inputParams", inputParams)
+        .add("isDeterministic", isDeterministic)
+        .add("isNullCall", isNullCall)
+        .add("name", name)
+        .add("parameterStyle", parameterStyle)
+        .add("properties", properties)
+        .add("returnParams", returnParams)
+        .add("routineBody", routineBody)
+        .add("routineDefinition", routineDefinition)
+        .add("routineDependencies", routineDependencies)
+        .add("schemaName", schemaName)
+        .add("securityType", securityType)
+        .add("specificName", specificName)
+        .add("sqlDataAccess", sqlDataAccess)
+        .add("sqlPath", sqlPath)
+        .toString();
   }
 }

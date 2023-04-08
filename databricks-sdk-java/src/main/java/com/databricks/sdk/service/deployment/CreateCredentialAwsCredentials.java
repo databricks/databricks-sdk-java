@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateCredentialAwsCredentials {
   /** */
@@ -16,5 +18,23 @@ public class CreateCredentialAwsCredentials {
 
   public CreateCredentialStsRole getStsRole() {
     return stsRole;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateCredentialAwsCredentials that = (CreateCredentialAwsCredentials) o;
+    return Objects.equals(stsRole, that.stsRole);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(stsRole);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateCredentialAwsCredentials.class).add("stsRole", stsRole).toString();
   }
 }

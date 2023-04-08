@@ -2,8 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreateCatalog {
   /** User-provided free-form text description. */
@@ -87,5 +89,35 @@ public class CreateCatalog {
 
   public String getStorageRoot() {
     return storageRoot;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateCatalog that = (CreateCatalog) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(name, that.name)
+        && Objects.equals(properties, that.properties)
+        && Objects.equals(providerName, that.providerName)
+        && Objects.equals(shareName, that.shareName)
+        && Objects.equals(storageRoot, that.storageRoot);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, name, properties, providerName, shareName, storageRoot);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateCatalog.class)
+        .add("comment", comment)
+        .add("name", name)
+        .add("properties", properties)
+        .add("providerName", providerName)
+        .add("shareName", shareName)
+        .add("storageRoot", storageRoot)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class RecipientProfile {
   /** The token used to authorize the recipient. */
@@ -42,5 +44,29 @@ public class RecipientProfile {
 
   public Long getShareCredentialsVersion() {
     return shareCredentialsVersion;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RecipientProfile that = (RecipientProfile) o;
+    return Objects.equals(bearerToken, that.bearerToken)
+        && Objects.equals(endpoint, that.endpoint)
+        && Objects.equals(shareCredentialsVersion, that.shareCredentialsVersion);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(bearerToken, endpoint, shareCredentialsVersion);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RecipientProfile.class)
+        .add("bearerToken", bearerToken)
+        .add("endpoint", endpoint)
+        .add("shareCredentialsVersion", shareCredentialsVersion)
+        .toString();
   }
 }

@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get a table */
 public class GetTableRequest {
@@ -29,5 +31,27 @@ public class GetTableRequest {
 
   public Boolean getIncludeDeltaMetadata() {
     return includeDeltaMetadata;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetTableRequest that = (GetTableRequest) o;
+    return Objects.equals(fullName, that.fullName)
+        && Objects.equals(includeDeltaMetadata, that.includeDeltaMetadata);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fullName, includeDeltaMetadata);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetTableRequest.class)
+        .add("fullName", fullName)
+        .add("includeDeltaMetadata", includeDeltaMetadata)
+        .toString();
   }
 }

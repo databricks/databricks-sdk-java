@@ -2,8 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import java.util.Objects;
 
 public class NotebookTask {
   /**
@@ -62,5 +64,29 @@ public class NotebookTask {
 
   public NotebookTaskSource getSource() {
     return source;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NotebookTask that = (NotebookTask) o;
+    return Objects.equals(baseParameters, that.baseParameters)
+        && Objects.equals(notebookPath, that.notebookPath)
+        && Objects.equals(source, that.source);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(baseParameters, notebookPath, source);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(NotebookTask.class)
+        .add("baseParameters", baseParameters)
+        .add("notebookPath", notebookPath)
+        .add("source", source)
+        .toString();
   }
 }

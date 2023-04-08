@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class CreateNetworkRequest {
   /**
@@ -21,14 +24,14 @@ public class CreateNetworkRequest {
    * be used in multiple network configurations.
    */
   @JsonProperty("security_group_ids")
-  private java.util.List<String> securityGroupIds;
+  private Collection<String> securityGroupIds;
 
   /**
    * IDs of at least two subnets associated with this network. Subnet IDs **cannot** be used in
    * multiple network configurations.
    */
   @JsonProperty("subnet_ids")
-  private java.util.List<String> subnetIds;
+  private Collection<String> subnetIds;
 
   /**
    * If specified, contains the VPC endpoints used to allow cluster communication from this VPC over
@@ -64,21 +67,21 @@ public class CreateNetworkRequest {
     return networkName;
   }
 
-  public CreateNetworkRequest setSecurityGroupIds(java.util.List<String> securityGroupIds) {
+  public CreateNetworkRequest setSecurityGroupIds(Collection<String> securityGroupIds) {
     this.securityGroupIds = securityGroupIds;
     return this;
   }
 
-  public java.util.List<String> getSecurityGroupIds() {
+  public Collection<String> getSecurityGroupIds() {
     return securityGroupIds;
   }
 
-  public CreateNetworkRequest setSubnetIds(java.util.List<String> subnetIds) {
+  public CreateNetworkRequest setSubnetIds(Collection<String> subnetIds) {
     this.subnetIds = subnetIds;
     return this;
   }
 
-  public java.util.List<String> getSubnetIds() {
+  public Collection<String> getSubnetIds() {
     return subnetIds;
   }
 
@@ -98,5 +101,36 @@ public class CreateNetworkRequest {
 
   public String getVpcId() {
     return vpcId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateNetworkRequest that = (CreateNetworkRequest) o;
+    return Objects.equals(gcpNetworkInfo, that.gcpNetworkInfo)
+        && Objects.equals(networkName, that.networkName)
+        && Objects.equals(securityGroupIds, that.securityGroupIds)
+        && Objects.equals(subnetIds, that.subnetIds)
+        && Objects.equals(vpcEndpoints, that.vpcEndpoints)
+        && Objects.equals(vpcId, that.vpcId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        gcpNetworkInfo, networkName, securityGroupIds, subnetIds, vpcEndpoints, vpcId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateNetworkRequest.class)
+        .add("gcpNetworkInfo", gcpNetworkInfo)
+        .add("networkName", networkName)
+        .add("securityGroupIds", securityGroupIds)
+        .add("subnetIds", subnetIds)
+        .add("vpcEndpoints", vpcEndpoints)
+        .add("vpcId", vpcId)
+        .toString();
   }
 }

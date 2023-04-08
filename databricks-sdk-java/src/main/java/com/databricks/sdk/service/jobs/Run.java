@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class Run {
   /**
@@ -76,7 +79,7 @@ public class Run {
    * task settings.
    */
   @JsonProperty("job_clusters")
-  private java.util.List<JobCluster> jobClusters;
+  private Collection<JobCluster> jobClusters;
 
   /** The canonical identifier of the job that contains this run. */
   @JsonProperty("job_id")
@@ -99,7 +102,7 @@ public class Run {
 
   /** The repair history of the run. */
   @JsonProperty("repair_history")
-  private java.util.List<RepairHistoryItem> repairHistory;
+  private Collection<RepairHistoryItem> repairHistory;
 
   /** The time in milliseconds it took the job run and all of its repairs to finish. */
   @JsonProperty("run_duration")
@@ -152,7 +155,7 @@ public class Run {
    * call `JobsGetOutput` to retrieve the run resutls.
    */
   @JsonProperty("tasks")
-  private java.util.List<RunTask> tasks;
+  private Collection<RunTask> tasks;
 
   /** This describes an enum */
   @JsonProperty("trigger")
@@ -239,12 +242,12 @@ public class Run {
     return gitSource;
   }
 
-  public Run setJobClusters(java.util.List<JobCluster> jobClusters) {
+  public Run setJobClusters(Collection<JobCluster> jobClusters) {
     this.jobClusters = jobClusters;
     return this;
   }
 
-  public java.util.List<JobCluster> getJobClusters() {
+  public Collection<JobCluster> getJobClusters() {
     return jobClusters;
   }
 
@@ -284,12 +287,12 @@ public class Run {
     return overridingParameters;
   }
 
-  public Run setRepairHistory(java.util.List<RepairHistoryItem> repairHistory) {
+  public Run setRepairHistory(Collection<RepairHistoryItem> repairHistory) {
     this.repairHistory = repairHistory;
     return this;
   }
 
-  public java.util.List<RepairHistoryItem> getRepairHistory() {
+  public Collection<RepairHistoryItem> getRepairHistory() {
     return repairHistory;
   }
 
@@ -374,12 +377,12 @@ public class Run {
     return state;
   }
 
-  public Run setTasks(java.util.List<RunTask> tasks) {
+  public Run setTasks(Collection<RunTask> tasks) {
     this.tasks = tasks;
     return this;
   }
 
-  public java.util.List<RunTask> getTasks() {
+  public Collection<RunTask> getTasks() {
     return tasks;
   }
 
@@ -390,5 +393,101 @@ public class Run {
 
   public TriggerType getTrigger() {
     return trigger;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Run that = (Run) o;
+    return Objects.equals(attemptNumber, that.attemptNumber)
+        && Objects.equals(cleanupDuration, that.cleanupDuration)
+        && Objects.equals(clusterInstance, that.clusterInstance)
+        && Objects.equals(clusterSpec, that.clusterSpec)
+        && Objects.equals(continuous, that.continuous)
+        && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(endTime, that.endTime)
+        && Objects.equals(executionDuration, that.executionDuration)
+        && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(jobClusters, that.jobClusters)
+        && Objects.equals(jobId, that.jobId)
+        && Objects.equals(numberInJob, that.numberInJob)
+        && Objects.equals(originalAttemptRunId, that.originalAttemptRunId)
+        && Objects.equals(overridingParameters, that.overridingParameters)
+        && Objects.equals(repairHistory, that.repairHistory)
+        && Objects.equals(runDuration, that.runDuration)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(runName, that.runName)
+        && Objects.equals(runPageUrl, that.runPageUrl)
+        && Objects.equals(runType, that.runType)
+        && Objects.equals(schedule, that.schedule)
+        && Objects.equals(setupDuration, that.setupDuration)
+        && Objects.equals(startTime, that.startTime)
+        && Objects.equals(state, that.state)
+        && Objects.equals(tasks, that.tasks)
+        && Objects.equals(trigger, that.trigger);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        attemptNumber,
+        cleanupDuration,
+        clusterInstance,
+        clusterSpec,
+        continuous,
+        creatorUserName,
+        endTime,
+        executionDuration,
+        gitSource,
+        jobClusters,
+        jobId,
+        numberInJob,
+        originalAttemptRunId,
+        overridingParameters,
+        repairHistory,
+        runDuration,
+        runId,
+        runName,
+        runPageUrl,
+        runType,
+        schedule,
+        setupDuration,
+        startTime,
+        state,
+        tasks,
+        trigger);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Run.class)
+        .add("attemptNumber", attemptNumber)
+        .add("cleanupDuration", cleanupDuration)
+        .add("clusterInstance", clusterInstance)
+        .add("clusterSpec", clusterSpec)
+        .add("continuous", continuous)
+        .add("creatorUserName", creatorUserName)
+        .add("endTime", endTime)
+        .add("executionDuration", executionDuration)
+        .add("gitSource", gitSource)
+        .add("jobClusters", jobClusters)
+        .add("jobId", jobId)
+        .add("numberInJob", numberInJob)
+        .add("originalAttemptRunId", originalAttemptRunId)
+        .add("overridingParameters", overridingParameters)
+        .add("repairHistory", repairHistory)
+        .add("runDuration", runDuration)
+        .add("runId", runId)
+        .add("runName", runName)
+        .add("runPageUrl", runPageUrl)
+        .add("runType", runType)
+        .add("schedule", schedule)
+        .add("setupDuration", setupDuration)
+        .add("startTime", startTime)
+        .add("state", state)
+        .add("tasks", tasks)
+        .add("trigger", trigger)
+        .toString();
   }
 }

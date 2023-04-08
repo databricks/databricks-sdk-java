@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.gitcredentials;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateCredentials {
   /**
@@ -46,5 +48,29 @@ public class CreateCredentials {
 
   public String getPersonalAccessToken() {
     return personalAccessToken;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateCredentials that = (CreateCredentials) o;
+    return Objects.equals(gitProvider, that.gitProvider)
+        && Objects.equals(gitUsername, that.gitUsername)
+        && Objects.equals(personalAccessToken, that.personalAccessToken);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(gitProvider, gitUsername, personalAccessToken);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateCredentials.class)
+        .add("gitProvider", gitProvider)
+        .add("gitUsername", gitUsername)
+        .add("personalAccessToken", personalAccessToken)
+        .toString();
   }
 }

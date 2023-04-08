@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ValidateStorageCredential {
   /** The AWS IAM role configuration. */
@@ -97,5 +99,44 @@ public class ValidateStorageCredential {
 
   public String getUrl() {
     return url;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ValidateStorageCredential that = (ValidateStorageCredential) o;
+    return Objects.equals(awsIamRole, that.awsIamRole)
+        && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
+        && Objects.equals(externalLocationName, that.externalLocationName)
+        && Objects.equals(gcpServiceAccountKey, that.gcpServiceAccountKey)
+        && Objects.equals(readOnly, that.readOnly)
+        && Objects.equals(storageCredentialName, that.storageCredentialName)
+        && Objects.equals(url, that.url);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        awsIamRole,
+        azureServicePrincipal,
+        externalLocationName,
+        gcpServiceAccountKey,
+        readOnly,
+        storageCredentialName,
+        url);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ValidateStorageCredential.class)
+        .add("awsIamRole", awsIamRole)
+        .add("azureServicePrincipal", azureServicePrincipal)
+        .add("externalLocationName", externalLocationName)
+        .add("gcpServiceAccountKey", gcpServiceAccountKey)
+        .add("readOnly", readOnly)
+        .add("storageCredentialName", storageCredentialName)
+        .add("url", url)
+        .toString();
   }
 }

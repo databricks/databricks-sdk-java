@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List warehouses */
 public class ListWarehousesRequest {
@@ -20,5 +22,23 @@ public class ListWarehousesRequest {
 
   public Long getRunAsUserId() {
     return runAsUserId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListWarehousesRequest that = (ListWarehousesRequest) o;
+    return Objects.equals(runAsUserId, that.runAsUserId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(runAsUserId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListWarehousesRequest.class).add("runAsUserId", runAsUserId).toString();
   }
 }

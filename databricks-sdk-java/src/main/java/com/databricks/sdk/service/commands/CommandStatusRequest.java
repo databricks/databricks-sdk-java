@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.commands;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get command info */
 public class CommandStatusRequest {
@@ -43,5 +45,29 @@ public class CommandStatusRequest {
 
   public String getContextId() {
     return contextId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CommandStatusRequest that = (CommandStatusRequest) o;
+    return Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(commandId, that.commandId)
+        && Objects.equals(contextId, that.contextId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId, commandId, contextId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CommandStatusRequest.class)
+        .add("clusterId", clusterId)
+        .add("commandId", commandId)
+        .add("contextId", contextId)
+        .toString();
   }
 }

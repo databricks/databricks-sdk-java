@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /**
  * An optional specification for a remote repository containing the notebooks used by this job's
@@ -104,5 +106,35 @@ public class GitSource {
 
   public String getGitUrl() {
     return gitUrl;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GitSource that = (GitSource) o;
+    return Objects.equals(gitBranch, that.gitBranch)
+        && Objects.equals(gitCommit, that.gitCommit)
+        && Objects.equals(gitProvider, that.gitProvider)
+        && Objects.equals(gitSnapshot, that.gitSnapshot)
+        && Objects.equals(gitTag, that.gitTag)
+        && Objects.equals(gitUrl, that.gitUrl);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(gitBranch, gitCommit, gitProvider, gitSnapshot, gitTag, gitUrl);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GitSource.class)
+        .add("gitBranch", gitBranch)
+        .add("gitCommit", gitCommit)
+        .add("gitProvider", gitProvider)
+        .add("gitSnapshot", gitSnapshot)
+        .add("gitTag", gitTag)
+        .add("gitUrl", gitUrl)
+        .toString();
   }
 }

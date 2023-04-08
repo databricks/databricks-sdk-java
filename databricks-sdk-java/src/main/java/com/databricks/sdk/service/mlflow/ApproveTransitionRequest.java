@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ApproveTransitionRequest {
   /** Specifies whether to archive all current model versions in the target stage. */
@@ -78,5 +80,33 @@ public class ApproveTransitionRequest {
 
   public String getVersion() {
     return version;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ApproveTransitionRequest that = (ApproveTransitionRequest) o;
+    return Objects.equals(archiveExistingVersions, that.archiveExistingVersions)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(name, that.name)
+        && Objects.equals(stage, that.stage)
+        && Objects.equals(version, that.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(archiveExistingVersions, comment, name, stage, version);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ApproveTransitionRequest.class)
+        .add("archiveExistingVersions", archiveExistingVersions)
+        .add("comment", comment)
+        .add("name", name)
+        .add("stage", stage)
+        .add("version", version)
+        .toString();
   }
 }

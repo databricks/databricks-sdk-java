@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class DeleteTag {
   /** Name of the tag. Maximum size is 255 bytes. Must be provided. */
@@ -29,5 +31,23 @@ public class DeleteTag {
 
   public String getRunId() {
     return runId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteTag that = (DeleteTag) o;
+    return Objects.equals(key, that.key) && Objects.equals(runId, that.runId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key, runId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteTag.class).add("key", key).add("runId", runId).toString();
   }
 }

@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class RegisteredModel {
   /** Timestamp recorded when this `registered_model` was created. */
@@ -22,7 +25,7 @@ public class RegisteredModel {
    * status.
    */
   @JsonProperty("latest_versions")
-  private java.util.List<ModelVersion> latestVersions;
+  private Collection<ModelVersion> latestVersions;
 
   /** Unique name for the model. */
   @JsonProperty("name")
@@ -30,7 +33,7 @@ public class RegisteredModel {
 
   /** Tags: Additional metadata key-value pairs for this `registered_model`. */
   @JsonProperty("tags")
-  private java.util.List<RegisteredModelTag> tags;
+  private Collection<RegisteredModelTag> tags;
 
   /** User that created this `registered_model` */
   @JsonProperty("user_id")
@@ -63,12 +66,12 @@ public class RegisteredModel {
     return lastUpdatedTimestamp;
   }
 
-  public RegisteredModel setLatestVersions(java.util.List<ModelVersion> latestVersions) {
+  public RegisteredModel setLatestVersions(Collection<ModelVersion> latestVersions) {
     this.latestVersions = latestVersions;
     return this;
   }
 
-  public java.util.List<ModelVersion> getLatestVersions() {
+  public Collection<ModelVersion> getLatestVersions() {
     return latestVersions;
   }
 
@@ -81,12 +84,12 @@ public class RegisteredModel {
     return name;
   }
 
-  public RegisteredModel setTags(java.util.List<RegisteredModelTag> tags) {
+  public RegisteredModel setTags(Collection<RegisteredModelTag> tags) {
     this.tags = tags;
     return this;
   }
 
-  public java.util.List<RegisteredModelTag> getTags() {
+  public Collection<RegisteredModelTag> getTags() {
     return tags;
   }
 
@@ -97,5 +100,38 @@ public class RegisteredModel {
 
   public String getUserId() {
     return userId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RegisteredModel that = (RegisteredModel) o;
+    return Objects.equals(creationTimestamp, that.creationTimestamp)
+        && Objects.equals(description, that.description)
+        && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
+        && Objects.equals(latestVersions, that.latestVersions)
+        && Objects.equals(name, that.name)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(userId, that.userId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        creationTimestamp, description, lastUpdatedTimestamp, latestVersions, name, tags, userId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RegisteredModel.class)
+        .add("creationTimestamp", creationTimestamp)
+        .add("description", description)
+        .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
+        .add("latestVersions", latestVersions)
+        .add("name", name)
+        .add("tags", tags)
+        .add("userId", userId)
+        .toString();
   }
 }

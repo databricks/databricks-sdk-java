@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PermanentDeleteCluster {
   /** The cluster to be deleted. */
@@ -16,5 +18,23 @@ public class PermanentDeleteCluster {
 
   public String getClusterId() {
     return clusterId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PermanentDeleteCluster that = (PermanentDeleteCluster) o;
+    return Objects.equals(clusterId, that.clusterId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PermanentDeleteCluster.class).add("clusterId", clusterId).toString();
   }
 }

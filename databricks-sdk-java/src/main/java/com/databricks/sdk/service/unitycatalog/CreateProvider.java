@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateProvider {
   /** The delta sharing authentication type. */
@@ -55,5 +57,31 @@ public class CreateProvider {
 
   public String getRecipientProfileStr() {
     return recipientProfileStr;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateProvider that = (CreateProvider) o;
+    return Objects.equals(authenticationType, that.authenticationType)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(name, that.name)
+        && Objects.equals(recipientProfileStr, that.recipientProfileStr);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(authenticationType, comment, name, recipientProfileStr);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateProvider.class)
+        .add("authenticationType", authenticationType)
+        .add("comment", comment)
+        .add("name", name)
+        .add("recipientProfileStr", recipientProfileStr)
+        .toString();
   }
 }

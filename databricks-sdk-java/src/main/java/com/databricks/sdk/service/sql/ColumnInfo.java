@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ColumnInfo {
   /** Name of Column. */
@@ -94,5 +96,38 @@ public class ColumnInfo {
 
   public String getTypeText() {
     return typeText;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ColumnInfo that = (ColumnInfo) o;
+    return Objects.equals(name, that.name)
+        && Objects.equals(position, that.position)
+        && Objects.equals(typeIntervalType, that.typeIntervalType)
+        && Objects.equals(typeName, that.typeName)
+        && Objects.equals(typePrecision, that.typePrecision)
+        && Objects.equals(typeScale, that.typeScale)
+        && Objects.equals(typeText, that.typeText);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        name, position, typeIntervalType, typeName, typePrecision, typeScale, typeText);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ColumnInfo.class)
+        .add("name", name)
+        .add("position", position)
+        .add("typeIntervalType", typeIntervalType)
+        .add("typeName", typeName)
+        .add("typePrecision", typePrecision)
+        .add("typeScale", typeScale)
+        .add("typeText", typeText)
+        .toString();
   }
 }

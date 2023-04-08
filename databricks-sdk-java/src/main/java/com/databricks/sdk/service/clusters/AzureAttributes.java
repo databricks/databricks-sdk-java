@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class AzureAttributes {
   /**
@@ -72,5 +74,31 @@ public class AzureAttributes {
 
   public Float getSpotBidMaxPrice() {
     return spotBidMaxPrice;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AzureAttributes that = (AzureAttributes) o;
+    return Objects.equals(availability, that.availability)
+        && Objects.equals(firstOnDemand, that.firstOnDemand)
+        && Objects.equals(logAnalyticsInfo, that.logAnalyticsInfo)
+        && Objects.equals(spotBidMaxPrice, that.spotBidMaxPrice);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(availability, firstOnDemand, logAnalyticsInfo, spotBidMaxPrice);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(AzureAttributes.class)
+        .add("availability", availability)
+        .add("firstOnDemand", firstOnDemand)
+        .add("logAnalyticsInfo", logAnalyticsInfo)
+        .add("spotBidMaxPrice", spotBidMaxPrice)
+        .toString();
   }
 }

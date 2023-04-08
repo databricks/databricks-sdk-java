@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class RecipientInfo {
   /**
@@ -91,7 +94,7 @@ public class RecipientInfo {
 
   /** This field is only present when the __authentication_type__ is **TOKEN**. */
   @JsonProperty("tokens")
-  private java.util.List<RecipientTokenInfo> tokens;
+  private Collection<RecipientTokenInfo> tokens;
 
   /** Time at which the recipient was updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
@@ -237,12 +240,12 @@ public class RecipientInfo {
     return sharingCode;
   }
 
-  public RecipientInfo setTokens(java.util.List<RecipientTokenInfo> tokens) {
+  public RecipientInfo setTokens(Collection<RecipientTokenInfo> tokens) {
     this.tokens = tokens;
     return this;
   }
 
-  public java.util.List<RecipientTokenInfo> getTokens() {
+  public Collection<RecipientTokenInfo> getTokens() {
     return tokens;
   }
 
@@ -262,5 +265,77 @@ public class RecipientInfo {
 
   public String getUpdatedBy() {
     return updatedBy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RecipientInfo that = (RecipientInfo) o;
+    return Objects.equals(activated, that.activated)
+        && Objects.equals(activationUrl, that.activationUrl)
+        && Objects.equals(authenticationType, that.authenticationType)
+        && Objects.equals(cloud, that.cloud)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(dataRecipientGlobalMetastoreId, that.dataRecipientGlobalMetastoreId)
+        && Objects.equals(ipAccessList, that.ipAccessList)
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(propertiesKvpairs, that.propertiesKvpairs)
+        && Objects.equals(region, that.region)
+        && Objects.equals(sharingCode, that.sharingCode)
+        && Objects.equals(tokens, that.tokens)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        activated,
+        activationUrl,
+        authenticationType,
+        cloud,
+        comment,
+        createdAt,
+        createdBy,
+        dataRecipientGlobalMetastoreId,
+        ipAccessList,
+        metastoreId,
+        name,
+        owner,
+        propertiesKvpairs,
+        region,
+        sharingCode,
+        tokens,
+        updatedAt,
+        updatedBy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RecipientInfo.class)
+        .add("activated", activated)
+        .add("activationUrl", activationUrl)
+        .add("authenticationType", authenticationType)
+        .add("cloud", cloud)
+        .add("comment", comment)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("dataRecipientGlobalMetastoreId", dataRecipientGlobalMetastoreId)
+        .add("ipAccessList", ipAccessList)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .add("owner", owner)
+        .add("propertiesKvpairs", propertiesKvpairs)
+        .add("region", region)
+        .add("sharingCode", sharingCode)
+        .add("tokens", tokens)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
+        .toString();
   }
 }

@@ -2,8 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import java.util.Objects;
 
 public class UpdateSchema {
   /** User-provided free-form text description. */
@@ -68,5 +70,33 @@ public class UpdateSchema {
 
   public Map<String, String> getProperties() {
     return properties;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateSchema that = (UpdateSchema) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(fullName, that.fullName)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(properties, that.properties);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, fullName, name, owner, properties);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateSchema.class)
+        .add("comment", comment)
+        .add("fullName", fullName)
+        .add("name", name)
+        .add("owner", owner)
+        .add("properties", properties)
+        .toString();
   }
 }

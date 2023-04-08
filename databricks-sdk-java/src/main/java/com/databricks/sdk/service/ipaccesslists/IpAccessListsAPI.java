@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.ipaccesslists;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -40,7 +40,7 @@ public class IpAccessListsAPI {
   }
 
   public CreateIpAccessListResponse create(
-      String label, ListType listType, List<String> ipAddresses) {
+      String label, ListType listType, Collection<String> ipAddresses) {
     return create(
         new CreateIpAccessList().setLabel(label).setListType(listType).setIpAddresses(ipAddresses));
   }
@@ -105,7 +105,7 @@ public class IpAccessListsAPI {
   public void replace(
       String label,
       ListType listType,
-      List<String> ipAddresses,
+      Collection<String> ipAddresses,
       boolean enabled,
       String ipAccessListId) {
     replace(
@@ -138,7 +138,7 @@ public class IpAccessListsAPI {
   public void update(
       String label,
       ListType listType,
-      List<String> ipAddresses,
+      Collection<String> ipAddresses,
       boolean enabled,
       String ipAccessListId) {
     update(

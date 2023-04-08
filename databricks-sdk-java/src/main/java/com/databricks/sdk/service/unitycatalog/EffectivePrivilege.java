@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class EffectivePrivilege {
   /**
@@ -52,5 +54,29 @@ public class EffectivePrivilege {
 
   public Privilege getPrivilege() {
     return privilege;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EffectivePrivilege that = (EffectivePrivilege) o;
+    return Objects.equals(inheritedFromName, that.inheritedFromName)
+        && Objects.equals(inheritedFromType, that.inheritedFromType)
+        && Objects.equals(privilege, that.privilege);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(inheritedFromName, inheritedFromType, privilege);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EffectivePrivilege.class)
+        .add("inheritedFromName", inheritedFromName)
+        .add("inheritedFromType", inheritedFromType)
+        .add("privilege", privilege)
+        .toString();
   }
 }

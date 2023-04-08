@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.repos;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateRepo {
   /** Branch that the local version of the repo is checked out to. */
@@ -61,5 +63,31 @@ public class UpdateRepo {
 
   public String getTag() {
     return tag;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateRepo that = (UpdateRepo) o;
+    return Objects.equals(branch, that.branch)
+        && Objects.equals(repoId, that.repoId)
+        && Objects.equals(sparseCheckout, that.sparseCheckout)
+        && Objects.equals(tag, that.tag);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(branch, repoId, sparseCheckout, tag);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateRepo.class)
+        .add("branch", branch)
+        .add("repoId", repoId)
+        .add("sparseCheckout", sparseCheckout)
+        .add("tag", tag)
+        .toString();
   }
 }

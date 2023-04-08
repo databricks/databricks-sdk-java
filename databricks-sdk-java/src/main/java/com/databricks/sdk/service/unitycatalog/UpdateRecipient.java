@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateRecipient {
   /** Description about the recipient. */
@@ -73,5 +75,33 @@ public class UpdateRecipient {
 
   public Object /* MISSING TYPE */ getPropertiesKvpairs() {
     return propertiesKvpairs;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateRecipient that = (UpdateRecipient) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(ipAccessList, that.ipAccessList)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(propertiesKvpairs, that.propertiesKvpairs);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, ipAccessList, name, owner, propertiesKvpairs);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateRecipient.class)
+        .add("comment", comment)
+        .add("ipAccessList", ipAccessList)
+        .add("name", name)
+        .add("owner", owner)
+        .add("propertiesKvpairs", propertiesKvpairs)
+        .toString();
   }
 }

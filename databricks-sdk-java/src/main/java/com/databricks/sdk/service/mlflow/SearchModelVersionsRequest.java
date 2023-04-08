@@ -3,6 +3,9 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Collection;
+import java.util.Objects;
 
 /** Searches model versions */
 public class SearchModelVersionsRequest {
@@ -23,7 +26,7 @@ public class SearchModelVersionsRequest {
    * timestamp, followed by name ASC, followed by version DESC.
    */
   @QueryParam("order_by")
-  private java.util.List<String> orderBy;
+  private Collection<String> orderBy;
 
   /** Pagination token to go to next page based on previous search query. */
   @QueryParam("page_token")
@@ -47,12 +50,12 @@ public class SearchModelVersionsRequest {
     return maxResults;
   }
 
-  public SearchModelVersionsRequest setOrderBy(java.util.List<String> orderBy) {
+  public SearchModelVersionsRequest setOrderBy(Collection<String> orderBy) {
     this.orderBy = orderBy;
     return this;
   }
 
-  public java.util.List<String> getOrderBy() {
+  public Collection<String> getOrderBy() {
     return orderBy;
   }
 
@@ -63,5 +66,31 @@ public class SearchModelVersionsRequest {
 
   public String getPageToken() {
     return pageToken;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SearchModelVersionsRequest that = (SearchModelVersionsRequest) o;
+    return Objects.equals(filter, that.filter)
+        && Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(orderBy, that.orderBy)
+        && Objects.equals(pageToken, that.pageToken);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(filter, maxResults, orderBy, pageToken);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SearchModelVersionsRequest.class)
+        .add("filter", filter)
+        .add("maxResults", maxResults)
+        .add("orderBy", orderBy)
+        .add("pageToken", pageToken)
+        .toString();
   }
 }

@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class UpdateRegistryWebhook {
   /** User-specified description for the webhook. */
@@ -41,7 +44,7 @@ public class UpdateRegistryWebhook {
    * <p>* `TRANSITION_REQUEST_TO_ARCHIVED_CREATED`: A user requested a model version be archived.
    */
   @JsonProperty("events")
-  private java.util.List<RegistryWebhookEvent> events;
+  private Collection<RegistryWebhookEvent> events;
 
   /** */
   @JsonProperty("http_url_spec")
@@ -68,12 +71,12 @@ public class UpdateRegistryWebhook {
     return description;
   }
 
-  public UpdateRegistryWebhook setEvents(java.util.List<RegistryWebhookEvent> events) {
+  public UpdateRegistryWebhook setEvents(Collection<RegistryWebhookEvent> events) {
     this.events = events;
     return this;
   }
 
-  public java.util.List<RegistryWebhookEvent> getEvents() {
+  public Collection<RegistryWebhookEvent> getEvents() {
     return events;
   }
 
@@ -111,5 +114,35 @@ public class UpdateRegistryWebhook {
 
   public RegistryWebhookStatus getStatus() {
     return status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateRegistryWebhook that = (UpdateRegistryWebhook) o;
+    return Objects.equals(description, that.description)
+        && Objects.equals(events, that.events)
+        && Objects.equals(httpUrlSpec, that.httpUrlSpec)
+        && Objects.equals(id, that.id)
+        && Objects.equals(jobSpec, that.jobSpec)
+        && Objects.equals(status, that.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(description, events, httpUrlSpec, id, jobSpec, status);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateRegistryWebhook.class)
+        .add("description", description)
+        .add("events", events)
+        .add("httpUrlSpec", httpUrlSpec)
+        .add("id", id)
+        .add("jobSpec", jobSpec)
+        .add("status", status)
+        .toString();
   }
 }

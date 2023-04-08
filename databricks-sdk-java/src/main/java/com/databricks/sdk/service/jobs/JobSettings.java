@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class JobSettings {
   /**
@@ -40,7 +43,7 @@ public class JobSettings {
    * task settings.
    */
   @JsonProperty("job_clusters")
-  private java.util.List<JobCluster> jobClusters;
+  private Collection<JobCluster> jobClusters;
 
   /**
    * An optional maximum allowed number of concurrent runs of the job.
@@ -82,7 +85,7 @@ public class JobSettings {
 
   /** A list of task specifications to be executed by this job. */
   @JsonProperty("tasks")
-  private java.util.List<JobTaskSettings> tasks;
+  private Collection<JobTaskSettings> tasks;
 
   /**
    * An optional timeout applied to each run of this job. The default behavior is to have no
@@ -142,12 +145,12 @@ public class JobSettings {
     return gitSource;
   }
 
-  public JobSettings setJobClusters(java.util.List<JobCluster> jobClusters) {
+  public JobSettings setJobClusters(Collection<JobCluster> jobClusters) {
     this.jobClusters = jobClusters;
     return this;
   }
 
-  public java.util.List<JobCluster> getJobClusters() {
+  public Collection<JobCluster> getJobClusters() {
     return jobClusters;
   }
 
@@ -187,12 +190,12 @@ public class JobSettings {
     return tags;
   }
 
-  public JobSettings setTasks(java.util.List<JobTaskSettings> tasks) {
+  public JobSettings setTasks(Collection<JobTaskSettings> tasks) {
     this.tasks = tasks;
     return this;
   }
 
-  public java.util.List<JobTaskSettings> getTasks() {
+  public Collection<JobTaskSettings> getTasks() {
     return tasks;
   }
 
@@ -221,5 +224,62 @@ public class JobSettings {
 
   public JobWebhookNotifications getWebhookNotifications() {
     return webhookNotifications;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    JobSettings that = (JobSettings) o;
+    return Objects.equals(continuous, that.continuous)
+        && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(format, that.format)
+        && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(jobClusters, that.jobClusters)
+        && Objects.equals(maxConcurrentRuns, that.maxConcurrentRuns)
+        && Objects.equals(name, that.name)
+        && Objects.equals(schedule, that.schedule)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(tasks, that.tasks)
+        && Objects.equals(timeoutSeconds, that.timeoutSeconds)
+        && Objects.equals(trigger, that.trigger)
+        && Objects.equals(webhookNotifications, that.webhookNotifications);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        continuous,
+        emailNotifications,
+        format,
+        gitSource,
+        jobClusters,
+        maxConcurrentRuns,
+        name,
+        schedule,
+        tags,
+        tasks,
+        timeoutSeconds,
+        trigger,
+        webhookNotifications);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(JobSettings.class)
+        .add("continuous", continuous)
+        .add("emailNotifications", emailNotifications)
+        .add("format", format)
+        .add("gitSource", gitSource)
+        .add("jobClusters", jobClusters)
+        .add("maxConcurrentRuns", maxConcurrentRuns)
+        .add("name", name)
+        .add("schedule", schedule)
+        .add("tags", tags)
+        .add("tasks", tasks)
+        .add("timeoutSeconds", timeoutSeconds)
+        .add("trigger", trigger)
+        .add("webhookNotifications", webhookNotifications)
+        .toString();
   }
 }

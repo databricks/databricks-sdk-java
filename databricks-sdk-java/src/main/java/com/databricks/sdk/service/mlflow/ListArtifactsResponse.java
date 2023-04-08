@@ -2,12 +2,15 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ListArtifactsResponse {
   /** File location and metadata for artifacts. */
   @JsonProperty("files")
-  private java.util.List<FileInfo> files;
+  private Collection<FileInfo> files;
 
   /** Token that can be used to retrieve the next page of artifact results */
   @JsonProperty("next_page_token")
@@ -17,12 +20,12 @@ public class ListArtifactsResponse {
   @JsonProperty("root_uri")
   private String rootUri;
 
-  public ListArtifactsResponse setFiles(java.util.List<FileInfo> files) {
+  public ListArtifactsResponse setFiles(Collection<FileInfo> files) {
     this.files = files;
     return this;
   }
 
-  public java.util.List<FileInfo> getFiles() {
+  public Collection<FileInfo> getFiles() {
     return files;
   }
 
@@ -42,5 +45,29 @@ public class ListArtifactsResponse {
 
   public String getRootUri() {
     return rootUri;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListArtifactsResponse that = (ListArtifactsResponse) o;
+    return Objects.equals(files, that.files)
+        && Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(rootUri, that.rootUri);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(files, nextPageToken, rootUri);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListArtifactsResponse.class)
+        .add("files", files)
+        .add("nextPageToken", nextPageToken)
+        .add("rootUri", rootUri)
+        .toString();
   }
 }

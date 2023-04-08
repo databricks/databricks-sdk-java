@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -86,7 +86,7 @@ public class StorageCredentialsAPI {
    * a metastore admin, all storage credentials will be retrieved. There is no guarantee of a
    * specific ordering of the elements in the array.
    */
-  public List<StorageCredentialInfo> list() {
+  public Collection<StorageCredentialInfo> list() {
     return impl.list();
   }
 

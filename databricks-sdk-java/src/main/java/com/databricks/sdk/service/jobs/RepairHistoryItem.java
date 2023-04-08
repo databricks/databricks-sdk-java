@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class RepairHistoryItem {
   /** The end time of the (repaired) run. */
@@ -25,7 +28,7 @@ public class RepairHistoryItem {
 
   /** The run IDs of the task runs that ran as part of this repair history item. */
   @JsonProperty("task_run_ids")
-  private java.util.List<Long> taskRunIds;
+  private Collection<Long> taskRunIds;
 
   /** The repair history item type. Indicates whether a run is the original run or a repair run. */
   @JsonProperty("type")
@@ -67,12 +70,12 @@ public class RepairHistoryItem {
     return state;
   }
 
-  public RepairHistoryItem setTaskRunIds(java.util.List<Long> taskRunIds) {
+  public RepairHistoryItem setTaskRunIds(Collection<Long> taskRunIds) {
     this.taskRunIds = taskRunIds;
     return this;
   }
 
-  public java.util.List<Long> getTaskRunIds() {
+  public Collection<Long> getTaskRunIds() {
     return taskRunIds;
   }
 
@@ -83,5 +86,35 @@ public class RepairHistoryItem {
 
   public RepairHistoryItemType getType() {
     return typeValue;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RepairHistoryItem that = (RepairHistoryItem) o;
+    return Objects.equals(endTime, that.endTime)
+        && Objects.equals(id, that.id)
+        && Objects.equals(startTime, that.startTime)
+        && Objects.equals(state, that.state)
+        && Objects.equals(taskRunIds, that.taskRunIds)
+        && Objects.equals(typeValue, that.typeValue);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(endTime, id, startTime, state, taskRunIds, typeValue);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RepairHistoryItem.class)
+        .add("endTime", endTime)
+        .add("id", id)
+        .add("startTime", startTime)
+        .add("state", state)
+        .add("taskRunIds", taskRunIds)
+        .add("typeValue", typeValue)
+        .toString();
   }
 }

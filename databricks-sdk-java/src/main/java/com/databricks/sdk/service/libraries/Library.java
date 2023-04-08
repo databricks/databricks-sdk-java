@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.libraries;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Library {
   /** Specification of a CRAN library to be installed as part of the library */
@@ -98,5 +100,35 @@ public class Library {
 
   public String getWhl() {
     return whl;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Library that = (Library) o;
+    return Objects.equals(cran, that.cran)
+        && Objects.equals(egg, that.egg)
+        && Objects.equals(jar, that.jar)
+        && Objects.equals(maven, that.maven)
+        && Objects.equals(pypi, that.pypi)
+        && Objects.equals(whl, that.whl);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cran, egg, jar, maven, pypi, whl);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Library.class)
+        .add("cran", cran)
+        .add("egg", egg)
+        .add("jar", jar)
+        .add("maven", maven)
+        .add("pypi", pypi)
+        .add("whl", whl)
+        .toString();
   }
 }

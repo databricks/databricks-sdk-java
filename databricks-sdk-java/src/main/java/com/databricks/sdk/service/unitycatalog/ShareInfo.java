@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ShareInfo {
   /** User-provided free-form text description. */
@@ -23,7 +26,7 @@ public class ShareInfo {
 
   /** A list of shared data objects within the share. */
   @JsonProperty("objects")
-  private java.util.List<SharedDataObject> objects;
+  private Collection<SharedDataObject> objects;
 
   /** Username of current owner of share. */
   @JsonProperty("owner")
@@ -73,12 +76,12 @@ public class ShareInfo {
     return name;
   }
 
-  public ShareInfo setObjects(java.util.List<SharedDataObject> objects) {
+  public ShareInfo setObjects(Collection<SharedDataObject> objects) {
     this.objects = objects;
     return this;
   }
 
-  public java.util.List<SharedDataObject> getObjects() {
+  public Collection<SharedDataObject> getObjects() {
     return objects;
   }
 
@@ -107,5 +110,39 @@ public class ShareInfo {
 
   public String getUpdatedBy() {
     return updatedBy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ShareInfo that = (ShareInfo) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(name, that.name)
+        && Objects.equals(objects, that.objects)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, createdAt, createdBy, name, objects, owner, updatedAt, updatedBy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ShareInfo.class)
+        .add("comment", comment)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("name", name)
+        .add("objects", objects)
+        .add("owner", owner)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
+        .toString();
   }
 }

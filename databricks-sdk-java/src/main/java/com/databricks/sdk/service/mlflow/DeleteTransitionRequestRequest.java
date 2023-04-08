@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Delete a ransition request */
 public class DeleteTransitionRequestRequest {
@@ -82,5 +84,33 @@ public class DeleteTransitionRequestRequest {
 
   public String getVersion() {
     return version;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteTransitionRequestRequest that = (DeleteTransitionRequestRequest) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(creator, that.creator)
+        && Objects.equals(name, that.name)
+        && Objects.equals(stage, that.stage)
+        && Objects.equals(version, that.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, creator, name, stage, version);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteTransitionRequestRequest.class)
+        .add("comment", comment)
+        .add("creator", creator)
+        .add("name", name)
+        .add("stage", stage)
+        .add("version", version)
+        .toString();
   }
 }

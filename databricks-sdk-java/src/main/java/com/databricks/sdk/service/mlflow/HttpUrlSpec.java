@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class HttpUrlSpec {
   /**
@@ -68,5 +70,31 @@ public class HttpUrlSpec {
 
   public String getUrl() {
     return url;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    HttpUrlSpec that = (HttpUrlSpec) o;
+    return Objects.equals(authorization, that.authorization)
+        && Objects.equals(enableSslVerification, that.enableSslVerification)
+        && Objects.equals(secret, that.secret)
+        && Objects.equals(url, that.url);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(authorization, enableSslVerification, secret, url);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(HttpUrlSpec.class)
+        .add("authorization", authorization)
+        .add("enableSslVerification", enableSslVerification)
+        .add("secret", secret)
+        .add("url", url)
+        .toString();
   }
 }

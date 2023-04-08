@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateInstancePoolResponse {
   /** The ID of the created instance pool. */
@@ -16,5 +18,25 @@ public class CreateInstancePoolResponse {
 
   public String getInstancePoolId() {
     return instancePoolId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateInstancePoolResponse that = (CreateInstancePoolResponse) o;
+    return Objects.equals(instancePoolId, that.instancePoolId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(instancePoolId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateInstancePoolResponse.class)
+        .add("instancePoolId", instancePoolId)
+        .toString();
   }
 }

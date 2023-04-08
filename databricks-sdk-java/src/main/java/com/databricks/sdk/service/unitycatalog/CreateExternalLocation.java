@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateExternalLocation {
   /** User-provided free-form text description. */
@@ -81,5 +83,35 @@ public class CreateExternalLocation {
 
   public String getUrl() {
     return url;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateExternalLocation that = (CreateExternalLocation) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(name, that.name)
+        && Objects.equals(readOnly, that.readOnly)
+        && Objects.equals(skipValidation, that.skipValidation)
+        && Objects.equals(url, that.url);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, credentialName, name, readOnly, skipValidation, url);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateExternalLocation.class)
+        .add("comment", comment)
+        .add("credentialName", credentialName)
+        .add("name", name)
+        .add("readOnly", readOnly)
+        .add("skipValidation", skipValidation)
+        .add("url", url)
+        .toString();
   }
 }

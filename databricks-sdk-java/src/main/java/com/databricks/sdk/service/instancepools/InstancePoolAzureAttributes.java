@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class InstancePoolAzureAttributes {
   /**
@@ -37,5 +39,27 @@ public class InstancePoolAzureAttributes {
 
   public Float getSpotBidMaxPrice() {
     return spotBidMaxPrice;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    InstancePoolAzureAttributes that = (InstancePoolAzureAttributes) o;
+    return Objects.equals(availability, that.availability)
+        && Objects.equals(spotBidMaxPrice, that.spotBidMaxPrice);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(availability, spotBidMaxPrice);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(InstancePoolAzureAttributes.class)
+        .add("availability", availability)
+        .add("spotBidMaxPrice", spotBidMaxPrice)
+        .toString();
   }
 }

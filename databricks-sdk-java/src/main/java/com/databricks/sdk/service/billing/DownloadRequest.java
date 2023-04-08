@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Return billable usage logs */
 public class DownloadRequest {
@@ -47,5 +49,29 @@ public class DownloadRequest {
 
   public String getStartMonth() {
     return startMonth;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DownloadRequest that = (DownloadRequest) o;
+    return Objects.equals(endMonth, that.endMonth)
+        && Objects.equals(personalData, that.personalData)
+        && Objects.equals(startMonth, that.startMonth);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(endMonth, personalData, startMonth);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DownloadRequest.class)
+        .add("endMonth", endMonth)
+        .add("personalData", personalData)
+        .add("startMonth", startMonth)
+        .toString();
   }
 }

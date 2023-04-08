@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class CreateCustomAppIntegration {
   /** indicates if an oauth client-secret should be generated */
@@ -15,7 +18,7 @@ public class CreateCustomAppIntegration {
 
   /** List of oauth redirect urls */
   @JsonProperty("redirect_urls")
-  private java.util.List<String> redirectUrls;
+  private Collection<String> redirectUrls;
 
   /** Token access policy */
   @JsonProperty("token_access_policy")
@@ -39,12 +42,12 @@ public class CreateCustomAppIntegration {
     return name;
   }
 
-  public CreateCustomAppIntegration setRedirectUrls(java.util.List<String> redirectUrls) {
+  public CreateCustomAppIntegration setRedirectUrls(Collection<String> redirectUrls) {
     this.redirectUrls = redirectUrls;
     return this;
   }
 
-  public java.util.List<String> getRedirectUrls() {
+  public Collection<String> getRedirectUrls() {
     return redirectUrls;
   }
 
@@ -55,5 +58,31 @@ public class CreateCustomAppIntegration {
 
   public TokenAccessPolicy getTokenAccessPolicy() {
     return tokenAccessPolicy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateCustomAppIntegration that = (CreateCustomAppIntegration) o;
+    return Objects.equals(confidential, that.confidential)
+        && Objects.equals(name, that.name)
+        && Objects.equals(redirectUrls, that.redirectUrls)
+        && Objects.equals(tokenAccessPolicy, that.tokenAccessPolicy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(confidential, name, redirectUrls, tokenAccessPolicy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateCustomAppIntegration.class)
+        .add("confidential", confidential)
+        .add("name", name)
+        .add("redirectUrls", redirectUrls)
+        .add("tokenAccessPolicy", tokenAccessPolicy)
+        .toString();
   }
 }

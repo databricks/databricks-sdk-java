@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class WrappedBudget {
   /** Budget configuration to be created. */
@@ -28,5 +30,26 @@ public class WrappedBudget {
 
   public String getBudgetId() {
     return budgetId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    WrappedBudget that = (WrappedBudget) o;
+    return Objects.equals(budget, that.budget) && Objects.equals(budgetId, that.budgetId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(budget, budgetId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(WrappedBudget.class)
+        .add("budget", budget)
+        .add("budgetId", budgetId)
+        .toString();
   }
 }

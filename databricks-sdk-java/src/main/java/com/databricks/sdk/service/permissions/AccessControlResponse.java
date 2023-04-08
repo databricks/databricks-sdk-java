@@ -2,12 +2,15 @@
 
 package com.databricks.sdk.service.permissions;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class AccessControlResponse {
   /** All permissions. */
   @JsonProperty("all_permissions")
-  private java.util.List<Permission> allPermissions;
+  private Collection<Permission> allPermissions;
 
   /** name of the group */
   @JsonProperty("group_name")
@@ -21,12 +24,12 @@ public class AccessControlResponse {
   @JsonProperty("user_name")
   private String userName;
 
-  public AccessControlResponse setAllPermissions(java.util.List<Permission> allPermissions) {
+  public AccessControlResponse setAllPermissions(Collection<Permission> allPermissions) {
     this.allPermissions = allPermissions;
     return this;
   }
 
-  public java.util.List<Permission> getAllPermissions() {
+  public Collection<Permission> getAllPermissions() {
     return allPermissions;
   }
 
@@ -55,5 +58,31 @@ public class AccessControlResponse {
 
   public String getUserName() {
     return userName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AccessControlResponse that = (AccessControlResponse) o;
+    return Objects.equals(allPermissions, that.allPermissions)
+        && Objects.equals(groupName, that.groupName)
+        && Objects.equals(servicePrincipalName, that.servicePrincipalName)
+        && Objects.equals(userName, that.userName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(allPermissions, groupName, servicePrincipalName, userName);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(AccessControlResponse.class)
+        .add("allPermissions", allPermissions)
+        .add("groupName", groupName)
+        .add("servicePrincipalName", servicePrincipalName)
+        .add("userName", userName)
+        .toString();
   }
 }

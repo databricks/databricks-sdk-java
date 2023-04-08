@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of Workspace */

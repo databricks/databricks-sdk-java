@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * These APIs manage storage credentials for a particular metastore.
@@ -37,6 +37,6 @@ public interface AccountStorageCredentialsService {
    *
    * <p>Gets a list of all storage credentials that have been assigned to given metastore.
    */
-  List<StorageCredentialInfo> list(
+  Collection<StorageCredentialInfo> list(
       ListAccountStorageCredentialsRequest listAccountStorageCredentialsRequest);
 }

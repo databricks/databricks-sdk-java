@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /** Status response includes execution state and if relevant, error information. */
 public class StatementStatus {
@@ -36,5 +38,23 @@ public class StatementStatus {
 
   public StatementState getState() {
     return state;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    StatementStatus that = (StatementStatus) o;
+    return Objects.equals(error, that.error) && Objects.equals(state, that.state);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(error, state);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(StatementStatus.class).add("error", error).add("state", state).toString();
   }
 }

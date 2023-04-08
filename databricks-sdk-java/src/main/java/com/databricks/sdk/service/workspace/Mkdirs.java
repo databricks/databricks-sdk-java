@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Mkdirs {
   /**
@@ -19,5 +21,23 @@ public class Mkdirs {
 
   public String getPath() {
     return path;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Mkdirs that = (Mkdirs) o;
+    return Objects.equals(path, that.path);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(path);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Mkdirs.class).add("path", path).toString();
   }
 }

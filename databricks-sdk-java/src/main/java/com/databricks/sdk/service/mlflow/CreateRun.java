@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class CreateRun {
   /** ID of the associated experiment. */
@@ -15,7 +18,7 @@ public class CreateRun {
 
   /** Additional metadata for run. */
   @JsonProperty("tags")
-  private java.util.List<RunTag> tags;
+  private Collection<RunTag> tags;
 
   /**
    * ID of the user executing the run. This field is deprecated as of MLflow 1.0, and will be
@@ -42,12 +45,12 @@ public class CreateRun {
     return startTime;
   }
 
-  public CreateRun setTags(java.util.List<RunTag> tags) {
+  public CreateRun setTags(Collection<RunTag> tags) {
     this.tags = tags;
     return this;
   }
 
-  public java.util.List<RunTag> getTags() {
+  public Collection<RunTag> getTags() {
     return tags;
   }
 
@@ -58,5 +61,31 @@ public class CreateRun {
 
   public String getUserId() {
     return userId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateRun that = (CreateRun) o;
+    return Objects.equals(experimentId, that.experimentId)
+        && Objects.equals(startTime, that.startTime)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(userId, that.userId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(experimentId, startTime, tags, userId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateRun.class)
+        .add("experimentId", experimentId)
+        .add("startTime", startTime)
+        .add("tags", tags)
+        .add("userId", userId)
+        .toString();
   }
 }

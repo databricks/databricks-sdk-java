@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /**
  * A table constraint, as defined by *one* of the following fields being set:
@@ -46,5 +48,29 @@ public class TableConstraint {
 
   public PrimaryKeyConstraint getPrimaryKeyConstraint() {
     return primaryKeyConstraint;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TableConstraint that = (TableConstraint) o;
+    return Objects.equals(foreignKeyConstraint, that.foreignKeyConstraint)
+        && Objects.equals(namedTableConstraint, that.namedTableConstraint)
+        && Objects.equals(primaryKeyConstraint, that.primaryKeyConstraint);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(foreignKeyConstraint, namedTableConstraint, primaryKeyConstraint);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TableConstraint.class)
+        .add("foreignKeyConstraint", foreignKeyConstraint)
+        .add("namedTableConstraint", namedTableConstraint)
+        .add("primaryKeyConstraint", primaryKeyConstraint)
+        .toString();
   }
 }

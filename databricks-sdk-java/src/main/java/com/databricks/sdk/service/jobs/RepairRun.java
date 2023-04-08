@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class RepairRun {
   /**
@@ -11,7 +14,7 @@ public class RepairRun {
    * deps", "dbt seed", "dbt run"]`
    */
   @JsonProperty("dbt_commands")
-  private java.util.List<String> dbtCommands;
+  private Collection<String> dbtCommands;
 
   /**
    * A list of parameters for jobs with Spark JAR tasks, for example `\"jar_params\": [\"john doe\",
@@ -24,7 +27,7 @@ public class RepairRun {
    * containing information about job runs.
    */
   @JsonProperty("jar_params")
-  private java.util.List<String> jarParams;
+  private Collection<String> jarParams;
 
   /**
    * The ID of the latest repair. This parameter is not required when repairing a run for the first
@@ -82,7 +85,7 @@ public class RepairRun {
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("python_params")
-  private java.util.List<String> pythonParams;
+  private Collection<String> pythonParams;
 
   /**
    * If true, repair all failed tasks. Only one of rerun_tasks or rerun_all_failed_tasks can be
@@ -93,7 +96,7 @@ public class RepairRun {
 
   /** The task keys of the task runs to repair. */
   @JsonProperty("rerun_tasks")
-  private java.util.List<String> rerunTasks;
+  private Collection<String> rerunTasks;
 
   /** The job run ID of the run to repair. The run must not be in progress. */
   @JsonProperty("run_id")
@@ -117,7 +120,7 @@ public class RepairRun {
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("spark_submit_params")
-  private java.util.List<String> sparkSubmitParams;
+  private Collection<String> sparkSubmitParams;
 
   /**
    * A map from keys to values for jobs with SQL task, for example `"sql_params": {"name": "john
@@ -126,21 +129,21 @@ public class RepairRun {
   @JsonProperty("sql_params")
   private Map<String, String> sqlParams;
 
-  public RepairRun setDbtCommands(java.util.List<String> dbtCommands) {
+  public RepairRun setDbtCommands(Collection<String> dbtCommands) {
     this.dbtCommands = dbtCommands;
     return this;
   }
 
-  public java.util.List<String> getDbtCommands() {
+  public Collection<String> getDbtCommands() {
     return dbtCommands;
   }
 
-  public RepairRun setJarParams(java.util.List<String> jarParams) {
+  public RepairRun setJarParams(Collection<String> jarParams) {
     this.jarParams = jarParams;
     return this;
   }
 
-  public java.util.List<String> getJarParams() {
+  public Collection<String> getJarParams() {
     return jarParams;
   }
 
@@ -180,12 +183,12 @@ public class RepairRun {
     return pythonNamedParams;
   }
 
-  public RepairRun setPythonParams(java.util.List<String> pythonParams) {
+  public RepairRun setPythonParams(Collection<String> pythonParams) {
     this.pythonParams = pythonParams;
     return this;
   }
 
-  public java.util.List<String> getPythonParams() {
+  public Collection<String> getPythonParams() {
     return pythonParams;
   }
 
@@ -198,12 +201,12 @@ public class RepairRun {
     return rerunAllFailedTasks;
   }
 
-  public RepairRun setRerunTasks(java.util.List<String> rerunTasks) {
+  public RepairRun setRerunTasks(Collection<String> rerunTasks) {
     this.rerunTasks = rerunTasks;
     return this;
   }
 
-  public java.util.List<String> getRerunTasks() {
+  public Collection<String> getRerunTasks() {
     return rerunTasks;
   }
 
@@ -216,12 +219,12 @@ public class RepairRun {
     return runId;
   }
 
-  public RepairRun setSparkSubmitParams(java.util.List<String> sparkSubmitParams) {
+  public RepairRun setSparkSubmitParams(Collection<String> sparkSubmitParams) {
     this.sparkSubmitParams = sparkSubmitParams;
     return this;
   }
 
-  public java.util.List<String> getSparkSubmitParams() {
+  public Collection<String> getSparkSubmitParams() {
     return sparkSubmitParams;
   }
 
@@ -232,5 +235,59 @@ public class RepairRun {
 
   public Map<String, String> getSqlParams() {
     return sqlParams;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RepairRun that = (RepairRun) o;
+    return Objects.equals(dbtCommands, that.dbtCommands)
+        && Objects.equals(jarParams, that.jarParams)
+        && Objects.equals(latestRepairId, that.latestRepairId)
+        && Objects.equals(notebookParams, that.notebookParams)
+        && Objects.equals(pipelineParams, that.pipelineParams)
+        && Objects.equals(pythonNamedParams, that.pythonNamedParams)
+        && Objects.equals(pythonParams, that.pythonParams)
+        && Objects.equals(rerunAllFailedTasks, that.rerunAllFailedTasks)
+        && Objects.equals(rerunTasks, that.rerunTasks)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(sparkSubmitParams, that.sparkSubmitParams)
+        && Objects.equals(sqlParams, that.sqlParams);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        dbtCommands,
+        jarParams,
+        latestRepairId,
+        notebookParams,
+        pipelineParams,
+        pythonNamedParams,
+        pythonParams,
+        rerunAllFailedTasks,
+        rerunTasks,
+        runId,
+        sparkSubmitParams,
+        sqlParams);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RepairRun.class)
+        .add("dbtCommands", dbtCommands)
+        .add("jarParams", jarParams)
+        .add("latestRepairId", latestRepairId)
+        .add("notebookParams", notebookParams)
+        .add("pipelineParams", pipelineParams)
+        .add("pythonNamedParams", pythonNamedParams)
+        .add("pythonParams", pythonParams)
+        .add("rerunAllFailedTasks", rerunAllFailedTasks)
+        .add("rerunTasks", rerunTasks)
+        .add("runId", runId)
+        .add("sparkSubmitParams", sparkSubmitParams)
+        .add("sqlParams", sqlParams)
+        .toString();
   }
 }

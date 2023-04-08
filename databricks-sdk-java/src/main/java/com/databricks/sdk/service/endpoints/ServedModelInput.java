@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.endpoints;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ServedModelInput {
   /** The name of the model in Databricks Model Registry to be served. */
@@ -79,5 +81,33 @@ public class ServedModelInput {
 
   public String getWorkloadSize() {
     return workloadSize;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ServedModelInput that = (ServedModelInput) o;
+    return Objects.equals(modelName, that.modelName)
+        && Objects.equals(modelVersion, that.modelVersion)
+        && Objects.equals(name, that.name)
+        && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
+        && Objects.equals(workloadSize, that.workloadSize);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(modelName, modelVersion, name, scaleToZeroEnabled, workloadSize);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ServedModelInput.class)
+        .add("modelName", modelName)
+        .add("modelVersion", modelVersion)
+        .add("name", name)
+        .add("scaleToZeroEnabled", scaleToZeroEnabled)
+        .add("workloadSize", workloadSize)
+        .toString();
   }
 }

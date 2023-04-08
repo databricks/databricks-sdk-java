@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.secrets;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PutAcl {
   /** The permission level applied to the principal. */
@@ -42,5 +44,29 @@ public class PutAcl {
 
   public String getScope() {
     return scope;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PutAcl that = (PutAcl) o;
+    return Objects.equals(permission, that.permission)
+        && Objects.equals(principal, that.principal)
+        && Objects.equals(scope, that.scope);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(permission, principal, scope);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PutAcl.class)
+        .add("permission", permission)
+        .add("principal", principal)
+        .add("scope", scope)
+        .toString();
   }
 }

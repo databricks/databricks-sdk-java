@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class PipelineCluster {
   /** Note: This field won't be persisted. Only API users will check this field. */
@@ -141,7 +144,7 @@ public class PipelineCluster {
    * to 10 keys can be specified.
    */
   @JsonProperty("ssh_public_keys")
-  private java.util.List<String> sshPublicKeys;
+  private Collection<String> sshPublicKeys;
 
   public PipelineCluster setApplyPolicyDefaultValues(Boolean applyPolicyDefaultValues) {
     this.applyPolicyDefaultValues = applyPolicyDefaultValues;
@@ -287,12 +290,81 @@ public class PipelineCluster {
     return sparkEnvVars;
   }
 
-  public PipelineCluster setSshPublicKeys(java.util.List<String> sshPublicKeys) {
+  public PipelineCluster setSshPublicKeys(Collection<String> sshPublicKeys) {
     this.sshPublicKeys = sshPublicKeys;
     return this;
   }
 
-  public java.util.List<String> getSshPublicKeys() {
+  public Collection<String> getSshPublicKeys() {
     return sshPublicKeys;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PipelineCluster that = (PipelineCluster) o;
+    return Objects.equals(applyPolicyDefaultValues, that.applyPolicyDefaultValues)
+        && Objects.equals(autoscale, that.autoscale)
+        && Objects.equals(awsAttributes, that.awsAttributes)
+        && Objects.equals(azureAttributes, that.azureAttributes)
+        && Objects.equals(clusterLogConf, that.clusterLogConf)
+        && Objects.equals(customTags, that.customTags)
+        && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
+        && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
+        && Objects.equals(gcpAttributes, that.gcpAttributes)
+        && Objects.equals(instancePoolId, that.instancePoolId)
+        && Objects.equals(label, that.label)
+        && Objects.equals(nodeTypeId, that.nodeTypeId)
+        && Objects.equals(numWorkers, that.numWorkers)
+        && Objects.equals(policyId, that.policyId)
+        && Objects.equals(sparkConf, that.sparkConf)
+        && Objects.equals(sparkEnvVars, that.sparkEnvVars)
+        && Objects.equals(sshPublicKeys, that.sshPublicKeys);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        applyPolicyDefaultValues,
+        autoscale,
+        awsAttributes,
+        azureAttributes,
+        clusterLogConf,
+        customTags,
+        driverInstancePoolId,
+        driverNodeTypeId,
+        gcpAttributes,
+        instancePoolId,
+        label,
+        nodeTypeId,
+        numWorkers,
+        policyId,
+        sparkConf,
+        sparkEnvVars,
+        sshPublicKeys);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PipelineCluster.class)
+        .add("applyPolicyDefaultValues", applyPolicyDefaultValues)
+        .add("autoscale", autoscale)
+        .add("awsAttributes", awsAttributes)
+        .add("azureAttributes", azureAttributes)
+        .add("clusterLogConf", clusterLogConf)
+        .add("customTags", customTags)
+        .add("driverInstancePoolId", driverInstancePoolId)
+        .add("driverNodeTypeId", driverNodeTypeId)
+        .add("gcpAttributes", gcpAttributes)
+        .add("instancePoolId", instancePoolId)
+        .add("label", label)
+        .add("nodeTypeId", nodeTypeId)
+        .add("numWorkers", numWorkers)
+        .add("policyId", policyId)
+        .add("sparkConf", sparkConf)
+        .add("sparkEnvVars", sparkEnvVars)
+        .add("sshPublicKeys", sshPublicKeys)
+        .toString();
   }
 }

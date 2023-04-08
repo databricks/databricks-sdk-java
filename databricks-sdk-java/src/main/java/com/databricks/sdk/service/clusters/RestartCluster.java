@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class RestartCluster {
   /** The cluster to be started. */
@@ -29,5 +31,27 @@ public class RestartCluster {
 
   public String getRestartUser() {
     return restartUser;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RestartCluster that = (RestartCluster) o;
+    return Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(restartUser, that.restartUser);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId, restartUser);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RestartCluster.class)
+        .add("clusterId", clusterId)
+        .add("restartUser", restartUser)
+        .toString();
   }
 }

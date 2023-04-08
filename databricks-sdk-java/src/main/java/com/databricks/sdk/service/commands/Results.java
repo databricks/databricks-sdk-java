@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.commands;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class Results {
   /** The cause of the error */
@@ -20,7 +23,7 @@ public class Results {
 
   /** */
   @JsonProperty("fileNames")
-  private java.util.List<String> fileNames;
+  private Collection<String> fileNames;
 
   /** true if a JSON schema is returned instead of a string representation of the Hive type. */
   @JsonProperty("isJsonSchema")
@@ -36,7 +39,7 @@ public class Results {
 
   /** The table schema */
   @JsonProperty("schema")
-  private java.util.List<Map<String, Object /* MISSING TYPE */>> schema;
+  private Collection<Map<String, Object /* MISSING TYPE */>> schema;
 
   /** The summary of the error */
   @JsonProperty("summary")
@@ -73,12 +76,12 @@ public class Results {
     return fileName;
   }
 
-  public Results setFileNames(java.util.List<String> fileNames) {
+  public Results setFileNames(Collection<String> fileNames) {
     this.fileNames = fileNames;
     return this;
   }
 
-  public java.util.List<String> getFileNames() {
+  public Collection<String> getFileNames() {
     return fileNames;
   }
 
@@ -109,12 +112,12 @@ public class Results {
     return resultType;
   }
 
-  public Results setSchema(java.util.List<Map<String, Object /* MISSING TYPE */>> schema) {
+  public Results setSchema(Collection<Map<String, Object /* MISSING TYPE */>> schema) {
     this.schema = schema;
     return this;
   }
 
-  public java.util.List<Map<String, Object /* MISSING TYPE */>> getSchema() {
+  public Collection<Map<String, Object /* MISSING TYPE */>> getSchema() {
     return schema;
   }
 
@@ -134,5 +137,53 @@ public class Results {
 
   public Boolean getTruncated() {
     return truncated;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Results that = (Results) o;
+    return Objects.equals(cause, that.cause)
+        && Objects.equals(data, that.data)
+        && Objects.equals(fileName, that.fileName)
+        && Objects.equals(fileNames, that.fileNames)
+        && Objects.equals(isJsonSchema, that.isJsonSchema)
+        && Objects.equals(pos, that.pos)
+        && Objects.equals(resultType, that.resultType)
+        && Objects.equals(schema, that.schema)
+        && Objects.equals(summary, that.summary)
+        && Objects.equals(truncated, that.truncated);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        cause,
+        data,
+        fileName,
+        fileNames,
+        isJsonSchema,
+        pos,
+        resultType,
+        schema,
+        summary,
+        truncated);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Results.class)
+        .add("cause", cause)
+        .add("data", data)
+        .add("fileName", fileName)
+        .add("fileNames", fileNames)
+        .add("isJsonSchema", isJsonSchema)
+        .add("pos", pos)
+        .add("resultType", resultType)
+        .add("schema", schema)
+        .add("summary", summary)
+        .add("truncated", truncated)
+        .toString();
   }
 }

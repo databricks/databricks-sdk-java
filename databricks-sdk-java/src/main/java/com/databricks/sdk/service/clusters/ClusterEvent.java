@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ClusterEvent {
   /** <needs content added> */
@@ -71,5 +73,33 @@ public class ClusterEvent {
 
   public EventType getType() {
     return typeValue;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ClusterEvent that = (ClusterEvent) o;
+    return Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(dataPlaneEventDetails, that.dataPlaneEventDetails)
+        && Objects.equals(details, that.details)
+        && Objects.equals(timestamp, that.timestamp)
+        && Objects.equals(typeValue, that.typeValue);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId, dataPlaneEventDetails, details, timestamp, typeValue);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ClusterEvent.class)
+        .add("clusterId", clusterId)
+        .add("dataPlaneEventDetails", dataPlaneEventDetails)
+        .add("details", details)
+        .add("timestamp", timestamp)
+        .add("typeValue", typeValue)
+        .toString();
   }
 }

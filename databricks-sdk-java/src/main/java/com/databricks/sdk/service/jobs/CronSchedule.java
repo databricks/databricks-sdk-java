@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CronSchedule {
   /** Indicate whether this schedule is paused or not. */
@@ -53,5 +55,29 @@ public class CronSchedule {
 
   public String getTimezoneId() {
     return timezoneId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CronSchedule that = (CronSchedule) o;
+    return Objects.equals(pauseStatus, that.pauseStatus)
+        && Objects.equals(quartzCronExpression, that.quartzCronExpression)
+        && Objects.equals(timezoneId, that.timezoneId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(pauseStatus, quartzCronExpression, timezoneId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CronSchedule.class)
+        .add("pauseStatus", pauseStatus)
+        .add("quartzCronExpression", quartzCronExpression)
+        .add("timezoneId", timezoneId)
+        .toString();
   }
 }

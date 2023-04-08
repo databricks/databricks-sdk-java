@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class DockerImage {
   /** */
@@ -29,5 +31,23 @@ public class DockerImage {
 
   public String getUrl() {
     return url;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DockerImage that = (DockerImage) o;
+    return Objects.equals(basicAuth, that.basicAuth) && Objects.equals(url, that.url);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(basicAuth, url);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DockerImage.class).add("basicAuth", basicAuth).add("url", url).toString();
   }
 }

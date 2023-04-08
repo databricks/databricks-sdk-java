@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ListResponse {
   /** The total number of dashboards. */
@@ -19,7 +22,7 @@ public class ListResponse {
 
   /** List of dashboards returned. */
   @JsonProperty("results")
-  private java.util.List<Dashboard> results;
+  private Collection<Dashboard> results;
 
   public ListResponse setCount(Long count) {
     this.count = count;
@@ -48,12 +51,38 @@ public class ListResponse {
     return pageSize;
   }
 
-  public ListResponse setResults(java.util.List<Dashboard> results) {
+  public ListResponse setResults(Collection<Dashboard> results) {
     this.results = results;
     return this;
   }
 
-  public java.util.List<Dashboard> getResults() {
+  public Collection<Dashboard> getResults() {
     return results;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListResponse that = (ListResponse) o;
+    return Objects.equals(count, that.count)
+        && Objects.equals(page, that.page)
+        && Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(results, that.results);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(count, page, pageSize, results);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListResponse.class)
+        .add("count", count)
+        .add("page", page)
+        .add("pageSize", pageSize)
+        .add("results", results)
+        .toString();
   }
 }

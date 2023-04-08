@@ -2,23 +2,26 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class GetMetricHistoryResponse {
   /** All logged values for this metric. */
   @JsonProperty("metrics")
-  private java.util.List<Metric> metrics;
+  private Collection<Metric> metrics;
 
   /** Token that can be used to retrieve the next page of metric history results */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  public GetMetricHistoryResponse setMetrics(java.util.List<Metric> metrics) {
+  public GetMetricHistoryResponse setMetrics(Collection<Metric> metrics) {
     this.metrics = metrics;
     return this;
   }
 
-  public java.util.List<Metric> getMetrics() {
+  public Collection<Metric> getMetrics() {
     return metrics;
   }
 
@@ -29,5 +32,27 @@ public class GetMetricHistoryResponse {
 
   public String getNextPageToken() {
     return nextPageToken;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetMetricHistoryResponse that = (GetMetricHistoryResponse) o;
+    return Objects.equals(metrics, that.metrics)
+        && Objects.equals(nextPageToken, that.nextPageToken);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(metrics, nextPageToken);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetMetricHistoryResponse.class)
+        .add("metrics", metrics)
+        .add("nextPageToken", nextPageToken)
+        .toString();
   }
 }

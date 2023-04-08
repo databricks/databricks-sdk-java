@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.scim;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ServicePrincipal {
   /** If this user is active */
@@ -19,7 +22,7 @@ public class ServicePrincipal {
 
   /** */
   @JsonProperty("entitlements")
-  private java.util.List<ComplexValue> entitlements;
+  private Collection<ComplexValue> entitlements;
 
   /** */
   @JsonProperty("externalId")
@@ -27,7 +30,7 @@ public class ServicePrincipal {
 
   /** */
   @JsonProperty("groups")
-  private java.util.List<ComplexValue> groups;
+  private Collection<ComplexValue> groups;
 
   /** Databricks service principal ID. */
   @JsonProperty("id")
@@ -35,7 +38,7 @@ public class ServicePrincipal {
 
   /** */
   @JsonProperty("roles")
-  private java.util.List<ComplexValue> roles;
+  private Collection<ComplexValue> roles;
 
   public ServicePrincipal setActive(Boolean active) {
     this.active = active;
@@ -64,12 +67,12 @@ public class ServicePrincipal {
     return displayName;
   }
 
-  public ServicePrincipal setEntitlements(java.util.List<ComplexValue> entitlements) {
+  public ServicePrincipal setEntitlements(Collection<ComplexValue> entitlements) {
     this.entitlements = entitlements;
     return this;
   }
 
-  public java.util.List<ComplexValue> getEntitlements() {
+  public Collection<ComplexValue> getEntitlements() {
     return entitlements;
   }
 
@@ -82,12 +85,12 @@ public class ServicePrincipal {
     return externalId;
   }
 
-  public ServicePrincipal setGroups(java.util.List<ComplexValue> groups) {
+  public ServicePrincipal setGroups(Collection<ComplexValue> groups) {
     this.groups = groups;
     return this;
   }
 
-  public java.util.List<ComplexValue> getGroups() {
+  public Collection<ComplexValue> getGroups() {
     return groups;
   }
 
@@ -100,12 +103,47 @@ public class ServicePrincipal {
     return id;
   }
 
-  public ServicePrincipal setRoles(java.util.List<ComplexValue> roles) {
+  public ServicePrincipal setRoles(Collection<ComplexValue> roles) {
     this.roles = roles;
     return this;
   }
 
-  public java.util.List<ComplexValue> getRoles() {
+  public Collection<ComplexValue> getRoles() {
     return roles;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ServicePrincipal that = (ServicePrincipal) o;
+    return Objects.equals(active, that.active)
+        && Objects.equals(applicationId, that.applicationId)
+        && Objects.equals(displayName, that.displayName)
+        && Objects.equals(entitlements, that.entitlements)
+        && Objects.equals(externalId, that.externalId)
+        && Objects.equals(groups, that.groups)
+        && Objects.equals(id, that.id)
+        && Objects.equals(roles, that.roles);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        active, applicationId, displayName, entitlements, externalId, groups, id, roles);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ServicePrincipal.class)
+        .add("active", active)
+        .add("applicationId", applicationId)
+        .add("displayName", displayName)
+        .add("entitlements", entitlements)
+        .add("externalId", externalId)
+        .add("groups", groups)
+        .add("id", id)
+        .add("roles", roles)
+        .toString();
   }
 }

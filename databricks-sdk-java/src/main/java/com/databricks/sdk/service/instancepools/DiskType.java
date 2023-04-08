@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class DiskType {
   /** */
@@ -29,5 +31,27 @@ public class DiskType {
 
   public DiskTypeEbsVolumeType getEbsVolumeType() {
     return ebsVolumeType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DiskType that = (DiskType) o;
+    return Objects.equals(azureDiskVolumeType, that.azureDiskVolumeType)
+        && Objects.equals(ebsVolumeType, that.ebsVolumeType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(azureDiskVolumeType, ebsVolumeType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DiskType.class)
+        .add("azureDiskVolumeType", azureDiskVolumeType)
+        .add("ebsVolumeType", ebsVolumeType)
+        .toString();
   }
 }

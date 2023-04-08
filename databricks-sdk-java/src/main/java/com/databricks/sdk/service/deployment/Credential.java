@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Credential {
   /** The Databricks account ID that hosts the credential. */
@@ -68,5 +70,33 @@ public class Credential {
 
   public String getCredentialsName() {
     return credentialsName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Credential that = (Credential) o;
+    return Objects.equals(accountId, that.accountId)
+        && Objects.equals(awsCredentials, that.awsCredentials)
+        && Objects.equals(creationTime, that.creationTime)
+        && Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(credentialsName, that.credentialsName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accountId, awsCredentials, creationTime, credentialsId, credentialsName);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Credential.class)
+        .add("accountId", accountId)
+        .add("awsCredentials", awsCredentials)
+        .add("creationTime", creationTime)
+        .add("credentialsId", credentialsId)
+        .add("credentialsName", credentialsName)
+        .toString();
   }
 }

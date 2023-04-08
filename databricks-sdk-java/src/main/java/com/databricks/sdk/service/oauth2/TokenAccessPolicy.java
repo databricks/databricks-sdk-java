@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class TokenAccessPolicy {
   /** access token time to live in minutes */
@@ -31,5 +33,27 @@ public class TokenAccessPolicy {
 
   public Object /* MISSING TYPE */ getRefreshTokenTtlInMinutes() {
     return refreshTokenTtlInMinutes;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TokenAccessPolicy that = (TokenAccessPolicy) o;
+    return Objects.equals(accessTokenTtlInMinutes, that.accessTokenTtlInMinutes)
+        && Objects.equals(refreshTokenTtlInMinutes, that.refreshTokenTtlInMinutes);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accessTokenTtlInMinutes, refreshTokenTtlInMinutes);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TokenAccessPolicy.class)
+        .add("accessTokenTtlInMinutes", accessTokenTtlInMinutes)
+        .add("refreshTokenTtlInMinutes", refreshTokenTtlInMinutes)
+        .toString();
   }
 }

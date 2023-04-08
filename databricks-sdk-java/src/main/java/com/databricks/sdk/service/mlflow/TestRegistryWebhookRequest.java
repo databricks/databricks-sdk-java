@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class TestRegistryWebhookRequest {
   /**
@@ -32,5 +34,26 @@ public class TestRegistryWebhookRequest {
 
   public String getId() {
     return id;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TestRegistryWebhookRequest that = (TestRegistryWebhookRequest) o;
+    return Objects.equals(event, that.event) && Objects.equals(id, that.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(event, id);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TestRegistryWebhookRequest.class)
+        .add("event", event)
+        .add("id", id)
+        .toString();
   }
 }

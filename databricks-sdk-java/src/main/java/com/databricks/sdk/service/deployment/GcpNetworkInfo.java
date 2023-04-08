@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /**
  * The Google Cloud specific information for this network (for example, the VPC ID, subnet ID, and
@@ -94,5 +96,36 @@ public class GcpNetworkInfo {
 
   public String getVpcId() {
     return vpcId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GcpNetworkInfo that = (GcpNetworkInfo) o;
+    return Objects.equals(networkProjectId, that.networkProjectId)
+        && Objects.equals(podIpRangeName, that.podIpRangeName)
+        && Objects.equals(serviceIpRangeName, that.serviceIpRangeName)
+        && Objects.equals(subnetId, that.subnetId)
+        && Objects.equals(subnetRegion, that.subnetRegion)
+        && Objects.equals(vpcId, that.vpcId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        networkProjectId, podIpRangeName, serviceIpRangeName, subnetId, subnetRegion, vpcId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GcpNetworkInfo.class)
+        .add("networkProjectId", networkProjectId)
+        .add("podIpRangeName", podIpRangeName)
+        .add("serviceIpRangeName", serviceIpRangeName)
+        .add("subnetId", subnetId)
+        .add("subnetRegion", subnetRegion)
+        .add("vpcId", vpcId)
+        .toString();
   }
 }

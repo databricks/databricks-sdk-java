@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class CreateRegisteredModelRequest {
   /** Optional description for registered model. */
@@ -15,7 +18,7 @@ public class CreateRegisteredModelRequest {
 
   /** Additional metadata for registered model. */
   @JsonProperty("tags")
-  private java.util.List<RegisteredModelTag> tags;
+  private Collection<RegisteredModelTag> tags;
 
   public CreateRegisteredModelRequest setDescription(String description) {
     this.description = description;
@@ -35,12 +38,36 @@ public class CreateRegisteredModelRequest {
     return name;
   }
 
-  public CreateRegisteredModelRequest setTags(java.util.List<RegisteredModelTag> tags) {
+  public CreateRegisteredModelRequest setTags(Collection<RegisteredModelTag> tags) {
     this.tags = tags;
     return this;
   }
 
-  public java.util.List<RegisteredModelTag> getTags() {
+  public Collection<RegisteredModelTag> getTags() {
     return tags;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateRegisteredModelRequest that = (CreateRegisteredModelRequest) o;
+    return Objects.equals(description, that.description)
+        && Objects.equals(name, that.name)
+        && Objects.equals(tags, that.tags);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(description, name, tags);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateRegisteredModelRequest.class)
+        .add("description", description)
+        .add("name", name)
+        .add("tags", tags)
+        .toString();
   }
 }

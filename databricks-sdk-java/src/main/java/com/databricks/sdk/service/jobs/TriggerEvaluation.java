@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class TriggerEvaluation {
   /**
@@ -48,5 +50,29 @@ public class TriggerEvaluation {
 
   public Long getTimestamp() {
     return timestamp;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TriggerEvaluation that = (TriggerEvaluation) o;
+    return Objects.equals(description, that.description)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(timestamp, that.timestamp);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(description, runId, timestamp);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TriggerEvaluation.class)
+        .add("description", description)
+        .add("runId", runId)
+        .add("timestamp", timestamp)
+        .toString();
   }
 }

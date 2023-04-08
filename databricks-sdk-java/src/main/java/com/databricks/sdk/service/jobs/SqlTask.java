@@ -2,8 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import java.util.Objects;
 
 public class SqlTask {
   /** If alert, indicates that this job must refresh a SQL alert. */
@@ -75,5 +77,33 @@ public class SqlTask {
 
   public String getWarehouseId() {
     return warehouseId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SqlTask that = (SqlTask) o;
+    return Objects.equals(alert, that.alert)
+        && Objects.equals(dashboard, that.dashboard)
+        && Objects.equals(parameters, that.parameters)
+        && Objects.equals(query, that.query)
+        && Objects.equals(warehouseId, that.warehouseId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(alert, dashboard, parameters, query, warehouseId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SqlTask.class)
+        .add("alert", alert)
+        .add("dashboard", dashboard)
+        .add("parameters", parameters)
+        .add("query", query)
+        .add("warehouseId", warehouseId)
+        .toString();
   }
 }

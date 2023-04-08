@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class MetastoreAssignment {
   /** The name of the default catalog in the metastore. */
@@ -42,5 +44,29 @@ public class MetastoreAssignment {
 
   public String getWorkspaceId() {
     return workspaceId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    MetastoreAssignment that = (MetastoreAssignment) o;
+    return Objects.equals(defaultCatalogName, that.defaultCatalogName)
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(workspaceId, that.workspaceId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(defaultCatalogName, metastoreId, workspaceId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(MetastoreAssignment.class)
+        .add("defaultCatalogName", defaultCatalogName)
+        .add("metastoreId", metastoreId)
+        .add("workspaceId", workspaceId)
+        .toString();
   }
 }

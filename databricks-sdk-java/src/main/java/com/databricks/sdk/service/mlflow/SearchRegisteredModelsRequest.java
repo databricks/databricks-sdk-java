@@ -3,6 +3,9 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Collection;
+import java.util.Objects;
 
 /** Search models */
 public class SearchRegisteredModelsRequest {
@@ -24,7 +27,7 @@ public class SearchRegisteredModelsRequest {
    * are done by model name ASC.
    */
   @QueryParam("order_by")
-  private java.util.List<String> orderBy;
+  private Collection<String> orderBy;
 
   /** Pagination token to go to the next page based on a previous search query. */
   @QueryParam("page_token")
@@ -48,12 +51,12 @@ public class SearchRegisteredModelsRequest {
     return maxResults;
   }
 
-  public SearchRegisteredModelsRequest setOrderBy(java.util.List<String> orderBy) {
+  public SearchRegisteredModelsRequest setOrderBy(Collection<String> orderBy) {
     this.orderBy = orderBy;
     return this;
   }
 
-  public java.util.List<String> getOrderBy() {
+  public Collection<String> getOrderBy() {
     return orderBy;
   }
 
@@ -64,5 +67,31 @@ public class SearchRegisteredModelsRequest {
 
   public String getPageToken() {
     return pageToken;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SearchRegisteredModelsRequest that = (SearchRegisteredModelsRequest) o;
+    return Objects.equals(filter, that.filter)
+        && Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(orderBy, that.orderBy)
+        && Objects.equals(pageToken, that.pageToken);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(filter, maxResults, orderBy, pageToken);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SearchRegisteredModelsRequest.class)
+        .add("filter", filter)
+        .add("maxResults", maxResults)
+        .add("orderBy", orderBy)
+        .add("pageToken", pageToken)
+        .toString();
   }
 }

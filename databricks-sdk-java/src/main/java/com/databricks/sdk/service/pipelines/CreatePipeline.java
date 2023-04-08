@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreatePipeline {
   /** If false, deployment will fail if name conflicts with that of another pipeline. */
@@ -25,7 +28,7 @@ public class CreatePipeline {
 
   /** Cluster settings for this pipeline deployment. */
   @JsonProperty("clusters")
-  private java.util.List<PipelineCluster> clusters;
+  private Collection<PipelineCluster> clusters;
 
   /** String-String configuration for this pipeline execution. */
   @JsonProperty("configuration")
@@ -57,7 +60,7 @@ public class CreatePipeline {
 
   /** Libraries or code needed by this deployment. */
   @JsonProperty("libraries")
-  private java.util.List<PipelineLibrary> libraries;
+  private Collection<PipelineLibrary> libraries;
 
   /** Friendly identifier for this pipeline. */
   @JsonProperty("name")
@@ -110,12 +113,12 @@ public class CreatePipeline {
     return channel;
   }
 
-  public CreatePipeline setClusters(java.util.List<PipelineCluster> clusters) {
+  public CreatePipeline setClusters(Collection<PipelineCluster> clusters) {
     this.clusters = clusters;
     return this;
   }
 
-  public java.util.List<PipelineCluster> getClusters() {
+  public Collection<PipelineCluster> getClusters() {
     return clusters;
   }
 
@@ -182,12 +185,12 @@ public class CreatePipeline {
     return id;
   }
 
-  public CreatePipeline setLibraries(java.util.List<PipelineLibrary> libraries) {
+  public CreatePipeline setLibraries(Collection<PipelineLibrary> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public java.util.List<PipelineLibrary> getLibraries() {
+  public Collection<PipelineLibrary> getLibraries() {
     return libraries;
   }
 
@@ -234,5 +237,74 @@ public class CreatePipeline {
 
   public PipelineTrigger getTrigger() {
     return trigger;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreatePipeline that = (CreatePipeline) o;
+    return Objects.equals(allowDuplicateNames, that.allowDuplicateNames)
+        && Objects.equals(catalog, that.catalog)
+        && Objects.equals(channel, that.channel)
+        && Objects.equals(clusters, that.clusters)
+        && Objects.equals(configuration, that.configuration)
+        && Objects.equals(continuous, that.continuous)
+        && Objects.equals(development, that.development)
+        && Objects.equals(dryRun, that.dryRun)
+        && Objects.equals(edition, that.edition)
+        && Objects.equals(filters, that.filters)
+        && Objects.equals(id, that.id)
+        && Objects.equals(libraries, that.libraries)
+        && Objects.equals(name, that.name)
+        && Objects.equals(photon, that.photon)
+        && Objects.equals(storage, that.storage)
+        && Objects.equals(target, that.target)
+        && Objects.equals(trigger, that.trigger);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        allowDuplicateNames,
+        catalog,
+        channel,
+        clusters,
+        configuration,
+        continuous,
+        development,
+        dryRun,
+        edition,
+        filters,
+        id,
+        libraries,
+        name,
+        photon,
+        storage,
+        target,
+        trigger);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreatePipeline.class)
+        .add("allowDuplicateNames", allowDuplicateNames)
+        .add("catalog", catalog)
+        .add("channel", channel)
+        .add("clusters", clusters)
+        .add("configuration", configuration)
+        .add("continuous", continuous)
+        .add("development", development)
+        .add("dryRun", dryRun)
+        .add("edition", edition)
+        .add("filters", filters)
+        .add("id", id)
+        .add("libraries", libraries)
+        .add("name", name)
+        .add("photon", photon)
+        .add("storage", storage)
+        .add("target", target)
+        .add("trigger", trigger)
+        .toString();
   }
 }

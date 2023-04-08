@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class UpdateCustomAppIntegration {
   /** The oauth app integration ID. */
@@ -10,7 +13,7 @@ public class UpdateCustomAppIntegration {
 
   /** List of oauth redirect urls to be updated in the custom oauth app integration */
   @JsonProperty("redirect_urls")
-  private java.util.List<String> redirectUrls;
+  private Collection<String> redirectUrls;
 
   /** Token access policy to be updated in the custom oauth app integration */
   @JsonProperty("token_access_policy")
@@ -25,12 +28,12 @@ public class UpdateCustomAppIntegration {
     return integrationId;
   }
 
-  public UpdateCustomAppIntegration setRedirectUrls(java.util.List<String> redirectUrls) {
+  public UpdateCustomAppIntegration setRedirectUrls(Collection<String> redirectUrls) {
     this.redirectUrls = redirectUrls;
     return this;
   }
 
-  public java.util.List<String> getRedirectUrls() {
+  public Collection<String> getRedirectUrls() {
     return redirectUrls;
   }
 
@@ -41,5 +44,29 @@ public class UpdateCustomAppIntegration {
 
   public TokenAccessPolicy getTokenAccessPolicy() {
     return tokenAccessPolicy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateCustomAppIntegration that = (UpdateCustomAppIntegration) o;
+    return Objects.equals(integrationId, that.integrationId)
+        && Objects.equals(redirectUrls, that.redirectUrls)
+        && Objects.equals(tokenAccessPolicy, that.tokenAccessPolicy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(integrationId, redirectUrls, tokenAccessPolicy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateCustomAppIntegration.class)
+        .add("integrationId", integrationId)
+        .add("redirectUrls", redirectUrls)
+        .add("tokenAccessPolicy", tokenAccessPolicy)
+        .toString();
   }
 }

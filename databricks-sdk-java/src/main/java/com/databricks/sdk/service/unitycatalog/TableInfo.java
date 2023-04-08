@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class TableInfo {
   /** Name of parent catalog. */
@@ -12,7 +15,7 @@ public class TableInfo {
 
   /** The array of __ColumnInfo__ definitions of the table's columns. */
   @JsonProperty("columns")
-  private java.util.List<ColumnInfo> columns;
+  private Collection<ColumnInfo> columns;
 
   /** User-provided free-form text description. */
   @JsonProperty("comment")
@@ -130,7 +133,7 @@ public class TableInfo {
    * dependencies are provided and recorded.
    */
   @JsonProperty("view_dependencies")
-  private java.util.List<Dependency> viewDependencies;
+  private Collection<Dependency> viewDependencies;
 
   public TableInfo setCatalogName(String catalogName) {
     this.catalogName = catalogName;
@@ -141,12 +144,12 @@ public class TableInfo {
     return catalogName;
   }
 
-  public TableInfo setColumns(java.util.List<ColumnInfo> columns) {
+  public TableInfo setColumns(Collection<ColumnInfo> columns) {
     this.columns = columns;
     return this;
   }
 
-  public java.util.List<ColumnInfo> getColumns() {
+  public Collection<ColumnInfo> getColumns() {
     return columns;
   }
 
@@ -377,12 +380,114 @@ public class TableInfo {
     return viewDefinition;
   }
 
-  public TableInfo setViewDependencies(java.util.List<Dependency> viewDependencies) {
+  public TableInfo setViewDependencies(Collection<Dependency> viewDependencies) {
     this.viewDependencies = viewDependencies;
     return this;
   }
 
-  public java.util.List<Dependency> getViewDependencies() {
+  public Collection<Dependency> getViewDependencies() {
     return viewDependencies;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TableInfo that = (TableInfo) o;
+    return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(columns, that.columns)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(dataAccessConfigurationId, that.dataAccessConfigurationId)
+        && Objects.equals(dataSourceFormat, that.dataSourceFormat)
+        && Objects.equals(deletedAt, that.deletedAt)
+        && Objects.equals(deltaRuntimePropertiesKvpairs, that.deltaRuntimePropertiesKvpairs)
+        && Objects.equals(effectiveAutoMaintenanceFlag, that.effectiveAutoMaintenanceFlag)
+        && Objects.equals(enableAutoMaintenance, that.enableAutoMaintenance)
+        && Objects.equals(fullName, that.fullName)
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(properties, that.properties)
+        && Objects.equals(rowFilter, that.rowFilter)
+        && Objects.equals(schemaName, that.schemaName)
+        && Objects.equals(sqlPath, that.sqlPath)
+        && Objects.equals(storageCredentialName, that.storageCredentialName)
+        && Objects.equals(storageLocation, that.storageLocation)
+        && Objects.equals(tableConstraints, that.tableConstraints)
+        && Objects.equals(tableId, that.tableId)
+        && Objects.equals(tableType, that.tableType)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy)
+        && Objects.equals(viewDefinition, that.viewDefinition)
+        && Objects.equals(viewDependencies, that.viewDependencies);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        catalogName,
+        columns,
+        comment,
+        createdAt,
+        createdBy,
+        dataAccessConfigurationId,
+        dataSourceFormat,
+        deletedAt,
+        deltaRuntimePropertiesKvpairs,
+        effectiveAutoMaintenanceFlag,
+        enableAutoMaintenance,
+        fullName,
+        metastoreId,
+        name,
+        owner,
+        properties,
+        rowFilter,
+        schemaName,
+        sqlPath,
+        storageCredentialName,
+        storageLocation,
+        tableConstraints,
+        tableId,
+        tableType,
+        updatedAt,
+        updatedBy,
+        viewDefinition,
+        viewDependencies);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TableInfo.class)
+        .add("catalogName", catalogName)
+        .add("columns", columns)
+        .add("comment", comment)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("dataAccessConfigurationId", dataAccessConfigurationId)
+        .add("dataSourceFormat", dataSourceFormat)
+        .add("deletedAt", deletedAt)
+        .add("deltaRuntimePropertiesKvpairs", deltaRuntimePropertiesKvpairs)
+        .add("effectiveAutoMaintenanceFlag", effectiveAutoMaintenanceFlag)
+        .add("enableAutoMaintenance", enableAutoMaintenance)
+        .add("fullName", fullName)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .add("owner", owner)
+        .add("properties", properties)
+        .add("rowFilter", rowFilter)
+        .add("schemaName", schemaName)
+        .add("sqlPath", sqlPath)
+        .add("storageCredentialName", storageCredentialName)
+        .add("storageLocation", storageLocation)
+        .add("tableConstraints", tableConstraints)
+        .add("tableId", tableId)
+        .add("tableType", tableType)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
+        .add("viewDefinition", viewDefinition)
+        .add("viewDependencies", viewDependencies)
+        .toString();
   }
 }

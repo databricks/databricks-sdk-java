@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Export and retrieve a job run */
 public class ExportRun {
@@ -30,5 +32,26 @@ public class ExportRun {
 
   public ViewsToExport getViewsToExport() {
     return viewsToExport;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ExportRun that = (ExportRun) o;
+    return Objects.equals(runId, that.runId) && Objects.equals(viewsToExport, that.viewsToExport);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(runId, viewsToExport);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ExportRun.class)
+        .add("runId", runId)
+        .add("viewsToExport", viewsToExport)
+        .toString();
   }
 }

@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List table summaries */
 public class ListSummariesRequest {
@@ -74,5 +76,33 @@ public class ListSummariesRequest {
 
   public String getTableNamePattern() {
     return tableNamePattern;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListSummariesRequest that = (ListSummariesRequest) o;
+    return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(schemaNamePattern, that.schemaNamePattern)
+        && Objects.equals(tableNamePattern, that.tableNamePattern);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(catalogName, maxResults, pageToken, schemaNamePattern, tableNamePattern);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListSummariesRequest.class)
+        .add("catalogName", catalogName)
+        .add("maxResults", maxResults)
+        .add("pageToken", pageToken)
+        .add("schemaNamePattern", schemaNamePattern)
+        .add("tableNamePattern", tableNamePattern)
+        .toString();
   }
 }

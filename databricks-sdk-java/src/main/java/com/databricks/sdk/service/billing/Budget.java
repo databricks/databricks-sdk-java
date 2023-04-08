@@ -2,13 +2,16 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 /** Budget configuration to be created. */
 public class Budget {
   /** */
   @JsonProperty("alerts")
-  private java.util.List<BudgetAlert> alerts;
+  private Collection<BudgetAlert> alerts;
 
   /** Optional end date of the budget. */
   @JsonProperty("end_date")
@@ -52,12 +55,12 @@ public class Budget {
   @JsonProperty("target_amount")
   private String targetAmount;
 
-  public Budget setAlerts(java.util.List<BudgetAlert> alerts) {
+  public Budget setAlerts(Collection<BudgetAlert> alerts) {
     this.alerts = alerts;
     return this;
   }
 
-  public java.util.List<BudgetAlert> getAlerts() {
+  public Collection<BudgetAlert> getAlerts() {
     return alerts;
   }
 
@@ -113,5 +116,37 @@ public class Budget {
 
   public String getTargetAmount() {
     return targetAmount;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Budget that = (Budget) o;
+    return Objects.equals(alerts, that.alerts)
+        && Objects.equals(endDate, that.endDate)
+        && Objects.equals(filter, that.filter)
+        && Objects.equals(name, that.name)
+        && Objects.equals(period, that.period)
+        && Objects.equals(startDate, that.startDate)
+        && Objects.equals(targetAmount, that.targetAmount);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(alerts, endDate, filter, name, period, startDate, targetAmount);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Budget.class)
+        .add("alerts", alerts)
+        .add("endDate", endDate)
+        .add("filter", filter)
+        .add("name", name)
+        .add("period", period)
+        .add("startDate", startDate)
+        .add("targetAmount", targetAmount)
+        .toString();
   }
 }

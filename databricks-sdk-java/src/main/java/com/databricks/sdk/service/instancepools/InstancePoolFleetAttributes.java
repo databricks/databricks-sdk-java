@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class InstancePoolFleetAttributes {
   /** */
@@ -15,7 +18,7 @@ public class InstancePoolFleetAttributes {
 
   /** */
   @JsonProperty("launch_template_overrides")
-  private java.util.List<FleetLaunchTemplateOverride> launchTemplateOverrides;
+  private Collection<FleetLaunchTemplateOverride> launchTemplateOverrides;
 
   public InstancePoolFleetAttributes setFleetOnDemandOption(
       FleetOnDemandOption fleetOnDemandOption) {
@@ -37,12 +40,36 @@ public class InstancePoolFleetAttributes {
   }
 
   public InstancePoolFleetAttributes setLaunchTemplateOverrides(
-      java.util.List<FleetLaunchTemplateOverride> launchTemplateOverrides) {
+      Collection<FleetLaunchTemplateOverride> launchTemplateOverrides) {
     this.launchTemplateOverrides = launchTemplateOverrides;
     return this;
   }
 
-  public java.util.List<FleetLaunchTemplateOverride> getLaunchTemplateOverrides() {
+  public Collection<FleetLaunchTemplateOverride> getLaunchTemplateOverrides() {
     return launchTemplateOverrides;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    InstancePoolFleetAttributes that = (InstancePoolFleetAttributes) o;
+    return Objects.equals(fleetOnDemandOption, that.fleetOnDemandOption)
+        && Objects.equals(fleetSpotOption, that.fleetSpotOption)
+        && Objects.equals(launchTemplateOverrides, that.launchTemplateOverrides);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fleetOnDemandOption, fleetSpotOption, launchTemplateOverrides);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(InstancePoolFleetAttributes.class)
+        .add("fleetOnDemandOption", fleetOnDemandOption)
+        .add("fleetSpotOption", fleetSpotOption)
+        .add("launchTemplateOverrides", launchTemplateOverrides)
+        .toString();
   }
 }

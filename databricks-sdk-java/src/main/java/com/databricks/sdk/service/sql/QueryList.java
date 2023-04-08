@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class QueryList {
   /** The total number of queries. */
@@ -19,7 +22,7 @@ public class QueryList {
 
   /** List of queries returned. */
   @JsonProperty("results")
-  private java.util.List<Query> results;
+  private Collection<Query> results;
 
   public QueryList setCount(Long count) {
     this.count = count;
@@ -48,12 +51,38 @@ public class QueryList {
     return pageSize;
   }
 
-  public QueryList setResults(java.util.List<Query> results) {
+  public QueryList setResults(Collection<Query> results) {
     this.results = results;
     return this;
   }
 
-  public java.util.List<Query> getResults() {
+  public Collection<Query> getResults() {
     return results;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    QueryList that = (QueryList) o;
+    return Objects.equals(count, that.count)
+        && Objects.equals(page, that.page)
+        && Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(results, that.results);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(count, page, pageSize, results);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(QueryList.class)
+        .add("count", count)
+        .add("page", page)
+        .add("pageSize", pageSize)
+        .add("results", results)
+        .toString();
   }
 }

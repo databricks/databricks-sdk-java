@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class GetPipelineResponse {
   /** An optional message detailing the cause of the pipeline state. */
@@ -27,7 +30,7 @@ public class GetPipelineResponse {
 
   /** Status of the latest updates for the pipeline. Ordered with the newest update first. */
   @JsonProperty("latest_updates")
-  private java.util.List<UpdateStateInfo> latestUpdates;
+  private Collection<UpdateStateInfo> latestUpdates;
 
   /** A human friendly identifier for the pipeline, taken from the `spec`. */
   @JsonProperty("name")
@@ -94,12 +97,12 @@ public class GetPipelineResponse {
     return lastModified;
   }
 
-  public GetPipelineResponse setLatestUpdates(java.util.List<UpdateStateInfo> latestUpdates) {
+  public GetPipelineResponse setLatestUpdates(Collection<UpdateStateInfo> latestUpdates) {
     this.latestUpdates = latestUpdates;
     return this;
   }
 
-  public java.util.List<UpdateStateInfo> getLatestUpdates() {
+  public Collection<UpdateStateInfo> getLatestUpdates() {
     return latestUpdates;
   }
 
@@ -146,5 +149,56 @@ public class GetPipelineResponse {
 
   public PipelineState getState() {
     return state;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetPipelineResponse that = (GetPipelineResponse) o;
+    return Objects.equals(cause, that.cause)
+        && Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(health, that.health)
+        && Objects.equals(lastModified, that.lastModified)
+        && Objects.equals(latestUpdates, that.latestUpdates)
+        && Objects.equals(name, that.name)
+        && Objects.equals(pipelineId, that.pipelineId)
+        && Objects.equals(runAsUserName, that.runAsUserName)
+        && Objects.equals(spec, that.spec)
+        && Objects.equals(state, that.state);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        cause,
+        clusterId,
+        creatorUserName,
+        health,
+        lastModified,
+        latestUpdates,
+        name,
+        pipelineId,
+        runAsUserName,
+        spec,
+        state);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetPipelineResponse.class)
+        .add("cause", cause)
+        .add("clusterId", clusterId)
+        .add("creatorUserName", creatorUserName)
+        .add("health", health)
+        .add("lastModified", lastModified)
+        .add("latestUpdates", latestUpdates)
+        .add("name", name)
+        .add("pipelineId", pipelineId)
+        .add("runAsUserName", runAsUserName)
+        .add("spec", spec)
+        .add("state", state)
+        .toString();
   }
 }

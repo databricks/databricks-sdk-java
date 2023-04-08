@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ColumnMask {
   /** The full name of the column maks SQL UDF. */
@@ -15,7 +18,7 @@ public class ColumnMask {
    * of the rest of the args should match the types of columns in 'using_column_names'.
    */
   @JsonProperty("using_column_names")
-  private java.util.List<String> usingColumnNames;
+  private Collection<String> usingColumnNames;
 
   public ColumnMask setFunctionName(String functionName) {
     this.functionName = functionName;
@@ -26,12 +29,34 @@ public class ColumnMask {
     return functionName;
   }
 
-  public ColumnMask setUsingColumnNames(java.util.List<String> usingColumnNames) {
+  public ColumnMask setUsingColumnNames(Collection<String> usingColumnNames) {
     this.usingColumnNames = usingColumnNames;
     return this;
   }
 
-  public java.util.List<String> getUsingColumnNames() {
+  public Collection<String> getUsingColumnNames() {
     return usingColumnNames;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ColumnMask that = (ColumnMask) o;
+    return Objects.equals(functionName, that.functionName)
+        && Objects.equals(usingColumnNames, that.usingColumnNames);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(functionName, usingColumnNames);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ColumnMask.class)
+        .add("functionName", functionName)
+        .add("usingColumnNames", usingColumnNames)
+        .toString();
   }
 }

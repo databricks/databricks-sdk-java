@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.gitcredentials;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CredentialInfo {
   /** ID of the credential object in the workspace. */
@@ -46,5 +48,29 @@ public class CredentialInfo {
 
   public String getGitUsername() {
     return gitUsername;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CredentialInfo that = (CredentialInfo) o;
+    return Objects.equals(credentialId, that.credentialId)
+        && Objects.equals(gitProvider, that.gitProvider)
+        && Objects.equals(gitUsername, that.gitUsername);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(credentialId, gitProvider, gitUsername);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CredentialInfo.class)
+        .add("credentialId", credentialId)
+        .add("gitProvider", gitProvider)
+        .add("gitUsername", gitUsername)
+        .toString();
   }
 }

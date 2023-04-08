@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class UpsertPrivateAccessSettingsRequest {
   /**
@@ -20,7 +23,7 @@ public class UpsertPrivateAccessSettingsRequest {
    * <p>[IP access lists]: https://docs.databricks.com/security/network/ip-access-list.html
    */
   @JsonProperty("allowed_vpc_endpoint_ids")
-  private java.util.List<String> allowedVpcEndpointIds;
+  private Collection<String> allowedVpcEndpointIds;
 
   /**
    * The private access level controls which VPC endpoints can connect to the UI or API of any
@@ -59,12 +62,12 @@ public class UpsertPrivateAccessSettingsRequest {
   private String region;
 
   public UpsertPrivateAccessSettingsRequest setAllowedVpcEndpointIds(
-      java.util.List<String> allowedVpcEndpointIds) {
+      Collection<String> allowedVpcEndpointIds) {
     this.allowedVpcEndpointIds = allowedVpcEndpointIds;
     return this;
   }
 
-  public java.util.List<String> getAllowedVpcEndpointIds() {
+  public Collection<String> getAllowedVpcEndpointIds() {
     return allowedVpcEndpointIds;
   }
 
@@ -114,5 +117,41 @@ public class UpsertPrivateAccessSettingsRequest {
 
   public String getRegion() {
     return region;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpsertPrivateAccessSettingsRequest that = (UpsertPrivateAccessSettingsRequest) o;
+    return Objects.equals(allowedVpcEndpointIds, that.allowedVpcEndpointIds)
+        && Objects.equals(privateAccessLevel, that.privateAccessLevel)
+        && Objects.equals(privateAccessSettingsId, that.privateAccessSettingsId)
+        && Objects.equals(privateAccessSettingsName, that.privateAccessSettingsName)
+        && Objects.equals(publicAccessEnabled, that.publicAccessEnabled)
+        && Objects.equals(region, that.region);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        allowedVpcEndpointIds,
+        privateAccessLevel,
+        privateAccessSettingsId,
+        privateAccessSettingsName,
+        publicAccessEnabled,
+        region);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpsertPrivateAccessSettingsRequest.class)
+        .add("allowedVpcEndpointIds", allowedVpcEndpointIds)
+        .add("privateAccessLevel", privateAccessLevel)
+        .add("privateAccessSettingsId", privateAccessSettingsId)
+        .add("privateAccessSettingsName", privateAccessSettingsName)
+        .add("publicAccessEnabled", publicAccessEnabled)
+        .add("region", region)
+        .toString();
   }
 }

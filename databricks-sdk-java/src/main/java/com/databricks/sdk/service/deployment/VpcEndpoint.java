@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class VpcEndpoint {
   /** The Databricks account ID that hosts the VPC endpoint configuration. */
@@ -150,5 +152,50 @@ public class VpcEndpoint {
 
   public String getVpcEndpointName() {
     return vpcEndpointName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    VpcEndpoint that = (VpcEndpoint) o;
+    return Objects.equals(accountId, that.accountId)
+        && Objects.equals(awsAccountId, that.awsAccountId)
+        && Objects.equals(awsEndpointServiceId, that.awsEndpointServiceId)
+        && Objects.equals(awsVpcEndpointId, that.awsVpcEndpointId)
+        && Objects.equals(region, that.region)
+        && Objects.equals(state, that.state)
+        && Objects.equals(useCase, that.useCase)
+        && Objects.equals(vpcEndpointId, that.vpcEndpointId)
+        && Objects.equals(vpcEndpointName, that.vpcEndpointName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        accountId,
+        awsAccountId,
+        awsEndpointServiceId,
+        awsVpcEndpointId,
+        region,
+        state,
+        useCase,
+        vpcEndpointId,
+        vpcEndpointName);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(VpcEndpoint.class)
+        .add("accountId", accountId)
+        .add("awsAccountId", awsAccountId)
+        .add("awsEndpointServiceId", awsEndpointServiceId)
+        .add("awsVpcEndpointId", awsVpcEndpointId)
+        .add("region", region)
+        .add("state", state)
+        .add("useCase", useCase)
+        .add("vpcEndpointId", vpcEndpointId)
+        .add("vpcEndpointName", vpcEndpointName)
+        .toString();
   }
 }

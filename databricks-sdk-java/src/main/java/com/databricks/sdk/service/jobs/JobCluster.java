@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class JobCluster {
   /**
@@ -33,5 +35,27 @@ public class JobCluster {
 
   public Object /* MISSING TYPE */ getNewCluster() {
     return newCluster;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    JobCluster that = (JobCluster) o;
+    return Objects.equals(jobClusterKey, that.jobClusterKey)
+        && Objects.equals(newCluster, that.newCluster);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(jobClusterKey, newCluster);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(JobCluster.class)
+        .add("jobClusterKey", jobClusterKey)
+        .add("newCluster", newCluster)
+        .toString();
   }
 }

@@ -218,7 +218,7 @@ public class StatementExecutionAPI {
     return impl.getStatement(request);
   }
 
-  public ResultData getStatementResultChunkN(String statementId, int chunkIndex) {
+  public ResultData getStatementResultChunkN(String statementId, Long chunkIndex) {
     return getStatementResultChunkN(
         new GetStatementResultChunkNRequest()
             .setStatementId(statementId)

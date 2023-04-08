@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ListUpdatesResponse {
   /**
@@ -18,7 +21,7 @@ public class ListUpdatesResponse {
 
   /** */
   @JsonProperty("updates")
-  private java.util.List<UpdateInfo> updates;
+  private Collection<UpdateInfo> updates;
 
   public ListUpdatesResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
@@ -38,12 +41,36 @@ public class ListUpdatesResponse {
     return prevPageToken;
   }
 
-  public ListUpdatesResponse setUpdates(java.util.List<UpdateInfo> updates) {
+  public ListUpdatesResponse setUpdates(Collection<UpdateInfo> updates) {
     this.updates = updates;
     return this;
   }
 
-  public java.util.List<UpdateInfo> getUpdates() {
+  public Collection<UpdateInfo> getUpdates() {
     return updates;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListUpdatesResponse that = (ListUpdatesResponse) o;
+    return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(prevPageToken, that.prevPageToken)
+        && Objects.equals(updates, that.updates);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nextPageToken, prevPageToken, updates);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListUpdatesResponse.class)
+        .add("nextPageToken", nextPageToken)
+        .add("prevPageToken", prevPageToken)
+        .add("updates", updates)
+        .toString();
   }
 }

@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class LogDeliveryConfiguration {
   /** The Databricks account ID that hosts the log delivery configuration. */
@@ -124,7 +127,7 @@ public class LogDeliveryConfiguration {
    * unnecessary.
    */
   @JsonProperty("workspace_ids_filter")
-  private java.util.List<Long> workspaceIdsFilter;
+  private Collection<Long> workspaceIdsFilter;
 
   public LogDeliveryConfiguration setAccountId(String accountId) {
     this.accountId = accountId;
@@ -243,12 +246,72 @@ public class LogDeliveryConfiguration {
     return updateTime;
   }
 
-  public LogDeliveryConfiguration setWorkspaceIdsFilter(java.util.List<Long> workspaceIdsFilter) {
+  public LogDeliveryConfiguration setWorkspaceIdsFilter(Collection<Long> workspaceIdsFilter) {
     this.workspaceIdsFilter = workspaceIdsFilter;
     return this;
   }
 
-  public java.util.List<Long> getWorkspaceIdsFilter() {
+  public Collection<Long> getWorkspaceIdsFilter() {
     return workspaceIdsFilter;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    LogDeliveryConfiguration that = (LogDeliveryConfiguration) o;
+    return Objects.equals(accountId, that.accountId)
+        && Objects.equals(configId, that.configId)
+        && Objects.equals(configName, that.configName)
+        && Objects.equals(creationTime, that.creationTime)
+        && Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(deliveryPathPrefix, that.deliveryPathPrefix)
+        && Objects.equals(deliveryStartTime, that.deliveryStartTime)
+        && Objects.equals(logDeliveryStatus, that.logDeliveryStatus)
+        && Objects.equals(logType, that.logType)
+        && Objects.equals(outputFormat, that.outputFormat)
+        && Objects.equals(status, that.status)
+        && Objects.equals(storageConfigurationId, that.storageConfigurationId)
+        && Objects.equals(updateTime, that.updateTime)
+        && Objects.equals(workspaceIdsFilter, that.workspaceIdsFilter);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        accountId,
+        configId,
+        configName,
+        creationTime,
+        credentialsId,
+        deliveryPathPrefix,
+        deliveryStartTime,
+        logDeliveryStatus,
+        logType,
+        outputFormat,
+        status,
+        storageConfigurationId,
+        updateTime,
+        workspaceIdsFilter);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(LogDeliveryConfiguration.class)
+        .add("accountId", accountId)
+        .add("configId", configId)
+        .add("configName", configName)
+        .add("creationTime", creationTime)
+        .add("credentialsId", credentialsId)
+        .add("deliveryPathPrefix", deliveryPathPrefix)
+        .add("deliveryStartTime", deliveryStartTime)
+        .add("logDeliveryStatus", logDeliveryStatus)
+        .add("logType", logType)
+        .add("outputFormat", outputFormat)
+        .add("status", status)
+        .add("storageConfigurationId", storageConfigurationId)
+        .add("updateTime", updateTime)
+        .add("workspaceIdsFilter", workspaceIdsFilter)
+        .toString();
   }
 }

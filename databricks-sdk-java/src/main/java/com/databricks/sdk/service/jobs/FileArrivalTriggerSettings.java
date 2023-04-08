@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class FileArrivalTriggerSettings {
   /**
@@ -53,5 +55,29 @@ public class FileArrivalTriggerSettings {
 
   public Long getWaitAfterLastChangeSeconds() {
     return waitAfterLastChangeSeconds;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    FileArrivalTriggerSettings that = (FileArrivalTriggerSettings) o;
+    return Objects.equals(minTimeBetweenTriggerSeconds, that.minTimeBetweenTriggerSeconds)
+        && Objects.equals(url, that.url)
+        && Objects.equals(waitAfterLastChangeSeconds, that.waitAfterLastChangeSeconds);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(minTimeBetweenTriggerSeconds, url, waitAfterLastChangeSeconds);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(FileArrivalTriggerSettings.class)
+        .add("minTimeBetweenTriggerSeconds", minTimeBetweenTriggerSeconds)
+        .add("url", url)
+        .add("waitAfterLastChangeSeconds", waitAfterLastChangeSeconds)
+        .toString();
   }
 }

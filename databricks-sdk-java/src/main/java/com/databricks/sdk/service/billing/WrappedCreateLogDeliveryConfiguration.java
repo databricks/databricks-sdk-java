@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class WrappedCreateLogDeliveryConfiguration {
   /** */
@@ -17,5 +19,25 @@ public class WrappedCreateLogDeliveryConfiguration {
 
   public CreateLogDeliveryConfigurationParams getLogDeliveryConfiguration() {
     return logDeliveryConfiguration;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    WrappedCreateLogDeliveryConfiguration that = (WrappedCreateLogDeliveryConfiguration) o;
+    return Objects.equals(logDeliveryConfiguration, that.logDeliveryConfiguration);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(logDeliveryConfiguration);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(WrappedCreateLogDeliveryConfiguration.class)
+        .add("logDeliveryConfiguration", logDeliveryConfiguration)
+        .toString();
   }
 }

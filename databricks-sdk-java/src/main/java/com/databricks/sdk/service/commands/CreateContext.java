@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.commands;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateContext {
   /** Running cluster id */
@@ -29,5 +31,26 @@ public class CreateContext {
 
   public Language getLanguage() {
     return language;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateContext that = (CreateContext) o;
+    return Objects.equals(clusterId, that.clusterId) && Objects.equals(language, that.language);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId, language);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateContext.class)
+        .add("clusterId", clusterId)
+        .add("language", language)
+        .toString();
   }
 }

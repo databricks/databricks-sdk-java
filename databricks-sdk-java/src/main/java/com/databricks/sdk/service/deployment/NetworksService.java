@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * These APIs manage network configurations for customer-managed VPCs (optional). Its ID is used
@@ -44,5 +44,5 @@ public interface NetworksService {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */
-  List<Network> list();
+  Collection<Network> list();
 }

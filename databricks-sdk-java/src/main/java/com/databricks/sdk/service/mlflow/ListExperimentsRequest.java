@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List experiments */
 public class ListExperimentsRequest {
@@ -51,5 +53,29 @@ public class ListExperimentsRequest {
 
   public String getViewType() {
     return viewType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListExperimentsRequest that = (ListExperimentsRequest) o;
+    return Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(viewType, that.viewType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(maxResults, pageToken, viewType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListExperimentsRequest.class)
+        .add("maxResults", maxResults)
+        .add("pageToken", pageToken)
+        .add("viewType", viewType)
+        .toString();
   }
 }

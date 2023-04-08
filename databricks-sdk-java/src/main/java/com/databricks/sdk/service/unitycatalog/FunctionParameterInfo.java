@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class FunctionParameterInfo {
   /** User-provided free-form text description. */
@@ -159,5 +161,59 @@ public class FunctionParameterInfo {
 
   public String getTypeText() {
     return typeText;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    FunctionParameterInfo that = (FunctionParameterInfo) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(name, that.name)
+        && Objects.equals(parameterDefault, that.parameterDefault)
+        && Objects.equals(parameterMode, that.parameterMode)
+        && Objects.equals(parameterType, that.parameterType)
+        && Objects.equals(position, that.position)
+        && Objects.equals(typeIntervalType, that.typeIntervalType)
+        && Objects.equals(typeJson, that.typeJson)
+        && Objects.equals(typeName, that.typeName)
+        && Objects.equals(typePrecision, that.typePrecision)
+        && Objects.equals(typeScale, that.typeScale)
+        && Objects.equals(typeText, that.typeText);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        comment,
+        name,
+        parameterDefault,
+        parameterMode,
+        parameterType,
+        position,
+        typeIntervalType,
+        typeJson,
+        typeName,
+        typePrecision,
+        typeScale,
+        typeText);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(FunctionParameterInfo.class)
+        .add("comment", comment)
+        .add("name", name)
+        .add("parameterDefault", parameterDefault)
+        .add("parameterMode", parameterMode)
+        .add("parameterType", parameterType)
+        .add("position", position)
+        .add("typeIntervalType", typeIntervalType)
+        .add("typeJson", typeJson)
+        .add("typeName", typeName)
+        .add("typePrecision", typePrecision)
+        .add("typeScale", typeScale)
+        .add("typeText", typeText)
+        .toString();
   }
 }

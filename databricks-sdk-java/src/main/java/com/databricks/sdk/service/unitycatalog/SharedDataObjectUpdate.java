@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class SharedDataObjectUpdate {
   /** One of: **ADD**, **REMOVE**, **UPDATE**. */
@@ -29,5 +31,26 @@ public class SharedDataObjectUpdate {
 
   public SharedDataObject getDataObject() {
     return dataObject;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SharedDataObjectUpdate that = (SharedDataObjectUpdate) o;
+    return Objects.equals(action, that.action) && Objects.equals(dataObject, that.dataObject);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(action, dataObject);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SharedDataObjectUpdate.class)
+        .add("action", action)
+        .add("dataObject", dataObject)
+        .toString();
   }
 }

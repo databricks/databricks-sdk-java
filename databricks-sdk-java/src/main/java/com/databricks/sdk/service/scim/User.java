@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.scim;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class User {
   /** If this user is active */
@@ -15,11 +18,11 @@ public class User {
 
   /** All the emails associated with the Databricks user. */
   @JsonProperty("emails")
-  private java.util.List<ComplexValue> emails;
+  private Collection<ComplexValue> emails;
 
   /** */
   @JsonProperty("entitlements")
-  private java.util.List<ComplexValue> entitlements;
+  private Collection<ComplexValue> entitlements;
 
   /** */
   @JsonProperty("externalId")
@@ -27,7 +30,7 @@ public class User {
 
   /** */
   @JsonProperty("groups")
-  private java.util.List<ComplexValue> groups;
+  private Collection<ComplexValue> groups;
 
   /** Databricks user ID. */
   @JsonProperty("id")
@@ -39,7 +42,7 @@ public class User {
 
   /** */
   @JsonProperty("roles")
-  private java.util.List<ComplexValue> roles;
+  private Collection<ComplexValue> roles;
 
   /** Email address of the Databricks user. */
   @JsonProperty("userName")
@@ -63,21 +66,21 @@ public class User {
     return displayName;
   }
 
-  public User setEmails(java.util.List<ComplexValue> emails) {
+  public User setEmails(Collection<ComplexValue> emails) {
     this.emails = emails;
     return this;
   }
 
-  public java.util.List<ComplexValue> getEmails() {
+  public Collection<ComplexValue> getEmails() {
     return emails;
   }
 
-  public User setEntitlements(java.util.List<ComplexValue> entitlements) {
+  public User setEntitlements(Collection<ComplexValue> entitlements) {
     this.entitlements = entitlements;
     return this;
   }
 
-  public java.util.List<ComplexValue> getEntitlements() {
+  public Collection<ComplexValue> getEntitlements() {
     return entitlements;
   }
 
@@ -90,12 +93,12 @@ public class User {
     return externalId;
   }
 
-  public User setGroups(java.util.List<ComplexValue> groups) {
+  public User setGroups(Collection<ComplexValue> groups) {
     this.groups = groups;
     return this;
   }
 
-  public java.util.List<ComplexValue> getGroups() {
+  public Collection<ComplexValue> getGroups() {
     return groups;
   }
 
@@ -117,12 +120,12 @@ public class User {
     return name;
   }
 
-  public User setRoles(java.util.List<ComplexValue> roles) {
+  public User setRoles(Collection<ComplexValue> roles) {
     this.roles = roles;
     return this;
   }
 
-  public java.util.List<ComplexValue> getRoles() {
+  public Collection<ComplexValue> getRoles() {
     return roles;
   }
 
@@ -133,5 +136,44 @@ public class User {
 
   public String getUserName() {
     return userName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    User that = (User) o;
+    return Objects.equals(active, that.active)
+        && Objects.equals(displayName, that.displayName)
+        && Objects.equals(emails, that.emails)
+        && Objects.equals(entitlements, that.entitlements)
+        && Objects.equals(externalId, that.externalId)
+        && Objects.equals(groups, that.groups)
+        && Objects.equals(id, that.id)
+        && Objects.equals(name, that.name)
+        && Objects.equals(roles, that.roles)
+        && Objects.equals(userName, that.userName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        active, displayName, emails, entitlements, externalId, groups, id, name, roles, userName);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(User.class)
+        .add("active", active)
+        .add("displayName", displayName)
+        .add("emails", emails)
+        .add("entitlements", entitlements)
+        .add("externalId", externalId)
+        .add("groups", groups)
+        .add("id", id)
+        .add("name", name)
+        .add("roles", roles)
+        .add("userName", userName)
+        .toString();
   }
 }

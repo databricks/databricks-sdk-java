@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class TableRowFilter {
   /**
@@ -10,18 +13,18 @@ public class TableRowFilter {
    * should match the types of the filter function arguments.
    */
   @JsonProperty("input_column_names")
-  private java.util.List<String> inputColumnNames;
+  private Collection<String> inputColumnNames;
 
   /** The full name of the row filter SQL UDF. */
   @JsonProperty("name")
   private String name;
 
-  public TableRowFilter setInputColumnNames(java.util.List<String> inputColumnNames) {
+  public TableRowFilter setInputColumnNames(Collection<String> inputColumnNames) {
     this.inputColumnNames = inputColumnNames;
     return this;
   }
 
-  public java.util.List<String> getInputColumnNames() {
+  public Collection<String> getInputColumnNames() {
     return inputColumnNames;
   }
 
@@ -32,5 +35,27 @@ public class TableRowFilter {
 
   public String getName() {
     return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TableRowFilter that = (TableRowFilter) o;
+    return Objects.equals(inputColumnNames, that.inputColumnNames)
+        && Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(inputColumnNames, name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TableRowFilter.class)
+        .add("inputColumnNames", inputColumnNames)
+        .add("name", name)
+        .toString();
   }
 }

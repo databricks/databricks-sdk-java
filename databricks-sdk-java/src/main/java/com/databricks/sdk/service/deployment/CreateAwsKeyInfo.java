@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateAwsKeyInfo {
   /** The AWS KMS key alias. */
@@ -49,5 +51,29 @@ public class CreateAwsKeyInfo {
 
   public Boolean getReuseKeyForClusterVolumes() {
     return reuseKeyForClusterVolumes;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateAwsKeyInfo that = (CreateAwsKeyInfo) o;
+    return Objects.equals(keyAlias, that.keyAlias)
+        && Objects.equals(keyArn, that.keyArn)
+        && Objects.equals(reuseKeyForClusterVolumes, that.reuseKeyForClusterVolumes);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(keyAlias, keyArn, reuseKeyForClusterVolumes);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateAwsKeyInfo.class)
+        .add("keyAlias", keyAlias)
+        .add("keyArn", keyArn)
+        .add("reuseKeyForClusterVolumes", reuseKeyForClusterVolumes)
+        .toString();
   }
 }

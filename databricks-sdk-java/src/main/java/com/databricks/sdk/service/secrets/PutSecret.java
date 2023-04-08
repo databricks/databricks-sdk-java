@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.secrets;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PutSecret {
   /** If specified, value will be stored as bytes. */
@@ -55,5 +57,31 @@ public class PutSecret {
 
   public String getStringValue() {
     return stringValue;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PutSecret that = (PutSecret) o;
+    return Objects.equals(bytesValue, that.bytesValue)
+        && Objects.equals(key, that.key)
+        && Objects.equals(scope, that.scope)
+        && Objects.equals(stringValue, that.stringValue);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(bytesValue, key, scope, stringValue);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PutSecret.class)
+        .add("bytesValue", bytesValue)
+        .add("key", key)
+        .add("scope", scope)
+        .add("stringValue", stringValue)
+        .toString();
   }
 }

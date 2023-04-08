@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PipelineTask {
   /** If true, a full refresh will be triggered on the delta live table. */
@@ -29,5 +31,27 @@ public class PipelineTask {
 
   public String getPipelineId() {
     return pipelineId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PipelineTask that = (PipelineTask) o;
+    return Objects.equals(fullRefresh, that.fullRefresh)
+        && Objects.equals(pipelineId, that.pipelineId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fullRefresh, pipelineId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PipelineTask.class)
+        .add("fullRefresh", fullRefresh)
+        .add("pipelineId", pipelineId)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class EditWarehouseRequest {
   /**
@@ -229,5 +231,65 @@ public class EditWarehouseRequest {
 
   public WarehouseType getWarehouseType() {
     return warehouseType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EditWarehouseRequest that = (EditWarehouseRequest) o;
+    return Objects.equals(autoStopMins, that.autoStopMins)
+        && Objects.equals(channel, that.channel)
+        && Objects.equals(clusterSize, that.clusterSize)
+        && Objects.equals(creatorName, that.creatorName)
+        && Objects.equals(enablePhoton, that.enablePhoton)
+        && Objects.equals(enableServerlessCompute, that.enableServerlessCompute)
+        && Objects.equals(id, that.id)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(maxNumClusters, that.maxNumClusters)
+        && Objects.equals(minNumClusters, that.minNumClusters)
+        && Objects.equals(name, that.name)
+        && Objects.equals(spotInstancePolicy, that.spotInstancePolicy)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(warehouseType, that.warehouseType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        autoStopMins,
+        channel,
+        clusterSize,
+        creatorName,
+        enablePhoton,
+        enableServerlessCompute,
+        id,
+        instanceProfileArn,
+        maxNumClusters,
+        minNumClusters,
+        name,
+        spotInstancePolicy,
+        tags,
+        warehouseType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EditWarehouseRequest.class)
+        .add("autoStopMins", autoStopMins)
+        .add("channel", channel)
+        .add("clusterSize", clusterSize)
+        .add("creatorName", creatorName)
+        .add("enablePhoton", enablePhoton)
+        .add("enableServerlessCompute", enableServerlessCompute)
+        .add("id", id)
+        .add("instanceProfileArn", instanceProfileArn)
+        .add("maxNumClusters", maxNumClusters)
+        .add("minNumClusters", minNumClusters)
+        .add("name", name)
+        .add("spotInstancePolicy", spotInstancePolicy)
+        .add("tags", tags)
+        .add("warehouseType", warehouseType)
+        .toString();
   }
 }

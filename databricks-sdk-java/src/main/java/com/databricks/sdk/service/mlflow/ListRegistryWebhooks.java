@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ListRegistryWebhooks {
   /** Token that can be used to retrieve the next page of artifact results */
@@ -11,7 +14,7 @@ public class ListRegistryWebhooks {
 
   /** Array of registry webhooks. */
   @JsonProperty("webhooks")
-  private java.util.List<RegistryWebhook> webhooks;
+  private Collection<RegistryWebhook> webhooks;
 
   public ListRegistryWebhooks setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
@@ -22,12 +25,34 @@ public class ListRegistryWebhooks {
     return nextPageToken;
   }
 
-  public ListRegistryWebhooks setWebhooks(java.util.List<RegistryWebhook> webhooks) {
+  public ListRegistryWebhooks setWebhooks(Collection<RegistryWebhook> webhooks) {
     this.webhooks = webhooks;
     return this;
   }
 
-  public java.util.List<RegistryWebhook> getWebhooks() {
+  public Collection<RegistryWebhook> getWebhooks() {
     return webhooks;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListRegistryWebhooks that = (ListRegistryWebhooks) o;
+    return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(webhooks, that.webhooks);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nextPageToken, webhooks);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListRegistryWebhooks.class)
+        .add("nextPageToken", nextPageToken)
+        .add("webhooks", webhooks)
+        .toString();
   }
 }

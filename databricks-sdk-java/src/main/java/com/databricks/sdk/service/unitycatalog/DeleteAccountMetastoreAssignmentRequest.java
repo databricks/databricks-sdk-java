@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Delete a metastore assignment */
 public class DeleteAccountMetastoreAssignmentRequest {
   /** Databricks Unity Catalog metastore ID */
@@ -26,5 +29,27 @@ public class DeleteAccountMetastoreAssignmentRequest {
 
   public Long getWorkspaceId() {
     return workspaceId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteAccountMetastoreAssignmentRequest that = (DeleteAccountMetastoreAssignmentRequest) o;
+    return Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(workspaceId, that.workspaceId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(metastoreId, workspaceId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteAccountMetastoreAssignmentRequest.class)
+        .add("metastoreId", metastoreId)
+        .add("workspaceId", workspaceId)
+        .toString();
   }
 }

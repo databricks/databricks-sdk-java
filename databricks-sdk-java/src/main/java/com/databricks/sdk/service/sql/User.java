@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class User {
   /** */
@@ -68,5 +70,33 @@ public class User {
 
   public String getProfileImageUrl() {
     return profileImageUrl;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    User that = (User) o;
+    return Objects.equals(email, that.email)
+        && Objects.equals(id, that.id)
+        && Objects.equals(isDbAdmin, that.isDbAdmin)
+        && Objects.equals(name, that.name)
+        && Objects.equals(profileImageUrl, that.profileImageUrl);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(email, id, isDbAdmin, name, profileImageUrl);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(User.class)
+        .add("email", email)
+        .add("id", id)
+        .add("isDbAdmin", isDbAdmin)
+        .add("name", name)
+        .add("profileImageUrl", profileImageUrl)
+        .toString();
   }
 }

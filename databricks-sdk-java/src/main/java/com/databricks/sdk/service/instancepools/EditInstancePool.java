@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class EditInstancePool {
   /**
@@ -90,7 +93,7 @@ public class EditInstancePool {
 
   /** Custom Docker Image BYOC */
   @JsonProperty("preloaded_docker_images")
-  private java.util.List<DockerImage> preloadedDockerImages;
+  private Collection<DockerImage> preloadedDockerImages;
 
   /**
    * A list of preloaded Spark image versions for the pool. Pool-backed clusters started with the
@@ -98,7 +101,7 @@ public class EditInstancePool {
    * by using the :method:clusters/sparkVersions API call.
    */
   @JsonProperty("preloaded_spark_versions")
-  private java.util.List<String> preloadedSparkVersions;
+  private Collection<String> preloadedSparkVersions;
 
   public EditInstancePool setAwsAttributes(InstancePoolAwsAttributes awsAttributes) {
     this.awsAttributes = awsAttributes;
@@ -210,22 +213,82 @@ public class EditInstancePool {
     return nodeTypeId;
   }
 
-  public EditInstancePool setPreloadedDockerImages(
-      java.util.List<DockerImage> preloadedDockerImages) {
+  public EditInstancePool setPreloadedDockerImages(Collection<DockerImage> preloadedDockerImages) {
     this.preloadedDockerImages = preloadedDockerImages;
     return this;
   }
 
-  public java.util.List<DockerImage> getPreloadedDockerImages() {
+  public Collection<DockerImage> getPreloadedDockerImages() {
     return preloadedDockerImages;
   }
 
-  public EditInstancePool setPreloadedSparkVersions(java.util.List<String> preloadedSparkVersions) {
+  public EditInstancePool setPreloadedSparkVersions(Collection<String> preloadedSparkVersions) {
     this.preloadedSparkVersions = preloadedSparkVersions;
     return this;
   }
 
-  public java.util.List<String> getPreloadedSparkVersions() {
+  public Collection<String> getPreloadedSparkVersions() {
     return preloadedSparkVersions;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EditInstancePool that = (EditInstancePool) o;
+    return Objects.equals(awsAttributes, that.awsAttributes)
+        && Objects.equals(azureAttributes, that.azureAttributes)
+        && Objects.equals(customTags, that.customTags)
+        && Objects.equals(diskSpec, that.diskSpec)
+        && Objects.equals(enableElasticDisk, that.enableElasticDisk)
+        && Objects.equals(
+            idleInstanceAutoterminationMinutes, that.idleInstanceAutoterminationMinutes)
+        && Objects.equals(instancePoolFleetAttributes, that.instancePoolFleetAttributes)
+        && Objects.equals(instancePoolId, that.instancePoolId)
+        && Objects.equals(instancePoolName, that.instancePoolName)
+        && Objects.equals(maxCapacity, that.maxCapacity)
+        && Objects.equals(minIdleInstances, that.minIdleInstances)
+        && Objects.equals(nodeTypeId, that.nodeTypeId)
+        && Objects.equals(preloadedDockerImages, that.preloadedDockerImages)
+        && Objects.equals(preloadedSparkVersions, that.preloadedSparkVersions);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        awsAttributes,
+        azureAttributes,
+        customTags,
+        diskSpec,
+        enableElasticDisk,
+        idleInstanceAutoterminationMinutes,
+        instancePoolFleetAttributes,
+        instancePoolId,
+        instancePoolName,
+        maxCapacity,
+        minIdleInstances,
+        nodeTypeId,
+        preloadedDockerImages,
+        preloadedSparkVersions);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EditInstancePool.class)
+        .add("awsAttributes", awsAttributes)
+        .add("azureAttributes", azureAttributes)
+        .add("customTags", customTags)
+        .add("diskSpec", diskSpec)
+        .add("enableElasticDisk", enableElasticDisk)
+        .add("idleInstanceAutoterminationMinutes", idleInstanceAutoterminationMinutes)
+        .add("instancePoolFleetAttributes", instancePoolFleetAttributes)
+        .add("instancePoolId", instancePoolId)
+        .add("instancePoolName", instancePoolName)
+        .add("maxCapacity", maxCapacity)
+        .add("minIdleInstances", minIdleInstances)
+        .add("nodeTypeId", nodeTypeId)
+        .add("preloadedDockerImages", preloadedDockerImages)
+        .add("preloadedSparkVersions", preloadedSparkVersions)
+        .toString();
   }
 }

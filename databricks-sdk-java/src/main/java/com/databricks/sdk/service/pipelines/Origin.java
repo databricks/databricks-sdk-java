@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Origin {
   /** The id of a batch. Unique within a flow. */
@@ -227,5 +229,74 @@ public class Origin {
 
   public String getUpdateId() {
     return updateId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Origin that = (Origin) o;
+    return Objects.equals(batchId, that.batchId)
+        && Objects.equals(cloud, that.cloud)
+        && Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(datasetName, that.datasetName)
+        && Objects.equals(flowId, that.flowId)
+        && Objects.equals(flowName, that.flowName)
+        && Objects.equals(host, that.host)
+        && Objects.equals(maintenanceId, that.maintenanceId)
+        && Objects.equals(materializationName, that.materializationName)
+        && Objects.equals(orgId, that.orgId)
+        && Objects.equals(pipelineId, that.pipelineId)
+        && Objects.equals(pipelineName, that.pipelineName)
+        && Objects.equals(region, that.region)
+        && Objects.equals(requestId, that.requestId)
+        && Objects.equals(tableId, that.tableId)
+        && Objects.equals(ucResourceId, that.ucResourceId)
+        && Objects.equals(updateId, that.updateId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        batchId,
+        cloud,
+        clusterId,
+        datasetName,
+        flowId,
+        flowName,
+        host,
+        maintenanceId,
+        materializationName,
+        orgId,
+        pipelineId,
+        pipelineName,
+        region,
+        requestId,
+        tableId,
+        ucResourceId,
+        updateId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Origin.class)
+        .add("batchId", batchId)
+        .add("cloud", cloud)
+        .add("clusterId", clusterId)
+        .add("datasetName", datasetName)
+        .add("flowId", flowId)
+        .add("flowName", flowName)
+        .add("host", host)
+        .add("maintenanceId", maintenanceId)
+        .add("materializationName", materializationName)
+        .add("orgId", orgId)
+        .add("pipelineId", pipelineId)
+        .add("pipelineName", pipelineName)
+        .add("region", region)
+        .add("requestId", requestId)
+        .add("tableId", tableId)
+        .add("ucResourceId", ucResourceId)
+        .add("updateId", updateId)
+        .toString();
   }
 }

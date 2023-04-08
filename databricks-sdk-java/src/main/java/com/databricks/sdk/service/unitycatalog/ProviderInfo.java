@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ProviderInfo {
   /** The delta sharing authentication type. */
@@ -198,5 +200,65 @@ public class ProviderInfo {
 
   public String getUpdatedBy() {
     return updatedBy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ProviderInfo that = (ProviderInfo) o;
+    return Objects.equals(authenticationType, that.authenticationType)
+        && Objects.equals(cloud, that.cloud)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(dataProviderGlobalMetastoreId, that.dataProviderGlobalMetastoreId)
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(recipientProfile, that.recipientProfile)
+        && Objects.equals(recipientProfileStr, that.recipientProfileStr)
+        && Objects.equals(region, that.region)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        authenticationType,
+        cloud,
+        comment,
+        createdAt,
+        createdBy,
+        dataProviderGlobalMetastoreId,
+        metastoreId,
+        name,
+        owner,
+        recipientProfile,
+        recipientProfileStr,
+        region,
+        updatedAt,
+        updatedBy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ProviderInfo.class)
+        .add("authenticationType", authenticationType)
+        .add("cloud", cloud)
+        .add("comment", comment)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("dataProviderGlobalMetastoreId", dataProviderGlobalMetastoreId)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .add("owner", owner)
+        .add("recipientProfile", recipientProfile)
+        .add("recipientProfileStr", recipientProfileStr)
+        .add("region", region)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
+        .toString();
   }
 }

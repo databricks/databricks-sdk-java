@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /** A JSON object representing a DBSQL data source / SQL warehouse. */
 public class DataSource {
@@ -127,5 +129,42 @@ public class DataSource {
 
   public String getWarehouseId() {
     return warehouseId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DataSource that = (DataSource) o;
+    return Objects.equals(id, that.id)
+        && Objects.equals(name, that.name)
+        && Objects.equals(pauseReason, that.pauseReason)
+        && Objects.equals(paused, that.paused)
+        && Objects.equals(supportsAutoLimit, that.supportsAutoLimit)
+        && Objects.equals(syntax, that.syntax)
+        && Objects.equals(typeValue, that.typeValue)
+        && Objects.equals(viewOnly, that.viewOnly)
+        && Objects.equals(warehouseId, that.warehouseId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        id, name, pauseReason, paused, supportsAutoLimit, syntax, typeValue, viewOnly, warehouseId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DataSource.class)
+        .add("id", id)
+        .add("name", name)
+        .add("pauseReason", pauseReason)
+        .add("paused", paused)
+        .add("supportsAutoLimit", supportsAutoLimit)
+        .add("syntax", syntax)
+        .add("typeValue", typeValue)
+        .add("viewOnly", viewOnly)
+        .add("warehouseId", warehouseId)
+        .toString();
   }
 }

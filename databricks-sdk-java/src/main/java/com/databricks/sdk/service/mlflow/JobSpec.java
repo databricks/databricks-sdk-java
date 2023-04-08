@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class JobSpec {
   /** The personal access token used to authorize webhook's job runs. */
@@ -45,5 +47,29 @@ public class JobSpec {
 
   public String getWorkspaceUrl() {
     return workspaceUrl;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    JobSpec that = (JobSpec) o;
+    return Objects.equals(accessToken, that.accessToken)
+        && Objects.equals(jobId, that.jobId)
+        && Objects.equals(workspaceUrl, that.workspaceUrl);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accessToken, jobId, workspaceUrl);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(JobSpec.class)
+        .add("accessToken", accessToken)
+        .add("jobId", jobId)
+        .add("workspaceUrl", workspaceUrl)
+        .toString();
   }
 }

@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.clusters;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get cluster info */
 public class Get {
@@ -17,5 +19,23 @@ public class Get {
 
   public String getClusterId() {
     return clusterId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Get that = (Get) o;
+    return Objects.equals(clusterId, that.clusterId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Get.class).add("clusterId", clusterId).toString();
   }
 }

@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Get storage configuration */
 public class GetStorageRequest {
   /** Databricks Account API storage configuration ID. */
@@ -14,5 +17,25 @@ public class GetStorageRequest {
 
   public String getStorageConfigurationId() {
     return storageConfigurationId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetStorageRequest that = (GetStorageRequest) o;
+    return Objects.equals(storageConfigurationId, that.storageConfigurationId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(storageConfigurationId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetStorageRequest.class)
+        .add("storageConfigurationId", storageConfigurationId)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.scim;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Patch {
   /** Type of patch operation. */
@@ -42,5 +44,29 @@ public class Patch {
 
   public String getValue() {
     return value;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Patch that = (Patch) o;
+    return Objects.equals(op, that.op)
+        && Objects.equals(path, that.path)
+        && Objects.equals(value, that.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(op, path, value);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Patch.class)
+        .add("op", op)
+        .add("path", path)
+        .add("value", value)
+        .toString();
   }
 }

@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.secrets;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get secret ACL details */
 public class GetAcl {
@@ -30,5 +32,23 @@ public class GetAcl {
 
   public String getScope() {
     return scope;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetAcl that = (GetAcl) o;
+    return Objects.equals(principal, that.principal) && Objects.equals(scope, that.scope);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(principal, scope);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetAcl.class).add("principal", principal).add("scope", scope).toString();
   }
 }

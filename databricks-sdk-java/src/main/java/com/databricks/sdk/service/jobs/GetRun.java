@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get a single job run */
 public class GetRun {
@@ -32,5 +34,26 @@ public class GetRun {
 
   public Long getRunId() {
     return runId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetRun that = (GetRun) o;
+    return Objects.equals(includeHistory, that.includeHistory) && Objects.equals(runId, that.runId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(includeHistory, runId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetRun.class)
+        .add("includeHistory", includeHistory)
+        .add("runId", runId)
+        .toString();
   }
 }

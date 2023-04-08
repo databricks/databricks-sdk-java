@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of DataSources */
@@ -14,8 +14,8 @@ class DataSourcesImpl implements DataSourcesService {
   }
 
   @Override
-  public List<DataSource> list() {
+  public Collection<DataSource> list() {
     String path = "/api/2.0/preview/sql/data_sources";
-    return apiClient.GET(path, List.class);
+    return apiClient.GET(path, Collection.class);
   }
 }

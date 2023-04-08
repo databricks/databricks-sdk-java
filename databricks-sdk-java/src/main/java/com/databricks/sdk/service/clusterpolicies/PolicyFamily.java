@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusterpolicies;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PolicyFamily {
   /** Policy definition document expressed in Databricks Cluster Policy Definition Language. */
@@ -55,5 +57,31 @@ public class PolicyFamily {
 
   public String getPolicyFamilyId() {
     return policyFamilyId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PolicyFamily that = (PolicyFamily) o;
+    return Objects.equals(definition, that.definition)
+        && Objects.equals(description, that.description)
+        && Objects.equals(name, that.name)
+        && Objects.equals(policyFamilyId, that.policyFamilyId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(definition, description, name, policyFamilyId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PolicyFamily.class)
+        .add("definition", definition)
+        .add("description", description)
+        .add("name", name)
+        .add("policyFamilyId", policyFamilyId)
+        .toString();
   }
 }

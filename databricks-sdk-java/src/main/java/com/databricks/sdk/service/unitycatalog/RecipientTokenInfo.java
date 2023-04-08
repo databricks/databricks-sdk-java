@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class RecipientTokenInfo {
   /**
@@ -97,5 +99,38 @@ public class RecipientTokenInfo {
 
   public String getUpdatedBy() {
     return updatedBy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RecipientTokenInfo that = (RecipientTokenInfo) o;
+    return Objects.equals(activationUrl, that.activationUrl)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(expirationTime, that.expirationTime)
+        && Objects.equals(id, that.id)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        activationUrl, createdAt, createdBy, expirationTime, id, updatedAt, updatedBy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RecipientTokenInfo.class)
+        .add("activationUrl", activationUrl)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("expirationTime", expirationTime)
+        .add("id", id)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
+        .toString();
   }
 }

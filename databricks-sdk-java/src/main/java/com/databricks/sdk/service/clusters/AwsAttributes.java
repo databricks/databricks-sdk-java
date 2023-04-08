@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class AwsAttributes {
   /**
@@ -196,5 +198,53 @@ public class AwsAttributes {
 
   public String getZoneId() {
     return zoneId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AwsAttributes that = (AwsAttributes) o;
+    return Objects.equals(availability, that.availability)
+        && Objects.equals(ebsVolumeCount, that.ebsVolumeCount)
+        && Objects.equals(ebsVolumeIops, that.ebsVolumeIops)
+        && Objects.equals(ebsVolumeSize, that.ebsVolumeSize)
+        && Objects.equals(ebsVolumeThroughput, that.ebsVolumeThroughput)
+        && Objects.equals(ebsVolumeType, that.ebsVolumeType)
+        && Objects.equals(firstOnDemand, that.firstOnDemand)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(spotBidPricePercent, that.spotBidPricePercent)
+        && Objects.equals(zoneId, that.zoneId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        availability,
+        ebsVolumeCount,
+        ebsVolumeIops,
+        ebsVolumeSize,
+        ebsVolumeThroughput,
+        ebsVolumeType,
+        firstOnDemand,
+        instanceProfileArn,
+        spotBidPricePercent,
+        zoneId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(AwsAttributes.class)
+        .add("availability", availability)
+        .add("ebsVolumeCount", ebsVolumeCount)
+        .add("ebsVolumeIops", ebsVolumeIops)
+        .add("ebsVolumeSize", ebsVolumeSize)
+        .add("ebsVolumeThroughput", ebsVolumeThroughput)
+        .add("ebsVolumeType", ebsVolumeType)
+        .add("firstOnDemand", firstOnDemand)
+        .add("instanceProfileArn", instanceProfileArn)
+        .add("spotBidPricePercent", spotBidPricePercent)
+        .add("zoneId", zoneId)
+        .toString();
   }
 }

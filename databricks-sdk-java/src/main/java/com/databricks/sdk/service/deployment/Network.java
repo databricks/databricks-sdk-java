@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class Network {
   /** The Databricks account ID associated with this network configuration. */
@@ -15,7 +18,7 @@ public class Network {
 
   /** Array of error messages about the network configuration. */
   @JsonProperty("error_messages")
-  private java.util.List<NetworkHealth> errorMessages;
+  private Collection<NetworkHealth> errorMessages;
 
   /**
    * The Google Cloud specific information for this network (for example, the VPC ID, subnet ID, and
@@ -34,11 +37,11 @@ public class Network {
 
   /** */
   @JsonProperty("security_group_ids")
-  private java.util.List<String> securityGroupIds;
+  private Collection<String> securityGroupIds;
 
   /** */
   @JsonProperty("subnet_ids")
-  private java.util.List<String> subnetIds;
+  private Collection<String> subnetIds;
 
   /**
    * If specified, contains the VPC endpoints used to allow cluster communication from this VPC over
@@ -62,7 +65,7 @@ public class Network {
 
   /** Array of warning messages about the network configuration. */
   @JsonProperty("warning_messages")
-  private java.util.List<NetworkWarning> warningMessages;
+  private Collection<NetworkWarning> warningMessages;
 
   /** Workspace ID associated with this network configuration. */
   @JsonProperty("workspace_id")
@@ -86,12 +89,12 @@ public class Network {
     return creationTime;
   }
 
-  public Network setErrorMessages(java.util.List<NetworkHealth> errorMessages) {
+  public Network setErrorMessages(Collection<NetworkHealth> errorMessages) {
     this.errorMessages = errorMessages;
     return this;
   }
 
-  public java.util.List<NetworkHealth> getErrorMessages() {
+  public Collection<NetworkHealth> getErrorMessages() {
     return errorMessages;
   }
 
@@ -122,21 +125,21 @@ public class Network {
     return networkName;
   }
 
-  public Network setSecurityGroupIds(java.util.List<String> securityGroupIds) {
+  public Network setSecurityGroupIds(Collection<String> securityGroupIds) {
     this.securityGroupIds = securityGroupIds;
     return this;
   }
 
-  public java.util.List<String> getSecurityGroupIds() {
+  public Collection<String> getSecurityGroupIds() {
     return securityGroupIds;
   }
 
-  public Network setSubnetIds(java.util.List<String> subnetIds) {
+  public Network setSubnetIds(Collection<String> subnetIds) {
     this.subnetIds = subnetIds;
     return this;
   }
 
-  public java.util.List<String> getSubnetIds() {
+  public Collection<String> getSubnetIds() {
     return subnetIds;
   }
 
@@ -167,12 +170,12 @@ public class Network {
     return vpcStatus;
   }
 
-  public Network setWarningMessages(java.util.List<NetworkWarning> warningMessages) {
+  public Network setWarningMessages(Collection<NetworkWarning> warningMessages) {
     this.warningMessages = warningMessages;
     return this;
   }
 
-  public java.util.List<NetworkWarning> getWarningMessages() {
+  public Collection<NetworkWarning> getWarningMessages() {
     return warningMessages;
   }
 
@@ -183,5 +186,62 @@ public class Network {
 
   public Long getWorkspaceId() {
     return workspaceId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Network that = (Network) o;
+    return Objects.equals(accountId, that.accountId)
+        && Objects.equals(creationTime, that.creationTime)
+        && Objects.equals(errorMessages, that.errorMessages)
+        && Objects.equals(gcpNetworkInfo, that.gcpNetworkInfo)
+        && Objects.equals(networkId, that.networkId)
+        && Objects.equals(networkName, that.networkName)
+        && Objects.equals(securityGroupIds, that.securityGroupIds)
+        && Objects.equals(subnetIds, that.subnetIds)
+        && Objects.equals(vpcEndpoints, that.vpcEndpoints)
+        && Objects.equals(vpcId, that.vpcId)
+        && Objects.equals(vpcStatus, that.vpcStatus)
+        && Objects.equals(warningMessages, that.warningMessages)
+        && Objects.equals(workspaceId, that.workspaceId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        accountId,
+        creationTime,
+        errorMessages,
+        gcpNetworkInfo,
+        networkId,
+        networkName,
+        securityGroupIds,
+        subnetIds,
+        vpcEndpoints,
+        vpcId,
+        vpcStatus,
+        warningMessages,
+        workspaceId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Network.class)
+        .add("accountId", accountId)
+        .add("creationTime", creationTime)
+        .add("errorMessages", errorMessages)
+        .add("gcpNetworkInfo", gcpNetworkInfo)
+        .add("networkId", networkId)
+        .add("networkName", networkName)
+        .add("securityGroupIds", securityGroupIds)
+        .add("subnetIds", subnetIds)
+        .add("vpcEndpoints", vpcEndpoints)
+        .add("vpcId", vpcId)
+        .add("vpcStatus", vpcStatus)
+        .add("warningMessages", warningMessages)
+        .add("workspaceId", workspaceId)
+        .toString();
   }
 }

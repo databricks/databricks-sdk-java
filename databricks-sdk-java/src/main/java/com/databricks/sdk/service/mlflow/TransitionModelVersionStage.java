@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class TransitionModelVersionStage {
   /**
@@ -60,5 +62,31 @@ public class TransitionModelVersionStage {
 
   public String getVersion() {
     return version;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TransitionModelVersionStage that = (TransitionModelVersionStage) o;
+    return Objects.equals(archiveExistingVersions, that.archiveExistingVersions)
+        && Objects.equals(name, that.name)
+        && Objects.equals(stage, that.stage)
+        && Objects.equals(version, that.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(archiveExistingVersions, name, stage, version);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TransitionModelVersionStage.class)
+        .add("archiveExistingVersions", archiveExistingVersions)
+        .add("name", name)
+        .add("stage", stage)
+        .add("version", version)
+        .toString();
   }
 }

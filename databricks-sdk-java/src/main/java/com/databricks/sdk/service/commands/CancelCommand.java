@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.commands;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CancelCommand {
   /** */
@@ -42,5 +44,29 @@ public class CancelCommand {
 
   public String getContextId() {
     return contextId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CancelCommand that = (CancelCommand) o;
+    return Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(commandId, that.commandId)
+        && Objects.equals(contextId, that.contextId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId, commandId, contextId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CancelCommand.class)
+        .add("clusterId", clusterId)
+        .add("commandId", commandId)
+        .add("contextId", contextId)
+        .toString();
   }
 }

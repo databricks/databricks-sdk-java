@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Import {
   /**
@@ -82,5 +84,33 @@ public class Import {
 
   public String getPath() {
     return path;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Import that = (Import) o;
+    return Objects.equals(content, that.content)
+        && Objects.equals(format, that.format)
+        && Objects.equals(language, that.language)
+        && Objects.equals(overwrite, that.overwrite)
+        && Objects.equals(path, that.path);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(content, format, language, overwrite, path);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Import.class)
+        .add("content", content)
+        .add("format", format)
+        .add("language", language)
+        .add("overwrite", overwrite)
+        .add("path", path)
+        .toString();
   }
 }

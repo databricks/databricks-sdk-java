@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class TriggerHistory {
   /** The last time the trigger failed to evaluate. */
@@ -42,5 +44,29 @@ public class TriggerHistory {
 
   public TriggerEvaluation getLastTriggered() {
     return lastTriggered;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TriggerHistory that = (TriggerHistory) o;
+    return Objects.equals(lastFailed, that.lastFailed)
+        && Objects.equals(lastNotTriggered, that.lastNotTriggered)
+        && Objects.equals(lastTriggered, that.lastTriggered);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(lastFailed, lastNotTriggered, lastTriggered);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TriggerHistory.class)
+        .add("lastFailed", lastFailed)
+        .add("lastNotTriggered", lastNotTriggered)
+        .add("lastTriggered", lastTriggered)
+        .toString();
   }
 }

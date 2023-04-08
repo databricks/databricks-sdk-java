@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SharedDataObject {
   /** The time when this data object is added to the share, in epoch milliseconds. */
@@ -36,7 +39,7 @@ public class SharedDataObject {
 
   /** Array of partitions for the shared data. */
   @JsonProperty("partitions")
-  private java.util.List<Partition> partitions;
+  private Collection<Partition> partitions;
 
   /**
    * A user-provided new name for the data object within the share. If this new
@@ -116,12 +119,12 @@ public class SharedDataObject {
     return name;
   }
 
-  public SharedDataObject setPartitions(java.util.List<Partition> partitions) {
+  public SharedDataObject setPartitions(Collection<Partition> partitions) {
     this.partitions = partitions;
     return this;
   }
 
-  public java.util.List<Partition> getPartitions() {
+  public Collection<Partition> getPartitions() {
     return partitions;
   }
 
@@ -150,5 +153,53 @@ public class SharedDataObject {
 
   public SharedDataObjectStatus getStatus() {
     return status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SharedDataObject that = (SharedDataObject) o;
+    return Objects.equals(addedAt, that.addedAt)
+        && Objects.equals(addedBy, that.addedBy)
+        && Objects.equals(cdfEnabled, that.cdfEnabled)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(dataObjectType, that.dataObjectType)
+        && Objects.equals(name, that.name)
+        && Objects.equals(partitions, that.partitions)
+        && Objects.equals(sharedAs, that.sharedAs)
+        && Objects.equals(startVersion, that.startVersion)
+        && Objects.equals(status, that.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        addedAt,
+        addedBy,
+        cdfEnabled,
+        comment,
+        dataObjectType,
+        name,
+        partitions,
+        sharedAs,
+        startVersion,
+        status);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SharedDataObject.class)
+        .add("addedAt", addedAt)
+        .add("addedBy", addedBy)
+        .add("cdfEnabled", cdfEnabled)
+        .add("comment", comment)
+        .add("dataObjectType", dataObjectType)
+        .add("name", name)
+        .add("partitions", partitions)
+        .add("sharedAs", sharedAs)
+        .add("startVersion", startVersion)
+        .add("status", status)
+        .toString();
   }
 }

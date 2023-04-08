@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SearchExperiments {
   /** String representing a SQL filter condition (e.g. "name ILIKE 'my-experiment%'") */
@@ -19,7 +22,7 @@ public class SearchExperiments {
    * are done by experiment id DESC.
    */
   @JsonProperty("order_by")
-  private java.util.List<String> orderBy;
+  private Collection<String> orderBy;
 
   /** Token indicating the page of experiments to fetch */
   @JsonProperty("page_token")
@@ -50,12 +53,12 @@ public class SearchExperiments {
     return maxResults;
   }
 
-  public SearchExperiments setOrderBy(java.util.List<String> orderBy) {
+  public SearchExperiments setOrderBy(Collection<String> orderBy) {
     this.orderBy = orderBy;
     return this;
   }
 
-  public java.util.List<String> getOrderBy() {
+  public Collection<String> getOrderBy() {
     return orderBy;
   }
 
@@ -75,5 +78,33 @@ public class SearchExperiments {
 
   public SearchExperimentsViewType getViewType() {
     return viewType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SearchExperiments that = (SearchExperiments) o;
+    return Objects.equals(filter, that.filter)
+        && Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(orderBy, that.orderBy)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(viewType, that.viewType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(filter, maxResults, orderBy, pageToken, viewType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SearchExperiments.class)
+        .add("filter", filter)
+        .add("maxResults", maxResults)
+        .add("orderBy", orderBy)
+        .add("pageToken", pageToken)
+        .add("viewType", viewType)
+        .toString();
   }
 }

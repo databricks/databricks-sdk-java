@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class NodeType {
   /** */
@@ -270,5 +272,83 @@ public class NodeType {
 
   public Boolean getSupportPortForwarding() {
     return supportPortForwarding;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NodeType that = (NodeType) o;
+    return Objects.equals(category, that.category)
+        && Objects.equals(description, that.description)
+        && Objects.equals(displayOrder, that.displayOrder)
+        && Objects.equals(instanceTypeId, that.instanceTypeId)
+        && Objects.equals(isDeprecated, that.isDeprecated)
+        && Objects.equals(isEncryptedInTransit, that.isEncryptedInTransit)
+        && Objects.equals(isGraviton, that.isGraviton)
+        && Objects.equals(isHidden, that.isHidden)
+        && Objects.equals(isIoCacheEnabled, that.isIoCacheEnabled)
+        && Objects.equals(memoryMb, that.memoryMb)
+        && Objects.equals(nodeInfo, that.nodeInfo)
+        && Objects.equals(nodeInstanceType, that.nodeInstanceType)
+        && Objects.equals(nodeTypeId, that.nodeTypeId)
+        && Objects.equals(numCores, that.numCores)
+        && Objects.equals(numGpus, that.numGpus)
+        && Objects.equals(photonDriverCapable, that.photonDriverCapable)
+        && Objects.equals(photonWorkerCapable, that.photonWorkerCapable)
+        && Objects.equals(supportClusterTags, that.supportClusterTags)
+        && Objects.equals(supportEbsVolumes, that.supportEbsVolumes)
+        && Objects.equals(supportPortForwarding, that.supportPortForwarding);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        category,
+        description,
+        displayOrder,
+        instanceTypeId,
+        isDeprecated,
+        isEncryptedInTransit,
+        isGraviton,
+        isHidden,
+        isIoCacheEnabled,
+        memoryMb,
+        nodeInfo,
+        nodeInstanceType,
+        nodeTypeId,
+        numCores,
+        numGpus,
+        photonDriverCapable,
+        photonWorkerCapable,
+        supportClusterTags,
+        supportEbsVolumes,
+        supportPortForwarding);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(NodeType.class)
+        .add("category", category)
+        .add("description", description)
+        .add("displayOrder", displayOrder)
+        .add("instanceTypeId", instanceTypeId)
+        .add("isDeprecated", isDeprecated)
+        .add("isEncryptedInTransit", isEncryptedInTransit)
+        .add("isGraviton", isGraviton)
+        .add("isHidden", isHidden)
+        .add("isIoCacheEnabled", isIoCacheEnabled)
+        .add("memoryMb", memoryMb)
+        .add("nodeInfo", nodeInfo)
+        .add("nodeInstanceType", nodeInstanceType)
+        .add("nodeTypeId", nodeTypeId)
+        .add("numCores", numCores)
+        .add("numGpus", numGpus)
+        .add("photonDriverCapable", photonDriverCapable)
+        .add("photonWorkerCapable", photonWorkerCapable)
+        .add("supportClusterTags", supportClusterTags)
+        .add("supportEbsVolumes", supportEbsVolumes)
+        .add("supportPortForwarding", supportPortForwarding)
+        .toString();
   }
 }

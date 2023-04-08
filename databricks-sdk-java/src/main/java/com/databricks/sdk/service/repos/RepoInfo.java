@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.repos;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class RepoInfo {
   /** Branch that the local version of the repo is checked out to. */
@@ -100,5 +102,37 @@ public class RepoInfo {
 
   public String getUrl() {
     return url;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RepoInfo that = (RepoInfo) o;
+    return Objects.equals(branch, that.branch)
+        && Objects.equals(headCommitId, that.headCommitId)
+        && Objects.equals(id, that.id)
+        && Objects.equals(path, that.path)
+        && Objects.equals(provider, that.provider)
+        && Objects.equals(sparseCheckout, that.sparseCheckout)
+        && Objects.equals(url, that.url);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(branch, headCommitId, id, path, provider, sparseCheckout, url);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RepoInfo.class)
+        .add("branch", branch)
+        .add("headCommitId", headCommitId)
+        .add("id", id)
+        .add("path", path)
+        .add("provider", provider)
+        .add("sparseCheckout", sparseCheckout)
+        .add("url", url)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.endpoints;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class EndpointState {
   /**
@@ -38,5 +40,26 @@ public class EndpointState {
 
   public EndpointStateReady getReady() {
     return ready;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EndpointState that = (EndpointState) o;
+    return Objects.equals(configUpdate, that.configUpdate) && Objects.equals(ready, that.ready);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(configUpdate, ready);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EndpointState.class)
+        .add("configUpdate", configUpdate)
+        .add("ready", ready)
+        .toString();
   }
 }

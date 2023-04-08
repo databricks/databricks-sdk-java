@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of EncryptionKeys */
@@ -36,8 +36,8 @@ class EncryptionKeysImpl implements EncryptionKeysService {
   }
 
   @Override
-  public List<CustomerManagedKey> list() {
+  public Collection<CustomerManagedKey> list() {
     String path = String.format("/api/2.0/accounts//customer-managed-keys");
-    return apiClient.GET(path, List.class);
+    return apiClient.GET(path, Collection.class);
   }
 }

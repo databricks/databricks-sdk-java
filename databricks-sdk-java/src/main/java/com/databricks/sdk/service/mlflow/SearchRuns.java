@@ -2,12 +2,15 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SearchRuns {
   /** List of experiment IDs to search over. */
   @JsonProperty("experiment_ids")
-  private java.util.List<String> experimentIds;
+  private Collection<String> experimentIds;
 
   /**
    * A filter expression over params, metrics, and tags, that allows returning a subset of runs. The
@@ -36,7 +39,7 @@ public class SearchRuns {
    * not provided).
    */
   @JsonProperty("order_by")
-  private java.util.List<String> orderBy;
+  private Collection<String> orderBy;
 
   /** Token for the current page of runs. */
   @JsonProperty("page_token")
@@ -46,12 +49,12 @@ public class SearchRuns {
   @JsonProperty("run_view_type")
   private SearchRunsRunViewType runViewType;
 
-  public SearchRuns setExperimentIds(java.util.List<String> experimentIds) {
+  public SearchRuns setExperimentIds(Collection<String> experimentIds) {
     this.experimentIds = experimentIds;
     return this;
   }
 
-  public java.util.List<String> getExperimentIds() {
+  public Collection<String> getExperimentIds() {
     return experimentIds;
   }
 
@@ -73,12 +76,12 @@ public class SearchRuns {
     return maxResults;
   }
 
-  public SearchRuns setOrderBy(java.util.List<String> orderBy) {
+  public SearchRuns setOrderBy(Collection<String> orderBy) {
     this.orderBy = orderBy;
     return this;
   }
 
-  public java.util.List<String> getOrderBy() {
+  public Collection<String> getOrderBy() {
     return orderBy;
   }
 
@@ -98,5 +101,35 @@ public class SearchRuns {
 
   public SearchRunsRunViewType getRunViewType() {
     return runViewType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SearchRuns that = (SearchRuns) o;
+    return Objects.equals(experimentIds, that.experimentIds)
+        && Objects.equals(filter, that.filter)
+        && Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(orderBy, that.orderBy)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(runViewType, that.runViewType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(experimentIds, filter, maxResults, orderBy, pageToken, runViewType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SearchRuns.class)
+        .add("experimentIds", experimentIds)
+        .add("filter", filter)
+        .add("maxResults", maxResults)
+        .add("orderBy", orderBy)
+        .add("pageToken", pageToken)
+        .add("runViewType", runViewType)
+        .toString();
   }
 }

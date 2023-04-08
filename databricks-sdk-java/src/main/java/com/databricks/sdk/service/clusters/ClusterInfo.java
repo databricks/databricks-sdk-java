@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class ClusterInfo {
   /**
@@ -157,7 +160,7 @@ public class ClusterInfo {
 
   /** Nodes on which the Spark executors reside. */
   @JsonProperty("executors")
-  private java.util.List<SparkNode> executors;
+  private Collection<SparkNode> executors;
 
   /**
    * Attributes related to clusters running on Google Cloud Platform. If not specified at cluster
@@ -267,7 +270,7 @@ public class ClusterInfo {
    * to 10 keys can be specified.
    */
   @JsonProperty("ssh_public_keys")
-  private java.util.List<String> sshPublicKeys;
+  private Collection<String> sshPublicKeys;
 
   /**
    * Time (in epoch milliseconds) when the cluster creation request was received (when the cluster
@@ -482,12 +485,12 @@ public class ClusterInfo {
     return enableLocalDiskEncryption;
   }
 
-  public ClusterInfo setExecutors(java.util.List<SparkNode> executors) {
+  public ClusterInfo setExecutors(Collection<SparkNode> executors) {
     this.executors = executors;
     return this;
   }
 
-  public java.util.List<SparkNode> getExecutors() {
+  public Collection<SparkNode> getExecutors() {
     return executors;
   }
 
@@ -617,12 +620,12 @@ public class ClusterInfo {
     return sparkVersion;
   }
 
-  public ClusterInfo setSshPublicKeys(java.util.List<String> sshPublicKeys) {
+  public ClusterInfo setSshPublicKeys(Collection<String> sshPublicKeys) {
     this.sshPublicKeys = sshPublicKeys;
     return this;
   }
 
-  public java.util.List<String> getSshPublicKeys() {
+  public Collection<String> getSshPublicKeys() {
     return sshPublicKeys;
   }
 
@@ -678,5 +681,149 @@ public class ClusterInfo {
 
   public WorkloadType getWorkloadType() {
     return workloadType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ClusterInfo that = (ClusterInfo) o;
+    return Objects.equals(autoscale, that.autoscale)
+        && Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
+        && Objects.equals(awsAttributes, that.awsAttributes)
+        && Objects.equals(azureAttributes, that.azureAttributes)
+        && Objects.equals(clusterCores, that.clusterCores)
+        && Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(clusterLogConf, that.clusterLogConf)
+        && Objects.equals(clusterLogStatus, that.clusterLogStatus)
+        && Objects.equals(clusterMemoryMb, that.clusterMemoryMb)
+        && Objects.equals(clusterName, that.clusterName)
+        && Objects.equals(clusterSource, that.clusterSource)
+        && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(customTags, that.customTags)
+        && Objects.equals(dataSecurityMode, that.dataSecurityMode)
+        && Objects.equals(defaultTags, that.defaultTags)
+        && Objects.equals(driver, that.driver)
+        && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
+        && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
+        && Objects.equals(enableElasticDisk, that.enableElasticDisk)
+        && Objects.equals(enableLocalDiskEncryption, that.enableLocalDiskEncryption)
+        && Objects.equals(executors, that.executors)
+        && Objects.equals(gcpAttributes, that.gcpAttributes)
+        && Objects.equals(instancePoolId, that.instancePoolId)
+        && Objects.equals(jdbcPort, that.jdbcPort)
+        && Objects.equals(lastRestartedTime, that.lastRestartedTime)
+        && Objects.equals(lastStateLossTime, that.lastStateLossTime)
+        && Objects.equals(nodeTypeId, that.nodeTypeId)
+        && Objects.equals(numWorkers, that.numWorkers)
+        && Objects.equals(policyId, that.policyId)
+        && Objects.equals(runtimeEngine, that.runtimeEngine)
+        && Objects.equals(singleUserName, that.singleUserName)
+        && Objects.equals(sparkConf, that.sparkConf)
+        && Objects.equals(sparkContextId, that.sparkContextId)
+        && Objects.equals(sparkEnvVars, that.sparkEnvVars)
+        && Objects.equals(sparkVersion, that.sparkVersion)
+        && Objects.equals(sshPublicKeys, that.sshPublicKeys)
+        && Objects.equals(startTime, that.startTime)
+        && Objects.equals(state, that.state)
+        && Objects.equals(stateMessage, that.stateMessage)
+        && Objects.equals(terminatedTime, that.terminatedTime)
+        && Objects.equals(terminationReason, that.terminationReason)
+        && Objects.equals(workloadType, that.workloadType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        autoscale,
+        autoterminationMinutes,
+        awsAttributes,
+        azureAttributes,
+        clusterCores,
+        clusterId,
+        clusterLogConf,
+        clusterLogStatus,
+        clusterMemoryMb,
+        clusterName,
+        clusterSource,
+        creatorUserName,
+        customTags,
+        dataSecurityMode,
+        defaultTags,
+        driver,
+        driverInstancePoolId,
+        driverNodeTypeId,
+        enableElasticDisk,
+        enableLocalDiskEncryption,
+        executors,
+        gcpAttributes,
+        instancePoolId,
+        jdbcPort,
+        lastRestartedTime,
+        lastStateLossTime,
+        nodeTypeId,
+        numWorkers,
+        policyId,
+        runtimeEngine,
+        singleUserName,
+        sparkConf,
+        sparkContextId,
+        sparkEnvVars,
+        sparkVersion,
+        sshPublicKeys,
+        startTime,
+        state,
+        stateMessage,
+        terminatedTime,
+        terminationReason,
+        workloadType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ClusterInfo.class)
+        .add("autoscale", autoscale)
+        .add("autoterminationMinutes", autoterminationMinutes)
+        .add("awsAttributes", awsAttributes)
+        .add("azureAttributes", azureAttributes)
+        .add("clusterCores", clusterCores)
+        .add("clusterId", clusterId)
+        .add("clusterLogConf", clusterLogConf)
+        .add("clusterLogStatus", clusterLogStatus)
+        .add("clusterMemoryMb", clusterMemoryMb)
+        .add("clusterName", clusterName)
+        .add("clusterSource", clusterSource)
+        .add("creatorUserName", creatorUserName)
+        .add("customTags", customTags)
+        .add("dataSecurityMode", dataSecurityMode)
+        .add("defaultTags", defaultTags)
+        .add("driver", driver)
+        .add("driverInstancePoolId", driverInstancePoolId)
+        .add("driverNodeTypeId", driverNodeTypeId)
+        .add("enableElasticDisk", enableElasticDisk)
+        .add("enableLocalDiskEncryption", enableLocalDiskEncryption)
+        .add("executors", executors)
+        .add("gcpAttributes", gcpAttributes)
+        .add("instancePoolId", instancePoolId)
+        .add("jdbcPort", jdbcPort)
+        .add("lastRestartedTime", lastRestartedTime)
+        .add("lastStateLossTime", lastStateLossTime)
+        .add("nodeTypeId", nodeTypeId)
+        .add("numWorkers", numWorkers)
+        .add("policyId", policyId)
+        .add("runtimeEngine", runtimeEngine)
+        .add("singleUserName", singleUserName)
+        .add("sparkConf", sparkConf)
+        .add("sparkContextId", sparkContextId)
+        .add("sparkEnvVars", sparkEnvVars)
+        .add("sparkVersion", sparkVersion)
+        .add("sshPublicKeys", sshPublicKeys)
+        .add("startTime", startTime)
+        .add("state", state)
+        .add("stateMessage", stateMessage)
+        .add("terminatedTime", terminatedTime)
+        .add("terminationReason", terminationReason)
+        .add("workloadType", workloadType)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class SqlDashboardOutput {
   /** The canonical identifier of the SQL warehouse. */
@@ -29,5 +31,26 @@ public class SqlDashboardOutput {
 
   public SqlDashboardWidgetOutput getWidgets() {
     return widgets;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SqlDashboardOutput that = (SqlDashboardOutput) o;
+    return Objects.equals(warehouseId, that.warehouseId) && Objects.equals(widgets, that.widgets);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(warehouseId, widgets);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SqlDashboardOutput.class)
+        .add("warehouseId", warehouseId)
+        .add("widgets", widgets)
+        .toString();
   }
 }

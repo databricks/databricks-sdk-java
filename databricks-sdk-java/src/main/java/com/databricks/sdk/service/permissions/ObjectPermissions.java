@@ -2,12 +2,15 @@
 
 package com.databricks.sdk.service.permissions;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ObjectPermissions {
   /** */
   @JsonProperty("access_control_list")
-  private java.util.List<AccessControlResponse> accessControlList;
+  private Collection<AccessControlResponse> accessControlList;
 
   /** */
   @JsonProperty("object_id")
@@ -18,12 +21,12 @@ public class ObjectPermissions {
   private String objectType;
 
   public ObjectPermissions setAccessControlList(
-      java.util.List<AccessControlResponse> accessControlList) {
+      Collection<AccessControlResponse> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public java.util.List<AccessControlResponse> getAccessControlList() {
+  public Collection<AccessControlResponse> getAccessControlList() {
     return accessControlList;
   }
 
@@ -43,5 +46,29 @@ public class ObjectPermissions {
 
   public String getObjectType() {
     return objectType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ObjectPermissions that = (ObjectPermissions) o;
+    return Objects.equals(accessControlList, that.accessControlList)
+        && Objects.equals(objectId, that.objectId)
+        && Objects.equals(objectType, that.objectType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accessControlList, objectId, objectType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ObjectPermissions.class)
+        .add("accessControlList", accessControlList)
+        .add("objectId", objectId)
+        .add("objectType", objectType)
+        .toString();
   }
 }

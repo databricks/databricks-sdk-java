@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.scim;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List group details */
 public class ListGroupsRequest {
@@ -102,5 +104,38 @@ public class ListGroupsRequest {
 
   public Long getStartIndex() {
     return startIndex;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListGroupsRequest that = (ListGroupsRequest) o;
+    return Objects.equals(attributes, that.attributes)
+        && Objects.equals(count, that.count)
+        && Objects.equals(excludedAttributes, that.excludedAttributes)
+        && Objects.equals(filter, that.filter)
+        && Objects.equals(sortBy, that.sortBy)
+        && Objects.equals(sortOrder, that.sortOrder)
+        && Objects.equals(startIndex, that.startIndex);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        attributes, count, excludedAttributes, filter, sortBy, sortOrder, startIndex);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListGroupsRequest.class)
+        .add("attributes", attributes)
+        .add("count", count)
+        .add("excludedAttributes", excludedAttributes)
+        .add("filter", filter)
+        .add("sortBy", sortBy)
+        .add("sortOrder", sortOrder)
+        .add("startIndex", startIndex)
+        .toString();
   }
 }

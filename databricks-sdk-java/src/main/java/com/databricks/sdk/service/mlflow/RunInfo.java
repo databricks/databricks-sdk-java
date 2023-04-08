@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class RunInfo {
   /**
@@ -130,5 +132,50 @@ public class RunInfo {
 
   public String getUserId() {
     return userId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RunInfo that = (RunInfo) o;
+    return Objects.equals(artifactUri, that.artifactUri)
+        && Objects.equals(endTime, that.endTime)
+        && Objects.equals(experimentId, that.experimentId)
+        && Objects.equals(lifecycleStage, that.lifecycleStage)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(runUuid, that.runUuid)
+        && Objects.equals(startTime, that.startTime)
+        && Objects.equals(status, that.status)
+        && Objects.equals(userId, that.userId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        artifactUri,
+        endTime,
+        experimentId,
+        lifecycleStage,
+        runId,
+        runUuid,
+        startTime,
+        status,
+        userId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RunInfo.class)
+        .add("artifactUri", artifactUri)
+        .add("endTime", endTime)
+        .add("experimentId", experimentId)
+        .add("lifecycleStage", lifecycleStage)
+        .add("runId", runId)
+        .add("runUuid", runUuid)
+        .add("startTime", startTime)
+        .add("status", status)
+        .add("userId", userId)
+        .toString();
   }
 }

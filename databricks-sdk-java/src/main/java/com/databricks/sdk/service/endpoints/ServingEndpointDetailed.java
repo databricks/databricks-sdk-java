@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.endpoints;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ServingEndpointDetailed {
   /** The config that is currently being served by the endpoint. */
@@ -124,5 +126,50 @@ public class ServingEndpointDetailed {
 
   public EndpointState getState() {
     return state;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ServingEndpointDetailed that = (ServingEndpointDetailed) o;
+    return Objects.equals(config, that.config)
+        && Objects.equals(creationTimestamp, that.creationTimestamp)
+        && Objects.equals(creator, that.creator)
+        && Objects.equals(id, that.id)
+        && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
+        && Objects.equals(name, that.name)
+        && Objects.equals(pendingConfig, that.pendingConfig)
+        && Objects.equals(permissionLevel, that.permissionLevel)
+        && Objects.equals(state, that.state);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        config,
+        creationTimestamp,
+        creator,
+        id,
+        lastUpdatedTimestamp,
+        name,
+        pendingConfig,
+        permissionLevel,
+        state);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ServingEndpointDetailed.class)
+        .add("config", config)
+        .add("creationTimestamp", creationTimestamp)
+        .add("creator", creator)
+        .add("id", id)
+        .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
+        .add("name", name)
+        .add("pendingConfig", pendingConfig)
+        .add("permissionLevel", permissionLevel)
+        .add("state", state)
+        .toString();
   }
 }

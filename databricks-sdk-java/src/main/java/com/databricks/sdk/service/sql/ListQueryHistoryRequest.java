@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List Queries */
 public class ListQueryHistoryRequest {
@@ -56,5 +58,31 @@ public class ListQueryHistoryRequest {
 
   public String getPageToken() {
     return pageToken;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListQueryHistoryRequest that = (ListQueryHistoryRequest) o;
+    return Objects.equals(filterBy, that.filterBy)
+        && Objects.equals(includeMetrics, that.includeMetrics)
+        && Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(pageToken, that.pageToken);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(filterBy, includeMetrics, maxResults, pageToken);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListQueryHistoryRequest.class)
+        .add("filterBy", filterBy)
+        .add("includeMetrics", includeMetrics)
+        .add("maxResults", maxResults)
+        .add("pageToken", pageToken)
+        .toString();
   }
 }

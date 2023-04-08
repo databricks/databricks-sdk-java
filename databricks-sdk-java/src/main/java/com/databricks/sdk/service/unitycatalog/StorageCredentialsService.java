@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * A storage credential represents an authentication and authorization mechanism for accessing data
@@ -58,7 +58,7 @@ public interface StorageCredentialsService {
    * a metastore admin, all storage credentials will be retrieved. There is no guarantee of a
    * specific ordering of the elements in the array.
    */
-  List<StorageCredentialInfo> list();
+  Collection<StorageCredentialInfo> list();
 
   /**
    * Update a credential.

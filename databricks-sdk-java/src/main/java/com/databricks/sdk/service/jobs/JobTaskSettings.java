@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class JobTaskSettings {
   /**
@@ -19,7 +22,7 @@ public class JobTaskSettings {
    * consists of more than one task.
    */
   @JsonProperty("depends_on")
-  private java.util.List<TaskDependenciesItem> dependsOn;
+  private Collection<TaskDependenciesItem> dependsOn;
 
   /** An optional description for this task. The maximum length is 4096 bytes. */
   @JsonProperty("description")
@@ -52,7 +55,7 @@ public class JobTaskSettings {
    * default value is an empty list.
    */
   @JsonProperty("libraries")
-  private java.util.List<Object /* MISSING TYPE */> libraries;
+  private Collection<Object /* MISSING TYPE */> libraries;
 
   /**
    * An optional maximum number of times to retry an unsuccessful run. A run is considered to be
@@ -139,12 +142,12 @@ public class JobTaskSettings {
     return dbtTask;
   }
 
-  public JobTaskSettings setDependsOn(java.util.List<TaskDependenciesItem> dependsOn) {
+  public JobTaskSettings setDependsOn(Collection<TaskDependenciesItem> dependsOn) {
     this.dependsOn = dependsOn;
     return this;
   }
 
-  public java.util.List<TaskDependenciesItem> getDependsOn() {
+  public Collection<TaskDependenciesItem> getDependsOn() {
     return dependsOn;
   }
 
@@ -184,12 +187,12 @@ public class JobTaskSettings {
     return jobClusterKey;
   }
 
-  public JobTaskSettings setLibraries(java.util.List<Object /* MISSING TYPE */> libraries) {
+  public JobTaskSettings setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public java.util.List<Object /* MISSING TYPE */> getLibraries() {
+  public Collection<Object /* MISSING TYPE */> getLibraries() {
     return libraries;
   }
 
@@ -308,5 +311,83 @@ public class JobTaskSettings {
 
   public Long getTimeoutSeconds() {
     return timeoutSeconds;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    JobTaskSettings that = (JobTaskSettings) o;
+    return Objects.equals(dbtTask, that.dbtTask)
+        && Objects.equals(dependsOn, that.dependsOn)
+        && Objects.equals(description, that.description)
+        && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(jobClusterKey, that.jobClusterKey)
+        && Objects.equals(libraries, that.libraries)
+        && Objects.equals(maxRetries, that.maxRetries)
+        && Objects.equals(minRetryIntervalMillis, that.minRetryIntervalMillis)
+        && Objects.equals(newCluster, that.newCluster)
+        && Objects.equals(notebookTask, that.notebookTask)
+        && Objects.equals(pipelineTask, that.pipelineTask)
+        && Objects.equals(pythonWheelTask, that.pythonWheelTask)
+        && Objects.equals(retryOnTimeout, that.retryOnTimeout)
+        && Objects.equals(sparkJarTask, that.sparkJarTask)
+        && Objects.equals(sparkPythonTask, that.sparkPythonTask)
+        && Objects.equals(sparkSubmitTask, that.sparkSubmitTask)
+        && Objects.equals(sqlTask, that.sqlTask)
+        && Objects.equals(taskKey, that.taskKey)
+        && Objects.equals(timeoutSeconds, that.timeoutSeconds);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        dbtTask,
+        dependsOn,
+        description,
+        emailNotifications,
+        existingClusterId,
+        jobClusterKey,
+        libraries,
+        maxRetries,
+        minRetryIntervalMillis,
+        newCluster,
+        notebookTask,
+        pipelineTask,
+        pythonWheelTask,
+        retryOnTimeout,
+        sparkJarTask,
+        sparkPythonTask,
+        sparkSubmitTask,
+        sqlTask,
+        taskKey,
+        timeoutSeconds);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(JobTaskSettings.class)
+        .add("dbtTask", dbtTask)
+        .add("dependsOn", dependsOn)
+        .add("description", description)
+        .add("emailNotifications", emailNotifications)
+        .add("existingClusterId", existingClusterId)
+        .add("jobClusterKey", jobClusterKey)
+        .add("libraries", libraries)
+        .add("maxRetries", maxRetries)
+        .add("minRetryIntervalMillis", minRetryIntervalMillis)
+        .add("newCluster", newCluster)
+        .add("notebookTask", notebookTask)
+        .add("pipelineTask", pipelineTask)
+        .add("pythonWheelTask", pythonWheelTask)
+        .add("retryOnTimeout", retryOnTimeout)
+        .add("sparkJarTask", sparkJarTask)
+        .add("sparkPythonTask", sparkPythonTask)
+        .add("sparkSubmitTask", sparkSubmitTask)
+        .add("sqlTask", sqlTask)
+        .add("taskKey", taskKey)
+        .add("timeoutSeconds", timeoutSeconds)
+        .toString();
   }
 }

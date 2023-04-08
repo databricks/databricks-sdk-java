@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ExecuteStatementResponse {
   /** The result manifest provides schema and metadata for the result set. */
@@ -62,5 +64,31 @@ public class ExecuteStatementResponse {
 
   public StatementStatus getStatus() {
     return status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ExecuteStatementResponse that = (ExecuteStatementResponse) o;
+    return Objects.equals(manifest, that.manifest)
+        && Objects.equals(result, that.result)
+        && Objects.equals(statementId, that.statementId)
+        && Objects.equals(status, that.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(manifest, result, statementId, status);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ExecuteStatementResponse.class)
+        .add("manifest", manifest)
+        .add("result", result)
+        .add("statementId", statementId)
+        .add("status", status)
+        .toString();
   }
 }

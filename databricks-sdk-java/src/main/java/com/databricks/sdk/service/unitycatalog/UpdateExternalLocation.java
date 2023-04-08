@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateExternalLocation {
   /** User-provided free-form text description. */
@@ -94,5 +96,37 @@ public class UpdateExternalLocation {
 
   public String getUrl() {
     return url;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateExternalLocation that = (UpdateExternalLocation) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(force, that.force)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(readOnly, that.readOnly)
+        && Objects.equals(url, that.url);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, credentialName, force, name, owner, readOnly, url);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateExternalLocation.class)
+        .add("comment", comment)
+        .add("credentialName", credentialName)
+        .add("force", force)
+        .add("name", name)
+        .add("owner", owner)
+        .add("readOnly", readOnly)
+        .add("url", url)
+        .toString();
   }
 }

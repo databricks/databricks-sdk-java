@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.clusterpolicies;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get a cluster policy */
 public class List {
@@ -36,5 +38,26 @@ public class List {
 
   public ListSortOrder getSortOrder() {
     return sortOrder;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    List that = (List) o;
+    return Objects.equals(sortColumn, that.sortColumn) && Objects.equals(sortOrder, that.sortOrder);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(sortColumn, sortOrder);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(List.class)
+        .add("sortColumn", sortColumn)
+        .add("sortOrder", sortOrder)
+        .toString();
   }
 }

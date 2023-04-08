@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class DbtTask {
   /**
@@ -18,7 +21,7 @@ public class DbtTask {
    * be empty. A maximum of up to 10 commands can be provided.
    */
   @JsonProperty("commands")
-  private java.util.List<String> commands;
+  private Collection<String> commands;
 
   /**
    * Optional (relative) path to the profiles directory. Can only be specified if no warehouse_id is
@@ -59,12 +62,12 @@ public class DbtTask {
     return catalog;
   }
 
-  public DbtTask setCommands(java.util.List<String> commands) {
+  public DbtTask setCommands(Collection<String> commands) {
     this.commands = commands;
     return this;
   }
 
-  public java.util.List<String> getCommands() {
+  public Collection<String> getCommands() {
     return commands;
   }
 
@@ -102,5 +105,36 @@ public class DbtTask {
 
   public String getWarehouseId() {
     return warehouseId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DbtTask that = (DbtTask) o;
+    return Objects.equals(catalog, that.catalog)
+        && Objects.equals(commands, that.commands)
+        && Objects.equals(profilesDirectory, that.profilesDirectory)
+        && Objects.equals(projectDirectory, that.projectDirectory)
+        && Objects.equals(schema, that.schema)
+        && Objects.equals(warehouseId, that.warehouseId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        catalog, commands, profilesDirectory, projectDirectory, schema, warehouseId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DbtTask.class)
+        .add("catalog", catalog)
+        .add("commands", commands)
+        .add("profilesDirectory", profilesDirectory)
+        .add("projectDirectory", projectDirectory)
+        .add("schema", schema)
+        .add("warehouseId", warehouseId)
+        .toString();
   }
 }

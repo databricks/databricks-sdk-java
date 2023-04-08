@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class DataPlaneId {
   /** The instance name of the data plane emitting an event. */
@@ -29,5 +31,26 @@ public class DataPlaneId {
 
   public Object /* MISSING TYPE */ getSeqNo() {
     return seqNo;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DataPlaneId that = (DataPlaneId) o;
+    return Objects.equals(instance, that.instance) && Objects.equals(seqNo, that.seqNo);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(instance, seqNo);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DataPlaneId.class)
+        .add("instance", instance)
+        .add("seqNo", seqNo)
+        .toString();
   }
 }

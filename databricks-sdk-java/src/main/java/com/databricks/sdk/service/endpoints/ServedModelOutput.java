@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.endpoints;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ServedModelOutput {
   /** The creation timestamp of the served model in Unix time. */
@@ -114,5 +116,47 @@ public class ServedModelOutput {
 
   public String getWorkloadSize() {
     return workloadSize;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ServedModelOutput that = (ServedModelOutput) o;
+    return Objects.equals(creationTimestamp, that.creationTimestamp)
+        && Objects.equals(creator, that.creator)
+        && Objects.equals(modelName, that.modelName)
+        && Objects.equals(modelVersion, that.modelVersion)
+        && Objects.equals(name, that.name)
+        && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
+        && Objects.equals(state, that.state)
+        && Objects.equals(workloadSize, that.workloadSize);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        creationTimestamp,
+        creator,
+        modelName,
+        modelVersion,
+        name,
+        scaleToZeroEnabled,
+        state,
+        workloadSize);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ServedModelOutput.class)
+        .add("creationTimestamp", creationTimestamp)
+        .add("creator", creator)
+        .add("modelName", modelName)
+        .add("modelVersion", modelVersion)
+        .add("name", name)
+        .add("scaleToZeroEnabled", scaleToZeroEnabled)
+        .add("state", state)
+        .add("workloadSize", workloadSize)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.tokens;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PublicTokenInfo {
   /** Comment the token was created with, if applicable. */
@@ -55,5 +57,31 @@ public class PublicTokenInfo {
 
   public String getTokenId() {
     return tokenId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PublicTokenInfo that = (PublicTokenInfo) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(creationTime, that.creationTime)
+        && Objects.equals(expiryTime, that.expiryTime)
+        && Objects.equals(tokenId, that.tokenId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, creationTime, expiryTime, tokenId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PublicTokenInfo.class)
+        .add("comment", comment)
+        .add("creationTime", creationTime)
+        .add("expiryTime", expiryTime)
+        .add("tokenId", tokenId)
+        .toString();
   }
 }

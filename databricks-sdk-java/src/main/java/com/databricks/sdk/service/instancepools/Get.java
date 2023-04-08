@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.instancepools;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get instance pool information */
 public class Get {
@@ -17,5 +19,23 @@ public class Get {
 
   public String getInstancePoolId() {
     return instancePoolId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Get that = (Get) o;
+    return Objects.equals(instancePoolId, that.instancePoolId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(instancePoolId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Get.class).add("instancePoolId", instancePoolId).toString();
   }
 }

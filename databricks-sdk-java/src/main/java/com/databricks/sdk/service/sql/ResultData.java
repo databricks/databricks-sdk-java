@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 /**
  * Result data chunks are delivered in either the `chunk` field when using `INLINE` disposition, or
@@ -23,11 +26,11 @@ public class ResultData {
    * a string. Null values are encoded as JSON `null`.
    */
   @JsonProperty("data_array")
-  private java.util.List<java.util.List<String>> dataArray;
+  private Collection<Collection<String>> dataArray;
 
   /** */
   @JsonProperty("external_links")
-  private java.util.List<ExternalLink> externalLinks;
+  private Collection<ExternalLink> externalLinks;
 
   /**
    * When fetching, gives `chunk_index` for the _next_ chunk; if absent, indicates there are no more
@@ -69,21 +72,21 @@ public class ResultData {
     return chunkIndex;
   }
 
-  public ResultData setDataArray(java.util.List<java.util.List<String>> dataArray) {
+  public ResultData setDataArray(Collection<Collection<String>> dataArray) {
     this.dataArray = dataArray;
     return this;
   }
 
-  public java.util.List<java.util.List<String>> getDataArray() {
+  public Collection<Collection<String>> getDataArray() {
     return dataArray;
   }
 
-  public ResultData setExternalLinks(java.util.List<ExternalLink> externalLinks) {
+  public ResultData setExternalLinks(Collection<ExternalLink> externalLinks) {
     this.externalLinks = externalLinks;
     return this;
   }
 
-  public java.util.List<ExternalLink> getExternalLinks() {
+  public Collection<ExternalLink> getExternalLinks() {
     return externalLinks;
   }
 
@@ -121,5 +124,47 @@ public class ResultData {
 
   public Long getRowOffset() {
     return rowOffset;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ResultData that = (ResultData) o;
+    return Objects.equals(byteCount, that.byteCount)
+        && Objects.equals(chunkIndex, that.chunkIndex)
+        && Objects.equals(dataArray, that.dataArray)
+        && Objects.equals(externalLinks, that.externalLinks)
+        && Objects.equals(nextChunkIndex, that.nextChunkIndex)
+        && Objects.equals(nextChunkInternalLink, that.nextChunkInternalLink)
+        && Objects.equals(rowCount, that.rowCount)
+        && Objects.equals(rowOffset, that.rowOffset);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        byteCount,
+        chunkIndex,
+        dataArray,
+        externalLinks,
+        nextChunkIndex,
+        nextChunkInternalLink,
+        rowCount,
+        rowOffset);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ResultData.class)
+        .add("byteCount", byteCount)
+        .add("chunkIndex", chunkIndex)
+        .add("dataArray", dataArray)
+        .add("externalLinks", externalLinks)
+        .add("nextChunkIndex", nextChunkIndex)
+        .add("nextChunkInternalLink", nextChunkInternalLink)
+        .add("rowCount", rowCount)
+        .add("rowOffset", rowOffset)
+        .toString();
   }
 }

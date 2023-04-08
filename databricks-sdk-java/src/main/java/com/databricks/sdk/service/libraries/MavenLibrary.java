@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.libraries;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class MavenLibrary {
   /** Gradle-style maven coordinates. For example: "org.jsoup:jsoup:1.7.2". */
@@ -16,7 +19,7 @@ public class MavenLibrary {
    * https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html.
    */
   @JsonProperty("exclusions")
-  private java.util.List<String> exclusions;
+  private Collection<String> exclusions;
 
   /**
    * Maven repo to install the Maven package from. If omitted, both Maven Central Repository and
@@ -34,12 +37,12 @@ public class MavenLibrary {
     return coordinates;
   }
 
-  public MavenLibrary setExclusions(java.util.List<String> exclusions) {
+  public MavenLibrary setExclusions(Collection<String> exclusions) {
     this.exclusions = exclusions;
     return this;
   }
 
-  public java.util.List<String> getExclusions() {
+  public Collection<String> getExclusions() {
     return exclusions;
   }
 
@@ -50,5 +53,29 @@ public class MavenLibrary {
 
   public String getRepo() {
     return repo;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    MavenLibrary that = (MavenLibrary) o;
+    return Objects.equals(coordinates, that.coordinates)
+        && Objects.equals(exclusions, that.exclusions)
+        && Objects.equals(repo, that.repo);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(coordinates, exclusions, repo);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(MavenLibrary.class)
+        .add("coordinates", coordinates)
+        .add("exclusions", exclusions)
+        .add("repo", repo)
+        .toString();
   }
 }
