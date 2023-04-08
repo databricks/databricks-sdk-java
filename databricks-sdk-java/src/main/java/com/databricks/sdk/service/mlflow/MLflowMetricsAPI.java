@@ -11,11 +11,17 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 
-public class MLflowMetricsAPI implements MLflowMetricsService {
-    private final ApiClient apiClient;
+public class MLflowMetricsAPI {
+    private final MLflowMetricsService impl;
 
+    /** Regular-use constructor */
     public MLflowMetricsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new MLflowMetricsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public MLflowMetricsAPI(MLflowMetricsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -23,10 +29,11 @@ public class MLflowMetricsAPI implements MLflowMetricsService {
      * 
      * Gets a list of all values for the specified metric for a given run.
      */
-    @Override
     public GetMetricHistoryResponse getHistory(GetHistoryRequest request) {
-        String path = "/api/2.0/mlflow/metrics/get-history";
-        return apiClient.GET(path, request, GetMetricHistoryResponse.class);
+        return impl.getHistory(request);
     }
     
+    public MLflowMetricsService impl() {
+        return impl;
+    }
 }

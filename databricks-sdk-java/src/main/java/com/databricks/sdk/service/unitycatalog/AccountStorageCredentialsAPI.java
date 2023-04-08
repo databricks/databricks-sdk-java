@@ -13,11 +13,17 @@ import com.databricks.sdk.client.DatabricksException;
 /**
  * These APIs manage storage credentials for a particular metastore.
  */
-public class AccountStorageCredentialsAPI implements AccountStorageCredentialsService {
-    private final ApiClient apiClient;
+public class AccountStorageCredentialsAPI {
+    private final AccountStorageCredentialsService impl;
 
+    /** Regular-use constructor */
     public AccountStorageCredentialsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new AccountStorageCredentialsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public AccountStorageCredentialsAPI(AccountStorageCredentialsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -32,10 +38,8 @@ public class AccountStorageCredentialsAPI implements AccountStorageCredentialsSe
      * The caller must be a metastore admin and have the
      * **CREATE_STORAGE_CREDENTIAL** privilege on the metastore.
      */
-    @Override
     public StorageCredentialInfo create(CreateStorageCredential request) {
-        String path = String.format("/api/2.0/accounts//metastores/%s/storage-credentials", request.getMetastoreId());
-        return apiClient.POST(path, request, StorageCredentialInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -45,10 +49,8 @@ public class AccountStorageCredentialsAPI implements AccountStorageCredentialsSe
      * metastore admin, the owner of the storage credential, or have a level of
      * privilege on the storage credential.
      */
-    @Override
     public StorageCredentialInfo get(GetAccountStorageCredentialRequest request) {
-        String path = String.format("/api/2.0/accounts//metastores/%s/storage-credentials/%s", request.getMetastoreId(), request.getStorageCredentialName());
-        return apiClient.GET(path, request, StorageCredentialInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -57,10 +59,11 @@ public class AccountStorageCredentialsAPI implements AccountStorageCredentialsSe
      * Gets a list of all storage credentials that have been assigned to given
      * metastore.
      */
-    @Override
     public List<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
-        String path = String.format("/api/2.0/accounts//metastores/%s/storage-credentials", request.getMetastoreId());
-        return apiClient.GET(path, request, List.class);
+        return impl.list(request);
     }
     
+    public AccountStorageCredentialsService impl() {
+        return impl;
+    }
 }

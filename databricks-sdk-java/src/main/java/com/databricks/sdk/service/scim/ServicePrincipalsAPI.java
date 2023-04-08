@@ -18,11 +18,17 @@ import com.databricks.sdk.client.DatabricksException;
  * any write, delete, or modify privileges in production. This eliminates the
  * risk of a user overwriting production data by accident.
  */
-public class ServicePrincipalsAPI implements ServicePrincipalsService {
-    private final ApiClient apiClient;
+public class ServicePrincipalsAPI {
+    private final ServicePrincipalsService impl;
 
+    /** Regular-use constructor */
     public ServicePrincipalsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new ServicePrincipalsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public ServicePrincipalsAPI(ServicePrincipalsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -30,10 +36,8 @@ public class ServicePrincipalsAPI implements ServicePrincipalsService {
      * 
      * Creates a new service principal in the Databricks Workspace.
      */
-    @Override
     public ServicePrincipal create(ServicePrincipal request) {
-        String path = "/api/2.0/preview/scim/v2/ServicePrincipals";
-        return apiClient.POST(path, request, ServicePrincipal.class);
+        return impl.create(request);
     }
     
 	/**
@@ -41,10 +45,8 @@ public class ServicePrincipalsAPI implements ServicePrincipalsService {
      * 
      * Delete a single service principal in the Databricks Workspace.
      */
-    @Override
     public void delete(DeleteServicePrincipalRequest request) {
-        String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -53,10 +55,8 @@ public class ServicePrincipalsAPI implements ServicePrincipalsService {
      * Gets the details for a single service principal define in the Databricks
      * Workspace.
      */
-    @Override
     public ServicePrincipal get(GetServicePrincipalRequest request) {
-        String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
-        return apiClient.GET(path, request, ServicePrincipal.class);
+        return impl.get(request);
     }
     
 	/**
@@ -65,10 +65,8 @@ public class ServicePrincipalsAPI implements ServicePrincipalsService {
      * Gets the set of service principals associated with a Databricks
      * Workspace.
      */
-    @Override
     public ListServicePrincipalResponse list(ListServicePrincipalsRequest request) {
-        String path = "/api/2.0/preview/scim/v2/ServicePrincipals";
-        return apiClient.GET(path, request, ListServicePrincipalResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -77,10 +75,8 @@ public class ServicePrincipalsAPI implements ServicePrincipalsService {
      * Partially updates the details of a single service principal in the
      * Databricks Workspace.
      */
-    @Override
     public void patch(PartialUpdate request) {
-        String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.patch(request);
     }
     
 	/**
@@ -90,10 +86,11 @@ public class ServicePrincipalsAPI implements ServicePrincipalsService {
      * 
      * This action replaces the existing service principal with the same name.
      */
-    @Override
     public void update(ServicePrincipal request) {
-        String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
-        apiClient.PUT(path, request, Void.class);
+        impl.update(request);
     }
     
+    public ServicePrincipalsService impl() {
+        return impl;
+    }
 }

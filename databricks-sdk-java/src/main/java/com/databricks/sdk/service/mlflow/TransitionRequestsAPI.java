@@ -11,11 +11,17 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 
-public class TransitionRequestsAPI implements TransitionRequestsService {
-    private final ApiClient apiClient;
+public class TransitionRequestsAPI {
+    private final TransitionRequestsService impl;
 
+    /** Regular-use constructor */
     public TransitionRequestsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new TransitionRequestsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public TransitionRequestsAPI(TransitionRequestsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -23,10 +29,8 @@ public class TransitionRequestsAPI implements TransitionRequestsService {
      * 
      * Approves a model version stage transition request.
      */
-    @Override
     public ApproveResponse approve(ApproveTransitionRequest request) {
-        String path = "/api/2.0/mlflow/transition-requests/approve";
-        return apiClient.POST(path, request, ApproveResponse.class);
+        return impl.approve(request);
     }
     
 	/**
@@ -34,10 +38,8 @@ public class TransitionRequestsAPI implements TransitionRequestsService {
      * 
      * Creates a model version stage transition request.
      */
-    @Override
     public CreateResponse create(CreateTransitionRequest request) {
-        String path = "/api/2.0/mlflow/transition-requests/create";
-        return apiClient.POST(path, request, CreateResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -45,10 +47,8 @@ public class TransitionRequestsAPI implements TransitionRequestsService {
      * 
      * Cancels a model version stage transition request.
      */
-    @Override
     public void delete(DeleteTransitionRequestRequest request) {
-        String path = "/api/2.0/mlflow/transition-requests/delete";
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -56,10 +56,8 @@ public class TransitionRequestsAPI implements TransitionRequestsService {
      * 
      * Gets a list of all open stage transition requests for the model version.
      */
-    @Override
     public ListResponse list(ListTransitionRequestsRequest request) {
-        String path = "/api/2.0/mlflow/transition-requests/list";
-        return apiClient.GET(path, request, ListResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -67,10 +65,11 @@ public class TransitionRequestsAPI implements TransitionRequestsService {
      * 
      * Rejects a model version stage transition request.
      */
-    @Override
     public RejectResponse reject(RejectTransitionRequest request) {
-        String path = "/api/2.0/mlflow/transition-requests/reject";
-        return apiClient.POST(path, request, RejectResponse.class);
+        return impl.reject(request);
     }
     
+    public TransitionRequestsService impl() {
+        return impl;
+    }
 }

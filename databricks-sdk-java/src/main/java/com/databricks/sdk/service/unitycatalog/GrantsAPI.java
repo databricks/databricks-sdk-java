@@ -23,11 +23,17 @@ import com.databricks.sdk.client.DatabricksException;
  * the catalog. Similarly, privileges granted on a schema are inherited by all
  * current and future objects within that schema.
  */
-public class GrantsAPI implements GrantsService {
-    private final ApiClient apiClient;
+public class GrantsAPI {
+    private final GrantsService impl;
 
+    /** Regular-use constructor */
     public GrantsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new GrantsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public GrantsAPI(GrantsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -35,10 +41,8 @@ public class GrantsAPI implements GrantsService {
      * 
      * Gets the permissions for a securable.
      */
-    @Override
     public PermissionsList get(GetGrantRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/permissions/%s/%s", request.getSecurableType(), request.getFullName());
-        return apiClient.GET(path, request, PermissionsList.class);
+        return impl.get(request);
     }
     
 	/**
@@ -46,10 +50,8 @@ public class GrantsAPI implements GrantsService {
      * 
      * Gets the effective permissions for a securable.
      */
-    @Override
     public EffectivePermissionsList getEffective(GetEffectiveRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/effective-permissions/%s/%s", request.getSecurableType(), request.getFullName());
-        return apiClient.GET(path, request, EffectivePermissionsList.class);
+        return impl.getEffective(request);
     }
     
 	/**
@@ -57,10 +59,11 @@ public class GrantsAPI implements GrantsService {
      * 
      * Updates the permissions for a securable.
      */
-    @Override
     public PermissionsList update(UpdatePermissions request) {
-        String path = String.format("/api/2.1/unity-catalog/permissions/%s/%s", request.getSecurableType(), request.getFullName());
-        return apiClient.PATCH(path, request, PermissionsList.class);
+        return impl.update(request);
     }
     
+    public GrantsService impl() {
+        return impl;
+    }
 }

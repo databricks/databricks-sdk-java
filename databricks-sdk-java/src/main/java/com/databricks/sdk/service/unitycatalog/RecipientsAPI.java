@@ -13,11 +13,17 @@ import com.databricks.sdk.client.DatabricksException;
 /**
  * Databricks Delta Sharing: Recipients REST API
  */
-public class RecipientsAPI implements RecipientsService {
-    private final ApiClient apiClient;
+public class RecipientsAPI {
+    private final RecipientsService impl;
 
+    /** Regular-use constructor */
     public RecipientsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new RecipientsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public RecipientsAPI(RecipientsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -27,10 +33,8 @@ public class RecipientsAPI implements RecipientsService {
      * metastore. The caller must be a metastore admin or has the
      * **CREATE_RECIPIENT** privilege on the metastore.
      */
-    @Override
     public RecipientInfo create(CreateRecipient request) {
-        String path = "/api/2.1/unity-catalog/recipients";
-        return apiClient.POST(path, request, RecipientInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -39,10 +43,8 @@ public class RecipientsAPI implements RecipientsService {
      * Deletes the specified recipient from the metastore. The caller must be
      * the owner of the recipient.
      */
-    @Override
     public void delete(DeleteRecipientRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -53,10 +55,8 @@ public class RecipientsAPI implements RecipientsService {
      * * the caller is the owner of the share recipient, or: * is a metastore
      * admin
      */
-    @Override
     public RecipientInfo get(GetRecipientRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
-        return apiClient.GET(path, request, RecipientInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -67,10 +67,8 @@ public class RecipientsAPI implements RecipientsService {
      * * the caller is a metastore admin, or * the caller is the owner. There is
      * no guarantee of a specific ordering of the elements in the array.
      */
-    @Override
     public ListRecipientsResponse list(ListRecipientsRequest request) {
-        String path = "/api/2.1/unity-catalog/recipients";
-        return apiClient.GET(path, request, ListRecipientsResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -80,10 +78,8 @@ public class RecipientsAPI implements RecipientsService {
      * with the provided token info. The caller must be the owner of the
      * recipient.
      */
-    @Override
     public RecipientInfo rotateToken(RotateRecipientToken request) {
-        String path = String.format("/api/2.1/unity-catalog/recipients/%s/rotate-token", request.getName());
-        return apiClient.POST(path, request, RecipientInfo.class);
+        return impl.rotateToken(request);
     }
     
 	/**
@@ -92,10 +88,8 @@ public class RecipientsAPI implements RecipientsService {
      * Gets the share permissions for the specified Recipient. The caller must
      * be a metastore admin or the owner of the Recipient.
      */
-    @Override
     public GetRecipientSharePermissionsResponse sharePermissions(SharePermissionsRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/recipients/%s/share-permissions", request.getName());
-        return apiClient.GET(path, request, GetRecipientSharePermissionsResponse.class);
+        return impl.sharePermissions(request);
     }
     
 	/**
@@ -106,10 +100,11 @@ public class RecipientsAPI implements RecipientsService {
      * be updated, the user must be both a metastore admin and the owner of the
      * recipient.
      */
-    @Override
     public void update(UpdateRecipient request) {
-        String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public RecipientsService impl() {
+        return impl;
+    }
 }

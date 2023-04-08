@@ -17,13 +17,13 @@ public class PermissionAssignment {
     private String error;
     
     /**
-     * The permissions level of the service principal.
+     * The permissions level of the principal.
      */
     @JsonProperty("permissions")
     private java.util.List<WorkspacePermission> permissions;
     
     /**
-     * Information about the service principal assigned for the workspace.
+     * Information about the principal assigned to the workspace.
      */
     @JsonProperty("principal")
     private PrincipalOutput principal;

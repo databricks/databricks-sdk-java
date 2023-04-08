@@ -18,11 +18,17 @@ import com.databricks.sdk.client.DatabricksException;
  * encapsulates this bucket information, and its ID is used when creating a new
  * workspace.
  */
-public class StorageAPI implements StorageService {
-    private final ApiClient apiClient;
+public class StorageAPI {
+    private final StorageService impl;
 
+    /** Regular-use constructor */
     public StorageAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new StorageImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public StorageAPI(StorageService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -39,10 +45,8 @@ public class StorageAPI implements StorageService {
      * 
      * [Create a new workspace using the Account API]: http://docs.databricks.com/administration-guide/account-api/new-workspace.html
      */
-    @Override
     public StorageConfiguration create(CreateStorageConfigurationRequest request) {
-        String path = String.format("/api/2.0/accounts//storage-configurations");
-        return apiClient.POST(path, request, StorageConfiguration.class);
+        return impl.create(request);
     }
     
 	/**
@@ -51,10 +55,8 @@ public class StorageAPI implements StorageService {
      * Deletes a Databricks storage configuration. You cannot delete a storage
      * configuration that is associated with any workspace.
      */
-    @Override
     public void delete(DeleteStorageRequest request) {
-        String path = String.format("/api/2.0/accounts//storage-configurations/%s", request.getStorageConfigurationId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -63,10 +65,8 @@ public class StorageAPI implements StorageService {
      * Gets a Databricks storage configuration for an account, both specified by
      * ID.
      */
-    @Override
     public StorageConfiguration get(GetStorageRequest request) {
-        String path = String.format("/api/2.0/accounts//storage-configurations/%s", request.getStorageConfigurationId());
-        return apiClient.GET(path, request, StorageConfiguration.class);
+        return impl.get(request);
     }
     
 	/**
@@ -75,10 +75,11 @@ public class StorageAPI implements StorageService {
      * Gets a list of all Databricks storage configurations for your account,
      * specified by ID.
      */
-    @Override
     public List<StorageConfiguration> list() {
-        String path = String.format("/api/2.0/accounts//storage-configurations");
-        return apiClient.GET(path, List.class);
+        return impl.list();
     }
     
+    public StorageService impl() {
+        return impl;
+    }
 }

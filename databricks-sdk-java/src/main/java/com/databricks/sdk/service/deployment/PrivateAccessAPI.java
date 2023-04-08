@@ -21,11 +21,17 @@ import com.databricks.sdk.client.DatabricksException;
  * 
  * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
  */
-public class PrivateAccessAPI implements PrivateAccessService {
-    private final ApiClient apiClient;
+public class PrivateAccessAPI {
+    private final PrivateAccessService impl;
 
+    /** Regular-use constructor */
     public PrivateAccessAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new PrivateAccessImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public PrivateAccessAPI(PrivateAccessService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -47,10 +53,8 @@ public class PrivateAccessAPI implements PrivateAccessService {
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
      */
-    @Override
     public PrivateAccessSettings create(UpsertPrivateAccessSettingsRequest request) {
-        String path = String.format("/api/2.0/accounts//private-access-settings");
-        return apiClient.POST(path, request, PrivateAccessSettings.class);
+        return impl.create(request);
     }
     
 	/**
@@ -65,10 +69,8 @@ public class PrivateAccessAPI implements PrivateAccessService {
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
      */
-    @Override
     public void delete(DeletePrivateAccesRequest request) {
-        String path = String.format("/api/2.0/accounts//private-access-settings/%s", request.getPrivateAccessSettingsId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -83,10 +85,8 @@ public class PrivateAccessAPI implements PrivateAccessService {
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
      */
-    @Override
     public PrivateAccessSettings get(GetPrivateAccesRequest request) {
-        String path = String.format("/api/2.0/accounts//private-access-settings/%s", request.getPrivateAccessSettingsId());
-        return apiClient.GET(path, request, PrivateAccessSettings.class);
+        return impl.get(request);
     }
     
 	/**
@@ -95,10 +95,8 @@ public class PrivateAccessAPI implements PrivateAccessService {
      * Gets a list of all private access settings objects for an account,
      * specified by ID.
      */
-    @Override
     public List<PrivateAccessSettings> list() {
-        String path = String.format("/api/2.0/accounts//private-access-settings");
-        return apiClient.GET(path, List.class);
+        return impl.list();
     }
     
 	/**
@@ -128,10 +126,11 @@ public class PrivateAccessAPI implements PrivateAccessService {
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
      */
-    @Override
     public void replace(UpsertPrivateAccessSettingsRequest request) {
-        String path = String.format("/api/2.0/accounts//private-access-settings/%s", request.getPrivateAccessSettingsId());
-        apiClient.PUT(path, request, Void.class);
+        impl.replace(request);
     }
     
+    public PrivateAccessService impl() {
+        return impl;
+    }
 }

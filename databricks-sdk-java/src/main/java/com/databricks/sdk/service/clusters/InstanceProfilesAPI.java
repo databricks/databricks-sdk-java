@@ -18,11 +18,17 @@ import com.databricks.sdk.client.DatabricksException;
  * 
  * [Secure access to S3 buckets]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html
  */
-public class InstanceProfilesAPI implements InstanceProfilesService {
-    private final ApiClient apiClient;
+public class InstanceProfilesAPI {
+    private final InstanceProfilesService impl;
 
+    /** Regular-use constructor */
     public InstanceProfilesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new InstanceProfilesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public InstanceProfilesAPI(InstanceProfilesService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -31,10 +37,8 @@ public class InstanceProfilesAPI implements InstanceProfilesService {
      * In the UI, you can select the instance profile when launching clusters.
      * This API is only available to admin users.
      */
-    @Override
     public void add(AddInstanceProfile request) {
-        String path = "/api/2.0/instance-profiles/add";
-        apiClient.POST(path, request, Void.class);
+        impl.add(request);
     }
     
 	/**
@@ -56,10 +60,8 @@ public class InstanceProfilesAPI implements InstanceProfilesService {
      * [Databricks SQL Serverless]: https://docs.databricks.com/sql/admin/serverless.html
      * [Enable serverless SQL warehouses]: https://docs.databricks.com/sql/admin/serverless.html
      */
-    @Override
     public void edit(InstanceProfile request) {
-        String path = "/api/2.0/instance-profiles/edit";
-        apiClient.POST(path, request, Void.class);
+        impl.edit(request);
     }
     
 	/**
@@ -70,10 +72,8 @@ public class InstanceProfilesAPI implements InstanceProfilesService {
      * 
      * This API is available to all users.
      */
-    @Override
     public ListInstanceProfilesResponse list() {
-        String path = "/api/2.0/instance-profiles/list";
-        return apiClient.GET(path, ListInstanceProfilesResponse.class);
+        return impl.list();
     }
     
 	/**
@@ -84,10 +84,11 @@ public class InstanceProfilesAPI implements InstanceProfilesService {
      * 
      * This API is only accessible to admin users.
      */
-    @Override
     public void remove(RemoveInstanceProfile request) {
-        String path = "/api/2.0/instance-profiles/remove";
-        apiClient.POST(path, request, Void.class);
+        impl.remove(request);
     }
     
+    public InstanceProfilesService impl() {
+        return impl;
+    }
 }

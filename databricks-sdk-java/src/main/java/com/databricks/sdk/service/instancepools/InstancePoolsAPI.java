@@ -30,11 +30,17 @@ import com.databricks.sdk.client.DatabricksException;
  * Databricks does not charge DBUs while instances are idle in the pool.
  * Instance provider billing does apply. See pricing.
  */
-public class InstancePoolsAPI implements InstancePoolsService {
-    private final ApiClient apiClient;
+public class InstancePoolsAPI {
+    private final InstancePoolsService impl;
 
+    /** Regular-use constructor */
     public InstancePoolsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new InstancePoolsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public InstancePoolsAPI(InstancePoolsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -42,10 +48,8 @@ public class InstancePoolsAPI implements InstancePoolsService {
      * 
      * Creates a new instance pool using idle and ready-to-use cloud instances.
      */
-    @Override
     public CreateInstancePoolResponse create(CreateInstancePool request) {
-        String path = "/api/2.0/instance-pools/create";
-        return apiClient.POST(path, request, CreateInstancePoolResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -54,10 +58,8 @@ public class InstancePoolsAPI implements InstancePoolsService {
      * Deletes the instance pool permanently. The idle instances in the pool are
      * terminated asynchronously.
      */
-    @Override
     public void delete(DeleteInstancePool request) {
-        String path = "/api/2.0/instance-pools/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -65,10 +67,8 @@ public class InstancePoolsAPI implements InstancePoolsService {
      * 
      * Modifies the configuration of an existing instance pool.
      */
-    @Override
     public void edit(EditInstancePool request) {
-        String path = "/api/2.0/instance-pools/edit";
-        apiClient.POST(path, request, Void.class);
+        impl.edit(request);
     }
     
 	/**
@@ -76,10 +76,8 @@ public class InstancePoolsAPI implements InstancePoolsService {
      * 
      * Retrieve the information for an instance pool based on its identifier.
      */
-    @Override
     public GetInstancePool get(Get request) {
-        String path = "/api/2.0/instance-pools/get";
-        return apiClient.GET(path, request, GetInstancePool.class);
+        return impl.get(request);
     }
     
 	/**
@@ -87,10 +85,11 @@ public class InstancePoolsAPI implements InstancePoolsService {
      * 
      * Gets a list of instance pools with their statistics.
      */
-    @Override
     public ListInstancePools list() {
-        String path = "/api/2.0/instance-pools/list";
-        return apiClient.GET(path, ListInstancePools.class);
+        return impl.list();
     }
     
+    public InstancePoolsService impl() {
+        return impl;
+    }
 }

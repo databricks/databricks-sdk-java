@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class ListWarehousesRequest {
     /**
-     * Service Principal which will be used to fetch the list of endpoints. If
+     * Service Principal which will be used to fetch the list of warehouses. If
      * not specified, the user from the session header is used.
      */
     @QueryParam("run_as_user_id")

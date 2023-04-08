@@ -74,11 +74,17 @@ import com.databricks.sdk.client.DatabricksException;
  * [Usage page]: https://docs.databricks.com/administration-guide/account-settings/usage.html
  * [create a new AWS S3 bucket]: https://docs.databricks.com/administration-guide/account-api/aws-storage.html
  */
-public class LogDeliveryAPI implements LogDeliveryService {
-    private final ApiClient apiClient;
+public class LogDeliveryAPI {
+    private final LogDeliveryService impl;
 
+    /** Regular-use constructor */
     public LogDeliveryAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new LogDeliveryImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public LogDeliveryAPI(LogDeliveryService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -112,10 +118,8 @@ public class LogDeliveryAPI implements LogDeliveryService {
      * [Configure audit logging]: https://docs.databricks.com/administration-guide/account-settings/audit-logs.html
      * [Deliver and access billable usage logs]: https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
      */
-    @Override
     public WrappedLogDeliveryConfiguration create(WrappedCreateLogDeliveryConfiguration request) {
-        String path = String.format("/api/2.0/accounts//log-delivery");
-        return apiClient.POST(path, request, WrappedLogDeliveryConfiguration.class);
+        return impl.create(request);
     }
     
 	/**
@@ -124,10 +128,8 @@ public class LogDeliveryAPI implements LogDeliveryService {
      * Gets a Databricks log delivery configuration object for an account, both
      * specified by ID.
      */
-    @Override
     public WrappedLogDeliveryConfiguration get(GetLogDeliveryRequest request) {
-        String path = String.format("/api/2.0/accounts//log-delivery/%s", request.getLogDeliveryConfigurationId());
-        return apiClient.GET(path, request, WrappedLogDeliveryConfiguration.class);
+        return impl.get(request);
     }
     
 	/**
@@ -136,10 +138,8 @@ public class LogDeliveryAPI implements LogDeliveryService {
      * Gets all Databricks log delivery configurations associated with an
      * account specified by ID.
      */
-    @Override
     public WrappedLogDeliveryConfigurations list(ListLogDeliveryRequest request) {
-        String path = String.format("/api/2.0/accounts//log-delivery");
-        return apiClient.GET(path, request, WrappedLogDeliveryConfigurations.class);
+        return impl.list(request);
     }
     
 	/**
@@ -152,10 +152,11 @@ public class LogDeliveryAPI implements LogDeliveryService {
      * described under [Create log
      * delivery](#operation/create-log-delivery-config).
      */
-    @Override
     public void patchStatus(UpdateLogDeliveryConfigurationStatusRequest request) {
-        String path = String.format("/api/2.0/accounts//log-delivery/%s", request.getLogDeliveryConfigurationId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.patchStatus(request);
     }
     
+    public LogDeliveryService impl() {
+        return impl;
+    }
 }

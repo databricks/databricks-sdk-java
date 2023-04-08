@@ -8,116 +8,172 @@ import com.databricks.sdk.client.DatabricksConfig;
 
 import com.databricks.sdk.service.sql.AlertsAPI;
 import com.databricks.sdk.service.sql.AlertsService;
+
 import com.databricks.sdk.service.unitycatalog.CatalogsAPI;
 import com.databricks.sdk.service.unitycatalog.CatalogsService;
+
 import com.databricks.sdk.service.clusterpolicies.ClusterPoliciesAPI;
 import com.databricks.sdk.service.clusterpolicies.ClusterPoliciesService;
+
 import com.databricks.sdk.service.clusters.ClustersAPI;
 import com.databricks.sdk.service.clusters.ClustersService;
+
 import com.databricks.sdk.service.commands.CommandExecutionAPI;
 import com.databricks.sdk.service.commands.CommandExecutionService;
+
 import com.databricks.sdk.service.scim.CurrentUserAPI;
 import com.databricks.sdk.service.scim.CurrentUserService;
+
 import com.databricks.sdk.service.sql.DashboardsAPI;
 import com.databricks.sdk.service.sql.DashboardsService;
+
 import com.databricks.sdk.service.sql.DataSourcesAPI;
 import com.databricks.sdk.service.sql.DataSourcesService;
+
 import com.databricks.sdk.service.dbfs.DbfsAPI;
 import com.databricks.sdk.service.dbfs.DbfsService;
+
 import com.databricks.sdk.service.sql.DbsqlPermissionsAPI;
 import com.databricks.sdk.service.sql.DbsqlPermissionsService;
+
 import com.databricks.sdk.service.mlflow.ExperimentsAPI;
 import com.databricks.sdk.service.mlflow.ExperimentsService;
+
 import com.databricks.sdk.service.unitycatalog.ExternalLocationsAPI;
 import com.databricks.sdk.service.unitycatalog.ExternalLocationsService;
+
 import com.databricks.sdk.service.unitycatalog.FunctionsAPI;
 import com.databricks.sdk.service.unitycatalog.FunctionsService;
+
 import com.databricks.sdk.service.gitcredentials.GitCredentialsAPI;
 import com.databricks.sdk.service.gitcredentials.GitCredentialsService;
+
 import com.databricks.sdk.service.globalinitscripts.GlobalInitScriptsAPI;
 import com.databricks.sdk.service.globalinitscripts.GlobalInitScriptsService;
+
 import com.databricks.sdk.service.unitycatalog.GrantsAPI;
 import com.databricks.sdk.service.unitycatalog.GrantsService;
+
 import com.databricks.sdk.service.scim.GroupsAPI;
 import com.databricks.sdk.service.scim.GroupsService;
+
 import com.databricks.sdk.service.instancepools.InstancePoolsAPI;
 import com.databricks.sdk.service.instancepools.InstancePoolsService;
+
 import com.databricks.sdk.service.clusters.InstanceProfilesAPI;
 import com.databricks.sdk.service.clusters.InstanceProfilesService;
+
 import com.databricks.sdk.service.ipaccesslists.IpAccessListsAPI;
 import com.databricks.sdk.service.ipaccesslists.IpAccessListsService;
+
 import com.databricks.sdk.service.jobs.JobsAPI;
 import com.databricks.sdk.service.jobs.JobsService;
+
 import com.databricks.sdk.service.libraries.LibrariesAPI;
 import com.databricks.sdk.service.libraries.LibrariesService;
+
 import com.databricks.sdk.service.mlflow.MLflowArtifactsAPI;
 import com.databricks.sdk.service.mlflow.MLflowArtifactsService;
+
 import com.databricks.sdk.service.mlflow.MLflowDatabricksAPI;
 import com.databricks.sdk.service.mlflow.MLflowDatabricksService;
+
 import com.databricks.sdk.service.mlflow.MLflowMetricsAPI;
 import com.databricks.sdk.service.mlflow.MLflowMetricsService;
+
 import com.databricks.sdk.service.mlflow.MLflowRunsAPI;
 import com.databricks.sdk.service.mlflow.MLflowRunsService;
+
 import com.databricks.sdk.service.unitycatalog.MetastoresAPI;
 import com.databricks.sdk.service.unitycatalog.MetastoresService;
+
 import com.databricks.sdk.service.mlflow.ModelVersionCommentsAPI;
 import com.databricks.sdk.service.mlflow.ModelVersionCommentsService;
+
 import com.databricks.sdk.service.mlflow.ModelVersionsAPI;
 import com.databricks.sdk.service.mlflow.ModelVersionsService;
+
 import com.databricks.sdk.service.permissions.PermissionsAPI;
 import com.databricks.sdk.service.permissions.PermissionsService;
+
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
+
 import com.databricks.sdk.service.clusterpolicies.PolicyFamiliesAPI;
 import com.databricks.sdk.service.clusterpolicies.PolicyFamiliesService;
+
 import com.databricks.sdk.service.unitycatalog.ProvidersAPI;
 import com.databricks.sdk.service.unitycatalog.ProvidersService;
+
 import com.databricks.sdk.service.sql.QueriesAPI;
 import com.databricks.sdk.service.sql.QueriesService;
+
 import com.databricks.sdk.service.sql.QueryHistoryAPI;
 import com.databricks.sdk.service.sql.QueryHistoryService;
+
 import com.databricks.sdk.service.unitycatalog.RecipientActivationAPI;
 import com.databricks.sdk.service.unitycatalog.RecipientActivationService;
+
 import com.databricks.sdk.service.unitycatalog.RecipientsAPI;
 import com.databricks.sdk.service.unitycatalog.RecipientsService;
+
 import com.databricks.sdk.service.mlflow.RegisteredModelsAPI;
 import com.databricks.sdk.service.mlflow.RegisteredModelsService;
+
 import com.databricks.sdk.service.mlflow.RegistryWebhooksAPI;
 import com.databricks.sdk.service.mlflow.RegistryWebhooksService;
+
 import com.databricks.sdk.service.repos.ReposAPI;
 import com.databricks.sdk.service.repos.ReposService;
+
 import com.databricks.sdk.service.unitycatalog.SchemasAPI;
 import com.databricks.sdk.service.unitycatalog.SchemasService;
+
 import com.databricks.sdk.service.secrets.SecretsAPI;
 import com.databricks.sdk.service.secrets.SecretsService;
+
 import com.databricks.sdk.service.scim.ServicePrincipalsAPI;
 import com.databricks.sdk.service.scim.ServicePrincipalsService;
+
 import com.databricks.sdk.service.endpoints.ServingEndpointsAPI;
 import com.databricks.sdk.service.endpoints.ServingEndpointsService;
+
 import com.databricks.sdk.service.unitycatalog.SharesAPI;
 import com.databricks.sdk.service.unitycatalog.SharesService;
+
 import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
+
 import com.databricks.sdk.service.unitycatalog.StorageCredentialsAPI;
 import com.databricks.sdk.service.unitycatalog.StorageCredentialsService;
+
 import com.databricks.sdk.service.unitycatalog.TableConstraintsAPI;
 import com.databricks.sdk.service.unitycatalog.TableConstraintsService;
+
 import com.databricks.sdk.service.unitycatalog.TablesAPI;
 import com.databricks.sdk.service.unitycatalog.TablesService;
+
 import com.databricks.sdk.service.tokenmanagement.TokenManagementAPI;
 import com.databricks.sdk.service.tokenmanagement.TokenManagementService;
+
 import com.databricks.sdk.service.tokens.TokensAPI;
 import com.databricks.sdk.service.tokens.TokensService;
+
 import com.databricks.sdk.service.mlflow.TransitionRequestsAPI;
 import com.databricks.sdk.service.mlflow.TransitionRequestsService;
+
 import com.databricks.sdk.service.scim.UsersAPI;
 import com.databricks.sdk.service.scim.UsersService;
+
 import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
+
 import com.databricks.sdk.service.workspace.WorkspaceAPI;
 import com.databricks.sdk.service.workspace.WorkspaceService;
+
 import com.databricks.sdk.service.workspaceconf.WorkspaceConfAPI;
 import com.databricks.sdk.service.workspaceconf.WorkspaceConfService;
+
 
 /**
  * Entry point for accessing Databricks workspace-level APIs
@@ -126,62 +182,62 @@ public class DatabricksWorkspace {
     private final ApiClient apiClient;
     private final DatabricksConfig config;
     
-    private AlertsService alertsService;
-    private CatalogsService catalogsService;
-    private ClusterPoliciesService clusterPoliciesService;
-    private ClustersService clustersService;
-    private CommandExecutionService commandExecutionService;
-    private CurrentUserService currentUserService;
-    private DashboardsService dashboardsService;
-    private DataSourcesService dataSourcesService;
-    private DbfsService dbfsService;
-    private DbsqlPermissionsService dbsqlPermissionsService;
-    private ExperimentsService experimentsService;
-    private ExternalLocationsService externalLocationsService;
-    private FunctionsService functionsService;
-    private GitCredentialsService gitCredentialsService;
-    private GlobalInitScriptsService globalInitScriptsService;
-    private GrantsService grantsService;
-    private GroupsService groupsService;
-    private InstancePoolsService instancePoolsService;
-    private InstanceProfilesService instanceProfilesService;
-    private IpAccessListsService ipAccessListsService;
-    private JobsService jobsService;
-    private LibrariesService librariesService;
-    private MLflowArtifactsService mLflowArtifactsService;
-    private MLflowDatabricksService mLflowDatabricksService;
-    private MLflowMetricsService mLflowMetricsService;
-    private MLflowRunsService mLflowRunsService;
-    private MetastoresService metastoresService;
-    private ModelVersionCommentsService modelVersionCommentsService;
-    private ModelVersionsService modelVersionsService;
-    private PermissionsService permissionsService;
-    private PipelinesService pipelinesService;
-    private PolicyFamiliesService policyFamiliesService;
-    private ProvidersService providersService;
-    private QueriesService queriesService;
-    private QueryHistoryService queryHistoryService;
-    private RecipientActivationService recipientActivationService;
-    private RecipientsService recipientsService;
-    private RegisteredModelsService registeredModelsService;
-    private RegistryWebhooksService registryWebhooksService;
-    private ReposService reposService;
-    private SchemasService schemasService;
-    private SecretsService secretsService;
-    private ServicePrincipalsService servicePrincipalsService;
-    private ServingEndpointsService servingEndpointsService;
-    private SharesService sharesService;
-    private StatementExecutionService statementExecutionService;
-    private StorageCredentialsService storageCredentialsService;
-    private TableConstraintsService tableConstraintsService;
-    private TablesService tablesService;
-    private TokenManagementService tokenManagementService;
-    private TokensService tokensService;
-    private TransitionRequestsService transitionRequestsService;
-    private UsersService usersService;
-    private WarehousesService warehousesService;
-    private WorkspaceService workspaceService;
-    private WorkspaceConfService workspaceConfService;
+    private AlertsAPI alertsAPI;
+    private CatalogsAPI catalogsAPI;
+    private ClusterPoliciesAPI clusterPoliciesAPI;
+    private ClustersAPI clustersAPI;
+    private CommandExecutionAPI commandExecutionAPI;
+    private CurrentUserAPI currentUserAPI;
+    private DashboardsAPI dashboardsAPI;
+    private DataSourcesAPI dataSourcesAPI;
+    private DbfsAPI dbfsAPI;
+    private DbsqlPermissionsAPI dbsqlPermissionsAPI;
+    private ExperimentsAPI experimentsAPI;
+    private ExternalLocationsAPI externalLocationsAPI;
+    private FunctionsAPI functionsAPI;
+    private GitCredentialsAPI gitCredentialsAPI;
+    private GlobalInitScriptsAPI globalInitScriptsAPI;
+    private GrantsAPI grantsAPI;
+    private GroupsAPI groupsAPI;
+    private InstancePoolsAPI instancePoolsAPI;
+    private InstanceProfilesAPI instanceProfilesAPI;
+    private IpAccessListsAPI ipAccessListsAPI;
+    private JobsAPI jobsAPI;
+    private LibrariesAPI librariesAPI;
+    private MLflowArtifactsAPI mLflowArtifactsAPI;
+    private MLflowDatabricksAPI mLflowDatabricksAPI;
+    private MLflowMetricsAPI mLflowMetricsAPI;
+    private MLflowRunsAPI mLflowRunsAPI;
+    private MetastoresAPI metastoresAPI;
+    private ModelVersionCommentsAPI modelVersionCommentsAPI;
+    private ModelVersionsAPI modelVersionsAPI;
+    private PermissionsAPI permissionsAPI;
+    private PipelinesAPI pipelinesAPI;
+    private PolicyFamiliesAPI policyFamiliesAPI;
+    private ProvidersAPI providersAPI;
+    private QueriesAPI queriesAPI;
+    private QueryHistoryAPI queryHistoryAPI;
+    private RecipientActivationAPI recipientActivationAPI;
+    private RecipientsAPI recipientsAPI;
+    private RegisteredModelsAPI registeredModelsAPI;
+    private RegistryWebhooksAPI registryWebhooksAPI;
+    private ReposAPI reposAPI;
+    private SchemasAPI schemasAPI;
+    private SecretsAPI secretsAPI;
+    private ServicePrincipalsAPI servicePrincipalsAPI;
+    private ServingEndpointsAPI servingEndpointsAPI;
+    private SharesAPI sharesAPI;
+    private StatementExecutionAPI statementExecutionAPI;
+    private StorageCredentialsAPI storageCredentialsAPI;
+    private TableConstraintsAPI tableConstraintsAPI;
+    private TablesAPI tablesAPI;
+    private TokenManagementAPI tokenManagementAPI;
+    private TokensAPI tokensAPI;
+    private TransitionRequestsAPI transitionRequestsAPI;
+    private UsersAPI usersAPI;
+    private WarehousesAPI warehousesAPI;
+    private WorkspaceAPI workspaceAPI;
+    private WorkspaceConfAPI workspaceConfAPI;
 
     public DatabricksWorkspace() {
         this(ConfigLoader.getDefault());
@@ -191,72 +247,78 @@ public class DatabricksWorkspace {
         this.config = config;
         apiClient = new ApiClient(config);
         
-        alertsService = new AlertsAPI(apiClient);
-        catalogsService = new CatalogsAPI(apiClient);
-        clusterPoliciesService = new ClusterPoliciesAPI(apiClient);
-        clustersService = new ClustersAPI(apiClient);
-        commandExecutionService = new CommandExecutionAPI(apiClient);
-        currentUserService = new CurrentUserAPI(apiClient);
-        dashboardsService = new DashboardsAPI(apiClient);
-        dataSourcesService = new DataSourcesAPI(apiClient);
-        dbfsService = new DbfsAPI(apiClient);
-        dbsqlPermissionsService = new DbsqlPermissionsAPI(apiClient);
-        experimentsService = new ExperimentsAPI(apiClient);
-        externalLocationsService = new ExternalLocationsAPI(apiClient);
-        functionsService = new FunctionsAPI(apiClient);
-        gitCredentialsService = new GitCredentialsAPI(apiClient);
-        globalInitScriptsService = new GlobalInitScriptsAPI(apiClient);
-        grantsService = new GrantsAPI(apiClient);
-        groupsService = new GroupsAPI(apiClient);
-        instancePoolsService = new InstancePoolsAPI(apiClient);
-        instanceProfilesService = new InstanceProfilesAPI(apiClient);
-        ipAccessListsService = new IpAccessListsAPI(apiClient);
-        jobsService = new JobsAPI(apiClient);
-        librariesService = new LibrariesAPI(apiClient);
-        mLflowArtifactsService = new MLflowArtifactsAPI(apiClient);
-        mLflowDatabricksService = new MLflowDatabricksAPI(apiClient);
-        mLflowMetricsService = new MLflowMetricsAPI(apiClient);
-        mLflowRunsService = new MLflowRunsAPI(apiClient);
-        metastoresService = new MetastoresAPI(apiClient);
-        modelVersionCommentsService = new ModelVersionCommentsAPI(apiClient);
-        modelVersionsService = new ModelVersionsAPI(apiClient);
-        permissionsService = new PermissionsAPI(apiClient);
-        pipelinesService = new PipelinesAPI(apiClient);
-        policyFamiliesService = new PolicyFamiliesAPI(apiClient);
-        providersService = new ProvidersAPI(apiClient);
-        queriesService = new QueriesAPI(apiClient);
-        queryHistoryService = new QueryHistoryAPI(apiClient);
-        recipientActivationService = new RecipientActivationAPI(apiClient);
-        recipientsService = new RecipientsAPI(apiClient);
-        registeredModelsService = new RegisteredModelsAPI(apiClient);
-        registryWebhooksService = new RegistryWebhooksAPI(apiClient);
-        reposService = new ReposAPI(apiClient);
-        schemasService = new SchemasAPI(apiClient);
-        secretsService = new SecretsAPI(apiClient);
-        servicePrincipalsService = new ServicePrincipalsAPI(apiClient);
-        servingEndpointsService = new ServingEndpointsAPI(apiClient);
-        sharesService = new SharesAPI(apiClient);
-        statementExecutionService = new StatementExecutionAPI(apiClient);
-        storageCredentialsService = new StorageCredentialsAPI(apiClient);
-        tableConstraintsService = new TableConstraintsAPI(apiClient);
-        tablesService = new TablesAPI(apiClient);
-        tokenManagementService = new TokenManagementAPI(apiClient);
-        tokensService = new TokensAPI(apiClient);
-        transitionRequestsService = new TransitionRequestsAPI(apiClient);
-        usersService = new UsersAPI(apiClient);
-        warehousesService = new WarehousesAPI(apiClient);
-        workspaceService = new WorkspaceAPI(apiClient);
-        workspaceConfService = new WorkspaceConfAPI(apiClient);
+        alertsAPI = new AlertsAPI(apiClient);
+        catalogsAPI = new CatalogsAPI(apiClient);
+        clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
+        clustersAPI = new ClustersAPI(apiClient);
+        commandExecutionAPI = new CommandExecutionAPI(apiClient);
+        currentUserAPI = new CurrentUserAPI(apiClient);
+        dashboardsAPI = new DashboardsAPI(apiClient);
+        dataSourcesAPI = new DataSourcesAPI(apiClient);
+        dbfsAPI = new DbfsAPI(apiClient);
+        dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
+        experimentsAPI = new ExperimentsAPI(apiClient);
+        externalLocationsAPI = new ExternalLocationsAPI(apiClient);
+        functionsAPI = new FunctionsAPI(apiClient);
+        gitCredentialsAPI = new GitCredentialsAPI(apiClient);
+        globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
+        grantsAPI = new GrantsAPI(apiClient);
+        groupsAPI = new GroupsAPI(apiClient);
+        instancePoolsAPI = new InstancePoolsAPI(apiClient);
+        instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
+        ipAccessListsAPI = new IpAccessListsAPI(apiClient);
+        jobsAPI = new JobsAPI(apiClient);
+        librariesAPI = new LibrariesAPI(apiClient);
+        mLflowArtifactsAPI = new MLflowArtifactsAPI(apiClient);
+        mLflowDatabricksAPI = new MLflowDatabricksAPI(apiClient);
+        mLflowMetricsAPI = new MLflowMetricsAPI(apiClient);
+        mLflowRunsAPI = new MLflowRunsAPI(apiClient);
+        metastoresAPI = new MetastoresAPI(apiClient);
+        modelVersionCommentsAPI = new ModelVersionCommentsAPI(apiClient);
+        modelVersionsAPI = new ModelVersionsAPI(apiClient);
+        permissionsAPI = new PermissionsAPI(apiClient);
+        pipelinesAPI = new PipelinesAPI(apiClient);
+        policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
+        providersAPI = new ProvidersAPI(apiClient);
+        queriesAPI = new QueriesAPI(apiClient);
+        queryHistoryAPI = new QueryHistoryAPI(apiClient);
+        recipientActivationAPI = new RecipientActivationAPI(apiClient);
+        recipientsAPI = new RecipientsAPI(apiClient);
+        registeredModelsAPI = new RegisteredModelsAPI(apiClient);
+        registryWebhooksAPI = new RegistryWebhooksAPI(apiClient);
+        reposAPI = new ReposAPI(apiClient);
+        schemasAPI = new SchemasAPI(apiClient);
+        secretsAPI = new SecretsAPI(apiClient);
+        servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
+        servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
+        sharesAPI = new SharesAPI(apiClient);
+        statementExecutionAPI = new StatementExecutionAPI(apiClient);
+        storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
+        tableConstraintsAPI = new TableConstraintsAPI(apiClient);
+        tablesAPI = new TablesAPI(apiClient);
+        tokenManagementAPI = new TokenManagementAPI(apiClient);
+        tokensAPI = new TokensAPI(apiClient);
+        transitionRequestsAPI = new TransitionRequestsAPI(apiClient);
+        usersAPI = new UsersAPI(apiClient);
+        warehousesAPI = new WarehousesAPI(apiClient);
+        workspaceAPI = new WorkspaceAPI(apiClient);
+        workspaceConfAPI = new WorkspaceConfAPI(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public DatabricksWorkspace(boolean mock) {
+        apiClient = null;
+        config = null;
     }
     
     /**
      * The alerts API can be used to perform CRUD operations on alerts. An alert
      * is a Databricks SQL object that periodically runs a query, evaluates a
-     * condition of its result, and notifies one or more users and/or alert
-     * destinations if the condition was met.
+     * condition of its result, and notifies one or more users and/or
+     * notification destinations if the condition was met.
      */
-    public AlertsService alerts() {
-        return alertsService;
+    public AlertsAPI alerts() {
+        return alertsAPI;
     }
     
     /**
@@ -269,8 +331,8 @@ public class DatabricksWorkspace {
      * Users in different workspaces can share access to the same data,
      * depending on privileges granted centrally in Unity Catalog.
      */
-    public CatalogsService catalogs() {
-        return catalogsService;
+    public CatalogsAPI catalogs() {
+        return catalogsAPI;
     }
     
     /**
@@ -299,8 +361,8 @@ public class DatabricksWorkspace {
      * Only admin users can create, edit, and delete policies. Admin users also
      * have access to all policies.
      */
-    public ClusterPoliciesService clusterPolicies() {
-        return clusterPoliciesService;
+    public ClusterPoliciesAPI clusterPolicies() {
+        return clusterPoliciesAPI;
     }
     
     /**
@@ -332,24 +394,24 @@ public class DatabricksWorkspace {
      * cluster configuration even after it has been terminated for more than 30
      * days, an administrator can pin a cluster to the cluster list.
      */
-    public ClustersService clusters() {
-        return clustersService;
+    public ClustersAPI clusters() {
+        return clustersAPI;
     }
     
     /**
      * This API allows execution of Python, Scala, SQL, or R commands on running
      * Databricks Clusters.
      */
-    public CommandExecutionService commandExecution() {
-        return commandExecutionService;
+    public CommandExecutionAPI commandExecution() {
+        return commandExecutionAPI;
     }
     
     /**
      * This API allows retrieving information about currently authenticated user
      * or service principal.
      */
-    public CurrentUserService currentUser() {
-        return currentUserService;
+    public CurrentUserAPI currentUser() {
+        return currentUserAPI;
     }
     
     /**
@@ -359,8 +421,8 @@ public class DatabricksWorkspace {
      * multiple dashboards at once since you can get a dashboard definition with
      * a GET request and then POST it to create a new one.
      */
-    public DashboardsService dashboards() {
-        return dashboardsService;
+    public DashboardsAPI dashboards() {
+        return dashboardsAPI;
     }
     
     /**
@@ -375,16 +437,16 @@ public class DatabricksWorkspace {
      * client, or `grep` to search the response from this API for the name of
      * your SQL warehouse as it appears in Databricks SQL.
      */
-    public DataSourcesService dataSources() {
-        return dataSourcesService;
+    public DataSourcesAPI dataSources() {
+        return dataSourcesAPI;
     }
     
     /**
      * DBFS API makes it simple to interact with various data sources without
      * having to include a users credentials every time to read a file.
      */
-    public DbfsService dbfs() {
-        return dbfsService;
+    public DbfsAPI dbfs() {
+        return dbfsAPI;
     }
     
     /**
@@ -402,13 +464,13 @@ public class DatabricksWorkspace {
      * - `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify
      * permissions (superset of `CAN_RUN`)
      */
-    public DbsqlPermissionsService dbsqlPermissions() {
-        return dbsqlPermissionsService;
+    public DbsqlPermissionsAPI dbsqlPermissions() {
+        return dbsqlPermissionsAPI;
     }
     
     
-    public ExperimentsService experiments() {
-        return experimentsService;
+    public ExperimentsAPI experiments() {
+        return experimentsAPI;
     }
     
     /**
@@ -426,8 +488,8 @@ public class DatabricksWorkspace {
      * To create external locations, you must be a metastore admin or a user
      * with the **CREATE_EXTERNAL_LOCATION** privilege.
      */
-    public ExternalLocationsService externalLocations() {
-        return externalLocationsService;
+    public ExternalLocationsAPI externalLocations() {
+        return externalLocationsAPI;
     }
     
     /**
@@ -439,8 +501,8 @@ public class DatabricksWorkspace {
      * referenced with the form
      * __catalog_name__.__schema_name__.__function_name__.
      */
-    public FunctionsService functions() {
-        return functionsService;
+    public FunctionsAPI functions() {
+        return functionsAPI;
     }
     
     /**
@@ -451,8 +513,8 @@ public class DatabricksWorkspace {
      * 
      * [more info]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
      */
-    public GitCredentialsService gitCredentials() {
-        return gitCredentialsService;
+    public GitCredentialsAPI gitCredentials() {
+        return gitCredentialsAPI;
     }
     
     /**
@@ -467,8 +529,8 @@ public class DatabricksWorkspace {
      * enough containers fail, the entire cluster fails with a
      * `GLOBAL_INIT_SCRIPT_FAILURE` error code.
      */
-    public GlobalInitScriptsService globalInitScripts() {
-        return globalInitScriptsService;
+    public GlobalInitScriptsAPI globalInitScripts() {
+        return globalInitScriptsAPI;
     }
     
     /**
@@ -484,8 +546,8 @@ public class DatabricksWorkspace {
      * within the catalog. Similarly, privileges granted on a schema are
      * inherited by all current and future objects within that schema.
      */
-    public GrantsService grants() {
-        return grantsService;
+    public GrantsAPI grants() {
+        return grantsAPI;
     }
     
     /**
@@ -497,8 +559,8 @@ public class DatabricksWorkspace {
      * All Databricks Workspace identities can be assigned as members of groups,
      * and members inherit permissions that are assigned to their group.
      */
-    public GroupsService groups() {
-        return groupsService;
+    public GroupsAPI groups() {
+        return groupsAPI;
     }
     
     /**
@@ -521,8 +583,8 @@ public class DatabricksWorkspace {
      * Databricks does not charge DBUs while instances are idle in the pool.
      * Instance provider billing does apply. See pricing.
      */
-    public InstancePoolsService instancePools() {
-        return instancePoolsService;
+    public InstancePoolsAPI instancePools() {
+        return instancePoolsAPI;
     }
     
     /**
@@ -533,8 +595,8 @@ public class DatabricksWorkspace {
      * 
      * [Secure access to S3 buckets]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html
      */
-    public InstanceProfilesService instanceProfiles() {
-        return instanceProfilesService;
+    public InstanceProfilesAPI instanceProfiles() {
+        return instanceProfilesAPI;
     }
     
     /**
@@ -560,8 +622,8 @@ public class DatabricksWorkspace {
      * After changes to the IP access list feature, it can take a few minutes
      * for changes to take effect.
      */
-    public IpAccessListsService ipAccessLists() {
-        return ipAccessListsService;
+    public IpAccessListsAPI ipAccessLists() {
+        return ipAccessListsAPI;
     }
     
     /**
@@ -584,8 +646,8 @@ public class DatabricksWorkspace {
      * [Databricks CLI]: https://docs.databricks.com/dev-tools/cli/index.html
      * [Secrets utility]: https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
      */
-    public JobsService jobs() {
-        return jobsService;
+    public JobsAPI jobs() {
+        return jobsAPI;
     }
     
     /**
@@ -611,31 +673,31 @@ public class DatabricksWorkspace {
      * when you restart the cluster. Until you restart the cluster, the status
      * of the uninstalled library appears as Uninstall pending restart.
      */
-    public LibrariesService libraries() {
-        return librariesService;
+    public LibrariesAPI libraries() {
+        return librariesAPI;
     }
     
     
-    public MLflowArtifactsService mLflowArtifacts() {
-        return mLflowArtifactsService;
+    public MLflowArtifactsAPI mLflowArtifacts() {
+        return mLflowArtifactsAPI;
     }
     
     /**
      * These endpoints are modified versions of the MLflow API that accept
      * additional input parameters or return additional information.
      */
-    public MLflowDatabricksService mLflowDatabricks() {
-        return mLflowDatabricksService;
+    public MLflowDatabricksAPI mLflowDatabricks() {
+        return mLflowDatabricksAPI;
     }
     
     
-    public MLflowMetricsService mLflowMetrics() {
-        return mLflowMetricsService;
+    public MLflowMetricsAPI mLflowMetrics() {
+        return mLflowMetricsAPI;
     }
     
     
-    public MLflowRunsService mLflowRuns() {
-        return mLflowRunsService;
+    public MLflowRunsAPI mLflowRuns() {
+        return mLflowRunsAPI;
     }
     
     /**
@@ -655,26 +717,26 @@ public class DatabricksWorkspace {
      * workspace includes a legacy Hive metastore, the data in that metastore is
      * available in a catalog named hive_metastore.
      */
-    public MetastoresService metastores() {
-        return metastoresService;
+    public MetastoresAPI metastores() {
+        return metastoresAPI;
     }
     
     
-    public ModelVersionCommentsService modelVersionComments() {
-        return modelVersionCommentsService;
+    public ModelVersionCommentsAPI modelVersionComments() {
+        return modelVersionCommentsAPI;
     }
     
     
-    public ModelVersionsService modelVersions() {
-        return modelVersionsService;
+    public ModelVersionsAPI modelVersions() {
+        return modelVersionsAPI;
     }
     
     /**
      * Permissions API are used to create read, write, edit, update and manage
      * access for various users on different objects and endpoints.
      */
-    public PermissionsService permissions() {
-        return permissionsService;
+    public PermissionsAPI permissions() {
+        return permissionsAPI;
     }
     
     /**
@@ -693,8 +755,8 @@ public class DatabricksWorkspace {
      * allow you to define expected data quality and specify how to handle
      * records that fail those expectations.
      */
-    public PipelinesService pipelines() {
-        return pipelinesService;
+    public PipelinesAPI pipelines() {
+        return pipelinesAPI;
     }
     
     /**
@@ -709,15 +771,15 @@ public class DatabricksWorkspace {
      * create cluster policies using a policy family. Cluster policies created
      * using a policy family inherit the policy family's policy definition.
      */
-    public PolicyFamiliesService policyFamilies() {
-        return policyFamiliesService;
+    public PolicyFamiliesAPI policyFamilies() {
+        return policyFamiliesAPI;
     }
     
     /**
      * Databricks Delta Sharing: Providers REST API
      */
-    public ProvidersService providers() {
-        return providersService;
+    public ProvidersAPI providers() {
+        return providersAPI;
     }
     
     /**
@@ -725,39 +787,39 @@ public class DatabricksWorkspace {
      * definitions include the target SQL warehouse, query text, name,
      * description, tags, parameters, and visualizations.
      */
-    public QueriesService queries() {
-        return queriesService;
+    public QueriesAPI queries() {
+        return queriesAPI;
     }
     
     /**
      * Access the history of queries through SQL warehouses.
      */
-    public QueryHistoryService queryHistory() {
-        return queryHistoryService;
+    public QueryHistoryAPI queryHistory() {
+        return queryHistoryAPI;
     }
     
     /**
      * Databricks Delta Sharing: Recipient Activation REST API
      */
-    public RecipientActivationService recipientActivation() {
-        return recipientActivationService;
+    public RecipientActivationAPI recipientActivation() {
+        return recipientActivationAPI;
     }
     
     /**
      * Databricks Delta Sharing: Recipients REST API
      */
-    public RecipientsService recipients() {
-        return recipientsService;
+    public RecipientsAPI recipients() {
+        return recipientsAPI;
     }
     
     
-    public RegisteredModelsService registeredModels() {
-        return registeredModelsService;
+    public RegisteredModelsAPI registeredModels() {
+        return registeredModelsAPI;
     }
     
     
-    public RegistryWebhooksService registryWebhooks() {
-        return registryWebhooksService;
+    public RegistryWebhooksAPI registryWebhooks() {
+        return registryWebhooksAPI;
     }
     
     /**
@@ -773,8 +835,8 @@ public class DatabricksWorkspace {
      * data science and engineering code development best practices using Git
      * for version control, collaboration, and CI/CD.
      */
-    public ReposService repos() {
-        return reposService;
+    public ReposAPI repos() {
+        return reposAPI;
     }
     
     /**
@@ -784,8 +846,8 @@ public class DatabricksWorkspace {
      * have the USE_SCHEMA data permission on the schema and its parent catalog,
      * and they must have the SELECT permission on the table or view.
      */
-    public SchemasService schemas() {
-        return schemasService;
+    public SchemasAPI schemas() {
+        return schemasAPI;
     }
     
     /**
@@ -802,8 +864,8 @@ public class DatabricksWorkspace {
      * values that might be displayed in notebooks, it is not possible to
      * prevent such users from reading secrets.
      */
-    public SecretsService secrets() {
-        return secretsService;
+    public SecretsAPI secrets() {
+        return secretsAPI;
     }
     
     /**
@@ -815,8 +877,8 @@ public class DatabricksWorkspace {
      * production. This eliminates the risk of a user overwriting production
      * data by accident.
      */
-    public ServicePrincipalsService servicePrincipals() {
-        return servicePrincipalsService;
+    public ServicePrincipalsAPI servicePrincipals() {
+        return servicePrincipalsAPI;
     }
     
     /**
@@ -834,15 +896,15 @@ public class DatabricksWorkspace {
      * your served models behind an endpoint. Additionally, you can configure
      * the scale of resources that should be applied to each served model.
      */
-    public ServingEndpointsService servingEndpoints() {
-        return servingEndpointsService;
+    public ServingEndpointsAPI servingEndpoints() {
+        return servingEndpointsAPI;
     }
     
     /**
      * Databricks Delta Sharing: Shares REST API
      */
-    public SharesService shares() {
-        return sharesService;
+    public SharesAPI shares() {
+        return sharesAPI;
     }
     
     /**
@@ -979,12 +1041,15 @@ public class DatabricksWorkspace {
      * 
      * ----
      * 
-     * ### **Warning: drop the authorization header when fetching data through
-     * external links**
+     * ### **Warning: We recommend you protect the URLs in the EXTERNAL_LINKS.**
      * 
-     * External link URLs do not require an Authorization header or token, and
-     * thus all calls to fetch external links must remove the Authorization
-     * header.
+     * When using the EXTERNAL_LINKS disposition, a short-lived pre-signed URL
+     * is generated, which the client can use to download the result chunk
+     * directly from cloud storage. As the short-lived credential is embedded in
+     * a pre-signed URL, this URL should be protected.
+     * 
+     * Since pre-signed URLs are generated with embedded temporary credentials,
+     * you need to remove the authorization header from the fetch requests.
      * 
      * ----
      * 
@@ -1031,8 +1096,8 @@ public class DatabricksWorkspace {
      * [Public Preview]: https://docs.databricks.com/release-notes/release-types.html
      * [SQL Statement Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
      */
-    public StatementExecutionService statementExecution() {
-        return statementExecutionService;
+    public StatementExecutionAPI statementExecution() {
+        return statementExecutionAPI;
     }
     
     /**
@@ -1051,8 +1116,8 @@ public class DatabricksWorkspace {
      * The account admin who creates the storage credential can delegate
      * ownership to another user or group to manage permissions on it.
      */
-    public StorageCredentialsService storageCredentials() {
-        return storageCredentialsService;
+    public StorageCredentialsAPI storageCredentials() {
+        return storageCredentialsAPI;
     }
     
     /**
@@ -1070,8 +1135,8 @@ public class DatabricksWorkspace {
      * specification during table creation. You can also add or drop constraints
      * on existing tables.
      */
-    public TableConstraintsService tableConstraints() {
-        return tableConstraintsService;
+    public TableConstraintsAPI tableConstraints() {
+        return tableConstraintsAPI;
     }
     
     /**
@@ -1086,8 +1151,8 @@ public class DatabricksWorkspace {
      * A table can be managed or external. From an API perspective, a __VIEW__
      * is a particular kind of table (rather than a managed or external table).
      */
-    public TablesService tables() {
-        return tablesService;
+    public TablesAPI tables() {
+        return tablesAPI;
     }
     
     /**
@@ -1095,21 +1160,21 @@ public class DatabricksWorkspace {
      * users. Admins can either get every token, get a specific token by ID, or
      * get all tokens for a particular user.
      */
-    public TokenManagementService tokenManagement() {
-        return tokenManagementService;
+    public TokenManagementAPI tokenManagement() {
+        return tokenManagementAPI;
     }
     
     /**
      * The Token API allows you to create, list, and revoke tokens that can be
      * used to authenticate and access Databricks REST APIs.
      */
-    public TokensService tokens() {
-        return tokensService;
+    public TokensAPI tokens() {
+        return tokensAPI;
     }
     
     
-    public TransitionRequestsService transitionRequests() {
-        return transitionRequestsService;
+    public TransitionRequestsAPI transitionRequests() {
+        return transitionRequestsAPI;
     }
     
     /**
@@ -1126,8 +1191,8 @@ public class DatabricksWorkspace {
      * removed from Databricks Workspace. This ensures a consistent offboarding
      * process and prevents unauthorized users from accessing sensitive data.
      */
-    public UsersService users() {
-        return usersService;
+    public UsersAPI users() {
+        return usersAPI;
     }
     
     /**
@@ -1135,8 +1200,8 @@ public class DatabricksWorkspace {
      * data objects within Databricks SQL. Compute resources are infrastructure
      * resources that provide processing capabilities in the cloud.
      */
-    public WarehousesService warehouses() {
-        return warehousesService;
+    public WarehousesAPI warehouses() {
+        return warehousesAPI;
     }
     
     /**
@@ -1146,467 +1211,359 @@ public class DatabricksWorkspace {
      * A notebook is a web-based interface to a document that contains runnable
      * code, visualizations, and explanatory text.
      */
-    public WorkspaceService workspace() {
-        return workspaceService;
+    public WorkspaceAPI workspace() {
+        return workspaceAPI;
     }
     
     /**
      * This API allows updating known workspace settings for advanced users.
      */
-    public WorkspaceConfService workspaceConf() {
-        return workspaceConfService;
+    public WorkspaceConfAPI workspaceConf() {
+        return workspaceConfAPI;
     }
     
     
-    /**
-     * Override AlertsService with mock
-     */
-    public DatabricksWorkspace setAlertsService(AlertsService alerts) {
-        alertsService = alerts;
+    /** Replace AlertsAPI implementation with mock */
+    public DatabricksWorkspace withAlertsImpl(AlertsService alerts) {
+        alertsAPI = new AlertsAPI(alerts);
         return this;
     }
     
-    /**
-     * Override CatalogsService with mock
-     */
-    public DatabricksWorkspace setCatalogsService(CatalogsService catalogs) {
-        catalogsService = catalogs;
+    /** Replace CatalogsAPI implementation with mock */
+    public DatabricksWorkspace withCatalogsImpl(CatalogsService catalogs) {
+        catalogsAPI = new CatalogsAPI(catalogs);
         return this;
     }
     
-    /**
-     * Override ClusterPoliciesService with mock
-     */
-    public DatabricksWorkspace setClusterPoliciesService(ClusterPoliciesService clusterPolicies) {
-        clusterPoliciesService = clusterPolicies;
+    /** Replace ClusterPoliciesAPI implementation with mock */
+    public DatabricksWorkspace withClusterPoliciesImpl(ClusterPoliciesService clusterPolicies) {
+        clusterPoliciesAPI = new ClusterPoliciesAPI(clusterPolicies);
         return this;
     }
     
-    /**
-     * Override ClustersService with mock
-     */
-    public DatabricksWorkspace setClustersService(ClustersService clusters) {
-        clustersService = clusters;
+    /** Replace ClustersAPI implementation with mock */
+    public DatabricksWorkspace withClustersImpl(ClustersService clusters) {
+        clustersAPI = new ClustersAPI(clusters);
         return this;
     }
     
-    /**
-     * Override CommandExecutionService with mock
-     */
-    public DatabricksWorkspace setCommandExecutionService(CommandExecutionService commandExecution) {
-        commandExecutionService = commandExecution;
+    /** Replace CommandExecutionAPI implementation with mock */
+    public DatabricksWorkspace withCommandExecutionImpl(CommandExecutionService commandExecution) {
+        commandExecutionAPI = new CommandExecutionAPI(commandExecution);
         return this;
     }
     
-    /**
-     * Override CurrentUserService with mock
-     */
-    public DatabricksWorkspace setCurrentUserService(CurrentUserService currentUser) {
-        currentUserService = currentUser;
+    /** Replace CurrentUserAPI implementation with mock */
+    public DatabricksWorkspace withCurrentUserImpl(CurrentUserService currentUser) {
+        currentUserAPI = new CurrentUserAPI(currentUser);
         return this;
     }
     
-    /**
-     * Override DashboardsService with mock
-     */
-    public DatabricksWorkspace setDashboardsService(DashboardsService dashboards) {
-        dashboardsService = dashboards;
+    /** Replace DashboardsAPI implementation with mock */
+    public DatabricksWorkspace withDashboardsImpl(DashboardsService dashboards) {
+        dashboardsAPI = new DashboardsAPI(dashboards);
         return this;
     }
     
-    /**
-     * Override DataSourcesService with mock
-     */
-    public DatabricksWorkspace setDataSourcesService(DataSourcesService dataSources) {
-        dataSourcesService = dataSources;
+    /** Replace DataSourcesAPI implementation with mock */
+    public DatabricksWorkspace withDataSourcesImpl(DataSourcesService dataSources) {
+        dataSourcesAPI = new DataSourcesAPI(dataSources);
         return this;
     }
     
-    /**
-     * Override DbfsService with mock
-     */
-    public DatabricksWorkspace setDbfsService(DbfsService dbfs) {
-        dbfsService = dbfs;
+    /** Replace DbfsAPI implementation with mock */
+    public DatabricksWorkspace withDbfsImpl(DbfsService dbfs) {
+        dbfsAPI = new DbfsAPI(dbfs);
         return this;
     }
     
-    /**
-     * Override DbsqlPermissionsService with mock
-     */
-    public DatabricksWorkspace setDbsqlPermissionsService(DbsqlPermissionsService dbsqlPermissions) {
-        dbsqlPermissionsService = dbsqlPermissions;
+    /** Replace DbsqlPermissionsAPI implementation with mock */
+    public DatabricksWorkspace withDbsqlPermissionsImpl(DbsqlPermissionsService dbsqlPermissions) {
+        dbsqlPermissionsAPI = new DbsqlPermissionsAPI(dbsqlPermissions);
         return this;
     }
     
-    /**
-     * Override ExperimentsService with mock
-     */
-    public DatabricksWorkspace setExperimentsService(ExperimentsService experiments) {
-        experimentsService = experiments;
+    /** Replace ExperimentsAPI implementation with mock */
+    public DatabricksWorkspace withExperimentsImpl(ExperimentsService experiments) {
+        experimentsAPI = new ExperimentsAPI(experiments);
         return this;
     }
     
-    /**
-     * Override ExternalLocationsService with mock
-     */
-    public DatabricksWorkspace setExternalLocationsService(ExternalLocationsService externalLocations) {
-        externalLocationsService = externalLocations;
+    /** Replace ExternalLocationsAPI implementation with mock */
+    public DatabricksWorkspace withExternalLocationsImpl(ExternalLocationsService externalLocations) {
+        externalLocationsAPI = new ExternalLocationsAPI(externalLocations);
         return this;
     }
     
-    /**
-     * Override FunctionsService with mock
-     */
-    public DatabricksWorkspace setFunctionsService(FunctionsService functions) {
-        functionsService = functions;
+    /** Replace FunctionsAPI implementation with mock */
+    public DatabricksWorkspace withFunctionsImpl(FunctionsService functions) {
+        functionsAPI = new FunctionsAPI(functions);
         return this;
     }
     
-    /**
-     * Override GitCredentialsService with mock
-     */
-    public DatabricksWorkspace setGitCredentialsService(GitCredentialsService gitCredentials) {
-        gitCredentialsService = gitCredentials;
+    /** Replace GitCredentialsAPI implementation with mock */
+    public DatabricksWorkspace withGitCredentialsImpl(GitCredentialsService gitCredentials) {
+        gitCredentialsAPI = new GitCredentialsAPI(gitCredentials);
         return this;
     }
     
-    /**
-     * Override GlobalInitScriptsService with mock
-     */
-    public DatabricksWorkspace setGlobalInitScriptsService(GlobalInitScriptsService globalInitScripts) {
-        globalInitScriptsService = globalInitScripts;
+    /** Replace GlobalInitScriptsAPI implementation with mock */
+    public DatabricksWorkspace withGlobalInitScriptsImpl(GlobalInitScriptsService globalInitScripts) {
+        globalInitScriptsAPI = new GlobalInitScriptsAPI(globalInitScripts);
         return this;
     }
     
-    /**
-     * Override GrantsService with mock
-     */
-    public DatabricksWorkspace setGrantsService(GrantsService grants) {
-        grantsService = grants;
+    /** Replace GrantsAPI implementation with mock */
+    public DatabricksWorkspace withGrantsImpl(GrantsService grants) {
+        grantsAPI = new GrantsAPI(grants);
         return this;
     }
     
-    /**
-     * Override GroupsService with mock
-     */
-    public DatabricksWorkspace setGroupsService(GroupsService groups) {
-        groupsService = groups;
+    /** Replace GroupsAPI implementation with mock */
+    public DatabricksWorkspace withGroupsImpl(GroupsService groups) {
+        groupsAPI = new GroupsAPI(groups);
         return this;
     }
     
-    /**
-     * Override InstancePoolsService with mock
-     */
-    public DatabricksWorkspace setInstancePoolsService(InstancePoolsService instancePools) {
-        instancePoolsService = instancePools;
+    /** Replace InstancePoolsAPI implementation with mock */
+    public DatabricksWorkspace withInstancePoolsImpl(InstancePoolsService instancePools) {
+        instancePoolsAPI = new InstancePoolsAPI(instancePools);
         return this;
     }
     
-    /**
-     * Override InstanceProfilesService with mock
-     */
-    public DatabricksWorkspace setInstanceProfilesService(InstanceProfilesService instanceProfiles) {
-        instanceProfilesService = instanceProfiles;
+    /** Replace InstanceProfilesAPI implementation with mock */
+    public DatabricksWorkspace withInstanceProfilesImpl(InstanceProfilesService instanceProfiles) {
+        instanceProfilesAPI = new InstanceProfilesAPI(instanceProfiles);
         return this;
     }
     
-    /**
-     * Override IpAccessListsService with mock
-     */
-    public DatabricksWorkspace setIpAccessListsService(IpAccessListsService ipAccessLists) {
-        ipAccessListsService = ipAccessLists;
+    /** Replace IpAccessListsAPI implementation with mock */
+    public DatabricksWorkspace withIpAccessListsImpl(IpAccessListsService ipAccessLists) {
+        ipAccessListsAPI = new IpAccessListsAPI(ipAccessLists);
         return this;
     }
     
-    /**
-     * Override JobsService with mock
-     */
-    public DatabricksWorkspace setJobsService(JobsService jobs) {
-        jobsService = jobs;
+    /** Replace JobsAPI implementation with mock */
+    public DatabricksWorkspace withJobsImpl(JobsService jobs) {
+        jobsAPI = new JobsAPI(jobs);
         return this;
     }
     
-    /**
-     * Override LibrariesService with mock
-     */
-    public DatabricksWorkspace setLibrariesService(LibrariesService libraries) {
-        librariesService = libraries;
+    /** Replace LibrariesAPI implementation with mock */
+    public DatabricksWorkspace withLibrariesImpl(LibrariesService libraries) {
+        librariesAPI = new LibrariesAPI(libraries);
         return this;
     }
     
-    /**
-     * Override MLflowArtifactsService with mock
-     */
-    public DatabricksWorkspace setMLflowArtifactsService(MLflowArtifactsService mLflowArtifacts) {
-        mLflowArtifactsService = mLflowArtifacts;
+    /** Replace MLflowArtifactsAPI implementation with mock */
+    public DatabricksWorkspace withMLflowArtifactsImpl(MLflowArtifactsService mLflowArtifacts) {
+        mLflowArtifactsAPI = new MLflowArtifactsAPI(mLflowArtifacts);
         return this;
     }
     
-    /**
-     * Override MLflowDatabricksService with mock
-     */
-    public DatabricksWorkspace setMLflowDatabricksService(MLflowDatabricksService mLflowDatabricks) {
-        mLflowDatabricksService = mLflowDatabricks;
+    /** Replace MLflowDatabricksAPI implementation with mock */
+    public DatabricksWorkspace withMLflowDatabricksImpl(MLflowDatabricksService mLflowDatabricks) {
+        mLflowDatabricksAPI = new MLflowDatabricksAPI(mLflowDatabricks);
         return this;
     }
     
-    /**
-     * Override MLflowMetricsService with mock
-     */
-    public DatabricksWorkspace setMLflowMetricsService(MLflowMetricsService mLflowMetrics) {
-        mLflowMetricsService = mLflowMetrics;
+    /** Replace MLflowMetricsAPI implementation with mock */
+    public DatabricksWorkspace withMLflowMetricsImpl(MLflowMetricsService mLflowMetrics) {
+        mLflowMetricsAPI = new MLflowMetricsAPI(mLflowMetrics);
         return this;
     }
     
-    /**
-     * Override MLflowRunsService with mock
-     */
-    public DatabricksWorkspace setMLflowRunsService(MLflowRunsService mLflowRuns) {
-        mLflowRunsService = mLflowRuns;
+    /** Replace MLflowRunsAPI implementation with mock */
+    public DatabricksWorkspace withMLflowRunsImpl(MLflowRunsService mLflowRuns) {
+        mLflowRunsAPI = new MLflowRunsAPI(mLflowRuns);
         return this;
     }
     
-    /**
-     * Override MetastoresService with mock
-     */
-    public DatabricksWorkspace setMetastoresService(MetastoresService metastores) {
-        metastoresService = metastores;
+    /** Replace MetastoresAPI implementation with mock */
+    public DatabricksWorkspace withMetastoresImpl(MetastoresService metastores) {
+        metastoresAPI = new MetastoresAPI(metastores);
         return this;
     }
     
-    /**
-     * Override ModelVersionCommentsService with mock
-     */
-    public DatabricksWorkspace setModelVersionCommentsService(ModelVersionCommentsService modelVersionComments) {
-        modelVersionCommentsService = modelVersionComments;
+    /** Replace ModelVersionCommentsAPI implementation with mock */
+    public DatabricksWorkspace withModelVersionCommentsImpl(ModelVersionCommentsService modelVersionComments) {
+        modelVersionCommentsAPI = new ModelVersionCommentsAPI(modelVersionComments);
         return this;
     }
     
-    /**
-     * Override ModelVersionsService with mock
-     */
-    public DatabricksWorkspace setModelVersionsService(ModelVersionsService modelVersions) {
-        modelVersionsService = modelVersions;
+    /** Replace ModelVersionsAPI implementation with mock */
+    public DatabricksWorkspace withModelVersionsImpl(ModelVersionsService modelVersions) {
+        modelVersionsAPI = new ModelVersionsAPI(modelVersions);
         return this;
     }
     
-    /**
-     * Override PermissionsService with mock
-     */
-    public DatabricksWorkspace setPermissionsService(PermissionsService permissions) {
-        permissionsService = permissions;
+    /** Replace PermissionsAPI implementation with mock */
+    public DatabricksWorkspace withPermissionsImpl(PermissionsService permissions) {
+        permissionsAPI = new PermissionsAPI(permissions);
         return this;
     }
     
-    /**
-     * Override PipelinesService with mock
-     */
-    public DatabricksWorkspace setPipelinesService(PipelinesService pipelines) {
-        pipelinesService = pipelines;
+    /** Replace PipelinesAPI implementation with mock */
+    public DatabricksWorkspace withPipelinesImpl(PipelinesService pipelines) {
+        pipelinesAPI = new PipelinesAPI(pipelines);
         return this;
     }
     
-    /**
-     * Override PolicyFamiliesService with mock
-     */
-    public DatabricksWorkspace setPolicyFamiliesService(PolicyFamiliesService policyFamilies) {
-        policyFamiliesService = policyFamilies;
+    /** Replace PolicyFamiliesAPI implementation with mock */
+    public DatabricksWorkspace withPolicyFamiliesImpl(PolicyFamiliesService policyFamilies) {
+        policyFamiliesAPI = new PolicyFamiliesAPI(policyFamilies);
         return this;
     }
     
-    /**
-     * Override ProvidersService with mock
-     */
-    public DatabricksWorkspace setProvidersService(ProvidersService providers) {
-        providersService = providers;
+    /** Replace ProvidersAPI implementation with mock */
+    public DatabricksWorkspace withProvidersImpl(ProvidersService providers) {
+        providersAPI = new ProvidersAPI(providers);
         return this;
     }
     
-    /**
-     * Override QueriesService with mock
-     */
-    public DatabricksWorkspace setQueriesService(QueriesService queries) {
-        queriesService = queries;
+    /** Replace QueriesAPI implementation with mock */
+    public DatabricksWorkspace withQueriesImpl(QueriesService queries) {
+        queriesAPI = new QueriesAPI(queries);
         return this;
     }
     
-    /**
-     * Override QueryHistoryService with mock
-     */
-    public DatabricksWorkspace setQueryHistoryService(QueryHistoryService queryHistory) {
-        queryHistoryService = queryHistory;
+    /** Replace QueryHistoryAPI implementation with mock */
+    public DatabricksWorkspace withQueryHistoryImpl(QueryHistoryService queryHistory) {
+        queryHistoryAPI = new QueryHistoryAPI(queryHistory);
         return this;
     }
     
-    /**
-     * Override RecipientActivationService with mock
-     */
-    public DatabricksWorkspace setRecipientActivationService(RecipientActivationService recipientActivation) {
-        recipientActivationService = recipientActivation;
+    /** Replace RecipientActivationAPI implementation with mock */
+    public DatabricksWorkspace withRecipientActivationImpl(RecipientActivationService recipientActivation) {
+        recipientActivationAPI = new RecipientActivationAPI(recipientActivation);
         return this;
     }
     
-    /**
-     * Override RecipientsService with mock
-     */
-    public DatabricksWorkspace setRecipientsService(RecipientsService recipients) {
-        recipientsService = recipients;
+    /** Replace RecipientsAPI implementation with mock */
+    public DatabricksWorkspace withRecipientsImpl(RecipientsService recipients) {
+        recipientsAPI = new RecipientsAPI(recipients);
         return this;
     }
     
-    /**
-     * Override RegisteredModelsService with mock
-     */
-    public DatabricksWorkspace setRegisteredModelsService(RegisteredModelsService registeredModels) {
-        registeredModelsService = registeredModels;
+    /** Replace RegisteredModelsAPI implementation with mock */
+    public DatabricksWorkspace withRegisteredModelsImpl(RegisteredModelsService registeredModels) {
+        registeredModelsAPI = new RegisteredModelsAPI(registeredModels);
         return this;
     }
     
-    /**
-     * Override RegistryWebhooksService with mock
-     */
-    public DatabricksWorkspace setRegistryWebhooksService(RegistryWebhooksService registryWebhooks) {
-        registryWebhooksService = registryWebhooks;
+    /** Replace RegistryWebhooksAPI implementation with mock */
+    public DatabricksWorkspace withRegistryWebhooksImpl(RegistryWebhooksService registryWebhooks) {
+        registryWebhooksAPI = new RegistryWebhooksAPI(registryWebhooks);
         return this;
     }
     
-    /**
-     * Override ReposService with mock
-     */
-    public DatabricksWorkspace setReposService(ReposService repos) {
-        reposService = repos;
+    /** Replace ReposAPI implementation with mock */
+    public DatabricksWorkspace withReposImpl(ReposService repos) {
+        reposAPI = new ReposAPI(repos);
         return this;
     }
     
-    /**
-     * Override SchemasService with mock
-     */
-    public DatabricksWorkspace setSchemasService(SchemasService schemas) {
-        schemasService = schemas;
+    /** Replace SchemasAPI implementation with mock */
+    public DatabricksWorkspace withSchemasImpl(SchemasService schemas) {
+        schemasAPI = new SchemasAPI(schemas);
         return this;
     }
     
-    /**
-     * Override SecretsService with mock
-     */
-    public DatabricksWorkspace setSecretsService(SecretsService secrets) {
-        secretsService = secrets;
+    /** Replace SecretsAPI implementation with mock */
+    public DatabricksWorkspace withSecretsImpl(SecretsService secrets) {
+        secretsAPI = new SecretsAPI(secrets);
         return this;
     }
     
-    /**
-     * Override ServicePrincipalsService with mock
-     */
-    public DatabricksWorkspace setServicePrincipalsService(ServicePrincipalsService servicePrincipals) {
-        servicePrincipalsService = servicePrincipals;
+    /** Replace ServicePrincipalsAPI implementation with mock */
+    public DatabricksWorkspace withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
+        servicePrincipalsAPI = new ServicePrincipalsAPI(servicePrincipals);
         return this;
     }
     
-    /**
-     * Override ServingEndpointsService with mock
-     */
-    public DatabricksWorkspace setServingEndpointsService(ServingEndpointsService servingEndpoints) {
-        servingEndpointsService = servingEndpoints;
+    /** Replace ServingEndpointsAPI implementation with mock */
+    public DatabricksWorkspace withServingEndpointsImpl(ServingEndpointsService servingEndpoints) {
+        servingEndpointsAPI = new ServingEndpointsAPI(servingEndpoints);
         return this;
     }
     
-    /**
-     * Override SharesService with mock
-     */
-    public DatabricksWorkspace setSharesService(SharesService shares) {
-        sharesService = shares;
+    /** Replace SharesAPI implementation with mock */
+    public DatabricksWorkspace withSharesImpl(SharesService shares) {
+        sharesAPI = new SharesAPI(shares);
         return this;
     }
     
-    /**
-     * Override StatementExecutionService with mock
-     */
-    public DatabricksWorkspace setStatementExecutionService(StatementExecutionService statementExecution) {
-        statementExecutionService = statementExecution;
+    /** Replace StatementExecutionAPI implementation with mock */
+    public DatabricksWorkspace withStatementExecutionImpl(StatementExecutionService statementExecution) {
+        statementExecutionAPI = new StatementExecutionAPI(statementExecution);
         return this;
     }
     
-    /**
-     * Override StorageCredentialsService with mock
-     */
-    public DatabricksWorkspace setStorageCredentialsService(StorageCredentialsService storageCredentials) {
-        storageCredentialsService = storageCredentials;
+    /** Replace StorageCredentialsAPI implementation with mock */
+    public DatabricksWorkspace withStorageCredentialsImpl(StorageCredentialsService storageCredentials) {
+        storageCredentialsAPI = new StorageCredentialsAPI(storageCredentials);
         return this;
     }
     
-    /**
-     * Override TableConstraintsService with mock
-     */
-    public DatabricksWorkspace setTableConstraintsService(TableConstraintsService tableConstraints) {
-        tableConstraintsService = tableConstraints;
+    /** Replace TableConstraintsAPI implementation with mock */
+    public DatabricksWorkspace withTableConstraintsImpl(TableConstraintsService tableConstraints) {
+        tableConstraintsAPI = new TableConstraintsAPI(tableConstraints);
         return this;
     }
     
-    /**
-     * Override TablesService with mock
-     */
-    public DatabricksWorkspace setTablesService(TablesService tables) {
-        tablesService = tables;
+    /** Replace TablesAPI implementation with mock */
+    public DatabricksWorkspace withTablesImpl(TablesService tables) {
+        tablesAPI = new TablesAPI(tables);
         return this;
     }
     
-    /**
-     * Override TokenManagementService with mock
-     */
-    public DatabricksWorkspace setTokenManagementService(TokenManagementService tokenManagement) {
-        tokenManagementService = tokenManagement;
+    /** Replace TokenManagementAPI implementation with mock */
+    public DatabricksWorkspace withTokenManagementImpl(TokenManagementService tokenManagement) {
+        tokenManagementAPI = new TokenManagementAPI(tokenManagement);
         return this;
     }
     
-    /**
-     * Override TokensService with mock
-     */
-    public DatabricksWorkspace setTokensService(TokensService tokens) {
-        tokensService = tokens;
+    /** Replace TokensAPI implementation with mock */
+    public DatabricksWorkspace withTokensImpl(TokensService tokens) {
+        tokensAPI = new TokensAPI(tokens);
         return this;
     }
     
-    /**
-     * Override TransitionRequestsService with mock
-     */
-    public DatabricksWorkspace setTransitionRequestsService(TransitionRequestsService transitionRequests) {
-        transitionRequestsService = transitionRequests;
+    /** Replace TransitionRequestsAPI implementation with mock */
+    public DatabricksWorkspace withTransitionRequestsImpl(TransitionRequestsService transitionRequests) {
+        transitionRequestsAPI = new TransitionRequestsAPI(transitionRequests);
         return this;
     }
     
-    /**
-     * Override UsersService with mock
-     */
-    public DatabricksWorkspace setUsersService(UsersService users) {
-        usersService = users;
+    /** Replace UsersAPI implementation with mock */
+    public DatabricksWorkspace withUsersImpl(UsersService users) {
+        usersAPI = new UsersAPI(users);
         return this;
     }
     
-    /**
-     * Override WarehousesService with mock
-     */
-    public DatabricksWorkspace setWarehousesService(WarehousesService warehouses) {
-        warehousesService = warehouses;
+    /** Replace WarehousesAPI implementation with mock */
+    public DatabricksWorkspace withWarehousesImpl(WarehousesService warehouses) {
+        warehousesAPI = new WarehousesAPI(warehouses);
         return this;
     }
     
-    /**
-     * Override WorkspaceService with mock
-     */
-    public DatabricksWorkspace setWorkspaceService(WorkspaceService workspace) {
-        workspaceService = workspace;
+    /** Replace WorkspaceAPI implementation with mock */
+    public DatabricksWorkspace withWorkspaceImpl(WorkspaceService workspace) {
+        workspaceAPI = new WorkspaceAPI(workspace);
         return this;
     }
     
-    /**
-     * Override WorkspaceConfService with mock
-     */
-    public DatabricksWorkspace setWorkspaceConfService(WorkspaceConfService workspaceConf) {
-        workspaceConfService = workspaceConf;
+    /** Replace WorkspaceConfAPI implementation with mock */
+    public DatabricksWorkspace withWorkspaceConfImpl(WorkspaceConfService workspaceConf) {
+        workspaceConfAPI = new WorkspaceConfAPI(workspaceConf);
         return this;
+    }
+    
+    public ApiClient apiClient() {
+        return apiClient;
     }
 
-    public ApiClient getApiClient() {
-        return apiClient;
+    public DatabricksConfig config() {
+        return config;
     }
 }

@@ -15,11 +15,17 @@ import com.databricks.sdk.client.DatabricksException;
  * objects within Databricks SQL. Compute resources are infrastructure resources
  * that provide processing capabilities in the cloud.
  */
-public class WarehousesAPI implements WarehousesService {
-    private final ApiClient apiClient;
+public class WarehousesAPI {
+    private final WarehousesService impl;
 
+    /** Regular-use constructor */
     public WarehousesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new WarehousesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public WarehousesAPI(WarehousesService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -27,10 +33,8 @@ public class WarehousesAPI implements WarehousesService {
      * 
      * Creates a new SQL warehouse.
      */
-    @Override
     public CreateWarehouseResponse create(CreateWarehouseRequest request) {
-        String path = "/api/2.0/sql/warehouses";
-        return apiClient.POST(path, request, CreateWarehouseResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -38,10 +42,8 @@ public class WarehousesAPI implements WarehousesService {
      * 
      * Deletes a SQL warehouse.
      */
-    @Override
     public void delete(DeleteWarehouseRequest request) {
-        String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -49,10 +51,8 @@ public class WarehousesAPI implements WarehousesService {
      * 
      * Updates the configuration for a SQL warehouse.
      */
-    @Override
     public void edit(EditWarehouseRequest request) {
-        String path = String.format("/api/2.0/sql/warehouses/%s/edit", request.getId());
-        apiClient.POST(path, request, Void.class);
+        impl.edit(request);
     }
     
 	/**
@@ -60,10 +60,8 @@ public class WarehousesAPI implements WarehousesService {
      * 
      * Gets the information for a single SQL warehouse.
      */
-    @Override
     public GetWarehouseResponse get(GetWarehouseRequest request) {
-        String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
-        return apiClient.GET(path, request, GetWarehouseResponse.class);
+        return impl.get(request);
     }
     
 	/**
@@ -72,10 +70,8 @@ public class WarehousesAPI implements WarehousesService {
      * Gets the workspace level configuration that is shared by all SQL
      * warehouses in a workspace.
      */
-    @Override
     public GetWorkspaceWarehouseConfigResponse getWorkspaceWarehouseConfig() {
-        String path = "/api/2.0/sql/config/warehouses";
-        return apiClient.GET(path, GetWorkspaceWarehouseConfigResponse.class);
+        return impl.getWorkspaceWarehouseConfig();
     }
     
 	/**
@@ -83,10 +79,8 @@ public class WarehousesAPI implements WarehousesService {
      * 
      * Lists all SQL warehouses that a user has manager permissions on.
      */
-    @Override
     public ListWarehousesResponse list(ListWarehousesRequest request) {
-        String path = "/api/2.0/sql/warehouses";
-        return apiClient.GET(path, request, ListWarehousesResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -95,10 +89,8 @@ public class WarehousesAPI implements WarehousesService {
      * Sets the workspace level configuration that is shared by all SQL
      * warehouses in a workspace.
      */
-    @Override
     public void setWorkspaceWarehouseConfig(SetWorkspaceWarehouseConfigRequest request) {
-        String path = "/api/2.0/sql/config/warehouses";
-        apiClient.PUT(path, request, Void.class);
+        impl.setWorkspaceWarehouseConfig(request);
     }
     
 	/**
@@ -106,10 +98,8 @@ public class WarehousesAPI implements WarehousesService {
      * 
      * Starts a SQL warehouse.
      */
-    @Override
     public void start(StartRequest request) {
-        String path = String.format("/api/2.0/sql/warehouses/%s/start", request.getId());
-        apiClient.POST(path, request, Void.class);
+        impl.start(request);
     }
     
 	/**
@@ -117,10 +107,11 @@ public class WarehousesAPI implements WarehousesService {
      * 
      * Stops a SQL warehouse.
      */
-    @Override
     public void stop(StopRequest request) {
-        String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
-        apiClient.POST(path, request, Void.class);
+        impl.stop(request);
     }
     
+    public WarehousesService impl() {
+        return impl;
+    }
 }

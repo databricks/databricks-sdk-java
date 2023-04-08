@@ -15,11 +15,17 @@ import com.databricks.sdk.client.DatabricksException;
  * (optional). Its ID is used when creating a new workspace if you use
  * customer-managed VPCs.
  */
-public class NetworksAPI implements NetworksService {
-    private final ApiClient apiClient;
+public class NetworksAPI {
+    private final NetworksService impl;
 
+    /** Regular-use constructor */
     public NetworksAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new NetworksImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public NetworksAPI(NetworksService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -29,10 +35,8 @@ public class NetworksAPI implements NetworksService {
      * resources. The VPC will be used for new Databricks clusters. This
      * requires a pre-existing VPC and subnets.
      */
-    @Override
     public Network create(CreateNetworkRequest request) {
-        String path = String.format("/api/2.0/accounts//networks");
-        return apiClient.POST(path, request, Network.class);
+        return impl.create(request);
     }
     
 	/**
@@ -45,10 +49,8 @@ public class NetworksAPI implements NetworksService {
      * This operation is available only if your account is on the E2 version of
      * the platform.
      */
-    @Override
     public void delete(DeleteNetworkRequest request) {
-        String path = String.format("/api/2.0/accounts//networks/%s", request.getNetworkId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -57,10 +59,8 @@ public class NetworksAPI implements NetworksService {
      * Gets a Databricks network configuration, which represents a cloud VPC and
      * its resources.
      */
-    @Override
     public Network get(GetNetworkRequest request) {
-        String path = String.format("/api/2.0/accounts//networks/%s", request.getNetworkId());
-        return apiClient.GET(path, request, Network.class);
+        return impl.get(request);
     }
     
 	/**
@@ -72,10 +72,11 @@ public class NetworksAPI implements NetworksService {
      * This operation is available only if your account is on the E2 version of
      * the platform.
      */
-    @Override
     public List<Network> list() {
-        String path = String.format("/api/2.0/accounts//networks");
-        return apiClient.GET(path, List.class);
+        return impl.list();
     }
     
+    public NetworksService impl() {
+        return impl;
+    }
 }

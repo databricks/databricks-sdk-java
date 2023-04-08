@@ -13,11 +13,17 @@ import com.databricks.sdk.client.DatabricksException;
 /**
  * This API allows updating known workspace settings for advanced users.
  */
-public class WorkspaceConfAPI implements WorkspaceConfService {
-    private final ApiClient apiClient;
+public class WorkspaceConfAPI {
+    private final WorkspaceConfService impl;
 
+    /** Regular-use constructor */
     public WorkspaceConfAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new WorkspaceConfImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public WorkspaceConfAPI(WorkspaceConfService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -25,10 +31,8 @@ public class WorkspaceConfAPI implements WorkspaceConfService {
      * 
      * Gets the configuration status for a workspace.
      */
-    @Override
     public Map<String,String> getStatus(GetStatus request) {
-        String path = "/api/2.0/workspace-conf";
-        return apiClient.GET(path, request, Map.class);
+        return impl.getStatus(request);
     }
     
 	/**
@@ -37,10 +41,11 @@ public class WorkspaceConfAPI implements WorkspaceConfService {
      * Sets the configuration status for a workspace, including enabling or
      * disabling it.
      */
-    @Override
     public void setStatus(Map<String,String> request) {
-        String path = "/api/2.0/workspace-conf";
-        apiClient.PATCH(path, request, Void.class);
+        impl.setStatus(request);
     }
     
+    public WorkspaceConfService impl() {
+        return impl;
+    }
 }

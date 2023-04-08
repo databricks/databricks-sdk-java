@@ -30,20 +30,6 @@ public class GetWorkspaceWarehouseConfigResponse {
     private java.util.List<EndpointConfPair> dataAccessConfig;
     
     /**
-     * Enable Serverless compute for SQL Endpoints
-     * 
-     * Deprecated: Use enable_serverless_compute
-     */
-    @JsonProperty("enable_databricks_compute")
-    private Boolean enableDatabricksCompute;
-    
-    /**
-     * Enable Serverless compute for SQL Endpoints
-     */
-    @JsonProperty("enable_serverless_compute")
-    private Boolean enableServerlessCompute;
-    
-    /**
      * List of Warehouse Types allowed in this workspace (limits allowed value
      * of the type field in CreateWarehouse and EditWarehouse). Note: Some types
      * cannot be disabled, they don't need to be specified in
@@ -74,7 +60,7 @@ public class GetWorkspaceWarehouseConfigResponse {
     private String instanceProfileArn;
     
     /**
-     * Security policy for endpoints
+     * Security policy for warehouses
      */
     @JsonProperty("security_policy")
     private GetWorkspaceWarehouseConfigResponseSecurityPolicy securityPolicy;
@@ -110,24 +96,6 @@ public class GetWorkspaceWarehouseConfigResponse {
 
     public java.util.List<EndpointConfPair> getDataAccessConfig() {
         return dataAccessConfig;
-    }
-    
-    public GetWorkspaceWarehouseConfigResponse setEnableDatabricksCompute(Boolean enableDatabricksCompute) {
-        this.enableDatabricksCompute = enableDatabricksCompute;
-        return this;
-    }
-
-    public Boolean getEnableDatabricksCompute() {
-        return enableDatabricksCompute;
-    }
-    
-    public GetWorkspaceWarehouseConfigResponse setEnableServerlessCompute(Boolean enableServerlessCompute) {
-        this.enableServerlessCompute = enableServerlessCompute;
-        return this;
-    }
-
-    public Boolean getEnableServerlessCompute() {
-        return enableServerlessCompute;
     }
     
     public GetWorkspaceWarehouseConfigResponse setEnabledWarehouseTypes(java.util.List<WarehouseTypePair> enabledWarehouseTypes) {

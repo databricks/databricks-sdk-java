@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class DeleteWorkspaceAssignmentRequest {
     /**
-     * The ID of the service principal.
+     * The ID of the user, service principal, or group.
      */
     
     private Long principalId;

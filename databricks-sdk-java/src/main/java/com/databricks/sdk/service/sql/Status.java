@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Health status of the endpoint.
+ * Health status of the warehouse.
  */
 public enum Status{
     DEGRADED,

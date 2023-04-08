@@ -14,11 +14,17 @@ import com.databricks.sdk.client.DatabricksException;
  * Permissions API are used to create read, write, edit, update and manage
  * access for various users on different objects and endpoints.
  */
-public class PermissionsAPI implements PermissionsService {
-    private final ApiClient apiClient;
+public class PermissionsAPI {
+    private final PermissionsService impl;
 
+    /** Regular-use constructor */
     public PermissionsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new PermissionsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public PermissionsAPI(PermissionsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -27,10 +33,8 @@ public class PermissionsAPI implements PermissionsService {
      * Gets the permission of an object. Objects can inherit permissions from
      * their parent objects or root objects.
      */
-    @Override
     public ObjectPermissions get(Get request) {
-        String path = String.format("/api/2.0/permissions/%s/%s", request.getRequestObjectType(), request.getRequestObjectId());
-        return apiClient.GET(path, request, ObjectPermissions.class);
+        return impl.get(request);
     }
     
 	/**
@@ -38,10 +42,8 @@ public class PermissionsAPI implements PermissionsService {
      * 
      * Gets the permission levels that a user can have on an object.
      */
-    @Override
     public GetPermissionLevelsResponse getPermissionLevels(GetPermissionLevels request) {
-        String path = String.format("/api/2.0/permissions/%s/%s/permissionLevels", request.getRequestObjectType(), request.getRequestObjectId());
-        return apiClient.GET(path, request, GetPermissionLevelsResponse.class);
+        return impl.getPermissionLevels(request);
     }
     
 	/**
@@ -50,10 +52,8 @@ public class PermissionsAPI implements PermissionsService {
      * Sets permissions on object. Objects can inherit permissions from their
      * parent objects and root objects.
      */
-    @Override
     public void set(PermissionsRequest request) {
-        String path = String.format("/api/2.0/permissions/%s/%s", request.getRequestObjectType(), request.getRequestObjectId());
-        apiClient.PUT(path, request, Void.class);
+        impl.set(request);
     }
     
 	/**
@@ -61,10 +61,11 @@ public class PermissionsAPI implements PermissionsService {
      * 
      * Updates the permissions on an object.
      */
-    @Override
     public void update(PermissionsRequest request) {
-        String path = String.format("/api/2.0/permissions/%s/%s", request.getRequestObjectType(), request.getRequestObjectId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public PermissionsService impl() {
+        return impl;
+    }
 }

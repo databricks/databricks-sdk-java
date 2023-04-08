@@ -15,11 +15,17 @@ import com.databricks.sdk.client.DatabricksException;
  * definitions include the target SQL warehouse, query text, name, description,
  * tags, parameters, and visualizations.
  */
-public class QueriesAPI implements QueriesService {
-    private final ApiClient apiClient;
+public class QueriesAPI {
+    private final QueriesService impl;
 
+    /** Regular-use constructor */
     public QueriesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new QueriesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public QueriesAPI(QueriesService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -35,10 +41,8 @@ public class QueriesAPI implements QueriesService {
      * 
      * **Note**: You cannot add a visualization until you create the query.
      */
-    @Override
     public Query create(QueryPostContent request) {
-        String path = "/api/2.0/preview/sql/queries";
-        return apiClient.POST(path, request, Query.class);
+        return impl.create(request);
     }
     
 	/**
@@ -48,10 +52,8 @@ public class QueriesAPI implements QueriesService {
      * searches and list views, and they cannot be used for alerts. The trash is
      * deleted after 30 days.
      */
-    @Override
     public void delete(DeleteQueryRequest request) {
-        String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -60,10 +62,8 @@ public class QueriesAPI implements QueriesService {
      * Retrieve a query object definition along with contextual permissions
      * information about the currently authenticated user.
      */
-    @Override
     public Query get(GetQueryRequest request) {
-        String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
-        return apiClient.GET(path, request, Query.class);
+        return impl.get(request);
     }
     
 	/**
@@ -72,10 +72,8 @@ public class QueriesAPI implements QueriesService {
      * Gets a list of queries. Optionally, this list can be filtered by a search
      * term.
      */
-    @Override
     public QueryList list(ListQueriesRequest request) {
-        String path = "/api/2.0/preview/sql/queries";
-        return apiClient.GET(path, request, QueryList.class);
+        return impl.list(request);
     }
     
 	/**
@@ -85,10 +83,8 @@ public class QueriesAPI implements QueriesService {
      * appears in list views and searches. You can use restored queries for
      * alerts.
      */
-    @Override
     public void restore(RestoreQueryRequest request) {
-        String path = String.format("/api/2.0/preview/sql/queries/trash/%s", request.getQueryId());
-        apiClient.POST(path, request, Void.class);
+        impl.restore(request);
     }
     
 	/**
@@ -98,10 +94,11 @@ public class QueriesAPI implements QueriesService {
      * 
      * **Note**: You cannot undo this operation.
      */
-    @Override
     public Query update(QueryEditContent request) {
-        String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
-        return apiClient.POST(path, request, Query.class);
+        return impl.update(request);
     }
     
+    public QueriesService impl() {
+        return impl;
+    }
 }

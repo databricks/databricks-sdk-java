@@ -54,6 +54,13 @@ public interface PipelinesService {
     GetUpdateResponse getUpdate(GetUpdate getUpdate);
     
 	/**
+     * List pipeline events.
+     * 
+     * Retrieves events for a pipeline.
+     */
+    ListPipelineEventsResponse listPipelineEvents(ListPipelineEvents listPipelineEvents);
+    
+	/**
      * List pipelines.
      * 
      * Lists pipelines defined in the Delta Live Tables system.

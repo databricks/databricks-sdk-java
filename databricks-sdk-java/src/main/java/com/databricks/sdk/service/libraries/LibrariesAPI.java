@@ -32,11 +32,17 @@ import com.databricks.sdk.client.DatabricksException;
  * you restart the cluster. Until you restart the cluster, the status of the
  * uninstalled library appears as Uninstall pending restart.
  */
-public class LibrariesAPI implements LibrariesService {
-    private final ApiClient apiClient;
+public class LibrariesAPI {
+    private final LibrariesService impl;
 
+    /** Regular-use constructor */
     public LibrariesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new LibrariesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public LibrariesAPI(LibrariesService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -47,10 +53,8 @@ public class LibrariesAPI implements LibrariesService {
      * libraries UI as well as libraries set to be installed on all clusters via
      * the libraries UI.
      */
-    @Override
     public ListAllClusterLibraryStatusesResponse allClusterStatuses() {
-        String path = "/api/2.0/libraries/all-cluster-statuses";
-        return apiClient.GET(path, ListAllClusterLibraryStatusesResponse.class);
+        return impl.allClusterStatuses();
     }
     
 	/**
@@ -72,10 +76,8 @@ public class LibrariesAPI implements LibrariesService {
      * clusters, but now marked for removal. Within this group there is no order
      * guarantee.
      */
-    @Override
     public ClusterLibraryStatuses clusterStatus(ClusterStatus request) {
-        String path = "/api/2.0/libraries/cluster-status";
-        return apiClient.GET(path, request, ClusterLibraryStatuses.class);
+        return impl.clusterStatus(request);
     }
     
 	/**
@@ -89,10 +91,8 @@ public class LibrariesAPI implements LibrariesService {
      * union of the libraries specified via this method and the libraries set to
      * be installed on all clusters via the libraries UI.
      */
-    @Override
     public void install(InstallLibraries request) {
-        String path = "/api/2.0/libraries/install";
-        apiClient.POST(path, request, Void.class);
+        impl.install(request);
     }
     
 	/**
@@ -102,10 +102,11 @@ public class LibrariesAPI implements LibrariesService {
      * uninstalled until the cluster is restarted. Uninstalling libraries that
      * are not installed on the cluster will have no impact but is not an error.
      */
-    @Override
     public void uninstall(UninstallLibraries request) {
-        String path = "/api/2.0/libraries/uninstall";
-        apiClient.POST(path, request, Void.class);
+        impl.uninstall(request);
     }
     
+    public LibrariesService impl() {
+        return impl;
+    }
 }

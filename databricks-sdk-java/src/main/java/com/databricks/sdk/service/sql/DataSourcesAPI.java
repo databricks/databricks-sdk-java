@@ -22,11 +22,17 @@ import com.databricks.sdk.client.DatabricksException;
  * client, or `grep` to search the response from this API for the name of your
  * SQL warehouse as it appears in Databricks SQL.
  */
-public class DataSourcesAPI implements DataSourcesService {
-    private final ApiClient apiClient;
+public class DataSourcesAPI {
+    private final DataSourcesService impl;
 
+    /** Regular-use constructor */
     public DataSourcesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new DataSourcesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public DataSourcesAPI(DataSourcesService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -37,10 +43,11 @@ public class DataSourcesAPI implements DataSourcesService {
      * However, you need only a SQL warehouse's `id` to create new queries
      * against it.
      */
-    @Override
     public List<DataSource> list() {
-        String path = "/api/2.0/preview/sql/data_sources";
-        return apiClient.GET(path, List.class);
+        return impl.list();
     }
     
+    public DataSourcesService impl() {
+        return impl;
+    }
 }

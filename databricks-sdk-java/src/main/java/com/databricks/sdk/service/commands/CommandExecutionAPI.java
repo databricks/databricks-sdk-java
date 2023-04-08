@@ -14,11 +14,17 @@ import com.databricks.sdk.client.DatabricksException;
  * This API allows execution of Python, Scala, SQL, or R commands on running
  * Databricks Clusters.
  */
-public class CommandExecutionAPI implements CommandExecutionService {
-    private final ApiClient apiClient;
+public class CommandExecutionAPI {
+    private final CommandExecutionService impl;
 
+    /** Regular-use constructor */
     public CommandExecutionAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new CommandExecutionImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public CommandExecutionAPI(CommandExecutionService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -28,10 +34,8 @@ public class CommandExecutionAPI implements CommandExecutionService {
      * 
      * The command ID is obtained from a prior successful call to __execute__.
      */
-    @Override
     public void cancel(CancelCommand request) {
-        String path = "/api/1.2/commands/cancel";
-        apiClient.POST(path, request, Void.class);
+        impl.cancel(request);
     }
     
 	/**
@@ -42,10 +46,8 @@ public class CommandExecutionAPI implements CommandExecutionService {
      * 
      * The command ID is obtained from a prior successful call to __execute__.
      */
-    @Override
     public CommandStatusResponse commandStatus(CommandStatusRequest request) {
-        String path = "/api/1.2/commands/status";
-        return apiClient.GET(path, request, CommandStatusResponse.class);
+        return impl.commandStatus(request);
     }
     
 	/**
@@ -53,10 +55,8 @@ public class CommandExecutionAPI implements CommandExecutionService {
      * 
      * Gets the status for an execution context.
      */
-    @Override
     public ContextStatusResponse contextStatus(ContextStatusRequest request) {
-        String path = "/api/1.2/contexts/status";
-        return apiClient.GET(path, request, ContextStatusResponse.class);
+        return impl.contextStatus(request);
     }
     
 	/**
@@ -66,10 +66,8 @@ public class CommandExecutionAPI implements CommandExecutionService {
      * 
      * If successful, this method returns the ID of the new execution context.
      */
-    @Override
     public Created create(CreateContext request) {
-        String path = "/api/1.2/contexts/create";
-        return apiClient.POST(path, request, Created.class);
+        return impl.create(request);
     }
     
 	/**
@@ -77,10 +75,8 @@ public class CommandExecutionAPI implements CommandExecutionService {
      * 
      * Deletes an execution context.
      */
-    @Override
     public void destroy(DestroyContext request) {
-        String path = "/api/1.2/contexts/destroy";
-        apiClient.POST(path, request, Void.class);
+        impl.destroy(request);
     }
     
 	/**
@@ -92,10 +88,11 @@ public class CommandExecutionAPI implements CommandExecutionService {
      * If successful, it returns an ID for tracking the status of the command's
      * execution.
      */
-    @Override
     public Created execute(Command request) {
-        String path = "/api/1.2/commands/execute";
-        return apiClient.POST(path, request, Created.class);
+        return impl.execute(request);
     }
     
+    public CommandExecutionService impl() {
+        return impl;
+    }
 }

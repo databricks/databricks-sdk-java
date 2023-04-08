@@ -11,11 +11,17 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 
-public class ModelVersionCommentsAPI implements ModelVersionCommentsService {
-    private final ApiClient apiClient;
+public class ModelVersionCommentsAPI {
+    private final ModelVersionCommentsService impl;
 
+    /** Regular-use constructor */
     public ModelVersionCommentsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new ModelVersionCommentsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public ModelVersionCommentsAPI(ModelVersionCommentsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -25,10 +31,8 @@ public class ModelVersionCommentsAPI implements ModelVersionCommentsService {
      * a user or programmatically to display relevant information about the
      * model. For example, test results or deployment errors.
      */
-    @Override
     public CreateResponse create(CreateComment request) {
-        String path = "/api/2.0/mlflow/comments/create";
-        return apiClient.POST(path, request, CreateResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -36,10 +40,8 @@ public class ModelVersionCommentsAPI implements ModelVersionCommentsService {
      * 
      * Deletes a comment on a model version.
      */
-    @Override
     public void delete(DeleteModelVersionCommentRequest request) {
-        String path = "/api/2.0/mlflow/comments/delete";
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -47,10 +49,11 @@ public class ModelVersionCommentsAPI implements ModelVersionCommentsService {
      * 
      * Post an edit to a comment on a model version.
      */
-    @Override
     public UpdateResponse update(UpdateComment request) {
-        String path = "/api/2.0/mlflow/comments/update";
-        return apiClient.POST(path, request, UpdateResponse.class);
+        return impl.update(request);
     }
     
+    public ModelVersionCommentsService impl() {
+        return impl;
+    }
 }

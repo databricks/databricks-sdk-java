@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * Security policy for endpoints
+ * Security policy for warehouses
  */
 public enum SetWorkspaceWarehouseConfigRequestSecurityPolicy{
     DATA_ACCESS_CONTROL,

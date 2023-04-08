@@ -1,0 +1,88 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+package com.databricks.sdk.service.oauth2;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.client.methods.*;
+
+import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.client.DatabricksException;
+
+/**
+ * These APIs enable administrators to manage published oauth app integrations,
+ * which is required for adding/using Published OAuth App Integration like
+ * Tableau Cloud for Databricks in AWS cloud.
+ * 
+ * **Note:** You can only add/use the OAuth published application integrations
+ * when OAuth enrollment status is enabled. For more details see
+ * :method:OAuthEnrollment/create
+ */
+public class PublishedAppIntegrationAPI {
+    private final PublishedAppIntegrationService impl;
+
+    /** Regular-use constructor */
+    public PublishedAppIntegrationAPI(ApiClient apiClient) {
+        impl = new PublishedAppIntegrationImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public PublishedAppIntegrationAPI(PublishedAppIntegrationService mock) {
+        impl = mock;
+    }
+	
+	/**
+     * Create Published OAuth App Integration.
+     * 
+     * Create Published OAuth App Integration.
+     * 
+     * You can retrieve the published oauth app integration via :method:get.
+     */
+    public CreatePublishedAppIntegrationOutput create(CreatePublishedAppIntegration request) {
+        return impl.create(request);
+    }
+    
+	/**
+     * Delete Published OAuth App Integration.
+     * 
+     * Delete an existing Published OAuth App Integration. You can retrieve the
+     * published oauth app integration via :method:get.
+     */
+    public void delete(DeletePublishedAppIntegrationRequest request) {
+        impl.delete(request);
+    }
+    
+	/**
+     * Get OAuth Published App Integration.
+     * 
+     * Gets the Published OAuth App Integration for the given integration id.
+     */
+    public GetPublishedAppIntegrationOutput get(GetPublishedAppIntegrationRequest request) {
+        return impl.get(request);
+    }
+    
+	/**
+     * Get published oauth app integrations.
+     * 
+     * Get the list of published oauth app integrations for the specified
+     * Databricks Account
+     */
+    public GetPublishedAppIntegrationsOutput list() {
+        return impl.list();
+    }
+    
+	/**
+     * Updates Published OAuth App Integration.
+     * 
+     * Updates an existing published OAuth App Integration. You can retrieve the
+     * published oauth app integration via :method:get.
+     */
+    public void update(UpdatePublishedAppIntegration request) {
+        impl.update(request);
+    }
+    
+    public PublishedAppIntegrationService impl() {
+        return impl;
+    }
+}

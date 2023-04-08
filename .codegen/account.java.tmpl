@@ -16,7 +16,7 @@ public class DatabricksAccount {
     private final ApiClient apiClient;
     private final DatabricksConfig config;
     {{range .Services}}{{if .IsAccounts}}
-    private {{.PascalName}}Service {{.CamelName}}Service;{{end}}{{end}}
+    private {{.PascalName}}API {{.CamelName}}API;{{end}}{{end}}
 
     public DatabricksAccount() {
         this(ConfigLoader.getDefault());
@@ -26,23 +26,34 @@ public class DatabricksAccount {
         this.config = config;
         apiClient = new ApiClient(config);
         {{range .Services}}{{if .IsAccounts}}
-        {{.CamelName}}Service = new {{.PascalName}}API(apiClient);{{end}}{{end}}
+        {{.CamelName}}API = new {{.PascalName}}API(apiClient);{{end}}{{end}}
+    }
+
+    /** Constructor for mocks */
+    public DatabricksAccount(boolean mock) {
+        apiClient = null;
+        config = null;
     }
     {{range .Services}}{{if .IsAccounts}}
     {{if .Description}}/**
      {{.Comment "     * " 80}}
      */{{end}}
-    public {{.PascalName}}Service {{.CamelName}}() {
-        return {{.CamelName}}Service;
+    public {{.PascalName}}API {{.CamelName}}() {
+        return {{.CamelName}}API;
     }
     {{end}}{{end}}
     {{range .Services}}{{if .IsAccounts}}
-    /**
-     * Override {{.PascalName}}Service with mock
-     */
-    public DatabricksAccount set{{.PascalName}}Service({{.PascalName}}Service {{.CamelName}}) {
-        {{.CamelName}}Service = {{.CamelName}};
+    /** Override {{.PascalName}}API with mock */
+    public DatabricksAccount with{{.PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
+        {{.CamelName}}API = new {{.PascalName}}API({{.CamelName}});
         return this;
     }
     {{end}}{{end}}
+    public ApiClient apiClient() {
+        return apiClient;
+    }
+
+    public DatabricksConfig config() {
+        return config;
+    }
 }

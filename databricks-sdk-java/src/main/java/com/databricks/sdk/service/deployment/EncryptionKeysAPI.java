@@ -28,11 +28,17 @@ import com.databricks.sdk.client.DatabricksException;
  * If you have an older workspace, it might not be on the E2 version of the
  * platform. If you are not sure, contact your Databricks representative.
  */
-public class EncryptionKeysAPI implements EncryptionKeysService {
-    private final ApiClient apiClient;
+public class EncryptionKeysAPI {
+    private final EncryptionKeysService impl;
 
+    /** Regular-use constructor */
     public EncryptionKeysAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new EncryptionKeysImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public EncryptionKeysAPI(EncryptionKeysService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -55,10 +61,8 @@ public class EncryptionKeysAPI implements EncryptionKeysService {
      * the platform or on a select custom plan that allows multiple workspaces
      * per account.
      */
-    @Override
     public CustomerManagedKey create(CreateCustomerManagedKeyRequest request) {
-        String path = String.format("/api/2.0/accounts//customer-managed-keys");
-        return apiClient.POST(path, request, CustomerManagedKey.class);
+        return impl.create(request);
     }
     
 	/**
@@ -68,10 +72,8 @@ public class EncryptionKeysAPI implements EncryptionKeysService {
      * cannot delete a configuration that is associated with a running
      * workspace.
      */
-    @Override
     public void delete(DeleteEncryptionKeyRequest request) {
-        String path = String.format("/api/2.0/accounts//customer-managed-keys/%s", request.getCustomerManagedKeyId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -93,10 +95,8 @@ public class EncryptionKeysAPI implements EncryptionKeysService {
      * This operation is available only if your account is on the E2 version of
      * the platform.
      */
-    @Override
     public CustomerManagedKey get(GetEncryptionKeyRequest request) {
-        String path = String.format("/api/2.0/accounts//customer-managed-keys/%s", request.getCustomerManagedKeyId());
-        return apiClient.GET(path, request, CustomerManagedKey.class);
+        return impl.get(request);
     }
     
 	/**
@@ -117,10 +117,11 @@ public class EncryptionKeysAPI implements EncryptionKeysService {
      * This operation is available only if your account is on the E2 version of
      * the platform.
      */
-    @Override
     public List<CustomerManagedKey> list() {
-        String path = String.format("/api/2.0/accounts//customer-managed-keys");
-        return apiClient.GET(path, List.class);
+        return impl.list();
     }
     
+    public EncryptionKeysService impl() {
+        return impl;
+    }
 }

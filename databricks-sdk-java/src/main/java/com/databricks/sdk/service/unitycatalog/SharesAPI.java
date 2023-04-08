@@ -13,11 +13,17 @@ import com.databricks.sdk.client.DatabricksException;
 /**
  * Databricks Delta Sharing: Shares REST API
  */
-public class SharesAPI implements SharesService {
-    private final ApiClient apiClient;
+public class SharesAPI {
+    private final SharesService impl;
 
+    /** Regular-use constructor */
     public SharesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new SharesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public SharesAPI(SharesService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -27,10 +33,8 @@ public class SharesAPI implements SharesService {
      * time or after creation with **update**. The caller must be a metastore
      * admin or have the **CREATE_SHARE** privilege on the metastore.
      */
-    @Override
     public ShareInfo create(CreateShare request) {
-        String path = "/api/2.1/unity-catalog/shares";
-        return apiClient.POST(path, request, ShareInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -39,10 +43,8 @@ public class SharesAPI implements SharesService {
      * Deletes a data object share from the metastore. The caller must be an
      * owner of the share.
      */
-    @Override
     public void delete(DeleteShareRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -51,10 +53,8 @@ public class SharesAPI implements SharesService {
      * Gets a data object share from the metastore. The caller must be a
      * metastore admin or the owner of the share.
      */
-    @Override
     public ShareInfo get(GetShareRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
-        return apiClient.GET(path, request, ShareInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -64,10 +64,8 @@ public class SharesAPI implements SharesService {
      * be a metastore admin or the owner of the share. There is no guarantee of
      * a specific ordering of the elements in the array.
      */
-    @Override
     public ListSharesResponse list() {
-        String path = "/api/2.1/unity-catalog/shares";
-        return apiClient.GET(path, ListSharesResponse.class);
+        return impl.list();
     }
     
 	/**
@@ -76,10 +74,8 @@ public class SharesAPI implements SharesService {
      * Gets the permissions for a data share from the metastore. The caller must
      * be a metastore admin or the owner of the share.
      */
-    @Override
     public PermissionsList sharePermissions(SharePermissionsRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
-        return apiClient.GET(path, request, PermissionsList.class);
+        return impl.sharePermissions(request);
     }
     
 	/**
@@ -101,10 +97,8 @@ public class SharesAPI implements SharesService {
      * 
      * Table removals through **update** do not require additional privileges.
      */
-    @Override
     public ShareInfo update(UpdateShare request) {
-        String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
-        return apiClient.PATCH(path, request, ShareInfo.class);
+        return impl.update(request);
     }
     
 	/**
@@ -116,10 +110,11 @@ public class SharesAPI implements SharesService {
      * For new recipient grants, the user must also be the owner of the
      * recipients. recipient revocations do not require additional privileges.
      */
-    @Override
     public void updatePermissions(UpdateSharePermissions request) {
-        String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
-        apiClient.PATCH(path, request, Void.class);
+        impl.updatePermissions(request);
     }
     
+    public SharesService impl() {
+        return impl;
+    }
 }

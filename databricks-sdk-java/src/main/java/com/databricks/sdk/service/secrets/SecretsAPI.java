@@ -24,11 +24,17 @@ import com.databricks.sdk.client.DatabricksException;
  * that might be displayed in notebooks, it is not possible to prevent such
  * users from reading secrets.
  */
-public class SecretsAPI implements SecretsService {
-    private final ApiClient apiClient;
+public class SecretsAPI {
+    private final SecretsService impl;
 
+    /** Regular-use constructor */
     public SecretsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new SecretsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public SecretsAPI(SecretsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -38,10 +44,8 @@ public class SecretsAPI implements SecretsService {
      * underscores, and periods, and may not exceed 128 characters. The maximum
      * number of scopes in a workspace is 100.
      */
-    @Override
     public void createScope(CreateScope request) {
-        String path = "/api/2.0/secrets/scopes/create";
-        apiClient.POST(path, request, Void.class);
+        impl.createScope(request);
     }
     
 	/**
@@ -54,10 +58,8 @@ public class SecretsAPI implements SecretsService {
      * exists. Throws `PERMISSION_DENIED` if the user does not have permission
      * to make this API call.
      */
-    @Override
     public void deleteAcl(DeleteAcl request) {
-        String path = "/api/2.0/secrets/acls/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.deleteAcl(request);
     }
     
 	/**
@@ -69,10 +71,8 @@ public class SecretsAPI implements SecretsService {
      * `PERMISSION_DENIED` if the user does not have permission to make this API
      * call.
      */
-    @Override
     public void deleteScope(DeleteScope request) {
-        String path = "/api/2.0/secrets/scopes/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.deleteScope(request);
     }
     
 	/**
@@ -85,10 +85,8 @@ public class SecretsAPI implements SecretsService {
      * exists. Throws `PERMISSION_DENIED` if the user does not have permission
      * to make this API call.
      */
-    @Override
     public void deleteSecret(DeleteSecret request) {
-        String path = "/api/2.0/secrets/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.deleteSecret(request);
     }
     
 	/**
@@ -101,10 +99,8 @@ public class SecretsAPI implements SecretsService {
      * `PERMISSION_DENIED` if the user does not have permission to make this API
      * call.
      */
-    @Override
     public AclItem getAcl(GetAcl request) {
-        String path = "/api/2.0/secrets/acls/get";
-        return apiClient.GET(path, request, AclItem.class);
+        return impl.getAcl(request);
     }
     
 	/**
@@ -117,10 +113,8 @@ public class SecretsAPI implements SecretsService {
      * `PERMISSION_DENIED` if the user does not have permission to make this API
      * call.
      */
-    @Override
     public ListAclsResponse listAcls(ListAcls request) {
-        String path = "/api/2.0/secrets/acls/list";
-        return apiClient.GET(path, request, ListAclsResponse.class);
+        return impl.listAcls(request);
     }
     
 	/**
@@ -131,10 +125,8 @@ public class SecretsAPI implements SecretsService {
      * Throws `PERMISSION_DENIED` if the user does not have permission to make
      * this API call.
      */
-    @Override
     public ListScopesResponse listScopes() {
-        String path = "/api/2.0/secrets/scopes/list";
-        return apiClient.GET(path, ListScopesResponse.class);
+        return impl.listScopes();
     }
     
 	/**
@@ -149,10 +141,8 @@ public class SecretsAPI implements SecretsService {
      * `PERMISSION_DENIED` if the user does not have permission to make this API
      * call.
      */
-    @Override
     public ListSecretsResponse listSecrets(ListSecrets request) {
-        String path = "/api/2.0/secrets/list";
-        return apiClient.GET(path, request, ListSecretsResponse.class);
+        return impl.listSecrets(request);
     }
     
 	/**
@@ -186,10 +176,8 @@ public class SecretsAPI implements SecretsService {
      * Throws `PERMISSION_DENIED` if the user does not have permission to make
      * this API call.
      */
-    @Override
     public void putAcl(PutAcl request) {
-        String path = "/api/2.0/secrets/acls/put";
-        apiClient.POST(path, request, Void.class);
+        impl.putAcl(request);
     }
     
 	/**
@@ -216,10 +204,11 @@ public class SecretsAPI implements SecretsService {
      * length is invalid. Throws `PERMISSION_DENIED` if the user does not have
      * permission to make this API call.
      */
-    @Override
     public void putSecret(PutSecret request) {
-        String path = "/api/2.0/secrets/put";
-        apiClient.POST(path, request, Void.class);
+        impl.putSecret(request);
     }
     
+    public SecretsService impl() {
+        return impl;
+    }
 }

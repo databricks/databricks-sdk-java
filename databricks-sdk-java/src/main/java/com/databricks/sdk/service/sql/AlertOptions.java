@@ -39,7 +39,7 @@ public class AlertOptions {
     
     /**
      * Whether or not the alert is muted. If an alert is muted, it will not
-     * notify users and alert destinations when triggered.
+     * notify users and notification destinations when triggered.
      */
     @JsonProperty("muted")
     private Boolean muted;

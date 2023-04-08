@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Databricks Workspace Assignment REST API
+ * The Workspace Permission Assignment API allows you to manage workspace
+ * permissions for principals in your account.
  *
  * This is the high-level interface, that contains generated methods.
  *
@@ -13,18 +14,10 @@ import java.util.Map;
  */
 public interface WorkspaceAssignmentService {
 	/**
-     * Create permission assignments.
-     * 
-     * Create new permission assignments for the specified account and
-     * workspace.
-     */
-    WorkspaceAssignmentsCreated create(CreateWorkspaceAssignments createWorkspaceAssignments);
-    
-	/**
      * Delete permissions assignment.
      * 
-     * Deletes the workspace permissions assignment for a given account and
-     * workspace using the specified service principal.
+     * Deletes the workspace permissions assignment in a given account and
+     * workspace for the specified principal.
      */
     void delete(DeleteWorkspaceAssignmentRequest deleteWorkspaceAssignmentRequest);
     
@@ -45,10 +38,10 @@ public interface WorkspaceAssignmentService {
     PermissionAssignments list(ListWorkspaceAssignmentRequest listWorkspaceAssignmentRequest);
     
 	/**
-     * Update permissions assignment.
+     * Create or update permissions assignment.
      * 
-     * Updates the workspace permissions assignment for a given account and
-     * workspace using the specified service principal.
+     * Creates or updates the workspace permissions assignment in a given
+     * account and workspace for the specified principal.
      */
     void update(UpdateWorkspaceAssignments updateWorkspaceAssignments);
     

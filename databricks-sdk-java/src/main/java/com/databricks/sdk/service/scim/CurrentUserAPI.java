@@ -14,11 +14,17 @@ import com.databricks.sdk.client.DatabricksException;
  * This API allows retrieving information about currently authenticated user or
  * service principal.
  */
-public class CurrentUserAPI implements CurrentUserService {
-    private final ApiClient apiClient;
+public class CurrentUserAPI {
+    private final CurrentUserService impl;
 
+    /** Regular-use constructor */
     public CurrentUserAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new CurrentUserImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public CurrentUserAPI(CurrentUserService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -26,10 +32,11 @@ public class CurrentUserAPI implements CurrentUserService {
      * 
      * Get details about the current method caller's identity.
      */
-    @Override
     public User me() {
-        String path = "/api/2.0/preview/scim/v2/Me";
-        return apiClient.GET(path, User.class);
+        return impl.me();
     }
     
+    public CurrentUserService impl() {
+        return impl;
+    }
 }

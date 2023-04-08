@@ -13,11 +13,17 @@ import com.databricks.sdk.client.DatabricksException;
 /**
  * Access the history of queries through SQL warehouses.
  */
-public class QueryHistoryAPI implements QueryHistoryService {
-    private final ApiClient apiClient;
+public class QueryHistoryAPI {
+    private final QueryHistoryService impl;
 
+    /** Regular-use constructor */
     public QueryHistoryAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new QueryHistoryImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public QueryHistoryAPI(QueryHistoryService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -27,10 +33,11 @@ public class QueryHistoryAPI implements QueryHistoryService {
      * 
      * You can filter by user ID, warehouse ID, status, and time range.
      */
-    @Override
     public ListQueriesResponse list(ListQueryHistoryRequest request) {
-        String path = "/api/2.0/sql/history/queries";
-        return apiClient.GET(path, request, ListQueriesResponse.class);
+        return impl.list(request);
     }
     
+    public QueryHistoryService impl() {
+        return impl;
+    }
 }

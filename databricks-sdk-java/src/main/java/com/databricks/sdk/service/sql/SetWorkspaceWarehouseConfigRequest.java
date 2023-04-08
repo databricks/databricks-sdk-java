@@ -30,20 +30,6 @@ public class SetWorkspaceWarehouseConfigRequest {
     private java.util.List<EndpointConfPair> dataAccessConfig;
     
     /**
-     * Enable Serverless compute for SQL Endpoints
-     * 
-     * Deprecated: Use enable_serverless_compute
-     */
-    @JsonProperty("enable_databricks_compute")
-    private Boolean enableDatabricksCompute;
-    
-    /**
-     * Enable Serverless compute for SQL Endpoints
-     */
-    @JsonProperty("enable_serverless_compute")
-    private Boolean enableServerlessCompute;
-    
-    /**
      * List of Warehouse Types allowed in this workspace (limits allowed value
      * of the type field in CreateWarehouse and EditWarehouse). Note: Some types
      * cannot be disabled, they don't need to be specified in
@@ -74,13 +60,13 @@ public class SetWorkspaceWarehouseConfigRequest {
     private String instanceProfileArn;
     
     /**
-     * Security policy for endpoints
+     * Security policy for warehouses
      */
     @JsonProperty("security_policy")
     private SetWorkspaceWarehouseConfigRequestSecurityPolicy securityPolicy;
     
     /**
-     * Internal. Used by frontend to save Serverless Compute agreement value.
+     * Internal. Used by frontend to save serverless compute agreement value.
      */
     @JsonProperty("serverless_agreement")
     private Boolean serverlessAgreement;
@@ -116,24 +102,6 @@ public class SetWorkspaceWarehouseConfigRequest {
 
     public java.util.List<EndpointConfPair> getDataAccessConfig() {
         return dataAccessConfig;
-    }
-    
-    public SetWorkspaceWarehouseConfigRequest setEnableDatabricksCompute(Boolean enableDatabricksCompute) {
-        this.enableDatabricksCompute = enableDatabricksCompute;
-        return this;
-    }
-
-    public Boolean getEnableDatabricksCompute() {
-        return enableDatabricksCompute;
-    }
-    
-    public SetWorkspaceWarehouseConfigRequest setEnableServerlessCompute(Boolean enableServerlessCompute) {
-        this.enableServerlessCompute = enableServerlessCompute;
-        return this;
-    }
-
-    public Boolean getEnableServerlessCompute() {
-        return enableServerlessCompute;
     }
     
     public SetWorkspaceWarehouseConfigRequest setEnabledWarehouseTypes(java.util.List<WarehouseTypePair> enabledWarehouseTypes) {
