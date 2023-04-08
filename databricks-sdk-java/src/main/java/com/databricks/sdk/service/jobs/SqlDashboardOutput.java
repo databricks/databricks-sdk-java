@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class SqlDashboardOutput {
-    /**
-     * The canonical identifier of the SQL warehouse.
-     */
-    @JsonProperty("warehouse_id")
-    private String warehouseId;
-    
-    /**
-     * Widgets executed in the run. Only SQL query based widgets are listed.
-     */
-    @JsonProperty("widgets")
-    private SqlDashboardWidgetOutput widgets;
-    
-    public SqlDashboardOutput setWarehouseId(String warehouseId) {
-        this.warehouseId = warehouseId;
-        return this;
-    }
+  /** The canonical identifier of the SQL warehouse. */
+  @JsonProperty("warehouse_id")
+  private String warehouseId;
 
-    public String getWarehouseId() {
-        return warehouseId;
-    }
-    
-    public SqlDashboardOutput setWidgets(SqlDashboardWidgetOutput widgets) {
-        this.widgets = widgets;
-        return this;
-    }
+  /** Widgets executed in the run. Only SQL query based widgets are listed. */
+  @JsonProperty("widgets")
+  private SqlDashboardWidgetOutput widgets;
 
-    public SqlDashboardWidgetOutput getWidgets() {
-        return widgets;
-    }
-    
+  public SqlDashboardOutput setWarehouseId(String warehouseId) {
+    this.warehouseId = warehouseId;
+    return this;
+  }
+
+  public String getWarehouseId() {
+    return warehouseId;
+  }
+
+  public SqlDashboardOutput setWidgets(SqlDashboardWidgetOutput widgets) {
+    this.widgets = widgets;
+    return this;
+  }
+
+  public SqlDashboardWidgetOutput getWidgets() {
+    return widgets;
+  }
 }

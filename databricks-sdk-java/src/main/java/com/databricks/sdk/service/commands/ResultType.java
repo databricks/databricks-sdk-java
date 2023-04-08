@@ -2,18 +2,10 @@
 
 package com.databricks.sdk.service.commands;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum ResultType{
-    error,
-    image,
-    images,
-    table,
-    text,
-    
+public enum ResultType {
+  error,
+  image,
+  images,
+  table,
+  text,
 }

@@ -2,58 +2,46 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
 public class TerminationReason {
-    /**
-     * status code indicating why the cluster was terminated
-     */
-    @JsonProperty("code")
-    private TerminationReasonCode code;
-    
-    /**
-     * list of parameters that provide additional information about why the
-     * cluster was terminated
-     */
-    @JsonProperty("parameters")
-    private Map<String,String> parameters;
-    
-    /**
-     * type of the termination
-     */
-    @JsonProperty("type")
-    private TerminationReasonType typeValue;
-    
-    public TerminationReason setCode(TerminationReasonCode code) {
-        this.code = code;
-        return this;
-    }
+  /** status code indicating why the cluster was terminated */
+  @JsonProperty("code")
+  private TerminationReasonCode code;
 
-    public TerminationReasonCode getCode() {
-        return code;
-    }
-    
-    public TerminationReason setParameters(Map<String,String> parameters) {
-        this.parameters = parameters;
-        return this;
-    }
+  /** list of parameters that provide additional information about why the cluster was terminated */
+  @JsonProperty("parameters")
+  private Map<String, String> parameters;
 
-    public Map<String,String> getParameters() {
-        return parameters;
-    }
-    
-    public TerminationReason setType(TerminationReasonType typeValue) {
-        this.typeValue = typeValue;
-        return this;
-    }
+  /** type of the termination */
+  @JsonProperty("type")
+  private TerminationReasonType typeValue;
 
-    public TerminationReasonType getType() {
-        return typeValue;
-    }
-    
+  public TerminationReason setCode(TerminationReasonCode code) {
+    this.code = code;
+    return this;
+  }
+
+  public TerminationReasonCode getCode() {
+    return code;
+  }
+
+  public TerminationReason setParameters(Map<String, String> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Map<String, String> getParameters() {
+    return parameters;
+  }
+
+  public TerminationReason setType(TerminationReasonType typeValue) {
+    this.typeValue = typeValue;
+    return this;
+  }
+
+  public TerminationReasonType getType() {
+    return typeValue;
+  }
 }

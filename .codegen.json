@@ -1,5 +1,5 @@
 {
-  "formatter": "echo 1",
+  "formatter": "mvn spotless:apply",
   "types": {
     ".codegen/model.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}.java"
   },

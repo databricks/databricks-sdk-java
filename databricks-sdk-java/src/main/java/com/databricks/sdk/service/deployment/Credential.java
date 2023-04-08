@@ -2,87 +2,71 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class Credential {
-    /**
-     * The Databricks account ID that hosts the credential.
-     */
-    @JsonProperty("account_id")
-    private String accountId;
-    
-    /**
-     
-     */
-    @JsonProperty("aws_credentials")
-    private AwsCredentials awsCredentials;
-    
-    /**
-     * Time in epoch milliseconds when the credential was created.
-     */
-    @JsonProperty("creation_time")
-    private Long creationTime;
-    
-    /**
-     * Databricks credential configuration ID.
-     */
-    @JsonProperty("credentials_id")
-    private String credentialsId;
-    
-    /**
-     * The human-readable name of the credential configuration object.
-     */
-    @JsonProperty("credentials_name")
-    private String credentialsName;
-    
-    public Credential setAccountId(String accountId) {
-        this.accountId = accountId;
-        return this;
-    }
+  /** The Databricks account ID that hosts the credential. */
+  @JsonProperty("account_id")
+  private String accountId;
 
-    public String getAccountId() {
-        return accountId;
-    }
-    
-    public Credential setAwsCredentials(AwsCredentials awsCredentials) {
-        this.awsCredentials = awsCredentials;
-        return this;
-    }
+  /** */
+  @JsonProperty("aws_credentials")
+  private AwsCredentials awsCredentials;
 
-    public AwsCredentials getAwsCredentials() {
-        return awsCredentials;
-    }
-    
-    public Credential setCreationTime(Long creationTime) {
-        this.creationTime = creationTime;
-        return this;
-    }
+  /** Time in epoch milliseconds when the credential was created. */
+  @JsonProperty("creation_time")
+  private Long creationTime;
 
-    public Long getCreationTime() {
-        return creationTime;
-    }
-    
-    public Credential setCredentialsId(String credentialsId) {
-        this.credentialsId = credentialsId;
-        return this;
-    }
+  /** Databricks credential configuration ID. */
+  @JsonProperty("credentials_id")
+  private String credentialsId;
 
-    public String getCredentialsId() {
-        return credentialsId;
-    }
-    
-    public Credential setCredentialsName(String credentialsName) {
-        this.credentialsName = credentialsName;
-        return this;
-    }
+  /** The human-readable name of the credential configuration object. */
+  @JsonProperty("credentials_name")
+  private String credentialsName;
 
-    public String getCredentialsName() {
-        return credentialsName;
-    }
-    
+  public Credential setAccountId(String accountId) {
+    this.accountId = accountId;
+    return this;
+  }
+
+  public String getAccountId() {
+    return accountId;
+  }
+
+  public Credential setAwsCredentials(AwsCredentials awsCredentials) {
+    this.awsCredentials = awsCredentials;
+    return this;
+  }
+
+  public AwsCredentials getAwsCredentials() {
+    return awsCredentials;
+  }
+
+  public Credential setCreationTime(Long creationTime) {
+    this.creationTime = creationTime;
+    return this;
+  }
+
+  public Long getCreationTime() {
+    return creationTime;
+  }
+
+  public Credential setCredentialsId(String credentialsId) {
+    this.credentialsId = credentialsId;
+    return this;
+  }
+
+  public String getCredentialsId() {
+    return credentialsId;
+  }
+
+  public Credential setCredentialsName(String credentialsName) {
+    this.credentialsName = credentialsName;
+    return this;
+  }
+
+  public String getCredentialsName() {
+    return credentialsName;
+  }
 }

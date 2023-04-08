@@ -2,44 +2,29 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get result chunk by index
- */
+/** Get result chunk by index */
 public class GetStatementResultChunkNRequest {
-    /**
-     
-     */
-    
-    private Long chunkIndex;
-    
-    /**
-     
-     */
-    
-    private String statementId;
-    
-    public GetStatementResultChunkNRequest setChunkIndex(Long chunkIndex) {
-        this.chunkIndex = chunkIndex;
-        return this;
-    }
+  /** */
+  private Long chunkIndex;
 
-    public Long getChunkIndex() {
-        return chunkIndex;
-    }
-    
-    public GetStatementResultChunkNRequest setStatementId(String statementId) {
-        this.statementId = statementId;
-        return this;
-    }
+  /** */
+  private String statementId;
 
-    public String getStatementId() {
-        return statementId;
-    }
-    
+  public GetStatementResultChunkNRequest setChunkIndex(Long chunkIndex) {
+    this.chunkIndex = chunkIndex;
+    return this;
+  }
+
+  public Long getChunkIndex() {
+    return chunkIndex;
+  }
+
+  public GetStatementResultChunkNRequest setStatementId(String statementId) {
+    this.statementId = statementId;
+    return this;
+  }
+
+  public String getStatementId() {
+    return statementId;
+  }
 }

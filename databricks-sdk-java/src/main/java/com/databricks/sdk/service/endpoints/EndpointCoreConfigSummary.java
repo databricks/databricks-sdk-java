@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.endpoints;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class EndpointCoreConfigSummary {
-    /**
-     * The list of served models under the serving endpoint config.
-     */
-    @JsonProperty("served_models")
-    private java.util.List<ServedModelSpec> servedModels;
-    
-    public EndpointCoreConfigSummary setServedModels(java.util.List<ServedModelSpec> servedModels) {
-        this.servedModels = servedModels;
-        return this;
-    }
+  /** The list of served models under the serving endpoint config. */
+  @JsonProperty("served_models")
+  private java.util.List<ServedModelSpec> servedModels;
 
-    public java.util.List<ServedModelSpec> getServedModels() {
-        return servedModels;
-    }
-    
+  public EndpointCoreConfigSummary setServedModels(java.util.List<ServedModelSpec> servedModels) {
+    this.servedModels = servedModels;
+    return this;
+  }
+
+  public java.util.List<ServedModelSpec> getServedModels() {
+    return servedModels;
+  }
 }

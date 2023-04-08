@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete a table
- */
+/** Delete a table */
 public class DeleteTableRequest {
-    /**
-     * Full name of the table.
-     */
-    
-    private String fullName;
-    
-    public DeleteTableRequest setFullName(String fullName) {
-        this.fullName = fullName;
-        return this;
-    }
+  /** Full name of the table. */
+  private String fullName;
 
-    public String getFullName() {
-        return fullName;
-    }
-    
+  public DeleteTableRequest setFullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
 }

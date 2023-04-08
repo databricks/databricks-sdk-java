@@ -2,59 +2,48 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class GetEventsResponse {
-    /**
-     * <content needs to be added>
-     */
-    @JsonProperty("events")
-    private java.util.List<ClusterEvent> events;
-    
-    /**
-     * The parameters required to retrieve the next page of events. Omitted if
-     * there are no more events to read.
-     */
-    @JsonProperty("next_page")
-    private GetEvents nextPage;
-    
-    /**
-     * The total number of events filtered by the start_time, end_time, and
-     * event_types.
-     */
-    @JsonProperty("total_count")
-    private Long totalCount;
-    
-    public GetEventsResponse setEvents(java.util.List<ClusterEvent> events) {
-        this.events = events;
-        return this;
-    }
+  /** <content needs to be added> */
+  @JsonProperty("events")
+  private java.util.List<ClusterEvent> events;
 
-    public java.util.List<ClusterEvent> getEvents() {
-        return events;
-    }
-    
-    public GetEventsResponse setNextPage(GetEvents nextPage) {
-        this.nextPage = nextPage;
-        return this;
-    }
+  /**
+   * The parameters required to retrieve the next page of events. Omitted if there are no more
+   * events to read.
+   */
+  @JsonProperty("next_page")
+  private GetEvents nextPage;
 
-    public GetEvents getNextPage() {
-        return nextPage;
-    }
-    
-    public GetEventsResponse setTotalCount(Long totalCount) {
-        this.totalCount = totalCount;
-        return this;
-    }
+  /** The total number of events filtered by the start_time, end_time, and event_types. */
+  @JsonProperty("total_count")
+  private Long totalCount;
 
-    public Long getTotalCount() {
-        return totalCount;
-    }
-    
+  public GetEventsResponse setEvents(java.util.List<ClusterEvent> events) {
+    this.events = events;
+    return this;
+  }
+
+  public java.util.List<ClusterEvent> getEvents() {
+    return events;
+  }
+
+  public GetEventsResponse setNextPage(GetEvents nextPage) {
+    this.nextPage = nextPage;
+    return this;
+  }
+
+  public GetEvents getNextPage() {
+    return nextPage;
+  }
+
+  public GetEventsResponse setTotalCount(Long totalCount) {
+    this.totalCount = totalCount;
+    return this;
+  }
+
+  public Long getTotalCount() {
+    return totalCount;
+  }
 }

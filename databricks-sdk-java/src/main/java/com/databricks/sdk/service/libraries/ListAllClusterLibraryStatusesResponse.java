@@ -2,27 +2,20 @@
 
 package com.databricks.sdk.service.libraries;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListAllClusterLibraryStatusesResponse {
-    /**
-     * A list of cluster statuses.
-     */
-    @JsonProperty("statuses")
-    private java.util.List<ClusterLibraryStatuses> statuses;
-    
-    public ListAllClusterLibraryStatusesResponse setStatuses(java.util.List<ClusterLibraryStatuses> statuses) {
-        this.statuses = statuses;
-        return this;
-    }
+  /** A list of cluster statuses. */
+  @JsonProperty("statuses")
+  private java.util.List<ClusterLibraryStatuses> statuses;
 
-    public java.util.List<ClusterLibraryStatuses> getStatuses() {
-        return statuses;
-    }
-    
+  public ListAllClusterLibraryStatusesResponse setStatuses(
+      java.util.List<ClusterLibraryStatuses> statuses) {
+    this.statuses = statuses;
+    return this;
+  }
+
+  public java.util.List<ClusterLibraryStatuses> getStatuses() {
+    return statuses;
+  }
 }

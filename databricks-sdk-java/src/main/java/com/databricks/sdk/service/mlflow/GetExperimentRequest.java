@@ -2,29 +2,20 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-/**
- * Get an experiment
- */
+/** Get an experiment */
 public class GetExperimentRequest {
-    /**
-     * ID of the associated experiment.
-     */
-    @QueryParam("experiment_id")
-    private String experimentId;
-    
-    public GetExperimentRequest setExperimentId(String experimentId) {
-        this.experimentId = experimentId;
-        return this;
-    }
+  /** ID of the associated experiment. */
+  @QueryParam("experiment_id")
+  private String experimentId;
 
-    public String getExperimentId() {
-        return experimentId;
-    }
-    
+  public GetExperimentRequest setExperimentId(String experimentId) {
+    this.experimentId = experimentId;
+    return this;
+  }
+
+  public String getExperimentId() {
+    return experimentId;
+  }
 }

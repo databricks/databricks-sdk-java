@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.permissions;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class WorkspacePermissions {
-    /**
-     * Array of permissions defined for a workspace.
-     */
-    @JsonProperty("permissions")
-    private java.util.List<PermissionOutput> permissions;
-    
-    public WorkspacePermissions setPermissions(java.util.List<PermissionOutput> permissions) {
-        this.permissions = permissions;
-        return this;
-    }
+  /** Array of permissions defined for a workspace. */
+  @JsonProperty("permissions")
+  private java.util.List<PermissionOutput> permissions;
 
-    public java.util.List<PermissionOutput> getPermissions() {
-        return permissions;
-    }
-    
+  public WorkspacePermissions setPermissions(java.util.List<PermissionOutput> permissions) {
+    this.permissions = permissions;
+    return this;
+  }
+
+  public java.util.List<PermissionOutput> getPermissions() {
+    return permissions;
+  }
 }

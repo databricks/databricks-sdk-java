@@ -2,15 +2,7 @@
 
 package com.databricks.sdk.service.instancepools;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum DiskTypeEbsVolumeType{
-    GENERAL_PURPOSE_SSD,
-    THROUGHPUT_OPTIMIZED_HDD,
-    
+public enum DiskTypeEbsVolumeType {
+  GENERAL_PURPOSE_SSD,
+  THROUGHPUT_OPTIMIZED_HDD,
 }

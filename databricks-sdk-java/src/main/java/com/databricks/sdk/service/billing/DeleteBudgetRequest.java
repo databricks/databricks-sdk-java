@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.billing;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete budget
- */
+/** Delete budget */
 public class DeleteBudgetRequest {
-    /**
-     * Budget ID
-     */
-    
-    private String budgetId;
-    
-    public DeleteBudgetRequest setBudgetId(String budgetId) {
-        this.budgetId = budgetId;
-        return this;
-    }
+  /** Budget ID */
+  private String budgetId;
 
-    public String getBudgetId() {
-        return budgetId;
-    }
-    
+  public DeleteBudgetRequest setBudgetId(String budgetId) {
+    this.budgetId = budgetId;
+    return this;
+  }
+
+  public String getBudgetId() {
+    return budgetId;
+  }
 }

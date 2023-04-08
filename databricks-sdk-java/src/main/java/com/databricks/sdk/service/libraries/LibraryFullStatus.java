@@ -2,74 +2,58 @@
 
 package com.databricks.sdk.service.libraries;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class LibraryFullStatus {
-    /**
-     * Whether the library was set to be installed on all clusters via the
-     * libraries UI.
-     */
-    @JsonProperty("is_library_for_all_clusters")
-    private Boolean isLibraryForAllClusters;
-    
-    /**
-     * Unique identifier for the library.
-     */
-    @JsonProperty("library")
-    private Library library;
-    
-    /**
-     * All the info and warning messages that have occurred so far for this
-     * library.
-     */
-    @JsonProperty("messages")
-    private java.util.List<String> messages;
-    
-    /**
-     * Status of installing the library on the cluster.
-     */
-    @JsonProperty("status")
-    private LibraryFullStatusStatus status;
-    
-    public LibraryFullStatus setIsLibraryForAllClusters(Boolean isLibraryForAllClusters) {
-        this.isLibraryForAllClusters = isLibraryForAllClusters;
-        return this;
-    }
+  /** Whether the library was set to be installed on all clusters via the libraries UI. */
+  @JsonProperty("is_library_for_all_clusters")
+  private Boolean isLibraryForAllClusters;
 
-    public Boolean getIsLibraryForAllClusters() {
-        return isLibraryForAllClusters;
-    }
-    
-    public LibraryFullStatus setLibrary(Library library) {
-        this.library = library;
-        return this;
-    }
+  /** Unique identifier for the library. */
+  @JsonProperty("library")
+  private Library library;
 
-    public Library getLibrary() {
-        return library;
-    }
-    
-    public LibraryFullStatus setMessages(java.util.List<String> messages) {
-        this.messages = messages;
-        return this;
-    }
+  /** All the info and warning messages that have occurred so far for this library. */
+  @JsonProperty("messages")
+  private java.util.List<String> messages;
 
-    public java.util.List<String> getMessages() {
-        return messages;
-    }
-    
-    public LibraryFullStatus setStatus(LibraryFullStatusStatus status) {
-        this.status = status;
-        return this;
-    }
+  /** Status of installing the library on the cluster. */
+  @JsonProperty("status")
+  private LibraryFullStatusStatus status;
 
-    public LibraryFullStatusStatus getStatus() {
-        return status;
-    }
-    
+  public LibraryFullStatus setIsLibraryForAllClusters(Boolean isLibraryForAllClusters) {
+    this.isLibraryForAllClusters = isLibraryForAllClusters;
+    return this;
+  }
+
+  public Boolean getIsLibraryForAllClusters() {
+    return isLibraryForAllClusters;
+  }
+
+  public LibraryFullStatus setLibrary(Library library) {
+    this.library = library;
+    return this;
+  }
+
+  public Library getLibrary() {
+    return library;
+  }
+
+  public LibraryFullStatus setMessages(java.util.List<String> messages) {
+    this.messages = messages;
+    return this;
+  }
+
+  public java.util.List<String> getMessages() {
+    return messages;
+  }
+
+  public LibraryFullStatus setStatus(LibraryFullStatusStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public LibraryFullStatusStatus getStatus() {
+    return status;
+  }
 }

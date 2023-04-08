@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class CreateClusterResponse {
-    /**
-     
-     */
-    @JsonProperty("cluster_id")
-    private String clusterId;
-    
-    public CreateClusterResponse setClusterId(String clusterId) {
-        this.clusterId = clusterId;
-        return this;
-    }
+  /** */
+  @JsonProperty("cluster_id")
+  private String clusterId;
 
-    public String getClusterId() {
-        return clusterId;
-    }
-    
+  public CreateClusterResponse setClusterId(String clusterId) {
+    this.clusterId = clusterId;
+    return this;
+  }
+
+  public String getClusterId() {
+    return clusterId;
+  }
 }

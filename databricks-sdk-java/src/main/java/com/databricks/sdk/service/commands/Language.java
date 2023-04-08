@@ -2,16 +2,8 @@
 
 package com.databricks.sdk.service.commands;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum Language{
-    python,
-    scala,
-    sql,
-    
+public enum Language {
+  python,
+  scala,
+  sql,
 }

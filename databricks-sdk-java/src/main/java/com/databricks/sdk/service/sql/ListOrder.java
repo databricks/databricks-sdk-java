@@ -2,15 +2,7 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum ListOrder{
-    created_at,
-    name,
-    
+public enum ListOrder {
+  created_at,
+  name,
 }

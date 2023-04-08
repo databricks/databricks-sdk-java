@@ -2,15 +2,7 @@
 
 package com.databricks.sdk.service.clusterpolicies;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum ListSortOrder{
-    ASC,
-    DESC,
-    
+public enum ListSortOrder {
+  ASC,
+  DESC,
 }

@@ -2,44 +2,33 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-/**
- * Schema is an ordered list of column descriptions.
- */
+/** Schema is an ordered list of column descriptions. */
 public class ResultSchema {
-    /**
-     
-     */
-    @JsonProperty("column_count")
-    private Long columnCount;
-    
-    /**
-     
-     */
-    @JsonProperty("columns")
-    private java.util.List<ColumnInfo> columns;
-    
-    public ResultSchema setColumnCount(Long columnCount) {
-        this.columnCount = columnCount;
-        return this;
-    }
+  /** */
+  @JsonProperty("column_count")
+  private Long columnCount;
 
-    public Long getColumnCount() {
-        return columnCount;
-    }
-    
-    public ResultSchema setColumns(java.util.List<ColumnInfo> columns) {
-        this.columns = columns;
-        return this;
-    }
+  /** */
+  @JsonProperty("columns")
+  private java.util.List<ColumnInfo> columns;
 
-    public java.util.List<ColumnInfo> getColumns() {
-        return columns;
-    }
-    
+  public ResultSchema setColumnCount(Long columnCount) {
+    this.columnCount = columnCount;
+    return this;
+  }
+
+  public Long getColumnCount() {
+    return columnCount;
+  }
+
+  public ResultSchema setColumns(java.util.List<ColumnInfo> columns) {
+    this.columns = columns;
+    return this;
+  }
+
+  public java.util.List<ColumnInfo> getColumns() {
+    return columns;
+  }
 }

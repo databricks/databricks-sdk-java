@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.secrets;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListScopesResponse {
-    /**
-     * The available secret scopes.
-     */
-    @JsonProperty("scopes")
-    private java.util.List<SecretScope> scopes;
-    
-    public ListScopesResponse setScopes(java.util.List<SecretScope> scopes) {
-        this.scopes = scopes;
-        return this;
-    }
+  /** The available secret scopes. */
+  @JsonProperty("scopes")
+  private java.util.List<SecretScope> scopes;
 
-    public java.util.List<SecretScope> getScopes() {
-        return scopes;
-    }
-    
+  public ListScopesResponse setScopes(java.util.List<SecretScope> scopes) {
+    this.scopes = scopes;
+    return this;
+  }
+
+  public java.util.List<SecretScope> getScopes() {
+    return scopes;
+  }
 }

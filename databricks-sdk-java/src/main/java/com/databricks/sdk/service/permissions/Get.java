@@ -2,44 +2,29 @@
 
 package com.databricks.sdk.service.permissions;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get object permissions
- */
+/** Get object permissions */
 public class Get {
-    /**
-     
-     */
-    
-    private String requestObjectId;
-    
-    /**
-     * <needs content>
-     */
-    
-    private String requestObjectType;
-    
-    public Get setRequestObjectId(String requestObjectId) {
-        this.requestObjectId = requestObjectId;
-        return this;
-    }
+  /** */
+  private String requestObjectId;
 
-    public String getRequestObjectId() {
-        return requestObjectId;
-    }
-    
-    public Get setRequestObjectType(String requestObjectType) {
-        this.requestObjectType = requestObjectType;
-        return this;
-    }
+  /** <needs content> */
+  private String requestObjectType;
 
-    public String getRequestObjectType() {
-        return requestObjectType;
-    }
-    
+  public Get setRequestObjectId(String requestObjectId) {
+    this.requestObjectId = requestObjectId;
+    return this;
+  }
+
+  public String getRequestObjectId() {
+    return requestObjectId;
+  }
+
+  public Get setRequestObjectType(String requestObjectType) {
+    this.requestObjectType = requestObjectType;
+    return this;
+  }
+
+  public String getRequestObjectType() {
+    return requestObjectType;
+  }
 }

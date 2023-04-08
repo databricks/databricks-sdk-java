@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.tokens;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListTokensResponse {
-    /**
-     * The information for each token.
-     */
-    @JsonProperty("token_infos")
-    private java.util.List<PublicTokenInfo> tokenInfos;
-    
-    public ListTokensResponse setTokenInfos(java.util.List<PublicTokenInfo> tokenInfos) {
-        this.tokenInfos = tokenInfos;
-        return this;
-    }
+  /** The information for each token. */
+  @JsonProperty("token_infos")
+  private java.util.List<PublicTokenInfo> tokenInfos;
 
-    public java.util.List<PublicTokenInfo> getTokenInfos() {
-        return tokenInfos;
-    }
-    
+  public ListTokensResponse setTokenInfos(java.util.List<PublicTokenInfo> tokenInfos) {
+    this.tokenInfos = tokenInfos;
+    return this;
+  }
+
+  public java.util.List<PublicTokenInfo> getTokenInfos() {
+    return tokenInfos;
+  }
 }

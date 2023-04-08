@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class DeleteRun {
-    /**
-     * The canonical identifier of the run for which to retrieve the metadata.
-     */
-    @JsonProperty("run_id")
-    private Long runId;
-    
-    public DeleteRun setRunId(Long runId) {
-        this.runId = runId;
-        return this;
-    }
+  /** The canonical identifier of the run for which to retrieve the metadata. */
+  @JsonProperty("run_id")
+  private Long runId;
 
-    public Long getRunId() {
-        return runId;
-    }
-    
+  public DeleteRun setRunId(Long runId) {
+    this.runId = runId;
+    return this;
+  }
+
+  public Long getRunId() {
+    return runId;
+  }
 }

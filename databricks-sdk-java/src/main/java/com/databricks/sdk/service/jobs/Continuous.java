@@ -2,28 +2,21 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class Continuous {
-    /**
-     * Indicate whether the continuous execution of the job is paused or not.
-     * Defaults to UNPAUSED.
-     */
-    @JsonProperty("pause_status")
-    private ContinuousPauseStatus pauseStatus;
-    
-    public Continuous setPauseStatus(ContinuousPauseStatus pauseStatus) {
-        this.pauseStatus = pauseStatus;
-        return this;
-    }
+  /**
+   * Indicate whether the continuous execution of the job is paused or not. Defaults to UNPAUSED.
+   */
+  @JsonProperty("pause_status")
+  private ContinuousPauseStatus pauseStatus;
 
-    public ContinuousPauseStatus getPauseStatus() {
-        return pauseStatus;
-    }
-    
+  public Continuous setPauseStatus(ContinuousPauseStatus pauseStatus) {
+    this.pauseStatus = pauseStatus;
+    return this;
+  }
+
+  public ContinuousPauseStatus getPauseStatus() {
+    return pauseStatus;
+  }
 }

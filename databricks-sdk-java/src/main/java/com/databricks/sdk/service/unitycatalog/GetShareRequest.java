@@ -2,44 +2,32 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-/**
- * Get a share
- */
+/** Get a share */
 public class GetShareRequest {
-    /**
-     * Query for data to include in the share.
-     */
-    @QueryParam("include_shared_data")
-    private Boolean includeSharedData;
-    
-    /**
-     * The name of the share.
-     */
-    
-    private String name;
-    
-    public GetShareRequest setIncludeSharedData(Boolean includeSharedData) {
-        this.includeSharedData = includeSharedData;
-        return this;
-    }
+  /** Query for data to include in the share. */
+  @QueryParam("include_shared_data")
+  private Boolean includeSharedData;
 
-    public Boolean getIncludeSharedData() {
-        return includeSharedData;
-    }
-    
-    public GetShareRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** The name of the share. */
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
+  public GetShareRequest setIncludeSharedData(Boolean includeSharedData) {
+    this.includeSharedData = includeSharedData;
+    return this;
+  }
+
+  public Boolean getIncludeSharedData() {
+    return includeSharedData;
+  }
+
+  public GetShareRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
 }

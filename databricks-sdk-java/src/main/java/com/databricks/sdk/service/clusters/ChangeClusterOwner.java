@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ChangeClusterOwner {
-    /**
-     * <needs content added>
-     */
-    @JsonProperty("cluster_id")
-    private String clusterId;
-    
-    /**
-     * New owner of the cluster_id after this RPC.
-     */
-    @JsonProperty("owner_username")
-    private String ownerUsername;
-    
-    public ChangeClusterOwner setClusterId(String clusterId) {
-        this.clusterId = clusterId;
-        return this;
-    }
+  /** <needs content added> */
+  @JsonProperty("cluster_id")
+  private String clusterId;
 
-    public String getClusterId() {
-        return clusterId;
-    }
-    
-    public ChangeClusterOwner setOwnerUsername(String ownerUsername) {
-        this.ownerUsername = ownerUsername;
-        return this;
-    }
+  /** New owner of the cluster_id after this RPC. */
+  @JsonProperty("owner_username")
+  private String ownerUsername;
 
-    public String getOwnerUsername() {
-        return ownerUsername;
-    }
-    
+  public ChangeClusterOwner setClusterId(String clusterId) {
+    this.clusterId = clusterId;
+    return this;
+  }
+
+  public String getClusterId() {
+    return clusterId;
+  }
+
+  public ChangeClusterOwner setOwnerUsername(String ownerUsername) {
+    this.ownerUsername = ownerUsername;
+    return this;
+  }
+
+  public String getOwnerUsername() {
+    return ownerUsername;
+  }
 }

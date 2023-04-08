@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete an alert
- */
+/** Delete an alert */
 public class DeleteAlertRequest {
-    /**
-     
-     */
-    
-    private String alertId;
-    
-    public DeleteAlertRequest setAlertId(String alertId) {
-        this.alertId = alertId;
-        return this;
-    }
+  /** */
+  private String alertId;
 
-    public String getAlertId() {
-        return alertId;
-    }
-    
+  public DeleteAlertRequest setAlertId(String alertId) {
+    this.alertId = alertId;
+    return this;
+  }
+
+  public String getAlertId() {
+    return alertId;
+  }
 }

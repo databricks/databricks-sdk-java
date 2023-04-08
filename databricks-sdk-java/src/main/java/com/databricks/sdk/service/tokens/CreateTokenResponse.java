@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.tokens;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class CreateTokenResponse {
-    /**
-     * The information for the new token.
-     */
-    @JsonProperty("token_info")
-    private PublicTokenInfo tokenInfo;
-    
-    /**
-     * The value of the new token.
-     */
-    @JsonProperty("token_value")
-    private String tokenValue;
-    
-    public CreateTokenResponse setTokenInfo(PublicTokenInfo tokenInfo) {
-        this.tokenInfo = tokenInfo;
-        return this;
-    }
+  /** The information for the new token. */
+  @JsonProperty("token_info")
+  private PublicTokenInfo tokenInfo;
 
-    public PublicTokenInfo getTokenInfo() {
-        return tokenInfo;
-    }
-    
-    public CreateTokenResponse setTokenValue(String tokenValue) {
-        this.tokenValue = tokenValue;
-        return this;
-    }
+  /** The value of the new token. */
+  @JsonProperty("token_value")
+  private String tokenValue;
 
-    public String getTokenValue() {
-        return tokenValue;
-    }
-    
+  public CreateTokenResponse setTokenInfo(PublicTokenInfo tokenInfo) {
+    this.tokenInfo = tokenInfo;
+    return this;
+  }
+
+  public PublicTokenInfo getTokenInfo() {
+    return tokenInfo;
+  }
+
+  public CreateTokenResponse setTokenValue(String tokenValue) {
+    this.tokenValue = tokenValue;
+    return this;
+  }
+
+  public String getTokenValue() {
+    return tokenValue;
+  }
 }

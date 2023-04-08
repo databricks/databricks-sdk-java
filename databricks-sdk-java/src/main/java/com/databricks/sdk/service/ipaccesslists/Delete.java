@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.ipaccesslists;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete access list
- */
+/** Delete access list */
 public class Delete {
-    /**
-     * The ID for the corresponding IP access list to modify.
-     */
-    
-    private String ipAccessListId;
-    
-    public Delete setIpAccessListId(String ipAccessListId) {
-        this.ipAccessListId = ipAccessListId;
-        return this;
-    }
+  /** The ID for the corresponding IP access list to modify. */
+  private String ipAccessListId;
 
-    public String getIpAccessListId() {
-        return ipAccessListId;
-    }
-    
+  public Delete setIpAccessListId(String ipAccessListId) {
+    this.ipAccessListId = ipAccessListId;
+    return this;
+  }
+
+  public String getIpAccessListId() {
+    return ipAccessListId;
+  }
 }

@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.secrets;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class AclItem {
-    /**
-     * The permission level applied to the principal.
-     */
-    @JsonProperty("permission")
-    private AclPermission permission;
-    
-    /**
-     * The principal in which the permission is applied.
-     */
-    @JsonProperty("principal")
-    private String principal;
-    
-    public AclItem setPermission(AclPermission permission) {
-        this.permission = permission;
-        return this;
-    }
+  /** The permission level applied to the principal. */
+  @JsonProperty("permission")
+  private AclPermission permission;
 
-    public AclPermission getPermission() {
-        return permission;
-    }
-    
-    public AclItem setPrincipal(String principal) {
-        this.principal = principal;
-        return this;
-    }
+  /** The principal in which the permission is applied. */
+  @JsonProperty("principal")
+  private String principal;
 
-    public String getPrincipal() {
-        return principal;
-    }
-    
+  public AclItem setPermission(AclPermission permission) {
+    this.permission = permission;
+    return this;
+  }
+
+  public AclPermission getPermission() {
+    return permission;
+  }
+
+  public AclItem setPrincipal(String principal) {
+    this.principal = principal;
+    return this;
+  }
+
+  public String getPrincipal() {
+    return principal;
+  }
 }

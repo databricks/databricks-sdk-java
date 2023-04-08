@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.commands;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ContextStatusResponse {
-    /**
-     
-     */
-    @JsonProperty("id")
-    private String id;
-    
-    /**
-     
-     */
-    @JsonProperty("status")
-    private ContextStatus status;
-    
-    public ContextStatusResponse setId(String id) {
-        this.id = id;
-        return this;
-    }
+  /** */
+  @JsonProperty("id")
+  private String id;
 
-    public String getId() {
-        return id;
-    }
-    
-    public ContextStatusResponse setStatus(ContextStatus status) {
-        this.status = status;
-        return this;
-    }
+  /** */
+  @JsonProperty("status")
+  private ContextStatus status;
 
-    public ContextStatus getStatus() {
-        return status;
-    }
-    
+  public ContextStatusResponse setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public ContextStatusResponse setStatus(ContextStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public ContextStatus getStatus() {
+    return status;
+  }
 }

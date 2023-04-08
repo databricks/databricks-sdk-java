@@ -2,19 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Health status of the warehouse.
- */
-public enum Status{
-    DEGRADED,
-    FAILED,
-    HEALTHY,
-    STATUS_UNSPECIFIED,
-    
+/** Health status of the warehouse. */
+public enum Status {
+  DEGRADED,
+  FAILED,
+  HEALTHY,
+  STATUS_UNSPECIFIED,
 }

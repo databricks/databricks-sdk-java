@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get storage configuration
- */
+/** Get storage configuration */
 public class GetStorageRequest {
-    /**
-     * Databricks Account API storage configuration ID.
-     */
-    
-    private String storageConfigurationId;
-    
-    public GetStorageRequest setStorageConfigurationId(String storageConfigurationId) {
-        this.storageConfigurationId = storageConfigurationId;
-        return this;
-    }
+  /** Databricks Account API storage configuration ID. */
+  private String storageConfigurationId;
 
-    public String getStorageConfigurationId() {
-        return storageConfigurationId;
-    }
-    
+  public GetStorageRequest setStorageConfigurationId(String storageConfigurationId) {
+    this.storageConfigurationId = storageConfigurationId;
+    return this;
+  }
+
+  public String getStorageConfigurationId() {
+    return storageConfigurationId;
+  }
 }

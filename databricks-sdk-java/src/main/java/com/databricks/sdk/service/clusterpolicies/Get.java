@@ -2,29 +2,20 @@
 
 package com.databricks.sdk.service.clusterpolicies;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-/**
- * Get entity
- */
+/** Get entity */
 public class Get {
-    /**
-     * Canonical unique identifier for the cluster policy.
-     */
-    @QueryParam("policy_id")
-    private String policyId;
-    
-    public Get setPolicyId(String policyId) {
-        this.policyId = policyId;
-        return this;
-    }
+  /** Canonical unique identifier for the cluster policy. */
+  @QueryParam("policy_id")
+  private String policyId;
 
-    public String getPolicyId() {
-        return policyId;
-    }
-    
+  public Get setPolicyId(String policyId) {
+    this.policyId = policyId;
+    return this;
+  }
+
+  public String getPolicyId() {
+    return policyId;
+  }
 }

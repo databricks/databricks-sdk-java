@@ -2,57 +2,45 @@
 
 package com.databricks.sdk.service.commands;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class CommandStatusResponse {
-    /**
-     
-     */
-    @JsonProperty("id")
-    private String id;
-    
-    /**
-     
-     */
-    @JsonProperty("results")
-    private Results results;
-    
-    /**
-     
-     */
-    @JsonProperty("status")
-    private CommandStatus status;
-    
-    public CommandStatusResponse setId(String id) {
-        this.id = id;
-        return this;
-    }
+  /** */
+  @JsonProperty("id")
+  private String id;
 
-    public String getId() {
-        return id;
-    }
-    
-    public CommandStatusResponse setResults(Results results) {
-        this.results = results;
-        return this;
-    }
+  /** */
+  @JsonProperty("results")
+  private Results results;
 
-    public Results getResults() {
-        return results;
-    }
-    
-    public CommandStatusResponse setStatus(CommandStatus status) {
-        this.status = status;
-        return this;
-    }
+  /** */
+  @JsonProperty("status")
+  private CommandStatus status;
 
-    public CommandStatus getStatus() {
-        return status;
-    }
-    
+  public CommandStatusResponse setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public CommandStatusResponse setResults(Results results) {
+    this.results = results;
+    return this;
+  }
+
+  public Results getResults() {
+    return results;
+  }
+
+  public CommandStatusResponse setStatus(CommandStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public CommandStatus getStatus() {
+    return status;
+  }
 }

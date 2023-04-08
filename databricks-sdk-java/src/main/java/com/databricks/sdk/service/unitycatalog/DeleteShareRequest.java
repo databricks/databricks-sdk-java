@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete a share
- */
+/** Delete a share */
 public class DeleteShareRequest {
-    /**
-     * The name of the share.
-     */
-    
-    private String name;
-    
-    public DeleteShareRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** The name of the share. */
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
+  public DeleteShareRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
 }

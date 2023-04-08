@@ -2,15 +2,7 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum CloudProviderNodeStatus{
-    NotAvailableInRegion,
-    NotEnabledOnSubscription,
-    
+public enum CloudProviderNodeStatus {
+  NotAvailableInRegion,
+  NotEnabledOnSubscription,
 }

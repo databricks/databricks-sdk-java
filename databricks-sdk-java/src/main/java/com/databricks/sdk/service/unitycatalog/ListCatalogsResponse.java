@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListCatalogsResponse {
-    /**
-     * An array of catalog information objects.
-     */
-    @JsonProperty("catalogs")
-    private java.util.List<CatalogInfo> catalogs;
-    
-    public ListCatalogsResponse setCatalogs(java.util.List<CatalogInfo> catalogs) {
-        this.catalogs = catalogs;
-        return this;
-    }
+  /** An array of catalog information objects. */
+  @JsonProperty("catalogs")
+  private java.util.List<CatalogInfo> catalogs;
 
-    public java.util.List<CatalogInfo> getCatalogs() {
-        return catalogs;
-    }
-    
+  public ListCatalogsResponse setCatalogs(java.util.List<CatalogInfo> catalogs) {
+    this.catalogs = catalogs;
+    return this;
+  }
+
+  public java.util.List<CatalogInfo> getCatalogs() {
+    return catalogs;
+  }
 }

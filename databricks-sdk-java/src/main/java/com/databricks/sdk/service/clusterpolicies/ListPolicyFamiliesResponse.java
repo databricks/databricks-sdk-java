@@ -2,43 +2,35 @@
 
 package com.databricks.sdk.service.clusterpolicies;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListPolicyFamiliesResponse {
-    /**
-     * A token that can be used to get the next page of results. If not present,
-     * there are no more results to show.
-     */
-    @JsonProperty("next_page_token")
-    private String nextPageToken;
-    
-    /**
-     * List of policy families.
-     */
-    @JsonProperty("policy_families")
-    private java.util.List<PolicyFamily> policyFamilies;
-    
-    public ListPolicyFamiliesResponse setNextPageToken(String nextPageToken) {
-        this.nextPageToken = nextPageToken;
-        return this;
-    }
+  /**
+   * A token that can be used to get the next page of results. If not present, there are no more
+   * results to show.
+   */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
 
-    public String getNextPageToken() {
-        return nextPageToken;
-    }
-    
-    public ListPolicyFamiliesResponse setPolicyFamilies(java.util.List<PolicyFamily> policyFamilies) {
-        this.policyFamilies = policyFamilies;
-        return this;
-    }
+  /** List of policy families. */
+  @JsonProperty("policy_families")
+  private java.util.List<PolicyFamily> policyFamilies;
 
-    public java.util.List<PolicyFamily> getPolicyFamilies() {
-        return policyFamilies;
-    }
-    
+  public ListPolicyFamiliesResponse setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
+  public ListPolicyFamiliesResponse setPolicyFamilies(java.util.List<PolicyFamily> policyFamilies) {
+    this.policyFamilies = policyFamilies;
+    return this;
+  }
+
+  public java.util.List<PolicyFamily> getPolicyFamilies() {
+    return policyFamilies;
+  }
 }

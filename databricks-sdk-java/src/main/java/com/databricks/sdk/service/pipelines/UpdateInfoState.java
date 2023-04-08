@@ -2,26 +2,17 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * The update state.
- */
-public enum UpdateInfoState{
-    CANCELED,
-    COMPLETED,
-    CREATED,
-    FAILED,
-    INITIALIZING,
-    QUEUED,
-    RESETTING,
-    RUNNING,
-    SETTING_UP_TABLES,
-    STOPPING,
-    WAITING_FOR_RESOURCES,
-    
+/** The update state. */
+public enum UpdateInfoState {
+  CANCELED,
+  COMPLETED,
+  CREATED,
+  FAILED,
+  INITIALIZING,
+  QUEUED,
+  RESETTING,
+  RUNNING,
+  SETTING_UP_TABLES,
+  STOPPING,
+  WAITING_FOR_RESOURCES,
 }

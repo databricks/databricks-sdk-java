@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get a metastore
- */
+/** Get a metastore */
 public class GetMetastoreRequest {
-    /**
-     * Unique ID of the metastore.
-     */
-    
-    private String id;
-    
-    public GetMetastoreRequest setId(String id) {
-        this.id = id;
-        return this;
-    }
+  /** Unique ID of the metastore. */
+  private String id;
 
-    public String getId() {
-        return id;
-    }
-    
+  public GetMetastoreRequest setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
+  }
 }

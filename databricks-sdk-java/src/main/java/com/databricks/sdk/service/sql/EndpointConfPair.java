@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class EndpointConfPair {
-    /**
-     
-     */
-    @JsonProperty("key")
-    private String key;
-    
-    /**
-     
-     */
-    @JsonProperty("value")
-    private String value;
-    
-    public EndpointConfPair setKey(String key) {
-        this.key = key;
-        return this;
-    }
+  /** */
+  @JsonProperty("key")
+  private String key;
 
-    public String getKey() {
-        return key;
-    }
-    
-    public EndpointConfPair setValue(String value) {
-        this.value = value;
-        return this;
-    }
+  /** */
+  @JsonProperty("value")
+  private String value;
 
-    public String getValue() {
-        return value;
-    }
-    
+  public EndpointConfPair setKey(String key) {
+    this.key = key;
+    return this;
+  }
+
+  public String getKey() {
+    return key;
+  }
+
+  public EndpointConfPair setValue(String value) {
+    this.value = value;
+    return this;
+  }
+
+  public String getValue() {
+    return value;
+  }
 }

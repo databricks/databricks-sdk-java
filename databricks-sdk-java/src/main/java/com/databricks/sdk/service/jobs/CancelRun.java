@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class CancelRun {
-    /**
-     * This field is required.
-     */
-    @JsonProperty("run_id")
-    private Long runId;
-    
-    public CancelRun setRunId(Long runId) {
-        this.runId = runId;
-        return this;
-    }
+  /** This field is required. */
+  @JsonProperty("run_id")
+  private Long runId;
 
-    public Long getRunId() {
-        return runId;
-    }
-    
+  public CancelRun setRunId(Long runId) {
+    this.runId = runId;
+    return this;
+  }
+
+  public Long getRunId() {
+    return runId;
+  }
 }

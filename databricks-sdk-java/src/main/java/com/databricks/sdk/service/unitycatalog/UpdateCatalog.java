@@ -2,72 +2,59 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
 public class UpdateCatalog {
-    /**
-     * User-provided free-form text description.
-     */
-    @JsonProperty("comment")
-    private String comment;
-    
-    /**
-     * Name of catalog.
-     */
-    @JsonProperty("name")
-    private String name;
-    
-    /**
-     * Username of current owner of catalog.
-     */
-    @JsonProperty("owner")
-    private String owner;
-    
-    /**
-     * A map of key-value properties attached to the securable.
-     */
-    @JsonProperty("properties")
-    private Map<String,String> properties;
-    
-    public UpdateCatalog setComment(String comment) {
-        this.comment = comment;
-        return this;
-    }
+  /** User-provided free-form text description. */
+  @JsonProperty("comment")
+  private String comment;
 
-    public String getComment() {
-        return comment;
-    }
-    
-    public UpdateCatalog setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** Name of catalog. */
+  @JsonProperty("name")
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
-    public UpdateCatalog setOwner(String owner) {
-        this.owner = owner;
-        return this;
-    }
+  /** Username of current owner of catalog. */
+  @JsonProperty("owner")
+  private String owner;
 
-    public String getOwner() {
-        return owner;
-    }
-    
-    public UpdateCatalog setProperties(Map<String,String> properties) {
-        this.properties = properties;
-        return this;
-    }
+  /** A map of key-value properties attached to the securable. */
+  @JsonProperty("properties")
+  private Map<String, String> properties;
 
-    public Map<String,String> getProperties() {
-        return properties;
-    }
-    
+  public UpdateCatalog setComment(String comment) {
+    this.comment = comment;
+    return this;
+  }
+
+  public String getComment() {
+    return comment;
+  }
+
+  public UpdateCatalog setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public UpdateCatalog setOwner(String owner) {
+    this.owner = owner;
+    return this;
+  }
+
+  public String getOwner() {
+    return owner;
+  }
+
+  public UpdateCatalog setProperties(Map<String, String> properties) {
+    this.properties = properties;
+    return this;
+  }
+
+  public Map<String, String> getProperties() {
+    return properties;
+  }
 }

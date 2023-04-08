@@ -2,19 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * type of the termination
- */
-public enum TerminationReasonType{
-    CLIENT_ERROR,
-    CLOUD_FAILURE,
-    SERVICE_FAULT,
-    SUCCESS,
-    
+/** type of the termination */
+public enum TerminationReasonType {
+  CLIENT_ERROR,
+  CLOUD_FAILURE,
+  SERVICE_FAULT,
+  SUCCESS,
 }

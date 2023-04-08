@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class PrimaryKeyConstraint {
-    /**
-     * Column names for this constraint.
-     */
-    @JsonProperty("child_columns")
-    private java.util.List<String> childColumns;
-    
-    /**
-     * The name of the constraint.
-     */
-    @JsonProperty("name")
-    private String name;
-    
-    public PrimaryKeyConstraint setChildColumns(java.util.List<String> childColumns) {
-        this.childColumns = childColumns;
-        return this;
-    }
+  /** Column names for this constraint. */
+  @JsonProperty("child_columns")
+  private java.util.List<String> childColumns;
 
-    public java.util.List<String> getChildColumns() {
-        return childColumns;
-    }
-    
-    public PrimaryKeyConstraint setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** The name of the constraint. */
+  @JsonProperty("name")
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
+  public PrimaryKeyConstraint setChildColumns(java.util.List<String> childColumns) {
+    this.childColumns = childColumns;
+    return this;
+  }
+
+  public java.util.List<String> getChildColumns() {
+    return childColumns;
+  }
+
+  public PrimaryKeyConstraint setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
 }

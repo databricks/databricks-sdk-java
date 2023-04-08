@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class GetModelVersionDownloadUriResponse {
-    /**
-     * URI corresponding to where artifacts for this model version are stored.
-     */
-    @JsonProperty("artifact_uri")
-    private String artifactUri;
-    
-    public GetModelVersionDownloadUriResponse setArtifactUri(String artifactUri) {
-        this.artifactUri = artifactUri;
-        return this;
-    }
+  /** URI corresponding to where artifacts for this model version are stored. */
+  @JsonProperty("artifact_uri")
+  private String artifactUri;
 
-    public String getArtifactUri() {
-        return artifactUri;
-    }
-    
+  public GetModelVersionDownloadUriResponse setArtifactUri(String artifactUri) {
+    this.artifactUri = artifactUri;
+    return this;
+  }
+
+  public String getArtifactUri() {
+    return artifactUri;
+  }
 }

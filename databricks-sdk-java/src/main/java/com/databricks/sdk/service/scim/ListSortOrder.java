@@ -2,15 +2,7 @@
 
 package com.databricks.sdk.service.scim;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum ListSortOrder{
-    ascending,
-    descending,
-    
+public enum ListSortOrder {
+  ascending,
+  descending,
 }

@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class RenameRegisteredModelRequest {
-    /**
-     * Registered model unique name identifier.
-     */
-    @JsonProperty("name")
-    private String name;
-    
-    /**
-     * If provided, updates the name for this `registered_model`.
-     */
-    @JsonProperty("new_name")
-    private String newName;
-    
-    public RenameRegisteredModelRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** Registered model unique name identifier. */
+  @JsonProperty("name")
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
-    public RenameRegisteredModelRequest setNewName(String newName) {
-        this.newName = newName;
-        return this;
-    }
+  /** If provided, updates the name for this `registered_model`. */
+  @JsonProperty("new_name")
+  private String newName;
 
-    public String getNewName() {
-        return newName;
-    }
-    
+  public RenameRegisteredModelRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public RenameRegisteredModelRequest setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
+  }
 }

@@ -2,12 +2,4 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * The ID of the user who ran the query.
- */
+/** The ID of the user who ran the query. */

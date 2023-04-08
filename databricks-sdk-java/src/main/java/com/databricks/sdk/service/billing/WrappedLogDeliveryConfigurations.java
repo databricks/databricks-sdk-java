@@ -2,27 +2,20 @@
 
 package com.databricks.sdk.service.billing;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class WrappedLogDeliveryConfigurations {
-    /**
-     
-     */
-    @JsonProperty("log_delivery_configurations")
-    private java.util.List<LogDeliveryConfiguration> logDeliveryConfigurations;
-    
-    public WrappedLogDeliveryConfigurations setLogDeliveryConfigurations(java.util.List<LogDeliveryConfiguration> logDeliveryConfigurations) {
-        this.logDeliveryConfigurations = logDeliveryConfigurations;
-        return this;
-    }
+  /** */
+  @JsonProperty("log_delivery_configurations")
+  private java.util.List<LogDeliveryConfiguration> logDeliveryConfigurations;
 
-    public java.util.List<LogDeliveryConfiguration> getLogDeliveryConfigurations() {
-        return logDeliveryConfigurations;
-    }
-    
+  public WrappedLogDeliveryConfigurations setLogDeliveryConfigurations(
+      java.util.List<LogDeliveryConfiguration> logDeliveryConfigurations) {
+    this.logDeliveryConfigurations = logDeliveryConfigurations;
+    return this;
+  }
+
+  public java.util.List<LogDeliveryConfiguration> getLogDeliveryConfigurations() {
+    return logDeliveryConfigurations;
+  }
 }

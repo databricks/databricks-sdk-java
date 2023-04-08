@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.instancepools;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListInstancePools {
-    /**
-     
-     */
-    @JsonProperty("instance_pools")
-    private java.util.List<InstancePoolAndStats> instancePools;
-    
-    public ListInstancePools setInstancePools(java.util.List<InstancePoolAndStats> instancePools) {
-        this.instancePools = instancePools;
-        return this;
-    }
+  /** */
+  @JsonProperty("instance_pools")
+  private java.util.List<InstancePoolAndStats> instancePools;
 
-    public java.util.List<InstancePoolAndStats> getInstancePools() {
-        return instancePools;
-    }
-    
+  public ListInstancePools setInstancePools(java.util.List<InstancePoolAndStats> instancePools) {
+    this.instancePools = instancePools;
+    return this;
+  }
+
+  public java.util.List<InstancePoolAndStats> getInstancePools() {
+    return instancePools;
+  }
 }

@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Cancel statement execution
- */
+/** Cancel statement execution */
 public class CancelExecutionRequest {
-    /**
-     
-     */
-    
-    private String statementId;
-    
-    public CancelExecutionRequest setStatementId(String statementId) {
-        this.statementId = statementId;
-        return this;
-    }
+  /** */
+  private String statementId;
 
-    public String getStatementId() {
-        return statementId;
-    }
-    
+  public CancelExecutionRequest setStatementId(String statementId) {
+    this.statementId = statementId;
+    return this;
+  }
+
+  public String getStatementId() {
+    return statementId;
+  }
 }

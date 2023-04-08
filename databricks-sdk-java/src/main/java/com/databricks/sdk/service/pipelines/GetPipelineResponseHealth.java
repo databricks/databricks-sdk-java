@@ -2,17 +2,8 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * The health of a pipeline.
- */
-public enum GetPipelineResponseHealth{
-    HEALTHY,
-    UNHEALTHY,
-    
+/** The health of a pipeline. */
+public enum GetPipelineResponseHealth {
+  HEALTHY,
+  UNHEALTHY,
 }

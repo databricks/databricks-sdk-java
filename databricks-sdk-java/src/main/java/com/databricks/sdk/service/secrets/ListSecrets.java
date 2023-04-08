@@ -2,29 +2,20 @@
 
 package com.databricks.sdk.service.secrets;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-/**
- * List secret keys
- */
+/** List secret keys */
 public class ListSecrets {
-    /**
-     * The name of the scope to list secrets within.
-     */
-    @QueryParam("scope")
-    private String scope;
-    
-    public ListSecrets setScope(String scope) {
-        this.scope = scope;
-        return this;
-    }
+  /** The name of the scope to list secrets within. */
+  @QueryParam("scope")
+  private String scope;
 
-    public String getScope() {
-        return scope;
-    }
-    
+  public ListSecrets setScope(String scope) {
+    this.scope = scope;
+    return this;
+  }
+
+  public String getScope() {
+    return scope;
+  }
 }
