@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.endpoints;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ServedModelState {
   /**
@@ -39,5 +41,27 @@ public class ServedModelState {
 
   public String getDeploymentStateMessage() {
     return deploymentStateMessage;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ServedModelState that = (ServedModelState) o;
+    return Objects.equals(deployment, that.deployment)
+        && Objects.equals(deploymentStateMessage, that.deploymentStateMessage);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(deployment, deploymentStateMessage);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ServedModelState.class)
+        .add("deployment", deployment)
+        .add("deploymentStateMessage", deploymentStateMessage)
+        .toString();
   }
 }

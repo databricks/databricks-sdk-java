@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SqlAlertOutput {
   /**
@@ -27,7 +30,7 @@ public class SqlAlertOutput {
 
   /** Information about SQL statements executed in the run. */
   @JsonProperty("sql_statements")
-  private java.util.List<SqlStatementOutput> sqlStatements;
+  private Collection<SqlStatementOutput> sqlStatements;
 
   /** The canonical identifier of the SQL warehouse. */
   @JsonProperty("warehouse_id")
@@ -60,12 +63,12 @@ public class SqlAlertOutput {
     return queryText;
   }
 
-  public SqlAlertOutput setSqlStatements(java.util.List<SqlStatementOutput> sqlStatements) {
+  public SqlAlertOutput setSqlStatements(Collection<SqlStatementOutput> sqlStatements) {
     this.sqlStatements = sqlStatements;
     return this;
   }
 
-  public java.util.List<SqlStatementOutput> getSqlStatements() {
+  public Collection<SqlStatementOutput> getSqlStatements() {
     return sqlStatements;
   }
 
@@ -76,5 +79,33 @@ public class SqlAlertOutput {
 
   public String getWarehouseId() {
     return warehouseId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SqlAlertOutput that = (SqlAlertOutput) o;
+    return Objects.equals(alertState, that.alertState)
+        && Objects.equals(outputLink, that.outputLink)
+        && Objects.equals(queryText, that.queryText)
+        && Objects.equals(sqlStatements, that.sqlStatements)
+        && Objects.equals(warehouseId, that.warehouseId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(alertState, outputLink, queryText, sqlStatements, warehouseId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SqlAlertOutput.class)
+        .add("alertState", alertState)
+        .add("outputLink", outputLink)
+        .add("queryText", queryText)
+        .add("sqlStatements", sqlStatements)
+        .add("warehouseId", warehouseId)
+        .toString();
   }
 }

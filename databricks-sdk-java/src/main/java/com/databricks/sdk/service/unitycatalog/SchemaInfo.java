@@ -2,8 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import java.util.Objects;
 
 public class SchemaInfo {
   /** Name of parent catalog. */
@@ -213,5 +215,71 @@ public class SchemaInfo {
 
   public String getUpdatedBy() {
     return updatedBy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SchemaInfo that = (SchemaInfo) o;
+    return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(catalogType, that.catalogType)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(effectiveAutoMaintenanceFlag, that.effectiveAutoMaintenanceFlag)
+        && Objects.equals(enableAutoMaintenance, that.enableAutoMaintenance)
+        && Objects.equals(fullName, that.fullName)
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(properties, that.properties)
+        && Objects.equals(storageLocation, that.storageLocation)
+        && Objects.equals(storageRoot, that.storageRoot)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        catalogName,
+        catalogType,
+        comment,
+        createdAt,
+        createdBy,
+        effectiveAutoMaintenanceFlag,
+        enableAutoMaintenance,
+        fullName,
+        metastoreId,
+        name,
+        owner,
+        properties,
+        storageLocation,
+        storageRoot,
+        updatedAt,
+        updatedBy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SchemaInfo.class)
+        .add("catalogName", catalogName)
+        .add("catalogType", catalogType)
+        .add("comment", comment)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("effectiveAutoMaintenanceFlag", effectiveAutoMaintenanceFlag)
+        .add("enableAutoMaintenance", enableAutoMaintenance)
+        .add("fullName", fullName)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .add("owner", owner)
+        .add("properties", properties)
+        .add("storageLocation", storageLocation)
+        .add("storageRoot", storageRoot)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
+        .toString();
   }
 }

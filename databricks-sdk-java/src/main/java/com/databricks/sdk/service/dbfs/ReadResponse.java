@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.dbfs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ReadResponse {
   /**
@@ -32,5 +34,26 @@ public class ReadResponse {
 
   public String getData() {
     return data;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ReadResponse that = (ReadResponse) o;
+    return Objects.equals(bytesRead, that.bytesRead) && Objects.equals(data, that.data);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(bytesRead, data);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ReadResponse.class)
+        .add("bytesRead", bytesRead)
+        .add("data", data)
+        .toString();
   }
 }

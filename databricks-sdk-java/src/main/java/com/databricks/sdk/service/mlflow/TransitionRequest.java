@@ -2,13 +2,16 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 /** Transition request details. */
 public class TransitionRequest {
   /** Array of actions on the activity allowed for the current viewer. */
   @JsonProperty("available_actions")
-  private java.util.List<ActivityAction> availableActions;
+  private Collection<ActivityAction> availableActions;
 
   /** User-provided comment associated with the transition request. */
   @JsonProperty("comment")
@@ -36,12 +39,12 @@ public class TransitionRequest {
   @JsonProperty("user_id")
   private String userId;
 
-  public TransitionRequest setAvailableActions(java.util.List<ActivityAction> availableActions) {
+  public TransitionRequest setAvailableActions(Collection<ActivityAction> availableActions) {
     this.availableActions = availableActions;
     return this;
   }
 
-  public java.util.List<ActivityAction> getAvailableActions() {
+  public Collection<ActivityAction> getAvailableActions() {
     return availableActions;
   }
 
@@ -79,5 +82,33 @@ public class TransitionRequest {
 
   public String getUserId() {
     return userId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TransitionRequest that = (TransitionRequest) o;
+    return Objects.equals(availableActions, that.availableActions)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(creationTimestamp, that.creationTimestamp)
+        && Objects.equals(toStage, that.toStage)
+        && Objects.equals(userId, that.userId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(availableActions, comment, creationTimestamp, toStage, userId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TransitionRequest.class)
+        .add("availableActions", availableActions)
+        .add("comment", comment)
+        .add("creationTimestamp", creationTimestamp)
+        .add("toStage", toStage)
+        .add("userId", userId)
+        .toString();
   }
 }

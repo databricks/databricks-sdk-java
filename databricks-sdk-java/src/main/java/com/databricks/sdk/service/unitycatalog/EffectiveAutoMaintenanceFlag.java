@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class EffectiveAutoMaintenanceFlag {
   /**
@@ -49,5 +51,29 @@ public class EffectiveAutoMaintenanceFlag {
 
   public EnableAutoMaintenance getValue() {
     return value;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EffectiveAutoMaintenanceFlag that = (EffectiveAutoMaintenanceFlag) o;
+    return Objects.equals(inheritedFromName, that.inheritedFromName)
+        && Objects.equals(inheritedFromType, that.inheritedFromType)
+        && Objects.equals(value, that.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(inheritedFromName, inheritedFromType, value);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EffectiveAutoMaintenanceFlag.class)
+        .add("inheritedFromName", inheritedFromName)
+        .add("inheritedFromType", inheritedFromType)
+        .add("value", value)
+        .toString();
   }
 }

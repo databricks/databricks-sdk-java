@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -85,7 +85,7 @@ public class CredentialsAPI {
    *
    * <p>Gets all Databricks credential configurations associated with an account specified by ID.
    */
-  public List<Credential> list() {
+  public Collection<Credential> list() {
     return impl.list();
   }
 

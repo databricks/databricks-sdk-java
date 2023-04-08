@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Get a private access settings object */
 public class GetPrivateAccesRequest {
   /** Databricks Account API private access settings ID. */
@@ -14,5 +17,25 @@ public class GetPrivateAccesRequest {
 
   public String getPrivateAccessSettingsId() {
     return privateAccessSettingsId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetPrivateAccesRequest that = (GetPrivateAccesRequest) o;
+    return Objects.equals(privateAccessSettingsId, that.privateAccessSettingsId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(privateAccessSettingsId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetPrivateAccesRequest.class)
+        .add("privateAccessSettingsId", privateAccessSettingsId)
+        .toString();
   }
 }

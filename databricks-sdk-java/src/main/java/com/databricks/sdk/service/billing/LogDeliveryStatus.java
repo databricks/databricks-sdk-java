@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /** Databricks log delivery status. */
 public class LogDeliveryStatus {
@@ -59,5 +61,31 @@ public class LogDeliveryStatus {
 
   public DeliveryStatus getStatus() {
     return status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    LogDeliveryStatus that = (LogDeliveryStatus) o;
+    return Objects.equals(lastAttemptTime, that.lastAttemptTime)
+        && Objects.equals(lastSuccessfulAttemptTime, that.lastSuccessfulAttemptTime)
+        && Objects.equals(message, that.message)
+        && Objects.equals(status, that.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(lastAttemptTime, lastSuccessfulAttemptTime, message, status);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(LogDeliveryStatus.class)
+        .add("lastAttemptTime", lastAttemptTime)
+        .add("lastSuccessfulAttemptTime", lastSuccessfulAttemptTime)
+        .add("message", message)
+        .add("status", status)
+        .toString();
   }
 }

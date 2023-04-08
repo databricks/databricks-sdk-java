@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class WarehouseTypePair {
   /**
@@ -35,5 +37,27 @@ public class WarehouseTypePair {
 
   public WarehouseType getWarehouseType() {
     return warehouseType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    WarehouseTypePair that = (WarehouseTypePair) o;
+    return Objects.equals(enabled, that.enabled)
+        && Objects.equals(warehouseType, that.warehouseType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(enabled, warehouseType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(WarehouseTypePair.class)
+        .add("enabled", enabled)
+        .add("warehouseType", warehouseType)
+        .toString();
   }
 }

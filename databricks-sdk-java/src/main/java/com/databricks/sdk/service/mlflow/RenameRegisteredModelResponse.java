@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class RenameRegisteredModelResponse {
   /** */
@@ -16,5 +18,25 @@ public class RenameRegisteredModelResponse {
 
   public RegisteredModel getRegisteredModel() {
     return registeredModel;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RenameRegisteredModelResponse that = (RenameRegisteredModelResponse) o;
+    return Objects.equals(registeredModel, that.registeredModel);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(registeredModel);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RenameRegisteredModelResponse.class)
+        .add("registeredModel", registeredModel)
+        .toString();
   }
 }

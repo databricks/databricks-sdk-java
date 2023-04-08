@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class TableSummary {
   /** The full name of the table. */
@@ -29,5 +31,26 @@ public class TableSummary {
 
   public TableType getTableType() {
     return tableType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TableSummary that = (TableSummary) o;
+    return Objects.equals(fullName, that.fullName) && Objects.equals(tableType, that.tableType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fullName, tableType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TableSummary.class)
+        .add("fullName", fullName)
+        .add("tableType", tableType)
+        .toString();
   }
 }

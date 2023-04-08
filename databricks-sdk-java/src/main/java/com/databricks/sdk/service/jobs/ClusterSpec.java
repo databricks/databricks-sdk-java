@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ClusterSpec {
   /**
@@ -18,7 +21,7 @@ public class ClusterSpec {
    * value is an empty list.
    */
   @JsonProperty("libraries")
-  private java.util.List<Object /* MISSING TYPE */> libraries;
+  private Collection<Object /* MISSING TYPE */> libraries;
 
   /** If new_cluster, a description of a cluster that is created for each run. */
   @JsonProperty("new_cluster")
@@ -33,12 +36,12 @@ public class ClusterSpec {
     return existingClusterId;
   }
 
-  public ClusterSpec setLibraries(java.util.List<Object /* MISSING TYPE */> libraries) {
+  public ClusterSpec setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public java.util.List<Object /* MISSING TYPE */> getLibraries() {
+  public Collection<Object /* MISSING TYPE */> getLibraries() {
     return libraries;
   }
 
@@ -49,5 +52,29 @@ public class ClusterSpec {
 
   public Object /* MISSING TYPE */ getNewCluster() {
     return newCluster;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ClusterSpec that = (ClusterSpec) o;
+    return Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(libraries, that.libraries)
+        && Objects.equals(newCluster, that.newCluster);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(existingClusterId, libraries, newCluster);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ClusterSpec.class)
+        .add("existingClusterId", existingClusterId)
+        .add("libraries", libraries)
+        .add("newCluster", newCluster)
+        .toString();
   }
 }

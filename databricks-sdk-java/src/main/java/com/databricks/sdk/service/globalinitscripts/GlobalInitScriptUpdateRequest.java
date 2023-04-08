@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.globalinitscripts;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class GlobalInitScriptUpdateRequest {
   /** Specifies whether the script is enabled. The script runs only if enabled. */
@@ -78,5 +80,33 @@ public class GlobalInitScriptUpdateRequest {
 
   public String getScriptId() {
     return scriptId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GlobalInitScriptUpdateRequest that = (GlobalInitScriptUpdateRequest) o;
+    return Objects.equals(enabled, that.enabled)
+        && Objects.equals(name, that.name)
+        && Objects.equals(position, that.position)
+        && Objects.equals(script, that.script)
+        && Objects.equals(scriptId, that.scriptId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(enabled, name, position, script, scriptId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GlobalInitScriptUpdateRequest.class)
+        .add("enabled", enabled)
+        .add("name", name)
+        .add("position", position)
+        .add("script", script)
+        .add("scriptId", scriptId)
+        .toString();
   }
 }

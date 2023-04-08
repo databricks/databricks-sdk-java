@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateTableConstraint {
   /**
@@ -32,5 +34,27 @@ public class CreateTableConstraint {
 
   public String getFullNameArg() {
     return fullNameArg;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateTableConstraint that = (CreateTableConstraint) o;
+    return Objects.equals(constraint, that.constraint)
+        && Objects.equals(fullNameArg, that.fullNameArg);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(constraint, fullNameArg);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateTableConstraint.class)
+        .add("constraint", constraint)
+        .add("fullNameArg", fullNameArg)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Widget {
   /** The unique ID for this widget. */
@@ -60,5 +62,31 @@ public class Widget {
 
   public Long getWidth() {
     return width;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Widget that = (Widget) o;
+    return Objects.equals(id, that.id)
+        && Objects.equals(options, that.options)
+        && Objects.equals(visualization, that.visualization)
+        && Objects.equals(width, that.width);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, options, visualization, width);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Widget.class)
+        .add("id", id)
+        .add("options", options)
+        .add("visualization", visualization)
+        .add("width", width)
+        .toString();
   }
 }

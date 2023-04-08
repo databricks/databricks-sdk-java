@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class EditAlert {
   /** */
@@ -70,5 +72,33 @@ public class EditAlert {
 
   public Long getRearm() {
     return rearm;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EditAlert that = (EditAlert) o;
+    return Objects.equals(alertId, that.alertId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(options, that.options)
+        && Objects.equals(queryId, that.queryId)
+        && Objects.equals(rearm, that.rearm);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(alertId, name, options, queryId, rearm);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EditAlert.class)
+        .add("alertId", alertId)
+        .add("name", name)
+        .add("options", options)
+        .add("queryId", queryId)
+        .add("rearm", rearm)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.scim;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ComplexValue {
   /** */
@@ -68,5 +70,33 @@ public class ComplexValue {
 
   public String getValue() {
     return value;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ComplexValue that = (ComplexValue) o;
+    return Objects.equals(display, that.display)
+        && Objects.equals(primary, that.primary)
+        && Objects.equals(ref, that.ref)
+        && Objects.equals(typeValue, that.typeValue)
+        && Objects.equals(value, that.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(display, primary, ref, typeValue, value);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ComplexValue.class)
+        .add("display", display)
+        .add("primary", primary)
+        .add("ref", ref)
+        .add("typeValue", typeValue)
+        .add("value", value)
+        .toString();
   }
 }

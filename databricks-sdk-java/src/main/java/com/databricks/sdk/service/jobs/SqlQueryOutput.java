@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SqlQueryOutput {
   /** The link to find the output results. */
@@ -17,7 +20,7 @@ public class SqlQueryOutput {
 
   /** Information about SQL statements executed in the run. */
   @JsonProperty("sql_statements")
-  private java.util.List<SqlStatementOutput> sqlStatements;
+  private Collection<SqlStatementOutput> sqlStatements;
 
   /** The canonical identifier of the SQL warehouse. */
   @JsonProperty("warehouse_id")
@@ -41,12 +44,12 @@ public class SqlQueryOutput {
     return queryText;
   }
 
-  public SqlQueryOutput setSqlStatements(java.util.List<SqlStatementOutput> sqlStatements) {
+  public SqlQueryOutput setSqlStatements(Collection<SqlStatementOutput> sqlStatements) {
     this.sqlStatements = sqlStatements;
     return this;
   }
 
-  public java.util.List<SqlStatementOutput> getSqlStatements() {
+  public Collection<SqlStatementOutput> getSqlStatements() {
     return sqlStatements;
   }
 
@@ -57,5 +60,31 @@ public class SqlQueryOutput {
 
   public String getWarehouseId() {
     return warehouseId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SqlQueryOutput that = (SqlQueryOutput) o;
+    return Objects.equals(outputLink, that.outputLink)
+        && Objects.equals(queryText, that.queryText)
+        && Objects.equals(sqlStatements, that.sqlStatements)
+        && Objects.equals(warehouseId, that.warehouseId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(outputLink, queryText, sqlStatements, warehouseId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SqlQueryOutput.class)
+        .add("outputLink", outputLink)
+        .add("queryText", queryText)
+        .add("sqlStatements", sqlStatements)
+        .add("warehouseId", warehouseId)
+        .toString();
   }
 }

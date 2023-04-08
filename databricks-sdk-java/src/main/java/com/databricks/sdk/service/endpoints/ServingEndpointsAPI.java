@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.endpoints;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -117,7 +117,8 @@ public class ServingEndpointsAPI {
     return impl.query(request);
   }
 
-  public ServingEndpointDetailed updateConfig(List<ServedModelInput> servedModels, String name) {
+  public ServingEndpointDetailed updateConfig(
+      Collection<ServedModelInput> servedModels, String name) {
     return updateConfig(new EndpointCoreConfigInput().setServedModels(servedModels).setName(name));
   }
 

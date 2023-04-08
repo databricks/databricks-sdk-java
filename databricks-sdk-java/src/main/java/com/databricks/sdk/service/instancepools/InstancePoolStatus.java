@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class InstancePoolStatus {
   /**
@@ -11,15 +14,35 @@ public class InstancePoolStatus {
    * once the number of exiting available instances reaches the min_idle of the pool.
    */
   @JsonProperty("pending_instance_errors")
-  private java.util.List<PendingInstanceError> pendingInstanceErrors;
+  private Collection<PendingInstanceError> pendingInstanceErrors;
 
   public InstancePoolStatus setPendingInstanceErrors(
-      java.util.List<PendingInstanceError> pendingInstanceErrors) {
+      Collection<PendingInstanceError> pendingInstanceErrors) {
     this.pendingInstanceErrors = pendingInstanceErrors;
     return this;
   }
 
-  public java.util.List<PendingInstanceError> getPendingInstanceErrors() {
+  public Collection<PendingInstanceError> getPendingInstanceErrors() {
     return pendingInstanceErrors;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    InstancePoolStatus that = (InstancePoolStatus) o;
+    return Objects.equals(pendingInstanceErrors, that.pendingInstanceErrors);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(pendingInstanceErrors);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(InstancePoolStatus.class)
+        .add("pendingInstanceErrors", pendingInstanceErrors)
+        .toString();
   }
 }

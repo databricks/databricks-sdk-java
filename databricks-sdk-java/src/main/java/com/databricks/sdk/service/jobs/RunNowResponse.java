@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class RunNowResponse {
   /** A unique identifier for this job run. This is set to the same value as `run_id`. */
@@ -29,5 +31,26 @@ public class RunNowResponse {
 
   public Long getRunId() {
     return runId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RunNowResponse that = (RunNowResponse) o;
+    return Objects.equals(numberInJob, that.numberInJob) && Objects.equals(runId, that.runId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(numberInJob, runId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RunNowResponse.class)
+        .add("numberInJob", numberInJob)
+        .add("runId", runId)
+        .toString();
   }
 }

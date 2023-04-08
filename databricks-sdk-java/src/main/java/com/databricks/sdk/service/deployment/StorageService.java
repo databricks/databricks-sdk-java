@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * These APIs manage storage configurations for this workspace. A root storage S3 bucket in your
@@ -51,5 +51,5 @@ public interface StorageService {
    *
    * <p>Gets a list of all Databricks storage configurations for your account, specified by ID.
    */
-  List<StorageConfiguration> list();
+  Collection<StorageConfiguration> list();
 }

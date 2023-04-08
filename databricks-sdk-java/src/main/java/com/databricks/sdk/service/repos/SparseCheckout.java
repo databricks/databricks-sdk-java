@@ -2,19 +2,40 @@
 
 package com.databricks.sdk.service.repos;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SparseCheckout {
   /** List of patterns to include for sparse checkout. */
   @JsonProperty("patterns")
-  private java.util.List<String> patterns;
+  private Collection<String> patterns;
 
-  public SparseCheckout setPatterns(java.util.List<String> patterns) {
+  public SparseCheckout setPatterns(Collection<String> patterns) {
     this.patterns = patterns;
     return this;
   }
 
-  public java.util.List<String> getPatterns() {
+  public Collection<String> getPatterns() {
     return patterns;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SparseCheckout that = (SparseCheckout) o;
+    return Objects.equals(patterns, that.patterns);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(patterns);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SparseCheckout.class).add("patterns", patterns).toString();
   }
 }

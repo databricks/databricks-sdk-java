@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.libraries;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class LibraryFullStatus {
   /** Whether the library was set to be installed on all clusters via the libraries UI. */
@@ -15,7 +18,7 @@ public class LibraryFullStatus {
 
   /** All the info and warning messages that have occurred so far for this library. */
   @JsonProperty("messages")
-  private java.util.List<String> messages;
+  private Collection<String> messages;
 
   /** Status of installing the library on the cluster. */
   @JsonProperty("status")
@@ -39,12 +42,12 @@ public class LibraryFullStatus {
     return library;
   }
 
-  public LibraryFullStatus setMessages(java.util.List<String> messages) {
+  public LibraryFullStatus setMessages(Collection<String> messages) {
     this.messages = messages;
     return this;
   }
 
-  public java.util.List<String> getMessages() {
+  public Collection<String> getMessages() {
     return messages;
   }
 
@@ -55,5 +58,31 @@ public class LibraryFullStatus {
 
   public LibraryFullStatusStatus getStatus() {
     return status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    LibraryFullStatus that = (LibraryFullStatus) o;
+    return Objects.equals(isLibraryForAllClusters, that.isLibraryForAllClusters)
+        && Objects.equals(library, that.library)
+        && Objects.equals(messages, that.messages)
+        && Objects.equals(status, that.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(isLibraryForAllClusters, library, messages, status);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(LibraryFullStatus.class)
+        .add("isLibraryForAllClusters", isLibraryForAllClusters)
+        .add("library", library)
+        .add("messages", messages)
+        .add("status", status)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateStorageCredential {
   /** The AWS IAM role configuration. */
@@ -122,5 +124,50 @@ public class UpdateStorageCredential {
 
   public Boolean getSkipValidation() {
     return skipValidation;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateStorageCredential that = (UpdateStorageCredential) o;
+    return Objects.equals(awsIamRole, that.awsIamRole)
+        && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(force, that.force)
+        && Objects.equals(gcpServiceAccountKey, that.gcpServiceAccountKey)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(readOnly, that.readOnly)
+        && Objects.equals(skipValidation, that.skipValidation);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        awsIamRole,
+        azureServicePrincipal,
+        comment,
+        force,
+        gcpServiceAccountKey,
+        name,
+        owner,
+        readOnly,
+        skipValidation);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateStorageCredential.class)
+        .add("awsIamRole", awsIamRole)
+        .add("azureServicePrincipal", azureServicePrincipal)
+        .add("comment", comment)
+        .add("force", force)
+        .add("gcpServiceAccountKey", gcpServiceAccountKey)
+        .add("name", name)
+        .add("owner", owner)
+        .add("readOnly", readOnly)
+        .add("skipValidation", skipValidation)
+        .toString();
   }
 }

@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SparkJarTask {
   /**
@@ -30,7 +33,7 @@ public class SparkJarTask {
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("parameters")
-  private java.util.List<String> parameters;
+  private Collection<String> parameters;
 
   public SparkJarTask setJarUri(String jarUri) {
     this.jarUri = jarUri;
@@ -50,12 +53,36 @@ public class SparkJarTask {
     return mainClassName;
   }
 
-  public SparkJarTask setParameters(java.util.List<String> parameters) {
+  public SparkJarTask setParameters(Collection<String> parameters) {
     this.parameters = parameters;
     return this;
   }
 
-  public java.util.List<String> getParameters() {
+  public Collection<String> getParameters() {
     return parameters;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SparkJarTask that = (SparkJarTask) o;
+    return Objects.equals(jarUri, that.jarUri)
+        && Objects.equals(mainClassName, that.mainClassName)
+        && Objects.equals(parameters, that.parameters);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(jarUri, mainClassName, parameters);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SparkJarTask.class)
+        .add("jarUri", jarUri)
+        .add("mainClassName", mainClassName)
+        .add("parameters", parameters)
+        .toString();
   }
 }

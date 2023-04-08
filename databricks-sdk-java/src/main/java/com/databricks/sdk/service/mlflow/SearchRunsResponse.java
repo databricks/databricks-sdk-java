@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SearchRunsResponse {
   /** Token for the next page of runs. */
@@ -11,7 +14,7 @@ public class SearchRunsResponse {
 
   /** Runs that match the search criteria. */
   @JsonProperty("runs")
-  private java.util.List<Run> runs;
+  private Collection<Run> runs;
 
   public SearchRunsResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
@@ -22,12 +25,33 @@ public class SearchRunsResponse {
     return nextPageToken;
   }
 
-  public SearchRunsResponse setRuns(java.util.List<Run> runs) {
+  public SearchRunsResponse setRuns(Collection<Run> runs) {
     this.runs = runs;
     return this;
   }
 
-  public java.util.List<Run> getRuns() {
+  public Collection<Run> getRuns() {
     return runs;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SearchRunsResponse that = (SearchRunsResponse) o;
+    return Objects.equals(nextPageToken, that.nextPageToken) && Objects.equals(runs, that.runs);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nextPageToken, runs);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SearchRunsResponse.class)
+        .add("nextPageToken", nextPageToken)
+        .add("runs", runs)
+        .toString();
   }
 }

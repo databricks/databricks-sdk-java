@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class QueryPostContent {
   /** The ID of the data source / SQL warehouse where this query will run. */
@@ -91,5 +93,35 @@ public class QueryPostContent {
 
   public String getQuery() {
     return query;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    QueryPostContent that = (QueryPostContent) o;
+    return Objects.equals(dataSourceId, that.dataSourceId)
+        && Objects.equals(description, that.description)
+        && Objects.equals(name, that.name)
+        && Objects.equals(options, that.options)
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(query, that.query);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(dataSourceId, description, name, options, parent, query);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(QueryPostContent.class)
+        .add("dataSourceId", dataSourceId)
+        .add("description", description)
+        .add("name", name)
+        .add("options", options)
+        .add("parent", parent)
+        .add("query", query)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.dbfs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Put {
   /** This parameter might be absent, and instead a posted file will be used. */
@@ -42,5 +44,29 @@ public class Put {
 
   public String getPath() {
     return path;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Put that = (Put) o;
+    return Objects.equals(contents, that.contents)
+        && Objects.equals(overwrite, that.overwrite)
+        && Objects.equals(path, that.path);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(contents, overwrite, path);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Put.class)
+        .add("contents", contents)
+        .add("overwrite", overwrite)
+        .add("path", path)
+        .toString();
   }
 }

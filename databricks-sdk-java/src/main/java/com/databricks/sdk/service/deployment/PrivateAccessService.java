@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * These APIs manage private access settings for this account. A private access settings object
@@ -72,7 +72,7 @@ public interface PrivateAccessService {
    *
    * <p>Gets a list of all private access settings objects for an account, specified by ID.
    */
-  List<PrivateAccessSettings> list();
+  Collection<PrivateAccessSettings> list();
 
   /**
    * Replace private access settings.

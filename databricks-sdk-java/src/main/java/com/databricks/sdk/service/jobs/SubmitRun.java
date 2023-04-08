@@ -2,12 +2,15 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SubmitRun {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
-  private java.util.List<Object /* MISSING TYPE */> accessControlList;
+  private Collection<Object /* MISSING TYPE */> accessControlList;
 
   /**
    * An optional specification for a remote repository containing the notebooks used by this job's
@@ -40,7 +43,7 @@ public class SubmitRun {
 
   /** */
   @JsonProperty("tasks")
-  private java.util.List<RunSubmitTaskSettings> tasks;
+  private Collection<RunSubmitTaskSettings> tasks;
 
   /**
    * An optional timeout applied to each run of this job. The default behavior is to have no
@@ -56,13 +59,12 @@ public class SubmitRun {
   @JsonProperty("webhook_notifications")
   private JobWebhookNotifications webhookNotifications;
 
-  public SubmitRun setAccessControlList(
-      java.util.List<Object /* MISSING TYPE */> accessControlList) {
+  public SubmitRun setAccessControlList(Collection<Object /* MISSING TYPE */> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public java.util.List<Object /* MISSING TYPE */> getAccessControlList() {
+  public Collection<Object /* MISSING TYPE */> getAccessControlList() {
     return accessControlList;
   }
 
@@ -93,12 +95,12 @@ public class SubmitRun {
     return runName;
   }
 
-  public SubmitRun setTasks(java.util.List<RunSubmitTaskSettings> tasks) {
+  public SubmitRun setTasks(Collection<RunSubmitTaskSettings> tasks) {
     this.tasks = tasks;
     return this;
   }
 
-  public java.util.List<RunSubmitTaskSettings> getTasks() {
+  public Collection<RunSubmitTaskSettings> getTasks() {
     return tasks;
   }
 
@@ -118,5 +120,44 @@ public class SubmitRun {
 
   public JobWebhookNotifications getWebhookNotifications() {
     return webhookNotifications;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SubmitRun that = (SubmitRun) o;
+    return Objects.equals(accessControlList, that.accessControlList)
+        && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(idempotencyToken, that.idempotencyToken)
+        && Objects.equals(runName, that.runName)
+        && Objects.equals(tasks, that.tasks)
+        && Objects.equals(timeoutSeconds, that.timeoutSeconds)
+        && Objects.equals(webhookNotifications, that.webhookNotifications);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        accessControlList,
+        gitSource,
+        idempotencyToken,
+        runName,
+        tasks,
+        timeoutSeconds,
+        webhookNotifications);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SubmitRun.class)
+        .add("accessControlList", accessControlList)
+        .add("gitSource", gitSource)
+        .add("idempotencyToken", idempotencyToken)
+        .add("runName", runName)
+        .add("tasks", tasks)
+        .add("timeoutSeconds", timeoutSeconds)
+        .add("webhookNotifications", webhookNotifications)
+        .toString();
   }
 }

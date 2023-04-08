@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ResizeCluster {
   /**
@@ -54,5 +56,29 @@ public class ResizeCluster {
 
   public Long getNumWorkers() {
     return numWorkers;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ResizeCluster that = (ResizeCluster) o;
+    return Objects.equals(autoscale, that.autoscale)
+        && Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(numWorkers, that.numWorkers);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(autoscale, clusterId, numWorkers);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ResizeCluster.class)
+        .add("autoscale", autoscale)
+        .add("clusterId", clusterId)
+        .add("numWorkers", numWorkers)
+        .toString();
   }
 }

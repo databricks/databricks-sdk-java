@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class MetastoreInfo {
   /** Cloud vendor of the metastore home shard (e.g., `aws`, `azure`, `gcp`). */
@@ -244,5 +246,81 @@ public class MetastoreInfo {
 
   public String getUpdatedBy() {
     return updatedBy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    MetastoreInfo that = (MetastoreInfo) o;
+    return Objects.equals(cloud, that.cloud)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(defaultDataAccessConfigId, that.defaultDataAccessConfigId)
+        && Objects.equals(deltaSharingOrganizationName, that.deltaSharingOrganizationName)
+        && Objects.equals(
+            deltaSharingRecipientTokenLifetimeInSeconds,
+            that.deltaSharingRecipientTokenLifetimeInSeconds)
+        && Objects.equals(deltaSharingScope, that.deltaSharingScope)
+        && Objects.equals(globalMetastoreId, that.globalMetastoreId)
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(privilegeModelVersion, that.privilegeModelVersion)
+        && Objects.equals(region, that.region)
+        && Objects.equals(storageRoot, that.storageRoot)
+        && Objects.equals(storageRootCredentialId, that.storageRootCredentialId)
+        && Objects.equals(storageRootCredentialName, that.storageRootCredentialName)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        cloud,
+        createdAt,
+        createdBy,
+        defaultDataAccessConfigId,
+        deltaSharingOrganizationName,
+        deltaSharingRecipientTokenLifetimeInSeconds,
+        deltaSharingScope,
+        globalMetastoreId,
+        metastoreId,
+        name,
+        owner,
+        privilegeModelVersion,
+        region,
+        storageRoot,
+        storageRootCredentialId,
+        storageRootCredentialName,
+        updatedAt,
+        updatedBy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(MetastoreInfo.class)
+        .add("cloud", cloud)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("defaultDataAccessConfigId", defaultDataAccessConfigId)
+        .add("deltaSharingOrganizationName", deltaSharingOrganizationName)
+        .add(
+            "deltaSharingRecipientTokenLifetimeInSeconds",
+            deltaSharingRecipientTokenLifetimeInSeconds)
+        .add("deltaSharingScope", deltaSharingScope)
+        .add("globalMetastoreId", globalMetastoreId)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .add("owner", owner)
+        .add("privilegeModelVersion", privilegeModelVersion)
+        .add("region", region)
+        .add("storageRoot", storageRoot)
+        .add("storageRootCredentialId", storageRootCredentialId)
+        .add("storageRootCredentialName", storageRootCredentialName)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
+        .toString();
   }
 }

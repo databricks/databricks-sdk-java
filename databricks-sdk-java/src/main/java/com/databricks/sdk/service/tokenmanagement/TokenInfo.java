@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.tokenmanagement;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class TokenInfo {
   /** Comment that describes the purpose of the token, specified by the token creator. */
@@ -94,5 +96,38 @@ public class TokenInfo {
 
   public String getTokenId() {
     return tokenId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TokenInfo that = (TokenInfo) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(createdById, that.createdById)
+        && Objects.equals(createdByUsername, that.createdByUsername)
+        && Objects.equals(creationTime, that.creationTime)
+        && Objects.equals(expiryTime, that.expiryTime)
+        && Objects.equals(ownerId, that.ownerId)
+        && Objects.equals(tokenId, that.tokenId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        comment, createdById, createdByUsername, creationTime, expiryTime, ownerId, tokenId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TokenInfo.class)
+        .add("comment", comment)
+        .add("createdById", createdById)
+        .add("createdByUsername", createdByUsername)
+        .add("creationTime", creationTime)
+        .add("expiryTime", expiryTime)
+        .add("ownerId", ownerId)
+        .add("tokenId", tokenId)
+        .toString();
   }
 }

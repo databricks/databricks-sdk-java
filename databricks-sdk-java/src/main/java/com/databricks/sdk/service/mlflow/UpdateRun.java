@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateRun {
   /** Unix timestamp in milliseconds of when the run ended. */
@@ -58,5 +60,31 @@ public class UpdateRun {
 
   public UpdateRunStatus getStatus() {
     return status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateRun that = (UpdateRun) o;
+    return Objects.equals(endTime, that.endTime)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(runUuid, that.runUuid)
+        && Objects.equals(status, that.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(endTime, runId, runUuid, status);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateRun.class)
+        .add("endTime", endTime)
+        .add("runId", runId)
+        .add("runUuid", runUuid)
+        .add("status", status)
+        .toString();
   }
 }

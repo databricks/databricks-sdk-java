@@ -2,19 +2,40 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class Partition {
   /** An array of partition values. */
   @JsonProperty("values")
-  private java.util.List<PartitionValue> values;
+  private Collection<PartitionValue> values;
 
-  public Partition setValues(java.util.List<PartitionValue> values) {
+  public Partition setValues(Collection<PartitionValue> values) {
     this.values = values;
     return this;
   }
 
-  public java.util.List<PartitionValue> getValues() {
+  public Collection<PartitionValue> getValues() {
     return values;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Partition that = (Partition) o;
+    return Objects.equals(values, that.values);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(values);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Partition.class).add("values", values).toString();
   }
 }

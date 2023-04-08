@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.clusterpolicies;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ListPolicyFamiliesResponse {
   /**
@@ -14,7 +17,7 @@ public class ListPolicyFamiliesResponse {
 
   /** List of policy families. */
   @JsonProperty("policy_families")
-  private java.util.List<PolicyFamily> policyFamilies;
+  private Collection<PolicyFamily> policyFamilies;
 
   public ListPolicyFamiliesResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
@@ -25,12 +28,34 @@ public class ListPolicyFamiliesResponse {
     return nextPageToken;
   }
 
-  public ListPolicyFamiliesResponse setPolicyFamilies(java.util.List<PolicyFamily> policyFamilies) {
+  public ListPolicyFamiliesResponse setPolicyFamilies(Collection<PolicyFamily> policyFamilies) {
     this.policyFamilies = policyFamilies;
     return this;
   }
 
-  public java.util.List<PolicyFamily> getPolicyFamilies() {
+  public Collection<PolicyFamily> getPolicyFamilies() {
     return policyFamilies;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListPolicyFamiliesResponse that = (ListPolicyFamiliesResponse) o;
+    return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(policyFamilies, that.policyFamilies);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nextPageToken, policyFamilies);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListPolicyFamiliesResponse.class)
+        .add("nextPageToken", nextPageToken)
+        .add("policyFamilies", policyFamilies)
+        .toString();
   }
 }

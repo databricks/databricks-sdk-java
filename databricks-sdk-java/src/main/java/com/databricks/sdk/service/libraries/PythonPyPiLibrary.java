@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.libraries;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PythonPyPiLibrary {
   /**
@@ -34,5 +36,26 @@ public class PythonPyPiLibrary {
 
   public String getRepo() {
     return repo;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PythonPyPiLibrary that = (PythonPyPiLibrary) o;
+    return Objects.equals(packageValue, that.packageValue) && Objects.equals(repo, that.repo);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(packageValue, repo);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PythonPyPiLibrary.class)
+        .add("packageValue", packageValue)
+        .add("repo", repo)
+        .toString();
   }
 }

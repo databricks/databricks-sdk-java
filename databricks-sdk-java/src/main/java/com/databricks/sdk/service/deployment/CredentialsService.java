@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * These APIs manage credential configurations for this workspace. Databricks needs access to a
@@ -54,5 +54,5 @@ public interface CredentialsService {
    *
    * <p>Gets all Databricks credential configurations associated with an account specified by ID.
    */
-  List<Credential> list();
+  Collection<Credential> list();
 }

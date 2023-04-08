@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Sequencing {
   /** A sequence number, unique and increasing within the control plane. */
@@ -29,5 +31,27 @@ public class Sequencing {
 
   public DataPlaneId getDataPlaneId() {
     return dataPlaneId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Sequencing that = (Sequencing) o;
+    return Objects.equals(controlPlaneSeqNo, that.controlPlaneSeqNo)
+        && Objects.equals(dataPlaneId, that.dataPlaneId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(controlPlaneSeqNo, dataPlaneId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Sequencing.class)
+        .add("controlPlaneSeqNo", controlPlaneSeqNo)
+        .add("dataPlaneId", dataPlaneId)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateMetastore {
   /**
@@ -122,5 +124,54 @@ public class UpdateMetastore {
 
   public String getStorageRootCredentialId() {
     return storageRootCredentialId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateMetastore that = (UpdateMetastore) o;
+    return Objects.equals(deltaSharingOrganizationName, that.deltaSharingOrganizationName)
+        && Objects.equals(
+            deltaSharingRecipientTokenLifetimeInSeconds,
+            that.deltaSharingRecipientTokenLifetimeInSeconds)
+        && Objects.equals(deltaSharingScope, that.deltaSharingScope)
+        && Objects.equals(id, that.id)
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(privilegeModelVersion, that.privilegeModelVersion)
+        && Objects.equals(storageRootCredentialId, that.storageRootCredentialId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        deltaSharingOrganizationName,
+        deltaSharingRecipientTokenLifetimeInSeconds,
+        deltaSharingScope,
+        id,
+        metastoreId,
+        name,
+        owner,
+        privilegeModelVersion,
+        storageRootCredentialId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateMetastore.class)
+        .add("deltaSharingOrganizationName", deltaSharingOrganizationName)
+        .add(
+            "deltaSharingRecipientTokenLifetimeInSeconds",
+            deltaSharingRecipientTokenLifetimeInSeconds)
+        .add("deltaSharingScope", deltaSharingScope)
+        .add("id", id)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .add("owner", owner)
+        .add("privilegeModelVersion", privilegeModelVersion)
+        .add("storageRootCredentialId", storageRootCredentialId)
+        .toString();
   }
 }

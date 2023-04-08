@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * These APIs manage encryption key configurations for this workspace (optional). A key
@@ -83,5 +83,5 @@ public interface EncryptionKeysService {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */
-  List<CustomerManagedKey> list();
+  Collection<CustomerManagedKey> list();
 }

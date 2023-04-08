@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Get a share activation URL */
 public class GetActivationUrlInfoRequest {
   /** The one time activation url. It also accepts activation token. */
@@ -14,5 +17,25 @@ public class GetActivationUrlInfoRequest {
 
   public String getActivationUrl() {
     return activationUrl;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetActivationUrlInfoRequest that = (GetActivationUrlInfoRequest) o;
+    return Objects.equals(activationUrl, that.activationUrl);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(activationUrl);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetActivationUrlInfoRequest.class)
+        .add("activationUrl", activationUrl)
+        .toString();
   }
 }

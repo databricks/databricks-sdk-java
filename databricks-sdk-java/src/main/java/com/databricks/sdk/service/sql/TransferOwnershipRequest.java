@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /** Transfer object ownership */
 public class TransferOwnershipRequest {
@@ -41,5 +43,29 @@ public class TransferOwnershipRequest {
 
   public OwnableObjectType getObjectType() {
     return objectType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TransferOwnershipRequest that = (TransferOwnershipRequest) o;
+    return Objects.equals(newOwner, that.newOwner)
+        && Objects.equals(objectId, that.objectId)
+        && Objects.equals(objectType, that.objectType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(newOwner, objectId, objectType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TransferOwnershipRequest.class)
+        .add("newOwner", newOwner)
+        .add("objectId", objectId)
+        .add("objectType", objectType)
+        .toString();
   }
 }

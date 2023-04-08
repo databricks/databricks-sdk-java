@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /** Activity recorded for the action. */
 public class Activity {
@@ -145,5 +147,50 @@ public class Activity {
 
   public String getUserId() {
     return userId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Activity that = (Activity) o;
+    return Objects.equals(activityType, that.activityType)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(creationTimestamp, that.creationTimestamp)
+        && Objects.equals(fromStage, that.fromStage)
+        && Objects.equals(id, that.id)
+        && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
+        && Objects.equals(systemComment, that.systemComment)
+        && Objects.equals(toStage, that.toStage)
+        && Objects.equals(userId, that.userId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        activityType,
+        comment,
+        creationTimestamp,
+        fromStage,
+        id,
+        lastUpdatedTimestamp,
+        systemComment,
+        toStage,
+        userId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Activity.class)
+        .add("activityType", activityType)
+        .add("comment", comment)
+        .add("creationTimestamp", creationTimestamp)
+        .add("fromStage", fromStage)
+        .add("id", id)
+        .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
+        .add("systemComment", systemComment)
+        .add("toStage", toStage)
+        .add("userId", userId)
+        .toString();
   }
 }

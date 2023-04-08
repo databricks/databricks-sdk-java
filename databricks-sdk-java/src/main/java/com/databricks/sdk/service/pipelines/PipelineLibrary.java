@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PipelineLibrary {
   /**
@@ -71,5 +73,31 @@ public class PipelineLibrary {
 
   public String getWhl() {
     return whl;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PipelineLibrary that = (PipelineLibrary) o;
+    return Objects.equals(jar, that.jar)
+        && Objects.equals(maven, that.maven)
+        && Objects.equals(notebook, that.notebook)
+        && Objects.equals(whl, that.whl);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(jar, maven, notebook, whl);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PipelineLibrary.class)
+        .add("jar", jar)
+        .add("maven", maven)
+        .add("notebook", notebook)
+        .add("whl", whl)
+        .toString();
   }
 }

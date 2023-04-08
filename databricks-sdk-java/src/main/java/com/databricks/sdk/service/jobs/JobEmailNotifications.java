@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class JobEmailNotifications {
   /** If true, do not send email to recipients specified in `on_failure` if the run is skipped. */
@@ -16,14 +19,14 @@ public class JobEmailNotifications {
    * specified on job creation, reset, or update the list is empty, and notifications are not sent.
    */
   @JsonProperty("on_failure")
-  private java.util.List<String> onFailure;
+  private Collection<String> onFailure;
 
   /**
    * A list of email addresses to be notified when a run begins. If not specified on job creation,
    * reset, or update, the list is empty, and notifications are not sent.
    */
   @JsonProperty("on_start")
-  private java.util.List<String> onStart;
+  private Collection<String> onStart;
 
   /**
    * A list of email addresses to be notified when a run successfully completes. A run is considered
@@ -32,7 +35,7 @@ public class JobEmailNotifications {
    * empty, and notifications are not sent.
    */
   @JsonProperty("on_success")
-  private java.util.List<String> onSuccess;
+  private Collection<String> onSuccess;
 
   public JobEmailNotifications setNoAlertForSkippedRuns(Boolean noAlertForSkippedRuns) {
     this.noAlertForSkippedRuns = noAlertForSkippedRuns;
@@ -43,30 +46,56 @@ public class JobEmailNotifications {
     return noAlertForSkippedRuns;
   }
 
-  public JobEmailNotifications setOnFailure(java.util.List<String> onFailure) {
+  public JobEmailNotifications setOnFailure(Collection<String> onFailure) {
     this.onFailure = onFailure;
     return this;
   }
 
-  public java.util.List<String> getOnFailure() {
+  public Collection<String> getOnFailure() {
     return onFailure;
   }
 
-  public JobEmailNotifications setOnStart(java.util.List<String> onStart) {
+  public JobEmailNotifications setOnStart(Collection<String> onStart) {
     this.onStart = onStart;
     return this;
   }
 
-  public java.util.List<String> getOnStart() {
+  public Collection<String> getOnStart() {
     return onStart;
   }
 
-  public JobEmailNotifications setOnSuccess(java.util.List<String> onSuccess) {
+  public JobEmailNotifications setOnSuccess(Collection<String> onSuccess) {
     this.onSuccess = onSuccess;
     return this;
   }
 
-  public java.util.List<String> getOnSuccess() {
+  public Collection<String> getOnSuccess() {
     return onSuccess;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    JobEmailNotifications that = (JobEmailNotifications) o;
+    return Objects.equals(noAlertForSkippedRuns, that.noAlertForSkippedRuns)
+        && Objects.equals(onFailure, that.onFailure)
+        && Objects.equals(onStart, that.onStart)
+        && Objects.equals(onSuccess, that.onSuccess);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(noAlertForSkippedRuns, onFailure, onStart, onSuccess);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(JobEmailNotifications.class)
+        .add("noAlertForSkippedRuns", noAlertForSkippedRuns)
+        .add("onFailure", onFailure)
+        .add("onStart", onStart)
+        .add("onSuccess", onSuccess)
+        .toString();
   }
 }

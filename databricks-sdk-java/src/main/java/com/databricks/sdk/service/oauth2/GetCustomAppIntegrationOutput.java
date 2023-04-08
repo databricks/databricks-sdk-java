@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class GetCustomAppIntegrationOutput {
   /** oauth client id of the custom oauth app */
@@ -23,7 +26,7 @@ public class GetCustomAppIntegrationOutput {
 
   /** List of oauth redirect urls */
   @JsonProperty("redirect_urls")
-  private java.util.List<String> redirectUrls;
+  private Collection<String> redirectUrls;
 
   /** Token access policy */
   @JsonProperty("token_access_policy")
@@ -65,12 +68,12 @@ public class GetCustomAppIntegrationOutput {
     return name;
   }
 
-  public GetCustomAppIntegrationOutput setRedirectUrls(java.util.List<String> redirectUrls) {
+  public GetCustomAppIntegrationOutput setRedirectUrls(Collection<String> redirectUrls) {
     this.redirectUrls = redirectUrls;
     return this;
   }
 
-  public java.util.List<String> getRedirectUrls() {
+  public Collection<String> getRedirectUrls() {
     return redirectUrls;
   }
 
@@ -81,5 +84,36 @@ public class GetCustomAppIntegrationOutput {
 
   public TokenAccessPolicy getTokenAccessPolicy() {
     return tokenAccessPolicy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetCustomAppIntegrationOutput that = (GetCustomAppIntegrationOutput) o;
+    return Objects.equals(clientId, that.clientId)
+        && Objects.equals(confidential, that.confidential)
+        && Objects.equals(integrationId, that.integrationId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(redirectUrls, that.redirectUrls)
+        && Objects.equals(tokenAccessPolicy, that.tokenAccessPolicy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        clientId, confidential, integrationId, name, redirectUrls, tokenAccessPolicy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetCustomAppIntegrationOutput.class)
+        .add("clientId", clientId)
+        .add("confidential", confidential)
+        .add("integrationId", integrationId)
+        .add("name", name)
+        .add("redirectUrls", redirectUrls)
+        .add("tokenAccessPolicy", tokenAccessPolicy)
+        .toString();
   }
 }

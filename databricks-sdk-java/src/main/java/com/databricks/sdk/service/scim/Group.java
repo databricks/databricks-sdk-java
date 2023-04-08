@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.scim;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class Group {
   /** String that represents a human-readable group name */
@@ -11,7 +14,7 @@ public class Group {
 
   /** */
   @JsonProperty("entitlements")
-  private java.util.List<ComplexValue> entitlements;
+  private Collection<ComplexValue> entitlements;
 
   /** */
   @JsonProperty("externalId")
@@ -19,7 +22,7 @@ public class Group {
 
   /** */
   @JsonProperty("groups")
-  private java.util.List<ComplexValue> groups;
+  private Collection<ComplexValue> groups;
 
   /** Databricks group ID */
   @JsonProperty("id")
@@ -27,11 +30,11 @@ public class Group {
 
   /** */
   @JsonProperty("members")
-  private java.util.List<ComplexValue> members;
+  private Collection<ComplexValue> members;
 
   /** */
   @JsonProperty("roles")
-  private java.util.List<ComplexValue> roles;
+  private Collection<ComplexValue> roles;
 
   public Group setDisplayName(String displayName) {
     this.displayName = displayName;
@@ -42,12 +45,12 @@ public class Group {
     return displayName;
   }
 
-  public Group setEntitlements(java.util.List<ComplexValue> entitlements) {
+  public Group setEntitlements(Collection<ComplexValue> entitlements) {
     this.entitlements = entitlements;
     return this;
   }
 
-  public java.util.List<ComplexValue> getEntitlements() {
+  public Collection<ComplexValue> getEntitlements() {
     return entitlements;
   }
 
@@ -60,12 +63,12 @@ public class Group {
     return externalId;
   }
 
-  public Group setGroups(java.util.List<ComplexValue> groups) {
+  public Group setGroups(Collection<ComplexValue> groups) {
     this.groups = groups;
     return this;
   }
 
-  public java.util.List<ComplexValue> getGroups() {
+  public Collection<ComplexValue> getGroups() {
     return groups;
   }
 
@@ -78,21 +81,53 @@ public class Group {
     return id;
   }
 
-  public Group setMembers(java.util.List<ComplexValue> members) {
+  public Group setMembers(Collection<ComplexValue> members) {
     this.members = members;
     return this;
   }
 
-  public java.util.List<ComplexValue> getMembers() {
+  public Collection<ComplexValue> getMembers() {
     return members;
   }
 
-  public Group setRoles(java.util.List<ComplexValue> roles) {
+  public Group setRoles(Collection<ComplexValue> roles) {
     this.roles = roles;
     return this;
   }
 
-  public java.util.List<ComplexValue> getRoles() {
+  public Collection<ComplexValue> getRoles() {
     return roles;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Group that = (Group) o;
+    return Objects.equals(displayName, that.displayName)
+        && Objects.equals(entitlements, that.entitlements)
+        && Objects.equals(externalId, that.externalId)
+        && Objects.equals(groups, that.groups)
+        && Objects.equals(id, that.id)
+        && Objects.equals(members, that.members)
+        && Objects.equals(roles, that.roles);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(displayName, entitlements, externalId, groups, id, members, roles);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Group.class)
+        .add("displayName", displayName)
+        .add("entitlements", entitlements)
+        .add("externalId", externalId)
+        .add("groups", groups)
+        .add("id", id)
+        .add("members", members)
+        .add("roles", roles)
+        .toString();
   }
 }

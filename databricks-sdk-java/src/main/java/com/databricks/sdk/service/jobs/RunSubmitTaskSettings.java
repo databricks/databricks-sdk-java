@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class RunSubmitTaskSettings {
   /**
@@ -12,7 +15,7 @@ public class RunSubmitTaskSettings {
    * consists of more than one task.
    */
   @JsonProperty("depends_on")
-  private java.util.List<TaskDependenciesItem> dependsOn;
+  private Collection<TaskDependenciesItem> dependsOn;
 
   /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs of this task.
@@ -27,7 +30,7 @@ public class RunSubmitTaskSettings {
    * default value is an empty list.
    */
   @JsonProperty("libraries")
-  private java.util.List<Object /* MISSING TYPE */> libraries;
+  private Collection<Object /* MISSING TYPE */> libraries;
 
   /** If new_cluster, a description of a cluster that is created for each run. */
   @JsonProperty("new_cluster")
@@ -78,12 +81,12 @@ public class RunSubmitTaskSettings {
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
-  public RunSubmitTaskSettings setDependsOn(java.util.List<TaskDependenciesItem> dependsOn) {
+  public RunSubmitTaskSettings setDependsOn(Collection<TaskDependenciesItem> dependsOn) {
     this.dependsOn = dependsOn;
     return this;
   }
 
-  public java.util.List<TaskDependenciesItem> getDependsOn() {
+  public Collection<TaskDependenciesItem> getDependsOn() {
     return dependsOn;
   }
 
@@ -96,12 +99,12 @@ public class RunSubmitTaskSettings {
     return existingClusterId;
   }
 
-  public RunSubmitTaskSettings setLibraries(java.util.List<Object /* MISSING TYPE */> libraries) {
+  public RunSubmitTaskSettings setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public java.util.List<Object /* MISSING TYPE */> getLibraries() {
+  public Collection<Object /* MISSING TYPE */> getLibraries() {
     return libraries;
   }
 
@@ -184,5 +187,59 @@ public class RunSubmitTaskSettings {
 
   public Long getTimeoutSeconds() {
     return timeoutSeconds;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RunSubmitTaskSettings that = (RunSubmitTaskSettings) o;
+    return Objects.equals(dependsOn, that.dependsOn)
+        && Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(libraries, that.libraries)
+        && Objects.equals(newCluster, that.newCluster)
+        && Objects.equals(notebookTask, that.notebookTask)
+        && Objects.equals(pipelineTask, that.pipelineTask)
+        && Objects.equals(pythonWheelTask, that.pythonWheelTask)
+        && Objects.equals(sparkJarTask, that.sparkJarTask)
+        && Objects.equals(sparkPythonTask, that.sparkPythonTask)
+        && Objects.equals(sparkSubmitTask, that.sparkSubmitTask)
+        && Objects.equals(taskKey, that.taskKey)
+        && Objects.equals(timeoutSeconds, that.timeoutSeconds);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        dependsOn,
+        existingClusterId,
+        libraries,
+        newCluster,
+        notebookTask,
+        pipelineTask,
+        pythonWheelTask,
+        sparkJarTask,
+        sparkPythonTask,
+        sparkSubmitTask,
+        taskKey,
+        timeoutSeconds);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RunSubmitTaskSettings.class)
+        .add("dependsOn", dependsOn)
+        .add("existingClusterId", existingClusterId)
+        .add("libraries", libraries)
+        .add("newCluster", newCluster)
+        .add("notebookTask", notebookTask)
+        .add("pipelineTask", pipelineTask)
+        .add("pythonWheelTask", pythonWheelTask)
+        .add("sparkJarTask", sparkJarTask)
+        .add("sparkPythonTask", sparkPythonTask)
+        .add("sparkSubmitTask", sparkSubmitTask)
+        .add("taskKey", taskKey)
+        .add("timeoutSeconds", timeoutSeconds)
+        .toString();
   }
 }

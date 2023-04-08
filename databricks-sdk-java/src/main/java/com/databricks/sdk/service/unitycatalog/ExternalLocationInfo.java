@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ExternalLocationInfo {
   /** User-provided free-form text description. */
@@ -159,5 +161,59 @@ public class ExternalLocationInfo {
 
   public String getUrl() {
     return url;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ExternalLocationInfo that = (ExternalLocationInfo) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(credentialId, that.credentialId)
+        && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(readOnly, that.readOnly)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(updatedBy, that.updatedBy)
+        && Objects.equals(url, that.url);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        comment,
+        createdAt,
+        createdBy,
+        credentialId,
+        credentialName,
+        metastoreId,
+        name,
+        owner,
+        readOnly,
+        updatedAt,
+        updatedBy,
+        url);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ExternalLocationInfo.class)
+        .add("comment", comment)
+        .add("createdAt", createdAt)
+        .add("createdBy", createdBy)
+        .add("credentialId", credentialId)
+        .add("credentialName", credentialName)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .add("owner", owner)
+        .add("readOnly", readOnly)
+        .add("updatedAt", updatedAt)
+        .add("updatedBy", updatedBy)
+        .add("url", url)
+        .toString();
   }
 }

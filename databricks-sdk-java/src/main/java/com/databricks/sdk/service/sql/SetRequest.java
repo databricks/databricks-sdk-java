@@ -2,13 +2,16 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 /** Set object ACL */
 public class SetRequest {
   /** */
   @JsonProperty("access_control_list")
-  private java.util.List<AccessControl> accessControlList;
+  private Collection<AccessControl> accessControlList;
 
   /**
    * Object ID. The ACL for the object with this UUID is overwritten by this request's POST content.
@@ -18,12 +21,12 @@ public class SetRequest {
   /** The type of object permission to set. */
   private ObjectTypePlural objectType;
 
-  public SetRequest setAccessControlList(java.util.List<AccessControl> accessControlList) {
+  public SetRequest setAccessControlList(Collection<AccessControl> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public java.util.List<AccessControl> getAccessControlList() {
+  public Collection<AccessControl> getAccessControlList() {
     return accessControlList;
   }
 
@@ -43,5 +46,29 @@ public class SetRequest {
 
   public ObjectTypePlural getObjectType() {
     return objectType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SetRequest that = (SetRequest) o;
+    return Objects.equals(accessControlList, that.accessControlList)
+        && Objects.equals(objectId, that.objectId)
+        && Objects.equals(objectType, that.objectType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accessControlList, objectId, objectType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SetRequest.class)
+        .add("accessControlList", accessControlList)
+        .add("objectId", objectId)
+        .add("objectType", objectType)
+        .toString();
   }
 }

@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get all log delivery configurations */
 public class ListLogDeliveryRequest {
@@ -43,5 +45,29 @@ public class ListLogDeliveryRequest {
 
   public String getStorageConfigurationId() {
     return storageConfigurationId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListLogDeliveryRequest that = (ListLogDeliveryRequest) o;
+    return Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(status, that.status)
+        && Objects.equals(storageConfigurationId, that.storageConfigurationId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(credentialsId, status, storageConfigurationId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListLogDeliveryRequest.class)
+        .add("credentialsId", credentialsId)
+        .add("status", status)
+        .add("storageConfigurationId", storageConfigurationId)
+        .toString();
   }
 }

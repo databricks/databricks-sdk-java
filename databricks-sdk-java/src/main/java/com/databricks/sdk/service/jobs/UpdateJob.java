@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class UpdateJob {
   /**
@@ -10,7 +13,7 @@ public class UpdateJob {
    * field is optional.
    */
   @JsonProperty("fields_to_remove")
-  private java.util.List<String> fieldsToRemove;
+  private Collection<String> fieldsToRemove;
 
   /** The canonical identifier of the job to update. This field is required. */
   @JsonProperty("job_id")
@@ -26,12 +29,12 @@ public class UpdateJob {
   @JsonProperty("new_settings")
   private JobSettings newSettings;
 
-  public UpdateJob setFieldsToRemove(java.util.List<String> fieldsToRemove) {
+  public UpdateJob setFieldsToRemove(Collection<String> fieldsToRemove) {
     this.fieldsToRemove = fieldsToRemove;
     return this;
   }
 
-  public java.util.List<String> getFieldsToRemove() {
+  public Collection<String> getFieldsToRemove() {
     return fieldsToRemove;
   }
 
@@ -51,5 +54,29 @@ public class UpdateJob {
 
   public JobSettings getNewSettings() {
     return newSettings;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateJob that = (UpdateJob) o;
+    return Objects.equals(fieldsToRemove, that.fieldsToRemove)
+        && Objects.equals(jobId, that.jobId)
+        && Objects.equals(newSettings, that.newSettings);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fieldsToRemove, jobId, newSettings);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateJob.class)
+        .add("fieldsToRemove", fieldsToRemove)
+        .add("jobId", jobId)
+        .add("newSettings", newSettings)
+        .toString();
   }
 }

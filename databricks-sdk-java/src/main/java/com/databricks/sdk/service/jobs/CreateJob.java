@@ -2,13 +2,16 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreateJob {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
-  private java.util.List<Object /* MISSING TYPE */> accessControlList;
+  private Collection<Object /* MISSING TYPE */> accessControlList;
 
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
@@ -44,7 +47,7 @@ public class CreateJob {
    * task settings.
    */
   @JsonProperty("job_clusters")
-  private java.util.List<JobCluster> jobClusters;
+  private Collection<JobCluster> jobClusters;
 
   /**
    * An optional maximum allowed number of concurrent runs of the job.
@@ -86,7 +89,7 @@ public class CreateJob {
 
   /** A list of task specifications to be executed by this job. */
   @JsonProperty("tasks")
-  private java.util.List<JobTaskSettings> tasks;
+  private Collection<JobTaskSettings> tasks;
 
   /**
    * An optional timeout applied to each run of this job. The default behavior is to have no
@@ -110,13 +113,12 @@ public class CreateJob {
   @JsonProperty("webhook_notifications")
   private JobWebhookNotifications webhookNotifications;
 
-  public CreateJob setAccessControlList(
-      java.util.List<Object /* MISSING TYPE */> accessControlList) {
+  public CreateJob setAccessControlList(Collection<Object /* MISSING TYPE */> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public java.util.List<Object /* MISSING TYPE */> getAccessControlList() {
+  public Collection<Object /* MISSING TYPE */> getAccessControlList() {
     return accessControlList;
   }
 
@@ -156,12 +158,12 @@ public class CreateJob {
     return gitSource;
   }
 
-  public CreateJob setJobClusters(java.util.List<JobCluster> jobClusters) {
+  public CreateJob setJobClusters(Collection<JobCluster> jobClusters) {
     this.jobClusters = jobClusters;
     return this;
   }
 
-  public java.util.List<JobCluster> getJobClusters() {
+  public Collection<JobCluster> getJobClusters() {
     return jobClusters;
   }
 
@@ -201,12 +203,12 @@ public class CreateJob {
     return tags;
   }
 
-  public CreateJob setTasks(java.util.List<JobTaskSettings> tasks) {
+  public CreateJob setTasks(Collection<JobTaskSettings> tasks) {
     this.tasks = tasks;
     return this;
   }
 
-  public java.util.List<JobTaskSettings> getTasks() {
+  public Collection<JobTaskSettings> getTasks() {
     return tasks;
   }
 
@@ -235,5 +237,65 @@ public class CreateJob {
 
   public JobWebhookNotifications getWebhookNotifications() {
     return webhookNotifications;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateJob that = (CreateJob) o;
+    return Objects.equals(accessControlList, that.accessControlList)
+        && Objects.equals(continuous, that.continuous)
+        && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(format, that.format)
+        && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(jobClusters, that.jobClusters)
+        && Objects.equals(maxConcurrentRuns, that.maxConcurrentRuns)
+        && Objects.equals(name, that.name)
+        && Objects.equals(schedule, that.schedule)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(tasks, that.tasks)
+        && Objects.equals(timeoutSeconds, that.timeoutSeconds)
+        && Objects.equals(trigger, that.trigger)
+        && Objects.equals(webhookNotifications, that.webhookNotifications);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        accessControlList,
+        continuous,
+        emailNotifications,
+        format,
+        gitSource,
+        jobClusters,
+        maxConcurrentRuns,
+        name,
+        schedule,
+        tags,
+        tasks,
+        timeoutSeconds,
+        trigger,
+        webhookNotifications);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateJob.class)
+        .add("accessControlList", accessControlList)
+        .add("continuous", continuous)
+        .add("emailNotifications", emailNotifications)
+        .add("format", format)
+        .add("gitSource", gitSource)
+        .add("jobClusters", jobClusters)
+        .add("maxConcurrentRuns", maxConcurrentRuns)
+        .add("name", name)
+        .add("schedule", schedule)
+        .add("tags", tags)
+        .add("tasks", tasks)
+        .add("timeoutSeconds", timeoutSeconds)
+        .add("trigger", trigger)
+        .add("webhookNotifications", webhookNotifications)
+        .toString();
   }
 }

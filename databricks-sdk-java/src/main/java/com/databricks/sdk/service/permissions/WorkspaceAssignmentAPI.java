@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.permissions;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -66,7 +66,8 @@ public class WorkspaceAssignmentAPI {
     return impl.list(request);
   }
 
-  public void update(List<WorkspacePermission> permissions, long workspaceId, long principalId) {
+  public void update(
+      Collection<WorkspacePermission> permissions, long workspaceId, long principalId) {
     update(
         new UpdateWorkspaceAssignments()
             .setPermissions(permissions)

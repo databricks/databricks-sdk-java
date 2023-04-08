@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Delete a table */
 public class DeleteTableRequest {
   /** Full name of the table. */
@@ -14,5 +17,23 @@ public class DeleteTableRequest {
 
   public String getFullName() {
     return fullName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteTableRequest that = (DeleteTableRequest) o;
+    return Objects.equals(fullName, that.fullName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fullName);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteTableRequest.class).add("fullName", fullName).toString();
   }
 }

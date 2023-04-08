@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class InstancePoolStats {
   /** Number of active instances in the pool that are NOT part of a cluster. */
@@ -55,5 +57,31 @@ public class InstancePoolStats {
 
   public Long getUsedCount() {
     return usedCount;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    InstancePoolStats that = (InstancePoolStats) o;
+    return Objects.equals(idleCount, that.idleCount)
+        && Objects.equals(pendingIdleCount, that.pendingIdleCount)
+        && Objects.equals(pendingUsedCount, that.pendingUsedCount)
+        && Objects.equals(usedCount, that.usedCount);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(idleCount, pendingIdleCount, pendingUsedCount, usedCount);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(InstancePoolStats.class)
+        .add("idleCount", idleCount)
+        .add("pendingIdleCount", pendingIdleCount)
+        .add("pendingUsedCount", pendingUsedCount)
+        .add("usedCount", usedCount)
+        .toString();
   }
 }

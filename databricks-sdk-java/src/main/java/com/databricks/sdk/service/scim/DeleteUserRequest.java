@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.scim;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Delete a user */
 public class DeleteUserRequest {
   /** Unique ID for a user in the Databricks Account. */
@@ -14,5 +17,23 @@ public class DeleteUserRequest {
 
   public String getId() {
     return id;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteUserRequest that = (DeleteUserRequest) o;
+    return Objects.equals(id, that.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteUserRequest.class).add("id", id).toString();
   }
 }

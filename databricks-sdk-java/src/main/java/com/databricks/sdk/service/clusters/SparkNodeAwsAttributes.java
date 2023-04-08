@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class SparkNodeAwsAttributes {
   /** Whether this node is on an Amazon spot instance. */
@@ -16,5 +18,23 @@ public class SparkNodeAwsAttributes {
 
   public Boolean getIsSpot() {
     return isSpot;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SparkNodeAwsAttributes that = (SparkNodeAwsAttributes) o;
+    return Objects.equals(isSpot, that.isSpot);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(isSpot);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SparkNodeAwsAttributes.class).add("isSpot", isSpot).toString();
   }
 }

@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Delete budget */
 public class DeleteBudgetRequest {
   /** Budget ID */
@@ -14,5 +17,23 @@ public class DeleteBudgetRequest {
 
   public String getBudgetId() {
     return budgetId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteBudgetRequest that = (DeleteBudgetRequest) o;
+    return Objects.equals(budgetId, that.budgetId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(budgetId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteBudgetRequest.class).add("budgetId", budgetId).toString();
   }
 }

@@ -1,8 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.workspace;
 
-import java.util.List;
-
 /**
  * The Workspace API allows you to list, import, export, and delete notebooks and folders.
  *

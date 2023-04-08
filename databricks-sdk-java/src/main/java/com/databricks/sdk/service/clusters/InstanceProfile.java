@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class InstanceProfile {
   /**
@@ -56,5 +58,29 @@ public class InstanceProfile {
 
   public Boolean getIsMetaInstanceProfile() {
     return isMetaInstanceProfile;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    InstanceProfile that = (InstanceProfile) o;
+    return Objects.equals(iamRoleArn, that.iamRoleArn)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(isMetaInstanceProfile, that.isMetaInstanceProfile);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(iamRoleArn, instanceProfileArn, isMetaInstanceProfile);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(InstanceProfile.class)
+        .add("iamRoleArn", iamRoleArn)
+        .add("instanceProfileArn", instanceProfileArn)
+        .add("isMetaInstanceProfile", isMetaInstanceProfile)
+        .toString();
   }
 }

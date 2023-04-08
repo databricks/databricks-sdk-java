@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class DiskSpec {
   /**
@@ -90,5 +92,33 @@ public class DiskSpec {
 
   public DiskType getDiskType() {
     return diskType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DiskSpec that = (DiskSpec) o;
+    return Objects.equals(diskCount, that.diskCount)
+        && Objects.equals(diskIops, that.diskIops)
+        && Objects.equals(diskSize, that.diskSize)
+        && Objects.equals(diskThroughput, that.diskThroughput)
+        && Objects.equals(diskType, that.diskType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(diskCount, diskIops, diskSize, diskThroughput, diskType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DiskSpec.class)
+        .add("diskCount", diskCount)
+        .add("diskIops", diskIops)
+        .add("diskSize", diskSize)
+        .add("diskThroughput", diskThroughput)
+        .add("diskType", diskType)
+        .toString();
   }
 }

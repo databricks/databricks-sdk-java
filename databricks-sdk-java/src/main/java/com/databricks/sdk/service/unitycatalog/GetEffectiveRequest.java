@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get effective permissions */
 public class GetEffectiveRequest {
@@ -44,5 +46,29 @@ public class GetEffectiveRequest {
 
   public SecurableType getSecurableType() {
     return securableType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetEffectiveRequest that = (GetEffectiveRequest) o;
+    return Objects.equals(fullName, that.fullName)
+        && Objects.equals(principal, that.principal)
+        && Objects.equals(securableType, that.securableType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fullName, principal, securableType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetEffectiveRequest.class)
+        .add("fullName", fullName)
+        .add("principal", principal)
+        .add("securableType", securableType)
+        .toString();
   }
 }

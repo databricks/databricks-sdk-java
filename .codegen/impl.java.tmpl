@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.{{.Package.Name}};
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 import org.apache.http.client.methods.*;
@@ -23,7 +23,7 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
     String path = {{if .PathParts -}}
       String.format("{{range  .PathParts}}{{.Prefix}}{{if .Field}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{end}}{{ end }})
     {{- else}}"{{.Path}}"{{end}};
-    {{if .Response -}}return {{end}}apiClient.{{.Verb}}(path{{if .Request}}, request{{end}}{{if .Response -}}, {{if .Response.ArrayValue }}List
+    {{if .Response -}}return {{end}}apiClient.{{.Verb}}(path{{if .Request}}, request{{end}}{{if .Response -}}, {{if .Response.ArrayValue }}Collection
       {{- else if .Response.MapValue }}Map
       {{- else}}{{template "type" .Response}}
       {{- end -}}{{else}}, Void{{end}}.class);

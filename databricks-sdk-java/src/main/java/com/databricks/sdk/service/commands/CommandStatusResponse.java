@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.commands;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CommandStatusResponse {
   /** */
@@ -42,5 +44,29 @@ public class CommandStatusResponse {
 
   public CommandStatus getStatus() {
     return status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CommandStatusResponse that = (CommandStatusResponse) o;
+    return Objects.equals(id, that.id)
+        && Objects.equals(results, that.results)
+        && Objects.equals(status, that.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, results, status);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CommandStatusResponse.class)
+        .add("id", id)
+        .add("results", results)
+        .add("status", status)
+        .toString();
   }
 }

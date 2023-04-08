@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class SetTag {
   /**
@@ -64,5 +66,31 @@ public class SetTag {
 
   public String getValue() {
     return value;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SetTag that = (SetTag) o;
+    return Objects.equals(key, that.key)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(runUuid, that.runUuid)
+        && Objects.equals(value, that.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key, runId, runUuid, value);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SetTag.class)
+        .add("key", key)
+        .add("runId", runId)
+        .add("runUuid", runUuid)
+        .add("value", value)
+        .toString();
   }
 }

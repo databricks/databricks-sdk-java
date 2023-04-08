@@ -3,6 +3,9 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Collection;
+import java.util.Objects;
 
 /** List registry webhooks */
 public class ListRegistryWebhooksRequest {
@@ -12,7 +15,7 @@ public class ListRegistryWebhooksRequest {
    * in the output.
    */
   @QueryParam("events")
-  private java.util.List<RegistryWebhookEvent> events;
+  private Collection<RegistryWebhookEvent> events;
 
   /**
    * If not specified, all webhooks associated with the specified events are listed, regardless of
@@ -25,12 +28,12 @@ public class ListRegistryWebhooksRequest {
   @QueryParam("page_token")
   private String pageToken;
 
-  public ListRegistryWebhooksRequest setEvents(java.util.List<RegistryWebhookEvent> events) {
+  public ListRegistryWebhooksRequest setEvents(Collection<RegistryWebhookEvent> events) {
     this.events = events;
     return this;
   }
 
-  public java.util.List<RegistryWebhookEvent> getEvents() {
+  public Collection<RegistryWebhookEvent> getEvents() {
     return events;
   }
 
@@ -50,5 +53,29 @@ public class ListRegistryWebhooksRequest {
 
   public String getPageToken() {
     return pageToken;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListRegistryWebhooksRequest that = (ListRegistryWebhooksRequest) o;
+    return Objects.equals(events, that.events)
+        && Objects.equals(modelName, that.modelName)
+        && Objects.equals(pageToken, that.pageToken);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(events, modelName, pageToken);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListRegistryWebhooksRequest.class)
+        .add("events", events)
+        .add("modelName", modelName)
+        .add("pageToken", pageToken)
+        .toString();
   }
 }

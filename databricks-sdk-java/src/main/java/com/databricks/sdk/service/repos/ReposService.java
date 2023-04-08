@@ -1,8 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.repos;
 
-import java.util.List;
-
 /**
  * The Repos API allows users to manage their git repos. Users can use the API to access all repos
  * that they have manage permissions on.

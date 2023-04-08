@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 /** A JSON representing a dashboard containing widgets of visualizations and text boxes. */
 public class Dashboard {
@@ -74,7 +77,7 @@ public class Dashboard {
 
   /** */
   @JsonProperty("tags")
-  private java.util.List<String> tags;
+  private Collection<String> tags;
 
   /** Timestamp when this dashboard was last updated. */
   @JsonProperty("updated_at")
@@ -90,7 +93,7 @@ public class Dashboard {
 
   /** */
   @JsonProperty("widgets")
-  private java.util.List<Widget> widgets;
+  private Collection<Widget> widgets;
 
   public Dashboard setCanEdit(Boolean canEdit) {
     this.canEdit = canEdit;
@@ -200,12 +203,12 @@ public class Dashboard {
     return slug;
   }
 
-  public Dashboard setTags(java.util.List<String> tags) {
+  public Dashboard setTags(Collection<String> tags) {
     this.tags = tags;
     return this;
   }
 
-  public java.util.List<String> getTags() {
+  public Collection<String> getTags() {
     return tags;
   }
 
@@ -236,12 +239,81 @@ public class Dashboard {
     return userId;
   }
 
-  public Dashboard setWidgets(java.util.List<Widget> widgets) {
+  public Dashboard setWidgets(Collection<Widget> widgets) {
     this.widgets = widgets;
     return this;
   }
 
-  public java.util.List<Widget> getWidgets() {
+  public Collection<Widget> getWidgets() {
     return widgets;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Dashboard that = (Dashboard) o;
+    return Objects.equals(canEdit, that.canEdit)
+        && Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(dashboardFiltersEnabled, that.dashboardFiltersEnabled)
+        && Objects.equals(id, that.id)
+        && Objects.equals(isArchived, that.isArchived)
+        && Objects.equals(isDraft, that.isDraft)
+        && Objects.equals(isFavorite, that.isFavorite)
+        && Objects.equals(name, that.name)
+        && Objects.equals(options, that.options)
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(permissionTier, that.permissionTier)
+        && Objects.equals(slug, that.slug)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(user, that.user)
+        && Objects.equals(userId, that.userId)
+        && Objects.equals(widgets, that.widgets);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        canEdit,
+        createdAt,
+        dashboardFiltersEnabled,
+        id,
+        isArchived,
+        isDraft,
+        isFavorite,
+        name,
+        options,
+        parent,
+        permissionTier,
+        slug,
+        tags,
+        updatedAt,
+        user,
+        userId,
+        widgets);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Dashboard.class)
+        .add("canEdit", canEdit)
+        .add("createdAt", createdAt)
+        .add("dashboardFiltersEnabled", dashboardFiltersEnabled)
+        .add("id", id)
+        .add("isArchived", isArchived)
+        .add("isDraft", isDraft)
+        .add("isFavorite", isFavorite)
+        .add("name", name)
+        .add("options", options)
+        .add("parent", parent)
+        .add("permissionTier", permissionTier)
+        .add("slug", slug)
+        .add("tags", tags)
+        .add("updatedAt", updatedAt)
+        .add("user", user)
+        .add("userId", userId)
+        .add("widgets", widgets)
+        .toString();
   }
 }

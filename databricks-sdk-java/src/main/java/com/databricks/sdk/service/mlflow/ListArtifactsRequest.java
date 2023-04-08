@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get all artifacts */
 public class ListArtifactsRequest {
@@ -59,5 +61,31 @@ public class ListArtifactsRequest {
 
   public String getRunUuid() {
     return runUuid;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListArtifactsRequest that = (ListArtifactsRequest) o;
+    return Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(path, that.path)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(runUuid, that.runUuid);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(pageToken, path, runId, runUuid);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListArtifactsRequest.class)
+        .add("pageToken", pageToken)
+        .add("path", path)
+        .add("runId", runId)
+        .add("runUuid", runUuid)
+        .toString();
   }
 }

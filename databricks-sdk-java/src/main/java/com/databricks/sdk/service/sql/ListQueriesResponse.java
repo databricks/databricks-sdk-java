@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ListQueriesResponse {
   /** Whether there is another page of results. */
@@ -15,7 +18,7 @@ public class ListQueriesResponse {
 
   /** */
   @JsonProperty("res")
-  private java.util.List<QueryInfo> res;
+  private Collection<QueryInfo> res;
 
   public ListQueriesResponse setHasNextPage(Boolean hasNextPage) {
     this.hasNextPage = hasNextPage;
@@ -35,12 +38,36 @@ public class ListQueriesResponse {
     return nextPageToken;
   }
 
-  public ListQueriesResponse setRes(java.util.List<QueryInfo> res) {
+  public ListQueriesResponse setRes(Collection<QueryInfo> res) {
     this.res = res;
     return this;
   }
 
-  public java.util.List<QueryInfo> getRes() {
+  public Collection<QueryInfo> getRes() {
     return res;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListQueriesResponse that = (ListQueriesResponse) o;
+    return Objects.equals(hasNextPage, that.hasNextPage)
+        && Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(res, that.res);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(hasNextPage, nextPageToken, res);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListQueriesResponse.class)
+        .add("hasNextPage", hasNextPage)
+        .add("nextPageToken", nextPageToken)
+        .add("res", res)
+        .toString();
   }
 }

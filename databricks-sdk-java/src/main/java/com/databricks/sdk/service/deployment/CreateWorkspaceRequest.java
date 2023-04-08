@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateWorkspaceRequest {
   /** The AWS region of the workspace's data plane. */
@@ -230,5 +232,63 @@ public class CreateWorkspaceRequest {
 
   public String getWorkspaceName() {
     return workspaceName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateWorkspaceRequest that = (CreateWorkspaceRequest) o;
+    return Objects.equals(awsRegion, that.awsRegion)
+        && Objects.equals(cloud, that.cloud)
+        && Objects.equals(cloudResourceContainer, that.cloudResourceContainer)
+        && Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(deploymentName, that.deploymentName)
+        && Objects.equals(location, that.location)
+        && Objects.equals(
+            managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
+        && Objects.equals(networkId, that.networkId)
+        && Objects.equals(pricingTier, that.pricingTier)
+        && Objects.equals(privateAccessSettingsId, that.privateAccessSettingsId)
+        && Objects.equals(storageConfigurationId, that.storageConfigurationId)
+        && Objects.equals(storageCustomerManagedKeyId, that.storageCustomerManagedKeyId)
+        && Objects.equals(workspaceName, that.workspaceName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        awsRegion,
+        cloud,
+        cloudResourceContainer,
+        credentialsId,
+        deploymentName,
+        location,
+        managedServicesCustomerManagedKeyId,
+        networkId,
+        pricingTier,
+        privateAccessSettingsId,
+        storageConfigurationId,
+        storageCustomerManagedKeyId,
+        workspaceName);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateWorkspaceRequest.class)
+        .add("awsRegion", awsRegion)
+        .add("cloud", cloud)
+        .add("cloudResourceContainer", cloudResourceContainer)
+        .add("credentialsId", credentialsId)
+        .add("deploymentName", deploymentName)
+        .add("location", location)
+        .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
+        .add("networkId", networkId)
+        .add("pricingTier", pricingTier)
+        .add("privateAccessSettingsId", privateAccessSettingsId)
+        .add("storageConfigurationId", storageConfigurationId)
+        .add("storageCustomerManagedKeyId", storageCustomerManagedKeyId)
+        .add("workspaceName", workspaceName)
+        .toString();
   }
 }

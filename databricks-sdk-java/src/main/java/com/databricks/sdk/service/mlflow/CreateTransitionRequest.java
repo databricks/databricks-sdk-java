@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateTransitionRequest {
   /** User-provided comment on the action. */
@@ -65,5 +67,31 @@ public class CreateTransitionRequest {
 
   public String getVersion() {
     return version;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateTransitionRequest that = (CreateTransitionRequest) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(name, that.name)
+        && Objects.equals(stage, that.stage)
+        && Objects.equals(version, that.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, name, stage, version);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateTransitionRequest.class)
+        .add("comment", comment)
+        .add("name", name)
+        .add("stage", stage)
+        .add("version", version)
+        .toString();
   }
 }

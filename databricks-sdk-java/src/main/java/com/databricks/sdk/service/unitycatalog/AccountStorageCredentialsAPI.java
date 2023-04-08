@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** These APIs manage storage credentials for a particular metastore. */
@@ -52,7 +52,7 @@ public class AccountStorageCredentialsAPI {
     return impl.get(request);
   }
 
-  public List<StorageCredentialInfo> list(String metastoreId) {
+  public Collection<StorageCredentialInfo> list(String metastoreId) {
     return list(new ListAccountStorageCredentialsRequest().setMetastoreId(metastoreId));
   }
 
@@ -61,7 +61,7 @@ public class AccountStorageCredentialsAPI {
    *
    * <p>Gets a list of all storage credentials that have been assigned to given metastore.
    */
-  public List<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
+  public Collection<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
     return impl.list(request);
   }
 

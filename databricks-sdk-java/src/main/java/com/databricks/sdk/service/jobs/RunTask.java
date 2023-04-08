@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class RunTask {
   /**
@@ -45,7 +48,7 @@ public class RunTask {
    * consists of more than one task.
    */
   @JsonProperty("depends_on")
-  private java.util.List<TaskDependenciesItem> dependsOn;
+  private Collection<TaskDependenciesItem> dependsOn;
 
   /** An optional description for this task. The maximum length is 4096 bytes. */
   @JsonProperty("description")
@@ -88,7 +91,7 @@ public class RunTask {
    * value is an empty list.
    */
   @JsonProperty("libraries")
-  private java.util.List<Object /* MISSING TYPE */> libraries;
+  private Collection<Object /* MISSING TYPE */> libraries;
 
   /** If new_cluster, a description of a new cluster that is created only for this task. */
   @JsonProperty("new_cluster")
@@ -198,12 +201,12 @@ public class RunTask {
     return dbtTask;
   }
 
-  public RunTask setDependsOn(java.util.List<TaskDependenciesItem> dependsOn) {
+  public RunTask setDependsOn(Collection<TaskDependenciesItem> dependsOn) {
     this.dependsOn = dependsOn;
     return this;
   }
 
-  public java.util.List<TaskDependenciesItem> getDependsOn() {
+  public Collection<TaskDependenciesItem> getDependsOn() {
     return dependsOn;
   }
 
@@ -252,12 +255,12 @@ public class RunTask {
     return gitSource;
   }
 
-  public RunTask setLibraries(java.util.List<Object /* MISSING TYPE */> libraries) {
+  public RunTask setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public java.util.List<Object /* MISSING TYPE */> getLibraries() {
+  public Collection<Object /* MISSING TYPE */> getLibraries() {
     return libraries;
   }
 
@@ -376,5 +379,95 @@ public class RunTask {
 
   public String getTaskKey() {
     return taskKey;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RunTask that = (RunTask) o;
+    return Objects.equals(attemptNumber, that.attemptNumber)
+        && Objects.equals(cleanupDuration, that.cleanupDuration)
+        && Objects.equals(clusterInstance, that.clusterInstance)
+        && Objects.equals(dbtTask, that.dbtTask)
+        && Objects.equals(dependsOn, that.dependsOn)
+        && Objects.equals(description, that.description)
+        && Objects.equals(endTime, that.endTime)
+        && Objects.equals(executionDuration, that.executionDuration)
+        && Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(libraries, that.libraries)
+        && Objects.equals(newCluster, that.newCluster)
+        && Objects.equals(notebookTask, that.notebookTask)
+        && Objects.equals(pipelineTask, that.pipelineTask)
+        && Objects.equals(pythonWheelTask, that.pythonWheelTask)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(setupDuration, that.setupDuration)
+        && Objects.equals(sparkJarTask, that.sparkJarTask)
+        && Objects.equals(sparkPythonTask, that.sparkPythonTask)
+        && Objects.equals(sparkSubmitTask, that.sparkSubmitTask)
+        && Objects.equals(sqlTask, that.sqlTask)
+        && Objects.equals(startTime, that.startTime)
+        && Objects.equals(state, that.state)
+        && Objects.equals(taskKey, that.taskKey);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        attemptNumber,
+        cleanupDuration,
+        clusterInstance,
+        dbtTask,
+        dependsOn,
+        description,
+        endTime,
+        executionDuration,
+        existingClusterId,
+        gitSource,
+        libraries,
+        newCluster,
+        notebookTask,
+        pipelineTask,
+        pythonWheelTask,
+        runId,
+        setupDuration,
+        sparkJarTask,
+        sparkPythonTask,
+        sparkSubmitTask,
+        sqlTask,
+        startTime,
+        state,
+        taskKey);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RunTask.class)
+        .add("attemptNumber", attemptNumber)
+        .add("cleanupDuration", cleanupDuration)
+        .add("clusterInstance", clusterInstance)
+        .add("dbtTask", dbtTask)
+        .add("dependsOn", dependsOn)
+        .add("description", description)
+        .add("endTime", endTime)
+        .add("executionDuration", executionDuration)
+        .add("existingClusterId", existingClusterId)
+        .add("gitSource", gitSource)
+        .add("libraries", libraries)
+        .add("newCluster", newCluster)
+        .add("notebookTask", notebookTask)
+        .add("pipelineTask", pipelineTask)
+        .add("pythonWheelTask", pythonWheelTask)
+        .add("runId", runId)
+        .add("setupDuration", setupDuration)
+        .add("sparkJarTask", sparkJarTask)
+        .add("sparkPythonTask", sparkPythonTask)
+        .add("sparkSubmitTask", sparkSubmitTask)
+        .add("sqlTask", sqlTask)
+        .add("startTime", startTime)
+        .add("state", state)
+        .add("taskKey", taskKey)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class RunOutput {
   /** The output of a dbt task, if available. */
@@ -124,5 +126,40 @@ public class RunOutput {
 
   public SqlOutput getSqlOutput() {
     return sqlOutput;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RunOutput that = (RunOutput) o;
+    return Objects.equals(dbtOutput, that.dbtOutput)
+        && Objects.equals(error, that.error)
+        && Objects.equals(errorTrace, that.errorTrace)
+        && Objects.equals(logs, that.logs)
+        && Objects.equals(logsTruncated, that.logsTruncated)
+        && Objects.equals(metadata, that.metadata)
+        && Objects.equals(notebookOutput, that.notebookOutput)
+        && Objects.equals(sqlOutput, that.sqlOutput);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        dbtOutput, error, errorTrace, logs, logsTruncated, metadata, notebookOutput, sqlOutput);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RunOutput.class)
+        .add("dbtOutput", dbtOutput)
+        .add("error", error)
+        .add("errorTrace", errorTrace)
+        .add("logs", logs)
+        .add("logsTruncated", logsTruncated)
+        .add("metadata", metadata)
+        .add("notebookOutput", notebookOutput)
+        .add("sqlOutput", sqlOutput)
+        .toString();
   }
 }

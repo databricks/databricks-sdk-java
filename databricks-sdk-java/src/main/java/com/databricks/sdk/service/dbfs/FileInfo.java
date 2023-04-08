@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.dbfs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class FileInfo {
   /** The length of the file in bytes or zero if the path is a directory. */
@@ -55,5 +57,31 @@ public class FileInfo {
 
   public String getPath() {
     return path;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    FileInfo that = (FileInfo) o;
+    return Objects.equals(fileSize, that.fileSize)
+        && Objects.equals(isDir, that.isDir)
+        && Objects.equals(modificationTime, that.modificationTime)
+        && Objects.equals(path, that.path);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fileSize, isDir, modificationTime, path);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(FileInfo.class)
+        .add("fileSize", fileSize)
+        .add("isDir", isDir)
+        .add("modificationTime", modificationTime)
+        .add("path", path)
+        .toString();
   }
 }

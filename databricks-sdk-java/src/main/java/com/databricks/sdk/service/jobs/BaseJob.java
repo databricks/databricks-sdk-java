@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class BaseJob {
   /**
@@ -63,5 +65,31 @@ public class BaseJob {
 
   public JobSettings getSettings() {
     return settings;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    BaseJob that = (BaseJob) o;
+    return Objects.equals(createdTime, that.createdTime)
+        && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(jobId, that.jobId)
+        && Objects.equals(settings, that.settings);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(createdTime, creatorUserName, jobId, settings);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(BaseJob.class)
+        .add("createdTime", createdTime)
+        .add("creatorUserName", creatorUserName)
+        .add("jobId", jobId)
+        .add("settings", settings)
+        .toString();
   }
 }

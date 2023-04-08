@@ -2,13 +2,16 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 /** Budget configuration with daily status. */
 public class BudgetWithStatus {
   /** */
   @JsonProperty("alerts")
-  private java.util.List<BudgetAlert> alerts;
+  private Collection<BudgetAlert> alerts;
 
   /** */
   @JsonProperty("budget_id")
@@ -58,7 +61,7 @@ public class BudgetWithStatus {
 
   /** Amount used in the budget for each day (noncumulative). */
   @JsonProperty("status_daily")
-  private java.util.List<BudgetWithStatusStatusDailyItem> statusDaily;
+  private Collection<BudgetWithStatusStatusDailyItem> statusDaily;
 
   /** Target amount of the budget per period in USD. */
   @JsonProperty("target_amount")
@@ -68,12 +71,12 @@ public class BudgetWithStatus {
   @JsonProperty("update_time")
   private String updateTime;
 
-  public BudgetWithStatus setAlerts(java.util.List<BudgetAlert> alerts) {
+  public BudgetWithStatus setAlerts(Collection<BudgetAlert> alerts) {
     this.alerts = alerts;
     return this;
   }
 
-  public java.util.List<BudgetAlert> getAlerts() {
+  public Collection<BudgetAlert> getAlerts() {
     return alerts;
   }
 
@@ -140,13 +143,12 @@ public class BudgetWithStatus {
     return startDate;
   }
 
-  public BudgetWithStatus setStatusDaily(
-      java.util.List<BudgetWithStatusStatusDailyItem> statusDaily) {
+  public BudgetWithStatus setStatusDaily(Collection<BudgetWithStatusStatusDailyItem> statusDaily) {
     this.statusDaily = statusDaily;
     return this;
   }
 
-  public java.util.List<BudgetWithStatusStatusDailyItem> getStatusDaily() {
+  public Collection<BudgetWithStatusStatusDailyItem> getStatusDaily() {
     return statusDaily;
   }
 
@@ -166,5 +168,56 @@ public class BudgetWithStatus {
 
   public String getUpdateTime() {
     return updateTime;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    BudgetWithStatus that = (BudgetWithStatus) o;
+    return Objects.equals(alerts, that.alerts)
+        && Objects.equals(budgetId, that.budgetId)
+        && Objects.equals(creationTime, that.creationTime)
+        && Objects.equals(endDate, that.endDate)
+        && Objects.equals(filter, that.filter)
+        && Objects.equals(name, that.name)
+        && Objects.equals(period, that.period)
+        && Objects.equals(startDate, that.startDate)
+        && Objects.equals(statusDaily, that.statusDaily)
+        && Objects.equals(targetAmount, that.targetAmount)
+        && Objects.equals(updateTime, that.updateTime);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        alerts,
+        budgetId,
+        creationTime,
+        endDate,
+        filter,
+        name,
+        period,
+        startDate,
+        statusDaily,
+        targetAmount,
+        updateTime);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(BudgetWithStatus.class)
+        .add("alerts", alerts)
+        .add("budgetId", budgetId)
+        .add("creationTime", creationTime)
+        .add("endDate", endDate)
+        .add("filter", filter)
+        .add("name", name)
+        .add("period", period)
+        .add("startDate", startDate)
+        .add("statusDaily", statusDaily)
+        .add("targetAmount", targetAmount)
+        .add("updateTime", updateTime)
+        .toString();
   }
 }

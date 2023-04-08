@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class PipelineEvent {
   /** Information about an error captured by the event. */
@@ -120,5 +122,42 @@ public class PipelineEvent {
 
   public String getTimestamp() {
     return timestamp;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PipelineEvent that = (PipelineEvent) o;
+    return Objects.equals(error, that.error)
+        && Objects.equals(eventType, that.eventType)
+        && Objects.equals(id, that.id)
+        && Objects.equals(level, that.level)
+        && Objects.equals(maturityLevel, that.maturityLevel)
+        && Objects.equals(message, that.message)
+        && Objects.equals(origin, that.origin)
+        && Objects.equals(sequence, that.sequence)
+        && Objects.equals(timestamp, that.timestamp);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        error, eventType, id, level, maturityLevel, message, origin, sequence, timestamp);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PipelineEvent.class)
+        .add("error", error)
+        .add("eventType", eventType)
+        .add("id", id)
+        .add("level", level)
+        .add("maturityLevel", maturityLevel)
+        .add("message", message)
+        .add("origin", origin)
+        .add("sequence", sequence)
+        .add("timestamp", timestamp)
+        .toString();
   }
 }

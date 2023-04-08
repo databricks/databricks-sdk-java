@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class GetWorkspaceWarehouseConfigResponse {
   /** Optional: Channel selection details */
@@ -18,7 +21,7 @@ public class GetWorkspaceWarehouseConfigResponse {
    * 512K
    */
   @JsonProperty("data_access_config")
-  private java.util.List<EndpointConfPair> dataAccessConfig;
+  private Collection<EndpointConfPair> dataAccessConfig;
 
   /**
    * List of Warehouse Types allowed in this workspace (limits allowed value of the type field in
@@ -28,7 +31,7 @@ public class GetWorkspaceWarehouseConfigResponse {
    * warehouse create and edit form UI.
    */
   @JsonProperty("enabled_warehouse_types")
-  private java.util.List<WarehouseTypePair> enabledWarehouseTypes;
+  private Collection<WarehouseTypePair> enabledWarehouseTypes;
 
   /** Deprecated: Use sql_configuration_parameters */
   @JsonProperty("global_param")
@@ -69,22 +72,22 @@ public class GetWorkspaceWarehouseConfigResponse {
   }
 
   public GetWorkspaceWarehouseConfigResponse setDataAccessConfig(
-      java.util.List<EndpointConfPair> dataAccessConfig) {
+      Collection<EndpointConfPair> dataAccessConfig) {
     this.dataAccessConfig = dataAccessConfig;
     return this;
   }
 
-  public java.util.List<EndpointConfPair> getDataAccessConfig() {
+  public Collection<EndpointConfPair> getDataAccessConfig() {
     return dataAccessConfig;
   }
 
   public GetWorkspaceWarehouseConfigResponse setEnabledWarehouseTypes(
-      java.util.List<WarehouseTypePair> enabledWarehouseTypes) {
+      Collection<WarehouseTypePair> enabledWarehouseTypes) {
     this.enabledWarehouseTypes = enabledWarehouseTypes;
     return this;
   }
 
-  public java.util.List<WarehouseTypePair> getEnabledWarehouseTypes() {
+  public Collection<WarehouseTypePair> getEnabledWarehouseTypes() {
     return enabledWarehouseTypes;
   }
 
@@ -133,5 +136,50 @@ public class GetWorkspaceWarehouseConfigResponse {
 
   public RepeatedEndpointConfPairs getSqlConfigurationParameters() {
     return sqlConfigurationParameters;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetWorkspaceWarehouseConfigResponse that = (GetWorkspaceWarehouseConfigResponse) o;
+    return Objects.equals(channel, that.channel)
+        && Objects.equals(configParam, that.configParam)
+        && Objects.equals(dataAccessConfig, that.dataAccessConfig)
+        && Objects.equals(enabledWarehouseTypes, that.enabledWarehouseTypes)
+        && Objects.equals(globalParam, that.globalParam)
+        && Objects.equals(googleServiceAccount, that.googleServiceAccount)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(securityPolicy, that.securityPolicy)
+        && Objects.equals(sqlConfigurationParameters, that.sqlConfigurationParameters);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        channel,
+        configParam,
+        dataAccessConfig,
+        enabledWarehouseTypes,
+        globalParam,
+        googleServiceAccount,
+        instanceProfileArn,
+        securityPolicy,
+        sqlConfigurationParameters);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetWorkspaceWarehouseConfigResponse.class)
+        .add("channel", channel)
+        .add("configParam", configParam)
+        .add("dataAccessConfig", dataAccessConfig)
+        .add("enabledWarehouseTypes", enabledWarehouseTypes)
+        .add("globalParam", globalParam)
+        .add("googleServiceAccount", googleServiceAccount)
+        .add("instanceProfileArn", instanceProfileArn)
+        .add("securityPolicy", securityPolicy)
+        .add("sqlConfigurationParameters", sqlConfigurationParameters)
+        .toString();
   }
 }

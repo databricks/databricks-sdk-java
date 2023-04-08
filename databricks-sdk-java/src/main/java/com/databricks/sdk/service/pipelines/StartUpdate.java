@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class StartUpdate {
   /** */
@@ -19,7 +22,7 @@ public class StartUpdate {
    * that the states of the table will be reset before the refresh.
    */
   @JsonProperty("full_refresh_selection")
-  private java.util.List<String> fullRefreshSelection;
+  private Collection<String> fullRefreshSelection;
 
   /** */
   private String pipelineId;
@@ -30,7 +33,7 @@ public class StartUpdate {
    * that the states of the table will be reset before the refresh.
    */
   @JsonProperty("refresh_selection")
-  private java.util.List<String> refreshSelection;
+  private Collection<String> refreshSelection;
 
   public StartUpdate setCause(StartUpdateCause cause) {
     this.cause = cause;
@@ -50,12 +53,12 @@ public class StartUpdate {
     return fullRefresh;
   }
 
-  public StartUpdate setFullRefreshSelection(java.util.List<String> fullRefreshSelection) {
+  public StartUpdate setFullRefreshSelection(Collection<String> fullRefreshSelection) {
     this.fullRefreshSelection = fullRefreshSelection;
     return this;
   }
 
-  public java.util.List<String> getFullRefreshSelection() {
+  public Collection<String> getFullRefreshSelection() {
     return fullRefreshSelection;
   }
 
@@ -68,12 +71,40 @@ public class StartUpdate {
     return pipelineId;
   }
 
-  public StartUpdate setRefreshSelection(java.util.List<String> refreshSelection) {
+  public StartUpdate setRefreshSelection(Collection<String> refreshSelection) {
     this.refreshSelection = refreshSelection;
     return this;
   }
 
-  public java.util.List<String> getRefreshSelection() {
+  public Collection<String> getRefreshSelection() {
     return refreshSelection;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    StartUpdate that = (StartUpdate) o;
+    return Objects.equals(cause, that.cause)
+        && Objects.equals(fullRefresh, that.fullRefresh)
+        && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
+        && Objects.equals(pipelineId, that.pipelineId)
+        && Objects.equals(refreshSelection, that.refreshSelection);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cause, fullRefresh, fullRefreshSelection, pipelineId, refreshSelection);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(StartUpdate.class)
+        .add("cause", cause)
+        .add("fullRefresh", fullRefresh)
+        .add("fullRefreshSelection", fullRefreshSelection)
+        .add("pipelineId", pipelineId)
+        .add("refreshSelection", refreshSelection)
+        .toString();
   }
 }

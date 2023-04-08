@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /**
  * The visualization description API changes frequently and is unsupported. You can duplicate a
@@ -103,5 +105,37 @@ public class Visualization {
 
   public String getUpdatedAt() {
     return updatedAt;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Visualization that = (Visualization) o;
+    return Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(description, that.description)
+        && Objects.equals(id, that.id)
+        && Objects.equals(name, that.name)
+        && Objects.equals(options, that.options)
+        && Objects.equals(typeValue, that.typeValue)
+        && Objects.equals(updatedAt, that.updatedAt);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(createdAt, description, id, name, options, typeValue, updatedAt);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Visualization.class)
+        .add("createdAt", createdAt)
+        .add("description", description)
+        .add("id", id)
+        .add("name", name)
+        .add("options", options)
+        .add("typeValue", typeValue)
+        .add("updatedAt", updatedAt)
+        .toString();
   }
 }

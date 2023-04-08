@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.tokens;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateTokenResponse {
   /** The information for the new token. */
@@ -29,5 +31,26 @@ public class CreateTokenResponse {
 
   public String getTokenValue() {
     return tokenValue;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateTokenResponse that = (CreateTokenResponse) o;
+    return Objects.equals(tokenInfo, that.tokenInfo) && Objects.equals(tokenValue, that.tokenValue);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(tokenInfo, tokenValue);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateTokenResponse.class)
+        .add("tokenInfo", tokenInfo)
+        .add("tokenValue", tokenValue)
+        .toString();
   }
 }

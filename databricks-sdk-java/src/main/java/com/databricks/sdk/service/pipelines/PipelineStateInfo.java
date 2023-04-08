@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class PipelineStateInfo {
   /** The unique identifier of the cluster running the pipeline. */
@@ -15,7 +18,7 @@ public class PipelineStateInfo {
 
   /** Status of the latest updates for the pipeline. Ordered with the newest update first. */
   @JsonProperty("latest_updates")
-  private java.util.List<UpdateStateInfo> latestUpdates;
+  private Collection<UpdateStateInfo> latestUpdates;
 
   /** The user-friendly name of the pipeline. */
   @JsonProperty("name")
@@ -54,12 +57,12 @@ public class PipelineStateInfo {
     return creatorUserName;
   }
 
-  public PipelineStateInfo setLatestUpdates(java.util.List<UpdateStateInfo> latestUpdates) {
+  public PipelineStateInfo setLatestUpdates(Collection<UpdateStateInfo> latestUpdates) {
     this.latestUpdates = latestUpdates;
     return this;
   }
 
-  public java.util.List<UpdateStateInfo> getLatestUpdates() {
+  public Collection<UpdateStateInfo> getLatestUpdates() {
     return latestUpdates;
   }
 
@@ -97,5 +100,38 @@ public class PipelineStateInfo {
 
   public PipelineState getState() {
     return state;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PipelineStateInfo that = (PipelineStateInfo) o;
+    return Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(latestUpdates, that.latestUpdates)
+        && Objects.equals(name, that.name)
+        && Objects.equals(pipelineId, that.pipelineId)
+        && Objects.equals(runAsUserName, that.runAsUserName)
+        && Objects.equals(state, that.state);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        clusterId, creatorUserName, latestUpdates, name, pipelineId, runAsUserName, state);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PipelineStateInfo.class)
+        .add("clusterId", clusterId)
+        .add("creatorUserName", creatorUserName)
+        .add("latestUpdates", latestUpdates)
+        .add("name", name)
+        .add("pipelineId", pipelineId)
+        .add("runAsUserName", runAsUserName)
+        .add("state", state)
+        .toString();
   }
 }

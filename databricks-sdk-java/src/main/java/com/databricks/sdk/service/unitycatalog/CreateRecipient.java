@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateRecipient {
   /** The delta sharing authentication type. */
@@ -117,5 +119,47 @@ public class CreateRecipient {
 
   public String getSharingCode() {
     return sharingCode;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateRecipient that = (CreateRecipient) o;
+    return Objects.equals(authenticationType, that.authenticationType)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(dataRecipientGlobalMetastoreId, that.dataRecipientGlobalMetastoreId)
+        && Objects.equals(ipAccessList, that.ipAccessList)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(propertiesKvpairs, that.propertiesKvpairs)
+        && Objects.equals(sharingCode, that.sharingCode);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        authenticationType,
+        comment,
+        dataRecipientGlobalMetastoreId,
+        ipAccessList,
+        name,
+        owner,
+        propertiesKvpairs,
+        sharingCode);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateRecipient.class)
+        .add("authenticationType", authenticationType)
+        .add("comment", comment)
+        .add("dataRecipientGlobalMetastoreId", dataRecipientGlobalMetastoreId)
+        .add("ipAccessList", ipAccessList)
+        .add("name", name)
+        .add("owner", owner)
+        .add("propertiesKvpairs", propertiesKvpairs)
+        .add("sharingCode", sharingCode)
+        .toString();
   }
 }

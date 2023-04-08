@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.secrets;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class AzureKeyVaultSecretScopeMetadata {
   /** The DNS of the KeyVault */
@@ -29,5 +31,26 @@ public class AzureKeyVaultSecretScopeMetadata {
 
   public String getResourceId() {
     return resourceId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AzureKeyVaultSecretScopeMetadata that = (AzureKeyVaultSecretScopeMetadata) o;
+    return Objects.equals(dnsName, that.dnsName) && Objects.equals(resourceId, that.resourceId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(dnsName, resourceId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(AzureKeyVaultSecretScopeMetadata.class)
+        .add("dnsName", dnsName)
+        .add("resourceId", resourceId)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ServiceError {
   /** */
@@ -29,5 +31,26 @@ public class ServiceError {
 
   public String getMessage() {
     return message;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ServiceError that = (ServiceError) o;
+    return Objects.equals(errorCode, that.errorCode) && Objects.equals(message, that.message);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(errorCode, message);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ServiceError.class)
+        .add("errorCode", errorCode)
+        .add("message", message)
+        .toString();
   }
 }

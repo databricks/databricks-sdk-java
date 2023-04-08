@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class InstancePoolAwsAttributes {
   /**
@@ -66,5 +68,29 @@ public class InstancePoolAwsAttributes {
 
   public String getZoneId() {
     return zoneId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    InstancePoolAwsAttributes that = (InstancePoolAwsAttributes) o;
+    return Objects.equals(availability, that.availability)
+        && Objects.equals(spotBidPricePercent, that.spotBidPricePercent)
+        && Objects.equals(zoneId, that.zoneId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(availability, spotBidPricePercent, zoneId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(InstancePoolAwsAttributes.class)
+        .add("availability", availability)
+        .add("spotBidPricePercent", spotBidPricePercent)
+        .add("zoneId", zoneId)
+        .toString();
   }
 }

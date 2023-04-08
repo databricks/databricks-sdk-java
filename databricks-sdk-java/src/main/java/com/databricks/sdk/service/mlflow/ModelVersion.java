@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class ModelVersion {
   /** Timestamp recorded when this `model_version` was created. */
@@ -52,7 +55,7 @@ public class ModelVersion {
 
   /** Tags: Additional metadata key-value pairs for this `model_version`. */
   @JsonProperty("tags")
-  private java.util.List<ModelVersionTag> tags;
+  private Collection<ModelVersionTag> tags;
 
   /** User that created this `model_version`. */
   @JsonProperty("user_id")
@@ -152,12 +155,12 @@ public class ModelVersion {
     return statusMessage;
   }
 
-  public ModelVersion setTags(java.util.List<ModelVersionTag> tags) {
+  public ModelVersion setTags(Collection<ModelVersionTag> tags) {
     this.tags = tags;
     return this;
   }
 
-  public java.util.List<ModelVersionTag> getTags() {
+  public Collection<ModelVersionTag> getTags() {
     return tags;
   }
 
@@ -177,5 +180,62 @@ public class ModelVersion {
 
   public String getVersion() {
     return version;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ModelVersion that = (ModelVersion) o;
+    return Objects.equals(creationTimestamp, that.creationTimestamp)
+        && Objects.equals(currentStage, that.currentStage)
+        && Objects.equals(description, that.description)
+        && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
+        && Objects.equals(name, that.name)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(runLink, that.runLink)
+        && Objects.equals(source, that.source)
+        && Objects.equals(status, that.status)
+        && Objects.equals(statusMessage, that.statusMessage)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(userId, that.userId)
+        && Objects.equals(version, that.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        creationTimestamp,
+        currentStage,
+        description,
+        lastUpdatedTimestamp,
+        name,
+        runId,
+        runLink,
+        source,
+        status,
+        statusMessage,
+        tags,
+        userId,
+        version);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ModelVersion.class)
+        .add("creationTimestamp", creationTimestamp)
+        .add("currentStage", currentStage)
+        .add("description", description)
+        .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
+        .add("name", name)
+        .add("runId", runId)
+        .add("runLink", runLink)
+        .add("source", source)
+        .add("status", status)
+        .add("statusMessage", statusMessage)
+        .add("tags", tags)
+        .add("userId", userId)
+        .add("version", version)
+        .toString();
   }
 }

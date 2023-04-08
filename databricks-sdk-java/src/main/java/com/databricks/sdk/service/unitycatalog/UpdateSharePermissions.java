@@ -2,22 +2,25 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class UpdateSharePermissions {
   /** Array of permission changes. */
   @JsonProperty("changes")
-  private java.util.List<PermissionsChange> changes;
+  private Collection<PermissionsChange> changes;
 
   /** The name of the share. */
   private String name;
 
-  public UpdateSharePermissions setChanges(java.util.List<PermissionsChange> changes) {
+  public UpdateSharePermissions setChanges(Collection<PermissionsChange> changes) {
     this.changes = changes;
     return this;
   }
 
-  public java.util.List<PermissionsChange> getChanges() {
+  public Collection<PermissionsChange> getChanges() {
     return changes;
   }
 
@@ -28,5 +31,26 @@ public class UpdateSharePermissions {
 
   public String getName() {
     return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateSharePermissions that = (UpdateSharePermissions) o;
+    return Objects.equals(changes, that.changes) && Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(changes, name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateSharePermissions.class)
+        .add("changes", changes)
+        .add("name", name)
+        .toString();
   }
 }

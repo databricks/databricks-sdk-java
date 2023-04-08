@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class UpdateShare {
   /** User-provided free-form text description. */
@@ -19,7 +22,7 @@ public class UpdateShare {
 
   /** Array of shared data object updates. */
   @JsonProperty("updates")
-  private java.util.List<SharedDataObjectUpdate> updates;
+  private Collection<SharedDataObjectUpdate> updates;
 
   public UpdateShare setComment(String comment) {
     this.comment = comment;
@@ -48,12 +51,38 @@ public class UpdateShare {
     return owner;
   }
 
-  public UpdateShare setUpdates(java.util.List<SharedDataObjectUpdate> updates) {
+  public UpdateShare setUpdates(Collection<SharedDataObjectUpdate> updates) {
     this.updates = updates;
     return this;
   }
 
-  public java.util.List<SharedDataObjectUpdate> getUpdates() {
+  public Collection<SharedDataObjectUpdate> getUpdates() {
     return updates;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateShare that = (UpdateShare) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(name, that.name)
+        && Objects.equals(owner, that.owner)
+        && Objects.equals(updates, that.updates);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, name, owner, updates);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateShare.class)
+        .add("comment", comment)
+        .add("name", name)
+        .add("owner", owner)
+        .add("updates", updates)
+        .toString();
   }
 }

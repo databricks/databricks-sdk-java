@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Delete a model tag */
 public class DeleteRegisteredModelTagRequest {
@@ -33,5 +35,26 @@ public class DeleteRegisteredModelTagRequest {
 
   public String getName() {
     return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteRegisteredModelTagRequest that = (DeleteRegisteredModelTagRequest) o;
+    return Objects.equals(key, that.key) && Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key, name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteRegisteredModelTagRequest.class)
+        .add("key", key)
+        .add("name", name)
+        .toString();
   }
 }

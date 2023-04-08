@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class WidgetOptions {
   /** Timestamp when this object was created */
@@ -103,5 +105,38 @@ public class WidgetOptions {
 
   public String getUpdatedAt() {
     return updatedAt;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    WidgetOptions that = (WidgetOptions) o;
+    return Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(dashboardId, that.dashboardId)
+        && Objects.equals(isHidden, that.isHidden)
+        && Objects.equals(parameterMappings, that.parameterMappings)
+        && Objects.equals(position, that.position)
+        && Objects.equals(text, that.text)
+        && Objects.equals(updatedAt, that.updatedAt);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        createdAt, dashboardId, isHidden, parameterMappings, position, text, updatedAt);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(WidgetOptions.class)
+        .add("createdAt", createdAt)
+        .add("dashboardId", dashboardId)
+        .add("isHidden", isHidden)
+        .add("parameterMappings", parameterMappings)
+        .add("position", position)
+        .add("text", text)
+        .add("updatedAt", updatedAt)
+        .toString();
   }
 }

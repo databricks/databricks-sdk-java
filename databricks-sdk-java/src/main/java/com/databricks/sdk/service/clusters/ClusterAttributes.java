@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class ClusterAttributes {
   /**
@@ -159,7 +162,7 @@ public class ClusterAttributes {
    * to 10 keys can be specified.
    */
   @JsonProperty("ssh_public_keys")
-  private java.util.List<String> sshPublicKeys;
+  private Collection<String> sshPublicKeys;
 
   /** */
   @JsonProperty("workload_type")
@@ -336,12 +339,12 @@ public class ClusterAttributes {
     return sparkVersion;
   }
 
-  public ClusterAttributes setSshPublicKeys(java.util.List<String> sshPublicKeys) {
+  public ClusterAttributes setSshPublicKeys(Collection<String> sshPublicKeys) {
     this.sshPublicKeys = sshPublicKeys;
     return this;
   }
 
-  public java.util.List<String> getSshPublicKeys() {
+  public Collection<String> getSshPublicKeys() {
     return sshPublicKeys;
   }
 
@@ -352,5 +355,86 @@ public class ClusterAttributes {
 
   public WorkloadType getWorkloadType() {
     return workloadType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ClusterAttributes that = (ClusterAttributes) o;
+    return Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
+        && Objects.equals(awsAttributes, that.awsAttributes)
+        && Objects.equals(azureAttributes, that.azureAttributes)
+        && Objects.equals(clusterLogConf, that.clusterLogConf)
+        && Objects.equals(clusterName, that.clusterName)
+        && Objects.equals(clusterSource, that.clusterSource)
+        && Objects.equals(customTags, that.customTags)
+        && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
+        && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
+        && Objects.equals(enableElasticDisk, that.enableElasticDisk)
+        && Objects.equals(enableLocalDiskEncryption, that.enableLocalDiskEncryption)
+        && Objects.equals(gcpAttributes, that.gcpAttributes)
+        && Objects.equals(instancePoolId, that.instancePoolId)
+        && Objects.equals(nodeTypeId, that.nodeTypeId)
+        && Objects.equals(policyId, that.policyId)
+        && Objects.equals(runtimeEngine, that.runtimeEngine)
+        && Objects.equals(sparkConf, that.sparkConf)
+        && Objects.equals(sparkEnvVars, that.sparkEnvVars)
+        && Objects.equals(sparkVersion, that.sparkVersion)
+        && Objects.equals(sshPublicKeys, that.sshPublicKeys)
+        && Objects.equals(workloadType, that.workloadType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        autoterminationMinutes,
+        awsAttributes,
+        azureAttributes,
+        clusterLogConf,
+        clusterName,
+        clusterSource,
+        customTags,
+        driverInstancePoolId,
+        driverNodeTypeId,
+        enableElasticDisk,
+        enableLocalDiskEncryption,
+        gcpAttributes,
+        instancePoolId,
+        nodeTypeId,
+        policyId,
+        runtimeEngine,
+        sparkConf,
+        sparkEnvVars,
+        sparkVersion,
+        sshPublicKeys,
+        workloadType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ClusterAttributes.class)
+        .add("autoterminationMinutes", autoterminationMinutes)
+        .add("awsAttributes", awsAttributes)
+        .add("azureAttributes", azureAttributes)
+        .add("clusterLogConf", clusterLogConf)
+        .add("clusterName", clusterName)
+        .add("clusterSource", clusterSource)
+        .add("customTags", customTags)
+        .add("driverInstancePoolId", driverInstancePoolId)
+        .add("driverNodeTypeId", driverNodeTypeId)
+        .add("enableElasticDisk", enableElasticDisk)
+        .add("enableLocalDiskEncryption", enableLocalDiskEncryption)
+        .add("gcpAttributes", gcpAttributes)
+        .add("instancePoolId", instancePoolId)
+        .add("nodeTypeId", nodeTypeId)
+        .add("policyId", policyId)
+        .add("runtimeEngine", runtimeEngine)
+        .add("sparkConf", sparkConf)
+        .add("sparkEnvVars", sparkEnvVars)
+        .add("sparkVersion", sparkVersion)
+        .add("sshPublicKeys", sshPublicKeys)
+        .add("workloadType", workloadType)
+        .toString();
   }
 }

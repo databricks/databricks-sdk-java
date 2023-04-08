@@ -2,12 +2,15 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SetResponse {
   /** */
   @JsonProperty("access_control_list")
-  private java.util.List<AccessControl> accessControlList;
+  private Collection<AccessControl> accessControlList;
 
   /** A singular noun object type. */
   @JsonProperty("object_id")
@@ -17,12 +20,12 @@ public class SetResponse {
   @JsonProperty("object_type")
   private String objectType;
 
-  public SetResponse setAccessControlList(java.util.List<AccessControl> accessControlList) {
+  public SetResponse setAccessControlList(Collection<AccessControl> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public java.util.List<AccessControl> getAccessControlList() {
+  public Collection<AccessControl> getAccessControlList() {
     return accessControlList;
   }
 
@@ -42,5 +45,29 @@ public class SetResponse {
 
   public String getObjectType() {
     return objectType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SetResponse that = (SetResponse) o;
+    return Objects.equals(accessControlList, that.accessControlList)
+        && Objects.equals(objectId, that.objectId)
+        && Objects.equals(objectType, that.objectType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accessControlList, objectId, objectType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SetResponse.class)
+        .add("accessControlList", accessControlList)
+        .add("objectId", objectId)
+        .add("objectType", objectType)
+        .toString();
   }
 }

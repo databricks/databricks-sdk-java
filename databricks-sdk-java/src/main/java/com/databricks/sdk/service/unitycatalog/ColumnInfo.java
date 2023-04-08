@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ColumnInfo {
   /** User-provided free-form text description. */
@@ -159,5 +161,59 @@ public class ColumnInfo {
 
   public String getTypeText() {
     return typeText;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ColumnInfo that = (ColumnInfo) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(mask, that.mask)
+        && Objects.equals(name, that.name)
+        && Objects.equals(nullable, that.nullable)
+        && Objects.equals(partitionIndex, that.partitionIndex)
+        && Objects.equals(position, that.position)
+        && Objects.equals(typeIntervalType, that.typeIntervalType)
+        && Objects.equals(typeJson, that.typeJson)
+        && Objects.equals(typeName, that.typeName)
+        && Objects.equals(typePrecision, that.typePrecision)
+        && Objects.equals(typeScale, that.typeScale)
+        && Objects.equals(typeText, that.typeText);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        comment,
+        mask,
+        name,
+        nullable,
+        partitionIndex,
+        position,
+        typeIntervalType,
+        typeJson,
+        typeName,
+        typePrecision,
+        typeScale,
+        typeText);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ColumnInfo.class)
+        .add("comment", comment)
+        .add("mask", mask)
+        .add("name", name)
+        .add("nullable", nullable)
+        .add("partitionIndex", partitionIndex)
+        .add("position", position)
+        .add("typeIntervalType", typeIntervalType)
+        .add("typeJson", typeJson)
+        .add("typeName", typeName)
+        .add("typePrecision", typePrecision)
+        .add("typeScale", typeScale)
+        .add("typeText", typeText)
+        .toString();
   }
 }

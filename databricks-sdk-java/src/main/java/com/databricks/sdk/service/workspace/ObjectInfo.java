@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ObjectInfo {
   /** <content needed> */
@@ -94,5 +96,37 @@ public class ObjectInfo {
 
   public Long getSize() {
     return size;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ObjectInfo that = (ObjectInfo) o;
+    return Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(language, that.language)
+        && Objects.equals(modifiedAt, that.modifiedAt)
+        && Objects.equals(objectId, that.objectId)
+        && Objects.equals(objectType, that.objectType)
+        && Objects.equals(path, that.path)
+        && Objects.equals(size, that.size);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(createdAt, language, modifiedAt, objectId, objectType, path, size);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ObjectInfo.class)
+        .add("createdAt", createdAt)
+        .add("language", language)
+        .add("modifiedAt", modifiedAt)
+        .add("objectId", objectId)
+        .add("objectType", objectType)
+        .add("path", path)
+        .add("size", size)
+        .toString();
   }
 }

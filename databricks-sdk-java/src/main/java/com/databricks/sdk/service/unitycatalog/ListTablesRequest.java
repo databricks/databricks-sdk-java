@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List tables */
 public class ListTablesRequest {
@@ -43,5 +45,29 @@ public class ListTablesRequest {
 
   public String getSchemaName() {
     return schemaName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListTablesRequest that = (ListTablesRequest) o;
+    return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(includeDeltaMetadata, that.includeDeltaMetadata)
+        && Objects.equals(schemaName, that.schemaName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(catalogName, includeDeltaMetadata, schemaName);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListTablesRequest.class)
+        .add("catalogName", catalogName)
+        .add("includeDeltaMetadata", includeDeltaMetadata)
+        .add("schemaName", schemaName)
+        .toString();
   }
 }

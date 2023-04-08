@@ -2,12 +2,15 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class PermissionsChange {
   /** The set of privileges to add. */
   @JsonProperty("add")
-  private java.util.List<Privilege> add;
+  private Collection<Privilege> add;
 
   /** The principal whose privileges we are changing. */
   @JsonProperty("principal")
@@ -15,14 +18,14 @@ public class PermissionsChange {
 
   /** The set of privileges to remove. */
   @JsonProperty("remove")
-  private java.util.List<Privilege> remove;
+  private Collection<Privilege> remove;
 
-  public PermissionsChange setAdd(java.util.List<Privilege> add) {
+  public PermissionsChange setAdd(Collection<Privilege> add) {
     this.add = add;
     return this;
   }
 
-  public java.util.List<Privilege> getAdd() {
+  public Collection<Privilege> getAdd() {
     return add;
   }
 
@@ -35,12 +38,36 @@ public class PermissionsChange {
     return principal;
   }
 
-  public PermissionsChange setRemove(java.util.List<Privilege> remove) {
+  public PermissionsChange setRemove(Collection<Privilege> remove) {
     this.remove = remove;
     return this;
   }
 
-  public java.util.List<Privilege> getRemove() {
+  public Collection<Privilege> getRemove() {
     return remove;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PermissionsChange that = (PermissionsChange) o;
+    return Objects.equals(add, that.add)
+        && Objects.equals(principal, that.principal)
+        && Objects.equals(remove, that.remove);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(add, principal, remove);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PermissionsChange.class)
+        .add("add", add)
+        .add("principal", principal)
+        .add("remove", remove)
+        .toString();
   }
 }

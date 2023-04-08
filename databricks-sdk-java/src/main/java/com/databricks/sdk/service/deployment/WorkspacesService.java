@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * These APIs manage workspaces for this account. A Databricks workspace is an environment for
@@ -70,7 +70,7 @@ public interface WorkspacesService {
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
    */
-  List<Workspace> list();
+  Collection<Workspace> list();
 
   /**
    * Update workspace configuration.

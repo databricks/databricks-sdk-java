@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ExecuteStatementRequest {
   /**
@@ -195,5 +197,50 @@ public class ExecuteStatementRequest {
 
   public String getWarehouseId() {
     return warehouseId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ExecuteStatementRequest that = (ExecuteStatementRequest) o;
+    return Objects.equals(byteLimit, that.byteLimit)
+        && Objects.equals(catalog, that.catalog)
+        && Objects.equals(disposition, that.disposition)
+        && Objects.equals(format, that.format)
+        && Objects.equals(onWaitTimeout, that.onWaitTimeout)
+        && Objects.equals(schema, that.schema)
+        && Objects.equals(statement, that.statement)
+        && Objects.equals(waitTimeout, that.waitTimeout)
+        && Objects.equals(warehouseId, that.warehouseId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        byteLimit,
+        catalog,
+        disposition,
+        format,
+        onWaitTimeout,
+        schema,
+        statement,
+        waitTimeout,
+        warehouseId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ExecuteStatementRequest.class)
+        .add("byteLimit", byteLimit)
+        .add("catalog", catalog)
+        .add("disposition", disposition)
+        .add("format", format)
+        .add("onWaitTimeout", onWaitTimeout)
+        .add("schema", schema)
+        .add("statement", statement)
+        .add("waitTimeout", waitTimeout)
+        .add("warehouseId", warehouseId)
+        .toString();
   }
 }

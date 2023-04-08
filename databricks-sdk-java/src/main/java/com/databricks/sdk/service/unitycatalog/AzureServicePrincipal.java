@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class AzureServicePrincipal {
   /** The application ID of the application registration within the referenced AAD tenant. */
@@ -44,5 +46,29 @@ public class AzureServicePrincipal {
 
   public String getDirectoryId() {
     return directoryId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AzureServicePrincipal that = (AzureServicePrincipal) o;
+    return Objects.equals(applicationId, that.applicationId)
+        && Objects.equals(clientSecret, that.clientSecret)
+        && Objects.equals(directoryId, that.directoryId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(applicationId, clientSecret, directoryId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(AzureServicePrincipal.class)
+        .add("applicationId", applicationId)
+        .add("clientSecret", clientSecret)
+        .add("directoryId", directoryId)
+        .toString();
   }
 }

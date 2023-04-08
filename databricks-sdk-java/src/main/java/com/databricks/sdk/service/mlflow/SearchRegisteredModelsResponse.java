@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SearchRegisteredModelsResponse {
   /** Pagination token to request the next page of models. */
@@ -11,7 +14,7 @@ public class SearchRegisteredModelsResponse {
 
   /** Registered Models that match the search criteria. */
   @JsonProperty("registered_models")
-  private java.util.List<RegisteredModel> registeredModels;
+  private Collection<RegisteredModel> registeredModels;
 
   public SearchRegisteredModelsResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
@@ -23,12 +26,34 @@ public class SearchRegisteredModelsResponse {
   }
 
   public SearchRegisteredModelsResponse setRegisteredModels(
-      java.util.List<RegisteredModel> registeredModels) {
+      Collection<RegisteredModel> registeredModels) {
     this.registeredModels = registeredModels;
     return this;
   }
 
-  public java.util.List<RegisteredModel> getRegisteredModels() {
+  public Collection<RegisteredModel> getRegisteredModels() {
     return registeredModels;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SearchRegisteredModelsResponse that = (SearchRegisteredModelsResponse) o;
+    return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(registeredModels, that.registeredModels);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nextPageToken, registeredModels);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SearchRegisteredModelsResponse.class)
+        .add("nextPageToken", nextPageToken)
+        .add("registeredModels", registeredModels)
+        .toString();
   }
 }

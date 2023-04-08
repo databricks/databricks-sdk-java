@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.clusters;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
 import org.apache.http.client.methods.*;
 
 /**

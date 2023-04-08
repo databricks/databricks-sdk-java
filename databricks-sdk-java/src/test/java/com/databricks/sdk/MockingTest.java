@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import com.databricks.sdk.service.clusters.*;
-import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -16,31 +15,24 @@ public class MockingTest {
 
   @Test
   public void mockingAPI() {
-    // TODO: generate equals & hashCode for all entities
-    when(clustersMock.sparkVersions())
-        .thenReturn(
-            new GetSparkVersionsResponse()
-                .setVersions(
-                    Collections.singletonList(new SparkVersion().setKey("foo").setName("bar"))));
+    when(clustersMock.get(new Get().setClusterId("foo")))
+        .thenReturn(new ClusterInfo().setState(State.RUNNING));
 
     ClustersAPI clustersAPI = new ClustersAPI(clustersMock);
-    GetSparkVersionsResponse sparkVersions = clustersAPI.sparkVersions();
+    ClusterInfo info = clustersAPI.get("foo");
 
-    assertEquals(1, sparkVersions.getVersions().size());
+    assertEquals(State.RUNNING, info.getState());
   }
 
   @Test
   public void mockingWorkspaceClient() {
-    when(clustersMock.sparkVersions())
-        .thenReturn(
-            new GetSparkVersionsResponse()
-                .setVersions(
-                    Collections.singletonList(new SparkVersion().setKey("foo").setName("bar"))));
+    when(clustersMock.get(new Get().setClusterId("foo")))
+        .thenReturn(new ClusterInfo().setState(State.RUNNING));
 
     DatabricksWorkspace workspace = new DatabricksWorkspace(true).withClustersImpl(clustersMock);
 
-    GetSparkVersionsResponse sparkVersions = workspace.clusters().sparkVersions();
+    ClusterInfo info = workspace.clusters().get("foo");
 
-    assertEquals(1, sparkVersions.getVersions().size());
+    assertEquals(State.RUNNING, info.getState());
   }
 }

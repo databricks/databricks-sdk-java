@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.instancepools;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class FleetOnDemandOption {
   /** Only lowest-price and prioritized are allowed */
@@ -50,5 +52,29 @@ public class FleetOnDemandOption {
 
   public Boolean getUseCapacityReservationsFirst() {
     return useCapacityReservationsFirst;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    FleetOnDemandOption that = (FleetOnDemandOption) o;
+    return Objects.equals(allocationStrategy, that.allocationStrategy)
+        && Objects.equals(maxTotalPrice, that.maxTotalPrice)
+        && Objects.equals(useCapacityReservationsFirst, that.useCapacityReservationsFirst);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(allocationStrategy, maxTotalPrice, useCapacityReservationsFirst);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(FleetOnDemandOption.class)
+        .add("allocationStrategy", allocationStrategy)
+        .add("maxTotalPrice", maxTotalPrice)
+        .add("useCapacityReservationsFirst", useCapacityReservationsFirst)
+        .toString();
   }
 }

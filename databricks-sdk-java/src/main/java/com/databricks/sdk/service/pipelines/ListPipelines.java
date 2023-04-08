@@ -3,6 +3,9 @@
 package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Collection;
+import java.util.Objects;
 
 /** List pipelines */
 public class ListPipelines {
@@ -32,7 +35,7 @@ public class ListPipelines {
    * The default is id asc. This field is optional.
    */
   @QueryParam("order_by")
-  private java.util.List<String> orderBy;
+  private Collection<String> orderBy;
 
   /** Page token returned by previous call */
   @QueryParam("page_token")
@@ -56,12 +59,12 @@ public class ListPipelines {
     return maxResults;
   }
 
-  public ListPipelines setOrderBy(java.util.List<String> orderBy) {
+  public ListPipelines setOrderBy(Collection<String> orderBy) {
     this.orderBy = orderBy;
     return this;
   }
 
-  public java.util.List<String> getOrderBy() {
+  public Collection<String> getOrderBy() {
     return orderBy;
   }
 
@@ -72,5 +75,31 @@ public class ListPipelines {
 
   public String getPageToken() {
     return pageToken;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListPipelines that = (ListPipelines) o;
+    return Objects.equals(filter, that.filter)
+        && Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(orderBy, that.orderBy)
+        && Objects.equals(pageToken, that.pageToken);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(filter, maxResults, orderBy, pageToken);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListPipelines.class)
+        .add("filter", filter)
+        .add("maxResults", maxResults)
+        .add("orderBy", orderBy)
+        .add("pageToken", pageToken)
+        .toString();
   }
 }

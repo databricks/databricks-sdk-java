@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get history of a given metric within a run */
 public class GetHistoryRequest {
@@ -75,5 +77,33 @@ public class GetHistoryRequest {
 
   public String getRunUuid() {
     return runUuid;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetHistoryRequest that = (GetHistoryRequest) o;
+    return Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(metricKey, that.metricKey)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(runUuid, that.runUuid);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(maxResults, metricKey, pageToken, runId, runUuid);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetHistoryRequest.class)
+        .add("maxResults", maxResults)
+        .add("metricKey", metricKey)
+        .add("pageToken", pageToken)
+        .add("runId", runId)
+        .add("runUuid", runUuid)
+        .toString();
   }
 }

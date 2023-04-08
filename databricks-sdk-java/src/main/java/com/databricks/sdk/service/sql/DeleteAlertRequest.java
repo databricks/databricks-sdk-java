@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Delete an alert */
 public class DeleteAlertRequest {
   /** */
@@ -14,5 +17,23 @@ public class DeleteAlertRequest {
 
   public String getAlertId() {
     return alertId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteAlertRequest that = (DeleteAlertRequest) o;
+    return Objects.equals(alertId, that.alertId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(alertId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteAlertRequest.class).add("alertId", alertId).toString();
   }
 }

@@ -2,8 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import java.util.Objects;
 
 public class DbtOutput {
   /** An optional map of headers to send when retrieving the artifact from the `artifacts_link`. */
@@ -33,5 +35,27 @@ public class DbtOutput {
 
   public String getArtifactsLink() {
     return artifactsLink;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DbtOutput that = (DbtOutput) o;
+    return Objects.equals(artifactsHeaders, that.artifactsHeaders)
+        && Objects.equals(artifactsLink, that.artifactsLink);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(artifactsHeaders, artifactsLink);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DbtOutput.class)
+        .add("artifactsHeaders", artifactsHeaders)
+        .add("artifactsLink", artifactsLink)
+        .toString();
   }
 }

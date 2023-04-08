@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class SqlOutput {
   /** The output of a SQL alert task, if available. */
@@ -42,5 +44,29 @@ public class SqlOutput {
 
   public SqlQueryOutput getQueryOutput() {
     return queryOutput;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SqlOutput that = (SqlOutput) o;
+    return Objects.equals(alertOutput, that.alertOutput)
+        && Objects.equals(dashboardOutput, that.dashboardOutput)
+        && Objects.equals(queryOutput, that.queryOutput);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(alertOutput, dashboardOutput, queryOutput);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SqlOutput.class)
+        .add("alertOutput", alertOutput)
+        .add("dashboardOutput", dashboardOutput)
+        .add("queryOutput", queryOutput)
+        .toString();
   }
 }

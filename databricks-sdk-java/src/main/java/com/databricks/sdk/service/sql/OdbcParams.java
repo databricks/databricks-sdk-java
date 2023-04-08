@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class OdbcParams {
   /** */
@@ -55,5 +57,31 @@ public class OdbcParams {
 
   public String getProtocol() {
     return protocol;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    OdbcParams that = (OdbcParams) o;
+    return Objects.equals(hostname, that.hostname)
+        && Objects.equals(path, that.path)
+        && Objects.equals(port, that.port)
+        && Objects.equals(protocol, that.protocol);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(hostname, path, port, protocol);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(OdbcParams.class)
+        .add("hostname", hostname)
+        .add("path", path)
+        .add("port", port)
+        .add("protocol", protocol)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Delete {
   /** The absolute path of the notebook or directory. */
@@ -33,5 +35,23 @@ public class Delete {
 
   public Boolean getRecursive() {
     return recursive;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Delete that = (Delete) o;
+    return Objects.equals(path, that.path) && Objects.equals(recursive, that.recursive);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(path, recursive);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Delete.class).add("path", path).add("recursive", recursive).toString();
   }
 }

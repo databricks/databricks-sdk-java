@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Alert {
   /** Timestamp when the alert was created. */
@@ -155,5 +157,56 @@ public class Alert {
 
   public User getUser() {
     return user;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Alert that = (Alert) o;
+    return Objects.equals(createdAt, that.createdAt)
+        && Objects.equals(id, that.id)
+        && Objects.equals(lastTriggeredAt, that.lastTriggeredAt)
+        && Objects.equals(name, that.name)
+        && Objects.equals(options, that.options)
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(query, that.query)
+        && Objects.equals(rearm, that.rearm)
+        && Objects.equals(state, that.state)
+        && Objects.equals(updatedAt, that.updatedAt)
+        && Objects.equals(user, that.user);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        createdAt,
+        id,
+        lastTriggeredAt,
+        name,
+        options,
+        parent,
+        query,
+        rearm,
+        state,
+        updatedAt,
+        user);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Alert.class)
+        .add("createdAt", createdAt)
+        .add("id", id)
+        .add("lastTriggeredAt", lastTriggeredAt)
+        .add("name", name)
+        .add("options", options)
+        .add("parent", parent)
+        .add("query", query)
+        .add("rearm", rearm)
+        .add("state", state)
+        .add("updatedAt", updatedAt)
+        .add("user", user)
+        .toString();
   }
 }

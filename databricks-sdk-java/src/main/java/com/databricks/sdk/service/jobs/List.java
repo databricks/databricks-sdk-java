@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List all jobs */
 public class List {
@@ -59,5 +61,31 @@ public class List {
 
   public Long getOffset() {
     return offset;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    List that = (List) o;
+    return Objects.equals(expandTasks, that.expandTasks)
+        && Objects.equals(limit, that.limit)
+        && Objects.equals(name, that.name)
+        && Objects.equals(offset, that.offset);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(expandTasks, limit, name, offset);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(List.class)
+        .add("expandTasks", expandTasks)
+        .add("limit", limit)
+        .add("name", name)
+        .add("offset", offset)
+        .toString();
   }
 }

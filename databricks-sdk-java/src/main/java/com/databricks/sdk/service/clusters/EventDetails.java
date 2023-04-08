@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class EventDetails {
   /**
@@ -262,5 +264,81 @@ public class EventDetails {
 
   public String getUser() {
     return user;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EventDetails that = (EventDetails) o;
+    return Objects.equals(attributes, that.attributes)
+        && Objects.equals(cause, that.cause)
+        && Objects.equals(clusterSize, that.clusterSize)
+        && Objects.equals(currentNumVcpus, that.currentNumVcpus)
+        && Objects.equals(currentNumWorkers, that.currentNumWorkers)
+        && Objects.equals(didNotExpandReason, that.didNotExpandReason)
+        && Objects.equals(diskSize, that.diskSize)
+        && Objects.equals(driverStateMessage, that.driverStateMessage)
+        && Objects.equals(
+            enableTerminationForNodeBlocklisted, that.enableTerminationForNodeBlocklisted)
+        && Objects.equals(freeSpace, that.freeSpace)
+        && Objects.equals(instanceId, that.instanceId)
+        && Objects.equals(jobRunName, that.jobRunName)
+        && Objects.equals(previousAttributes, that.previousAttributes)
+        && Objects.equals(previousClusterSize, that.previousClusterSize)
+        && Objects.equals(previousDiskSize, that.previousDiskSize)
+        && Objects.equals(reason, that.reason)
+        && Objects.equals(targetNumVcpus, that.targetNumVcpus)
+        && Objects.equals(targetNumWorkers, that.targetNumWorkers)
+        && Objects.equals(user, that.user);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        attributes,
+        cause,
+        clusterSize,
+        currentNumVcpus,
+        currentNumWorkers,
+        didNotExpandReason,
+        diskSize,
+        driverStateMessage,
+        enableTerminationForNodeBlocklisted,
+        freeSpace,
+        instanceId,
+        jobRunName,
+        previousAttributes,
+        previousClusterSize,
+        previousDiskSize,
+        reason,
+        targetNumVcpus,
+        targetNumWorkers,
+        user);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EventDetails.class)
+        .add("attributes", attributes)
+        .add("cause", cause)
+        .add("clusterSize", clusterSize)
+        .add("currentNumVcpus", currentNumVcpus)
+        .add("currentNumWorkers", currentNumWorkers)
+        .add("didNotExpandReason", didNotExpandReason)
+        .add("diskSize", diskSize)
+        .add("driverStateMessage", driverStateMessage)
+        .add("enableTerminationForNodeBlocklisted", enableTerminationForNodeBlocklisted)
+        .add("freeSpace", freeSpace)
+        .add("instanceId", instanceId)
+        .add("jobRunName", jobRunName)
+        .add("previousAttributes", previousAttributes)
+        .add("previousClusterSize", previousClusterSize)
+        .add("previousDiskSize", previousDiskSize)
+        .add("reason", reason)
+        .add("targetNumVcpus", targetNumVcpus)
+        .add("targetNumWorkers", targetNumWorkers)
+        .add("user", user)
+        .toString();
   }
 }

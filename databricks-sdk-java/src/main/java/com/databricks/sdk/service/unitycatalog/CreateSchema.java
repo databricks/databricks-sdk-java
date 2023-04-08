@@ -2,8 +2,10 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+import java.util.Objects;
 
 public class CreateSchema {
   /** Name of parent catalog. */
@@ -69,5 +71,33 @@ public class CreateSchema {
 
   public String getStorageRoot() {
     return storageRoot;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateSchema that = (CreateSchema) o;
+    return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(name, that.name)
+        && Objects.equals(properties, that.properties)
+        && Objects.equals(storageRoot, that.storageRoot);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(catalogName, comment, name, properties, storageRoot);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateSchema.class)
+        .add("catalogName", catalogName)
+        .add("comment", comment)
+        .add("name", name)
+        .add("properties", properties)
+        .add("storageRoot", storageRoot)
+        .toString();
   }
 }

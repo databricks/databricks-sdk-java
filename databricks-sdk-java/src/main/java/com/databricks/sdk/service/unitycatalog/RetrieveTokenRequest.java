@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Get an access token */
 public class RetrieveTokenRequest {
   /** The one time activation url. It also accepts activation token. */
@@ -14,5 +17,25 @@ public class RetrieveTokenRequest {
 
   public String getActivationUrl() {
     return activationUrl;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RetrieveTokenRequest that = (RetrieveTokenRequest) o;
+    return Objects.equals(activationUrl, that.activationUrl);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(activationUrl);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RetrieveTokenRequest.class)
+        .add("activationUrl", activationUrl)
+        .toString();
   }
 }

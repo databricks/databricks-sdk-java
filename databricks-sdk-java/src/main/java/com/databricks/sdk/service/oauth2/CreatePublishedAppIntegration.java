@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreatePublishedAppIntegration {
   /** app_id of the oauth published app integration. For example power-bi, tableau-deskop */
@@ -29,5 +31,27 @@ public class CreatePublishedAppIntegration {
 
   public TokenAccessPolicy getTokenAccessPolicy() {
     return tokenAccessPolicy;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreatePublishedAppIntegration that = (CreatePublishedAppIntegration) o;
+    return Objects.equals(appId, that.appId)
+        && Objects.equals(tokenAccessPolicy, that.tokenAccessPolicy);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(appId, tokenAccessPolicy);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreatePublishedAppIntegration.class)
+        .add("appId", appId)
+        .add("tokenAccessPolicy", tokenAccessPolicy)
+        .toString();
   }
 }

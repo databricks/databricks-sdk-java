@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get model */
 public class GetMLflowDatabrickRequest {
@@ -17,5 +19,23 @@ public class GetMLflowDatabrickRequest {
 
   public String getName() {
     return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetMLflowDatabrickRequest that = (GetMLflowDatabrickRequest) o;
+    return Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetMLflowDatabrickRequest.class).add("name", name).toString();
   }
 }

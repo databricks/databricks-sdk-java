@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
+
 /** Gets the named storage credential */
 public class GetAccountStorageCredentialRequest {
   /** Databricks Unity Catalog metastore ID */
@@ -26,5 +29,26 @@ public class GetAccountStorageCredentialRequest {
 
   public String getName() {
     return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetAccountStorageCredentialRequest that = (GetAccountStorageCredentialRequest) o;
+    return Objects.equals(metastoreId, that.metastoreId) && Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(metastoreId, name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetAccountStorageCredentialRequest.class)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .toString();
   }
 }

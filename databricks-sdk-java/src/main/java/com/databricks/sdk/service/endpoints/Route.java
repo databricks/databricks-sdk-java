@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.endpoints;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Route {
   /** The name of the served model this route configures traffic for. */
@@ -32,5 +34,27 @@ public class Route {
 
   public Long getTrafficPercentage() {
     return trafficPercentage;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Route that = (Route) o;
+    return Objects.equals(servedModelName, that.servedModelName)
+        && Objects.equals(trafficPercentage, that.trafficPercentage);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(servedModelName, trafficPercentage);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Route.class)
+        .add("servedModelName", servedModelName)
+        .add("trafficPercentage", trafficPercentage)
+        .toString();
   }
 }

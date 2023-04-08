@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateExperimentResponse {
   /** Unique identifier for the experiment. */
@@ -16,5 +18,25 @@ public class CreateExperimentResponse {
 
   public String getExperimentId() {
     return experimentId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateExperimentResponse that = (CreateExperimentResponse) o;
+    return Objects.equals(experimentId, that.experimentId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(experimentId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateExperimentResponse.class)
+        .add("experimentId", experimentId)
+        .toString();
   }
 }

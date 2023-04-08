@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class SqlTaskAlert {
   /** The canonical identifier of the SQL alert. */
@@ -15,7 +18,7 @@ public class SqlTaskAlert {
 
   /** If specified, alert notifications are sent to subscribers. */
   @JsonProperty("subscriptions")
-  private java.util.List<SqlTaskSubscription> subscriptions;
+  private Collection<SqlTaskSubscription> subscriptions;
 
   public SqlTaskAlert setAlertId(String alertId) {
     this.alertId = alertId;
@@ -35,12 +38,36 @@ public class SqlTaskAlert {
     return pauseSubscriptions;
   }
 
-  public SqlTaskAlert setSubscriptions(java.util.List<SqlTaskSubscription> subscriptions) {
+  public SqlTaskAlert setSubscriptions(Collection<SqlTaskSubscription> subscriptions) {
     this.subscriptions = subscriptions;
     return this;
   }
 
-  public java.util.List<SqlTaskSubscription> getSubscriptions() {
+  public Collection<SqlTaskSubscription> getSubscriptions() {
     return subscriptions;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SqlTaskAlert that = (SqlTaskAlert) o;
+    return Objects.equals(alertId, that.alertId)
+        && Objects.equals(pauseSubscriptions, that.pauseSubscriptions)
+        && Objects.equals(subscriptions, that.subscriptions);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(alertId, pauseSubscriptions, subscriptions);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SqlTaskAlert.class)
+        .add("alertId", alertId)
+        .add("pauseSubscriptions", pauseSubscriptions)
+        .add("subscriptions", subscriptions)
+        .toString();
   }
 }

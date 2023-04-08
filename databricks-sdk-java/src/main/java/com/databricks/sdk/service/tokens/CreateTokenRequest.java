@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.tokens;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateTokenRequest {
   /** Optional description to attach to the token. */
@@ -33,5 +35,27 @@ public class CreateTokenRequest {
 
   public Long getLifetimeSeconds() {
     return lifetimeSeconds;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateTokenRequest that = (CreateTokenRequest) o;
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(lifetimeSeconds, that.lifetimeSeconds);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, lifetimeSeconds);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateTokenRequest.class)
+        .add("comment", comment)
+        .add("lifetimeSeconds", lifetimeSeconds)
+        .toString();
   }
 }

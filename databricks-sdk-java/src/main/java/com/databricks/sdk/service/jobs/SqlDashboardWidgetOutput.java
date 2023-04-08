@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class SqlDashboardWidgetOutput {
   /** Time (in epoch milliseconds) when execution of the SQL widget ends. */
@@ -94,5 +96,37 @@ public class SqlDashboardWidgetOutput {
 
   public String getWidgetTitle() {
     return widgetTitle;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SqlDashboardWidgetOutput that = (SqlDashboardWidgetOutput) o;
+    return Objects.equals(endTime, that.endTime)
+        && Objects.equals(error, that.error)
+        && Objects.equals(outputLink, that.outputLink)
+        && Objects.equals(startTime, that.startTime)
+        && Objects.equals(status, that.status)
+        && Objects.equals(widgetId, that.widgetId)
+        && Objects.equals(widgetTitle, that.widgetTitle);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(endTime, error, outputLink, startTime, status, widgetId, widgetTitle);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SqlDashboardWidgetOutput.class)
+        .add("endTime", endTime)
+        .add("error", error)
+        .add("outputLink", outputLink)
+        .add("startTime", startTime)
+        .add("status", status)
+        .add("widgetId", widgetId)
+        .add("widgetTitle", widgetTitle)
+        .toString();
   }
 }

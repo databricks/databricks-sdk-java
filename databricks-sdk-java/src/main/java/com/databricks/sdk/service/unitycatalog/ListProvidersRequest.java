@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List providers */
 public class ListProvidersRequest {
@@ -21,5 +23,25 @@ public class ListProvidersRequest {
 
   public String getDataProviderGlobalMetastoreId() {
     return dataProviderGlobalMetastoreId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListProvidersRequest that = (ListProvidersRequest) o;
+    return Objects.equals(dataProviderGlobalMetastoreId, that.dataProviderGlobalMetastoreId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(dataProviderGlobalMetastoreId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListProvidersRequest.class)
+        .add("dataProviderGlobalMetastoreId", dataProviderGlobalMetastoreId)
+        .toString();
   }
 }

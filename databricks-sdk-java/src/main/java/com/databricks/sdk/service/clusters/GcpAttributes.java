@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class GcpAttributes {
   /**
@@ -50,5 +52,29 @@ public class GcpAttributes {
 
   public String getGoogleServiceAccount() {
     return googleServiceAccount;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GcpAttributes that = (GcpAttributes) o;
+    return Objects.equals(availability, that.availability)
+        && Objects.equals(bootDiskSize, that.bootDiskSize)
+        && Objects.equals(googleServiceAccount, that.googleServiceAccount);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(availability, bootDiskSize, googleServiceAccount);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GcpAttributes.class)
+        .add("availability", availability)
+        .add("bootDiskSize", bootDiskSize)
+        .add("googleServiceAccount", googleServiceAccount)
+        .toString();
   }
 }

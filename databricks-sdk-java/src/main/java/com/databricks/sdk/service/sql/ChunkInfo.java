@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /**
  * Describes metadata for a particular chunk, within a result set; this structure is used both
@@ -91,5 +93,36 @@ public class ChunkInfo {
 
   public Long getRowOffset() {
     return rowOffset;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ChunkInfo that = (ChunkInfo) o;
+    return Objects.equals(byteCount, that.byteCount)
+        && Objects.equals(chunkIndex, that.chunkIndex)
+        && Objects.equals(nextChunkIndex, that.nextChunkIndex)
+        && Objects.equals(nextChunkInternalLink, that.nextChunkInternalLink)
+        && Objects.equals(rowCount, that.rowCount)
+        && Objects.equals(rowOffset, that.rowOffset);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        byteCount, chunkIndex, nextChunkIndex, nextChunkInternalLink, rowCount, rowOffset);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ChunkInfo.class)
+        .add("byteCount", byteCount)
+        .add("chunkIndex", chunkIndex)
+        .add("nextChunkIndex", nextChunkIndex)
+        .add("nextChunkInternalLink", nextChunkInternalLink)
+        .add("rowCount", rowCount)
+        .add("rowOffset", rowOffset)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateAlert {
   /** Name of the alert. */
@@ -74,5 +76,33 @@ public class CreateAlert {
 
   public Long getRearm() {
     return rearm;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateAlert that = (CreateAlert) o;
+    return Objects.equals(name, that.name)
+        && Objects.equals(options, that.options)
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(queryId, that.queryId)
+        && Objects.equals(rearm, that.rearm);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, options, parent, queryId, rearm);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateAlert.class)
+        .add("name", name)
+        .add("options", options)
+        .add("parent", parent)
+        .add("queryId", queryId)
+        .add("rearm", rearm)
+        .toString();
   }
 }

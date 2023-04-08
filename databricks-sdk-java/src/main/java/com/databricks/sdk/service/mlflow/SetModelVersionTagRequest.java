@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class SetModelVersionTagRequest {
   /**
@@ -62,5 +64,31 @@ public class SetModelVersionTagRequest {
 
   public String getVersion() {
     return version;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SetModelVersionTagRequest that = (SetModelVersionTagRequest) o;
+    return Objects.equals(key, that.key)
+        && Objects.equals(name, that.name)
+        && Objects.equals(value, that.value)
+        && Objects.equals(version, that.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key, name, value, version);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SetModelVersionTagRequest.class)
+        .add("key", key)
+        .add("name", name)
+        .add("value", value)
+        .add("version", version)
+        .toString();
   }
 }

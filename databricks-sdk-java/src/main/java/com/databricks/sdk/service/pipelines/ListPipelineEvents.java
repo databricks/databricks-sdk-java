@@ -3,6 +3,9 @@
 package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Collection;
+import java.util.Objects;
 
 /** List pipeline events */
 public class ListPipelineEvents {
@@ -37,7 +40,7 @@ public class ListPipelineEvents {
    * order by timestamp.
    */
   @QueryParam("order_by")
-  private java.util.List<String> orderBy;
+  private Collection<String> orderBy;
 
   /**
    * Page token returned by previous call. This field is mutually exclusive with all fields in this
@@ -68,12 +71,12 @@ public class ListPipelineEvents {
     return maxResults;
   }
 
-  public ListPipelineEvents setOrderBy(java.util.List<String> orderBy) {
+  public ListPipelineEvents setOrderBy(Collection<String> orderBy) {
     this.orderBy = orderBy;
     return this;
   }
 
-  public java.util.List<String> getOrderBy() {
+  public Collection<String> getOrderBy() {
     return orderBy;
   }
 
@@ -93,5 +96,33 @@ public class ListPipelineEvents {
 
   public String getPipelineId() {
     return pipelineId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListPipelineEvents that = (ListPipelineEvents) o;
+    return Objects.equals(filter, that.filter)
+        && Objects.equals(maxResults, that.maxResults)
+        && Objects.equals(orderBy, that.orderBy)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(pipelineId, that.pipelineId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(filter, maxResults, orderBy, pageToken, pipelineId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListPipelineEvents.class)
+        .add("filter", filter)
+        .add("maxResults", maxResults)
+        .add("orderBy", orderBy)
+        .add("pageToken", pageToken)
+        .add("pipelineId", pipelineId)
+        .toString();
   }
 }

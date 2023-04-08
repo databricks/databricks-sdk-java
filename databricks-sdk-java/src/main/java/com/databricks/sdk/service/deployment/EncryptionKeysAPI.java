@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -33,7 +33,7 @@ public class EncryptionKeysAPI {
     impl = mock;
   }
 
-  public CustomerManagedKey create(CreateAwsKeyInfo awsKeyInfo, List<KeyUseCase> useCases) {
+  public CustomerManagedKey create(CreateAwsKeyInfo awsKeyInfo, Collection<KeyUseCase> useCases) {
     return create(
         new CreateCustomerManagedKeyRequest().setAwsKeyInfo(awsKeyInfo).setUseCases(useCases));
   }
@@ -112,7 +112,7 @@ public class EncryptionKeysAPI {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */
-  public List<CustomerManagedKey> list() {
+  public Collection<CustomerManagedKey> list() {
     return impl.list();
   }
 

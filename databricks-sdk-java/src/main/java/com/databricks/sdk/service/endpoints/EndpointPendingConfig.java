@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.endpoints;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class EndpointPendingConfig {
   /** The config version that the serving endpoint is currently serving. */
@@ -11,7 +14,7 @@ public class EndpointPendingConfig {
 
   /** The list of served models belonging to the last issued update to the serving endpoint. */
   @JsonProperty("served_models")
-  private java.util.List<ServedModelOutput> servedModels;
+  private Collection<ServedModelOutput> servedModels;
 
   /** The timestamp when the update to the pending config started. */
   @JsonProperty("start_time")
@@ -30,12 +33,12 @@ public class EndpointPendingConfig {
     return configVersion;
   }
 
-  public EndpointPendingConfig setServedModels(java.util.List<ServedModelOutput> servedModels) {
+  public EndpointPendingConfig setServedModels(Collection<ServedModelOutput> servedModels) {
     this.servedModels = servedModels;
     return this;
   }
 
-  public java.util.List<ServedModelOutput> getServedModels() {
+  public Collection<ServedModelOutput> getServedModels() {
     return servedModels;
   }
 
@@ -55,5 +58,31 @@ public class EndpointPendingConfig {
 
   public TrafficConfig getTrafficConfig() {
     return trafficConfig;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EndpointPendingConfig that = (EndpointPendingConfig) o;
+    return Objects.equals(configVersion, that.configVersion)
+        && Objects.equals(servedModels, that.servedModels)
+        && Objects.equals(startTime, that.startTime)
+        && Objects.equals(trafficConfig, that.trafficConfig);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(configVersion, servedModels, startTime, trafficConfig);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EndpointPendingConfig.class)
+        .add("configVersion", configVersion)
+        .add("servedModels", servedModels)
+        .add("startTime", startTime)
+        .add("trafficConfig", trafficConfig)
+        .toString();
   }
 }

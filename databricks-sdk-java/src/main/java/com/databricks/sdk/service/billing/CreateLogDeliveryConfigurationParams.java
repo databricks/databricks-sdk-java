@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class CreateLogDeliveryConfigurationParams {
   /** The optional human-readable name of the log delivery configuration. Defaults to empty. */
@@ -104,7 +107,7 @@ public class CreateLogDeliveryConfigurationParams {
    * unnecessary.
    */
   @JsonProperty("workspace_ids_filter")
-  private java.util.List<Long> workspaceIdsFilter;
+  private Collection<Long> workspaceIdsFilter;
 
   public CreateLogDeliveryConfigurationParams setConfigName(String configName) {
     this.configName = configName;
@@ -180,12 +183,57 @@ public class CreateLogDeliveryConfigurationParams {
   }
 
   public CreateLogDeliveryConfigurationParams setWorkspaceIdsFilter(
-      java.util.List<Long> workspaceIdsFilter) {
+      Collection<Long> workspaceIdsFilter) {
     this.workspaceIdsFilter = workspaceIdsFilter;
     return this;
   }
 
-  public java.util.List<Long> getWorkspaceIdsFilter() {
+  public Collection<Long> getWorkspaceIdsFilter() {
     return workspaceIdsFilter;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateLogDeliveryConfigurationParams that = (CreateLogDeliveryConfigurationParams) o;
+    return Objects.equals(configName, that.configName)
+        && Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(deliveryPathPrefix, that.deliveryPathPrefix)
+        && Objects.equals(deliveryStartTime, that.deliveryStartTime)
+        && Objects.equals(logType, that.logType)
+        && Objects.equals(outputFormat, that.outputFormat)
+        && Objects.equals(status, that.status)
+        && Objects.equals(storageConfigurationId, that.storageConfigurationId)
+        && Objects.equals(workspaceIdsFilter, that.workspaceIdsFilter);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        configName,
+        credentialsId,
+        deliveryPathPrefix,
+        deliveryStartTime,
+        logType,
+        outputFormat,
+        status,
+        storageConfigurationId,
+        workspaceIdsFilter);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateLogDeliveryConfigurationParams.class)
+        .add("configName", configName)
+        .add("credentialsId", credentialsId)
+        .add("deliveryPathPrefix", deliveryPathPrefix)
+        .add("deliveryStartTime", deliveryStartTime)
+        .add("logType", logType)
+        .add("outputFormat", outputFormat)
+        .add("status", status)
+        .add("storageConfigurationId", storageConfigurationId)
+        .add("workspaceIdsFilter", workspaceIdsFilter)
+        .toString();
   }
 }

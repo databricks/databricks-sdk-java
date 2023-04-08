@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class Metric {
   /** Key identifying this metric. */
@@ -55,5 +57,31 @@ public class Metric {
 
   public Float getValue() {
     return value;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Metric that = (Metric) o;
+    return Objects.equals(key, that.key)
+        && Objects.equals(step, that.step)
+        && Objects.equals(timestamp, that.timestamp)
+        && Objects.equals(value, that.value);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(key, step, timestamp, value);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Metric.class)
+        .add("key", key)
+        .add("step", step)
+        .add("timestamp", timestamp)
+        .add("value", value)
+        .toString();
   }
 }

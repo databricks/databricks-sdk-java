@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class NodeInstanceType {
   /** */
@@ -68,5 +70,34 @@ public class NodeInstanceType {
 
   public Long getLocalNvmeDisks() {
     return localNvmeDisks;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NodeInstanceType that = (NodeInstanceType) o;
+    return Objects.equals(instanceTypeId, that.instanceTypeId)
+        && Objects.equals(localDiskSizeGb, that.localDiskSizeGb)
+        && Objects.equals(localDisks, that.localDisks)
+        && Objects.equals(localNvmeDiskSizeGb, that.localNvmeDiskSizeGb)
+        && Objects.equals(localNvmeDisks, that.localNvmeDisks);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        instanceTypeId, localDiskSizeGb, localDisks, localNvmeDiskSizeGb, localNvmeDisks);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(NodeInstanceType.class)
+        .add("instanceTypeId", instanceTypeId)
+        .add("localDiskSizeGb", localDiskSizeGb)
+        .add("localDisks", localDisks)
+        .add("localNvmeDiskSizeGb", localNvmeDiskSizeGb)
+        .add("localNvmeDisks", localNvmeDisks)
+        .toString();
   }
 }

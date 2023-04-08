@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.endpoints;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class EndpointCoreConfigInput {
   /** The name of the serving endpoint to update. This field is required. */
@@ -13,7 +16,7 @@ public class EndpointCoreConfigInput {
    * models.
    */
   @JsonProperty("served_models")
-  private java.util.List<ServedModelInput> servedModels;
+  private Collection<ServedModelInput> servedModels;
 
   /** The traffic config defining how invocations to the serving endpoint should be routed. */
   @JsonProperty("traffic_config")
@@ -28,12 +31,12 @@ public class EndpointCoreConfigInput {
     return name;
   }
 
-  public EndpointCoreConfigInput setServedModels(java.util.List<ServedModelInput> servedModels) {
+  public EndpointCoreConfigInput setServedModels(Collection<ServedModelInput> servedModels) {
     this.servedModels = servedModels;
     return this;
   }
 
-  public java.util.List<ServedModelInput> getServedModels() {
+  public Collection<ServedModelInput> getServedModels() {
     return servedModels;
   }
 
@@ -44,5 +47,29 @@ public class EndpointCoreConfigInput {
 
   public TrafficConfig getTrafficConfig() {
     return trafficConfig;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EndpointCoreConfigInput that = (EndpointCoreConfigInput) o;
+    return Objects.equals(name, that.name)
+        && Objects.equals(servedModels, that.servedModels)
+        && Objects.equals(trafficConfig, that.trafficConfig);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, servedModels, trafficConfig);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EndpointCoreConfigInput.class)
+        .add("name", name)
+        .add("servedModels", servedModels)
+        .add("trafficConfig", trafficConfig)
+        .toString();
   }
 }

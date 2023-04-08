@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class StsRole {
   /**
@@ -32,5 +34,26 @@ public class StsRole {
 
   public String getRoleArn() {
     return roleArn;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    StsRole that = (StsRole) o;
+    return Objects.equals(externalId, that.externalId) && Objects.equals(roleArn, that.roleArn);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(externalId, roleArn);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(StsRole.class)
+        .add("externalId", externalId)
+        .add("roleArn", roleArn)
+        .toString();
   }
 }

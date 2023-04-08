@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.mlflow;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateModelVersionRequest {
   /** If provided, updates the description for this `registered_model`. */
@@ -42,5 +44,29 @@ public class UpdateModelVersionRequest {
 
   public String getVersion() {
     return version;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateModelVersionRequest that = (UpdateModelVersionRequest) o;
+    return Objects.equals(description, that.description)
+        && Objects.equals(name, that.name)
+        && Objects.equals(version, that.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(description, name, version);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateModelVersionRequest.class)
+        .add("description", description)
+        .add("name", name)
+        .add("version", version)
+        .toString();
   }
 }

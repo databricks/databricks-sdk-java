@@ -2,8 +2,11 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 public class PythonWheelTask {
   /**
@@ -29,7 +32,7 @@ public class PythonWheelTask {
    * not null.
    */
   @JsonProperty("parameters")
-  private java.util.List<String> parameters;
+  private Collection<String> parameters;
 
   public PythonWheelTask setEntryPoint(String entryPoint) {
     this.entryPoint = entryPoint;
@@ -58,12 +61,38 @@ public class PythonWheelTask {
     return packageName;
   }
 
-  public PythonWheelTask setParameters(java.util.List<String> parameters) {
+  public PythonWheelTask setParameters(Collection<String> parameters) {
     this.parameters = parameters;
     return this;
   }
 
-  public java.util.List<String> getParameters() {
+  public Collection<String> getParameters() {
     return parameters;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PythonWheelTask that = (PythonWheelTask) o;
+    return Objects.equals(entryPoint, that.entryPoint)
+        && Objects.equals(namedParameters, that.namedParameters)
+        && Objects.equals(packageName, that.packageName)
+        && Objects.equals(parameters, that.parameters);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(entryPoint, namedParameters, packageName, parameters);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PythonWheelTask.class)
+        .add("entryPoint", entryPoint)
+        .add("namedParameters", namedParameters)
+        .add("packageName", packageName)
+        .add("parameters", parameters)
+        .toString();
   }
 }

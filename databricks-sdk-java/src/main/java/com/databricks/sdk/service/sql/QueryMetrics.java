@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 /** Metrics about query execution. */
 public class QueryMetrics {
@@ -285,5 +287,86 @@ public class QueryMetrics {
 
   public Long getWriteRemoteBytes() {
     return writeRemoteBytes;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    QueryMetrics that = (QueryMetrics) o;
+    return Objects.equals(compilationTimeMs, that.compilationTimeMs)
+        && Objects.equals(executionTimeMs, that.executionTimeMs)
+        && Objects.equals(networkSentBytes, that.networkSentBytes)
+        && Objects.equals(photonTotalTimeMs, that.photonTotalTimeMs)
+        && Objects.equals(queuedOverloadTimeMs, that.queuedOverloadTimeMs)
+        && Objects.equals(queuedProvisioningTimeMs, that.queuedProvisioningTimeMs)
+        && Objects.equals(readBytes, that.readBytes)
+        && Objects.equals(readCacheBytes, that.readCacheBytes)
+        && Objects.equals(readFilesCount, that.readFilesCount)
+        && Objects.equals(readPartitionsCount, that.readPartitionsCount)
+        && Objects.equals(readRemoteBytes, that.readRemoteBytes)
+        && Objects.equals(resultFetchTimeMs, that.resultFetchTimeMs)
+        && Objects.equals(resultFromCache, that.resultFromCache)
+        && Objects.equals(rowsProducedCount, that.rowsProducedCount)
+        && Objects.equals(rowsReadCount, that.rowsReadCount)
+        && Objects.equals(spillToDiskBytes, that.spillToDiskBytes)
+        && Objects.equals(taskTotalTimeMs, that.taskTotalTimeMs)
+        && Objects.equals(totalFilesCount, that.totalFilesCount)
+        && Objects.equals(totalPartitionsCount, that.totalPartitionsCount)
+        && Objects.equals(totalTimeMs, that.totalTimeMs)
+        && Objects.equals(writeRemoteBytes, that.writeRemoteBytes);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        compilationTimeMs,
+        executionTimeMs,
+        networkSentBytes,
+        photonTotalTimeMs,
+        queuedOverloadTimeMs,
+        queuedProvisioningTimeMs,
+        readBytes,
+        readCacheBytes,
+        readFilesCount,
+        readPartitionsCount,
+        readRemoteBytes,
+        resultFetchTimeMs,
+        resultFromCache,
+        rowsProducedCount,
+        rowsReadCount,
+        spillToDiskBytes,
+        taskTotalTimeMs,
+        totalFilesCount,
+        totalPartitionsCount,
+        totalTimeMs,
+        writeRemoteBytes);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(QueryMetrics.class)
+        .add("compilationTimeMs", compilationTimeMs)
+        .add("executionTimeMs", executionTimeMs)
+        .add("networkSentBytes", networkSentBytes)
+        .add("photonTotalTimeMs", photonTotalTimeMs)
+        .add("queuedOverloadTimeMs", queuedOverloadTimeMs)
+        .add("queuedProvisioningTimeMs", queuedProvisioningTimeMs)
+        .add("readBytes", readBytes)
+        .add("readCacheBytes", readCacheBytes)
+        .add("readFilesCount", readFilesCount)
+        .add("readPartitionsCount", readPartitionsCount)
+        .add("readRemoteBytes", readRemoteBytes)
+        .add("resultFetchTimeMs", resultFetchTimeMs)
+        .add("resultFromCache", resultFromCache)
+        .add("rowsProducedCount", rowsProducedCount)
+        .add("rowsReadCount", rowsReadCount)
+        .add("spillToDiskBytes", spillToDiskBytes)
+        .add("taskTotalTimeMs", taskTotalTimeMs)
+        .add("totalFilesCount", totalFilesCount)
+        .add("totalPartitionsCount", totalPartitionsCount)
+        .add("totalTimeMs", totalTimeMs)
+        .add("writeRemoteBytes", writeRemoteBytes)
+        .toString();
   }
 }

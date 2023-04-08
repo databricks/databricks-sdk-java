@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class SparkNode {
   /** The private IP address of the host instance. */
@@ -109,5 +111,38 @@ public class SparkNode {
 
   public Long getStartTimestamp() {
     return startTimestamp;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SparkNode that = (SparkNode) o;
+    return Objects.equals(hostPrivateIp, that.hostPrivateIp)
+        && Objects.equals(instanceId, that.instanceId)
+        && Objects.equals(nodeAwsAttributes, that.nodeAwsAttributes)
+        && Objects.equals(nodeId, that.nodeId)
+        && Objects.equals(privateIp, that.privateIp)
+        && Objects.equals(publicDns, that.publicDns)
+        && Objects.equals(startTimestamp, that.startTimestamp);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        hostPrivateIp, instanceId, nodeAwsAttributes, nodeId, privateIp, publicDns, startTimestamp);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SparkNode.class)
+        .add("hostPrivateIp", hostPrivateIp)
+        .add("instanceId", instanceId)
+        .add("nodeAwsAttributes", nodeAwsAttributes)
+        .add("nodeId", nodeId)
+        .add("privateIp", privateIp)
+        .add("publicDns", publicDns)
+        .add("startTimestamp", startTimestamp)
+        .toString();
   }
 }

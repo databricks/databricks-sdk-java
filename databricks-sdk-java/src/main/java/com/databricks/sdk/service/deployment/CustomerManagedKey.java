@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.deployment;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 public class CustomerManagedKey {
   /** The Databricks account ID that holds the customer-managed key. */
@@ -23,7 +26,7 @@ public class CustomerManagedKey {
 
   /** The cases that the key can be used for. */
   @JsonProperty("use_cases")
-  private java.util.List<KeyUseCase> useCases;
+  private Collection<KeyUseCase> useCases;
 
   public CustomerManagedKey setAccountId(String accountId) {
     this.accountId = accountId;
@@ -61,12 +64,40 @@ public class CustomerManagedKey {
     return customerManagedKeyId;
   }
 
-  public CustomerManagedKey setUseCases(java.util.List<KeyUseCase> useCases) {
+  public CustomerManagedKey setUseCases(Collection<KeyUseCase> useCases) {
     this.useCases = useCases;
     return this;
   }
 
-  public java.util.List<KeyUseCase> getUseCases() {
+  public Collection<KeyUseCase> getUseCases() {
     return useCases;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CustomerManagedKey that = (CustomerManagedKey) o;
+    return Objects.equals(accountId, that.accountId)
+        && Objects.equals(awsKeyInfo, that.awsKeyInfo)
+        && Objects.equals(creationTime, that.creationTime)
+        && Objects.equals(customerManagedKeyId, that.customerManagedKeyId)
+        && Objects.equals(useCases, that.useCases);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accountId, awsKeyInfo, creationTime, customerManagedKeyId, useCases);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CustomerManagedKey.class)
+        .add("accountId", accountId)
+        .add("awsKeyInfo", awsKeyInfo)
+        .add("creationTime", creationTime)
+        .add("customerManagedKeyId", customerManagedKeyId)
+        .add("useCases", useCases)
+        .toString();
   }
 }

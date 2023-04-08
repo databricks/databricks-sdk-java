@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.endpoints;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateServingEndpoint {
   /** The core config of the serving endpoint. */
@@ -32,5 +34,26 @@ public class CreateServingEndpoint {
 
   public String getName() {
     return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateServingEndpoint that = (CreateServingEndpoint) o;
+    return Objects.equals(config, that.config) && Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(config, name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateServingEndpoint.class)
+        .add("config", config)
+        .add("name", name)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusterpolicies;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class EditPolicy {
   /** Policy definition document expressed in Databricks Cluster Policy Definition Language. */
@@ -112,5 +114,44 @@ public class EditPolicy {
 
   public String getPolicyId() {
     return policyId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EditPolicy that = (EditPolicy) o;
+    return Objects.equals(definition, that.definition)
+        && Objects.equals(description, that.description)
+        && Objects.equals(maxClustersPerUser, that.maxClustersPerUser)
+        && Objects.equals(name, that.name)
+        && Objects.equals(policyFamilyDefinitionOverrides, that.policyFamilyDefinitionOverrides)
+        && Objects.equals(policyFamilyId, that.policyFamilyId)
+        && Objects.equals(policyId, that.policyId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        definition,
+        description,
+        maxClustersPerUser,
+        name,
+        policyFamilyDefinitionOverrides,
+        policyFamilyId,
+        policyId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EditPolicy.class)
+        .add("definition", definition)
+        .add("description", description)
+        .add("maxClustersPerUser", maxClustersPerUser)
+        .add("name", name)
+        .add("policyFamilyDefinitionOverrides", policyFamilyDefinitionOverrides)
+        .add("policyFamilyId", policyFamilyId)
+        .add("policyId", policyId)
+        .toString();
   }
 }

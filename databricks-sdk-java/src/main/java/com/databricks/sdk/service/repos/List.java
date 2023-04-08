@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.repos;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get repos */
 public class List {
@@ -33,5 +35,27 @@ public class List {
 
   public String getPathPrefix() {
     return pathPrefix;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    List that = (List) o;
+    return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(pathPrefix, that.pathPrefix);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nextPageToken, pathPrefix);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(List.class)
+        .add("nextPageToken", nextPageToken)
+        .add("pathPrefix", pathPrefix)
+        .toString();
   }
 }

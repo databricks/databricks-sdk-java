@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.dbfs;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get the contents of a file */
 public class Read {
@@ -46,5 +48,29 @@ public class Read {
 
   public String getPath() {
     return path;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Read that = (Read) o;
+    return Objects.equals(length, that.length)
+        && Objects.equals(offset, that.offset)
+        && Objects.equals(path, that.path);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(length, offset, path);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Read.class)
+        .add("length", length)
+        .add("offset", offset)
+        .add("path", path)
+        .toString();
   }
 }

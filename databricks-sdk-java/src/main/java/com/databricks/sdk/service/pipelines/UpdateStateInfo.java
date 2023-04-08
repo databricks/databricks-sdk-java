@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateStateInfo {
   /** */
@@ -42,5 +44,29 @@ public class UpdateStateInfo {
 
   public String getUpdateId() {
     return updateId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateStateInfo that = (UpdateStateInfo) o;
+    return Objects.equals(creationTime, that.creationTime)
+        && Objects.equals(state, that.state)
+        && Objects.equals(updateId, that.updateId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(creationTime, state, updateId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateStateInfo.class)
+        .add("creationTime", creationTime)
+        .add("state", state)
+        .add("updateId", updateId)
+        .toString();
   }
 }

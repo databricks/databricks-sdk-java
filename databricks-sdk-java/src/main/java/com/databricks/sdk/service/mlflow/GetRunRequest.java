@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** Get a run */
 public class GetRunRequest {
@@ -33,5 +35,26 @@ public class GetRunRequest {
 
   public String getRunUuid() {
     return runUuid;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetRunRequest that = (GetRunRequest) o;
+    return Objects.equals(runId, that.runId) && Objects.equals(runUuid, that.runUuid);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(runId, runUuid);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetRunRequest.class)
+        .add("runId", runId)
+        .add("runUuid", runUuid)
+        .toString();
   }
 }

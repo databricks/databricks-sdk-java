@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateStorageCredential {
   /** The AWS IAM role configuration. */
@@ -108,5 +110,47 @@ public class CreateStorageCredential {
 
   public Boolean getSkipValidation() {
     return skipValidation;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateStorageCredential that = (CreateStorageCredential) o;
+    return Objects.equals(awsIamRole, that.awsIamRole)
+        && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
+        && Objects.equals(comment, that.comment)
+        && Objects.equals(gcpServiceAccountKey, that.gcpServiceAccountKey)
+        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(name, that.name)
+        && Objects.equals(readOnly, that.readOnly)
+        && Objects.equals(skipValidation, that.skipValidation);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        awsIamRole,
+        azureServicePrincipal,
+        comment,
+        gcpServiceAccountKey,
+        metastoreId,
+        name,
+        readOnly,
+        skipValidation);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateStorageCredential.class)
+        .add("awsIamRole", awsIamRole)
+        .add("azureServicePrincipal", azureServicePrincipal)
+        .add("comment", comment)
+        .add("gcpServiceAccountKey", gcpServiceAccountKey)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .add("readOnly", readOnly)
+        .add("skipValidation", skipValidation)
+        .toString();
   }
 }

@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of Alerts */
@@ -32,9 +32,9 @@ class AlertsImpl implements AlertsService {
   }
 
   @Override
-  public List<Alert> list() {
+  public Collection<Alert> list() {
     String path = "/api/2.0/preview/sql/alerts";
-    return apiClient.GET(path, List.class);
+    return apiClient.GET(path, Collection.class);
   }
 
   @Override

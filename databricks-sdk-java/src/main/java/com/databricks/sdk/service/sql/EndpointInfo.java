@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class EndpointInfo {
   /**
@@ -308,5 +310,83 @@ public class EndpointInfo {
 
   public WarehouseType getWarehouseType() {
     return warehouseType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EndpointInfo that = (EndpointInfo) o;
+    return Objects.equals(autoStopMins, that.autoStopMins)
+        && Objects.equals(channel, that.channel)
+        && Objects.equals(clusterSize, that.clusterSize)
+        && Objects.equals(creatorName, that.creatorName)
+        && Objects.equals(enablePhoton, that.enablePhoton)
+        && Objects.equals(enableServerlessCompute, that.enableServerlessCompute)
+        && Objects.equals(health, that.health)
+        && Objects.equals(id, that.id)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(jdbcUrl, that.jdbcUrl)
+        && Objects.equals(maxNumClusters, that.maxNumClusters)
+        && Objects.equals(minNumClusters, that.minNumClusters)
+        && Objects.equals(name, that.name)
+        && Objects.equals(numActiveSessions, that.numActiveSessions)
+        && Objects.equals(numClusters, that.numClusters)
+        && Objects.equals(odbcParams, that.odbcParams)
+        && Objects.equals(spotInstancePolicy, that.spotInstancePolicy)
+        && Objects.equals(state, that.state)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(warehouseType, that.warehouseType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        autoStopMins,
+        channel,
+        clusterSize,
+        creatorName,
+        enablePhoton,
+        enableServerlessCompute,
+        health,
+        id,
+        instanceProfileArn,
+        jdbcUrl,
+        maxNumClusters,
+        minNumClusters,
+        name,
+        numActiveSessions,
+        numClusters,
+        odbcParams,
+        spotInstancePolicy,
+        state,
+        tags,
+        warehouseType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EndpointInfo.class)
+        .add("autoStopMins", autoStopMins)
+        .add("channel", channel)
+        .add("clusterSize", clusterSize)
+        .add("creatorName", creatorName)
+        .add("enablePhoton", enablePhoton)
+        .add("enableServerlessCompute", enableServerlessCompute)
+        .add("health", health)
+        .add("id", id)
+        .add("instanceProfileArn", instanceProfileArn)
+        .add("jdbcUrl", jdbcUrl)
+        .add("maxNumClusters", maxNumClusters)
+        .add("minNumClusters", minNumClusters)
+        .add("name", name)
+        .add("numActiveSessions", numActiveSessions)
+        .add("numClusters", numClusters)
+        .add("odbcParams", odbcParams)
+        .add("spotInstancePolicy", spotInstancePolicy)
+        .add("state", state)
+        .add("tags", tags)
+        .add("warehouseType", warehouseType)
+        .toString();
   }
 }

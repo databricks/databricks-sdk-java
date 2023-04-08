@@ -3,6 +3,8 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 /** List runs for a job */
 public class ListRuns {
@@ -137,5 +139,50 @@ public class ListRuns {
 
   public Long getStartTimeTo() {
     return startTimeTo;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListRuns that = (ListRuns) o;
+    return Objects.equals(activeOnly, that.activeOnly)
+        && Objects.equals(completedOnly, that.completedOnly)
+        && Objects.equals(expandTasks, that.expandTasks)
+        && Objects.equals(jobId, that.jobId)
+        && Objects.equals(limit, that.limit)
+        && Objects.equals(offset, that.offset)
+        && Objects.equals(runType, that.runType)
+        && Objects.equals(startTimeFrom, that.startTimeFrom)
+        && Objects.equals(startTimeTo, that.startTimeTo);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        activeOnly,
+        completedOnly,
+        expandTasks,
+        jobId,
+        limit,
+        offset,
+        runType,
+        startTimeFrom,
+        startTimeTo);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListRuns.class)
+        .add("activeOnly", activeOnly)
+        .add("completedOnly", completedOnly)
+        .add("expandTasks", expandTasks)
+        .add("jobId", jobId)
+        .add("limit", limit)
+        .add("offset", offset)
+        .add("runType", runType)
+        .add("startTimeFrom", startTimeFrom)
+        .add("startTimeTo", startTimeTo)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateFunction {
   /**
@@ -31,5 +33,23 @@ public class UpdateFunction {
 
   public String getOwner() {
     return owner;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateFunction that = (UpdateFunction) o;
+    return Objects.equals(name, that.name) && Objects.equals(owner, that.owner);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, owner);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateFunction.class).add("name", name).add("owner", owner).toString();
   }
 }

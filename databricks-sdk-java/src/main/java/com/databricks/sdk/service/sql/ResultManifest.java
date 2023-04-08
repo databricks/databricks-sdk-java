@@ -2,13 +2,16 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 /** The result manifest provides schema and metadata for the result set. */
 public class ResultManifest {
   /** Array of result set chunk metadata. */
   @JsonProperty("chunks")
-  private java.util.List<ChunkInfo> chunks;
+  private Collection<ChunkInfo> chunks;
 
   /**
    * Statement execution supports two result formats: `JSON_ARRAY` (default), and `ARROW_STREAM`.
@@ -54,12 +57,12 @@ public class ResultManifest {
   @JsonProperty("total_row_count")
   private Long totalRowCount;
 
-  public ResultManifest setChunks(java.util.List<ChunkInfo> chunks) {
+  public ResultManifest setChunks(Collection<ChunkInfo> chunks) {
     this.chunks = chunks;
     return this;
   }
 
-  public java.util.List<ChunkInfo> getChunks() {
+  public Collection<ChunkInfo> getChunks() {
     return chunks;
   }
 
@@ -106,5 +109,35 @@ public class ResultManifest {
 
   public Long getTotalRowCount() {
     return totalRowCount;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ResultManifest that = (ResultManifest) o;
+    return Objects.equals(chunks, that.chunks)
+        && Objects.equals(format, that.format)
+        && Objects.equals(schema, that.schema)
+        && Objects.equals(totalByteCount, that.totalByteCount)
+        && Objects.equals(totalChunkCount, that.totalChunkCount)
+        && Objects.equals(totalRowCount, that.totalRowCount);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(chunks, format, schema, totalByteCount, totalChunkCount, totalRowCount);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ResultManifest.class)
+        .add("chunks", chunks)
+        .add("format", format)
+        .add("schema", schema)
+        .add("totalByteCount", totalByteCount)
+        .add("totalChunkCount", totalChunkCount)
+        .add("totalRowCount", totalRowCount)
+        .toString();
   }
 }

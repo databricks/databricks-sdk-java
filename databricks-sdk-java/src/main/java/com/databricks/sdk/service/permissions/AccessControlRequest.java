@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.permissions;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class AccessControlRequest {
   /** name of the group */
@@ -55,5 +57,31 @@ public class AccessControlRequest {
 
   public String getUserName() {
     return userName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AccessControlRequest that = (AccessControlRequest) o;
+    return Objects.equals(groupName, that.groupName)
+        && Objects.equals(permissionLevel, that.permissionLevel)
+        && Objects.equals(servicePrincipalName, that.servicePrincipalName)
+        && Objects.equals(userName, that.userName);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(groupName, permissionLevel, servicePrincipalName, userName);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(AccessControlRequest.class)
+        .add("groupName", groupName)
+        .add("permissionLevel", permissionLevel)
+        .add("servicePrincipalName", servicePrincipalName)
+        .add("userName", userName)
+        .toString();
   }
 }

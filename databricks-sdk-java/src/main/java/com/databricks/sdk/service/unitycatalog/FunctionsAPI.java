@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -30,13 +30,13 @@ public class FunctionsAPI {
       String name,
       String catalogName,
       String schemaName,
-      List<FunctionParameterInfo> inputParams,
+      Collection<FunctionParameterInfo> inputParams,
       ColumnTypeName dataType,
       String fullDataType,
-      List<FunctionParameterInfo> returnParams,
+      Collection<FunctionParameterInfo> returnParams,
       CreateFunctionRoutineBody routineBody,
       String routineDefinition,
-      List<Dependency> routineDependencies,
+      Collection<Dependency> routineDependencies,
       CreateFunctionParameterStyle parameterStyle,
       boolean isDeterministic,
       CreateFunctionSqlDataAccess sqlDataAccess,

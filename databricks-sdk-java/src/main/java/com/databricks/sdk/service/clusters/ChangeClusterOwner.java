@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class ChangeClusterOwner {
   /** <needs content added> */
@@ -29,5 +31,27 @@ public class ChangeClusterOwner {
 
   public String getOwnerUsername() {
     return ownerUsername;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ChangeClusterOwner that = (ChangeClusterOwner) o;
+    return Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(ownerUsername, that.ownerUsername);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId, ownerUsername);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ChangeClusterOwner.class)
+        .add("clusterId", clusterId)
+        .add("ownerUsername", ownerUsername)
+        .toString();
   }
 }

@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.clusters;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class S3StorageInfo {
   /**
@@ -118,5 +120,38 @@ public class S3StorageInfo {
 
   public String getRegion() {
     return region;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    S3StorageInfo that = (S3StorageInfo) o;
+    return Objects.equals(cannedAcl, that.cannedAcl)
+        && Objects.equals(destination, that.destination)
+        && Objects.equals(enableEncryption, that.enableEncryption)
+        && Objects.equals(encryptionType, that.encryptionType)
+        && Objects.equals(endpoint, that.endpoint)
+        && Objects.equals(kmsKey, that.kmsKey)
+        && Objects.equals(region, that.region);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        cannedAcl, destination, enableEncryption, encryptionType, endpoint, kmsKey, region);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(S3StorageInfo.class)
+        .add("cannedAcl", cannedAcl)
+        .add("destination", destination)
+        .add("enableEncryption", enableEncryption)
+        .add("encryptionType", encryptionType)
+        .add("endpoint", endpoint)
+        .add("kmsKey", kmsKey)
+        .add("region", region)
+        .toString();
   }
 }

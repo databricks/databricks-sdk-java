@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
 /** Create a dashboard object */
 public class CreateDashboardRequest {
@@ -36,7 +39,7 @@ public class CreateDashboardRequest {
 
   /** */
   @JsonProperty("tags")
-  private java.util.List<String> tags;
+  private Collection<String> tags;
 
   /**
    * An array of widget objects. A complete description of widget objects can be found in the
@@ -44,7 +47,7 @@ public class CreateDashboardRequest {
    * Databricks does not recommend creating new widgets via this API.
    */
   @JsonProperty("widgets")
-  private java.util.List<Widget> widgets;
+  private Collection<Widget> widgets;
 
   public CreateDashboardRequest setDashboardFiltersEnabled(Boolean dashboardFiltersEnabled) {
     this.dashboardFiltersEnabled = dashboardFiltersEnabled;
@@ -91,21 +94,53 @@ public class CreateDashboardRequest {
     return parent;
   }
 
-  public CreateDashboardRequest setTags(java.util.List<String> tags) {
+  public CreateDashboardRequest setTags(Collection<String> tags) {
     this.tags = tags;
     return this;
   }
 
-  public java.util.List<String> getTags() {
+  public Collection<String> getTags() {
     return tags;
   }
 
-  public CreateDashboardRequest setWidgets(java.util.List<Widget> widgets) {
+  public CreateDashboardRequest setWidgets(Collection<Widget> widgets) {
     this.widgets = widgets;
     return this;
   }
 
-  public java.util.List<Widget> getWidgets() {
+  public Collection<Widget> getWidgets() {
     return widgets;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateDashboardRequest that = (CreateDashboardRequest) o;
+    return Objects.equals(dashboardFiltersEnabled, that.dashboardFiltersEnabled)
+        && Objects.equals(isDraft, that.isDraft)
+        && Objects.equals(isTrashed, that.isTrashed)
+        && Objects.equals(name, that.name)
+        && Objects.equals(parent, that.parent)
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(widgets, that.widgets);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(dashboardFiltersEnabled, isDraft, isTrashed, name, parent, tags, widgets);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateDashboardRequest.class)
+        .add("dashboardFiltersEnabled", dashboardFiltersEnabled)
+        .add("isDraft", isDraft)
+        .add("isTrashed", isTrashed)
+        .add("name", name)
+        .add("parent", parent)
+        .add("tags", tags)
+        .add("widgets", widgets)
+        .toString();
   }
 }

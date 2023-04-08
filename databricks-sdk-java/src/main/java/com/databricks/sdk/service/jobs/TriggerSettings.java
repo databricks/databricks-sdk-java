@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class TriggerSettings {
   /** File arrival trigger settings. */
@@ -29,5 +31,27 @@ public class TriggerSettings {
 
   public TriggerSettingsPauseStatus getPauseStatus() {
     return pauseStatus;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TriggerSettings that = (TriggerSettings) o;
+    return Objects.equals(fileArrival, that.fileArrival)
+        && Objects.equals(pauseStatus, that.pauseStatus);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fileArrival, pauseStatus);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TriggerSettings.class)
+        .add("fileArrival", fileArrival)
+        .add("pauseStatus", pauseStatus)
+        .toString();
   }
 }

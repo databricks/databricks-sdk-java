@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.List;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of Credentials */
@@ -32,8 +32,8 @@ class CredentialsImpl implements CredentialsService {
   }
 
   @Override
-  public List<Credential> list() {
+  public Collection<Credential> list() {
     String path = String.format("/api/2.0/accounts//credentials");
-    return apiClient.GET(path, List.class);
+    return apiClient.GET(path, Collection.class);
   }
 }

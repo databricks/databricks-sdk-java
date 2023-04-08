@@ -1,7 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * These APIs manage VPC endpoint configurations for this account. This object registers an AWS VPC
@@ -79,5 +79,5 @@ public interface VpcEndpointsService {
    * <p>[Databricks article about PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  List<VpcEndpoint> list();
+  Collection<VpcEndpoint> list();
 }

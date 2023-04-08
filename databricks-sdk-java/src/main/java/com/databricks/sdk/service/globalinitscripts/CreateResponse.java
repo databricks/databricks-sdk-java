@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.globalinitscripts;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class CreateResponse {
   /** The global init script ID. */
@@ -16,5 +18,23 @@ public class CreateResponse {
 
   public String getScriptId() {
     return scriptId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateResponse that = (CreateResponse) o;
+    return Objects.equals(scriptId, that.scriptId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(scriptId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateResponse.class).add("scriptId", scriptId).toString();
   }
 }

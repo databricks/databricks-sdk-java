@@ -2,7 +2,9 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 public class UpdateLogDeliveryConfigurationStatusRequest {
   /** Databricks log delivery configuration ID */
@@ -34,5 +36,28 @@ public class UpdateLogDeliveryConfigurationStatusRequest {
 
   public LogDeliveryConfigStatus getStatus() {
     return status;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateLogDeliveryConfigurationStatusRequest that =
+        (UpdateLogDeliveryConfigurationStatusRequest) o;
+    return Objects.equals(logDeliveryConfigurationId, that.logDeliveryConfigurationId)
+        && Objects.equals(status, that.status);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(logDeliveryConfigurationId, status);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateLogDeliveryConfigurationStatusRequest.class)
+        .add("logDeliveryConfigurationId", logDeliveryConfigurationId)
+        .add("status", status)
+        .toString();
   }
 }
