@@ -2,7 +2,6 @@
 
 package com.databricks.sdk.service.sql;
 
-/** Name of the channel */
 public enum ChannelName {
   CHANNEL_NAME_CURRENT,
   CHANNEL_NAME_CUSTOM,

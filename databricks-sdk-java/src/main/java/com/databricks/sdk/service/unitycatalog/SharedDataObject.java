@@ -39,8 +39,8 @@ public class SharedDataObject {
   private java.util.List<Partition> partitions;
 
   /**
-   * A user-provided new name for the data object within the share. If this
-   * new name is not provided, the object's original name will be used as the
+   * A user-provided new name for the data object within the share. If this new
+   * name is not provided, the object's original name will be used as the
    * `shared_as` name. The `shared_as` name must be unique within a share. For
    * tables, the new name must follow the format of `<schema>.<table>`.
    */

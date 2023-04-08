@@ -13,30 +13,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */{{end}}
 {{if .Fields -}}
 public class {{.PascalName}} {
-    {{- range .Fields}}
-    /**
-     {{.Comment "     * " 80}}
-     */
-    {{if .IsJson}}@JsonProperty("{{.Name}}"){{end}}{{if .IsQuery}}@QueryParam("{{.Name}}"){{end}}
-    private {{template "type" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}};
-    {{end}}
+  {{- range .Fields}}
+  /**
+   {{.Comment "   * " 80}}
+   */
+  {{if .IsJson}}@JsonProperty("{{.Name}}"){{end}}{{if .IsQuery}}@QueryParam("{{.Name}}"){{end}}
+  private {{template "type" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}};
+  {{end}}
 
-    {{- range .Fields}}
-    public {{template "type" .Of}} set{{.PascalName}}({{template "type" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}}) {
-        this.{{.CamelName}}{{if .IsNameReserved}}Value{{end}} = {{.CamelName}}{{if .IsNameReserved}}Value{{end}};
-        return this;
-    }
+  {{- range .Fields}}
+  public {{template "type" .Of}} set{{.PascalName}}({{template "type" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}}) {
+    this.{{.CamelName}}{{if .IsNameReserved}}Value{{end}} = {{.CamelName}}{{if .IsNameReserved}}Value{{end}};
+    return this;
+  }
 
-    public {{template "type" .Entity }} get{{.PascalName}}() {
-        return {{.CamelName}}{{if .IsNameReserved}}Value{{end}};
-    }
-    {{end}}
+  public {{template "type" .Entity }} get{{.PascalName}}() {
+    return {{.CamelName}}{{if .IsNameReserved}}Value{{end}};
+  }
+  {{end}}
 }
 {{else if .ArrayValue}}// type {{.PascalName}} []{{template "type" .ArrayValue}}
 {{else if .MapValue}}// type {{.PascalName}} {{template "type" .}}
 {{else if .Enum}}public enum {{.PascalName}}{
-    {{range .Enum }}{{.Content}},{{.Comment "// " 80}}
-    {{end}}
+  {{range .Enum }}{{.Content}},{{.Comment "// " 80}}
+  {{end}}
 }{{end}}
 
 {{- define "type" -}}

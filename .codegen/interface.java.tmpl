@@ -14,10 +14,10 @@ import java.util.Map;
 public interface {{.PascalName}}Service {
 	{{- range .Methods}}
 	{{if .Description}}/**
-     {{.Comment "     * " 80}}
-     */{{end}}
-    {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} {{.Request.CamelName}}{{if .IsNameReserved}}Content{{end}}{{end}});
-    {{end}}
+   {{.Comment "   * " 80}}
+   */{{end}}
+  {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} {{.Request.CamelName}}{{if .IsNameReserved}}Content{{end}}{{end}});
+  {{end}}
 }
 {{- define "type" -}}
 	{{- if not . }}Object /* ERROR */

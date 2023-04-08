@@ -14,26 +14,26 @@ import com.databricks.sdk.client.DatabricksException;
  {{.Comment " * " 80}}
  */{{end}}
 public class {{.PascalName}}API {
-    private final {{.PascalName}}Service impl;
+  private final {{.PascalName}}Service impl;
 
-    /** Regular-use constructor */
-    public {{.PascalName}}API(ApiClient apiClient) {
-        impl = new {{.PascalName}}Impl(apiClient);
-    }
+  /** Regular-use constructor */
+  public {{.PascalName}}API(ApiClient apiClient) {
+    impl = new {{.PascalName}}Impl(apiClient);
+  }
 
-    /** Constructor for mocks */
-    public {{.PascalName}}API({{.PascalName}}Service mock) {
-        impl = mock;
-    }
+  /** Constructor for mocks */
+  public {{.PascalName}}API({{.PascalName}}Service mock) {
+    impl = mock;
+  }
 	{{range .Methods}}
 	{{if .Description}}/**
-     {{.Comment "     * " 80}}
-     */{{end}}
-    public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
-        {{if .Response -}}return {{end}}impl.{{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}request{{end}});
-    }
-    {{end}}
-    public {{.PascalName}}Service impl() {
-        return impl;
-    }
+   {{.Comment "   * " 80}}
+   */{{end}}
+  public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
+    {{if .Response -}}return {{end}}impl.{{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}request{{end}});
+  }
+  {{end}}
+  public {{.PascalName}}Service impl() {
+    return impl;
+  }
 }
