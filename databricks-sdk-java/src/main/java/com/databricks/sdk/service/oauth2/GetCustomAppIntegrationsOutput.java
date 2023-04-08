@@ -2,27 +2,20 @@
 
 package com.databricks.sdk.service.oauth2;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class GetCustomAppIntegrationsOutput {
-    /**
-     * Array of Custom OAuth App Integrations defined for the account.
-     */
-    @JsonProperty("apps")
-    private java.util.List<GetCustomAppIntegrationOutput> apps;
-    
-    public GetCustomAppIntegrationsOutput setApps(java.util.List<GetCustomAppIntegrationOutput> apps) {
-        this.apps = apps;
-        return this;
-    }
+  /** Array of Custom OAuth App Integrations defined for the account. */
+  @JsonProperty("apps")
+  private java.util.List<GetCustomAppIntegrationOutput> apps;
 
-    public java.util.List<GetCustomAppIntegrationOutput> getApps() {
-        return apps;
-    }
-    
+  public GetCustomAppIntegrationsOutput setApps(
+      java.util.List<GetCustomAppIntegrationOutput> apps) {
+    this.apps = apps;
+    return this;
+  }
+
+  public java.util.List<GetCustomAppIntegrationOutput> getApps() {
+    return apps;
+  }
 }

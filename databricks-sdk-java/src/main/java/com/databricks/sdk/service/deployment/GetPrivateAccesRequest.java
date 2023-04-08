@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get a private access settings object
- */
+/** Get a private access settings object */
 public class GetPrivateAccesRequest {
-    /**
-     * Databricks Account API private access settings ID.
-     */
-    
-    private String privateAccessSettingsId;
-    
-    public GetPrivateAccesRequest setPrivateAccessSettingsId(String privateAccessSettingsId) {
-        this.privateAccessSettingsId = privateAccessSettingsId;
-        return this;
-    }
+  /** Databricks Account API private access settings ID. */
+  private String privateAccessSettingsId;
 
-    public String getPrivateAccessSettingsId() {
-        return privateAccessSettingsId;
-    }
-    
+  public GetPrivateAccesRequest setPrivateAccessSettingsId(String privateAccessSettingsId) {
+    this.privateAccessSettingsId = privateAccessSettingsId;
+    return this;
+  }
+
+  public String getPrivateAccessSettingsId() {
+    return privateAccessSettingsId;
+  }
 }

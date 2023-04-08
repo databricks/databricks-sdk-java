@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.commands;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class Created {
-    /**
-     
-     */
-    @JsonProperty("id")
-    private String id;
-    
-    public Created setId(String id) {
-        this.id = id;
-        return this;
-    }
+  /** */
+  @JsonProperty("id")
+  private String id;
 
-    public String getId() {
-        return id;
-    }
-    
+  public Created setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
+  }
 }

@@ -8,7 +8,9 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ConfigAttribute {
-    String value();
-    String env() default "";
-    boolean sensitive() default false;
+  String value();
+
+  String env() default "";
+
+  boolean sensitive() default false;
 }

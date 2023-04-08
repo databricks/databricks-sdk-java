@@ -2,15 +2,7 @@
 
 package com.databricks.sdk.service.instancepools;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum DiskTypeAzureDiskVolumeType{
-    PREMIUM_LRS,
-    STANDARD_LRS,
-    
+public enum DiskTypeAzureDiskVolumeType {
+  PREMIUM_LRS,
+  STANDARD_LRS,
 }

@@ -2,27 +2,20 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListInstanceProfilesResponse {
-    /**
-     * A list of instance profiles that the user can access.
-     */
-    @JsonProperty("instance_profiles")
-    private java.util.List<InstanceProfile> instanceProfiles;
-    
-    public ListInstanceProfilesResponse setInstanceProfiles(java.util.List<InstanceProfile> instanceProfiles) {
-        this.instanceProfiles = instanceProfiles;
-        return this;
-    }
+  /** A list of instance profiles that the user can access. */
+  @JsonProperty("instance_profiles")
+  private java.util.List<InstanceProfile> instanceProfiles;
 
-    public java.util.List<InstanceProfile> getInstanceProfiles() {
-        return instanceProfiles;
-    }
-    
+  public ListInstanceProfilesResponse setInstanceProfiles(
+      java.util.List<InstanceProfile> instanceProfiles) {
+    this.instanceProfiles = instanceProfiles;
+    return this;
+  }
+
+  public java.util.List<InstanceProfile> getInstanceProfiles() {
+    return instanceProfiles;
+  }
 }

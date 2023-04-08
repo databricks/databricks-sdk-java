@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class PipelineTask {
-    /**
-     * If true, a full refresh will be triggered on the delta live table.
-     */
-    @JsonProperty("full_refresh")
-    private Boolean fullRefresh;
-    
-    /**
-     * The full name of the pipeline task to execute.
-     */
-    @JsonProperty("pipeline_id")
-    private String pipelineId;
-    
-    public PipelineTask setFullRefresh(Boolean fullRefresh) {
-        this.fullRefresh = fullRefresh;
-        return this;
-    }
+  /** If true, a full refresh will be triggered on the delta live table. */
+  @JsonProperty("full_refresh")
+  private Boolean fullRefresh;
 
-    public Boolean getFullRefresh() {
-        return fullRefresh;
-    }
-    
-    public PipelineTask setPipelineId(String pipelineId) {
-        this.pipelineId = pipelineId;
-        return this;
-    }
+  /** The full name of the pipeline task to execute. */
+  @JsonProperty("pipeline_id")
+  private String pipelineId;
 
-    public String getPipelineId() {
-        return pipelineId;
-    }
-    
+  public PipelineTask setFullRefresh(Boolean fullRefresh) {
+    this.fullRefresh = fullRefresh;
+    return this;
+  }
+
+  public Boolean getFullRefresh() {
+    return fullRefresh;
+  }
+
+  public PipelineTask setPipelineId(String pipelineId) {
+    this.pipelineId = pipelineId;
+    return this;
+  }
+
+  public String getPipelineId() {
+    return pipelineId;
+  }
 }

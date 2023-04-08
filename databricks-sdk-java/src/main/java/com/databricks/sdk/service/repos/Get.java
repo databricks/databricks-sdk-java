@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.repos;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get a repo
- */
+/** Get a repo */
 public class Get {
-    /**
-     * The ID for the corresponding repo to access.
-     */
-    
-    private Long repoId;
-    
-    public Get setRepoId(Long repoId) {
-        this.repoId = repoId;
-        return this;
-    }
+  /** The ID for the corresponding repo to access. */
+  private Long repoId;
 
-    public Long getRepoId() {
-        return repoId;
-    }
-    
+  public Get setRepoId(Long repoId) {
+    this.repoId = repoId;
+    return this;
+  }
+
+  public Long getRepoId() {
+    return repoId;
+  }
 }

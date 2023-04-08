@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.billing;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class BudgetWithStatusStatusDailyItem {
-    /**
-     * Amount used in this day in USD.
-     */
-    @JsonProperty("amount")
-    private String amount;
-    
-    /**
-     
-     */
-    @JsonProperty("date")
-    private String date;
-    
-    public BudgetWithStatusStatusDailyItem setAmount(String amount) {
-        this.amount = amount;
-        return this;
-    }
+  /** Amount used in this day in USD. */
+  @JsonProperty("amount")
+  private String amount;
 
-    public String getAmount() {
-        return amount;
-    }
-    
-    public BudgetWithStatusStatusDailyItem setDate(String date) {
-        this.date = date;
-        return this;
-    }
+  /** */
+  @JsonProperty("date")
+  private String date;
 
-    public String getDate() {
-        return date;
-    }
-    
+  public BudgetWithStatusStatusDailyItem setAmount(String amount) {
+    this.amount = amount;
+    return this;
+  }
+
+  public String getAmount() {
+    return amount;
+  }
+
+  public BudgetWithStatusStatusDailyItem setDate(String date) {
+    this.date = date;
+    return this;
+  }
+
+  public String getDate() {
+    return date;
+  }
 }

@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class CreateResponse {
-    /**
-     * Comment details.
-     */
-    @JsonProperty("comment")
-    private CommentObject comment;
-    
-    public CreateResponse setComment(CommentObject comment) {
-        this.comment = comment;
-        return this;
-    }
+  /** Comment details. */
+  @JsonProperty("comment")
+  private CommentObject comment;
 
-    public CommentObject getComment() {
-        return comment;
-    }
-    
+  public CreateResponse setComment(CommentObject comment) {
+    this.comment = comment;
+    return this;
+  }
+
+  public CommentObject getComment() {
+    return comment;
+  }
 }

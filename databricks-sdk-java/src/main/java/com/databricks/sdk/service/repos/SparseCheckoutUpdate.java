@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.repos;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class SparseCheckoutUpdate {
-    /**
-     * List of patterns to include for sparse checkout.
-     */
-    @JsonProperty("patterns")
-    private java.util.List<String> patterns;
-    
-    public SparseCheckoutUpdate setPatterns(java.util.List<String> patterns) {
-        this.patterns = patterns;
-        return this;
-    }
+  /** List of patterns to include for sparse checkout. */
+  @JsonProperty("patterns")
+  private java.util.List<String> patterns;
 
-    public java.util.List<String> getPatterns() {
-        return patterns;
-    }
-    
+  public SparseCheckoutUpdate setPatterns(java.util.List<String> patterns) {
+    this.patterns = patterns;
+    return this;
+  }
+
+  public java.util.List<String> getPatterns() {
+    return patterns;
+  }
 }

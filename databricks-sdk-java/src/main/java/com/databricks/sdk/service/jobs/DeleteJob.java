@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class DeleteJob {
-    /**
-     * The canonical identifier of the job to delete. This field is required.
-     */
-    @JsonProperty("job_id")
-    private Long jobId;
-    
-    public DeleteJob setJobId(Long jobId) {
-        this.jobId = jobId;
-        return this;
-    }
+  /** The canonical identifier of the job to delete. This field is required. */
+  @JsonProperty("job_id")
+  private Long jobId;
 
-    public Long getJobId() {
-        return jobId;
-    }
-    
+  public DeleteJob setJobId(Long jobId) {
+    this.jobId = jobId;
+    return this;
+  }
+
+  public Long getJobId() {
+    return jobId;
+  }
 }

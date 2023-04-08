@@ -2,27 +2,20 @@
 
 package com.databricks.sdk.service.permissions;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class GetPermissionLevelsResponse {
-    /**
-     * Specific permission levels
-     */
-    @JsonProperty("permission_levels")
-    private java.util.List<PermissionsDescription> permissionLevels;
-    
-    public GetPermissionLevelsResponse setPermissionLevels(java.util.List<PermissionsDescription> permissionLevels) {
-        this.permissionLevels = permissionLevels;
-        return this;
-    }
+  /** Specific permission levels */
+  @JsonProperty("permission_levels")
+  private java.util.List<PermissionsDescription> permissionLevels;
 
-    public java.util.List<PermissionsDescription> getPermissionLevels() {
-        return permissionLevels;
-    }
-    
+  public GetPermissionLevelsResponse setPermissionLevels(
+      java.util.List<PermissionsDescription> permissionLevels) {
+    this.permissionLevels = permissionLevels;
+    return this;
+  }
+
+  public java.util.List<PermissionsDescription> getPermissionLevels() {
+    return permissionLevels;
+  }
 }

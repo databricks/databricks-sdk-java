@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListSharesResponse {
-    /**
-     * An array of data share information objects.
-     */
-    @JsonProperty("shares")
-    private java.util.List<ShareInfo> shares;
-    
-    public ListSharesResponse setShares(java.util.List<ShareInfo> shares) {
-        this.shares = shares;
-        return this;
-    }
+  /** An array of data share information objects. */
+  @JsonProperty("shares")
+  private java.util.List<ShareInfo> shares;
 
-    public java.util.List<ShareInfo> getShares() {
-        return shares;
-    }
-    
+  public ListSharesResponse setShares(java.util.List<ShareInfo> shares) {
+    this.shares = shares;
+    return this;
+  }
+
+  public java.util.List<ShareInfo> getShares() {
+    return shares;
+  }
 }

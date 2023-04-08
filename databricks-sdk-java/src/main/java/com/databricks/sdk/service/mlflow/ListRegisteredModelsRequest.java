@@ -2,44 +2,33 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-/**
- * List models
- */
+/** List models */
 public class ListRegisteredModelsRequest {
-    /**
-     * Maximum number of registered models desired. Max threshold is 1000.
-     */
-    @QueryParam("max_results")
-    private Long maxResults;
-    
-    /**
-     * Pagination token to go to the next page based on a previous query.
-     */
-    @QueryParam("page_token")
-    private String pageToken;
-    
-    public ListRegisteredModelsRequest setMaxResults(Long maxResults) {
-        this.maxResults = maxResults;
-        return this;
-    }
+  /** Maximum number of registered models desired. Max threshold is 1000. */
+  @QueryParam("max_results")
+  private Long maxResults;
 
-    public Long getMaxResults() {
-        return maxResults;
-    }
-    
-    public ListRegisteredModelsRequest setPageToken(String pageToken) {
-        this.pageToken = pageToken;
-        return this;
-    }
+  /** Pagination token to go to the next page based on a previous query. */
+  @QueryParam("page_token")
+  private String pageToken;
 
-    public String getPageToken() {
-        return pageToken;
-    }
-    
+  public ListRegisteredModelsRequest setMaxResults(Long maxResults) {
+    this.maxResults = maxResults;
+    return this;
+  }
+
+  public Long getMaxResults() {
+    return maxResults;
+  }
+
+  public ListRegisteredModelsRequest setPageToken(String pageToken) {
+    this.pageToken = pageToken;
+    return this;
+  }
+
+  public String getPageToken() {
+    return pageToken;
+  }
 }

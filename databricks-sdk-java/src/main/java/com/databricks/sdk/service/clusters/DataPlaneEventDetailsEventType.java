@@ -2,17 +2,8 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * <needs content added>
- */
-public enum DataPlaneEventDetailsEventType{
-    NODE_BLACKLISTED,
-    NODE_EXCLUDED_DECOMMISSIONED,
-    
+/** <needs content added> */
+public enum DataPlaneEventDetailsEventType {
+  NODE_BLACKLISTED,
+  NODE_EXCLUDED_DECOMMISSIONED,
 }

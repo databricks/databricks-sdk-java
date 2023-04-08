@@ -2,43 +2,35 @@
 
 package com.databricks.sdk.service.endpoints;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class Route {
-    /**
-     * The name of the served model this route configures traffic for.
-     */
-    @JsonProperty("served_model_name")
-    private String servedModelName;
-    
-    /**
-     * The percentage of endpoint traffic to send to this route. It must be an
-     * integer between 0 and 100 inclusive.
-     */
-    @JsonProperty("traffic_percentage")
-    private Long trafficPercentage;
-    
-    public Route setServedModelName(String servedModelName) {
-        this.servedModelName = servedModelName;
-        return this;
-    }
+  /** The name of the served model this route configures traffic for. */
+  @JsonProperty("served_model_name")
+  private String servedModelName;
 
-    public String getServedModelName() {
-        return servedModelName;
-    }
-    
-    public Route setTrafficPercentage(Long trafficPercentage) {
-        this.trafficPercentage = trafficPercentage;
-        return this;
-    }
+  /**
+   * The percentage of endpoint traffic to send to this route. It must be an integer between 0 and
+   * 100 inclusive.
+   */
+  @JsonProperty("traffic_percentage")
+  private Long trafficPercentage;
 
-    public Long getTrafficPercentage() {
-        return trafficPercentage;
-    }
-    
+  public Route setServedModelName(String servedModelName) {
+    this.servedModelName = servedModelName;
+    return this;
+  }
+
+  public String getServedModelName() {
+    return servedModelName;
+  }
+
+  public Route setTrafficPercentage(Long trafficPercentage) {
+    this.trafficPercentage = trafficPercentage;
+    return this;
+  }
+
+  public Long getTrafficPercentage() {
+    return trafficPercentage;
+  }
 }

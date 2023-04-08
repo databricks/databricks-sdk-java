@@ -2,19 +2,10 @@
 
 package com.databricks.sdk.service.instancepools;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * lowest-price | diversified | capacity-optimized
- */
-public enum FleetSpotOptionAllocationStrategy{
-    CAPACITY_OPTIMIZED,
-    DIVERSIFIED,
-    LOWEST_PRICE,
-    PRIORITIZED,
-    
+/** lowest-price | diversified | capacity-optimized */
+public enum FleetSpotOptionAllocationStrategy {
+  CAPACITY_OPTIMIZED,
+  DIVERSIFIED,
+  LOWEST_PRICE,
+  PRIORITIZED,
 }

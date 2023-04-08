@@ -2,57 +2,45 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class UpdateStateInfo {
-    /**
-     
-     */
-    @JsonProperty("creation_time")
-    private String creationTime;
-    
-    /**
-     
-     */
-    @JsonProperty("state")
-    private UpdateStateInfoState state;
-    
-    /**
-     
-     */
-    @JsonProperty("update_id")
-    private String updateId;
-    
-    public UpdateStateInfo setCreationTime(String creationTime) {
-        this.creationTime = creationTime;
-        return this;
-    }
+  /** */
+  @JsonProperty("creation_time")
+  private String creationTime;
 
-    public String getCreationTime() {
-        return creationTime;
-    }
-    
-    public UpdateStateInfo setState(UpdateStateInfoState state) {
-        this.state = state;
-        return this;
-    }
+  /** */
+  @JsonProperty("state")
+  private UpdateStateInfoState state;
 
-    public UpdateStateInfoState getState() {
-        return state;
-    }
-    
-    public UpdateStateInfo setUpdateId(String updateId) {
-        this.updateId = updateId;
-        return this;
-    }
+  /** */
+  @JsonProperty("update_id")
+  private String updateId;
 
-    public String getUpdateId() {
-        return updateId;
-    }
-    
+  public UpdateStateInfo setCreationTime(String creationTime) {
+    this.creationTime = creationTime;
+    return this;
+  }
+
+  public String getCreationTime() {
+    return creationTime;
+  }
+
+  public UpdateStateInfo setState(UpdateStateInfoState state) {
+    this.state = state;
+    return this;
+  }
+
+  public UpdateStateInfoState getState() {
+    return state;
+  }
+
+  public UpdateStateInfo setUpdateId(String updateId) {
+    this.updateId = updateId;
+    return this;
+  }
+
+  public String getUpdateId() {
+    return updateId;
+  }
 }

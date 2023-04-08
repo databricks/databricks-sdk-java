@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get an alert
- */
+/** Get an alert */
 public class GetAlertRequest {
-    /**
-     
-     */
-    
-    private String alertId;
-    
-    public GetAlertRequest setAlertId(String alertId) {
-        this.alertId = alertId;
-        return this;
-    }
+  /** */
+  private String alertId;
 
-    public String getAlertId() {
-        return alertId;
-    }
-    
+  public GetAlertRequest setAlertId(String alertId) {
+    this.alertId = alertId;
+    return this;
+  }
+
+  public String getAlertId() {
+    return alertId;
+  }
 }

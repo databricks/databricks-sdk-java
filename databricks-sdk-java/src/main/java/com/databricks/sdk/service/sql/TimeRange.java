@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class TimeRange {
-    /**
-     * Limit results to queries that started before this time.
-     */
-    @JsonProperty("end_time_ms")
-    private Long endTimeMs;
-    
-    /**
-     * Limit results to queries that started after this time.
-     */
-    @JsonProperty("start_time_ms")
-    private Long startTimeMs;
-    
-    public TimeRange setEndTimeMs(Long endTimeMs) {
-        this.endTimeMs = endTimeMs;
-        return this;
-    }
+  /** Limit results to queries that started before this time. */
+  @JsonProperty("end_time_ms")
+  private Long endTimeMs;
 
-    public Long getEndTimeMs() {
-        return endTimeMs;
-    }
-    
-    public TimeRange setStartTimeMs(Long startTimeMs) {
-        this.startTimeMs = startTimeMs;
-        return this;
-    }
+  /** Limit results to queries that started after this time. */
+  @JsonProperty("start_time_ms")
+  private Long startTimeMs;
 
-    public Long getStartTimeMs() {
-        return startTimeMs;
-    }
-    
+  public TimeRange setEndTimeMs(Long endTimeMs) {
+    this.endTimeMs = endTimeMs;
+    return this;
+  }
+
+  public Long getEndTimeMs() {
+    return endTimeMs;
+  }
+
+  public TimeRange setStartTimeMs(Long startTimeMs) {
+    this.startTimeMs = startTimeMs;
+    return this;
+  }
+
+  public Long getStartTimeMs() {
+    return startTimeMs;
+  }
 }

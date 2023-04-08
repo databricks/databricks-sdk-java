@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete a pipeline
- */
+/** Delete a pipeline */
 public class Delete {
-    /**
-     
-     */
-    
-    private String pipelineId;
-    
-    public Delete setPipelineId(String pipelineId) {
-        this.pipelineId = pipelineId;
-        return this;
-    }
+  /** */
+  private String pipelineId;
 
-    public String getPipelineId() {
-        return pipelineId;
-    }
-    
+  public Delete setPipelineId(String pipelineId) {
+    this.pipelineId = pipelineId;
+    return this;
+  }
+
+  public String getPipelineId() {
+    return pipelineId;
+  }
 }

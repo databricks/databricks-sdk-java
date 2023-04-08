@@ -2,42 +2,31 @@
 
 package com.databricks.sdk.service.billing;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class WrappedBudget {
-    /**
-     * Budget configuration to be created.
-     */
-    @JsonProperty("budget")
-    private Budget budget;
-    
-    /**
-     * Budget ID
-     */
-    
-    private String budgetId;
-    
-    public WrappedBudget setBudget(Budget budget) {
-        this.budget = budget;
-        return this;
-    }
+  /** Budget configuration to be created. */
+  @JsonProperty("budget")
+  private Budget budget;
 
-    public Budget getBudget() {
-        return budget;
-    }
-    
-    public WrappedBudget setBudgetId(String budgetId) {
-        this.budgetId = budgetId;
-        return this;
-    }
+  /** Budget ID */
+  private String budgetId;
 
-    public String getBudgetId() {
-        return budgetId;
-    }
-    
+  public WrappedBudget setBudget(Budget budget) {
+    this.budget = budget;
+    return this;
+  }
+
+  public Budget getBudget() {
+    return budget;
+  }
+
+  public WrappedBudget setBudgetId(String budgetId) {
+    this.budgetId = budgetId;
+    return this;
+  }
+
+  public String getBudgetId() {
+    return budgetId;
+  }
 }

@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.gitcredentials;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class GetCredentialsResponse {
-    /**
-     
-     */
-    @JsonProperty("credentials")
-    private java.util.List<CredentialInfo> credentials;
-    
-    public GetCredentialsResponse setCredentials(java.util.List<CredentialInfo> credentials) {
-        this.credentials = credentials;
-        return this;
-    }
+  /** */
+  @JsonProperty("credentials")
+  private java.util.List<CredentialInfo> credentials;
 
-    public java.util.List<CredentialInfo> getCredentials() {
-        return credentials;
-    }
-    
+  public GetCredentialsResponse setCredentials(java.util.List<CredentialInfo> credentials) {
+    this.credentials = credentials;
+    return this;
+  }
+
+  public java.util.List<CredentialInfo> getCredentials() {
+    return credentials;
+  }
 }

@@ -2,73 +2,58 @@
 
 package com.databricks.sdk.service.scim;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListServicePrincipalResponse {
-    /**
-     * Total results returned in the response.
-     */
-    @JsonProperty("itemsPerPage")
-    private Long itemsPerPage;
-    
-    /**
-     * User objects returned in the response.
-     */
-    @JsonProperty("Resources")
-    private java.util.List<ServicePrincipal> resources;
-    
-    /**
-     * Starting index of all the results that matched the request filters. First
-     * item is number 1.
-     */
-    @JsonProperty("startIndex")
-    private Long startIndex;
-    
-    /**
-     * Total results that match the request filters.
-     */
-    @JsonProperty("totalResults")
-    private Long totalResults;
-    
-    public ListServicePrincipalResponse setItemsPerPage(Long itemsPerPage) {
-        this.itemsPerPage = itemsPerPage;
-        return this;
-    }
+  /** Total results returned in the response. */
+  @JsonProperty("itemsPerPage")
+  private Long itemsPerPage;
 
-    public Long getItemsPerPage() {
-        return itemsPerPage;
-    }
-    
-    public ListServicePrincipalResponse setResources(java.util.List<ServicePrincipal> resources) {
-        this.resources = resources;
-        return this;
-    }
+  /** User objects returned in the response. */
+  @JsonProperty("Resources")
+  private java.util.List<ServicePrincipal> resources;
 
-    public java.util.List<ServicePrincipal> getResources() {
-        return resources;
-    }
-    
-    public ListServicePrincipalResponse setStartIndex(Long startIndex) {
-        this.startIndex = startIndex;
-        return this;
-    }
+  /** Starting index of all the results that matched the request filters. First item is number 1. */
+  @JsonProperty("startIndex")
+  private Long startIndex;
 
-    public Long getStartIndex() {
-        return startIndex;
-    }
-    
-    public ListServicePrincipalResponse setTotalResults(Long totalResults) {
-        this.totalResults = totalResults;
-        return this;
-    }
+  /** Total results that match the request filters. */
+  @JsonProperty("totalResults")
+  private Long totalResults;
 
-    public Long getTotalResults() {
-        return totalResults;
-    }
-    
+  public ListServicePrincipalResponse setItemsPerPage(Long itemsPerPage) {
+    this.itemsPerPage = itemsPerPage;
+    return this;
+  }
+
+  public Long getItemsPerPage() {
+    return itemsPerPage;
+  }
+
+  public ListServicePrincipalResponse setResources(java.util.List<ServicePrincipal> resources) {
+    this.resources = resources;
+    return this;
+  }
+
+  public java.util.List<ServicePrincipal> getResources() {
+    return resources;
+  }
+
+  public ListServicePrincipalResponse setStartIndex(Long startIndex) {
+    this.startIndex = startIndex;
+    return this;
+  }
+
+  public Long getStartIndex() {
+    return startIndex;
+  }
+
+  public ListServicePrincipalResponse setTotalResults(Long totalResults) {
+    this.totalResults = totalResults;
+    return this;
+  }
+
+  public Long getTotalResults() {
+    return totalResults;
+  }
 }

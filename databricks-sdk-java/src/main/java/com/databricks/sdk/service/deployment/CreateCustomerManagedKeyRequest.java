@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class CreateCustomerManagedKeyRequest {
-    /**
-     
-     */
-    @JsonProperty("aws_key_info")
-    private CreateAwsKeyInfo awsKeyInfo;
-    
-    /**
-     * The cases that the key can be used for.
-     */
-    @JsonProperty("use_cases")
-    private java.util.List<KeyUseCase> useCases;
-    
-    public CreateCustomerManagedKeyRequest setAwsKeyInfo(CreateAwsKeyInfo awsKeyInfo) {
-        this.awsKeyInfo = awsKeyInfo;
-        return this;
-    }
+  /** */
+  @JsonProperty("aws_key_info")
+  private CreateAwsKeyInfo awsKeyInfo;
 
-    public CreateAwsKeyInfo getAwsKeyInfo() {
-        return awsKeyInfo;
-    }
-    
-    public CreateCustomerManagedKeyRequest setUseCases(java.util.List<KeyUseCase> useCases) {
-        this.useCases = useCases;
-        return this;
-    }
+  /** The cases that the key can be used for. */
+  @JsonProperty("use_cases")
+  private java.util.List<KeyUseCase> useCases;
 
-    public java.util.List<KeyUseCase> getUseCases() {
-        return useCases;
-    }
-    
+  public CreateCustomerManagedKeyRequest setAwsKeyInfo(CreateAwsKeyInfo awsKeyInfo) {
+    this.awsKeyInfo = awsKeyInfo;
+    return this;
+  }
+
+  public CreateAwsKeyInfo getAwsKeyInfo() {
+    return awsKeyInfo;
+  }
+
+  public CreateCustomerManagedKeyRequest setUseCases(java.util.List<KeyUseCase> useCases) {
+    this.useCases = useCases;
+    return this;
+  }
+
+  public java.util.List<KeyUseCase> getUseCases() {
+    return useCases;
+  }
 }

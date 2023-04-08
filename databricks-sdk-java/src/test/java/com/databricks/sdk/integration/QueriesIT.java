@@ -12,13 +12,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
 class QueriesIT {
-    @Test
-    void name(DatabricksWorkspace w) {
-        QueryList labs = w.queries().list(new ListQueriesRequest().setQ("labs"));
-        System.out.println("Queries:");
-        for (Query query : labs.getResults()) {
-            System.out.println(query.getQuery());
-        }
+  @Test
+  void name(DatabricksWorkspace w) {
+    QueryList labs = w.queries().list(new ListQueriesRequest().setQ("labs"));
+    System.out.println("Queries:");
+    for (Query query : labs.getResults()) {
+      System.out.println(query.getQuery());
     }
+  }
 }
-

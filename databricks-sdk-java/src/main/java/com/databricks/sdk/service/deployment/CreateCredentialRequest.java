@@ -2,42 +2,32 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class CreateCredentialRequest {
-    /**
-     
-     */
-    @JsonProperty("aws_credentials")
-    private CreateCredentialAwsCredentials awsCredentials;
-    
-    /**
-     * The human-readable name of the credential configuration object.
-     */
-    @JsonProperty("credentials_name")
-    private String credentialsName;
-    
-    public CreateCredentialRequest setAwsCredentials(CreateCredentialAwsCredentials awsCredentials) {
-        this.awsCredentials = awsCredentials;
-        return this;
-    }
+  /** */
+  @JsonProperty("aws_credentials")
+  private CreateCredentialAwsCredentials awsCredentials;
 
-    public CreateCredentialAwsCredentials getAwsCredentials() {
-        return awsCredentials;
-    }
-    
-    public CreateCredentialRequest setCredentialsName(String credentialsName) {
-        this.credentialsName = credentialsName;
-        return this;
-    }
+  /** The human-readable name of the credential configuration object. */
+  @JsonProperty("credentials_name")
+  private String credentialsName;
 
-    public String getCredentialsName() {
-        return credentialsName;
-    }
-    
+  public CreateCredentialRequest setAwsCredentials(CreateCredentialAwsCredentials awsCredentials) {
+    this.awsCredentials = awsCredentials;
+    return this;
+  }
+
+  public CreateCredentialAwsCredentials getAwsCredentials() {
+    return awsCredentials;
+  }
+
+  public CreateCredentialRequest setCredentialsName(String credentialsName) {
+    this.credentialsName = credentialsName;
+    return this;
+  }
+
+  public String getCredentialsName() {
+    return credentialsName;
+  }
 }

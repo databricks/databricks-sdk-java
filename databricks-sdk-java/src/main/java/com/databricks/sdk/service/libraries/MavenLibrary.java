@@ -2,62 +2,53 @@
 
 package com.databricks.sdk.service.libraries;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class MavenLibrary {
-    /**
-     * Gradle-style maven coordinates. For example: "org.jsoup:jsoup:1.7.2".
-     */
-    @JsonProperty("coordinates")
-    private String coordinates;
-    
-    /**
-     * List of dependences to exclude. For example: `["slf4j:slf4j",
-     * "*:hadoop-client"]`.
-     * 
-     * Maven dependency exclusions:
-     * https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html.
-     */
-    @JsonProperty("exclusions")
-    private java.util.List<String> exclusions;
-    
-    /**
-     * Maven repo to install the Maven package from. If omitted, both Maven
-     * Central Repository and Spark Packages are searched.
-     */
-    @JsonProperty("repo")
-    private String repo;
-    
-    public MavenLibrary setCoordinates(String coordinates) {
-        this.coordinates = coordinates;
-        return this;
-    }
+  /** Gradle-style maven coordinates. For example: "org.jsoup:jsoup:1.7.2". */
+  @JsonProperty("coordinates")
+  private String coordinates;
 
-    public String getCoordinates() {
-        return coordinates;
-    }
-    
-    public MavenLibrary setExclusions(java.util.List<String> exclusions) {
-        this.exclusions = exclusions;
-        return this;
-    }
+  /**
+   * List of dependences to exclude. For example: `["slf4j:slf4j", "*:hadoop-client"]`.
+   *
+   * <p>Maven dependency exclusions:
+   * https://maven.apache.org/guides/introduction/introduction-to-optional-and-excludes-dependencies.html.
+   */
+  @JsonProperty("exclusions")
+  private java.util.List<String> exclusions;
 
-    public java.util.List<String> getExclusions() {
-        return exclusions;
-    }
-    
-    public MavenLibrary setRepo(String repo) {
-        this.repo = repo;
-        return this;
-    }
+  /**
+   * Maven repo to install the Maven package from. If omitted, both Maven Central Repository and
+   * Spark Packages are searched.
+   */
+  @JsonProperty("repo")
+  private String repo;
 
-    public String getRepo() {
-        return repo;
-    }
-    
+  public MavenLibrary setCoordinates(String coordinates) {
+    this.coordinates = coordinates;
+    return this;
+  }
+
+  public String getCoordinates() {
+    return coordinates;
+  }
+
+  public MavenLibrary setExclusions(java.util.List<String> exclusions) {
+    this.exclusions = exclusions;
+    return this;
+  }
+
+  public java.util.List<String> getExclusions() {
+    return exclusions;
+  }
+
+  public MavenLibrary setRepo(String repo) {
+    this.repo = repo;
+    return this;
+  }
+
+  public String getRepo() {
+    return repo;
+  }
 }

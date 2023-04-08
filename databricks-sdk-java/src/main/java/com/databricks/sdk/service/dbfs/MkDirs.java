@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.dbfs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class MkDirs {
-    /**
-     * The path of the new directory. The path should be the absolute DBFS path.
-     */
-    @JsonProperty("path")
-    private String path;
-    
-    public MkDirs setPath(String path) {
-        this.path = path;
-        return this;
-    }
+  /** The path of the new directory. The path should be the absolute DBFS path. */
+  @JsonProperty("path")
+  private String path;
 
-    public String getPath() {
-        return path;
-    }
-    
+  public MkDirs setPath(String path) {
+    this.path = path;
+    return this;
+  }
+
+  public String getPath() {
+    return path;
+  }
 }

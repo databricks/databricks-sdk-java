@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.permissions;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * List workspace permissions
- */
+/** List workspace permissions */
 public class GetWorkspaceAssignmentRequest {
-    /**
-     * The workspace ID.
-     */
-    
-    private Long workspaceId;
-    
-    public GetWorkspaceAssignmentRequest setWorkspaceId(Long workspaceId) {
-        this.workspaceId = workspaceId;
-        return this;
-    }
+  /** The workspace ID. */
+  private Long workspaceId;
 
-    public Long getWorkspaceId() {
-        return workspaceId;
-    }
-    
+  public GetWorkspaceAssignmentRequest setWorkspaceId(Long workspaceId) {
+    this.workspaceId = workspaceId;
+    return this;
+  }
+
+  public Long getWorkspaceId() {
+    return workspaceId;
+  }
 }

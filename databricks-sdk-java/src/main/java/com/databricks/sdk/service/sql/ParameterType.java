@@ -2,18 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Parameters can have several different types.
- */
-public enum ParameterType{
-    datetime,
-    number,
-    text,
-    
+/** Parameters can have several different types. */
+public enum ParameterType {
+  datetime,
+  number,
+  text,
 }

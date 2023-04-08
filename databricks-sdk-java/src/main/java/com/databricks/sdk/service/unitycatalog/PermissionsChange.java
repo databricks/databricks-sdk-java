@@ -2,57 +2,45 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class PermissionsChange {
-    /**
-     * The set of privileges to add.
-     */
-    @JsonProperty("add")
-    private java.util.List<Privilege> add;
-    
-    /**
-     * The principal whose privileges we are changing.
-     */
-    @JsonProperty("principal")
-    private String principal;
-    
-    /**
-     * The set of privileges to remove.
-     */
-    @JsonProperty("remove")
-    private java.util.List<Privilege> remove;
-    
-    public PermissionsChange setAdd(java.util.List<Privilege> add) {
-        this.add = add;
-        return this;
-    }
+  /** The set of privileges to add. */
+  @JsonProperty("add")
+  private java.util.List<Privilege> add;
 
-    public java.util.List<Privilege> getAdd() {
-        return add;
-    }
-    
-    public PermissionsChange setPrincipal(String principal) {
-        this.principal = principal;
-        return this;
-    }
+  /** The principal whose privileges we are changing. */
+  @JsonProperty("principal")
+  private String principal;
 
-    public String getPrincipal() {
-        return principal;
-    }
-    
-    public PermissionsChange setRemove(java.util.List<Privilege> remove) {
-        this.remove = remove;
-        return this;
-    }
+  /** The set of privileges to remove. */
+  @JsonProperty("remove")
+  private java.util.List<Privilege> remove;
 
-    public java.util.List<Privilege> getRemove() {
-        return remove;
-    }
-    
+  public PermissionsChange setAdd(java.util.List<Privilege> add) {
+    this.add = add;
+    return this;
+  }
+
+  public java.util.List<Privilege> getAdd() {
+    return add;
+  }
+
+  public PermissionsChange setPrincipal(String principal) {
+    this.principal = principal;
+    return this;
+  }
+
+  public String getPrincipal() {
+    return principal;
+  }
+
+  public PermissionsChange setRemove(java.util.List<Privilege> remove) {
+    this.remove = remove;
+    return this;
+  }
+
+  public java.util.List<Privilege> getRemove() {
+    return remove;
+  }
 }

@@ -2,16 +2,7 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Function parameter style. **S** is the value for SQL.
- */
-public enum FunctionInfoParameterStyle{
-    S,
-    
+/** Function parameter style. **S** is the value for SQL. */
+public enum FunctionInfoParameterStyle {
+  S,
 }

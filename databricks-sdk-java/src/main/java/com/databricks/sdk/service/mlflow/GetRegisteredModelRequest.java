@@ -2,29 +2,20 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-/**
- * Get a model
- */
+/** Get a model */
 public class GetRegisteredModelRequest {
-    /**
-     * Registered model unique name identifier.
-     */
-    @QueryParam("name")
-    private String name;
-    
-    public GetRegisteredModelRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** Registered model unique name identifier. */
+  @QueryParam("name")
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
+  public GetRegisteredModelRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
 }

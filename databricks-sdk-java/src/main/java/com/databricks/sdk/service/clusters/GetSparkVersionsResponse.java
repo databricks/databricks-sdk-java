@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class GetSparkVersionsResponse {
-    /**
-     * All the available Spark versions.
-     */
-    @JsonProperty("versions")
-    private java.util.List<SparkVersion> versions;
-    
-    public GetSparkVersionsResponse setVersions(java.util.List<SparkVersion> versions) {
-        this.versions = versions;
-        return this;
-    }
+  /** All the available Spark versions. */
+  @JsonProperty("versions")
+  private java.util.List<SparkVersion> versions;
 
-    public java.util.List<SparkVersion> getVersions() {
-        return versions;
-    }
-    
+  public GetSparkVersionsResponse setVersions(java.util.List<SparkVersion> versions) {
+    this.versions = versions;
+    return this;
+  }
+
+  public java.util.List<SparkVersion> getVersions() {
+    return versions;
+  }
 }

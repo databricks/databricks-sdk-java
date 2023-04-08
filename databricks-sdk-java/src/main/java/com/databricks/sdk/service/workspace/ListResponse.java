@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.workspace;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListResponse {
-    /**
-     * List of objects.
-     */
-    @JsonProperty("objects")
-    private java.util.List<ObjectInfo> objects;
-    
-    public ListResponse setObjects(java.util.List<ObjectInfo> objects) {
-        this.objects = objects;
-        return this;
-    }
+  /** List of objects. */
+  @JsonProperty("objects")
+  private java.util.List<ObjectInfo> objects;
 
-    public java.util.List<ObjectInfo> getObjects() {
-        return objects;
-    }
-    
+  public ListResponse setObjects(java.util.List<ObjectInfo> objects) {
+    this.objects = objects;
+    return this;
+  }
+
+  public java.util.List<ObjectInfo> getObjects() {
+    return objects;
+  }
 }

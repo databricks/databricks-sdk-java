@@ -2,63 +2,50 @@
 
 package com.databricks.sdk.service.billing;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-/**
- * Return billable usage logs
- */
+/** Return billable usage logs */
 public class DownloadRequest {
-    /**
-     * Format: `YYYY-MM`. Last month to return billable usage logs for. This
-     * field is required.
-     */
-    @QueryParam("end_month")
-    private String endMonth;
-    
-    /**
-     * Specify whether to include personally identifiable information in the
-     * billable usage logs, for example the email addresses of cluster creators.
-     * Handle this information with care. Defaults to false.
-     */
-    @QueryParam("personal_data")
-    private Boolean personalData;
-    
-    /**
-     * Format: `YYYY-MM`. First month to return billable usage logs for. This
-     * field is required.
-     */
-    @QueryParam("start_month")
-    private String startMonth;
-    
-    public DownloadRequest setEndMonth(String endMonth) {
-        this.endMonth = endMonth;
-        return this;
-    }
+  /** Format: `YYYY-MM`. Last month to return billable usage logs for. This field is required. */
+  @QueryParam("end_month")
+  private String endMonth;
 
-    public String getEndMonth() {
-        return endMonth;
-    }
-    
-    public DownloadRequest setPersonalData(Boolean personalData) {
-        this.personalData = personalData;
-        return this;
-    }
+  /**
+   * Specify whether to include personally identifiable information in the billable usage logs, for
+   * example the email addresses of cluster creators. Handle this information with care. Defaults to
+   * false.
+   */
+  @QueryParam("personal_data")
+  private Boolean personalData;
 
-    public Boolean getPersonalData() {
-        return personalData;
-    }
-    
-    public DownloadRequest setStartMonth(String startMonth) {
-        this.startMonth = startMonth;
-        return this;
-    }
+  /** Format: `YYYY-MM`. First month to return billable usage logs for. This field is required. */
+  @QueryParam("start_month")
+  private String startMonth;
 
-    public String getStartMonth() {
-        return startMonth;
-    }
-    
+  public DownloadRequest setEndMonth(String endMonth) {
+    this.endMonth = endMonth;
+    return this;
+  }
+
+  public String getEndMonth() {
+    return endMonth;
+  }
+
+  public DownloadRequest setPersonalData(Boolean personalData) {
+    this.personalData = personalData;
+    return this;
+  }
+
+  public Boolean getPersonalData() {
+    return personalData;
+  }
+
+  public DownloadRequest setStartMonth(String startMonth) {
+    this.startMonth = startMonth;
+    return this;
+  }
+
+  public String getStartMonth() {
+    return startMonth;
+  }
 }

@@ -2,12 +2,4 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Unique identifier of an activity
- */
+/** Unique identifier of an activity */

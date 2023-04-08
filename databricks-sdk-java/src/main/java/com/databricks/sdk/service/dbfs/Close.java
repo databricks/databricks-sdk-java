@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.dbfs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class Close {
-    /**
-     * The handle on an open stream.
-     */
-    @JsonProperty("handle")
-    private Long handle;
-    
-    public Close setHandle(Long handle) {
-        this.handle = handle;
-        return this;
-    }
+  /** The handle on an open stream. */
+  @JsonProperty("handle")
+  private Long handle;
 
-    public Long getHandle() {
-        return handle;
-    }
-    
+  public Close setHandle(Long handle) {
+    this.handle = handle;
+    return this;
+  }
+
+  public Long getHandle() {
+    return handle;
+  }
 }

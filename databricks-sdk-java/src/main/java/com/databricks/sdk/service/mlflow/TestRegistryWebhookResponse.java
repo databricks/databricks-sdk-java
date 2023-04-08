@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class TestRegistryWebhookResponse {
-    /**
-     * Test webhook response object.
-     */
-    @JsonProperty("webhook")
-    private TestRegistryWebhook webhook;
-    
-    public TestRegistryWebhookResponse setWebhook(TestRegistryWebhook webhook) {
-        this.webhook = webhook;
-        return this;
-    }
+  /** Test webhook response object. */
+  @JsonProperty("webhook")
+  private TestRegistryWebhook webhook;
 
-    public TestRegistryWebhook getWebhook() {
-        return webhook;
-    }
-    
+  public TestRegistryWebhookResponse setWebhook(TestRegistryWebhook webhook) {
+    this.webhook = webhook;
+    return this;
+  }
+
+  public TestRegistryWebhook getWebhook() {
+    return webhook;
+  }
 }

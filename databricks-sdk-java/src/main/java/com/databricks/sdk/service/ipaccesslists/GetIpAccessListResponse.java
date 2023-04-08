@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.ipaccesslists;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class GetIpAccessListResponse {
-    /**
-     
-     */
-    @JsonProperty("ip_access_lists")
-    private java.util.List<IpAccessListInfo> ipAccessLists;
-    
-    public GetIpAccessListResponse setIpAccessLists(java.util.List<IpAccessListInfo> ipAccessLists) {
-        this.ipAccessLists = ipAccessLists;
-        return this;
-    }
+  /** */
+  @JsonProperty("ip_access_lists")
+  private java.util.List<IpAccessListInfo> ipAccessLists;
 
-    public java.util.List<IpAccessListInfo> getIpAccessLists() {
-        return ipAccessLists;
-    }
-    
+  public GetIpAccessListResponse setIpAccessLists(java.util.List<IpAccessListInfo> ipAccessLists) {
+    this.ipAccessLists = ipAccessLists;
+    return this;
+  }
+
+  public java.util.List<IpAccessListInfo> getIpAccessLists() {
+    return ipAccessLists;
+  }
 }

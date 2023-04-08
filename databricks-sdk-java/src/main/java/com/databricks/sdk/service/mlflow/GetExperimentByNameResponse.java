@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class GetExperimentByNameResponse {
-    /**
-     * Experiment details.
-     */
-    @JsonProperty("experiment")
-    private Experiment experiment;
-    
-    public GetExperimentByNameResponse setExperiment(Experiment experiment) {
-        this.experiment = experiment;
-        return this;
-    }
+  /** Experiment details. */
+  @JsonProperty("experiment")
+  private Experiment experiment;
 
-    public Experiment getExperiment() {
-        return experiment;
-    }
-    
+  public GetExperimentByNameResponse setExperiment(Experiment experiment) {
+    this.experiment = experiment;
+    return this;
+  }
+
+  public Experiment getExperiment() {
+    return experiment;
+  }
 }

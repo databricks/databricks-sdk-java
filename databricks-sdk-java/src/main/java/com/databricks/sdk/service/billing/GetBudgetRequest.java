@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.billing;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get budget and its status
- */
+/** Get budget and its status */
 public class GetBudgetRequest {
-    /**
-     * Budget ID
-     */
-    
-    private String budgetId;
-    
-    public GetBudgetRequest setBudgetId(String budgetId) {
-        this.budgetId = budgetId;
-        return this;
-    }
+  /** Budget ID */
+  private String budgetId;
 
-    public String getBudgetId() {
-        return budgetId;
-    }
-    
+  public GetBudgetRequest setBudgetId(String budgetId) {
+    this.budgetId = budgetId;
+    return this;
+  }
+
+  public String getBudgetId() {
+    return budgetId;
+  }
 }

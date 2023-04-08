@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Stop a warehouse
- */
+/** Stop a warehouse */
 public class StopRequest {
-    /**
-     * Required. Id of the SQL warehouse.
-     */
-    
-    private String id;
-    
-    public StopRequest setId(String id) {
-        this.id = id;
-        return this;
-    }
+  /** Required. Id of the SQL warehouse. */
+  private String id;
 
-    public String getId() {
-        return id;
-    }
-    
+  public StopRequest setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
+  }
 }

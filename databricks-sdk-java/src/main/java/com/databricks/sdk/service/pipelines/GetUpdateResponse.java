@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class GetUpdateResponse {
-    /**
-     * The current update info.
-     */
-    @JsonProperty("update")
-    private UpdateInfo update;
-    
-    public GetUpdateResponse setUpdate(UpdateInfo update) {
-        this.update = update;
-        return this;
-    }
+  /** The current update info. */
+  @JsonProperty("update")
+  private UpdateInfo update;
 
-    public UpdateInfo getUpdate() {
-        return update;
-    }
-    
+  public GetUpdateResponse setUpdate(UpdateInfo update) {
+    this.update = update;
+    return this;
+  }
+
+  public UpdateInfo getUpdate() {
+    return update;
+  }
 }

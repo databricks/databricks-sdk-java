@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.oauth2;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class CreateOAuthEnrollment {
-    /**
-     * If true, enable OAuth for all the published applications in the account.
-     */
-    @JsonProperty("enable_all_published_apps")
-    private Boolean enableAllPublishedApps;
-    
-    public CreateOAuthEnrollment setEnableAllPublishedApps(Boolean enableAllPublishedApps) {
-        this.enableAllPublishedApps = enableAllPublishedApps;
-        return this;
-    }
+  /** If true, enable OAuth for all the published applications in the account. */
+  @JsonProperty("enable_all_published_apps")
+  private Boolean enableAllPublishedApps;
 
-    public Boolean getEnableAllPublishedApps() {
-        return enableAllPublishedApps;
-    }
-    
+  public CreateOAuthEnrollment setEnableAllPublishedApps(Boolean enableAllPublishedApps) {
+    this.enableAllPublishedApps = enableAllPublishedApps;
+    return this;
+  }
+
+  public Boolean getEnableAllPublishedApps() {
+    return enableAllPublishedApps;
+  }
 }

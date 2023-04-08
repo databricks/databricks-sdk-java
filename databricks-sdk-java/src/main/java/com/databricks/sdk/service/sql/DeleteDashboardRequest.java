@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Remove a dashboard
- */
+/** Remove a dashboard */
 public class DeleteDashboardRequest {
-    /**
-     
-     */
-    
-    private String dashboardId;
-    
-    public DeleteDashboardRequest setDashboardId(String dashboardId) {
-        this.dashboardId = dashboardId;
-        return this;
-    }
+  /** */
+  private String dashboardId;
 
-    public String getDashboardId() {
-        return dashboardId;
-    }
-    
+  public DeleteDashboardRequest setDashboardId(String dashboardId) {
+    this.dashboardId = dashboardId;
+    return this;
+  }
+
+  public String getDashboardId() {
+    return dashboardId;
+  }
 }

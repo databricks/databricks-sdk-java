@@ -2,44 +2,33 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-/**
- * List transition requests
- */
+/** List transition requests */
 public class ListTransitionRequestsRequest {
-    /**
-     * Name of the model.
-     */
-    @QueryParam("name")
-    private String name;
-    
-    /**
-     * Version of the model.
-     */
-    @QueryParam("version")
-    private String version;
-    
-    public ListTransitionRequestsRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** Name of the model. */
+  @QueryParam("name")
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
-    public ListTransitionRequestsRequest setVersion(String version) {
-        this.version = version;
-        return this;
-    }
+  /** Version of the model. */
+  @QueryParam("version")
+  private String version;
 
-    public String getVersion() {
-        return version;
-    }
-    
+  public ListTransitionRequestsRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public ListTransitionRequestsRequest setVersion(String version) {
+    this.version = version;
+    return this;
+  }
+
+  public String getVersion() {
+    return version;
+  }
 }

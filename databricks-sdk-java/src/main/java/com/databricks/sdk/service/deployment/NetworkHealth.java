@@ -2,43 +2,35 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class NetworkHealth {
-    /**
-     * Details of the error.
-     */
-    @JsonProperty("error_message")
-    private String errorMessage;
-    
-    /**
-     * The AWS resource associated with this error: credentials, VPC, subnet,
-     * security group, or network ACL.
-     */
-    @JsonProperty("error_type")
-    private ErrorType errorType;
-    
-    public NetworkHealth setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-        return this;
-    }
+  /** Details of the error. */
+  @JsonProperty("error_message")
+  private String errorMessage;
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
-    
-    public NetworkHealth setErrorType(ErrorType errorType) {
-        this.errorType = errorType;
-        return this;
-    }
+  /**
+   * The AWS resource associated with this error: credentials, VPC, subnet, security group, or
+   * network ACL.
+   */
+  @JsonProperty("error_type")
+  private ErrorType errorType;
 
-    public ErrorType getErrorType() {
-        return errorType;
-    }
-    
+  public NetworkHealth setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+  public NetworkHealth setErrorType(ErrorType errorType) {
+    this.errorType = errorType;
+    return this;
+  }
+
+  public ErrorType getErrorType() {
+    return errorType;
+  }
 }

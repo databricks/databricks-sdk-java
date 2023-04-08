@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListResponse {
-    /**
-     * Array of open transition requests.
-     */
-    @JsonProperty("requests")
-    private java.util.List<Activity> requests;
-    
-    public ListResponse setRequests(java.util.List<Activity> requests) {
-        this.requests = requests;
-        return this;
-    }
+  /** Array of open transition requests. */
+  @JsonProperty("requests")
+  private java.util.List<Activity> requests;
 
-    public java.util.List<Activity> getRequests() {
-        return requests;
-    }
-    
+  public ListResponse setRequests(java.util.List<Activity> requests) {
+    this.requests = requests;
+    return this;
+  }
+
+  public java.util.List<Activity> getRequests() {
+    return requests;
+  }
 }

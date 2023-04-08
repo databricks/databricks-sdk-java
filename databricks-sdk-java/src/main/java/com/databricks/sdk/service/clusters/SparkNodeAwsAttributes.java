@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class SparkNodeAwsAttributes {
-    /**
-     * Whether this node is on an Amazon spot instance.
-     */
-    @JsonProperty("is_spot")
-    private Boolean isSpot;
-    
-    public SparkNodeAwsAttributes setIsSpot(Boolean isSpot) {
-        this.isSpot = isSpot;
-        return this;
-    }
+  /** Whether this node is on an Amazon spot instance. */
+  @JsonProperty("is_spot")
+  private Boolean isSpot;
 
-    public Boolean getIsSpot() {
-        return isSpot;
-    }
-    
+  public SparkNodeAwsAttributes setIsSpot(Boolean isSpot) {
+    this.isSpot = isSpot;
+    return this;
+  }
+
+  public Boolean getIsSpot() {
+    return isSpot;
+  }
 }

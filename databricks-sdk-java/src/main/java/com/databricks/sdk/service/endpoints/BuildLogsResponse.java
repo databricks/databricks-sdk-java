@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.endpoints;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class BuildLogsResponse {
-    /**
-     * The logs associated with building the served model's environment.
-     */
-    @JsonProperty("logs")
-    private String logs;
-    
-    public BuildLogsResponse setLogs(String logs) {
-        this.logs = logs;
-        return this;
-    }
+  /** The logs associated with building the served model's environment. */
+  @JsonProperty("logs")
+  private String logs;
 
-    public String getLogs() {
-        return logs;
-    }
-    
+  public BuildLogsResponse setLogs(String logs) {
+    this.logs = logs;
+    return this;
+  }
+
+  public String getLogs() {
+    return logs;
+  }
 }

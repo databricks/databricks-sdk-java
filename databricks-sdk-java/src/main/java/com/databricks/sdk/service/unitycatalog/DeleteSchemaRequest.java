@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete a schema
- */
+/** Delete a schema */
 public class DeleteSchemaRequest {
-    /**
-     * Full name of the schema.
-     */
-    
-    private String fullName;
-    
-    public DeleteSchemaRequest setFullName(String fullName) {
-        this.fullName = fullName;
-        return this;
-    }
+  /** Full name of the schema. */
+  private String fullName;
 
-    public String getFullName() {
-        return fullName;
-    }
-    
+  public DeleteSchemaRequest setFullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
 }

@@ -2,16 +2,8 @@
 
 package com.databricks.sdk.service.secrets;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum AclPermission{
-    MANAGE,
-    READ,
-    WRITE,
-    
+public enum AclPermission {
+  MANAGE,
+  READ,
+  WRITE,
 }

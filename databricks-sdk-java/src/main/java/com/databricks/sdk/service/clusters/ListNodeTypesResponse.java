@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListNodeTypesResponse {
-    /**
-     * The list of available Spark node types.
-     */
-    @JsonProperty("node_types")
-    private java.util.List<NodeType> nodeTypes;
-    
-    public ListNodeTypesResponse setNodeTypes(java.util.List<NodeType> nodeTypes) {
-        this.nodeTypes = nodeTypes;
-        return this;
-    }
+  /** The list of available Spark node types. */
+  @JsonProperty("node_types")
+  private java.util.List<NodeType> nodeTypes;
 
-    public java.util.List<NodeType> getNodeTypes() {
-        return nodeTypes;
-    }
-    
+  public ListNodeTypesResponse setNodeTypes(java.util.List<NodeType> nodeTypes) {
+    this.nodeTypes = nodeTypes;
+    return this;
+  }
+
+  public java.util.List<NodeType> getNodeTypes() {
+    return nodeTypes;
+  }
 }

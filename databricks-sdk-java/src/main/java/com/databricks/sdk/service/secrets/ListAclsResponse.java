@@ -2,27 +2,19 @@
 
 package com.databricks.sdk.service.secrets;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-
 public class ListAclsResponse {
-    /**
-     * The associated ACLs rule applied to principals in the given scope.
-     */
-    @JsonProperty("items")
-    private java.util.List<AclItem> items;
-    
-    public ListAclsResponse setItems(java.util.List<AclItem> items) {
-        this.items = items;
-        return this;
-    }
+  /** The associated ACLs rule applied to principals in the given scope. */
+  @JsonProperty("items")
+  private java.util.List<AclItem> items;
 
-    public java.util.List<AclItem> getItems() {
-        return items;
-    }
-    
+  public ListAclsResponse setItems(java.util.List<AclItem> items) {
+    this.items = items;
+    return this;
+  }
+
+  public java.util.List<AclItem> getItems() {
+    return items;
+  }
 }

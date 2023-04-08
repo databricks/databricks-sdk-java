@@ -2,29 +2,20 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
-
-/**
- * Get cluster info
- */
+/** Get cluster info */
 public class Get {
-    /**
-     * The cluster about which to retrieve information.
-     */
-    @QueryParam("cluster_id")
-    private String clusterId;
-    
-    public Get setClusterId(String clusterId) {
-        this.clusterId = clusterId;
-        return this;
-    }
+  /** The cluster about which to retrieve information. */
+  @QueryParam("cluster_id")
+  private String clusterId;
 
-    public String getClusterId() {
-        return clusterId;
-    }
-    
+  public Get setClusterId(String clusterId) {
+    this.clusterId = clusterId;
+    return this;
+  }
+
+  public String getClusterId() {
+    return clusterId;
+  }
 }

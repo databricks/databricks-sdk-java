@@ -2,18 +2,11 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
 /**
- * The type of the object from which the flag was inherited. If there was no
- * inheritance, this field is left blank.
+ * The type of the object from which the flag was inherited. If there was no inheritance, this field
+ * is left blank.
  */
-public enum EffectiveAutoMaintenanceFlagInheritedFromType{
-    CATALOG,
-    SCHEMA,
-    
+public enum EffectiveAutoMaintenanceFlagInheritedFromType {
+  CATALOG,
+  SCHEMA,
 }
