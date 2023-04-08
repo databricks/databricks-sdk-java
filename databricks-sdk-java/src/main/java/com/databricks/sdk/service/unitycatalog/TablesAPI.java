@@ -22,11 +22,17 @@ import com.databricks.sdk.client.DatabricksException;
  * A table can be managed or external. From an API perspective, a __VIEW__ is a
  * particular kind of table (rather than a managed or external table).
  */
-public class TablesAPI implements TablesService {
-    private final ApiClient apiClient;
+public class TablesAPI {
+    private final TablesService impl;
 
+    /** Regular-use constructor */
     public TablesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new TablesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public TablesAPI(TablesService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -38,10 +44,8 @@ public class TablesAPI implements TablesService {
      * be the owner of the table and have the **USE_CATALOG** privilege on the
      * parent catalog and the **USE_SCHEMA** privilege on the parent schema.
      */
-    @Override
     public void delete(DeleteTableRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/tables/%s", request.getFullName());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -53,10 +57,8 @@ public class TablesAPI implements TablesService {
      * privilege on the parent schema, or be the owner of the table and have the
      * **SELECT** privilege on it as well.
      */
-    @Override
     public TableInfo get(GetTableRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/tables/%s", request.getFullName());
-        return apiClient.GET(path, request, TableInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -70,10 +72,8 @@ public class TablesAPI implements TablesService {
      * There is no guarantee of a specific ordering of the elements in the
      * array.
      */
-    @Override
     public ListTablesResponse list(ListTablesRequest request) {
-        String path = "/api/2.1/unity-catalog/tables";
-        return apiClient.GET(path, request, ListTablesResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -93,10 +93,11 @@ public class TablesAPI implements TablesService {
      * There is no guarantee of a specific ordering of the elements in the
      * array.
      */
-    @Override
     public ListTableSummariesResponse listSummaries(ListSummariesRequest request) {
-        String path = "/api/2.1/unity-catalog/table-summaries";
-        return apiClient.GET(path, request, ListTableSummariesResponse.class);
+        return impl.listSummaries(request);
     }
     
+    public TablesService impl() {
+        return impl;
+    }
 }

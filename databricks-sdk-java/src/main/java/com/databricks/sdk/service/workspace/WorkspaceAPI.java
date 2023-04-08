@@ -17,11 +17,17 @@ import com.databricks.sdk.client.DatabricksException;
  * A notebook is a web-based interface to a document that contains runnable
  * code, visualizations, and explanatory text.
  */
-public class WorkspaceAPI implements WorkspaceService {
-    private final ApiClient apiClient;
+public class WorkspaceAPI {
+    private final WorkspaceService impl;
 
+    /** Regular-use constructor */
     public WorkspaceAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new WorkspaceImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public WorkspaceAPI(WorkspaceService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -36,10 +42,8 @@ public class WorkspaceAPI implements WorkspaceService {
      * Object deletion cannot be undone and deleting a directory recursively is
      * not atomic.
      */
-    @Override
     public void delete(Delete request) {
-        String path = "/api/2.0/workspace/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -54,10 +58,8 @@ public class WorkspaceAPI implements WorkspaceService {
      * would exceed size limit, this call returns `MAX_NOTEBOOK_SIZE_EXCEEDED`.
      * Currently, this API does not support exporting a library.
      */
-    @Override
     public ExportResponse export(Export request) {
-        String path = "/api/2.0/workspace/export";
-        return apiClient.GET(path, request, ExportResponse.class);
+        return impl.export(request);
     }
     
 	/**
@@ -66,10 +68,8 @@ public class WorkspaceAPI implements WorkspaceService {
      * Gets the status of an object or a directory. If `path` does not exist,
      * this call returns an error `RESOURCE_DOES_NOT_EXIST`.
      */
-    @Override
     public ObjectInfo getStatus(GetStatus request) {
-        String path = "/api/2.0/workspace/get-status";
-        return apiClient.GET(path, request, ObjectInfo.class);
+        return impl.getStatus(request);
     }
     
 	/**
@@ -80,10 +80,8 @@ public class WorkspaceAPI implements WorkspaceService {
      * error `RESOURCE_ALREADY_EXISTS`. One can only use `DBC` format to import
      * a directory.
      */
-    @Override
     public void importContent(Import request) {
-        String path = "/api/2.0/workspace/import";
-        apiClient.POST(path, request, Void.class);
+        impl.importContent(request);
     }
     
 	/**
@@ -93,10 +91,8 @@ public class WorkspaceAPI implements WorkspaceService {
      * directory.If the input path does not exist, this call returns an error
      * `RESOURCE_DOES_NOT_EXIST`.
      */
-    @Override
     public ListResponse list(List request) {
-        String path = "/api/2.0/workspace/list";
-        return apiClient.GET(path, request, ListResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -109,10 +105,11 @@ public class WorkspaceAPI implements WorkspaceService {
      * Note that if this operation fails it may have succeeded in creating some
      * of the necessary parrent directories.
      */
-    @Override
     public void mkdirs(Mkdirs request) {
-        String path = "/api/2.0/workspace/mkdirs";
-        apiClient.POST(path, request, Void.class);
+        impl.mkdirs(request);
     }
     
+    public WorkspaceService impl() {
+        return impl;
+    }
 }

@@ -17,11 +17,17 @@ import com.databricks.sdk.client.DatabricksException;
  * data permission on the schema and its parent catalog, and they must have the
  * SELECT permission on the table or view.
  */
-public class SchemasAPI implements SchemasService {
-    private final ApiClient apiClient;
+public class SchemasAPI {
+    private final SchemasService impl;
 
+    /** Regular-use constructor */
     public SchemasAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new SchemasImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public SchemasAPI(SchemasService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -31,10 +37,8 @@ public class SchemasAPI implements SchemasService {
      * metastore admin, or have the **CREATE_SCHEMA** privilege in the parent
      * catalog.
      */
-    @Override
     public SchemaInfo create(CreateSchema request) {
-        String path = "/api/2.1/unity-catalog/schemas";
-        return apiClient.POST(path, request, SchemaInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -43,10 +47,8 @@ public class SchemasAPI implements SchemasService {
      * Deletes the specified schema from the parent catalog. The caller must be
      * the owner of the schema or an owner of the parent catalog.
      */
-    @Override
     public void delete(DeleteSchemaRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/schemas/%s", request.getFullName());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -56,10 +58,8 @@ public class SchemasAPI implements SchemasService {
      * metastore admin, the owner of the schema, or a user that has the
      * **USE_SCHEMA** privilege on the schema.
      */
-    @Override
     public SchemaInfo get(GetSchemaRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/schemas/%s", request.getFullName());
-        return apiClient.GET(path, request, SchemaInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -72,10 +72,8 @@ public class SchemasAPI implements SchemasService {
      * retrieved. There is no guarantee of a specific ordering of the elements
      * in the array.
      */
-    @Override
     public ListSchemasResponse list(ListSchemasRequest request) {
-        String path = "/api/2.1/unity-catalog/schemas";
-        return apiClient.GET(path, request, ListSchemasResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -87,10 +85,11 @@ public class SchemasAPI implements SchemasService {
      * be updated, the caller must be a metastore admin or have the
      * **CREATE_SCHEMA** privilege on the parent catalog.
      */
-    @Override
     public SchemaInfo update(UpdateSchema request) {
-        String path = String.format("/api/2.1/unity-catalog/schemas/%s", request.getFullName());
-        return apiClient.PATCH(path, request, SchemaInfo.class);
+        return impl.update(request);
     }
     
+    public SchemasService impl() {
+        return impl;
+    }
 }

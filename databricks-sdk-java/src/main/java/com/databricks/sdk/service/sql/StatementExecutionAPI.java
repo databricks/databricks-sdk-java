@@ -140,11 +140,15 @@ import com.databricks.sdk.client.DatabricksException;
  * 
  * ----
  * 
- * ### **Warning: drop the authorization header when fetching data through
- * external links**
+ * ### **Warning: We recommend you protect the URLs in the EXTERNAL_LINKS.**
  * 
- * External link URLs do not require an Authorization header or token, and thus
- * all calls to fetch external links must remove the Authorization header.
+ * When using the EXTERNAL_LINKS disposition, a short-lived pre-signed URL is
+ * generated, which the client can use to download the result chunk directly
+ * from cloud storage. As the short-lived credential is embedded in a pre-signed
+ * URL, this URL should be protected.
+ * 
+ * Since pre-signed URLs are generated with embedded temporary credentials, you
+ * need to remove the authorization header from the fetch requests.
  * 
  * ----
  * 
@@ -189,11 +193,17 @@ import com.databricks.sdk.client.DatabricksException;
  * [Public Preview]: https://docs.databricks.com/release-notes/release-types.html
  * [SQL Statement Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
  */
-public class StatementExecutionAPI implements StatementExecutionService {
-    private final ApiClient apiClient;
+public class StatementExecutionAPI {
+    private final StatementExecutionService impl;
 
+    /** Regular-use constructor */
     public StatementExecutionAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new StatementExecutionImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public StatementExecutionAPI(StatementExecutionService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -202,10 +212,8 @@ public class StatementExecutionAPI implements StatementExecutionService {
      * Requests that an executing statement be canceled. Callers must poll for
      * status to see the terminal state.
      */
-    @Override
     public void cancelExecution(CancelExecutionRequest request) {
-        String path = String.format("/api/2.0/sql/statements/%s/cancel", request.getStatementId());
-        apiClient.POST(path, request, Void.class);
+        impl.cancelExecution(request);
     }
     
 	/**
@@ -214,10 +222,8 @@ public class StatementExecutionAPI implements StatementExecutionService {
      * Execute a SQL statement, and if flagged as such, await its result for a
      * specified time.
      */
-    @Override
     public ExecuteStatementResponse executeStatement(ExecuteStatementRequest request) {
-        String path = "/api/2.0/sql/statements/";
-        return apiClient.POST(path, request, ExecuteStatementResponse.class);
+        return impl.executeStatement(request);
     }
     
 	/**
@@ -229,10 +235,8 @@ public class StatementExecutionAPI implements StatementExecutionService {
      * **NOTE** This call currently may take up to 5 seconds to get the latest
      * status and result.
      */
-    @Override
     public GetStatementResponse getStatement(GetStatementRequest request) {
-        String path = String.format("/api/2.0/sql/statements/%s", request.getStatementId());
-        return apiClient.GET(path, request, GetStatementResponse.class);
+        return impl.getStatement(request);
     }
     
 	/**
@@ -247,10 +251,11 @@ public class StatementExecutionAPI implements StatementExecutionService {
      * getStatementResult, and similarly includes `next_chunk_index` and
      * `next_chunk_internal_link` for simple iteration through the result set.
      */
-    @Override
     public ResultData getStatementResultChunkN(GetStatementResultChunkNRequest request) {
-        String path = String.format("/api/2.0/sql/statements/%s/result/chunks/%s", request.getStatementId(), request.getChunkIndex());
-        return apiClient.GET(path, request, ResultData.class);
+        return impl.getStatementResultChunkN(request);
     }
     
+    public StatementExecutionService impl() {
+        return impl;
+    }
 }

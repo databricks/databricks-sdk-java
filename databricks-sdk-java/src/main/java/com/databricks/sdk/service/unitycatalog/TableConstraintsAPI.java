@@ -25,11 +25,17 @@ import com.databricks.sdk.client.DatabricksException;
  * specification during table creation. You can also add or drop constraints on
  * existing tables.
  */
-public class TableConstraintsAPI implements TableConstraintsService {
-    private final ApiClient apiClient;
+public class TableConstraintsAPI {
+    private final TableConstraintsService impl;
 
+    /** Regular-use constructor */
     public TableConstraintsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new TableConstraintsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public TableConstraintsAPI(TableConstraintsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -46,10 +52,8 @@ public class TableConstraintsAPI implements TableConstraintsService {
      * **USE_SCHEMA** privilege on the referenced parent table's schema, and be
      * the owner of the referenced parent table.
      */
-    @Override
     public TableConstraint create(CreateTableConstraint request) {
-        String path = "/api/2.1/unity-catalog/constraints";
-        return apiClient.POST(path, request, TableConstraint.class);
+        return impl.create(request);
     }
     
 	/**
@@ -66,10 +70,11 @@ public class TableConstraintsAPI implements TableConstraintsService {
      * catalog, the **USE_SCHEMA** privilege on the table's schema, and be the
      * owner of the table.
      */
-    @Override
     public void delete(DeleteTableConstraintRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/constraints/%s", request.getFullName());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
+    public TableConstraintsService impl() {
+        return impl;
+    }
 }

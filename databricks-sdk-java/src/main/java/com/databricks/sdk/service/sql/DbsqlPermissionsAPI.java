@@ -25,11 +25,17 @@ import com.databricks.sdk.client.DatabricksException;
  * - `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify
  * permissions (superset of `CAN_RUN`)
  */
-public class DbsqlPermissionsAPI implements DbsqlPermissionsService {
-    private final ApiClient apiClient;
+public class DbsqlPermissionsAPI {
+    private final DbsqlPermissionsService impl;
 
+    /** Regular-use constructor */
     public DbsqlPermissionsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new DbsqlPermissionsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public DbsqlPermissionsAPI(DbsqlPermissionsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -38,10 +44,8 @@ public class DbsqlPermissionsAPI implements DbsqlPermissionsService {
      * Gets a JSON representation of the access control list (ACL) for a
      * specified object.
      */
-    @Override
     public GetResponse get(GetDbsqlPermissionRequest request) {
-        String path = String.format("/api/2.0/preview/sql/permissions/%s/%s", request.getObjectType(), request.getObjectId());
-        return apiClient.GET(path, request, GetResponse.class);
+        return impl.get(request);
     }
     
 	/**
@@ -50,10 +54,8 @@ public class DbsqlPermissionsAPI implements DbsqlPermissionsService {
      * Sets the access control list (ACL) for a specified object. This operation
      * will complete rewrite the ACL.
      */
-    @Override
     public SetResponse set(SetRequest request) {
-        String path = String.format("/api/2.0/preview/sql/permissions/%s/%s", request.getObjectType(), request.getObjectId());
-        return apiClient.POST(path, request, SetResponse.class);
+        return impl.set(request);
     }
     
 	/**
@@ -62,10 +64,11 @@ public class DbsqlPermissionsAPI implements DbsqlPermissionsService {
      * Transfers ownership of a dashboard, query, or alert to an active user.
      * Requires an admin API key.
      */
-    @Override
     public Success transferOwnership(TransferOwnershipRequest request) {
-        String path = String.format("/api/2.0/preview/sql/permissions/%s/%s/transfer", request.getObjectType(), request.getObjectId());
-        return apiClient.POST(path, request, Success.class);
+        return impl.transferOwnership(request);
     }
     
+    public DbsqlPermissionsService impl() {
+        return impl;
+    }
 }

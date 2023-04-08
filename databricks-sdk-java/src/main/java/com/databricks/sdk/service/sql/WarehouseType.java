@@ -8,7 +8,11 @@ import com.databricks.sdk.annotation.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
-
+/**
+ * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless compute,
+ * you must set to `PRO` and also set the field `enable_serverless_compute` to
+ * `true`.
+ */
 public enum WarehouseType{
     CLASSIC,
     PRO,

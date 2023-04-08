@@ -36,11 +36,17 @@ import com.databricks.sdk.client.DatabricksException;
  * Only admin users can create, edit, and delete policies. Admin users also have
  * access to all policies.
  */
-public class ClusterPoliciesAPI implements ClusterPoliciesService {
-    private final ApiClient apiClient;
+public class ClusterPoliciesAPI {
+    private final ClusterPoliciesService impl;
 
+    /** Regular-use constructor */
     public ClusterPoliciesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new ClusterPoliciesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public ClusterPoliciesAPI(ClusterPoliciesService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -48,10 +54,8 @@ public class ClusterPoliciesAPI implements ClusterPoliciesService {
      * 
      * Creates a new policy with prescribed settings.
      */
-    @Override
     public CreatePolicyResponse create(CreatePolicy request) {
-        String path = "/api/2.0/policies/clusters/create";
-        return apiClient.POST(path, request, CreatePolicyResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -60,10 +64,8 @@ public class ClusterPoliciesAPI implements ClusterPoliciesService {
      * Delete a policy for a cluster. Clusters governed by this policy can still
      * run, but cannot be edited.
      */
-    @Override
     public void delete(DeletePolicy request) {
-        String path = "/api/2.0/policies/clusters/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -72,10 +74,8 @@ public class ClusterPoliciesAPI implements ClusterPoliciesService {
      * Update an existing policy for cluster. This operation may make some
      * clusters governed by the previous policy invalid.
      */
-    @Override
     public void edit(EditPolicy request) {
-        String path = "/api/2.0/policies/clusters/edit";
-        apiClient.POST(path, request, Void.class);
+        impl.edit(request);
     }
     
 	/**
@@ -84,10 +84,8 @@ public class ClusterPoliciesAPI implements ClusterPoliciesService {
      * Get a cluster policy entity. Creation and editing is available to admins
      * only.
      */
-    @Override
     public Policy get(Get request) {
-        String path = "/api/2.0/policies/clusters/get";
-        return apiClient.GET(path, request, Policy.class);
+        return impl.get(request);
     }
     
 	/**
@@ -95,10 +93,11 @@ public class ClusterPoliciesAPI implements ClusterPoliciesService {
      * 
      * Returns a list of policies accessible by the requesting user.
      */
-    @Override
     public ListPoliciesResponse list(List request) {
-        String path = "/api/2.0/policies/clusters/list";
-        return apiClient.GET(path, request, ListPoliciesResponse.class);
+        return impl.list(request);
     }
     
+    public ClusterPoliciesService impl() {
+        return impl;
+    }
 }

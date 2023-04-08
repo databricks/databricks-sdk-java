@@ -11,13 +11,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PrincipalOutput {
     /**
-     * The display name of the service principal.
+     * The display name of the principal.
      */
     @JsonProperty("display_name")
     private String displayName;
     
     /**
-     * The group name for the service principal.
+     * The group name of the groupl. Present only if the principal is a group.
      */
     @JsonProperty("group_name")
     private String groupName;
@@ -29,13 +29,14 @@ public class PrincipalOutput {
     private Long principalId;
     
     /**
-     * The name of the service principal.
+     * The name of the service principal. Present only if the principal is a
+     * service principal.
      */
     @JsonProperty("service_principal_name")
     private String servicePrincipalName;
     
     /**
-     * The username of the owner of the service principal.
+     * The username of the user. Present only if the principal is a user.
      */
     @JsonProperty("user_name")
     private String userName;

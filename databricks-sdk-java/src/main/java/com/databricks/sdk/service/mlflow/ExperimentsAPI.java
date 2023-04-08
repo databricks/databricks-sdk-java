@@ -11,11 +11,17 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 
-public class ExperimentsAPI implements ExperimentsService {
-    private final ApiClient apiClient;
+public class ExperimentsAPI {
+    private final ExperimentsService impl;
 
+    /** Regular-use constructor */
     public ExperimentsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new ExperimentsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public ExperimentsAPI(ExperimentsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -29,10 +35,8 @@ public class ExperimentsAPI implements ExperimentsService {
      * Throws `RESOURCE_ALREADY_EXISTS` if a experiment with the given name
      * exists.
      */
-    @Override
     public CreateExperimentResponse create(CreateExperiment request) {
-        String path = "/api/2.0/mlflow/experiments/create";
-        return apiClient.POST(path, request, CreateExperimentResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -42,10 +46,8 @@ public class ExperimentsAPI implements ExperimentsService {
      * tags for deletion. If the experiment uses FileStore, artifacts associated
      * with experiment are also deleted.
      */
-    @Override
     public void delete(DeleteExperiment request) {
-        String path = "/api/2.0/mlflow/experiments/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -54,10 +56,8 @@ public class ExperimentsAPI implements ExperimentsService {
      * Gets metadata for an experiment. This method works on deleted
      * experiments.
      */
-    @Override
     public Experiment get(GetExperimentRequest request) {
-        String path = "/api/2.0/mlflow/experiments/get";
-        return apiClient.GET(path, request, Experiment.class);
+        return impl.get(request);
     }
     
 	/**
@@ -73,10 +73,8 @@ public class ExperimentsAPI implements ExperimentsService {
      * Throws `RESOURCE_DOES_NOT_EXIST` if no experiment with the specified name
      * exists.S
      */
-    @Override
     public GetExperimentByNameResponse getByName(GetByNameRequest request) {
-        String path = "/api/2.0/mlflow/experiments/get-by-name";
-        return apiClient.GET(path, request, GetExperimentByNameResponse.class);
+        return impl.getByName(request);
     }
     
 	/**
@@ -84,10 +82,8 @@ public class ExperimentsAPI implements ExperimentsService {
      * 
      * Gets a list of all experiments.
      */
-    @Override
     public ListExperimentsResponse list(ListExperimentsRequest request) {
-        String path = "/api/2.0/mlflow/experiments/list";
-        return apiClient.GET(path, request, ListExperimentsResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -100,10 +96,8 @@ public class ExperimentsAPI implements ExperimentsService {
      * Throws `RESOURCE_DOES_NOT_EXIST` if experiment was never created or was
      * permanently deleted.",
      */
-    @Override
     public void restore(RestoreExperiment request) {
-        String path = "/api/2.0/mlflow/experiments/restore";
-        apiClient.POST(path, request, Void.class);
+        impl.restore(request);
     }
     
 	/**
@@ -111,10 +105,8 @@ public class ExperimentsAPI implements ExperimentsService {
      * 
      * Searches for experiments that satisfy specified search criteria.
      */
-    @Override
     public SearchExperimentsResponse search(SearchExperiments request) {
-        String path = "/api/2.0/mlflow/experiments/search";
-        return apiClient.POST(path, request, SearchExperimentsResponse.class);
+        return impl.search(request);
     }
     
 	/**
@@ -123,10 +115,8 @@ public class ExperimentsAPI implements ExperimentsService {
      * Sets a tag on an experiment. Experiment tags are metadata that can be
      * updated.
      */
-    @Override
     public void setExperimentTag(SetExperimentTag request) {
-        String path = "/api/2.0/mlflow/experiments/set-experiment-tag";
-        apiClient.POST(path, request, Void.class);
+        impl.setExperimentTag(request);
     }
     
 	/**
@@ -134,10 +124,11 @@ public class ExperimentsAPI implements ExperimentsService {
      * 
      * Updates experiment metadata.
      */
-    @Override
     public void update(UpdateExperiment request) {
-        String path = "/api/2.0/mlflow/experiments/update";
-        apiClient.POST(path, request, Void.class);
+        impl.update(request);
     }
     
+    public ExperimentsService impl() {
+        return impl;
+    }
 }

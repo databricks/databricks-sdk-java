@@ -18,9 +18,11 @@ public class CreatePipeline {
     private Boolean allowDuplicateNames;
     
     /**
-     * Catalog in UC to add tables to. If target is specified, tables in this
-     * pipeline will be published to a "target" schema inside catalog (i.e.
-     * <catalog>.<target>.<table>).
+     * A catalog in Unity Catalog to publish data from this pipeline to. If
+     * `target` is specified, tables in this pipeline are published to a
+     * `target` schema inside `catalog` (for example,
+     * `catalog`.`target`.`table`). If `target` is not specified, no data is
+     * published to Unity Catalog.
      */
     @JsonProperty("catalog")
     private String catalog;
@@ -104,7 +106,9 @@ public class CreatePipeline {
     private String storage;
     
     /**
-     * Target schema (database) to add tables in this pipeline to.
+     * Target schema (database) to add tables in this pipeline to. If not
+     * specified, no data is published to the Hive metastore or Unity Catalog.
+     * To publish to Unity Catalog, also specify `catalog`.
      */
     @JsonProperty("target")
     private String target;

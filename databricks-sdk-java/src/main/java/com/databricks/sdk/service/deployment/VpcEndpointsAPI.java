@@ -22,11 +22,17 @@ import com.databricks.sdk.client.DatabricksException;
  * 
  * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
  */
-public class VpcEndpointsAPI implements VpcEndpointsService {
-    private final ApiClient apiClient;
+public class VpcEndpointsAPI {
+    private final VpcEndpointsService impl;
 
+    /** Regular-use constructor */
     public VpcEndpointsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new VpcEndpointsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public VpcEndpointsAPI(VpcEndpointsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -47,10 +53,8 @@ public class VpcEndpointsAPI implements VpcEndpointsService {
      * [VPC endpoint]: https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html
      * [endpoint service]: https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-share-your-services.html
      */
-    @Override
     public VpcEndpoint create(CreateVpcEndpointRequest request) {
-        String path = String.format("/api/2.0/accounts//vpc-endpoints");
-        return apiClient.POST(path, request, VpcEndpoint.class);
+        return impl.create(request);
     }
     
 	/**
@@ -71,10 +75,8 @@ public class VpcEndpointsAPI implements VpcEndpointsService {
      * [AWS VPC endpoint]: https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
      */
-    @Override
     public void delete(DeleteVpcEndpointRequest request) {
-        String path = String.format("/api/2.0/accounts//vpc-endpoints/%s", request.getVpcEndpointId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -87,10 +89,8 @@ public class VpcEndpointsAPI implements VpcEndpointsService {
      * [AWS PrivateLink]: https://aws.amazon.com/privatelink
      * [VPC endpoint]: https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html
      */
-    @Override
     public VpcEndpoint get(GetVpcEndpointRequest request) {
-        String path = String.format("/api/2.0/accounts//vpc-endpoints/%s", request.getVpcEndpointId());
-        return apiClient.GET(path, request, VpcEndpoint.class);
+        return impl.get(request);
     }
     
 	/**
@@ -103,10 +103,11 @@ public class VpcEndpointsAPI implements VpcEndpointsService {
      * 
      * [Databricks article about PrivateLink]: https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
      */
-    @Override
     public List<VpcEndpoint> list() {
-        String path = String.format("/api/2.0/accounts//vpc-endpoints");
-        return apiClient.GET(path, List.class);
+        return impl.list();
     }
     
+    public VpcEndpointsService impl() {
+        return impl;
+    }
 }

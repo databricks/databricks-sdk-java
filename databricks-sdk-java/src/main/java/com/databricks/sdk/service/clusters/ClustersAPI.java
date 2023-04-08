@@ -39,11 +39,17 @@ import com.databricks.sdk.client.DatabricksException;
  * configuration even after it has been terminated for more than 30 days, an
  * administrator can pin a cluster to the cluster list.
  */
-public class ClustersAPI implements ClustersService {
-    private final ApiClient apiClient;
+public class ClustersAPI {
+    private final ClustersService impl;
 
+    /** Regular-use constructor */
     public ClustersAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new ClustersImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public ClustersAPI(ClustersService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -52,10 +58,8 @@ public class ClustersAPI implements ClustersService {
      * Change the owner of the cluster. You must be an admin to perform this
      * operation.
      */
-    @Override
     public void changeOwner(ChangeClusterOwner request) {
-        String path = "/api/2.0/clusters/change-owner";
-        apiClient.POST(path, request, Void.class);
+        impl.changeOwner(request);
     }
     
 	/**
@@ -75,10 +79,8 @@ public class ClustersAPI implements ClustersService {
      * cluster creation will succeed. Otherwise the cluster will terminate with
      * an informative error message.
      */
-    @Override
     public CreateClusterResponse create(CreateCluster request) {
-        String path = "/api/2.0/clusters/create";
-        return apiClient.POST(path, request, CreateClusterResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -89,10 +91,8 @@ public class ClustersAPI implements ClustersService {
      * will be in a `TERMINATED` state. If the cluster is already in a
      * `TERMINATING` or `TERMINATED` state, nothing will happen.
      */
-    @Override
     public void delete(DeleteCluster request) {
-        String path = "/api/2.0/clusters/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -112,10 +112,8 @@ public class ClustersAPI implements ClustersService {
      * 
      * Clusters created by the Databricks Jobs service cannot be edited.
      */
-    @Override
     public void edit(EditCluster request) {
-        String path = "/api/2.0/clusters/edit";
-        apiClient.POST(path, request, Void.class);
+        impl.edit(request);
     }
     
 	/**
@@ -125,10 +123,8 @@ public class ClustersAPI implements ClustersService {
      * paginated. If there are more events to read, the response includes all
      * the nparameters necessary to request the next page of events.
      */
-    @Override
     public GetEventsResponse events(GetEvents request) {
-        String path = "/api/2.0/clusters/events";
-        return apiClient.POST(path, request, GetEventsResponse.class);
+        return impl.events(request);
     }
     
 	/**
@@ -138,10 +134,8 @@ public class ClustersAPI implements ClustersService {
      * can be described while they are running, or up to 60 days after they are
      * terminated.
      */
-    @Override
     public ClusterInfo get(Get request) {
-        String path = "/api/2.0/clusters/get";
-        return apiClient.GET(path, request, ClusterInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -158,10 +152,8 @@ public class ClustersAPI implements ClustersService {
      * cluster, 4 active clusters, all 45 terminated all-purpose clusters, and
      * the 30 most recently terminated job clusters.
      */
-    @Override
     public ListClustersResponse list(List request) {
-        String path = "/api/2.0/clusters/list";
-        return apiClient.GET(path, request, ListClustersResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -170,10 +162,8 @@ public class ClustersAPI implements ClustersService {
      * Returns a list of supported Spark node types. These node types can be
      * used to launch a cluster.
      */
-    @Override
     public ListNodeTypesResponse listNodeTypes() {
-        String path = "/api/2.0/clusters/list-node-types";
-        return apiClient.GET(path, ListNodeTypesResponse.class);
+        return impl.listNodeTypes();
     }
     
 	/**
@@ -182,10 +172,8 @@ public class ClustersAPI implements ClustersService {
      * Returns a list of availability zones where clusters can be created in
      * (For example, us-west-2a). These zones can be used to launch a cluster.
      */
-    @Override
     public ListAvailableZonesResponse listZones() {
-        String path = "/api/2.0/clusters/list-zones";
-        return apiClient.GET(path, ListAvailableZonesResponse.class);
+        return impl.listZones();
     }
     
 	/**
@@ -198,10 +186,8 @@ public class ClustersAPI implements ClustersService {
      * cluster list, and API users can no longer perform any action on
      * permanently deleted clusters.
      */
-    @Override
     public void permanentDelete(PermanentDeleteCluster request) {
-        String path = "/api/2.0/clusters/permanent-delete";
-        apiClient.POST(path, request, Void.class);
+        impl.permanentDelete(request);
     }
     
 	/**
@@ -211,10 +197,8 @@ public class ClustersAPI implements ClustersService {
      * ListClusters API. Pinning a cluster that is already pinned will have no
      * effect. This API can only be called by workspace admins.
      */
-    @Override
     public void pin(PinCluster request) {
-        String path = "/api/2.0/clusters/pin";
-        apiClient.POST(path, request, Void.class);
+        impl.pin(request);
     }
     
 	/**
@@ -223,10 +207,8 @@ public class ClustersAPI implements ClustersService {
      * Resizes a cluster to have a desired number of workers. This will fail
      * unless the cluster is in a `RUNNING` state.
      */
-    @Override
     public void resize(ResizeCluster request) {
-        String path = "/api/2.0/clusters/resize";
-        apiClient.POST(path, request, Void.class);
+        impl.resize(request);
     }
     
 	/**
@@ -235,10 +217,8 @@ public class ClustersAPI implements ClustersService {
      * Restarts a Spark cluster with the supplied ID. If the cluster is not
      * currently in a `RUNNING` state, nothing will happen.
      */
-    @Override
     public void restart(RestartCluster request) {
-        String path = "/api/2.0/clusters/restart";
-        apiClient.POST(path, request, Void.class);
+        impl.restart(request);
     }
     
 	/**
@@ -247,10 +227,8 @@ public class ClustersAPI implements ClustersService {
      * Returns the list of available Spark versions. These versions can be used
      * to launch a cluster.
      */
-    @Override
     public GetSparkVersionsResponse sparkVersions() {
-        String path = "/api/2.0/clusters/spark-versions";
-        return apiClient.GET(path, GetSparkVersionsResponse.class);
+        return impl.sparkVersions();
     }
     
 	/**
@@ -266,10 +244,8 @@ public class ClustersAPI implements ClustersService {
      * state, nothing will happen. * Clusters launched to run a job cannot be
      * started.
      */
-    @Override
     public void start(StartCluster request) {
-        String path = "/api/2.0/clusters/start";
-        apiClient.POST(path, request, Void.class);
+        impl.start(request);
     }
     
 	/**
@@ -279,10 +255,11 @@ public class ClustersAPI implements ClustersService {
      * the ListClusters API. Unpinning a cluster that is not pinned will have no
      * effect. This API can only be called by workspace admins.
      */
-    @Override
     public void unpin(UnpinCluster request) {
-        String path = "/api/2.0/clusters/unpin";
-        apiClient.POST(path, request, Void.class);
+        impl.unpin(request);
     }
     
+    public ClustersService impl() {
+        return impl;
+    }
 }

@@ -33,11 +33,17 @@ import com.databricks.sdk.client.DatabricksException;
  * After changes to the IP access list feature, it can take a few minutes for
  * changes to take effect.
  */
-public class IpAccessListsAPI implements IpAccessListsService {
-    private final ApiClient apiClient;
+public class IpAccessListsAPI {
+    private final IpAccessListsService impl;
 
+    /** Regular-use constructor */
     public IpAccessListsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new IpAccessListsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public IpAccessListsAPI(IpAccessListsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -62,10 +68,8 @@ public class IpAccessListsAPI implements IpAccessListsService {
      * new IP access list has no effect until you enable the feature. See
      * :method:workspaceconf/setStatus
      */
-    @Override
     public CreateIpAccessListResponse create(CreateIpAccessList request) {
-        String path = "/api/2.0/ip-access-lists";
-        return apiClient.POST(path, request, CreateIpAccessListResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -73,10 +77,8 @@ public class IpAccessListsAPI implements IpAccessListsService {
      * 
      * Deletes an IP access list, specified by its list ID.
      */
-    @Override
     public void delete(Delete request) {
-        String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -84,10 +86,8 @@ public class IpAccessListsAPI implements IpAccessListsService {
      * 
      * Gets an IP access list, specified by its list ID.
      */
-    @Override
     public FetchIpAccessListResponse get(Get request) {
-        String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
-        return apiClient.GET(path, request, FetchIpAccessListResponse.class);
+        return impl.get(request);
     }
     
 	/**
@@ -95,10 +95,8 @@ public class IpAccessListsAPI implements IpAccessListsService {
      * 
      * Gets all IP access lists for the specified workspace.
      */
-    @Override
     public GetIpAccessListResponse list() {
-        String path = "/api/2.0/ip-access-lists";
-        return apiClient.GET(path, GetIpAccessListResponse.class);
+        return impl.list();
     }
     
 	/**
@@ -118,10 +116,8 @@ public class IpAccessListsAPI implements IpAccessListsService {
      * access list has no effect until you enable the feature. See
      * :method:workspaceconf/setStatus.
      */
-    @Override
     public void replace(ReplaceIpAccessList request) {
-        String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
-        apiClient.PUT(path, request, Void.class);
+        impl.replace(request);
     }
     
 	/**
@@ -146,10 +142,11 @@ public class IpAccessListsAPI implements IpAccessListsService {
      * resulting IP access list has no effect until you enable the feature. See
      * :method:workspaceconf/setStatus.
      */
-    @Override
     public void update(UpdateIpAccessList request) {
-        String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public IpAccessListsService impl() {
+        return impl;
+    }
 }

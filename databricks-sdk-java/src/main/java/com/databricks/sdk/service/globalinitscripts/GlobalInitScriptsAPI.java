@@ -22,11 +22,17 @@ import com.databricks.sdk.client.DatabricksException;
  * fail, the entire cluster fails with a `GLOBAL_INIT_SCRIPT_FAILURE` error
  * code.
  */
-public class GlobalInitScriptsAPI implements GlobalInitScriptsService {
-    private final ApiClient apiClient;
+public class GlobalInitScriptsAPI {
+    private final GlobalInitScriptsService impl;
 
+    /** Regular-use constructor */
     public GlobalInitScriptsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new GlobalInitScriptsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public GlobalInitScriptsAPI(GlobalInitScriptsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -34,10 +40,8 @@ public class GlobalInitScriptsAPI implements GlobalInitScriptsService {
      * 
      * Creates a new global init script in this workspace.
      */
-    @Override
     public CreateResponse create(GlobalInitScriptCreateRequest request) {
-        String path = "/api/2.0/global-init-scripts";
-        return apiClient.POST(path, request, CreateResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -45,10 +49,8 @@ public class GlobalInitScriptsAPI implements GlobalInitScriptsService {
      * 
      * Deletes a global init script.
      */
-    @Override
     public void delete(Delete request) {
-        String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -56,10 +58,8 @@ public class GlobalInitScriptsAPI implements GlobalInitScriptsService {
      * 
      * Gets all the details of a script, including its Base64-encoded contents.
      */
-    @Override
     public GlobalInitScriptDetailsWithContent get(Get request) {
-        String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
-        return apiClient.GET(path, request, GlobalInitScriptDetailsWithContent.class);
+        return impl.get(request);
     }
     
 	/**
@@ -70,10 +70,8 @@ public class GlobalInitScriptsAPI implements GlobalInitScriptsService {
      * retrieve the contents of a script, use the [get a global init
      * script](#operation/get-script) operation.
      */
-    @Override
     public ListGlobalInitScriptsResponse list() {
-        String path = "/api/2.0/global-init-scripts";
-        return apiClient.GET(path, ListGlobalInitScriptsResponse.class);
+        return impl.list();
     }
     
 	/**
@@ -82,10 +80,11 @@ public class GlobalInitScriptsAPI implements GlobalInitScriptsService {
      * Updates a global init script, specifying only the fields to change. All
      * fields are optional. Unspecified fields retain their current value.
      */
-    @Override
     public void update(GlobalInitScriptUpdateRequest request) {
-        String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public GlobalInitScriptsService impl() {
+        return impl;
+    }
 }

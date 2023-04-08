@@ -11,11 +11,17 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 
-public class ModelVersionsAPI implements ModelVersionsService {
-    private final ApiClient apiClient;
+public class ModelVersionsAPI {
+    private final ModelVersionsService impl;
 
+    /** Regular-use constructor */
     public ModelVersionsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new ModelVersionsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public ModelVersionsAPI(ModelVersionsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -23,10 +29,8 @@ public class ModelVersionsAPI implements ModelVersionsService {
      * 
      * Creates a model version.
      */
-    @Override
     public CreateModelVersionResponse create(CreateModelVersionRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/create";
-        return apiClient.POST(path, request, CreateModelVersionResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -34,10 +38,8 @@ public class ModelVersionsAPI implements ModelVersionsService {
      * 
      * Deletes a model version.
      */
-    @Override
     public void delete(DeleteModelVersionRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/delete";
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -45,10 +47,8 @@ public class ModelVersionsAPI implements ModelVersionsService {
      * 
      * Deletes a model version tag.
      */
-    @Override
     public void deleteTag(DeleteModelVersionTagRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/delete-tag";
-        apiClient.DELETE(path, request, Void.class);
+        impl.deleteTag(request);
     }
     
 	/**
@@ -56,10 +56,8 @@ public class ModelVersionsAPI implements ModelVersionsService {
      * 
      * Get a model version.
      */
-    @Override
     public GetModelVersionResponse get(GetModelVersionRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/get";
-        return apiClient.GET(path, request, GetModelVersionResponse.class);
+        return impl.get(request);
     }
     
 	/**
@@ -67,10 +65,8 @@ public class ModelVersionsAPI implements ModelVersionsService {
      * 
      * Gets a URI to download the model version.
      */
-    @Override
     public GetModelVersionDownloadUriResponse getDownloadUri(GetModelVersionDownloadUriRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/get-download-uri";
-        return apiClient.GET(path, request, GetModelVersionDownloadUriResponse.class);
+        return impl.getDownloadUri(request);
     }
     
 	/**
@@ -78,10 +74,8 @@ public class ModelVersionsAPI implements ModelVersionsService {
      * 
      * Searches for specific model versions based on the supplied __filter__.
      */
-    @Override
     public SearchModelVersionsResponse search(SearchModelVersionsRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/search";
-        return apiClient.GET(path, request, SearchModelVersionsResponse.class);
+        return impl.search(request);
     }
     
 	/**
@@ -89,10 +83,8 @@ public class ModelVersionsAPI implements ModelVersionsService {
      * 
      * Sets a model version tag.
      */
-    @Override
     public void setTag(SetModelVersionTagRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/set-tag";
-        apiClient.POST(path, request, Void.class);
+        impl.setTag(request);
     }
     
 	/**
@@ -100,10 +92,8 @@ public class ModelVersionsAPI implements ModelVersionsService {
      * 
      * Transition to the next model stage.
      */
-    @Override
     public TransitionModelVersionStageResponse transitionStage(TransitionModelVersionStage request) {
-        String path = "/api/2.0/mlflow/model-versions/transition-stage";
-        return apiClient.POST(path, request, TransitionModelVersionStageResponse.class);
+        return impl.transitionStage(request);
     }
     
 	/**
@@ -111,10 +101,11 @@ public class ModelVersionsAPI implements ModelVersionsService {
      * 
      * Updates the model version.
      */
-    @Override
     public void update(UpdateModelVersionRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/update";
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public ModelVersionsService impl() {
+        return impl;
+    }
 }

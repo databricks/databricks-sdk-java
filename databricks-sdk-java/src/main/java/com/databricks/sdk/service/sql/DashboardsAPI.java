@@ -17,20 +17,24 @@ import com.databricks.sdk.client.DatabricksException;
  * since you can get a dashboard definition with a GET request and then POST it
  * to create a new one.
  */
-public class DashboardsAPI implements DashboardsService {
-    private final ApiClient apiClient;
+public class DashboardsAPI {
+    private final DashboardsService impl;
 
+    /** Regular-use constructor */
     public DashboardsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new DashboardsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public DashboardsAPI(DashboardsService mock) {
+        impl = mock;
     }
 	
 	/**
      * Create a dashboard object.
      */
-    @Override
     public Dashboard create(CreateDashboardRequest request) {
-        String path = "/api/2.0/preview/sql/dashboards";
-        return apiClient.POST(path, request, Dashboard.class);
+        return impl.create(request);
     }
     
 	/**
@@ -39,10 +43,8 @@ public class DashboardsAPI implements DashboardsService {
      * Moves a dashboard to the trash. Trashed dashboards do not appear in list
      * views or searches, and cannot be shared.
      */
-    @Override
     public void delete(DeleteDashboardRequest request) {
-        String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -51,10 +53,8 @@ public class DashboardsAPI implements DashboardsService {
      * Returns a JSON representation of a dashboard object, including its
      * visualization and query objects.
      */
-    @Override
     public Dashboard get(GetDashboardRequest request) {
-        String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
-        return apiClient.GET(path, request, Dashboard.class);
+        return impl.get(request);
     }
     
 	/**
@@ -62,10 +62,8 @@ public class DashboardsAPI implements DashboardsService {
      * 
      * Fetch a paginated list of dashboard objects.
      */
-    @Override
     public ListResponse list(ListDashboardsRequest request) {
-        String path = "/api/2.0/preview/sql/dashboards";
-        return apiClient.GET(path, request, ListResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -74,10 +72,11 @@ public class DashboardsAPI implements DashboardsService {
      * A restored dashboard appears in list views and searches and can be
      * shared.
      */
-    @Override
     public void restore(RestoreDashboardRequest request) {
-        String path = String.format("/api/2.0/preview/sql/dashboards/trash/%s", request.getDashboardId());
-        apiClient.POST(path, request, Void.class);
+        impl.restore(request);
     }
     
+    public DashboardsService impl() {
+        return impl;
+    }
 }

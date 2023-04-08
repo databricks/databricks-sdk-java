@@ -25,11 +25,17 @@ import com.databricks.sdk.client.DatabricksException;
  * account admin who creates the storage credential can delegate ownership to
  * another user or group to manage permissions on it.
  */
-public class StorageCredentialsAPI implements StorageCredentialsService {
-    private final ApiClient apiClient;
+public class StorageCredentialsAPI {
+    private final StorageCredentialsService impl;
 
+    /** Regular-use constructor */
     public StorageCredentialsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new StorageCredentialsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public StorageCredentialsAPI(StorageCredentialsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -44,10 +50,8 @@ public class StorageCredentialsAPI implements StorageCredentialsService {
      * The caller must be a metastore admin and have the
      * **CREATE_STORAGE_CREDENTIAL** privilege on the metastore.
      */
-    @Override
     public StorageCredentialInfo create(CreateStorageCredential request) {
-        String path = "/api/2.1/unity-catalog/storage-credentials";
-        return apiClient.POST(path, request, StorageCredentialInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -56,10 +60,8 @@ public class StorageCredentialsAPI implements StorageCredentialsService {
      * Deletes a storage credential from the metastore. The caller must be an
      * owner of the storage credential.
      */
-    @Override
     public void delete(DeleteStorageCredentialRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/storage-credentials/%s", request.getName());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -69,10 +71,8 @@ public class StorageCredentialsAPI implements StorageCredentialsService {
      * metastore admin, the owner of the storage credential, or have some
      * permission on the storage credential.
      */
-    @Override
     public StorageCredentialInfo get(GetStorageCredentialRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/storage-credentials/%s", request.getName());
-        return apiClient.GET(path, request, StorageCredentialInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -84,10 +84,8 @@ public class StorageCredentialsAPI implements StorageCredentialsService {
      * storage credentials will be retrieved. There is no guarantee of a
      * specific ordering of the elements in the array.
      */
-    @Override
     public List<StorageCredentialInfo> list() {
-        String path = "/api/2.1/unity-catalog/storage-credentials";
-        return apiClient.GET(path, List.class);
+        return impl.list();
     }
     
 	/**
@@ -97,10 +95,8 @@ public class StorageCredentialsAPI implements StorageCredentialsService {
      * owner of the storage credential or a metastore admin. If the caller is a
      * metastore admin, only the __owner__ credential can be changed.
      */
-    @Override
     public StorageCredentialInfo update(UpdateStorageCredential request) {
-        String path = String.format("/api/2.1/unity-catalog/storage-credentials/%s", request.getName());
-        return apiClient.PATCH(path, request, StorageCredentialInfo.class);
+        return impl.update(request);
     }
     
 	/**
@@ -120,10 +116,11 @@ public class StorageCredentialsAPI implements StorageCredentialsService {
      * have the **CREATE_EXTERNAL_LOCATION** privilege on the metastore and the
      * storage credential.
      */
-    @Override
     public ValidateStorageCredentialResponse validate(ValidateStorageCredential request) {
-        String path = "/api/2.1/unity-catalog/validate-storage-credentials";
-        return apiClient.POST(path, request, ValidateStorageCredentialResponse.class);
+        return impl.validate(request);
     }
     
+    public StorageCredentialsService impl() {
+        return impl;
+    }
 }

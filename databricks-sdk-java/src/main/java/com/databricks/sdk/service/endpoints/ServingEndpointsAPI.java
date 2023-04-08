@@ -25,11 +25,17 @@ import com.databricks.sdk.client.DatabricksException;
  * endpoint. Additionally, you can configure the scale of resources that should
  * be applied to each served model.
  */
-public class ServingEndpointsAPI implements ServingEndpointsService {
-    private final ApiClient apiClient;
+public class ServingEndpointsAPI {
+    private final ServingEndpointsService impl;
 
+    /** Regular-use constructor */
     public ServingEndpointsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new ServingEndpointsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public ServingEndpointsAPI(ServingEndpointsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -38,28 +44,22 @@ public class ServingEndpointsAPI implements ServingEndpointsService {
      * 
      * Retrieves the build logs associated with the provided served model.
      */
-    @Override
     public BuildLogsResponse buildLogs(BuildLogsRequest request) {
-        String path = String.format("/api/2.0/serving-endpoints/%s/served-models/%s/build-logs", request.getName(), request.getServedModelName());
-        return apiClient.GET(path, request, BuildLogsResponse.class);
+        return impl.buildLogs(request);
     }
     
 	/**
      * Create a new serving endpoint.
      */
-    @Override
     public ServingEndpointDetailed create(CreateServingEndpoint request) {
-        String path = "/api/2.0/serving-endpoints";
-        return apiClient.POST(path, request, ServingEndpointDetailed.class);
+        return impl.create(request);
     }
     
 	/**
      * Delete a serving endpoint.
      */
-    @Override
     public void delete(DeleteServingEndpointRequest request) {
-        String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -69,10 +69,8 @@ public class ServingEndpointsAPI implements ServingEndpointsService {
      * Retrieves the metrics associated with the provided serving endpoint in
      * either Prometheus or OpenMetrics exposition format.
      */
-    @Override
     public void exportMetrics(ExportMetricsRequest request) {
-        String path = String.format("/api/2.0/serving-endpoints/%s/metrics", request.getName());
-        apiClient.GET(path, request, Void.class);
+        impl.exportMetrics(request);
     }
     
 	/**
@@ -80,19 +78,15 @@ public class ServingEndpointsAPI implements ServingEndpointsService {
      * 
      * Retrieves the details for a single serving endpoint.
      */
-    @Override
     public ServingEndpointDetailed get(GetServingEndpointRequest request) {
-        String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
-        return apiClient.GET(path, request, ServingEndpointDetailed.class);
+        return impl.get(request);
     }
     
 	/**
      * Retrieve all serving endpoints.
      */
-    @Override
     public ListEndpointsResponse list() {
-        String path = "/api/2.0/serving-endpoints";
-        return apiClient.GET(path, ListEndpointsResponse.class);
+        return impl.list();
     }
     
 	/**
@@ -101,19 +95,15 @@ public class ServingEndpointsAPI implements ServingEndpointsService {
      * 
      * Retrieves the service logs associated with the provided served model.
      */
-    @Override
     public ServerLogsResponse logs(LogsRequest request) {
-        String path = String.format("/api/2.0/serving-endpoints/%s/served-models/%s/logs", request.getName(), request.getServedModelName());
-        return apiClient.GET(path, request, ServerLogsResponse.class);
+        return impl.logs(request);
     }
     
 	/**
      * Query a serving endpoint with provided model input.
      */
-    @Override
     public QueryEndpointResponse query(QueryRequest request) {
-        String path = String.format("/serving-endpoints/%s/invocations", request.getName());
-        return apiClient.POST(path, request, QueryEndpointResponse.class);
+        return impl.query(request);
     }
     
 	/**
@@ -124,10 +114,11 @@ public class ServingEndpointsAPI implements ServingEndpointsService {
      * config. An endpoint that already has an update in progress can not be
      * updated until the current update completes or fails.
      */
-    @Override
     public ServingEndpointDetailed updateConfig(EndpointCoreConfigInput request) {
-        String path = String.format("/api/2.0/serving-endpoints/%s/config", request.getName());
-        return apiClient.PUT(path, request, ServingEndpointDetailed.class);
+        return impl.updateConfig(request);
     }
     
+    public ServingEndpointsService impl() {
+        return impl;
+    }
 }

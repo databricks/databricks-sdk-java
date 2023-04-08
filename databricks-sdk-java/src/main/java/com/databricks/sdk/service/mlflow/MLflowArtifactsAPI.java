@@ -11,11 +11,17 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 
-public class MLflowArtifactsAPI implements MLflowArtifactsService {
-    private final ApiClient apiClient;
+public class MLflowArtifactsAPI {
+    private final MLflowArtifactsService impl;
 
+    /** Regular-use constructor */
     public MLflowArtifactsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new MLflowArtifactsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public MLflowArtifactsAPI(MLflowArtifactsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -25,10 +31,11 @@ public class MLflowArtifactsAPI implements MLflowArtifactsService {
      * is specified, the response contains only artifacts with the specified
      * prefix.",
      */
-    @Override
     public ListArtifactsResponse list(ListArtifactsRequest request) {
-        String path = "/api/2.0/mlflow/artifacts/list";
-        return apiClient.GET(path, request, ListArtifactsResponse.class);
+        return impl.list(request);
     }
     
+    public MLflowArtifactsService impl() {
+        return impl;
+    }
 }

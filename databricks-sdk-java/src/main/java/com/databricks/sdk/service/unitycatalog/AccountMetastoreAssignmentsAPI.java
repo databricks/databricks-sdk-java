@@ -13,11 +13,17 @@ import com.databricks.sdk.client.DatabricksException;
 /**
  * These APIs manage metastore assignments to a workspace.
  */
-public class AccountMetastoreAssignmentsAPI implements AccountMetastoreAssignmentsService {
-    private final ApiClient apiClient;
+public class AccountMetastoreAssignmentsAPI {
+    private final AccountMetastoreAssignmentsService impl;
 
+    /** Regular-use constructor */
     public AccountMetastoreAssignmentsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new AccountMetastoreAssignmentsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public AccountMetastoreAssignmentsAPI(AccountMetastoreAssignmentsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -25,10 +31,8 @@ public class AccountMetastoreAssignmentsAPI implements AccountMetastoreAssignmen
      * 
      * Creates an assignment to a metastore for a workspace
      */
-    @Override
     public MetastoreAssignment create(CreateMetastoreAssignment request) {
-        String path = String.format("/api/2.0/accounts//workspaces/%s/metastores/%s", request.getWorkspaceId(), request.getMetastoreId());
-        return apiClient.POST(path, request, MetastoreAssignment.class);
+        return impl.create(request);
     }
     
 	/**
@@ -37,10 +41,8 @@ public class AccountMetastoreAssignmentsAPI implements AccountMetastoreAssignmen
      * Deletes a metastore assignment to a workspace, leaving the workspace with
      * no metastore.
      */
-    @Override
     public void delete(DeleteAccountMetastoreAssignmentRequest request) {
-        String path = String.format("/api/2.0/accounts//workspaces/%s/metastores/%s", request.getWorkspaceId(), request.getMetastoreId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -51,10 +53,8 @@ public class AccountMetastoreAssignmentsAPI implements AccountMetastoreAssignmen
      * no metastore is assigned to the workspace, the assignment will not be
      * found and a 404 returned.
      */
-    @Override
     public MetastoreAssignment get(GetAccountMetastoreAssignmentRequest request) {
-        String path = String.format("/api/2.0/accounts//workspaces/%s/metastore", request.getWorkspaceId());
-        return apiClient.GET(path, request, MetastoreAssignment.class);
+        return impl.get(request);
     }
     
 	/**
@@ -63,10 +63,8 @@ public class AccountMetastoreAssignmentsAPI implements AccountMetastoreAssignmen
      * Gets a list of all Databricks workspace IDs that have been assigned to
      * given metastore.
      */
-    @Override
     public List<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
-        String path = String.format("/api/2.0/accounts//metastores/%s/workspaces", request.getMetastoreId());
-        return apiClient.GET(path, request, List.class);
+        return impl.list(request);
     }
     
 	/**
@@ -75,10 +73,11 @@ public class AccountMetastoreAssignmentsAPI implements AccountMetastoreAssignmen
      * Updates an assignment to a metastore for a workspace. Currently, only the
      * default catalog may be updated
      */
-    @Override
     public MetastoreAssignment update(UpdateMetastoreAssignment request) {
-        String path = String.format("/api/2.0/accounts//workspaces/%s/metastores/%s", request.getWorkspaceId(), request.getMetastoreId());
-        return apiClient.PUT(path, request, MetastoreAssignment.class);
+        return impl.update(request);
     }
     
+    public AccountMetastoreAssignmentsService impl() {
+        return impl;
+    }
 }

@@ -14,11 +14,17 @@ import com.databricks.sdk.client.DatabricksException;
  * These APIs manage Unity Catalog metastores for an account. A metastore
  * contains catalogs that can be associated with workspaces
  */
-public class AccountMetastoresAPI implements AccountMetastoresService {
-    private final ApiClient apiClient;
+public class AccountMetastoresAPI {
+    private final AccountMetastoresService impl;
 
+    /** Regular-use constructor */
     public AccountMetastoresAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new AccountMetastoresImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public AccountMetastoresAPI(AccountMetastoresService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -26,10 +32,8 @@ public class AccountMetastoresAPI implements AccountMetastoresService {
      * 
      * Creates a Unity Catalog metastore.
      */
-    @Override
     public MetastoreInfo create(CreateMetastore request) {
-        String path = String.format("/api/2.0/accounts//metastores");
-        return apiClient.POST(path, request, MetastoreInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -38,10 +42,8 @@ public class AccountMetastoresAPI implements AccountMetastoresService {
      * Deletes a Databricks Unity Catalog metastore for an account, both
      * specified by ID.
      */
-    @Override
     public void delete(DeleteAccountMetastoreRequest request) {
-        String path = String.format("/api/2.0/accounts//metastores/%s", request.getMetastoreId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -50,10 +52,8 @@ public class AccountMetastoresAPI implements AccountMetastoresService {
      * Gets a Databricks Unity Catalog metastore from an account, both specified
      * by ID.
      */
-    @Override
     public MetastoreInfo get(GetAccountMetastoreRequest request) {
-        String path = String.format("/api/2.0/accounts//metastores/%s", request.getMetastoreId());
-        return apiClient.GET(path, request, MetastoreInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -62,10 +62,8 @@ public class AccountMetastoresAPI implements AccountMetastoresService {
      * Gets all Unity Catalog metastores associated with an account specified by
      * ID.
      */
-    @Override
     public ListMetastoresResponse list() {
-        String path = String.format("/api/2.0/accounts//metastores");
-        return apiClient.GET(path, ListMetastoresResponse.class);
+        return impl.list();
     }
     
 	/**
@@ -73,10 +71,11 @@ public class AccountMetastoresAPI implements AccountMetastoresService {
      * 
      * Updates an existing Unity Catalog metastore.
      */
-    @Override
     public MetastoreInfo update(UpdateMetastore request) {
-        String path = String.format("/api/2.0/accounts//metastores/%s", request.getMetastoreId());
-        return apiClient.PUT(path, request, MetastoreInfo.class);
+        return impl.update(request);
     }
     
+    public AccountMetastoresService impl() {
+        return impl;
+    }
 }

@@ -14,11 +14,17 @@ import com.databricks.sdk.client.DatabricksException;
  * The Token API allows you to create, list, and revoke tokens that can be used
  * to authenticate and access Databricks REST APIs.
  */
-public class TokensAPI implements TokensService {
-    private final ApiClient apiClient;
+public class TokensAPI {
+    private final TokensService impl;
 
+    /** Regular-use constructor */
     public TokensAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new TokensImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public TokensAPI(TokensService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -29,10 +35,8 @@ public class TokensAPI implements TokensService {
      * authenticated token. If the user's token quota is exceeded, this call
      * returns an error **QUOTA_EXCEEDED**.
      */
-    @Override
     public CreateTokenResponse create(CreateTokenRequest request) {
-        String path = "/api/2.0/token/create";
-        return apiClient.POST(path, request, CreateTokenResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -43,10 +47,8 @@ public class TokensAPI implements TokensService {
      * If a token with the specified ID is not valid, this call returns an error
      * **RESOURCE_DOES_NOT_EXIST**.
      */
-    @Override
     public void delete(RevokeTokenRequest request) {
-        String path = "/api/2.0/token/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -54,10 +56,11 @@ public class TokensAPI implements TokensService {
      * 
      * Lists all the valid tokens for a user-workspace pair.
      */
-    @Override
     public ListTokensResponse list() {
-        String path = "/api/2.0/token/list";
-        return apiClient.GET(path, ListTokensResponse.class);
+        return impl.list();
     }
     
+    public TokensService impl() {
+        return impl;
+    }
 }

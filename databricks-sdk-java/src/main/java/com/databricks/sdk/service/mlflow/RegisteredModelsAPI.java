@@ -11,11 +11,17 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 
-public class RegisteredModelsAPI implements RegisteredModelsService {
-    private final ApiClient apiClient;
+public class RegisteredModelsAPI {
+    private final RegisteredModelsService impl;
 
+    /** Regular-use constructor */
     public RegisteredModelsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new RegisteredModelsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public RegisteredModelsAPI(RegisteredModelsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -27,10 +33,8 @@ public class RegisteredModelsAPI implements RegisteredModelsService {
      * Throws `RESOURCE_ALREADY_EXISTS` if a registered model with the given
      * name exists.
      */
-    @Override
     public CreateRegisteredModelResponse create(CreateRegisteredModelRequest request) {
-        String path = "/api/2.0/mlflow/registered-models/create";
-        return apiClient.POST(path, request, CreateRegisteredModelResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -38,10 +42,8 @@ public class RegisteredModelsAPI implements RegisteredModelsService {
      * 
      * Deletes a registered model.
      */
-    @Override
     public void delete(DeleteRegisteredModelRequest request) {
-        String path = "/api/2.0/mlflow/registered-models/delete";
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -49,10 +51,8 @@ public class RegisteredModelsAPI implements RegisteredModelsService {
      * 
      * Deletes the tag for a registered model.
      */
-    @Override
     public void deleteTag(DeleteRegisteredModelTagRequest request) {
-        String path = "/api/2.0/mlflow/registered-models/delete-tag";
-        apiClient.DELETE(path, request, Void.class);
+        impl.deleteTag(request);
     }
     
 	/**
@@ -60,10 +60,8 @@ public class RegisteredModelsAPI implements RegisteredModelsService {
      * 
      * Gets the registered model that matches the specified ID.
      */
-    @Override
     public GetRegisteredModelResponse get(GetRegisteredModelRequest request) {
-        String path = "/api/2.0/mlflow/registered-models/get";
-        return apiClient.GET(path, request, GetRegisteredModelResponse.class);
+        return impl.get(request);
     }
     
 	/**
@@ -71,10 +69,8 @@ public class RegisteredModelsAPI implements RegisteredModelsService {
      * 
      * Gets the latest version of a registered model.
      */
-    @Override
     public GetLatestVersionsResponse getLatestVersions(GetLatestVersionsRequest request) {
-        String path = "/api/2.0/mlflow/registered-models/get-latest-versions";
-        return apiClient.POST(path, request, GetLatestVersionsResponse.class);
+        return impl.getLatestVersions(request);
     }
     
 	/**
@@ -83,10 +79,8 @@ public class RegisteredModelsAPI implements RegisteredModelsService {
      * Lists all available registered models, up to the limit specified in
      * __max_results__.
      */
-    @Override
     public ListRegisteredModelsResponse list(ListRegisteredModelsRequest request) {
-        String path = "/api/2.0/mlflow/registered-models/list";
-        return apiClient.GET(path, request, ListRegisteredModelsResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -94,10 +88,8 @@ public class RegisteredModelsAPI implements RegisteredModelsService {
      * 
      * Renames a registered model.
      */
-    @Override
     public RenameRegisteredModelResponse rename(RenameRegisteredModelRequest request) {
-        String path = "/api/2.0/mlflow/registered-models/rename";
-        return apiClient.POST(path, request, RenameRegisteredModelResponse.class);
+        return impl.rename(request);
     }
     
 	/**
@@ -105,10 +97,8 @@ public class RegisteredModelsAPI implements RegisteredModelsService {
      * 
      * Search for registered models based on the specified __filter__.
      */
-    @Override
     public SearchRegisteredModelsResponse search(SearchRegisteredModelsRequest request) {
-        String path = "/api/2.0/mlflow/registered-models/search";
-        return apiClient.GET(path, request, SearchRegisteredModelsResponse.class);
+        return impl.search(request);
     }
     
 	/**
@@ -116,10 +106,8 @@ public class RegisteredModelsAPI implements RegisteredModelsService {
      * 
      * Sets a tag on a registered model.
      */
-    @Override
     public void setTag(SetRegisteredModelTagRequest request) {
-        String path = "/api/2.0/mlflow/registered-models/set-tag";
-        apiClient.POST(path, request, Void.class);
+        impl.setTag(request);
     }
     
 	/**
@@ -127,10 +115,11 @@ public class RegisteredModelsAPI implements RegisteredModelsService {
      * 
      * Updates a registered model.
      */
-    @Override
     public void update(UpdateRegisteredModelRequest request) {
-        String path = "/api/2.0/mlflow/registered-models/update";
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public RegisteredModelsService impl() {
+        return impl;
+    }
 }

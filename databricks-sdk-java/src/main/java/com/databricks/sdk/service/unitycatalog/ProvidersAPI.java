@@ -13,11 +13,17 @@ import com.databricks.sdk.client.DatabricksException;
 /**
  * Databricks Delta Sharing: Providers REST API
  */
-public class ProvidersAPI implements ProvidersService {
-    private final ApiClient apiClient;
+public class ProvidersAPI {
+    private final ProvidersService impl;
 
+    /** Regular-use constructor */
     public ProvidersAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new ProvidersImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public ProvidersAPI(ProvidersService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -26,10 +32,8 @@ public class ProvidersAPI implements ProvidersService {
      * Creates a new authentication provider minimally based on a name and
      * authentication type. The caller must be an admin on the metastore.
      */
-    @Override
     public ProviderInfo create(CreateProvider request) {
-        String path = "/api/2.1/unity-catalog/providers";
-        return apiClient.POST(path, request, ProviderInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -38,10 +42,8 @@ public class ProvidersAPI implements ProvidersService {
      * Deletes an authentication provider, if the caller is a metastore admin or
      * is the owner of the provider.
      */
-    @Override
     public void delete(DeleteProviderRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/providers/%s", request.getName());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -51,10 +53,8 @@ public class ProvidersAPI implements ProvidersService {
      * of the provider, and must either be a metastore admin or the owner of the
      * provider.
      */
-    @Override
     public ProviderInfo get(GetProviderRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/providers/%s", request.getName());
-        return apiClient.GET(path, request, ProviderInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -65,10 +65,8 @@ public class ProvidersAPI implements ProvidersService {
      * owned by the caller are not included in the response. There is no
      * guarantee of a specific ordering of the elements in the array.
      */
-    @Override
     public ListProvidersResponse list(ListProvidersRequest request) {
-        String path = "/api/2.1/unity-catalog/providers";
-        return apiClient.GET(path, request, ListProvidersResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -79,10 +77,8 @@ public class ProvidersAPI implements ProvidersService {
      * 
      * * the caller is a metastore admin, or * the caller is the owner.
      */
-    @Override
     public ListProviderSharesResponse listShares(ListSharesRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/providers/%s/shares", request.getName());
-        return apiClient.GET(path, request, ListProviderSharesResponse.class);
+        return impl.listShares(request);
     }
     
 	/**
@@ -93,10 +89,11 @@ public class ProvidersAPI implements ProvidersService {
      * the provider name, the caller must be both a metastore admin and the
      * owner of the provider.
      */
-    @Override
     public ProviderInfo update(UpdateProvider request) {
-        String path = String.format("/api/2.1/unity-catalog/providers/%s", request.getName());
-        return apiClient.PATCH(path, request, ProviderInfo.class);
+        return impl.update(request);
     }
     
+    public ProvidersService impl() {
+        return impl;
+    }
 }

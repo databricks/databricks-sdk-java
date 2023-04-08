@@ -18,7 +18,9 @@ public class WarehouseTypePair {
     private Boolean enabled;
     
     /**
-     
+     * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless
+     * compute, you must set to `PRO` and also set the field
+     * `enable_serverless_compute` to `true`.
      */
     @JsonProperty("warehouse_type")
     private WarehouseType warehouseType;

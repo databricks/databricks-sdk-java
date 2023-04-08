@@ -18,11 +18,17 @@ import com.databricks.sdk.client.DatabricksException;
  * 
  * [more info]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
  */
-public class GitCredentialsAPI implements GitCredentialsService {
-    private final ApiClient apiClient;
+public class GitCredentialsAPI {
+    private final GitCredentialsService impl;
 
+    /** Regular-use constructor */
     public GitCredentialsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new GitCredentialsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public GitCredentialsAPI(GitCredentialsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -33,10 +39,8 @@ public class GitCredentialsAPI implements GitCredentialsService {
      * already exists will fail. Use the PATCH endpoint to update existing
      * credentials, or the DELETE endpoint to delete existing credentials.
      */
-    @Override
     public CreateCredentialsResponse create(CreateCredentials request) {
-        String path = "/api/2.0/git-credentials";
-        return apiClient.POST(path, request, CreateCredentialsResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -44,10 +48,8 @@ public class GitCredentialsAPI implements GitCredentialsService {
      * 
      * Deletes the specified Git credential.
      */
-    @Override
     public void delete(Delete request) {
-        String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -55,10 +57,8 @@ public class GitCredentialsAPI implements GitCredentialsService {
      * 
      * Gets the Git credential with the specified credential ID.
      */
-    @Override
     public CredentialInfo get(Get request) {
-        String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-        return apiClient.GET(path, request, CredentialInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -67,10 +67,8 @@ public class GitCredentialsAPI implements GitCredentialsService {
      * Lists the calling user's Git credentials. One credential per user is
      * supported.
      */
-    @Override
     public GetCredentialsResponse list() {
-        String path = "/api/2.0/git-credentials";
-        return apiClient.GET(path, GetCredentialsResponse.class);
+        return impl.list();
     }
     
 	/**
@@ -78,10 +76,11 @@ public class GitCredentialsAPI implements GitCredentialsService {
      * 
      * Updates the specified Git credential.
      */
-    @Override
     public void update(UpdateCredentials request) {
-        String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public GitCredentialsService impl() {
+        return impl;
+    }
 }

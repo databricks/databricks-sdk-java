@@ -26,11 +26,17 @@ import com.databricks.sdk.client.DatabricksException;
  * includes a legacy Hive metastore, the data in that metastore is available in
  * a catalog named hive_metastore.
  */
-public class MetastoresAPI implements MetastoresService {
-    private final ApiClient apiClient;
+public class MetastoresAPI {
+    private final MetastoresService impl;
 
+    /** Regular-use constructor */
     public MetastoresAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new MetastoresImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public MetastoresAPI(MetastoresService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -41,10 +47,8 @@ public class MetastoresAPI implements MetastoresService {
      * __metastore_id__ and __default_catalog_name__. The caller must be an
      * account admin.
      */
-    @Override
     public void assign(CreateMetastoreAssignment request) {
-        String path = String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
-        apiClient.PUT(path, request, Void.class);
+        impl.assign(request);
     }
     
 	/**
@@ -52,10 +56,8 @@ public class MetastoresAPI implements MetastoresService {
      * 
      * Creates a new metastore based on a provided name and storage root path.
      */
-    @Override
     public MetastoreInfo create(CreateMetastore request) {
-        String path = "/api/2.1/unity-catalog/metastores";
-        return apiClient.POST(path, request, MetastoreInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -63,10 +65,8 @@ public class MetastoresAPI implements MetastoresService {
      * 
      * Gets the metastore assignment for the workspace being accessed.
      */
-    @Override
     public MetastoreAssignment current() {
-        String path = "/api/2.1/unity-catalog/current-metastore-assignment";
-        return apiClient.GET(path, MetastoreAssignment.class);
+        return impl.current();
     }
     
 	/**
@@ -74,10 +74,8 @@ public class MetastoresAPI implements MetastoresService {
      * 
      * Deletes a metastore. The caller must be a metastore admin.
      */
-    @Override
     public void delete(DeleteMetastoreRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -86,10 +84,8 @@ public class MetastoresAPI implements MetastoresService {
      * Gets a metastore that matches the supplied ID. The caller must be a
      * metastore admin to retrieve this info.
      */
-    @Override
     public MetastoreInfo get(GetMetastoreRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
-        return apiClient.GET(path, request, MetastoreInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -99,10 +95,8 @@ public class MetastoresAPI implements MetastoresService {
      * The caller must be an admin to retrieve this info. There is no guarantee
      * of a specific ordering of the elements in the array.
      */
-    @Override
     public ListMetastoresResponse list() {
-        String path = "/api/2.1/unity-catalog/metastores";
-        return apiClient.GET(path, ListMetastoresResponse.class);
+        return impl.list();
     }
     
 	/**
@@ -112,10 +106,8 @@ public class MetastoresAPI implements MetastoresService {
      * credential, the cloud vendor, the cloud region, and the global metastore
      * ID.
      */
-    @Override
     public GetMetastoreSummaryResponse summary() {
-        String path = "/api/2.1/unity-catalog/metastore_summary";
-        return apiClient.GET(path, GetMetastoreSummaryResponse.class);
+        return impl.summary();
     }
     
 	/**
@@ -124,10 +116,8 @@ public class MetastoresAPI implements MetastoresService {
      * Deletes a metastore assignment. The caller must be an account
      * administrator.
      */
-    @Override
     public void unassign(UnassignRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.unassign(request);
     }
     
 	/**
@@ -136,10 +126,8 @@ public class MetastoresAPI implements MetastoresService {
      * Updates information for a specific metastore. The caller must be a
      * metastore admin.
      */
-    @Override
     public MetastoreInfo update(UpdateMetastore request) {
-        String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
-        return apiClient.PATCH(path, request, MetastoreInfo.class);
+        return impl.update(request);
     }
     
 	/**
@@ -151,10 +139,11 @@ public class MetastoresAPI implements MetastoresService {
      * account admin to update __metastore_id__; otherwise, the caller can be a
      * Workspace admin.
      */
-    @Override
     public void updateAssignment(UpdateMetastoreAssignment request) {
-        String path = String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.updateAssignment(request);
     }
     
+    public MetastoresService impl() {
+        return impl;
+    }
 }

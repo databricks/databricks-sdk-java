@@ -17,7 +17,7 @@ public class UpdateWorkspaceAssignments {
     private java.util.List<WorkspacePermission> permissions;
     
     /**
-     * The ID of the service principal.
+     * The ID of the user, service principal, or group.
      */
     
     private Long principalId;

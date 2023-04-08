@@ -31,6 +31,7 @@ public enum ColumnTypeName{
     STRUCT,
     TABLE_TYPE,
     TIMESTAMP,
+    TIMESTAMP_NTZ,
     USER_DEFINED_TYPE,
     
 }

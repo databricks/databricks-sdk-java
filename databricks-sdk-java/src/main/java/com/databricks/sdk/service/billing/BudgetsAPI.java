@@ -14,11 +14,17 @@ import com.databricks.sdk.client.DatabricksException;
  * These APIs manage budget configuration including notifications for exceeding
  * a budget for a period. They can also retrieve the status of each budget.
  */
-public class BudgetsAPI implements BudgetsService {
-    private final ApiClient apiClient;
+public class BudgetsAPI {
+    private final BudgetsService impl;
 
+    /** Regular-use constructor */
     public BudgetsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new BudgetsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public BudgetsAPI(BudgetsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -26,10 +32,8 @@ public class BudgetsAPI implements BudgetsService {
      * 
      * Creates a new budget in the specified account.
      */
-    @Override
     public WrappedBudgetWithStatus create(WrappedBudget request) {
-        String path = String.format("/api/2.0/accounts//budget");
-        return apiClient.POST(path, request, WrappedBudgetWithStatus.class);
+        return impl.create(request);
     }
     
 	/**
@@ -37,10 +41,8 @@ public class BudgetsAPI implements BudgetsService {
      * 
      * Deletes the budget specified by its UUID.
      */
-    @Override
     public void delete(DeleteBudgetRequest request) {
-        String path = String.format("/api/2.0/accounts//budget/%s", request.getBudgetId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -49,10 +51,8 @@ public class BudgetsAPI implements BudgetsService {
      * Gets the budget specified by its UUID, including noncumulative status for
      * each day that the budget is configured to include.
      */
-    @Override
     public WrappedBudgetWithStatus get(GetBudgetRequest request) {
-        String path = String.format("/api/2.0/accounts//budget/%s", request.getBudgetId());
-        return apiClient.GET(path, request, WrappedBudgetWithStatus.class);
+        return impl.get(request);
     }
     
 	/**
@@ -61,10 +61,8 @@ public class BudgetsAPI implements BudgetsService {
      * Gets all budgets associated with this account, including noncumulative
      * status for each day that the budget is configured to include.
      */
-    @Override
     public BudgetList list() {
-        String path = String.format("/api/2.0/accounts//budget");
-        return apiClient.GET(path, BudgetList.class);
+        return impl.list();
     }
     
 	/**
@@ -73,10 +71,11 @@ public class BudgetsAPI implements BudgetsService {
      * Modifies a budget in this account. Budget properties are completely
      * overwritten.
      */
-    @Override
     public void update(WrappedBudget request) {
-        String path = String.format("/api/2.0/accounts//budget/%s", request.getBudgetId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public BudgetsService impl() {
+        return impl;
+    }
 }

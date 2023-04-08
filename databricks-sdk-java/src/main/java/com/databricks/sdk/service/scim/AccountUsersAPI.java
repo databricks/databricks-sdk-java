@@ -23,11 +23,17 @@ import com.databricks.sdk.client.DatabricksException;
  * Account. This ensures a consistent offboarding process and prevents
  * unauthorized users from accessing sensitive data.
  */
-public class AccountUsersAPI implements AccountUsersService {
-    private final ApiClient apiClient;
+public class AccountUsersAPI {
+    private final AccountUsersService impl;
 
+    /** Regular-use constructor */
     public AccountUsersAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new AccountUsersImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public AccountUsersAPI(AccountUsersService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -36,10 +42,8 @@ public class AccountUsersAPI implements AccountUsersService {
      * Creates a new user in the Databricks Account. This new user will also be
      * added to the Databricks account.
      */
-    @Override
     public User create(User request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Users");
-        return apiClient.POST(path, request, User.class);
+        return impl.create(request);
     }
     
 	/**
@@ -48,10 +52,8 @@ public class AccountUsersAPI implements AccountUsersService {
      * Deletes a user. Deleting a user from a Databricks Account also removes
      * objects associated with the user.
      */
-    @Override
     public void delete(DeleteUserRequest request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Users/%s", request.getId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -59,10 +61,8 @@ public class AccountUsersAPI implements AccountUsersService {
      * 
      * Gets information for a specific user in Databricks Account.
      */
-    @Override
     public User get(GetUserRequest request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Users/%s", request.getId());
-        return apiClient.GET(path, request, User.class);
+        return impl.get(request);
     }
     
 	/**
@@ -70,10 +70,8 @@ public class AccountUsersAPI implements AccountUsersService {
      * 
      * Gets details for all the users associated with a Databricks Account.
      */
-    @Override
     public ListUsersResponse list(ListUsersRequest request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Users");
-        return apiClient.GET(path, request, ListUsersResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -82,10 +80,8 @@ public class AccountUsersAPI implements AccountUsersService {
      * Partially updates a user resource by applying the supplied operations on
      * specific user attributes.
      */
-    @Override
     public void patch(PartialUpdate request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Users/%s", request.getId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.patch(request);
     }
     
 	/**
@@ -93,10 +89,11 @@ public class AccountUsersAPI implements AccountUsersService {
      * 
      * Replaces a user's information with the data supplied in request.
      */
-    @Override
     public void update(User request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Users/%s", request.getId());
-        apiClient.PUT(path, request, Void.class);
+        impl.update(request);
     }
     
+    public AccountUsersService impl() {
+        return impl;
+    }
 }

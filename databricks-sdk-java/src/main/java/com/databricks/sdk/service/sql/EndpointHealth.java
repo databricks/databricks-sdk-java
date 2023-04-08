@@ -17,7 +17,7 @@ public class EndpointHealth {
     private String details;
     
     /**
-     * The reason for failure to bring up clusters for this endpoint. This is
+     * The reason for failure to bring up clusters for this warehouse. This is
      * available when status is 'FAILED' and sometimes when it is DEGRADED.
      */
     @JsonProperty("failure_reason")
@@ -30,14 +30,14 @@ public class EndpointHealth {
     private String message;
     
     /**
-     * Health status of the endpoint.
+     * Health status of the warehouse.
      */
     @JsonProperty("status")
     private Status status;
     
     /**
      * A short summary of the health status in case of degraded/failed
-     * endpoints.
+     * warehouses.
      */
     @JsonProperty("summary")
     private String summary;

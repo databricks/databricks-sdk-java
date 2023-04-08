@@ -25,7 +25,7 @@ public class ClustersIT {
 
     @Test
     void smallestNode(DatabricksWorkspace w) {
-        ClustersExt clustersExt = new ClustersExt(w.getApiClient());
+        ClustersExt clustersExt = new ClustersExt(w.apiClient());
 
         String nodeType = clustersExt.selectNodeType(new NodeTypeSelector().withLocalDisk());
 
@@ -34,7 +34,7 @@ public class ClustersIT {
 
     @Test
     void latestRuntime(DatabricksWorkspace w) {
-        ClustersExt clustersExt = new ClustersExt(w.getApiClient());
+        ClustersExt clustersExt = new ClustersExt(w.apiClient());
 
         String runtime = clustersExt.selectSparkVersion(new SparkVersionSelector().withLatest());
 

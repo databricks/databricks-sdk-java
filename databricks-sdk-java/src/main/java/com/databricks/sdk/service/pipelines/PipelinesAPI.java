@@ -26,11 +26,17 @@ import com.databricks.sdk.client.DatabricksException;
  * define expected data quality and specify how to handle records that fail
  * those expectations.
  */
-public class PipelinesAPI implements PipelinesService {
-    private final ApiClient apiClient;
+public class PipelinesAPI {
+    private final PipelinesService impl;
 
+    /** Regular-use constructor */
     public PipelinesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new PipelinesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public PipelinesAPI(PipelinesService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -40,10 +46,8 @@ public class PipelinesAPI implements PipelinesService {
      * configuration. If successful, this method returns the ID of the new
      * pipeline.
      */
-    @Override
     public CreatePipelineResponse create(CreatePipeline request) {
-        String path = "/api/2.0/pipelines";
-        return apiClient.POST(path, request, CreatePipelineResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -51,19 +55,15 @@ public class PipelinesAPI implements PipelinesService {
      * 
      * Deletes a pipeline.
      */
-    @Override
     public void delete(Delete request) {
-        String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
      * Get a pipeline.
      */
-    @Override
     public GetPipelineResponse get(Get request) {
-        String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
-        return apiClient.GET(path, request, GetPipelineResponse.class);
+        return impl.get(request);
     }
     
 	/**
@@ -71,10 +71,17 @@ public class PipelinesAPI implements PipelinesService {
      * 
      * Gets an update from an active pipeline.
      */
-    @Override
     public GetUpdateResponse getUpdate(GetUpdate request) {
-        String path = String.format("/api/2.0/pipelines/%s/updates/%s", request.getPipelineId(), request.getUpdateId());
-        return apiClient.GET(path, request, GetUpdateResponse.class);
+        return impl.getUpdate(request);
+    }
+    
+	/**
+     * List pipeline events.
+     * 
+     * Retrieves events for a pipeline.
+     */
+    public ListPipelineEventsResponse listPipelineEvents(ListPipelineEvents request) {
+        return impl.listPipelineEvents(request);
     }
     
 	/**
@@ -82,10 +89,8 @@ public class PipelinesAPI implements PipelinesService {
      * 
      * Lists pipelines defined in the Delta Live Tables system.
      */
-    @Override
     public ListPipelinesResponse listPipelines(ListPipelines request) {
-        String path = "/api/2.0/pipelines";
-        return apiClient.GET(path, request, ListPipelinesResponse.class);
+        return impl.listPipelines(request);
     }
     
 	/**
@@ -93,10 +98,8 @@ public class PipelinesAPI implements PipelinesService {
      * 
      * List updates for an active pipeline.
      */
-    @Override
     public ListUpdatesResponse listUpdates(ListUpdates request) {
-        String path = String.format("/api/2.0/pipelines/%s/updates", request.getPipelineId());
-        return apiClient.GET(path, request, ListUpdatesResponse.class);
+        return impl.listUpdates(request);
     }
     
 	/**
@@ -104,10 +107,8 @@ public class PipelinesAPI implements PipelinesService {
      * 
      * Resets a pipeline.
      */
-    @Override
     public void reset(Reset request) {
-        String path = String.format("/api/2.0/pipelines/%s/reset", request.getPipelineId());
-        apiClient.POST(path, request, Void.class);
+        impl.reset(request);
     }
     
 	/**
@@ -115,10 +116,8 @@ public class PipelinesAPI implements PipelinesService {
      * 
      * Starts or queues a pipeline update.
      */
-    @Override
     public StartUpdateResponse startUpdate(StartUpdate request) {
-        String path = String.format("/api/2.0/pipelines/%s/updates", request.getPipelineId());
-        return apiClient.POST(path, request, StartUpdateResponse.class);
+        return impl.startUpdate(request);
     }
     
 	/**
@@ -126,10 +125,8 @@ public class PipelinesAPI implements PipelinesService {
      * 
      * Stops a pipeline.
      */
-    @Override
     public void stop(Stop request) {
-        String path = String.format("/api/2.0/pipelines/%s/stop", request.getPipelineId());
-        apiClient.POST(path, request, Void.class);
+        impl.stop(request);
     }
     
 	/**
@@ -137,10 +134,11 @@ public class PipelinesAPI implements PipelinesService {
      * 
      * Updates a pipeline with the supplied configuration.
      */
-    @Override
     public void update(EditPipeline request) {
-        String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
-        apiClient.PUT(path, request, Void.class);
+        impl.update(request);
     }
     
+    public PipelinesService impl() {
+        return impl;
+    }
 }

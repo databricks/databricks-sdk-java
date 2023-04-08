@@ -14,11 +14,17 @@ import com.databricks.sdk.client.DatabricksException;
  * This API allows you to download billable usage logs for the specified account
  * and date range. This feature works with all account types.
  */
-public class BillableUsageAPI implements BillableUsageService {
-    private final ApiClient apiClient;
+public class BillableUsageAPI {
+    private final BillableUsageService impl;
 
+    /** Regular-use constructor */
     public BillableUsageAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new BillableUsageImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public BillableUsageAPI(BillableUsageService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -30,10 +36,11 @@ public class BillableUsageAPI implements BillableUsageService {
      * 
      * [CSV file schema]: https://docs.databricks.com/administration-guide/account-settings/usage-analysis.html#schema
      */
-    @Override
     public void download(DownloadRequest request) {
-        String path = String.format("/api/2.0/accounts//usage/download");
-        apiClient.GET(path, request, Void.class);
+        impl.download(request);
     }
     
+    public BillableUsageService impl() {
+        return impl;
+    }
 }

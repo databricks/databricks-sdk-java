@@ -11,13 +11,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreatePipelineResponse {
     /**
-     * Only returned when dry_run is true
+     * Only returned when dry_run is true.
      */
     @JsonProperty("effective_settings")
     private PipelineSpec effectiveSettings;
     
     /**
-     * Only returned when dry_run is false
+     * The unique identifier for the newly created pipeline. Only returned when
+     * dry_run is false.
      */
     @JsonProperty("pipeline_id")
     private String pipelineId;

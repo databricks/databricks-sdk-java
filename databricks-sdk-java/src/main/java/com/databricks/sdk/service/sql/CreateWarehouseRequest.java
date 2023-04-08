@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CreateWarehouseRequest {
     /**
-     * The amount of time in minutes that a SQL Endpoint must be idle (i.e., no
+     * The amount of time in minutes that a SQL warehouse must be idle (i.e., no
      * RUNNING queries) before it is automatically stopped.
      * 
      * Supported values: - Must be == 0 or >= 10 mins - 0 indicates no autostop.
@@ -28,7 +28,7 @@ public class CreateWarehouseRequest {
     private Channel channel;
     
     /**
-     * Size of the clusters allocated for this endpoint. Increasing the size of
+     * Size of the clusters allocated for this warehouse. Increasing the size of
      * a spark cluster allows you to run larger queries on it. If you want to
      * increase the number of concurrent queries, please tune max_num_clusters.
      * 
@@ -39,13 +39,13 @@ public class CreateWarehouseRequest {
     private String clusterSize;
     
     /**
-     * endpoint creator name
+     * warehouse creator name
      */
     @JsonProperty("creator_name")
     private String creatorName;
     
     /**
-     * Configures whether the endpoint should use Photon optimized clusters.
+     * Configures whether the warehouse should use Photon optimized clusters.
      * 
      * Defaults to false.
      */
@@ -53,10 +53,7 @@ public class CreateWarehouseRequest {
     private Boolean enablePhoton;
     
     /**
-     * Configures whether the endpoint should use Serverless Compute (aka
-     * Nephos)
-     * 
-     * Defaults to value in global endpoint settings
+     * Configures whether the warehouse should use serverless compute
      */
     @JsonProperty("enable_serverless_compute")
     private Boolean enableServerlessCompute;
@@ -80,7 +77,7 @@ public class CreateWarehouseRequest {
     
     /**
      * Minimum number of available clusters that will be maintained for this SQL
-     * Endpoint. Increasing this will ensure that a larger number of clusters
+     * warehouse. Increasing this will ensure that a larger number of clusters
      * are always running and therefore may reduce the cold start time for new
      * queries. This is similar to reserved vs. revocable cores in a resource
      * manager.
@@ -109,7 +106,7 @@ public class CreateWarehouseRequest {
     
     /**
      * A set of key-value pairs that will be tagged on all resources (e.g., AWS
-     * instances and EBS volumes) associated with this SQL Endpoints.
+     * instances and EBS volumes) associated with this SQL warehouse.
      * 
      * Supported values: - Number of tags < 45.
      */
@@ -117,7 +114,9 @@ public class CreateWarehouseRequest {
     private EndpointTags tags;
     
     /**
-     
+     * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless
+     * compute, you must set to `PRO` and also set the field
+     * `enable_serverless_compute` to `true`.
      */
     @JsonProperty("warehouse_type")
     private WarehouseType warehouseType;

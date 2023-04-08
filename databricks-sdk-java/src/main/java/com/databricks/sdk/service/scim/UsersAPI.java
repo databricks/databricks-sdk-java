@@ -23,11 +23,17 @@ import com.databricks.sdk.client.DatabricksException;
  * Databricks Workspace. This ensures a consistent offboarding process and
  * prevents unauthorized users from accessing sensitive data.
  */
-public class UsersAPI implements UsersService {
-    private final ApiClient apiClient;
+public class UsersAPI {
+    private final UsersService impl;
 
+    /** Regular-use constructor */
     public UsersAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new UsersImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public UsersAPI(UsersService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -36,10 +42,8 @@ public class UsersAPI implements UsersService {
      * Creates a new user in the Databricks Workspace. This new user will also
      * be added to the Databricks account.
      */
-    @Override
     public User create(User request) {
-        String path = "/api/2.0/preview/scim/v2/Users";
-        return apiClient.POST(path, request, User.class);
+        return impl.create(request);
     }
     
 	/**
@@ -48,10 +52,8 @@ public class UsersAPI implements UsersService {
      * Deletes a user. Deleting a user from a Databricks Workspace also removes
      * objects associated with the user.
      */
-    @Override
     public void delete(DeleteUserRequest request) {
-        String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -59,10 +61,8 @@ public class UsersAPI implements UsersService {
      * 
      * Gets information for a specific user in Databricks Workspace.
      */
-    @Override
     public User get(GetUserRequest request) {
-        String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
-        return apiClient.GET(path, request, User.class);
+        return impl.get(request);
     }
     
 	/**
@@ -70,10 +70,8 @@ public class UsersAPI implements UsersService {
      * 
      * Gets details for all the users associated with a Databricks Workspace.
      */
-    @Override
     public ListUsersResponse list(ListUsersRequest request) {
-        String path = "/api/2.0/preview/scim/v2/Users";
-        return apiClient.GET(path, request, ListUsersResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -82,10 +80,8 @@ public class UsersAPI implements UsersService {
      * Partially updates a user resource by applying the supplied operations on
      * specific user attributes.
      */
-    @Override
     public void patch(PartialUpdate request) {
-        String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.patch(request);
     }
     
 	/**
@@ -93,10 +89,11 @@ public class UsersAPI implements UsersService {
      * 
      * Replaces a user's information with the data supplied in request.
      */
-    @Override
     public void update(User request) {
-        String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
-        apiClient.PUT(path, request, Void.class);
+        impl.update(request);
     }
     
+    public UsersService impl() {
+        return impl;
+    }
 }

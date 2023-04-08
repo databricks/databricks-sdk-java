@@ -15,11 +15,17 @@ import com.databricks.sdk.client.DatabricksException;
  * Admins can either get every token, get a specific token by ID, or get all
  * tokens for a particular user.
  */
-public class TokenManagementAPI implements TokenManagementService {
-    private final ApiClient apiClient;
+public class TokenManagementAPI {
+    private final TokenManagementService impl;
 
+    /** Regular-use constructor */
     public TokenManagementAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new TokenManagementImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public TokenManagementAPI(TokenManagementService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -27,10 +33,8 @@ public class TokenManagementAPI implements TokenManagementService {
      * 
      * Creates a token on behalf of a service principal.
      */
-    @Override
     public CreateOboTokenResponse createOboToken(CreateOboTokenRequest request) {
-        String path = "/api/2.0/token-management/on-behalf-of/tokens";
-        return apiClient.POST(path, request, CreateOboTokenResponse.class);
+        return impl.createOboToken(request);
     }
     
 	/**
@@ -38,10 +42,8 @@ public class TokenManagementAPI implements TokenManagementService {
      * 
      * Deletes a token, specified by its ID.
      */
-    @Override
     public void delete(Delete request) {
-        String path = String.format("/api/2.0/token-management/tokens/%s", request.getTokenId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -49,10 +51,8 @@ public class TokenManagementAPI implements TokenManagementService {
      * 
      * Gets information about a token, specified by its ID.
      */
-    @Override
     public TokenInfo get(Get request) {
-        String path = String.format("/api/2.0/token-management/tokens/%s", request.getTokenId());
-        return apiClient.GET(path, request, TokenInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -60,10 +60,11 @@ public class TokenManagementAPI implements TokenManagementService {
      * 
      * Lists all tokens associated with the specified workspace or user.
      */
-    @Override
     public ListTokensResponse list(List request) {
-        String path = "/api/2.0/token-management/tokens";
-        return apiClient.GET(path, request, ListTokensResponse.class);
+        return impl.list(request);
     }
     
+    public TokenManagementService impl() {
+        return impl;
+    }
 }

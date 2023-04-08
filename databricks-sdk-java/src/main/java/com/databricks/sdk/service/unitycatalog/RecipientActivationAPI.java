@@ -13,11 +13,17 @@ import com.databricks.sdk.client.DatabricksException;
 /**
  * Databricks Delta Sharing: Recipient Activation REST API
  */
-public class RecipientActivationAPI implements RecipientActivationService {
-    private final ApiClient apiClient;
+public class RecipientActivationAPI {
+    private final RecipientActivationService impl;
 
+    /** Regular-use constructor */
     public RecipientActivationAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new RecipientActivationImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public RecipientActivationAPI(RecipientActivationService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -25,10 +31,8 @@ public class RecipientActivationAPI implements RecipientActivationService {
      * 
      * Gets an activation URL for a share.
      */
-    @Override
     public void getActivationUrlInfo(GetActivationUrlInfoRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/public/data_sharing_activation_info/%s", request.getActivationUrl());
-        apiClient.GET(path, request, Void.class);
+        impl.getActivationUrlInfo(request);
     }
     
 	/**
@@ -37,10 +41,11 @@ public class RecipientActivationAPI implements RecipientActivationService {
      * Retrieve access token with an activation url. This is a public API
      * without any authentication.
      */
-    @Override
     public RetrieveTokenResponse retrieveToken(RetrieveTokenRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/public/data_sharing_activation/%s", request.getActivationUrl());
-        return apiClient.GET(path, request, RetrieveTokenResponse.class);
+        return impl.retrieveToken(request);
     }
     
+    public RecipientActivationService impl() {
+        return impl;
+    }
 }

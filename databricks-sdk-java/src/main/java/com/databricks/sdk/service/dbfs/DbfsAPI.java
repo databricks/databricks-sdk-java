@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.dbfs;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.client.methods.*;
@@ -13,11 +14,17 @@ import com.databricks.sdk.client.DatabricksException;
  * DBFS API makes it simple to interact with various data sources without having
  * to include a users credentials every time to read a file.
  */
-public class DbfsAPI implements DbfsService {
-    private final ApiClient apiClient;
+public class DbfsAPI {
+    private final DbfsService impl;
 
+    /** Regular-use constructor */
     public DbfsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new DbfsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public DbfsAPI(DbfsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -30,10 +37,8 @@ public class DbfsAPI implements DbfsService {
      * If the block of data exceeds 1 MB, this call will throw an exception with
      * `MAX_BLOCK_SIZE_EXCEEDED`.
      */
-    @Override
     public void addBlock(AddBlock request) {
-        String path = "/api/2.0/dbfs/add-block";
-        apiClient.POST(path, request, Void.class);
+        impl.addBlock(request);
     }
     
 	/**
@@ -42,10 +47,8 @@ public class DbfsAPI implements DbfsService {
      * Closes the stream specified by the input handle. If the handle does not
      * exist, this call throws an exception with `RESOURCE_DOES_NOT_EXIST`.
      */
-    @Override
     public void close(Close request) {
-        String path = "/api/2.0/dbfs/close";
-        apiClient.POST(path, request, Void.class);
+        impl.close(request);
     }
     
 	/**
@@ -62,10 +65,8 @@ public class DbfsAPI implements DbfsService {
      * `add-block` calls with the handle you have. 3. Issue a `close` call with
      * the handle you have.
      */
-    @Override
     public CreateResponse create(Create request) {
-        String path = "/api/2.0/dbfs/create";
-        return apiClient.POST(path, request, CreateResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -90,10 +91,8 @@ public class DbfsAPI implements DbfsService {
      * manageability, such as selective deletes, and the possibility to automate
      * periodic delete jobs.
      */
-    @Override
     public void delete(Delete request) {
-        String path = "/api/2.0/dbfs/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -103,10 +102,8 @@ public class DbfsAPI implements DbfsService {
      * directory does not exist, this call throws an exception with
      * `RESOURCE_DOES_NOT_EXIST`.
      */
-    @Override
     public FileInfo getStatus(GetStatus request) {
-        String path = "/api/2.0/dbfs/get-status";
-        return apiClient.GET(path, request, FileInfo.class);
+        return impl.getStatus(request);
     }
     
 	/**
@@ -125,10 +122,8 @@ public class DbfsAPI implements DbfsService {
      * (dbutils.fs)](/dev-tools/databricks-utils.html#dbutils-fs), which
      * provides the same functionality without timing out.
      */
-    @Override
     public ListStatusResponse list(List request) {
-        String path = "/api/2.0/dbfs/list";
-        return apiClient.GET(path, request, ListStatusResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -140,10 +135,8 @@ public class DbfsAPI implements DbfsService {
      * **Note**: If this operation fails, it might have succeeded in creating
      * some of the necessary parent directories.
      */
-    @Override
     public void mkdirs(MkDirs request) {
-        String path = "/api/2.0/dbfs/mkdirs";
-        apiClient.POST(path, request, Void.class);
+        impl.mkdirs(request);
     }
     
 	/**
@@ -156,10 +149,8 @@ public class DbfsAPI implements DbfsService {
      * the given source path is a directory, this call always recursively moves
      * all files.",
      */
-    @Override
     public void move(Move request) {
-        String path = "/api/2.0/dbfs/move";
-        apiClient.POST(path, request, Void.class);
+        impl.move(request);
     }
     
 	/**
@@ -178,10 +169,8 @@ public class DbfsAPI implements DbfsService {
      * If you want to upload large files, use the streaming upload. For details,
      * see :method:dbfs/create, :method:dbfs/addBlock, :method:dbfs/close.
      */
-    @Override
     public void put(Put request) {
-        String path = "/api/2.0/dbfs/put";
-        apiClient.POST(path, request, Void.class);
+        impl.put(request);
     }
     
 	/**
@@ -197,10 +186,11 @@ public class DbfsAPI implements DbfsService {
      * If `offset + length` exceeds the number of bytes in a file, it reads the
      * contents until the end of file.",
      */
-    @Override
     public ReadResponse read(Read request) {
-        String path = "/api/2.0/dbfs/read";
-        return apiClient.GET(path, request, ReadResponse.class);
+        return impl.read(request);
     }
     
+    public DbfsService impl() {
+        return impl;
+    }
 }

@@ -22,11 +22,17 @@ import com.databricks.sdk.client.DatabricksException;
  * science and engineering code development best practices using Git for version
  * control, collaboration, and CI/CD.
  */
-public class ReposAPI implements ReposService {
-    private final ApiClient apiClient;
+public class ReposAPI {
+    private final ReposService impl;
 
+    /** Regular-use constructor */
     public ReposAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new ReposImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public ReposAPI(ReposService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -36,10 +42,8 @@ public class ReposAPI implements ReposService {
      * specified. Note that repos created programmatically must be linked to a
      * remote Git repo, unlike repos created in the browser.
      */
-    @Override
     public RepoInfo create(CreateRepo request) {
-        String path = "/api/2.0/repos";
-        return apiClient.POST(path, request, RepoInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -47,10 +51,8 @@ public class ReposAPI implements ReposService {
      * 
      * Deletes the specified repo.
      */
-    @Override
     public void delete(Delete request) {
-        String path = String.format("/api/2.0/repos/%s", request.getRepoId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -58,10 +60,8 @@ public class ReposAPI implements ReposService {
      * 
      * Returns the repo with the given repo ID.
      */
-    @Override
     public RepoInfo get(Get request) {
-        String path = String.format("/api/2.0/repos/%s", request.getRepoId());
-        return apiClient.GET(path, request, RepoInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -70,10 +70,8 @@ public class ReposAPI implements ReposService {
      * Returns repos that the calling user has Manage permissions on. Results
      * are paginated with each page containing twenty repos.
      */
-    @Override
     public ListReposResponse list(List request) {
-        String path = "/api/2.0/repos";
-        return apiClient.GET(path, request, ListReposResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -82,10 +80,11 @@ public class ReposAPI implements ReposService {
      * Updates the repo to a different branch or tag, or updates the repo to the
      * latest commit on the same branch.
      */
-    @Override
     public void update(UpdateRepo request) {
-        String path = String.format("/api/2.0/repos/%s", request.getRepoId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public ReposService impl() {
+        return impl;
+    }
 }

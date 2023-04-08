@@ -21,11 +21,17 @@ import com.databricks.sdk.client.DatabricksException;
  * platform or on a select custom plan that allows multiple workspaces per
  * account.
  */
-public class WorkspacesAPI implements WorkspacesService {
-    private final ApiClient apiClient;
+public class WorkspacesAPI {
+    private final WorkspacesService impl;
 
+    /** Regular-use constructor */
     public WorkspacesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new WorkspacesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public WorkspacesAPI(WorkspacesService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -42,10 +48,8 @@ public class WorkspacesAPI implements WorkspacesService {
      * check its status. The workspace becomes available when the status changes
      * to `RUNNING`.
      */
-    @Override
     public Workspace create(CreateWorkspaceRequest request) {
-        String path = String.format("/api/2.0/accounts//workspaces");
-        return apiClient.POST(path, request, Workspace.class);
+        return impl.create(request);
     }
     
 	/**
@@ -60,10 +64,8 @@ public class WorkspacesAPI implements WorkspacesService {
      * the platform or on a select custom plan that allows multiple workspaces
      * per account.
      */
-    @Override
     public void delete(DeleteWorkspaceRequest request) {
-        String path = String.format("/api/2.0/accounts//workspaces/%s", request.getWorkspaceId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -85,10 +87,8 @@ public class WorkspacesAPI implements WorkspacesService {
      * 
      * [Create a new workspace using the Account API]: http://docs.databricks.com/administration-guide/account-api/new-workspace.html
      */
-    @Override
     public Workspace get(GetWorkspaceRequest request) {
-        String path = String.format("/api/2.0/accounts//workspaces/%s", request.getWorkspaceId());
-        return apiClient.GET(path, request, Workspace.class);
+        return impl.get(request);
     }
     
 	/**
@@ -101,10 +101,8 @@ public class WorkspacesAPI implements WorkspacesService {
      * the platform or on a select custom plan that allows multiple workspaces
      * per account.
      */
-    @Override
     public List<Workspace> list() {
-        String path = String.format("/api/2.0/accounts//workspaces");
-        return apiClient.GET(path, List.class);
+        return impl.list();
     }
     
 	/**
@@ -228,10 +226,11 @@ public class WorkspacesAPI implements WorkspacesService {
      * [Account Console]: https://docs.databricks.com/administration-guide/account-settings-e2/account-console-e2.html
      * [Create a new workspace using the Account API]: http://docs.databricks.com/administration-guide/account-api/new-workspace.html
      */
-    @Override
     public void update(UpdateWorkspaceRequest request) {
-        String path = String.format("/api/2.0/accounts//workspaces/%s", request.getWorkspaceId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public WorkspacesService impl() {
+        return impl;
+    }
 }

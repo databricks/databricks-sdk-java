@@ -11,11 +11,17 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 
-public class RegistryWebhooksAPI implements RegistryWebhooksService {
-    private final ApiClient apiClient;
+public class RegistryWebhooksAPI {
+    private final RegistryWebhooksService impl;
 
+    /** Regular-use constructor */
     public RegistryWebhooksAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new RegistryWebhooksImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public RegistryWebhooksAPI(RegistryWebhooksService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -25,10 +31,8 @@ public class RegistryWebhooksAPI implements RegistryWebhooksService {
      * 
      * Creates a registry webhook.
      */
-    @Override
     public CreateResponse create(CreateRegistryWebhook request) {
-        String path = "/api/2.0/mlflow/registry-webhooks/create";
-        return apiClient.POST(path, request, CreateResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -38,10 +42,8 @@ public class RegistryWebhooksAPI implements RegistryWebhooksService {
      * 
      * Deletes a registry webhook.
      */
-    @Override
     public void delete(DeleteRegistryWebhookRequest request) {
-        String path = "/api/2.0/mlflow/registry-webhooks/delete";
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -51,10 +53,8 @@ public class RegistryWebhooksAPI implements RegistryWebhooksService {
      * 
      * Lists all registry webhooks.
      */
-    @Override
     public ListRegistryWebhooks list(ListRegistryWebhooksRequest request) {
-        String path = "/api/2.0/mlflow/registry-webhooks/list";
-        return apiClient.GET(path, request, ListRegistryWebhooks.class);
+        return impl.list(request);
     }
     
 	/**
@@ -64,10 +64,8 @@ public class RegistryWebhooksAPI implements RegistryWebhooksService {
      * 
      * Tests a registry webhook.
      */
-    @Override
     public TestRegistryWebhookResponse test(TestRegistryWebhookRequest request) {
-        String path = "/api/2.0/mlflow/registry-webhooks/test";
-        return apiClient.POST(path, request, TestRegistryWebhookResponse.class);
+        return impl.test(request);
     }
     
 	/**
@@ -77,10 +75,11 @@ public class RegistryWebhooksAPI implements RegistryWebhooksService {
      * 
      * Updates a registry webhook.
      */
-    @Override
     public void update(UpdateRegistryWebhook request) {
-        String path = "/api/2.0/mlflow/registry-webhooks/update";
-        apiClient.PATCH(path, request, Void.class);
+        impl.update(request);
     }
     
+    public RegistryWebhooksService impl() {
+        return impl;
+    }
 }

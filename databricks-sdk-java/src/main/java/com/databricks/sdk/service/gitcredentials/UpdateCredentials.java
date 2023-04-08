@@ -18,7 +18,9 @@ public class UpdateCredentials {
     
     /**
      * Git provider. This field is case-insensitive. The available Git providers
-     * are awsCodeCommit, azureDevOpsServices,
+     * are gitHub, bitbucketCloud, gitLab, azureDevOpsServices,
+     * gitHubEnterprise, bitbucketServer, gitLabEnterpriseEdition and
+     * awsCodeCommit.
      */
     @JsonProperty("git_provider")
     private String gitProvider;

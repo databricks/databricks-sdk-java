@@ -21,25 +21,30 @@ import com.databricks.sdk.client.DatabricksException;
  * create cluster policies using a policy family. Cluster policies created using
  * a policy family inherit the policy family's policy definition.
  */
-public class PolicyFamiliesAPI implements PolicyFamiliesService {
-    private final ApiClient apiClient;
+public class PolicyFamiliesAPI {
+    private final PolicyFamiliesService impl;
 
+    /** Regular-use constructor */
     public PolicyFamiliesAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new PolicyFamiliesImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public PolicyFamiliesAPI(PolicyFamiliesService mock) {
+        impl = mock;
     }
 	
 	
-    @Override
     public PolicyFamily get(GetPolicyFamilyRequest request) {
-        String path = String.format("/api/2.0/policy-families/%s", request.getPolicyFamilyId());
-        return apiClient.GET(path, request, PolicyFamily.class);
+        return impl.get(request);
     }
     
 	
-    @Override
     public ListPolicyFamiliesResponse list(ListPolicyFamiliesRequest request) {
-        String path = "/api/2.0/policy-families";
-        return apiClient.GET(path, request, ListPolicyFamiliesResponse.class);
+        return impl.list(request);
     }
     
+    public PolicyFamiliesService impl() {
+        return impl;
+    }
 }

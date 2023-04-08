@@ -25,11 +25,17 @@ import com.databricks.sdk.client.DatabricksException;
  * To create external locations, you must be a metastore admin or a user with
  * the **CREATE_EXTERNAL_LOCATION** privilege.
  */
-public class ExternalLocationsAPI implements ExternalLocationsService {
-    private final ApiClient apiClient;
+public class ExternalLocationsAPI {
+    private final ExternalLocationsService impl;
 
+    /** Regular-use constructor */
     public ExternalLocationsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new ExternalLocationsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public ExternalLocationsAPI(ExternalLocationsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -39,10 +45,8 @@ public class ExternalLocationsAPI implements ExternalLocationsService {
      * be a metastore admin or have the **CREATE_EXTERNAL_LOCATION** privilege
      * on both the metastore and the associated storage credential.
      */
-    @Override
     public ExternalLocationInfo create(CreateExternalLocation request) {
-        String path = "/api/2.1/unity-catalog/external-locations";
-        return apiClient.POST(path, request, ExternalLocationInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -51,10 +55,8 @@ public class ExternalLocationsAPI implements ExternalLocationsService {
      * Deletes the specified external location from the metastore. The caller
      * must be the owner of the external location.
      */
-    @Override
     public void delete(DeleteExternalLocationRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/external-locations/%s", request.getName());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -64,10 +66,8 @@ public class ExternalLocationsAPI implements ExternalLocationsService {
      * metastore admin, the owner of the external location, or a user that has
      * some privilege on the external location.
      */
-    @Override
     public ExternalLocationInfo get(GetExternalLocationRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/external-locations/%s", request.getName());
-        return apiClient.GET(path, request, ExternalLocationInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -79,10 +79,8 @@ public class ExternalLocationsAPI implements ExternalLocationsService {
      * location. There is no guarantee of a specific ordering of the elements in
      * the array.
      */
-    @Override
     public ListExternalLocationsResponse list() {
-        String path = "/api/2.1/unity-catalog/external-locations";
-        return apiClient.GET(path, ListExternalLocationsResponse.class);
+        return impl.list();
     }
     
 	/**
@@ -92,10 +90,11 @@ public class ExternalLocationsAPI implements ExternalLocationsService {
      * owner of the external location, or be a metastore admin. In the second
      * case, the admin can only update the name of the external location.
      */
-    @Override
     public ExternalLocationInfo update(UpdateExternalLocation request) {
-        String path = String.format("/api/2.1/unity-catalog/external-locations/%s", request.getName());
-        return apiClient.PATCH(path, request, ExternalLocationInfo.class);
+        return impl.update(request);
     }
     
+    public ExternalLocationsService impl() {
+        return impl;
+    }
 }

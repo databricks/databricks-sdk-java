@@ -19,11 +19,17 @@ import com.databricks.sdk.client.DatabricksException;
  * Databricks Account identities can be assigned as members of groups, and
  * members inherit permissions that are assigned to their group.
  */
-public class AccountGroupsAPI implements AccountGroupsService {
-    private final ApiClient apiClient;
+public class AccountGroupsAPI {
+    private final AccountGroupsService impl;
 
+    /** Regular-use constructor */
     public AccountGroupsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new AccountGroupsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public AccountGroupsAPI(AccountGroupsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -32,10 +38,8 @@ public class AccountGroupsAPI implements AccountGroupsService {
      * Creates a group in the Databricks Account with a unique name, using the
      * supplied group details.
      */
-    @Override
     public Group create(Group request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Groups");
-        return apiClient.POST(path, request, Group.class);
+        return impl.create(request);
     }
     
 	/**
@@ -43,10 +47,8 @@ public class AccountGroupsAPI implements AccountGroupsService {
      * 
      * Deletes a group from the Databricks Account.
      */
-    @Override
     public void delete(DeleteGroupRequest request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Groups/%s", request.getId());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -54,10 +56,8 @@ public class AccountGroupsAPI implements AccountGroupsService {
      * 
      * Gets the information for a specific group in the Databricks Account.
      */
-    @Override
     public Group get(GetGroupRequest request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Groups/%s", request.getId());
-        return apiClient.GET(path, request, Group.class);
+        return impl.get(request);
     }
     
 	/**
@@ -65,10 +65,8 @@ public class AccountGroupsAPI implements AccountGroupsService {
      * 
      * Gets all details of the groups associated with the Databricks Account.
      */
-    @Override
     public ListGroupsResponse list(ListGroupsRequest request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Groups");
-        return apiClient.GET(path, request, ListGroupsResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -76,10 +74,8 @@ public class AccountGroupsAPI implements AccountGroupsService {
      * 
      * Partially updates the details of a group.
      */
-    @Override
     public void patch(PartialUpdate request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Groups/%s", request.getId());
-        apiClient.PATCH(path, request, Void.class);
+        impl.patch(request);
     }
     
 	/**
@@ -87,10 +83,11 @@ public class AccountGroupsAPI implements AccountGroupsService {
      * 
      * Updates the details of a group by replacing the entire group entity.
      */
-    @Override
     public void update(Group request) {
-        String path = String.format("/api/2.0/accounts//scim/v2/Groups/%s", request.getId());
-        apiClient.PUT(path, request, Void.class);
+        impl.update(request);
     }
     
+    public AccountGroupsService impl() {
+        return impl;
+    }
 }

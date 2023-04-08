@@ -7,8 +7,8 @@ import java.util.Map;
 /**
  * The alerts API can be used to perform CRUD operations on alerts. An alert is
  * a Databricks SQL object that periodically runs a query, evaluates a condition
- * of its result, and notifies one or more users and/or alert destinations if
- * the condition was met.
+ * of its result, and notifies one or more users and/or notification
+ * destinations if the condition was met.
  *
  * This is the high-level interface, that contains generated methods.
  *
@@ -20,7 +20,7 @@ public interface AlertsService {
      * 
      * Creates an alert. An alert is a Databricks SQL object that periodically
      * runs a query, evaluates a condition of its result, and notifies users or
-     * alert destinations if the condition was met.
+     * notification destinations if the condition was met.
      */
     Alert create(CreateAlert createAlert);
     

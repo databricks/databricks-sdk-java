@@ -18,11 +18,17 @@ import com.databricks.sdk.client.DatabricksException;
  * function resides at the same level as a table, so it can be referenced with
  * the form __catalog_name__.__schema_name__.__function_name__.
  */
-public class FunctionsAPI implements FunctionsService {
-    private final ApiClient apiClient;
+public class FunctionsAPI {
+    private final FunctionsService impl;
 
+    /** Regular-use constructor */
     public FunctionsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new FunctionsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public FunctionsAPI(FunctionsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -34,10 +40,8 @@ public class FunctionsAPI implements FunctionsService {
      * be created: - **USE_CATALOG** on the function's parent catalog -
      * **USE_SCHEMA** and **CREATE_FUNCTION** on the function's parent schema
      */
-    @Override
     public FunctionInfo create(CreateFunction request) {
-        String path = "/api/2.1/unity-catalog/functions";
-        return apiClient.POST(path, request, FunctionInfo.class);
+        return impl.create(request);
     }
     
 	/**
@@ -51,10 +55,8 @@ public class FunctionsAPI implements FunctionsService {
      * **USE_CATALOG** privilege on its parent catalog and the **USE_SCHEMA**
      * privilege on its parent schema
      */
-    @Override
     public void delete(DeleteFunctionRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/functions/%s", request.getName());
-        apiClient.DELETE(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -68,10 +70,8 @@ public class FunctionsAPI implements FunctionsService {
      * function's parent catalog, the **USE_SCHEMA** privilege on the function's
      * parent schema, and the **EXECUTE** privilege on the function itself
      */
-    @Override
     public FunctionInfo get(GetFunctionRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/functions/%s", request.getName());
-        return apiClient.GET(path, request, FunctionInfo.class);
+        return impl.get(request);
     }
     
 	/**
@@ -85,10 +85,8 @@ public class FunctionsAPI implements FunctionsService {
      * **EXECUTE** privilege or the user is the owner. There is no guarantee of
      * a specific ordering of the elements in the array.
      */
-    @Override
     public ListFunctionsResponse list(ListFunctionsRequest request) {
-        String path = "/api/2.1/unity-catalog/functions";
-        return apiClient.GET(path, request, ListFunctionsResponse.class);
+        return impl.list(request);
     }
     
 	/**
@@ -103,10 +101,11 @@ public class FunctionsAPI implements FunctionsService {
      * has the **USE_CATALOG** privilege on its parent catalog as well as the
      * **USE_SCHEMA** privilege on the function's parent schema.
      */
-    @Override
     public FunctionInfo update(UpdateFunction request) {
-        String path = String.format("/api/2.1/unity-catalog/functions/%s", request.getName());
-        return apiClient.PATCH(path, request, FunctionInfo.class);
+        return impl.update(request);
     }
     
+    public FunctionsService impl() {
+        return impl;
+    }
 }

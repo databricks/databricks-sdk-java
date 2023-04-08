@@ -11,11 +11,17 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 
 
-public class MLflowRunsAPI implements MLflowRunsService {
-    private final ApiClient apiClient;
+public class MLflowRunsAPI {
+    private final MLflowRunsService impl;
 
+    /** Regular-use constructor */
     public MLflowRunsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        impl = new MLflowRunsImpl(apiClient);
+    }
+
+    /** Constructor for mocks */
+    public MLflowRunsAPI(MLflowRunsService mock) {
+        impl = mock;
     }
 	
 	/**
@@ -26,10 +32,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * track the `mlflowParam`, `mlflowMetric` and `mlflowRunTag` associated
      * with a single execution.
      */
-    @Override
     public CreateRunResponse create(CreateRun request) {
-        String path = "/api/2.0/mlflow/runs/create";
-        return apiClient.POST(path, request, CreateRunResponse.class);
+        return impl.create(request);
     }
     
 	/**
@@ -37,10 +41,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * 
      * Marks a run for deletion.
      */
-    @Override
     public void delete(DeleteRun request) {
-        String path = "/api/2.0/mlflow/runs/delete";
-        apiClient.POST(path, request, Void.class);
+        impl.delete(request);
     }
     
 	/**
@@ -49,10 +51,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * Deletes a tag on a run. Tags are run metadata that can be updated during
      * a run and after a run completes.
      */
-    @Override
     public void deleteTag(DeleteTag request) {
-        String path = "/api/2.0/mlflow/runs/delete-tag";
-        apiClient.POST(path, request, Void.class);
+        impl.deleteTag(request);
     }
     
 	/**
@@ -65,10 +65,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * If there are multiple values with the latest timestamp, return the
      * maximum of these values.
      */
-    @Override
     public GetRunResponse get(GetRunRequest request) {
-        String path = "/api/2.0/mlflow/runs/get";
-        return apiClient.GET(path, request, GetRunResponse.class);
+        return impl.get(request);
     }
     
 	/**
@@ -117,10 +115,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * * Metric keyes, param keys, and tag keys can be up to 250 characters in
      * length * Parameter and tag values can be up to 250 characters in length
      */
-    @Override
     public void logBatch(LogBatch request) {
-        String path = "/api/2.0/mlflow/runs/log-batch";
-        apiClient.POST(path, request, Void.class);
+        impl.logBatch(request);
     }
     
 	/**
@@ -130,10 +126,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * value) with an associated timestamp. Examples include the various metrics
      * that represent ML model accuracy. A metric can be logged multiple times.
      */
-    @Override
     public void logMetric(LogMetric request) {
-        String path = "/api/2.0/mlflow/runs/log-metric";
-        apiClient.POST(path, request, Void.class);
+        impl.logMetric(request);
     }
     
 	/**
@@ -142,10 +136,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * **NOTE:** Experimental: This API may change or be removed in a future
      * release without warning.
      */
-    @Override
     public void logModel(LogModel request) {
-        String path = "/api/2.0/mlflow/runs/log-model";
-        apiClient.POST(path, request, Void.class);
+        impl.logModel(request);
     }
     
 	/**
@@ -156,10 +148,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * training and constant dates and values used in an ETL pipeline. A param
      * can be logged only once for a run.
      */
-    @Override
     public void logParameter(LogParam request) {
-        String path = "/api/2.0/mlflow/runs/log-parameter";
-        apiClient.POST(path, request, Void.class);
+        impl.logParameter(request);
     }
     
 	/**
@@ -167,10 +157,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * 
      * Restores a deleted run.
      */
-    @Override
     public void restore(RestoreRun request) {
-        String path = "/api/2.0/mlflow/runs/restore";
-        apiClient.POST(path, request, Void.class);
+        impl.restore(request);
     }
     
 	/**
@@ -180,10 +168,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * 
      * Search expressions can use `mlflowMetric` and `mlflowParam` keys.",
      */
-    @Override
     public SearchRunsResponse search(SearchRuns request) {
-        String path = "/api/2.0/mlflow/runs/search";
-        return apiClient.POST(path, request, SearchRunsResponse.class);
+        return impl.search(request);
     }
     
 	/**
@@ -192,10 +178,8 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * Sets a tag on a run. Tags are run metadata that can be updated during a
      * run and after a run completes.
      */
-    @Override
     public void setTag(SetTag request) {
-        String path = "/api/2.0/mlflow/runs/set-tag";
-        apiClient.POST(path, request, Void.class);
+        impl.setTag(request);
     }
     
 	/**
@@ -203,10 +187,11 @@ public class MLflowRunsAPI implements MLflowRunsService {
      * 
      * Updates run metadata.
      */
-    @Override
     public UpdateRunResponse update(UpdateRun request) {
-        String path = "/api/2.0/mlflow/runs/update";
-        return apiClient.POST(path, request, UpdateRunResponse.class);
+        return impl.update(request);
     }
     
+    public MLflowRunsService impl() {
+        return impl;
+    }
 }

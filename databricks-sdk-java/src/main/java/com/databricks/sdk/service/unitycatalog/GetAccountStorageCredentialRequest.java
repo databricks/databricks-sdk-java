@@ -24,12 +24,6 @@ public class GetAccountStorageCredentialRequest {
     
     private String name;
     
-    /**
-     
-     */
-    
-    private String storageCredentialName;
-    
     public GetAccountStorageCredentialRequest setMetastoreId(String metastoreId) {
         this.metastoreId = metastoreId;
         return this;
@@ -46,15 +40,6 @@ public class GetAccountStorageCredentialRequest {
 
     public String getName() {
         return name;
-    }
-    
-    public GetAccountStorageCredentialRequest setStorageCredentialName(String storageCredentialName) {
-        this.storageCredentialName = storageCredentialName;
-        return this;
-    }
-
-    public String getStorageCredentialName() {
-        return storageCredentialName;
     }
     
 }
