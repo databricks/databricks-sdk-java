@@ -2,45 +2,59 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import java.util.Objects;
 
 /**
- * A dependency of a SQL object. Either the __table__ field or the __function__
- * field must be defined.
+ * A dependency of a SQL object. Either the __table__ field or the __function__ field must be
+ * defined.
  */
 public class Dependency {
-    /**
-     * A function that is dependent on a SQL object.
-     */
-    @JsonProperty("function")
-    private FunctionDependency function;
-    
-    /**
-     * A table that is dependent on a SQL object.
-     */
-    @JsonProperty("table")
-    private TableDependency table;
-    
-    public Dependency setFunction(FunctionDependency function) {
-        this.function = function;
-        return this;
-    }
+  /** A function that is dependent on a SQL object. */
+  @JsonProperty("function")
+  private FunctionDependency function;
 
-    public FunctionDependency getFunction() {
-        return function;
-    }
-    
-    public Dependency setTable(TableDependency table) {
-        this.table = table;
-        return this;
-    }
+  /** A table that is dependent on a SQL object. */
+  @JsonProperty("table")
+  private TableDependency table;
 
-    public TableDependency getTable() {
-        return table;
-    }
-    
+  public Dependency setFunction(FunctionDependency function) {
+    this.function = function;
+    return this;
+  }
+
+  public FunctionDependency getFunction() {
+    return function;
+  }
+
+  public Dependency setTable(TableDependency table) {
+    this.table = table;
+    return this;
+  }
+
+  public TableDependency getTable() {
+    return table;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Dependency that = (Dependency) o;
+    return Objects.equals(function, that.function) && Objects.equals(table, that.table);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(function, table);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Dependency.class)
+        .add("function", function)
+        .add("table", table)
+        .toString();
+  }
 }

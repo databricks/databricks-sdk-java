@@ -2,44 +2,29 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * [DEPRECATED] Unsubscribe to an alert
- */
+/** [DEPRECATED] Unsubscribe to an alert */
 public class UnsubscribeRequest {
-    /**
-     
-     */
-    
-    private String alertId;
-    
-    /**
-     
-     */
-    
-    private String subscriptionId;
-    
-    public UnsubscribeRequest setAlertId(String alertId) {
-        this.alertId = alertId;
-        return this;
-    }
+  /** */
+  private String alertId;
 
-    public String getAlertId() {
-        return alertId;
-    }
-    
-    public UnsubscribeRequest setSubscriptionId(String subscriptionId) {
-        this.subscriptionId = subscriptionId;
-        return this;
-    }
+  /** */
+  private String subscriptionId;
 
-    public String getSubscriptionId() {
-        return subscriptionId;
-    }
-    
+  public UnsubscribeRequest setAlertId(String alertId) {
+    this.alertId = alertId;
+    return this;
+  }
+
+  public String getAlertId() {
+    return alertId;
+  }
+
+  public UnsubscribeRequest setSubscriptionId(String subscriptionId) {
+    this.subscriptionId = subscriptionId;
+    return this;
+  }
+
+  public String getSubscriptionId() {
+    return subscriptionId;
+  }
 }

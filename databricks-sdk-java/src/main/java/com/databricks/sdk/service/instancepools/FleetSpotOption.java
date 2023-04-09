@@ -2,62 +2,76 @@
 
 package com.databricks.sdk.service.instancepools;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class FleetSpotOption {
-    /**
-     * lowest-price | diversified | capacity-optimized
-     */
-    @JsonProperty("allocation_strategy")
-    private FleetSpotOptionAllocationStrategy allocationStrategy;
-    
-    /**
-     * The number of Spot pools across which to allocate your target Spot
-     * capacity. Valid only when Spot Allocation Strategy is set to
-     * lowest-price. EC2 Fleet selects the cheapest Spot pools and evenly
-     * allocates your target Spot capacity across the number of Spot pools that
-     * you specify.
-     */
-    @JsonProperty("instance_pools_to_use_count")
-    private Long instancePoolsToUseCount;
-    
-    /**
-     * The maximum amount per hour for Spot Instances that you're willing to
-     * pay.
-     */
-    @JsonProperty("max_total_price")
-    private Float maxTotalPrice;
-    
-    public FleetSpotOption setAllocationStrategy(FleetSpotOptionAllocationStrategy allocationStrategy) {
-        this.allocationStrategy = allocationStrategy;
-        return this;
-    }
+  /** lowest-price | diversified | capacity-optimized */
+  @JsonProperty("allocation_strategy")
+  private FleetSpotOptionAllocationStrategy allocationStrategy;
 
-    public FleetSpotOptionAllocationStrategy getAllocationStrategy() {
-        return allocationStrategy;
-    }
-    
-    public FleetSpotOption setInstancePoolsToUseCount(Long instancePoolsToUseCount) {
-        this.instancePoolsToUseCount = instancePoolsToUseCount;
-        return this;
-    }
+  /**
+   * The number of Spot pools across which to allocate your target Spot capacity. Valid only when
+   * Spot Allocation Strategy is set to lowest-price. EC2 Fleet selects the cheapest Spot pools and
+   * evenly allocates your target Spot capacity across the number of Spot pools that you specify.
+   */
+  @JsonProperty("instance_pools_to_use_count")
+  private Long instancePoolsToUseCount;
 
-    public Long getInstancePoolsToUseCount() {
-        return instancePoolsToUseCount;
-    }
-    
-    public FleetSpotOption setMaxTotalPrice(Float maxTotalPrice) {
-        this.maxTotalPrice = maxTotalPrice;
-        return this;
-    }
+  /** The maximum amount per hour for Spot Instances that you're willing to pay. */
+  @JsonProperty("max_total_price")
+  private Float maxTotalPrice;
 
-    public Float getMaxTotalPrice() {
-        return maxTotalPrice;
-    }
-    
+  public FleetSpotOption setAllocationStrategy(
+      FleetSpotOptionAllocationStrategy allocationStrategy) {
+    this.allocationStrategy = allocationStrategy;
+    return this;
+  }
+
+  public FleetSpotOptionAllocationStrategy getAllocationStrategy() {
+    return allocationStrategy;
+  }
+
+  public FleetSpotOption setInstancePoolsToUseCount(Long instancePoolsToUseCount) {
+    this.instancePoolsToUseCount = instancePoolsToUseCount;
+    return this;
+  }
+
+  public Long getInstancePoolsToUseCount() {
+    return instancePoolsToUseCount;
+  }
+
+  public FleetSpotOption setMaxTotalPrice(Float maxTotalPrice) {
+    this.maxTotalPrice = maxTotalPrice;
+    return this;
+  }
+
+  public Float getMaxTotalPrice() {
+    return maxTotalPrice;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    FleetSpotOption that = (FleetSpotOption) o;
+    return Objects.equals(allocationStrategy, that.allocationStrategy)
+        && Objects.equals(instancePoolsToUseCount, that.instancePoolsToUseCount)
+        && Objects.equals(maxTotalPrice, that.maxTotalPrice);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(allocationStrategy, instancePoolsToUseCount, maxTotalPrice);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(FleetSpotOption.class)
+        .add("allocationStrategy", allocationStrategy)
+        .add("instancePoolsToUseCount", instancePoolsToUseCount)
+        .add("maxTotalPrice", maxTotalPrice)
+        .toString();
+  }
 }

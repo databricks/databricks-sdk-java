@@ -2,27 +2,39 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class CreateCredentialStsRole {
-    /**
-     * The Amazon Resource Name (ARN) of the cross account role.
-     */
-    @JsonProperty("role_arn")
-    private String roleArn;
-    
-    public CreateCredentialStsRole setRoleArn(String roleArn) {
-        this.roleArn = roleArn;
-        return this;
-    }
+  /** The Amazon Resource Name (ARN) of the cross account role. */
+  @JsonProperty("role_arn")
+  private String roleArn;
 
-    public String getRoleArn() {
-        return roleArn;
-    }
-    
+  public CreateCredentialStsRole setRoleArn(String roleArn) {
+    this.roleArn = roleArn;
+    return this;
+  }
+
+  public String getRoleArn() {
+    return roleArn;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateCredentialStsRole that = (CreateCredentialStsRole) o;
+    return Objects.equals(roleArn, that.roleArn);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(roleArn);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateCredentialStsRole.class).add("roleArn", roleArn).toString();
+  }
 }

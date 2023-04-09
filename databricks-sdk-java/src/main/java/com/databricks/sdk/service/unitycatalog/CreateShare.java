@@ -2,42 +2,52 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class CreateShare {
-    /**
-     * User-provided free-form text description.
-     */
-    @JsonProperty("comment")
-    private String comment;
-    
-    /**
-     * Name of the share.
-     */
-    @JsonProperty("name")
-    private String name;
-    
-    public CreateShare setComment(String comment) {
-        this.comment = comment;
-        return this;
-    }
+  /** User-provided free-form text description. */
+  @JsonProperty("comment")
+  private String comment;
 
-    public String getComment() {
-        return comment;
-    }
-    
-    public CreateShare setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** Name of the share. */
+  @JsonProperty("name")
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
+  public CreateShare setComment(String comment) {
+    this.comment = comment;
+    return this;
+  }
+
+  public String getComment() {
+    return comment;
+  }
+
+  public CreateShare setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreateShare that = (CreateShare) o;
+    return Objects.equals(comment, that.comment) && Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(comment, name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreateShare.class).add("comment", comment).add("name", name).toString();
+  }
 }

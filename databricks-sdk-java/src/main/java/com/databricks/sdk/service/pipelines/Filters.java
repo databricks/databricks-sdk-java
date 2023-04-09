@@ -2,42 +2,53 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class Filters {
-    /**
-     * Paths to exclude.
-     */
-    @JsonProperty("exclude")
-    private java.util.List<String> exclude;
-    
-    /**
-     * Paths to include.
-     */
-    @JsonProperty("include")
-    private java.util.List<String> include;
-    
-    public Filters setExclude(java.util.List<String> exclude) {
-        this.exclude = exclude;
-        return this;
-    }
+  /** Paths to exclude. */
+  @JsonProperty("exclude")
+  private Collection<String> exclude;
 
-    public java.util.List<String> getExclude() {
-        return exclude;
-    }
-    
-    public Filters setInclude(java.util.List<String> include) {
-        this.include = include;
-        return this;
-    }
+  /** Paths to include. */
+  @JsonProperty("include")
+  private Collection<String> include;
 
-    public java.util.List<String> getInclude() {
-        return include;
-    }
-    
+  public Filters setExclude(Collection<String> exclude) {
+    this.exclude = exclude;
+    return this;
+  }
+
+  public Collection<String> getExclude() {
+    return exclude;
+  }
+
+  public Filters setInclude(Collection<String> include) {
+    this.include = include;
+    return this;
+  }
+
+  public Collection<String> getInclude() {
+    return include;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Filters that = (Filters) o;
+    return Objects.equals(exclude, that.exclude) && Objects.equals(include, that.include);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(exclude, include);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Filters.class).add("exclude", exclude).add("include", include).toString();
+  }
 }

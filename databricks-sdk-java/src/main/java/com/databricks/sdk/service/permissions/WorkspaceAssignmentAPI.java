@@ -1,83 +1,91 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.permissions;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
+import com.databricks.sdk.client.ApiClient;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksException;
-
 /**
- * Databricks Workspace Assignment REST API
+ * The Workspace Permission Assignment API allows you to manage workspace permissions for principals
+ * in your account.
  */
-public class WorkspaceAssignmentAPI implements WorkspaceAssignmentService {
-    private final ApiClient apiClient;
+public class WorkspaceAssignmentAPI {
+  private final WorkspaceAssignmentService impl;
 
-    public WorkspaceAssignmentAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-	
-	/**
-     * Create permission assignments.
-     * 
-     * Create new permission assignments for the specified account and
-     * workspace.
-     */
-    @Override
-    public WorkspaceAssignmentsCreated create(CreateWorkspaceAssignments request) {
-        String path = String.format("/api/2.0/preview/accounts//workspaces/%s/permissionassignments", request.getWorkspaceId());
-        return apiClient.POST(path, request, WorkspaceAssignmentsCreated.class);
-    }
-    
-	/**
-     * Delete permissions assignment.
-     * 
-     * Deletes the workspace permissions assignment for a given account and
-     * workspace using the specified service principal.
-     */
-    @Override
-    public void delete(DeleteWorkspaceAssignmentRequest request) {
-        String path = String.format("/api/2.0/preview/accounts//workspaces/%s/permissionassignments/principals/%s", request.getWorkspaceId(), request.getPrincipalId());
-        apiClient.DELETE(path, request, Void.class);
-    }
-    
-	/**
-     * List workspace permissions.
-     * 
-     * Get an array of workspace permissions for the specified account and
-     * workspace.
-     */
-    @Override
-    public WorkspacePermissions get(GetWorkspaceAssignmentRequest request) {
-        String path = String.format("/api/2.0/preview/accounts//workspaces/%s/permissionassignments/permissions", request.getWorkspaceId());
-        return apiClient.GET(path, request, WorkspacePermissions.class);
-    }
-    
-	/**
-     * Get permission assignments.
-     * 
-     * Get the permission assignments for the specified Databricks Account and
-     * Databricks Workspace.
-     */
-    @Override
-    public PermissionAssignments list(ListWorkspaceAssignmentRequest request) {
-        String path = String.format("/api/2.0/preview/accounts//workspaces/%s/permissionassignments", request.getWorkspaceId());
-        return apiClient.GET(path, request, PermissionAssignments.class);
-    }
-    
-	/**
-     * Update permissions assignment.
-     * 
-     * Updates the workspace permissions assignment for a given account and
-     * workspace using the specified service principal.
-     */
-    @Override
-    public void update(UpdateWorkspaceAssignments request) {
-        String path = String.format("/api/2.0/preview/accounts//workspaces/%s/permissionassignments/principals/%s", request.getWorkspaceId(), request.getPrincipalId());
-        apiClient.PUT(path, request, Void.class);
-    }
-    
+  /** Regular-use constructor */
+  public WorkspaceAssignmentAPI(ApiClient apiClient) {
+    impl = new WorkspaceAssignmentImpl(apiClient);
+  }
+
+  /** Constructor for mocks */
+  public WorkspaceAssignmentAPI(WorkspaceAssignmentService mock) {
+    impl = mock;
+  }
+
+  public void delete(long workspaceId, long principalId) {
+    delete(
+        new DeleteWorkspaceAssignmentRequest()
+            .setWorkspaceId(workspaceId)
+            .setPrincipalId(principalId));
+  }
+
+  /**
+   * Delete permissions assignment.
+   *
+   * <p>Deletes the workspace permissions assignment in a given account and workspace for the
+   * specified principal.
+   */
+  public void delete(DeleteWorkspaceAssignmentRequest request) {
+    impl.delete(request);
+  }
+
+  public WorkspacePermissions get(long workspaceId) {
+    return get(new GetWorkspaceAssignmentRequest().setWorkspaceId(workspaceId));
+  }
+
+  /**
+   * List workspace permissions.
+   *
+   * <p>Get an array of workspace permissions for the specified account and workspace.
+   */
+  public WorkspacePermissions get(GetWorkspaceAssignmentRequest request) {
+    return impl.get(request);
+  }
+
+  public PermissionAssignments list(long workspaceId) {
+    return list(new ListWorkspaceAssignmentRequest().setWorkspaceId(workspaceId));
+  }
+
+  /**
+   * Get permission assignments.
+   *
+   * <p>Get the permission assignments for the specified Databricks Account and Databricks
+   * Workspace.
+   */
+  public PermissionAssignments list(ListWorkspaceAssignmentRequest request) {
+    return impl.list(request);
+  }
+
+  public void update(
+      Collection<WorkspacePermission> permissions, long workspaceId, long principalId) {
+    update(
+        new UpdateWorkspaceAssignments()
+            .setPermissions(permissions)
+            .setWorkspaceId(workspaceId)
+            .setPrincipalId(principalId));
+  }
+
+  /**
+   * Create or update permissions assignment.
+   *
+   * <p>Creates or updates the workspace permissions assignment in a given account and workspace for
+   * the specified principal.
+   */
+  public void update(UpdateWorkspaceAssignments request) {
+    impl.update(request);
+  }
+
+  public WorkspaceAssignmentService impl() {
+    return impl;
+  }
 }

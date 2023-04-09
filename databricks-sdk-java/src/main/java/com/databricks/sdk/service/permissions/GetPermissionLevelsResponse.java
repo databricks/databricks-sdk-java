@@ -2,27 +2,43 @@
 
 package com.databricks.sdk.service.permissions;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class GetPermissionLevelsResponse {
-    /**
-     * Specific permission levels
-     */
-    @JsonProperty("permission_levels")
-    private java.util.List<PermissionsDescription> permissionLevels;
-    
-    public GetPermissionLevelsResponse setPermissionLevels(java.util.List<PermissionsDescription> permissionLevels) {
-        this.permissionLevels = permissionLevels;
-        return this;
-    }
+  /** Specific permission levels */
+  @JsonProperty("permission_levels")
+  private Collection<PermissionsDescription> permissionLevels;
 
-    public java.util.List<PermissionsDescription> getPermissionLevels() {
-        return permissionLevels;
-    }
-    
+  public GetPermissionLevelsResponse setPermissionLevels(
+      Collection<PermissionsDescription> permissionLevels) {
+    this.permissionLevels = permissionLevels;
+    return this;
+  }
+
+  public Collection<PermissionsDescription> getPermissionLevels() {
+    return permissionLevels;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetPermissionLevelsResponse that = (GetPermissionLevelsResponse) o;
+    return Objects.equals(permissionLevels, that.permissionLevels);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(permissionLevels);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetPermissionLevelsResponse.class)
+        .add("permissionLevels", permissionLevels)
+        .toString();
+  }
 }

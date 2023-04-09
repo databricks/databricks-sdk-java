@@ -2,18 +2,10 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
+/** This describes an enum */
+public enum KeyUseCase {
+  MANAGED_SERVICES, // Encrypts notebook and secret data in the control plane
+  STORAGE, // Encrypts the workspace's root S3 bucket (root DBFS and system data) and,
+  // optionally, cluster EBS volumes.
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * This describes an enum
- */
-public enum KeyUseCase{
-    MANAGED_SERVICES,// Encrypts notebook and secret data in the control plane
-    STORAGE,// Encrypts the workspace's root S3 bucket (root DBFS and system data) and,
-// optionally, cluster EBS volumes.
-    
 }

@@ -2,20 +2,11 @@
 
 package com.databricks.sdk.service.workspace;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * The type of the object in workspace.
- */
-public enum ObjectType{
-    DIRECTORY,
-    FILE,
-    LIBRARY,
-    NOTEBOOK,
-    REPO,
-    
+/** The type of the object in workspace. */
+public enum ObjectType {
+  DIRECTORY,
+  FILE,
+  LIBRARY,
+  NOTEBOOK,
+  REPO,
 }

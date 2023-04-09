@@ -2,27 +2,39 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class DeleteExperiment {
-    /**
-     * ID of the associated experiment.
-     */
-    @JsonProperty("experiment_id")
-    private String experimentId;
-    
-    public DeleteExperiment setExperimentId(String experimentId) {
-        this.experimentId = experimentId;
-        return this;
-    }
+  /** ID of the associated experiment. */
+  @JsonProperty("experiment_id")
+  private String experimentId;
 
-    public String getExperimentId() {
-        return experimentId;
-    }
-    
+  public DeleteExperiment setExperimentId(String experimentId) {
+    this.experimentId = experimentId;
+    return this;
+  }
+
+  public String getExperimentId() {
+    return experimentId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteExperiment that = (DeleteExperiment) o;
+    return Objects.equals(experimentId, that.experimentId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(experimentId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteExperiment.class).add("experimentId", experimentId).toString();
+  }
 }

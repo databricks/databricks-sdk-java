@@ -2,27 +2,39 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class Success {
-    /**
-     
-     */
-    @JsonProperty("message")
-    private SuccessMessage message;
-    
-    public Success setMessage(SuccessMessage message) {
-        this.message = message;
-        return this;
-    }
+  /** */
+  @JsonProperty("message")
+  private SuccessMessage message;
 
-    public SuccessMessage getMessage() {
-        return message;
-    }
-    
+  public Success setMessage(SuccessMessage message) {
+    this.message = message;
+    return this;
+  }
+
+  public SuccessMessage getMessage() {
+    return message;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Success that = (Success) o;
+    return Objects.equals(message, that.message);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(message);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Success.class).add("message", message).toString();
+  }
 }

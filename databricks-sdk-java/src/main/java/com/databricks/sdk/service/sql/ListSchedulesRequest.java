@@ -2,29 +2,17 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * [DEPRECATED] Get refresh schedules
- */
+/** [DEPRECATED] Get refresh schedules */
 public class ListSchedulesRequest {
-    /**
-     
-     */
-    
-    private String alertId;
-    
-    public ListSchedulesRequest setAlertId(String alertId) {
-        this.alertId = alertId;
-        return this;
-    }
+  /** */
+  private String alertId;
 
-    public String getAlertId() {
-        return alertId;
-    }
-    
+  public ListSchedulesRequest setAlertId(String alertId) {
+    this.alertId = alertId;
+    return this;
+  }
+
+  public String getAlertId() {
+    return alertId;
+  }
 }

@@ -2,89 +2,104 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class EndpointHealth {
-    /**
-     * Details about errors that are causing current degraded/failed status.
-     */
-    @JsonProperty("details")
-    private String details;
-    
-    /**
-     * The reason for failure to bring up clusters for this endpoint. This is
-     * available when status is 'FAILED' and sometimes when it is DEGRADED.
-     */
-    @JsonProperty("failure_reason")
-    private TerminationReason failureReason;
-    
-    /**
-     * Deprecated. split into summary and details for security
-     */
-    @JsonProperty("message")
-    private String message;
-    
-    /**
-     * Health status of the endpoint.
-     */
-    @JsonProperty("status")
-    private Status status;
-    
-    /**
-     * A short summary of the health status in case of degraded/failed
-     * endpoints.
-     */
-    @JsonProperty("summary")
-    private String summary;
-    
-    public EndpointHealth setDetails(String details) {
-        this.details = details;
-        return this;
-    }
+  /** Details about errors that are causing current degraded/failed status. */
+  @JsonProperty("details")
+  private String details;
 
-    public String getDetails() {
-        return details;
-    }
-    
-    public EndpointHealth setFailureReason(TerminationReason failureReason) {
-        this.failureReason = failureReason;
-        return this;
-    }
+  /**
+   * The reason for failure to bring up clusters for this warehouse. This is available when status
+   * is 'FAILED' and sometimes when it is DEGRADED.
+   */
+  @JsonProperty("failure_reason")
+  private TerminationReason failureReason;
 
-    public TerminationReason getFailureReason() {
-        return failureReason;
-    }
-    
-    public EndpointHealth setMessage(String message) {
-        this.message = message;
-        return this;
-    }
+  /** Deprecated. split into summary and details for security */
+  @JsonProperty("message")
+  private String message;
 
-    public String getMessage() {
-        return message;
-    }
-    
-    public EndpointHealth setStatus(Status status) {
-        this.status = status;
-        return this;
-    }
+  /** Health status of the warehouse. */
+  @JsonProperty("status")
+  private Status status;
 
-    public Status getStatus() {
-        return status;
-    }
-    
-    public EndpointHealth setSummary(String summary) {
-        this.summary = summary;
-        return this;
-    }
+  /** A short summary of the health status in case of degraded/failed warehouses. */
+  @JsonProperty("summary")
+  private String summary;
 
-    public String getSummary() {
-        return summary;
-    }
-    
+  public EndpointHealth setDetails(String details) {
+    this.details = details;
+    return this;
+  }
+
+  public String getDetails() {
+    return details;
+  }
+
+  public EndpointHealth setFailureReason(TerminationReason failureReason) {
+    this.failureReason = failureReason;
+    return this;
+  }
+
+  public TerminationReason getFailureReason() {
+    return failureReason;
+  }
+
+  public EndpointHealth setMessage(String message) {
+    this.message = message;
+    return this;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public EndpointHealth setStatus(Status status) {
+    this.status = status;
+    return this;
+  }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public EndpointHealth setSummary(String summary) {
+    this.summary = summary;
+    return this;
+  }
+
+  public String getSummary() {
+    return summary;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EndpointHealth that = (EndpointHealth) o;
+    return Objects.equals(details, that.details)
+        && Objects.equals(failureReason, that.failureReason)
+        && Objects.equals(message, that.message)
+        && Objects.equals(status, that.status)
+        && Objects.equals(summary, that.summary);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(details, failureReason, message, status, summary);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EndpointHealth.class)
+        .add("details", details)
+        .add("failureReason", failureReason)
+        .add("message", message)
+        .add("status", status)
+        .add("summary", summary)
+        .toString();
+  }
 }

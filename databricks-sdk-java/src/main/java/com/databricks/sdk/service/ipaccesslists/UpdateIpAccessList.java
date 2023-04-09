@@ -2,102 +2,116 @@
 
 package com.databricks.sdk.service.ipaccesslists;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class UpdateIpAccessList {
-    /**
-     * Specifies whether this IP access list is enabled.
-     */
-    @JsonProperty("enabled")
-    private Boolean enabled;
-    
-    /**
-     * The ID for the corresponding IP access list to modify.
-     */
-    
-    private String ipAccessListId;
-    
-    /**
-     * Array of IP addresses or CIDR values to be added to the IP access list.
-     */
-    @JsonProperty("ip_addresses")
-    private java.util.List<String> ipAddresses;
-    
-    /**
-     * Label for the IP access list. This **cannot** be empty.
-     */
-    @JsonProperty("label")
-    private String label;
-    
-    /**
-     * Universally unique identifier(UUID) of the IP access list.
-     */
-    @JsonProperty("list_id")
-    private String listId;
-    
-    /**
-     * This describes an enum
-     */
-    @JsonProperty("list_type")
-    private ListType listType;
-    
-    public UpdateIpAccessList setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
+  /** Specifies whether this IP access list is enabled. */
+  @JsonProperty("enabled")
+  private Boolean enabled;
 
-    public Boolean getEnabled() {
-        return enabled;
-    }
-    
-    public UpdateIpAccessList setIpAccessListId(String ipAccessListId) {
-        this.ipAccessListId = ipAccessListId;
-        return this;
-    }
+  /** The ID for the corresponding IP access list to modify. */
+  private String ipAccessListId;
 
-    public String getIpAccessListId() {
-        return ipAccessListId;
-    }
-    
-    public UpdateIpAccessList setIpAddresses(java.util.List<String> ipAddresses) {
-        this.ipAddresses = ipAddresses;
-        return this;
-    }
+  /** Array of IP addresses or CIDR values to be added to the IP access list. */
+  @JsonProperty("ip_addresses")
+  private Collection<String> ipAddresses;
 
-    public java.util.List<String> getIpAddresses() {
-        return ipAddresses;
-    }
-    
-    public UpdateIpAccessList setLabel(String label) {
-        this.label = label;
-        return this;
-    }
+  /** Label for the IP access list. This **cannot** be empty. */
+  @JsonProperty("label")
+  private String label;
 
-    public String getLabel() {
-        return label;
-    }
-    
-    public UpdateIpAccessList setListId(String listId) {
-        this.listId = listId;
-        return this;
-    }
+  /** Universally unique identifier(UUID) of the IP access list. */
+  @JsonProperty("list_id")
+  private String listId;
 
-    public String getListId() {
-        return listId;
-    }
-    
-    public UpdateIpAccessList setListType(ListType listType) {
-        this.listType = listType;
-        return this;
-    }
+  /** This describes an enum */
+  @JsonProperty("list_type")
+  private ListType listType;
 
-    public ListType getListType() {
-        return listType;
-    }
-    
+  public UpdateIpAccessList setEnabled(Boolean enabled) {
+    this.enabled = enabled;
+    return this;
+  }
+
+  public Boolean getEnabled() {
+    return enabled;
+  }
+
+  public UpdateIpAccessList setIpAccessListId(String ipAccessListId) {
+    this.ipAccessListId = ipAccessListId;
+    return this;
+  }
+
+  public String getIpAccessListId() {
+    return ipAccessListId;
+  }
+
+  public UpdateIpAccessList setIpAddresses(Collection<String> ipAddresses) {
+    this.ipAddresses = ipAddresses;
+    return this;
+  }
+
+  public Collection<String> getIpAddresses() {
+    return ipAddresses;
+  }
+
+  public UpdateIpAccessList setLabel(String label) {
+    this.label = label;
+    return this;
+  }
+
+  public String getLabel() {
+    return label;
+  }
+
+  public UpdateIpAccessList setListId(String listId) {
+    this.listId = listId;
+    return this;
+  }
+
+  public String getListId() {
+    return listId;
+  }
+
+  public UpdateIpAccessList setListType(ListType listType) {
+    this.listType = listType;
+    return this;
+  }
+
+  public ListType getListType() {
+    return listType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateIpAccessList that = (UpdateIpAccessList) o;
+    return Objects.equals(enabled, that.enabled)
+        && Objects.equals(ipAccessListId, that.ipAccessListId)
+        && Objects.equals(ipAddresses, that.ipAddresses)
+        && Objects.equals(label, that.label)
+        && Objects.equals(listId, that.listId)
+        && Objects.equals(listType, that.listType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(enabled, ipAccessListId, ipAddresses, label, listId, listType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateIpAccessList.class)
+        .add("enabled", enabled)
+        .add("ipAccessListId", ipAccessListId)
+        .add("ipAddresses", ipAddresses)
+        .add("label", label)
+        .add("listId", listId)
+        .add("listType", listType)
+        .toString();
+  }
 }

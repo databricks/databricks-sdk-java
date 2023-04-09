@@ -2,44 +2,54 @@
 
 package com.databricks.sdk.service.permissions;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get permission levels
- */
+/** Get permission levels */
 public class GetPermissionLevels {
-    /**
-     * <needs content>
-     */
-    
-    private String requestObjectId;
-    
-    /**
-     * <needs content>
-     */
-    
-    private String requestObjectType;
-    
-    public GetPermissionLevels setRequestObjectId(String requestObjectId) {
-        this.requestObjectId = requestObjectId;
-        return this;
-    }
+  /** <needs content> */
+  private String requestObjectId;
 
-    public String getRequestObjectId() {
-        return requestObjectId;
-    }
-    
-    public GetPermissionLevels setRequestObjectType(String requestObjectType) {
-        this.requestObjectType = requestObjectType;
-        return this;
-    }
+  /** <needs content> */
+  private String requestObjectType;
 
-    public String getRequestObjectType() {
-        return requestObjectType;
-    }
-    
+  public GetPermissionLevels setRequestObjectId(String requestObjectId) {
+    this.requestObjectId = requestObjectId;
+    return this;
+  }
+
+  public String getRequestObjectId() {
+    return requestObjectId;
+  }
+
+  public GetPermissionLevels setRequestObjectType(String requestObjectType) {
+    this.requestObjectType = requestObjectType;
+    return this;
+  }
+
+  public String getRequestObjectType() {
+    return requestObjectType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetPermissionLevels that = (GetPermissionLevels) o;
+    return Objects.equals(requestObjectId, that.requestObjectId)
+        && Objects.equals(requestObjectType, that.requestObjectType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(requestObjectId, requestObjectType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetPermissionLevels.class)
+        .add("requestObjectId", requestObjectId)
+        .add("requestObjectType", requestObjectType)
+        .toString();
+  }
 }

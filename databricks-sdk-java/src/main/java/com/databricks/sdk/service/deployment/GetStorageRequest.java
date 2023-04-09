@@ -2,29 +2,40 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get storage configuration
- */
+/** Get storage configuration */
 public class GetStorageRequest {
-    /**
-     * Databricks Account API storage configuration ID.
-     */
-    
-    private String storageConfigurationId;
-    
-    public GetStorageRequest setStorageConfigurationId(String storageConfigurationId) {
-        this.storageConfigurationId = storageConfigurationId;
-        return this;
-    }
+  /** Databricks Account API storage configuration ID. */
+  private String storageConfigurationId;
 
-    public String getStorageConfigurationId() {
-        return storageConfigurationId;
-    }
-    
+  public GetStorageRequest setStorageConfigurationId(String storageConfigurationId) {
+    this.storageConfigurationId = storageConfigurationId;
+    return this;
+  }
+
+  public String getStorageConfigurationId() {
+    return storageConfigurationId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetStorageRequest that = (GetStorageRequest) o;
+    return Objects.equals(storageConfigurationId, that.storageConfigurationId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(storageConfigurationId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetStorageRequest.class)
+        .add("storageConfigurationId", storageConfigurationId)
+        .toString();
+  }
 }

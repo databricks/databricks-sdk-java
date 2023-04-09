@@ -2,44 +2,57 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
 
-
-/**
- * Schema is an ordered list of column descriptions.
- */
+/** Schema is an ordered list of column descriptions. */
 public class ResultSchema {
-    /**
-     
-     */
-    @JsonProperty("column_count")
-    private Long columnCount;
-    
-    /**
-     
-     */
-    @JsonProperty("columns")
-    private java.util.List<ColumnInfo> columns;
-    
-    public ResultSchema setColumnCount(Long columnCount) {
-        this.columnCount = columnCount;
-        return this;
-    }
+  /** */
+  @JsonProperty("column_count")
+  private Long columnCount;
 
-    public Long getColumnCount() {
-        return columnCount;
-    }
-    
-    public ResultSchema setColumns(java.util.List<ColumnInfo> columns) {
-        this.columns = columns;
-        return this;
-    }
+  /** */
+  @JsonProperty("columns")
+  private Collection<ColumnInfo> columns;
 
-    public java.util.List<ColumnInfo> getColumns() {
-        return columns;
-    }
-    
+  public ResultSchema setColumnCount(Long columnCount) {
+    this.columnCount = columnCount;
+    return this;
+  }
+
+  public Long getColumnCount() {
+    return columnCount;
+  }
+
+  public ResultSchema setColumns(Collection<ColumnInfo> columns) {
+    this.columns = columns;
+    return this;
+  }
+
+  public Collection<ColumnInfo> getColumns() {
+    return columns;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ResultSchema that = (ResultSchema) o;
+    return Objects.equals(columnCount, that.columnCount) && Objects.equals(columns, that.columns);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(columnCount, columns);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ResultSchema.class)
+        .add("columnCount", columnCount)
+        .add("columns", columns)
+        .toString();
+  }
 }

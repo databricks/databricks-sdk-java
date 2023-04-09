@@ -2,19 +2,12 @@
 
 package com.databricks.sdk.service.clusters;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
 /**
- * Decides which runtime engine to be use, e.g. Standard vs. Photon. If
- * unspecified, the runtime engine is inferred from spark_version.
+ * Decides which runtime engine to be use, e.g. Standard vs. Photon. If unspecified, the runtime
+ * engine is inferred from spark_version.
  */
-public enum RuntimeEngine{
-    NULL,
-    PHOTON,
-    STANDARD,
-    
+public enum RuntimeEngine {
+  NULL,
+  PHOTON,
+  STANDARD,
 }

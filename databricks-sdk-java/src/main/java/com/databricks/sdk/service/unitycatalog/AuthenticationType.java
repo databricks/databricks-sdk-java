@@ -2,17 +2,8 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * The delta sharing authentication type.
- */
-public enum AuthenticationType{
-    DATABRICKS,
-    TOKEN,
-    
+/** The delta sharing authentication type. */
+public enum AuthenticationType {
+  DATABRICKS,
+  TOKEN,
 }

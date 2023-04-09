@@ -2,17 +2,8 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * One of: **ACTIVE**, **PERMISSION_DENIED**.
- */
-public enum SharedDataObjectStatus{
-    ACTIVE,
-    PERMISSION_DENIED,
-    
+/** One of: **ACTIVE**, **PERMISSION_DENIED**. */
+public enum SharedDataObjectStatus {
+  ACTIVE,
+  PERMISSION_DENIED,
 }

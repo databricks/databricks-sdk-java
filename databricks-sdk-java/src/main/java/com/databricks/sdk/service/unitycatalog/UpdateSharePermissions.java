@@ -2,42 +2,55 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class UpdateSharePermissions {
-    /**
-     * Array of permission changes.
-     */
-    @JsonProperty("changes")
-    private java.util.List<PermissionsChange> changes;
-    
-    /**
-     * The name of the share.
-     */
-    
-    private String name;
-    
-    public UpdateSharePermissions setChanges(java.util.List<PermissionsChange> changes) {
-        this.changes = changes;
-        return this;
-    }
+  /** Array of permission changes. */
+  @JsonProperty("changes")
+  private Collection<PermissionsChange> changes;
 
-    public java.util.List<PermissionsChange> getChanges() {
-        return changes;
-    }
-    
-    public UpdateSharePermissions setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** The name of the share. */
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
+  public UpdateSharePermissions setChanges(Collection<PermissionsChange> changes) {
+    this.changes = changes;
+    return this;
+  }
+
+  public Collection<PermissionsChange> getChanges() {
+    return changes;
+  }
+
+  public UpdateSharePermissions setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateSharePermissions that = (UpdateSharePermissions) o;
+    return Objects.equals(changes, that.changes) && Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(changes, name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateSharePermissions.class)
+        .add("changes", changes)
+        .add("name", name)
+        .toString();
+  }
 }

@@ -2,42 +2,56 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class TriggerSettings {
-    /**
-     * File arrival trigger settings.
-     */
-    @JsonProperty("file_arrival")
-    private FileArrivalTriggerSettings fileArrival;
-    
-    /**
-     * Whether this trigger is paused or not.
-     */
-    @JsonProperty("pause_status")
-    private TriggerSettingsPauseStatus pauseStatus;
-    
-    public TriggerSettings setFileArrival(FileArrivalTriggerSettings fileArrival) {
-        this.fileArrival = fileArrival;
-        return this;
-    }
+  /** File arrival trigger settings. */
+  @JsonProperty("file_arrival")
+  private FileArrivalTriggerSettings fileArrival;
 
-    public FileArrivalTriggerSettings getFileArrival() {
-        return fileArrival;
-    }
-    
-    public TriggerSettings setPauseStatus(TriggerSettingsPauseStatus pauseStatus) {
-        this.pauseStatus = pauseStatus;
-        return this;
-    }
+  /** Whether this trigger is paused or not. */
+  @JsonProperty("pause_status")
+  private TriggerSettingsPauseStatus pauseStatus;
 
-    public TriggerSettingsPauseStatus getPauseStatus() {
-        return pauseStatus;
-    }
-    
+  public TriggerSettings setFileArrival(FileArrivalTriggerSettings fileArrival) {
+    this.fileArrival = fileArrival;
+    return this;
+  }
+
+  public FileArrivalTriggerSettings getFileArrival() {
+    return fileArrival;
+  }
+
+  public TriggerSettings setPauseStatus(TriggerSettingsPauseStatus pauseStatus) {
+    this.pauseStatus = pauseStatus;
+    return this;
+  }
+
+  public TriggerSettingsPauseStatus getPauseStatus() {
+    return pauseStatus;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TriggerSettings that = (TriggerSettings) o;
+    return Objects.equals(fileArrival, that.fileArrival)
+        && Objects.equals(pauseStatus, that.pauseStatus);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(fileArrival, pauseStatus);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(TriggerSettings.class)
+        .add("fileArrival", fileArrival)
+        .add("pauseStatus", pauseStatus)
+        .toString();
+  }
 }

@@ -2,44 +2,56 @@
 
 package com.databricks.sdk.service.commands;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-
-/**
- * Get status
- */
+/** Get status */
 public class ContextStatusRequest {
-    /**
-     
-     */
-    @QueryParam("clusterId")
-    private String clusterId;
-    
-    /**
-     
-     */
-    @QueryParam("contextId")
-    private String contextId;
-    
-    public ContextStatusRequest setClusterId(String clusterId) {
-        this.clusterId = clusterId;
-        return this;
-    }
+  /** */
+  @QueryParam("clusterId")
+  private String clusterId;
 
-    public String getClusterId() {
-        return clusterId;
-    }
-    
-    public ContextStatusRequest setContextId(String contextId) {
-        this.contextId = contextId;
-        return this;
-    }
+  /** */
+  @QueryParam("contextId")
+  private String contextId;
 
-    public String getContextId() {
-        return contextId;
-    }
-    
+  public ContextStatusRequest setClusterId(String clusterId) {
+    this.clusterId = clusterId;
+    return this;
+  }
+
+  public String getClusterId() {
+    return clusterId;
+  }
+
+  public ContextStatusRequest setContextId(String contextId) {
+    this.contextId = contextId;
+    return this;
+  }
+
+  public String getContextId() {
+    return contextId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ContextStatusRequest that = (ContextStatusRequest) o;
+    return Objects.equals(clusterId, that.clusterId) && Objects.equals(contextId, that.contextId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId, contextId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ContextStatusRequest.class)
+        .add("clusterId", clusterId)
+        .add("contextId", contextId)
+        .toString();
+  }
 }

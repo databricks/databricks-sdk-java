@@ -1,11 +1,12 @@
 {
-  "formatter": "echo 1",
+  "formatter": "mvn spotless:apply",
   "types": {
     ".codegen/model.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}.java"
   },
   "services": {
     ".codegen/interface.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}Service.java",
-    ".codegen/api.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}API.java"
+    ".codegen/api.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}API.java",
+    ".codegen/impl.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}Impl.java"
   },
   "batch": {
     ".codegen/workspace.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/DatabricksWorkspace.java",

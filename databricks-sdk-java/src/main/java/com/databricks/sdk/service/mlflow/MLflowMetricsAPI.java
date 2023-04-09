@@ -1,32 +1,36 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.mlflow;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
+import com.databricks.sdk.client.ApiClient;
 import org.apache.http.client.methods.*;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksException;
+public class MLflowMetricsAPI {
+  private final MLflowMetricsService impl;
 
+  /** Regular-use constructor */
+  public MLflowMetricsAPI(ApiClient apiClient) {
+    impl = new MLflowMetricsImpl(apiClient);
+  }
 
-public class MLflowMetricsAPI implements MLflowMetricsService {
-    private final ApiClient apiClient;
+  /** Constructor for mocks */
+  public MLflowMetricsAPI(MLflowMetricsService mock) {
+    impl = mock;
+  }
 
-    public MLflowMetricsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-	
-	/**
-     * Get history of a given metric within a run.
-     * 
-     * Gets a list of all values for the specified metric for a given run.
-     */
-    @Override
-    public GetMetricHistoryResponse getHistory(GetHistoryRequest request) {
-        String path = "/api/2.0/mlflow/metrics/get-history";
-        return apiClient.GET(path, request, GetMetricHistoryResponse.class);
-    }
-    
+  public GetMetricHistoryResponse getHistory(String metricKey) {
+    return getHistory(new GetHistoryRequest().setMetricKey(metricKey));
+  }
+
+  /**
+   * Get history of a given metric within a run.
+   *
+   * <p>Gets a list of all values for the specified metric for a given run.
+   */
+  public GetMetricHistoryResponse getHistory(GetHistoryRequest request) {
+    return impl.getHistory(request);
+  }
+
+  public MLflowMetricsService impl() {
+    return impl;
+  }
 }

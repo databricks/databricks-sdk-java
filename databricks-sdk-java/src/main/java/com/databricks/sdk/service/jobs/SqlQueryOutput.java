@@ -2,73 +2,89 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class SqlQueryOutput {
-    /**
-     * The link to find the output results.
-     */
-    @JsonProperty("output_link")
-    private String outputLink;
-    
-    /**
-     * The text of the SQL query. Can Run permission of the SQL query is
-     * required to view this field.
-     */
-    @JsonProperty("query_text")
-    private String queryText;
-    
-    /**
-     * Information about SQL statements executed in the run.
-     */
-    @JsonProperty("sql_statements")
-    private java.util.List<SqlStatementOutput> sqlStatements;
-    
-    /**
-     * The canonical identifier of the SQL warehouse.
-     */
-    @JsonProperty("warehouse_id")
-    private String warehouseId;
-    
-    public SqlQueryOutput setOutputLink(String outputLink) {
-        this.outputLink = outputLink;
-        return this;
-    }
+  /** The link to find the output results. */
+  @JsonProperty("output_link")
+  private String outputLink;
 
-    public String getOutputLink() {
-        return outputLink;
-    }
-    
-    public SqlQueryOutput setQueryText(String queryText) {
-        this.queryText = queryText;
-        return this;
-    }
+  /**
+   * The text of the SQL query. Can Run permission of the SQL query is required to view this field.
+   */
+  @JsonProperty("query_text")
+  private String queryText;
 
-    public String getQueryText() {
-        return queryText;
-    }
-    
-    public SqlQueryOutput setSqlStatements(java.util.List<SqlStatementOutput> sqlStatements) {
-        this.sqlStatements = sqlStatements;
-        return this;
-    }
+  /** Information about SQL statements executed in the run. */
+  @JsonProperty("sql_statements")
+  private Collection<SqlStatementOutput> sqlStatements;
 
-    public java.util.List<SqlStatementOutput> getSqlStatements() {
-        return sqlStatements;
-    }
-    
-    public SqlQueryOutput setWarehouseId(String warehouseId) {
-        this.warehouseId = warehouseId;
-        return this;
-    }
+  /** The canonical identifier of the SQL warehouse. */
+  @JsonProperty("warehouse_id")
+  private String warehouseId;
 
-    public String getWarehouseId() {
-        return warehouseId;
-    }
-    
+  public SqlQueryOutput setOutputLink(String outputLink) {
+    this.outputLink = outputLink;
+    return this;
+  }
+
+  public String getOutputLink() {
+    return outputLink;
+  }
+
+  public SqlQueryOutput setQueryText(String queryText) {
+    this.queryText = queryText;
+    return this;
+  }
+
+  public String getQueryText() {
+    return queryText;
+  }
+
+  public SqlQueryOutput setSqlStatements(Collection<SqlStatementOutput> sqlStatements) {
+    this.sqlStatements = sqlStatements;
+    return this;
+  }
+
+  public Collection<SqlStatementOutput> getSqlStatements() {
+    return sqlStatements;
+  }
+
+  public SqlQueryOutput setWarehouseId(String warehouseId) {
+    this.warehouseId = warehouseId;
+    return this;
+  }
+
+  public String getWarehouseId() {
+    return warehouseId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    SqlQueryOutput that = (SqlQueryOutput) o;
+    return Objects.equals(outputLink, that.outputLink)
+        && Objects.equals(queryText, that.queryText)
+        && Objects.equals(sqlStatements, that.sqlStatements)
+        && Objects.equals(warehouseId, that.warehouseId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(outputLink, queryText, sqlStatements, warehouseId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(SqlQueryOutput.class)
+        .add("outputLink", outputLink)
+        .add("queryText", queryText)
+        .add("sqlStatements", sqlStatements)
+        .add("warehouseId", warehouseId)
+        .toString();
+  }
 }

@@ -1,76 +1,99 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.mlflow;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
+import com.databricks.sdk.client.ApiClient;
 import org.apache.http.client.methods.*;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksException;
+public class TransitionRequestsAPI {
+  private final TransitionRequestsService impl;
 
+  /** Regular-use constructor */
+  public TransitionRequestsAPI(ApiClient apiClient) {
+    impl = new TransitionRequestsImpl(apiClient);
+  }
 
-public class TransitionRequestsAPI implements TransitionRequestsService {
-    private final ApiClient apiClient;
+  /** Constructor for mocks */
+  public TransitionRequestsAPI(TransitionRequestsService mock) {
+    impl = mock;
+  }
 
-    public TransitionRequestsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-	
-	/**
-     * Approve transition requests.
-     * 
-     * Approves a model version stage transition request.
-     */
-    @Override
-    public ApproveResponse approve(ApproveTransitionRequest request) {
-        String path = "/api/2.0/mlflow/transition-requests/approve";
-        return apiClient.POST(path, request, ApproveResponse.class);
-    }
-    
-	/**
-     * Make a transition request.
-     * 
-     * Creates a model version stage transition request.
-     */
-    @Override
-    public CreateResponse create(CreateTransitionRequest request) {
-        String path = "/api/2.0/mlflow/transition-requests/create";
-        return apiClient.POST(path, request, CreateResponse.class);
-    }
-    
-	/**
-     * Delete a ransition request.
-     * 
-     * Cancels a model version stage transition request.
-     */
-    @Override
-    public void delete(DeleteTransitionRequestRequest request) {
-        String path = "/api/2.0/mlflow/transition-requests/delete";
-        apiClient.DELETE(path, request, Void.class);
-    }
-    
-	/**
-     * List transition requests.
-     * 
-     * Gets a list of all open stage transition requests for the model version.
-     */
-    @Override
-    public ListResponse list(ListTransitionRequestsRequest request) {
-        String path = "/api/2.0/mlflow/transition-requests/list";
-        return apiClient.GET(path, request, ListResponse.class);
-    }
-    
-	/**
-     * Reject a transition request.
-     * 
-     * Rejects a model version stage transition request.
-     */
-    @Override
-    public RejectResponse reject(RejectTransitionRequest request) {
-        String path = "/api/2.0/mlflow/transition-requests/reject";
-        return apiClient.POST(path, request, RejectResponse.class);
-    }
-    
+  public ApproveResponse approve(
+      String name, String version, Stage stage, boolean archiveExistingVersions) {
+    return approve(
+        new ApproveTransitionRequest()
+            .setName(name)
+            .setVersion(version)
+            .setStage(stage)
+            .setArchiveExistingVersions(archiveExistingVersions));
+  }
+
+  /**
+   * Approve transition requests.
+   *
+   * <p>Approves a model version stage transition request.
+   */
+  public ApproveResponse approve(ApproveTransitionRequest request) {
+    return impl.approve(request);
+  }
+
+  public CreateResponse create(String name, String version, Stage stage) {
+    return create(new CreateTransitionRequest().setName(name).setVersion(version).setStage(stage));
+  }
+
+  /**
+   * Make a transition request.
+   *
+   * <p>Creates a model version stage transition request.
+   */
+  public CreateResponse create(CreateTransitionRequest request) {
+    return impl.create(request);
+  }
+
+  public void delete(String name, String version, String stage, String creator) {
+    delete(
+        new DeleteTransitionRequestRequest()
+            .setName(name)
+            .setVersion(version)
+            .setStage(stage)
+            .setCreator(creator));
+  }
+
+  /**
+   * Delete a ransition request.
+   *
+   * <p>Cancels a model version stage transition request.
+   */
+  public void delete(DeleteTransitionRequestRequest request) {
+    impl.delete(request);
+  }
+
+  public ListResponse list(String name, String version) {
+    return list(new ListTransitionRequestsRequest().setName(name).setVersion(version));
+  }
+
+  /**
+   * List transition requests.
+   *
+   * <p>Gets a list of all open stage transition requests for the model version.
+   */
+  public ListResponse list(ListTransitionRequestsRequest request) {
+    return impl.list(request);
+  }
+
+  public RejectResponse reject(String name, String version, Stage stage) {
+    return reject(new RejectTransitionRequest().setName(name).setVersion(version).setStage(stage));
+  }
+
+  /**
+   * Reject a transition request.
+   *
+   * <p>Rejects a model version stage transition request.
+   */
+  public RejectResponse reject(RejectTransitionRequest request) {
+    return impl.reject(request);
+  }
+
+  public TransitionRequestsService impl() {
+    return impl;
+  }
 }

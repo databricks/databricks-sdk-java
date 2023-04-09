@@ -1,84 +1,93 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.deployment;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
+import com.databricks.sdk.client.ApiClient;
+import java.util.Collection;
 import org.apache.http.client.methods.*;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksException;
-
 /**
- * These APIs manage storage configurations for this workspace. A root storage
- * S3 bucket in your account is required to store objects like cluster logs,
- * notebook revisions, and job results. You can also use the root storage S3
- * bucket for storage of non-production DBFS data. A storage configuration
- * encapsulates this bucket information, and its ID is used when creating a new
+ * These APIs manage storage configurations for this workspace. A root storage S3 bucket in your
+ * account is required to store objects like cluster logs, notebook revisions, and job results. You
+ * can also use the root storage S3 bucket for storage of non-production DBFS data. A storage
+ * configuration encapsulates this bucket information, and its ID is used when creating a new
  * workspace.
  */
-public class StorageAPI implements StorageService {
-    private final ApiClient apiClient;
+public class StorageAPI {
+  private final StorageService impl;
 
-    public StorageAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-	
-	/**
-     * Create new storage configuration.
-     * 
-     * Creates new storage configuration for an account, specified by ID.
-     * Uploads a storage configuration object that represents the root AWS S3
-     * bucket in your account. Databricks stores related workspace assets
-     * including DBFS, cluster logs, and job results. For the AWS S3 bucket, you
-     * need to configure the required bucket policy.
-     * 
-     * For information about how to create a new workspace with this API, see
-     * [Create a new workspace using the Account API]
-     * 
-     * [Create a new workspace using the Account API]: http://docs.databricks.com/administration-guide/account-api/new-workspace.html
-     */
-    @Override
-    public StorageConfiguration create(CreateStorageConfigurationRequest request) {
-        String path = String.format("/api/2.0/accounts//storage-configurations");
-        return apiClient.POST(path, request, StorageConfiguration.class);
-    }
-    
-	/**
-     * Delete storage configuration.
-     * 
-     * Deletes a Databricks storage configuration. You cannot delete a storage
-     * configuration that is associated with any workspace.
-     */
-    @Override
-    public void delete(DeleteStorageRequest request) {
-        String path = String.format("/api/2.0/accounts//storage-configurations/%s", request.getStorageConfigurationId());
-        apiClient.DELETE(path, request, Void.class);
-    }
-    
-	/**
-     * Get storage configuration.
-     * 
-     * Gets a Databricks storage configuration for an account, both specified by
-     * ID.
-     */
-    @Override
-    public StorageConfiguration get(GetStorageRequest request) {
-        String path = String.format("/api/2.0/accounts//storage-configurations/%s", request.getStorageConfigurationId());
-        return apiClient.GET(path, request, StorageConfiguration.class);
-    }
-    
-	/**
-     * Get all storage configurations.
-     * 
-     * Gets a list of all Databricks storage configurations for your account,
-     * specified by ID.
-     */
-    @Override
-    public List<StorageConfiguration> list() {
-        String path = String.format("/api/2.0/accounts//storage-configurations");
-        return apiClient.GET(path, List.class);
-    }
-    
+  /** Regular-use constructor */
+  public StorageAPI(ApiClient apiClient) {
+    impl = new StorageImpl(apiClient);
+  }
+
+  /** Constructor for mocks */
+  public StorageAPI(StorageService mock) {
+    impl = mock;
+  }
+
+  public StorageConfiguration create(
+      String storageConfigurationName, RootBucketInfo rootBucketInfo) {
+    return create(
+        new CreateStorageConfigurationRequest()
+            .setStorageConfigurationName(storageConfigurationName)
+            .setRootBucketInfo(rootBucketInfo));
+  }
+
+  /**
+   * Create new storage configuration.
+   *
+   * <p>Creates new storage configuration for an account, specified by ID. Uploads a storage
+   * configuration object that represents the root AWS S3 bucket in your account. Databricks stores
+   * related workspace assets including DBFS, cluster logs, and job results. For the AWS S3 bucket,
+   * you need to configure the required bucket policy.
+   *
+   * <p>For information about how to create a new workspace with this API, see [Create a new
+   * workspace using the Account API]
+   *
+   * <p>[Create a new workspace using the Account API]:
+   * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   */
+  public StorageConfiguration create(CreateStorageConfigurationRequest request) {
+    return impl.create(request);
+  }
+
+  public void delete(String storageConfigurationId) {
+    delete(new DeleteStorageRequest().setStorageConfigurationId(storageConfigurationId));
+  }
+
+  /**
+   * Delete storage configuration.
+   *
+   * <p>Deletes a Databricks storage configuration. You cannot delete a storage configuration that
+   * is associated with any workspace.
+   */
+  public void delete(DeleteStorageRequest request) {
+    impl.delete(request);
+  }
+
+  public StorageConfiguration get(String storageConfigurationId) {
+    return get(new GetStorageRequest().setStorageConfigurationId(storageConfigurationId));
+  }
+
+  /**
+   * Get storage configuration.
+   *
+   * <p>Gets a Databricks storage configuration for an account, both specified by ID.
+   */
+  public StorageConfiguration get(GetStorageRequest request) {
+    return impl.get(request);
+  }
+
+  /**
+   * Get all storage configurations.
+   *
+   * <p>Gets a list of all Databricks storage configurations for your account, specified by ID.
+   */
+  public Collection<StorageConfiguration> list() {
+    return impl.list();
+  }
+
+  public StorageService impl() {
+    return impl;
+  }
 }

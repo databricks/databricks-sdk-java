@@ -2,29 +2,40 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete a private access settings object
- */
+/** Delete a private access settings object */
 public class DeletePrivateAccesRequest {
-    /**
-     * Databricks Account API private access settings ID.
-     */
-    
-    private String privateAccessSettingsId;
-    
-    public DeletePrivateAccesRequest setPrivateAccessSettingsId(String privateAccessSettingsId) {
-        this.privateAccessSettingsId = privateAccessSettingsId;
-        return this;
-    }
+  /** Databricks Account API private access settings ID. */
+  private String privateAccessSettingsId;
 
-    public String getPrivateAccessSettingsId() {
-        return privateAccessSettingsId;
-    }
-    
+  public DeletePrivateAccesRequest setPrivateAccessSettingsId(String privateAccessSettingsId) {
+    this.privateAccessSettingsId = privateAccessSettingsId;
+    return this;
+  }
+
+  public String getPrivateAccessSettingsId() {
+    return privateAccessSettingsId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeletePrivateAccesRequest that = (DeletePrivateAccesRequest) o;
+    return Objects.equals(privateAccessSettingsId, that.privateAccessSettingsId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(privateAccessSettingsId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeletePrivateAccesRequest.class)
+        .add("privateAccessSettingsId", privateAccessSettingsId)
+        .toString();
+  }
 }

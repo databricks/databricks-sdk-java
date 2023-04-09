@@ -1,70 +1,92 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.permissions;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
+import com.databricks.sdk.client.ApiClient;
 import org.apache.http.client.methods.*;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksException;
-
 /**
- * Permissions API are used to create read, write, edit, update and manage
- * access for various users on different objects and endpoints.
+ * Permissions API are used to create read, write, edit, update and manage access for various users
+ * on different objects and endpoints.
  */
-public class PermissionsAPI implements PermissionsService {
-    private final ApiClient apiClient;
+public class PermissionsAPI {
+  private final PermissionsService impl;
 
-    public PermissionsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-	
-	/**
-     * Get object permissions.
-     * 
-     * Gets the permission of an object. Objects can inherit permissions from
-     * their parent objects or root objects.
-     */
-    @Override
-    public ObjectPermissions get(Get request) {
-        String path = String.format("/api/2.0/permissions/%s/%s", request.getRequestObjectType(), request.getRequestObjectId());
-        return apiClient.GET(path, request, ObjectPermissions.class);
-    }
-    
-	/**
-     * Get permission levels.
-     * 
-     * Gets the permission levels that a user can have on an object.
-     */
-    @Override
-    public GetPermissionLevelsResponse getPermissionLevels(GetPermissionLevels request) {
-        String path = String.format("/api/2.0/permissions/%s/%s/permissionLevels", request.getRequestObjectType(), request.getRequestObjectId());
-        return apiClient.GET(path, request, GetPermissionLevelsResponse.class);
-    }
-    
-	/**
-     * Set permissions.
-     * 
-     * Sets permissions on object. Objects can inherit permissions from their
-     * parent objects and root objects.
-     */
-    @Override
-    public void set(PermissionsRequest request) {
-        String path = String.format("/api/2.0/permissions/%s/%s", request.getRequestObjectType(), request.getRequestObjectId());
-        apiClient.PUT(path, request, Void.class);
-    }
-    
-	/**
-     * Update permission.
-     * 
-     * Updates the permissions on an object.
-     */
-    @Override
-    public void update(PermissionsRequest request) {
-        String path = String.format("/api/2.0/permissions/%s/%s", request.getRequestObjectType(), request.getRequestObjectId());
-        apiClient.PATCH(path, request, Void.class);
-    }
-    
+  /** Regular-use constructor */
+  public PermissionsAPI(ApiClient apiClient) {
+    impl = new PermissionsImpl(apiClient);
+  }
+
+  /** Constructor for mocks */
+  public PermissionsAPI(PermissionsService mock) {
+    impl = mock;
+  }
+
+  public ObjectPermissions get(String requestObjectType, String requestObjectId) {
+    return get(
+        new Get().setRequestObjectType(requestObjectType).setRequestObjectId(requestObjectId));
+  }
+
+  /**
+   * Get object permissions.
+   *
+   * <p>Gets the permission of an object. Objects can inherit permissions from their parent objects
+   * or root objects.
+   */
+  public ObjectPermissions get(Get request) {
+    return impl.get(request);
+  }
+
+  public GetPermissionLevelsResponse getPermissionLevels(
+      String requestObjectType, String requestObjectId) {
+    return getPermissionLevels(
+        new GetPermissionLevels()
+            .setRequestObjectType(requestObjectType)
+            .setRequestObjectId(requestObjectId));
+  }
+
+  /**
+   * Get permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetPermissionLevelsResponse getPermissionLevels(GetPermissionLevels request) {
+    return impl.getPermissionLevels(request);
+  }
+
+  public void set(String requestObjectType, String requestObjectId) {
+    set(
+        new PermissionsRequest()
+            .setRequestObjectType(requestObjectType)
+            .setRequestObjectId(requestObjectId));
+  }
+
+  /**
+   * Set permissions.
+   *
+   * <p>Sets permissions on object. Objects can inherit permissions from their parent objects and
+   * root objects.
+   */
+  public void set(PermissionsRequest request) {
+    impl.set(request);
+  }
+
+  public void update(String requestObjectType, String requestObjectId) {
+    update(
+        new PermissionsRequest()
+            .setRequestObjectType(requestObjectType)
+            .setRequestObjectId(requestObjectId));
+  }
+
+  /**
+   * Update permission.
+   *
+   * <p>Updates the permissions on an object.
+   */
+  public void update(PermissionsRequest request) {
+    impl.update(request);
+  }
+
+  public PermissionsService impl() {
+    return impl;
+  }
 }

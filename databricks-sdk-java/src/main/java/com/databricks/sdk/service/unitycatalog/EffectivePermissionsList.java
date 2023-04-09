@@ -2,28 +2,43 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class EffectivePermissionsList {
-    /**
-     * The privileges conveyed to each principal (either directly or via
-     * inheritance)
-     */
-    @JsonProperty("privilege_assignments")
-    private java.util.List<EffectivePrivilegeAssignment> privilegeAssignments;
-    
-    public EffectivePermissionsList setPrivilegeAssignments(java.util.List<EffectivePrivilegeAssignment> privilegeAssignments) {
-        this.privilegeAssignments = privilegeAssignments;
-        return this;
-    }
+  /** The privileges conveyed to each principal (either directly or via inheritance) */
+  @JsonProperty("privilege_assignments")
+  private Collection<EffectivePrivilegeAssignment> privilegeAssignments;
 
-    public java.util.List<EffectivePrivilegeAssignment> getPrivilegeAssignments() {
-        return privilegeAssignments;
-    }
-    
+  public EffectivePermissionsList setPrivilegeAssignments(
+      Collection<EffectivePrivilegeAssignment> privilegeAssignments) {
+    this.privilegeAssignments = privilegeAssignments;
+    return this;
+  }
+
+  public Collection<EffectivePrivilegeAssignment> getPrivilegeAssignments() {
+    return privilegeAssignments;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EffectivePermissionsList that = (EffectivePermissionsList) o;
+    return Objects.equals(privilegeAssignments, that.privilegeAssignments);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(privilegeAssignments);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EffectivePermissionsList.class)
+        .add("privilegeAssignments", privilegeAssignments)
+        .toString();
+  }
 }

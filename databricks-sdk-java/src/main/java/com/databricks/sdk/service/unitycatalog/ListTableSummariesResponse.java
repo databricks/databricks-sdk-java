@@ -2,42 +2,56 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class ListTableSummariesResponse {
-    /**
-     * Opaque token for pagination. Omitted if there are no more results.
-     */
-    @JsonProperty("next_page_token")
-    private String nextPageToken;
-    
-    /**
-     * List of table summaries.
-     */
-    @JsonProperty("tables")
-    private java.util.List<TableSummary> tables;
-    
-    public ListTableSummariesResponse setNextPageToken(String nextPageToken) {
-        this.nextPageToken = nextPageToken;
-        return this;
-    }
+  /** Opaque token for pagination. Omitted if there are no more results. */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
 
-    public String getNextPageToken() {
-        return nextPageToken;
-    }
-    
-    public ListTableSummariesResponse setTables(java.util.List<TableSummary> tables) {
-        this.tables = tables;
-        return this;
-    }
+  /** List of table summaries. */
+  @JsonProperty("tables")
+  private Collection<TableSummary> tables;
 
-    public java.util.List<TableSummary> getTables() {
-        return tables;
-    }
-    
+  public ListTableSummariesResponse setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
+  public ListTableSummariesResponse setTables(Collection<TableSummary> tables) {
+    this.tables = tables;
+    return this;
+  }
+
+  public Collection<TableSummary> getTables() {
+    return tables;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListTableSummariesResponse that = (ListTableSummariesResponse) o;
+    return Objects.equals(nextPageToken, that.nextPageToken) && Objects.equals(tables, that.tables);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(nextPageToken, tables);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListTableSummariesResponse.class)
+        .add("nextPageToken", nextPageToken)
+        .add("tables", tables)
+        .toString();
+  }
 }

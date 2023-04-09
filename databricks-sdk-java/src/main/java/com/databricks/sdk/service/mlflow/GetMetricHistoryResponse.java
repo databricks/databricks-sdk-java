@@ -2,43 +2,57 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class GetMetricHistoryResponse {
-    /**
-     * All logged values for this metric.
-     */
-    @JsonProperty("metrics")
-    private java.util.List<Metric> metrics;
-    
-    /**
-     * Token that can be used to retrieve the next page of metric history
-     * results
-     */
-    @JsonProperty("next_page_token")
-    private String nextPageToken;
-    
-    public GetMetricHistoryResponse setMetrics(java.util.List<Metric> metrics) {
-        this.metrics = metrics;
-        return this;
-    }
+  /** All logged values for this metric. */
+  @JsonProperty("metrics")
+  private Collection<Metric> metrics;
 
-    public java.util.List<Metric> getMetrics() {
-        return metrics;
-    }
-    
-    public GetMetricHistoryResponse setNextPageToken(String nextPageToken) {
-        this.nextPageToken = nextPageToken;
-        return this;
-    }
+  /** Token that can be used to retrieve the next page of metric history results */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
 
-    public String getNextPageToken() {
-        return nextPageToken;
-    }
-    
+  public GetMetricHistoryResponse setMetrics(Collection<Metric> metrics) {
+    this.metrics = metrics;
+    return this;
+  }
+
+  public Collection<Metric> getMetrics() {
+    return metrics;
+  }
+
+  public GetMetricHistoryResponse setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetMetricHistoryResponse that = (GetMetricHistoryResponse) o;
+    return Objects.equals(metrics, that.metrics)
+        && Objects.equals(nextPageToken, that.nextPageToken);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(metrics, nextPageToken);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetMetricHistoryResponse.class)
+        .add("metrics", metrics)
+        .add("nextPageToken", nextPageToken)
+        .toString();
+  }
 }

@@ -2,18 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Security policy for endpoints
- */
-public enum GetWorkspaceWarehouseConfigResponseSecurityPolicy{
-    DATA_ACCESS_CONTROL,
-    NONE,
-    PASSTHROUGH,
-    
+/** Security policy for warehouses */
+public enum GetWorkspaceWarehouseConfigResponseSecurityPolicy {
+  DATA_ACCESS_CONTROL,
+  NONE,
+  PASSTHROUGH,
 }

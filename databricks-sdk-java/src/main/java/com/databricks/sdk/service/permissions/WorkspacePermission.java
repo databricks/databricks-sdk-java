@@ -2,16 +2,8 @@
 
 package com.databricks.sdk.service.permissions;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum WorkspacePermission{
-    ADMIN,
-    UNKNOWN,
-    USER,
-    
+public enum WorkspacePermission {
+  ADMIN,
+  UNKNOWN,
+  USER,
 }

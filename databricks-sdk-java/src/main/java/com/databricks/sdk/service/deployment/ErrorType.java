@@ -2,21 +2,14 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
 /**
- * The AWS resource associated with this error: credentials, VPC, subnet,
- * security group, or network ACL.
+ * The AWS resource associated with this error: credentials, VPC, subnet, security group, or network
+ * ACL.
  */
-public enum ErrorType{
-    credentials,
-    networkAcl,
-    securityGroup,
-    subnet,
-    vpc,
-    
+public enum ErrorType {
+  credentials,
+  networkAcl,
+  securityGroup,
+  subnet,
+  vpc,
 }

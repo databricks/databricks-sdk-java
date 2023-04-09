@@ -2,21 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * What triggered this update.
- */
-public enum UpdateInfoCause{
-    API_CALL,
-    JOB_TASK,
-    RETRY_ON_FAILURE,
-    SCHEMA_CHANGE,
-    SERVICE_UPGRADE,
-    USER_ACTION,
-    
+/** What triggered this update. */
+public enum UpdateInfoCause {
+  API_CALL,
+  JOB_TASK,
+  RETRY_ON_FAILURE,
+  SCHEMA_CHANGE,
+  SERVICE_UPGRADE,
+  USER_ACTION,
 }

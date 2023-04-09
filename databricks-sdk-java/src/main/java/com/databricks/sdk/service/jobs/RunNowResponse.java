@@ -2,43 +2,55 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class RunNowResponse {
-    /**
-     * A unique identifier for this job run. This is set to the same value as
-     * `run_id`.
-     */
-    @JsonProperty("number_in_job")
-    private Long numberInJob;
-    
-    /**
-     * The globally unique ID of the newly triggered run.
-     */
-    @JsonProperty("run_id")
-    private Long runId;
-    
-    public RunNowResponse setNumberInJob(Long numberInJob) {
-        this.numberInJob = numberInJob;
-        return this;
-    }
+  /** A unique identifier for this job run. This is set to the same value as `run_id`. */
+  @JsonProperty("number_in_job")
+  private Long numberInJob;
 
-    public Long getNumberInJob() {
-        return numberInJob;
-    }
-    
-    public RunNowResponse setRunId(Long runId) {
-        this.runId = runId;
-        return this;
-    }
+  /** The globally unique ID of the newly triggered run. */
+  @JsonProperty("run_id")
+  private Long runId;
 
-    public Long getRunId() {
-        return runId;
-    }
-    
+  public RunNowResponse setNumberInJob(Long numberInJob) {
+    this.numberInJob = numberInJob;
+    return this;
+  }
+
+  public Long getNumberInJob() {
+    return numberInJob;
+  }
+
+  public RunNowResponse setRunId(Long runId) {
+    this.runId = runId;
+    return this;
+  }
+
+  public Long getRunId() {
+    return runId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RunNowResponse that = (RunNowResponse) o;
+    return Objects.equals(numberInJob, that.numberInJob) && Objects.equals(runId, that.runId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(numberInJob, runId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RunNowResponse.class)
+        .add("numberInJob", numberInJob)
+        .add("runId", runId)
+        .toString();
+  }
 }

@@ -2,29 +2,38 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get a catalog
- */
+/** Get a catalog */
 public class GetCatalogRequest {
-    /**
-     * The name of the catalog.
-     */
-    
-    private String name;
-    
-    public GetCatalogRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** The name of the catalog. */
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
+  public GetCatalogRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetCatalogRequest that = (GetCatalogRequest) o;
+    return Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetCatalogRequest.class).add("name", name).toString();
+  }
 }

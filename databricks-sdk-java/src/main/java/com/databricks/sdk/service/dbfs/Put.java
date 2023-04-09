@@ -2,57 +2,71 @@
 
 package com.databricks.sdk.service.dbfs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class Put {
-    /**
-     * This parameter might be absent, and instead a posted file will be used.
-     */
-    @JsonProperty("contents")
-    private String contents;
-    
-    /**
-     * The flag that specifies whether to overwrite existing file/files.
-     */
-    @JsonProperty("overwrite")
-    private Boolean overwrite;
-    
-    /**
-     * The path of the new file. The path should be the absolute DBFS path.
-     */
-    @JsonProperty("path")
-    private String path;
-    
-    public Put setContents(String contents) {
-        this.contents = contents;
-        return this;
-    }
+  /** This parameter might be absent, and instead a posted file will be used. */
+  @JsonProperty("contents")
+  private String contents;
 
-    public String getContents() {
-        return contents;
-    }
-    
-    public Put setOverwrite(Boolean overwrite) {
-        this.overwrite = overwrite;
-        return this;
-    }
+  /** The flag that specifies whether to overwrite existing file/files. */
+  @JsonProperty("overwrite")
+  private Boolean overwrite;
 
-    public Boolean getOverwrite() {
-        return overwrite;
-    }
-    
-    public Put setPath(String path) {
-        this.path = path;
-        return this;
-    }
+  /** The path of the new file. The path should be the absolute DBFS path. */
+  @JsonProperty("path")
+  private String path;
 
-    public String getPath() {
-        return path;
-    }
-    
+  public Put setContents(String contents) {
+    this.contents = contents;
+    return this;
+  }
+
+  public String getContents() {
+    return contents;
+  }
+
+  public Put setOverwrite(Boolean overwrite) {
+    this.overwrite = overwrite;
+    return this;
+  }
+
+  public Boolean getOverwrite() {
+    return overwrite;
+  }
+
+  public Put setPath(String path) {
+    this.path = path;
+    return this;
+  }
+
+  public String getPath() {
+    return path;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Put that = (Put) o;
+    return Objects.equals(contents, that.contents)
+        && Objects.equals(overwrite, that.overwrite)
+        && Objects.equals(path, that.path);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(contents, overwrite, path);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Put.class)
+        .add("contents", contents)
+        .add("overwrite", overwrite)
+        .add("path", path)
+        .toString();
+  }
 }

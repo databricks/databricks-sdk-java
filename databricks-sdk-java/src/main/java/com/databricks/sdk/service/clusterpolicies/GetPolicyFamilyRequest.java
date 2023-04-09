@@ -2,27 +2,39 @@
 
 package com.databricks.sdk.service.clusterpolicies;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
 public class GetPolicyFamilyRequest {
-    /**
-     
-     */
-    
-    private String policyFamilyId;
-    
-    public GetPolicyFamilyRequest setPolicyFamilyId(String policyFamilyId) {
-        this.policyFamilyId = policyFamilyId;
-        return this;
-    }
+  /** */
+  private String policyFamilyId;
 
-    public String getPolicyFamilyId() {
-        return policyFamilyId;
-    }
-    
+  public GetPolicyFamilyRequest setPolicyFamilyId(String policyFamilyId) {
+    this.policyFamilyId = policyFamilyId;
+    return this;
+  }
+
+  public String getPolicyFamilyId() {
+    return policyFamilyId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetPolicyFamilyRequest that = (GetPolicyFamilyRequest) o;
+    return Objects.equals(policyFamilyId, that.policyFamilyId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(policyFamilyId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetPolicyFamilyRequest.class)
+        .add("policyFamilyId", policyFamilyId)
+        .toString();
+  }
 }

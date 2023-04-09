@@ -2,7 +2,7 @@
 package com.databricks.sdk.service.{{.Package.Name}};
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Collection;
 import java.util.Map;
 
 import org.apache.http.client.methods.*;
@@ -13,25 +13,36 @@ import com.databricks.sdk.client.DatabricksException;
 {{if .Description}}/**
  {{.Comment " * " 80}}
  */{{end}}
-public class {{.PascalName}}API implements {{.PascalName}}Service {
-    private final ApiClient apiClient;
+public class {{.PascalName}}API {
+  private final {{.PascalName}}Service impl;
 
-    public {{.PascalName}}API(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
+  /** Regular-use constructor */
+  public {{.PascalName}}API(ApiClient apiClient) {
+    impl = new {{.PascalName}}Impl(apiClient);
+  }
+
+  /** Constructor for mocks */
+  public {{.PascalName}}API({{.PascalName}}Service mock) {
+    impl = mock;
+  }
 	{{range .Methods}}
+	{{if and .Request .Request.RequiredFields}}
+  public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{range $i, $p := .Request.RequiredFields -}}
+    {{if $i}}, {{end}}{{template "type" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}}
+  {{- end}}) {
+    {{if .Response -}}return {{end}}{{.CamelName}}{{if .IsNameReserved}}Content{{end}}(new {{.Request.PascalName}}(){{range .Request.RequiredFields}}
+      .set{{.PascalName}}({{.CamelName}}){{end}});
+  }
+  {{end}}
+
 	{{if .Description}}/**
-     {{.Comment "     * " 80}}
-     */{{end}}
-    @Override
-    public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
-        String path = {{if .PathParts -}}
-            String.format("{{range  .PathParts}}{{.Prefix}}{{if .Field}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{end}}{{ end }})
-        {{- else}}"{{.Path}}"{{end}};
-        {{if .Response -}}return {{end}}apiClient.{{.Verb}}(path{{if .Request}}, request{{end}}{{if .Response -}}, {{if .Response.ArrayValue }}List
-            {{- else if .Response.MapValue }}Map
-            {{- else}}{{template "type" .Response}}
-            {{- end -}}{{else}}, Void{{end}}.class);
-    }
-    {{end}}
+   {{.Comment "   * " 80}}
+   */{{end}}
+  public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
+    {{if .Response -}}return {{end}}impl.{{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}request{{end}});
+  }
+  {{end}}
+  public {{.PascalName}}Service impl() {
+    return impl;
+  }
 }

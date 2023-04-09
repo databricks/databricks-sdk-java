@@ -2,27 +2,39 @@
 
 package com.databricks.sdk.service.billing;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class WrappedBudgetWithStatus {
-    /**
-     * Budget configuration with daily status.
-     */
-    @JsonProperty("budget")
-    private BudgetWithStatus budget;
-    
-    public WrappedBudgetWithStatus setBudget(BudgetWithStatus budget) {
-        this.budget = budget;
-        return this;
-    }
+  /** Budget configuration with daily status. */
+  @JsonProperty("budget")
+  private BudgetWithStatus budget;
 
-    public BudgetWithStatus getBudget() {
-        return budget;
-    }
-    
+  public WrappedBudgetWithStatus setBudget(BudgetWithStatus budget) {
+    this.budget = budget;
+    return this;
+  }
+
+  public BudgetWithStatus getBudget() {
+    return budget;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    WrappedBudgetWithStatus that = (WrappedBudgetWithStatus) o;
+    return Objects.equals(budget, that.budget);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(budget);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(WrappedBudgetWithStatus.class).add("budget", budget).toString();
+  }
 }

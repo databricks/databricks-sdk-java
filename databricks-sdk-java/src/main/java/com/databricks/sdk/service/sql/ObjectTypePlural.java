@@ -2,19 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Always a plural of the object type.
- */
-public enum ObjectTypePlural{
-    alerts,
-    dashboards,
-    data_sources,
-    queries,
-    
+/** Always a plural of the object type. */
+public enum ObjectTypePlural {
+  alerts,
+  dashboards,
+  data_sources,
+  queries,
 }

@@ -2,43 +2,56 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class NetworkWarning {
-    /**
-     * Details of the warning.
-     */
-    @JsonProperty("warning_message")
-    private String warningMessage;
-    
-    /**
-     * The AWS resource associated with this warning: a subnet or a security
-     * group.
-     */
-    @JsonProperty("warning_type")
-    private WarningType warningType;
-    
-    public NetworkWarning setWarningMessage(String warningMessage) {
-        this.warningMessage = warningMessage;
-        return this;
-    }
+  /** Details of the warning. */
+  @JsonProperty("warning_message")
+  private String warningMessage;
 
-    public String getWarningMessage() {
-        return warningMessage;
-    }
-    
-    public NetworkWarning setWarningType(WarningType warningType) {
-        this.warningType = warningType;
-        return this;
-    }
+  /** The AWS resource associated with this warning: a subnet or a security group. */
+  @JsonProperty("warning_type")
+  private WarningType warningType;
 
-    public WarningType getWarningType() {
-        return warningType;
-    }
-    
+  public NetworkWarning setWarningMessage(String warningMessage) {
+    this.warningMessage = warningMessage;
+    return this;
+  }
+
+  public String getWarningMessage() {
+    return warningMessage;
+  }
+
+  public NetworkWarning setWarningType(WarningType warningType) {
+    this.warningType = warningType;
+    return this;
+  }
+
+  public WarningType getWarningType() {
+    return warningType;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    NetworkWarning that = (NetworkWarning) o;
+    return Objects.equals(warningMessage, that.warningMessage)
+        && Objects.equals(warningType, that.warningType);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(warningMessage, warningType);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(NetworkWarning.class)
+        .add("warningMessage", warningMessage)
+        .add("warningType", warningType)
+        .toString();
+  }
 }

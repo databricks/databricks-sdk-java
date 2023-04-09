@@ -2,29 +2,40 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get all storage credentials assigned to a metastore
- */
+/** Get all storage credentials assigned to a metastore */
 public class ListAccountStorageCredentialsRequest {
-    /**
-     * Databricks Unity Catalog metastore ID
-     */
-    
-    private String metastoreId;
-    
-    public ListAccountStorageCredentialsRequest setMetastoreId(String metastoreId) {
-        this.metastoreId = metastoreId;
-        return this;
-    }
+  /** Databricks Unity Catalog metastore ID */
+  private String metastoreId;
 
-    public String getMetastoreId() {
-        return metastoreId;
-    }
-    
+  public ListAccountStorageCredentialsRequest setMetastoreId(String metastoreId) {
+    this.metastoreId = metastoreId;
+    return this;
+  }
+
+  public String getMetastoreId() {
+    return metastoreId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListAccountStorageCredentialsRequest that = (ListAccountStorageCredentialsRequest) o;
+    return Objects.equals(metastoreId, that.metastoreId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(metastoreId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListAccountStorageCredentialsRequest.class)
+        .add("metastoreId", metastoreId)
+        .toString();
+  }
 }

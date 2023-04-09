@@ -2,29 +2,40 @@
 
 package com.databricks.sdk.service.workspaceconf;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-
-/**
- * Check configuration status
- */
+/** Check configuration status */
 public class GetStatus {
-    /**
-     
-     */
-    @QueryParam("keys")
-    private String keys;
-    
-    public GetStatus setKeys(String keys) {
-        this.keys = keys;
-        return this;
-    }
+  /** */
+  @QueryParam("keys")
+  private String keys;
 
-    public String getKeys() {
-        return keys;
-    }
-    
+  public GetStatus setKeys(String keys) {
+    this.keys = keys;
+    return this;
+  }
+
+  public String getKeys() {
+    return keys;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetStatus that = (GetStatus) o;
+    return Objects.equals(keys, that.keys);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(keys);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetStatus.class).add("keys", keys).toString();
+  }
 }

@@ -1,96 +1,104 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.unitycatalog;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
+import com.databricks.sdk.client.ApiClient;
 import org.apache.http.client.methods.*;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksException;
-
 /**
- * A schema (also called a database) is the second layer of Unity Catalog’s
- * three-level namespace. A schema organizes tables, views and functions. To
- * access (or list) a table or view in a schema, users must have the USE_SCHEMA
- * data permission on the schema and its parent catalog, and they must have the
- * SELECT permission on the table or view.
+ * A schema (also called a database) is the second layer of Unity Catalog’s three-level namespace. A
+ * schema organizes tables, views and functions. To access (or list) a table or view in a schema,
+ * users must have the USE_SCHEMA data permission on the schema and its parent catalog, and they
+ * must have the SELECT permission on the table or view.
  */
-public class SchemasAPI implements SchemasService {
-    private final ApiClient apiClient;
+public class SchemasAPI {
+  private final SchemasService impl;
 
-    public SchemasAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-	
-	/**
-     * Create a schema.
-     * 
-     * Creates a new schema for catalog in the Metatastore. The caller must be a
-     * metastore admin, or have the **CREATE_SCHEMA** privilege in the parent
-     * catalog.
-     */
-    @Override
-    public SchemaInfo create(CreateSchema request) {
-        String path = "/api/2.1/unity-catalog/schemas";
-        return apiClient.POST(path, request, SchemaInfo.class);
-    }
-    
-	/**
-     * Delete a schema.
-     * 
-     * Deletes the specified schema from the parent catalog. The caller must be
-     * the owner of the schema or an owner of the parent catalog.
-     */
-    @Override
-    public void delete(DeleteSchemaRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/schemas/%s", request.getFullName());
-        apiClient.DELETE(path, request, Void.class);
-    }
-    
-	/**
-     * Get a schema.
-     * 
-     * Gets the specified schema within the metastore. The caller must be a
-     * metastore admin, the owner of the schema, or a user that has the
-     * **USE_SCHEMA** privilege on the schema.
-     */
-    @Override
-    public SchemaInfo get(GetSchemaRequest request) {
-        String path = String.format("/api/2.1/unity-catalog/schemas/%s", request.getFullName());
-        return apiClient.GET(path, request, SchemaInfo.class);
-    }
-    
-	/**
-     * List schemas.
-     * 
-     * Gets an array of schemas for a catalog in the metastore. If the caller is
-     * the metastore admin or the owner of the parent catalog, all schemas for
-     * the catalog will be retrieved. Otherwise, only schemas owned by the
-     * caller (or for which the caller has the **USE_SCHEMA** privilege) will be
-     * retrieved. There is no guarantee of a specific ordering of the elements
-     * in the array.
-     */
-    @Override
-    public ListSchemasResponse list(ListSchemasRequest request) {
-        String path = "/api/2.1/unity-catalog/schemas";
-        return apiClient.GET(path, request, ListSchemasResponse.class);
-    }
-    
-	/**
-     * Update a schema.
-     * 
-     * Updates a schema for a catalog. The caller must be the owner of the
-     * schema or a metastore admin. If the caller is a metastore admin, only the
-     * __owner__ field can be changed in the update. If the __name__ field must
-     * be updated, the caller must be a metastore admin or have the
-     * **CREATE_SCHEMA** privilege on the parent catalog.
-     */
-    @Override
-    public SchemaInfo update(UpdateSchema request) {
-        String path = String.format("/api/2.1/unity-catalog/schemas/%s", request.getFullName());
-        return apiClient.PATCH(path, request, SchemaInfo.class);
-    }
-    
+  /** Regular-use constructor */
+  public SchemasAPI(ApiClient apiClient) {
+    impl = new SchemasImpl(apiClient);
+  }
+
+  /** Constructor for mocks */
+  public SchemasAPI(SchemasService mock) {
+    impl = mock;
+  }
+
+  public SchemaInfo create(String name, String catalogName) {
+    return create(new CreateSchema().setName(name).setCatalogName(catalogName));
+  }
+
+  /**
+   * Create a schema.
+   *
+   * <p>Creates a new schema for catalog in the Metatastore. The caller must be a metastore admin,
+   * or have the **CREATE_SCHEMA** privilege in the parent catalog.
+   */
+  public SchemaInfo create(CreateSchema request) {
+    return impl.create(request);
+  }
+
+  public void delete(String fullName) {
+    delete(new DeleteSchemaRequest().setFullName(fullName));
+  }
+
+  /**
+   * Delete a schema.
+   *
+   * <p>Deletes the specified schema from the parent catalog. The caller must be the owner of the
+   * schema or an owner of the parent catalog.
+   */
+  public void delete(DeleteSchemaRequest request) {
+    impl.delete(request);
+  }
+
+  public SchemaInfo get(String fullName) {
+    return get(new GetSchemaRequest().setFullName(fullName));
+  }
+
+  /**
+   * Get a schema.
+   *
+   * <p>Gets the specified schema within the metastore. The caller must be a metastore admin, the
+   * owner of the schema, or a user that has the **USE_SCHEMA** privilege on the schema.
+   */
+  public SchemaInfo get(GetSchemaRequest request) {
+    return impl.get(request);
+  }
+
+  public ListSchemasResponse list(String catalogName) {
+    return list(new ListSchemasRequest().setCatalogName(catalogName));
+  }
+
+  /**
+   * List schemas.
+   *
+   * <p>Gets an array of schemas for a catalog in the metastore. If the caller is the metastore
+   * admin or the owner of the parent catalog, all schemas for the catalog will be retrieved.
+   * Otherwise, only schemas owned by the caller (or for which the caller has the **USE_SCHEMA**
+   * privilege) will be retrieved. There is no guarantee of a specific ordering of the elements in
+   * the array.
+   */
+  public ListSchemasResponse list(ListSchemasRequest request) {
+    return impl.list(request);
+  }
+
+  public SchemaInfo update(String fullName) {
+    return update(new UpdateSchema().setFullName(fullName));
+  }
+
+  /**
+   * Update a schema.
+   *
+   * <p>Updates a schema for a catalog. The caller must be the owner of the schema or a metastore
+   * admin. If the caller is a metastore admin, only the __owner__ field can be changed in the
+   * update. If the __name__ field must be updated, the caller must be a metastore admin or have the
+   * **CREATE_SCHEMA** privilege on the parent catalog.
+   */
+  public SchemaInfo update(UpdateSchema request) {
+    return impl.update(request);
+  }
+
+  public SchemasService impl() {
+    return impl;
+  }
 }

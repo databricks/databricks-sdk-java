@@ -2,29 +2,45 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class GetLatestVersionsResponse {
-    /**
-     * Latest version models for each requests stage. Only return models with
-     * current `READY` status. If no `stages` provided, returns the latest
-     * version for each stage, including `"None"`.
-     */
-    @JsonProperty("model_versions")
-    private java.util.List<ModelVersion> modelVersions;
-    
-    public GetLatestVersionsResponse setModelVersions(java.util.List<ModelVersion> modelVersions) {
-        this.modelVersions = modelVersions;
-        return this;
-    }
+  /**
+   * Latest version models for each requests stage. Only return models with current `READY` status.
+   * If no `stages` provided, returns the latest version for each stage, including `"None"`.
+   */
+  @JsonProperty("model_versions")
+  private Collection<ModelVersion> modelVersions;
 
-    public java.util.List<ModelVersion> getModelVersions() {
-        return modelVersions;
-    }
-    
+  public GetLatestVersionsResponse setModelVersions(Collection<ModelVersion> modelVersions) {
+    this.modelVersions = modelVersions;
+    return this;
+  }
+
+  public Collection<ModelVersion> getModelVersions() {
+    return modelVersions;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetLatestVersionsResponse that = (GetLatestVersionsResponse) o;
+    return Objects.equals(modelVersions, that.modelVersions);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(modelVersions);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetLatestVersionsResponse.class)
+        .add("modelVersions", modelVersions)
+        .toString();
+  }
 }

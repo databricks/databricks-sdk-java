@@ -2,29 +2,38 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete a workspace
- */
+/** Delete a workspace */
 public class DeleteWorkspaceRequest {
-    /**
-     * Workspace ID.
-     */
-    
-    private Long workspaceId;
-    
-    public DeleteWorkspaceRequest setWorkspaceId(Long workspaceId) {
-        this.workspaceId = workspaceId;
-        return this;
-    }
+  /** Workspace ID. */
+  private Long workspaceId;
 
-    public Long getWorkspaceId() {
-        return workspaceId;
-    }
-    
+  public DeleteWorkspaceRequest setWorkspaceId(Long workspaceId) {
+    this.workspaceId = workspaceId;
+    return this;
+  }
+
+  public Long getWorkspaceId() {
+    return workspaceId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteWorkspaceRequest that = (DeleteWorkspaceRequest) o;
+    return Objects.equals(workspaceId, that.workspaceId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(workspaceId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteWorkspaceRequest.class).add("workspaceId", workspaceId).toString();
+  }
 }

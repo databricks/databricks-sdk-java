@@ -1,55 +1,43 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.permissions;
 
-import java.util.List;
-import java.util.Map;
-
 /**
- * Databricks Workspace Assignment REST API
+ * The Workspace Permission Assignment API allows you to manage workspace permissions for principals
+ * in your account.
  *
- * This is the high-level interface, that contains generated methods.
+ * <p>This is the high-level interface, that contains generated methods.
  *
- * Evolving: this interface is under development. Method signatures may change.
+ * <p>Evolving: this interface is under development. Method signatures may change.
  */
 public interface WorkspaceAssignmentService {
-	/**
-     * Create permission assignments.
-     * 
-     * Create new permission assignments for the specified account and
-     * workspace.
-     */
-    WorkspaceAssignmentsCreated create(CreateWorkspaceAssignments createWorkspaceAssignments);
-    
-	/**
-     * Delete permissions assignment.
-     * 
-     * Deletes the workspace permissions assignment for a given account and
-     * workspace using the specified service principal.
-     */
-    void delete(DeleteWorkspaceAssignmentRequest deleteWorkspaceAssignmentRequest);
-    
-	/**
-     * List workspace permissions.
-     * 
-     * Get an array of workspace permissions for the specified account and
-     * workspace.
-     */
-    WorkspacePermissions get(GetWorkspaceAssignmentRequest getWorkspaceAssignmentRequest);
-    
-	/**
-     * Get permission assignments.
-     * 
-     * Get the permission assignments for the specified Databricks Account and
-     * Databricks Workspace.
-     */
-    PermissionAssignments list(ListWorkspaceAssignmentRequest listWorkspaceAssignmentRequest);
-    
-	/**
-     * Update permissions assignment.
-     * 
-     * Updates the workspace permissions assignment for a given account and
-     * workspace using the specified service principal.
-     */
-    void update(UpdateWorkspaceAssignments updateWorkspaceAssignments);
-    
+  /**
+   * Delete permissions assignment.
+   *
+   * <p>Deletes the workspace permissions assignment in a given account and workspace for the
+   * specified principal.
+   */
+  void delete(DeleteWorkspaceAssignmentRequest deleteWorkspaceAssignmentRequest);
+
+  /**
+   * List workspace permissions.
+   *
+   * <p>Get an array of workspace permissions for the specified account and workspace.
+   */
+  WorkspacePermissions get(GetWorkspaceAssignmentRequest getWorkspaceAssignmentRequest);
+
+  /**
+   * Get permission assignments.
+   *
+   * <p>Get the permission assignments for the specified Databricks Account and Databricks
+   * Workspace.
+   */
+  PermissionAssignments list(ListWorkspaceAssignmentRequest listWorkspaceAssignmentRequest);
+
+  /**
+   * Create or update permissions assignment.
+   *
+   * <p>Creates or updates the workspace permissions assignment in a given account and workspace for
+   * the specified principal.
+   */
+  void update(UpdateWorkspaceAssignments updateWorkspaceAssignments);
 }

@@ -2,44 +2,56 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-
-/**
- * List transition requests
- */
+/** List transition requests */
 public class ListTransitionRequestsRequest {
-    /**
-     * Name of the model.
-     */
-    @QueryParam("name")
-    private String name;
-    
-    /**
-     * Version of the model.
-     */
-    @QueryParam("version")
-    private String version;
-    
-    public ListTransitionRequestsRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** Name of the model. */
+  @QueryParam("name")
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
-    public ListTransitionRequestsRequest setVersion(String version) {
-        this.version = version;
-        return this;
-    }
+  /** Version of the model. */
+  @QueryParam("version")
+  private String version;
 
-    public String getVersion() {
-        return version;
-    }
-    
+  public ListTransitionRequestsRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public ListTransitionRequestsRequest setVersion(String version) {
+    this.version = version;
+    return this;
+  }
+
+  public String getVersion() {
+    return version;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    ListTransitionRequestsRequest that = (ListTransitionRequestsRequest) o;
+    return Objects.equals(name, that.name) && Objects.equals(version, that.version);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, version);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(ListTransitionRequestsRequest.class)
+        .add("name", name)
+        .add("version", version)
+        .toString();
+  }
 }

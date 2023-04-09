@@ -2,42 +2,55 @@
 
 package com.databricks.sdk.service.instancepools;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class PendingInstanceError {
-    /**
-     
-     */
-    @JsonProperty("instance_id")
-    private String instanceId;
-    
-    /**
-     
-     */
-    @JsonProperty("message")
-    private String message;
-    
-    public PendingInstanceError setInstanceId(String instanceId) {
-        this.instanceId = instanceId;
-        return this;
-    }
+  /** */
+  @JsonProperty("instance_id")
+  private String instanceId;
 
-    public String getInstanceId() {
-        return instanceId;
-    }
-    
-    public PendingInstanceError setMessage(String message) {
-        this.message = message;
-        return this;
-    }
+  /** */
+  @JsonProperty("message")
+  private String message;
 
-    public String getMessage() {
-        return message;
-    }
-    
+  public PendingInstanceError setInstanceId(String instanceId) {
+    this.instanceId = instanceId;
+    return this;
+  }
+
+  public String getInstanceId() {
+    return instanceId;
+  }
+
+  public PendingInstanceError setMessage(String message) {
+    this.message = message;
+    return this;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PendingInstanceError that = (PendingInstanceError) o;
+    return Objects.equals(instanceId, that.instanceId) && Objects.equals(message, that.message);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(instanceId, message);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PendingInstanceError.class)
+        .add("instanceId", instanceId)
+        .add("message", message)
+        .toString();
+  }
 }

@@ -2,57 +2,72 @@
 
 package com.databricks.sdk.service.endpoints;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class EndpointCoreConfigOutput {
-    /**
-     * The config version that the serving endpoint is currently serving.
-     */
-    @JsonProperty("config_version")
-    private Long configVersion;
-    
-    /**
-     * The list of served models under the serving endpoint config.
-     */
-    @JsonProperty("served_models")
-    private java.util.List<ServedModelOutput> servedModels;
-    
-    /**
-     * The traffic configuration associated with the serving endpoint config.
-     */
-    @JsonProperty("traffic_config")
-    private TrafficConfig trafficConfig;
-    
-    public EndpointCoreConfigOutput setConfigVersion(Long configVersion) {
-        this.configVersion = configVersion;
-        return this;
-    }
+  /** The config version that the serving endpoint is currently serving. */
+  @JsonProperty("config_version")
+  private Long configVersion;
 
-    public Long getConfigVersion() {
-        return configVersion;
-    }
-    
-    public EndpointCoreConfigOutput setServedModels(java.util.List<ServedModelOutput> servedModels) {
-        this.servedModels = servedModels;
-        return this;
-    }
+  /** The list of served models under the serving endpoint config. */
+  @JsonProperty("served_models")
+  private Collection<ServedModelOutput> servedModels;
 
-    public java.util.List<ServedModelOutput> getServedModels() {
-        return servedModels;
-    }
-    
-    public EndpointCoreConfigOutput setTrafficConfig(TrafficConfig trafficConfig) {
-        this.trafficConfig = trafficConfig;
-        return this;
-    }
+  /** The traffic configuration associated with the serving endpoint config. */
+  @JsonProperty("traffic_config")
+  private TrafficConfig trafficConfig;
 
-    public TrafficConfig getTrafficConfig() {
-        return trafficConfig;
-    }
-    
+  public EndpointCoreConfigOutput setConfigVersion(Long configVersion) {
+    this.configVersion = configVersion;
+    return this;
+  }
+
+  public Long getConfigVersion() {
+    return configVersion;
+  }
+
+  public EndpointCoreConfigOutput setServedModels(Collection<ServedModelOutput> servedModels) {
+    this.servedModels = servedModels;
+    return this;
+  }
+
+  public Collection<ServedModelOutput> getServedModels() {
+    return servedModels;
+  }
+
+  public EndpointCoreConfigOutput setTrafficConfig(TrafficConfig trafficConfig) {
+    this.trafficConfig = trafficConfig;
+    return this;
+  }
+
+  public TrafficConfig getTrafficConfig() {
+    return trafficConfig;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    EndpointCoreConfigOutput that = (EndpointCoreConfigOutput) o;
+    return Objects.equals(configVersion, that.configVersion)
+        && Objects.equals(servedModels, that.servedModels)
+        && Objects.equals(trafficConfig, that.trafficConfig);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(configVersion, servedModels, trafficConfig);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(EndpointCoreConfigOutput.class)
+        .add("configVersion", configVersion)
+        .add("servedModels", servedModels)
+        .add("trafficConfig", trafficConfig)
+        .toString();
+  }
 }

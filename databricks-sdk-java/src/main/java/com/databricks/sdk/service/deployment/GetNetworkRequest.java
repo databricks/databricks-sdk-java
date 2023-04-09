@@ -2,29 +2,38 @@
 
 package com.databricks.sdk.service.deployment;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Get a network configuration
- */
+/** Get a network configuration */
 public class GetNetworkRequest {
-    /**
-     * Databricks Account API network configuration ID.
-     */
-    
-    private String networkId;
-    
-    public GetNetworkRequest setNetworkId(String networkId) {
-        this.networkId = networkId;
-        return this;
-    }
+  /** Databricks Account API network configuration ID. */
+  private String networkId;
 
-    public String getNetworkId() {
-        return networkId;
-    }
-    
+  public GetNetworkRequest setNetworkId(String networkId) {
+    this.networkId = networkId;
+    return this;
+  }
+
+  public String getNetworkId() {
+    return networkId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetNetworkRequest that = (GetNetworkRequest) o;
+    return Objects.equals(networkId, that.networkId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(networkId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetNetworkRequest.class).add("networkId", networkId).toString();
+  }
 }

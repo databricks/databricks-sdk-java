@@ -2,42 +2,56 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class CreatePipelineResponse {
-    /**
-     * Only returned when dry_run is true
-     */
-    @JsonProperty("effective_settings")
-    private PipelineSpec effectiveSettings;
-    
-    /**
-     * Only returned when dry_run is false
-     */
-    @JsonProperty("pipeline_id")
-    private String pipelineId;
-    
-    public CreatePipelineResponse setEffectiveSettings(PipelineSpec effectiveSettings) {
-        this.effectiveSettings = effectiveSettings;
-        return this;
-    }
+  /** Only returned when dry_run is true. */
+  @JsonProperty("effective_settings")
+  private PipelineSpec effectiveSettings;
 
-    public PipelineSpec getEffectiveSettings() {
-        return effectiveSettings;
-    }
-    
-    public CreatePipelineResponse setPipelineId(String pipelineId) {
-        this.pipelineId = pipelineId;
-        return this;
-    }
+  /** The unique identifier for the newly created pipeline. Only returned when dry_run is false. */
+  @JsonProperty("pipeline_id")
+  private String pipelineId;
 
-    public String getPipelineId() {
-        return pipelineId;
-    }
-    
+  public CreatePipelineResponse setEffectiveSettings(PipelineSpec effectiveSettings) {
+    this.effectiveSettings = effectiveSettings;
+    return this;
+  }
+
+  public PipelineSpec getEffectiveSettings() {
+    return effectiveSettings;
+  }
+
+  public CreatePipelineResponse setPipelineId(String pipelineId) {
+    this.pipelineId = pipelineId;
+    return this;
+  }
+
+  public String getPipelineId() {
+    return pipelineId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CreatePipelineResponse that = (CreatePipelineResponse) o;
+    return Objects.equals(effectiveSettings, that.effectiveSettings)
+        && Objects.equals(pipelineId, that.pipelineId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(effectiveSettings, pipelineId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CreatePipelineResponse.class)
+        .add("effectiveSettings", effectiveSettings)
+        .add("pipelineId", pipelineId)
+        .toString();
+  }
 }

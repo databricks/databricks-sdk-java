@@ -2,29 +2,38 @@
 
 package com.databricks.sdk.service.endpoints;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete a serving endpoint
- */
+/** Delete a serving endpoint */
 public class DeleteServingEndpointRequest {
-    /**
-     * The name of the serving endpoint. This field is required.
-     */
-    
-    private String name;
-    
-    public DeleteServingEndpointRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** The name of the serving endpoint. This field is required. */
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
+  public DeleteServingEndpointRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    DeleteServingEndpointRequest that = (DeleteServingEndpointRequest) o;
+    return Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(DeleteServingEndpointRequest.class).add("name", name).toString();
+  }
 }

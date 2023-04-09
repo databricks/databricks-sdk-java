@@ -1,91 +1,100 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.repos;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
+import com.databricks.sdk.client.ApiClient;
 import org.apache.http.client.methods.*;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksException;
-
 /**
- * The Repos API allows users to manage their git repos. Users can use the API
- * to access all repos that they have manage permissions on.
- * 
- * Databricks Repos is a visual Git client in Databricks. It supports common Git
- * operations such a cloning a repository, committing and pushing, pulling,
- * branch management, and visual comparison of diffs when committing.
- * 
- * Within Repos you can develop code in notebooks or other files and follow data
- * science and engineering code development best practices using Git for version
- * control, collaboration, and CI/CD.
+ * The Repos API allows users to manage their git repos. Users can use the API to access all repos
+ * that they have manage permissions on.
+ *
+ * <p>Databricks Repos is a visual Git client in Databricks. It supports common Git operations such
+ * a cloning a repository, committing and pushing, pulling, branch management, and visual comparison
+ * of diffs when committing.
+ *
+ * <p>Within Repos you can develop code in notebooks or other files and follow data science and
+ * engineering code development best practices using Git for version control, collaboration, and
+ * CI/CD.
  */
-public class ReposAPI implements ReposService {
-    private final ApiClient apiClient;
+public class ReposAPI {
+  private final ReposService impl;
 
-    public ReposAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-	
-	/**
-     * Create a repo.
-     * 
-     * Creates a repo in the workspace and links it to the remote Git repo
-     * specified. Note that repos created programmatically must be linked to a
-     * remote Git repo, unlike repos created in the browser.
-     */
-    @Override
-    public RepoInfo create(CreateRepo request) {
-        String path = "/api/2.0/repos";
-        return apiClient.POST(path, request, RepoInfo.class);
-    }
-    
-	/**
-     * Delete a repo.
-     * 
-     * Deletes the specified repo.
-     */
-    @Override
-    public void delete(Delete request) {
-        String path = String.format("/api/2.0/repos/%s", request.getRepoId());
-        apiClient.DELETE(path, request, Void.class);
-    }
-    
-	/**
-     * Get a repo.
-     * 
-     * Returns the repo with the given repo ID.
-     */
-    @Override
-    public RepoInfo get(Get request) {
-        String path = String.format("/api/2.0/repos/%s", request.getRepoId());
-        return apiClient.GET(path, request, RepoInfo.class);
-    }
-    
-	/**
-     * Get repos.
-     * 
-     * Returns repos that the calling user has Manage permissions on. Results
-     * are paginated with each page containing twenty repos.
-     */
-    @Override
-    public ListReposResponse list(List request) {
-        String path = "/api/2.0/repos";
-        return apiClient.GET(path, request, ListReposResponse.class);
-    }
-    
-	/**
-     * Update a repo.
-     * 
-     * Updates the repo to a different branch or tag, or updates the repo to the
-     * latest commit on the same branch.
-     */
-    @Override
-    public void update(UpdateRepo request) {
-        String path = String.format("/api/2.0/repos/%s", request.getRepoId());
-        apiClient.PATCH(path, request, Void.class);
-    }
-    
+  /** Regular-use constructor */
+  public ReposAPI(ApiClient apiClient) {
+    impl = new ReposImpl(apiClient);
+  }
+
+  /** Constructor for mocks */
+  public ReposAPI(ReposService mock) {
+    impl = mock;
+  }
+
+  public RepoInfo create(String url, String provider) {
+    return create(new CreateRepo().setUrl(url).setProvider(provider));
+  }
+
+  /**
+   * Create a repo.
+   *
+   * <p>Creates a repo in the workspace and links it to the remote Git repo specified. Note that
+   * repos created programmatically must be linked to a remote Git repo, unlike repos created in the
+   * browser.
+   */
+  public RepoInfo create(CreateRepo request) {
+    return impl.create(request);
+  }
+
+  public void delete(long repoId) {
+    delete(new Delete().setRepoId(repoId));
+  }
+
+  /**
+   * Delete a repo.
+   *
+   * <p>Deletes the specified repo.
+   */
+  public void delete(Delete request) {
+    impl.delete(request);
+  }
+
+  public RepoInfo get(long repoId) {
+    return get(new Get().setRepoId(repoId));
+  }
+
+  /**
+   * Get a repo.
+   *
+   * <p>Returns the repo with the given repo ID.
+   */
+  public RepoInfo get(Get request) {
+    return impl.get(request);
+  }
+
+  /**
+   * Get repos.
+   *
+   * <p>Returns repos that the calling user has Manage permissions on. Results are paginated with
+   * each page containing twenty repos.
+   */
+  public ListReposResponse list(List request) {
+    return impl.list(request);
+  }
+
+  public void update(long repoId) {
+    update(new UpdateRepo().setRepoId(repoId));
+  }
+
+  /**
+   * Update a repo.
+   *
+   * <p>Updates the repo to a different branch or tag, or updates the repo to the latest commit on
+   * the same branch.
+   */
+  public void update(UpdateRepo request) {
+    impl.update(request);
+  }
+
+  public ReposService impl() {
+    return impl;
+  }
 }

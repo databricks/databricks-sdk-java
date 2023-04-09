@@ -2,239 +2,277 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Map;
+import java.util.Objects;
 
 public class PipelineSpec {
-    /**
-     * Catalog in UC to add tables to. If target is specified, tables in this
-     * pipeline will be published to a "target" schema inside catalog (i.e.
-     * <catalog>.<target>.<table>).
-     */
-    @JsonProperty("catalog")
-    private String catalog;
-    
-    /**
-     * DLT Release Channel that specifies which version to use.
-     */
-    @JsonProperty("channel")
-    private String channel;
-    
-    /**
-     * Cluster settings for this pipeline deployment.
-     */
-    @JsonProperty("clusters")
-    private java.util.List<PipelineCluster> clusters;
-    
-    /**
-     * String-String configuration for this pipeline execution.
-     */
-    @JsonProperty("configuration")
-    private Map<String,String> configuration;
-    
-    /**
-     * Whether the pipeline is continuous or triggered. This replaces `trigger`.
-     */
-    @JsonProperty("continuous")
-    private Boolean continuous;
-    
-    /**
-     * Whether the pipeline is in Development mode. Defaults to false.
-     */
-    @JsonProperty("development")
-    private Boolean development;
-    
-    /**
-     * Pipeline product edition.
-     */
-    @JsonProperty("edition")
-    private String edition;
-    
-    /**
-     * Filters on which Pipeline packages to include in the deployed graph.
-     */
-    @JsonProperty("filters")
-    private Filters filters;
-    
-    /**
-     * Unique identifier for this pipeline.
-     */
-    @JsonProperty("id")
-    private String id;
-    
-    /**
-     * Libraries or code needed by this deployment.
-     */
-    @JsonProperty("libraries")
-    private java.util.List<PipelineLibrary> libraries;
-    
-    /**
-     * Friendly identifier for this pipeline.
-     */
-    @JsonProperty("name")
-    private String name;
-    
-    /**
-     * Whether Photon is enabled for this pipeline.
-     */
-    @JsonProperty("photon")
-    private Boolean photon;
-    
-    /**
-     * DBFS root directory for storing checkpoints and tables.
-     */
-    @JsonProperty("storage")
-    private String storage;
-    
-    /**
-     * Target schema (database) to add tables in this pipeline to.
-     */
-    @JsonProperty("target")
-    private String target;
-    
-    /**
-     * Which pipeline trigger to use. Deprecated: Use `continuous` instead.
-     */
-    @JsonProperty("trigger")
-    private PipelineTrigger trigger;
-    
-    public PipelineSpec setCatalog(String catalog) {
-        this.catalog = catalog;
-        return this;
-    }
+  /**
+   * A catalog in Unity Catalog to publish data from this pipeline to. If `target` is specified,
+   * tables in this pipeline are published to a `target` schema inside `catalog` (for example,
+   * `catalog`.`target`.`table`). If `target` is not specified, no data is published to Unity
+   * Catalog.
+   */
+  @JsonProperty("catalog")
+  private String catalog;
 
-    public String getCatalog() {
-        return catalog;
-    }
-    
-    public PipelineSpec setChannel(String channel) {
-        this.channel = channel;
-        return this;
-    }
+  /** DLT Release Channel that specifies which version to use. */
+  @JsonProperty("channel")
+  private String channel;
 
-    public String getChannel() {
-        return channel;
-    }
-    
-    public PipelineSpec setClusters(java.util.List<PipelineCluster> clusters) {
-        this.clusters = clusters;
-        return this;
-    }
+  /** Cluster settings for this pipeline deployment. */
+  @JsonProperty("clusters")
+  private Collection<PipelineCluster> clusters;
 
-    public java.util.List<PipelineCluster> getClusters() {
-        return clusters;
-    }
-    
-    public PipelineSpec setConfiguration(Map<String,String> configuration) {
-        this.configuration = configuration;
-        return this;
-    }
+  /** String-String configuration for this pipeline execution. */
+  @JsonProperty("configuration")
+  private Map<String, String> configuration;
 
-    public Map<String,String> getConfiguration() {
-        return configuration;
-    }
-    
-    public PipelineSpec setContinuous(Boolean continuous) {
-        this.continuous = continuous;
-        return this;
-    }
+  /** Whether the pipeline is continuous or triggered. This replaces `trigger`. */
+  @JsonProperty("continuous")
+  private Boolean continuous;
 
-    public Boolean getContinuous() {
-        return continuous;
-    }
-    
-    public PipelineSpec setDevelopment(Boolean development) {
-        this.development = development;
-        return this;
-    }
+  /** Whether the pipeline is in Development mode. Defaults to false. */
+  @JsonProperty("development")
+  private Boolean development;
 
-    public Boolean getDevelopment() {
-        return development;
-    }
-    
-    public PipelineSpec setEdition(String edition) {
-        this.edition = edition;
-        return this;
-    }
+  /** Pipeline product edition. */
+  @JsonProperty("edition")
+  private String edition;
 
-    public String getEdition() {
-        return edition;
-    }
-    
-    public PipelineSpec setFilters(Filters filters) {
-        this.filters = filters;
-        return this;
-    }
+  /** Filters on which Pipeline packages to include in the deployed graph. */
+  @JsonProperty("filters")
+  private Filters filters;
 
-    public Filters getFilters() {
-        return filters;
-    }
-    
-    public PipelineSpec setId(String id) {
-        this.id = id;
-        return this;
-    }
+  /** Unique identifier for this pipeline. */
+  @JsonProperty("id")
+  private String id;
 
-    public String getId() {
-        return id;
-    }
-    
-    public PipelineSpec setLibraries(java.util.List<PipelineLibrary> libraries) {
-        this.libraries = libraries;
-        return this;
-    }
+  /** Libraries or code needed by this deployment. */
+  @JsonProperty("libraries")
+  private Collection<PipelineLibrary> libraries;
 
-    public java.util.List<PipelineLibrary> getLibraries() {
-        return libraries;
-    }
-    
-    public PipelineSpec setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** Friendly identifier for this pipeline. */
+  @JsonProperty("name")
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
-    public PipelineSpec setPhoton(Boolean photon) {
-        this.photon = photon;
-        return this;
-    }
+  /** Whether Photon is enabled for this pipeline. */
+  @JsonProperty("photon")
+  private Boolean photon;
 
-    public Boolean getPhoton() {
-        return photon;
-    }
-    
-    public PipelineSpec setStorage(String storage) {
-        this.storage = storage;
-        return this;
-    }
+  /** DBFS root directory for storing checkpoints and tables. */
+  @JsonProperty("storage")
+  private String storage;
 
-    public String getStorage() {
-        return storage;
-    }
-    
-    public PipelineSpec setTarget(String target) {
-        this.target = target;
-        return this;
-    }
+  /**
+   * Target schema (database) to add tables in this pipeline to. If not specified, no data is
+   * published to the Hive metastore or Unity Catalog. To publish to Unity Catalog, also specify
+   * `catalog`.
+   */
+  @JsonProperty("target")
+  private String target;
 
-    public String getTarget() {
-        return target;
-    }
-    
-    public PipelineSpec setTrigger(PipelineTrigger trigger) {
-        this.trigger = trigger;
-        return this;
-    }
+  /** Which pipeline trigger to use. Deprecated: Use `continuous` instead. */
+  @JsonProperty("trigger")
+  private PipelineTrigger trigger;
 
-    public PipelineTrigger getTrigger() {
-        return trigger;
-    }
-    
+  public PipelineSpec setCatalog(String catalog) {
+    this.catalog = catalog;
+    return this;
+  }
+
+  public String getCatalog() {
+    return catalog;
+  }
+
+  public PipelineSpec setChannel(String channel) {
+    this.channel = channel;
+    return this;
+  }
+
+  public String getChannel() {
+    return channel;
+  }
+
+  public PipelineSpec setClusters(Collection<PipelineCluster> clusters) {
+    this.clusters = clusters;
+    return this;
+  }
+
+  public Collection<PipelineCluster> getClusters() {
+    return clusters;
+  }
+
+  public PipelineSpec setConfiguration(Map<String, String> configuration) {
+    this.configuration = configuration;
+    return this;
+  }
+
+  public Map<String, String> getConfiguration() {
+    return configuration;
+  }
+
+  public PipelineSpec setContinuous(Boolean continuous) {
+    this.continuous = continuous;
+    return this;
+  }
+
+  public Boolean getContinuous() {
+    return continuous;
+  }
+
+  public PipelineSpec setDevelopment(Boolean development) {
+    this.development = development;
+    return this;
+  }
+
+  public Boolean getDevelopment() {
+    return development;
+  }
+
+  public PipelineSpec setEdition(String edition) {
+    this.edition = edition;
+    return this;
+  }
+
+  public String getEdition() {
+    return edition;
+  }
+
+  public PipelineSpec setFilters(Filters filters) {
+    this.filters = filters;
+    return this;
+  }
+
+  public Filters getFilters() {
+    return filters;
+  }
+
+  public PipelineSpec setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public PipelineSpec setLibraries(Collection<PipelineLibrary> libraries) {
+    this.libraries = libraries;
+    return this;
+  }
+
+  public Collection<PipelineLibrary> getLibraries() {
+    return libraries;
+  }
+
+  public PipelineSpec setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public PipelineSpec setPhoton(Boolean photon) {
+    this.photon = photon;
+    return this;
+  }
+
+  public Boolean getPhoton() {
+    return photon;
+  }
+
+  public PipelineSpec setStorage(String storage) {
+    this.storage = storage;
+    return this;
+  }
+
+  public String getStorage() {
+    return storage;
+  }
+
+  public PipelineSpec setTarget(String target) {
+    this.target = target;
+    return this;
+  }
+
+  public String getTarget() {
+    return target;
+  }
+
+  public PipelineSpec setTrigger(PipelineTrigger trigger) {
+    this.trigger = trigger;
+    return this;
+  }
+
+  public PipelineTrigger getTrigger() {
+    return trigger;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PipelineSpec that = (PipelineSpec) o;
+    return Objects.equals(catalog, that.catalog)
+        && Objects.equals(channel, that.channel)
+        && Objects.equals(clusters, that.clusters)
+        && Objects.equals(configuration, that.configuration)
+        && Objects.equals(continuous, that.continuous)
+        && Objects.equals(development, that.development)
+        && Objects.equals(edition, that.edition)
+        && Objects.equals(filters, that.filters)
+        && Objects.equals(id, that.id)
+        && Objects.equals(libraries, that.libraries)
+        && Objects.equals(name, that.name)
+        && Objects.equals(photon, that.photon)
+        && Objects.equals(storage, that.storage)
+        && Objects.equals(target, that.target)
+        && Objects.equals(trigger, that.trigger);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(
+        catalog,
+        channel,
+        clusters,
+        configuration,
+        continuous,
+        development,
+        edition,
+        filters,
+        id,
+        libraries,
+        name,
+        photon,
+        storage,
+        target,
+        trigger);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PipelineSpec.class)
+        .add("catalog", catalog)
+        .add("channel", channel)
+        .add("clusters", clusters)
+        .add("configuration", configuration)
+        .add("continuous", continuous)
+        .add("development", development)
+        .add("edition", edition)
+        .add("filters", filters)
+        .add("id", id)
+        .add("libraries", libraries)
+        .add("name", name)
+        .add("photon", photon)
+        .add("storage", storage)
+        .add("target", target)
+        .add("trigger", trigger)
+        .toString();
+  }
 }

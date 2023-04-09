@@ -2,18 +2,9 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * This describes an enum
- */
-public enum ViewsToExport{
-    ALL,// All views of the notebook.
-    CODE,// Code view of the notebook.
-    DASHBOARDS,// All dashboard views of the notebook.
-    
+/** This describes an enum */
+public enum ViewsToExport {
+  ALL, // All views of the notebook.
+  CODE, // Code view of the notebook.
+  DASHBOARDS, // All dashboard views of the notebook.
 }

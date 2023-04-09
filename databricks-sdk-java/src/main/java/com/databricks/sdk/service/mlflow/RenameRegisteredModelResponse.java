@@ -2,27 +2,41 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class RenameRegisteredModelResponse {
-    /**
-     
-     */
-    @JsonProperty("registered_model")
-    private RegisteredModel registeredModel;
-    
-    public RenameRegisteredModelResponse setRegisteredModel(RegisteredModel registeredModel) {
-        this.registeredModel = registeredModel;
-        return this;
-    }
+  /** */
+  @JsonProperty("registered_model")
+  private RegisteredModel registeredModel;
 
-    public RegisteredModel getRegisteredModel() {
-        return registeredModel;
-    }
-    
+  public RenameRegisteredModelResponse setRegisteredModel(RegisteredModel registeredModel) {
+    this.registeredModel = registeredModel;
+    return this;
+  }
+
+  public RegisteredModel getRegisteredModel() {
+    return registeredModel;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    RenameRegisteredModelResponse that = (RenameRegisteredModelResponse) o;
+    return Objects.equals(registeredModel, that.registeredModel);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(registeredModel);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(RenameRegisteredModelResponse.class)
+        .add("registeredModel", registeredModel)
+        .toString();
+  }
 }

@@ -1,120 +1,149 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.mlflow;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
+import com.databricks.sdk.client.ApiClient;
 import org.apache.http.client.methods.*;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksException;
+public class ModelVersionsAPI {
+  private final ModelVersionsService impl;
 
+  /** Regular-use constructor */
+  public ModelVersionsAPI(ApiClient apiClient) {
+    impl = new ModelVersionsImpl(apiClient);
+  }
 
-public class ModelVersionsAPI implements ModelVersionsService {
-    private final ApiClient apiClient;
+  /** Constructor for mocks */
+  public ModelVersionsAPI(ModelVersionsService mock) {
+    impl = mock;
+  }
 
-    public ModelVersionsAPI(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-	
-	/**
-     * Create a model version.
-     * 
-     * Creates a model version.
-     */
-    @Override
-    public CreateModelVersionResponse create(CreateModelVersionRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/create";
-        return apiClient.POST(path, request, CreateModelVersionResponse.class);
-    }
-    
-	/**
-     * Delete a model version.
-     * 
-     * Deletes a model version.
-     */
-    @Override
-    public void delete(DeleteModelVersionRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/delete";
-        apiClient.DELETE(path, request, Void.class);
-    }
-    
-	/**
-     * Delete a model version tag.
-     * 
-     * Deletes a model version tag.
-     */
-    @Override
-    public void deleteTag(DeleteModelVersionTagRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/delete-tag";
-        apiClient.DELETE(path, request, Void.class);
-    }
-    
-	/**
-     * Get a model version.
-     * 
-     * Get a model version.
-     */
-    @Override
-    public GetModelVersionResponse get(GetModelVersionRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/get";
-        return apiClient.GET(path, request, GetModelVersionResponse.class);
-    }
-    
-	/**
-     * Get a model version URI.
-     * 
-     * Gets a URI to download the model version.
-     */
-    @Override
-    public GetModelVersionDownloadUriResponse getDownloadUri(GetModelVersionDownloadUriRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/get-download-uri";
-        return apiClient.GET(path, request, GetModelVersionDownloadUriResponse.class);
-    }
-    
-	/**
-     * Searches model versions.
-     * 
-     * Searches for specific model versions based on the supplied __filter__.
-     */
-    @Override
-    public SearchModelVersionsResponse search(SearchModelVersionsRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/search";
-        return apiClient.GET(path, request, SearchModelVersionsResponse.class);
-    }
-    
-	/**
-     * Set a version tag.
-     * 
-     * Sets a model version tag.
-     */
-    @Override
-    public void setTag(SetModelVersionTagRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/set-tag";
-        apiClient.POST(path, request, Void.class);
-    }
-    
-	/**
-     * Transition a stage.
-     * 
-     * Transition to the next model stage.
-     */
-    @Override
-    public TransitionModelVersionStageResponse transitionStage(TransitionModelVersionStage request) {
-        String path = "/api/2.0/mlflow/model-versions/transition-stage";
-        return apiClient.POST(path, request, TransitionModelVersionStageResponse.class);
-    }
-    
-	/**
-     * Update model version.
-     * 
-     * Updates the model version.
-     */
-    @Override
-    public void update(UpdateModelVersionRequest request) {
-        String path = "/api/2.0/mlflow/model-versions/update";
-        apiClient.PATCH(path, request, Void.class);
-    }
-    
+  public CreateModelVersionResponse create(String name, String source) {
+    return create(new CreateModelVersionRequest().setName(name).setSource(source));
+  }
+
+  /**
+   * Create a model version.
+   *
+   * <p>Creates a model version.
+   */
+  public CreateModelVersionResponse create(CreateModelVersionRequest request) {
+    return impl.create(request);
+  }
+
+  public void delete(String name, String version) {
+    delete(new DeleteModelVersionRequest().setName(name).setVersion(version));
+  }
+
+  /**
+   * Delete a model version.
+   *
+   * <p>Deletes a model version.
+   */
+  public void delete(DeleteModelVersionRequest request) {
+    impl.delete(request);
+  }
+
+  public void deleteTag(String name, String version, String key) {
+    deleteTag(new DeleteModelVersionTagRequest().setName(name).setVersion(version).setKey(key));
+  }
+
+  /**
+   * Delete a model version tag.
+   *
+   * <p>Deletes a model version tag.
+   */
+  public void deleteTag(DeleteModelVersionTagRequest request) {
+    impl.deleteTag(request);
+  }
+
+  public GetModelVersionResponse get(String name, String version) {
+    return get(new GetModelVersionRequest().setName(name).setVersion(version));
+  }
+
+  /**
+   * Get a model version.
+   *
+   * <p>Get a model version.
+   */
+  public GetModelVersionResponse get(GetModelVersionRequest request) {
+    return impl.get(request);
+  }
+
+  public GetModelVersionDownloadUriResponse getDownloadUri(String name, String version) {
+    return getDownloadUri(
+        new GetModelVersionDownloadUriRequest().setName(name).setVersion(version));
+  }
+
+  /**
+   * Get a model version URI.
+   *
+   * <p>Gets a URI to download the model version.
+   */
+  public GetModelVersionDownloadUriResponse getDownloadUri(
+      GetModelVersionDownloadUriRequest request) {
+    return impl.getDownloadUri(request);
+  }
+
+  /**
+   * Searches model versions.
+   *
+   * <p>Searches for specific model versions based on the supplied __filter__.
+   */
+  public SearchModelVersionsResponse search(SearchModelVersionsRequest request) {
+    return impl.search(request);
+  }
+
+  public void setTag(String name, String version, String key, String value) {
+    setTag(
+        new SetModelVersionTagRequest()
+            .setName(name)
+            .setVersion(version)
+            .setKey(key)
+            .setValue(value));
+  }
+
+  /**
+   * Set a version tag.
+   *
+   * <p>Sets a model version tag.
+   */
+  public void setTag(SetModelVersionTagRequest request) {
+    impl.setTag(request);
+  }
+
+  public TransitionModelVersionStageResponse transitionStage(
+      String name, String version, String stage, boolean archiveExistingVersions) {
+    return transitionStage(
+        new TransitionModelVersionStage()
+            .setName(name)
+            .setVersion(version)
+            .setStage(stage)
+            .setArchiveExistingVersions(archiveExistingVersions));
+  }
+
+  /**
+   * Transition a stage.
+   *
+   * <p>Transition to the next model stage.
+   */
+  public TransitionModelVersionStageResponse transitionStage(TransitionModelVersionStage request) {
+    return impl.transitionStage(request);
+  }
+
+  public void update(String name, String version) {
+    update(new UpdateModelVersionRequest().setName(name).setVersion(version));
+  }
+
+  /**
+   * Update model version.
+   *
+   * <p>Updates the model version.
+   */
+  public void update(UpdateModelVersionRequest request) {
+    impl.update(request);
+  }
+
+  public ModelVersionsService impl() {
+    return impl;
+  }
 }

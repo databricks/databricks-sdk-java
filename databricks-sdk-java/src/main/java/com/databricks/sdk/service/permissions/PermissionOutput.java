@@ -2,42 +2,56 @@
 
 package com.databricks.sdk.service.permissions;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class PermissionOutput {
-    /**
-     * The results of a permissions query.
-     */
-    @JsonProperty("description")
-    private String description;
-    
-    /**
-     
-     */
-    @JsonProperty("permission_level")
-    private WorkspacePermission permissionLevel;
-    
-    public PermissionOutput setDescription(String description) {
-        this.description = description;
-        return this;
-    }
+  /** The results of a permissions query. */
+  @JsonProperty("description")
+  private String description;
 
-    public String getDescription() {
-        return description;
-    }
-    
-    public PermissionOutput setPermissionLevel(WorkspacePermission permissionLevel) {
-        this.permissionLevel = permissionLevel;
-        return this;
-    }
+  /** */
+  @JsonProperty("permission_level")
+  private WorkspacePermission permissionLevel;
 
-    public WorkspacePermission getPermissionLevel() {
-        return permissionLevel;
-    }
-    
+  public PermissionOutput setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public PermissionOutput setPermissionLevel(WorkspacePermission permissionLevel) {
+    this.permissionLevel = permissionLevel;
+    return this;
+  }
+
+  public WorkspacePermission getPermissionLevel() {
+    return permissionLevel;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PermissionOutput that = (PermissionOutput) o;
+    return Objects.equals(description, that.description)
+        && Objects.equals(permissionLevel, that.permissionLevel);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(description, permissionLevel);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PermissionOutput.class)
+        .add("description", description)
+        .add("permissionLevel", permissionLevel)
+        .toString();
+  }
 }

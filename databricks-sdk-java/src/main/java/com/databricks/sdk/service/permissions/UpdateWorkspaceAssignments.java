@@ -2,57 +2,70 @@
 
 package com.databricks.sdk.service.permissions;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class UpdateWorkspaceAssignments {
-    /**
-     * Array of permissions assignments to update on the workspace.
-     */
-    @JsonProperty("permissions")
-    private java.util.List<WorkspacePermission> permissions;
-    
-    /**
-     * The ID of the service principal.
-     */
-    
-    private Long principalId;
-    
-    /**
-     * The workspace ID.
-     */
-    
-    private Long workspaceId;
-    
-    public UpdateWorkspaceAssignments setPermissions(java.util.List<WorkspacePermission> permissions) {
-        this.permissions = permissions;
-        return this;
-    }
+  /** Array of permissions assignments to update on the workspace. */
+  @JsonProperty("permissions")
+  private Collection<WorkspacePermission> permissions;
 
-    public java.util.List<WorkspacePermission> getPermissions() {
-        return permissions;
-    }
-    
-    public UpdateWorkspaceAssignments setPrincipalId(Long principalId) {
-        this.principalId = principalId;
-        return this;
-    }
+  /** The ID of the user, service principal, or group. */
+  private Long principalId;
 
-    public Long getPrincipalId() {
-        return principalId;
-    }
-    
-    public UpdateWorkspaceAssignments setWorkspaceId(Long workspaceId) {
-        this.workspaceId = workspaceId;
-        return this;
-    }
+  /** The workspace ID. */
+  private Long workspaceId;
 
-    public Long getWorkspaceId() {
-        return workspaceId;
-    }
-    
+  public UpdateWorkspaceAssignments setPermissions(Collection<WorkspacePermission> permissions) {
+    this.permissions = permissions;
+    return this;
+  }
+
+  public Collection<WorkspacePermission> getPermissions() {
+    return permissions;
+  }
+
+  public UpdateWorkspaceAssignments setPrincipalId(Long principalId) {
+    this.principalId = principalId;
+    return this;
+  }
+
+  public Long getPrincipalId() {
+    return principalId;
+  }
+
+  public UpdateWorkspaceAssignments setWorkspaceId(Long workspaceId) {
+    this.workspaceId = workspaceId;
+    return this;
+  }
+
+  public Long getWorkspaceId() {
+    return workspaceId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    UpdateWorkspaceAssignments that = (UpdateWorkspaceAssignments) o;
+    return Objects.equals(permissions, that.permissions)
+        && Objects.equals(principalId, that.principalId)
+        && Objects.equals(workspaceId, that.workspaceId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(permissions, principalId, workspaceId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(UpdateWorkspaceAssignments.class)
+        .add("permissions", permissions)
+        .add("principalId", principalId)
+        .add("workspaceId", workspaceId)
+        .toString();
+  }
 }

@@ -2,72 +2,87 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Collection;
+import java.util.Objects;
 
 public class QueryList {
-    /**
-     * The total number of queries.
-     */
-    @JsonProperty("count")
-    private Long count;
-    
-    /**
-     * The page number that is currently displayed.
-     */
-    @JsonProperty("page")
-    private Long page;
-    
-    /**
-     * The number of queries per page.
-     */
-    @JsonProperty("page_size")
-    private Long pageSize;
-    
-    /**
-     * List of queries returned.
-     */
-    @JsonProperty("results")
-    private java.util.List<Query> results;
-    
-    public QueryList setCount(Long count) {
-        this.count = count;
-        return this;
-    }
+  /** The total number of queries. */
+  @JsonProperty("count")
+  private Long count;
 
-    public Long getCount() {
-        return count;
-    }
-    
-    public QueryList setPage(Long page) {
-        this.page = page;
-        return this;
-    }
+  /** The page number that is currently displayed. */
+  @JsonProperty("page")
+  private Long page;
 
-    public Long getPage() {
-        return page;
-    }
-    
-    public QueryList setPageSize(Long pageSize) {
-        this.pageSize = pageSize;
-        return this;
-    }
+  /** The number of queries per page. */
+  @JsonProperty("page_size")
+  private Long pageSize;
 
-    public Long getPageSize() {
-        return pageSize;
-    }
-    
-    public QueryList setResults(java.util.List<Query> results) {
-        this.results = results;
-        return this;
-    }
+  /** List of queries returned. */
+  @JsonProperty("results")
+  private Collection<Query> results;
 
-    public java.util.List<Query> getResults() {
-        return results;
-    }
-    
+  public QueryList setCount(Long count) {
+    this.count = count;
+    return this;
+  }
+
+  public Long getCount() {
+    return count;
+  }
+
+  public QueryList setPage(Long page) {
+    this.page = page;
+    return this;
+  }
+
+  public Long getPage() {
+    return page;
+  }
+
+  public QueryList setPageSize(Long pageSize) {
+    this.pageSize = pageSize;
+    return this;
+  }
+
+  public Long getPageSize() {
+    return pageSize;
+  }
+
+  public QueryList setResults(Collection<Query> results) {
+    this.results = results;
+    return this;
+  }
+
+  public Collection<Query> getResults() {
+    return results;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    QueryList that = (QueryList) o;
+    return Objects.equals(count, that.count)
+        && Objects.equals(page, that.page)
+        && Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(results, that.results);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(count, page, pageSize, results);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(QueryList.class)
+        .add("count", count)
+        .add("page", page)
+        .add("pageSize", pageSize)
+        .add("results", results)
+        .toString();
+  }
 }

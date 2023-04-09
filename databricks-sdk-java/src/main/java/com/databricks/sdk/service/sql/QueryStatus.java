@@ -2,20 +2,11 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * This describes an enum
- */
-public enum QueryStatus{
-    CANCELED,// Query has been cancelled by the user.
-    FAILED,// Query has failed.
-    FINISHED,// Query has completed.
-    QUEUED,// Query has been received and queued.
-    RUNNING,// Query has started.
-    
+/** This describes an enum */
+public enum QueryStatus {
+  CANCELED, // Query has been cancelled by the user.
+  FAILED, // Query has failed.
+  FINISHED, // Query has completed.
+  QUEUED, // Query has been received and queued.
+  RUNNING, // Query has started.
 }

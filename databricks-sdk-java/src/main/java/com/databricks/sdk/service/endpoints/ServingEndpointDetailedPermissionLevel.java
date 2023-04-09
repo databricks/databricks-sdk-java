@@ -2,18 +2,9 @@
 
 package com.databricks.sdk.service.endpoints;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * The permission level of the principal making the request.
- */
-public enum ServingEndpointDetailedPermissionLevel{
-    CAN_MANAGE,
-    CAN_QUERY,
-    CAN_VIEW,
-    
+/** The permission level of the principal making the request. */
+public enum ServingEndpointDetailedPermissionLevel {
+  CAN_MANAGE,
+  CAN_QUERY,
+  CAN_VIEW,
 }

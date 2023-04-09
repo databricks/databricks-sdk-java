@@ -2,19 +2,11 @@
 
 package com.databricks.sdk.service.commands;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum CommandStatus{
-    Cancelled,
-    Cancelling,
-    Error,
-    Finished,
-    Queued,
-    Running,
-    
+public enum CommandStatus {
+  Cancelled,
+  Cancelling,
+  Error,
+  Finished,
+  Queued,
+  Running,
 }

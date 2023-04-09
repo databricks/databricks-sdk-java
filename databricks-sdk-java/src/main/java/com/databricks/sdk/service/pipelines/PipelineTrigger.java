@@ -2,42 +2,52 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class PipelineTrigger {
-    /**
-     
-     */
-    @JsonProperty("cron")
-    private CronTrigger cron;
-    
-    /**
-     
-     */
-    @JsonProperty("manual")
-    private Object /* MISSING TYPE */ manual;
-    
-    public PipelineTrigger setCron(CronTrigger cron) {
-        this.cron = cron;
-        return this;
-    }
+  /** */
+  @JsonProperty("cron")
+  private CronTrigger cron;
 
-    public CronTrigger getCron() {
-        return cron;
-    }
-    
-    public PipelineTrigger setManual(Object /* MISSING TYPE */ manual) {
-        this.manual = manual;
-        return this;
-    }
+  /** */
+  @JsonProperty("manual")
+  private Object /* MISSING TYPE */ manual;
 
-    public Object /* MISSING TYPE */ getManual() {
-        return manual;
-    }
-    
+  public PipelineTrigger setCron(CronTrigger cron) {
+    this.cron = cron;
+    return this;
+  }
+
+  public CronTrigger getCron() {
+    return cron;
+  }
+
+  public PipelineTrigger setManual(Object /* MISSING TYPE */ manual) {
+    this.manual = manual;
+    return this;
+  }
+
+  public Object /* MISSING TYPE */ getManual() {
+    return manual;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PipelineTrigger that = (PipelineTrigger) o;
+    return Objects.equals(cron, that.cron) && Objects.equals(manual, that.manual);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cron, manual);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(PipelineTrigger.class).add("cron", cron).add("manual", manual).toString();
+  }
 }

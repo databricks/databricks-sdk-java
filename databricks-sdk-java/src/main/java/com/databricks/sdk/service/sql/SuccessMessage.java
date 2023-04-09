@@ -2,14 +2,6 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-
-public enum SuccessMessage{
-    Success,
-    
+public enum SuccessMessage {
+  Success,
 }

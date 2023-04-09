@@ -2,29 +2,38 @@
 
 package com.databricks.sdk.service.globalinitscripts;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete init script
- */
+/** Delete init script */
 public class Delete {
-    /**
-     * The ID of the global init script.
-     */
-    
-    private String scriptId;
-    
-    public Delete setScriptId(String scriptId) {
-        this.scriptId = scriptId;
-        return this;
-    }
+  /** The ID of the global init script. */
+  private String scriptId;
 
-    public String getScriptId() {
-        return scriptId;
-    }
-    
+  public Delete setScriptId(String scriptId) {
+    this.scriptId = scriptId;
+    return this;
+  }
+
+  public String getScriptId() {
+    return scriptId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Delete that = (Delete) o;
+    return Objects.equals(scriptId, that.scriptId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(scriptId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Delete.class).add("scriptId", scriptId).toString();
+  }
 }

@@ -2,28 +2,39 @@
 
 package com.databricks.sdk.service.mlflow;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.mixin.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-
+import java.util.Objects;
 
 public class GetRunResponse {
-    /**
-     * Run metadata (name, start time, etc) and data (metrics, params, and
-     * tags).
-     */
-    @JsonProperty("run")
-    private Run run;
-    
-    public GetRunResponse setRun(Run run) {
-        this.run = run;
-        return this;
-    }
+  /** Run metadata (name, start time, etc) and data (metrics, params, and tags). */
+  @JsonProperty("run")
+  private Run run;
 
-    public Run getRun() {
-        return run;
-    }
-    
+  public GetRunResponse setRun(Run run) {
+    this.run = run;
+    return this;
+  }
+
+  public Run getRun() {
+    return run;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetRunResponse that = (GetRunResponse) o;
+    return Objects.equals(run, that.run);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(run);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetRunResponse.class).add("run", run).toString();
+  }
 }

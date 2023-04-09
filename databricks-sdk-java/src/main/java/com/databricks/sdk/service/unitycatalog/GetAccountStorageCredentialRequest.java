@@ -2,59 +2,53 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Gets the named storage credential
- */
+/** Gets the named storage credential */
 public class GetAccountStorageCredentialRequest {
-    /**
-     * Databricks Unity Catalog metastore ID
-     */
-    
-    private String metastoreId;
-    
-    /**
-     * Name of the storage credential.
-     */
-    
-    private String name;
-    
-    /**
-     
-     */
-    
-    private String storageCredentialName;
-    
-    public GetAccountStorageCredentialRequest setMetastoreId(String metastoreId) {
-        this.metastoreId = metastoreId;
-        return this;
-    }
+  /** Databricks Unity Catalog metastore ID */
+  private String metastoreId;
 
-    public String getMetastoreId() {
-        return metastoreId;
-    }
-    
-    public GetAccountStorageCredentialRequest setName(String name) {
-        this.name = name;
-        return this;
-    }
+  /** Name of the storage credential. */
+  private String name;
 
-    public String getName() {
-        return name;
-    }
-    
-    public GetAccountStorageCredentialRequest setStorageCredentialName(String storageCredentialName) {
-        this.storageCredentialName = storageCredentialName;
-        return this;
-    }
+  public GetAccountStorageCredentialRequest setMetastoreId(String metastoreId) {
+    this.metastoreId = metastoreId;
+    return this;
+  }
 
-    public String getStorageCredentialName() {
-        return storageCredentialName;
-    }
-    
+  public String getMetastoreId() {
+    return metastoreId;
+  }
+
+  public GetAccountStorageCredentialRequest setName(String name) {
+    this.name = name;
+    return this;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetAccountStorageCredentialRequest that = (GetAccountStorageCredentialRequest) o;
+    return Objects.equals(metastoreId, that.metastoreId) && Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(metastoreId, name);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetAccountStorageCredentialRequest.class)
+        .add("metastoreId", metastoreId)
+        .add("name", name)
+        .toString();
+  }
 }

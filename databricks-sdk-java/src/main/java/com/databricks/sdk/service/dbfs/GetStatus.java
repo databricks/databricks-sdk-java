@@ -2,30 +2,40 @@
 
 package com.databricks.sdk.service.dbfs;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-
-/**
- * Get the information of a file or directory
- */
+/** Get the information of a file or directory */
 public class GetStatus {
-    /**
-     * The path of the file or directory. The path should be the absolute DBFS
-     * path.
-     */
-    @QueryParam("path")
-    private String path;
-    
-    public GetStatus setPath(String path) {
-        this.path = path;
-        return this;
-    }
+  /** The path of the file or directory. The path should be the absolute DBFS path. */
+  @QueryParam("path")
+  private String path;
 
-    public String getPath() {
-        return path;
-    }
-    
+  public GetStatus setPath(String path) {
+    this.path = path;
+    return this;
+  }
+
+  public String getPath() {
+    return path;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GetStatus that = (GetStatus) o;
+    return Objects.equals(path, that.path);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(path);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(GetStatus.class).add("path", path).toString();
+  }
 }

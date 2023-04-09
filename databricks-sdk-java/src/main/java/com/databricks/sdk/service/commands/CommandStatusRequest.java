@@ -2,59 +2,72 @@
 
 package com.databricks.sdk.service.commands;
 
-import java.util.Map;
-
 import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-
-/**
- * Get command info
- */
+/** Get command info */
 public class CommandStatusRequest {
-    /**
-     
-     */
-    @QueryParam("clusterId")
-    private String clusterId;
-    
-    /**
-     
-     */
-    @QueryParam("commandId")
-    private String commandId;
-    
-    /**
-     
-     */
-    @QueryParam("contextId")
-    private String contextId;
-    
-    public CommandStatusRequest setClusterId(String clusterId) {
-        this.clusterId = clusterId;
-        return this;
-    }
+  /** */
+  @QueryParam("clusterId")
+  private String clusterId;
 
-    public String getClusterId() {
-        return clusterId;
-    }
-    
-    public CommandStatusRequest setCommandId(String commandId) {
-        this.commandId = commandId;
-        return this;
-    }
+  /** */
+  @QueryParam("commandId")
+  private String commandId;
 
-    public String getCommandId() {
-        return commandId;
-    }
-    
-    public CommandStatusRequest setContextId(String contextId) {
-        this.contextId = contextId;
-        return this;
-    }
+  /** */
+  @QueryParam("contextId")
+  private String contextId;
 
-    public String getContextId() {
-        return contextId;
-    }
-    
+  public CommandStatusRequest setClusterId(String clusterId) {
+    this.clusterId = clusterId;
+    return this;
+  }
+
+  public String getClusterId() {
+    return clusterId;
+  }
+
+  public CommandStatusRequest setCommandId(String commandId) {
+    this.commandId = commandId;
+    return this;
+  }
+
+  public String getCommandId() {
+    return commandId;
+  }
+
+  public CommandStatusRequest setContextId(String contextId) {
+    this.contextId = contextId;
+    return this;
+  }
+
+  public String getContextId() {
+    return contextId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CommandStatusRequest that = (CommandStatusRequest) o;
+    return Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(commandId, that.commandId)
+        && Objects.equals(contextId, that.contextId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(clusterId, commandId, contextId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(CommandStatusRequest.class)
+        .add("clusterId", clusterId)
+        .add("commandId", commandId)
+        .add("contextId", contextId)
+        .toString();
+  }
 }

@@ -2,21 +2,13 @@
 
 package com.databricks.sdk.service.instancepools;
 
-import java.util.Map;
-
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
 /**
  * Availability type used for the spot nodes.
- * 
- * The default value is defined by
- * InstancePoolConf.instancePoolDefaultAwsAvailability
+ *
+ * <p>The default value is defined by InstancePoolConf.instancePoolDefaultAwsAvailability
  */
-public enum InstancePoolAwsAttributesAvailability{
-    ON_DEMAND,
-    SPOT,
-    SPOT_WITH_FALLBACK,
-    
+public enum InstancePoolAwsAttributesAvailability {
+  ON_DEMAND,
+  SPOT,
+  SPOT_WITH_FALLBACK,
 }

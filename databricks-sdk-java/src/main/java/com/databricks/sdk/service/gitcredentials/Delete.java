@@ -2,29 +2,38 @@
 
 package com.databricks.sdk.service.gitcredentials;
 
-import java.util.Map;
+import com.databricks.sdk.mixin.ToStringer;
+import java.util.Objects;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-
-/**
- * Delete a credential
- */
+/** Delete a credential */
 public class Delete {
-    /**
-     * The ID for the corresponding credential to access.
-     */
-    
-    private Long credentialId;
-    
-    public Delete setCredentialId(Long credentialId) {
-        this.credentialId = credentialId;
-        return this;
-    }
+  /** The ID for the corresponding credential to access. */
+  private Long credentialId;
 
-    public Long getCredentialId() {
-        return credentialId;
-    }
-    
+  public Delete setCredentialId(Long credentialId) {
+    this.credentialId = credentialId;
+    return this;
+  }
+
+  public Long getCredentialId() {
+    return credentialId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Delete that = (Delete) o;
+    return Objects.equals(credentialId, that.credentialId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(credentialId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Delete.class).add("credentialId", credentialId).toString();
+  }
 }
