@@ -119,7 +119,7 @@ public class DatabricksConfig {
     public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
         ConfigLoader.resolve(this, getEnv);
         fixHostIfNeeded();
-        ConfigLoader.checkUsedAttrsAndEnvs(getEnv);
+        ConfigLoader.checkUsedAttrsAndEnvs(this, getEnv);
         return this;
     }
 

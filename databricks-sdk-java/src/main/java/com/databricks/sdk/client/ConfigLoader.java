@@ -66,23 +66,22 @@ public class ConfigLoader {
         }
     }
 
-    public static void checkUsedAttrsAndEnvs(Function<String, String> getEnv) {
+    public static void checkUsedAttrsAndEnvs(DatabricksConfig cfg, Function<String, String> getEnv) {
         try {
             for (ConfigAttributeAccessor accessor: accessors) {
-                String envName = accessor.getEnvName();
+                String envVariable = accessor.getEnvVariable();
                 String envValue = accessor.getEnv(getEnv);
-                if (!isNullOrEmpty(envValue) && !isNullOrEmpty(envName)) {
-                    envsUsed.add(String.format("%s", envName));
+                if (!isNullOrEmpty(envValue) && !isNullOrEmpty(envVariable)) {
+                    envsUsed.add(String.format("%s", envVariable));
                 }
 
                 String name = accessor.getName();
-                // Using reflection to get the attribute value
-                Field field = DatabricksConfig.class.getDeclaredField(name);
-                field.setAccessible(true);
-                String value = (String) field.get(null); // TODO - failing
-                if(isNullOrEmpty(value)) {
-                    continue;
-                }
+
+                Object value = accessor.getValue(cfg);
+
+                if(value == null) continue;
+                else value = String.format("%s", value);
+
                 if(accessor.isSensitive()) {
                     value = "***";
                 }
