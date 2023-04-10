@@ -36,7 +36,7 @@ public class DatabricksConfig {
    * --token` command. By default, it is located in ~/.databrickscfg.
    */
   @ConfigAttribute(value = "config_file", env = "DATABRICKS_CONFIG_FILE")
-  private String configFile = DEFAULT_CONFIG_FILE;
+  private String configFile;
 
   @ConfigAttribute(value = "google_service_account", env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT")
   private String googleServiceAccount;
@@ -79,11 +79,11 @@ public class DatabricksConfig {
 
   /** Number of seconds for HTTP timeout */
   @ConfigAttribute("http_timeout_seconds")
-  private int httpTimeoutSeconds = 60;
+  private int httpTimeoutSeconds;
 
   /** Truncate JSON fields in JSON above this limit. Default is 96. */
   @ConfigAttribute(value = "debug_truncate_bytes", env = "DATABRICKS_DEBUG_TRUNCATE_BYTES")
-  private int debugTruncateBytes = 96;
+  private int debugTruncateBytes;
 
   /** Debug HTTP headers of requests made by the provider. Default is false. */
   @ConfigAttribute(value = "debug_headers", env = "DATABRICKS_DEBUG_HEADERS")
@@ -91,13 +91,19 @@ public class DatabricksConfig {
 
   /** Maximum number of requests per second made to Databricks REST API. */
   @ConfigAttribute(value = "rate_limit", env = "DATABRICKS_RATE_LIMIT")
-  private int rateLimit = 15;
+  private int rateLimit;
 
   private volatile boolean resolved;
   private HeaderFactory headerFactory;
 
   public synchronized DatabricksConfig resolve() {
     return resolve(System::getenv);
+  }
+
+  public void knownFileConfigLoader() {
+    if(this.getConfigFile() == "") {
+      this.setConfigFile(DEFAULT_CONFIG_FILE);
+    }
   }
 
   public void fixHostIfNeeded() {
@@ -119,6 +125,7 @@ public class DatabricksConfig {
   public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
     ConfigLoader.resolve(this, getEnv);
     fixHostIfNeeded();
+    knownFileConfigLoader();
     ConfigLoader.checkUsedAttrsAndEnvs(this, getEnv);
     return this;
   }

@@ -54,7 +54,15 @@ public class ConfigLoader {
   }
 
   public static DatabricksConfig getDefault() {
-    return new DatabricksConfig().resolve();
+    DatabricksConfig cfg = new DatabricksConfig();
+
+    // Set Defaults
+    cfg.setConfigFile(DatabricksConfig.DEFAULT_CONFIG_FILE);
+    cfg.setDebugTruncateBytes(96);
+    cfg.setHttpTimeoutSeconds(60);
+    cfg.setRateLimit(15);
+
+    return cfg.resolve();
   }
 
   public static DatabricksConfig resolve(DatabricksConfig cfg, Function<String, String> getEnv) {
@@ -78,10 +86,12 @@ public class ConfigLoader {
 
         String name = accessor.getName();
 
-        Object value = accessor.getValue(cfg);
+        Object objValue = accessor.getValue(cfg);
 
-        if (value == null) continue;
-        else value = String.format("%s", value);
+        if (objValue == null) continue;
+
+        String value = objValue.toString();
+        if(value.isEmpty() || value.equals("false") || value.equals("0")) continue;
 
         if (accessor.isSensitive()) {
           value = "***";
@@ -135,6 +145,7 @@ public class ConfigLoader {
 
   private static Ini parseDatabricksCfg(DatabricksConfig cfg, Function<String, String> getEnv) {
     String configFile = cfg.getConfigFile();
+    if(configFile == null || configFile.isEmpty()) configFile = DatabricksConfig.DEFAULT_CONFIG_FILE;
     boolean isDefaultConfig = configFile.equals(DatabricksConfig.DEFAULT_CONFIG_FILE);
     String userHome = getEnv.apply("HOME");
     if (userHome.isEmpty()) {
