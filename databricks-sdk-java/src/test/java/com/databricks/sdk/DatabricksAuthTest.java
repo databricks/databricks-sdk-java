@@ -109,16 +109,8 @@ public class DatabricksAuthTest {
             .with("DATABRICKS_HOST", "x")
             .with("DATABRICKS_PASSWORD", "x")
             .with("DATABRICKS_USERNAME", "x");
-//    DatabricksConfig config = new DatabricksConfig().setHost("y").resolve(env);
-    DatabricksConfig config = new DatabricksConfig();
-    String a = config.getHost();
-    config.setHost("y");
-    String b = config.getHost();
-    config.resolve(env);
-    String c = config.getHost();
-
+    DatabricksConfig config = new DatabricksConfig().setHost("y").resolve(env);
     config.authenticate();
-    String d = config.getHost();
 
     assertEquals("basic", config.getAuthType());
     assertEquals("https://y", config.getHost());

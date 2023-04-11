@@ -37,13 +37,16 @@ public class ConfigLoader {
     try {
       Object a = cfg.getHost();
 
-      a = cfg.getHost();
-      loadFromConfig(cfg, getEnv); // TODO: just return new config?..
-      a = cfg.getHost();
       setInnerConfig(cfg, getEnv);
       a = cfg.getHost();
 
       loadFromEnvironmentVariables(cfg, getEnv);
+
+      a = cfg.getHost();
+      loadFromConfig(cfg, getEnv); // TODO: just return new config?..
+      a = cfg.getHost();
+      a = cfg.getHost();
+
       a = cfg.getHost();
 
       knownFileConfigLoader(cfg, getEnv);
@@ -149,10 +152,11 @@ public class ConfigLoader {
   static void setInnerConfig(DatabricksConfig cfg, Function<String, String> getEnv) throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {
       String name = accessor.getName();
-      String env = accessor.getEnv(getEnv);
-      if(objectValueNullEmptyFalseZero(env)) continue;
-      innerConfig.put(name, env);
-      accessor.setValue(cfg, env);
+      Object objValue = accessor.getValue(cfg);
+      if(objectValueNullEmptyFalseZero(objValue)) continue;
+      String value = objValue.toString();
+      innerConfig.put(name, value);
+      accessor.setValue(cfg, value);
     }
   }
 
