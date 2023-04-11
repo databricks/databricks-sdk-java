@@ -37,7 +37,6 @@ public class ConfigLoader {
       setInnerConfig(cfg, getEnv);
       loadFromEnvironmentVariables(cfg, getEnv);
       loadFromConfig(cfg, getEnv); // TODO: just return new config?..
-      knownFileConfigLoader(cfg, getEnv);
       fixHostIfNeeded(cfg);
       checkUsedAttrsAndEnvs(cfg, getEnv);
       validate(cfg, getEnv);
@@ -147,12 +146,6 @@ public class ConfigLoader {
     }
   }
 
-  public static void knownFileConfigLoader(DatabricksConfig cfg, Function<String, String> getEnv) {
-    if (cfg.getConfigFile() == "") {
-      cfg.setConfigFile(DEFAULT_CONFIG_FILE);
-    }
-  }
-
   private static void checkUsedAttrsAndEnvs(DatabricksConfig cfg, Function<String, String> getEnv) {
     try {
       for (ConfigAttributeAccessor accessor : accessors) {
@@ -223,7 +216,10 @@ public class ConfigLoader {
 
   private static Ini parseDatabricksCfg(DatabricksConfig cfg, Function<String, String> getEnv) {
     String configFile = cfg.getConfigFile();
-    if (configFile == null || configFile.isEmpty()) configFile = DEFAULT_CONFIG_FILE;
+    if (configFile == null || configFile.isEmpty()) {
+      configFile = DEFAULT_CONFIG_FILE;
+      cfg.setConfigFile(configFile);
+    }
     boolean isDefaultConfig = configFile.equals(DEFAULT_CONFIG_FILE);
     String userHome = getEnv.apply("HOME");
     if (userHome.isEmpty()) {
