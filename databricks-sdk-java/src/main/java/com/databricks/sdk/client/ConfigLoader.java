@@ -135,7 +135,7 @@ public class ConfigLoader {
     return cfg.resolve();
   }
 
-  public static void setInnerConfig(DatabricksConfig cfg, Function<String, String> getEnv)
+  private static void setInnerConfig(DatabricksConfig cfg, Function<String, String> getEnv)
       throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {
       String name = accessor.getName();
