@@ -119,20 +119,18 @@ public class DatabricksConfig {
       headerFactory = credentialsProvider.configure(this);
       setAuthType(credentialsProvider.authType());
       return headerFactory.headers();
-    } catch (DatabricksException authException) {
-      throw ConfigLoader.makeNicerError(authException.getMessage());
+    } catch (DatabricksException e) {
+      throw ConfigLoader.makeNicerError(e);
     }
   }
 
-  public synchronized Map<String, String> authenticate() {
+  public synchronized Map<String, String> authenticate() throws DatabricksException {
     try {
       Map<String, String> headers = initAuth();
       return headers;
-    } catch (DatabricksException authException) {
+    } catch (DatabricksException e) {
       throw new DatabricksException(
-          String.format("%s auth: %s", this.authType, authException.getMessage()));
-    } catch (Exception e) {
-      throw e;
+          String.format("%s auth: %s", this.authType, e.getMessage()));
     }
   }
 

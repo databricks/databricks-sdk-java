@@ -35,27 +35,12 @@ public class ConfigLoader {
 
   public static DatabricksConfig resolve(DatabricksConfig cfg, Function<String, String> getEnv) {
     try {
-      Object a = cfg.getHost();
-
       setInnerConfig(cfg, getEnv);
-      a = cfg.getHost();
-
       loadFromEnvironmentVariables(cfg, getEnv);
-
-      a = cfg.getHost();
       loadFromConfig(cfg, getEnv); // TODO: just return new config?..
-      a = cfg.getHost();
-      a = cfg.getHost();
-
-      a = cfg.getHost();
-
       knownFileConfigLoader(cfg, getEnv);
-      a = cfg.getHost();
-
       fixHostIfNeeded(cfg);
       checkUsedAttrsAndEnvs(cfg, getEnv);
-      a = cfg.getHost();
-
       validate(cfg, getEnv);
       return cfg;
     } catch (IllegalAccessException e) {
@@ -91,7 +76,6 @@ public class ConfigLoader {
   static void validate(DatabricksConfig cfg, Function<String, String> getEnv) throws IllegalAccessException {
     try {
       HashSet<String> authSet = new HashSet<>();
-      Object a = innerConfig;
       for (ConfigAttributeAccessor accessor : accessors) {
         Object objValue = accessor.getValue(cfg);
         if(objectValueNullEmptyFalseZero(objValue)) continue;
@@ -110,11 +94,12 @@ public class ConfigLoader {
     }
   }
 
-  public static DatabricksException makeNicerError(String message) {
-    return makeNicerError(message, 200);
+  public static DatabricksException makeNicerError(Exception e) {
+    return makeNicerError(e, 200);
   }
 
-  public static DatabricksException makeNicerError(String message, Integer statusCode) {
+  public static DatabricksException makeNicerError(Exception e, Integer statusCode) {
+    String message = e.getMessage();
     boolean isHttpUnauthorizedOrForbidden =
         true; // TODO - pass status code with exception, default this to false
     if (statusCode == 401 || statusCode == 402) isHttpUnauthorizedOrForbidden = true;
@@ -149,7 +134,7 @@ public class ConfigLoader {
   }
 
 
-  static void setInnerConfig(DatabricksConfig cfg, Function<String, String> getEnv) throws IllegalAccessException {
+  public static void setInnerConfig(DatabricksConfig cfg, Function<String, String> getEnv) throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {
       String name = accessor.getName();
       Object objValue = accessor.getValue(cfg);
@@ -166,7 +151,7 @@ public class ConfigLoader {
     }
   }
 
-  public static void checkUsedAttrsAndEnvs(DatabricksConfig cfg, Function<String, String> getEnv) {
+  private static void checkUsedAttrsAndEnvs(DatabricksConfig cfg, Function<String, String> getEnv) {
     try {
       for (ConfigAttributeAccessor accessor : accessors) {
         String envVariable = accessor.getEnvVariable();
@@ -176,7 +161,6 @@ public class ConfigLoader {
           envsUsed.add(String.format("%s", envVariable));
         }
 
-        Object foo = cfg.getHost();
         Object objValue = accessor.getValue(cfg);
         if(objectValueNullEmptyFalseZero(objValue)) continue;
 

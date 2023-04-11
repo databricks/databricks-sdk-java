@@ -32,7 +32,6 @@ public class DatabricksAuthTest {
         "default auth: cannot configure default credentials. Config: host=https://x. Env: DATABRICKS_HOST",
         () -> {
           DatabricksConfig config = new DatabricksConfig().resolve(env);
-          String a = config.getHost();
           config.authenticate();
         });
   }
