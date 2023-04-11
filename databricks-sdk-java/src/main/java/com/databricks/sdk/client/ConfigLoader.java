@@ -4,17 +4,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
 import java.util.function.Function;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
+
+import static com.databricks.sdk.client.DatabricksConfig.DEFAULT_CONFIG_FILE;
+
 
 public class ConfigLoader {
   private static List<ConfigAttributeAccessor> accessors = attributeAccessors();
 
   private static ArrayList<String> attrsUsed = new ArrayList<>();
   private static ArrayList<String> envsUsed = new ArrayList<>();
+
+  private static HashMap<String, Object> innerConfig = new HashMap<>();
 
   static List<ConfigAttributeAccessor> attributeAccessors() {
     ArrayList<ConfigAttributeAccessor> attrs = new ArrayList<>();
@@ -25,6 +31,80 @@ public class ConfigLoader {
       }
     }
     return attrs;
+  }
+
+  public static DatabricksConfig resolve(DatabricksConfig cfg, Function<String, String> getEnv) {
+    try {
+      Object a = cfg.getHost();
+
+      a = cfg.getHost();
+      loadFromConfig(cfg, getEnv); // TODO: just return new config?..
+      a = cfg.getHost();
+      setInnerConfig(cfg, getEnv);
+      a = cfg.getHost();
+
+      loadFromEnvironmentVariables(cfg, getEnv);
+      a = cfg.getHost();
+
+      knownFileConfigLoader(cfg, getEnv);
+      a = cfg.getHost();
+
+      fixHostIfNeeded(cfg);
+      checkUsedAttrsAndEnvs(cfg, getEnv);
+      a = cfg.getHost();
+
+      validate(cfg, getEnv);
+      return cfg;
+    } catch (IllegalAccessException e) {
+      throw new DatabricksException("Cannot create default config", e);
+    }
+  }
+
+  static boolean objectValueNullEmptyFalseZero(Object objectValue) {
+    if(objectValue == null) return true;
+    String objectInString = objectValue.toString();
+    if(objectInString.isEmpty() || objectInString.equals("false") || objectInString.equals("0")) return true;
+    else return false;
+  }
+
+  public static void fixHostIfNeeded(DatabricksConfig cfg) {
+    if (cfg.getHost() == null || cfg.getHost().isEmpty()) {
+      return;
+    }
+
+    URL url;
+    String host = cfg.getHost();
+    try {
+      url = new URL(host);
+    } catch (MalformedURLException e) {
+      // only hostname is specified
+      cfg.setHost("https://" + host);
+      String a = cfg.getHost();
+      return;
+    }
+    cfg.setHost(url.getProtocol() + "://" + url.getAuthority());
+  }
+
+  static void validate(DatabricksConfig cfg, Function<String, String> getEnv) throws IllegalAccessException {
+    try {
+      HashSet<String> authSet = new HashSet<>();
+      Object a = innerConfig;
+      for (ConfigAttributeAccessor accessor : accessors) {
+        Object objValue = accessor.getValue(cfg);
+        if(objectValueNullEmptyFalseZero(objValue)) continue;
+        String name = accessor.getName();
+        if(innerConfig.get(name) == null) continue;
+        String authType = cfg.getAuthType();
+        if(objectValueNullEmptyFalseZero(authType)) continue;
+        authSet.add(authType);
+      }
+      if(authSet.size() <= 1) return;
+      if(!cfg.getAuthType().isEmpty()) return;
+      String names = String.join(" and ", authSet);
+      throw new DatabricksException(String.format("validate: more than one authorization method configured: %s", names));
+    } catch (IllegalAccessException e) {
+      throw new DatabricksException("Cannot create default config", e);
+    }
   }
 
   public static DatabricksException makeNicerError(String message) {
@@ -57,7 +137,7 @@ public class ConfigLoader {
     DatabricksConfig cfg = new DatabricksConfig();
 
     // Set Defaults
-    cfg.setConfigFile(DatabricksConfig.DEFAULT_CONFIG_FILE);
+    cfg.setConfigFile(DEFAULT_CONFIG_FILE);
     cfg.setDebugTruncateBytes(96);
     cfg.setHttpTimeoutSeconds(60);
     cfg.setRateLimit(15);
@@ -65,13 +145,20 @@ public class ConfigLoader {
     return cfg.resolve();
   }
 
-  public static DatabricksConfig resolve(DatabricksConfig cfg, Function<String, String> getEnv) {
-    try {
-      loadFromConfig(cfg, getEnv); // TODO: just return new config?..
-      loadFromEnvironmentVariables(cfg, getEnv);
-      return cfg;
-    } catch (IllegalAccessException e) {
-      throw new DatabricksException("Cannot create default config", e);
+
+  static void setInnerConfig(DatabricksConfig cfg, Function<String, String> getEnv) throws IllegalAccessException {
+    for (ConfigAttributeAccessor accessor : accessors) {
+      String name = accessor.getName();
+      String env = accessor.getEnv(getEnv);
+      if(objectValueNullEmptyFalseZero(env)) continue;
+      innerConfig.put(name, env);
+      accessor.setValue(cfg, env);
+    }
+  }
+
+  public static void knownFileConfigLoader(DatabricksConfig cfg, Function<String, String> getEnv) {
+    if(cfg.getConfigFile() == "") {
+      cfg.setConfigFile(DEFAULT_CONFIG_FILE);
     }
   }
 
@@ -80,22 +167,21 @@ public class ConfigLoader {
       for (ConfigAttributeAccessor accessor : accessors) {
         String envVariable = accessor.getEnvVariable();
         String envValue = accessor.getEnv(getEnv);
+
         if (!isNullOrEmpty(envValue) && !isNullOrEmpty(envVariable)) {
           envsUsed.add(String.format("%s", envVariable));
         }
 
-        String name = accessor.getName();
-
+        Object foo = cfg.getHost();
         Object objValue = accessor.getValue(cfg);
-
-        if (objValue == null) continue;
+        if(objectValueNullEmptyFalseZero(objValue)) continue;
 
         String value = objValue.toString();
-        if(value.isEmpty() || value.equals("false") || value.equals("0")) continue;
-
         if (accessor.isSensitive()) {
           value = "***";
         }
+
+        String name = accessor.getName();
         attrsUsed.add(String.format("%s=%s", name, value));
       }
     } catch (Exception e) {
@@ -110,6 +196,8 @@ public class ConfigLoader {
   static void loadFromEnvironmentVariables(DatabricksConfig cfg, Function<String, String> getEnv)
       throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {
+      String name = accessor.getName();
+      if(innerConfig.get(name) != null) continue;
       String env = accessor.getEnv(getEnv);
       if (env == null || env.isEmpty()) continue;
       accessor.setValue(cfg, env);
@@ -145,8 +233,8 @@ public class ConfigLoader {
 
   private static Ini parseDatabricksCfg(DatabricksConfig cfg, Function<String, String> getEnv) {
     String configFile = cfg.getConfigFile();
-    if(configFile == null || configFile.isEmpty()) configFile = DatabricksConfig.DEFAULT_CONFIG_FILE;
-    boolean isDefaultConfig = configFile.equals(DatabricksConfig.DEFAULT_CONFIG_FILE);
+    if(configFile == null || configFile.isEmpty()) configFile = DEFAULT_CONFIG_FILE;
+    boolean isDefaultConfig = configFile.equals(DEFAULT_CONFIG_FILE);
     String userHome = getEnv.apply("HOME");
     if (userHome.isEmpty()) {
       userHome = System.getProperty("user.home");

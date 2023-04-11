@@ -32,6 +32,7 @@ public class DatabricksAuthTest {
         "default auth: cannot configure default credentials. Config: host=https://x. Env: DATABRICKS_HOST",
         () -> {
           DatabricksConfig config = new DatabricksConfig().resolve(env);
+          String a = config.getHost();
           config.authenticate();
         });
   }
@@ -108,8 +109,16 @@ public class DatabricksAuthTest {
             .with("DATABRICKS_HOST", "x")
             .with("DATABRICKS_PASSWORD", "x")
             .with("DATABRICKS_USERNAME", "x");
-    DatabricksConfig config = new DatabricksConfig().setHost("y").resolve(env);
+//    DatabricksConfig config = new DatabricksConfig().setHost("y").resolve(env);
+    DatabricksConfig config = new DatabricksConfig();
+    String a = config.getHost();
+    config.setHost("y");
+    String b = config.getHost();
+    config.resolve(env);
+    String c = config.getHost();
+
     config.authenticate();
+    String d = config.getHost();
 
     assertEquals("basic", config.getAuthType());
     assertEquals("https://y", config.getHost());

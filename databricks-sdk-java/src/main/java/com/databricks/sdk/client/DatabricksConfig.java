@@ -2,6 +2,7 @@ package com.databricks.sdk.client;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.function.Function;
 import org.apache.http.HttpMessage;
@@ -100,38 +101,17 @@ public class DatabricksConfig {
     return resolve(System::getenv);
   }
 
-  public void knownFileConfigLoader() {
-    if(this.getConfigFile() == "") {
-      this.setConfigFile(DEFAULT_CONFIG_FILE);
-    }
-  }
 
-  public void fixHostIfNeeded() {
-    if (this.host == null || this.host.isEmpty()) {
-      return;
-    }
-
-    URL url;
-    try {
-      url = new URL(this.host);
-    } catch (MalformedURLException e) {
-      // only hostname is specified
-      this.host = "https://" + this.host;
-      return;
-    }
-    this.host = url.getProtocol() + "://" + url.getAuthority();
-  }
 
   public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
     ConfigLoader.resolve(this, getEnv);
-    fixHostIfNeeded();
-    knownFileConfigLoader();
-    ConfigLoader.checkUsedAttrsAndEnvs(this, getEnv);
     return this;
   }
 
+
   public synchronized Map<String, String> initAuth() {
     try {
+      ConfigLoader.fixHostIfNeeded(this);
       if (credentialsProvider == null) {
         credentialsProvider = new DefaultCredentialsProvider();
         setAuthType(credentialsProvider.authType());
@@ -141,8 +121,6 @@ public class DatabricksConfig {
       return headerFactory.headers();
     } catch (DatabricksException authException) {
       throw ConfigLoader.makeNicerError(authException.getMessage());
-    } catch (Exception e) {
-      throw e;
     }
   }
 
