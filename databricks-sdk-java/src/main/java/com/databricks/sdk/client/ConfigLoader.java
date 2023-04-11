@@ -1,5 +1,7 @@
 package com.databricks.sdk.client;
 
+import static com.databricks.sdk.client.DatabricksConfig.DEFAULT_CONFIG_FILE;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,9 +12,6 @@ import java.util.*;
 import java.util.function.Function;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
-
-import static com.databricks.sdk.client.DatabricksConfig.DEFAULT_CONFIG_FILE;
-
 
 public class ConfigLoader {
   private static List<ConfigAttributeAccessor> accessors = attributeAccessors();
@@ -49,9 +48,10 @@ public class ConfigLoader {
   }
 
   static boolean objectValueNullEmptyFalseZero(Object objectValue) {
-    if(objectValue == null) return true;
+    if (objectValue == null) return true;
     String objectInString = objectValue.toString();
-    if(objectInString.isEmpty() || objectInString.equals("false") || objectInString.equals("0")) return true;
+    if (objectInString.isEmpty() || objectInString.equals("false") || objectInString.equals("0"))
+      return true;
     else return false;
   }
 
@@ -73,22 +73,24 @@ public class ConfigLoader {
     cfg.setHost(url.getProtocol() + "://" + url.getAuthority());
   }
 
-  static void validate(DatabricksConfig cfg, Function<String, String> getEnv) throws IllegalAccessException {
+  static void validate(DatabricksConfig cfg, Function<String, String> getEnv)
+      throws IllegalAccessException {
     try {
       HashSet<String> authSet = new HashSet<>();
       for (ConfigAttributeAccessor accessor : accessors) {
         Object objValue = accessor.getValue(cfg);
-        if(objectValueNullEmptyFalseZero(objValue)) continue;
+        if (objectValueNullEmptyFalseZero(objValue)) continue;
         String name = accessor.getName();
-        if(innerConfig.get(name) == null) continue;
+        if (innerConfig.get(name) == null) continue;
         String authType = cfg.getAuthType();
-        if(objectValueNullEmptyFalseZero(authType)) continue;
+        if (objectValueNullEmptyFalseZero(authType)) continue;
         authSet.add(authType);
       }
-      if(authSet.size() <= 1) return;
-      if(!cfg.getAuthType().isEmpty()) return;
+      if (authSet.size() <= 1) return;
+      if (!cfg.getAuthType().isEmpty()) return;
       String names = String.join(" and ", authSet);
-      throw new DatabricksException(String.format("validate: more than one authorization method configured: %s", names));
+      throw new DatabricksException(
+          String.format("validate: more than one authorization method configured: %s", names));
     } catch (IllegalAccessException e) {
       throw new DatabricksException("Cannot create default config", e);
     }
@@ -133,12 +135,12 @@ public class ConfigLoader {
     return cfg.resolve();
   }
 
-
-  public static void setInnerConfig(DatabricksConfig cfg, Function<String, String> getEnv) throws IllegalAccessException {
+  public static void setInnerConfig(DatabricksConfig cfg, Function<String, String> getEnv)
+      throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {
       String name = accessor.getName();
       Object objValue = accessor.getValue(cfg);
-      if(objectValueNullEmptyFalseZero(objValue)) continue;
+      if (objectValueNullEmptyFalseZero(objValue)) continue;
       String value = objValue.toString();
       innerConfig.put(name, value);
       accessor.setValue(cfg, value);
@@ -146,7 +148,7 @@ public class ConfigLoader {
   }
 
   public static void knownFileConfigLoader(DatabricksConfig cfg, Function<String, String> getEnv) {
-    if(cfg.getConfigFile() == "") {
+    if (cfg.getConfigFile() == "") {
       cfg.setConfigFile(DEFAULT_CONFIG_FILE);
     }
   }
@@ -162,7 +164,7 @@ public class ConfigLoader {
         }
 
         Object objValue = accessor.getValue(cfg);
-        if(objectValueNullEmptyFalseZero(objValue)) continue;
+        if (objectValueNullEmptyFalseZero(objValue)) continue;
 
         String value = objValue.toString();
         if (accessor.isSensitive()) {
@@ -185,7 +187,7 @@ public class ConfigLoader {
       throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {
       String name = accessor.getName();
-      if(innerConfig.get(name) != null) continue;
+      if (innerConfig.get(name) != null) continue;
       String env = accessor.getEnv(getEnv);
       if (env == null || env.isEmpty()) continue;
       accessor.setValue(cfg, env);
@@ -221,7 +223,7 @@ public class ConfigLoader {
 
   private static Ini parseDatabricksCfg(DatabricksConfig cfg, Function<String, String> getEnv) {
     String configFile = cfg.getConfigFile();
-    if(configFile == null || configFile.isEmpty()) configFile = DEFAULT_CONFIG_FILE;
+    if (configFile == null || configFile.isEmpty()) configFile = DEFAULT_CONFIG_FILE;
     boolean isDefaultConfig = configFile.equals(DEFAULT_CONFIG_FILE);
     String userHome = getEnv.apply("HOME");
     if (userHome.isEmpty()) {

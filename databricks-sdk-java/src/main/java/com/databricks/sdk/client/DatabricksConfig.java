@@ -1,8 +1,5 @@
 package com.databricks.sdk.client;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.function.Function;
 import org.apache.http.HttpMessage;
@@ -101,13 +98,10 @@ public class DatabricksConfig {
     return resolve(System::getenv);
   }
 
-
-
   public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
     ConfigLoader.resolve(this, getEnv);
     return this;
   }
-
 
   public synchronized Map<String, String> initAuth() {
     try {
@@ -129,8 +123,7 @@ public class DatabricksConfig {
       Map<String, String> headers = initAuth();
       return headers;
     } catch (DatabricksException e) {
-      throw new DatabricksException(
-          String.format("%s auth: %s", this.authType, e.getMessage()));
+      throw new DatabricksException(String.format("%s auth: %s", this.authType, e.getMessage()));
     }
   }
 
