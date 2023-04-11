@@ -1,7 +1,5 @@
 package com.databricks.sdk.client;
 
-import static com.databricks.sdk.client.DatabricksConfig.DEFAULT_CONFIG_FILE;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -129,7 +127,7 @@ public class ConfigLoader {
     DatabricksConfig cfg = new DatabricksConfig();
 
     // Set Defaults
-    cfg.setConfigFile(DEFAULT_CONFIG_FILE);
+    cfg.setConfigFile(DatabricksConfig.DEFAULT_CONFIG_FILE);
     cfg.setDebugTruncateBytes(96);
     cfg.setHttpTimeoutSeconds(60);
     cfg.setRateLimit(15);
@@ -220,9 +218,9 @@ public class ConfigLoader {
   private static Ini parseDatabricksCfg(DatabricksConfig cfg, Function<String, String> getEnv) {
     String configFile = cfg.getConfigFile();
     if (configFile == null || configFile.isEmpty()) {
-      configFile = DEFAULT_CONFIG_FILE;
+      configFile = DatabricksConfig.DEFAULT_CONFIG_FILE;
     }
-    boolean isDefaultConfig = configFile.equals(DEFAULT_CONFIG_FILE);
+    boolean isDefaultConfig = configFile.equals(DatabricksConfig.DEFAULT_CONFIG_FILE);
     String userHome = getEnv.apply("HOME");
     if (userHome.isEmpty()) {
       userHome = System.getProperty("user.home");
