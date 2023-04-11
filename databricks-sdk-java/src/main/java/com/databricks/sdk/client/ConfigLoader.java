@@ -218,7 +218,7 @@ public class ConfigLoader {
     String configFile = cfg.getConfigFile();
     if (configFile == null || configFile.isEmpty()) {
       configFile = DEFAULT_CONFIG_FILE;
-      cfg.setConfigFile(configFile);
+//      cfg.setConfigFile(configFile);
     }
     boolean isDefaultConfig = configFile.equals(DEFAULT_CONFIG_FILE);
     String userHome = getEnv.apply("HOME");
