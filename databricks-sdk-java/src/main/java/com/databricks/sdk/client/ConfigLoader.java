@@ -66,14 +66,14 @@ public class ConfigLoader {
           continue;
         }
 
-        String authType = cfg.getAuthType();
+        String authType = accessor.getAuthType();
         if (isNullOrEmpty(authType)) {
           continue;
         }
         authSet.add(authType);
       }
       if (authSet.size() <= 1) return;
-      if (!cfg.getAuthType().isEmpty()) return;
+//      if (!cfg.getAuthType().isEmpty()) return;
       String names = String.join(" and ", authSet);
       throw new DatabricksException(
           String.format("validate: more than one authorization method configured: %s", names));

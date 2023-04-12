@@ -51,6 +51,10 @@ class ConfigAttributeAccessor {
     return value;
   }
 
+  public String getAuthType() {
+    return configAttribute.auth();
+  }
+
   @Override
   public String toString() {
     String repr = configAttribute.value();
