@@ -49,21 +49,27 @@ public class ApiClient {
     this(ConfigLoader.getDefault());
   }
 
+  // Utility for initialising values in API Client
+  public int zeroIfNull(Integer value) {
+    if (value == null) return 0;
+    else return value;
+  }
+
   public ApiClient(DatabricksConfig config) {
     this.config = config;
     config.resolve();
 
-    int httpTimeoutSeconds = config.getHttpTimeoutSeconds();
+    int httpTimeoutSeconds = zeroIfNull(config.getHttpTimeoutSeconds());
     if (httpTimeoutSeconds == 0) {
       httpTimeoutSeconds = 300;
     }
 
-    int rateLimit = config.getRateLimit();
+    int rateLimit = zeroIfNull(config.getRateLimit());
     if (rateLimit == 0) {
       rateLimit = 15;
     }
 
-    int debugTruncateBytes = config.getDebugTruncateBytes();
+    int debugTruncateBytes = zeroIfNull(config.getDebugTruncateBytes());
     if (debugTruncateBytes == 0) {
       debugTruncateBytes = 96;
     }
