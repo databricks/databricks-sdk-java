@@ -67,8 +67,8 @@ public class PublishedAppIntegrationAPI {
    *
    * <p>Get the list of published oauth app integrations for the specified Databricks Account
    */
-  public GetPublishedAppIntegrationsOutput list() {
-    return impl.list();
+  public Iterable<GetPublishedAppIntegrationOutput> list() {
+    return impl.list().getApps();
   }
 
   public void update(String integrationId) {

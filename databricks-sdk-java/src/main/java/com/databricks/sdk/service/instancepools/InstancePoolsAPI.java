@@ -97,8 +97,8 @@ public class InstancePoolsAPI {
    *
    * <p>Gets a list of instance pools with their statistics.
    */
-  public ListInstancePools list() {
-    return impl.list();
+  public Iterable<InstancePoolAndStats> list() {
+    return impl.list().getInstancePools();
   }
 
   public InstancePoolsService impl() {

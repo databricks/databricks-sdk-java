@@ -69,8 +69,8 @@ public class RecipientsAPI {
    * <p>* the caller is a metastore admin, or * the caller is the owner. There is no guarantee of a
    * specific ordering of the elements in the array.
    */
-  public ListRecipientsResponse list(ListRecipientsRequest request) {
-    return impl.list(request);
+  public Iterable<RecipientInfo> list(ListRecipientsRequest request) {
+    return impl.list(request).getRecipients();
   }
 
   public RecipientInfo rotateToken(long existingTokenExpireInSeconds, String name) {

@@ -124,8 +124,8 @@ public class LogDeliveryAPI {
    *
    * <p>Gets all Databricks log delivery configurations associated with an account specified by ID.
    */
-  public WrappedLogDeliveryConfigurations list(ListLogDeliveryRequest request) {
-    return impl.list(request);
+  public Iterable<LogDeliveryConfiguration> list(ListLogDeliveryRequest request) {
+    return impl.list(request).getLogDeliveryConfigurations();
   }
 
   public void patchStatus(LogDeliveryConfigStatus status, String logDeliveryConfigurationId) {

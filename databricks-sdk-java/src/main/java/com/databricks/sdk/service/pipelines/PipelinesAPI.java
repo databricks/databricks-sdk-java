@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 /**
@@ -77,7 +78,7 @@ public class PipelinesAPI {
     return impl.getUpdate(request);
   }
 
-  public ListPipelineEventsResponse listPipelineEvents(String pipelineId) {
+  public Iterable<PipelineEvent> listPipelineEvents(String pipelineId) {
     return listPipelineEvents(new ListPipelineEvents().setPipelineId(pipelineId));
   }
 
@@ -86,8 +87,18 @@ public class PipelinesAPI {
    *
    * <p>Retrieves events for a pipeline.
    */
-  public ListPipelineEventsResponse listPipelineEvents(ListPipelineEvents request) {
-    return impl.listPipelineEvents(request);
+  public Iterable<PipelineEvent> listPipelineEvents(ListPipelineEvents request) {
+    return new Paginator<>(
+        request,
+        impl::listPipelineEvents,
+        ListPipelineEventsResponse::getEvents,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /**
@@ -95,8 +106,18 @@ public class PipelinesAPI {
    *
    * <p>Lists pipelines defined in the Delta Live Tables system.
    */
-  public ListPipelinesResponse listPipelines(ListPipelines request) {
-    return impl.listPipelines(request);
+  public Iterable<PipelineStateInfo> listPipelines(ListPipelines request) {
+    return new Paginator<>(
+        request,
+        impl::listPipelines,
+        ListPipelinesResponse::getStatuses,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public ListUpdatesResponse listUpdates(String pipelineId) {

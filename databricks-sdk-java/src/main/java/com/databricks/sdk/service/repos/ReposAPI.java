@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.repos;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 /**
@@ -76,8 +77,18 @@ public class ReposAPI {
    * <p>Returns repos that the calling user has Manage permissions on. Results are paginated with
    * each page containing twenty repos.
    */
-  public ListReposResponse list(List request) {
-    return impl.list(request);
+  public Iterable<RepoInfo> list(List request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListReposResponse::getRepos,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setNextPageToken(token);
+        });
   }
 
   public void update(long repoId) {

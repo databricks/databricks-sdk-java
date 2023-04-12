@@ -65,7 +65,7 @@ public class SchemasAPI {
     return impl.get(request);
   }
 
-  public ListSchemasResponse list(String catalogName) {
+  public Iterable<SchemaInfo> list(String catalogName) {
     return list(new ListSchemasRequest().setCatalogName(catalogName));
   }
 
@@ -78,8 +78,8 @@ public class SchemasAPI {
    * privilege) will be retrieved. There is no guarantee of a specific ordering of the elements in
    * the array.
    */
-  public ListSchemasResponse list(ListSchemasRequest request) {
-    return impl.list(request);
+  public Iterable<SchemaInfo> list(ListSchemasRequest request) {
+    return impl.list(request).getSchemas();
   }
 
   public SchemaInfo update(String fullName) {

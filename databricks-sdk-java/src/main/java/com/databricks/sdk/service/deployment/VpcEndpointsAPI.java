@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -111,7 +110,7 @@ public class VpcEndpointsAPI {
    * <p>[Databricks article about PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  public Collection<VpcEndpoint> list() {
+  public Iterable<VpcEndpoint> list() {
     return impl.list();
   }
 

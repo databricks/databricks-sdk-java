@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 public class MLflowArtifactsAPI {
@@ -23,8 +24,18 @@ public class MLflowArtifactsAPI {
    * <p>List artifacts for a run. Takes an optional `artifact_path` prefix. If it is specified, the
    * response contains only artifacts with the specified prefix.",
    */
-  public ListArtifactsResponse list(ListArtifactsRequest request) {
-    return impl.list(request);
+  public Iterable<FileInfo> list(ListArtifactsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListArtifactsResponse::getFiles,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public MLflowArtifactsService impl() {

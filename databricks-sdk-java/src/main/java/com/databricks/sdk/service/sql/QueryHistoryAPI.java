@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 /** Access the history of queries through SQL warehouses. */
@@ -25,8 +26,18 @@ public class QueryHistoryAPI {
    *
    * <p>You can filter by user ID, warehouse ID, status, and time range.
    */
-  public ListQueriesResponse list(ListQueryHistoryRequest request) {
-    return impl.list(request);
+  public Iterable<QueryInfo> list(ListQueryHistoryRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListQueriesResponse::getRes,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public QueryHistoryService impl() {

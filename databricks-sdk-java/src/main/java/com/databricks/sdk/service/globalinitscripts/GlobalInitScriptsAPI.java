@@ -72,8 +72,8 @@ public class GlobalInitScriptsAPI {
    * each script but **not** the script contents. To retrieve the contents of a script, use the [get
    * a global init script](#operation/get-script) operation.
    */
-  public ListGlobalInitScriptsResponse list() {
-    return impl.list();
+  public Iterable<GlobalInitScriptDetails> list() {
+    return impl.list().getScripts();
   }
 
   public void update(String name, String script, String scriptId) {

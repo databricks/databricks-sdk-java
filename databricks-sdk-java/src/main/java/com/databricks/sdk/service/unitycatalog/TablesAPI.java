@@ -59,7 +59,7 @@ public class TablesAPI {
     return impl.get(request);
   }
 
-  public ListTablesResponse list(String catalogName, String schemaName) {
+  public Iterable<TableInfo> list(String catalogName, String schemaName) {
     return list(new ListTablesRequest().setCatalogName(catalogName).setSchemaName(schemaName));
   }
 
@@ -72,8 +72,8 @@ public class TablesAPI {
    * privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent schema. There is
    * no guarantee of a specific ordering of the elements in the array.
    */
-  public ListTablesResponse list(ListTablesRequest request) {
-    return impl.list(request);
+  public Iterable<TableInfo> list(ListTablesRequest request) {
+    return impl.list(request).getTables();
   }
 
   public ListTableSummariesResponse listSummaries(String catalogName) {

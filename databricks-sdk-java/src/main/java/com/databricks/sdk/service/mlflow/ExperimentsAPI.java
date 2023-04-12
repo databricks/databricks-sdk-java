@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 public class ExperimentsAPI {
@@ -85,8 +86,18 @@ public class ExperimentsAPI {
    *
    * <p>Gets a list of all experiments.
    */
-  public ListExperimentsResponse list(ListExperimentsRequest request) {
-    return impl.list(request);
+  public Iterable<Experiment> list(ListExperimentsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListExperimentsResponse::getExperiments,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public void restore(String experimentId) {
@@ -112,8 +123,18 @@ public class ExperimentsAPI {
    *
    * <p>Searches for experiments that satisfy specified search criteria.
    */
-  public SearchExperimentsResponse search(SearchExperiments request) {
-    return impl.search(request);
+  public Iterable<Experiment> search(SearchExperiments request) {
+    return new Paginator<>(
+        request,
+        impl::search,
+        SearchExperimentsResponse::getExperiments,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public void setExperimentTag(String experimentId, String key, String value) {

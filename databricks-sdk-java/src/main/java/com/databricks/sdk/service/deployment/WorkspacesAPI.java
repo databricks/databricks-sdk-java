@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -98,7 +97,7 @@ public class WorkspacesAPI {
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
    */
-  public Collection<Workspace> list() {
+  public Iterable<Workspace> list() {
     return impl.list();
   }
 

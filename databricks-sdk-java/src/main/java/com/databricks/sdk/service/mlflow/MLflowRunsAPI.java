@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 public class MLflowRunsAPI {
@@ -175,8 +176,18 @@ public class MLflowRunsAPI {
    *
    * <p>Search expressions can use `mlflowMetric` and `mlflowParam` keys.",
    */
-  public SearchRunsResponse search(SearchRuns request) {
-    return impl.search(request);
+  public Iterable<Run> search(SearchRuns request) {
+    return new Paginator<>(
+        request,
+        impl::search,
+        SearchRunsResponse::getRuns,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public void setTag(String key, String value) {

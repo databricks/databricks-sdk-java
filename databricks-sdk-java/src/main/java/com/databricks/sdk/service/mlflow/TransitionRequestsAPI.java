@@ -67,7 +67,7 @@ public class TransitionRequestsAPI {
     impl.delete(request);
   }
 
-  public ListResponse list(String name, String version) {
+  public Iterable<Activity> list(String name, String version) {
     return list(new ListTransitionRequestsRequest().setName(name).setVersion(version));
   }
 
@@ -76,8 +76,8 @@ public class TransitionRequestsAPI {
    *
    * <p>Gets a list of all open stage transition requests for the model version.
    */
-  public ListResponse list(ListTransitionRequestsRequest request) {
-    return impl.list(request);
+  public Iterable<Activity> list(ListTransitionRequestsRequest request) {
+    return impl.list(request).getRequests();
   }
 
   public RejectResponse reject(String name, String version, Stage stage) {

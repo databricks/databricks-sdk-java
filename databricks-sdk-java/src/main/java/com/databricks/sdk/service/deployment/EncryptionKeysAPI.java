@@ -112,7 +112,7 @@ public class EncryptionKeysAPI {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */
-  public Collection<CustomerManagedKey> list() {
+  public Iterable<CustomerManagedKey> list() {
     return impl.list();
   }
 

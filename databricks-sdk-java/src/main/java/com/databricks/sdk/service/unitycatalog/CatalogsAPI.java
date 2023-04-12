@@ -76,8 +76,8 @@ public class CatalogsAPI {
    * caller has the **USE_CATALOG** privilege) will be retrieved. There is no guarantee of a
    * specific ordering of the elements in the array.
    */
-  public ListCatalogsResponse list() {
-    return impl.list();
+  public Iterable<CatalogInfo> list() {
+    return impl.list().getCatalogs();
   }
 
   public CatalogInfo update(String name) {

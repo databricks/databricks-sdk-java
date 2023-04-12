@@ -89,7 +89,7 @@ public class WorkspaceAPI {
     impl.importContent(request);
   }
 
-  public ListResponse list(String path) {
+  public Iterable<ObjectInfo> list(String path) {
     return list(new List().setPath(path));
   }
 
@@ -99,8 +99,8 @@ public class WorkspaceAPI {
    * <p>Lists the contents of a directory, or the object if it is not a directory.If the input path
    * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    */
-  public ListResponse list(List request) {
-    return impl.list(request);
+  public Iterable<ObjectInfo> list(List request) {
+    return impl.list(request).getObjects();
   }
 
   public void mkdirs(String path) {
