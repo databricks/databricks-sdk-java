@@ -125,7 +125,9 @@ public class ConfigLoader {
         }
 
         Object value = accessor.getValueFromConfig(cfg);
-        if (isNullOrEmpty(value)) continue;
+        if (isNullOrEmpty(value)) {
+          continue;
+        }
 
         String valueAsString = accessor.getAsString(value);
         if (accessor.isSensitive()) {
@@ -160,7 +162,9 @@ public class ConfigLoader {
           throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {
       Object value = accessor.getValueFromConfig(cfg);
-      if(isNullOrEmpty(value)) continue;
+      if(isNullOrEmpty(value)) {
+        continue;
+      }
       accessor.setValueOnConfig(cfg, accessor.getAsString(value));
     }
   }
