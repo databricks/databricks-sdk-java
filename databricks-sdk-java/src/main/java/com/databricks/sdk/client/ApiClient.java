@@ -53,18 +53,18 @@ public class ApiClient {
     this.config = config;
     config.resolve();
 
-    int httpTimeoutSeconds = config.getHttpTimeoutSeconds();
-    if (httpTimeoutSeconds == 0) {
+    Integer httpTimeoutSeconds = config.getHttpTimeoutSeconds();
+    if (httpTimeoutSeconds == null) {
       httpTimeoutSeconds = 300;
     }
 
-    int rateLimit = config.getRateLimit();
-    if (rateLimit == 0) {
+    Integer rateLimit = config.getRateLimit();
+    if (rateLimit == null) {
       rateLimit = 15;
     }
 
-    int debugTruncateBytes = config.getDebugTruncateBytes();
-    if (debugTruncateBytes == 0) {
+    Integer debugTruncateBytes = config.getDebugTruncateBytes();
+    if (debugTruncateBytes == null) {
       debugTruncateBytes = 96;
     }
 

@@ -2,6 +2,11 @@
 package com.databricks.sdk.service.commands;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Wait;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 import org.apache.http.client.methods.*;
 
 /**
@@ -20,6 +25,182 @@ public class CommandExecutionAPI {
     impl = mock;
   }
 
+  public CommandStatusResponse waitCommandStatusCommandExecutionCancelled(
+      String clusterId, String commandId, String contextId) throws TimeoutException {
+    return waitCommandStatusCommandExecutionCancelled(
+        clusterId, commandId, contextId, Duration.ofMinutes(20), null);
+  }
+
+  public CommandStatusResponse waitCommandStatusCommandExecutionCancelled(
+      String clusterId,
+      String commandId,
+      String contextId,
+      Duration timeout,
+      Consumer<CommandStatusResponse> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<CommandStatus> targetStates = Arrays.asList(CommandStatus.Cancelled);
+    java.util.List<CommandStatus> failureStates = Arrays.asList(CommandStatus.Error);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      CommandStatusResponse poll =
+          commandStatus(
+              new CommandStatusRequest()
+                  .setClusterId(clusterId)
+                  .setCommandId(commandId)
+                  .setContextId(contextId));
+      CommandStatus status = poll.getStatus();
+      statusMessage = String.format("current status: %s", status);
+      if (poll.getResults() != null) {
+        statusMessage = poll.getResults().getCause();
+      }
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg = String.format("failed to reach Cancelled, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix =
+          String.format(
+              "clusterId=%s, commandId=%s, contextId=%s", clusterId, commandId, contextId);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      String logMessage =
+          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
+      // log.info(logMessage);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
+  public CommandStatusResponse waitCommandStatusCommandExecutionFinishedOrError(
+      String clusterId, String commandId, String contextId) throws TimeoutException {
+    return waitCommandStatusCommandExecutionFinishedOrError(
+        clusterId, commandId, contextId, Duration.ofMinutes(20), null);
+  }
+
+  public CommandStatusResponse waitCommandStatusCommandExecutionFinishedOrError(
+      String clusterId,
+      String commandId,
+      String contextId,
+      Duration timeout,
+      Consumer<CommandStatusResponse> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<CommandStatus> targetStates =
+        Arrays.asList(CommandStatus.Finished, CommandStatus.Error);
+    java.util.List<CommandStatus> failureStates =
+        Arrays.asList(CommandStatus.Cancelled, CommandStatus.Cancelling);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      CommandStatusResponse poll =
+          commandStatus(
+              new CommandStatusRequest()
+                  .setClusterId(clusterId)
+                  .setCommandId(commandId)
+                  .setContextId(contextId));
+      CommandStatus status = poll.getStatus();
+      statusMessage = String.format("current status: %s", status);
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg =
+            String.format("failed to reach Finished or Error, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix =
+          String.format(
+              "clusterId=%s, commandId=%s, contextId=%s", clusterId, commandId, contextId);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      String logMessage =
+          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
+      // log.info(logMessage);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
+  public ContextStatusResponse waitContextStatusCommandExecutionRunning(
+      String clusterId, String contextId) throws TimeoutException {
+    return waitContextStatusCommandExecutionRunning(
+        clusterId, contextId, Duration.ofMinutes(20), null);
+  }
+
+  public ContextStatusResponse waitContextStatusCommandExecutionRunning(
+      String clusterId,
+      String contextId,
+      Duration timeout,
+      Consumer<ContextStatusResponse> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<ContextStatus> targetStates = Arrays.asList(ContextStatus.Running);
+    java.util.List<ContextStatus> failureStates = Arrays.asList(ContextStatus.Error);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      ContextStatusResponse poll =
+          contextStatus(new ContextStatusRequest().setClusterId(clusterId).setContextId(contextId));
+      ContextStatus status = poll.getStatus();
+      statusMessage = String.format("current status: %s", status);
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg = String.format("failed to reach Running, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("clusterId=%s, contextId=%s", clusterId, contextId);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      String logMessage =
+          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
+      // log.info(logMessage);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
   /**
    * Cancel a command.
    *
@@ -27,8 +208,16 @@ public class CommandExecutionAPI {
    *
    * <p>The command ID is obtained from a prior successful call to __execute__.
    */
-  public void cancel(CancelCommand request) {
+  public Wait<CommandStatusResponse, Void> cancel(CancelCommand request) {
     impl.cancel(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitCommandStatusCommandExecutionCancelled(
+                request.getClusterId(),
+                request.getCommandId(),
+                request.getContextId(),
+                timeout,
+                callback));
   }
 
   public CommandStatusResponse commandStatus(String clusterId, String contextId, String commandId) {
@@ -71,8 +260,13 @@ public class CommandExecutionAPI {
    *
    * <p>If successful, this method returns the ID of the new execution context.
    */
-  public Created create(CreateContext request) {
-    return impl.create(request);
+  public Wait<ContextStatusResponse, Created> create(CreateContext request) {
+    Created response = impl.create(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitContextStatusCommandExecutionRunning(
+                request.getClusterId(), response.getId(), timeout, callback),
+        response);
   }
 
   public void destroy(String clusterId, String contextId) {
@@ -95,8 +289,17 @@ public class CommandExecutionAPI {
    *
    * <p>If successful, it returns an ID for tracking the status of the command's execution.
    */
-  public Created execute(Command request) {
-    return impl.execute(request);
+  public Wait<CommandStatusResponse, Created> execute(Command request) {
+    Created response = impl.execute(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitCommandStatusCommandExecutionFinishedOrError(
+                request.getClusterId(),
+                response.getId(),
+                request.getContextId(),
+                timeout,
+                callback),
+        response);
   }
 
   public CommandExecutionService impl() {

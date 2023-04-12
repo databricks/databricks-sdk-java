@@ -3,6 +3,11 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Paginator;
+import com.databricks.sdk.support.Wait;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 import org.apache.http.client.methods.*;
 
 /**
@@ -36,6 +41,58 @@ public class JobsAPI {
     impl = mock;
   }
 
+  public Run waitGetRunJobTerminatedOrSkipped(long runId) throws TimeoutException {
+    return waitGetRunJobTerminatedOrSkipped(runId, Duration.ofMinutes(20), null);
+  }
+
+  public Run waitGetRunJobTerminatedOrSkipped(long runId, Duration timeout, Consumer<Run> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<RunLifeCycleState> targetStates =
+        Arrays.asList(RunLifeCycleState.TERMINATED, RunLifeCycleState.SKIPPED);
+    java.util.List<RunLifeCycleState> failureStates =
+        Arrays.asList(RunLifeCycleState.INTERNAL_ERROR);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      Run poll = getRun(new GetRun().setRunId(runId));
+      RunLifeCycleState status = poll.getState().getLifeCycleState();
+      statusMessage = String.format("current status: %s", status);
+      if (poll.getState() != null) {
+        statusMessage = poll.getState().getStateMessage();
+      }
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg =
+            String.format(
+                "failed to reach TERMINATED or SKIPPED, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("runId=%s", runId);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      String logMessage =
+          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
+      // log.info(logMessage);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
   public void cancelAllRuns(long jobId) {
     cancelAllRuns(new CancelAllRuns().setJobId(jobId));
   }
@@ -50,8 +107,8 @@ public class JobsAPI {
     impl.cancelAllRuns(request);
   }
 
-  public void cancelRun(long runId) {
-    cancelRun(new CancelRun().setRunId(runId));
+  public Wait<Run, Void> cancelRun(long runId) {
+    return cancelRun(new CancelRun().setRunId(runId));
   }
 
   /**
@@ -60,8 +117,11 @@ public class JobsAPI {
    * <p>Cancels a job run. The run is canceled asynchronously, so it may still be running when this
    * request completes.
    */
-  public void cancelRun(CancelRun request) {
+  public Wait<Run, Void> cancelRun(CancelRun request) {
     impl.cancelRun(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetRunJobTerminatedOrSkipped(request.getRunId(), timeout, callback));
   }
 
   /**
@@ -203,7 +263,7 @@ public class JobsAPI {
         .withDedupe(BaseRun::getRunId);
   }
 
-  public RepairRunResponse repairRun(long runId) {
+  public Wait<Run, RepairRunResponse> repairRun(long runId) {
     return repairRun(new RepairRun().setRunId(runId));
   }
 
@@ -213,8 +273,12 @@ public class JobsAPI {
    * <p>Re-run one or more tasks. Tasks are re-run as part of the original job run. They use the
    * current job and task settings, and can be viewed in the history for the original job run.
    */
-  public RepairRunResponse repairRun(RepairRun request) {
-    return impl.repairRun(request);
+  public Wait<Run, RepairRunResponse> repairRun(RepairRun request) {
+    RepairRunResponse response = impl.repairRun(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetRunJobTerminatedOrSkipped(request.getRunId(), timeout, callback),
+        response);
   }
 
   public void reset(long jobId, JobSettings newSettings) {
@@ -231,7 +295,7 @@ public class JobsAPI {
     impl.reset(request);
   }
 
-  public RunNowResponse runNow(long jobId) {
+  public Wait<Run, RunNowResponse> runNow(long jobId) {
     return runNow(new RunNow().setJobId(jobId));
   }
 
@@ -240,8 +304,12 @@ public class JobsAPI {
    *
    * <p>Run a job and return the `run_id` of the triggered run.
    */
-  public RunNowResponse runNow(RunNow request) {
-    return impl.runNow(request);
+  public Wait<Run, RunNowResponse> runNow(RunNow request) {
+    RunNowResponse response = impl.runNow(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetRunJobTerminatedOrSkipped(response.getRunId(), timeout, callback),
+        response);
   }
 
   /**
@@ -251,8 +319,12 @@ public class JobsAPI {
    * creating a job. Runs submitted using this endpoint don’t display in the UI. Use the
    * `jobs/runs/get` API to check the run state after the job is submitted.
    */
-  public SubmitRunResponse submit(SubmitRun request) {
-    return impl.submit(request);
+  public Wait<Run, SubmitRunResponse> submit(SubmitRun request) {
+    SubmitRunResponse response = impl.submit(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetRunJobTerminatedOrSkipped(response.getRunId(), timeout, callback),
+        response);
   }
 
   public void update(long jobId) {

@@ -6,8 +6,10 @@ import static com.databricks.sdk.service.clusters.CloudProviderNodeStatus.NotEna
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.service.clusters.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -174,19 +176,24 @@ public class ClustersExt extends ClustersAPI {
     return false;
   }
 
-  //    public void ensureClusterIsRunning(String clusterId) {
-  //        ClusterInfo info = get(clusterId);
-  //        if (info.getState() == State.TERMINATED) {
-  //            start(clusterId).get();
-  //        } else if (info.getState() == State.TERMINATING) {
-  //            waitGetClusterTerminated(clusterId);
-  //            start(clusterId).get();
-  //        } else if (Arrays.asList(State.PENDING, State.RESIZING,
-  // State.RESTARTING).contains(info.getState())) {
-  //            waitGetClusterRunning(clusterId);
-  //        } else if (Arrays.asList(State.ERROR, State.UNKNOWN).contains(info.getState())) {
-  //            throw new RuntimeException("Cluster " + info.getClusterName() + " is " +
-  // info.getState() + ": " + info.getStateMessage());
-  //        }
-  //    }
+  public void ensureClusterIsRunning(String clusterId) throws TimeoutException {
+    ClusterInfo info = get(clusterId);
+    if (info.getState() == State.TERMINATED) {
+      start(clusterId).get();
+    } else if (info.getState() == State.TERMINATING) {
+      waitGetClusterTerminated(clusterId);
+      start(clusterId).get();
+    } else if (Arrays.asList(State.PENDING, State.RESIZING, State.RESTARTING)
+        .contains(info.getState())) {
+      waitGetClusterRunning(clusterId);
+    } else if (Arrays.asList(State.ERROR, State.UNKNOWN).contains(info.getState())) {
+      throw new RuntimeException(
+          "Cluster "
+              + info.getClusterName()
+              + " is "
+              + info.getState()
+              + ": "
+              + info.getStateMessage());
+    }
+  }
 }
