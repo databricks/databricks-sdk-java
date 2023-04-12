@@ -12,7 +12,9 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
   @Override
   public synchronized HeaderFactory configure(DatabricksConfig config) {
     for (CredentialsProvider provider : providers) {
-      if(config.getAuthType() != null && !config.getAuthType().isEmpty() && provider.authType() != config.getAuthType()) {
+      if (config.getAuthType() != null
+          && !config.getAuthType().isEmpty()
+          && provider.authType() != config.getAuthType()) {
         continue;
       }
       HeaderFactory headerFactory = provider.configure(config);

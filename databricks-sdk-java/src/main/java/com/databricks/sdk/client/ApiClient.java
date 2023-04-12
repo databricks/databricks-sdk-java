@@ -59,12 +59,12 @@ public class ApiClient {
     }
 
     int rateLimit = config.getRateLimit();
-    if(rateLimit == 0) {
+    if (rateLimit == 0) {
       rateLimit = 15;
     }
 
     int debugTruncateBytes = config.getDebugTruncateBytes();
-    if(debugTruncateBytes == 0) {
+    if (debugTruncateBytes == 0) {
       debugTruncateBytes = 96;
     }
 
