@@ -115,26 +115,26 @@ public class DatabricksConfig {
   }
 
   public synchronized void initAuth() throws DatabricksException {
-    if (credentialsProvider == null) {
-      credentialsProvider = new DefaultCredentialsProvider();
-    }
-    ConfigLoader.fixHostIfNeeded(this);
-    headerFactory = credentialsProvider.configure(this);
-    setAuthType(credentialsProvider.authType());
+      if (credentialsProvider == null) {
+        credentialsProvider = new DefaultCredentialsProvider();
+      }
+      ConfigLoader.fixHostIfNeeded(this);
+      headerFactory = credentialsProvider.configure(this);
+      setAuthType(credentialsProvider.authType());
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {
     try {
       if(headerFactory == null) {
         // Calling authenticate without resolve
-        try {
-          initAuth();
-        } catch (DatabricksException e) {
-          throw new DatabricksException("default auth: cannot configure default credentials");
-        }
+        initAuth();
       }
       return headerFactory.headers();
     } catch (DatabricksException e) {
+      if(ConfigLoader.isNullOrEmpty(getAuthType())) {
+        // We should only set the auth type if configuring the credential provider was successful
+        throw new DatabricksException(String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage()));
+      }
       throw new DatabricksException(String.format("%s auth: %s", this.authType, e.getMessage()));
     }
   }

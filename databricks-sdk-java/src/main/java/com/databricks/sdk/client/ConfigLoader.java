@@ -154,7 +154,7 @@ public class ConfigLoader {
     return cfg.resolve();
   }
 
-  private static boolean isNullOrEmpty(Object target) {
+  public static boolean isNullOrEmpty(Object target) {
     return target == null || target.toString().isEmpty();
   }
 
