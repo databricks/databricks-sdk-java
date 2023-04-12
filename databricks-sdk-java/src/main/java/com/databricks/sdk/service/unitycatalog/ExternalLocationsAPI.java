@@ -81,8 +81,8 @@ public class ExternalLocationsAPI {
    * some privilege on the external location. There is no guarantee of a specific ordering of the
    * elements in the array.
    */
-  public ListExternalLocationsResponse list() {
-    return impl.list();
+  public Iterable<ExternalLocationInfo> list() {
+    return impl.list().getExternalLocations();
   }
 
   public ExternalLocationInfo update(String name) {

@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -70,7 +69,7 @@ public class AlertsAPI {
    *
    * <p>Gets a list of alerts.
    */
-  public Collection<Alert> list() {
+  public Iterable<Alert> list() {
     return impl.list();
   }
 

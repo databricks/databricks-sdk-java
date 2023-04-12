@@ -105,8 +105,8 @@ public class MetastoresAPI {
    * an admin to retrieve this info. There is no guarantee of a specific ordering of the elements in
    * the array.
    */
-  public ListMetastoresResponse list() {
-    return impl.list();
+  public Iterable<MetastoreInfo> list() {
+    return impl.list().getMetastores();
   }
 
   /**

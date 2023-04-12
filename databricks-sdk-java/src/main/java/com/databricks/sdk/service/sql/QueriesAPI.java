@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 /**
@@ -70,8 +71,20 @@ public class QueriesAPI {
    *
    * <p>Gets a list of queries. Optionally, this list can be filtered by a search term.
    */
-  public QueryList list(ListQueriesRequest request) {
-    return impl.list(request);
+  public Iterable<Query> list(ListQueriesRequest request) {
+    request.setPage(1L);
+    return new Paginator<>(
+            request,
+            impl::list,
+            QueryList::getResults,
+            response -> {
+              Long page = request.getPage();
+              if (page == null) {
+                page = 1L; // redash uses 1-based pagination
+              }
+              return request.setPage(page + 1L);
+            })
+        .withDedupe(Query::getId);
   }
 
   public void restore(String queryId) {

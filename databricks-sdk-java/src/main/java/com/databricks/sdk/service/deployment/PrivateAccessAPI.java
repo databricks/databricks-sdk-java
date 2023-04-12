@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -104,7 +103,7 @@ public class PrivateAccessAPI {
    *
    * <p>Gets a list of all private access settings objects for an account, specified by ID.
    */
-  public Collection<PrivateAccessSettings> list() {
+  public Iterable<PrivateAccessSettings> list() {
     return impl.list();
   }
 

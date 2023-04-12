@@ -98,8 +98,8 @@ public class IpAccessListsAPI {
    *
    * <p>Gets all IP access lists for the specified workspace.
    */
-  public GetIpAccessListResponse list() {
-    return impl.list();
+  public Iterable<IpAccessListInfo> list() {
+    return impl.list().getIpAccessLists();
   }
 
   public void replace(

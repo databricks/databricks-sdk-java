@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -72,7 +71,7 @@ public class NetworksAPI {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */
-  public Collection<Network> list() {
+  public Iterable<Network> list() {
     return impl.list();
   }
 

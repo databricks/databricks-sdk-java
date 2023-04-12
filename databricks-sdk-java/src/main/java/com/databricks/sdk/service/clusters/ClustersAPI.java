@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.clusters;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 /**
@@ -115,7 +116,7 @@ public class ClustersAPI {
     impl.edit(request);
   }
 
-  public GetEventsResponse events(String clusterId) {
+  public Iterable<ClusterEvent> events(String clusterId) {
     return events(new GetEvents().setClusterId(clusterId));
   }
 
@@ -126,8 +127,14 @@ public class ClustersAPI {
    * are more events to read, the response includes all the nparameters necessary to request the
    * next page of events.
    */
-  public GetEventsResponse events(GetEvents request) {
-    return impl.events(request);
+  public Iterable<ClusterEvent> events(GetEvents request) {
+    return new Paginator<>(
+        request,
+        impl::events,
+        GetEventsResponse::getEvents,
+        response -> {
+          return response.getNextPage();
+        });
   }
 
   public ClusterInfo get(String clusterId) {
@@ -156,8 +163,8 @@ public class ClustersAPI {
    * returns the 1 pinned cluster, 4 active clusters, all 45 terminated all-purpose clusters, and
    * the 30 most recently terminated job clusters.
    */
-  public ListClustersResponse list(List request) {
-    return impl.list(request);
+  public Iterable<ClusterInfo> list(List request) {
+    return impl.list(request).getClusters();
   }
 
   /**

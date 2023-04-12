@@ -68,8 +68,8 @@ public class TokenManagementAPI {
    *
    * <p>Lists all tokens associated with the specified workspace or user.
    */
-  public ListTokensResponse list(List request) {
-    return impl.list(request);
+  public Iterable<TokenInfo> list(List request) {
+    return impl.list(request).getTokenInfos();
   }
 
   public TokenManagementService impl() {

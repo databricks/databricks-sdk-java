@@ -72,8 +72,8 @@ public class CustomAppIntegrationAPI {
    *
    * <p>Get the list of custom oauth app integrations for the specified Databricks Account
    */
-  public GetCustomAppIntegrationsOutput list() {
-    return impl.list();
+  public Iterable<GetCustomAppIntegrationOutput> list() {
+    return impl.list().getApps();
   }
 
   public void update(String integrationId) {

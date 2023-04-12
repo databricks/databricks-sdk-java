@@ -52,7 +52,7 @@ public class WorkspaceAssignmentAPI {
     return impl.get(request);
   }
 
-  public PermissionAssignments list(long workspaceId) {
+  public Iterable<PermissionAssignment> list(long workspaceId) {
     return list(new ListWorkspaceAssignmentRequest().setWorkspaceId(workspaceId));
   }
 
@@ -62,8 +62,8 @@ public class WorkspaceAssignmentAPI {
    * <p>Get the permission assignments for the specified Databricks Account and Databricks
    * Workspace.
    */
-  public PermissionAssignments list(ListWorkspaceAssignmentRequest request) {
-    return impl.list(request);
+  public Iterable<PermissionAssignment> list(ListWorkspaceAssignmentRequest request) {
+    return impl.list(request).getPermissionAssignments();
   }
 
   public void update(

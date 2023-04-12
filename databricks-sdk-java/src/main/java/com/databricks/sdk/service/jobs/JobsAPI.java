@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 /**
@@ -163,8 +164,21 @@ public class JobsAPI {
    *
    * <p>Retrieves a list of jobs.
    */
-  public ListJobsResponse list(List request) {
-    return impl.list(request);
+  public Iterable<BaseJob> list(List request) {
+    request.setOffset(0L);
+    return new Paginator<>(
+            request,
+            impl::list,
+            ListJobsResponse::getJobs,
+            response -> {
+              Long offset = request.getOffset();
+              if (offset == null) {
+                offset = 0L;
+              }
+              offset += response.getJobs().size();
+              return request.setOffset(offset);
+            })
+        .withDedupe(BaseJob::getJobId);
   }
 
   /**
@@ -172,8 +186,21 @@ public class JobsAPI {
    *
    * <p>List runs in descending order by start time.
    */
-  public ListRunsResponse listRuns(ListRuns request) {
-    return impl.listRuns(request);
+  public Iterable<BaseRun> listRuns(ListRuns request) {
+    request.setOffset(0L);
+    return new Paginator<>(
+            request,
+            impl::listRuns,
+            ListRunsResponse::getRuns,
+            response -> {
+              Long offset = request.getOffset();
+              if (offset == null) {
+                offset = 0L;
+              }
+              offset += response.getRuns().size();
+              return request.setOffset(offset);
+            })
+        .withDedupe(BaseRun::getRunId);
   }
 
   public RepairRunResponse repairRun(long runId) {
