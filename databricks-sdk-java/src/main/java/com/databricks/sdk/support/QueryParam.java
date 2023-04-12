@@ -1,4 +1,4 @@
-package com.databricks.sdk.annotation;
+package com.databricks.sdk.support;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
