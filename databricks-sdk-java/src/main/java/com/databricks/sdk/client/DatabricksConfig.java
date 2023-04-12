@@ -27,6 +27,12 @@ public class DatabricksConfig {
   @ConfigAttribute(value = "password", env = "DATABRICKS_PASSWORD", sensitive = true)
   private String password;
 
+  @ConfigAttribute(value = "client_id", env = "DATABRICKS_CLIENT_ID")
+  private String clientId;
+
+  @ConfigAttribute(value = "client_secret", env = "DATABRICKS_CLIENT_SECRET", sensitive = true)
+  private String clientSecret;
+
   /** Connection profile specified within ~/.databrickscfg. */
   @ConfigAttribute(value = "profile", env = "DATABRICKS_CONFIG_PROFILE")
   private String profile;
@@ -62,6 +68,9 @@ public class DatabricksConfig {
 
   @ConfigAttribute(value = "azure_environment", env = "ARM_ENVIRONMENT")
   private String azureEnvironment;
+
+  @ConfigAttribute(value = "azure_login_app_id", env = "DATABRICKS_AZURE_LOGIN_APP_ID")
+  private String azureLoginAppId;
 
   /**
    * When multiple auth attributes are available in the environment, use the auth type specified by
@@ -195,6 +204,24 @@ public class DatabricksConfig {
     return this;
   }
 
+  public String getClientId() {
+    return clientId;
+  }
+
+  public DatabricksConfig setClientId(String clientId) {
+    this.clientId = clientId;
+    return this;
+  }
+
+  public String getClientSecret() {
+    return clientSecret;
+  }
+
+  public DatabricksConfig setClientSecret(String clientSecret) {
+    this.clientSecret = clientSecret;
+    return this;
+  }
+
   public String getProfile() {
     return profile;
   }
@@ -276,13 +303,25 @@ public class DatabricksConfig {
     return this;
   }
 
-  public String getAzureEnvironment() {
-    return azureEnvironment;
+  public AzureEnvironment getAzureEnvironment() {
+    String env = "PUBLIC";
+    if (azureEnvironment != null) {
+      env = azureEnvironment;
+    }
+    return AzureEnvironment.getEnvironment(env);
   }
 
   public DatabricksConfig setAzureEnvironment(String azureEnvironment) {
     this.azureEnvironment = azureEnvironment;
     return this;
+  }
+
+  public String getEffectiveAzureLoginAppId() {
+    if (azureLoginAppId != null) {
+      return azureLoginAppId;
+    }
+
+    return AzureEnvironment.ARM_DATABRICKS_RESOURCE_ID;
   }
 
   public String getAuthType() {
