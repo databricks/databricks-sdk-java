@@ -1,7 +1,5 @@
 package com.databricks.sdk.client;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Map;
 import java.util.function.Function;
 import org.apache.http.HttpMessage;
@@ -36,7 +34,7 @@ public class DatabricksConfig {
    * --token` command. By default, it is located in ~/.databrickscfg.
    */
   @ConfigAttribute(value = "config_file", env = "DATABRICKS_CONFIG_FILE")
-  private String configFile = DEFAULT_CONFIG_FILE;
+  private String configFile;
 
   @ConfigAttribute(value = "google_service_account", env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT")
   private String googleServiceAccount;
@@ -49,7 +47,7 @@ public class DatabricksConfig {
   private String azureWorkspaceResourceId;
 
   @ConfigAttribute(value = "azure_use_msi", env = "ARM_USE_MSI")
-  private boolean azureUseMSI;
+  private Boolean azureUseMSI;
 
   @ConfigAttribute(value = "azure_client_secret", env = "ARM_CLIENT_SECRET", sensitive = true)
   private String azureClientSecret;
@@ -67,7 +65,7 @@ public class DatabricksConfig {
    * When multiple auth attributes are available in the environment, use the auth type specified by
    * this argument. This argument also holds currently selected auth.
    */
-  @ConfigAttribute("auth_type")
+  @ConfigAttribute(value = "auth_type", env = "DATABRICKS_AUTH_TYPE")
   private String authType;
 
   /**
@@ -75,79 +73,71 @@ public class DatabricksConfig {
    * purposes.
    */
   @ConfigAttribute("skip_verify")
-  private boolean skipVerify;
+  private Boolean skipVerify;
 
   /** Number of seconds for HTTP timeout */
   @ConfigAttribute("http_timeout_seconds")
-  private int httpTimeoutSeconds = 60;
+  private Integer httpTimeoutSeconds;
 
   /** Truncate JSON fields in JSON above this limit. Default is 96. */
   @ConfigAttribute(value = "debug_truncate_bytes", env = "DATABRICKS_DEBUG_TRUNCATE_BYTES")
-  private int debugTruncateBytes = 96;
+  private Integer debugTruncateBytes;
 
   /** Debug HTTP headers of requests made by the provider. Default is false. */
   @ConfigAttribute(value = "debug_headers", env = "DATABRICKS_DEBUG_HEADERS")
-  private boolean debugHeaders;
+  private Boolean debugHeaders;
 
   /** Maximum number of requests per second made to Databricks REST API. */
   @ConfigAttribute(value = "rate_limit", env = "DATABRICKS_RATE_LIMIT")
-  private int rateLimit = 15;
+  private Integer rateLimit;
 
   private volatile boolean resolved;
   private HeaderFactory headerFactory;
 
-  public DatabricksConfig() {
-    //        this.authenticate();
-  }
+  Function<String, String> getEnv;
 
   public synchronized DatabricksConfig resolve() {
-    return resolve(System::getenv);
-  }
-
-  public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
-    ConfigLoader.resolve(this, getEnv);
-    fixHostIfNeeded();
+    resolve(System::getenv);
     return this;
   }
 
-  public synchronized Map<String, String> authenticate() {
+  public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
+    this.getEnv = getEnv;
     try {
-      if (credentialsProvider == null) {
-        credentialsProvider = new DefaultCredentialsProvider();
-        setAuthType(credentialsProvider.authType());
+      ConfigLoader.resolve(this);
+      initAuth();
+      ConfigLoader.validate(this);
+      return this;
+    } catch (DatabricksException e) {
+      String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
+      throw ConfigLoader.makeNicerError(msg, e, this);
+    }
+  }
+
+  public synchronized void initAuth() throws DatabricksException {
+    if (credentialsProvider == null) {
+      credentialsProvider = new DefaultCredentialsProvider();
+    }
+    ConfigLoader.fixHostIfNeeded(this);
+    headerFactory = credentialsProvider.configure(this);
+    setAuthType(credentialsProvider.authType());
+  }
+
+  public synchronized Map<String, String> authenticate() throws DatabricksException {
+    try {
+      if (headerFactory == null) {
+        // Calling authenticate without resolve
+        initAuth();
       }
-      headerFactory = credentialsProvider.configure(this);
-      setAuthType(credentialsProvider.authType());
       return headerFactory.headers();
-    } catch (Exception authException) {
-      throw new DatabricksException(
-          String.format("%s auth: %s", this.authType, authException.getMessage()));
+    } catch (DatabricksException e) {
+      if (ConfigLoader.isNullOrEmpty(getAuthType())) {
+        // We should only set the auth type if configuring the credential provider was successful
+        throw new DatabricksException(
+            String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage()));
+      }
+      throw new DatabricksException(String.format("%s auth: %s", this.authType, e.getMessage()));
     }
-  }
-
-  // tanmaytodo TODO: refactor callsite to use Map<String,String> authenticate()
-  public synchronized void authenticate(HttpMessage request) {
-    Map<String, String> headers = authenticate();
-    ;
-    for (Map.Entry<String, String> e : headers.entrySet()) {
-      request.setHeader(e.getKey(), e.getValue());
-    }
-  }
-
-  public void fixHostIfNeeded() {
-    if (this.host == null || this.host.isEmpty()) {
-      return;
-    }
-
-    URL url;
-    try {
-      url = new URL(this.host);
-    } catch (MalformedURLException e) {
-      // only hostname is specified
-      this.host = "https://" + this.host;
-      return;
-    }
-    this.host = url.getProtocol() + "://" + url.getAuthority();
   }
 
   public String getHost() {
@@ -347,6 +337,14 @@ public class DatabricksConfig {
       return false;
     }
     return host.contains(".azuredatabricks.");
+  }
+
+  public synchronized void authenticate(HttpMessage request) {
+    Map<String, String> headers = authenticate();
+    ;
+    for (Map.Entry<String, String> e : headers.entrySet()) {
+      request.setHeader(e.getKey(), e.getValue());
+    }
   }
 
   public boolean isGcp() {

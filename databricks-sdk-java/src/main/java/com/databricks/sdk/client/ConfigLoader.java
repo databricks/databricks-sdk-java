@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.function.Function;
 import org.ini4j.Ini;
@@ -24,36 +27,162 @@ public class ConfigLoader {
     return attrs;
   }
 
-  public static DatabricksConfig getDefault() {
-    return new DatabricksConfig().resolve();
-  }
-
-  public static DatabricksConfig resolve(DatabricksConfig cfg, Function<String, String> getEnv) {
+  public static DatabricksConfig resolve(DatabricksConfig cfg) throws DatabricksException {
     try {
-      loadFromConfig(cfg, getEnv); // TODO: just return new config?..
-      loadFromEnvironmentVariables(cfg, getEnv);
+      loadFromInnerConfig(cfg);
+      loadFromEnvironmentVariables(cfg);
+      loadFromConfig(cfg); // TODO: just return new config?..
+      fixHostIfNeeded(cfg);
       return cfg;
     } catch (IllegalAccessException e) {
       throw new DatabricksException("Cannot create default config", e);
     }
   }
 
-  static void loadFromEnvironmentVariables(DatabricksConfig cfg, Function<String, String> getEnv)
-      throws IllegalAccessException {
-    for (ConfigAttributeAccessor accessor : accessors) {
-      String env = accessor.getEnv(getEnv);
-      if (env == null || env.isEmpty()) continue;
-      accessor.setValue(cfg, env);
+  public static void fixHostIfNeeded(DatabricksConfig cfg) {
+    if (cfg.getHost() == null || cfg.getHost().isEmpty()) {
+      return;
+    }
+
+    URL url;
+    String host = cfg.getHost();
+    try {
+      url = new URL(host);
+    } catch (MalformedURLException e) {
+      // only hostname is specified
+      cfg.setHost("https://" + host);
+      String a = cfg.getHost();
+      return;
+    }
+    cfg.setHost(url.getProtocol() + "://" + url.getAuthority());
+  }
+
+  static void validate(DatabricksConfig cfg) throws DatabricksException {
+    try {
+      HashSet<String> authSet = new HashSet<>();
+      for (ConfigAttributeAccessor accessor : accessors) {
+        Object value = accessor.getValueFromConfig(cfg);
+        if (isNullOrEmpty(value)) {
+          continue;
+        }
+
+        String authType = cfg.getAuthType();
+        if (isNullOrEmpty(authType)) {
+          continue;
+        }
+        authSet.add(authType);
+      }
+      if (authSet.size() <= 1) return;
+      if (!cfg.getAuthType().isEmpty()) return;
+      String names = String.join(" and ", authSet);
+      throw new DatabricksException(
+          String.format("validate: more than one authorization method configured: %s", names));
+    } catch (IllegalAccessException e) {
+      throw new DatabricksException("Cannot create default config", e);
     }
   }
 
-  private static boolean isNullOrEmpty(String target) {
-    return target == null || target.isEmpty();
+  public static DatabricksException makeNicerError(Exception e, DatabricksConfig cfg) {
+    return makeNicerError(e.getMessage(), e, 200, cfg);
   }
 
-  static void loadFromConfig(DatabricksConfig cfg, Function<String, String> getEnv)
-      throws IllegalAccessException {
-    Ini ini = parseDatabricksCfg(cfg, getEnv);
+  public static DatabricksException makeNicerError(
+      String message, Exception e, DatabricksConfig cfg) {
+    return makeNicerError(message, e, 200, cfg);
+  }
+
+  public static DatabricksException makeNicerError(
+      String message, Exception e, Integer statusCode, DatabricksConfig cfg) {
+    boolean isHttpUnauthorizedOrForbidden =
+        true; // TODO - pass status code with exception, default this to false
+    if (statusCode == 401 || statusCode == 402) isHttpUnauthorizedOrForbidden = true;
+    String debugString = "";
+    if (cfg.getEnv != null) {
+      debugString = debugString(cfg);
+    }
+    if (!debugString.isEmpty() && isHttpUnauthorizedOrForbidden) {
+      message = String.format("%s. %s", message, debugString);
+    }
+    return new DatabricksException(message);
+  }
+
+  public static String debugString(DatabricksConfig cfg) {
+    try {
+      List<String> envsUsed = new ArrayList<>();
+      List<String> attrsUsed = new ArrayList<>();
+      List<String> buf = new ArrayList<>();
+
+      Function<String, String> getEnv = cfg.getEnv;
+
+      for (ConfigAttributeAccessor accessor : accessors) {
+        String envVariable = accessor.getEnvVariable();
+        String envValue = accessor.getEnv(getEnv);
+
+        if (!isNullOrEmpty(envValue) && !isNullOrEmpty(envVariable)) {
+          envsUsed.add(String.format("%s", envVariable));
+        }
+
+        Object value = accessor.getValueFromConfig(cfg);
+        if (isNullOrEmpty(value)) {
+          continue;
+        }
+
+        String valueAsString = accessor.getAsString(value);
+        if (accessor.isSensitive()) {
+          valueAsString = "***";
+        }
+
+        String name = accessor.getName();
+        attrsUsed.add(String.format("%s=%s", name, valueAsString));
+      }
+      if (!attrsUsed.isEmpty()) {
+        buf.add(String.format("Config: %s", String.join(", ", attrsUsed)));
+      }
+      if (!envsUsed.isEmpty()) {
+        buf.add(String.format("Env: %s", String.join(", ", envsUsed)));
+      }
+      return String.join(". ", buf);
+    } catch (Exception e) {
+      throw new DatabricksException(e.getMessage());
+    }
+  }
+
+  public static DatabricksConfig getDefault() {
+    DatabricksConfig cfg = new DatabricksConfig();
+    return cfg.resolve();
+  }
+
+  public static boolean isNullOrEmpty(Object target) {
+    return target == null || target.toString().isEmpty();
+  }
+
+  static void loadFromInnerConfig(DatabricksConfig cfg) throws IllegalAccessException {
+    for (ConfigAttributeAccessor accessor : accessors) {
+      Object value = accessor.getValueFromConfig(cfg);
+      if (isNullOrEmpty(value)) {
+        continue;
+      }
+      accessor.setValueOnConfig(cfg, accessor.getAsString(value));
+    }
+  }
+
+  static void loadFromEnvironmentVariables(DatabricksConfig cfg) throws IllegalAccessException {
+    for (ConfigAttributeAccessor accessor : accessors) {
+      String env = accessor.getEnv(cfg.getEnv);
+      if (isNullOrEmpty(env)) {
+        continue;
+      }
+      // value already set in config then skip
+      Object value = accessor.getValueFromConfig(cfg);
+      if (!isNullOrEmpty(value)) {
+        continue;
+      }
+      accessor.setValueOnConfig(cfg, env);
+    }
+  }
+
+  static void loadFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
+    Ini ini = parseDatabricksCfg(cfg);
     if (ini == null) return;
     String profile = cfg.getProfile();
     boolean hasExplicitProfile = !isNullOrEmpty(profile);
@@ -74,14 +203,19 @@ public class ConfigLoader {
       if (isNullOrEmpty(value)) {
         continue;
       }
-      accessor.setValue(cfg, value);
+      accessor.setValueOnConfig(cfg, value);
     }
   }
 
-  private static Ini parseDatabricksCfg(DatabricksConfig cfg, Function<String, String> getEnv) {
+  private static Ini parseDatabricksCfg(DatabricksConfig cfg) {
     String configFile = cfg.getConfigFile();
+    if (isNullOrEmpty(configFile)) {}
+
+    if (configFile == null || configFile.isEmpty()) {
+      configFile = DatabricksConfig.DEFAULT_CONFIG_FILE;
+    }
     boolean isDefaultConfig = configFile.equals(DatabricksConfig.DEFAULT_CONFIG_FILE);
-    String userHome = getEnv.apply("HOME");
+    String userHome = cfg.getEnv.apply("HOME");
     if (userHome.isEmpty()) {
       userHome = System.getProperty("user.home");
     }
