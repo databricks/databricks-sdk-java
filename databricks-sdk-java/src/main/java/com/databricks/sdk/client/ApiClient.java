@@ -1,6 +1,6 @@
 package com.databricks.sdk.client;
 
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;

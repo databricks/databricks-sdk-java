@@ -2,7 +2,7 @@
 
 package com.databricks.sdk.service.clusterpolicies;
 
-import com.databricks.sdk.mixin.ToStringer;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 public class GetPolicyFamilyRequest {
