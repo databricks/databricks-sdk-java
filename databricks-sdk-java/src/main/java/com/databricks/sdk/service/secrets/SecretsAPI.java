@@ -109,7 +109,7 @@ public class SecretsAPI {
     return impl.getAcl(request);
   }
 
-  public ListAclsResponse listAcls(String scope) {
+  public Iterable<AclItem> listAcls(String scope) {
     return listAcls(new ListAcls().setScope(scope));
   }
 
@@ -122,8 +122,8 @@ public class SecretsAPI {
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED`
    * if the user does not have permission to make this API call.
    */
-  public ListAclsResponse listAcls(ListAcls request) {
-    return impl.listAcls(request);
+  public Iterable<AclItem> listAcls(ListAcls request) {
+    return impl.listAcls(request).getItems();
   }
 
   /**
@@ -133,11 +133,11 @@ public class SecretsAPI {
    *
    * <p>Throws `PERMISSION_DENIED` if the user does not have permission to make this API call.
    */
-  public ListScopesResponse listScopes() {
-    return impl.listScopes();
+  public Iterable<SecretScope> listScopes() {
+    return impl.listScopes().getScopes();
   }
 
-  public ListSecretsResponse listSecrets(String scope) {
+  public Iterable<SecretMetadata> listSecrets(String scope) {
     return listSecrets(new ListSecrets().setScope(scope));
   }
 
@@ -152,8 +152,8 @@ public class SecretsAPI {
    * `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED` if the
    * user does not have permission to make this API call.
    */
-  public ListSecretsResponse listSecrets(ListSecrets request) {
-    return impl.listSecrets(request);
+  public Iterable<SecretMetadata> listSecrets(ListSecrets request) {
+    return impl.listSecrets(request).getSecrets();
   }
 
   public void putAcl(String scope, String principal, AclPermission permission) {

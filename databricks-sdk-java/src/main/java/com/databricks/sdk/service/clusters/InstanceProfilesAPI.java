@@ -71,8 +71,8 @@ public class InstanceProfilesAPI {
    *
    * <p>This API is available to all users.
    */
-  public ListInstanceProfilesResponse list() {
-    return impl.list();
+  public Iterable<InstanceProfile> list() {
+    return impl.list().getInstanceProfiles();
   }
 
   public void remove(String instanceProfileArn) {

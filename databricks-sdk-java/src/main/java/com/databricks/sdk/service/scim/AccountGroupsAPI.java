@@ -70,8 +70,8 @@ public class AccountGroupsAPI {
    *
    * <p>Gets all details of the groups associated with the Databricks Account.
    */
-  public ListGroupsResponse list(ListGroupsRequest request) {
-    return impl.list(request);
+  public Iterable<Group> list(ListGroupsRequest request) {
+    return impl.list(request).getResources();
   }
 
   public void patch(String id) {

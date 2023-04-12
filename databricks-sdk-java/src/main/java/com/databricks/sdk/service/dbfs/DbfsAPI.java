@@ -113,7 +113,7 @@ public class DbfsAPI {
     return impl.getStatus(request);
   }
 
-  public ListStatusResponse list(String path) {
+  public Iterable<FileInfo> list(String path) {
     return list(new List().setPath(path));
   }
 
@@ -130,8 +130,8 @@ public class DbfsAPI {
    * system utility (dbutils.fs)](/dev-tools/databricks-utils.html#dbutils-fs), which provides the
    * same functionality without timing out.
    */
-  public ListStatusResponse list(List request) {
-    return impl.list(request);
+  public Iterable<FileInfo> list(List request) {
+    return impl.list(request).getFiles();
   }
 
   public void mkdirs(String path) {

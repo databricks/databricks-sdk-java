@@ -98,8 +98,8 @@ public class ClusterPoliciesAPI {
    *
    * <p>Returns a list of policies accessible by the requesting user.
    */
-  public ListPoliciesResponse list(List request) {
-    return impl.list(request);
+  public Iterable<Policy> list(List request) {
+    return impl.list(request).getPolicies();
   }
 
   public ClusterPoliciesService impl() {

@@ -84,8 +84,8 @@ public class WarehousesAPI {
    *
    * <p>Lists all SQL warehouses that a user has manager permissions on.
    */
-  public ListWarehousesResponse list(ListWarehousesRequest request) {
-    return impl.list(request);
+  public Iterable<EndpointInfo> list(ListWarehousesRequest request) {
+    return impl.list(request).getWarehouses();
   }
 
   /**

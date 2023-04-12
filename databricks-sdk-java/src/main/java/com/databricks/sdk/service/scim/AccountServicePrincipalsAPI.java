@@ -68,8 +68,8 @@ public class AccountServicePrincipalsAPI {
    *
    * <p>Gets the set of service principals associated with a Databricks Account.
    */
-  public ListServicePrincipalResponse list(ListServicePrincipalsRequest request) {
-    return impl.list(request);
+  public Iterable<ServicePrincipal> list(ListServicePrincipalsRequest request) {
+    return impl.list(request).getResources();
   }
 
   public void patch(String id) {

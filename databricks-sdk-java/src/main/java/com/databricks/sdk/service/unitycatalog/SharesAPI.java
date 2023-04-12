@@ -67,8 +67,8 @@ public class SharesAPI {
    * or the owner of the share. There is no guarantee of a specific ordering of the elements in the
    * array.
    */
-  public ListSharesResponse list() {
-    return impl.list();
+  public Iterable<ShareInfo> list() {
+    return impl.list().getShares();
   }
 
   public PermissionsList sharePermissions(String name) {

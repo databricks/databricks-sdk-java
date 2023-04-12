@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.clusterpolicies;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 /**
@@ -36,8 +37,18 @@ public class PolicyFamiliesAPI {
     return impl.get(request);
   }
 
-  public ListPolicyFamiliesResponse list(ListPolicyFamiliesRequest request) {
-    return impl.list(request);
+  public Iterable<PolicyFamily> list(ListPolicyFamiliesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListPolicyFamiliesResponse::getPolicyFamilies,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public PolicyFamiliesService impl() {

@@ -4,19 +4,19 @@ import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
-import com.databricks.sdk.service.sql.ListQueriesRequest;
-import com.databricks.sdk.service.sql.Query;
+import com.databricks.sdk.service.jobs.BaseJob;
+import com.databricks.sdk.service.jobs.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
-class QueriesIT {
+public class JobsIT {
   @Test
-  void listsQueries(DatabricksWorkspace w) {
-    Iterable<Query> list = w.queries().list(new ListQueriesRequest().setPageSize(2L));
+  void listsJobs(DatabricksWorkspace w) {
+    Iterable<BaseJob> list = w.jobs().list(new List());
 
-    java.util.List<Query> all = CollectionUtils.asList(list);
+    java.util.List<BaseJob> all = CollectionUtils.asList(list);
 
     CollectionUtils.assertUnique(all);
   }

@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import java.util.Collection;
 import org.apache.http.client.methods.*;
 
@@ -51,8 +52,18 @@ public class RegistryWebhooksAPI {
    *
    * <p>Lists all registry webhooks.
    */
-  public ListRegistryWebhooks list(ListRegistryWebhooksRequest request) {
-    return impl.list(request);
+  public Iterable<RegistryWebhook> list(ListRegistryWebhooksRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListRegistryWebhooks::getWebhooks,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public TestRegistryWebhookResponse test(String id) {

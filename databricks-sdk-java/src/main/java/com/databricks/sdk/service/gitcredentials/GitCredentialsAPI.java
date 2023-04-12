@@ -70,8 +70,8 @@ public class GitCredentialsAPI {
    *
    * <p>Lists the calling user's Git credentials. One credential per user is supported.
    */
-  public GetCredentialsResponse list() {
-    return impl.list();
+  public Iterable<CredentialInfo> list() {
+    return impl.list().getCredentials();
   }
 
   public void update(long credentialId) {

@@ -9,6 +9,7 @@ import org.apache.http.client.methods.*;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
+import com.databricks.sdk.support.Paginator;
 
 {{if .Description}}/**
  {{.Comment " * " 80}}
@@ -27,10 +28,10 @@ public class {{.PascalName}}API {
   }
 	{{range .Methods}}
 	{{if and .Request .Request.RequiredFields}}
-  public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{range $i, $p := .Request.RequiredFields -}}
+  public {{template "method-return-type" .}} {{template "java-name" .}}({{range $i, $p := .Request.RequiredFields -}}
     {{if $i}}, {{end}}{{template "type" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}}
   {{- end}}) {
-    {{if .Response -}}return {{end}}{{.CamelName}}{{if .IsNameReserved}}Content{{end}}(new {{.Request.PascalName}}(){{range .Request.RequiredFields}}
+    {{if .Response -}}return {{end}}{{template "java-name" .}}(new {{.Request.PascalName}}(){{range .Request.RequiredFields}}
       .set{{.PascalName}}({{.CamelName}}){{end}});
   }
   {{end}}
@@ -38,11 +39,67 @@ public class {{.PascalName}}API {
 	{{if .Description}}/**
    {{.Comment "   * " 80}}
    */{{end}}
-  public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
-    {{if .Response -}}return {{end}}impl.{{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}request{{end}});
+  public {{template "method-return-type" .}} {{template "java-name" .}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
+    {{template "method-call" .}}
   }
   {{end}}
   public {{.PascalName}}Service impl() {
     return impl;
   }
 }
+
+{{define "java-name" -}}
+{{.CamelName}}{{if .IsNameReserved}}Content{{end}}
+{{- end}}
+
+{{define "method-call" -}}
+  {{if .Pagination -}}{{template "method-call-paginated" .}}
+  {{- else}}{{template "method-call-default" .}}{{end}}
+{{- end}}
+
+{{define "method-call-paginated" -}}
+  {{- if .Pagination.MultiRequest -}}
+    {{- if and .Pagination.Offset (not (eq .Path "/api/2.0/clusters/events")) -}}
+    request.set{{.Pagination.Offset.PascalName}}({{if eq .Pagination.Increment 1}}1{{else}}0{{end}}L);{{end -}}
+    return new Paginator<>(request, impl::{{template "java-name" .}}, {{template "type" .Response}}::get{{.Pagination.Results.PascalName}}, response -> {
+      {{if eq .Path "/api/2.0/clusters/events" -}}
+      return response.getNextPage();
+      {{- else if .Pagination.Token -}}
+      String token = response.get{{.Pagination.Token.Bind.PascalName}}();
+      if (token == null) {
+        return null;
+      }
+      return request.set{{.Pagination.Token.PollField.PascalName}}(token);
+      {{- else if eq .Pagination.Increment 1 -}}
+      Long page = request.get{{.Pagination.Offset.PascalName}}();
+      if (page == null) {
+        page = 1L; // redash uses 1-based pagination
+      }
+      return request.set{{.Pagination.Offset.PascalName}}(page+1L);
+      {{- else -}}
+      Long offset = request.get{{.Pagination.Offset.PascalName}}();
+      if (offset == null) {
+        offset = 0L;
+      }
+      offset += response.get{{.Pagination.Results.PascalName}}().size();
+      return request.set{{.Pagination.Offset.PascalName}}(offset);
+      {{- end}}
+    }){{if .Pagination.NeedsOffsetDedupe -}}.withDedupe({{.Pagination.Entity.PascalName}}::get{{.Pagination.Entity.IdentifierField.PascalName}}){{end}};
+  {{- else -}}
+    return impl.{{template "java-name" .}}({{if .Request}}request{{end}}){{with .Pagination.Results}}.get{{.PascalName}}(){{end}};
+  {{- end -}}
+{{- end}}
+
+{{define "method-call-default" -}}
+  {{if .Response -}}return {{end}}impl.{{template "java-name" .}}({{if .Request}}request{{end}});
+{{- end}}
+
+{{define "method-return-type" -}}
+  {{- if .Response}}{{if .Response.ArrayValue -}}
+    Iterable<{{.Response.ArrayValue.PascalName}}>
+  {{- else if .Pagination -}}
+    Iterable<{{.Pagination.Entity.PascalName}}>
+  {{- else -}}
+    {{template "type" .Response}}
+  {{- end}}{{else}}void{{end}}
+{{- end}}

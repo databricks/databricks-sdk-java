@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 public class ModelVersionsAPI {
@@ -89,8 +90,18 @@ public class ModelVersionsAPI {
    *
    * <p>Searches for specific model versions based on the supplied __filter__.
    */
-  public SearchModelVersionsResponse search(SearchModelVersionsRequest request) {
-    return impl.search(request);
+  public Iterable<ModelVersion> search(SearchModelVersionsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::search,
+        SearchModelVersionsResponse::getModelVersions,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public void setTag(String name, String version, String key, String value) {

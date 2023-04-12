@@ -67,8 +67,8 @@ public class BudgetsAPI {
    * <p>Gets all budgets associated with this account, including noncumulative status for each day
    * that the budget is configured to include.
    */
-  public BudgetList list() {
-    return impl.list();
+  public Iterable<BudgetWithStatus> list() {
+    return impl.list().getBudgets();
   }
 
   public void update(Budget budget, String budgetId) {

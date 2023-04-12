@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Paginator;
 import org.apache.http.client.methods.*;
 
 public class RegisteredModelsAPI {
@@ -71,7 +72,7 @@ public class RegisteredModelsAPI {
     return impl.get(request);
   }
 
-  public GetLatestVersionsResponse getLatestVersions(String name) {
+  public Iterable<ModelVersion> getLatestVersions(String name) {
     return getLatestVersions(new GetLatestVersionsRequest().setName(name));
   }
 
@@ -80,8 +81,8 @@ public class RegisteredModelsAPI {
    *
    * <p>Gets the latest version of a registered model.
    */
-  public GetLatestVersionsResponse getLatestVersions(GetLatestVersionsRequest request) {
-    return impl.getLatestVersions(request);
+  public Iterable<ModelVersion> getLatestVersions(GetLatestVersionsRequest request) {
+    return impl.getLatestVersions(request).getModelVersions();
   }
 
   /**
@@ -89,8 +90,18 @@ public class RegisteredModelsAPI {
    *
    * <p>Lists all available registered models, up to the limit specified in __max_results__.
    */
-  public ListRegisteredModelsResponse list(ListRegisteredModelsRequest request) {
-    return impl.list(request);
+  public Iterable<RegisteredModel> list(ListRegisteredModelsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListRegisteredModelsResponse::getRegisteredModels,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public RenameRegisteredModelResponse rename(String name) {
@@ -111,8 +122,18 @@ public class RegisteredModelsAPI {
    *
    * <p>Search for registered models based on the specified __filter__.
    */
-  public SearchRegisteredModelsResponse search(SearchRegisteredModelsRequest request) {
-    return impl.search(request);
+  public Iterable<RegisteredModel> search(SearchRegisteredModelsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::search,
+        SearchRegisteredModelsResponse::getRegisteredModels,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public void setTag(String name, String key, String value) {

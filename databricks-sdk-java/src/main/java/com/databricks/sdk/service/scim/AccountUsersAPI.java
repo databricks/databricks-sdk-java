@@ -74,8 +74,8 @@ public class AccountUsersAPI {
    *
    * <p>Gets details for all the users associated with a Databricks Account.
    */
-  public ListUsersResponse list(ListUsersRequest request) {
-    return impl.list(request);
+  public Iterable<User> list(ListUsersRequest request) {
+    return impl.list(request).getResources();
   }
 
   public void patch(String id) {

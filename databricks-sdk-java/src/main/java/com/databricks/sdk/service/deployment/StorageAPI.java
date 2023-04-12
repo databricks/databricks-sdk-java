@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /**
@@ -83,7 +82,7 @@ public class StorageAPI {
    *
    * <p>Gets a list of all Databricks storage configurations for your account, specified by ID.
    */
-  public Collection<StorageConfiguration> list() {
+  public Iterable<StorageConfiguration> list() {
     return impl.list();
   }
 

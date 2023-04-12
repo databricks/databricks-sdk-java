@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** These APIs manage metastore assignments to a workspace. */
@@ -68,7 +67,7 @@ public class AccountMetastoreAssignmentsAPI {
     return impl.get(request);
   }
 
-  public Collection<MetastoreAssignment> list(String metastoreId) {
+  public Iterable<MetastoreAssignment> list(String metastoreId) {
     return list(new ListAccountMetastoreAssignmentsRequest().setMetastoreId(metastoreId));
   }
 
@@ -77,7 +76,7 @@ public class AccountMetastoreAssignmentsAPI {
    *
    * <p>Gets a list of all Databricks workspace IDs that have been assigned to given metastore.
    */
-  public Collection<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
+  public Iterable<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
     return impl.list(request);
   }
 

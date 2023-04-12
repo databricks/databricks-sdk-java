@@ -67,8 +67,8 @@ public class ProvidersAPI {
    * admin or the owner of the providers. Providers not owned by the caller are not included in the
    * response. There is no guarantee of a specific ordering of the elements in the array.
    */
-  public ListProvidersResponse list(ListProvidersRequest request) {
-    return impl.list(request);
+  public Iterable<ProviderInfo> list(ListProvidersRequest request) {
+    return impl.list(request).getProviders();
   }
 
   public ListProviderSharesResponse listShares(String name) {
