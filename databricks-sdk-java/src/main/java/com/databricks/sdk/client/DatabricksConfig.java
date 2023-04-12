@@ -293,7 +293,7 @@ public class DatabricksConfig {
     return this;
   }
 
-  public int getHttpTimeoutSeconds() {
+  public Integer getHttpTimeoutSeconds() {
     return httpTimeoutSeconds;
   }
 
@@ -302,7 +302,7 @@ public class DatabricksConfig {
     return this;
   }
 
-  public int getDebugTruncateBytes() {
+  public Integer getDebugTruncateBytes() {
     return debugTruncateBytes;
   }
 
@@ -320,7 +320,7 @@ public class DatabricksConfig {
     return this;
   }
 
-  public int getRateLimit() {
+  public Integer getRateLimit() {
     return rateLimit;
   }
 

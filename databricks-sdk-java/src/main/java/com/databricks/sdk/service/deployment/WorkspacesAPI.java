@@ -2,6 +2,11 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Wait;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 import org.apache.http.client.methods.*;
 
 /**
@@ -26,7 +31,53 @@ public class WorkspacesAPI {
     impl = mock;
   }
 
-  public Workspace create(String workspaceName) {
+  public Workspace waitGetWorkspaceRunning(long workspaceId) throws TimeoutException {
+    return waitGetWorkspaceRunning(workspaceId, Duration.ofMinutes(20), null);
+  }
+
+  public Workspace waitGetWorkspaceRunning(
+      long workspaceId, Duration timeout, Consumer<Workspace> callback) throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<WorkspaceStatus> targetStates = Arrays.asList(WorkspaceStatus.RUNNING);
+    java.util.List<WorkspaceStatus> failureStates =
+        Arrays.asList(WorkspaceStatus.BANNED, WorkspaceStatus.FAILED);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      Workspace poll = get(new GetWorkspaceRequest().setWorkspaceId(workspaceId));
+      WorkspaceStatus status = poll.getWorkspaceStatus();
+      statusMessage = poll.getWorkspaceStatusMessage();
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg = String.format("failed to reach RUNNING, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("workspaceId=%s", workspaceId);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      String logMessage =
+          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
+      // log.info(logMessage);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
+  public Wait<Workspace, Workspace> create(String workspaceName) {
     return create(new CreateWorkspaceRequest().setWorkspaceName(workspaceName));
   }
 
@@ -42,8 +93,12 @@ public class WorkspacesAPI {
    * repeated `GET` requests with the workspace ID and check its status. The workspace becomes
    * available when the status changes to `RUNNING`.
    */
-  public Workspace create(CreateWorkspaceRequest request) {
-    return impl.create(request);
+  public Wait<Workspace, Workspace> create(CreateWorkspaceRequest request) {
+    Workspace response = impl.create(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetWorkspaceRunning(response.getWorkspaceId(), timeout, callback),
+        response);
   }
 
   public void delete(long workspaceId) {
@@ -101,8 +156,8 @@ public class WorkspacesAPI {
     return impl.list();
   }
 
-  public void update(long workspaceId) {
-    update(new UpdateWorkspaceRequest().setWorkspaceId(workspaceId));
+  public Wait<Workspace, Void> update(long workspaceId) {
+    return update(new UpdateWorkspaceRequest().setWorkspaceId(workspaceId));
   }
 
   /**
@@ -205,8 +260,11 @@ public class WorkspacesAPI {
    * [Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
    */
-  public void update(UpdateWorkspaceRequest request) {
+  public Wait<Workspace, Void> update(UpdateWorkspaceRequest request) {
     impl.update(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetWorkspaceRunning(request.getWorkspaceId(), timeout, callback));
   }
 
   public WorkspacesService impl() {

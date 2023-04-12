@@ -2,6 +2,11 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Wait;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 import org.apache.http.client.methods.*;
 
 /**
@@ -22,17 +27,156 @@ public class WarehousesAPI {
     impl = mock;
   }
 
+  public GetWarehouseResponse waitGetWarehouseDeleted(String id) throws TimeoutException {
+    return waitGetWarehouseDeleted(id, Duration.ofMinutes(20), null);
+  }
+
+  public GetWarehouseResponse waitGetWarehouseDeleted(
+      String id, Duration timeout, Consumer<GetWarehouseResponse> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<State> targetStates = Arrays.asList(State.DELETED);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      GetWarehouseResponse poll = get(new GetWarehouseRequest().setId(id));
+      State status = poll.getState();
+      statusMessage = String.format("current status: %s", status);
+      if (poll.getHealth() != null) {
+        statusMessage = poll.getHealth().getSummary();
+      }
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      String prefix = String.format("id=%s", id);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      String logMessage =
+          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
+      // log.info(logMessage);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
+  public GetWarehouseResponse waitGetWarehouseRunning(String id) throws TimeoutException {
+    return waitGetWarehouseRunning(id, Duration.ofMinutes(20), null);
+  }
+
+  public GetWarehouseResponse waitGetWarehouseRunning(
+      String id, Duration timeout, Consumer<GetWarehouseResponse> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<State> targetStates = Arrays.asList(State.RUNNING);
+    java.util.List<State> failureStates = Arrays.asList(State.STOPPED, State.DELETED);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      GetWarehouseResponse poll = get(new GetWarehouseRequest().setId(id));
+      State status = poll.getState();
+      statusMessage = String.format("current status: %s", status);
+      if (poll.getHealth() != null) {
+        statusMessage = poll.getHealth().getSummary();
+      }
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg = String.format("failed to reach RUNNING, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("id=%s", id);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      String logMessage =
+          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
+      // log.info(logMessage);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
+  public GetWarehouseResponse waitGetWarehouseStopped(String id) throws TimeoutException {
+    return waitGetWarehouseStopped(id, Duration.ofMinutes(20), null);
+  }
+
+  public GetWarehouseResponse waitGetWarehouseStopped(
+      String id, Duration timeout, Consumer<GetWarehouseResponse> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<State> targetStates = Arrays.asList(State.STOPPED);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      GetWarehouseResponse poll = get(new GetWarehouseRequest().setId(id));
+      State status = poll.getState();
+      statusMessage = String.format("current status: %s", status);
+      if (poll.getHealth() != null) {
+        statusMessage = poll.getHealth().getSummary();
+      }
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      String prefix = String.format("id=%s", id);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      String logMessage =
+          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
+      // log.info(logMessage);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
   /**
    * Create a warehouse.
    *
    * <p>Creates a new SQL warehouse.
    */
-  public CreateWarehouseResponse create(CreateWarehouseRequest request) {
-    return impl.create(request);
+  public Wait<GetWarehouseResponse, CreateWarehouseResponse> create(
+      CreateWarehouseRequest request) {
+    CreateWarehouseResponse response = impl.create(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetWarehouseRunning(response.getId(), timeout, callback),
+        response);
   }
 
-  public void delete(String id) {
-    delete(new DeleteWarehouseRequest().setId(id));
+  public Wait<GetWarehouseResponse, Void> delete(String id) {
+    return delete(new DeleteWarehouseRequest().setId(id));
   }
 
   /**
@@ -40,12 +184,14 @@ public class WarehousesAPI {
    *
    * <p>Deletes a SQL warehouse.
    */
-  public void delete(DeleteWarehouseRequest request) {
+  public Wait<GetWarehouseResponse, Void> delete(DeleteWarehouseRequest request) {
     impl.delete(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetWarehouseDeleted(request.getId(), timeout, callback));
   }
 
-  public void edit(String id) {
-    edit(new EditWarehouseRequest().setId(id));
+  public Wait<GetWarehouseResponse, Void> edit(String id) {
+    return edit(new EditWarehouseRequest().setId(id));
   }
 
   /**
@@ -53,8 +199,10 @@ public class WarehousesAPI {
    *
    * <p>Updates the configuration for a SQL warehouse.
    */
-  public void edit(EditWarehouseRequest request) {
+  public Wait<GetWarehouseResponse, Void> edit(EditWarehouseRequest request) {
     impl.edit(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetWarehouseRunning(request.getId(), timeout, callback));
   }
 
   public GetWarehouseResponse get(String id) {
@@ -97,8 +245,8 @@ public class WarehousesAPI {
     impl.setWorkspaceWarehouseConfig(request);
   }
 
-  public void start(String id) {
-    start(new StartRequest().setId(id));
+  public Wait<GetWarehouseResponse, Void> start(String id) {
+    return start(new StartRequest().setId(id));
   }
 
   /**
@@ -106,12 +254,14 @@ public class WarehousesAPI {
    *
    * <p>Starts a SQL warehouse.
    */
-  public void start(StartRequest request) {
+  public Wait<GetWarehouseResponse, Void> start(StartRequest request) {
     impl.start(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetWarehouseRunning(request.getId(), timeout, callback));
   }
 
-  public void stop(String id) {
-    stop(new StopRequest().setId(id));
+  public Wait<GetWarehouseResponse, Void> stop(String id) {
+    return stop(new StopRequest().setId(id));
   }
 
   /**
@@ -119,8 +269,10 @@ public class WarehousesAPI {
    *
    * <p>Stops a SQL warehouse.
    */
-  public void stop(StopRequest request) {
+  public Wait<GetWarehouseResponse, Void> stop(StopRequest request) {
     impl.stop(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetWarehouseStopped(request.getId(), timeout, callback));
   }
 
   public WarehousesService impl() {
