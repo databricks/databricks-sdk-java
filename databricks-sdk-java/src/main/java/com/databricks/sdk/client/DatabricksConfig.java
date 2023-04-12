@@ -111,6 +111,17 @@ public class DatabricksConfig {
     return this;
   }
 
+  public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
+    this.getEnv = getEnv;
+    try {
+      resolveAndInitAuth();
+      ConfigLoader.validate(this);
+      return this;
+    } catch (DatabricksException e) {
+      throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
+    }
+  }
+
   public synchronized  DatabricksConfig resolveAndInitAuth() {
     try {
       ConfigLoader.resolve(this);
@@ -119,18 +130,6 @@ public class DatabricksConfig {
     } catch (DatabricksException e) {
       String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
       throw new DatabricksException(msg, e);
-    }
-  }
-
-  public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
-    this.getEnv = getEnv;
-    try {
-      resolveAndInitAuth();
-      ConfigLoader.validate(this);
-      return this;
-    } catch (DatabricksException e) {
-//      String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
-      throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
     }
   }
 

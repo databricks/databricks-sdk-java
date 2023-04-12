@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
@@ -59,7 +57,10 @@ public class ConfigLoader {
 
   static void validate(DatabricksConfig cfg) throws DatabricksException {
     try {
-      HashSet<String> authSet = new HashSet<>();
+      if(!isNullOrEmpty(cfg.getAuthType())) {
+        return;
+      }
+      Set<String> authSet = new TreeSet<>();
       for (ConfigAttributeAccessor accessor : accessors) {
         Object value = accessor.getValueFromConfig(cfg);
         if (isNullOrEmpty(value)) {
