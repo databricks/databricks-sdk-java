@@ -53,7 +53,22 @@ public class ApiClient {
     this.config = config;
     config.resolve();
 
-    timeout = config.getHttpTimeoutSeconds() * 1000;
+    int httpTimeoutSeconds = config.getHttpTimeoutSeconds();
+    if (httpTimeoutSeconds == 0) {
+      httpTimeoutSeconds = 300;
+    }
+
+    int rateLimit = config.getRateLimit();
+    if(rateLimit == 0) {
+      rateLimit = 15;
+    }
+
+    int debugTruncateBytes = config.getDebugTruncateBytes();
+    if(debugTruncateBytes == 0) {
+      debugTruncateBytes = 96;
+    }
+
+    timeout = httpTimeoutSeconds * 1000;
 
     maxConnections = 20;
     maxRetries = 3;

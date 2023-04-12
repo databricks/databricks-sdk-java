@@ -47,7 +47,7 @@ public class DatabricksConfig {
   private String azureWorkspaceResourceId;
 
   @ConfigAttribute(value = "azure_use_msi", env = "ARM_USE_MSI")
-  private boolean azureUseMSI;
+  private Boolean azureUseMSI;
 
   @ConfigAttribute(value = "azure_client_secret", env = "ARM_CLIENT_SECRET", sensitive = true)
   private String azureClientSecret;
@@ -65,7 +65,7 @@ public class DatabricksConfig {
    * When multiple auth attributes are available in the environment, use the auth type specified by
    * this argument. This argument also holds currently selected auth.
    */
-  @ConfigAttribute("auth_type")
+  @ConfigAttribute(value = "auth_type", env = "DATABRICKS_AUTH_TYPE")
   private String authType;
 
   /**
@@ -73,55 +73,67 @@ public class DatabricksConfig {
    * purposes.
    */
   @ConfigAttribute("skip_verify")
-  private boolean skipVerify;
+  private Boolean skipVerify;
 
   /** Number of seconds for HTTP timeout */
   @ConfigAttribute("http_timeout_seconds")
-  private int httpTimeoutSeconds;
+  private Integer httpTimeoutSeconds;
 
   /** Truncate JSON fields in JSON above this limit. Default is 96. */
   @ConfigAttribute(value = "debug_truncate_bytes", env = "DATABRICKS_DEBUG_TRUNCATE_BYTES")
-  private int debugTruncateBytes;
+  private Integer debugTruncateBytes;
 
   /** Debug HTTP headers of requests made by the provider. Default is false. */
   @ConfigAttribute(value = "debug_headers", env = "DATABRICKS_DEBUG_HEADERS")
-  private boolean debugHeaders;
+  private Boolean debugHeaders;
 
   /** Maximum number of requests per second made to Databricks REST API. */
   @ConfigAttribute(value = "rate_limit", env = "DATABRICKS_RATE_LIMIT")
-  private int rateLimit;
+  private Integer rateLimit;
 
   private volatile boolean resolved;
   private HeaderFactory headerFactory;
 
-  public synchronized DatabricksConfig resolve() {
-    return resolve(System::getenv);
-  }
+  Function<String,String> getEnv;
 
-  public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
-    ConfigLoader.resolve(this, getEnv);
+  public synchronized DatabricksConfig resolve() {
+    resolve(System::getenv);
     return this;
   }
 
-  public synchronized Map<String, String> initAuth() {
+  public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
+    this.getEnv = getEnv;
     try {
-      ConfigLoader.fixHostIfNeeded(this);
-      if (credentialsProvider == null) {
-        credentialsProvider = new DefaultCredentialsProvider();
-        setAuthType(credentialsProvider.authType());
-      }
-      headerFactory = credentialsProvider.configure(this);
-      setAuthType(credentialsProvider.authType());
-      return headerFactory.headers();
+      ConfigLoader.resolve(this);
+      initAuth();
+      ConfigLoader.validate(this);
+      return this;
     } catch (DatabricksException e) {
-      throw ConfigLoader.makeNicerError(e);
+      String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
+      throw ConfigLoader.makeNicerError(msg, e, this);
     }
+  }
+
+  public synchronized void initAuth() throws DatabricksException {
+    if (credentialsProvider == null) {
+      credentialsProvider = new DefaultCredentialsProvider();
+    }
+    ConfigLoader.fixHostIfNeeded(this);
+    headerFactory = credentialsProvider.configure(this);
+    setAuthType(credentialsProvider.authType());
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {
     try {
-      Map<String, String> headers = initAuth();
-      return headers;
+      if(headerFactory == null) {
+        // Calling authenticate without resolve
+        try {
+          initAuth();
+        } catch (DatabricksException e) {
+          throw new DatabricksException("default auth: cannot configure default credentials");
+        }
+      }
+      return headerFactory.headers();
     } catch (DatabricksException e) {
       throw new DatabricksException(String.format("%s auth: %s", this.authType, e.getMessage()));
     }

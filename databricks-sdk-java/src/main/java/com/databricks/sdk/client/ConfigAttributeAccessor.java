@@ -32,7 +32,7 @@ class ConfigAttributeAccessor {
     return getEnv.apply(configAttribute.env());
   }
 
-  public void setValue(DatabricksConfig cfg, String value) throws IllegalAccessException {
+  public void setValueOnConfig(DatabricksConfig cfg, String value) throws IllegalAccessException {
     field.setAccessible(true);
     if (field.getType() == String.class) {
       field.set(cfg, value);
@@ -44,7 +44,7 @@ class ConfigAttributeAccessor {
     field.setAccessible(false);
   }
 
-  public Object getValue(DatabricksConfig cfg) throws IllegalAccessException {
+  public Object getValueFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
     field.setAccessible(true);
     Object value = field.get(cfg);
     field.setAccessible(false);
@@ -58,5 +58,10 @@ class ConfigAttributeAccessor {
       repr += "(env: " + configAttribute.env() + ")";
     }
     return repr;
+  }
+
+  public String getAsString(Object value) {
+    String valueToString = value.toString();
+    return valueToString;
   }
 }
