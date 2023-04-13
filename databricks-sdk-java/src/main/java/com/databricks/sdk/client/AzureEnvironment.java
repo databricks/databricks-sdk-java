@@ -3,6 +3,13 @@ package com.databricks.sdk.client;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The set of endpoints within a single Azure authentication boundary.
+ *
+ * <p>Tokens fetched from Azure AAD can be scoped to a specific resource. The identifiers for these
+ * resources vary depending on the cloud environment: public, germany, govcloud, or china. Depending
+ * on the operation, tokens scoped to a specific endpoint are needed.
+ */
 public class AzureEnvironment {
   private String name;
   private String serviceManagementEndpoint;
@@ -24,34 +31,19 @@ public class AzureEnvironment {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
   public String getServiceManagementEndpoint() {
     return serviceManagementEndpoint;
-  }
-
-  public void setServiceManagementEndpoint(String serviceManagementEndpoint) {
-    this.serviceManagementEndpoint = serviceManagementEndpoint;
   }
 
   public String getResourceManagerEndpoint() {
     return resourceManagerEndpoint;
   }
 
-  public void setResourceManagerEndpoint(String resourceManagerEndpoint) {
-    this.resourceManagerEndpoint = resourceManagerEndpoint;
-  }
-
   public String getActiveDirectoryEndpoint() {
     return activeDirectoryEndpoint;
   }
 
-  public void setActiveDirectoryEndpoint(String activeDirectoryEndpoint) {
-    this.activeDirectoryEndpoint = activeDirectoryEndpoint;
-  }
-
+  /** The application ID of the production Databricks first-party application. */
   public static final String ARM_DATABRICKS_RESOURCE_ID = "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d";
 
   private static final Map<String, AzureEnvironment> ENVIRONMENTS;

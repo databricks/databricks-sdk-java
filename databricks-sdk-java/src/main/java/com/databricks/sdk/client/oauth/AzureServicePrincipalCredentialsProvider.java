@@ -5,7 +5,6 @@ import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,14 +55,19 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
 
     String armEndpoint = config.getAzureEnvironment().getResourceManagerEndpoint();
     Token token = tokenSourceFor(config, armEndpoint).refresh();
-    String requestUrl = armEndpoint + config.getAzureWorkspaceResourceId() + "?api-version=2018-04-01";
+    String requestUrl =
+        armEndpoint + config.getAzureWorkspaceResourceId() + "?api-version=2018-04-01";
     Request req = new Request("GET", requestUrl);
     req.withHeader("Authorization", "Bearer " + token.getAccessToken());
 
     try {
       Response resp = config.getHttpClient().execute(req);
       if (resp.getStatusCode() != 200) {
-        throw new DatabricksException("Failed fetching workspace URL: status code " + resp.getStatusCode() + ", response body: " + resp.getBody());
+        throw new DatabricksException(
+            "Failed fetching workspace URL: status code "
+                + resp.getStatusCode()
+                + ", response body: "
+                + resp.getBody());
       }
 
       ObjectNode jsonResponse = mapper.readValue(resp.getBody(), ObjectNode.class);

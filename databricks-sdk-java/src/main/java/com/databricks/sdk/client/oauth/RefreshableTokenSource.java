@@ -1,17 +1,22 @@
 package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.DatabricksException;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
-import java.util.Base64;
-import java.util.Map;
-
 import com.databricks.sdk.client.http.FormRequest;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Base64;
+import java.util.Map;
 import org.apache.http.HttpHeaders;
 
+/**
+ * An OAuth TokenSource which can be refreshed.
+ *
+ * <p>Calls to getToken() will first check if the token is still valid (currently defined by having
+ * at least 10 seconds until expiry). If not, refresh() is called first to refresh the token.
+ */
 public abstract class RefreshableTokenSource implements TokenSource {
   private HttpClient hc;
 
@@ -21,6 +26,17 @@ public abstract class RefreshableTokenSource implements TokenSource {
     this.hc = hc;
   }
 
+  /**
+   * Helper method implementing OAuth token refresh.
+   *
+   * @param clientId The client ID to authenticate with.
+   * @param clientSecret The client secret to authenticate with.
+   * @param tokenUrl The authorization URL for fetching tokens.
+   * @param params Additional request parameters.
+   * @param headers Additional headers.
+   * @param position The position of the authentication parameters in the request.
+   * @return The newly fetched Token.
+   */
   protected Token retrieveToken(
       String clientId,
       String clientSecret,
@@ -38,9 +54,9 @@ public abstract class RefreshableTokenSource implements TokenSource {
         }
       case HEADER:
         String authHeaderValue =
-            "Basic " + Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
+            "Basic "
+                + Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
         headers.put(HttpHeaders.AUTHORIZATION, authHeaderValue);
-
     }
     FormRequest req = new FormRequest(tokenUrl, params);
     req.withHeaders(headers);
@@ -51,7 +67,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
         throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
       }
       LocalDateTime expiry = LocalDateTime.now().plus(resp.getExpiresIn(), ChronoUnit.SECONDS);
-      return new Token(resp.getAccessToken(), resp.getRefreshToken(), resp.getTokenType(), expiry);
+      return new Token(resp.getAccessToken(), resp.getTokenType(), resp.getRefreshToken(), expiry);
     } catch (Exception e) {
       throw new DatabricksException("Failed to refresh credentials: " + e.getMessage(), e);
     }

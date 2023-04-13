@@ -4,7 +4,6 @@ import com.databricks.sdk.client.oauth.AzureServicePrincipalCredentialsProvider;
 import com.databricks.sdk.client.oauth.OAuthM2MServicePrincipalCredentialsProvider;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.http.conn.HttpClientConnectionManager;
 
 public class DefaultCredentialsProvider implements CredentialsProvider {
   private List<CredentialsProvider> providers;

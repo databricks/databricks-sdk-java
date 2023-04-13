@@ -2,9 +2,16 @@ package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.http.HttpClient;
-
 import java.util.*;
 
+/**
+ * An implementation of RefreshableTokenSource implementing the client_credentials OAuth grant type.
+ *
+ * <p>Using the provided client ID, secret, and token URL, this class makes requests using its
+ * HttpClient to fetch OAuth tokens. Additional parameters and scopes can be specified as well. To
+ * support all OAuth endpoints, authentication parameters can be passed in the request body or in
+ * the Authorization header.
+ */
 public class ClientCredentials extends RefreshableTokenSource {
   static class Builder {
     private String clientId;
@@ -54,7 +61,8 @@ public class ClientCredentials extends RefreshableTokenSource {
       Objects.requireNonNull(this.clientId, "clientId must be specified");
       Objects.requireNonNull(this.clientSecret, "clientSecret must be specified");
       Objects.requireNonNull(this.tokenUrl, "tokenUrl must be specified");
-      return new ClientCredentials(hc, clientId, clientSecret, tokenUrl, endpointParams, scopes, position);
+      return new ClientCredentials(
+          hc, clientId, clientSecret, tokenUrl, endpointParams, scopes, position);
     }
   }
 

@@ -3,6 +3,14 @@ package com.databricks.sdk.client.oauth;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * The response from an OAuth token request.
+ *
+ * <p>The first four attributes (error, errorCode, errorSummary, errorDescription) are populated in
+ * case of a failed request, and the other attributes are not set. The last attributes (expiresIn,
+ * accessToken, tokenType) are set after successful authentication. refreshToken is set when
+ * grant_type includes refresh_token (for U2M authentication).
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OAuthResponse {
   @JsonProperty("error")
