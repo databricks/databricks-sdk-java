@@ -13,9 +13,13 @@ import java.util.TreeSet;
 import java.util.function.Function;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConfigLoader {
-  private static List<ConfigAttributeAccessor> accessors = attributeAccessors();
+  private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
+
+  private static final List<ConfigAttributeAccessor> accessors = attributeAccessors();
 
   static List<ConfigAttributeAccessor> attributeAccessors() {
     ArrayList<ConfigAttributeAccessor> attrs = new ArrayList<>();
@@ -220,7 +224,7 @@ public class ConfigLoader {
 
     Profile.Section section = ini.get(profile);
     if (section == null && !hasExplicitProfile) {
-      // logger.Debugf("%s has no %s profile configured", configFile, profile)
+      LOG.debug("{} has no {} profile configured", configFile, profile);
       return;
     }
 

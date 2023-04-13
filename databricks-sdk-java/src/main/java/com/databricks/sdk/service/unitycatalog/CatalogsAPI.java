@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A catalog is the first layer of Unity Catalog’s three-level namespace. It’s used to organize your
@@ -14,6 +15,8 @@ import org.apache.http.client.methods.*;
  * access to the same data, depending on privileges granted centrally in Unity Catalog.
  */
 public class CatalogsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(CatalogsAPI.class);
+
   private final CatalogsService impl;
 
   /** Regular-use constructor */

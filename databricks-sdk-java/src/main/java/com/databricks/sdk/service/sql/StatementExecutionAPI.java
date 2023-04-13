@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The SQL Statement Execution API manages the execution of arbitrary SQL statements and the
@@ -167,6 +168,8 @@ import org.apache.http.client.methods.*;
  * tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
  */
 public class StatementExecutionAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(StatementExecutionAPI.class);
+
   private final StatementExecutionService impl;
 
   /** Regular-use constructor */

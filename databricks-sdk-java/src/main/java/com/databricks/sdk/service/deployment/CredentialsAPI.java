@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage credential configurations for this workspace. Databricks needs access to a
@@ -11,6 +12,8 @@ import org.apache.http.client.methods.*;
  * information, and its ID is used when creating a new workspace.
  */
 public class CredentialsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(CredentialsAPI.class);
+
   private final CredentialsService impl;
 
   /** Regular-use constructor */

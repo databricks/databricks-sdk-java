@@ -4,9 +4,12 @@ package com.databricks.sdk.service.mlflow;
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Paginator;
 import java.util.Collection;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RegistryWebhooksAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(RegistryWebhooksAPI.class);
+
   private final RegistryWebhooksService impl;
 
   /** Regular-use constructor */

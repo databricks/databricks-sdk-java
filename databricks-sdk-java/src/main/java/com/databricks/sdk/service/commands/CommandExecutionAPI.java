@@ -7,12 +7,15 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This API allows execution of Python, Scala, SQL, or R commands on running Databricks Clusters.
  */
 public class CommandExecutionAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(CommandExecutionAPI.class);
+
   private final CommandExecutionService impl;
 
   /** Regular-use constructor */
@@ -74,9 +77,7 @@ public class CommandExecutionAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {
@@ -136,9 +137,7 @@ public class CommandExecutionAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {
@@ -188,9 +187,7 @@ public class CommandExecutionAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {

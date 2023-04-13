@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.clusters;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Instance Profiles API allows admins to add, list, and remove instance profiles that users can
@@ -13,6 +14,8 @@ import org.apache.http.client.methods.*;
  * https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html
  */
 public class InstanceProfilesAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(InstanceProfilesAPI.class);
+
   private final InstanceProfilesService impl;
 
   /** Regular-use constructor */

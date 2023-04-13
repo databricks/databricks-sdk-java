@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
@@ -10,6 +11,8 @@ import org.apache.http.client.methods.*;
  * more users and/or notification destinations if the condition was met.
  */
 public class AlertsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(AlertsAPI.class);
+
   private final AlertsService impl;
 
   /** Regular-use constructor */

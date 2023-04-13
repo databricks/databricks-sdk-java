@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This API is provided to assist you in making new query objects. When creating a query object, you
@@ -15,6 +16,8 @@ import org.apache.http.client.methods.*;
  * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
  */
 public class DataSourcesAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(DataSourcesAPI.class);
+
   private final DataSourcesService impl;
 
   /** Regular-use constructor */

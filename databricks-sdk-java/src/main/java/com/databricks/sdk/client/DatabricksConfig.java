@@ -117,7 +117,7 @@ public class DatabricksConfig {
 
   /** Debug HTTP headers of requests made by the provider. Default is false. */
   @ConfigAttribute(value = "debug_headers", env = "DATABRICKS_DEBUG_HEADERS")
-  private Boolean debugHeaders;
+  private boolean debugHeaders;
 
   /** Maximum number of requests per second made to Databricks REST API. */
   @ConfigAttribute(value = "rate_limit", env = "DATABRICKS_RATE_LIMIT")

@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.secrets;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Secrets API allows you to manage secrets, secret scopes, and access permissions.
@@ -16,6 +17,8 @@ import org.apache.http.client.methods.*;
  * is not possible to prevent such users from reading secrets.
  */
 public class SecretsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(SecretsAPI.class);
+
   private final SecretsService impl;
 
   /** Regular-use constructor */

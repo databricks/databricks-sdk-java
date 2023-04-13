@@ -3,7 +3,8 @@ package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
 import java.util.Collection;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Functions implement User-Defined Functions (UDFs) in Unity Catalog.
@@ -14,6 +15,8 @@ import org.apache.http.client.methods.*;
  * __catalog_name__.__schema_name__.__function_name__.
  */
 public class FunctionsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(FunctionsAPI.class);
+
   private final FunctionsService impl;
 
   /** Regular-use constructor */

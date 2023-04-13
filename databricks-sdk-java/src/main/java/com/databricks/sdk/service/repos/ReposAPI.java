@@ -3,7 +3,8 @@ package com.databricks.sdk.service.repos;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Paginator;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Repos API allows users to manage their git repos. Users can use the API to access all repos
@@ -18,6 +19,8 @@ import org.apache.http.client.methods.*;
  * CI/CD.
  */
 public class ReposAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(ReposAPI.class);
+
   private final ReposService impl;
 
   /** Regular-use constructor */

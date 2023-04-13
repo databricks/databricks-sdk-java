@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.scim;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
@@ -12,6 +13,8 @@ import org.apache.http.client.methods.*;
  * eliminates the risk of a user overwriting production data by accident.
  */
 public class ServicePrincipalsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(ServicePrincipalsAPI.class);
+
   private final ServicePrincipalsService impl;
 
   /** Regular-use constructor */

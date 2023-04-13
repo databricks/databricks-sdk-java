@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.clusterpolicies;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Cluster policy limits the ability to configure clusters based on a set of rules. The policy rules
@@ -27,6 +28,8 @@ import org.apache.http.client.methods.*;
  * policies.
  */
 public class ClusterPoliciesAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(ClusterPoliciesAPI.class);
+
   private final ClusterPoliciesService impl;
 
   /** Regular-use constructor */

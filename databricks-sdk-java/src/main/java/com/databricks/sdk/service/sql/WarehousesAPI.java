@@ -7,7 +7,8 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A SQL warehouse is a compute resource that lets you run SQL commands on data objects within
@@ -15,6 +16,8 @@ import org.apache.http.client.methods.*;
  * capabilities in the cloud.
  */
 public class WarehousesAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(WarehousesAPI.class);
+
   private final WarehousesService impl;
 
   /** Regular-use constructor */
@@ -57,9 +60,7 @@ public class WarehousesAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {
@@ -106,9 +107,7 @@ public class WarehousesAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {
@@ -149,9 +148,7 @@ public class WarehousesAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {

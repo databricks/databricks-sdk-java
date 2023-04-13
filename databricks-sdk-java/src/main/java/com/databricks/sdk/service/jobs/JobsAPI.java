@@ -8,7 +8,8 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Jobs API allows you to create, edit, and delete jobs.
@@ -29,6 +30,8 @@ import org.apache.http.client.methods.*;
  * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
  */
 public class JobsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(JobsAPI.class);
+
   private final JobsService impl;
 
   /** Regular-use constructor */
@@ -80,9 +83,7 @@ public class JobsAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {

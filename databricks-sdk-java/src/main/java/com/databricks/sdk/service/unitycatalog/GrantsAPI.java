@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * In Unity Catalog, data is secure by default. Initially, users have no access to data in a
@@ -16,6 +17,8 @@ import org.apache.http.client.methods.*;
  * inherited by all current and future objects within that schema.
  */
 public class GrantsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(GrantsAPI.class);
+
   private final GrantsService impl;
 
   /** Regular-use constructor */

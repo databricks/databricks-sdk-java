@@ -2,13 +2,16 @@
 package com.databricks.sdk.service.dbfs;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * DBFS API makes it simple to interact with various data sources without having to include a users
  * credentials every time to read a file.
  */
 public class DbfsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(DbfsAPI.class);
+
   private final DbfsService impl;
 
   /** Regular-use constructor */

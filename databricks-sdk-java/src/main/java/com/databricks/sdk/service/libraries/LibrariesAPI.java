@@ -3,7 +3,8 @@ package com.databricks.sdk.service.libraries;
 
 import com.databricks.sdk.client.ApiClient;
 import java.util.Collection;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Libraries API allows you to install and uninstall libraries and get the status of libraries
@@ -27,6 +28,8 @@ import org.apache.http.client.methods.*;
  * Uninstall pending restart.
  */
 public class LibrariesAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(LibrariesAPI.class);
+
   private final LibrariesService impl;
 
   /** Regular-use constructor */
