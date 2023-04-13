@@ -1,8 +1,5 @@
 package com.databricks.sdk.client;
 
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-
 /**
  * Simplified REST API client with retries, JSON POJO SerDe through Jackson and exception POJO
  * guessing
@@ -16,18 +13,18 @@ public class ApiClient {
   }
 
   public ApiClient(DatabricksConfig config) {
-    int httpTimeoutSeconds = config.getHttpTimeoutSeconds();
-    if (httpTimeoutSeconds == 0) {
+    Integer httpTimeoutSeconds = config.getHttpTimeoutSeconds();
+    if (httpTimeoutSeconds == null) {
       httpTimeoutSeconds = 300;
     }
 
-    int rateLimit = config.getRateLimit();
-    if (rateLimit == 0) {
+    Integer rateLimit = config.getRateLimit();
+    if (rateLimit == null) {
       rateLimit = 15;
     }
 
-    int debugTruncateBytes = config.getDebugTruncateBytes();
-    if (debugTruncateBytes == 0) {
+    Integer debugTruncateBytes = config.getDebugTruncateBytes();
+    if (debugTruncateBytes == null) {
       debugTruncateBytes = 96;
     }
 

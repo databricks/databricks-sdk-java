@@ -4,12 +4,18 @@ package com.databricks.sdk.service.{{.Package.Name}};
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import org.apache.http.client.methods.*;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
 import com.databricks.sdk.support.Paginator;
+import com.databricks.sdk.support.Wait;
 
 {{if .Description}}/**
  {{.Comment " * " 80}}
@@ -26,12 +32,68 @@ public class {{.PascalName}}API {
   public {{.PascalName}}API({{.PascalName}}Service mock) {
     impl = mock;
   }
+  {{range .Waits}}
+  public {{.Poll.Response.PascalName}} {{.CamelName}}({{range $i, $x := .Binding}}{{if $i}}, {{end}}{{template "type" .PollField.Entity}} {{.PollField.CamelName}}{{end}})
+    throws TimeoutException {
+    return {{.CamelName}}({{range .Binding}}{{.PollField.CamelName}}, {{end}}Duration.ofMinutes({{.Timeout}}), null);
+  }
+
+  public {{.Poll.Response.PascalName}} {{.CamelName}}({{range .Binding}}{{template "type" .PollField.Entity}} {{.PollField.CamelName}}, {{end}}
+    Duration timeout,  Consumer<{{.Poll.Response.PascalName}}> callback) throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<{{.Status.Entity.PascalName}}> targetStates = Arrays.asList({{range $i,$x := .Success}}{{if $i}}, {{end}}{{.Entity.PascalName}}.{{.Content}}{{end}});{{if .Failure}}
+    java.util.List<{{.Status.Entity.PascalName}}> failureStates = Arrays.asList({{range $i,$x := .Failure}}{{if $i}}, {{end}}{{.Entity.PascalName}}.{{.Content}}{{end}});{{end}}
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+        {{.Poll.Response.PascalName}} poll = {{template "java-name" .Poll}}(new {{.Poll.Request.PascalName}}(){{range .Binding}}.set{{.PollField.PascalName}}({{.PollField.CamelName}}){{- end}});
+        {{.Status.Entity.PascalName}} status = poll{{range .StatusPath}}.get{{.PascalName}}(){{end}};
+        {{if .ComplexMessagePath -}}
+        statusMessage = String.format("current status: %s", status);
+        if (poll.get{{.MessagePathHead.PascalName}}() != null) {
+          statusMessage = poll{{range .MessagePath}}.get{{.PascalName}}(){{end}};
+        }
+        {{- else if .MessagePath -}}
+        statusMessage = poll{{range .MessagePath}}.get{{.PascalName}}(){{end}};
+        {{- else -}}
+        statusMessage = String.format("current status: %s", status);
+        {{- end}}
+        if (targetStates.contains(status)) {
+            return poll;
+        }
+        if (callback != null) {
+            callback.accept(poll);
+        }{{if .Failure -}}
+        if (failureStates.contains(status)) {
+            String msg = String.format("failed to reach {{range $i, $e := .Success}}{{if $i}} or {{end}}{{$e.Content}}{{end}}, got %s: %s", status, statusMessage);
+            throw new IllegalStateException(msg);
+        }
+        {{end}}
+        String prefix = String.format("{{range $i, $b := .Binding}}{{if $i}}, {{end -}}{{.PollField.CamelName}}=%s{{- end}}"{{range .Binding}}, {{.PollField.CamelName}}{{- end}});
+        int sleep = attempt;
+        if (sleep > 10) {
+            // sleep 10s max per attempt
+            sleep = 10;
+        }
+        String logMessage = String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
+        // log.info(logMessage);
+        try {
+            Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+  {{end}}
+
 	{{range .Methods}}
 	{{if and .Request .Request.RequiredFields}}
   public {{template "method-return-type" .}} {{template "java-name" .}}({{range $i, $p := .Request.RequiredFields -}}
     {{if $i}}, {{end}}{{template "type" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}}
   {{- end}}) {
-    {{if .Response -}}return {{end}}{{template "java-name" .}}(new {{.Request.PascalName}}(){{range .Request.RequiredFields}}
+    {{if or .Response .Wait -}}return {{end}}{{template "java-name" .}}(new {{.Request.PascalName}}(){{range .Request.RequiredFields}}
       .set{{.PascalName}}({{.CamelName}}){{end}});
   }
   {{end}}
@@ -53,7 +115,8 @@ public class {{.PascalName}}API {
 {{- end}}
 
 {{define "method-call" -}}
-  {{if .Pagination -}}{{template "method-call-paginated" .}}
+  {{if and .Wait (and (not .IsCrudRead) (not (eq .SnakeName "get_run"))) -}}{{template "method-call-retried" .}}
+  {{- else if .Pagination -}}{{template "method-call-paginated" .}}
   {{- else}}{{template "method-call-default" .}}{{end}}
 {{- end}}
 
@@ -90,12 +153,18 @@ public class {{.PascalName}}API {
   {{- end -}}
 {{- end}}
 
+{{define "method-call-retried" -}}
+    {{if .Response}}{{.Response.PascalName}} response = {{end}}impl.{{template "java-name" .}}(request);
+    return new Wait<>((timeout, callback) -> {{.Wait.CamelName}}({{range .Wait.Binding}}{{if .IsResponseBind}}response{{else}}request{{end}}.get{{.Bind.PascalName}}(), {{end}}timeout, callback){{if .Response}}, response{{end}});
+{{- end}}
+
 {{define "method-call-default" -}}
   {{if .Response -}}return {{end}}impl.{{template "java-name" .}}({{if .Request}}request{{end}});
 {{- end}}
 
 {{define "method-return-type" -}}
-  {{- if .Response}}{{if .Response.ArrayValue -}}
+  {{if and .Wait (and (not .IsCrudRead) (not (eq .SnakeName "get_run"))) }}Wait<{{.Wait.Poll.Response.PascalName}},{{if .Response}}{{.Response.PascalName}}{{else}}Void{{end}}>
+  {{- else if .Response}}{{if .Response.ArrayValue -}}
     Iterable<{{.Response.ArrayValue.PascalName}}>
   {{- else if .Pagination -}}
     Iterable<{{.Pagination.Entity.PascalName}}>

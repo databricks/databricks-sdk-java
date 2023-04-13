@@ -2,7 +2,7 @@
 
 package com.databricks.sdk.service.clusters;
 
-import com.databricks.sdk.mixin.ToStringer;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
