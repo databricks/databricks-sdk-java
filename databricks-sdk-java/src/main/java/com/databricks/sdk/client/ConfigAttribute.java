@@ -12,5 +12,7 @@ public @interface ConfigAttribute {
 
   String env() default "";
 
+  String auth() default "";
+
   boolean sensitive() default false;
 }
