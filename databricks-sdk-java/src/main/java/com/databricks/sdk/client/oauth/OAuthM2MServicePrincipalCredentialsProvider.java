@@ -23,6 +23,9 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
+    if (config.getClientId() == null || config.getClientSecret() == null || config.getHost() == null) {
+      return null;
+    }
     // TODO: change to use cfg.oidc_endpoints (and add cache there)
     // TODO: Azure returns 404 for UC workspace after redirecting to
     // https://login.microsoftonline.com/{cfg.azure_tenant_id}/.well-known/oauth-authorization-server
