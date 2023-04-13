@@ -98,9 +98,6 @@ public class ConfigLoader {
 
     for (ConfigAttributeAccessor accessor : accessors) {
       String value = section.get(accessor.getName());
-      if (isNullOrEmpty(value)) {
-        continue;
-      }
       if(!isNullOrEmpty(accessor.getValueFromConfig(cfg))) {
         continue;
       }
