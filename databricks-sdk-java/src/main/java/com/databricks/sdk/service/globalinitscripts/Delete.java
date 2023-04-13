@@ -2,7 +2,7 @@
 
 package com.databricks.sdk.service.globalinitscripts;
 
-import com.databricks.sdk.mixin.ToStringer;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete init script */

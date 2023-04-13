@@ -1,4 +1,4 @@
-package com.databricks.sdk.mixin;
+package com.databricks.sdk.support;
 
 import java.util.StringJoiner;
 

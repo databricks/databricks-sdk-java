@@ -49,7 +49,8 @@ public class ConfigLoader {
         accessor.setValueOnConfig(cfg, accessor.getAsString(value));
       }
     } catch (DatabricksException e) {
-      String msg = String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
+      String msg =
+          String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
       throw new DatabricksException(msg, e);
     }
   }
@@ -69,10 +70,10 @@ public class ConfigLoader {
         accessor.setValueOnConfig(cfg, env);
       }
     } catch (DatabricksException e) {
-      String msg = String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
+      String msg =
+          String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
       throw new DatabricksException(msg, e);
     }
-
   }
 
   static void loadFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
@@ -109,7 +110,9 @@ public class ConfigLoader {
     }
 
     if (section == null) {
-      String msg = String.format("resolve: %s has no %s profile configured", configFileWithRelativeFile, profile);
+      String msg =
+          String.format(
+              "resolve: %s has no %s profile configured", configFileWithRelativeFile, profile);
       throw new DatabricksException(msg);
     }
 
@@ -249,10 +252,6 @@ public class ConfigLoader {
   public static boolean isNullOrEmpty(Object target) {
     return target == null || target.toString().isEmpty();
   }
-
-
-
-
 
   public static boolean isAnyAuthConfigured(DatabricksConfig cfg) throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {

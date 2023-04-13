@@ -2,7 +2,7 @@
 
 package com.databricks.sdk.service.endpoints;
 
-import com.databricks.sdk.mixin.ToStringer;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Query a serving endpoint with provided model input. */

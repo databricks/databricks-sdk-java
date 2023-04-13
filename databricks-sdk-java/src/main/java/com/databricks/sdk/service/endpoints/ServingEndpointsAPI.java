@@ -2,7 +2,12 @@
 package com.databricks.sdk.service.endpoints;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Wait;
+import java.time.Duration;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 import org.apache.http.client.methods.*;
 
 /**
@@ -30,6 +35,56 @@ public class ServingEndpointsAPI {
     impl = mock;
   }
 
+  public ServingEndpointDetailed waitGetServingEndpointNotUpdating(String name)
+      throws TimeoutException {
+    return waitGetServingEndpointNotUpdating(name, Duration.ofMinutes(20), null);
+  }
+
+  public ServingEndpointDetailed waitGetServingEndpointNotUpdating(
+      String name, Duration timeout, Consumer<ServingEndpointDetailed> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<EndpointStateConfigUpdate> targetStates =
+        Arrays.asList(EndpointStateConfigUpdate.NOT_UPDATING);
+    java.util.List<EndpointStateConfigUpdate> failureStates =
+        Arrays.asList(EndpointStateConfigUpdate.UPDATE_FAILED);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      ServingEndpointDetailed poll = get(new GetServingEndpointRequest().setName(name));
+      EndpointStateConfigUpdate status = poll.getState().getConfigUpdate();
+      statusMessage = String.format("current status: %s", status);
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg =
+            String.format("failed to reach NOT_UPDATING, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("name=%s", name);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      String logMessage =
+          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
+      // log.info(logMessage);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
   public BuildLogsResponse buildLogs(String name, String servedModelName) {
     return buildLogs(new BuildLogsRequest().setName(name).setServedModelName(servedModelName));
   }
@@ -44,13 +99,19 @@ public class ServingEndpointsAPI {
     return impl.buildLogs(request);
   }
 
-  public ServingEndpointDetailed create(String name, EndpointCoreConfigInput config) {
+  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> create(
+      String name, EndpointCoreConfigInput config) {
     return create(new CreateServingEndpoint().setName(name).setConfig(config));
   }
 
   /** Create a new serving endpoint. */
-  public ServingEndpointDetailed create(CreateServingEndpoint request) {
-    return impl.create(request);
+  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> create(
+      CreateServingEndpoint request) {
+    ServingEndpointDetailed response = impl.create(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetServingEndpointNotUpdating(response.getName(), timeout, callback),
+        response);
   }
 
   public void delete(String name) {
@@ -117,7 +178,7 @@ public class ServingEndpointsAPI {
     return impl.query(request);
   }
 
-  public ServingEndpointDetailed updateConfig(
+  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> updateConfig(
       Collection<ServedModelInput> servedModels, String name) {
     return updateConfig(new EndpointCoreConfigInput().setServedModels(servedModels).setName(name));
   }
@@ -129,8 +190,13 @@ public class ServingEndpointsAPI {
    * of those served models, and the endpoint's traffic config. An endpoint that already has an
    * update in progress can not be updated until the current update completes or fails.
    */
-  public ServingEndpointDetailed updateConfig(EndpointCoreConfigInput request) {
-    return impl.updateConfig(request);
+  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> updateConfig(
+      EndpointCoreConfigInput request) {
+    ServingEndpointDetailed response = impl.updateConfig(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetServingEndpointNotUpdating(response.getName(), timeout, callback),
+        response);
   }
 
   public ServingEndpointsService impl() {

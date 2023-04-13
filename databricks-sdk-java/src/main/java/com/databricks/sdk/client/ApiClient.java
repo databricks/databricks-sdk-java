@@ -1,27 +1,17 @@
 package com.databricks.sdk.client;
 
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.client.http.HttpClient;
+import com.databricks.sdk.client.http.Request;
+import com.databricks.sdk.client.http.Response;
+import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
 import java.util.Random;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.*;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.util.EntityUtils;
 
 /**
  * Simplified REST API client with retries, JSON POJO SerDe through Jackson and exception POJO
@@ -29,21 +19,14 @@ import org.apache.http.util.EntityUtils;
  */
 public class ApiClient {
   private final int maxRetries;
-  private final int maxConnections;
-  private final int timeout;
-
-  private final RequestConfig requestConfig;
 
   private final ObjectMapper mapper;
-
-  private final PoolingHttpClientConnectionManager connectionManager =
-      new PoolingHttpClientConnectionManager();
-
-  private final CloseableHttpClient hc;
 
   private final DatabricksConfig config;
 
   private final Random random;
+
+  private final HttpClient httpClient;
 
   public ApiClient() {
     this(ConfigLoader.getDefault());
@@ -53,31 +36,26 @@ public class ApiClient {
     this.config = config;
     config.resolve();
 
-    int httpTimeoutSeconds = config.getHttpTimeoutSeconds();
-    if (httpTimeoutSeconds == 0) {
+    Integer httpTimeoutSeconds = config.getHttpTimeoutSeconds();
+    if (httpTimeoutSeconds == null) {
       httpTimeoutSeconds = 300;
     }
 
-    int rateLimit = config.getRateLimit();
-    if (rateLimit == 0) {
+    Integer rateLimit = config.getRateLimit();
+    if (rateLimit == null) {
       rateLimit = 15;
     }
 
-    int debugTruncateBytes = config.getDebugTruncateBytes();
-    if (debugTruncateBytes == 0) {
+    Integer debugTruncateBytes = config.getDebugTruncateBytes();
+    if (debugTruncateBytes == null) {
       debugTruncateBytes = 96;
     }
 
-    timeout = httpTimeoutSeconds * 1000;
-
-    maxConnections = 20;
     maxRetries = 3;
 
-    connectionManager.setMaxTotal(maxConnections);
-    requestConfig = makeRequestConfig();
-    hc = makeClosableHttpClient();
     mapper = makeObjectMapper();
     random = new Random();
+    httpClient = config.getHttpClient();
   }
 
   private ObjectMapper makeObjectMapper() {
@@ -94,24 +72,9 @@ public class ApiClient {
     return mapper;
   }
 
-  private CloseableHttpClient makeClosableHttpClient() {
-    return HttpClientBuilder.create()
-        .setConnectionManager(connectionManager)
-        .setDefaultRequestConfig(requestConfig)
-        .build();
-  }
-
-  private RequestConfig makeRequestConfig() {
-    return RequestConfig.custom()
-        .setConnectionRequestTimeout(timeout)
-        .setConnectTimeout(timeout)
-        .setSocketTimeout(timeout)
-        .build();
-  }
-
-  private <I> void addQueryParameters(URIBuilder uriBuilder, I entity) {
-    if (entity == null) {
-      return;
+  private <I> Request withQuery(Request in, I entity) {
+    if (in == null) {
+      return in;
     }
     try {
       // deterministic query string: in the order of class fields
@@ -126,20 +89,11 @@ public class ApiClient {
         if (value == null) {
           continue;
         }
-        uriBuilder.addParameter(param.value(), value.toString());
+        in.withQueryParam(param.value(), value.toString());
       }
+      return in;
     } catch (IllegalAccessException e) {
       throw new DatabricksException("Cannot create query string: " + e.getMessage(), e);
-    }
-  }
-
-  private <I> URI uriFromRequest(String path, I in) {
-    try {
-      URIBuilder uriBuilder = new URIBuilder(config.getHost() + path);
-      addQueryParameters(uriBuilder, in);
-      return uriBuilder.build();
-    } catch (URISyntaxException e) {
-      throw new DatabricksException("URL syntax error: " + e.getMessage(), e);
     }
   }
 
@@ -149,7 +103,7 @@ public class ApiClient {
 
   public <I, O> O GET(String path, I in, Class<O> target) {
     try {
-      return execute(new HttpGet(uriFromRequest(path, in)), target);
+      return execute(withQuery(new Request("GET", path), in), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -157,7 +111,7 @@ public class ApiClient {
 
   public <I, O> O POST(String path, I in, Class<O> target) {
     try {
-      return execute(withEntity(new HttpPost(uriFromRequest(path, in)), in), target);
+      return execute(new Request("POST", path, serialize(in)), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -165,7 +119,7 @@ public class ApiClient {
 
   public <I, O> O PUT(String path, I in, Class<O> target) {
     try {
-      return execute(withEntity(new HttpPut(uriFromRequest(path, in)), in), target);
+      return execute(new Request("PUT", path, serialize(in)), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -173,7 +127,7 @@ public class ApiClient {
 
   public <I, O> O PATCH(String path, I in, Class<O> target) {
     try {
-      return execute(withEntity(new HttpPatch(uriFromRequest(path, in)), in), target);
+      return execute(new Request("PATCH", path, serialize(in)), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -181,7 +135,7 @@ public class ApiClient {
 
   public <I, O> O DELETE(String path, I in, Class<O> target) {
     try {
-      return execute(new HttpDelete(uriFromRequest(path, in)), target);
+      return execute(withQuery(new Request("DELETE", path), in), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -190,35 +144,41 @@ public class ApiClient {
   /**
    * Executes HTTP request with couple of retries and converts it to proper POJO
    *
-   * @param request Commons HTTP request
+   * @param in Commons HTTP request
    * @param target Expected pojo type
    * @return POJO of requested type
    */
-  private <T> T execute(HttpRequestBase request, Class<T> target) throws IOException {
+  private <T> T execute(Request in, Class<T> target) throws IOException {
+    in.withUrl(config.getHost() + in.getUrl());
+
     int attemptNumber = 0;
-    CloseableHttpResponse success = null;
-    CloseableHttpResponse lastResponse = null;
+    Response out = null;
+    Response lastResponse = null;
     // log.info(s"Requesting ${request.getRequestLine}")
 
     String userAgent = UserAgent.asString();
-    // TODO: add auth/<auth-type> once PR#9 is merged
-    request.setHeader("User-Agent", userAgent);
-    request.setHeader("Accept", "application/json");
+    // TODO(Tanmay): add auth/<auth-type> once PR#9 is merged
+    in.withHeader("auth-Agent", userAgent);
+    in.withHeader("User-Agent", userAgent);
+    in.withHeader("Accept", "application/json");
 
-    while (attemptNumber <= maxRetries && success == null) {
+    while (attemptNumber <= maxRetries && out == null) {
       try {
         attemptNumber++;
-        config.authenticate(request);
-        lastResponse = hc.execute(request);
-        int status = lastResponse.getStatusLine().getStatusCode();
+        in.withHeaders(config.authenticate());
+
+        lastResponse = httpClient.execute(in);
+        int status = lastResponse.getStatusCode();
         if (status >= 400) {
-          throw new IOException("Retry ${request.getRequestLine} because of $status");
+          throw new IOException(
+              String.format(
+                  "Retry %s because of %s", in.getRequestLine(), lastResponse.getStatus()));
         }
-        success = lastResponse;
+        out = lastResponse;
       } catch (IOException e) {
         if (maxRetries == attemptNumber) {
           assert lastResponse != null;
-          throw convertException(lastResponse.getEntity().getContent());
+          throw convertException(lastResponse.getBody());
         }
         int sleep = random.nextInt(500);
         // log.debug(s"Retry ${request.getRequestLine} in $sleep ms", e)
@@ -227,50 +187,25 @@ public class ApiClient {
         } catch (InterruptedException ex) {
           Thread.currentThread().interrupt();
         }
-      } finally {
-        if (success == null && lastResponse != null) {
-          // prevent memory leaks
-          EntityUtils.consumeQuietly(lastResponse.getEntity());
-        }
       }
     }
-    if (success == null) {
+    if (out == null) {
       // technically this should not be reachable
       throw new IOException(
           "Did not receive any successful response for ${request.getRequestLine}");
     }
-    try {
-      if (target == Void.class) {
-        return null;
-      }
-      String content = IOUtils.toString(success.getEntity().getContent(), Charset.defaultCharset());
-      return deserialize(content, target);
-    } finally {
-      success.close();
+    if (target == Void.class) {
+      return null;
     }
+    return deserialize(out.getBody(), target);
   }
 
-  private IOException convertException(InputStream content) {
+  private IOException convertException(String body) {
     // TODO: implement
     return null;
   }
 
-  /**
-   * Syntactic sugar for POST/PUT requests to serialize POJOs into JSON
-   *
-   * @param request Commons HTTP request
-   * @param body any Jackson-annotated POJO class
-   * @return same request, but enriched with entity
-   */
-  public <T> HttpRequestBase withEntity(HttpEntityEnclosingRequestBase request, T body)
-      throws IOException {
-    String json = serialize(body);
-    request.setEntity(new StringEntity(json));
-    request.setHeader("Content-Type", "application/json");
-    return request;
-  }
-
-  public <T> T deserialize(String body, Class<T> target) throws JsonProcessingException {
+  public <T> T deserialize(String body, Class<T> target) throws IOException {
     return mapper.readValue(body, target);
   }
 

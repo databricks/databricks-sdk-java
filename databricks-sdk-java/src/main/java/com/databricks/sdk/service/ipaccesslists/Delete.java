@@ -2,7 +2,7 @@
 
 package com.databricks.sdk.service.ipaccesslists;
 
-import com.databricks.sdk.mixin.ToStringer;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete access list */

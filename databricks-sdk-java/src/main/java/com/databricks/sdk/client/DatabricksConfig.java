@@ -1,5 +1,7 @@
 package com.databricks.sdk.client;
 
+import com.databricks.sdk.client.commons.CommonsHttpClient;
+import com.databricks.sdk.client.http.HttpClient;
 import java.util.Map;
 import java.util.function.Function;
 import org.apache.http.HttpMessage;
@@ -8,7 +10,7 @@ public class DatabricksConfig {
 
   public static final String DEFAULT_CONFIG_FILE = "~/.databrickscfg";
 
-  private CredentialsProvider credentialsProvider;
+  private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(value = "host", env = "DATABRICKS_HOST")
   private String host;
@@ -124,6 +126,8 @@ public class DatabricksConfig {
   private volatile boolean resolved;
   private HeaderFactory headerFactory;
 
+  private HttpClient httpClient;
+
   Function<String, String> getEnv;
 
   public DatabricksConfig() {
@@ -143,10 +147,23 @@ public class DatabricksConfig {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);
       ConfigLoader.fixHostIfNeeded(this);
+      initHttp();
       return this;
     } catch (DatabricksException e) {
       throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
     }
+  }
+
+  private void initHttp() {
+    if (httpClient != null) {
+      return;
+    }
+    int timeout = 300;
+    if (httpTimeoutSeconds != null) {
+      timeout = httpTimeoutSeconds;
+    }
+    // eventually it'll get decoupled from config.
+    httpClient = new CommonsHttpClient(timeout);
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {
@@ -322,7 +339,7 @@ public class DatabricksConfig {
     return this;
   }
 
-  public int getHttpTimeoutSeconds() {
+  public Integer getHttpTimeoutSeconds() {
     return httpTimeoutSeconds;
   }
 
@@ -331,7 +348,7 @@ public class DatabricksConfig {
     return this;
   }
 
-  public int getDebugTruncateBytes() {
+  public Integer getDebugTruncateBytes() {
     return debugTruncateBytes;
   }
 
@@ -349,12 +366,21 @@ public class DatabricksConfig {
     return this;
   }
 
-  public int getRateLimit() {
+  public Integer getRateLimit() {
     return rateLimit;
   }
 
   public DatabricksConfig setRateLimit(int rateLimit) {
     this.rateLimit = rateLimit;
+    return this;
+  }
+
+  public HttpClient getHttpClient() {
+    return httpClient;
+  }
+
+  public DatabricksConfig setHttpClient(HttpClient httpClient) {
+    this.httpClient = httpClient;
     return this;
   }
 
@@ -385,5 +411,10 @@ public class DatabricksConfig {
 
   public boolean isAws() {
     return !isAzure() && !isGcp();
+  }
+
+  @Override
+  public String toString() {
+      return ConfigLoader.debugString(this);
   }
 }

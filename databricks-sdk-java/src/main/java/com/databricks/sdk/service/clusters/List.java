@@ -2,8 +2,8 @@
 
 package com.databricks.sdk.service.clusters;
 
-import com.databricks.sdk.annotation.QueryParam;
-import com.databricks.sdk.mixin.ToStringer;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List all clusters */

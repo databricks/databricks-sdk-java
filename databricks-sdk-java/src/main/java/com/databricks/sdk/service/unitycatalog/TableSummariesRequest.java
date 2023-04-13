@@ -2,7 +2,7 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import com.databricks.sdk.annotation.QueryParam;
+import com.databricks.sdk.support.QueryParam;
 
 /** List table summaries */
 public class TableSummariesRequest {

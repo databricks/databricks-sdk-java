@@ -2,7 +2,7 @@
 
 package com.databricks.sdk.service.unitycatalog;
 
-import com.databricks.sdk.mixin.ToStringer;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 

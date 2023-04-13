@@ -2,7 +2,7 @@
 
 package com.databricks.sdk.service.endpoints;
 
-import com.databricks.sdk.mixin.ToStringer;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Retrieve the most recent log lines associated with a given serving endpoint's served model */
