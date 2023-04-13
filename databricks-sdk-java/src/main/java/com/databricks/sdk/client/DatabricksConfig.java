@@ -140,21 +140,12 @@ public class DatabricksConfig {
   public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
     this.getEnv = getEnv;
     try {
-      resolveInConfigLoader();
+      ConfigLoader.resolve(this);
       ConfigLoader.validate(this);
+      ConfigLoader.fixHostIfNeeded(this);
       return this;
     } catch (DatabricksException e) {
       throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
-    }
-  }
-
-  public synchronized DatabricksConfig resolveInConfigLoader() {
-    try {
-      ConfigLoader.resolve(this);
-      return this;
-    } catch (DatabricksException e) {
-      String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
-      throw new DatabricksException(msg, e);
     }
   }
 
@@ -172,6 +163,10 @@ public class DatabricksConfig {
       DatabricksException wrapperException = new DatabricksException(msg, e);
       throw ConfigLoader.makeNicerError(wrapperException.getMessage(), wrapperException, this);
     }
+  }
+
+  public CredentialsProvider getCredentialsProvider() {
+    return this.credentialsProvider;
   }
 
   public String getHost() {
