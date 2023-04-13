@@ -14,10 +14,10 @@ public class BasicCredentialsProvider implements CredentialsProvider {
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
-    if (config.getUsername() == null) {
-      return null;
-    }
-    if (config.getPassword() == null) {
+    String username = config.getUsername();
+    String password = config.getPassword();
+    String host = config.getHost();
+    if (username == null || password == null || host == null) {
       return null;
     }
     byte[] bytes = String.format("%s:%s", config.getUsername(), config.getPassword()).getBytes();
