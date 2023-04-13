@@ -15,7 +15,6 @@ public class ClientCredentials extends RefreshableTokenSource {
 
     public ClientCredentials(String clientId, String clientSecret, String tokenUrl, Map<String, String> endpointParams,
                              List<String> scopes, boolean useParams, boolean useHeader) {
-        super();
         this.clientId = clientId;
         this.clientSecret = clientSecret;
         this.tokenUrl = tokenUrl;

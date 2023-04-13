@@ -3,6 +3,8 @@ package com.databricks.sdk.client;
 import java.util.Map;
 import java.util.function.Function;
 import org.apache.http.HttpMessage;
+import org.apache.http.conn.HttpClientConnectionManager;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
 public class DatabricksConfig {
 
@@ -105,6 +107,18 @@ public class DatabricksConfig {
 
   Function<String, String> getEnv;
 
+  private HttpClientConnectionManager connectionManager;
+
+  public HttpClientConnectionManager getConnectionManager() {
+    if (connectionManager == null) {
+      PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+      int maxTotalConnections = 20;
+      connectionManager.setMaxTotal(maxTotalConnections);
+      this.connectionManager = connectionManager;
+    }
+    return connectionManager;
+  }
+
   public synchronized DatabricksConfig resolve() {
     resolve(System::getenv);
     return this;
@@ -125,7 +139,7 @@ public class DatabricksConfig {
 
   public synchronized void initAuth() throws DatabricksException {
     if (credentialsProvider == null) {
-      credentialsProvider = new DefaultCredentialsProvider();
+      credentialsProvider = new DefaultCredentialsProvider(getConnectionManager());
     }
     ConfigLoader.fixHostIfNeeded(this);
     headerFactory = credentialsProvider.configure(this);
