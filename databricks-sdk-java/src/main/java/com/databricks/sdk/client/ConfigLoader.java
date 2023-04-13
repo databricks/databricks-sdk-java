@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.function.Function;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
@@ -214,17 +217,17 @@ public class ConfigLoader {
     if (!hasExplicitProfile) {
       profile = "DEFAULT";
     }
+
     Profile.Section section = ini.get(profile);
     if (section == null && !hasExplicitProfile) {
       // logger.Debugf("%s has no %s profile configured", configFile, profile)
       return;
     }
+
     if (section == null) {
       throw new DatabricksException(
           cfg.getConfigFile() + "has no " + profile + " profile configured");
     }
-
-
 
     for (ConfigAttributeAccessor accessor : accessors) {
       String value = section.get(accessor.getName());

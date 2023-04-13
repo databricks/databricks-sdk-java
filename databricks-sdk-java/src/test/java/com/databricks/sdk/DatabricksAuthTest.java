@@ -81,8 +81,7 @@ public class DatabricksAuthTest {
           DatabricksConfig config = new DatabricksConfig().resolve(env);
           config.authenticate();
 
-          assertEquals(
-              "https://x", config.getHost()); // tanmaytodo -- why this if we are raising exception?
+          assertEquals("https://x", config.getHost());
         });
   }
 

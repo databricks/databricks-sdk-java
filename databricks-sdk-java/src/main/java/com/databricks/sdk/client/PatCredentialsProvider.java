@@ -13,10 +13,8 @@ public class PatCredentialsProvider implements CredentialsProvider {
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
-    // tanmaytodo config shouldn't have anything set (according to python sdk). Right now it has
-    // host, token, username, password set.
-    DatabricksConfig a = config;
-
+    // tanmaytodo -- might actually need innerconfig because config shouldn't have anything set (according to python sdk) in some tests.
+    // This is causing all validation failures.
     String token = config.getToken();
     String host = config.getHost();
     if (token == null || host == null) {
