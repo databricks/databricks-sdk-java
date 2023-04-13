@@ -1,2 +1,4 @@
 .idea/
 target/
+databricks-sdk-parent.iml
+databricks-sdk-java/databricks-sdk-java.iml
