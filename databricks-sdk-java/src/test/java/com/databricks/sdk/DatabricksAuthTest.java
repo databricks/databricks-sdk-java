@@ -182,6 +182,18 @@ public class DatabricksAuthTest {
   }
 
   @Test
+  public void testTestConfigConfigFileSkipDefaultProfileIfHostSpecified() {
+    // Set environment variables
+    StaticEnv env = new StaticEnv().with("HOME", resource("/testdata"));
+    raises(
+        "default auth: cannot configure default credentials. Config: host=https://x",
+        () -> {
+          DatabricksConfig config = new DatabricksConfig().setHost("x").resolve(env);
+          config.authenticate();
+        });
+  }
+
+  @Test
   public void testTestConfigPatFromDatabricksCfg() {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("HOME", resource("/testdata"));
@@ -438,6 +450,8 @@ public class DatabricksAuthTest {
     } catch (Exception e) {
       raised = true;
       String message = e.getMessage();
+      String textToReplace = System.getProperty("user.dir") + "/target/test-classes/";
+      message = message.replace(textToReplace, "");
       if (!message.contains(contains)) {
         fail(String.format("Expected exception to contain '%s'", contains), e);
       }

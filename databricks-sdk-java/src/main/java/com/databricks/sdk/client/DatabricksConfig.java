@@ -415,6 +415,6 @@ public class DatabricksConfig {
 
   @Override
   public String toString() {
-      return ConfigLoader.debugString(this);
+    return ConfigLoader.debugString(this);
   }
 }

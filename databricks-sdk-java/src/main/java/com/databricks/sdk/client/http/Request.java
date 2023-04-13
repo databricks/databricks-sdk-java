@@ -3,7 +3,6 @@ package com.databricks.sdk.client.http;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Request {
@@ -51,7 +50,7 @@ public class Request {
   protected static String mapToQuery(Map<String, String> in) {
     StringJoiner joiner = new StringJoiner("&");
     for (Map.Entry<String, String> entry : in.entrySet()) {
-      String encoded = URLEncoder.encode(entry.getValue());
+      String encoded = URLEncoder.encode(entry.getValue()); // TODO: UTF-8?
       joiner.add(String.format("%s=%s", entry.getKey(), encoded));
     }
     return joiner.toString();

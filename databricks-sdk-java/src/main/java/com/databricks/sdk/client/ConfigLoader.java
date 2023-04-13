@@ -92,7 +92,6 @@ public class ConfigLoader {
     if (userHome.isEmpty()) {
       userHome = System.getProperty("user.home");
     }
-    String configFileWithRelativeFile = configFile;
     configFile = configFile.replaceFirst("^~", userHome);
 
     Ini ini = parseDatabricksCfg(configFile, isDefaultConfig);
@@ -110,9 +109,7 @@ public class ConfigLoader {
     }
 
     if (section == null) {
-      String msg =
-          String.format(
-              "resolve: %s has no %s profile configured", configFileWithRelativeFile, profile);
+      String msg = String.format("resolve: %s has no %s profile configured", configFile, profile);
       throw new DatabricksException(msg);
     }
 

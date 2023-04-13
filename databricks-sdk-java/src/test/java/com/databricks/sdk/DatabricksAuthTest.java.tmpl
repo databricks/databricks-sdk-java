@@ -63,6 +63,8 @@ public class DatabricksAuthTest {
         } catch (Exception e) {
             raised = true;
             String message = e.getMessage();
+            String textToReplace = System.getProperty("user.dir") + "/target/test-classes/";
+            message = message.replace(textToReplace, "");
             if (!message.contains(contains)) {
                 fail(String.format("Expected exception to contain '%s'", contains), e);
             }
