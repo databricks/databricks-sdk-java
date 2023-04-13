@@ -2,26 +2,17 @@ package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.DatabricksException;
 import com.databricks.sdk.client.HttpClient;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpStatus;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
+import org.apache.http.HttpHeaders;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
 
 public abstract class RefreshableTokenSource implements TokenSource {
   private HttpClient hc;
@@ -70,8 +61,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
         throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
       }
       LocalDateTime expiry = LocalDateTime.now().plus(resp.getExpiresIn(), ChronoUnit.SECONDS);
-      return new Token(
-          resp.getAccessToken(), resp.getRefreshToken(), resp.getTokenType(), expiry);
+      return new Token(resp.getAccessToken(), resp.getRefreshToken(), resp.getTokenType(), expiry);
     } catch (Exception e) {
       throw new DatabricksException("Failed to refresh credentials: " + e.getMessage(), e);
     }

@@ -18,8 +18,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             new PatCredentialsProvider(),
             new BasicCredentialsProvider(),
             new OAuthM2MServicePrincipalCredentialsProvider(hc),
-            new AzureServicePrincipalCredentialsProvider(hc)
-        );
+            new AzureServicePrincipalCredentialsProvider(hc));
   }
 
   @Override

@@ -64,5 +64,4 @@ public class Token {
   public String getAccessToken() {
     return accessToken;
   }
-
 }

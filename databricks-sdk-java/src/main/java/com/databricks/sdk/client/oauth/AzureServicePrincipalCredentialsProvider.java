@@ -71,7 +71,10 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
-    if (!config.isAzure() || config.getAzureClientId() == null || config.getAzureClientSecret() == null || config.getAzureTenantId() == null) {
+    if (!config.isAzure()
+        || config.getAzureClientId() == null
+        || config.getAzureClientSecret() == null
+        || config.getAzureTenantId() == null) {
       return null;
     }
     ensureHostPresent(config, this::tokenSourceFor);

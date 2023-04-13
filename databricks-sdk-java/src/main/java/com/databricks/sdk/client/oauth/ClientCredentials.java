@@ -1,7 +1,6 @@
 package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.HttpClient;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

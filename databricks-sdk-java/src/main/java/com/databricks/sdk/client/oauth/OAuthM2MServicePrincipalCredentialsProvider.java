@@ -23,7 +23,9 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
-    if (config.getClientId() == null || config.getClientSecret() == null || config.getHost() == null) {
+    if (config.getClientId() == null
+        || config.getClientSecret() == null
+        || config.getHost() == null) {
       return null;
     }
     // TODO: change to use cfg.oidc_endpoints (and add cache there)
