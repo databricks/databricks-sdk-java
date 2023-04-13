@@ -35,11 +35,12 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
    * @return A RefreshableTokenSource instance capable of fetching OAuth tokens for the specified
    *     Azure resource.
    */
-  static RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+  RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
     Map<String, String> endpointParams = new HashMap<>();
     endpointParams.put("resource", resource);
     return new ClientCredentials(
+        this.hc,
         config.getAzureClientId(),
         config.getAzureClientSecret(),
         aadEndpoint + config.getAzureTenantId() + "/oauth2/token",
@@ -50,11 +51,11 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
   }
 
   /** Resolves Azure Databricks workspace URL from ARM Resource ID */
-  public boolean ensureHostPresent(
+  public void ensureHostPresent(
       DatabricksConfig cfg,
       BiFunction<DatabricksConfig, String, RefreshableTokenSource> tokenSourceFor) {
-    if (cfg.getHost() != null || cfg.getAzureWorkspaceResourceId() == null) {
-      return false;
+    if (cfg.getHost() != null) {
+      return;
     }
 
     String armEndpoint = cfg.getAzureEnvironment().getResourceManagerEndpoint();
@@ -63,33 +64,25 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
     HttpGet httpGet = new HttpGet(requestUrl);
     httpGet.setHeader("Authorization", "Bearer " + token.getAccessToken());
 
-    try {
-      ObjectNode jsonResponse = hc.execute(httpGet, ObjectNode.class);
-      String workspaceUrl = jsonResponse.get("properties").get("workspaceUrl").asText();
-      cfg.setHost("https://" + workspaceUrl);
-    } catch (DatabricksException e) {
-      // TODO: log
-      // throw new DatabricksException("Cannot resolve Azure Databricks workspace", e);
-      return false;
-    }
-    return true;
+    ObjectNode jsonResponse = hc.execute(httpGet, ObjectNode.class);
+    String workspaceUrl = jsonResponse.get("properties").get("workspaceUrl").asText();
+    cfg.setHost("https://" + workspaceUrl);
   }
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
-    boolean isValid =
-        ensureHostPresent(config, AzureServicePrincipalCredentialsProvider::tokenSourceFor);
-    if (!isValid) {
+    if (!config.isAzure() || config.getAzureClientId() == null || config.getAzureClientSecret() == null || config.getAzureTenantId() == null) {
       return null;
     }
+    ensureHostPresent(config, this::tokenSourceFor);
     RefreshableTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
     RefreshableTokenSource cloud =
         tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
 
     return () -> {
       Map<String, String> headers = new HashMap<>();
-      headers.put("Authorization", "Bearer " + inner.refresh().getAccessToken());
-      headers.put("X-Databricks-Azure-SP-Management-Token", cloud.refresh().getAccessToken());
+      headers.put("Authorization", "Bearer " + inner.getToken().getAccessToken());
+      headers.put("X-Databricks-Azure-SP-Management-Token", cloud.getToken().getAccessToken());
       if (config.getAzureWorkspaceResourceId() != null) {
         headers.put(
             "X-Databricks-Azure-Workspace-Resource-Id", config.getAzureWorkspaceResourceId());

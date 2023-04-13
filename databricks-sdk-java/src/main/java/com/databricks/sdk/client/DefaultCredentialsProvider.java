@@ -17,8 +17,10 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
         Arrays.asList(
             new PatCredentialsProvider(),
             new BasicCredentialsProvider(),
-            new OAuthM2MServicePrincipalCredentialsProvider(hc),
-            new AzureServicePrincipalCredentialsProvider(hc));
+            // TODO: move these back in the right order later.
+            new AzureServicePrincipalCredentialsProvider(hc),
+            new OAuthM2MServicePrincipalCredentialsProvider(hc)
+        );
   }
 
   @Override

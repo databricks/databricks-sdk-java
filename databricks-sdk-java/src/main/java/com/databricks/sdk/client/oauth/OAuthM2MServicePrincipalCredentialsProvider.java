@@ -31,6 +31,7 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
       OpenIDConnectResponse jsonResponse = hc.GET(oidcUrl, OpenIDConnectResponse.class);
       ClientCredentials tokenSource =
           new ClientCredentials(
+              hc,
               config.getClientId(),
               config.getClientSecret(),
               jsonResponse.getTokenEndpoint(),

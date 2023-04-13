@@ -1,5 +1,7 @@
 package com.databricks.sdk.client.oauth;
 
+import com.databricks.sdk.client.HttpClient;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,7 @@ public class ClientCredentials extends RefreshableTokenSource {
   private boolean useHeader;
 
   public ClientCredentials(
+      HttpClient hc,
       String clientId,
       String clientSecret,
       String tokenUrl,
@@ -21,6 +24,7 @@ public class ClientCredentials extends RefreshableTokenSource {
       List<String> scopes,
       boolean useParams,
       boolean useHeader) {
+    super(hc);
     this.clientId = clientId;
     this.clientSecret = clientSecret;
     this.tokenUrl = tokenUrl;
@@ -40,7 +44,7 @@ public class ClientCredentials extends RefreshableTokenSource {
     if (endpointParams != null) {
       params.putAll(endpointParams);
     }
-    return Token.retrieveToken(
+    return retrieveToken(
         clientId, clientSecret, tokenUrl, params, useParams, useHeader, new HashMap<>());
   }
 }
