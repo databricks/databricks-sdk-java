@@ -157,8 +157,7 @@ public class ApiClient {
     // log.info(s"Requesting ${request.getRequestLine}")
 
     String userAgent = UserAgent.asString();
-    // TODO(Tanmay): add auth/<auth-type> once PR#9 is merged
-    in.withHeader("auth-Agent", userAgent);
+    in.withHeader("auth", config.getAuthType());
     in.withHeader("User-Agent", userAgent);
     in.withHeader("Accept", "application/json");
 
