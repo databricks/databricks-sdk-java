@@ -30,28 +30,11 @@ public class ConfigLoader {
 
   public static DatabricksConfig resolve(DatabricksConfig cfg) throws DatabricksException {
     try {
-      loadFromInnerConfig(cfg);
       loadFromEnvironmentVariables(cfg);
       loadFromConfig(cfg); // TODO: just return new config?..
       return cfg;
     } catch (IllegalAccessException e) {
       throw new DatabricksException("Cannot create default config", e);
-    }
-  }
-
-  static void loadFromInnerConfig(DatabricksConfig cfg) throws IllegalAccessException {
-    try {
-      for (ConfigAttributeAccessor accessor : accessors) {
-        Object value = accessor.getValueFromConfig(cfg);
-        if (isNullOrEmpty(value)) {
-          continue;
-        }
-        accessor.setValueOnConfig(cfg, accessor.getAsString(value));
-      }
-    } catch (DatabricksException e) {
-      String msg =
-          String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
-      throw new DatabricksException(msg, e);
     }
   }
 
@@ -116,6 +99,9 @@ public class ConfigLoader {
     for (ConfigAttributeAccessor accessor : accessors) {
       String value = section.get(accessor.getName());
       if (isNullOrEmpty(value)) {
+        continue;
+      }
+      if(!isNullOrEmpty(accessor.getValueFromConfig(cfg))) {
         continue;
       }
       accessor.setValueOnConfig(cfg, value);

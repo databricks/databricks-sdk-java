@@ -24,7 +24,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     for (CredentialsProvider provider : providers) {
       if (config.getAuthType() != null
           && !config.getAuthType().isEmpty()
-          && provider.authType().equals(config.getAuthType())) {
+          && !provider.authType().equals(config.getAuthType())) {
         // TODO: log this
         continue;
       }
