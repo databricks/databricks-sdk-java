@@ -13,7 +13,7 @@ public class PatCredentialsProvider implements CredentialsProvider {
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
-    // config shouldn't have anything set. Right now it has host, token, username, password set.
+    // tanmaytodo config shouldn't have anything set (according to python sdk). Right now it has host, token, username, password set.
     DatabricksConfig a = config;
 
     String token = config.getToken();

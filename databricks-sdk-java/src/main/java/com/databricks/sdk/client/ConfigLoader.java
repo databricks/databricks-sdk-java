@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 import org.ini4j.Ini;
@@ -182,8 +185,37 @@ public class ConfigLoader {
     }
   }
 
+  public static boolean isAnyAuthConfigured(DatabricksConfig cfg) throws IllegalAccessException {
+    for (ConfigAttributeAccessor accessor : accessors) {
+      if(isNullOrEmpty(accessor.getAuthType())) {
+        continue;
+      }
+      Object value = accessor.getValueFromConfig(cfg);
+      if(!isNullOrEmpty(value)) {
+        return true;
+      }
+    }
+    return false;
+  }
   static void loadFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
-    Ini ini = parseDatabricksCfg(cfg);
+    if(isNullOrEmpty(cfg.getProfile()) && (isAnyAuthConfigured(cfg) || cfg.isAzure()) ) {
+      return;
+    }
+
+    String configFile = cfg.getConfigFile();
+    boolean isDefaultConfig = false;
+    if(isNullOrEmpty(configFile)) {
+      configFile = DatabricksConfig.DEFAULT_CONFIG_FILE;
+      isDefaultConfig = true;
+    }
+
+    String userHome = cfg.getEnv.apply("HOME");
+    if (userHome.isEmpty()) {
+      userHome = System.getProperty("user.home");
+    }
+    configFile = configFile.replaceFirst("^~", userHome);
+
+    Ini ini = parseDatabricksCfg(configFile, isDefaultConfig);
     if (ini == null) return;
     String profile = cfg.getProfile();
     boolean hasExplicitProfile = !isNullOrEmpty(profile);
@@ -208,19 +240,7 @@ public class ConfigLoader {
     }
   }
 
-  private static Ini parseDatabricksCfg(DatabricksConfig cfg) {
-    String configFile = cfg.getConfigFile();
-    if (isNullOrEmpty(configFile)) {}
-
-    if (configFile == null || configFile.isEmpty()) {
-      configFile = DatabricksConfig.DEFAULT_CONFIG_FILE;
-    }
-    boolean isDefaultConfig = configFile.equals(DatabricksConfig.DEFAULT_CONFIG_FILE);
-    String userHome = cfg.getEnv.apply("HOME");
-    if (userHome.isEmpty()) {
-      userHome = System.getProperty("user.home");
-    }
-    configFile = configFile.replaceFirst("^~", userHome);
+  private static Ini parseDatabricksCfg(String configFile, boolean isDefaultConfig) {
     Ini ini = new Ini();
     try {
       ini.load(new File(configFile));

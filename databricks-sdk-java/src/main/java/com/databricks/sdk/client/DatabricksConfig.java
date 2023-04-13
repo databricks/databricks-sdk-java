@@ -106,6 +106,12 @@ public class DatabricksConfig {
 
   Function<String, String> getEnv;
 
+  public DatabricksConfig() {
+    if (credentialsProvider == null) {
+      credentialsProvider = new DefaultCredentialsProvider();
+    }
+  }
+
   public synchronized DatabricksConfig resolve() {
     resolve(System::getenv);
     return this;
@@ -158,6 +164,8 @@ public class DatabricksConfig {
       throw new DatabricksException(String.format("%s auth: %s", this.authType, e.getMessage()));
     }
   }
+
+
 
   public String getHost() {
     return host;
