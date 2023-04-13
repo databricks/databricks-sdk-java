@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 import org.ini4j.Ini;
@@ -52,7 +49,6 @@ public class ConfigLoader {
     } catch (MalformedURLException e) {
       // only hostname is specified
       cfg.setHost("https://" + host);
-      String a = cfg.getHost();
       return;
     }
     cfg.setHost(url.getProtocol() + "://" + url.getAuthority());
@@ -60,7 +56,7 @@ public class ConfigLoader {
 
   static void validate(DatabricksConfig cfg) throws DatabricksException {
     try {
-      if(!isNullOrEmpty(cfg.getAuthType())) {
+      if (!isNullOrEmpty(cfg.getAuthType())) {
         return;
       }
       Set<String> authSet = new TreeSet<>();
@@ -77,17 +73,12 @@ public class ConfigLoader {
         authSet.add(authType);
       }
       if (authSet.size() <= 1) return;
-//      if (!cfg.getAuthType().isEmpty()) return;
       String names = String.join(" and ", authSet);
       throw new DatabricksException(
           String.format("validate: more than one authorization method configured: %s", names));
     } catch (IllegalAccessException e) {
       throw new DatabricksException("Cannot create default config", e);
     }
-  }
-
-  public static DatabricksException makeNicerError(Exception e, DatabricksConfig cfg) {
-    return makeNicerError(e.getMessage(), e, 200, cfg);
   }
 
   public static DatabricksException makeNicerError(
@@ -187,24 +178,25 @@ public class ConfigLoader {
 
   public static boolean isAnyAuthConfigured(DatabricksConfig cfg) throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {
-      if(isNullOrEmpty(accessor.getAuthType())) {
+      if (isNullOrEmpty(accessor.getAuthType())) {
         continue;
       }
       Object value = accessor.getValueFromConfig(cfg);
-      if(!isNullOrEmpty(value)) {
+      if (!isNullOrEmpty(value)) {
         return true;
       }
     }
     return false;
   }
+
   static void loadFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
-    if(isNullOrEmpty(cfg.getProfile()) && (isAnyAuthConfigured(cfg) || cfg.isAzure()) ) {
+    if (isNullOrEmpty(cfg.getProfile()) && (isAnyAuthConfigured(cfg) || cfg.isAzure())) {
       return;
     }
 
     String configFile = cfg.getConfigFile();
     boolean isDefaultConfig = false;
-    if(isNullOrEmpty(configFile)) {
+    if (isNullOrEmpty(configFile)) {
       configFile = DatabricksConfig.DEFAULT_CONFIG_FILE;
       isDefaultConfig = true;
     }
@@ -231,6 +223,9 @@ public class ConfigLoader {
       throw new DatabricksException(
           cfg.getConfigFile() + "has no " + profile + " profile configured");
     }
+
+
+
     for (ConfigAttributeAccessor accessor : accessors) {
       String value = section.get(accessor.getName());
       if (isNullOrEmpty(value)) {

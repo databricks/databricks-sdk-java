@@ -28,7 +28,11 @@ public class DatabricksConfig {
   @ConfigAttribute(value = "username", env = "DATABRICKS_USERNAME", auth = "basic")
   private String username;
 
-  @ConfigAttribute(value = "password", env = "DATABRICKS_PASSWORD", auth = "basic", sensitive = true)
+  @ConfigAttribute(
+      value = "password",
+      env = "DATABRICKS_PASSWORD",
+      auth = "basic",
+      sensitive = true)
   private String password;
 
   /** Connection profile specified within ~/.databrickscfg. */
@@ -42,20 +46,34 @@ public class DatabricksConfig {
   @ConfigAttribute(value = "config_file", env = "DATABRICKS_CONFIG_FILE")
   private String configFile;
 
-  @ConfigAttribute(value = "google_service_account", env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT", auth = "google")
+  @ConfigAttribute(
+      value = "google_service_account",
+      env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT",
+      auth = "google")
   private String googleServiceAccount;
 
-  @ConfigAttribute(value = "google_credentials", env = "GOOGLE_CREDENTIALS", auth = "google", sensitive = true)
+  @ConfigAttribute(
+      value = "google_credentials",
+      env = "GOOGLE_CREDENTIALS",
+      auth = "google",
+      sensitive = true)
   private String googleCredentials;
 
   /** Azure Resource Manager ID for Azure Databricks workspace, which is exhanged for a Host */
-  @ConfigAttribute(value = "azure_workspace_resource_id", env = "DATABRICKS_AZURE_RESOURCE_ID", auth = "azure")
+  @ConfigAttribute(
+      value = "azure_workspace_resource_id",
+      env = "DATABRICKS_AZURE_RESOURCE_ID",
+      auth = "azure")
   private String azureWorkspaceResourceId;
 
   @ConfigAttribute(value = "azure_use_msi", env = "ARM_USE_MSI", auth = "azure")
   private Boolean azureUseMSI;
 
-  @ConfigAttribute(value = "azure_client_secret", env = "ARM_CLIENT_SECRET", auth = "azure", sensitive = true)
+  @ConfigAttribute(
+      value = "azure_client_secret",
+      env = "ARM_CLIENT_SECRET",
+      auth = "azure",
+      sensitive = true)
   private String azureClientSecret;
 
   @ConfigAttribute(value = "azure_client_id", env = "ARM_CLIENT_ID", auth = "azure")
@@ -67,9 +85,11 @@ public class DatabricksConfig {
   @ConfigAttribute(value = "azure_environment", env = "ARM_ENVIRONMENT")
   private String azureEnvironment;
 
-  @ConfigAttribute(value = "azure_login_app_id", env = "DATABRICKS_AZURE_LOGIN_APP_ID", auth = "azure")
+  @ConfigAttribute(
+      value = "azure_login_app_id",
+      env = "DATABRICKS_AZURE_LOGIN_APP_ID",
+      auth = "azure")
   private String azureLoginAppId;
-
 
   /**
    * When multiple auth attributes are available in the environment, use the auth type specified by
@@ -120,7 +140,7 @@ public class DatabricksConfig {
   public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
     this.getEnv = getEnv;
     try {
-      resolveAndInitAuth();
+      resolveInConfigLoader();
       ConfigLoader.validate(this);
       return this;
     } catch (DatabricksException e) {
@@ -128,10 +148,9 @@ public class DatabricksConfig {
     }
   }
 
-  public synchronized  DatabricksConfig resolveAndInitAuth() {
+  public synchronized DatabricksConfig resolveInConfigLoader() {
     try {
       ConfigLoader.resolve(this);
-      initAuth();
       return this;
     } catch (DatabricksException e) {
       String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
@@ -139,33 +158,21 @@ public class DatabricksConfig {
     }
   }
 
-  public synchronized void initAuth() throws DatabricksException {
-    if (credentialsProvider == null) {
-      credentialsProvider = new DefaultCredentialsProvider();
-    }
-    ConfigLoader.fixHostIfNeeded(this);
-    headerFactory = credentialsProvider.configure(this);
-    setAuthType(credentialsProvider.authType());
-  }
-
   public synchronized Map<String, String> authenticate() throws DatabricksException {
     try {
       if (headerFactory == null) {
         // Calling authenticate without resolve
-        initAuth();
+        ConfigLoader.fixHostIfNeeded(this);
+        headerFactory = credentialsProvider.configure(this);
+        setAuthType(credentialsProvider.authType());
       }
       return headerFactory.headers();
     } catch (DatabricksException e) {
-      if (ConfigLoader.isNullOrEmpty(getAuthType())) {
-        // We should only set the auth type if configuring the credential provider was successful
-        throw new DatabricksException(
-            String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage()));
-      }
-      throw new DatabricksException(String.format("%s auth: %s", this.authType, e.getMessage()));
+      String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
+      DatabricksException wrapperException = new DatabricksException(msg, e);
+      throw ConfigLoader.makeNicerError(wrapperException.getMessage(), wrapperException, this);
     }
   }
-
-
 
   public String getHost() {
     return host;
