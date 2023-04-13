@@ -6,6 +6,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.Charset;
+import java.util.Random;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
@@ -14,16 +21,7 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Field;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.util.Random;
 
 /**
  * Simplified REST API client with retries, JSON POJO SerDe through Jackson and exception POJO
@@ -50,7 +48,13 @@ public class HttpClient {
 
   private final RequestPreparer rp;
 
-  public HttpClient(HttpClientConnectionManager connectionManager, int httpTimeoutSeconds, int rateLimit, int debugTruncateBytes, String host, RequestPreparer rp) {
+  public HttpClient(
+      HttpClientConnectionManager connectionManager,
+      int httpTimeoutSeconds,
+      int rateLimit,
+      int debugTruncateBytes,
+      String host,
+      RequestPreparer rp) {
     if (httpTimeoutSeconds == 0) {
       httpTimeoutSeconds = 300;
     }
@@ -74,10 +78,11 @@ public class HttpClient {
     mapper = makeObjectMapper();
     random = new Random();
     if (rp == null) {
-      this.rp = new RequestPreparer() {
-        @Override
-        public void prepareRequest(HttpRequestBase request) { }
-      };
+      this.rp =
+          new RequestPreparer() {
+            @Override
+            public void prepareRequest(HttpRequestBase request) {}
+          };
     } else {
       this.rp = rp;
     }
@@ -97,7 +102,8 @@ public class HttpClient {
     return mapper;
   }
 
-  private CloseableHttpClient makeClosableHttpClient(HttpClientConnectionManager connectionManager) {
+  private CloseableHttpClient makeClosableHttpClient(
+      HttpClientConnectionManager connectionManager) {
     return HttpClientBuilder.create()
         .setConnectionManager(connectionManager)
         .setDefaultRequestConfig(requestConfig)
@@ -141,8 +147,11 @@ public class HttpClient {
       URIBuilder uriBuilder = new URIBuilder(path);
       if (uriBuilder.getHost() == null) {
         if (host == null) {
-          throw new DatabricksException("Host neither provided nor configured when requesting " + path + ". Ensure " +
-                  "that the provided path includes a host or the host is configured in HttpClient");
+          throw new DatabricksException(
+              "Host neither provided nor configured when requesting "
+                  + path
+                  + ". Ensure "
+                  + "that the provided path includes a host or the host is configured in HttpClient");
         }
         uriBuilder = new URIBuilder(host + path);
       }

@@ -30,7 +30,14 @@ public class ApiClient {
 
     HttpClient.RequestPreparer rp = config::authenticate;
 
-    hc = new HttpClient(config.getConnectionManager(), httpTimeoutSeconds, rateLimit, debugTruncateBytes, config.getHost(), rp);
+    hc =
+        new HttpClient(
+            config.getConnectionManager(),
+            httpTimeoutSeconds,
+            rateLimit,
+            debugTruncateBytes,
+            config.getHost(),
+            rp);
   }
 
   public <O> O GET(String path, Class<O> target) {

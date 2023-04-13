@@ -111,7 +111,8 @@ public class DatabricksConfig {
 
   public HttpClientConnectionManager getConnectionManager() {
     if (connectionManager == null) {
-      PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+      PoolingHttpClientConnectionManager connectionManager =
+          new PoolingHttpClientConnectionManager();
       int maxTotalConnections = 20;
       connectionManager.setMaxTotal(maxTotalConnections);
       this.connectionManager = connectionManager;
