@@ -1,12 +1,17 @@
 package com.databricks.sdk.client.http;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Request {
+  public static final String GET = "GET";
+  public static final String DELETE = "DELETE";
+  public static final String POST = "POST";
+  public static final String PUT = "PUT";
+  public static final String PATCH = "PATCH";
   private final String method;
   private String url;
   private final Map<String, String> headers = new HashMap<>();
@@ -14,7 +19,7 @@ public class Request {
   private String body;
 
   public Request(String method, String url) {
-    this(method, url, "");
+    this(method, url, null);
   }
 
   public Request(String method, String url, String body) {
@@ -43,19 +48,38 @@ public class Request {
     return this;
   }
 
-  public URI getUri() {
-    if (!query.isEmpty()) {
-      url +=
-          "?"
-              + query.entrySet().stream()
-                  .map(
-                      e ->
-                          e.getKey()
-                              + "="
-                              + URLEncoder.encode(e.getValue(), StandardCharsets.UTF_8))
-                  .collect(Collectors.joining("&"));
+  protected static String mapToQuery(Map<String, String> in) {
+    StringJoiner joiner = new StringJoiner("&");
+    for (Map.Entry<String, String> entry : in.entrySet()) {
+      String encoded = URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8);
+      joiner.add(String.format("%s=%s", entry.getKey(), encoded));
     }
-    return URI.create(url);
+    return joiner.toString();
+  }
+
+  public URI getUri() {
+    URI uri = URI.create(url);
+    if (!query.isEmpty()) {
+      String rawQuery = uri.getRawQuery();
+      rawQuery = rawQuery == null ? "" : rawQuery + "&";
+      rawQuery += mapToQuery(query);
+      try {
+        return new URI(
+            uri.getScheme(), null, uri.getHost(), uri.getPort(), uri.getPath(), rawQuery, null);
+      } catch (URISyntaxException e) {
+        throw new IllegalArgumentException(e);
+      }
+    }
+    return uri;
+  }
+
+  public String getRequestLine() {
+    URI uri = getUri();
+    String path = uri.getPath();
+    if (!query.isEmpty()) {
+      path += "?" + uri.getQuery();
+    }
+    return String.format("%s %s", method, path);
   }
 
   public String getMethod() {
@@ -96,10 +120,6 @@ public class Request {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", Request.class.getSimpleName() + "[", "]")
-        .add("method='" + method + "'")
-        .add("url='" + url + "'")
-        .add("query=" + query)
-        .toString();
+    return getRequestLine();
   }
 }

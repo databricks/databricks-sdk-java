@@ -1,7 +1,5 @@
 package com.databricks.sdk.client.http;
 
-import java.util.StringJoiner;
-
 public class Response {
   private Request request;
   private int statusCode;
@@ -37,9 +35,6 @@ public class Response {
 
   @Override
   public String toString() {
-    return new StringJoiner(", ", Response.class.getSimpleName() + "[", "]")
-        .add("statusCode=" + statusCode)
-        .add("status='" + status + "'")
-        .toString();
+    return String.format("%d %s", statusCode, status);
   }
 }

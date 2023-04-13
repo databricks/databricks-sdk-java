@@ -24,7 +24,7 @@ public class CommonsHttpClient implements HttpClient {
   private int timeout;
 
   public CommonsHttpClient(int timeoutSeconds) {
-    this.timeout = timeoutSeconds * 1000;
+    timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
     hc = makeClosableHttpClient();
   }
@@ -60,15 +60,15 @@ public class CommonsHttpClient implements HttpClient {
 
   private HttpUriRequest transformRequest(Request in) {
     switch (in.getMethod()) {
-      case "GET":
+      case Request.GET:
         return new HttpGet(in.getUri());
-      case "DELETE":
+      case Request.DELETE:
         return new HttpDelete(in.getUri());
-      case "POST":
+      case Request.POST:
         return withEntity(new HttpPost(in.getUri()), in.getBody());
-      case "PUT":
+      case Request.PUT:
         return withEntity(new HttpPut(in.getUri()), in.getBody());
-      case "PATCH":
+      case Request.PATCH:
         return withEntity(new HttpPatch(in.getUri()), in.getBody());
       default:
         throw new IllegalArgumentException("Unknown method: " + in.getMethod());

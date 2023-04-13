@@ -169,7 +169,9 @@ public class ApiClient {
         lastResponse = httpClient.execute(in);
         int status = lastResponse.getStatusCode();
         if (status >= 400) {
-          throw new IOException("Retry ${request.getRequestLine} because of $status");
+          throw new IOException(
+              String.format(
+                  "Retry %s because of %s", in.getRequestLine(), lastResponse.getStatus()));
         }
         out = lastResponse;
       } catch (IOException e) {
