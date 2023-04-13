@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs enable administrators to enroll OAuth for their accounts, which is required for
@@ -12,6 +13,8 @@ import org.apache.http.client.methods.*;
  * only supported on the E2 version.
  */
 public class OAuthEnrollmentAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(OAuthEnrollmentAPI.class);
+
   private final OAuthEnrollmentService impl;
 
   /** Regular-use constructor */

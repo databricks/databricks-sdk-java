@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A table resides in the third layer of Unity Catalog’s three-level namespace. It contains rows of
@@ -15,6 +16,8 @@ import org.apache.http.client.methods.*;
  * of table (rather than a managed or external table).
  */
 public class TablesAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(TablesAPI.class);
+
   private final TablesService impl;
 
   /** Regular-use constructor */

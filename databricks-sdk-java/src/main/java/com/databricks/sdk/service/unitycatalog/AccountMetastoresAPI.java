@@ -2,13 +2,16 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage Unity Catalog metastores for an account. A metastore contains catalogs that can
  * be associated with workspaces
  */
 public class AccountMetastoresAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(AccountMetastoresAPI.class);
+
   private final AccountMetastoresService impl;
 
   /** Regular-use constructor */

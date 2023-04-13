@@ -2,13 +2,16 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These endpoints are modified versions of the MLflow API that accept additional input parameters
  * or return additional information.
  */
 public class MLflowDatabricksAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(MLflowDatabricksAPI.class);
+
   private final MLflowDatabricksService impl;
 
   /** Regular-use constructor */

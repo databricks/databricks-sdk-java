@@ -3,10 +3,13 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Paginator;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Access the history of queries through SQL warehouses. */
 public class QueryHistoryAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(QueryHistoryAPI.class);
+
   private final QueryHistoryService impl;
 
   /** Regular-use constructor */

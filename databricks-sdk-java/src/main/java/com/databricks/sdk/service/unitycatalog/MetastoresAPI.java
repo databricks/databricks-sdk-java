@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A metastore is the top-level container of objects in Unity Catalog. It stores data assets (tables
@@ -18,6 +19,8 @@ import org.apache.http.client.methods.*;
  * in that metastore is available in a catalog named hive_metastore.
  */
 public class MetastoresAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(MetastoresAPI.class);
+
   private final MetastoresService impl;
 
   /** Regular-use constructor */

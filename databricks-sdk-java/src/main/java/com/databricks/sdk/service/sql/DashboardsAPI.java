@@ -3,7 +3,8 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Paginator;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * In general, there is little need to modify dashboards using the API. However, it can be useful to
@@ -12,6 +13,8 @@ import org.apache.http.client.methods.*;
  * and then POST it to create a new one.
  */
 public class DashboardsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(DashboardsAPI.class);
+
   private final DashboardsService impl;
 
   /** Regular-use constructor */

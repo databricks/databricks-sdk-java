@@ -2,9 +2,12 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ModelVersionCommentsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(ModelVersionCommentsAPI.class);
+
   private final ModelVersionCommentsService impl;
 
   /** Regular-use constructor */

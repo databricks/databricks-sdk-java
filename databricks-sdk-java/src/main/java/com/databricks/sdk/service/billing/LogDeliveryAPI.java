@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage log delivery configurations for this account. The two supported log types for
@@ -61,6 +62,8 @@ import org.apache.http.client.methods.*;
  * https://docs.databricks.com/administration-guide/account-api/aws-storage.html
  */
 public class LogDeliveryAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(LogDeliveryAPI.class);
+
   private final LogDeliveryService impl;
 
   /** Regular-use constructor */

@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The SQL Permissions API is similar to the endpoints of the :method:permissions/set. However, this
@@ -19,6 +20,8 @@ import org.apache.http.client.methods.*;
  * `CAN_RUN`)
  */
 public class DbsqlPermissionsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(DbsqlPermissionsAPI.class);
+
   private final DbsqlPermissionsService impl;
 
   /** Regular-use constructor */

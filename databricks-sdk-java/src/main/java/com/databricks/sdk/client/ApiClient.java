@@ -12,12 +12,16 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Random;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Simplified REST API client with retries, JSON POJO SerDe through Jackson and exception POJO
  * guessing
  */
 public class ApiClient {
+  private static final Logger LOG = LoggerFactory.getLogger(ApiClient.class);
+
   private final int maxRetries;
 
   private final ObjectMapper mapper;
@@ -27,6 +31,7 @@ public class ApiClient {
   private final Random random;
 
   private final HttpClient httpClient;
+  private final BodyLogger bodyLogger;
 
   public ApiClient() {
     this(ConfigLoader.getDefault());
@@ -35,11 +40,6 @@ public class ApiClient {
   public ApiClient(DatabricksConfig config) {
     this.config = config;
     config.resolve();
-
-    Integer httpTimeoutSeconds = config.getHttpTimeoutSeconds();
-    if (httpTimeoutSeconds == null) {
-      httpTimeoutSeconds = 300;
-    }
 
     Integer rateLimit = config.getRateLimit();
     if (rateLimit == null) {
@@ -52,17 +52,16 @@ public class ApiClient {
     }
 
     maxRetries = 3;
-
     mapper = makeObjectMapper();
     random = new Random();
     httpClient = config.getHttpClient();
+    bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
   }
 
   private ObjectMapper makeObjectMapper() {
     ObjectMapper mapper = new ObjectMapper();
     mapper
         .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        .configure(SerializationFeature.WRITE_EMPTY_JSON_ARRAYS, true)
         .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
         .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
         .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
@@ -73,7 +72,7 @@ public class ApiClient {
   }
 
   private <I> Request withQuery(Request in, I entity) {
-    if (in == null) {
+    if (entity == null) {
       return in;
     }
     try {
@@ -154,7 +153,6 @@ public class ApiClient {
     int attemptNumber = 0;
     Response out = null;
     Response lastResponse = null;
-    // log.info(s"Requesting ${request.getRequestLine}")
 
     String userAgent = UserAgent.asString();
     // TODO: add auth/<auth-type> once PR#9 is merged
@@ -167,6 +165,9 @@ public class ApiClient {
         in.withHeaders(config.authenticate());
 
         lastResponse = httpClient.execute(in);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug(makeLogRecord(in, lastResponse));
+        }
         int status = lastResponse.getStatusCode();
         if (status >= 400) {
           throw new IOException(
@@ -180,7 +181,7 @@ public class ApiClient {
           throw convertException(lastResponse.getBody());
         }
         int sleep = random.nextInt(500);
-        // log.debug(s"Retry ${request.getRequestLine} in $sleep ms", e)
+        LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleep), e);
         try {
           Thread.sleep(sleep);
         } catch (InterruptedException ex) {
@@ -197,6 +198,32 @@ public class ApiClient {
       return null;
     }
     return deserialize(out.getBody(), target);
+  }
+
+  private String makeLogRecord(Request in, Response out) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("> ");
+    sb.append(in.getRequestLine());
+    if (config.isDebugHeaders()) {
+      sb.append("\n * Host: ");
+      sb.append(config.getHost());
+      in.getHeaders()
+          .forEach((header, value) -> sb.append(String.format("\n * %s: %s", header, value)));
+    }
+    String requestBody = in.getBody();
+    if (requestBody != null && !requestBody.isEmpty()) {
+      for (String line : bodyLogger.redactedDump(requestBody).split("\n")) {
+        sb.append("\n> ");
+        sb.append(line);
+      }
+    }
+    sb.append("\n< ");
+    sb.append(out.toString());
+    for (String line : bodyLogger.redactedDump(out.getBody()).split("\n")) {
+      sb.append("\n< ");
+      sb.append(line);
+    }
+    return sb.toString();
   }
 
   private IOException convertException(String body) {

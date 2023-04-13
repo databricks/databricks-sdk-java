@@ -2,12 +2,15 @@
 package com.databricks.sdk.service.scim;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This API allows retrieving information about currently authenticated user or service principal.
  */
 public class CurrentUserAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(CurrentUserAPI.class);
+
   private final CurrentUserService impl;
 
   /** Regular-use constructor */

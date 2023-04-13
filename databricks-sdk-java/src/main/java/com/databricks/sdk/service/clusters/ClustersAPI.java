@@ -8,7 +8,8 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Clusters API allows you to create, start, edit, list, terminate, and delete clusters.
@@ -35,6 +36,8 @@ import org.apache.http.client.methods.*;
  * more than 30 days, an administrator can pin a cluster to the cluster list.
  */
 public class ClustersAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(ClustersAPI.class);
+
   private final ClustersService impl;
 
   /** Regular-use constructor */
@@ -79,9 +82,7 @@ public class ClustersAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {
@@ -124,9 +125,7 @@ public class ClustersAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {

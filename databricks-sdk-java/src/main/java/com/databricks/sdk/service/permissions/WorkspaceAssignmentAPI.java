@@ -3,13 +3,16 @@ package com.databricks.sdk.service.permissions;
 
 import com.databricks.sdk.client.ApiClient;
 import java.util.Collection;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Workspace Permission Assignment API allows you to manage workspace permissions for principals
  * in your account.
  */
 public class WorkspaceAssignmentAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(WorkspaceAssignmentAPI.class);
+
   private final WorkspaceAssignmentService impl;
 
   /** Regular-use constructor */

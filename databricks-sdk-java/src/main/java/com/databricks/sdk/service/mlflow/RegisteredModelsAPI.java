@@ -3,9 +3,12 @@ package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Paginator;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RegisteredModelsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(RegisteredModelsAPI.class);
+
   private final RegisteredModelsService impl;
 
   /** Regular-use constructor */

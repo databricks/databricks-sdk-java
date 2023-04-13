@@ -2,13 +2,16 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage budget configuration including notifications for exceeding a budget for a
  * period. They can also retrieve the status of each budget.
  */
 public class BudgetsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(BudgetsAPI.class);
+
   private final BudgetsService impl;
 
   /** Regular-use constructor */

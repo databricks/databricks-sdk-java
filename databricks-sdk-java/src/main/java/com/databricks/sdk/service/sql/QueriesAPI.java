@@ -3,13 +3,16 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Paginator;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These endpoints are used for CRUD operations on query definitions. Query definitions include the
  * target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
  */
 public class QueriesAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(QueriesAPI.class);
+
   private final QueriesService impl;
 
   /** Regular-use constructor */

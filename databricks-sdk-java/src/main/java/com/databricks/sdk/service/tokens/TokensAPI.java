@@ -2,13 +2,16 @@
 package com.databricks.sdk.service.tokens;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Token API allows you to create, list, and revoke tokens that can be used to authenticate and
  * access Databricks REST APIs.
  */
 public class TokensAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(TokensAPI.class);
+
   private final TokensService impl;
 
   /** Regular-use constructor */

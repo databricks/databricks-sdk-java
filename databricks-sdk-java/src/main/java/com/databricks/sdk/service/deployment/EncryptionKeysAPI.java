@@ -3,7 +3,8 @@ package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
 import java.util.Collection;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage encryption key configurations for this workspace (optional). A key
@@ -21,6 +22,8 @@ import org.apache.http.client.methods.*;
  * platform. If you are not sure, contact your Databricks representative.
  */
 public class EncryptionKeysAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(EncryptionKeysAPI.class);
+
   private final EncryptionKeysService impl;
 
   /** Regular-use constructor */
