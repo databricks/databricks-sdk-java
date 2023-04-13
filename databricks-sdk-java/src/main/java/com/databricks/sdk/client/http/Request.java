@@ -1,5 +1,8 @@
 package com.databricks.sdk.client.http;
 
+import com.databricks.sdk.client.DatabricksException;
+
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
@@ -51,7 +54,12 @@ public class Request {
   protected static String mapToQuery(Map<String, String> in) {
     StringJoiner joiner = new StringJoiner("&");
     for (Map.Entry<String, String> entry : in.entrySet()) {
-      String encoded = URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8);
+      String encoded = null;
+      try {
+        encoded = URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8.name());
+      } catch (UnsupportedEncodingException e) {
+        throw new DatabricksException("Unable to encode request body: " + e.getMessage(), e);
+      }
       joiner.add(String.format("%s=%s", entry.getKey(), encoded));
     }
     return joiner.toString();
