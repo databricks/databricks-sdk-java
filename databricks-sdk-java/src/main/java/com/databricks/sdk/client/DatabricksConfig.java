@@ -1,5 +1,7 @@
 package com.databricks.sdk.client;
 
+import com.databricks.sdk.client.commons.CommonsHttpClient;
+import com.databricks.sdk.client.http.HttpClient;
 import java.util.Map;
 import java.util.function.Function;
 import org.apache.http.HttpMessage;
@@ -8,7 +10,7 @@ public class DatabricksConfig {
 
   public static final String DEFAULT_CONFIG_FILE = "~/.databrickscfg";
 
-  private CredentialsProvider credentialsProvider;
+  private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(value = "host", env = "DATABRICKS_HOST")
   private String host;
@@ -124,13 +126,9 @@ public class DatabricksConfig {
   private volatile boolean resolved;
   private HeaderFactory headerFactory;
 
-  Function<String, String> getEnv;
+  private HttpClient httpClient;
 
-  public DatabricksConfig() {
-    if (credentialsProvider == null) {
-      credentialsProvider = new DefaultCredentialsProvider();
-    }
-  }
+  Function<String, String> getEnv;
 
   public synchronized DatabricksConfig resolve() {
     resolve(System::getenv);
@@ -142,6 +140,7 @@ public class DatabricksConfig {
     try {
       resolveInConfigLoader();
       ConfigLoader.validate(this);
+      initHttp();
       return this;
     } catch (DatabricksException e) {
       throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
@@ -156,6 +155,18 @@ public class DatabricksConfig {
       String msg = String.format("%s auth: %s", credentialsProvider.authType(), e.getMessage());
       throw new DatabricksException(msg, e);
     }
+  }
+
+  private void initHttp() {
+    if (httpClient != null) {
+      return;
+    }
+    int timeout = 300;
+    if (httpTimeoutSeconds != null) {
+      timeout = httpTimeoutSeconds;
+    }
+    // eventually it'll get decoupled from config.
+    httpClient = new CommonsHttpClient(timeout);
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {
@@ -360,6 +371,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setRateLimit(int rateLimit) {
     this.rateLimit = rateLimit;
+    return this;
+  }
+
+  public HttpClient getHttpClient() {
+    return httpClient;
+  }
+
+  public DatabricksConfig setHttpClient(HttpClient httpClient) {
+    this.httpClient = httpClient;
     return this;
   }
 
