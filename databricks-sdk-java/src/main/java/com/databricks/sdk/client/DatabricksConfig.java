@@ -225,6 +225,24 @@ public class DatabricksConfig {
     return this;
   }
 
+  public String getClientId() {
+    return clientId;
+  }
+
+  public DatabricksConfig setClientId(String clientId) {
+    this.clientId = clientId;
+    return this;
+  }
+
+  public String getClientSecret() {
+    return clientSecret;
+  }
+
+  public DatabricksConfig setClientSecret(String clientSecret) {
+    this.clientSecret = clientSecret;
+    return this;
+  }
+
   public String getProfile() {
     return profile;
   }
@@ -306,13 +324,25 @@ public class DatabricksConfig {
     return this;
   }
 
-  public String getAzureEnvironment() {
-    return azureEnvironment;
+  public AzureEnvironment getAzureEnvironment() {
+    String env = "PUBLIC";
+    if (azureEnvironment != null) {
+      env = azureEnvironment;
+    }
+    return AzureEnvironment.getEnvironment(env);
   }
 
   public DatabricksConfig setAzureEnvironment(String azureEnvironment) {
     this.azureEnvironment = azureEnvironment;
     return this;
+  }
+
+  public String getEffectiveAzureLoginAppId() {
+    if (azureLoginAppId != null) {
+      return azureLoginAppId;
+    }
+
+    return AzureEnvironment.ARM_DATABRICKS_RESOURCE_ID;
   }
 
   public String getAuthType() {
