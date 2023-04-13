@@ -130,12 +130,6 @@ public class DatabricksConfig {
 
   Function<String, String> getEnv;
 
-  public DatabricksConfig() {
-    if (credentialsProvider == null) {
-      credentialsProvider = new DefaultCredentialsProvider();
-    }
-  }
-
   public synchronized DatabricksConfig resolve() {
     resolve(System::getenv);
     return this;
