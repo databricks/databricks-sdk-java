@@ -1,36 +1,85 @@
 package com.databricks.sdk.client.oauth;
 
-import com.databricks.sdk.client.HttpClient;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.databricks.sdk.client.commons.CommonsHttpClient;
+import com.databricks.sdk.client.http.HttpClient;
+
+import java.util.*;
 
 public class ClientCredentials extends RefreshableTokenSource {
+  static class Builder {
+    private String clientId;
+    private String clientSecret;
+    private String tokenUrl;
+    private HttpClient hc = new CommonsHttpClient(30);
+    private Map<String, String> endpointParams = Collections.emptyMap();
+    private List<String> scopes = Collections.emptyList();
+    private AuthParameterPosition position = AuthParameterPosition.BODY;
+
+    public Builder withClientId(String clientId) {
+      this.clientId = clientId;
+      return this;
+    }
+
+    public Builder withClientSecret(String clientSecret) {
+      this.clientSecret = clientSecret;
+      return this;
+    }
+
+    public Builder withTokenUrl(String tokenUrl) {
+      this.tokenUrl = tokenUrl;
+      return this;
+    }
+
+    public Builder withEndpointParameters(Map<String, String> params) {
+      this.endpointParams = params;
+      return this;
+    }
+
+    public Builder withScopes(List<String> scopes) {
+      this.scopes = scopes;
+      return this;
+    }
+
+    public Builder withAuthParameterPosition(AuthParameterPosition position) {
+      this.position = position;
+      return this;
+    }
+
+    public Builder withHttpClient(HttpClient hc) {
+      this.hc = hc;
+      return this;
+    }
+
+    public ClientCredentials build() {
+      Objects.requireNonNull(this.clientId, "clientId must be specified");
+      Objects.requireNonNull(this.clientSecret, "clientSecret must be specified");
+      Objects.requireNonNull(this.tokenUrl, "tokenUrl must be specified");
+      return new ClientCredentials(hc, clientId, clientSecret, tokenUrl, endpointParams, scopes, position);
+    }
+  }
+
   private String clientId;
   private String clientSecret;
   private String tokenUrl;
   private Map<String, String> endpointParams;
   private List<String> scopes;
-  private boolean useParams;
-  private boolean useHeader;
+  private AuthParameterPosition position;
 
-  public ClientCredentials(
+  private ClientCredentials(
       HttpClient hc,
       String clientId,
       String clientSecret,
       String tokenUrl,
       Map<String, String> endpointParams,
       List<String> scopes,
-      boolean useParams,
-      boolean useHeader) {
+      AuthParameterPosition position) {
     super(hc);
     this.clientId = clientId;
     this.clientSecret = clientSecret;
     this.tokenUrl = tokenUrl;
     this.endpointParams = endpointParams;
     this.scopes = scopes;
-    this.useParams = useParams;
-    this.useHeader = useHeader;
+    this.position = position;
   }
 
   @Override
@@ -43,7 +92,6 @@ public class ClientCredentials extends RefreshableTokenSource {
     if (endpointParams != null) {
       params.putAll(endpointParams);
     }
-    return retrieveToken(
-        clientId, clientSecret, tokenUrl, params, useParams, useHeader, new HashMap<>());
+    return retrieveToken(clientId, clientSecret, tokenUrl, params, new HashMap<>(), position);
   }
 }

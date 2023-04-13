@@ -1,18 +1,16 @@
 package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.DatabricksException;
-import com.databricks.sdk.client.HttpClient;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.List;
 import java.util.Map;
+
+import com.databricks.sdk.client.http.FormRequest;
+import com.databricks.sdk.client.http.HttpClient;
+import com.databricks.sdk.client.http.Response;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpHeaders;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.message.BasicNameValuePair;
 
 public abstract class RefreshableTokenSource implements TokenSource {
   private HttpClient hc;
@@ -23,40 +21,32 @@ public abstract class RefreshableTokenSource implements TokenSource {
     this.hc = hc;
   }
 
-  public Token retrieveToken(
+  protected Token retrieveToken(
       String clientId,
       String clientSecret,
       String tokenUrl,
       Map<String, String> params,
-      boolean useParams,
-      boolean useHeader,
-      Map<String, String> headers) {
-    if (useParams) {
-      if (clientId != null) {
-        params.put("client_id", clientId);
-      }
-      if (clientSecret != null) {
-        params.put("client_secret", clientSecret);
-      }
-    }
-    if (useHeader) {
-      String authHeaderValue =
-          "Basic " + Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
-      headers.put(HttpHeaders.AUTHORIZATION, authHeaderValue);
-    }
-    HttpPost post = new HttpPost(tokenUrl);
-    try {
-      List<NameValuePair> formParams = new ArrayList<>();
-      for (Map.Entry<String, String> e : params.entrySet()) {
-        formParams.add(new BasicNameValuePair(e.getKey(), e.getValue()));
-      }
-      UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formParams);
+      Map<String, String> headers,
+      AuthParameterPosition position) {
+    switch (position) {
+      case BODY:
+        if (clientId != null) {
+          params.put("client_id", clientId);
+        }
+        if (clientSecret != null) {
+          params.put("client_secret", clientSecret);
+        }
+      case HEADER:
+        String authHeaderValue =
+            "Basic " + Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
+        headers.put(HttpHeaders.AUTHORIZATION, authHeaderValue);
 
-      post.setEntity(entity);
-      for (Map.Entry<String, String> entry : headers.entrySet()) {
-        post.setHeader(entry.getKey(), entry.getValue());
-      }
-      OAuthResponse resp = hc.execute(post, OAuthResponse.class);
+    }
+    FormRequest req = new FormRequest(tokenUrl, params);
+    req.withHeaders(headers);
+    try {
+      Response rawResp = hc.execute(req);
+      OAuthResponse resp = new ObjectMapper().readValue(rawResp.getBody(), OAuthResponse.class);
       if (resp.getErrorCode() != null) {
         throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
       }

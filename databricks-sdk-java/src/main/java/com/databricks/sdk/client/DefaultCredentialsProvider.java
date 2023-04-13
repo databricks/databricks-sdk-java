@@ -11,14 +11,13 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
 
   private String authType = "default";
 
-  public DefaultCredentialsProvider(HttpClientConnectionManager connectionManager) {
-    HttpClient hc = new HttpClient(connectionManager, 15, 3, 96, null, null);
+  public DefaultCredentialsProvider() {
     providers =
         Arrays.asList(
             new PatCredentialsProvider(),
             new BasicCredentialsProvider(),
-            new OAuthM2MServicePrincipalCredentialsProvider(hc),
-            new AzureServicePrincipalCredentialsProvider(hc));
+            new OAuthM2MServicePrincipalCredentialsProvider(),
+            new AzureServicePrincipalCredentialsProvider());
   }
 
   @Override

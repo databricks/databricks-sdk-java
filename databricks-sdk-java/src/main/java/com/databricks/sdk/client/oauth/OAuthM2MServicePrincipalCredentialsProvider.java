@@ -1,6 +1,11 @@
 package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.*;
+import com.databricks.sdk.client.http.Request;
+import com.databricks.sdk.client.http.Response;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,11 +15,7 @@ import java.util.Map;
  * /oidc/.well-known/oauth-authorization-server is available on the given host.
  */
 public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsProvider {
-  private final HttpClient hc;
-
-  public OAuthM2MServicePrincipalCredentialsProvider(HttpClient hc) {
-    this.hc = hc;
-  }
+  private final ObjectMapper mapper = new ObjectMapper();
 
   @Override
   public String authType() {
@@ -33,17 +34,21 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
     // https://login.microsoftonline.com/{cfg.azure_tenant_id}/.well-known/oauth-authorization-server
     String oidcUrl = config.getHost() + "/oidc/.well-known/oauth-authorization-server";
     try {
-      OpenIDConnectResponse jsonResponse = hc.GET(oidcUrl, OpenIDConnectResponse.class);
+      Request req = new Request("GET", oidcUrl);
+      Response resp = config.getHttpClient().execute(req);
+      if (resp.getStatusCode() != 200) {
+        throw new DatabricksException("Failed fetching workspace URL: status code " + resp.getStatusCode() + ", response body: " + resp.getBody());
+      }
+      OpenIDConnectResponse jsonResponse = mapper.readValue(resp.getBody(), OpenIDConnectResponse.class);
       ClientCredentials tokenSource =
-          new ClientCredentials(
-              hc,
-              config.getClientId(),
-              config.getClientSecret(),
-              jsonResponse.getTokenEndpoint(),
-              null,
-              Collections.singletonList("all-apis"),
-              false,
-              true);
+          new ClientCredentials.Builder()
+              .withHttpClient(config.getHttpClient())
+              .withClientId(config.getClientId())
+              .withClientSecret(config.getClientSecret())
+              .withTokenUrl(jsonResponse.getTokenEndpoint())
+              .withScopes(Collections.singletonList("all-apis"))
+              .withAuthParameterPosition(AuthParameterPosition.HEADER)
+              .build();
 
       return () -> {
         Token token = tokenSource.refresh();
@@ -51,9 +56,9 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
         headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
         return headers;
       };
-    } catch (DatabricksException e) {
+    } catch (IOException e) {
       // TODO: Log exception
-      return null;
+      throw new DatabricksException("Unable to fetch OIDC endpoint: " + e.getMessage(), e);
     }
   }
 }

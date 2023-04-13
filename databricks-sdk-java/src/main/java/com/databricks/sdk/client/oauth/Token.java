@@ -1,17 +1,29 @@
 package com.databricks.sdk.client.oauth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 public class Token {
+  @JsonProperty
   private String accessToken;
+
+  @JsonProperty
   private String tokenType;
+
+  @JsonProperty
   private String refreshToken;
+
+  @JsonProperty
   private LocalDateTime expiry;
 
+  /** Constructor for non-refreshable tokens (e.g. M2M). */
+  public Token(String accessToken, String tokenType, LocalDateTime expiry) {
+    this(accessToken, tokenType, null, expiry);
+  }
+
+  /** Constructor for refreshable tokens. */
   public Token(String accessToken, String tokenType, String refreshToken, LocalDateTime expiry) {
     this.accessToken = accessToken;
     this.tokenType = tokenType;
@@ -30,27 +42,6 @@ public class Token {
 
   public boolean isValid() {
     return accessToken != null && !isExpired();
-  }
-
-  public Map<String, String> asDict() {
-    Map<String, String> raw = new HashMap<>();
-    raw.put("access_token", accessToken);
-    raw.put("token_type", tokenType);
-    if (expiry != null) {
-      raw.put("expiry", expiry.toString());
-    }
-    if (refreshToken != null) {
-      raw.put("refresh_token", refreshToken);
-    }
-    return raw;
-  }
-
-  public static Token fromDict(Map<String, Object> raw) {
-    return new Token(
-        (String) raw.get("access_token"),
-        (String) raw.get("token_type"),
-        (String) raw.get("refresh_token"),
-        Optional.ofNullable((String) raw.get("expiry")).map(LocalDateTime::parse).orElse(null));
   }
 
   public String getTokenType() {
