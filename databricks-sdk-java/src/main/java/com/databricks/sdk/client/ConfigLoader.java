@@ -34,18 +34,97 @@ public class ConfigLoader {
 
   public static DatabricksConfig resolve(DatabricksConfig cfg) throws DatabricksException {
     try {
-      loadFromInnerConfig(cfg);
       loadFromEnvironmentVariables(cfg);
       loadFromConfig(cfg); // TODO: just return new config?..
-      fixHostIfNeeded(cfg);
       return cfg;
     } catch (IllegalAccessException e) {
       throw new DatabricksException("Cannot create default config", e);
     }
   }
 
+  static void loadFromEnvironmentVariables(DatabricksConfig cfg) throws IllegalAccessException {
+    try {
+      for (ConfigAttributeAccessor accessor : accessors) {
+        String env = accessor.getEnv(cfg.getEnv);
+        if (isNullOrEmpty(env)) {
+          continue;
+        }
+        // value already set in config then skip
+        Object value = accessor.getValueFromConfig(cfg);
+        if (!isNullOrEmpty(value)) {
+          continue;
+        }
+        accessor.setValueOnConfig(cfg, env);
+      }
+    } catch (DatabricksException e) {
+      String msg =
+          String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
+      throw new DatabricksException(msg, e);
+    }
+  }
+
+  static void loadFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
+    if (isNullOrEmpty(cfg.getProfile()) && (isAnyAuthConfigured(cfg) || cfg.isAzure())) {
+      return;
+    }
+
+    String configFile = cfg.getConfigFile();
+    boolean isDefaultConfig = false;
+    if (isNullOrEmpty(configFile)) {
+      configFile = DatabricksConfig.DEFAULT_CONFIG_FILE;
+      isDefaultConfig = true;
+    }
+
+    String userHome = cfg.getEnv.apply("HOME");
+    if (userHome.isEmpty()) {
+      userHome = System.getProperty("user.home");
+    }
+    configFile = configFile.replaceFirst("^~", userHome);
+
+    Ini ini = parseDatabricksCfg(configFile, isDefaultConfig);
+    if (ini == null) return;
+    String profile = cfg.getProfile();
+    boolean hasExplicitProfile = !isNullOrEmpty(profile);
+    if (!hasExplicitProfile) {
+      profile = "DEFAULT";
+    }
+
+    Profile.Section section = ini.get(profile);
+    if (section == null && !hasExplicitProfile) {
+      // logger.Debugf("%s has no %s profile configured", configFile, profile)
+      return;
+    }
+
+    if (section == null) {
+      String msg = String.format("resolve: %s has no %s profile configured", configFile, profile);
+      throw new DatabricksException(msg);
+    }
+
+    for (ConfigAttributeAccessor accessor : accessors) {
+      String value = section.get(accessor.getName());
+      if (!isNullOrEmpty(accessor.getValueFromConfig(cfg))) {
+        continue;
+      }
+      accessor.setValueOnConfig(cfg, value);
+    }
+  }
+
+  private static Ini parseDatabricksCfg(String configFile, boolean isDefaultConfig) {
+    Ini ini = new Ini();
+    try {
+      ini.load(new File(configFile));
+    } catch (FileNotFoundException e) {
+      if (isDefaultConfig) {
+        return null;
+      }
+    } catch (IOException e) {
+      throw new DatabricksException("Cannot load " + configFile, e);
+    }
+    return ini;
+  }
+
   public static void fixHostIfNeeded(DatabricksConfig cfg) {
-    if (cfg.getHost() == null || cfg.getHost().isEmpty()) {
+    if (isNullOrEmpty(cfg.getHost())) {
       return;
     }
 
@@ -158,31 +237,6 @@ public class ConfigLoader {
     return target == null || target.toString().isEmpty();
   }
 
-  static void loadFromInnerConfig(DatabricksConfig cfg) throws IllegalAccessException {
-    for (ConfigAttributeAccessor accessor : accessors) {
-      Object value = accessor.getValueFromConfig(cfg);
-      if (isNullOrEmpty(value)) {
-        continue;
-      }
-      accessor.setValueOnConfig(cfg, accessor.getAsString(value));
-    }
-  }
-
-  static void loadFromEnvironmentVariables(DatabricksConfig cfg) throws IllegalAccessException {
-    for (ConfigAttributeAccessor accessor : accessors) {
-      String env = accessor.getEnv(cfg.getEnv);
-      if (isNullOrEmpty(env)) {
-        continue;
-      }
-      // value already set in config then skip
-      Object value = accessor.getValueFromConfig(cfg);
-      if (!isNullOrEmpty(value)) {
-        continue;
-      }
-      accessor.setValueOnConfig(cfg, env);
-    }
-  }
-
   public static boolean isAnyAuthConfigured(DatabricksConfig cfg) throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {
       if (isNullOrEmpty(accessor.getAuthType())) {
@@ -194,66 +248,5 @@ public class ConfigLoader {
       }
     }
     return false;
-  }
-
-  static void loadFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
-    if (isNullOrEmpty(cfg.getProfile()) && (isAnyAuthConfigured(cfg) || cfg.isAzure())) {
-      return;
-    }
-
-    String configFile = cfg.getConfigFile();
-    boolean isDefaultConfig = false;
-    if (isNullOrEmpty(configFile)) {
-      configFile = DatabricksConfig.DEFAULT_CONFIG_FILE;
-      isDefaultConfig = true;
-    }
-
-    String userHome = cfg.getEnv.apply("HOME");
-    if (userHome.isEmpty()) {
-      userHome = System.getProperty("user.home");
-    }
-    configFile = configFile.replaceFirst("^~", userHome);
-
-    Ini ini = parseDatabricksCfg(configFile, isDefaultConfig);
-    if (ini == null) return;
-    String profile = cfg.getProfile();
-    boolean hasExplicitProfile = !isNullOrEmpty(profile);
-    if (!hasExplicitProfile) {
-      profile = "DEFAULT";
-    }
-
-    Profile.Section section = ini.get(profile);
-    if (section == null && !hasExplicitProfile) {
-      LOG.debug("{} has no {} profile configured", configFile, profile);
-      return;
-    }
-
-    if (section == null) {
-      throw new DatabricksException(
-          cfg.getConfigFile() + "has no " + profile + " profile configured");
-    }
-
-    for (ConfigAttributeAccessor accessor : accessors) {
-      String value = section.get(accessor.getName());
-      if (isNullOrEmpty(value)) {
-        continue;
-      }
-      accessor.setValueOnConfig(cfg, value);
-    }
-  }
-
-  private static Ini parseDatabricksCfg(String configFile, boolean isDefaultConfig) {
-    Ini ini = new Ini();
-    try {
-      ini.load(new File(configFile));
-    } catch (FileNotFoundException e) {
-      if (isDefaultConfig) {
-        return null;
-      }
-      throw new DatabricksException("Cannot find " + configFile, e);
-    } catch (IOException e) {
-      throw new DatabricksException("Cannot load " + configFile, e);
-    }
-    return ini;
   }
 }
