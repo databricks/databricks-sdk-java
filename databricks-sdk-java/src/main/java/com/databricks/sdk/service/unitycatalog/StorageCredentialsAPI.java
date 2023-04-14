@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A storage credential represents an authentication and authorization mechanism for accessing data
@@ -18,6 +19,8 @@ import org.apache.http.client.methods.*;
  * permissions on it.
  */
 public class StorageCredentialsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(StorageCredentialsAPI.class);
+
   private final StorageCredentialsService impl;
 
   /** Regular-use constructor */

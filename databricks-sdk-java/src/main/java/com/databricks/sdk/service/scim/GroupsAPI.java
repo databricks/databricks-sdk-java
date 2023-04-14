@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.scim;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Groups simplify identity management, making it easier to assign access to Databricks Workspace,
@@ -13,6 +14,8 @@ import org.apache.http.client.methods.*;
  * assigned as members of groups, and members inherit permissions that are assigned to their group.
  */
 public class GroupsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(GroupsAPI.class);
+
   private final GroupsService impl;
 
   /** Regular-use constructor */

@@ -2,13 +2,16 @@
 package com.databricks.sdk.service.tokenmanagement;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Enables administrators to get all tokens and delete tokens for other users. Admins can either get
  * every token, get a specific token by ID, or get all tokens for a particular user.
  */
 public class TokenManagementAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(TokenManagementAPI.class);
+
   private final TokenManagementService impl;
 
   /** Regular-use constructor */

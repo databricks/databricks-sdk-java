@@ -2,13 +2,16 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage network configurations for customer-managed VPCs (optional). Its ID is used
  * when creating a new workspace if you use customer-managed VPCs.
  */
 public class NetworksAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(NetworksAPI.class);
+
   private final NetworksService impl;
 
   /** Regular-use constructor */

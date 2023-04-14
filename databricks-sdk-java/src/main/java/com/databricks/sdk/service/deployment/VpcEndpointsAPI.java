@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage VPC endpoint configurations for this account. This object registers an AWS VPC
@@ -17,6 +18,8 @@ import org.apache.http.client.methods.*;
  * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
  */
 public class VpcEndpointsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(VpcEndpointsAPI.class);
+
   private final VpcEndpointsService impl;
 
   /** Regular-use constructor */

@@ -3,7 +3,8 @@ package com.databricks.sdk.service.ipaccesslists;
 
 import com.databricks.sdk.client.ApiClient;
 import java.util.Collection;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * IP Access List enables admins to configure IP access lists.
@@ -27,6 +28,8 @@ import org.apache.http.client.methods.*;
  * effect.
  */
 public class IpAccessListsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(IpAccessListsAPI.class);
+
   private final IpAccessListsService impl;
 
   /** Regular-use constructor */

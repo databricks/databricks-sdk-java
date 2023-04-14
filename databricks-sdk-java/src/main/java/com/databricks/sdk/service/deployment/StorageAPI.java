@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage storage configurations for this workspace. A root storage S3 bucket in your
@@ -12,6 +13,8 @@ import org.apache.http.client.methods.*;
  * workspace.
  */
 public class StorageAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(StorageAPI.class);
+
   private final StorageService impl;
 
   /** Regular-use constructor */

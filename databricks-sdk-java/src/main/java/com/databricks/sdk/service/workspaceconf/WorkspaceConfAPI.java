@@ -3,10 +3,13 @@ package com.databricks.sdk.service.workspaceconf;
 
 import com.databricks.sdk.client.ApiClient;
 import java.util.Map;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** This API allows updating known workspace settings for advanced users. */
 public class WorkspaceConfAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(WorkspaceConfAPI.class);
+
   private final WorkspaceConfService impl;
 
   /** Regular-use constructor */

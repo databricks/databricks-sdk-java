@@ -8,7 +8,8 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Delta Live Tables API allows you to create, edit, delete, start, and view details about
@@ -26,6 +27,8 @@ import org.apache.http.client.methods.*;
  * fail those expectations.
  */
 public class PipelinesAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(PipelinesAPI.class);
+
   private final PipelinesService impl;
 
   /** Regular-use constructor */
@@ -71,9 +74,7 @@ public class PipelinesAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {
@@ -117,9 +118,7 @@ public class PipelinesAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {

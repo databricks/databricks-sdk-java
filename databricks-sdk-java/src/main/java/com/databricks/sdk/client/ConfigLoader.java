@@ -13,9 +13,13 @@ import java.util.TreeSet;
 import java.util.function.Function;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConfigLoader {
-  private static List<ConfigAttributeAccessor> accessors = attributeAccessors();
+  private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
+
+  private static final List<ConfigAttributeAccessor> accessors = attributeAccessors();
 
   static List<ConfigAttributeAccessor> attributeAccessors() {
     ArrayList<ConfigAttributeAccessor> attrs = new ArrayList<>();

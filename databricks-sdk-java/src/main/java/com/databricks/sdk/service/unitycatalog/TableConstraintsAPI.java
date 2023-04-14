@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Primary key and foreign key constraints encode relationships between fields in tables.
@@ -17,6 +18,8 @@ import org.apache.http.client.methods.*;
  * creation. You can also add or drop constraints on existing tables.
  */
 public class TableConstraintsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(TableConstraintsAPI.class);
+
   private final TableConstraintsService impl;
 
   /** Regular-use constructor */

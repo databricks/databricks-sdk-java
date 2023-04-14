@@ -8,7 +8,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Serving Endpoints API allows you to create, update, and delete model serving endpoints.
@@ -23,6 +24,8 @@ import org.apache.http.client.methods.*;
  * should be applied to each served model.
  */
 public class ServingEndpointsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(ServingEndpointsAPI.class);
+
   private final ServingEndpointsService impl;
 
   /** Regular-use constructor */
@@ -72,9 +75,7 @@ public class ServingEndpointsAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {

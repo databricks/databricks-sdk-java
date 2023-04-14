@@ -7,7 +7,8 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage workspaces for this account. A Databricks workspace is an environment for
@@ -19,6 +20,8 @@ import org.apache.http.client.methods.*;
  * select custom plan that allows multiple workspaces per account.
  */
 public class WorkspacesAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(WorkspacesAPI.class);
+
   private final WorkspacesService impl;
 
   /** Regular-use constructor */
@@ -64,9 +67,7 @@ public class WorkspacesAPI {
         // sleep 10s max per attempt
         sleep = 10;
       }
-      String logMessage =
-          String.format("%s: (%s) %s (sleeping ~%ds)%n", prefix, status, statusMessage, sleep);
-      // log.info(logMessage);
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
       try {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {

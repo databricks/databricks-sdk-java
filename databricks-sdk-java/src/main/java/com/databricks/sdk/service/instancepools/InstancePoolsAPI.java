@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.instancepools;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Instance Pools API are used to create, edit, delete and list instance pools by using ready-to-use
@@ -22,6 +23,8 @@ import org.apache.http.client.methods.*;
  * billing does apply. See pricing.
  */
 public class InstancePoolsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(InstancePoolsAPI.class);
+
   private final InstancePoolsService impl;
 
   /** Regular-use constructor */

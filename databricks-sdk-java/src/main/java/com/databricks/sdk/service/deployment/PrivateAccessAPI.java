@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.deployment;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs manage private access settings for this account. A private access settings object
@@ -16,6 +17,8 @@ import org.apache.http.client.methods.*;
  * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
  */
 public class PrivateAccessAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(PrivateAccessAPI.class);
+
   private final PrivateAccessService impl;
 
   /** Regular-use constructor */

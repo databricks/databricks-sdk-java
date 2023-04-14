@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A schema (also called a database) is the second layer of Unity Catalog’s three-level namespace. A
@@ -11,6 +12,8 @@ import org.apache.http.client.methods.*;
  * must have the SELECT permission on the table or view.
  */
 public class SchemasAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(SchemasAPI.class);
+
   private final SchemasService impl;
 
   /** Regular-use constructor */

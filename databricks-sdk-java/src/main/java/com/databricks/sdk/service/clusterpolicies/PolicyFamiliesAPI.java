@@ -3,7 +3,8 @@ package com.databricks.sdk.service.clusterpolicies;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Paginator;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * View available policy families. A policy family contains a policy definition providing best
@@ -17,6 +18,8 @@ import org.apache.http.client.methods.*;
  * family's policy definition.
  */
 public class PolicyFamiliesAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(PolicyFamiliesAPI.class);
+
   private final PolicyFamiliesService impl;
 
   /** Regular-use constructor */

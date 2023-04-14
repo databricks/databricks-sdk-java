@@ -3,7 +3,8 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.client.ApiClient;
 import java.util.Collection;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * These APIs enable administrators to manage custom oauth app integrations, which is required for
@@ -13,6 +14,8 @@ import org.apache.http.client.methods.*;
  * status is enabled. For more details see :method:OAuthEnrollment/create
  */
 public class CustomAppIntegrationAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(CustomAppIntegrationAPI.class);
+
   private final CustomAppIntegrationService impl;
 
   /** Regular-use constructor */

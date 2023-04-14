@@ -2,9 +2,12 @@
 package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MLflowMetricsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(MLflowMetricsAPI.class);
+
   private final MLflowMetricsService impl;
 
   /** Regular-use constructor */

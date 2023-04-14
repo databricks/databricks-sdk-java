@@ -4,8 +4,12 @@ import com.databricks.sdk.client.oauth.AzureServicePrincipalCredentialsProvider;
 import com.databricks.sdk.client.oauth.OAuthM2MServicePrincipalCredentialsProvider;
 import java.util.Arrays;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultCredentialsProvider implements CredentialsProvider {
+  private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
+
   private List<CredentialsProvider> providers;
 
   private String authType = "default";
@@ -25,7 +29,8 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
       if (config.getAuthType() != null
           && !config.getAuthType().isEmpty()
           && !provider.authType().equals(config.getAuthType())) {
-        // TODO: log this
+        LOG.info(
+            "Ignoring {} auth, because {} is preferred", provider.authType(), config.getAuthType());
         continue;
       }
       HeaderFactory headerFactory = provider.configure(config);

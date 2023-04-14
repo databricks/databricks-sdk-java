@@ -2,10 +2,13 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Databricks Delta Sharing: Recipients REST API */
 public class RecipientsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(RecipientsAPI.class);
+
   private final RecipientsService impl;
 
   /** Regular-use constructor */

@@ -3,9 +3,12 @@ package com.databricks.sdk.service.mlflow;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Paginator;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MLflowArtifactsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(MLflowArtifactsAPI.class);
+
   private final MLflowArtifactsService impl;
 
   /** Regular-use constructor */

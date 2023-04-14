@@ -2,10 +2,13 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** These APIs manage metastore assignments to a workspace. */
 public class AccountMetastoreAssignmentsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(AccountMetastoreAssignmentsAPI.class);
+
   private final AccountMetastoreAssignmentsService impl;
 
   /** Regular-use constructor */

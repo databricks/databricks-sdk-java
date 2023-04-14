@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.unitycatalog;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An external location is an object that combines a cloud storage path with a storage credential
@@ -17,6 +18,8 @@ import org.apache.http.client.methods.*;
  * **CREATE_EXTERNAL_LOCATION** privilege.
  */
 public class ExternalLocationsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(ExternalLocationsAPI.class);
+
   private final ExternalLocationsService impl;
 
   /** Regular-use constructor */

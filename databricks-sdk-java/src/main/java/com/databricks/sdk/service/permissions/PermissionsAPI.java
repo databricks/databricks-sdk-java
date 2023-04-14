@@ -2,13 +2,16 @@
 package com.databricks.sdk.service.permissions;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Permissions API are used to create read, write, edit, update and manage access for various users
  * on different objects and endpoints.
  */
 public class PermissionsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(PermissionsAPI.class);
+
   private final PermissionsService impl;
 
   /** Regular-use constructor */

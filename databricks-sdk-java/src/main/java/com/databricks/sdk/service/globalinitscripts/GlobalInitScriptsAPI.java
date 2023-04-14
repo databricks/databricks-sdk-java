@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.globalinitscripts;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Global Init Scripts API enables Workspace administrators to configure global initialization
@@ -14,6 +15,8 @@ import org.apache.http.client.methods.*;
  * enough containers fail, the entire cluster fails with a `GLOBAL_INIT_SCRIPT_FAILURE` error code.
  */
 public class GlobalInitScriptsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(GlobalInitScriptsAPI.class);
+
   private final GlobalInitScriptsService impl;
 
   /** Regular-use constructor */

@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The Workspace API allows you to list, import, export, and delete notebooks and folders.
@@ -11,6 +12,8 @@ import org.apache.http.client.methods.*;
  * and explanatory text.
  */
 public class WorkspaceAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(WorkspaceAPI.class);
+
   private final WorkspaceService impl;
 
   /** Regular-use constructor */

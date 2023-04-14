@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.gitcredentials;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Registers personal access token for Databricks to do operations on behalf of the user.
@@ -12,6 +13,8 @@ import org.apache.http.client.methods.*;
  * <p>[more info]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
  */
 public class GitCredentialsAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(GitCredentialsAPI.class);
+
   private final GitCredentialsService impl;
 
   /** Regular-use constructor */

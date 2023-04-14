@@ -2,7 +2,8 @@
 package com.databricks.sdk.service.scim;
 
 import com.databricks.sdk.client.ApiClient;
-import org.apache.http.client.methods.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * User identities recognized by Databricks and represented by email addresses.
@@ -16,6 +17,8 @@ import org.apache.http.client.methods.*;
  * process and prevents unauthorized users from accessing sensitive data.
  */
 public class UsersAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(UsersAPI.class);
+
   private final UsersService impl;
 
   /** Regular-use constructor */
