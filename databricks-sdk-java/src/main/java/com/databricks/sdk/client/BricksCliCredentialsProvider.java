@@ -6,17 +6,20 @@ import com.databricks.sdk.client.oauth.Token;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AzureCliCredentialsProvider implements CredentialsProvider{
-    public static final String AZURE_CLI = "azure-cli";
+public class BricksCliCredentialsProvider implements CredentialsProvider {
+    public static final String BRICKS_CLI = "bricks-cli";
 
     @Override
     public String authType() {
-        return AZURE_CLI;
+        return BRICKS_CLI;
     }
 
     @Override
     public HeaderFactory configure(DatabricksConfig config) {
-        // conditions
+        String host = config.getHost();
+        if(host == null || !config.isAws()) {
+            return null;
+        }
 
         ClientCredentials tokenSource = new ClientCredentials.Builder().build();
         return () -> {
@@ -26,6 +29,4 @@ public class AzureCliCredentialsProvider implements CredentialsProvider{
             return headers;
         };
     }
-
 }
-

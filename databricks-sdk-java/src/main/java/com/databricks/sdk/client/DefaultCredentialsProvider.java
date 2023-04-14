@@ -20,7 +20,9 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             new PatCredentialsProvider(),
             new BasicCredentialsProvider(),
             new OAuthM2MServicePrincipalCredentialsProvider(),
-            new AzureServicePrincipalCredentialsProvider());
+            new BricksCliCredentialsProvider(),
+            new AzureServicePrincipalCredentialsProvider(),
+            new AzureCliCredentialsProvider());
   }
 
   @Override
