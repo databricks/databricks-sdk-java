@@ -7,9 +7,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.StatusLine;
+import org.apache.http.*;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.StringEntity;
@@ -53,7 +56,13 @@ public class CommonsHttpClient implements HttpClient {
       try (InputStream inputStream = entity.getContent()) {
         String body = IOUtils.toString(inputStream, Charset.defaultCharset());
         StatusLine statusLine = response.getStatusLine();
-        return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), body);
+        Map<String, List<String>> hs =
+            Arrays.stream(response.getAllHeaders())
+                .collect(
+                    Collectors.groupingBy(
+                        NameValuePair::getName,
+                        Collectors.mapping(NameValuePair::getValue, Collectors.toList())));
+        return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
       }
     }
   }

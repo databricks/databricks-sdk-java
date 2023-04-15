@@ -2,6 +2,7 @@ package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.http.HttpClient;
+import java.net.URI;
 import java.util.*;
 
 /**
@@ -16,7 +17,7 @@ public class ClientCredentials extends RefreshableTokenSource {
   static class Builder {
     private String clientId;
     private String clientSecret;
-    private String tokenUrl;
+    private URI tokenUrl;
     private HttpClient hc = new CommonsHttpClient(30);
     private Map<String, String> endpointParams = Collections.emptyMap();
     private List<String> scopes = Collections.emptyList();
@@ -32,8 +33,13 @@ public class ClientCredentials extends RefreshableTokenSource {
       return this;
     }
 
-    public Builder withTokenUrl(String tokenUrl) {
+    public Builder withTokenUrl(URI tokenUrl) {
       this.tokenUrl = tokenUrl;
+      return this;
+    }
+
+    public Builder withTokenUrl(String tokenUrl) {
+      this.tokenUrl = URI.create(tokenUrl);
       return this;
     }
 
@@ -66,9 +72,10 @@ public class ClientCredentials extends RefreshableTokenSource {
     }
   }
 
+  private HttpClient hc;
   private String clientId;
   private String clientSecret;
-  private String tokenUrl;
+  private URI tokenUrl;
   private Map<String, String> endpointParams;
   private List<String> scopes;
   private AuthParameterPosition position;
@@ -77,11 +84,11 @@ public class ClientCredentials extends RefreshableTokenSource {
       HttpClient hc,
       String clientId,
       String clientSecret,
-      String tokenUrl,
+      URI tokenUrl,
       Map<String, String> endpointParams,
       List<String> scopes,
       AuthParameterPosition position) {
-    super(hc);
+    this.hc = hc;
     this.clientId = clientId;
     this.clientSecret = clientSecret;
     this.tokenUrl = tokenUrl;
@@ -100,6 +107,6 @@ public class ClientCredentials extends RefreshableTokenSource {
     if (endpointParams != null) {
       params.putAll(endpointParams);
     }
-    return retrieveToken(clientId, clientSecret, tokenUrl, params, new HashMap<>(), position);
+    return retrieveToken(hc, clientId, clientSecret, tokenUrl, params, new HashMap<>(), position);
   }
 }

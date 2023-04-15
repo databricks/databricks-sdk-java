@@ -5,6 +5,7 @@ import com.databricks.sdk.client.http.FormRequest;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
@@ -18,12 +19,12 @@ import org.apache.http.HttpHeaders;
  * at least 10 seconds until expiry). If not, refresh() is called first to refresh the token.
  */
 public abstract class RefreshableTokenSource implements TokenSource {
-  private HttpClient hc;
+  protected Token token;
 
-  private Token token;
+  public RefreshableTokenSource() {}
 
-  public RefreshableTokenSource(HttpClient hc) {
-    this.hc = hc;
+  public RefreshableTokenSource(Token token) {
+    this.token = token;
   }
 
   /**
@@ -37,10 +38,11 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * @param position The position of the authentication parameters in the request.
    * @return The newly fetched Token.
    */
-  protected Token retrieveToken(
+  protected static Token retrieveToken(
+      HttpClient hc,
       String clientId,
       String clientSecret,
-      String tokenUrl,
+      URI tokenUrl,
       Map<String, String> params,
       Map<String, String> headers,
       AuthParameterPosition position) {
@@ -58,7 +60,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
                 + Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
         headers.put(HttpHeaders.AUTHORIZATION, authHeaderValue);
     }
-    FormRequest req = new FormRequest(tokenUrl, params);
+    FormRequest req = new FormRequest(tokenUrl.toString(), params);
     req.withHeaders(headers);
     try {
       Response rawResp = hc.execute(req);

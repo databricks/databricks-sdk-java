@@ -42,8 +42,8 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
                 + ", response body: "
                 + resp.getBody());
       }
-      OpenIDConnectResponse jsonResponse =
-          mapper.readValue(resp.getBody(), OpenIDConnectResponse.class);
+      OpenIDConnectEndpoints jsonResponse =
+          mapper.readValue(resp.getBody(), OpenIDConnectEndpoints.class);
       ClientCredentials tokenSource =
           new ClientCredentials.Builder()
               .withHttpClient(config.getHttpClient())
