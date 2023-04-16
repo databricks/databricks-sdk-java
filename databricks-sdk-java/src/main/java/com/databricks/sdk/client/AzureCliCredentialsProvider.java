@@ -1,12 +1,18 @@
 package com.databricks.sdk.client;
 
 import com.databricks.sdk.client.oauth.ClientCredentials;
+import com.databricks.sdk.client.oauth.RefreshableTokenSource;
 import com.databricks.sdk.client.oauth.Token;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AzureCliCredentialsProvider implements CredentialsProvider{
+    private final ObjectMapper mapper = new ObjectMapper();
+
     public static final String AZURE_CLI = "azure-cli";
 
     @Override
@@ -16,15 +22,21 @@ public class AzureCliCredentialsProvider implements CredentialsProvider{
 
     @Override
     public HeaderFactory configure(DatabricksConfig config) {
-        // conditions
+        if(!config.isAzure()) {
+            return null;
+        }
 
-        ClientCredentials tokenSource = new ClientCredentials.Builder().build();
-        return () -> {
+        try {
+            RefreshableTokenSource tokenSource = new AzureCliTokenSource(config.getEffectiveAzureLoginAppId());
+            Utils.ensureHostPresent(config, mapper);
             Token token = tokenSource.refresh();
             Map<String, String> headers = new HashMap<>();
             headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
-            return headers;
-        };
+            return () -> headers;
+        } catch (FileNotFoundException e) {
+            String doc = "https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest";
+            throw new DatabricksException(String.format("Most likely Azure CLI is not installed. See %s for details", doc));
+        }
     }
 
 }

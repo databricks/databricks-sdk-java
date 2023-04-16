@@ -13,7 +13,7 @@ import java.util.*;
  * the Authorization header.
  */
 public class ClientCredentials extends RefreshableTokenSource {
-  static class Builder {
+  public static class Builder {
     private String clientId;
     private String clientSecret;
     private String tokenUrl;

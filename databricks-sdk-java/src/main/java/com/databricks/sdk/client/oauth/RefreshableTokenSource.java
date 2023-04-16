@@ -73,7 +73,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
     }
   }
 
-  abstract Token refresh();
+  public abstract Token refresh();
 
   @Override
   public synchronized Token getToken() {
