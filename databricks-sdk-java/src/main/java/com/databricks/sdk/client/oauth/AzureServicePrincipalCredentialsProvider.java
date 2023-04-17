@@ -1,11 +1,7 @@
 package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.*;
-import com.databricks.sdk.client.http.Request;
-import com.databricks.sdk.client.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +26,8 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
       return null;
     }
     Utils.ensureHostPresent(config, mapper);
-    RefreshableTokenSource inner = Utils.tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
+    RefreshableTokenSource inner =
+        Utils.tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
     RefreshableTokenSource cloud =
         Utils.tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
 

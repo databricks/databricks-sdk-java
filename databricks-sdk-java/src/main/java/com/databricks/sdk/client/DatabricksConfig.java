@@ -93,10 +93,7 @@ public class DatabricksConfig {
       auth = "azure")
   private String azureLoginAppId;
 
-  @ConfigAttribute(
-          value = "bricks_cli_path",
-          env = "BRICKS_CLI_PATH"
-  )
+  @ConfigAttribute(value = "bricks_cli_path", env = "BRICKS_CLI_PATH")
   private String bricksCliPath;
 
   /**
@@ -452,10 +449,10 @@ public class DatabricksConfig {
   }
 
   public boolean isAccountClient() {
-    if(host == null) {
+    if (host == null) {
       return false;
     }
-    if(host.contains("https://accounts.")) {
+    if (host.contains("https://accounts.")) {
       return true;
     }
     return false;
