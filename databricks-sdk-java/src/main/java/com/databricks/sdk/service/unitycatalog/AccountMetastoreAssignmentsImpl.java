@@ -17,8 +17,8 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   public MetastoreAssignment create(CreateMetastoreAssignment request) {
     String path =
         String.format(
-            "/api/2.0/accounts//workspaces/%s/metastores/%s",
-            request.getWorkspaceId(), request.getMetastoreId());
+            "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
+            apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
     return apiClient.POST(path, request, MetastoreAssignment.class);
   }
 
@@ -26,22 +26,26 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   public void delete(DeleteAccountMetastoreAssignmentRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts//workspaces/%s/metastores/%s",
-            request.getWorkspaceId(), request.getMetastoreId());
+            "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
+            apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public MetastoreAssignment get(GetAccountMetastoreAssignmentRequest request) {
     String path =
-        String.format("/api/2.0/accounts//workspaces/%s/metastore", request.getWorkspaceId());
+        String.format(
+            "/api/2.0/accounts/%s/workspaces/%s/metastore",
+            apiClient.configuredAccountID(), request.getWorkspaceId());
     return apiClient.GET(path, request, MetastoreAssignment.class);
   }
 
   @Override
   public Collection<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
     String path =
-        String.format("/api/2.0/accounts//metastores/%s/workspaces", request.getMetastoreId());
+        String.format(
+            "/api/2.0/accounts/%s/metastores/%s/workspaces",
+            apiClient.configuredAccountID(), request.getMetastoreId());
     return apiClient.GET(path, request, Collection.class);
   }
 
@@ -49,8 +53,8 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   public MetastoreAssignment update(UpdateMetastoreAssignment request) {
     String path =
         String.format(
-            "/api/2.0/accounts//workspaces/%s/metastores/%s",
-            request.getWorkspaceId(), request.getMetastoreId());
+            "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
+            apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
     return apiClient.PUT(path, request, MetastoreAssignment.class);
   }
 }

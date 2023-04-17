@@ -14,31 +14,40 @@ class AccountMetastoresImpl implements AccountMetastoresService {
 
   @Override
   public MetastoreInfo create(CreateMetastore request) {
-    String path = String.format("/api/2.0/accounts//metastores");
+    String path = String.format("/api/2.0/accounts/%s/metastores", apiClient.configuredAccountID());
     return apiClient.POST(path, request, MetastoreInfo.class);
   }
 
   @Override
   public void delete(DeleteAccountMetastoreRequest request) {
-    String path = String.format("/api/2.0/accounts//metastores/%s", request.getMetastoreId());
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/metastores/%s",
+            apiClient.configuredAccountID(), request.getMetastoreId());
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public MetastoreInfo get(GetAccountMetastoreRequest request) {
-    String path = String.format("/api/2.0/accounts//metastores/%s", request.getMetastoreId());
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/metastores/%s",
+            apiClient.configuredAccountID(), request.getMetastoreId());
     return apiClient.GET(path, request, MetastoreInfo.class);
   }
 
   @Override
   public ListMetastoresResponse list() {
-    String path = String.format("/api/2.0/accounts//metastores");
+    String path = String.format("/api/2.0/accounts/%s/metastores", apiClient.configuredAccountID());
     return apiClient.GET(path, ListMetastoresResponse.class);
   }
 
   @Override
   public MetastoreInfo update(UpdateMetastore request) {
-    String path = String.format("/api/2.0/accounts//metastores/%s", request.getMetastoreId());
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/metastores/%s",
+            apiClient.configuredAccountID(), request.getMetastoreId());
     return apiClient.PUT(path, request, MetastoreInfo.class);
   }
 }
