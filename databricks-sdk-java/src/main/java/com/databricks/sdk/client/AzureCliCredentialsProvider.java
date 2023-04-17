@@ -7,13 +7,21 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AzureCliCredentialsProvider implements CredentialsProvider{
     private final ObjectMapper mapper = new ObjectMapper();
 
     public static final String AZURE_CLI = "azure-cli";
+
+    private RefreshableTokenSource getAzureCliTokenSource(DatabricksConfig config) {
+        String resource = config.getEffectiveAzureLoginAppId();
+        List<String> cmd = Arrays.asList("az", "account", "get-access-token", "--resource", resource, "--output", "json");
+        return new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn");
+    }
 
     @Override
     public String authType() {
@@ -27,7 +35,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider{
         }
 
         try {
-            RefreshableTokenSource tokenSource = new AzureCliTokenSource(config.getEffectiveAzureLoginAppId());
+            RefreshableTokenSource tokenSource = getAzureCliTokenSource(config);
             Utils.ensureHostPresent(config, mapper);
             Token token = tokenSource.refresh();
             Map<String, String> headers = new HashMap<>();
