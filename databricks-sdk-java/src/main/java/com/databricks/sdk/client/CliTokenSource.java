@@ -45,7 +45,7 @@ public class CliTokenSource extends RefreshableTokenSource {
             String expiry = jsonNode.get(expiryField).asText();
             LocalDateTime expiresOn = parseExpiry(expiry);
             return new Token(accessToken, tokenType, expiresOn);
-        } catch (Exception e) {
+        } catch (InterruptedException | IOException e) {
             throw new DatabricksException("Error executing command: " + e.getMessage(), e);
         }
     }
