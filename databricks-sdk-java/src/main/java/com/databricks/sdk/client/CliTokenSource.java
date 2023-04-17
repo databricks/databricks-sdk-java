@@ -1,5 +1,7 @@
 package com.databricks.sdk.client;
 
+import com.databricks.sdk.client.commons.CommonsHttpClient;
+import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.oauth.RefreshableTokenSource;
 import com.databricks.sdk.client.oauth.Token;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -10,13 +12,56 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class CliTokenSource extends RefreshableTokenSource {
-  private final List<String> cmd;
-  private final String tokenTypeField;
-  private final String accessTokenField;
-  private final String expiryField;
 
-  public CliTokenSource(
-      List<String> cmd, String tokenTypeField, String accessTokenField, String expiryField) {
+  public static class Builder {
+    private List<String> cmd;
+    private String tokenTypeField;
+    private String accessTokenField;
+    private String expiryField;
+    private HttpClient hc = new CommonsHttpClient(30);
+
+    public Builder withCmd(List<String> cmd) {
+      this.cmd = cmd;
+      return this;
+    }
+
+    public Builder withTokenTypeField(String tokenTypeField) {
+      this.tokenTypeField = tokenTypeField;
+      return this;
+    }
+
+    public Builder withAccessTokenField(String accessTokenField) {
+      this.accessTokenField = accessTokenField;
+      return this;
+    }
+
+    public Builder withExpiryField(String expiryField) {
+      this.expiryField = expiryField;
+      return this;
+    }
+
+    public Builder withHttpClient(HttpClient hc) {
+      this.hc = hc;
+      return this;
+    }
+
+    public CliTokenSource build() {
+      return new CliTokenSource(cmd, tokenTypeField, accessTokenField, expiryField, hc);
+    }
+  }
+
+  private List<String> cmd;
+  private String tokenTypeField;
+  private String accessTokenField;
+  private String expiryField;
+
+  private CliTokenSource(
+      List<String> cmd,
+      String tokenTypeField,
+      String accessTokenField,
+      String expiryField,
+      HttpClient hc) {
+    super(hc);
     this.cmd = cmd;
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
