@@ -445,7 +445,10 @@ public class DatabricksConfig {
   }
 
   public boolean isAws() {
-    return !isAzure() && !isGcp();
+    if (host == null) {
+      return false;
+    }
+    return host.contains(".aws.databricks.com");
   }
 
   public boolean isAccountClient() {
