@@ -2,6 +2,8 @@ package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.client.DatabricksException;
+import com.databricks.sdk.client.http.HttpClient;
+
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
@@ -27,12 +29,20 @@ import java.util.stream.Collectors;
  * it for a token without possessing the Code Verifier.
  */
 public class OAuthClient {
-  static class Builder {
+  public static class Builder {
     private String host;
     private String clientId;
     private URI redirectUrl;
     private List<String> scopes;
     private String clientSecret;
+    private HttpClient hc;
+
+    public Builder() {}
+
+    public Builder withHttpClient(HttpClient hc) {
+      this.hc = hc;
+      return this;
+    }
 
     public Builder withHost(String host) {
       this.host = host;
@@ -69,6 +79,30 @@ public class OAuthClient {
     }
   }
 
+  public String getClientId() {
+    return clientId;
+  }
+
+  public URI getRedirectUrl() {
+    return redirectUrl;
+  }
+
+  public List<String> getScopes() {
+    return scopes;
+  }
+
+  public String getClientSecret() {
+    return clientSecret;
+  }
+
+  public URI getTokenUrl() {
+    return tokenUrl;
+  }
+
+  public URI getAuthUrl() {
+    return authUrl;
+  }
+
   private final String clientId;
   private final URI redirectUrl;
   private final List<String> scopes;
@@ -77,6 +111,13 @@ public class OAuthClient {
   private final boolean isAzure;
   private final URI tokenUrl;
   private final URI authUrl;
+  private final HttpClient hc;
+
+  public String getHost() {
+    return host;
+  }
+
+  private final String host;
   private final SecureRandom random = new SecureRandom();
 
   private OAuthClient(Builder b) throws IOException {
@@ -84,6 +125,8 @@ public class OAuthClient {
     this.clientId = Objects.requireNonNull(b.clientId);
     this.clientSecret = b.clientSecret;
     this.redirectUrl = Objects.requireNonNull(b.redirectUrl);
+    this.host = b.host;
+    this.hc = b.hc;
 
     // Derive other fields from
     DatabricksConfig config = new DatabricksConfig().setHost(b.host).resolve();
@@ -162,6 +205,7 @@ public class OAuthClient {
         .withRedirectUrl(redirectUrl)
         .withState(state)
         .withVerifier(verifier)
+        .withHttpClient(hc)
         .build();
   }
 }

@@ -11,6 +11,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URLDecoder;
@@ -21,7 +22,9 @@ import java.util.Map;
 import java.util.Objects;
 import org.apache.commons.io.IOUtils;
 
-public class Consent {
+public class Consent implements Serializable {
+  private static final Long serialVersionUID = -3832904096215095559L;
+
   public static class Builder {
     private HttpClient hc = new CommonsHttpClient(30);
     private URI authUrl;
@@ -77,7 +80,8 @@ public class Consent {
     }
   }
 
-  private final HttpClient hc;
+  // Not serialized
+  private transient HttpClient hc;
   private final URI authUrl;
   private final String verifier;
   private final String state;
@@ -96,6 +100,11 @@ public class Consent {
     this.clientId = Objects.requireNonNull(builder.clientId);
     // This may be null for native apps or single-page apps.
     this.clientSecret = builder.clientSecret;
+  }
+
+  public Consent setHttpClient(HttpClient hc) {
+    this.hc = hc;
+    return this;
   }
 
   static class CallbackResponseHandler implements HttpHandler {
