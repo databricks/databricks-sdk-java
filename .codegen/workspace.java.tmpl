@@ -13,7 +13,7 @@ import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;
 
 {{- define "api" -}}
   {{- $mixins := dict "ClustersAPI" "ClustersExt" -}}
-  {{- $genApi := printf "%sAPI" .PascalName -}}
+  {{- $genApi := concat .PascalName "API" -}}
   {{- getOrDefault $mixins $genApi $genApi -}}
 {{- end -}}
 
