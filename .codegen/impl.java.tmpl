@@ -21,7 +21,7 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
   @Override
   public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
     String path = {{if .PathParts -}}
-      String.format("{{range  .PathParts}}{{.Prefix}}{{if .Field}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{end}}{{ end }})
+      String.format("{{range  .PathParts}}{{.Prefix}}{{if or .Field .IsAccountId}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{ else if .IsAccountId }}, apiClient.configuredAccountID(){{end}}{{ end }})
     {{- else}}"{{.Path}}"{{end}};
     {{if .Response -}}return {{end}}apiClient.{{.Verb}}(path{{if .Request}}, request{{end}}{{if .Response -}}, {{if .Response.ArrayValue }}Collection
       {{- else if .Response.MapValue }}Map

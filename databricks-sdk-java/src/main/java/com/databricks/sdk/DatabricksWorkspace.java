@@ -5,11 +5,11 @@ package com.databricks.sdk;
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.ConfigLoader;
 import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.service.clusterpolicies.ClusterPoliciesAPI;
 import com.databricks.sdk.service.clusterpolicies.ClusterPoliciesService;
 import com.databricks.sdk.service.clusterpolicies.PolicyFamiliesAPI;
 import com.databricks.sdk.service.clusterpolicies.PolicyFamiliesService;
-import com.databricks.sdk.service.clusters.ClustersAPI;
 import com.databricks.sdk.service.clusters.ClustersService;
 import com.databricks.sdk.service.clusters.InstanceProfilesAPI;
 import com.databricks.sdk.service.clusters.InstanceProfilesService;
@@ -126,7 +126,7 @@ public class DatabricksWorkspace {
   private AlertsAPI alertsAPI;
   private CatalogsAPI catalogsAPI;
   private ClusterPoliciesAPI clusterPoliciesAPI;
-  private ClustersAPI clustersAPI;
+  private ClustersExt clustersAPI;
   private CommandExecutionAPI commandExecutionAPI;
   private CurrentUserAPI currentUserAPI;
   private DashboardsAPI dashboardsAPI;
@@ -191,7 +191,7 @@ public class DatabricksWorkspace {
     alertsAPI = new AlertsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
-    clustersAPI = new ClustersAPI(apiClient);
+    clustersAPI = new ClustersExt(apiClient);
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
     currentUserAPI = new CurrentUserAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
@@ -324,7 +324,7 @@ public class DatabricksWorkspace {
    * job scheduler. To keep an all-purpose cluster configuration even after it has been terminated
    * for more than 30 days, an administrator can pin a cluster to the cluster list.
    */
-  public ClustersAPI clusters() {
+  public ClustersExt clusters() {
     return clustersAPI;
   }
 
@@ -1073,7 +1073,7 @@ public class DatabricksWorkspace {
 
   /** Replace ClustersAPI implementation with mock */
   public DatabricksWorkspace withClustersImpl(ClustersService clusters) {
-    clustersAPI = new ClustersAPI(clusters);
+    clustersAPI = new ClustersExt(clusters);
     return this;
   }
 

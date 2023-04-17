@@ -382,7 +382,7 @@ public class DatabricksConfig {
   }
 
   public boolean isDebugHeaders() {
-    return debugHeaders;
+    return debugHeaders != null && debugHeaders;
   }
 
   public DatabricksConfig setDebugHeaders(boolean debugHeaders) {

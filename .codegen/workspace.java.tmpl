@@ -5,10 +5,17 @@ package com.databricks.sdk;
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.ConfigLoader;
 import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.mixin.ClustersExt;
 {{range .Services}}{{if not .IsAccounts}}
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}API;
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;
 {{end}}{{end}}
+
+{{- define "api" -}}
+  {{- $mixins := dict "ClustersAPI" "ClustersExt" -}}
+  {{- $genApi := printf "%sAPI" .PascalName -}}
+  {{- getOrDefault $mixins $genApi $genApi -}}
+{{- end -}}
 
 /**
  * Entry point for accessing Databricks workspace-level APIs
@@ -17,7 +24,7 @@ public class DatabricksWorkspace {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
   {{range .Services}}{{if not .IsAccounts}}
-  private {{.PascalName}}API {{.CamelName}}API;{{end}}{{end}}
+  private {{template "api" .}} {{.CamelName}}API;{{end}}{{end}}
 
   public DatabricksWorkspace() {
     this(ConfigLoader.getDefault());
@@ -27,7 +34,7 @@ public class DatabricksWorkspace {
     this.config = config;
     apiClient = new ApiClient(config);
     {{range .Services}}{{if not .IsAccounts}}
-    {{.CamelName}}API = new {{.PascalName}}API(apiClient);{{end}}{{end}}
+    {{.CamelName}}API = new {{template "api" .}}(apiClient);{{end}}{{end}}
   }
 
   /** Constructor for mocks */
@@ -39,14 +46,14 @@ public class DatabricksWorkspace {
   {{if .Description}}/**
    {{.Comment "   * " 80}}
    */{{end}}
-  public {{.PascalName}}API {{.CamelName}}() {
+  public {{template "api" .}} {{.CamelName}}() {
     return {{.CamelName}}API;
   }
   {{end}}{{end}}
   {{range .Services}}{{if not .IsAccounts}}
   /** Replace {{.PascalName}}API implementation with mock */
   public DatabricksWorkspace with{{.PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
-    {{.CamelName}}API = new {{.PascalName}}API({{.CamelName}});
+    {{.CamelName}}API = new {{template "api" .}}({{.CamelName}});
     return this;
   }
   {{end}}{{end}}

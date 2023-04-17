@@ -14,7 +14,10 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
 
   @Override
   public CreatePublishedAppIntegrationOutput create(CreatePublishedAppIntegration request) {
-    String path = String.format("/api/2.0/accounts//oauth2/published-app-integrations");
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/oauth2/published-app-integrations",
+            apiClient.configuredAccountID());
     return apiClient.POST(path, request, CreatePublishedAppIntegrationOutput.class);
   }
 
@@ -22,7 +25,8 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
   public void delete(DeletePublishedAppIntegrationRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts//oauth2/published-app-integrations/%s", request.getIntegrationId());
+            "/api/2.0/accounts/%s/oauth2/published-app-integrations/%s",
+            apiClient.configuredAccountID(), request.getIntegrationId());
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -30,13 +34,17 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
   public GetPublishedAppIntegrationOutput get(GetPublishedAppIntegrationRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts//oauth2/published-app-integrations/%s", request.getIntegrationId());
+            "/api/2.0/accounts/%s/oauth2/published-app-integrations/%s",
+            apiClient.configuredAccountID(), request.getIntegrationId());
     return apiClient.GET(path, request, GetPublishedAppIntegrationOutput.class);
   }
 
   @Override
   public GetPublishedAppIntegrationsOutput list() {
-    String path = String.format("/api/2.0/accounts//oauth2/published-app-integrations");
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/oauth2/published-app-integrations",
+            apiClient.configuredAccountID());
     return apiClient.GET(path, GetPublishedAppIntegrationsOutput.class);
   }
 
@@ -44,7 +52,8 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
   public void update(UpdatePublishedAppIntegration request) {
     String path =
         String.format(
-            "/api/2.0/accounts//oauth2/published-app-integrations/%s", request.getIntegrationId());
+            "/api/2.0/accounts/%s/oauth2/published-app-integrations/%s",
+            apiClient.configuredAccountID(), request.getIntegrationId());
     apiClient.PATCH(path, request, Void.class);
   }
 }

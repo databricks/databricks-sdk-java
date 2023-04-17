@@ -7,7 +7,6 @@ import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvOrSkip;
 import com.databricks.sdk.integration.framework.EnvTest;
-import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.NodeTypeSelector;
 import com.databricks.sdk.mixin.SparkVersionSelector;
 import com.databricks.sdk.service.clusters.ClusterEvent;
@@ -23,9 +22,7 @@ public class ClustersIT {
   void ensuresClusterIsRunning(
       DatabricksWorkspace w, @EnvOrSkip("TEST_DEFAULT_CLUSTER_ID") String clusterId)
       throws TimeoutException {
-    ClustersExt clustersExt = new ClustersExt(w.apiClient());
-
-    clustersExt.ensureClusterIsRunning(clusterId);
+    w.clusters().ensureClusterIsRunning(clusterId);
   }
 
   @Test
@@ -39,18 +36,14 @@ public class ClustersIT {
 
   @Test
   void smallestNode(DatabricksWorkspace w) {
-    ClustersExt clustersExt = new ClustersExt(w.apiClient());
-
-    String nodeType = clustersExt.selectNodeType(new NodeTypeSelector().withLocalDisk());
+    String nodeType = w.clusters().selectNodeType(new NodeTypeSelector().withLocalDisk());
 
     assertNotNull(nodeType);
   }
 
   @Test
   void latestRuntime(DatabricksWorkspace w) {
-    ClustersExt clustersExt = new ClustersExt(w.apiClient());
-
-    String runtime = clustersExt.selectSparkVersion(new SparkVersionSelector().withLatest());
+    String runtime = w.clusters().selectSparkVersion(new SparkVersionSelector().withLatest());
 
     assertNotNull(runtime);
   }

@@ -37,6 +37,10 @@ public class ApiClient {
     this(ConfigLoader.getDefault());
   }
 
+  public String configuredAccountID() {
+    return config.getAccountId();
+  }
+
   public ApiClient(DatabricksConfig config) {
     this.config = config;
     config.resolve();

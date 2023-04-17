@@ -9,6 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.concurrent.TimeoutException;
+
 @ExtendWith(MockitoExtension.class)
 public class MockingTest {
   @Mock ClustersService clustersMock;
@@ -34,5 +36,15 @@ public class MockingTest {
     ClusterInfo info = workspace.clusters().get("foo");
 
     assertEquals(State.RUNNING, info.getState());
+  }
+
+  @Test
+  public void mockingMixin() throws TimeoutException {
+    when(clustersMock.get(new Get().setClusterId("foo")))
+            .thenReturn(new ClusterInfo().setState(State.RUNNING));
+
+    DatabricksWorkspace workspace = new DatabricksWorkspace(true).withClustersImpl(clustersMock);
+
+    workspace.clusters().ensureClusterIsRunning("foo");
   }
 }
