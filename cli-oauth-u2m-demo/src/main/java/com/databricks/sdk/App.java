@@ -11,22 +11,17 @@ import com.databricks.sdk.service.clusters.ClusterInfo;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+/**
+ * Make sure the DATABRICKS_HOST and DATABRICKS_CLIENT_ID environment variables are set in your run configuration.
+ */
 public class App {
     public static void main( String[] args ) throws IOException, URISyntaxException {
-        HttpClient hc = new CommonsHttpClient(30);
-        String workspaceHost = "https://dbc-ee877747-aacb.cloud.databricks.com/";
-        OAuthClient client = new OAuthClient.Builder()
-            .withClientId("0oa3yg6ve0T4qvhCY4h7")
-            .withClientSecret("")
-            .withHost(workspaceHost)
-            .withRedirectUrl("http://localhost:8080/callback")
-            .withHttpClient(hc)
-            .build();
+        DatabricksConfig config = new DatabricksConfig();
+        config.resolve();
+        OAuthClient client = new OAuthClient(config);
         Consent consent = client.initiateConsent();
         RefreshableCredentials creds = consent.launchExternalBrowser();
-        DatabricksConfig config = new DatabricksConfig();
         config.setCredentialsProvider(creds);
-        config.setHost(workspaceHost);
         DatabricksWorkspace workspace = new DatabricksWorkspace(config);
         for (ClusterInfo c : workspace.clusters().list(new com.databricks.sdk.service.clusters.List())) {
             System.out.println(c.getClusterName());

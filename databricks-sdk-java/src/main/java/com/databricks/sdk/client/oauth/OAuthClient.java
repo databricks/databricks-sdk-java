@@ -114,6 +114,16 @@ public class OAuthClient {
   private final String host;
   private final SecureRandom random = new SecureRandom();
 
+  public OAuthClient(DatabricksConfig config) throws IOException {
+    this(
+        new Builder()
+            .withHttpClient(config.getHttpClient())
+            .withClientId(config.getClientId())
+            .withClientSecret(config.getClientSecret())
+            .withHost(config.getHost())
+            .withRedirectUrl("http://localhost:8080/callback"));
+  }
+
   private OAuthClient(Builder b) throws IOException {
     List<String> scopes = b.scopes;
     this.clientId = Objects.requireNonNull(b.clientId);
