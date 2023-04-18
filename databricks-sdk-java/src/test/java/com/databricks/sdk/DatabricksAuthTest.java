@@ -10,6 +10,8 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
+
 import org.junit.jupiter.api.Test;
 
 public class DatabricksAuthTest {
@@ -429,7 +431,7 @@ public class DatabricksAuthTest {
     return resource.getFile();
   }
 
-  static class StaticEnv implements Function<String, String> {
+  static class StaticEnv implements Supplier<Map<String,String>> {
     private final Map<String, String> env = new HashMap<>();
 
     public StaticEnv with(String key, String value) {
@@ -438,12 +440,8 @@ public class DatabricksAuthTest {
     }
 
     @Override
-    public String apply(String var) {
-      return env.getOrDefault(var, "");
-    }
-
-    public Map<String, String> getEnvMap() {
-      return this.env;
+    public Map<String, String> get() {
+      return env;
     }
   }
 

@@ -4,6 +4,8 @@ import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.http.HttpClient;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
+
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
@@ -132,6 +134,11 @@ public class DatabricksConfig {
   private HttpClient httpClient;
 
   Function<String, String> getEnv;
+  private Map<String, String> allEnv;
+
+  public Map<String, String> getAllEnv() {
+    return allEnv;
+  }
 
   public Function<String, String> getEnv() {
     return this.getEnv;
@@ -141,12 +148,16 @@ public class DatabricksConfig {
     this.getEnv = getEnv;
   }
   public synchronized DatabricksConfig resolve() {
-    resolve(System::getenv);
+    resolve(() -> System.getenv());
     return this;
   }
 
+  public synchronized DatabricksConfig resolve(Supplier<Map<String,String>> getAllEnv) {
+    allEnv = getAllEnv.get();
+    return resolve(allEnv::get);
+  }
+
   public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
-    setEnv(getEnv);
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);

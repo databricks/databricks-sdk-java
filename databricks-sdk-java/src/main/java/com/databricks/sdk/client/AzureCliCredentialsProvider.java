@@ -21,7 +21,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
     List<String> cmd =
             Arrays.asList(
                     "az", "account", "get-access-token", "--resource", resource, "--output", "json");
-    return new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config.getEnv());
+    return new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config::getAllEnv);
   }
 
   @Override

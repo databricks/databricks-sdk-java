@@ -12,26 +12,27 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class CliTokenSource extends RefreshableTokenSource {
   private List<String> cmd;
   private String tokenTypeField;
   private String accessTokenField;
   private String expiryField;
-  private Function<String, String> getEnv;
+  private Supplier<Map<String,String>> getAllEnv;
 
   public CliTokenSource(
       List<String> cmd,
       String tokenTypeField,
       String accessTokenField,
       String expiryField,
-      Function<String, String > getEnv) {
+      Supplier<Map<String,String>> getAllEnv) {
     super(new CommonsHttpClient(30));
     this.cmd = cmd;
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;
-    this.getEnv = getEnv;
+    this.getAllEnv = getAllEnv;
   }
 
   // TODO - different for bricks vs azure
@@ -45,8 +46,9 @@ public class CliTokenSource extends RefreshableTokenSource {
   public Token refresh() {
     try {
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
-      Map<String, String> env = processBuilder.environment();
-      String a = getEnv.toString();
+      processBuilder.environment().putAll(getAllEnv.get());
+
+      // TODO: add items to env from getEnv if they are not present -- this will be noop for System::getEnv
       Process process = processBuilder.start();
       String stdout = new String(process.getInputStream().readAllBytes());
       String stderr = new String(process.getErrorStream().readAllBytes());
