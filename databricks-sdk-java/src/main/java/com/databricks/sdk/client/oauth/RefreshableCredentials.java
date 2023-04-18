@@ -5,13 +5,10 @@ import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.client.DatabricksException;
 import com.databricks.sdk.client.HeaderFactory;
 import com.databricks.sdk.client.http.HttpClient;
-import org.apache.http.HttpHeaders;
-
 import java.io.Serializable;
-import java.net.URI;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.http.HttpHeaders;
 
 /**
  * An implementation of RefreshableTokenSource implementing the refresh_token OAuth grant type.
@@ -20,7 +17,8 @@ import java.util.Map;
  * requests to an API, and a long-lived refresh token, which can be used to fetch new access tokens.
  * Calling refresh() uses the refresh token to retrieve a new access token to authenticate to APIs.
  */
-public class RefreshableCredentials extends RefreshableTokenSource implements CredentialsProvider, Serializable {
+public class RefreshableCredentials extends RefreshableTokenSource
+    implements CredentialsProvider, Serializable {
   private static final long serialVersionUID = 3083941540130596650L;
 
   @Override
@@ -32,7 +30,8 @@ public class RefreshableCredentials extends RefreshableTokenSource implements Cr
   public HeaderFactory configure(DatabricksConfig config) {
     return () -> {
       Map<String, String> headers = new HashMap<>();
-      headers.put(HttpHeaders.AUTHORIZATION, getToken().getTokenType() + " " + getToken().getAccessToken());
+      headers.put(
+          HttpHeaders.AUTHORIZATION, getToken().getTokenType() + " " + getToken().getAccessToken());
       return headers;
     };
   }

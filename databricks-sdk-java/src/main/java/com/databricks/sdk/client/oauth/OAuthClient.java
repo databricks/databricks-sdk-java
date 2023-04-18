@@ -3,13 +3,8 @@ package com.databricks.sdk.client.oauth;
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.client.DatabricksException;
 import com.databricks.sdk.client.http.HttpClient;
-
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -174,9 +169,10 @@ public class OAuthClient {
   }
 
   private static String urlEncode(String urlBase, Map<String, String> params) {
-    String queryParams = params.entrySet().stream()
-        .map(entry -> entry.getKey() + "=" + entry.getValue())
-        .collect(Collectors.joining("&"));
+    String queryParams =
+        params.entrySet().stream()
+            .map(entry -> entry.getKey() + "=" + entry.getValue())
+            .collect(Collectors.joining("&"));
     return urlBase + "?" + queryParams.replaceAll("\\+", "%20");
   }
 
@@ -189,7 +185,7 @@ public class OAuthClient {
     Map<String, String> params = new HashMap<>();
     params.put("response_type", "code");
     params.put("client_id", clientId);
-    params.put("redirect_uri", redirectUrl.toString());
+    params.put("redirect_uri", redirectUrl);
     params.put("scope", String.join(" ", scopes));
     params.put("state", state);
     params.put("code_challenge", challenge);

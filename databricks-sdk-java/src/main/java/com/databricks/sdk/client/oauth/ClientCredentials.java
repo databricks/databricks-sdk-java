@@ -2,9 +2,6 @@ package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.http.HttpClient;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.*;
 
 /**
