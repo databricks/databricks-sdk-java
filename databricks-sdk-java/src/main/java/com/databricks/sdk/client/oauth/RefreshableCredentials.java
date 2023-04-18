@@ -1,10 +1,15 @@
 package com.databricks.sdk.client.oauth;
 
+import com.databricks.sdk.client.CredentialsProvider;
+import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.client.DatabricksException;
+import com.databricks.sdk.client.HeaderFactory;
 import com.databricks.sdk.client.http.HttpClient;
+import org.apache.http.HttpHeaders;
 
 import java.io.Serializable;
 import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,13 +20,28 @@ import java.util.Map;
  * requests to an API, and a long-lived refresh token, which can be used to fetch new access tokens.
  * Calling refresh() uses the refresh token to retrieve a new access token to authenticate to APIs.
  */
-public class RefreshableCredentials extends RefreshableTokenSource implements Serializable {
+public class RefreshableCredentials extends RefreshableTokenSource implements CredentialsProvider, Serializable {
   private static final long serialVersionUID = 3083941540130596650L;
+
+  @Override
+  public String authType() {
+    return "oauth-u2m";
+  }
+
+  @Override
+  public HeaderFactory configure(DatabricksConfig config) {
+    return () -> {
+      Map<String, String> headers = new HashMap<>();
+      headers.put(HttpHeaders.AUTHORIZATION, getToken().getTokenType() + " " + getToken().getAccessToken());
+      return headers;
+    };
+  }
+
   static class Builder {
     private HttpClient hc;
     private Token token;
-    private URI tokenUrl;
-    private URI redirectUrl;
+    private String tokenUrl;
+    private String redirectUrl;
     private String clientId;
     private String clientSecret;
 
@@ -35,12 +55,12 @@ public class RefreshableCredentials extends RefreshableTokenSource implements Se
       return this;
     }
 
-    public Builder withTokenUrl(URI tokenUrl) {
+    public Builder withTokenUrl(String tokenUrl) {
       this.tokenUrl = tokenUrl;
       return this;
     }
 
-    public Builder withRedirectUrl(URI redirectUrl) {
+    public Builder withRedirectUrl(String redirectUrl) {
       this.redirectUrl = redirectUrl;
       return this;
     }
@@ -61,8 +81,8 @@ public class RefreshableCredentials extends RefreshableTokenSource implements Se
   }
 
   private final HttpClient hc;
-  private final URI tokenUrl;
-  private final URI redirectUrl;
+  private final String tokenUrl;
+  private final String redirectUrl;
   private final String clientId;
   private final String clientSecret;
 
@@ -86,10 +106,10 @@ public class RefreshableCredentials extends RefreshableTokenSource implements Se
     params.put("grant_type", "refresh_token");
     params.put("refresh_token", refreshToken);
     Map<String, String> headers = new HashMap<>();
-    if (tokenUrl.toString().contains("microsoft")) {
+    if (tokenUrl.contains("microsoft")) {
       // Tokens issued for the 'Single-Page Application' client-type may only be redeemed via
       // cross-origin requests
-      headers.put("Origin", redirectUrl.toString());
+      headers.put("Origin", redirectUrl);
     }
     return retrieveToken(
         hc, clientId, clientSecret, tokenUrl, params, headers, AuthParameterPosition.BODY);

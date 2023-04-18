@@ -12,9 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.net.InetSocketAddress;
-import java.net.URI;
-import java.net.URLDecoder;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,11 +25,11 @@ public class Consent implements Serializable {
 
   public static class Builder {
     private HttpClient hc = new CommonsHttpClient(30);
-    private URI authUrl;
+    private String authUrl;
     private String verifier;
     private String state;
-    private URI tokenUrl;
-    private URI redirectUrl;
+    private String tokenUrl;
+    private String redirectUrl;
     private String clientId;
     private String clientSecret;
 
@@ -40,7 +38,7 @@ public class Consent implements Serializable {
       return this;
     }
 
-    public Builder withAuthUrl(URI authUrl) {
+    public Builder withAuthUrl(String authUrl) {
       this.authUrl = authUrl;
       return this;
     }
@@ -55,12 +53,12 @@ public class Consent implements Serializable {
       return this;
     }
 
-    public Builder withTokenUrl(URI tokenUrl) {
+    public Builder withTokenUrl(String tokenUrl) {
       this.tokenUrl = tokenUrl;
       return this;
     }
 
-    public Builder withRedirectUrl(URI redirectUrl) {
+    public Builder withRedirectUrl(String redirectUrl) {
       this.redirectUrl = redirectUrl;
       return this;
     }
@@ -82,11 +80,40 @@ public class Consent implements Serializable {
 
   // Not serialized
   private transient HttpClient hc;
-  private final URI authUrl;
+
+  public String getAuthUrl() {
+    return authUrl;
+  }
+
+  public String getVerifier() {
+    return verifier;
+  }
+
+  public String getState() {
+    return state;
+  }
+
+  public String getTokenUrl() {
+    return tokenUrl;
+  }
+
+  public String getRedirectUrl() {
+    return redirectUrl;
+  }
+
+  public String getClientId() {
+    return clientId;
+  }
+
+  public String getClientSecret() {
+    return clientSecret;
+  }
+
+  private final String authUrl;
   private final String verifier;
   private final String state;
-  private final URI tokenUrl;
-  private final URI redirectUrl;
+  private final String tokenUrl;
+  private final String redirectUrl;
   private final String clientId;
   private final String clientSecret;
 
@@ -200,20 +227,21 @@ public class Consent implements Serializable {
     }
   }
 
-  public RefreshableCredentials launchExternalBrowser() throws IOException {
-    if (!Arrays.asList("localhost", "127.0.0.1").contains(redirectUrl.getHost())) {
+  public RefreshableCredentials launchExternalBrowser() throws IOException, URISyntaxException {
+    URL redirect = new URL(getRedirectUrl());
+    if (!Arrays.asList("localhost", "127.0.0.1").contains(redirect.getHost())) {
       throw new IllegalArgumentException(
           "cannot listen on "
-              + redirectUrl.getHost()
+              + redirect.getHost()
               + ", redirectUrl host must be one of: localhost, 127.0.0.1");
     }
     CallbackResponseHandler handler = new CallbackResponseHandler();
     HttpServer httpServer =
-        HttpServer.create(new InetSocketAddress(redirectUrl.getHost(), redirectUrl.getPort()), 0);
+        HttpServer.create(new InetSocketAddress(redirect.getHost(), redirect.getPort()), 0);
     httpServer.createContext("/", handler);
     httpServer.start();
     System.out.println("Opening " + this.authUrl + " in a browser");
-    Desktop.getDesktop().browse(this.authUrl);
+    Desktop.getDesktop().browse(URI.create(this.authUrl));
     System.out.println("Waiting for redirect to " + redirectUrl);
     Map<String, String> params = handler.getParams();
     httpServer.stop(0);
@@ -240,10 +268,10 @@ public class Consent implements Serializable {
     params.put("grant_type", "authorization_code");
     params.put("code", code);
     params.put("code_verifier", this.verifier);
-    params.put("redirect_uri", this.redirectUrl.toString());
+    params.put("redirect_uri", this.redirectUrl);
     Map<String, String> headers = new HashMap<>();
-    if (this.tokenUrl.toString().contains("microsoft")) {
-      headers.put("Origin", this.redirectUrl.toString());
+    if (this.tokenUrl.contains("microsoft")) {
+      headers.put("Origin", this.redirectUrl);
     }
     Token token =
         RefreshableTokenSource.retrieveToken(

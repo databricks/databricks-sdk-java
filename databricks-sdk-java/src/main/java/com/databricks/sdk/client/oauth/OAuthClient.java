@@ -5,7 +5,11 @@ import com.databricks.sdk.client.DatabricksException;
 import com.databricks.sdk.client.http.HttpClient;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -32,7 +36,7 @@ public class OAuthClient {
   public static class Builder {
     private String host;
     private String clientId;
-    private URI redirectUrl;
+    private String redirectUrl;
     private List<String> scopes;
     private String clientSecret;
     private HttpClient hc;
@@ -60,11 +64,6 @@ public class OAuthClient {
     }
 
     public Builder withRedirectUrl(String redirectUrl) {
-      this.redirectUrl = URI.create(redirectUrl);
-      return this;
-    }
-
-    public Builder withRedirectUrl(URI redirectUrl) {
       this.redirectUrl = redirectUrl;
       return this;
     }
@@ -83,7 +82,7 @@ public class OAuthClient {
     return clientId;
   }
 
-  public URI getRedirectUrl() {
+  public String getRedirectUrl() {
     return redirectUrl;
   }
 
@@ -95,22 +94,22 @@ public class OAuthClient {
     return clientSecret;
   }
 
-  public URI getTokenUrl() {
+  public String getTokenUrl() {
     return tokenUrl;
   }
 
-  public URI getAuthUrl() {
+  public String getAuthUrl() {
     return authUrl;
   }
 
   private final String clientId;
-  private final URI redirectUrl;
+  private final String redirectUrl;
   private final List<String> scopes;
   private final String clientSecret;
   private final boolean isAws;
   private final boolean isAzure;
-  private final URI tokenUrl;
-  private final URI authUrl;
+  private final String tokenUrl;
+  private final String authUrl;
   private final HttpClient hc;
 
   public String getHost() {
@@ -174,13 +173,14 @@ public class OAuthClient {
     }
   }
 
-  private static String urlEncode(Map<String, String> params) {
-    return params.entrySet().stream()
+  private static String urlEncode(String urlBase, Map<String, String> params) {
+    String queryParams = params.entrySet().stream()
         .map(entry -> entry.getKey() + "=" + entry.getValue())
         .collect(Collectors.joining("&"));
+    return urlBase + "?" + queryParams.replaceAll("\\+", "%20");
   }
 
-  public Consent initiateConsent() {
+  public Consent initiateConsent() throws MalformedURLException {
     String state = tokenUrlSafe(16);
     String verifier = tokenUrlSafe(32);
     byte[] digest = sha256(verifier.getBytes(StandardCharsets.UTF_8));
@@ -195,7 +195,7 @@ public class OAuthClient {
     params.put("code_challenge", challenge);
     params.put("code_challenge_method", "S256");
 
-    URI url = URI.create(authUrl + "?" + urlEncode(params));
+    String url = urlEncode(authUrl, params);
 
     return new Consent.Builder()
         .withClientId(clientId)

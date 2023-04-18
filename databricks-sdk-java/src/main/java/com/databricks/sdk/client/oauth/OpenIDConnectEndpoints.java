@@ -1,25 +1,29 @@
 package com.databricks.sdk.client.oauth;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.net.URI;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class OpenIDConnectEndpoints {
-  @JsonProperty("token_endpoint")
-  private URI tokenEndpoint;
+  private String tokenEndpoint;
 
-  @JsonProperty("authorization_endpoint")
-  private URI authorizationEndpoint;
+  private String authorizationEndpoint;
 
-  public OpenIDConnectEndpoints(String tokenEndpoint, String authorizationEndpoint) {
-    this.tokenEndpoint = URI.create(tokenEndpoint);
-    this.authorizationEndpoint = URI.create(authorizationEndpoint);
+  public OpenIDConnectEndpoints(
+      @JsonProperty("token_endpoint") String tokenEndpoint,
+      @JsonProperty("authorization_endpoint") String authorizationEndpoint) throws MalformedURLException {
+    this.tokenEndpoint = tokenEndpoint;
+    this.authorizationEndpoint = authorizationEndpoint;
   }
 
-  public URI getTokenEndpoint() {
+  public String getTokenEndpoint() {
     return tokenEndpoint;
   }
 
-  public URI getAuthorizationEndpoint() {
+  public String getAuthorizationEndpoint() {
     return authorizationEndpoint;
   }
 }

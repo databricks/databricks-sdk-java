@@ -6,6 +6,7 @@ import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
@@ -42,7 +43,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
       HttpClient hc,
       String clientId,
       String clientSecret,
-      URI tokenUrl,
+      String tokenUrl,
       Map<String, String> params,
       Map<String, String> headers,
       AuthParameterPosition position) {
@@ -54,13 +55,15 @@ public abstract class RefreshableTokenSource implements TokenSource {
         if (clientSecret != null) {
           params.put("client_secret", clientSecret);
         }
+        break;
       case HEADER:
         String authHeaderValue =
             "Basic "
                 + Base64.getEncoder().encodeToString((clientId + ":" + clientSecret).getBytes());
         headers.put(HttpHeaders.AUTHORIZATION, authHeaderValue);
+        break;
     }
-    FormRequest req = new FormRequest(tokenUrl.toString(), params);
+    FormRequest req = new FormRequest(tokenUrl, params);
     req.withHeaders(headers);
     try {
       Response rawResp = hc.execute(req);

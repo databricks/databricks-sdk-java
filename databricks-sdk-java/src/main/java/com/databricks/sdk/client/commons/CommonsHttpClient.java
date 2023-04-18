@@ -53,17 +53,20 @@ public class CommonsHttpClient implements HttpClient {
     in.getHeaders().forEach(request::setHeader);
     try (CloseableHttpResponse response = hc.execute(request)) {
       HttpEntity entity = response.getEntity();
-      try (InputStream inputStream = entity.getContent()) {
-        String body = IOUtils.toString(inputStream, Charset.defaultCharset());
-        StatusLine statusLine = response.getStatusLine();
-        Map<String, List<String>> hs =
-            Arrays.stream(response.getAllHeaders())
-                .collect(
-                    Collectors.groupingBy(
-                        NameValuePair::getName,
-                        Collectors.mapping(NameValuePair::getValue, Collectors.toList())));
-        return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
+      StatusLine statusLine = response.getStatusLine();
+      Map<String, List<String>> hs =
+          Arrays.stream(response.getAllHeaders())
+              .collect(
+                  Collectors.groupingBy(
+                      NameValuePair::getName,
+                      Collectors.mapping(NameValuePair::getValue, Collectors.toList())));
+      String body = null;
+      if (entity != null) {
+        try (InputStream inputStream = entity.getContent()) {
+          body = IOUtils.toString(inputStream, Charset.defaultCharset());
+        }
       }
+      return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
     }
   }
 

@@ -2,7 +2,9 @@ package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.http.HttpClient;
-import java.net.URI;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -17,7 +19,7 @@ public class ClientCredentials extends RefreshableTokenSource {
   static class Builder {
     private String clientId;
     private String clientSecret;
-    private URI tokenUrl;
+    private String tokenUrl;
     private HttpClient hc = new CommonsHttpClient(30);
     private Map<String, String> endpointParams = Collections.emptyMap();
     private List<String> scopes = Collections.emptyList();
@@ -33,13 +35,8 @@ public class ClientCredentials extends RefreshableTokenSource {
       return this;
     }
 
-    public Builder withTokenUrl(URI tokenUrl) {
-      this.tokenUrl = tokenUrl;
-      return this;
-    }
-
     public Builder withTokenUrl(String tokenUrl) {
-      this.tokenUrl = URI.create(tokenUrl);
+      this.tokenUrl = tokenUrl;
       return this;
     }
 
@@ -75,7 +72,7 @@ public class ClientCredentials extends RefreshableTokenSource {
   private HttpClient hc;
   private String clientId;
   private String clientSecret;
-  private URI tokenUrl;
+  private String tokenUrl;
   private Map<String, String> endpointParams;
   private List<String> scopes;
   private AuthParameterPosition position;
@@ -84,7 +81,7 @@ public class ClientCredentials extends RefreshableTokenSource {
       HttpClient hc,
       String clientId,
       String clientSecret,
-      URI tokenUrl,
+      String tokenUrl,
       Map<String, String> endpointParams,
       List<String> scopes,
       AuthParameterPosition position) {
