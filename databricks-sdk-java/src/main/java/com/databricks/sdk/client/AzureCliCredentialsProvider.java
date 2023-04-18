@@ -7,27 +7,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AzureCliCredentialsProvider implements CredentialsProvider {
+public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUtils {
   private final ObjectMapper mapper = new ObjectMapper();
 
   public static final String AZURE_CLI = "azure-cli";
 
-  private CliTokenSource getAzureCliTokenSource(DatabricksConfig config) {
-    String resource = config.getEffectiveAzureLoginAppId();
-    List<String> cmd =
-        Arrays.asList(
-            "az", "account", "get-access-token", "--resource", resource, "--output", "json");
-    return new CliTokenSource.Builder()
-        .withCmd(cmd)
-        .withTokenTypeField("tokenType")
-        .withAccessTokenField("accessToken")
-        .withExpiryField("expiresOn")
-        .build();
-  }
-
   @Override
   public String authType() {
     return AZURE_CLI;
+  }
+
+  public CliTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+    List<String> cmd =
+            Arrays.asList(
+                    "az", "account", "get-access-token", "--resource", resource, "--output", "json");
+    return new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config.getEnv());
   }
 
   @Override
@@ -37,8 +31,9 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
     }
 
     try {
-      CliTokenSource tokenSource = getAzureCliTokenSource(config);
-      Utils.ensureHostPresent(config, mapper);
+      ensureHostPresent(config, mapper);
+      String resource = config.getEffectiveAzureLoginAppId();
+      CliTokenSource tokenSource = tokenSourceFor(config, resource);
       Token token = tokenSource.refresh();
       Map<String, String> headers = new HashMap<>();
       headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());

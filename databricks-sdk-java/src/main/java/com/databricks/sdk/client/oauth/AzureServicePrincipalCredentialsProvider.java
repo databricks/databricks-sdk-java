@@ -9,8 +9,10 @@ import java.util.Map;
  * Adds refreshed Azure Active Directory (AAD) Service Principal OAuth tokens to every request,
  * while automatically resolving different Azure environment endpoints.
  */
-public class AzureServicePrincipalCredentialsProvider implements CredentialsProvider {
+public class AzureServicePrincipalCredentialsProvider implements CredentialsProvider, AzureUtils {
   private final ObjectMapper mapper = new ObjectMapper();
+
+
 
   @Override
   public String authType() {
@@ -25,11 +27,11 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
         || config.getAzureTenantId() == null) {
       return null;
     }
-    Utils.ensureHostPresent(config, mapper);
+    ensureHostPresent(config, mapper);
     RefreshableTokenSource inner =
-        Utils.tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
+        tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
     RefreshableTokenSource cloud =
-        Utils.tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
+        tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
 
     return () -> {
       Map<String, String> headers = new HashMap<>();

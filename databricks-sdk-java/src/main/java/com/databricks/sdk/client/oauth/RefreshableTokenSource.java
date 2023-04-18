@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.Map;
+import java.util.function.Function;
+
 import org.apache.http.HttpHeaders;
 
 /**
@@ -75,11 +77,11 @@ public abstract class RefreshableTokenSource implements TokenSource {
 
   public abstract Token refresh();
 
-  @Override
   public synchronized Token getToken() {
     if (token == null || !token.isValid()) {
       token = refresh();
     }
     return token;
   }
+
 }

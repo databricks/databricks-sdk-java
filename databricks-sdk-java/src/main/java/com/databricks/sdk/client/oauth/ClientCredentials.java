@@ -3,6 +3,7 @@ package com.databricks.sdk.client.oauth;
 import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.http.HttpClient;
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * An implementation of RefreshableTokenSource implementing the client_credentials OAuth grant type.

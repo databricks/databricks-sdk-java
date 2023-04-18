@@ -441,6 +441,10 @@ public class DatabricksAuthTest {
     public String apply(String var) {
       return env.getOrDefault(var, "");
     }
+
+    public Map<String, String> getEnvMap() {
+      return this.env;
+    }
   }
 
   private void raises(String contains, Runnable cb) {

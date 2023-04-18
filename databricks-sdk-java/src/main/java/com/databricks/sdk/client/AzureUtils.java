@@ -12,7 +12,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Utils {
+public interface AzureUtils {
+
   /**
    * Creates a RefreshableTokenSource for the specified Azure resource.
    *
@@ -25,23 +26,27 @@ public class Utils {
    * @return A RefreshableTokenSource instance capable of fetching OAuth tokens for the specified
    *     Azure resource.
    */
-  public static RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+  default RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
     Map<String, String> endpointParams = new HashMap<>();
     endpointParams.put("resource", resource);
     return new ClientCredentials.Builder()
-        .withHttpClient(config.getHttpClient())
-        .withClientId(config.getAzureClientId())
-        .withClientSecret(config.getAzureClientSecret())
-        .withTokenUrl(aadEndpoint + config.getAzureTenantId() + "/oauth2/token")
-        .withEndpointParameters(endpointParams)
-        .withAuthParameterPosition(AuthParameterPosition.BODY)
-        .build();
+            .withHttpClient(config.getHttpClient())
+            .withClientId(config.getAzureClientId())
+            .withClientSecret(config.getAzureClientSecret())
+            .withTokenUrl(aadEndpoint + config.getAzureTenantId() + "/oauth2/token")
+            .withEndpointParameters(endpointParams)
+            .withAuthParameterPosition(AuthParameterPosition.BODY)
+            .build();
   }
 
   /** Resolves Azure Databricks workspace URL from ARM Resource ID */
-  public static void ensureHostPresent(DatabricksConfig config, ObjectMapper mapper) {
+  default void ensureHostPresent(DatabricksConfig config, ObjectMapper mapper) {
     if (config.getHost() != null) {
+      return;
+    }
+
+    if (config.getAzureWorkspaceResourceId() == null) {
       return;
     }
 

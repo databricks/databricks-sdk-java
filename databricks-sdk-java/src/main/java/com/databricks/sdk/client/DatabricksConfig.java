@@ -133,13 +133,20 @@ public class DatabricksConfig {
 
   Function<String, String> getEnv;
 
+  public Function<String, String> getEnv() {
+    return this.getEnv;
+  }
+
+  public void setEnv(Function<String, String> getEnv) {
+    this.getEnv = getEnv;
+  }
   public synchronized DatabricksConfig resolve() {
     resolve(System::getenv);
     return this;
   }
 
   public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
-    this.getEnv = getEnv;
+    setEnv(getEnv);
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);

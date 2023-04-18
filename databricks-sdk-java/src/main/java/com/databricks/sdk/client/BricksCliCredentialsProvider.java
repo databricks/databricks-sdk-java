@@ -24,12 +24,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
       cmd.add("--account-id");
       cmd.add(config.getAccountId());
     }
-    return new CliTokenSource.Builder()
-        .withCmd(cmd)
-        .withTokenTypeField("token_type")
-        .withAccessTokenField("access_token")
-        .withExpiryField("expiry")
-        .build();
+    return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config.getEnv());
   }
 
   @Override

@@ -10,64 +10,31 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 public class CliTokenSource extends RefreshableTokenSource {
-
-  public static class Builder {
-    private List<String> cmd;
-    private String tokenTypeField;
-    private String accessTokenField;
-    private String expiryField;
-    private HttpClient hc = new CommonsHttpClient(30);
-
-    public Builder withCmd(List<String> cmd) {
-      this.cmd = cmd;
-      return this;
-    }
-
-    public Builder withTokenTypeField(String tokenTypeField) {
-      this.tokenTypeField = tokenTypeField;
-      return this;
-    }
-
-    public Builder withAccessTokenField(String accessTokenField) {
-      this.accessTokenField = accessTokenField;
-      return this;
-    }
-
-    public Builder withExpiryField(String expiryField) {
-      this.expiryField = expiryField;
-      return this;
-    }
-
-    public Builder withHttpClient(HttpClient hc) {
-      this.hc = hc;
-      return this;
-    }
-
-    public CliTokenSource build() {
-      return new CliTokenSource(cmd, tokenTypeField, accessTokenField, expiryField, hc);
-    }
-  }
-
   private List<String> cmd;
   private String tokenTypeField;
   private String accessTokenField;
   private String expiryField;
+  private Function<String, String> getEnv;
 
-  private CliTokenSource(
+  public CliTokenSource(
       List<String> cmd,
       String tokenTypeField,
       String accessTokenField,
       String expiryField,
-      HttpClient hc) {
-    super(hc);
+      Function<String, String > getEnv) {
+    super(new CommonsHttpClient(30));
     this.cmd = cmd;
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;
+    this.getEnv = getEnv;
   }
 
+  // TODO - different for bricks vs azure
   private static LocalDateTime parseExpiry(String expiry) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
     LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
@@ -77,13 +44,17 @@ public class CliTokenSource extends RefreshableTokenSource {
   @Override
   public Token refresh() {
     try {
-      Process process = new ProcessBuilder(cmd).start();
-      String output = new String(process.getInputStream().readAllBytes());
+      ProcessBuilder processBuilder = new ProcessBuilder(cmd);
+      Map<String, String> env = processBuilder.environment();
+      String a = getEnv.toString();
+      Process process = processBuilder.start();
+      String stdout = new String(process.getInputStream().readAllBytes());
+      String stderr = new String(process.getErrorStream().readAllBytes());
       int exitCode = process.waitFor();
       if (exitCode != 0) {
-        throw new IOException("Command returned non-zero exit code");
+        throw new IOException(stderr);
       }
-      JsonNode jsonNode = new ObjectMapper().readTree(output);
+      JsonNode jsonNode = new ObjectMapper().readTree(stdout);
       String tokenType = jsonNode.get(tokenTypeField).asText();
       String accessToken = jsonNode.get(accessTokenField).asText();
       String expiry = jsonNode.get(expiryField).asText();
