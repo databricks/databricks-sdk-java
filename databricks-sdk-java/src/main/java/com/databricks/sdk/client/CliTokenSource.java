@@ -9,10 +9,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class CliTokenSource extends RefreshableTokenSource {
   private List<String> cmd;
@@ -28,7 +30,10 @@ public class CliTokenSource extends RefreshableTokenSource {
       String expiryField,
       Supplier<Map<String,String>> getAllEnv) {
     super(new CommonsHttpClient(30));
-    this.cmd = cmd;
+
+    // TODO: check if it's Windows and set "cmd.exe", "/c" instead of "/bin/sh", "-c"
+    // See: https://stackoverflow.com/a/34061154/16597007
+    this.cmd = Arrays.asList("/bin/sh", "-c", cmd.stream().collect(Collectors.joining(" ")));
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;
@@ -47,8 +52,6 @@ public class CliTokenSource extends RefreshableTokenSource {
     try {
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(getAllEnv.get());
-
-      // TODO: add items to env from getEnv if they are not present -- this will be noop for System::getEnv
       Process process = processBuilder.start();
       String stdout = new String(process.getInputStream().readAllBytes());
       String stderr = new String(process.getErrorStream().readAllBytes());

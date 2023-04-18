@@ -16,6 +16,8 @@ import org.junit.jupiter.api.Test;
 
 public class DatabricksAuthTest {
 
+  private String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
+
   @Test
   public void testTestConfigNoParams() {
     raises(
@@ -183,6 +185,7 @@ public class DatabricksAuthTest {
         });
   }
 
+  // tanmaytodo - last
   @Test
   public void testTestConfigConfigFileSkipDefaultProfileIfHostSpecified() {
     // Set environment variables
@@ -279,11 +282,12 @@ public class DatabricksAuthTest {
     assertTrue(config.isAzure());
   }
 
+  // tanmaytodo
   @Test
   public void testTestConfigAzureCliHost() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", "testdata:/bin");
+            new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", prefixPath + "testdata" + ":/bin");
     DatabricksConfig config =
         new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws").resolve(env);
     config.authenticate();
@@ -452,7 +456,7 @@ public class DatabricksAuthTest {
     } catch (Exception e) {
       raised = true;
       String message = e.getMessage();
-      String textToReplace = System.getProperty("user.dir") + "/target/test-classes/";
+      String textToReplace = prefixPath;
       message = message.replace(textToReplace, "");
       if (!message.contains(contains)) {
         fail(String.format("Expected exception to contain '%s'", contains), e);
