@@ -173,7 +173,7 @@ public class OAuthClient {
         params.entrySet().stream()
             .map(entry -> entry.getKey() + "=" + entry.getValue())
             .collect(Collectors.joining("&"));
-    return urlBase + "?" + queryParams.replaceAll("\\+", "%20");
+    return urlBase + "?" + queryParams.replaceAll(" ", "%20");
   }
 
   public Consent initiateConsent() throws MalformedURLException {

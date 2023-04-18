@@ -19,8 +19,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Consent implements Serializable {
+  private static final Logger LOG = LoggerFactory.getLogger(Consent.class.getName());
   private static final Long serialVersionUID = -3832904096215095559L;
 
   public static class Builder {
@@ -165,18 +168,22 @@ public class Consent implements Serializable {
     }
 
     private void sendSuccess(HttpExchange exchange) throws IOException {
-      InputStream successRespStream =
-          getClass().getClassLoader().getResourceAsStream("oauth/successful_response.html");
-      String body =
-          IOUtils.toString(Objects.requireNonNull(successRespStream), StandardCharsets.UTF_8);
+      try {
+        InputStream successRespStream =
+            getClass().getClassLoader().getResourceAsStream("oauth/successful_response.html");
+        String body =
+            IOUtils.toString(Objects.requireNonNull(successRespStream), StandardCharsets.UTF_8);
 
-      Headers respHeaders = exchange.getResponseHeaders();
-      respHeaders.set("Content-Type", "text/html;charset=utf-8");
-      exchange.sendResponseHeaders(200, body.length());
+        Headers respHeaders = exchange.getResponseHeaders();
+        respHeaders.set("Content-Type", "text/html;charset=utf-8");
+        exchange.sendResponseHeaders(200, body.length());
 
-      OutputStream out = exchange.getResponseBody();
-      out.write(body.getBytes(StandardCharsets.UTF_8));
-      out.close();
+        OutputStream out = exchange.getResponseBody();
+        out.write(body.getBytes(StandardCharsets.UTF_8));
+        exchange.close();
+      } catch (IOException e) {
+        LOG.error("Failed to write success response", e);
+      }
     }
 
     @Override
@@ -197,19 +204,21 @@ public class Consent implements Serializable {
       }
 
       String decodedQueryString = URLDecoder.decode(query, StandardCharsets.UTF_8.name());
+      Map<String, String> theseParams = new HashMap<>();
+      Arrays.stream(decodedQueryString.split("&"))
+          .forEach(
+              param -> {
+                String[] keyValue = param.split("=");
+                String key = keyValue[0];
+                String value = keyValue.length > 1 ? keyValue[1] : "";
+                theseParams.put(key, value);
+              });
+
+      sendSuccess(exchange);
       synchronized (lock) {
-        params = new HashMap<>();
-        Arrays.stream(decodedQueryString.split("&"))
-            .forEach(
-                param -> {
-                  String[] keyValue = param.split("=");
-                  String key = keyValue[0];
-                  String value = keyValue.length > 1 ? keyValue[1] : "";
-                  params.put(key, value);
-                });
+        params = theseParams;
         lock.notify();
       }
-      sendSuccess(exchange);
     }
 
     public Map<String, String> getParams() {
