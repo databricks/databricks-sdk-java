@@ -167,11 +167,9 @@ public class ApiClient {
       try {
         attemptNumber++;
         in.withHeaders(config.authenticate());
-
+        LOG.debug(makeLogRecord(in));
         lastResponse = httpClient.execute(in);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug(makeLogRecord(in, lastResponse));
-        }
+        LOG.debug(makeLogRecord(lastResponse));
         int status = lastResponse.getStatusCode();
         if (status >= 400) {
           throw new IOException(
@@ -204,7 +202,9 @@ public class ApiClient {
     return deserialize(out.getBody(), target);
   }
 
-  private String makeLogRecord(Request in, Response out) {
+
+
+  private String makeLogRecord(Request in) {
     StringBuilder sb = new StringBuilder();
     sb.append("> ");
     sb.append(in.getRequestLine());
@@ -221,6 +221,11 @@ public class ApiClient {
         sb.append(line);
       }
     }
+    return sb.toString();
+  }
+
+  private String makeLogRecord(Response out) {
+    StringBuilder sb = new StringBuilder();
     sb.append("\n< ");
     sb.append(out.toString());
     for (String line : bodyLogger.redactedDump(out.getBody()).split("\n")) {
