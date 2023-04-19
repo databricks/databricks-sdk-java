@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo "Running test -- script"
-
 if [ "yes" == "$FAIL" ]; then 
     >&2 /bin/echo "This is just a failing script."
     exit 1

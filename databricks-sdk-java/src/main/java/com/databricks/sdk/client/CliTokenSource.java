@@ -30,10 +30,13 @@ public class CliTokenSource extends RefreshableTokenSource {
       String expiryField,
       Supplier<Map<String,String>> getAllEnv) {
     super(new CommonsHttpClient(30));
-
     // TODO: check if it's Windows and set "cmd.exe", "/c" instead of "/bin/sh", "-c"
     // See: https://stackoverflow.com/a/34061154/16597007
-    this.cmd = Arrays.asList("/bin/sh", "-c", cmd.stream().collect(Collectors.joining(" ")));
+    if(System.getProperty("os.name").startsWith("Windows")) {
+      this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
+    } else {
+      this.cmd = Arrays.asList("/bin/sh", "-c", cmd.stream().collect(Collectors.joining(" ")));
+    }
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;
@@ -53,7 +56,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(getAllEnv.get());
       Process process = processBuilder.start();
-      String stdout = new String(process.getInputStream().readAllBytes());
+      String stdout = new String(process.getInputStream().readAllBytes());  // readAllBytes -- set language level to 9
       String stderr = new String(process.getErrorStream().readAllBytes());
       int exitCode = process.waitFor();
       if (exitCode != 0) {
