@@ -7,8 +7,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
@@ -50,11 +55,20 @@ public class CommonsHttpClient implements HttpClient {
     in.getHeaders().forEach(request::setHeader);
     try (CloseableHttpResponse response = hc.execute(request)) {
       HttpEntity entity = response.getEntity();
-      try (InputStream inputStream = entity.getContent()) {
-        String body = IOUtils.toString(inputStream, Charset.defaultCharset());
-        StatusLine statusLine = response.getStatusLine();
-        return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), body);
+      StatusLine statusLine = response.getStatusLine();
+      Map<String, List<String>> hs =
+          Arrays.stream(response.getAllHeaders())
+              .collect(
+                  Collectors.groupingBy(
+                      NameValuePair::getName,
+                      Collectors.mapping(NameValuePair::getValue, Collectors.toList())));
+      String body = null;
+      if (entity != null) {
+        try (InputStream inputStream = entity.getContent()) {
+          body = IOUtils.toString(inputStream, Charset.defaultCharset());
+        }
       }
+      return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
     }
   }
 

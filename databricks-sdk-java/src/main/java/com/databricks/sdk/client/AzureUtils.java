@@ -28,13 +28,14 @@ public interface AzureUtils {
    */
   default RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
+    String tokenUrl = aadEndpoint + config.getAzureTenantId() + "/oauth2/token";
     Map<String, String> endpointParams = new HashMap<>();
     endpointParams.put("resource", resource);
     return new ClientCredentials.Builder()
         .withHttpClient(config.getHttpClient())
         .withClientId(config.getAzureClientId())
         .withClientSecret(config.getAzureClientSecret())
-        .withTokenUrl(aadEndpoint + config.getAzureTenantId() + "/oauth2/token")
+        .withTokenUrl(tokenUrl)
         .withEndpointParameters(endpointParams)
         .withAuthParameterPosition(AuthParameterPosition.BODY)
         .build();

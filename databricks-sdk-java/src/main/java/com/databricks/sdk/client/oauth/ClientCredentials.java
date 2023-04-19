@@ -66,6 +66,7 @@ public class ClientCredentials extends RefreshableTokenSource {
     }
   }
 
+  private HttpClient hc;
   private String clientId;
   private String clientSecret;
   private String tokenUrl;
@@ -81,7 +82,7 @@ public class ClientCredentials extends RefreshableTokenSource {
       Map<String, String> endpointParams,
       List<String> scopes,
       AuthParameterPosition position) {
-    super(hc);
+    this.hc = hc;
     this.clientId = clientId;
     this.clientSecret = clientSecret;
     this.tokenUrl = tokenUrl;
@@ -100,6 +101,6 @@ public class ClientCredentials extends RefreshableTokenSource {
     if (endpointParams != null) {
       params.putAll(endpointParams);
     }
-    return retrieveToken(clientId, clientSecret, tokenUrl, params, new HashMap<>(), position);
+    return retrieveToken(hc, clientId, clientSecret, tokenUrl, params, new HashMap<>(), position);
   }
 }

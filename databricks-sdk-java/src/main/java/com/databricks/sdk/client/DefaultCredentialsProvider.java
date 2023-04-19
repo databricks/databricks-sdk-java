@@ -1,6 +1,7 @@
 package com.databricks.sdk.client;
 
 import com.databricks.sdk.client.oauth.AzureServicePrincipalCredentialsProvider;
+import com.databricks.sdk.client.oauth.ExternalBrowserCredentialsProvider;
 import com.databricks.sdk.client.oauth.OAuthM2MServicePrincipalCredentialsProvider;
 import java.util.Arrays;
 import java.util.List;
@@ -24,9 +25,10 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             new PatCredentialsProvider(),
             new BasicCredentialsProvider(),
             new OAuthM2MServicePrincipalCredentialsProvider(),
-            new BricksCliCredentialsProvider(),
             new AzureServicePrincipalCredentialsProvider(),
-            new AzureCliCredentialsProvider());
+            new AzureCliCredentialsProvider(),
+            new ExternalBrowserCredentialsProvider(),
+            new BricksCliCredentialsProvider());
   }
 
   @Override
@@ -39,7 +41,6 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             "Ignoring {} auth, because {} is preferred", provider.authType(), config.getAuthType());
         continue;
       }
-      // tanmaytodo - try catch?
       try {
         HeaderFactory headerFactory = provider.configure(config);
         if (headerFactory == null) {
