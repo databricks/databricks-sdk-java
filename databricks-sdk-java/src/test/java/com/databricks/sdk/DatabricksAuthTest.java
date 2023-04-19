@@ -318,7 +318,7 @@ public class DatabricksAuthTest {
   public void testTestConfigAzureCliHostAzNotInstalled() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", "whatever");
+        new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", prefixPath + "whatever");
     raises(
         "default auth: cannot configure default credentials. Config: azure_workspace_resource_id=/sub/rg/ws",
         () -> {
@@ -349,7 +349,7 @@ public class DatabricksAuthTest {
   public void testTestConfigAzureCliHostAndResourceId() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", resource("/testdata")).with("PATH", "testdata:/bin");
+        new StaticEnv().with("HOME", resource("/testdata")).with("PATH", prefixPath + "testdata:/bin");
     DatabricksConfig config =
         new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws").resolve(env);
     config.authenticate();
@@ -366,7 +366,7 @@ public class DatabricksAuthTest {
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "justhost")
             .with("HOME", resource("/testdata/azure"))
-            .with("PATH", "testdata:/bin");
+            .with("PATH", prefixPath + "testdata:/bin");
     DatabricksConfig config =
         new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws").resolve(env);
     config.authenticate();

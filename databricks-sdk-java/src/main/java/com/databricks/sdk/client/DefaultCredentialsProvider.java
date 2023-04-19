@@ -14,6 +14,10 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
 
   private String authType = "default";
 
+  public String authType() {
+    return authType;
+  }
+
   public DefaultCredentialsProvider() {
     providers =
         Arrays.asList(
@@ -36,17 +40,18 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
         continue;
       }
       // tanmaytodo - try catch?
-      HeaderFactory headerFactory = provider.configure(config);
-      if (headerFactory == null) {
-        continue;
+      try {
+        HeaderFactory headerFactory = provider.configure(config);
+        if (headerFactory == null) {
+          continue;
+        }
+        authType = provider.authType();
+        return headerFactory;
+      } catch (Exception e) {
+        throw new DatabricksException(String.format("%s: %s", provider.authType(), e.getMessage()), e);
       }
-      authType = provider.authType();
-      return headerFactory;
+
     }
     throw new DatabricksException("cannot configure default credentials");
-  }
-
-  public String authType() {
-    return authType;
   }
 }

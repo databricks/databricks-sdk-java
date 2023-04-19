@@ -61,7 +61,7 @@ public class ConfigLoader {
   }
 
   static void loadFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
-    if (isNullOrEmpty(cfg.getProfile()) && (isAnyAuthConfigured(cfg) || cfg.isAzure())) {
+    if (isNullOrEmpty(cfg.getProfile()) && (isAnyAuthConfigured(cfg) || !isNullOrEmpty(cfg.getHost()) || !isNullOrEmpty(cfg.getAzureWorkspaceResourceId()))) {
       return;
     }
 
