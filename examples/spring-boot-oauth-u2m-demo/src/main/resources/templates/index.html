@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spring Boot Databricks OAuth U2M Demo Application</title>
+</head>
+    <body>
+        <h1>Spring Boot Databricks OAuth U2M Demo Homepage</h1>
+        <h1>Client Configuration</h1>
+        <a href="/setup">Configure OAuth Client</a>
+        <p>clientId: <span th:text="${clientId}">Not initialized</span></p>
+        <p>clientSecret: <span th:text="${clientSecret}">Not initialized</span></p>
+        <p>hostname: <span th:text="${hostname}">Not initialized</span></p>
+        <h1>Consent</h1>
+        <a href="/authenticate">Authenticate</a>
+        <div th:if="${authError != null}">
+            <span th:text="${authError}"></span>
+        </div>
+        <p>session credentials: <span th:text="${sessionCreds}">Not authenticated</span></p>
+        <h1>APIs</h1>
+        <a href="/list-clusters">List clusters</a>
+    </body>
+</html>

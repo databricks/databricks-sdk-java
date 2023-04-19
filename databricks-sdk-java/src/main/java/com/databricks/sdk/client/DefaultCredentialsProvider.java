@@ -1,6 +1,7 @@
 package com.databricks.sdk.client;
 
 import com.databricks.sdk.client.oauth.AzureServicePrincipalCredentialsProvider;
+import com.databricks.sdk.client.oauth.ExternalBrowserCredentialsProvider;
 import com.databricks.sdk.client.oauth.OAuthM2MServicePrincipalCredentialsProvider;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,8 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             new PatCredentialsProvider(),
             new BasicCredentialsProvider(),
             new OAuthM2MServicePrincipalCredentialsProvider(),
-            new AzureServicePrincipalCredentialsProvider());
+            new AzureServicePrincipalCredentialsProvider(),
+            new ExternalBrowserCredentialsProvider());
   }
 
   @Override

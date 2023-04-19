@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Clusters</title>
+</head>
+<body>
+<h1>List of Clusters:</h1>
+<ul>
+    <li th:each="name : ${clusterNames}" th:text="${name}"></li>
+</ul>
+</body>
+</html>
