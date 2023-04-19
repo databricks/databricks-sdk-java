@@ -127,6 +127,7 @@ public class RootController {
   @GetMapping("/callback")
   public String callback(HttpSession session, @RequestParam Map<String, String> allParams) throws IOException {
     Consent consent = (Consent) session.getAttribute("consent");
+    consent.setHttpClient(hc);
     RefreshableCredentials creds = consent.exchangeCallbackParameters(allParams);
     session.setAttribute("sessionCreds", creds);
     DatabricksConfig conf = new DatabricksConfig();
@@ -139,9 +140,9 @@ public class RootController {
   @GetMapping("/list-clusters")
   public String listClusters(Model model) {
     Iterable<ClusterInfo> clustersIterable = workspace.clusters().list(new com.databricks.sdk.service.clusters.List());
-    List<String> clusterStrings = new ArrayList<>();
-    clustersIterable.forEach(c -> clusterStrings.add(c.getClusterName()));
-    model.addAttribute("strings", clusterStrings);
+    List<String> clusterNames = new ArrayList<>();
+    clustersIterable.forEach(c -> clusterNames.add(c.getClusterName()));
+    model.addAttribute("clusterNames", clusterNames);
     return "list-clusters";
   }
 }

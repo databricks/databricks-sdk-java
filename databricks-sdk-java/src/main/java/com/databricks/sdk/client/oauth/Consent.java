@@ -22,11 +22,32 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Consent provides a mechanism to retrieve an authorization code and exchange it for an OAuth token using the
+ * Authorization Code + PKCE flow.
+ *
+ * <p>
+ * This class is typically instantiated using an instane of {@code OAuthClient}:
+ * <pre>
+ * {@code
+ * OAuthClient client = ...;
+ * Consent consent = client.initiateConsent();
+ * }
+ * </pre>
+ *
+ * <p>
+ * Web applications or SPAs would redirect a user to the URL returned by {@code getAuthUrl()} method and implement a
+ * callback handler which calls {@code exchangeCallbackParameters()} with the query parameters from the callback to
+ * exchange the authorization code for OAuth credentials.
+ *
+ * <p>
+ * Native applications can call the {@code launchExternalBrowser()} method to open the user's browser to navigate to the
+ * authorization page for the current application. A short-lived HTTP server is launched to listen to the callback, and
+ * on success, the browser page is closed and the authorization code is collected and exchanged for an OAuth token.
+ */
 public class Consent implements Serializable {
   private static final Long serialVersionUID = -3832904096215095559L;
-  private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
 
-  // Not serialized
   private transient HttpClient hc;
   private final String authUrl;
   private final String verifier;
@@ -91,6 +112,23 @@ public class Consent implements Serializable {
     }
   }
 
+  private Consent(Builder builder) {
+    this.hc = Objects.requireNonNull(builder.hc);
+    this.authUrl = Objects.requireNonNull(builder.authUrl);
+    this.verifier = Objects.requireNonNull(builder.verifier);
+    this.state = Objects.requireNonNull(builder.state);
+    this.tokenUrl = Objects.requireNonNull(builder.tokenUrl);
+    this.redirectUrl = Objects.requireNonNull(builder.redirectUrl);
+    this.clientId = Objects.requireNonNull(builder.clientId);
+    // This may be null for native apps or single-page apps.
+    this.clientSecret = builder.clientSecret;
+  }
+
+  public Consent setHttpClient(HttpClient hc) {
+    // Allow setting HttpClient on deserialization.
+    this.hc = hc;
+    return this;
+  }
 
   public String getAuthUrl() {
     return authUrl;
@@ -120,70 +158,21 @@ public class Consent implements Serializable {
     return clientSecret;
   }
 
-  private Consent(Builder builder) {
-    this.hc = Objects.requireNonNull(builder.hc);
-    this.authUrl = Objects.requireNonNull(builder.authUrl);
-    this.verifier = Objects.requireNonNull(builder.verifier);
-    this.state = Objects.requireNonNull(builder.state);
-    this.tokenUrl = Objects.requireNonNull(builder.tokenUrl);
-    this.redirectUrl = Objects.requireNonNull(builder.redirectUrl);
-    this.clientId = Objects.requireNonNull(builder.clientId);
-    // This may be null for native apps or single-page apps.
-    this.clientSecret = builder.clientSecret;
-  }
-
   static class CallbackResponseHandler implements HttpHandler {
     private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
     // Protects params
     private final Object lock = new Object();
     private volatile Map<String, String> params;
 
-    private void sendError(
-        HttpExchange exchange, int statusCode, String message, String description)
-        throws IOException {
-      InputStream failureRespStream =
-          getClass().getClassLoader().getResourceAsStream("oauth/failed_response.html.tmpl");
-      String body =
-          IOUtils.toString(Objects.requireNonNull(failureRespStream), StandardCharsets.UTF_8);
-      Map<String, String> replacements = new HashMap<>();
-      replacements.put("{{code}}", String.valueOf(statusCode));
-      replacements.put("{{message}}", message);
-      replacements.put("{{explain}}", description);
-      for (Map.Entry<String, String> e : replacements.entrySet()) {
-        body = body.replaceAll(e.getKey(), e.getValue());
-      }
-
-      Headers respHeaders = exchange.getResponseHeaders();
-      respHeaders.set("Connection", "close");
-      respHeaders.set("Content-Type", "text/html;charset=utf-8");
-      exchange.sendResponseHeaders(200, body.length());
-
-      OutputStream out = exchange.getResponseBody();
-      out.write(body.getBytes(StandardCharsets.UTF_8));
-      exchange.close();
-    }
-
-    private void sendSuccess(HttpExchange exchange) throws IOException {
-      try {
-        InputStream successRespStream =
-            getClass().getClassLoader().getResourceAsStream("oauth/successful_response.html");
-        String body =
-            IOUtils.toString(Objects.requireNonNull(successRespStream), StandardCharsets.UTF_8);
-
-        Headers respHeaders = exchange.getResponseHeaders();
-        respHeaders.set("Content-Type", "text/html;charset=utf-8");
-        exchange.sendResponseHeaders(200, body.length());
-
-        OutputStream out = exchange.getResponseBody();
-        out.write(body.getBytes(StandardCharsets.UTF_8));
-        exchange.close();
-      } catch (IOException e) {
-        LOG.error("Failed to write success response", e);
-      }
-    }
-
     @Override
-    public void handle(HttpExchange exchange) throws IOException {
+    public void handle(HttpExchange exchange) {
+      try {
+        handleInner(exchange);
+      } catch (IOException e) {
+        LOG.error("Unable to handle callback request", e);
+      }
+    }
+    public void handleInner(HttpExchange exchange) throws IOException {
       if (!exchange.getRequestMethod().equals("GET")) {
         sendError(
             exchange,
@@ -217,6 +206,46 @@ public class Consent implements Serializable {
       }
     }
 
+    private void sendError(
+        HttpExchange exchange, int statusCode, String message, String description)
+        throws IOException {
+      InputStream failureRespStream =
+          getClass().getClassLoader().getResourceAsStream("oauth/failed_response.html.tmpl");
+      String body =
+          IOUtils.toString(Objects.requireNonNull(failureRespStream), StandardCharsets.UTF_8);
+      Map<String, String> replacements = new HashMap<>();
+      replacements.put("{{code}}", String.valueOf(statusCode));
+      replacements.put("{{message}}", message);
+      replacements.put("{{explain}}", description);
+      for (Map.Entry<String, String> e : replacements.entrySet()) {
+        body = body.replaceAll(e.getKey(), e.getValue());
+      }
+
+      Headers respHeaders = exchange.getResponseHeaders();
+      respHeaders.set("Connection", "close");
+      respHeaders.set("Content-Type", "text/html;charset=utf-8");
+      exchange.sendResponseHeaders(200, body.length());
+
+      OutputStream out = exchange.getResponseBody();
+      out.write(body.getBytes(StandardCharsets.UTF_8));
+      exchange.close();
+    }
+
+    private void sendSuccess(HttpExchange exchange) throws IOException {
+      InputStream successRespStream =
+          getClass().getClassLoader().getResourceAsStream("oauth/successful_response.html");
+      String body =
+          IOUtils.toString(Objects.requireNonNull(successRespStream), StandardCharsets.UTF_8);
+
+      Headers respHeaders = exchange.getResponseHeaders();
+      respHeaders.set("Content-Type", "text/html;charset=utf-8");
+      exchange.sendResponseHeaders(200, body.length());
+
+      OutputStream out = exchange.getResponseBody();
+      out.write(body.getBytes(StandardCharsets.UTF_8));
+      exchange.close();
+    }
+
     public Map<String, String> getParams() {
       synchronized (lock) {
         if (params == null) {
@@ -232,7 +261,12 @@ public class Consent implements Serializable {
     }
   }
 
-  public RefreshableCredentials launchExternalBrowser() throws IOException, URISyntaxException {
+  /**
+   * Launch a browser to collect an authorization code and exchange the code for an OAuth token.
+   * @return A {@code RefreshableCredentials} instance representing the retrieved OAuth token.
+   * @throws IOException if the webserver cannot be started, or if the browser cannot be opened
+   */
+  public RefreshableCredentials launchExternalBrowser() throws IOException {
     URL redirect = new URL(getRedirectUrl());
     if (!Arrays.asList("localhost", "127.0.0.1").contains(redirect.getHost())) {
       throw new IllegalArgumentException(
@@ -253,8 +287,7 @@ public class Consent implements Serializable {
     return exchangeCallbackParameters(params);
   }
 
-  public RefreshableCredentials exchangeCallbackParameters(Map<String, String> query)
-      throws IOException {
+  public RefreshableCredentials exchangeCallbackParameters(Map<String, String> query) {
     if (query.containsKey("error")) {
       throw new DatabricksException(query.get("error") + ": " + query.get("error_description"));
     }
@@ -264,7 +297,7 @@ public class Consent implements Serializable {
     return exchange(query.get("code"), query.get("state"));
   }
 
-  public RefreshableCredentials exchange(String code, String state) throws IOException {
+  public RefreshableCredentials exchange(String code, String state) {
     if (!this.state.equals(state)) {
       throw new DatabricksException(
           "state mismatch: original state: " + this.state + "; retrieved state: " + state);

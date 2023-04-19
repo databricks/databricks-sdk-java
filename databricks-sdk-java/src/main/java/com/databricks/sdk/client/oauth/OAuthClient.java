@@ -73,30 +73,6 @@ public class OAuthClient {
     }
   }
 
-  public String getClientId() {
-    return clientId;
-  }
-
-  public String getRedirectUrl() {
-    return redirectUrl;
-  }
-
-  public List<String> getScopes() {
-    return scopes;
-  }
-
-  public String getClientSecret() {
-    return clientSecret;
-  }
-
-  public String getTokenUrl() {
-    return tokenUrl;
-  }
-
-  public String getAuthUrl() {
-    return authUrl;
-  }
-
   private final String clientId;
   private final String redirectUrl;
   private final List<String> scopes;
@@ -106,11 +82,6 @@ public class OAuthClient {
   private final String tokenUrl;
   private final String authUrl;
   private final HttpClient hc;
-
-  public String getHost() {
-    return host;
-  }
-
   private final String host;
   private final SecureRandom random = new SecureRandom();
 
@@ -153,6 +124,34 @@ public class OAuthClient {
               config.getEffectiveAzureLoginAppId() + "/user_impersonation", "offline_access");
     }
     this.scopes = scopes;
+  }
+
+  public String getHost() {
+    return host;
+  }
+
+  public String getClientId() {
+    return clientId;
+  }
+
+  public String getClientSecret() {
+    return clientSecret;
+  }
+
+  public String getRedirectUrl() {
+    return redirectUrl;
+  }
+
+  public String getTokenUrl() {
+    return tokenUrl;
+  }
+
+  public String getAuthUrl() {
+    return authUrl;
+  }
+
+  public List<String> getScopes() {
+    return scopes;
   }
 
   public boolean isAws() {

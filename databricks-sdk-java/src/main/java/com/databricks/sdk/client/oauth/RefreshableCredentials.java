@@ -13,7 +13,8 @@ import org.apache.http.HttpHeaders;
 /**
  * An implementation of RefreshableTokenSource implementing the refresh_token OAuth grant type.
  *
- * <p>RefreshableCredentials are OAuth credentials with a short-lived access token, used to make
+ * <p>
+ * RefreshableCredentials are OAuth credentials with a short-lived access token, used to make
  * requests to an API, and a long-lived refresh token, which can be used to fetch new access tokens.
  * Calling refresh() uses the refresh token to retrieve a new access token to authenticate to APIs.
  */

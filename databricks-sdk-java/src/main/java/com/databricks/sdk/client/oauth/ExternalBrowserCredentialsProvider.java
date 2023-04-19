@@ -10,6 +10,10 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A {@code CredentialsProvider} which implements the Authorization Code + PKCE flow by opening a browser for the user
+ * to authorize the application.
+ */
 public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
   @Override
@@ -29,7 +33,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
         headers.put(HttpHeaders.AUTHORIZATION, token.getTokenType() + " " + token.getAccessToken());
         return headers;
       };
-    } catch (IOException | URISyntaxException e) {
+    } catch (IOException e) {
       return null;
     }
   }
