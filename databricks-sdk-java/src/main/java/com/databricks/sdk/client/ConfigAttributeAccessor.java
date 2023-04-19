@@ -3,7 +3,6 @@ package com.databricks.sdk.client;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
 
 class ConfigAttributeAccessor {
   private ConfigAttribute configAttribute;

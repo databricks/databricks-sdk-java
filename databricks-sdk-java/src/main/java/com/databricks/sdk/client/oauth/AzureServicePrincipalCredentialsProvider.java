@@ -12,8 +12,6 @@ import java.util.Map;
 public class AzureServicePrincipalCredentialsProvider implements CredentialsProvider, AzureUtils {
   private final ObjectMapper mapper = new ObjectMapper();
 
-
-
   @Override
   public String authType() {
     return "azure-client-secret";
@@ -28,8 +26,7 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
       return null;
     }
     ensureHostPresent(config, mapper);
-    RefreshableTokenSource inner =
-        tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
+    RefreshableTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
     RefreshableTokenSource cloud =
         tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
 

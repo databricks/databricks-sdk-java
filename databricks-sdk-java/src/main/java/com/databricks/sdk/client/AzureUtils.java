@@ -31,13 +31,13 @@ public interface AzureUtils {
     Map<String, String> endpointParams = new HashMap<>();
     endpointParams.put("resource", resource);
     return new ClientCredentials.Builder()
-            .withHttpClient(config.getHttpClient())
-            .withClientId(config.getAzureClientId())
-            .withClientSecret(config.getAzureClientSecret())
-            .withTokenUrl(aadEndpoint + config.getAzureTenantId() + "/oauth2/token")
-            .withEndpointParameters(endpointParams)
-            .withAuthParameterPosition(AuthParameterPosition.BODY)
-            .build();
+        .withHttpClient(config.getHttpClient())
+        .withClientId(config.getAzureClientId())
+        .withClientSecret(config.getAzureClientSecret())
+        .withTokenUrl(aadEndpoint + config.getAzureTenantId() + "/oauth2/token")
+        .withEndpointParameters(endpointParams)
+        .withAuthParameterPosition(AuthParameterPosition.BODY)
+        .build();
   }
 
   /** Resolves Azure Databricks workspace URL from ARM Resource ID */

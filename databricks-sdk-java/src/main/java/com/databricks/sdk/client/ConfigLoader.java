@@ -7,7 +7,6 @@ import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
-import java.util.function.Function;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 import org.slf4j.Logger;
@@ -61,7 +60,10 @@ public class ConfigLoader {
   }
 
   static void loadFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
-    if (isNullOrEmpty(cfg.getProfile()) && (isAnyAuthConfigured(cfg) || !isNullOrEmpty(cfg.getHost()) || !isNullOrEmpty(cfg.getAzureWorkspaceResourceId()))) {
+    if (isNullOrEmpty(cfg.getProfile())
+        && (isAnyAuthConfigured(cfg)
+            || !isNullOrEmpty(cfg.getHost())
+            || !isNullOrEmpty(cfg.getAzureWorkspaceResourceId()))) {
       return;
     }
 

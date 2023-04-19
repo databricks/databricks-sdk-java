@@ -48,9 +48,9 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
         authType = provider.authType();
         return headerFactory;
       } catch (Exception e) {
-        throw new DatabricksException(String.format("%s: %s", provider.authType(), e.getMessage()), e);
+        throw new DatabricksException(
+            String.format("%s: %s", provider.authType(), e.getMessage()), e);
       }
-
     }
     throw new DatabricksException("cannot configure default credentials");
   }

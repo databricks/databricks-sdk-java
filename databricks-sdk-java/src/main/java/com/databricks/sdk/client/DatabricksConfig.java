@@ -5,7 +5,6 @@ import com.databricks.sdk.client.http.HttpClient;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Supplier;
-
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
@@ -144,7 +143,7 @@ public class DatabricksConfig {
     return this;
   }
 
-  public synchronized DatabricksConfig resolve(Supplier<Map<String,String>> getAllEnv) {
+  public synchronized DatabricksConfig resolve(Supplier<Map<String, String>> getAllEnv) {
     allEnv = getAllEnv.get();
     return resolve(allEnv::get);
   }

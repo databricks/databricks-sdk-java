@@ -5,14 +5,10 @@ import com.databricks.sdk.client.http.FormRequest;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.Map;
-import java.util.function.Function;
-
 import org.apache.http.HttpHeaders;
 
 /**
@@ -85,5 +81,4 @@ public abstract class RefreshableTokenSource implements TokenSource {
     }
     return token;
   }
-
 }
