@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  * Consent provides a mechanism to retrieve an authorization code and exchange it for an OAuth token
  * using the Authorization Code + PKCE flow.
  *
- * <p>This class is typically instantiated using an instane of {@code OAuthClient}:
+ * <p>This class is typically instantiated using an instance of {@code OAuthClient}:
  *
  * <pre>{@code
  * OAuthClient client = ...;
@@ -182,7 +182,7 @@ public class Consent implements Serializable {
 
       String query = exchange.getRequestURI().getQuery();
       if (query == null || query.isEmpty()) {
-        sendError(exchange, 400, "Missing Query", "Bad request syntax or unsupported method");
+        sendError(exchange, 400, "Missing Query", "No query received for the current request");
         return;
       }
 
@@ -278,9 +278,7 @@ public class Consent implements Serializable {
         HttpServer.create(new InetSocketAddress(redirect.getHost(), redirect.getPort()), 0);
     httpServer.createContext("/", handler);
     httpServer.start();
-    System.out.println("Opening " + this.authUrl + " in a browser");
     Desktop.getDesktop().browse(URI.create(this.authUrl));
-    System.out.println("Waiting for redirect to " + redirectUrl);
     Map<String, String> params = handler.getParams();
     httpServer.stop(0);
     return exchangeCallbackParameters(params);

@@ -2,6 +2,7 @@ package com.databricks.sdk.client.oauth;
 
 import com.databricks.sdk.client.CredentialsProvider;
 import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.client.DatabricksException;
 import com.databricks.sdk.client.HeaderFactory;
 import java.io.IOException;
 import java.util.HashMap;
@@ -25,13 +26,8 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
       OAuthClient client = new OAuthClient(config);
       Consent consent = client.initiateConsent();
       RefreshableCredentials creds = consent.launchExternalBrowser();
-      return () -> {
-        Token token = creds.getToken();
-        Map<String, String> headers = new HashMap<>();
-        headers.put(HttpHeaders.AUTHORIZATION, token.getTokenType() + " " + token.getAccessToken());
-        return headers;
-      };
-    } catch (IOException e) {
+      return creds.configure(config);
+    } catch (IOException | DatabricksException e) {
       return null;
     }
   }

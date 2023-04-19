@@ -74,16 +74,16 @@ public class OAuthClient {
   }
 
   private final String clientId;
+  private final String clientSecret;
+  private final String host;
   private final String redirectUrl;
   private final List<String> scopes;
-  private final String clientSecret;
-  private final boolean isAws;
-  private final boolean isAzure;
   private final String tokenUrl;
   private final String authUrl;
   private final HttpClient hc;
-  private final String host;
   private final SecureRandom random = new SecureRandom();
+  private final boolean isAws;
+  private final boolean isAzure;
 
   public OAuthClient(DatabricksConfig config) throws IOException {
     this(
@@ -96,14 +96,12 @@ public class OAuthClient {
   }
 
   private OAuthClient(Builder b) throws IOException {
-    List<String> scopes = b.scopes;
     this.clientId = Objects.requireNonNull(b.clientId);
     this.clientSecret = b.clientSecret;
     this.redirectUrl = Objects.requireNonNull(b.redirectUrl);
     this.host = b.host;
     this.hc = b.hc;
 
-    // Derive other fields from
     DatabricksConfig config = new DatabricksConfig().setHost(b.host).resolve();
     OpenIDConnectEndpoints oidc = config.getOidcEndpoints();
     if (oidc == null) {
@@ -115,6 +113,7 @@ public class OAuthClient {
     this.tokenUrl = oidc.getTokenEndpoint();
     this.authUrl = oidc.getAuthorizationEndpoint();
 
+    List<String> scopes = b.scopes;
     if (scopes == null) {
       scopes = Arrays.asList("offline_access", "clusters", "sql");
     }
