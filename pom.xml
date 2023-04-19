@@ -7,8 +7,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>databricks-sdk-java</module>
-    <module>spring-boot-oauth-u2m-demo</module>
-    <module>cli-oauth-u2m-demo</module>
   </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

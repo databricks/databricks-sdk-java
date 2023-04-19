@@ -1,53 +1,50 @@
 package com.databricks.sdk;
 
 import com.databricks.sdk.client.DatabricksConfig;
-import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.oauth.Consent;
 import com.databricks.sdk.client.oauth.OAuthClient;
 import com.databricks.sdk.client.oauth.RefreshableCredentials;
 import com.databricks.sdk.service.clusters.ClusterInfo;
-import com.databricks.sdk.service.oauth2.CreateCustomAppIntegration;
 import com.databricks.sdk.service.oauth2.CreateCustomAppIntegrationOutput;
 import com.databricks.sdk.service.oauth2.CreateOAuthEnrollment;
 import com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus;
-import com.databricks.sdk.service.sql.AccessControl;
-import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @Controller
-public class HelloController {
+public class RootController {
   @Autowired
   private HttpClient hc;
-  // Initialized by initializeApp()
-  private OAuthClient client;
-  // Initialized by callback()
-  private DatabricksWorkspace workspace;
-
-  @Autowired
-  private AppConfig config;
 
   @Autowired
   private ObjectMapper mapper;
 
+  // Initialized by initializeApp(). This should be initialized in a more Spring-friendly way.
+  private OAuthClient client;
+  // Initialized by callback(). This should be initialized in a more Spring-friendly way.
+  private DatabricksWorkspace workspace;
+
+  @Value("${server.port}")
+  private int serverPort;
+
   private String getRedirectUrl() {
-    return "http://localhost:" + config.getServerPort() + "/callback";
+    return "http://localhost:" + serverPort + "/callback";
   }
 
   @GetMapping("/")
@@ -63,7 +60,6 @@ public class HelloController {
     }
     return "index";
   }
-
 
   @GetMapping("/setup")
   public String setupOAuthApplication(Model model) {
@@ -85,19 +81,28 @@ public class HelloController {
     return "redirect:/";
   }
 
+  private String getAccountsHost(String cloud) {
+    switch (cloud) {
+      case "aws": return "https://accounts.cloud.databricks.com";
+      case "azure": return "https://accounts.azuredatabricks.net";
+      case "gcp": return "https://accounts.gcp.databricks.com";
+    }
+    throw new RuntimeException("Unexpected cloud: " + cloud);
+  }
+
   @PostMapping("/make-new-app")
   public String makeNewApp(
       @RequestParam String username,
       @RequestParam String password,
+      @RequestParam String cloud,
+      @RequestParam("account_id") String accountId,
       @RequestParam String hostname) throws IOException {
-    DatabricksConfig c = new DatabricksConfig();
-    c.setUsername(username);
-    c.setPassword(password);
-    c.setHost("https://accounts.cloud.databricks.com");
-    c.setAccountId("4d9d3bc8-66c3-4e5a-8a0a-551f564257f0");
-    c.setDebugHeaders(true);
-    c.resolve();
-    c.setHttpClient(hc);
+    DatabricksConfig c = new DatabricksConfig()
+        .setUsername(username)
+        .setPassword(password)
+        .setHost(getAccountsHost(cloud))
+        .setAccountId(accountId)
+        .setHttpClient(hc);
     DatabricksAccount account = new DatabricksAccount(c);
     account.oAuthEnrollment().create(new CreateOAuthEnrollment().setEnableAllPublishedApps(true));
     OAuthEnrollmentStatus status = account.oAuthEnrollment().get();
@@ -108,20 +113,15 @@ public class HelloController {
   }
 
   @GetMapping("/authenticate")
-  public String authenticate(HttpSession session, Model model) throws JsonProcessingException {
+  public String authenticate(HttpSession session, Model model) throws MalformedURLException, JsonProcessingException {
     if (client == null) {
       model.addAttribute("authError", "Client is not yet initialized. Please login first.");
       return index(session, model);
     }
 
-    return "forward:/authRedirect";
-  }
-
-  @GetMapping("/authRedirect")
-  public void authRedirect(HttpSession session, HttpServletResponse resp) throws IOException {
     Consent consent = client.initiateConsent();
     session.setAttribute("consent", consent);
-    resp.sendRedirect(consent.getAuthUrl());
+    return "redirect:" + consent.getAuthUrl();
   }
 
   @GetMapping("/callback")
@@ -139,7 +139,7 @@ public class HelloController {
   @GetMapping("/list-clusters")
   public String listClusters(Model model) {
     Iterable<ClusterInfo> clustersIterable = workspace.clusters().list(new com.databricks.sdk.service.clusters.List());
-    List<String> clusterStrings = new ArrayList<String>();
+    List<String> clusterStrings = new ArrayList<>();
     clustersIterable.forEach(c -> clusterStrings.add(c.getClusterName()));
     model.addAttribute("strings", clusterStrings);
     return "list-clusters";

@@ -23,8 +23,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class Consent implements Serializable {
-  private static final Logger LOG = LoggerFactory.getLogger(Consent.class.getName());
   private static final Long serialVersionUID = -3832904096215095559L;
+  private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
+
+  // Not serialized
+  private transient HttpClient hc;
+  private final String authUrl;
+  private final String verifier;
+  private final String state;
+  private final String tokenUrl;
+  private final String redirectUrl;
+  private final String clientId;
+  private final String clientSecret;
 
   public static class Builder {
     private HttpClient hc = new CommonsHttpClient(30);
@@ -81,8 +91,6 @@ public class Consent implements Serializable {
     }
   }
 
-  // Not serialized
-  private transient HttpClient hc;
 
   public String getAuthUrl() {
     return authUrl;
@@ -112,14 +120,6 @@ public class Consent implements Serializable {
     return clientSecret;
   }
 
-  private final String authUrl;
-  private final String verifier;
-  private final String state;
-  private final String tokenUrl;
-  private final String redirectUrl;
-  private final String clientId;
-  private final String clientSecret;
-
   private Consent(Builder builder) {
     this.hc = Objects.requireNonNull(builder.hc);
     this.authUrl = Objects.requireNonNull(builder.authUrl);
@@ -132,12 +132,8 @@ public class Consent implements Serializable {
     this.clientSecret = builder.clientSecret;
   }
 
-  public Consent setHttpClient(HttpClient hc) {
-    this.hc = hc;
-    return this;
-  }
-
   static class CallbackResponseHandler implements HttpHandler {
+    private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
     // Protects params
     private final Object lock = new Object();
     private volatile Map<String, String> params;
@@ -150,9 +146,9 @@ public class Consent implements Serializable {
       String body =
           IOUtils.toString(Objects.requireNonNull(failureRespStream), StandardCharsets.UTF_8);
       Map<String, String> replacements = new HashMap<>();
-      replacements.put("code", String.valueOf(statusCode));
-      replacements.put("message", message);
-      replacements.put("explain", description);
+      replacements.put("{{code}}", String.valueOf(statusCode));
+      replacements.put("{{message}}", message);
+      replacements.put("{{explain}}", description);
       for (Map.Entry<String, String> e : replacements.entrySet()) {
         body = body.replaceAll(e.getKey(), e.getValue());
       }
@@ -164,7 +160,7 @@ public class Consent implements Serializable {
 
       OutputStream out = exchange.getResponseBody();
       out.write(body.getBytes(StandardCharsets.UTF_8));
-      out.close();
+      exchange.close();
     }
 
     private void sendSuccess(HttpExchange exchange) throws IOException {

@@ -15,10 +15,6 @@ public class DatabricksConfig {
 
   public static final String DEFAULT_CONFIG_FILE = "~/.databrickscfg";
 
-  public void setCredentialsProvider(CredentialsProvider credentialsProvider) {
-    this.credentialsProvider = credentialsProvider;
-  }
-
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(value = "host", env = "DATABRICKS_HOST")
@@ -187,6 +183,11 @@ public class DatabricksConfig {
 
   public CredentialsProvider getCredentialsProvider() {
     return this.credentialsProvider;
+  }
+
+  public DatabricksConfig setCredentialsProvider(CredentialsProvider credentialsProvider) {
+    this.credentialsProvider = credentialsProvider;
+    return this;
   }
 
   public String getHost() {
