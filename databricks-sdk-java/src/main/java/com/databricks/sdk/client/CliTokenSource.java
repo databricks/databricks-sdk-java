@@ -40,9 +40,9 @@ public class CliTokenSource extends RefreshableTokenSource {
     this.getAllEnv = getAllEnv;
   }
 
-  // TODO - different for bricks vs azure
+  // tanmayTODO - different for bricks vs azure
   private static LocalDateTime parseExpiry(String expiry) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
     return dateTime;
   }
@@ -66,7 +66,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       LocalDateTime expiresOn = parseExpiry(expiry);
       return new Token(accessToken, tokenType, expiresOn);
     } catch (InterruptedException | IOException e) {
-      throw new DatabricksException("Error executing command: " + e.getMessage(), e);
+      throw new DatabricksException("cannot get access token: " + e.getMessage(), e);
     }
   }
 }

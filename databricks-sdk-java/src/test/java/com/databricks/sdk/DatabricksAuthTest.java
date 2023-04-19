@@ -287,7 +287,7 @@ public class DatabricksAuthTest {
   public void testTestConfigAzureCliHost() {
     // Set environment variables
     StaticEnv env =
-            new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", prefixPath + "testdata" + ":/bin");
+            new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", prefixPath + "testdata:/bin");
     DatabricksConfig config =
         new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws").resolve(env);
     config.authenticate();
@@ -304,7 +304,7 @@ public class DatabricksAuthTest {
         new StaticEnv()
             .with("FAIL", "yes")
             .with("HOME", resource("/testdata/azure"))
-            .with("PATH", "testdata:/bin");
+            .with("PATH", prefixPath + "testdata:/bin");
     raises(
         "default auth: azure-cli: cannot get access token: This is just a failing script.\n. Config: azure_workspace_resource_id=/sub/rg/ws",
         () -> {

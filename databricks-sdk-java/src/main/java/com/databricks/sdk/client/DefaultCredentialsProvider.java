@@ -35,6 +35,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             "Ignoring {} auth, because {} is preferred", provider.authType(), config.getAuthType());
         continue;
       }
+      // tanmaytodo - try catch?
       HeaderFactory headerFactory = provider.configure(config);
       if (headerFactory == null) {
         continue;
