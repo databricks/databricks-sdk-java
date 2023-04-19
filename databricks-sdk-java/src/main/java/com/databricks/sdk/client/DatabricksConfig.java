@@ -133,20 +133,12 @@ public class DatabricksConfig {
 
   private HttpClient httpClient;
 
-  Function<String, String> getEnv;
   private Map<String, String> allEnv;
 
   public Map<String, String> getAllEnv() {
     return allEnv;
   }
 
-  public Function<String, String> getEnv() {
-    return this.getEnv;
-  }
-
-  public void setEnv(Function<String, String> getEnv) {
-    this.getEnv = getEnv;
-  }
   public synchronized DatabricksConfig resolve() {
     resolve(() -> System.getenv());
     return this;
