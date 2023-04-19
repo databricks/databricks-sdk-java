@@ -56,18 +56,18 @@ public class DatabricksAccount {
   private CredentialsAPI credentialsAPI;
   private CustomAppIntegrationAPI customAppIntegrationAPI;
   private EncryptionKeysAPI encryptionKeysAPI;
-  private AccountGroupsAPI accountGroupsAPI;
+  private AccountGroupsAPI groupsAPI;
   private LogDeliveryAPI logDeliveryAPI;
-  private AccountMetastoreAssignmentsAPI accountMetastoreAssignmentsAPI;
-  private AccountMetastoresAPI accountMetastoresAPI;
+  private AccountMetastoreAssignmentsAPI metastoreAssignmentsAPI;
+  private AccountMetastoresAPI metastoresAPI;
   private NetworksAPI networksAPI;
   private OAuthEnrollmentAPI oAuthEnrollmentAPI;
   private PrivateAccessAPI privateAccessAPI;
   private PublishedAppIntegrationAPI publishedAppIntegrationAPI;
-  private AccountServicePrincipalsAPI accountServicePrincipalsAPI;
+  private AccountServicePrincipalsAPI servicePrincipalsAPI;
   private StorageAPI storageAPI;
-  private AccountStorageCredentialsAPI accountStorageCredentialsAPI;
-  private AccountUsersAPI accountUsersAPI;
+  private AccountStorageCredentialsAPI storageCredentialsAPI;
+  private AccountUsersAPI usersAPI;
   private VpcEndpointsAPI vpcEndpointsAPI;
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
   private WorkspacesAPI workspacesAPI;
@@ -85,18 +85,18 @@ public class DatabricksAccount {
     credentialsAPI = new CredentialsAPI(apiClient);
     customAppIntegrationAPI = new CustomAppIntegrationAPI(apiClient);
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
-    accountGroupsAPI = new AccountGroupsAPI(apiClient);
+    groupsAPI = new AccountGroupsAPI(apiClient);
     logDeliveryAPI = new LogDeliveryAPI(apiClient);
-    accountMetastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(apiClient);
-    accountMetastoresAPI = new AccountMetastoresAPI(apiClient);
+    metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(apiClient);
+    metastoresAPI = new AccountMetastoresAPI(apiClient);
     networksAPI = new NetworksAPI(apiClient);
     oAuthEnrollmentAPI = new OAuthEnrollmentAPI(apiClient);
     privateAccessAPI = new PrivateAccessAPI(apiClient);
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(apiClient);
-    accountServicePrincipalsAPI = new AccountServicePrincipalsAPI(apiClient);
+    servicePrincipalsAPI = new AccountServicePrincipalsAPI(apiClient);
     storageAPI = new StorageAPI(apiClient);
-    accountStorageCredentialsAPI = new AccountStorageCredentialsAPI(apiClient);
-    accountUsersAPI = new AccountUsersAPI(apiClient);
+    storageCredentialsAPI = new AccountStorageCredentialsAPI(apiClient);
+    usersAPI = new AccountUsersAPI(apiClient);
     vpcEndpointsAPI = new VpcEndpointsAPI(apiClient);
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(apiClient);
     workspacesAPI = new WorkspacesAPI(apiClient);
@@ -174,8 +174,8 @@ public class DatabricksAccount {
    * assigned as members of groups, and members inherit permissions that are assigned to their
    * group.
    */
-  public AccountGroupsAPI accountGroups() {
-    return accountGroupsAPI;
+  public AccountGroupsAPI groups() {
+    return groupsAPI;
   }
 
   /**
@@ -240,16 +240,16 @@ public class DatabricksAccount {
   }
 
   /** These APIs manage metastore assignments to a workspace. */
-  public AccountMetastoreAssignmentsAPI accountMetastoreAssignments() {
-    return accountMetastoreAssignmentsAPI;
+  public AccountMetastoreAssignmentsAPI metastoreAssignments() {
+    return metastoreAssignmentsAPI;
   }
 
   /**
    * These APIs manage Unity Catalog metastores for an account. A metastore contains catalogs that
    * can be associated with workspaces
    */
-  public AccountMetastoresAPI accountMetastores() {
-    return accountMetastoresAPI;
+  public AccountMetastoresAPI metastores() {
+    return metastoresAPI;
   }
 
   /**
@@ -305,8 +305,8 @@ public class DatabricksAccount {
    * interactive users do not need any write, delete, or modify privileges in production. This
    * eliminates the risk of a user overwriting production data by accident.
    */
-  public AccountServicePrincipalsAPI accountServicePrincipals() {
-    return accountServicePrincipalsAPI;
+  public AccountServicePrincipalsAPI servicePrincipals() {
+    return servicePrincipalsAPI;
   }
 
   /**
@@ -321,8 +321,8 @@ public class DatabricksAccount {
   }
 
   /** These APIs manage storage credentials for a particular metastore. */
-  public AccountStorageCredentialsAPI accountStorageCredentials() {
-    return accountStorageCredentialsAPI;
+  public AccountStorageCredentialsAPI storageCredentials() {
+    return storageCredentialsAPI;
   }
 
   /**
@@ -336,8 +336,8 @@ public class DatabricksAccount {
    * user’s account will also be removed from Databricks Account. This ensures a consistent
    * offboarding process and prevents unauthorized users from accessing sensitive data.
    */
-  public AccountUsersAPI accountUsers() {
-    return accountUsersAPI;
+  public AccountUsersAPI users() {
+    return usersAPI;
   }
 
   /**
@@ -409,8 +409,8 @@ public class DatabricksAccount {
   }
 
   /** Override AccountGroupsAPI with mock */
-  public DatabricksAccount withAccountGroupsImpl(AccountGroupsService accountGroups) {
-    accountGroupsAPI = new AccountGroupsAPI(accountGroups);
+  public DatabricksAccount withGroupsImpl(AccountGroupsService accountGroups) {
+    groupsAPI = new AccountGroupsAPI(accountGroups);
     return this;
   }
 
@@ -421,16 +421,15 @@ public class DatabricksAccount {
   }
 
   /** Override AccountMetastoreAssignmentsAPI with mock */
-  public DatabricksAccount withAccountMetastoreAssignmentsImpl(
+  public DatabricksAccount withMetastoreAssignmentsImpl(
       AccountMetastoreAssignmentsService accountMetastoreAssignments) {
-    accountMetastoreAssignmentsAPI =
-        new AccountMetastoreAssignmentsAPI(accountMetastoreAssignments);
+    metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(accountMetastoreAssignments);
     return this;
   }
 
   /** Override AccountMetastoresAPI with mock */
-  public DatabricksAccount withAccountMetastoresImpl(AccountMetastoresService accountMetastores) {
-    accountMetastoresAPI = new AccountMetastoresAPI(accountMetastores);
+  public DatabricksAccount withMetastoresImpl(AccountMetastoresService accountMetastores) {
+    metastoresAPI = new AccountMetastoresAPI(accountMetastores);
     return this;
   }
 
@@ -460,9 +459,9 @@ public class DatabricksAccount {
   }
 
   /** Override AccountServicePrincipalsAPI with mock */
-  public DatabricksAccount withAccountServicePrincipalsImpl(
+  public DatabricksAccount withServicePrincipalsImpl(
       AccountServicePrincipalsService accountServicePrincipals) {
-    accountServicePrincipalsAPI = new AccountServicePrincipalsAPI(accountServicePrincipals);
+    servicePrincipalsAPI = new AccountServicePrincipalsAPI(accountServicePrincipals);
     return this;
   }
 
@@ -473,15 +472,15 @@ public class DatabricksAccount {
   }
 
   /** Override AccountStorageCredentialsAPI with mock */
-  public DatabricksAccount withAccountStorageCredentialsImpl(
+  public DatabricksAccount withStorageCredentialsImpl(
       AccountStorageCredentialsService accountStorageCredentials) {
-    accountStorageCredentialsAPI = new AccountStorageCredentialsAPI(accountStorageCredentials);
+    storageCredentialsAPI = new AccountStorageCredentialsAPI(accountStorageCredentials);
     return this;
   }
 
   /** Override AccountUsersAPI with mock */
-  public DatabricksAccount withAccountUsersImpl(AccountUsersService accountUsers) {
-    accountUsersAPI = new AccountUsersAPI(accountUsers);
+  public DatabricksAccount withUsersImpl(AccountUsersService accountUsers) {
+    usersAPI = new AccountUsersAPI(accountUsers);
     return this;
   }
 

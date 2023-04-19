@@ -18,6 +18,10 @@ public class ClustersExt extends ClustersAPI {
     super(apiClient);
   }
 
+  public ClustersExt(ClustersService mock) {
+    super(mock);
+  }
+
   public String selectSparkVersion(SparkVersionSelector selector) throws IllegalArgumentException {
     // Logic ported from
     // https://github.com/databricks/databricks-sdk-go/blob/main/service/clusters/spark_version.go

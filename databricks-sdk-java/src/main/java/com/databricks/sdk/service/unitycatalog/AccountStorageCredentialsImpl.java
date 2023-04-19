@@ -17,7 +17,8 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   public StorageCredentialInfo create(CreateStorageCredential request) {
     String path =
         String.format(
-            "/api/2.0/accounts//metastores/%s/storage-credentials", request.getMetastoreId());
+            "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
+            apiClient.configuredAccountID(), request.getMetastoreId());
     return apiClient.POST(path, request, StorageCredentialInfo.class);
   }
 
@@ -25,7 +26,8 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   public StorageCredentialInfo get(GetAccountStorageCredentialRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts//metastores/%s/storage-credentials/", request.getMetastoreId());
+            "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
+            apiClient.configuredAccountID(), request.getMetastoreId());
     return apiClient.GET(path, request, StorageCredentialInfo.class);
   }
 
@@ -33,7 +35,8 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   public Collection<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts//metastores/%s/storage-credentials", request.getMetastoreId());
+            "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
+            apiClient.configuredAccountID(), request.getMetastoreId());
     return apiClient.GET(path, request, Collection.class);
   }
 }

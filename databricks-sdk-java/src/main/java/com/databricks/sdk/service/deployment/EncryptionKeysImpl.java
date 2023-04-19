@@ -15,7 +15,9 @@ class EncryptionKeysImpl implements EncryptionKeysService {
 
   @Override
   public CustomerManagedKey create(CreateCustomerManagedKeyRequest request) {
-    String path = String.format("/api/2.0/accounts//customer-managed-keys");
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/customer-managed-keys", apiClient.configuredAccountID());
     return apiClient.POST(path, request, CustomerManagedKey.class);
   }
 
@@ -23,7 +25,8 @@ class EncryptionKeysImpl implements EncryptionKeysService {
   public void delete(DeleteEncryptionKeyRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts//customer-managed-keys/%s", request.getCustomerManagedKeyId());
+            "/api/2.0/accounts/%s/customer-managed-keys/%s",
+            apiClient.configuredAccountID(), request.getCustomerManagedKeyId());
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -31,13 +34,16 @@ class EncryptionKeysImpl implements EncryptionKeysService {
   public CustomerManagedKey get(GetEncryptionKeyRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts//customer-managed-keys/%s", request.getCustomerManagedKeyId());
+            "/api/2.0/accounts/%s/customer-managed-keys/%s",
+            apiClient.configuredAccountID(), request.getCustomerManagedKeyId());
     return apiClient.GET(path, request, CustomerManagedKey.class);
   }
 
   @Override
   public Collection<CustomerManagedKey> list() {
-    String path = String.format("/api/2.0/accounts//customer-managed-keys");
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/customer-managed-keys", apiClient.configuredAccountID());
     return apiClient.GET(path, Collection.class);
   }
 }

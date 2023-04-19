@@ -15,25 +15,31 @@ class NetworksImpl implements NetworksService {
 
   @Override
   public Network create(CreateNetworkRequest request) {
-    String path = String.format("/api/2.0/accounts//networks");
+    String path = String.format("/api/2.0/accounts/%s/networks", apiClient.configuredAccountID());
     return apiClient.POST(path, request, Network.class);
   }
 
   @Override
   public void delete(DeleteNetworkRequest request) {
-    String path = String.format("/api/2.0/accounts//networks/%s", request.getNetworkId());
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/networks/%s",
+            apiClient.configuredAccountID(), request.getNetworkId());
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public Network get(GetNetworkRequest request) {
-    String path = String.format("/api/2.0/accounts//networks/%s", request.getNetworkId());
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/networks/%s",
+            apiClient.configuredAccountID(), request.getNetworkId());
     return apiClient.GET(path, request, Network.class);
   }
 
   @Override
   public Collection<Network> list() {
-    String path = String.format("/api/2.0/accounts//networks");
+    String path = String.format("/api/2.0/accounts/%s/networks", apiClient.configuredAccountID());
     return apiClient.GET(path, Collection.class);
   }
 }

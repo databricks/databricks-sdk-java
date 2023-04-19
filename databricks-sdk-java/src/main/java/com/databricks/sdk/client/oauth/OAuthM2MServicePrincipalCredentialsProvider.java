@@ -55,7 +55,7 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
               .build();
 
       return () -> {
-        Token token = tokenSource.refresh();
+        Token token = tokenSource.getToken();
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
         return headers;

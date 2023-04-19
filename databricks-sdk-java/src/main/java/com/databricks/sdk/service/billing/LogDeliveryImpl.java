@@ -14,7 +14,8 @@ class LogDeliveryImpl implements LogDeliveryService {
 
   @Override
   public WrappedLogDeliveryConfiguration create(WrappedCreateLogDeliveryConfiguration request) {
-    String path = String.format("/api/2.0/accounts//log-delivery");
+    String path =
+        String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
     return apiClient.POST(path, request, WrappedLogDeliveryConfiguration.class);
   }
 
@@ -22,13 +23,15 @@ class LogDeliveryImpl implements LogDeliveryService {
   public WrappedLogDeliveryConfiguration get(GetLogDeliveryRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts//log-delivery/%s", request.getLogDeliveryConfigurationId());
+            "/api/2.0/accounts/%s/log-delivery/%s",
+            apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
     return apiClient.GET(path, request, WrappedLogDeliveryConfiguration.class);
   }
 
   @Override
   public WrappedLogDeliveryConfigurations list(ListLogDeliveryRequest request) {
-    String path = String.format("/api/2.0/accounts//log-delivery");
+    String path =
+        String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
     return apiClient.GET(path, request, WrappedLogDeliveryConfigurations.class);
   }
 
@@ -36,7 +39,8 @@ class LogDeliveryImpl implements LogDeliveryService {
   public void patchStatus(UpdateLogDeliveryConfigurationStatusRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts//log-delivery/%s", request.getLogDeliveryConfigurationId());
+            "/api/2.0/accounts/%s/log-delivery/%s",
+            apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
     apiClient.PATCH(path, request, Void.class);
   }
 }
