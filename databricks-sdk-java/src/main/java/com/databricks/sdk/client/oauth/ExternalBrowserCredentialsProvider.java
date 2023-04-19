@@ -5,9 +5,6 @@ import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.client.DatabricksException;
 import com.databricks.sdk.client.HeaderFactory;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import org.apache.http.HttpHeaders;
 
 /**
  * A {@code CredentialsProvider} which implements the Authorization Code + PKCE flow by opening a
