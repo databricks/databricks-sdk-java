@@ -2,6 +2,11 @@ package com.databricks.sdk.client;
 
 import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.http.HttpClient;
+import com.databricks.sdk.client.http.Request;
+import com.databricks.sdk.client.http.Response;
+import com.databricks.sdk.client.oauth.OpenIDConnectEndpoints;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.Map;
 import java.util.function.Function;
 import org.apache.http.HttpMessage;
@@ -178,6 +183,11 @@ public class DatabricksConfig {
 
   public CredentialsProvider getCredentialsProvider() {
     return this.credentialsProvider;
+  }
+
+  public DatabricksConfig setCredentialsProvider(CredentialsProvider credentialsProvider) {
+    this.credentialsProvider = credentialsProvider;
+    return this;
   }
 
   public String getHost() {
@@ -435,6 +445,33 @@ public class DatabricksConfig {
 
   public boolean isAws() {
     return !isAzure() && !isGcp();
+  }
+
+  public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
+    if (getHost() == null) {
+      return null;
+    }
+    if (isAzure()) {
+      Response resp =
+          getHttpClient().execute(new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize"));
+      String realAuthUrl = resp.getFirstHeader("location");
+      if (realAuthUrl == null) {
+        return null;
+      }
+      return new OpenIDConnectEndpoints(
+          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
+    }
+    if (getAccountId() != null) {
+      String prefix = getHost() + "/oidc/accounts/" + getAccountId();
+      return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
+    }
+
+    String oidcEndpoint = getHost() + "/oidc/.well-known/oauth-authorization-server";
+    Response resp = getHttpClient().execute(new Request("GET", oidcEndpoint));
+    if (resp.getStatusCode() != 200) {
+      return null;
+    }
+    return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
   }
 
   @Override
