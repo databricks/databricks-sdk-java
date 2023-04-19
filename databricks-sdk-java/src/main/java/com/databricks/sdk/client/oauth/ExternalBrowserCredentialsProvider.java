@@ -3,16 +3,14 @@ package com.databricks.sdk.client.oauth;
 import com.databricks.sdk.client.CredentialsProvider;
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.client.HeaderFactory;
-import org.apache.http.HttpHeaders;
-
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.http.HttpHeaders;
 
 /**
- * A {@code CredentialsProvider} which implements the Authorization Code + PKCE flow by opening a browser for the user
- * to authorize the application.
+ * A {@code CredentialsProvider} which implements the Authorization Code + PKCE flow by opening a
+ * browser for the user to authorize the application.
  */
 public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 

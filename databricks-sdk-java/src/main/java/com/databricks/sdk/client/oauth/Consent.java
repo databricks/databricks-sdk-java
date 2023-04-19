@@ -23,27 +23,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Consent provides a mechanism to retrieve an authorization code and exchange it for an OAuth token using the
- * Authorization Code + PKCE flow.
+ * Consent provides a mechanism to retrieve an authorization code and exchange it for an OAuth token
+ * using the Authorization Code + PKCE flow.
  *
- * <p>
- * This class is typically instantiated using an instane of {@code OAuthClient}:
- * <pre>
- * {@code
+ * <p>This class is typically instantiated using an instane of {@code OAuthClient}:
+ *
+ * <pre>{@code
  * OAuthClient client = ...;
  * Consent consent = client.initiateConsent();
- * }
- * </pre>
+ * }</pre>
  *
- * <p>
- * Web applications or SPAs would redirect a user to the URL returned by {@code getAuthUrl()} method and implement a
- * callback handler which calls {@code exchangeCallbackParameters()} with the query parameters from the callback to
- * exchange the authorization code for OAuth credentials.
+ * <p>Web applications or SPAs would redirect a user to the URL returned by {@code getAuthUrl()}
+ * method and implement a callback handler which calls {@code exchangeCallbackParameters()} with the
+ * query parameters from the callback to exchange the authorization code for OAuth credentials.
  *
- * <p>
- * Native applications can call the {@code launchExternalBrowser()} method to open the user's browser to navigate to the
- * authorization page for the current application. A short-lived HTTP server is launched to listen to the callback, and
- * on success, the browser page is closed and the authorization code is collected and exchanged for an OAuth token.
+ * <p>Native applications can call the {@code launchExternalBrowser()} method to open the user's
+ * browser to navigate to the authorization page for the current application. A short-lived HTTP
+ * server is launched to listen to the callback, and on success, the browser page is closed and the
+ * authorization code is collected and exchanged for an OAuth token.
  */
 public class Consent implements Serializable {
   private static final Long serialVersionUID = -3832904096215095559L;
@@ -172,6 +169,7 @@ public class Consent implements Serializable {
         LOG.error("Unable to handle callback request", e);
       }
     }
+
     public void handleInner(HttpExchange exchange) throws IOException {
       if (!exchange.getRequestMethod().equals("GET")) {
         sendError(
@@ -263,6 +261,7 @@ public class Consent implements Serializable {
 
   /**
    * Launch a browser to collect an authorization code and exchange the code for an OAuth token.
+   *
    * @return A {@code RefreshableCredentials} instance representing the retrieved OAuth token.
    * @throws IOException if the webserver cannot be started, or if the browser cannot be opened
    */
