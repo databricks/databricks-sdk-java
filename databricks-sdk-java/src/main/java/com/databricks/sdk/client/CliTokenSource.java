@@ -28,8 +28,6 @@ public class CliTokenSource extends RefreshableTokenSource {
       String expiryField,
       Supplier<Map<String, String>> getAllEnv) {
     super(new CommonsHttpClient(30));
-    // TODO: check if it's Windows and set "cmd.exe", "/c" instead of "/bin/sh", "-c"
-    // See: https://stackoverflow.com/a/34061154/16597007
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
     } else {
@@ -41,7 +39,7 @@ public class CliTokenSource extends RefreshableTokenSource {
     this.getAllEnv = getAllEnv;
   }
 
-  // tanmayTODO - different for bricks vs azure
+  // TODO - different for bricks vs azure - verify
   private static LocalDateTime parseExpiry(String expiry) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
