@@ -6,6 +6,8 @@ import com.databricks.sdk.client.oauth.RefreshableTokenSource;
 import com.databricks.sdk.client.oauth.Token;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -32,7 +34,7 @@ public class CliTokenSource extends RefreshableTokenSource {
     super(new CommonsHttpClient(30));
     // TODO: check if it's Windows and set "cmd.exe", "/c" instead of "/bin/sh", "-c"
     // See: https://stackoverflow.com/a/34061154/16597007
-    if(System.getProperty("os.name").startsWith("Windows")) {
+    if(System.getProperty("os.name").toLowerCase().startsWith("win")) {
       this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
     } else {
       this.cmd = Arrays.asList("/bin/sh", "-c", cmd.stream().collect(Collectors.joining(" ")));
@@ -60,7 +62,12 @@ public class CliTokenSource extends RefreshableTokenSource {
       String stderr = new String(process.getErrorStream().readAllBytes());
       int exitCode = process.waitFor();
       if (exitCode != 0) {
-        throw new IOException(stderr);
+        if (stderr.contains("command not found")) {
+          // Log file not found
+          throw new DatabricksException(stderr);
+        } else{
+          throw new IOException(stderr);
+        }
       }
       JsonNode jsonNode = new ObjectMapper().readTree(stdout);
       String tokenType = jsonNode.get(tokenTypeField).asText();
@@ -68,7 +75,10 @@ public class CliTokenSource extends RefreshableTokenSource {
       String expiry = jsonNode.get(expiryField).asText();
       LocalDateTime expiresOn = parseExpiry(expiry);
       return new Token(accessToken, tokenType, expiresOn);
-    } catch (InterruptedException | IOException e) {
+    } catch (DatabricksException e) {
+      throw e;
+    }
+    catch (InterruptedException | IOException e) {
       throw new DatabricksException("cannot get access token: " + e.getMessage(), e);
     }
   }

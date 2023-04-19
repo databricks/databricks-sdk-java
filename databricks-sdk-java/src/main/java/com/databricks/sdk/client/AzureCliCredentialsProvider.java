@@ -40,7 +40,9 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
       Map<String, String> headers = new HashMap<>();
       headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
       return () -> headers;
-    } catch (DatabricksException e) {
+    }
+    catch (DatabricksException e) {
+      if(e.getMessage().contains("command not found")) return null;
       throw e;
     }
     catch (Exception e) { // TODO: FileNotFoundException
