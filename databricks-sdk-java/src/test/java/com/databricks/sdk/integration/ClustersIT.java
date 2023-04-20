@@ -9,7 +9,7 @@ import com.databricks.sdk.integration.framework.EnvOrSkip;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.mixin.NodeTypeSelector;
 import com.databricks.sdk.mixin.SparkVersionSelector;
-import com.databricks.sdk.service.clusters.ClusterEvent;
+import com.databricks.sdk.service.compute.ClusterEvent;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.Test;

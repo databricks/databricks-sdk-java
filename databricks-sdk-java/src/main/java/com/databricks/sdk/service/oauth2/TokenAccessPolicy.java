@@ -9,29 +9,27 @@ import java.util.Objects;
 public class TokenAccessPolicy {
   /** access token time to live in minutes */
   @JsonProperty("access_token_ttl_in_minutes")
-  private Object /* MISSING TYPE */ accessTokenTtlInMinutes;
+  private Long accessTokenTtlInMinutes;
 
   /** refresh token time to live in minutes */
   @JsonProperty("refresh_token_ttl_in_minutes")
-  private Object /* MISSING TYPE */ refreshTokenTtlInMinutes;
+  private Long refreshTokenTtlInMinutes;
 
-  public TokenAccessPolicy setAccessTokenTtlInMinutes(
-      Object /* MISSING TYPE */ accessTokenTtlInMinutes) {
+  public TokenAccessPolicy setAccessTokenTtlInMinutes(Long accessTokenTtlInMinutes) {
     this.accessTokenTtlInMinutes = accessTokenTtlInMinutes;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getAccessTokenTtlInMinutes() {
+  public Long getAccessTokenTtlInMinutes() {
     return accessTokenTtlInMinutes;
   }
 
-  public TokenAccessPolicy setRefreshTokenTtlInMinutes(
-      Object /* MISSING TYPE */ refreshTokenTtlInMinutes) {
+  public TokenAccessPolicy setRefreshTokenTtlInMinutes(Long refreshTokenTtlInMinutes) {
     this.refreshTokenTtlInMinutes = refreshTokenTtlInMinutes;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getRefreshTokenTtlInMinutes() {
+  public Long getRefreshTokenTtlInMinutes() {
     return refreshTokenTtlInMinutes;
   }
 

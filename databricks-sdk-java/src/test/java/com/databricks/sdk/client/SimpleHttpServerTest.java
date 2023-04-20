@@ -3,7 +3,7 @@ package com.databricks.sdk.client;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.DatabricksWorkspace;
-import com.databricks.sdk.service.clusters.ListNodeTypesResponse;
+import com.databricks.sdk.service.compute.ListNodeTypesResponse;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 

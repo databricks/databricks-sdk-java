@@ -3,7 +3,7 @@ package com.databricks.sdk;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import com.databricks.sdk.service.clusters.*;
+import com.databricks.sdk.service.compute.*;
 import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +16,7 @@ public class MockingTest {
 
   @Test
   public void mockingAPI() {
-    when(clustersMock.get(new Get().setClusterId("foo")))
+    when(clustersMock.get(new GetClusterRequest().setClusterId("foo")))
         .thenReturn(new ClusterInfo().setState(State.RUNNING));
 
     ClustersAPI clustersAPI = new ClustersAPI(clustersMock);
@@ -27,7 +27,7 @@ public class MockingTest {
 
   @Test
   public void mockingWorkspaceClient() {
-    when(clustersMock.get(new Get().setClusterId("foo")))
+    when(clustersMock.get(new GetClusterRequest().setClusterId("foo")))
         .thenReturn(new ClusterInfo().setState(State.RUNNING));
 
     DatabricksWorkspace workspace = new DatabricksWorkspace(true).withClustersImpl(clustersMock);
@@ -39,7 +39,7 @@ public class MockingTest {
 
   @Test
   public void mockingMixin() throws TimeoutException {
-    when(clustersMock.get(new Get().setClusterId("foo")))
+    when(clustersMock.get(new GetClusterRequest().setClusterId("foo")))
         .thenReturn(new ClusterInfo().setState(State.RUNNING));
 
     DatabricksWorkspace workspace = new DatabricksWorkspace(true).withClustersImpl(clustersMock);

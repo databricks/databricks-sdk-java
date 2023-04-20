@@ -25,9 +25,9 @@ public interface WorkspaceService {
   void delete(Delete delete);
 
   /**
-   * Export a notebook.
+   * Export a workspace object.
    *
-   * <p>Exports a notebook or the contents of an entire directory.
+   * <p>Exports an object or the contents of an entire directory.
    *
    * <p>If `path` does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    *
@@ -46,11 +46,11 @@ public interface WorkspaceService {
   ObjectInfo getStatus(GetStatus getStatus);
 
   /**
-   * Import a notebook.
+   * Import a workspace object.
    *
-   * <p>Imports a notebook or the contents of an entire directory. If `path` already exists and
-   * `overwrite` is set to `false`, this call returns an error `RESOURCE_ALREADY_EXISTS`. One can
-   * only use `DBC` format to import a directory.
+   * <p>Imports a workspace object (for example, a notebook or file) or the contents of an entire
+   * directory. If `path` already exists and `overwrite` is set to `false`, this call returns an
+   * error `RESOURCE_ALREADY_EXISTS`. One can only use `DBC` format to import a directory.
    */
   void importContent(Import importContent);
 

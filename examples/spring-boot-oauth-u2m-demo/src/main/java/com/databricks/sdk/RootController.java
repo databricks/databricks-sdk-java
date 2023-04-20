@@ -5,7 +5,8 @@ import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.oauth.Consent;
 import com.databricks.sdk.client.oauth.OAuthClient;
 import com.databricks.sdk.client.oauth.RefreshableCredentials;
-import com.databricks.sdk.service.clusters.ClusterInfo;
+import com.databricks.sdk.service.compute.ClusterInfo;
+import com.databricks.sdk.service.compute.ListClustersRequest;
 import com.databricks.sdk.service.oauth2.CreateCustomAppIntegrationOutput;
 import com.databricks.sdk.service.oauth2.CreateOAuthEnrollment;
 import com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus;
@@ -139,7 +140,7 @@ public class RootController {
 
   @GetMapping("/list-clusters")
   public String listClusters(Model model) {
-    Iterable<ClusterInfo> clustersIterable = workspace.clusters().list(new com.databricks.sdk.service.clusters.List());
+    Iterable<ClusterInfo> clustersIterable = workspace.clusters().list(new ListClustersRequest());
     List<String> clusterNames = new ArrayList<>();
     clustersIterable.forEach(c -> clusterNames.add(c.getClusterName()));
     model.addAttribute("clusterNames", clusterNames);
