@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import org.apache.commons.io.IOUtils;
 
 public class CliTokenSource extends RefreshableTokenSource {
   private List<String> cmd;
@@ -64,7 +65,6 @@ public class CliTokenSource extends RefreshableTokenSource {
       int exitCode = process.waitFor();
       if (exitCode != 0) {
         if (stderr.contains("command not found")) {
-          // Log file not found
           throw new DatabricksException(stderr);
         } else {
           throw new IOException(stderr);
