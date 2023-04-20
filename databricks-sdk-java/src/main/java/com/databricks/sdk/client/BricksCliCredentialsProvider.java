@@ -5,8 +5,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class BricksCliCredentialsProvider implements CredentialsProvider {
+
+  private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
+
   public static final String BRICKS_CLI = "bricks-cli";
 
   @Override
@@ -40,19 +45,17 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
       Map<String, String> headers = new HashMap<>();
       headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
       return () -> headers;
-    } catch (
-        Exception
-            e) { // TODO FileNotFoundException - Cannot run program "bricks": error=2, No such file
-      // or directory.
-      throw new DatabricksException(
-          String.format("Most likely Bricks CLI is not installed. Exception: %s", e.getMessage()));
+    } catch (DatabricksException e) {
+      String stderr = e.getMessage();
+      if (stderr.contains("command not found")) {
+        LOG.info("Most likely Bricks CLI is not installed");
+        return null;
+      }
+      if (stderr.contains("databricks OAuth is not")) {
+        LOG.info("OAuth not configured or not available");
+        return null;
+      }
+      throw e;
     }
-    //    catch (Exception e) { //TODO IOException
-    //      String msg = e.getMessage();
-    //      if (msg.contains("databricks OAuth is not")) {
-    //        throw new DatabricksException(
-    //            String.format("OAuth not configured or not available: %s", e.getMessage()));
-    //      }
-    //    }
   }
 }

@@ -39,7 +39,6 @@ public class CliTokenSource extends RefreshableTokenSource {
     this.getAllEnv = getAllEnv;
   }
 
-  // TODO - different for bricks vs azure - verify
   private static LocalDateTime parseExpiry(String expiry) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
@@ -52,9 +51,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(getAllEnv.get());
       Process process = processBuilder.start();
-      String stdout =
-          new String(
-              process.getInputStream().readAllBytes()); // readAllBytes -- set language level to 9
+      String stdout = new String(process.getInputStream().readAllBytes());
       String stderr = new String(process.getErrorStream().readAllBytes());
       int exitCode = process.waitFor();
       if (exitCode != 0) {

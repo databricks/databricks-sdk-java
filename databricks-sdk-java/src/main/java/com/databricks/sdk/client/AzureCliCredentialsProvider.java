@@ -6,9 +6,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUtils {
   private final ObjectMapper mapper = new ObjectMapper();
+  private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
 
   public static final String AZURE_CLI = "azure-cli";
 
@@ -39,12 +42,13 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
       headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
       return () -> headers;
     } catch (DatabricksException e) {
-      if (e.getMessage().contains("command not found")) return null;
+      String stderr = e.getMessage();
+      if (stderr.contains("command not found")) {
+        String doc = "https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest";
+        LOG.info(String.format("Most likely Azure CLI is not installed. See %s for details", doc));
+        return null;
+      }
       throw e;
-    } catch (Exception e) { // TODO: FileNotFoundException
-      String doc = "https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest";
-      throw new DatabricksException(
-          String.format("Most likely Azure CLI is not installed. See %s for details", doc));
     }
   }
 }
