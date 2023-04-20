@@ -1,6 +1,5 @@
 package com.databricks.sdk.client;
 
-import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.oauth.RefreshableTokenSource;
 import com.databricks.sdk.client.oauth.Token;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -30,7 +29,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       String accessTokenField,
       String expiryField,
       Supplier<Map<String, String>> getAllEnv) {
-    super(new CommonsHttpClient(30));
+    super();
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
     } else {
