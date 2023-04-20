@@ -92,7 +92,7 @@ public class ClientCredentials extends RefreshableTokenSource {
   }
 
   @Override
-  public Token refresh() {
+  protected Token refresh() {
     Map<String, String> params = new HashMap<>();
     params.put("grant_type", "client_credentials");
     if (scopes != null) {

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -42,9 +43,20 @@ public class CliTokenSource extends RefreshableTokenSource {
   }
 
   private static LocalDateTime parseExpiry(String expiry) {
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
-    return dateTime;
+    List<String> datePatterns =
+        Arrays.asList(
+            "yyyy-MM-dd HH:mm:ss.SSSSSS", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX");
+    DateTimeParseException lastException = null;
+    for (String pattern : datePatterns) {
+      try {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        LocalDateTime dateTime = LocalDateTime.parse(expiry, formatter);
+        return dateTime;
+      } catch (DateTimeParseException e) {
+        lastException = e;
+      }
+    }
+    throw lastException;
   }
 
   private String getProcessStream(InputStream stream) throws IOException {
@@ -53,7 +65,7 @@ public class CliTokenSource extends RefreshableTokenSource {
   }
 
   @Override
-  public Token refresh() {
+  protected Token refresh() {
     try {
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(getAllEnv.get());

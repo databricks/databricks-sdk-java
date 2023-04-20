@@ -52,7 +52,7 @@ public interface AzureUtils {
     }
 
     String armEndpoint = config.getAzureEnvironment().getResourceManagerEndpoint();
-    Token token = tokenSourceFor(config, armEndpoint).refresh();
+    Token token = tokenSourceFor(config, armEndpoint).getToken();
     String requestUrl =
         armEndpoint + config.getAzureWorkspaceResourceId() + "?api-version=2018-04-01";
     Request req = new Request("GET", requestUrl);
@@ -69,6 +69,9 @@ public interface AzureUtils {
       }
 
       ObjectNode jsonResponse = mapper.readValue(resp.getBody(), ObjectNode.class);
+      if (jsonResponse.get("properties") == null) {
+        throw new IOException("Properties not found");
+      }
       String workspaceUrl = jsonResponse.get("properties").get("workspaceUrl").asText();
       config.setHost("https://" + workspaceUrl);
     } catch (IOException e) {
