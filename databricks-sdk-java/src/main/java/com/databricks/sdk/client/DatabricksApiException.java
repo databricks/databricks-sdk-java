@@ -1,24 +1,24 @@
 package com.databricks.sdk.client;
 
+import java.util.Arrays;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import java.util.List;
-
 public class DatabricksApiException extends DatabricksException {
   private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
-  private static final List<String> TRANSIENT_ERROR_STRING_MATCHES = Arrays.asList(
-    "com.databricks.backend.manager.util.UnknownWorkerEnvironmentException",
-    "does not have any associated worker environments",
-    "There is no worker environment with id",
-    "Unknown worker environment",
-    "ClusterNotReadyException",
-    "connection reset by peer",
-    "TLS handshake timeout",
-    "connection refused",
-    "Unexpected error",
-    "i/o timeout");
+  private static final List<String> TRANSIENT_ERROR_STRING_MATCHES =
+      Arrays.asList(
+          "com.databricks.backend.manager.util.UnknownWorkerEnvironmentException",
+          "does not have any associated worker environments",
+          "There is no worker environment with id",
+          "Unknown worker environment",
+          "ClusterNotReadyException",
+          "connection reset by peer",
+          "TLS handshake timeout",
+          "connection refused",
+          "Unexpected error",
+          "i/o timeout");
 
   // Message is already exposed in the Throwable API.
   private final String errorCode;
@@ -30,7 +30,7 @@ public class DatabricksApiException extends DatabricksException {
     this.statusCode = statusCode;
   }
 
-    public DatabricksApiException(String errorCode, int statusCode, Throwable cause) {
+  public DatabricksApiException(String errorCode, int statusCode, Throwable cause) {
     super(cause.getMessage(), cause);
     this.errorCode = errorCode;
     this.statusCode = statusCode;
@@ -57,6 +57,9 @@ public class DatabricksApiException extends DatabricksException {
   }
 
   public boolean isRetriable() {
+    if (isTooManyRequests()) {
+      return true;
+    }
     for (String substring : TRANSIENT_ERROR_STRING_MATCHES) {
       if (getMessage().contains(substring)) {
         LOG.debug("Attempting retry because of {}", substring);

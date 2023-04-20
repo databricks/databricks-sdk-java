@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 public class ApiClient {
   private static final Logger LOG = LoggerFactory.getLogger(ApiClient.class);
 
-  private final int maxRetries;
+  private final int maxAttempts;
 
   private final ObjectMapper mapper;
 
@@ -55,7 +55,7 @@ public class ApiClient {
       debugTruncateBytes = 96;
     }
 
-    maxRetries = 3;
+    maxAttempts = 3;
     mapper = makeObjectMapper();
     random = new Random();
     httpClient = config.getHttpClient();
@@ -156,53 +156,72 @@ public class ApiClient {
 
     int attemptNumber = 0;
     Response out = null;
-    Response lastResponse = null;
+    Exception err = null;
 
     String userAgent = UserAgent.asString();
     // TODO: add auth/<auth-type> once PR#9 is merged
     in.withHeader("User-Agent", userAgent);
     in.withHeader("Accept", "application/json");
 
-    while (attemptNumber <= maxRetries && out == null) {
+    while (out == null) {
+      attemptNumber++;
+
+      // Break if maxRetries is exceeded;
+      if (attemptNumber > maxAttempts) {
+        throw new DatabricksException("API failed after " + maxAttempts + " retries", err);
+      }
+
+      // Authenticate the request
+      in.withHeaders(config.authenticate());
+
+      // Make the request, catching any exceptions, as we may want to retry.
       try {
-        attemptNumber++;
-        in.withHeaders(config.authenticate());
         LOG.debug(makeLogRecord(in));
-        lastResponse = httpClient.execute(in);
-        LOG.debug(makeLogRecord(lastResponse));
-        int status = lastResponse.getStatusCode();
-        if (status >= 400) {
-          throw new IOException(
-              String.format(
-                  "Retry %s because of %s", in.getRequestLine(), lastResponse.getStatus()));
-        }
-        out = lastResponse;
-      } catch (IOException e) {
-        if (maxRetries == attemptNumber) {
-          assert lastResponse != null;
-          throw convertException(lastResponse.getBody());
-        }
-        int sleep = random.nextInt(500);
-        LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleep), e);
-        try {
-          Thread.sleep(sleep);
-        } catch (InterruptedException ex) {
-          Thread.currentThread().interrupt();
-        }
+        out = httpClient.execute(in);
+        LOG.debug(makeLogRecord(out));
+      } catch (Exception e) {
+        err = e;
+        LOG.debug("Request failed", e);
+      }
+
+      // out should not be null; fail fast if it is. Otherwise, non-retryable failures should throw
+      // DatabricksException.
+      // If success, return; otherwise, wait before the next attempt.
+      if (out == null) {
+        throw new DatabricksException("HttpClient returned null; please file a bug report");
+      }
+      CheckForRetryResult res = ApiErrors.checkForRetry(out, err);
+      if (!res.shouldRetry()) {
+        throw new DatabricksException("API call failed and retry disallowed", res.getError());
+      }
+      if (res.getError() == null) {
+        break;
+      }
+
+      int sleep = getBackoffMillis(attemptNumber);
+      LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleep));
+      try {
+        Thread.sleep(sleep);
+      } catch (InterruptedException ex) {
+        Thread.currentThread().interrupt();
       }
     }
-    if (out == null) {
-      // technically this should not be reachable
-      throw new IOException(
-          "Did not receive any successful response for ${request.getRequestLine}");
-    }
+
     if (target == Void.class) {
       return null;
     }
     return deserialize(out.getBody(), target);
   }
 
+  private int getBackoffMillis(int attemptNumber) {
+    int maxWait = 10000;
+    int minJitter = 50;
+    int maxJitter = 750;
 
+    int wait = Math.min(maxWait, attemptNumber * 1000);
+    wait += random.nextInt(maxJitter - minJitter + 1) + minJitter;
+    return wait;
+  }
 
   private String makeLogRecord(Request in) {
     StringBuilder sb = new StringBuilder();
@@ -233,11 +252,6 @@ public class ApiClient {
       sb.append(line);
     }
     return sb.toString();
-  }
-
-  private IOException convertException(String body) {
-    // TODO: implement
-    return null;
   }
 
   public <T> T deserialize(String body, Class<T> target) throws IOException {

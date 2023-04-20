@@ -5,12 +5,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ApiErrorBody {
   @JsonProperty("error_code")
   private String errorCode;
+
   private String message;
+
   @JsonProperty("detail")
   private String scimDetail;
+
   @JsonProperty("status")
   private String scimStatus;
+
   private String scimType;
+
   @JsonProperty("error")
   private String api12Error;
 
