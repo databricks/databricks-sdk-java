@@ -6,9 +6,7 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Helper methods for inspecting the response and errors thrown during API requests.
- */
+/** Helper methods for inspecting the response and errors thrown during API requests. */
 public class ApiErrors {
   private static final ObjectMapper MAPPER = new ObjectMapper();
   private static final Pattern HTML_ERROR_REGEX = Pattern.compile("<pre>(.*)</pre>");

@@ -168,11 +168,6 @@ public class ApiClient {
     while (true) {
       attemptNumber++;
 
-      // Break if maxRetries is exceeded.
-      if (attemptNumber > maxAttempts) {
-        throw new DatabricksException("API failed after " + maxAttempts + " retries", err);
-      }
-
       // Authenticate the request. Failures should not be retried.
       in.withHeaders(config.authenticate());
 
@@ -186,9 +181,11 @@ public class ApiClient {
         LOG.debug("Request failed", e);
       }
 
-      // out should not be null; fail fast if it is. Otherwise, non-retryable failures should throw
+      // out should not be null; fail fast if it is. Otherwise, non-retriable failures should throw
       // DatabricksException.
-      // If success, return; otherwise, wait before the next attempt.
+      // If success (i.e. should not retry and no error), return. If the failure is retriable but
+      // the maximum number of
+      // attempts is exceeded, throw; otherwise, wait with backoff and try again.
       if (out == null) {
         throw new DatabricksException("HttpClient returned null; please file a bug report");
       }
@@ -198,6 +195,11 @@ public class ApiClient {
       }
       if (res.getError() == null) {
         break;
+      }
+
+      // Throw if maxRetries is exceeded, including the last error message.
+      if (attemptNumber == maxAttempts) {
+        throw new DatabricksException("API failed after " + maxAttempts + " retries", err);
       }
 
       int sleep = getBackoffMillis(attemptNumber);
