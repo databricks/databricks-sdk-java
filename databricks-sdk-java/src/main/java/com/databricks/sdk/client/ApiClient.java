@@ -180,7 +180,7 @@ public class ApiClient {
         if (LOG.isDebugEnabled()) {
           LOG.debug(makeLogRecord(in, out));
         }
-      } catch (Exception e) {
+      } catch (IOException e) {
         err = e;
         LOG.debug("Request failed", e);
       }
