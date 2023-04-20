@@ -41,6 +41,18 @@ public interface AzureUtils {
         .build();
   }
 
+  default String getWorkspaceFromJsonResponse(ObjectNode jsonResponse) throws IOException {
+    if (jsonResponse.get("properties") == null) {
+      throw new IOException("Properties not found");
+    }
+    try {
+      String workspaceUrl = jsonResponse.get("properties").get("workspaceUrl").asText();
+      return workspaceUrl;
+    } catch (NullPointerException e) {
+      throw new IOException("WorkspaceURL not found in properties");
+    }
+  }
+
   /** Resolves Azure Databricks workspace URL from ARM Resource ID */
   default void ensureHostPresent(DatabricksConfig config, ObjectMapper mapper) {
     if (config.getHost() != null) {
@@ -52,7 +64,7 @@ public interface AzureUtils {
     }
 
     String armEndpoint = config.getAzureEnvironment().getResourceManagerEndpoint();
-    Token token = tokenSourceFor(config, armEndpoint).refresh();
+    Token token = tokenSourceFor(config, armEndpoint).getToken();
     String requestUrl =
         armEndpoint + config.getAzureWorkspaceResourceId() + "?api-version=2018-04-01";
     Request req = new Request("GET", requestUrl);
@@ -69,7 +81,7 @@ public interface AzureUtils {
       }
 
       ObjectNode jsonResponse = mapper.readValue(resp.getBody(), ObjectNode.class);
-      String workspaceUrl = jsonResponse.get("properties").get("workspaceUrl").asText();
+      String workspaceUrl = getWorkspaceFromJsonResponse(jsonResponse);
       config.setHost("https://" + workspaceUrl);
     } catch (IOException e) {
       throw new DatabricksException("Unable to fetch workspace URL: " + e.getMessage(), e);

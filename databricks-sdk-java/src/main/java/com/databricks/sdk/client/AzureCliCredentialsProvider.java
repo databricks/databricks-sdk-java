@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUtils {
   private final ObjectMapper mapper = new ObjectMapper();
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
+  private static final Logger LOG = LoggerFactory.getLogger(AzureCliCredentialsProvider.class);
 
   public static final String AZURE_CLI = "azure-cli";
 
@@ -38,10 +38,13 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
       ensureHostPresent(config, mapper);
       String resource = config.getEffectiveAzureLoginAppId();
       CliTokenSource tokenSource = tokenSourceFor(config, resource);
-      Token token = tokenSource.refresh();
-      Map<String, String> headers = new HashMap<>();
-      headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
-      return () -> headers;
+      tokenSource.getToken(); // We need this for checking if Azure CLI is installed.
+      return () -> {
+        Token token = tokenSource.getToken();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
+        return headers;
+      };
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
       if (stderr.contains("command not found")) {

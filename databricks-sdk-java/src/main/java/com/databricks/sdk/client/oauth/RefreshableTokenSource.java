@@ -81,7 +81,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
     }
   }
 
-  public abstract Token refresh();
+  protected abstract Token refresh();
 
   public synchronized Token getToken() {
     if (token == null || !token.isValid()) {

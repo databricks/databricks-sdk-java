@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class BricksCliCredentialsProvider implements CredentialsProvider {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
+  private static final Logger LOG = LoggerFactory.getLogger(BricksCliCredentialsProvider.class);
 
   public static final String BRICKS_CLI = "bricks-cli";
 
@@ -41,10 +41,13 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
 
     try {
       CliTokenSource tokenSource = getBricksCliTokenSource(config);
-      Token token = tokenSource.refresh();
-      Map<String, String> headers = new HashMap<>();
-      headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
-      return () -> headers;
+      tokenSource.getToken(); // We need this for checking if bricks CLI is installed.
+      return () -> {
+        Token token = tokenSource.getToken();
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
+        return headers;
+      };
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
       if (stderr.contains("command not found")) {
