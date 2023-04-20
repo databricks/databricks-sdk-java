@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class BricksCliCredentialsProvider implements CredentialsProvider {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
+  private static final Logger LOG = LoggerFactory.getLogger(BricksCliCredentialsProvider.class);
 
   public static final String BRICKS_CLI = "bricks-cli";
 
