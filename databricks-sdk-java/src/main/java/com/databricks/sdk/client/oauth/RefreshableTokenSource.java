@@ -19,13 +19,8 @@ import org.apache.http.HttpHeaders;
  */
 public abstract class RefreshableTokenSource implements TokenSource {
   protected Token token;
-  private HttpClient hc;
 
   public RefreshableTokenSource() {}
-
-  public RefreshableTokenSource(HttpClient hc) {
-    this.hc = hc;
-  }
 
   public RefreshableTokenSource(Token token) {
     this.token = token;
