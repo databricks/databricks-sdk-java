@@ -6,7 +6,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Export a notebook */
+/** Export a workspace object */
 public class Export {
   /**
    * Flag to enable direct download. If it is `true`, the response will be the exported file itself.
@@ -25,8 +25,8 @@ public class Export {
   private ExportFormat format;
 
   /**
-   * The absolute path of the notebook or directory. Exporting directory is only support for `DBC`
-   * format.
+   * The absolute path of the object or directory. Exporting a directory is only supported for the
+   * `DBC` format.
    */
   @QueryParam("path")
   private String path;

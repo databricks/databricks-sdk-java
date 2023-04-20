@@ -11,40 +11,42 @@ import com.databricks.sdk.service.billing.BudgetsAPI;
 import com.databricks.sdk.service.billing.BudgetsService;
 import com.databricks.sdk.service.billing.LogDeliveryAPI;
 import com.databricks.sdk.service.billing.LogDeliveryService;
-import com.databricks.sdk.service.deployment.CredentialsAPI;
-import com.databricks.sdk.service.deployment.CredentialsService;
-import com.databricks.sdk.service.deployment.EncryptionKeysAPI;
-import com.databricks.sdk.service.deployment.EncryptionKeysService;
-import com.databricks.sdk.service.deployment.NetworksAPI;
-import com.databricks.sdk.service.deployment.NetworksService;
-import com.databricks.sdk.service.deployment.PrivateAccessAPI;
-import com.databricks.sdk.service.deployment.PrivateAccessService;
-import com.databricks.sdk.service.deployment.StorageAPI;
-import com.databricks.sdk.service.deployment.StorageService;
-import com.databricks.sdk.service.deployment.VpcEndpointsAPI;
-import com.databricks.sdk.service.deployment.VpcEndpointsService;
-import com.databricks.sdk.service.deployment.WorkspacesAPI;
-import com.databricks.sdk.service.deployment.WorkspacesService;
+import com.databricks.sdk.service.catalog.AccountMetastoreAssignmentsAPI;
+import com.databricks.sdk.service.catalog.AccountMetastoreAssignmentsService;
+import com.databricks.sdk.service.catalog.AccountMetastoresAPI;
+import com.databricks.sdk.service.catalog.AccountMetastoresService;
+import com.databricks.sdk.service.catalog.AccountStorageCredentialsAPI;
+import com.databricks.sdk.service.catalog.AccountStorageCredentialsService;
+import com.databricks.sdk.service.iam.AccountGroupsAPI;
+import com.databricks.sdk.service.iam.AccountGroupsService;
+import com.databricks.sdk.service.iam.AccountServicePrincipalsAPI;
+import com.databricks.sdk.service.iam.AccountServicePrincipalsService;
+import com.databricks.sdk.service.iam.AccountUsersAPI;
+import com.databricks.sdk.service.iam.AccountUsersService;
+import com.databricks.sdk.service.iam.WorkspaceAssignmentAPI;
+import com.databricks.sdk.service.iam.WorkspaceAssignmentService;
 import com.databricks.sdk.service.oauth2.CustomAppIntegrationAPI;
 import com.databricks.sdk.service.oauth2.CustomAppIntegrationService;
 import com.databricks.sdk.service.oauth2.OAuthEnrollmentAPI;
 import com.databricks.sdk.service.oauth2.OAuthEnrollmentService;
 import com.databricks.sdk.service.oauth2.PublishedAppIntegrationAPI;
 import com.databricks.sdk.service.oauth2.PublishedAppIntegrationService;
-import com.databricks.sdk.service.permissions.WorkspaceAssignmentAPI;
-import com.databricks.sdk.service.permissions.WorkspaceAssignmentService;
-import com.databricks.sdk.service.scim.AccountGroupsAPI;
-import com.databricks.sdk.service.scim.AccountGroupsService;
-import com.databricks.sdk.service.scim.AccountServicePrincipalsAPI;
-import com.databricks.sdk.service.scim.AccountServicePrincipalsService;
-import com.databricks.sdk.service.scim.AccountUsersAPI;
-import com.databricks.sdk.service.scim.AccountUsersService;
-import com.databricks.sdk.service.unitycatalog.AccountMetastoreAssignmentsAPI;
-import com.databricks.sdk.service.unitycatalog.AccountMetastoreAssignmentsService;
-import com.databricks.sdk.service.unitycatalog.AccountMetastoresAPI;
-import com.databricks.sdk.service.unitycatalog.AccountMetastoresService;
-import com.databricks.sdk.service.unitycatalog.AccountStorageCredentialsAPI;
-import com.databricks.sdk.service.unitycatalog.AccountStorageCredentialsService;
+import com.databricks.sdk.service.provisioning.CredentialsAPI;
+import com.databricks.sdk.service.provisioning.CredentialsService;
+import com.databricks.sdk.service.provisioning.EncryptionKeysAPI;
+import com.databricks.sdk.service.provisioning.EncryptionKeysService;
+import com.databricks.sdk.service.provisioning.NetworksAPI;
+import com.databricks.sdk.service.provisioning.NetworksService;
+import com.databricks.sdk.service.provisioning.PrivateAccessAPI;
+import com.databricks.sdk.service.provisioning.PrivateAccessService;
+import com.databricks.sdk.service.provisioning.StorageAPI;
+import com.databricks.sdk.service.provisioning.StorageService;
+import com.databricks.sdk.service.provisioning.VpcEndpointsAPI;
+import com.databricks.sdk.service.provisioning.VpcEndpointsService;
+import com.databricks.sdk.service.provisioning.WorkspacesAPI;
+import com.databricks.sdk.service.provisioning.WorkspacesService;
+import com.databricks.sdk.service.settings.AccountIpAccessListsAPI;
+import com.databricks.sdk.service.settings.AccountIpAccessListsService;
 
 /** Entry point for accessing Databricks account-level APIs */
 public class DatabricksAccount {
@@ -57,6 +59,7 @@ public class DatabricksAccount {
   private CustomAppIntegrationAPI customAppIntegrationAPI;
   private EncryptionKeysAPI encryptionKeysAPI;
   private AccountGroupsAPI groupsAPI;
+  private AccountIpAccessListsAPI ipAccessListsAPI;
   private LogDeliveryAPI logDeliveryAPI;
   private AccountMetastoreAssignmentsAPI metastoreAssignmentsAPI;
   private AccountMetastoresAPI metastoresAPI;
@@ -86,6 +89,7 @@ public class DatabricksAccount {
     customAppIntegrationAPI = new CustomAppIntegrationAPI(apiClient);
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
     groupsAPI = new AccountGroupsAPI(apiClient);
+    ipAccessListsAPI = new AccountIpAccessListsAPI(apiClient);
     logDeliveryAPI = new LogDeliveryAPI(apiClient);
     metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(apiClient);
     metastoresAPI = new AccountMetastoresAPI(apiClient);
@@ -176,6 +180,32 @@ public class DatabricksAccount {
    */
   public AccountGroupsAPI groups() {
     return groupsAPI;
+  }
+
+  /**
+   * The Accounts IP Access List API enables account admins to configure IP access lists for access
+   * to the account console.
+   *
+   * <p>Account IP Access Lists affect web application access and REST API access to the account
+   * console and account APIs. If the feature is disabled for the account, all access is allowed for
+   * this account. There is support for allow lists (inclusion) and block lists (exclusion).
+   *
+   * <p>When a connection is attempted: 1. **First, all block lists are checked.** If the connection
+   * IP address matches any block list, the connection is rejected. 2. **If the connection was not
+   * rejected by block lists**, the IP address is compared with the allow lists.
+   *
+   * <p>If there is at least one allow list for the account, the connection is allowed only if the
+   * IP address matches an allow list. If there are no allow lists for the account, all IP addresses
+   * are allowed.
+   *
+   * <p>For all allow lists and block lists combined, the account supports a maximum of 1000 IP/CIDR
+   * values, where one CIDR counts as a single value.
+   *
+   * <p>After changes to the account-level IP access lists, it can take a few minutes for changes to
+   * take effect.
+   */
+  public AccountIpAccessListsAPI ipAccessLists() {
+    return ipAccessListsAPI;
   }
 
   /**
@@ -271,17 +301,7 @@ public class DatabricksAccount {
     return oAuthEnrollmentAPI;
   }
 
-  /**
-   * These APIs manage private access settings for this account. A private access settings object
-   * specifies how your workspace is accessed using AWS PrivateLink. Each workspace that has any
-   * PrivateLink connections must include the ID for a private access settings object is in its
-   * workspace configuration object. Your account must be enabled for PrivateLink to use these APIs.
-   * Before configuring PrivateLink, it is important to read the [Databricks article about
-   * PrivateLink].
-   *
-   * <p>[Databricks article about PrivateLink]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
-   */
+  /** These APIs manage private access settings for this account. */
   public PrivateAccessAPI privateAccess() {
     return privateAccessAPI;
   }
@@ -340,18 +360,7 @@ public class DatabricksAccount {
     return usersAPI;
   }
 
-  /**
-   * These APIs manage VPC endpoint configurations for this account. This object registers an AWS
-   * VPC endpoint in your Databricks account so your workspace can use it with AWS PrivateLink. Your
-   * VPC endpoint connects to one of two VPC endpoint services -- one for workspace (both for
-   * front-end connection and for back-end connection to REST APIs) and one for the back-end secure
-   * cluster connectivity relay from the data plane. Your account must be enabled for PrivateLink to
-   * use these APIs. Before configuring PrivateLink, it is important to read the [Databricks article
-   * about PrivateLink].
-   *
-   * <p>[Databricks article about PrivateLink]:
-   * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
-   */
+  /** These APIs manage VPC endpoint configurations for this account. */
   public VpcEndpointsAPI vpcEndpoints() {
     return vpcEndpointsAPI;
   }
@@ -411,6 +420,12 @@ public class DatabricksAccount {
   /** Override AccountGroupsAPI with mock */
   public DatabricksAccount withGroupsImpl(AccountGroupsService accountGroups) {
     groupsAPI = new AccountGroupsAPI(accountGroups);
+    return this;
+  }
+
+  /** Override AccountIpAccessListsAPI with mock */
+  public DatabricksAccount withIpAccessListsImpl(AccountIpAccessListsService accountIpAccessLists) {
+    ipAccessListsAPI = new AccountIpAccessListsAPI(accountIpAccessLists);
     return this;
   }
 

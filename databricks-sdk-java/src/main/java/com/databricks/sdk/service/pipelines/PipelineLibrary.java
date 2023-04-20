@@ -7,37 +7,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 public class PipelineLibrary {
-  /**
-   * URI of the jar to be installed. Currently only DBFS and S3 URIs are supported. For example: `{
-   * "jar": "dbfs:/mnt/databricks/library.jar" }` or `{ "jar": "s3://my-bucket/library.jar" }`. If
-   * S3 is used, please make sure the cluster has read access on the library. You may need to launch
-   * the cluster with an IAM role to access the S3 URI.
-   */
+  /** The path to a file that defines a pipeline and is stored in the Databricks Repos. */
+  @JsonProperty("file")
+  private FileLibrary file;
+
+  /** URI of the jar to be installed. Currently only DBFS is supported. */
   @JsonProperty("jar")
   private String jar;
 
-  /**
-   * Specification of a maven library to be installed. For example: `{ "coordinates":
-   * "org.jsoup:jsoup:1.7.2" }`
-   */
+  /** Specification of a maven library to be installed. */
   @JsonProperty("maven")
   private Object /* MISSING TYPE */ maven;
 
-  /**
-   * The path to a notebook that defines a pipeline and is stored in the Databricks workspace. For
-   * example: `{ "notebook" : { "path" : "/my-pipeline-notebook-path" } }`. Currently, only Scala
-   * notebooks are supported, and pipelines must be defined in a package cell.
-   */
+  /** The path to a notebook that defines a pipeline and is stored in the Databricks workspace. */
   @JsonProperty("notebook")
   private NotebookLibrary notebook;
 
-  /**
-   * URI of the wheel to be installed. For example: `{ "whl": "dbfs:/my/whl" }` or `{ "whl":
-   * "s3://my-bucket/whl" }`. If S3 is used, please make sure the cluster has read access on the
-   * library. You may need to launch the cluster with an IAM role to access the S3 URI.
-   */
+  /** URI of the wheel to be installed. */
   @JsonProperty("whl")
   private String whl;
+
+  public PipelineLibrary setFile(FileLibrary file) {
+    this.file = file;
+    return this;
+  }
+
+  public FileLibrary getFile() {
+    return file;
+  }
 
   public PipelineLibrary setJar(String jar) {
     this.jar = jar;
@@ -80,7 +77,8 @@ public class PipelineLibrary {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PipelineLibrary that = (PipelineLibrary) o;
-    return Objects.equals(jar, that.jar)
+    return Objects.equals(file, that.file)
+        && Objects.equals(jar, that.jar)
         && Objects.equals(maven, that.maven)
         && Objects.equals(notebook, that.notebook)
         && Objects.equals(whl, that.whl);
@@ -88,12 +86,13 @@ public class PipelineLibrary {
 
   @Override
   public int hashCode() {
-    return Objects.hash(jar, maven, notebook, whl);
+    return Objects.hash(file, jar, maven, notebook, whl);
   }
 
   @Override
   public String toString() {
     return new ToStringer(PipelineLibrary.class)
+        .add("file", file)
         .add("jar", jar)
         .add("maven", maven)
         .add("notebook", notebook)

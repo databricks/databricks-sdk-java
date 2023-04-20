@@ -28,18 +28,18 @@ public class PipelineCluster {
   private Object /* MISSING TYPE */ awsAttributes;
 
   /**
-   * Attributes related to clusters running on Amazon Web Services. If not specified at cluster
+   * Attributes related to clusters running on Microsoft Azure. If not specified at cluster
    * creation, a set of default values will be used.
    */
   @JsonProperty("azure_attributes")
   private Object /* MISSING TYPE */ azureAttributes;
 
   /**
-   * The configuration for delivering spark logs to a long-term storage destination. Two kinds of
-   * destinations (dbfs and s3) are supported. Only one destination can be specified for one
-   * cluster. If the conf is given, the logs will be delivered to the destination every `5 mins`.
-   * The destination of driver logs is `$destination/$clusterId/driver`, while the destination of
-   * executor logs is `$destination/$clusterId/executor`.
+   * The configuration for delivering spark logs to a long-term storage destination. Only dbfs
+   * destinations are supported. Only one destination can be specified for one cluster. If the conf
+   * is given, the logs will be delivered to the destination every `5 mins`. The destination of
+   * driver logs is `$destination/$clusterId/driver`, while the destination of executor logs is
+   * `$destination/$clusterId/executor`.
    */
   @JsonProperty("cluster_log_conf")
   private Object /* MISSING TYPE */ clusterLogConf;
