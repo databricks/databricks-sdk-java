@@ -191,10 +191,10 @@ public class ApiClient {
       }
       CheckForRetryResult res = ApiErrors.checkForRetry(out, err);
       if (!res.shouldRetry()) {
+        if (res.getError() == null) {
+          break;
+        }
         throw new DatabricksException("API call failed and retry disallowed", res.getError());
-      }
-      if (res.getError() == null) {
-        break;
       }
 
       // Throw if maxRetries is exceeded, including the last error message.
