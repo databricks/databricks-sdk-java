@@ -1,12 +1,11 @@
 package com.databricks.sdk.client.error;
 
+import com.databricks.sdk.client.DatabricksException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
 import java.util.List;
-
-import com.databricks.sdk.client.DatabricksException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,7 +65,8 @@ public class CheckForRetryResult {
       return null;
     }
     return new DatabricksException(
-        String.format("message: %s, errorCode: %s, statusCode: %d", message, errorCode, statusCode), cause);
+        String.format("message: %s, errorCode: %s, statusCode: %d", message, errorCode, statusCode),
+        cause);
   }
 
   public String getErrorCode() {

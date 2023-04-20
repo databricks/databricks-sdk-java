@@ -7,8 +7,7 @@ public class ApiErrorBody {
   @JsonProperty("error_code")
   private String errorCode;
 
-  @JsonProperty
-  private String message;
+  @JsonProperty private String message;
 
   @JsonProperty("detail")
   private String scimDetail;
@@ -16,8 +15,7 @@ public class ApiErrorBody {
   @JsonProperty("status")
   private String scimStatus;
 
-  @JsonProperty
-  private String scimType;
+  @JsonProperty private String scimType;
 
   @JsonProperty("error")
   private String api12Error;

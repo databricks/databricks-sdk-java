@@ -1,8 +1,7 @@
 package com.databricks.sdk.client;
 
-import org.apache.http.HttpHeaders;
-
 import java.util.Collections;
+import org.apache.http.HttpHeaders;
 
 public class DummyCredentialsProvider implements CredentialsProvider {
   @Override

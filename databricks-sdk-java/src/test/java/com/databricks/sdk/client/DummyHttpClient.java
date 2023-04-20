@@ -3,7 +3,6 @@ package com.databricks.sdk.client;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
-import java.io.IOException;
 import java.util.*;
 
 /** TODO: refactor ApiClient to perform the serialization/deserialization of POJOs */
