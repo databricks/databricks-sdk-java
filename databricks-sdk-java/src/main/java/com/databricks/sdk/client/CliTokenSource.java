@@ -5,7 +5,10 @@ import com.databricks.sdk.client.oauth.RefreshableTokenSource;
 import com.databricks.sdk.client.oauth.Token;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.IOUtils;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -45,14 +48,19 @@ public class CliTokenSource extends RefreshableTokenSource {
     return dateTime;
   }
 
+  private String getProcessStream(InputStream stream) throws IOException {
+    byte[] bytes = IOUtils.toByteArray(stream);
+    return new String(bytes);
+  }
+
   @Override
   public Token refresh() {
     try {
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(getAllEnv.get());
       Process process = processBuilder.start();
-      String stdout = new String(process.getInputStream().readAllBytes());
-      String stderr = new String(process.getErrorStream().readAllBytes());
+      String stdout = getProcessStream(process.getInputStream());
+      String stderr = getProcessStream(process.getErrorStream());
       int exitCode = process.waitFor();
       if (exitCode != 0) {
         if (stderr.contains("command not found")) {
