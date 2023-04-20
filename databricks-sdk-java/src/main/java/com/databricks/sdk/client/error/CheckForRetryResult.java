@@ -1,4 +1,4 @@
-package com.databricks.sdk.client;
+package com.databricks.sdk.client.error;
 
 /**
  * The result of checking whether {@code ApiClient} should retry a request.

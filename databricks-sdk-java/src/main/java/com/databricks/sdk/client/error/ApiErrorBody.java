@@ -1,7 +1,10 @@
-package com.databricks.sdk.client;
+package com.databricks.sdk.client.error;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * The union of all JSON error responses from the Databricks APIs, not including HTML responses.
+ */
 public class ApiErrorBody {
   @JsonProperty("error_code")
   private String errorCode;

@@ -1,5 +1,7 @@
 package com.databricks.sdk.client;
 
+import com.databricks.sdk.client.error.ApiErrors;
+import com.databricks.sdk.client.error.CheckForRetryResult;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
@@ -163,15 +165,15 @@ public class ApiClient {
     in.withHeader("User-Agent", userAgent);
     in.withHeader("Accept", "application/json");
 
-    while (out == null) {
+    while (true) {
       attemptNumber++;
 
-      // Break if maxRetries is exceeded;
+      // Break if maxRetries is exceeded.
       if (attemptNumber > maxAttempts) {
         throw new DatabricksException("API failed after " + maxAttempts + " retries", err);
       }
 
-      // Authenticate the request
+      // Authenticate the request. Failures should not be retried.
       in.withHeaders(config.authenticate());
 
       // Make the request, catching any exceptions, as we may want to retry.
