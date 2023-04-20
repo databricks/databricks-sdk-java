@@ -20,6 +20,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
     return AZURE_CLI;
   }
 
+  @Override
   public CliTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     List<String> cmd =
         Arrays.asList(
