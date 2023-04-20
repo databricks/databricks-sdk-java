@@ -2,6 +2,7 @@ package com.databricks.sdk.client;
 
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
+import com.databricks.sdk.client.utils.FakeTimer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.http.HttpHeaders;
 import org.junit.jupiter.api.Test;
@@ -46,7 +47,8 @@ public class ApiClientTest {
     DatabricksConfig config = new DatabricksConfig()
         .setHttpClient(hc)
         .setHost(host)
-        .setCredentialsProvider(new DummyCredentialsProvider());
+        .setCredentialsProvider(new DummyCredentialsProvider())
+        .setTimer(new FakeTimer());
     ApiClient client = new ApiClient(config);
 
     T response = client.GET(request.getUri().getPath(), clazz);

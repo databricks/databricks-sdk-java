@@ -12,26 +12,20 @@ public class ApiErrors {
   private static final Pattern HTML_ERROR_REGEX = Pattern.compile("<pre>(.*)</pre>");
 
   public static CheckForRetryResult checkForRetry(Response out, Exception error) {
-    // If the endpoint did not respond to the request, interpret the exception.
-    DatabricksApiException apiError = null;
     if (error != null) {
-      apiError = new DatabricksApiException("IO_ERROR", 523, error);
+      // If the endpoint did not respond to the request, interpret the exception.
+      return new CheckForRetryResult("IO_ERROR", 523, error);
     } else if (out.getStatusCode() == 429) {
-      apiError =
-          new DatabricksApiException("TOO_MANY_REQUESTS", "Current request has to be retried", 429);
+      return new CheckForRetryResult("TOO_MANY_REQUESTS", "Current request has to be retried", 429);
     } else if (out.getStatusCode() >= 400) {
-      apiError = parseErrorFromResponse(out);
-    }
-
-    if (apiError == null) {
+      return parseErrorFromResponse(out);
+    } else {
       // The request succeeded; do not retry.
-      return new CheckForRetryResult(false);
+      return new CheckForRetryResult(out.getStatusCode());
     }
-
-    return new CheckForRetryResult(apiError.isRetriable(), apiError);
   }
 
-  private static DatabricksApiException parseErrorFromResponse(Response response) {
+  private static CheckForRetryResult parseErrorFromResponse(Response response) {
     ApiErrorBody errorBody;
     // The response is either a JSON response or a webpage. In the JSON case, it is parsed normally;
     // in the webpage
@@ -58,7 +52,7 @@ public class ApiErrors {
       errorBody.setMessage(message.trim());
       errorBody.setErrorCode("SCIM_" + errorBody.getScimStatus());
     }
-    return new DatabricksApiException(
+    return new CheckForRetryResult(
         errorBody.getErrorCode(), errorBody.getMessage(), response.getStatusCode());
   }
 

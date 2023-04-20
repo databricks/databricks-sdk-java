@@ -5,6 +5,7 @@ import com.databricks.sdk.client.error.CheckForRetryResult;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
+import com.databricks.sdk.client.utils.Timer;
 import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -34,6 +35,7 @@ public class ApiClient {
 
   private final HttpClient httpClient;
   private final BodyLogger bodyLogger;
+  private final Timer timer;
 
   public ApiClient() {
     this(ConfigLoader.getDefault());
@@ -62,6 +64,7 @@ public class ApiClient {
     random = new Random();
     httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
+    timer = config.getTimer();
   }
 
   private ObjectMapper makeObjectMapper() {
@@ -173,9 +176,10 @@ public class ApiClient {
 
       // Make the request, catching any exceptions, as we may want to retry.
       try {
-        LOG.debug(makeLogRecord(in));
         out = httpClient.execute(in);
-        LOG.debug(makeLogRecord(out));
+        if (LOG.isDebugEnabled()) {
+          LOG.debug(makeLogRecord(in, out));
+        }
       } catch (Exception e) {
         err = e;
         LOG.debug("Request failed", e);
@@ -190,11 +194,11 @@ public class ApiClient {
         throw new DatabricksException("HttpClient returned null; please file a bug report");
       }
       CheckForRetryResult res = ApiErrors.checkForRetry(out, err);
-      if (!res.shouldRetry()) {
-        if (res.getError() == null) {
+      if (!res.isRetriable()) {
+        if (res.getErrorCode() == null) {
           break;
         }
-        throw new DatabricksException("API call failed and retry disallowed", res.getError());
+        throw new DatabricksException("API call failed and retry disallowed", res.toException());
       }
 
       // Throw if maxRetries is exceeded, including the last error message.
@@ -202,10 +206,10 @@ public class ApiClient {
         throw new DatabricksException("API failed after " + maxAttempts + " retries", err);
       }
 
-      int sleep = getBackoffMillis(attemptNumber);
-      LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleep));
+      int sleepMillis = getBackoffMillis(attemptNumber);
+      LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis));
       try {
-        Thread.sleep(sleep);
+        timer.wait(sleepMillis);
       } catch (InterruptedException ex) {
         Thread.currentThread().interrupt();
       }
@@ -227,7 +231,7 @@ public class ApiClient {
     return wait;
   }
 
-  private String makeLogRecord(Request in) {
+  private String makeLogRecord(Request in, Response out) {
     StringBuilder sb = new StringBuilder();
     sb.append("> ");
     sb.append(in.getRequestLine());
@@ -244,11 +248,6 @@ public class ApiClient {
         sb.append(line);
       }
     }
-    return sb.toString();
-  }
-
-  private String makeLogRecord(Response out) {
-    StringBuilder sb = new StringBuilder();
     sb.append("\n< ");
     sb.append(out.toString());
     for (String line : bodyLogger.redactedDump(out.getBody()).split("\n")) {
