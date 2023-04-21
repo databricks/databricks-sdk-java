@@ -8,7 +8,6 @@ import com.databricks.sdk.client.oauth.OpenIDConnectEndpoints;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import org.apache.http.HttpMessage;
 
