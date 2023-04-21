@@ -58,13 +58,14 @@
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.22.0</version>
+        <version>3.0.0-M6</version>
         <executions>
           <execution>
             <goals>
               <goal>integration-test</goal>
               <goal>verify</goal>
             </goals>
+            <phase>integration-test</phase>
           </execution>
         </executions>
       </plugin>
