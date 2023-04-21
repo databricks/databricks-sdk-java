@@ -29,6 +29,8 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
 
   private static final String ENV_STORE_KEY = "env";
 
+  private Map<String, String> innerEnv;
+
   @Override
   public boolean supportsParameter(
       ParameterContext parameterContext, ExtensionContext extensionContext)
@@ -89,9 +91,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
     if(!env.isPresent()) {
       return fail("Cannot resolve DatabricksConfig");
     }
-    EnvGetter envGetter = env.get(); // tanmaytodo -- pass this map to databricks resolve
-    DatabricksConfig config = new DatabricksConfig();
-    config.resolve();
+    DatabricksConfig config = new DatabricksConfig().resolve(innerEnv);
     Object a = config.getAllEnv();
     if (parameter.getType() == DatabricksWorkspace.class) {
       return new DatabricksWorkspace(config);
@@ -136,6 +136,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
         return System::getenv;
       }
       found.put("HOME", "/tmp");
+      innerEnv = found;
       return found::get;
     } catch (IOException e) {
       return System::getenv;
