@@ -1,8 +1,12 @@
 package com.databricks.sdk.client;
 
+import com.databricks.sdk.client.error.ApiErrors;
+import com.databricks.sdk.client.error.CheckForRetryResult;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
+import com.databricks.sdk.client.utils.RealTimer;
+import com.databricks.sdk.client.utils.Timer;
 import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,7 +26,7 @@ import org.slf4j.LoggerFactory;
 public class ApiClient {
   private static final Logger LOG = LoggerFactory.getLogger(ApiClient.class);
 
-  private final int maxRetries;
+  private final int maxAttempts;
 
   private final ObjectMapper mapper;
 
@@ -32,6 +36,7 @@ public class ApiClient {
 
   private final HttpClient httpClient;
   private final BodyLogger bodyLogger;
+  private final Timer timer;
 
   public ApiClient() {
     this(ConfigLoader.getDefault());
@@ -42,6 +47,10 @@ public class ApiClient {
   }
 
   public ApiClient(DatabricksConfig config) {
+    this(config, new RealTimer());
+  }
+
+  public ApiClient(DatabricksConfig config, Timer timer) {
     this.config = config;
     config.resolve();
 
@@ -55,11 +64,12 @@ public class ApiClient {
       debugTruncateBytes = 96;
     }
 
-    maxRetries = 3;
+    maxAttempts = 3;
     mapper = makeObjectMapper();
     random = new Random();
     httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
+    this.timer = timer;
   }
 
   private ObjectMapper makeObjectMapper() {
@@ -145,7 +155,7 @@ public class ApiClient {
   }
 
   /**
-   * Executes HTTP request with couple of retries and converts it to proper POJO
+   * Executes HTTP request with retries and converts it to proper POJO
    *
    * @param in Commons HTTP request
    * @param target Expected pojo type
@@ -154,54 +164,78 @@ public class ApiClient {
   private <T> T execute(Request in, Class<T> target) throws IOException {
     in.withUrl(config.getHost() + in.getUrl());
 
-    int attemptNumber = 0;
-    Response out = null;
-    Response lastResponse = null;
-
     String userAgent = UserAgent.asString();
     // TODO: add auth/<auth-type> once PR#9 is merged
     in.withHeader("User-Agent", userAgent);
     in.withHeader("Accept", "application/json");
+    Response out = executeInner(in);
 
-    while (attemptNumber <= maxRetries && out == null) {
-      try {
-        attemptNumber++;
-        in.withHeaders(config.authenticate());
-
-        lastResponse = httpClient.execute(in);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug(makeLogRecord(in, lastResponse));
-        }
-        int status = lastResponse.getStatusCode();
-        if (status >= 400) {
-          throw new IOException(
-              String.format(
-                  "Retry %s because of %s", in.getRequestLine(), lastResponse.getStatus()));
-        }
-        out = lastResponse;
-      } catch (IOException e) {
-        if (maxRetries == attemptNumber) {
-          assert lastResponse != null;
-          throw convertException(lastResponse.getBody());
-        }
-        int sleep = random.nextInt(500);
-        LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleep), e);
-        try {
-          Thread.sleep(sleep);
-        } catch (InterruptedException ex) {
-          Thread.currentThread().interrupt();
-        }
-      }
-    }
-    if (out == null) {
-      // technically this should not be reachable
-      throw new IOException(
-          "Did not receive any successful response for ${request.getRequestLine}");
-    }
     if (target == Void.class) {
       return null;
     }
     return deserialize(out.getBody(), target);
+  }
+
+  private Response executeInner(Request in) {
+    int attemptNumber = 0;
+    while (true) {
+      attemptNumber++;
+
+      IOException err = null;
+      Response out = null;
+
+      // Authenticate the request. Failures should not be retried.
+      in.withHeaders(config.authenticate());
+
+      // Make the request, catching any exceptions, as we may want to retry.
+      try {
+        out = httpClient.execute(in);
+        if (LOG.isDebugEnabled()) {
+          LOG.debug(makeLogRecord(in, out));
+        }
+      } catch (IOException e) {
+        err = e;
+        LOG.debug("Request {} failed", in, e);
+      }
+
+      // The request is not retried under three conditions:
+      // 1. The request succeeded (err == null, out != null). In this case, the response is
+      // returned.
+      // 2. The request failed with a non-retriable error (err != null, out == null).
+      // 3. The request failed with a retriable error, but the number of attempts exceeds
+      // maxAttempts.
+      CheckForRetryResult res = ApiErrors.checkForRetry(out, err);
+      if (!res.isRetriable()) {
+        if (res.getErrorCode() == null) {
+          return out;
+        }
+        throw new DatabricksException(
+            String.format("Request %s failed and retry disallowed", in), res.toException());
+      }
+      if (attemptNumber == maxAttempts) {
+        throw new DatabricksException(
+            String.format("Request %s failed after %d retries", in, maxAttempts), err);
+      }
+
+      // Retry after a backoff.
+      int sleepMillis = getBackoffMillis(attemptNumber);
+      LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis));
+      try {
+        timer.wait(sleepMillis);
+      } catch (InterruptedException ex) {
+        Thread.currentThread().interrupt();
+      }
+    }
+  }
+
+  private int getBackoffMillis(int attemptNumber) {
+    int maxWait = 10000;
+    int minJitter = 50;
+    int maxJitter = 750;
+
+    int wait = Math.min(maxWait, attemptNumber * 1000);
+    wait += random.nextInt(maxJitter - minJitter + 1) + minJitter;
+    return wait;
   }
 
   private String makeLogRecord(Request in, Response out) {
@@ -228,11 +262,6 @@ public class ApiClient {
       sb.append(line);
     }
     return sb.toString();
-  }
-
-  private IOException convertException(String body) {
-    // TODO: implement
-    return null;
   }
 
   public <T> T deserialize(String body, Class<T> target) throws IOException {
