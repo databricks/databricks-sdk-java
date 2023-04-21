@@ -3,6 +3,8 @@ package com.databricks.sdk.client;
 import com.databricks.sdk.client.oauth.AzureServicePrincipalCredentialsProvider;
 import com.databricks.sdk.client.oauth.ExternalBrowserCredentialsProvider;
 import com.databricks.sdk.client.oauth.OAuthM2MServicePrincipalCredentialsProvider;
+
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
@@ -48,7 +50,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
         }
         authType = provider.authType();
         return headerFactory;
-      } catch (Exception e) {
+      } catch (DatabricksException e) {
         throw new DatabricksException(
             String.format("%s: %s", provider.authType(), e.getMessage()), e);
       }

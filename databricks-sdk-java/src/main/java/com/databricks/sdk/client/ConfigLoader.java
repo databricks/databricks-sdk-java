@@ -222,7 +222,7 @@ public class ConfigLoader {
         buf.add(String.format("Env: %s", String.join(", ", envsUsed)));
       }
       return String.join(". ", buf);
-    } catch (Exception e) {
+    } catch (IllegalAccessException e) {
       throw new DatabricksException(e.getMessage());
     }
   }
