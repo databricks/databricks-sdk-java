@@ -85,13 +85,13 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
       ParameterContext parameterContext, ExtensionContext extensionContext)
       throws ParameterResolutionException {
     Parameter parameter = parameterContext.getParameter();
-    Optional<EnvGetter> env = makeEnvResolver(extensionContext); // tanmaytodo -- pass this map to databricks resolve
+    Optional<EnvGetter> env = makeEnvResolver(extensionContext);
     if(!env.isPresent()) {
       return fail("Cannot resolve DatabricksConfig");
     }
-    EnvGetter envGetter = env.get();
+    EnvGetter envGetter = env.get(); // tanmaytodo -- pass this map to databricks resolve
     DatabricksConfig config = new DatabricksConfig();
-    config.resolve(envGetter);
+    config.resolve();
     Object a = config.getAllEnv();
     if (parameter.getType() == DatabricksWorkspace.class) {
       return new DatabricksWorkspace(config);
