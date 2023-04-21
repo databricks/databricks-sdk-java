@@ -73,7 +73,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       String stderr = getProcessStream(process.getErrorStream());
       int exitCode = process.waitFor();
       if (exitCode != 0) {
-        if (stderr.contains("command not found")) {
+        if (stderr.contains("not found")) {
           throw new DatabricksException(stderr);
         } else {
           throw new IOException(stderr);

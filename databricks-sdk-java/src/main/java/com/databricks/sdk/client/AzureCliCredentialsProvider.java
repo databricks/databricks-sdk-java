@@ -47,7 +47,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
       };
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
-      if (stderr.contains("command not found")) {
+      if (stderr.contains("not found")) {
         String doc = "https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest";
         LOG.info(String.format("Most likely Azure CLI is not installed. See %s for details", doc));
         return null;
