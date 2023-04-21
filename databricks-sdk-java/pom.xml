@@ -14,7 +14,7 @@
     <junit-bom.version>5.9.2</junit-bom.version>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <mockito.version>4.11.0</mockito.version>
+    <mockito.version>4.11.0</mockito.version> <!-- 5.x starting from 5.0.0 requires java 11 -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <slf4j.version>2.0.7</slf4j.version>
   </properties>
