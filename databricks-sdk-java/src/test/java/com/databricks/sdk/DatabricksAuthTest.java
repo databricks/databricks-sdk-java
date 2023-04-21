@@ -9,10 +9,12 @@ import com.databricks.sdk.client.DatabricksConfig;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
 public class DatabricksAuthTest {
+
+  private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
 
   @Test
   public void testTestConfigNoParams() {
@@ -429,17 +431,22 @@ public class DatabricksAuthTest {
     return resource.getFile();
   }
 
-  static class StaticEnv implements Function<String, String> {
+  static class StaticEnv implements Supplier<Map<String, String>> {
     private final Map<String, String> env = new HashMap<>();
 
+    private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
+
     public StaticEnv with(String key, String value) {
+      if (key.equals("PATH")) {
+        value = prefixPath + value;
+      }
       env.put(key, value);
       return this;
     }
 
     @Override
-    public String apply(String var) {
-      return env.getOrDefault(var, "");
+    public Map<String, String> get() {
+      return env;
     }
   }
 
@@ -450,8 +457,7 @@ public class DatabricksAuthTest {
     } catch (Exception e) {
       raised = true;
       String message = e.getMessage();
-      String textToReplace = System.getProperty("user.dir") + "/target/test-classes/";
-      message = message.replace(textToReplace, "");
+      message = message.replace(prefixPath, "");
       if (!message.contains(contains)) {
         fail(String.format("Expected exception to contain '%s'", contains), e);
       }

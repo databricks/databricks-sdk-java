@@ -5,6 +5,7 @@ import com.databricks.sdk.client.http.FormRequest;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
@@ -71,14 +72,13 @@ public abstract class RefreshableTokenSource implements TokenSource {
       }
       LocalDateTime expiry = LocalDateTime.now().plus(resp.getExpiresIn(), ChronoUnit.SECONDS);
       return new Token(resp.getAccessToken(), resp.getTokenType(), resp.getRefreshToken(), expiry);
-    } catch (Exception e) {
+    } catch (IOException e) {
       throw new DatabricksException("Failed to refresh credentials: " + e.getMessage(), e);
     }
   }
 
-  abstract Token refresh();
+  protected abstract Token refresh();
 
-  @Override
   public synchronized Token getToken() {
     if (token == null || !token.isValid()) {
       token = refresh();

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
@@ -98,6 +99,9 @@ public class DatabricksConfig {
       auth = "azure")
   private String azureLoginAppId;
 
+  @ConfigAttribute(value = "bricks_cli_path", env = "BRICKS_CLI_PATH")
+  private String bricksCliPath;
+
   /**
    * When multiple auth attributes are available in the environment, use the auth type specified by
    * this argument. This argument also holds currently selected auth.
@@ -133,15 +137,23 @@ public class DatabricksConfig {
 
   private HttpClient httpClient;
 
-  Function<String, String> getEnv;
+  private Map<String, String> allEnv;
+
+  public Map<String, String> getAllEnv() {
+    return allEnv;
+  }
 
   public synchronized DatabricksConfig resolve() {
-    resolve(System::getenv);
+    resolve(() -> System.getenv());
     return this;
   }
 
+  public synchronized DatabricksConfig resolve(Supplier<Map<String, String>> getAllEnv) {
+    allEnv = getAllEnv.get();
+    return resolve(allEnv::get);
+  }
+
   public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
-    this.getEnv = getEnv;
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);
@@ -205,6 +217,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setAccountId(String accountId) {
     this.accountId = accountId;
+    return this;
+  }
+
+  public String getBricksCliPath() {
+    return this.bricksCliPath;
+  }
+
+  public DatabricksConfig setBricksCliPath(String bricksCliPath) {
+    this.bricksCliPath = bricksCliPath;
     return this;
   }
 
@@ -430,7 +451,6 @@ public class DatabricksConfig {
 
   public synchronized void authenticate(HttpMessage request) {
     Map<String, String> headers = authenticate();
-    ;
     for (Map.Entry<String, String> e : headers.entrySet()) {
       request.setHeader(e.getKey(), e.getValue());
     }
@@ -444,7 +464,20 @@ public class DatabricksConfig {
   }
 
   public boolean isAws() {
-    return !isAzure() && !isGcp();
+    if (host == null) {
+      return false;
+    }
+    return (!isAzure() && !isGcp());
+  }
+
+  public boolean isAccountClient() {
+    if (host == null) {
+      return false;
+    }
+    if (host.contains("https://accounts.")) {
+      return true;
+    }
+    return false;
   }
 
   public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
