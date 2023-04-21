@@ -88,13 +88,17 @@ public class ApiClientTest {
 
   private SuccessfulResponse getTransientError(Request req, int statusCode, ApiErrorBody body)
       throws JsonProcessingException {
+    return getTransientError(req, statusCode, mapper.writeValueAsString(body));
+  }
+
+  private SuccessfulResponse getTransientError(Request req, int statusCode, String body) {
     return new SuccessfulResponse(
         new Response(
             req,
             statusCode,
             EnglishReasonPhraseCatalog.INSTANCE.getReason(statusCode, Locale.ENGLISH),
             Collections.emptyMap(),
-            mapper.writeValueAsString(body)));
+            body));
   }
 
   @Test
@@ -132,6 +136,29 @@ public class ApiClientTest {
             getSuccessResponse(req)),
         MyEndpointResponse.class,
         "Request GET /api/my/endpoint failed after 3 retries");
+  }
+
+  @Test
+  void retryDatabricksApi12RetriableError() throws JsonProcessingException {
+    Request req = getBasicRequest();
+
+    runApiClientTest(
+        req,
+        Arrays.asList(
+            getTooManyRequestsResponse(req),
+            getTransientError(
+                req,
+                400,
+                new ApiErrorBody(
+                    "ERROR",
+                    null,
+                    null,
+                    null,
+                    null,
+                    "Workspace 123 does not have any associated worker environments")),
+            getSuccessResponse(req)),
+        MyEndpointResponse.class,
+        new MyEndpointResponse("value"));
   }
 
   @Test
