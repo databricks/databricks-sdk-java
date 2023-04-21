@@ -18,24 +18,15 @@ public class ApiErrors {
     } else if (out.getStatusCode() == 429) {
       return new CheckForRetryResult("TOO_MANY_REQUESTS", "Current request has to be retried", 429);
     } else if (out.getStatusCode() >= 400) {
-      return parseErrorFromResponse(out);
+      return readErrorFromResponse(out);
     } else {
       // The request succeeded; do not retry.
       return new CheckForRetryResult(out.getStatusCode());
     }
   }
 
-  private static CheckForRetryResult parseErrorFromResponse(Response response) {
-    ApiErrorBody errorBody;
-    // The response is either a JSON response or a webpage. In the JSON case, it is parsed normally;
-    // in the webpage
-    // case, the relevant error metadata is extracted from the response using a heuristic-based
-    // approach.
-    try {
-      errorBody = MAPPER.readValue(response.getBody(), ApiErrorBody.class);
-    } catch (IOException e) {
-      errorBody = parseUnknownError(response, e);
-    }
+  private static CheckForRetryResult readErrorFromResponse(Response response) {
+    ApiErrorBody errorBody = parseApiError(response);
 
     // Condense API v1.2 and SCIM error string and code into the message and errorCode fields of
     // DatabricksApiException.
@@ -53,7 +44,20 @@ public class ApiErrors {
       errorBody.setErrorCode("SCIM_" + errorBody.getScimStatus());
     }
     return new CheckForRetryResult(
-        errorBody.getErrorCode(), errorBody.getMessage(), response.getStatusCode());
+        errorBody.getMessage(), errorBody.getErrorCode(), response.getStatusCode());
+  }
+
+  /**
+   * The response is either a JSON response or a webpage. In the JSON case, it is parsed normally;
+   * in the webpage case, the relevant error metadata is extracted from the response using a
+   * heuristic-based approach.
+   */
+  private static ApiErrorBody parseApiError(Response response) {
+    try {
+      return MAPPER.readValue(response.getBody(), ApiErrorBody.class);
+    } catch (IOException e) {
+      return parseUnknownError(response, e);
+    }
   }
 
   private static ApiErrorBody parseUnknownError(Response response, IOException err) {

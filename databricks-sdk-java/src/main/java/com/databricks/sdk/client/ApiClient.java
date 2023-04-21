@@ -5,6 +5,7 @@ import com.databricks.sdk.client.error.CheckForRetryResult;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
+import com.databricks.sdk.client.utils.RealTimer;
 import com.databricks.sdk.client.utils.Timer;
 import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -46,6 +47,10 @@ public class ApiClient {
   }
 
   public ApiClient(DatabricksConfig config) {
+    this(config, new RealTimer());
+  }
+
+  public ApiClient(DatabricksConfig config, Timer timer) {
     this.config = config;
     config.resolve();
 
@@ -64,7 +69,7 @@ public class ApiClient {
     random = new Random();
     httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
-    timer = config.getTimer();
+    this.timer = timer;
   }
 
   private ObjectMapper makeObjectMapper() {
@@ -150,7 +155,7 @@ public class ApiClient {
   }
 
   /**
-   * Executes HTTP request with couple of retries and converts it to proper POJO
+   * Executes HTTP request with retries and converts it to proper POJO
    *
    * @param in Commons HTTP request
    * @param target Expected pojo type
@@ -159,17 +164,25 @@ public class ApiClient {
   private <T> T execute(Request in, Class<T> target) throws IOException {
     in.withUrl(config.getHost() + in.getUrl());
 
-    int attemptNumber = 0;
-    Response out = null;
-    Exception err = null;
-
     String userAgent = UserAgent.asString();
     // TODO: add auth/<auth-type> once PR#9 is merged
     in.withHeader("User-Agent", userAgent);
     in.withHeader("Accept", "application/json");
+    Response out = executeInner(in);
 
+    if (target == Void.class) {
+      return null;
+    }
+    return deserialize(out.getBody(), target);
+  }
+
+  private Response executeInner(Request in) {
+    int attemptNumber = 0;
     while (true) {
       attemptNumber++;
+
+      IOException err = null;
+      Response out = null;
 
       // Authenticate the request. Failures should not be retried.
       in.withHeaders(config.authenticate());
@@ -182,30 +195,29 @@ public class ApiClient {
         }
       } catch (IOException e) {
         err = e;
-        LOG.debug("Request failed", e);
+        LOG.debug("Request {} failed", in, e);
       }
 
-      // out should not be null; fail fast if it is. Otherwise, non-retriable failures should throw
-      // DatabricksException.
-      // If success (i.e. should not retry and no error), return. If the failure is retriable but
-      // the maximum number of
-      // attempts is exceeded, throw; otherwise, wait with backoff and try again.
-      if (out == null) {
-        throw new DatabricksException("HttpClient returned null; please file a bug report");
-      }
+      // The request is not retried under three conditions:
+      // 1. The request succeeded (err == null, out != null). In this case, the response is
+      // returned.
+      // 2. The request failed with a non-retriable error (err != null, out == null).
+      // 3. The request failed with a retriable error, but the number of attempts exceeds
+      // maxAttempts.
       CheckForRetryResult res = ApiErrors.checkForRetry(out, err);
       if (!res.isRetriable()) {
         if (res.getErrorCode() == null) {
-          break;
+          return out;
         }
-        throw new DatabricksException("API call failed and retry disallowed", res.toException());
+        throw new DatabricksException(
+            String.format("Request %s failed and retry disallowed", in), res.toException());
       }
-
-      // Throw if maxRetries is exceeded, including the last error message.
       if (attemptNumber == maxAttempts) {
-        throw new DatabricksException("API failed after " + maxAttempts + " retries", err);
+        throw new DatabricksException(
+            String.format("Request %s failed after %d retries", in, maxAttempts), err);
       }
 
+      // Retry after a backoff.
       int sleepMillis = getBackoffMillis(attemptNumber);
       LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis));
       try {
@@ -214,11 +226,6 @@ public class ApiClient {
         Thread.currentThread().interrupt();
       }
     }
-
-    if (target == Void.class) {
-      return null;
-    }
-    return deserialize(out.getBody(), target);
   }
 
   private int getBackoffMillis(int attemptNumber) {

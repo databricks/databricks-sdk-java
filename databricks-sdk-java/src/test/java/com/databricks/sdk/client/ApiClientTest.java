@@ -1,18 +1,23 @@
 package com.databricks.sdk.client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.databricks.sdk.client.error.ApiErrorBody;
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
 import com.databricks.sdk.client.utils.FakeTimer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.SocketTimeoutException;
+import java.util.*;
+import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.junit.jupiter.api.Test;
 
 public class ApiClientTest {
+  private final ObjectMapper mapper = new ObjectMapper();
+
   static class MyEndpointResponse {
     String key;
 
@@ -34,10 +39,9 @@ public class ApiClientTest {
     }
   }
 
-  private <T> void runApiClientTest(
-      Request request, List<Response> responses, Class<? extends T> clazz, T expectedResponse) {
+  private ApiClient getApiClient(Request request, List<ResponseProvider> responses) {
     DummyHttpClient hc = new DummyHttpClient();
-    for (Response response : responses) {
+    for (ResponseProvider response : responses) {
       hc.with(request, response);
     }
     String host = request.getUri().getScheme() + "://" + request.getUri().getHost();
@@ -45,21 +49,52 @@ public class ApiClientTest {
         new DatabricksConfig()
             .setHttpClient(hc)
             .setHost(host)
-            .setCredentialsProvider(new DummyCredentialsProvider())
-            .setTimer(new FakeTimer());
-    ApiClient client = new ApiClient(config);
+            .setCredentialsProvider(new DummyCredentialsProvider());
+    return new ApiClient(config, new FakeTimer());
+  }
 
+  private <T> void runApiClientTest(
+      Request request,
+      List<ResponseProvider> responses,
+      Class<? extends T> clazz,
+      T expectedResponse) {
+    ApiClient client = getApiClient(request, responses);
     T response = client.GET(request.getUri().getPath(), clazz);
-
     assertEquals(response, expectedResponse);
+  }
+
+  private void runFailingApiClientTest(
+      Request request, List<ResponseProvider> responses, Class<?> clazz, String expectedMessage) {
+    ApiClient client = getApiClient(request, responses);
+    DatabricksException exception =
+        assertThrows(
+            DatabricksException.class, () -> client.GET(request.getUri().getPath(), clazz));
+    assertEquals(exception.getMessage(), expectedMessage);
   }
 
   private Request getBasicRequest() {
     return new Request("GET", "http://my.host/api/my/endpoint");
   }
 
-  private Response getSuccessResponse(Request req) {
-    return new Response(req, 200, "OK", Collections.emptyMap(), "{\"key\":\"value\"}");
+  private SuccessfulResponse getSuccessResponse(Request req) {
+    return new SuccessfulResponse(
+        new Response(req, 200, "OK", Collections.emptyMap(), "{\"key\":\"value\"}"));
+  }
+
+  private SuccessfulResponse getTooManyRequestsResponse(Request req) {
+    return new SuccessfulResponse(
+        new Response(req, 429, "Too Many Requests", Collections.emptyMap(), null));
+  }
+
+  private SuccessfulResponse getTransientError(Request req, int statusCode, ApiErrorBody body)
+      throws JsonProcessingException {
+    return new SuccessfulResponse(
+        new Response(
+            req,
+            statusCode,
+            EnglishReasonPhraseCatalog.INSTANCE.getReason(statusCode, Locale.ENGLISH),
+            Collections.emptyMap(),
+            mapper.writeValueAsString(body)));
   }
 
   @Test
@@ -78,9 +113,58 @@ public class ApiClientTest {
     runApiClientTest(
         req,
         Arrays.asList(
-            new Response(req, 429, "Too Many Requests", Collections.emptyMap(), null),
-            new Response(req, 429, "Too Many Requests", Collections.emptyMap(), null),
+            getTooManyRequestsResponse(req),
+            getTooManyRequestsResponse(req),
             getSuccessResponse(req)),
+        MyEndpointResponse.class,
+        new MyEndpointResponse("value"));
+  }
+
+  @Test
+  void failAfterTooManyRetries() {
+    Request req = getBasicRequest();
+    runFailingApiClientTest(
+        req,
+        Arrays.asList(
+            getTooManyRequestsResponse(req),
+            getTooManyRequestsResponse(req),
+            getTooManyRequestsResponse(req),
+            getSuccessResponse(req)),
+        MyEndpointResponse.class,
+        "Request GET /api/my/endpoint failed after 3 retries");
+  }
+
+  @Test
+  void retryDatabricksRetriableError() throws JsonProcessingException {
+    Request req = getBasicRequest();
+
+    runApiClientTest(
+        req,
+        Arrays.asList(
+            getTooManyRequestsResponse(req),
+            getTransientError(
+                req,
+                400,
+                new ApiErrorBody(
+                    "ERROR",
+                    "Workspace 123 does not have any associated worker environments",
+                    null,
+                    null,
+                    null,
+                    null)),
+            getSuccessResponse(req)),
+        MyEndpointResponse.class,
+        new MyEndpointResponse("value"));
+  }
+
+  @Test
+  void retrySocketTimeoutException() {
+    Request req = getBasicRequest();
+
+    runApiClientTest(
+        req,
+        Arrays.asList(
+            new Failure(new SocketTimeoutException("Connect timed out")), getSuccessResponse(req)),
         MyEndpointResponse.class,
         new MyEndpointResponse("value"));
   }

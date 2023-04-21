@@ -2,23 +2,37 @@ package com.databricks.sdk.client.error;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/** The union of all JSON error responses from the Databricks APIs, not including HTML responses. */
+/**
+ * The union of all JSON error responses from the Databricks APIs, not including HTML responses.
+ *
+ * <p>This is a direct translation of <a
+ * href="https://github.com/databricks/databricks-sdk-go/blob/main/apierr/errors.go#L31">the
+ * APIErrorBody struct from the Go SDK</a>.
+ */
 public class ApiErrorBody {
-  @JsonProperty("error_code")
   private String errorCode;
-
-  @JsonProperty private String message;
-
-  @JsonProperty("detail")
+  private String message;
   private String scimDetail;
-
-  @JsonProperty("status")
   private String scimStatus;
-
-  @JsonProperty private String scimType;
-
-  @JsonProperty("error")
+  private String scimType;
   private String api12Error;
+
+  public ApiErrorBody() {}
+
+  public ApiErrorBody(
+      @JsonProperty("error_code") String errorCode,
+      @JsonProperty("message") String message,
+      @JsonProperty("detail") String scimDetail,
+      @JsonProperty("status") String scimStatus,
+      @JsonProperty("scimType") String scimType,
+      @JsonProperty("error") String api12Error) {
+    this.errorCode = errorCode;
+    this.message = message;
+    this.scimDetail = scimDetail;
+    this.scimStatus = scimStatus;
+    this.scimType = scimType;
+    this.api12Error = api12Error;
+  }
 
   public String getErrorCode() {
     return errorCode;

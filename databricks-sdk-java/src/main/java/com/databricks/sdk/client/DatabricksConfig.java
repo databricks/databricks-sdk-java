@@ -5,8 +5,6 @@ import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
 import com.databricks.sdk.client.oauth.OpenIDConnectEndpoints;
-import com.databricks.sdk.client.utils.RealTimer;
-import com.databricks.sdk.client.utils.Timer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
@@ -136,8 +134,6 @@ public class DatabricksConfig {
   private HttpClient httpClient;
 
   Function<String, String> getEnv;
-
-  private Timer timer = new RealTimer();
 
   public synchronized DatabricksConfig resolve() {
     resolve(System::getenv);
@@ -476,15 +472,6 @@ public class DatabricksConfig {
       return null;
     }
     return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
-  }
-
-  public Timer getTimer() {
-    return timer;
-  }
-
-  public DatabricksConfig setTimer(Timer timer) {
-    this.timer = timer;
-    return this;
   }
 
   @Override
