@@ -20,6 +20,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
+
 import org.junit.jupiter.api.extension.*;
 
 public class EnvTest implements Extension, ParameterResolver, ExecutionCondition {
@@ -29,7 +31,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
 
   private static final String ENV_STORE_KEY = "env";
 
-  private Map<String, String> innerEnv;
+  private static Map<String, String> innerEnv;
 
   @Override
   public boolean supportsParameter(
@@ -91,7 +93,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
     if (!env.isPresent()) {
       return fail("Cannot resolve DatabricksConfig");
     }
-    DatabricksConfig config = new DatabricksConfig().resolve(innerEnv);
+    DatabricksConfig config = new DatabricksConfig().resolve(() -> innerEnv);
     if (parameter.getType() == DatabricksWorkspace.class) {
       return new DatabricksWorkspace(config);
     } else if (parameter.getType() == DatabricksAccount.class) {
@@ -124,6 +126,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
                     ENV_STORE_KEY, x -> makeEnvResolver(contextName), EnvGetter.class));
   }
 
+
   private EnvGetter makeEnvResolver(String contextName) {
     String debugEnvFile =
         String.format("%s/.databricks/debug-env.json", System.getProperty("user.home"));
@@ -132,12 +135,14 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
       Map<String, Map<String, String>> all = objectMapper.readValue(in, new DebugEnv());
       Map<String, String> found = all.get(contextName);
       if (found == null) {
+        innerEnv = System.getenv();
         return System::getenv;
       }
       found.put("HOME", "/tmp");
       innerEnv = found;
       return found::get;
     } catch (IOException e) {
+      innerEnv = System.getenv();
       return System::getenv;
     }
   }

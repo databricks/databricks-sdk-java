@@ -148,19 +148,13 @@ public class DatabricksConfig {
     return this;
   }
 
-  public synchronized DatabricksConfig resolve(Map<String, String> getAllEnv) {
-    allEnv = getAllEnv;
-    innerResolve();
-    return this;
-  }
-
   public synchronized DatabricksConfig resolve(Supplier<Map<String, String>> getAllEnv) {
     allEnv = getAllEnv.get();
     innerResolve();
     return this;
   }
 
-  public synchronized DatabricksConfig innerResolve() {
+  private synchronized DatabricksConfig innerResolve() {
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);
