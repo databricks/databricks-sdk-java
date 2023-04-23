@@ -24,7 +24,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
   public CliTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     List<String> cmd =
         Arrays.asList(
-            "az", "account", "get-access-token", "--resource", resource, "--output", "json");
+            "/home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az", "account", "get-access-token", "--resource", resource, "--output", "json");
     return new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config::getAllEnv);
   }
 
