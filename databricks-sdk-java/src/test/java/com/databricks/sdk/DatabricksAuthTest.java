@@ -27,7 +27,7 @@ public class DatabricksAuthTest {
     return path.replaceAll("/", "\\");
   }
 
-  private DatabricksAuthTest() {
+  public DatabricksAuthTest() {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       isWin = false;
     } else {
