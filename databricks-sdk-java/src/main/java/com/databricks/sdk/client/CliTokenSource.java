@@ -81,7 +81,7 @@ public class CliTokenSource extends RefreshableTokenSource {
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
       cmdTest = Arrays.asList("/bin/bash", "-c", "cat", "/Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
     } else {
-      cmdTest = Arrays.asList("/bin/bash", "-c", "cat /home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
+      cmdTest = Arrays.asList("/bin/bash", "-c", "/home/tanmay.rustagi/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
     }
     ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
     LOG.info("tanmay -- map values -- " + getAllEnv.get().toString());
@@ -109,8 +109,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       int exitCode = process.waitFor();
       if (exitCode != 0) {
         if (stderr.contains("not found")
-            || stderr.contains("not recognized as an internal or external command")
-            || stderr.contains("No such file or directory")) {
+            || stderr.contains("not recognized as an internal or external command")) {
           throw new DatabricksException(stderr);
         } else {
           throw new IOException(stderr);
