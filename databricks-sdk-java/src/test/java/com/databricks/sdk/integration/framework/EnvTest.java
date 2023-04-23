@@ -29,7 +29,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
 
   private static final String ENV_STORE_KEY = "env";
 
-  private static Map<String, String> innerEnv;
+  private Map<String, String> innerEnv;
 
   @Override
   public boolean supportsParameter(
