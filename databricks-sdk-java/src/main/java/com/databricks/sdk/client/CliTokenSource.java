@@ -39,11 +39,9 @@ public class CliTokenSource extends RefreshableTokenSource {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-      this.cmd = Arrays.asList("/bin/bash", "-c", "echo blabla2$PATH");
-//      this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
-
+      this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
     } else {
-      this.cmd = Arrays.asList("/bin/bash", "-c", "echo abcd");
+      this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
     }
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
@@ -100,7 +98,7 @@ public class CliTokenSource extends RefreshableTokenSource {
   @Override
   protected Token refresh() {
     try {
-      printEnv();
+//      printEnv();
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(getAllEnv.get());
       Process process = processBuilder.start();
