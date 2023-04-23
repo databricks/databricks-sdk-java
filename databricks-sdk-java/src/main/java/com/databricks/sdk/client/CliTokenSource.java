@@ -43,7 +43,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
 
     } else {
-      this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
+      this.cmd = cmd;
     }
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
