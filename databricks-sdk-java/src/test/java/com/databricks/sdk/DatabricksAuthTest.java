@@ -24,7 +24,7 @@ public class DatabricksAuthTest {
 
   private static String convertPathToWindows(String path) {
     // Replace all "/" to "\"
-    return path.replaceAll("/", "\\");
+    return path.replace("/", "\\");
   }
 
   public DatabricksAuthTest() {
