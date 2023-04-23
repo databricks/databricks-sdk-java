@@ -29,7 +29,7 @@ public class DatabricksAuthTest {
 
   public DatabricksAuthTest() {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-      isWin = false;
+      isWin = true;
     } else {
       isWin = false;
     }
