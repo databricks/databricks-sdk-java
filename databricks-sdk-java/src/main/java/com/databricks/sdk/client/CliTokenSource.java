@@ -104,7 +104,8 @@ public class CliTokenSource extends RefreshableTokenSource {
       int exitCode = process.waitFor();
       if (exitCode != 0) {
         if (stderr.contains("not found")
-            || stderr.contains("not recognized as an internal or external command") || stderr.contains("No such file or directory")) {
+            || stderr.contains("not recognized as an internal or external command")
+            || stderr.contains("No such file or directory")) {
           throw new DatabricksException(stderr);
         } else {
           throw new IOException(stderr);
