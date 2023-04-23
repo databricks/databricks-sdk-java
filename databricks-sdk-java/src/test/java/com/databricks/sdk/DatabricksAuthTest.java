@@ -5,14 +5,19 @@ package com.databricks.sdk;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.databricks.sdk.client.CliTokenSource;
 import com.databricks.sdk.client.DatabricksConfig;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabricksAuthTest {
+
+  private static final Logger LOG = LoggerFactory.getLogger(DatabricksAuthTest.class);
 
   private static String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
 
@@ -472,6 +477,7 @@ public class DatabricksAuthTest {
       if (isWin) {
         value = convertPathToWindows(value);
       }
+      LOG.info("tanmay -- putting into map -- value = " + value);
       env.put(key, value);
       return this;
     }

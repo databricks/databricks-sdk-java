@@ -19,7 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CliTokenSource extends RefreshableTokenSource {
-  private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CliTokenSource.class);
   private List<String> cmd;
   private String tokenTypeField;
   private String accessTokenField;
