@@ -93,7 +93,7 @@ public class ConfigLoader {
 
     Profile.Section section = ini.get(profile);
     if (section == null && !hasExplicitProfile) {
-      // logger.Debugf("%s has no %s profile configured", configFile, profile)
+      LOG.info(String.format("%s has no %s profile configured", configFile, profile));
       return;
     }
 
