@@ -14,10 +14,24 @@ import org.junit.jupiter.api.Test;
 
 public class DatabricksAuthTest {
 
-  private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
+  private static String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
+
+  private static boolean isWin = false;
+
+  private static String convertPathToWindows(String path) {
+    // Replace all "/" to "\"
+    return path.replaceAll("/", "\\");
+  }
+
+  private DatabricksAuthTest() {
+    if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
+      isWin = true;
+    }
+  }
 
   @Test
   public void testTestConfigNoParams() {
+
     raises(
         "default auth: cannot configure default credentials",
         () -> {
@@ -30,6 +44,7 @@ public class DatabricksAuthTest {
   public void testTestConfigHostEnv() {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("DATABRICKS_HOST", "x");
+
     raises(
         "default auth: cannot configure default credentials. Config: host=https://x. Env: DATABRICKS_HOST",
         () -> {
@@ -42,6 +57,7 @@ public class DatabricksAuthTest {
   public void testTestConfigTokenEnv() {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("DATABRICKS_TOKEN", "x");
+
     raises(
         "default auth: cannot configure default credentials. Config: token=***. Env: DATABRICKS_TOKEN",
         () -> {
@@ -77,6 +93,7 @@ public class DatabricksAuthTest {
     // Set environment variables
     StaticEnv env =
         new StaticEnv().with("DATABRICKS_PASSWORD", "x").with("DATABRICKS_USERNAME", "x");
+
     raises(
         "default auth: cannot configure default credentials. Config: username=x, password=***. Env: DATABRICKS_USERNAME, DATABRICKS_PASSWORD",
         () -> {
@@ -147,6 +164,7 @@ public class DatabricksAuthTest {
             .with("DATABRICKS_PASSWORD", "x")
             .with("DATABRICKS_TOKEN", "x")
             .with("DATABRICKS_USERNAME", "x");
+
     raises(
         "validate: more than one authorization method configured: basic and pat. Config: host=x, token=***, username=x, password=***. Env: DATABRICKS_HOST, DATABRICKS_TOKEN, DATABRICKS_USERNAME, DATABRICKS_PASSWORD",
         () -> {
@@ -175,6 +193,7 @@ public class DatabricksAuthTest {
   public void testTestConfigConfigFile() {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("DATABRICKS_CONFIG_FILE", "x");
+
     raises(
         "default auth: cannot configure default credentials. Config: config_file=x. Env: DATABRICKS_CONFIG_FILE",
         () -> {
@@ -187,6 +206,7 @@ public class DatabricksAuthTest {
   public void testTestConfigConfigFileSkipDefaultProfileIfHostSpecified() {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("HOME", resource("/testdata"));
+
     raises(
         "default auth: cannot configure default credentials. Config: host=https://x",
         () -> {
@@ -227,6 +247,7 @@ public class DatabricksAuthTest {
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "nohost")
             .with("HOME", resource("/testdata"));
+
     raises(
         "default auth: cannot configure default credentials. Config: token=***, profile=nohost. Env: DATABRICKS_CONFIG_PROFILE",
         () -> {
@@ -243,6 +264,7 @@ public class DatabricksAuthTest {
             .with("DATABRICKS_CONFIG_PROFILE", "nohost")
             .with("DATABRICKS_TOKEN", "x")
             .with("HOME", resource("/testdata"));
+
     raises(
         "default auth: cannot configure default credentials. Config: token=***, profile=nohost. Env: DATABRICKS_TOKEN, DATABRICKS_CONFIG_PROFILE",
         () -> {
@@ -259,6 +281,7 @@ public class DatabricksAuthTest {
             .with("DATABRICKS_CONFIG_PROFILE", "nohost")
             .with("DATABRICKS_USERNAME", "x")
             .with("HOME", resource("/testdata"));
+
     raises(
         "validate: more than one authorization method configured: basic and pat. Config: token=***, username=x, profile=nohost. Env: DATABRICKS_USERNAME, DATABRICKS_CONFIG_PROFILE",
         () -> {
@@ -301,6 +324,7 @@ public class DatabricksAuthTest {
             .with("FAIL", "yes")
             .with("HOME", resource("/testdata/azure"))
             .with("PATH", "testdata:/bin");
+
     raises(
         "default auth: azure-cli: cannot get access token: This is just a failing script.\n. Config: azure_workspace_resource_id=/sub/rg/ws",
         () -> {
@@ -315,6 +339,7 @@ public class DatabricksAuthTest {
     // Set environment variables
     StaticEnv env =
         new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", "whatever");
+
     raises(
         "default auth: cannot configure default credentials. Config: azure_workspace_resource_id=/sub/rg/ws",
         () -> {
@@ -329,6 +354,7 @@ public class DatabricksAuthTest {
     // Set environment variables
     StaticEnv env =
         new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", "testdata:/bin");
+
     raises(
         "validate: more than one authorization method configured: azure and pat. Config: token=***, azure_workspace_resource_id=/sub/rg/ws",
         () -> {
@@ -380,6 +406,7 @@ public class DatabricksAuthTest {
             .with("DATABRICKS_USERNAME", "x")
             .with("HOME", resource("/testdata/azure"))
             .with("PATH", "testdata:/bin");
+
     raises(
         "validate: more than one authorization method configured: azure and basic. Config: host=x, username=x, azure_workspace_resource_id=/sub/rg/ws. Env: DATABRICKS_USERNAME",
         () -> {
@@ -399,6 +426,7 @@ public class DatabricksAuthTest {
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "DEFAULT")
             .with("HOME", resource("/testdata/corrupt"));
+
     raises(
         "resolve: testdata/corrupt/.databrickscfg has no DEFAULT profile configured. Config: profile=DEFAULT. Env: DATABRICKS_CONFIG_PROFILE",
         () -> {
@@ -424,6 +452,9 @@ public class DatabricksAuthTest {
   }
 
   private String resource(String file) {
+    if (isWin) {
+      file = convertPathToWindows(file);
+    }
     URL resource = getClass().getResource(file);
     if (resource == null) {
       fail("Asset not found: " + file);
@@ -434,12 +465,12 @@ public class DatabricksAuthTest {
   static class StaticEnv implements Supplier<Map<String, String>> {
     private final Map<String, String> env = new HashMap<>();
 
-    private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
-
     public StaticEnv with(String key, String value) {
-      if ("PATH".equals(key)) {
+      if (key.equals("PATH")) {
         value = prefixPath + value + ":/usr/bin";
-        System.out.println("putting in map, PATH = " + value);
+      }
+      if (isWin) {
+        value = convertPathToWindows(value);
       }
       env.put(key, value);
       return this;
