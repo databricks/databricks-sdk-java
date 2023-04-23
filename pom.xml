@@ -31,7 +31,7 @@
       <plugin>
         <groupId>com.diffplug.spotless</groupId>
         <artifactId>spotless-maven-plugin</artifactId>
-        <!-- 2.31.0 + version doesn't work with Java 8 -->
+        <!-- 2.31.0 + version requires JRE 11 -->
         <version>2.30.0</version>
         <configuration>
           <java>
