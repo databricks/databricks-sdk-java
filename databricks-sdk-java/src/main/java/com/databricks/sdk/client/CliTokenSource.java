@@ -75,7 +75,10 @@ public class CliTokenSource extends RefreshableTokenSource {
       cmdTest = Arrays.asList("/bin/bash", "-c", "env");
     }
     ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
+    LOG.info("tanmay -- map values -- " + getAllEnv.get().toString());
+    LOG.info("tanmay -- process env values before -- " + processBuilder.environment().toString());
     processBuilder.environment().putAll(getAllEnv.get());
+    LOG.info("tanmay -- process env values after -- " + processBuilder.environment().toString());
     Process process = processBuilder.start();
     String stdout = getProcessStream(process.getInputStream());
     String stderr = getProcessStream(process.getErrorStream());
