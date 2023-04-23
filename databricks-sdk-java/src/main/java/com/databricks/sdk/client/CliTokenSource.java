@@ -38,7 +38,7 @@ public class CliTokenSource extends RefreshableTokenSource {
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
       this.cmd = Arrays.asList("/bin/bash", "-c", cmd.stream().collect(Collectors.joining(" ")));
     } else {
-      this.cmd = cmd;
+      this.cmd = Arrays.asList("/bin/bash", "-c", cmd.stream().collect(Collectors.joining(" ")));
     }
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
@@ -76,7 +76,7 @@ public class CliTokenSource extends RefreshableTokenSource {
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
       cmdTest = Arrays.asList("/bin/bash", "-c", "env");
     } else {
-      cmdTest = Arrays.asList("env");
+      cmdTest = Arrays.asList("/bin/bash", "-c", "env");
     }
     ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
     LOG.info("tanmay -- map values -- " + getAllEnv.get().toString());
