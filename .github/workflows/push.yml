@@ -47,7 +47,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Permission
-        run: chmod ugo+x ./databricks-sdk-java/target/test-classes/testdata/az
+        run: |
+            pwd
+            chmod ugo+x ./databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az
 
       - name: Cache Maven packages
         uses: actions/cache@v2
