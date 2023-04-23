@@ -437,7 +437,7 @@ public class DatabricksAuthTest {
     private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
 
     public StaticEnv with(String key, String value) {
-      if (key.equals("PATH")) {
+      if ("PATH".equals(key)) {
         value = prefixPath + value;
       }
       env.put(key, value);

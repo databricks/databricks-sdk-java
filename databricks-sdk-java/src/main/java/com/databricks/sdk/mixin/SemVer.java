@@ -41,8 +41,8 @@ public class SemVer implements Comparable<SemVer> {
     String patch = m.group("patch");
     return new SemVer(
         Integer.parseInt(m.group("major")),
-        minor.equals("x") ? 0 : Integer.parseInt(minor),
-        patch.equals("x") ? 0 : Integer.parseInt(patch),
+        "x".equals(minor) ? 0 : Integer.parseInt(minor),
+        "x".equals(patch) ? 0 : Integer.parseInt(patch),
         m.group("preRelease"),
         m.group("build"));
   }
