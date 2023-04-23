@@ -35,7 +35,6 @@
         <version>2.30.0</version>
         <configuration>
           <java>
-            <cleanthat/>
             <googleJavaFormat/>
             <importOrder/>
             <removeUnusedImports/>
