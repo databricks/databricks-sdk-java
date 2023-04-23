@@ -39,6 +39,9 @@ public class ConfigLoader {
   }
 
   static void loadFromEnvironmentVariables(DatabricksConfig cfg) throws IllegalAccessException {
+    if (cfg.getAllEnv() == null) {
+      return;
+    }
     try {
       for (ConfigAttributeAccessor accessor : accessors) {
         String env = cfg.getAllEnv().get(accessor.getEnvVariable());
