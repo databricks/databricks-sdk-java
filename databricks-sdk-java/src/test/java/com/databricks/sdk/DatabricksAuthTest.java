@@ -5,7 +5,6 @@ package com.databricks.sdk;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.databricks.sdk.client.CliTokenSource;
 import com.databricks.sdk.client.DatabricksConfig;
 import java.net.URL;
 import java.util.HashMap;
@@ -21,7 +20,7 @@ public class DatabricksAuthTest {
 
   private static String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
 
-  private static boolean isWin = false;
+  private static boolean isWin;
 
   private static String convertPathToWindows(String path) {
     // Replace all "/" to "\"
@@ -30,7 +29,9 @@ public class DatabricksAuthTest {
 
   private DatabricksAuthTest() {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-      isWin = true;
+      isWin = false;
+    } else {
+      isWin = false;
     }
   }
 
