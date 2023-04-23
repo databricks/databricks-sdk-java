@@ -39,11 +39,11 @@ public class CliTokenSource extends RefreshableTokenSource {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-//      this.cmd = Arrays.asList("/bin/bash", "-c", cmd.stream().collect(Collectors.joining(" ")));
-      this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
+      this.cmd = Arrays.asList("/bin/bash", "-c", "echo blabla2$PATH");
+//      this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
 
     } else {
-      this.cmd = cmd;
+      this.cmd = Arrays.asList("/bin/bash", "-c", "echo abcd");
     }
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
@@ -81,7 +81,7 @@ public class CliTokenSource extends RefreshableTokenSource {
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
       cmdTest = Arrays.asList("/bin/bash", "-c", "cat", "/Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
     } else {
-      cmdTest = Arrays.asList("/bin/bash", "-c", "/home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
+      cmdTest = Arrays.asList("/bin/bash", "-c", "az");
     }
     ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
     LOG.info("tanmay -- map values -- " + getAllEnv.get().toString());

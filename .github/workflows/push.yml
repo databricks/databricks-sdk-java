@@ -56,9 +56,9 @@ jobs:
       - name: Permission
         run: |
           pwd
-          ls 
-          cat ./databricks-sdk-java/target/test-classes/testdata/az
-          chmod ugo+x ./databricks-sdk-java/target/test-classes/testdata/az
+          cat ./databricks-sdk-java/src/test/resources/testdata/az
+          chmod ugo+x ./databricks-sdk-java/src/test/resources/testdata/az
+          cat ./databricks-sdk-java/src/test/resources/testdata/az
 
       - name: Check Unit Tests
         run: mvn -e test
