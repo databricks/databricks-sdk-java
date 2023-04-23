@@ -9,14 +9,18 @@ import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CliTokenSource extends RefreshableTokenSource {
+  private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
   private List<String> cmd;
   private String tokenTypeField;
   private String accessTokenField;
@@ -31,11 +35,9 @@ public class CliTokenSource extends RefreshableTokenSource {
       Supplier<Map<String, String>> getAllEnv) {
     super();
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-//      this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
-      this.cmd = Arrays.asList("cmd.exe", "/c", "SET");
+      this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
     } else {
-//      this.cmd = Arrays.asList("/bin/bash", "-c", cmd.stream().collect(Collectors.joining(" ")));
-      this.cmd = Arrays.asList("/bin/bash", "-c", "env");
+      this.cmd = Arrays.asList("/bin/bash", "-c", cmd.stream().collect(Collectors.joining(" ")));
     }
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
@@ -65,9 +67,29 @@ public class CliTokenSource extends RefreshableTokenSource {
     return new String(bytes);
   }
 
+  // Testing
+  private void printEnv() throws IOException, InterruptedException {
+    List<String> cmdTest;
+    if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
+      cmdTest = Arrays.asList("cmd.exe", "/c", "SET");
+    } else {
+      cmdTest = Arrays.asList("/bin/bash", "-c", "env");
+    }
+    ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
+    processBuilder.environment().putAll(getAllEnv.get());
+    Process process = processBuilder.start();
+    String stdout = getProcessStream(process.getInputStream());
+    String stderr = getProcessStream(process.getErrorStream());
+    int exitCode = process.waitFor();
+    LOG.info("tanmay -- stdout = " + stdout);
+    LOG.info("tanmay -- stderr = " + stderr);
+    LOG.info("tanmay -- exitCode = " + exitCode);
+  }
+
   @Override
   protected Token refresh() {
     try {
+      printEnv();
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(getAllEnv.get());
       Process process = processBuilder.start();
