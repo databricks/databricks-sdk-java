@@ -31,9 +31,11 @@ public class CliTokenSource extends RefreshableTokenSource {
       Supplier<Map<String, String>> getAllEnv) {
     super();
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-      this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
+//      this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
+      this.cmd = Arrays.asList("cmd.exe", "/c", "env");
     } else {
-      this.cmd = Arrays.asList("/bin/bash", "-c", cmd.stream().collect(Collectors.joining(" ")));
+//      this.cmd = Arrays.asList("/bin/bash", "-c", cmd.stream().collect(Collectors.joining(" ")));
+      this.cmd = Arrays.asList("/bin/bash", "-c", "env");
     }
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
