@@ -458,9 +458,6 @@ public class DatabricksAuthTest {
   }
 
   private String resource(String file) {
-    if (isWin) {
-      file = convertPathToWindows(file);
-    }
     URL resource = getClass().getResource(file);
     if (resource == null) {
       fail("Asset not found: " + file);
