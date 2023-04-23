@@ -9,11 +9,14 @@ import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,9 +39,11 @@ public class CliTokenSource extends RefreshableTokenSource {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-      this.cmd = Arrays.asList("/bin/bash", "-c", cmd.stream().collect(Collectors.joining(" ")));
+//      this.cmd = Arrays.asList("/bin/bash", "-c", cmd.stream().collect(Collectors.joining(" ")));
+      this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
+
     } else {
-      this.cmd = Arrays.asList("/bin/bash", "-c", cmd.stream().collect(Collectors.joining(" ")));
+      this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
     }
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
