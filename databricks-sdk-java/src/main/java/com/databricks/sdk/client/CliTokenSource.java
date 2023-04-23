@@ -81,7 +81,7 @@ public class CliTokenSource extends RefreshableTokenSource {
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
       cmdTest = Arrays.asList("/bin/bash", "-c", "env");
     } else {
-      cmdTest = Arrays.asList("/bin/bash", "-c", "env");
+      cmdTest = Arrays.asList("/bin/bash", "-c", "cat", "/home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
     }
     ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
     LOG.info("tanmay -- map values -- " + getAllEnv.get().toString());
