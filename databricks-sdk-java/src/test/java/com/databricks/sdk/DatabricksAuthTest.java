@@ -438,7 +438,7 @@ public class DatabricksAuthTest {
 
     public StaticEnv with(String key, String value) {
       if ("PATH".equals(key)) {
-        value = prefixPath + value;
+        value = prefixPath + value + ":/usr/bin";
         System.out.println("putting in map, PATH = " + value);
       }
       env.put(key, value);
