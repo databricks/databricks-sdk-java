@@ -19,13 +19,13 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
-  public ExportResponse export(Export request) {
+  public ExportResponse export(ExportRequest request) {
     String path = "/api/2.0/workspace/export";
     return apiClient.GET(path, request, ExportResponse.class);
   }
 
   @Override
-  public ObjectInfo getStatus(GetStatus request) {
+  public ObjectInfo getStatus(GetStatusRequest request) {
     String path = "/api/2.0/workspace/get-status";
     return apiClient.GET(path, request, ObjectInfo.class);
   }
@@ -37,7 +37,7 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
-  public ListResponse list(List request) {
+  public ListResponse list(ListWorkspaceRequest request) {
     String path = "/api/2.0/workspace/list";
     return apiClient.GET(path, request, ListResponse.class);
   }

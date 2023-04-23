@@ -1,5 +1,6 @@
 package com.databricks.sdk.client.http;
 
+import com.databricks.sdk.client.BodyLogger;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -63,5 +64,16 @@ public class Response {
   @Override
   public String toString() {
     return String.format("%d %s", statusCode, status);
+  }
+
+  public String toDebugString(BodyLogger bodyLogger) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("\n< ");
+    sb.append(toString());
+    for (String line : bodyLogger.redactedDump(getBody()).split("\n")) {
+      sb.append("\n< ");
+      sb.append(line);
+    }
+    return sb.toString();
   }
 }

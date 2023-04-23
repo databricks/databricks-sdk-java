@@ -240,27 +240,8 @@ public class ApiClient {
 
   private String makeLogRecord(Request in, Response out) {
     StringBuilder sb = new StringBuilder();
-    sb.append("> ");
-    sb.append(in.getRequestLine());
-    if (config.isDebugHeaders()) {
-      sb.append("\n * Host: ");
-      sb.append(config.getHost());
-      in.getHeaders()
-          .forEach((header, value) -> sb.append(String.format("\n * %s: %s", header, value)));
-    }
-    String requestBody = in.getBody();
-    if (requestBody != null && !requestBody.isEmpty()) {
-      for (String line : bodyLogger.redactedDump(requestBody).split("\n")) {
-        sb.append("\n> ");
-        sb.append(line);
-      }
-    }
-    sb.append("\n< ");
-    sb.append(out.toString());
-    for (String line : bodyLogger.redactedDump(out.getBody()).split("\n")) {
-      sb.append("\n< ");
-      sb.append(line);
-    }
+    sb.append(in.toDebugString(bodyLogger, config.isDebugHeaders()));
+    sb.append(out.toDebugString(bodyLogger));
     return sb.toString();
   }
 

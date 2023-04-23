@@ -2,6 +2,7 @@ package com.databricks.sdk.client;
 
 import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.http.HttpClient;
+import com.databricks.sdk.client.http.LoggingHttpClient;
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
 import com.databricks.sdk.client.oauth.OpenIDConnectEndpoints;
@@ -26,10 +27,10 @@ public class DatabricksConfig {
   @ConfigAttribute(value = "token", env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
   private String token;
 
-  @ConfigAttribute(value = "client_id", env = "DATABRICKS_CLIENT_ID", auth = "oath")
+  @ConfigAttribute(value = "client_id", env = "DATABRICKS_CLIENT_ID", auth = "oauth")
   private String clientId;
 
-  @ConfigAttribute(value = "client_secret", env = "DATABRICKS_CLIENT_SECRET", auth = "oath")
+  @ConfigAttribute(value = "client_secret", env = "DATABRICKS_CLIENT_SECRET", auth = "oauth")
   private String clientSecret;
 
   @ConfigAttribute(value = "username", env = "DATABRICKS_USERNAME", auth = "basic")
@@ -162,7 +163,7 @@ public class DatabricksConfig {
       timeout = httpTimeoutSeconds;
     }
     // eventually it'll get decoupled from config.
-    httpClient = new CommonsHttpClient(timeout);
+    httpClient = new LoggingHttpClient(new CommonsHttpClient(timeout));
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {

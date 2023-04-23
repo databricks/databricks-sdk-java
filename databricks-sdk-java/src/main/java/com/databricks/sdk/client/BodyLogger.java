@@ -6,8 +6,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-class BodyLogger {
+public class BodyLogger {
   private final Set<String> redactKeys =
       new HashSet<String>() {
         {
@@ -19,6 +21,7 @@ class BodyLogger {
   private int maxBytes = 1023;
   private int debugTruncateBytes = 96;
   private final ObjectMapper mapper;
+  private final Logger LOG = LoggerFactory.getLogger(getClass());
 
   public BodyLogger(ObjectMapper mapper, int maxBytes, int debugTruncateBytes) {
     this.mapper = mapper;
@@ -49,7 +52,8 @@ class BodyLogger {
       return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
     } catch (JsonProcessingException e) {
       // Unable to unmarshal means the body isn't JSON (or something else)
-      return String.format("[unable to marshal: %s]", e.getMessage());
+      LOG.trace("Unable to parse request body as JSON: " + e.getMessage());
+      return body;
     }
   }
 

@@ -1,0 +1,64 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+package com.databricks.sdk.service.scim;
+
+import com.databricks.sdk.client.ApiClient;
+import org.apache.http.client.methods.*;
+
+/** Package-local implementation of AccountGroups */
+class AccountGroupsImpl implements AccountGroupsService {
+  private final ApiClient apiClient;
+
+  public AccountGroupsImpl(ApiClient apiClient) {
+    this.apiClient = apiClient;
+  }
+
+  @Override
+  public Group create(Group request) {
+    String path =
+        String.format("/api/2.0/accounts/%s/scim/v2/Groups", apiClient.configuredAccountID());
+    return apiClient.POST(path, request, Group.class);
+  }
+
+  @Override
+  public void delete(DeleteGroupRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/scim/v2/Groups/%s",
+            apiClient.configuredAccountID(), request.getId());
+    apiClient.DELETE(path, request, Void.class);
+  }
+
+  @Override
+  public Group get(GetGroupRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/scim/v2/Groups/%s",
+            apiClient.configuredAccountID(), request.getId());
+    return apiClient.GET(path, request, Group.class);
+  }
+
+  @Override
+  public ListGroupsResponse list(ListGroupsRequest request) {
+    String path =
+        String.format("/api/2.0/accounts/%s/scim/v2/Groups", apiClient.configuredAccountID());
+    return apiClient.GET(path, request, ListGroupsResponse.class);
+  }
+
+  @Override
+  public void patch(PartialUpdate request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/scim/v2/Groups/%s",
+            apiClient.configuredAccountID(), request.getId());
+    apiClient.PATCH(path, request, Void.class);
+  }
+
+  @Override
+  public void update(Group request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/scim/v2/Groups/%s",
+            apiClient.configuredAccountID(), request.getId());
+    apiClient.PUT(path, request, Void.class);
+  }
+}

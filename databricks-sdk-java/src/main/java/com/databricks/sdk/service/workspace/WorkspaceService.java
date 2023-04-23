@@ -25,9 +25,9 @@ public interface WorkspaceService {
   void delete(Delete delete);
 
   /**
-   * Export a workspace object.
+   * Export a notebook.
    *
-   * <p>Exports an object or the contents of an entire directory.
+   * <p>Exports a notebook or the contents of an entire directory.
    *
    * <p>If `path` does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    *
@@ -35,7 +35,7 @@ public interface WorkspaceService {
    * limit, this call returns `MAX_NOTEBOOK_SIZE_EXCEEDED`. Currently, this API does not support
    * exporting a library.
    */
-  ExportResponse export(Export export);
+  ExportResponse export(ExportRequest exportRequest);
 
   /**
    * Get status.
@@ -43,14 +43,14 @@ public interface WorkspaceService {
    * <p>Gets the status of an object or a directory. If `path` does not exist, this call returns an
    * error `RESOURCE_DOES_NOT_EXIST`.
    */
-  ObjectInfo getStatus(GetStatus getStatus);
+  ObjectInfo getStatus(GetStatusRequest getStatusRequest);
 
   /**
-   * Import a workspace object.
+   * Import a notebook.
    *
-   * <p>Imports a workspace object (for example, a notebook or file) or the contents of an entire
-   * directory. If `path` already exists and `overwrite` is set to `false`, this call returns an
-   * error `RESOURCE_ALREADY_EXISTS`. One can only use `DBC` format to import a directory.
+   * <p>Imports a notebook or the contents of an entire directory. If `path` already exists and
+   * `overwrite` is set to `false`, this call returns an error `RESOURCE_ALREADY_EXISTS`. One can
+   * only use `DBC` format to import a directory.
    */
   void importContent(Import importContent);
 
@@ -60,7 +60,7 @@ public interface WorkspaceService {
    * <p>Lists the contents of a directory, or the object if it is not a directory.If the input path
    * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    */
-  ListResponse list(List list);
+  ListResponse list(ListWorkspaceRequest listWorkspaceRequest);
 
   /**
    * Create a directory.
