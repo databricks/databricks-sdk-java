@@ -53,12 +53,5 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Permission
-        run: |
-          pwd
-          cat ./databricks-sdk-java/src/test/resources/testdata/az
-          chmod ugo+x ./databricks-sdk-java/src/test/resources/testdata/az
-          cat ./databricks-sdk-java/src/test/resources/testdata/az
-
       - name: Check Unit Tests
         run: mvn -e test
