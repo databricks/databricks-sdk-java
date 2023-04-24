@@ -12,6 +12,9 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 
 {{if .IsExternal}}
+There is a small issue with the code generator causing this class to be generated twice. This should be fixed upstream
+in the code generator, after which this block can be removed. For now, we skip generating the model for all external
+types.
 {{skipThisFile}}
 {{end}}
 {{if .Description}}/**
