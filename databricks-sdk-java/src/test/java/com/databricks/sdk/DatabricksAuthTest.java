@@ -29,6 +29,12 @@ public class DatabricksAuthTest {
 
   private static boolean runningOnGithub = false;
 
+  private static String convertPathToLinuxAndMac(String path) {
+    path.replace("\\", "/");
+    path.replace(";", ":");
+    return path;
+  }
+
   private static String convertPathToWindows(String path) {
     path.replace("/", "\\");
     path.replace(":", ";");
@@ -38,6 +44,7 @@ public class DatabricksAuthTest {
   public DatabricksAuthTest() {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       isWin = true;
+      prefixPath = convertPathToWindows(prefixPath);
     }
     if (System.getenv("GITHUB_ACTIONS") != null) {
       runningOnGithub = true;
@@ -526,6 +533,7 @@ public class DatabricksAuthTest {
 
       if (isWin) {
         value = convertPathToWindows(value);
+        value = "C:\\Windows\\System32" + ";" + value
       }
       env.put(key, value);
       return this;
@@ -544,7 +552,11 @@ public class DatabricksAuthTest {
     } catch (Exception e) {
       raised = true;
       String message = e.getMessage();
-      message = message.replace(prefixPath, "");
+      String pathToReplace = prefixPath;
+      if (isWin) {
+        pathToReplace = "/" + convertPathToLinuxAndMac(pathToReplace);
+      }
+      message = message.replace(pathToReplace, "");
       if (!message.contains(contains)) {
         fail(String.format("Expected exception to contain '%s'", contains), e);
       }
