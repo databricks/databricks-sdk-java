@@ -533,7 +533,7 @@ public class DatabricksAuthTest {
 
       if (isWin) {
         value = convertPathToWindows(value);
-        value = "C:\\Windows\\System32" + ";" + value
+        value = "C:\\Windows\\System32" + ";" + value;
       }
       env.put(key, value);
       return this;
