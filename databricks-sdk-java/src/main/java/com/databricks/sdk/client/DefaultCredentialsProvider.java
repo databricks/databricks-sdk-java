@@ -15,6 +15,10 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
 
   private String authType = "default";
 
+  public String authType() {
+    return authType;
+  }
+
   public DefaultCredentialsProvider() {
     providers =
         Arrays.asList(
@@ -22,7 +26,9 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             new BasicCredentialsProvider(),
             new OAuthM2MServicePrincipalCredentialsProvider(),
             new AzureServicePrincipalCredentialsProvider(),
-            new ExternalBrowserCredentialsProvider());
+            new AzureCliCredentialsProvider(),
+            new ExternalBrowserCredentialsProvider(),
+            new BricksCliCredentialsProvider());
   }
 
   @Override
@@ -35,17 +41,18 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             "Ignoring {} auth, because {} is preferred", provider.authType(), config.getAuthType());
         continue;
       }
-      HeaderFactory headerFactory = provider.configure(config);
-      if (headerFactory == null) {
-        continue;
+      try {
+        HeaderFactory headerFactory = provider.configure(config);
+        if (headerFactory == null) {
+          continue;
+        }
+        authType = provider.authType();
+        return headerFactory;
+      } catch (DatabricksException e) {
+        throw new DatabricksException(
+            String.format("%s: %s", provider.authType(), e.getMessage()), e);
       }
-      authType = provider.authType();
-      return headerFactory;
     }
     throw new DatabricksException("cannot configure default credentials");
-  }
-
-  public String authType() {
-    return authType;
   }
 }

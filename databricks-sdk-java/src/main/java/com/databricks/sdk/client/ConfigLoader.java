@@ -6,11 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.function.Function;
+import java.util.*;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 import org.slf4j.Logger;
@@ -45,7 +41,7 @@ public class ConfigLoader {
   static void loadFromEnvironmentVariables(DatabricksConfig cfg) throws IllegalAccessException {
     try {
       for (ConfigAttributeAccessor accessor : accessors) {
-        String env = accessor.getEnv(cfg.getEnv);
+        String env = cfg.getAllEnv().get(accessor.getEnvVariable());
         if (isNullOrEmpty(env)) {
           continue;
         }
@@ -64,7 +60,10 @@ public class ConfigLoader {
   }
 
   static void loadFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
-    if (isNullOrEmpty(cfg.getProfile()) && (isAnyAuthConfigured(cfg) || cfg.isAzure())) {
+    if (isNullOrEmpty(cfg.getProfile())
+        && (isAnyAuthConfigured(cfg)
+            || !isNullOrEmpty(cfg.getHost())
+            || !isNullOrEmpty(cfg.getAzureWorkspaceResourceId()))) {
       return;
     }
 
@@ -75,8 +74,8 @@ public class ConfigLoader {
       isDefaultConfig = true;
     }
 
-    String userHome = cfg.getEnv.apply("HOME");
-    if (userHome.isEmpty()) {
+    String userHome = cfg.getAllEnv().get("HOME");
+    if (isNullOrEmpty(userHome)) {
       userHome = System.getProperty("user.home");
     }
     configFile = configFile.replaceFirst("^~", userHome);
@@ -178,7 +177,7 @@ public class ConfigLoader {
         true; // TODO - pass status code with exception, default this to false
     if (statusCode == 401 || statusCode == 402) isHttpUnauthorizedOrForbidden = true;
     String debugString = "";
-    if (cfg.getEnv != null) {
+    if (cfg.getAllEnv() != null) {
       debugString = debugString(cfg);
     }
     if (!debugString.isEmpty() && isHttpUnauthorizedOrForbidden) {
@@ -193,11 +192,11 @@ public class ConfigLoader {
       List<String> attrsUsed = new ArrayList<>();
       List<String> buf = new ArrayList<>();
 
-      Function<String, String> getEnv = cfg.getEnv;
+      Map<String, String> getEnvAllEnv = cfg.getAllEnv();
 
       for (ConfigAttributeAccessor accessor : accessors) {
         String envVariable = accessor.getEnvVariable();
-        String envValue = accessor.getEnv(getEnv);
+        String envValue = accessor.getEnv(getEnvAllEnv);
 
         if (!isNullOrEmpty(envValue) && !isNullOrEmpty(envVariable)) {
           envsUsed.add(String.format("%s", envVariable));
@@ -223,7 +222,7 @@ public class ConfigLoader {
         buf.add(String.format("Env: %s", String.join(", ", envsUsed)));
       }
       return String.join(". ", buf);
-    } catch (Exception e) {
+    } catch (IllegalAccessException e) {
       throw new DatabricksException(e.getMessage());
     }
   }
