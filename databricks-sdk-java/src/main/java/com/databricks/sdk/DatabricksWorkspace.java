@@ -6,66 +6,78 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.ConfigLoader;
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
-import com.databricks.sdk.service.clusterpolicies.ClusterPoliciesAPI;
-import com.databricks.sdk.service.clusterpolicies.ClusterPoliciesService;
-import com.databricks.sdk.service.clusterpolicies.PolicyFamiliesAPI;
-import com.databricks.sdk.service.clusterpolicies.PolicyFamiliesService;
-import com.databricks.sdk.service.clusters.ClustersService;
-import com.databricks.sdk.service.clusters.InstanceProfilesAPI;
-import com.databricks.sdk.service.clusters.InstanceProfilesService;
-import com.databricks.sdk.service.commands.CommandExecutionAPI;
-import com.databricks.sdk.service.commands.CommandExecutionService;
-import com.databricks.sdk.service.dbfs.DbfsService;
-import com.databricks.sdk.service.endpoints.ServingEndpointsAPI;
-import com.databricks.sdk.service.endpoints.ServingEndpointsService;
-import com.databricks.sdk.service.gitcredentials.GitCredentialsAPI;
-import com.databricks.sdk.service.gitcredentials.GitCredentialsService;
-import com.databricks.sdk.service.globalinitscripts.GlobalInitScriptsAPI;
-import com.databricks.sdk.service.globalinitscripts.GlobalInitScriptsService;
-import com.databricks.sdk.service.instancepools.InstancePoolsAPI;
-import com.databricks.sdk.service.instancepools.InstancePoolsService;
-import com.databricks.sdk.service.ipaccesslists.IpAccessListsAPI;
-import com.databricks.sdk.service.ipaccesslists.IpAccessListsService;
+import com.databricks.sdk.service.catalog.CatalogsAPI;
+import com.databricks.sdk.service.catalog.CatalogsService;
+import com.databricks.sdk.service.catalog.ExternalLocationsAPI;
+import com.databricks.sdk.service.catalog.ExternalLocationsService;
+import com.databricks.sdk.service.catalog.FunctionsAPI;
+import com.databricks.sdk.service.catalog.FunctionsService;
+import com.databricks.sdk.service.catalog.GrantsAPI;
+import com.databricks.sdk.service.catalog.GrantsService;
+import com.databricks.sdk.service.catalog.MetastoresAPI;
+import com.databricks.sdk.service.catalog.MetastoresService;
+import com.databricks.sdk.service.catalog.SchemasAPI;
+import com.databricks.sdk.service.catalog.SchemasService;
+import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
+import com.databricks.sdk.service.catalog.StorageCredentialsService;
+import com.databricks.sdk.service.catalog.TableConstraintsAPI;
+import com.databricks.sdk.service.catalog.TableConstraintsService;
+import com.databricks.sdk.service.catalog.TablesAPI;
+import com.databricks.sdk.service.catalog.TablesService;
+import com.databricks.sdk.service.catalog.VolumesAPI;
+import com.databricks.sdk.service.catalog.VolumesService;
+import com.databricks.sdk.service.compute.ClusterPoliciesAPI;
+import com.databricks.sdk.service.compute.ClusterPoliciesService;
+import com.databricks.sdk.service.compute.ClustersService;
+import com.databricks.sdk.service.compute.CommandExecutionAPI;
+import com.databricks.sdk.service.compute.CommandExecutionService;
+import com.databricks.sdk.service.compute.GlobalInitScriptsAPI;
+import com.databricks.sdk.service.compute.GlobalInitScriptsService;
+import com.databricks.sdk.service.compute.InstancePoolsAPI;
+import com.databricks.sdk.service.compute.InstancePoolsService;
+import com.databricks.sdk.service.compute.InstanceProfilesAPI;
+import com.databricks.sdk.service.compute.InstanceProfilesService;
+import com.databricks.sdk.service.compute.LibrariesAPI;
+import com.databricks.sdk.service.compute.LibrariesService;
+import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
+import com.databricks.sdk.service.compute.PolicyFamiliesService;
+import com.databricks.sdk.service.files.DbfsService;
+import com.databricks.sdk.service.iam.CurrentUserAPI;
+import com.databricks.sdk.service.iam.CurrentUserService;
+import com.databricks.sdk.service.iam.GroupsAPI;
+import com.databricks.sdk.service.iam.GroupsService;
+import com.databricks.sdk.service.iam.PermissionsAPI;
+import com.databricks.sdk.service.iam.PermissionsService;
+import com.databricks.sdk.service.iam.ServicePrincipalsAPI;
+import com.databricks.sdk.service.iam.ServicePrincipalsService;
+import com.databricks.sdk.service.iam.UsersAPI;
+import com.databricks.sdk.service.iam.UsersService;
 import com.databricks.sdk.service.jobs.JobsAPI;
 import com.databricks.sdk.service.jobs.JobsService;
-import com.databricks.sdk.service.libraries.LibrariesAPI;
-import com.databricks.sdk.service.libraries.LibrariesService;
-import com.databricks.sdk.service.mlflow.ExperimentsAPI;
-import com.databricks.sdk.service.mlflow.ExperimentsService;
-import com.databricks.sdk.service.mlflow.MLflowArtifactsAPI;
-import com.databricks.sdk.service.mlflow.MLflowArtifactsService;
-import com.databricks.sdk.service.mlflow.MLflowDatabricksAPI;
-import com.databricks.sdk.service.mlflow.MLflowDatabricksService;
-import com.databricks.sdk.service.mlflow.MLflowMetricsAPI;
-import com.databricks.sdk.service.mlflow.MLflowMetricsService;
-import com.databricks.sdk.service.mlflow.MLflowRunsAPI;
-import com.databricks.sdk.service.mlflow.MLflowRunsService;
-import com.databricks.sdk.service.mlflow.ModelVersionCommentsAPI;
-import com.databricks.sdk.service.mlflow.ModelVersionCommentsService;
-import com.databricks.sdk.service.mlflow.ModelVersionsAPI;
-import com.databricks.sdk.service.mlflow.ModelVersionsService;
-import com.databricks.sdk.service.mlflow.RegisteredModelsAPI;
-import com.databricks.sdk.service.mlflow.RegisteredModelsService;
-import com.databricks.sdk.service.mlflow.RegistryWebhooksAPI;
-import com.databricks.sdk.service.mlflow.RegistryWebhooksService;
-import com.databricks.sdk.service.mlflow.TransitionRequestsAPI;
-import com.databricks.sdk.service.mlflow.TransitionRequestsService;
-import com.databricks.sdk.service.permissions.PermissionsAPI;
-import com.databricks.sdk.service.permissions.PermissionsService;
+import com.databricks.sdk.service.ml.ExperimentsAPI;
+import com.databricks.sdk.service.ml.ExperimentsService;
+import com.databricks.sdk.service.ml.ModelRegistryAPI;
+import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
-import com.databricks.sdk.service.repos.ReposAPI;
-import com.databricks.sdk.service.repos.ReposService;
-import com.databricks.sdk.service.scim.CurrentUserAPI;
-import com.databricks.sdk.service.scim.CurrentUserService;
-import com.databricks.sdk.service.scim.GroupsAPI;
-import com.databricks.sdk.service.scim.GroupsService;
-import com.databricks.sdk.service.scim.ServicePrincipalsAPI;
-import com.databricks.sdk.service.scim.ServicePrincipalsService;
-import com.databricks.sdk.service.scim.UsersAPI;
-import com.databricks.sdk.service.scim.UsersService;
-import com.databricks.sdk.service.secrets.SecretsAPI;
-import com.databricks.sdk.service.secrets.SecretsService;
+import com.databricks.sdk.service.serving.ServingEndpointsAPI;
+import com.databricks.sdk.service.serving.ServingEndpointsService;
+import com.databricks.sdk.service.settings.IpAccessListsAPI;
+import com.databricks.sdk.service.settings.IpAccessListsService;
+import com.databricks.sdk.service.settings.TokenManagementAPI;
+import com.databricks.sdk.service.settings.TokenManagementService;
+import com.databricks.sdk.service.settings.TokensAPI;
+import com.databricks.sdk.service.settings.TokensService;
+import com.databricks.sdk.service.settings.WorkspaceConfAPI;
+import com.databricks.sdk.service.settings.WorkspaceConfService;
+import com.databricks.sdk.service.sharing.ProvidersAPI;
+import com.databricks.sdk.service.sharing.ProvidersService;
+import com.databricks.sdk.service.sharing.RecipientActivationAPI;
+import com.databricks.sdk.service.sharing.RecipientActivationService;
+import com.databricks.sdk.service.sharing.RecipientsAPI;
+import com.databricks.sdk.service.sharing.RecipientsService;
+import com.databricks.sdk.service.sharing.SharesAPI;
+import com.databricks.sdk.service.sharing.SharesService;
 import com.databricks.sdk.service.sql.AlertsAPI;
 import com.databricks.sdk.service.sql.AlertsService;
 import com.databricks.sdk.service.sql.DashboardsAPI;
@@ -82,42 +94,14 @@ import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
-import com.databricks.sdk.service.tokenmanagement.TokenManagementAPI;
-import com.databricks.sdk.service.tokenmanagement.TokenManagementService;
-import com.databricks.sdk.service.tokens.TokensAPI;
-import com.databricks.sdk.service.tokens.TokensService;
-import com.databricks.sdk.service.unitycatalog.CatalogsAPI;
-import com.databricks.sdk.service.unitycatalog.CatalogsService;
-import com.databricks.sdk.service.unitycatalog.ExternalLocationsAPI;
-import com.databricks.sdk.service.unitycatalog.ExternalLocationsService;
-import com.databricks.sdk.service.unitycatalog.FunctionsAPI;
-import com.databricks.sdk.service.unitycatalog.FunctionsService;
-import com.databricks.sdk.service.unitycatalog.GrantsAPI;
-import com.databricks.sdk.service.unitycatalog.GrantsService;
-import com.databricks.sdk.service.unitycatalog.MetastoresAPI;
-import com.databricks.sdk.service.unitycatalog.MetastoresService;
-import com.databricks.sdk.service.unitycatalog.ProvidersAPI;
-import com.databricks.sdk.service.unitycatalog.ProvidersService;
-import com.databricks.sdk.service.unitycatalog.RecipientActivationAPI;
-import com.databricks.sdk.service.unitycatalog.RecipientActivationService;
-import com.databricks.sdk.service.unitycatalog.RecipientsAPI;
-import com.databricks.sdk.service.unitycatalog.RecipientsService;
-import com.databricks.sdk.service.unitycatalog.SchemasAPI;
-import com.databricks.sdk.service.unitycatalog.SchemasService;
-import com.databricks.sdk.service.unitycatalog.SharesAPI;
-import com.databricks.sdk.service.unitycatalog.SharesService;
-import com.databricks.sdk.service.unitycatalog.StorageCredentialsAPI;
-import com.databricks.sdk.service.unitycatalog.StorageCredentialsService;
-import com.databricks.sdk.service.unitycatalog.TableConstraintsAPI;
-import com.databricks.sdk.service.unitycatalog.TableConstraintsService;
-import com.databricks.sdk.service.unitycatalog.TablesAPI;
-import com.databricks.sdk.service.unitycatalog.TablesService;
-import com.databricks.sdk.service.unitycatalog.VolumesAPI;
-import com.databricks.sdk.service.unitycatalog.VolumesService;
+import com.databricks.sdk.service.workspace.GitCredentialsAPI;
+import com.databricks.sdk.service.workspace.GitCredentialsService;
+import com.databricks.sdk.service.workspace.ReposAPI;
+import com.databricks.sdk.service.workspace.ReposService;
+import com.databricks.sdk.service.workspace.SecretsAPI;
+import com.databricks.sdk.service.workspace.SecretsService;
 import com.databricks.sdk.service.workspace.WorkspaceAPI;
 import com.databricks.sdk.service.workspace.WorkspaceService;
-import com.databricks.sdk.service.workspaceconf.WorkspaceConfAPI;
-import com.databricks.sdk.service.workspaceconf.WorkspaceConfService;
 
 /** Entry point for accessing Databricks workspace-level APIs */
 public class DatabricksWorkspace {
@@ -146,13 +130,8 @@ public class DatabricksWorkspace {
   private IpAccessListsAPI ipAccessListsAPI;
   private JobsAPI jobsAPI;
   private LibrariesAPI librariesAPI;
-  private MLflowArtifactsAPI mLflowArtifactsAPI;
-  private MLflowDatabricksAPI mLflowDatabricksAPI;
-  private MLflowMetricsAPI mLflowMetricsAPI;
-  private MLflowRunsAPI mLflowRunsAPI;
   private MetastoresAPI metastoresAPI;
-  private ModelVersionCommentsAPI modelVersionCommentsAPI;
-  private ModelVersionsAPI modelVersionsAPI;
+  private ModelRegistryAPI modelRegistryAPI;
   private PermissionsAPI permissionsAPI;
   private PipelinesAPI pipelinesAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
@@ -161,8 +140,6 @@ public class DatabricksWorkspace {
   private QueryHistoryAPI queryHistoryAPI;
   private RecipientActivationAPI recipientActivationAPI;
   private RecipientsAPI recipientsAPI;
-  private RegisteredModelsAPI registeredModelsAPI;
-  private RegistryWebhooksAPI registryWebhooksAPI;
   private ReposAPI reposAPI;
   private SchemasAPI schemasAPI;
   private SecretsAPI secretsAPI;
@@ -175,7 +152,6 @@ public class DatabricksWorkspace {
   private TablesAPI tablesAPI;
   private TokenManagementAPI tokenManagementAPI;
   private TokensAPI tokensAPI;
-  private TransitionRequestsAPI transitionRequestsAPI;
   private UsersAPI usersAPI;
   private VolumesAPI volumesAPI;
   private WarehousesAPI warehousesAPI;
@@ -212,13 +188,8 @@ public class DatabricksWorkspace {
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
     jobsAPI = new JobsAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
-    mLflowArtifactsAPI = new MLflowArtifactsAPI(apiClient);
-    mLflowDatabricksAPI = new MLflowDatabricksAPI(apiClient);
-    mLflowMetricsAPI = new MLflowMetricsAPI(apiClient);
-    mLflowRunsAPI = new MLflowRunsAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
-    modelVersionCommentsAPI = new ModelVersionCommentsAPI(apiClient);
-    modelVersionsAPI = new ModelVersionsAPI(apiClient);
+    modelRegistryAPI = new ModelRegistryAPI(apiClient);
     permissionsAPI = new PermissionsAPI(apiClient);
     pipelinesAPI = new PipelinesAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
@@ -227,8 +198,6 @@ public class DatabricksWorkspace {
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
     recipientsAPI = new RecipientsAPI(apiClient);
-    registeredModelsAPI = new RegisteredModelsAPI(apiClient);
-    registryWebhooksAPI = new RegistryWebhooksAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsAPI(apiClient);
@@ -241,7 +210,6 @@ public class DatabricksWorkspace {
     tablesAPI = new TablesAPI(apiClient);
     tokenManagementAPI = new TokenManagementAPI(apiClient);
     tokensAPI = new TokensAPI(apiClient);
-    transitionRequestsAPI = new TransitionRequestsAPI(apiClient);
     usersAPI = new UsersAPI(apiClient);
     volumesAPI = new VolumesAPI(apiClient);
     warehousesAPI = new WarehousesAPI(apiClient);
@@ -586,26 +554,6 @@ public class DatabricksWorkspace {
     return librariesAPI;
   }
 
-  public MLflowArtifactsAPI mLflowArtifacts() {
-    return mLflowArtifactsAPI;
-  }
-
-  /**
-   * These endpoints are modified versions of the MLflow API that accept additional input parameters
-   * or return additional information.
-   */
-  public MLflowDatabricksAPI mLflowDatabricks() {
-    return mLflowDatabricksAPI;
-  }
-
-  public MLflowMetricsAPI mLflowMetrics() {
-    return mLflowMetricsAPI;
-  }
-
-  public MLflowRunsAPI mLflowRuns() {
-    return mLflowRunsAPI;
-  }
-
   /**
    * A metastore is the top-level container of objects in Unity Catalog. It stores data assets
    * (tables and views) and the permissions that govern access to them. Databricks account admins
@@ -624,12 +572,8 @@ public class DatabricksWorkspace {
     return metastoresAPI;
   }
 
-  public ModelVersionCommentsAPI modelVersionComments() {
-    return modelVersionCommentsAPI;
-  }
-
-  public ModelVersionsAPI modelVersions() {
-    return modelVersionsAPI;
+  public ModelRegistryAPI modelRegistry() {
+    return modelRegistryAPI;
   }
 
   /**
@@ -674,7 +618,7 @@ public class DatabricksWorkspace {
     return policyFamiliesAPI;
   }
 
-  /** Databricks Delta Sharing: Providers REST API */
+  /** Databricks Providers REST API */
   public ProvidersAPI providers() {
     return providersAPI;
   }
@@ -692,22 +636,14 @@ public class DatabricksWorkspace {
     return queryHistoryAPI;
   }
 
-  /** Databricks Delta Sharing: Recipient Activation REST API */
+  /** Databricks Recipient Activation REST API */
   public RecipientActivationAPI recipientActivation() {
     return recipientActivationAPI;
   }
 
-  /** Databricks Delta Sharing: Recipients REST API */
+  /** Databricks Recipients REST API */
   public RecipientsAPI recipients() {
     return recipientsAPI;
-  }
-
-  public RegisteredModelsAPI registeredModels() {
-    return registeredModelsAPI;
-  }
-
-  public RegistryWebhooksAPI registryWebhooks() {
-    return registryWebhooksAPI;
   }
 
   /**
@@ -778,7 +714,7 @@ public class DatabricksWorkspace {
     return servingEndpointsAPI;
   }
 
-  /** Databricks Delta Sharing: Shares REST API */
+  /** Databricks Shares REST API */
   public SharesAPI shares() {
     return sharesAPI;
   }
@@ -1010,10 +946,6 @@ public class DatabricksWorkspace {
     return tokensAPI;
   }
 
-  public TransitionRequestsAPI transitionRequests() {
-    return transitionRequestsAPI;
-  }
-
   /**
    * User identities recognized by Databricks and represented by email addresses.
    *
@@ -1198,46 +1130,15 @@ public class DatabricksWorkspace {
     return this;
   }
 
-  /** Replace MLflowArtifactsAPI implementation with mock */
-  public DatabricksWorkspace withMLflowArtifactsImpl(MLflowArtifactsService mLflowArtifacts) {
-    mLflowArtifactsAPI = new MLflowArtifactsAPI(mLflowArtifacts);
-    return this;
-  }
-
-  /** Replace MLflowDatabricksAPI implementation with mock */
-  public DatabricksWorkspace withMLflowDatabricksImpl(MLflowDatabricksService mLflowDatabricks) {
-    mLflowDatabricksAPI = new MLflowDatabricksAPI(mLflowDatabricks);
-    return this;
-  }
-
-  /** Replace MLflowMetricsAPI implementation with mock */
-  public DatabricksWorkspace withMLflowMetricsImpl(MLflowMetricsService mLflowMetrics) {
-    mLflowMetricsAPI = new MLflowMetricsAPI(mLflowMetrics);
-    return this;
-  }
-
-  /** Replace MLflowRunsAPI implementation with mock */
-  public DatabricksWorkspace withMLflowRunsImpl(MLflowRunsService mLflowRuns) {
-    mLflowRunsAPI = new MLflowRunsAPI(mLflowRuns);
-    return this;
-  }
-
   /** Replace MetastoresAPI implementation with mock */
   public DatabricksWorkspace withMetastoresImpl(MetastoresService metastores) {
     metastoresAPI = new MetastoresAPI(metastores);
     return this;
   }
 
-  /** Replace ModelVersionCommentsAPI implementation with mock */
-  public DatabricksWorkspace withModelVersionCommentsImpl(
-      ModelVersionCommentsService modelVersionComments) {
-    modelVersionCommentsAPI = new ModelVersionCommentsAPI(modelVersionComments);
-    return this;
-  }
-
-  /** Replace ModelVersionsAPI implementation with mock */
-  public DatabricksWorkspace withModelVersionsImpl(ModelVersionsService modelVersions) {
-    modelVersionsAPI = new ModelVersionsAPI(modelVersions);
+  /** Replace ModelRegistryAPI implementation with mock */
+  public DatabricksWorkspace withModelRegistryImpl(ModelRegistryService modelRegistry) {
+    modelRegistryAPI = new ModelRegistryAPI(modelRegistry);
     return this;
   }
 
@@ -1287,18 +1188,6 @@ public class DatabricksWorkspace {
   /** Replace RecipientsAPI implementation with mock */
   public DatabricksWorkspace withRecipientsImpl(RecipientsService recipients) {
     recipientsAPI = new RecipientsAPI(recipients);
-    return this;
-  }
-
-  /** Replace RegisteredModelsAPI implementation with mock */
-  public DatabricksWorkspace withRegisteredModelsImpl(RegisteredModelsService registeredModels) {
-    registeredModelsAPI = new RegisteredModelsAPI(registeredModels);
-    return this;
-  }
-
-  /** Replace RegistryWebhooksAPI implementation with mock */
-  public DatabricksWorkspace withRegistryWebhooksImpl(RegistryWebhooksService registryWebhooks) {
-    registryWebhooksAPI = new RegistryWebhooksAPI(registryWebhooks);
     return this;
   }
 
@@ -1373,13 +1262,6 @@ public class DatabricksWorkspace {
   /** Replace TokensAPI implementation with mock */
   public DatabricksWorkspace withTokensImpl(TokensService tokens) {
     tokensAPI = new TokensAPI(tokens);
-    return this;
-  }
-
-  /** Replace TransitionRequestsAPI implementation with mock */
-  public DatabricksWorkspace withTransitionRequestsImpl(
-      TransitionRequestsService transitionRequests) {
-    transitionRequestsAPI = new TransitionRequestsAPI(transitionRequests);
     return this;
   }
 
