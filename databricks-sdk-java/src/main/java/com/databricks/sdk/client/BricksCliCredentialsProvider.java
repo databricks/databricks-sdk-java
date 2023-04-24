@@ -51,8 +51,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
       if (stderr.contains("not found")
-          || stderr.contains("not recognized as an internal or external command")
-          || stderr.contains("No such file or directory")) {
+          || stderr.contains("not recognized as an internal or external command")) {
         LOG.info("Most likely Bricks CLI is not installed");
         return null;
       }

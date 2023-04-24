@@ -48,7 +48,7 @@ public class DatabricksAuthTest {
     }
     if (System.getenv("GITHUB_ACTIONS") != null) {
       runningOnGithub = true;
-      setPermission();
+      setPermissionOnTestAz();
     }
   }
 
@@ -479,7 +479,9 @@ public class DatabricksAuthTest {
     return new String(bytes);
   }
 
-  private void setPermission() {
+  // We need this because in Github Actions, we don't get executable permission on generated az test
+  // script.
+  private void setPermissionOnTestAz() {
     try {
       List<String> cmd;
       if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
@@ -506,15 +508,20 @@ public class DatabricksAuthTest {
       String stdout = getProcessStream(process.getInputStream());
       String stderr = getProcessStream(process.getErrorStream());
       int exitCode = process.waitFor();
-      LOG.info("tanmay -- test stdout = " + stdout);
-      LOG.info("tanmay -- test stderr = " + stderr);
-      LOG.info("tanmay -- test exitCode = " + exitCode);
+      LOG.info("Stdout: " + stdout);
+      LOG.info("Stderr: " + stderr);
+      LOG.info("Exit Code: " + exitCode);
     } catch (IOException | InterruptedException e) {
-      LOG.info(e.getMessage());
+      LOG.info(
+          String.format(
+              "Failed to set executable permission for test az script: %s", e.getMessage()));
     }
   }
 
   private String resource(String file) {
+    if (isWin) {
+      file = convertPathToWindows(file);
+    }
     URL resource = getClass().getResource(file);
     if (resource == null) {
       fail("Asset not found: " + file);
