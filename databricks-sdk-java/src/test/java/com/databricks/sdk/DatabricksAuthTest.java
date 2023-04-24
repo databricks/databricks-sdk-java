@@ -528,7 +528,9 @@ public class DatabricksAuthTest {
     public StaticEnv with(String key, String value) {
       if (key.equals("PATH")) {
         value = prefixPath + value;
-        value = "C:\\Windows\\System32" + ";" + value;
+        if (isWin) {
+          value = "C:\\Windows\\System32" + ";" + value;
+        }
       }
       if (isWin) {
         value = convertPathToWindows(value);
