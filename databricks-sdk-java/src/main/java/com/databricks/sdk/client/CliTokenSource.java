@@ -9,14 +9,12 @@ import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,9 +37,13 @@ public class CliTokenSource extends RefreshableTokenSource {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-      this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
+      this.cmd =
+          Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream())
+              .collect(Collectors.toList());
     } else {
-      this.cmd = Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream()).collect(Collectors.toList());
+      this.cmd =
+          Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream())
+              .collect(Collectors.toList());
     }
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
@@ -77,15 +79,28 @@ public class CliTokenSource extends RefreshableTokenSource {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       cmdTest = Arrays.asList("cmd.exe", "/c", "SET");
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-      cmdTest = Arrays.asList("/bin/bash", "-c", "cat", "/Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
+      cmdTest =
+          Arrays.asList(
+              "/bin/bash",
+              "-c",
+              "cat",
+              "/Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
     } else {
-      cmdTest = Arrays.asList("/bin/bash", "-c", "/home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
+      cmdTest =
+          Arrays.asList(
+              "/bin/bash",
+              "-c",
+              "/home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
     }
     ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
     LOG.info("tanmay -- path in map -- " + getAllEnv.get().get("PATH").toString());
-    LOG.info("tanmay -- process env values before -- " + processBuilder.environment().get("PATH").toString());
+    LOG.info(
+        "tanmay -- process env values before -- "
+            + processBuilder.environment().get("PATH").toString());
     processBuilder.environment().putAll(getAllEnv.get());
-    LOG.info("tanmay -- process env values after -- " + processBuilder.environment().get("PATH").toString());
+    LOG.info(
+        "tanmay -- process env values after -- "
+            + processBuilder.environment().get("PATH").toString());
     Process process = processBuilder.start();
     String stdout = getProcessStream(process.getInputStream());
     String stderr = getProcessStream(process.getErrorStream());
@@ -98,7 +113,7 @@ public class CliTokenSource extends RefreshableTokenSource {
   @Override
   protected Token refresh() {
     try {
-//      printEnv();
+      //      printEnv();
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(getAllEnv.get());
       Process process = processBuilder.start();

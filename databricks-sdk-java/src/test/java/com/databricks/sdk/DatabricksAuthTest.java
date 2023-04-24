@@ -6,7 +6,6 @@ package com.databricks.sdk;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.client.DatabricksConfig;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -15,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -37,6 +35,7 @@ public class DatabricksAuthTest {
   public DatabricksAuthTest() {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       isWin = true;
+      prefixPath = convertPathToWindows(prefixPath);
     } else {
       isWin = false;
     }
@@ -312,7 +311,7 @@ public class DatabricksAuthTest {
     config.authenticate();
 
     assertEquals("pat", config.getAuthType());
-     assertEquals("https://adb-xxx.y.azuredatabricks.net", config.getHost());
+    assertEquals("https://adb-xxx.y.azuredatabricks.net", config.getHost());
     assertTrue(config.isAzure());
   }
 
@@ -476,9 +475,17 @@ public class DatabricksAuthTest {
       if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
         cmdTest = Arrays.asList("cmd.exe", "/c", "SET");
       } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-        cmdTest = Arrays.asList("/bin/bash", "-c", "chmod a+x /Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
+        cmdTest =
+            Arrays.asList(
+                "/bin/bash",
+                "-c",
+                "chmod a+x /Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
       } else {
-        cmdTest = Arrays.asList("/bin/bash", "-c", "chmod a+x /home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
+        cmdTest =
+            Arrays.asList(
+                "/bin/bash",
+                "-c",
+                "chmod a+x /home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
       }
       ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
       Process process = processBuilder.start();
