@@ -98,7 +98,7 @@ public class CliTokenSource extends RefreshableTokenSource {
   @Override
   protected Token refresh() {
     try {
-      printEnv();
+//      printEnv();
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(getAllEnv.get());
       Process process = processBuilder.start();
