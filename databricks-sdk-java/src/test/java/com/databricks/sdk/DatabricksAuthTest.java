@@ -470,7 +470,7 @@ public class DatabricksAuthTest {
 
     public StaticEnv with(String key, String value) {
       if (key.equals("PATH")) {
-        value = prefixPath + value + ":/usr/bin";
+        value = prefixPath + value;
         LOG.info("tanmay -- putting into map -- value = " + value);
       }
       if (isWin) {
