@@ -25,21 +25,24 @@ public class DatabricksAuthTest {
 
   private static String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
 
-  private static boolean isWin;
+  private static boolean isWin = false;
+
+  private static boolean runningOnGithub = false;
 
   private static String convertPathToWindows(String path) {
-    // Replace all "/" to "\"
-    return path.replace("/", "\\");
+    path.replace("/", "\\");
+    path.replace(":", ";");
+    return path;
   }
 
   public DatabricksAuthTest() {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
       isWin = true;
-      prefixPath = convertPathToWindows(prefixPath);
-    } else {
-      isWin = false;
     }
-    setPermission();
+    if (System.getenv("GITHUB_ACTIONS") != null) {
+      runningOnGithub = true;
+      setPermission();
+    }
   }
 
   @Test
@@ -471,23 +474,27 @@ public class DatabricksAuthTest {
 
   private void setPermission() {
     try {
-      List<String> cmdTest;
+      List<String> cmd;
       if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-        cmdTest = Arrays.asList("cmd.exe", "/c", "SET");
+        cmd =
+            Arrays.asList(
+                "cmd.exe",
+                "/c",
+                "icacls D:\\a\\databricks-sdk-jvm\\databricks-sdk-jvm\\databricks-sdk-java\\target\\test-classes\\testdata\\az /grant \"%USERNAME%\":(RX)");
       } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-        cmdTest =
+        cmd =
             Arrays.asList(
                 "/bin/bash",
                 "-c",
                 "chmod a+x /Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
       } else {
-        cmdTest =
+        cmd =
             Arrays.asList(
                 "/bin/bash",
                 "-c",
                 "chmod a+x /home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
       }
-      ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
+      ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       Process process = processBuilder.start();
       String stdout = getProcessStream(process.getInputStream());
       String stderr = getProcessStream(process.getErrorStream());
@@ -516,6 +523,7 @@ public class DatabricksAuthTest {
         value = prefixPath + value;
         LOG.info("tanmay -- putting into map -- value = " + value);
       }
+
       if (isWin) {
         value = convertPathToWindows(value);
       }
