@@ -11,7 +11,9 @@ import java.util.Objects;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 
-
+{{if .IsExternal}}
+{{skipThisFile}}
+{{end}}
 {{if .Description}}/**
  {{.Comment " * " 80}}
  */{{end}}

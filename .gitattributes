@@ -144,7 +144,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/MetastoresS
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/NamedTableConstraint.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PermissionsChange.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PermissionsList.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PermissionsList.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrimaryKeyConstraint.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/Privilege.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrivilegeAssignment.java linguist-generated=true
