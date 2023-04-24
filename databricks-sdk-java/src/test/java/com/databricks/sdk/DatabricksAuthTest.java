@@ -6,10 +6,17 @@ package com.databricks.sdk;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.client.DatabricksConfig;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
+
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +40,7 @@ public class DatabricksAuthTest {
     } else {
       isWin = false;
     }
+    setPermission();
   }
 //
 //  @Test
@@ -456,6 +464,34 @@ public class DatabricksAuthTest {
 //    assertEquals("basic", config.getAuthType());
 //    assertEquals("https://x", config.getHost());
 //  }
+
+  private String getProcessStream(InputStream stream) throws IOException {
+    byte[] bytes = IOUtils.toByteArray(stream);
+    return new String(bytes);
+  }
+
+  private void setPermission() {
+    try {
+      List<String> cmdTest;
+      if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
+        cmdTest = Arrays.asList("cmd.exe", "/c", "SET");
+      } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
+        cmdTest = Arrays.asList("/bin/bash", "-c", "cat", "/Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
+      } else {
+        cmdTest = Arrays.asList("/bin/bash", "-c", "chmod a+x /home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
+      }
+      ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
+      Process process = processBuilder.start();
+      String stdout = getProcessStream(process.getInputStream());
+      String stderr = getProcessStream(process.getErrorStream());
+      int exitCode = process.waitFor();
+      LOG.info("tanmay -- test stdout = " + stdout);
+      LOG.info("tanmay -- test stderr = " + stderr);
+      LOG.info("tanmay -- test exitCode = " + exitCode);
+    } catch (IOException | InterruptedException e) {
+      LOG.info(e.getMessage());
+    }
+  }
 
   private String resource(String file) {
     URL resource = getClass().getResource(file);
