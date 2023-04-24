@@ -304,7 +304,7 @@ public class DatabricksAuthTest {
 //    config.authenticate();
 //
 //    assertEquals("pat", config.getAuthType());
-//    assertEquals("https://adb-xxx.y.azuredatabricks.net", config.getHost());
+//     assertEquals("https://adb-xxx.y.azuredatabricks.net", config.getHost());
 //    assertTrue(config.isAzure());
 //  }
 //
