@@ -528,12 +528,10 @@ public class DatabricksAuthTest {
     public StaticEnv with(String key, String value) {
       if (key.equals("PATH")) {
         value = prefixPath + value;
-        LOG.info("tanmay -- putting into map -- value = " + value);
+        value = "C:\\Windows\\System32" + ";" + value;
       }
-
       if (isWin) {
         value = convertPathToWindows(value);
-        value = "C:\\Windows\\System32" + ";" + value;
       }
       env.put(key, value);
       return this;
