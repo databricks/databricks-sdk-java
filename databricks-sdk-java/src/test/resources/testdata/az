@@ -29,7 +29,7 @@ if [ -z "${TF_AAD_TOKEN}" ]; then
 fi
 
 /bin/echo "{
-  \"accesstanmaytest2Token\": \"${TF_AAD_TOKEN}\",
+  \"accessToken\": \"${TF_AAD_TOKEN}\",
   \"expiresOn\": \"${EXP}\",
   \"subscription\": \"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\",
   \"tenant\": \"aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee\",
