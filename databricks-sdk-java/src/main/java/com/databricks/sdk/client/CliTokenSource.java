@@ -79,13 +79,13 @@ public class CliTokenSource extends RefreshableTokenSource {
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
       cmdTest = Arrays.asList("/bin/bash", "-c", "cat", "/Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
     } else {
-      cmdTest = Arrays.asList("/bin/bash", "-c", "az");
+      cmdTest = Arrays.asList("/bin/bash", "-c", "which az");
     }
     ProcessBuilder processBuilder = new ProcessBuilder(cmdTest);
-    LOG.info("tanmay -- map values -- " + getAllEnv.get().toString());
-    LOG.info("tanmay -- process env values before -- " + processBuilder.environment().toString());
+    LOG.info("tanmay -- path in map -- " + getAllEnv.get().get("PATH").toString());
+    LOG.info("tanmay -- process env values before -- " + processBuilder.environment().get("PATH").toString());
     processBuilder.environment().putAll(getAllEnv.get());
-    LOG.info("tanmay -- process env values after -- " + processBuilder.environment().toString());
+    LOG.info("tanmay -- process env values after -- " + processBuilder.environment().get("PATH").toString());
     Process process = processBuilder.start();
     String stdout = getProcessStream(process.getInputStream());
     String stderr = getProcessStream(process.getErrorStream());
@@ -98,7 +98,7 @@ public class CliTokenSource extends RefreshableTokenSource {
   @Override
   protected Token refresh() {
     try {
-//      printEnv();
+      printEnv();
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(getAllEnv.get());
       Process process = processBuilder.start();
