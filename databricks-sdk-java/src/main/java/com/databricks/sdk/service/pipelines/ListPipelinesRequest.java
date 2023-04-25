@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 /** List pipelines */
-public class ListPipelines {
+public class ListPipelinesRequest {
   /**
    * Select a subset of results based on the specified criteria. The supported filters are:
    *
@@ -41,7 +41,7 @@ public class ListPipelines {
   @QueryParam("page_token")
   private String pageToken;
 
-  public ListPipelines setFilter(String filter) {
+  public ListPipelinesRequest setFilter(String filter) {
     this.filter = filter;
     return this;
   }
@@ -50,7 +50,7 @@ public class ListPipelines {
     return filter;
   }
 
-  public ListPipelines setMaxResults(Long maxResults) {
+  public ListPipelinesRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
     return this;
   }
@@ -59,7 +59,7 @@ public class ListPipelines {
     return maxResults;
   }
 
-  public ListPipelines setOrderBy(Collection<String> orderBy) {
+  public ListPipelinesRequest setOrderBy(Collection<String> orderBy) {
     this.orderBy = orderBy;
     return this;
   }
@@ -68,7 +68,7 @@ public class ListPipelines {
     return orderBy;
   }
 
-  public ListPipelines setPageToken(String pageToken) {
+  public ListPipelinesRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
   }
@@ -81,7 +81,7 @@ public class ListPipelines {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ListPipelines that = (ListPipelines) o;
+    ListPipelinesRequest that = (ListPipelinesRequest) o;
     return Objects.equals(filter, that.filter)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(orderBy, that.orderBy)
@@ -95,7 +95,7 @@ public class ListPipelines {
 
   @Override
   public String toString() {
-    return new ToStringer(ListPipelines.class)
+    return new ToStringer(ListPipelinesRequest.class)
         .add("filter", filter)
         .add("maxResults", maxResults)
         .add("orderBy", orderBy)

@@ -6,14 +6,14 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a pipeline update */
-public class GetUpdate {
+public class GetUpdateRequest {
   /** The ID of the pipeline. */
   private String pipelineId;
 
   /** The ID of the update. */
   private String updateId;
 
-  public GetUpdate setPipelineId(String pipelineId) {
+  public GetUpdateRequest setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
   }
@@ -22,7 +22,7 @@ public class GetUpdate {
     return pipelineId;
   }
 
-  public GetUpdate setUpdateId(String updateId) {
+  public GetUpdateRequest setUpdateId(String updateId) {
     this.updateId = updateId;
     return this;
   }
@@ -35,7 +35,7 @@ public class GetUpdate {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetUpdate that = (GetUpdate) o;
+    GetUpdateRequest that = (GetUpdateRequest) o;
     return Objects.equals(pipelineId, that.pipelineId) && Objects.equals(updateId, that.updateId);
   }
 
@@ -46,7 +46,7 @@ public class GetUpdate {
 
   @Override
   public String toString() {
-    return new ToStringer(GetUpdate.class)
+    return new ToStringer(GetUpdateRequest.class)
         .add("pipelineId", pipelineId)
         .add("updateId", updateId)
         .toString();

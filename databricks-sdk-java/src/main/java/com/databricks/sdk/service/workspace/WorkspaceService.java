@@ -35,7 +35,7 @@ public interface WorkspaceService {
    * limit, this call returns `MAX_NOTEBOOK_SIZE_EXCEEDED`. Currently, this API does not support
    * exporting a library.
    */
-  ExportResponse export(Export export);
+  ExportResponse export(ExportRequest exportRequest);
 
   /**
    * Get status.
@@ -43,7 +43,7 @@ public interface WorkspaceService {
    * <p>Gets the status of an object or a directory. If `path` does not exist, this call returns an
    * error `RESOURCE_DOES_NOT_EXIST`.
    */
-  ObjectInfo getStatus(GetStatus getStatus);
+  ObjectInfo getStatus(GetStatusRequest getStatusRequest);
 
   /**
    * Import a workspace object.
@@ -60,7 +60,7 @@ public interface WorkspaceService {
    * <p>Lists the contents of a directory, or the object if it is not a directory.If the input path
    * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    */
-  ListResponse list(List list);
+  ListResponse list(ListWorkspaceRequest listWorkspaceRequest);
 
   /**
    * Create a directory.

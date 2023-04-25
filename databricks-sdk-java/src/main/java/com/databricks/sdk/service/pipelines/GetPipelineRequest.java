@@ -5,12 +5,12 @@ package com.databricks.sdk.service.pipelines;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Stop a pipeline */
-public class Stop {
+/** Get a pipeline */
+public class GetPipelineRequest {
   /** */
   private String pipelineId;
 
-  public Stop setPipelineId(String pipelineId) {
+  public GetPipelineRequest setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
   }
@@ -23,7 +23,7 @@ public class Stop {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Stop that = (Stop) o;
+    GetPipelineRequest that = (GetPipelineRequest) o;
     return Objects.equals(pipelineId, that.pipelineId);
   }
 
@@ -34,6 +34,6 @@ public class Stop {
 
   @Override
   public String toString() {
-    return new ToStringer(Stop.class).add("pipelineId", pipelineId).toString();
+    return new ToStringer(GetPipelineRequest.class).add("pipelineId", pipelineId).toString();
   }
 }
