@@ -1,7 +1,6 @@
 package com.databricks.sdk.client;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,20 +26,7 @@ public class GithubUtils {
   // works fine for macOS.
   public static void setPermissionOnTestAz() {
     try {
-      List<String> cmd;
-      if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-        cmd =
-            Arrays.asList(
-                "/bin/bash",
-                "-c",
-                "chmod a+x /Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
-      } else {
-        cmd =
-            Arrays.asList(
-                "/bin/bash",
-                "-c",
-                "chmod a+x /home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
-      }
+      List<String> cmd = OSUtils.commandToSetTestAzExecutable();
       ProcessUtils.runProcess(cmd);
     } catch (IOException | InterruptedException e) {
       LOG.info("Failed to set executable permission for test az script: {}", e.getMessage());

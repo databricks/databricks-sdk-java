@@ -7,19 +7,21 @@ import java.util.stream.Stream;
 
 public class OSUtils {
 
-  public static boolean isWin;
+  public static String os;
 
   public static void setOS() {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-      isWin = true;
+      os = "win";
+    } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
+      os = "mac";
     } else {
-      isWin = false;
+      os = "linux";
     }
   }
 
   // Return the executable command based on OS and tokenize them
   static List<String> getCliExecutableCommand(List<String> cmd) {
-    if (isWin) {
+    if (os.equals("win")) {
       return Stream.concat(Arrays.asList("cmd.exe", "/c").stream(), cmd.stream())
           .collect(Collectors.toList());
     } else {
@@ -29,22 +31,24 @@ public class OSUtils {
   }
 
   public static String getTestPrefixPath() {
-    if (isWin) {
+    if (os.equals("win")) {
       return "\\target\\test-classes\\";
     } else {
       return "/target/test-classes/";
     }
   }
 
-  public static String convertPathToLinuxAndMac(String path) {
-    path.replace("\\", "/");
-    path.replace(";", ":");
-    return path;
-  }
-
-  public static String convertPathToWindows(String path) {
-    path.replace("/", "\\");
-    path.replace(":", ";");
-    return path;
+  static List<String> commandToSetTestAzExecutable() {
+    if (os.equals("mac")) {
+      return Arrays.asList(
+          "/bin/bash",
+          "-c",
+          "chmod a+x /Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
+    } else {
+      return Arrays.asList(
+          "/bin/bash",
+          "-c",
+          "chmod a+x /home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
+    }
   }
 }
