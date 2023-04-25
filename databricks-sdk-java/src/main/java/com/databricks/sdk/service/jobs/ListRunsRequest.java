@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List runs for a job */
-public class ListRuns {
+public class ListRunsRequest {
   /**
    * If active_only is `true`, only active runs are included in the results; otherwise, lists both
    * active and completed runs. An active run is a run in the `PENDING`, `RUNNING`, or
@@ -60,7 +60,7 @@ public class ListRuns {
   @QueryParam("start_time_to")
   private Long startTimeTo;
 
-  public ListRuns setActiveOnly(Boolean activeOnly) {
+  public ListRunsRequest setActiveOnly(Boolean activeOnly) {
     this.activeOnly = activeOnly;
     return this;
   }
@@ -69,7 +69,7 @@ public class ListRuns {
     return activeOnly;
   }
 
-  public ListRuns setCompletedOnly(Boolean completedOnly) {
+  public ListRunsRequest setCompletedOnly(Boolean completedOnly) {
     this.completedOnly = completedOnly;
     return this;
   }
@@ -78,7 +78,7 @@ public class ListRuns {
     return completedOnly;
   }
 
-  public ListRuns setExpandTasks(Boolean expandTasks) {
+  public ListRunsRequest setExpandTasks(Boolean expandTasks) {
     this.expandTasks = expandTasks;
     return this;
   }
@@ -87,7 +87,7 @@ public class ListRuns {
     return expandTasks;
   }
 
-  public ListRuns setJobId(Long jobId) {
+  public ListRunsRequest setJobId(Long jobId) {
     this.jobId = jobId;
     return this;
   }
@@ -96,7 +96,7 @@ public class ListRuns {
     return jobId;
   }
 
-  public ListRuns setLimit(Long limit) {
+  public ListRunsRequest setLimit(Long limit) {
     this.limit = limit;
     return this;
   }
@@ -105,7 +105,7 @@ public class ListRuns {
     return limit;
   }
 
-  public ListRuns setOffset(Long offset) {
+  public ListRunsRequest setOffset(Long offset) {
     this.offset = offset;
     return this;
   }
@@ -114,7 +114,7 @@ public class ListRuns {
     return offset;
   }
 
-  public ListRuns setRunType(ListRunsRunType runType) {
+  public ListRunsRequest setRunType(ListRunsRunType runType) {
     this.runType = runType;
     return this;
   }
@@ -123,7 +123,7 @@ public class ListRuns {
     return runType;
   }
 
-  public ListRuns setStartTimeFrom(Long startTimeFrom) {
+  public ListRunsRequest setStartTimeFrom(Long startTimeFrom) {
     this.startTimeFrom = startTimeFrom;
     return this;
   }
@@ -132,7 +132,7 @@ public class ListRuns {
     return startTimeFrom;
   }
 
-  public ListRuns setStartTimeTo(Long startTimeTo) {
+  public ListRunsRequest setStartTimeTo(Long startTimeTo) {
     this.startTimeTo = startTimeTo;
     return this;
   }
@@ -145,7 +145,7 @@ public class ListRuns {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ListRuns that = (ListRuns) o;
+    ListRunsRequest that = (ListRunsRequest) o;
     return Objects.equals(activeOnly, that.activeOnly)
         && Objects.equals(completedOnly, that.completedOnly)
         && Objects.equals(expandTasks, that.expandTasks)
@@ -173,7 +173,7 @@ public class ListRuns {
 
   @Override
   public String toString() {
-    return new ToStringer(ListRuns.class)
+    return new ToStringer(ListRunsRequest.class)
         .add("activeOnly", activeOnly)
         .add("completedOnly", completedOnly)
         .add("expandTasks", expandTasks)

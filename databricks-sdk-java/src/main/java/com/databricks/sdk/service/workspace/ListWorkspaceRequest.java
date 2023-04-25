@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List contents */
-public class List {
+public class ListWorkspaceRequest {
   /** <content needed> */
   @QueryParam("notebooks_modified_after")
   private Long notebooksModifiedAfter;
@@ -16,7 +16,7 @@ public class List {
   @QueryParam("path")
   private String path;
 
-  public List setNotebooksModifiedAfter(Long notebooksModifiedAfter) {
+  public ListWorkspaceRequest setNotebooksModifiedAfter(Long notebooksModifiedAfter) {
     this.notebooksModifiedAfter = notebooksModifiedAfter;
     return this;
   }
@@ -25,7 +25,7 @@ public class List {
     return notebooksModifiedAfter;
   }
 
-  public List setPath(String path) {
+  public ListWorkspaceRequest setPath(String path) {
     this.path = path;
     return this;
   }
@@ -38,7 +38,7 @@ public class List {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    List that = (List) o;
+    ListWorkspaceRequest that = (ListWorkspaceRequest) o;
     return Objects.equals(notebooksModifiedAfter, that.notebooksModifiedAfter)
         && Objects.equals(path, that.path);
   }
@@ -50,7 +50,7 @@ public class List {
 
   @Override
   public String toString() {
-    return new ToStringer(List.class)
+    return new ToStringer(ListWorkspaceRequest.class)
         .add("notebooksModifiedAfter", notebooksModifiedAfter)
         .add("path", path)
         .toString();

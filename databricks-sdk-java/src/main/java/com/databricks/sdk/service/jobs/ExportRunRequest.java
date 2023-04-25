@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Export and retrieve a job run */
-public class ExportRun {
+public class ExportRunRequest {
   /** The canonical identifier for the run. This field is required. */
   @QueryParam("run_id")
   private Long runId;
@@ -16,7 +16,7 @@ public class ExportRun {
   @QueryParam("views_to_export")
   private ViewsToExport viewsToExport;
 
-  public ExportRun setRunId(Long runId) {
+  public ExportRunRequest setRunId(Long runId) {
     this.runId = runId;
     return this;
   }
@@ -25,7 +25,7 @@ public class ExportRun {
     return runId;
   }
 
-  public ExportRun setViewsToExport(ViewsToExport viewsToExport) {
+  public ExportRunRequest setViewsToExport(ViewsToExport viewsToExport) {
     this.viewsToExport = viewsToExport;
     return this;
   }
@@ -38,7 +38,7 @@ public class ExportRun {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ExportRun that = (ExportRun) o;
+    ExportRunRequest that = (ExportRunRequest) o;
     return Objects.equals(runId, that.runId) && Objects.equals(viewsToExport, that.viewsToExport);
   }
 
@@ -49,7 +49,7 @@ public class ExportRun {
 
   @Override
   public String toString() {
-    return new ToStringer(ExportRun.class)
+    return new ToStringer(ExportRunRequest.class)
         .add("runId", runId)
         .add("viewsToExport", viewsToExport)
         .toString();

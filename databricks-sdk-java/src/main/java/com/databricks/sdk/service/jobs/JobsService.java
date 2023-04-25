@@ -66,21 +66,21 @@ public interface JobsService {
    *
    * <p>Export and retrieve the job run task.
    */
-  ExportRunOutput exportRun(ExportRun exportRun);
+  ExportRunOutput exportRun(ExportRunRequest exportRunRequest);
 
   /**
    * Get a single job.
    *
    * <p>Retrieves the details for a single job.
    */
-  Job get(Get get);
+  Job get(GetJobRequest getJobRequest);
 
   /**
    * Get a single job run.
    *
    * <p>Retrieve the metadata of a run.
    */
-  Run getRun(GetRun getRun);
+  Run getRun(GetRunRequest getRunRequest);
 
   /**
    * Get the output for a single run.
@@ -95,21 +95,21 @@ public interface JobsService {
    * If you to want to reference them beyond 60 days, you must save old run results before they
    * expire.
    */
-  RunOutput getRunOutput(GetRunOutput getRunOutput);
+  RunOutput getRunOutput(GetRunOutputRequest getRunOutputRequest);
 
   /**
    * List all jobs.
    *
    * <p>Retrieves a list of jobs.
    */
-  ListJobsResponse list(List list);
+  ListJobsResponse list(ListJobsRequest listJobsRequest);
 
   /**
    * List runs for a job.
    *
    * <p>List runs in descending order by start time.
    */
-  ListRunsResponse listRuns(ListRuns listRuns);
+  ListRunsResponse listRuns(ListRunsRequest listRunsRequest);
 
   /**
    * Repair a job run.

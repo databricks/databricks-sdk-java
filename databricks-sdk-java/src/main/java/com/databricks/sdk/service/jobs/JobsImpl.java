@@ -43,37 +43,37 @@ class JobsImpl implements JobsService {
   }
 
   @Override
-  public ExportRunOutput exportRun(ExportRun request) {
+  public ExportRunOutput exportRun(ExportRunRequest request) {
     String path = "/api/2.1/jobs/runs/export";
     return apiClient.GET(path, request, ExportRunOutput.class);
   }
 
   @Override
-  public Job get(Get request) {
+  public Job get(GetJobRequest request) {
     String path = "/api/2.1/jobs/get";
     return apiClient.GET(path, request, Job.class);
   }
 
   @Override
-  public Run getRun(GetRun request) {
+  public Run getRun(GetRunRequest request) {
     String path = "/api/2.1/jobs/runs/get";
     return apiClient.GET(path, request, Run.class);
   }
 
   @Override
-  public RunOutput getRunOutput(GetRunOutput request) {
+  public RunOutput getRunOutput(GetRunOutputRequest request) {
     String path = "/api/2.1/jobs/runs/get-output";
     return apiClient.GET(path, request, RunOutput.class);
   }
 
   @Override
-  public ListJobsResponse list(List request) {
+  public ListJobsResponse list(ListJobsRequest request) {
     String path = "/api/2.1/jobs/list";
     return apiClient.GET(path, request, ListJobsResponse.class);
   }
 
   @Override
-  public ListRunsResponse listRuns(ListRuns request) {
+  public ListRunsResponse listRuns(ListRunsRequest request) {
     String path = "/api/2.1/jobs/runs/list";
     return apiClient.GET(path, request, ListRunsResponse.class);
   }

@@ -7,12 +7,12 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get status */
-public class GetStatus {
+public class GetStatusRequest {
   /** The absolute path of the notebook or directory. */
   @QueryParam("path")
   private String path;
 
-  public GetStatus setPath(String path) {
+  public GetStatusRequest setPath(String path) {
     this.path = path;
     return this;
   }
@@ -25,7 +25,7 @@ public class GetStatus {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetStatus that = (GetStatus) o;
+    GetStatusRequest that = (GetStatusRequest) o;
     return Objects.equals(path, that.path);
   }
 
@@ -36,6 +36,6 @@ public class GetStatus {
 
   @Override
   public String toString() {
-    return new ToStringer(GetStatus.class).add("path", path).toString();
+    return new ToStringer(GetStatusRequest.class).add("path", path).toString();
   }
 }

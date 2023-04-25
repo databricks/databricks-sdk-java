@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a single job run */
-public class GetRun {
+public class GetRunRequest {
   /** Whether to include the repair history in the response. */
   @QueryParam("include_history")
   private Boolean includeHistory;
@@ -18,7 +18,7 @@ public class GetRun {
   @QueryParam("run_id")
   private Long runId;
 
-  public GetRun setIncludeHistory(Boolean includeHistory) {
+  public GetRunRequest setIncludeHistory(Boolean includeHistory) {
     this.includeHistory = includeHistory;
     return this;
   }
@@ -27,7 +27,7 @@ public class GetRun {
     return includeHistory;
   }
 
-  public GetRun setRunId(Long runId) {
+  public GetRunRequest setRunId(Long runId) {
     this.runId = runId;
     return this;
   }
@@ -40,7 +40,7 @@ public class GetRun {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetRun that = (GetRun) o;
+    GetRunRequest that = (GetRunRequest) o;
     return Objects.equals(includeHistory, that.includeHistory) && Objects.equals(runId, that.runId);
   }
 
@@ -51,7 +51,7 @@ public class GetRun {
 
   @Override
   public String toString() {
-    return new ToStringer(GetRun.class)
+    return new ToStringer(GetRunRequest.class)
         .add("includeHistory", includeHistory)
         .add("runId", runId)
         .toString();

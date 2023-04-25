@@ -34,45 +34,46 @@ public interface PipelinesService {
    *
    * <p>Deletes a pipeline.
    */
-  void delete(Delete delete);
+  void delete(DeletePipelineRequest deletePipelineRequest);
 
   /** Get a pipeline. */
-  GetPipelineResponse get(Get get);
+  GetPipelineResponse get(GetPipelineRequest getPipelineRequest);
 
   /**
    * Get a pipeline update.
    *
    * <p>Gets an update from an active pipeline.
    */
-  GetUpdateResponse getUpdate(GetUpdate getUpdate);
+  GetUpdateResponse getUpdate(GetUpdateRequest getUpdateRequest);
 
   /**
    * List pipeline events.
    *
    * <p>Retrieves events for a pipeline.
    */
-  ListPipelineEventsResponse listPipelineEvents(ListPipelineEvents listPipelineEvents);
+  ListPipelineEventsResponse listPipelineEvents(
+      ListPipelineEventsRequest listPipelineEventsRequest);
 
   /**
    * List pipelines.
    *
    * <p>Lists pipelines defined in the Delta Live Tables system.
    */
-  ListPipelinesResponse listPipelines(ListPipelines listPipelines);
+  ListPipelinesResponse listPipelines(ListPipelinesRequest listPipelinesRequest);
 
   /**
    * List pipeline updates.
    *
    * <p>List updates for an active pipeline.
    */
-  ListUpdatesResponse listUpdates(ListUpdates listUpdates);
+  ListUpdatesResponse listUpdates(ListUpdatesRequest listUpdatesRequest);
 
   /**
    * Reset a pipeline.
    *
    * <p>Resets a pipeline.
    */
-  void reset(Reset reset);
+  void reset(ResetRequest resetRequest);
 
   /**
    * Queue a pipeline update.
@@ -86,7 +87,7 @@ public interface PipelinesService {
    *
    * <p>Stops a pipeline.
    */
-  void stop(Stop stop);
+  void stop(StopRequest stopRequest);
 
   /**
    * Edit a pipeline.
