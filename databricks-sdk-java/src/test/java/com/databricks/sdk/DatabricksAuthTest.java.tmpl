@@ -27,7 +27,7 @@ public class DatabricksAuthTest implements ConfigResolving {
           .with("{{$k}}", {{if eq $k "HOME"}}resource("/{{$v}}"){{else}}"{{$v}}"{{end}}){{end}};{{end}}
         {{- with .AssertError}}
         raises("{{.}}", () -> { {{end}}
-            DatabricksConfig config = resolvedConfig(env){{range .Fields}}
+            DatabricksConfig config = resolvedConfig({{with .Env}}env{{end}}){{range .Fields}}
               .set{{.PascalName}}("{{.Value}}"){{end}}{{with .Env}}{{end}};
             config.authenticate();
           {{with .AssertAuth}}
