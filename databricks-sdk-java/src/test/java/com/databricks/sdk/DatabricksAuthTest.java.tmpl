@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DatabricksAuthTest implements ConfigResolving {
 
     private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
-
     {{range .}}
     @Test
     public void test{{.PascalName}}() {
@@ -27,16 +26,17 @@ public class DatabricksAuthTest implements ConfigResolving {
           .with("{{$k}}", {{if eq $k "HOME"}}resource("/{{$v}}"){{else}}"{{$v}}"{{end}}){{end}};{{end}}
         {{- with .AssertError}}
         raises("{{.}}", () -> { {{end}}
-            DatabricksConfig config = getNewConfig(){{range .Fields}}
-              .set{{.PascalName}}("{{.Value}}"){{end}}{{with .Env}}{{end}};
-            {{with .Env}}
-            resolveConfig(config, env);{{end}}
-            config.authenticate();
+          DatabricksConfig config = getNewConfig(){{range .Fields}}
+            .set{{.PascalName}}("{{.Value}}"){{end}}{{with .Env}}{{end}};
+          {{with .Env}}
+          resolveConfig(config, env);{{end}}
+          config.authenticate();
           {{with .AssertAuth}}
           assertEquals("{{.}}", config.getAuthType());{{end}}{{with .AssertHost}}
           assertEquals("{{.}}", config.getHost());{{end}}{{if .AssertAzure}}
           assertTrue(config.isAzure());{{end}}
-        {{- with .AssertError}} });{{end}}
+        {{- with .AssertError}}
+        });{{end}}
     }
     {{end}}
 
