@@ -25,6 +25,9 @@ public class DbfsExt extends DbfsAPI {
    * to reduce the number of requests made. The buffer has a maximum size of 1 MB, corresponding to
    * the maximum number of bytes that can be read in a single call to the DBFS API. The buffer is
    * refilled when {@code read()} is called after the buffer has been exhausted.
+   *
+   * @param path the path to the file to read
+   * @return an InputStream that reads from the given file in DBFS
    */
   public InputStream getInputStream(String path) {
     DbfsExt outer = this;
@@ -59,6 +62,16 @@ public class DbfsExt extends DbfsAPI {
     };
   }
 
+  /**
+   * Returns the contents of the given file as a byte array.
+   *
+   * <p>This method is analogous to {@code Files.readAllBytes(path)} in Java 8, but it reads the
+   * file from DBFS instead of the local filesystem.
+   *
+   * @param path the path to the file to read
+   * @return the contents of the file as a byte array
+   * @throws IOException if an I/O error occurs
+   */
   public byte[] readAllBytes(Path path) throws IOException {
     try (InputStream in = getInputStream(path.toString())) {
       ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -74,6 +87,18 @@ public class DbfsExt extends DbfsAPI {
     }
   }
 
+  /**
+   * Returns the contents of the given file as a list of strings, where each string corresponds to a
+   * line in the file.
+   *
+   * <p>This method is analogous to {@code Files.readAllLines(path, cs)} in Java 8, but it reads the
+   * file from DBFS instead of the local filesystem.
+   *
+   * @param path the path to the file to read
+   * @param cs the charset to use when decoding the file
+   * @return the contents of the file as a list of strings
+   * @throws IOException if an I/O error occurs
+   */
   public List<String> readAllLines(Path path, Charset cs) throws IOException {
     // Read all bytes using readAllBytes API, then convert to a list of string using the given
     // charset.
@@ -100,6 +125,9 @@ public class DbfsExt extends DbfsAPI {
    * number of requests made to the DBFS API. The buffer has a maximum size of 1 MB, corresponding
    * to the maximum number of bytes that can be written in a single call to the DBFS AddBlock API,
    * and is flushed when full.
+   *
+   * @param path the path to the file to read
+   * @return an OutputStream that writes to the given file in DBFS
    */
   public OutputStream getOutputStream(String path) {
     DbfsExt outer = this;
@@ -140,6 +168,17 @@ public class DbfsExt extends DbfsAPI {
     };
   }
 
+  /**
+   * Writes the given bytes to the given file in DBFS.
+   *
+   * <p>This methods is analogous to {@code Files.write(path, bytes)} in Java 8, but it writes the
+   * file to DBFS instead of the local filesystem.
+   *
+   * @param path the path to the file to write
+   * @param bytes the bytes to write
+   * @return the path to the file in DBFS
+   * @throws IOException if an I/O error occurs
+   */
   public Path write(Path path, byte[] bytes) throws IOException {
     try (OutputStream out = getOutputStream(path.toString())) {
       out.write(bytes);
@@ -147,7 +186,13 @@ public class DbfsExt extends DbfsAPI {
     return path;
   }
 
-  /** Recursively lists files in DBFS, starting from the provided directory. */
+  /**
+   * Recursively lists files in DBFS, starting from the provided directory.
+   *
+   * @param path the path to the directory to list
+   * @return an iterable of FileInfo objects, one for each file and directory listing in the
+   *     directory, recursively
+   */
   public Iterable<FileInfo> recursiveList(String path) {
     List<FileInfo> allFiles = new ArrayList<>();
     Queue<String> dirsToVisit = new ArrayDeque<>();

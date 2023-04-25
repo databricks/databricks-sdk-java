@@ -50,7 +50,7 @@ public class Request {
   protected static String mapToQuery(Map<String, String> in) {
     StringJoiner joiner = new StringJoiner("&");
     for (Map.Entry<String, String> entry : in.entrySet()) {
-//      String encoded = URLEncoder.encode(entry.getValue()); // TODO: UTF-8?
+      // String encoded = URLEncoder.encode(entry.getValue()); // TODO: UTF-8?
       joiner.add(String.format("%s=%s", entry.getKey(), entry.getValue()));
     }
     return joiner.toString();

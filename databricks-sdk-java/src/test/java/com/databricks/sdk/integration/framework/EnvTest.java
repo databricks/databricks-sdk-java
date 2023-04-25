@@ -118,8 +118,8 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
         .map(EnvContext::value)
         .map(
             contextName ->
-                (Map<String, String>) store.getOrComputeIfAbsent(
-                    ENV_STORE_KEY, x -> makeEnvResolver(contextName)));
+                (Map<String, String>)
+                    store.getOrComputeIfAbsent(ENV_STORE_KEY, x -> makeEnvResolver(contextName)));
   }
 
   private Map<String, String> makeEnvResolver(String contextName) {

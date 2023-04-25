@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/** A proxy for HttpClient that logs all requests and responses at DEBUG level. */
 public class LoggingHttpClient implements HttpClient {
   private final HttpClient underlying;
   private final Logger LOG = LoggerFactory.getLogger(getClass());

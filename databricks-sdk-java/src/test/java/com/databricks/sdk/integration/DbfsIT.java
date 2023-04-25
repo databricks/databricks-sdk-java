@@ -1,18 +1,16 @@
 package com.databricks.sdk.integration;
 
-import com.databricks.sdk.DatabricksWorkspace;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
+import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.integration.framework.EnvContext;
+import com.databricks.sdk.integration.framework.EnvTest;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
-
-import com.databricks.sdk.integration.framework.EnvContext;
-import com.databricks.sdk.integration.framework.EnvTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
