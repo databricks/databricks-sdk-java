@@ -24,7 +24,7 @@ public class DatabricksAuthTest implements ConfigResolving {
     public void testTestConfigNoParams() {
         
         raises("default auth: cannot configure default credentials", () -> { 
-            DatabricksConfig config = resolvedConfig(env);
+            DatabricksConfig config = resolvedConfig();
             config.authenticate();
            });
     }
@@ -136,7 +136,7 @@ public class DatabricksAuthTest implements ConfigResolving {
     @Test
     public void testTestConfigBasicAuthAttrs() {
         
-            DatabricksConfig config = resolvedConfig(env)
+            DatabricksConfig config = resolvedConfig()
               .setHost("y")
               .setUsername("x")
               .setPassword("x");
@@ -168,7 +168,7 @@ public class DatabricksAuthTest implements ConfigResolving {
           .with("DATABRICKS_PASSWORD", "x")
           .with("DATABRICKS_TOKEN", "x")
           .with("DATABRICKS_USERNAME", "x");
-            DatabricksConfig config = resolvedConfig(env)
+            DatabricksConfig config = new DatabricksConfig().resolve(() -> env.env)
               .setAuthType("basic");
             config.authenticate();
           
@@ -265,7 +265,7 @@ public class DatabricksAuthTest implements ConfigResolving {
     @Test
     public void testTestConfigAzurePat() {
         
-            DatabricksConfig config = resolvedConfig(env)
+            DatabricksConfig config = resolvedConfig()
               .setHost("https://adb-xxx.y.azuredatabricks.net/")
               .setToken("y");
             config.authenticate();
