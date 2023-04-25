@@ -98,11 +98,11 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
       return new DatabricksAccount(config);
     } else if (parameter.getType() == String.class) {
       EnvOrSkip envOrSkip = parameter.getAnnotation(EnvOrSkip.class);
-      Optional<String> envValue = env.map(x -> x.get().get(envOrSkip.value())); // TODO
-      if (!envValue.isPresent()) {
+      boolean envValue = env.containsKey(envOrSkip.value());
+      if (!envValue) {
         return fail("No env: " + envOrSkip.value());
       }
-      return envValue.get();
+      return env.get(envOrSkip.value());
     }
     return fail("Cannot resolve " + parameter.getName());
   }

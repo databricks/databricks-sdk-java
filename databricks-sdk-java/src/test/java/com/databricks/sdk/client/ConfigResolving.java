@@ -7,4 +7,8 @@ public interface ConfigResolving {
     default DatabricksConfig resolvedConfig(Supplier<Map<String, String>> envGetter) {
         return new DatabricksConfig().resolve(envGetter);
     }
+
+    default DatabricksConfig resolvedConfig() {
+        return new DatabricksConfig().resolve();
+    }
 }

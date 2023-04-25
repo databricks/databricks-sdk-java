@@ -3,6 +3,7 @@
 
 package com.databricks.sdk;
 
+import com.databricks.sdk.client.ConfigResolving;
 import com.databricks.sdk.client.DatabricksConfig;
 import org.junit.jupiter.api.Test;
 
@@ -24,12 +25,11 @@ public class DatabricksAuthTest implements ConfigResolving {
         {{with .Env}}// Set environment variables
         StaticEnv env = new StaticEnv(){{range $k,$v := .}}
           .with("{{$k}}", {{if eq $k "HOME"}}resource("/{{$v}}"){{else}}"{{$v}}"{{end}}){{end}};{{end}}
-        {{- with .AssertError}}raises("{{.}}", () -> { {{end}}
+        {{- with .AssertError}}
+        raises("{{.}}", () -> { {{end}}
             DatabricksConfig config = resolvedConfig(env){{range .Fields}}
-              .set{{.PascalName}}("{{.Value}}"){{end}}{{with .Env}}
-              .resolve(env){{end}};
+              .set{{.PascalName}}("{{.Value}}"){{end}}{{with .Env}}{{end}};
             config.authenticate();
-
           {{with .AssertAuth}}
           assertEquals("{{.}}", config.getAuthType());{{end}}{{with .AssertHost}}
           assertEquals("{{.}}", config.getHost());{{end}}{{if .AssertAzure}}
