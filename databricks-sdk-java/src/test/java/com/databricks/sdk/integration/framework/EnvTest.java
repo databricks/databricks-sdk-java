@@ -108,7 +108,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
     ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.GLOBAL);
     EnvGetter env = store.get(ENV_STORE_KEY, EnvGetter.class);
     if (env != null) {
-      // environment is already present in the parent context store
+      // Environment is already present in the parent context store
       return Optional.of(env);
     }
     return context
