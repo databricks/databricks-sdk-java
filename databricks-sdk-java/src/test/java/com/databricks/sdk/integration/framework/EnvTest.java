@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.databricks.sdk.DatabricksAccount;
 import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.client.ConfigResolving;
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.client.UserAgent;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -22,7 +23,7 @@ import java.util.*;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.extension.*;
 
-public class EnvTest implements Extension, ParameterResolver, ExecutionCondition {
+public class EnvTest implements Extension, ParameterResolver, ExecutionCondition, ConfigResolving {
   static {
     UserAgent.withProduct("integration-tests", "0.0.1");
   }
@@ -41,12 +42,12 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
 
   @Override
   public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
-    Optional<EnvGetter> env = makeEnvResolver(context);
-    if (!env.isPresent()) {
+    Optional<EnvGetter> envGetter = makeEnvResolver(context);
+    if (!envGetter.isPresent()) {
       return ConditionEvaluationResult.disabled("No EnvContext");
     }
-    Optional<String> cloudEnv = env.map(x -> x.get().get("CLOUD_ENV"));
-    if (!cloudEnv.isPresent()) {
+    Map<String, String> env = envGetter.get().get();
+    if (!env.containsKey("CLOUD_ENV")) {
       return ConditionEvaluationResult.disabled("No CLOUD_ENV");
     }
     ConditionEvaluationResult enabled = ConditionEvaluationResult.enabled("okay to run");
@@ -60,7 +61,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
     if (methodParams.isPresent()) {
       for (Parameter parameter : methodParams.get()) {
         Class<?> type = parameter.getType();
-        boolean hasAccount = env.map(x -> x.get().get("DATABRICKS_ACCOUNT_ID")).isPresent();
+        boolean hasAccount = env.containsKey("DATABRICKS_ACCOUNT_ID");
         if (type == DatabricksWorkspace.class && hasAccount) {
           return ConditionEvaluationResult.disabled("Can't use workspace client in account env");
         } else if (type == DatabricksAccount.class && !hasAccount) {
@@ -70,7 +71,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
           if (envOrSkip == null) {
             continue;
           }
-          boolean hasEnv = env.map(x -> x.get().get(envOrSkip.value())).isPresent();
+          boolean hasEnv = env.containsKey(envOrSkip.value());
           if (!hasEnv) {
             return ConditionEvaluationResult.disabled("No env", envOrSkip.value());
           }
@@ -85,18 +86,19 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
       ParameterContext parameterContext, ExtensionContext extensionContext)
       throws ParameterResolutionException {
     Parameter parameter = parameterContext.getParameter();
-    Optional<EnvGetter> env = makeEnvResolver(extensionContext);
-    if (!env.isPresent()) {
+    Optional<EnvGetter> envGetter = makeEnvResolver(extensionContext);
+    if (!envGetter.isPresent()) {
       return fail("Cannot resolve DatabricksConfig");
     }
-    DatabricksConfig config = new DatabricksConfig().resolve(env.get());
+    Map<String, String> env = envGetter.get().get();
+    DatabricksConfig config = resolvedConfig(() -> env);
     if (parameter.getType() == DatabricksWorkspace.class) {
       return new DatabricksWorkspace(config);
     } else if (parameter.getType() == DatabricksAccount.class) {
       return new DatabricksAccount(config);
     } else if (parameter.getType() == String.class) {
       EnvOrSkip envOrSkip = parameter.getAnnotation(EnvOrSkip.class);
-      Optional<String> envValue = env.map(x -> x.get().get(envOrSkip.value()));
+      Optional<String> envValue = env.map(x -> x.get().get(envOrSkip.value())); // TODO
       if (!envValue.isPresent()) {
         return fail("No env: " + envOrSkip.value());
       }
@@ -130,29 +132,18 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
       Map<String, Map<String, String>> all = objectMapper.readValue(in, new DebugEnv());
       Map<String, String> found = all.get(contextName);
       if (found == null) {
-        return new EnvGetter(System.getenv());
+        return System::getenv;
       }
       found.put("HOME", "/tmp");
-      return new EnvGetter(found);
+      return () -> found;
     } catch (IOException e) {
-      return new EnvGetter(System.getenv());
+      return System::getenv;
     }
   }
 
   private static class DebugEnv extends TypeReference<Map<String, Map<String, String>>> {}
 
-  private static class EnvGetter implements Supplier<Map<String, String>> {
-    private final Map<String, String> env;
-
-    EnvGetter(Map<String, String> mapToSet) {
-      env = mapToSet;
-    }
-
-    @Override
-    public Map<String, String> get() {
-      return env;
-    }
-  }
+  private interface EnvGetter extends Supplier<Map<String, String>> {}
 
   private ObjectMapper makeObjectMapper() {
     ObjectMapper mapper = new ObjectMapper();

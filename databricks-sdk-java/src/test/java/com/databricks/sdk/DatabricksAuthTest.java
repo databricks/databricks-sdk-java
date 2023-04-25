@@ -5,6 +5,7 @@ package com.databricks.sdk;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.databricks.sdk.client.ConfigResolving;
 import com.databricks.sdk.client.DatabricksConfig;
 import java.net.URL;
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
-public class DatabricksAuthTest {
+public class DatabricksAuthTest implements ConfigResolving {
 
   private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
 
@@ -33,7 +34,7 @@ public class DatabricksAuthTest {
     raises(
         "default auth: cannot configure default credentials. Config: host=https://x. Env: DATABRICKS_HOST",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = resolvedConfig(env);
           config.authenticate();
         });
   }
@@ -45,7 +46,7 @@ public class DatabricksAuthTest {
     raises(
         "default auth: cannot configure default credentials. Config: token=***. Env: DATABRICKS_TOKEN",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = resolvedConfig(env);
           config.authenticate();
         });
   }

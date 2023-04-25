@@ -143,12 +143,10 @@ public class DatabricksConfig {
   }
 
   public synchronized DatabricksConfig resolve() {
-    allEnv = System.getenv();
-    innerResolve();
-    return this;
+    return resolve(System::getenv);
   }
 
-  public synchronized DatabricksConfig resolve(Supplier<Map<String, String>> getAllEnv) {
+  synchronized DatabricksConfig resolve(Supplier<Map<String, String>> getAllEnv) {
     allEnv = getAllEnv.get();
     innerResolve();
     return this;
