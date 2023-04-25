@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.client.GithubUtils;
 import com.databricks.sdk.client.OSUtils;
+
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,7 @@ public class DatabricksAuthTest {
     if (GithubUtils.isGithubAction) {
       GithubUtils.setPermissionOnTestAz();
     }
+    // replace / with File.pathSeparatorChar
     prefixPath = System.getProperty("user.dir") + OSUtils.getTestPrefixPath();
   }
 
@@ -485,6 +488,7 @@ public class DatabricksAuthTest {
       raised = true;
       String message = e.getMessage();
       message = message.replace(prefixPath, "");
+      message = message.replace(File.pathSeparator, "/");
       if (!message.contains(contains)) {
         fail(String.format("Expected exception to contain '%s'", contains), e);
       }

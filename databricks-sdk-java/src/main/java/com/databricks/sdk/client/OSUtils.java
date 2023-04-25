@@ -5,22 +5,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class OSUtils {
+public interface OSUtils {
 
-  public static String os;
 
-  public static void setOS() {
+  default void setOS() {
     if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-      os = "win";
+      return "win";
     } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-      os = "mac";
-    } else {
-      os = "linux";
+      return "mac";
     }
+    return "linux";
   }
 
   // Return the executable command based on OS and tokenize them
-  static List<String> getCliExecutableCommand(List<String> cmd) {
+  default List<String> getCliExecutableCommand(List<String> cmd) {
     if (os.equals("win")) {
       return Stream.concat(Arrays.asList("cmd.exe", "/c").stream(), cmd.stream())
           .collect(Collectors.toList());
