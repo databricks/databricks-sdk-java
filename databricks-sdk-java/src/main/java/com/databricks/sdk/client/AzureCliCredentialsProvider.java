@@ -1,6 +1,7 @@
 package com.databricks.sdk.client;
 
 import com.databricks.sdk.client.oauth.Token;
+import com.databricks.sdk.client.utils.AzureUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
 import java.util.HashMap;

@@ -6,31 +6,26 @@ package com.databricks.sdk;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.client.DatabricksConfig;
-import com.databricks.sdk.client.GithubUtils;
-import com.databricks.sdk.client.OSUtils;
 
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
+
+import com.databricks.sdk.client.utils.GitHubUtils;
+import com.databricks.sdk.client.utils.TestOSUtils;
 import org.junit.jupiter.api.Test;
 
-// We should fix tests upstream to make paths windows compatible. For example -
-// "resource("/testdata/corrupt")"
-
-public class DatabricksAuthTest {
+public class DatabricksAuthTest implements TestOSUtils, GitHubUtils {
 
   private static String prefixPath;
 
   public DatabricksAuthTest() {
-    OSUtils.setOS();
-    GithubUtils.checkGithub();
-    if (GithubUtils.isGithubAction) {
-      GithubUtils.setPermissionOnTestAz();
+    if (checkIfRunningOnGithub()) {
+      setPermissionOnTestAz();
     }
-    // replace / with File.pathSeparatorChar
-    prefixPath = System.getProperty("user.dir") + OSUtils.getTestPrefixPath();
+    prefixPath = System.getProperty("user.dir") + getTestDir();
   }
 
   @Test
@@ -487,8 +482,8 @@ public class DatabricksAuthTest {
     } catch (Exception e) {
       raised = true;
       String message = e.getMessage();
+      message = message.replace(File.separator, "/"); // We would need to do this upstream also for making paths compatible with windows
       message = message.replace(prefixPath, "");
-      message = message.replace(File.pathSeparator, "/");
       if (!message.contains(contains)) {
         fail(String.format("Expected exception to contain '%s'", contains), e);
       }
