@@ -4,11 +4,12 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public interface ConfigResolving {
-    default DatabricksConfig resolvedConfig(Supplier<Map<String, String>> envGetter) {
-        return new DatabricksConfig().resolve(envGetter);
-    }
 
-    default DatabricksConfig resolvedConfig() {
-        return new DatabricksConfig().resolve();
-    }
+  default DatabricksConfig getNewConfig() {
+    return new DatabricksConfig();
+  }
+
+  default void resolveConfig(DatabricksConfig config, Supplier<Map<String, String>> envGetter) {
+    config.resolve(envGetter);
+  }
 }

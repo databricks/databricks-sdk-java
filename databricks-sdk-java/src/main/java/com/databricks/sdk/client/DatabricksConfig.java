@@ -146,7 +146,7 @@ public class DatabricksConfig {
     return resolve(System::getenv);
   }
 
-  public synchronized DatabricksConfig resolve(Supplier<Map<String, String>> getAllEnv) {
+  synchronized DatabricksConfig resolve(Supplier<Map<String, String>> getAllEnv) {
     allEnv = getAllEnv.get();
     innerResolve();
     return this;
