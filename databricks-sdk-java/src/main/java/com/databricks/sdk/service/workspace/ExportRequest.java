@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Export a workspace object */
-public class Export {
+public class ExportRequest {
   /**
    * Flag to enable direct download. If it is `true`, the response will be the exported file itself.
    * Otherwise, the response contains content as base64 encoded string.
@@ -31,7 +31,7 @@ public class Export {
   @QueryParam("path")
   private String path;
 
-  public Export setDirectDownload(Boolean directDownload) {
+  public ExportRequest setDirectDownload(Boolean directDownload) {
     this.directDownload = directDownload;
     return this;
   }
@@ -40,7 +40,7 @@ public class Export {
     return directDownload;
   }
 
-  public Export setFormat(ExportFormat format) {
+  public ExportRequest setFormat(ExportFormat format) {
     this.format = format;
     return this;
   }
@@ -49,7 +49,7 @@ public class Export {
     return format;
   }
 
-  public Export setPath(String path) {
+  public ExportRequest setPath(String path) {
     this.path = path;
     return this;
   }
@@ -62,7 +62,7 @@ public class Export {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Export that = (Export) o;
+    ExportRequest that = (ExportRequest) o;
     return Objects.equals(directDownload, that.directDownload)
         && Objects.equals(format, that.format)
         && Objects.equals(path, that.path);
@@ -75,7 +75,7 @@ public class Export {
 
   @Override
   public String toString() {
-    return new ToStringer(Export.class)
+    return new ToStringer(ExportRequest.class)
         .add("directDownload", directDownload)
         .add("format", format)
         .add("path", path)

@@ -7,12 +7,12 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a single job */
-public class Get {
+public class GetJobRequest {
   /** The canonical identifier of the job to retrieve information about. This field is required. */
   @QueryParam("job_id")
   private Long jobId;
 
-  public Get setJobId(Long jobId) {
+  public GetJobRequest setJobId(Long jobId) {
     this.jobId = jobId;
     return this;
   }
@@ -25,7 +25,7 @@ public class Get {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Get that = (Get) o;
+    GetJobRequest that = (GetJobRequest) o;
     return Objects.equals(jobId, that.jobId);
   }
 
@@ -36,6 +36,6 @@ public class Get {
 
   @Override
   public String toString() {
-    return new ToStringer(Get.class).add("jobId", jobId).toString();
+    return new ToStringer(GetJobRequest.class).add("jobId", jobId).toString();
   }
 }

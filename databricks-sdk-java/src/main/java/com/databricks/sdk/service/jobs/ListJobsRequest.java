@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List all jobs */
-public class List {
+public class ListJobsRequest {
   /** Whether to include task and cluster details in the response. */
   @QueryParam("expand_tasks")
   private Boolean expandTasks;
@@ -27,7 +27,7 @@ public class List {
   @QueryParam("offset")
   private Long offset;
 
-  public List setExpandTasks(Boolean expandTasks) {
+  public ListJobsRequest setExpandTasks(Boolean expandTasks) {
     this.expandTasks = expandTasks;
     return this;
   }
@@ -36,7 +36,7 @@ public class List {
     return expandTasks;
   }
 
-  public List setLimit(Long limit) {
+  public ListJobsRequest setLimit(Long limit) {
     this.limit = limit;
     return this;
   }
@@ -45,7 +45,7 @@ public class List {
     return limit;
   }
 
-  public List setName(String name) {
+  public ListJobsRequest setName(String name) {
     this.name = name;
     return this;
   }
@@ -54,7 +54,7 @@ public class List {
     return name;
   }
 
-  public List setOffset(Long offset) {
+  public ListJobsRequest setOffset(Long offset) {
     this.offset = offset;
     return this;
   }
@@ -67,7 +67,7 @@ public class List {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    List that = (List) o;
+    ListJobsRequest that = (ListJobsRequest) o;
     return Objects.equals(expandTasks, that.expandTasks)
         && Objects.equals(limit, that.limit)
         && Objects.equals(name, that.name)
@@ -81,7 +81,7 @@ public class List {
 
   @Override
   public String toString() {
-    return new ToStringer(List.class)
+    return new ToStringer(ListJobsRequest.class)
         .add("expandTasks", expandTasks)
         .add("limit", limit)
         .add("name", name)

@@ -54,7 +54,7 @@ public class PipelinesAPI {
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
-      GetPipelineResponse poll = get(new Get().setPipelineId(pipelineId));
+      GetPipelineResponse poll = get(new GetPipelineRequest().setPipelineId(pipelineId));
       PipelineState status = poll.getState();
       statusMessage = poll.getCause();
       if (targetStates.contains(status)) {
@@ -98,7 +98,7 @@ public class PipelinesAPI {
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
-      GetPipelineResponse poll = get(new Get().setPipelineId(pipelineId));
+      GetPipelineResponse poll = get(new GetPipelineRequest().setPipelineId(pipelineId));
       PipelineState status = poll.getState();
       statusMessage = poll.getCause();
       if (targetStates.contains(status)) {
@@ -140,7 +140,7 @@ public class PipelinesAPI {
   }
 
   public void delete(String pipelineId) {
-    delete(new Delete().setPipelineId(pipelineId));
+    delete(new DeletePipelineRequest().setPipelineId(pipelineId));
   }
 
   /**
@@ -148,21 +148,21 @@ public class PipelinesAPI {
    *
    * <p>Deletes a pipeline.
    */
-  public void delete(Delete request) {
+  public void delete(DeletePipelineRequest request) {
     impl.delete(request);
   }
 
   public GetPipelineResponse get(String pipelineId) {
-    return get(new Get().setPipelineId(pipelineId));
+    return get(new GetPipelineRequest().setPipelineId(pipelineId));
   }
 
   /** Get a pipeline. */
-  public GetPipelineResponse get(Get request) {
+  public GetPipelineResponse get(GetPipelineRequest request) {
     return impl.get(request);
   }
 
   public GetUpdateResponse getUpdate(String pipelineId, String updateId) {
-    return getUpdate(new GetUpdate().setPipelineId(pipelineId).setUpdateId(updateId));
+    return getUpdate(new GetUpdateRequest().setPipelineId(pipelineId).setUpdateId(updateId));
   }
 
   /**
@@ -170,12 +170,12 @@ public class PipelinesAPI {
    *
    * <p>Gets an update from an active pipeline.
    */
-  public GetUpdateResponse getUpdate(GetUpdate request) {
+  public GetUpdateResponse getUpdate(GetUpdateRequest request) {
     return impl.getUpdate(request);
   }
 
   public Iterable<PipelineEvent> listPipelineEvents(String pipelineId) {
-    return listPipelineEvents(new ListPipelineEvents().setPipelineId(pipelineId));
+    return listPipelineEvents(new ListPipelineEventsRequest().setPipelineId(pipelineId));
   }
 
   /**
@@ -183,7 +183,7 @@ public class PipelinesAPI {
    *
    * <p>Retrieves events for a pipeline.
    */
-  public Iterable<PipelineEvent> listPipelineEvents(ListPipelineEvents request) {
+  public Iterable<PipelineEvent> listPipelineEvents(ListPipelineEventsRequest request) {
     return new Paginator<>(
         request,
         impl::listPipelineEvents,
@@ -202,7 +202,7 @@ public class PipelinesAPI {
    *
    * <p>Lists pipelines defined in the Delta Live Tables system.
    */
-  public Iterable<PipelineStateInfo> listPipelines(ListPipelines request) {
+  public Iterable<PipelineStateInfo> listPipelines(ListPipelinesRequest request) {
     return new Paginator<>(
         request,
         impl::listPipelines,
@@ -217,7 +217,7 @@ public class PipelinesAPI {
   }
 
   public ListUpdatesResponse listUpdates(String pipelineId) {
-    return listUpdates(new ListUpdates().setPipelineId(pipelineId));
+    return listUpdates(new ListUpdatesRequest().setPipelineId(pipelineId));
   }
 
   /**
@@ -225,12 +225,12 @@ public class PipelinesAPI {
    *
    * <p>List updates for an active pipeline.
    */
-  public ListUpdatesResponse listUpdates(ListUpdates request) {
+  public ListUpdatesResponse listUpdates(ListUpdatesRequest request) {
     return impl.listUpdates(request);
   }
 
   public Wait<GetPipelineResponse, Void> reset(String pipelineId) {
-    return reset(new Reset().setPipelineId(pipelineId));
+    return reset(new ResetRequest().setPipelineId(pipelineId));
   }
 
   /**
@@ -238,7 +238,7 @@ public class PipelinesAPI {
    *
    * <p>Resets a pipeline.
    */
-  public Wait<GetPipelineResponse, Void> reset(Reset request) {
+  public Wait<GetPipelineResponse, Void> reset(ResetRequest request) {
     impl.reset(request);
     return new Wait<>(
         (timeout, callback) -> waitGetPipelineRunning(request.getPipelineId(), timeout, callback));
@@ -258,7 +258,7 @@ public class PipelinesAPI {
   }
 
   public Wait<GetPipelineResponse, Void> stop(String pipelineId) {
-    return stop(new Stop().setPipelineId(pipelineId));
+    return stop(new StopRequest().setPipelineId(pipelineId));
   }
 
   /**
@@ -266,7 +266,7 @@ public class PipelinesAPI {
    *
    * <p>Stops a pipeline.
    */
-  public Wait<GetPipelineResponse, Void> stop(Stop request) {
+  public Wait<GetPipelineResponse, Void> stop(StopRequest request) {
     impl.stop(request);
     return new Wait<>(
         (timeout, callback) -> waitGetPipelineIdle(request.getPipelineId(), timeout, callback));

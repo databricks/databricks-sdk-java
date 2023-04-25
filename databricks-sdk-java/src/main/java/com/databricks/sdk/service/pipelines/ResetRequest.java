@@ -6,11 +6,11 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Reset a pipeline */
-public class Reset {
+public class ResetRequest {
   /** */
   private String pipelineId;
 
-  public Reset setPipelineId(String pipelineId) {
+  public ResetRequest setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
   }
@@ -23,7 +23,7 @@ public class Reset {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    Reset that = (Reset) o;
+    ResetRequest that = (ResetRequest) o;
     return Objects.equals(pipelineId, that.pipelineId);
   }
 
@@ -34,6 +34,6 @@ public class Reset {
 
   @Override
   public String toString() {
-    return new ToStringer(Reset.class).add("pipelineId", pipelineId).toString();
+    return new ToStringer(ResetRequest.class).add("pipelineId", pipelineId).toString();
   }
 }
