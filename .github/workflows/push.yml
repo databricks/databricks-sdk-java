@@ -26,7 +26,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Check formatting
-        run: mvn -e spotless:check
+        run: mvn --errors spotless:check
 
   unit-tests:
     strategy:
@@ -54,4 +54,4 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Check Unit Tests
-        run: mvn -e test
+        run: mvn --errors test

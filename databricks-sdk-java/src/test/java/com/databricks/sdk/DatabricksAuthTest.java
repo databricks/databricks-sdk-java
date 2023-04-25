@@ -23,31 +23,11 @@ public class DatabricksAuthTest {
 
   private static final Logger LOG = LoggerFactory.getLogger(DatabricksAuthTest.class);
 
-  private static String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
-
-  private static boolean isWin = false;
-
-  private static boolean runningOnGithub = false;
-
-  private static String convertPathToLinuxAndMac(String path) {
-    path.replace("\\", "/");
-    path.replace(";", ":");
-    return path;
-  }
-
-  private static String convertPathToWindows(String path) {
-    path.replace("/", "\\");
-    path.replace(":", ";");
-    return path;
-  }
+  // This should be patched upstream for making tests windows compatible.
+  private static final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
 
   public DatabricksAuthTest() {
-    if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-      isWin = true;
-      prefixPath = convertPathToWindows(prefixPath);
-    }
     if (System.getenv("GITHUB_ACTIONS") != null) {
-      runningOnGithub = true;
       setPermissionOnTestAz();
     }
   }
@@ -479,18 +459,17 @@ public class DatabricksAuthTest {
     return new String(bytes);
   }
 
-  // We need this because in Github Actions, we don't get executable permission on generated az test
-  // script.
+  // We need this because in the GitHub actions (for Ubuntu), the runner doesn't have
+  // executable permission on generated az test script by maven. This happens even if we add a step
+  // in the
+  // GitHub workflows to explicity set executable permission on the source az file. Hence, we need
+  // to
+  // set it inside the test so that this script is found inside the $PATH environment variable. This
+  // works fine for macOS.
   private void setPermissionOnTestAz() {
     try {
       List<String> cmd;
-      if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-        cmd =
-            Arrays.asList(
-                "cmd.exe",
-                "/c",
-                "icacls D:\\a\\databricks-sdk-jvm\\databricks-sdk-jvm\\databricks-sdk-java\\target\\test-classes\\testdata\\az /grant \"%USERNAME%\":(RX)");
-      } else if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
+      if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
         cmd =
             Arrays.asList(
                 "/bin/bash",
@@ -519,9 +498,6 @@ public class DatabricksAuthTest {
   }
 
   private String resource(String file) {
-    if (isWin) {
-      file = convertPathToWindows(file);
-    }
     URL resource = getClass().getResource(file);
     if (resource == null) {
       fail("Asset not found: " + file);
@@ -535,12 +511,6 @@ public class DatabricksAuthTest {
     public StaticEnv with(String key, String value) {
       if (key.equals("PATH")) {
         value = prefixPath + value;
-        if (isWin) {
-          value = "C:\\Windows\\System32" + ";" + value;
-        }
-      }
-      if (isWin) {
-        value = convertPathToWindows(value);
       }
       env.put(key, value);
       return this;
@@ -560,9 +530,6 @@ public class DatabricksAuthTest {
       raised = true;
       String message = e.getMessage();
       String pathToReplace = prefixPath;
-      if (isWin) {
-        pathToReplace = "/" + convertPathToLinuxAndMac(pathToReplace);
-      }
       message = message.replace(pathToReplace, "");
       if (!message.contains(contains)) {
         fail(String.format("Expected exception to contain '%s'", contains), e);
