@@ -10,6 +10,14 @@ public class GithubUtils {
 
   private static final Logger LOG = LoggerFactory.getLogger(GithubUtils.class);
 
+  public static boolean isGithubAction = false;
+
+  public static void checkGithub() {
+    if (System.getenv("GITHUB_ACTIONS") != null) {
+      isGithubAction = true;
+    }
+  }
+
   // We need this because in the GitHub actions (for Ubuntu), the runner doesn't have
   // executable permission on generated az test script by maven. This happens even if we add a step
   // in the GitHub workflows to explicitly set executable permission on the source az file. Hence,

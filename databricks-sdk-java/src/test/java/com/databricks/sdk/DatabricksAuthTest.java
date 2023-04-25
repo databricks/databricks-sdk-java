@@ -7,21 +7,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.client.GithubUtils;
+import com.databricks.sdk.client.OSUtils;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
+// We should fix tests upstream to make paths windows compatible. For example -
+// "resource("/testdata/corrupt")"
+
 public class DatabricksAuthTest {
 
-  // This should be patched upstream for making tests windows compatible.
-  private static final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
+  private static String prefixPath;
 
   public DatabricksAuthTest() {
-    if (System.getenv("GITHUB_ACTIONS") != null) {
+    OSUtils.setOS();
+    GithubUtils.checkGithub();
+    if (GithubUtils.isGithubAction) {
       GithubUtils.setPermissionOnTestAz();
     }
+    prefixPath = System.getProperty("user.dir") + OSUtils.getTestPrefixPath();
   }
 
   @Test
