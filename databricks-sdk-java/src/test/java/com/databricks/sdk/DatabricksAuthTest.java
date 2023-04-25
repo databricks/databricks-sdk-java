@@ -6,29 +6,22 @@ package com.databricks.sdk;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.client.DatabricksConfig;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import org.apache.commons.io.IOUtils;
+import com.databricks.sdk.client.GithubUtils;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DatabricksAuthTest {
 
-  private static final Logger LOG = LoggerFactory.getLogger(DatabricksAuthTest.class);
 
   // This should be patched upstream for making tests windows compatible.
   private static final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
 
   public DatabricksAuthTest() {
     if (System.getenv("GITHUB_ACTIONS") != null) {
-      setPermissionOnTestAz();
+      GithubUtils.setPermissionOnTestAz();
     }
   }
 
@@ -454,49 +447,6 @@ public class DatabricksAuthTest {
     assertEquals("https://x", config.getHost());
   }
 
-  private String getProcessStream(InputStream stream) throws IOException {
-    byte[] bytes = IOUtils.toByteArray(stream);
-    return new String(bytes);
-  }
-
-  // We need this because in the GitHub actions (for Ubuntu), the runner doesn't have
-  // executable permission on generated az test script by maven. This happens even if we add a step
-  // in the
-  // GitHub workflows to explicity set executable permission on the source az file. Hence, we need
-  // to
-  // set it inside the test so that this script is found inside the $PATH environment variable. This
-  // works fine for macOS.
-  private void setPermissionOnTestAz() {
-    try {
-      List<String> cmd;
-      if (System.getProperty("os.name").toLowerCase().startsWith("mac")) {
-        cmd =
-            Arrays.asList(
-                "/bin/bash",
-                "-c",
-                "chmod a+x /Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
-      } else {
-        cmd =
-            Arrays.asList(
-                "/bin/bash",
-                "-c",
-                "chmod a+x /home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
-      }
-      ProcessBuilder processBuilder = new ProcessBuilder(cmd);
-      Process process = processBuilder.start();
-      String stdout = getProcessStream(process.getInputStream());
-      String stderr = getProcessStream(process.getErrorStream());
-      int exitCode = process.waitFor();
-      LOG.info("Stdout: " + stdout);
-      LOG.info("Stderr: " + stderr);
-      LOG.info("Exit Code: " + exitCode);
-    } catch (IOException | InterruptedException e) {
-      LOG.info(
-          String.format(
-              "Failed to set executable permission for test az script: %s", e.getMessage()));
-    }
-  }
-
   private String resource(String file) {
     URL resource = getClass().getResource(file);
     if (resource == null) {
@@ -529,8 +479,7 @@ public class DatabricksAuthTest {
     } catch (Exception e) {
       raised = true;
       String message = e.getMessage();
-      String pathToReplace = prefixPath;
-      message = message.replace(pathToReplace, "");
+      message = message.replace(prefixPath, "");
       if (!message.contains(contains)) {
         fail(String.format("Expected exception to contain '%s'", contains), e);
       }
