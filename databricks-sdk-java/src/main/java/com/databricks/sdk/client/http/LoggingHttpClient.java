@@ -22,11 +22,19 @@ public class LoggingHttpClient implements HttpClient {
     this.showDebugHeaders = showDebugHeaders;
   }
 
+  private String makeLogRecord(Request in, Response out) {
+    StringBuilder sb = new StringBuilder();
+    sb.append(in.toDebugString(bodyLogger, showDebugHeaders));
+    sb.append(out.toDebugString(bodyLogger));
+    return sb.toString();
+  }
+
   @Override
   public Response execute(Request in) throws IOException {
-    LOG.debug(in.toDebugString(bodyLogger, showDebugHeaders));
     Response out = underlying.execute(in);
-    LOG.debug(out.toDebugString(bodyLogger));
+    if (LOG.isDebugEnabled()) {
+      LOG.debug(makeLogRecord(in, out));
+    }
     return out;
   }
 }

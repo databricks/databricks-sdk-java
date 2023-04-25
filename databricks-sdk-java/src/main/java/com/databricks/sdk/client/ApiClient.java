@@ -35,7 +35,6 @@ public class ApiClient {
   private final Random random;
 
   private final HttpClient httpClient;
-  private final BodyLogger bodyLogger;
   private final Timer timer;
 
   public ApiClient() {
@@ -68,7 +67,6 @@ public class ApiClient {
     mapper = makeObjectMapper();
     random = new Random();
     httpClient = config.getHttpClient();
-    bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
     this.timer = timer;
   }
 
@@ -190,9 +188,6 @@ public class ApiClient {
       // Make the request, catching any exceptions, as we may want to retry.
       try {
         out = httpClient.execute(in);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug(makeLogRecord(in, out));
-        }
       } catch (IOException e) {
         err = e;
         LOG.debug("Request {} failed", in, e);
@@ -236,13 +231,6 @@ public class ApiClient {
     int wait = Math.min(maxWait, attemptNumber * 1000);
     wait += random.nextInt(maxJitter - minJitter + 1) + minJitter;
     return wait;
-  }
-
-  private String makeLogRecord(Request in, Response out) {
-    StringBuilder sb = new StringBuilder();
-    sb.append(in.toDebugString(bodyLogger, config.isDebugHeaders()));
-    sb.append(out.toDebugString(bodyLogger));
-    return sb.toString();
   }
 
   public <T> T deserialize(String body, Class<T> target) throws IOException {

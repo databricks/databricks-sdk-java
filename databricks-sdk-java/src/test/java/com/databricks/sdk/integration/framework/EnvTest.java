@@ -41,11 +41,11 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
 
   @Override
   public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
-    Optional<EnvGetter> env = makeEnvResolver(context);
+    Optional<Map<String, String>> env = makeEnvResolver(context);
     if (!env.isPresent()) {
       return ConditionEvaluationResult.disabled("No EnvContext");
     }
-    Optional<String> cloudEnv = env.map(x -> x.apply("CLOUD_ENV"));
+    Optional<String> cloudEnv = env.map(x -> x.get("CLOUD_ENV"));
     if (!cloudEnv.isPresent()) {
       return ConditionEvaluationResult.disabled("No CLOUD_ENV");
     }
@@ -60,7 +60,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
     if (methodParams.isPresent()) {
       for (Parameter parameter : methodParams.get()) {
         Class<?> type = parameter.getType();
-        boolean hasAccount = env.map(x -> x.apply("DATABRICKS_ACCOUNT_ID")).isPresent();
+        boolean hasAccount = env.map(x -> x.get("DATABRICKS_ACCOUNT_ID")).isPresent();
         if (type == DatabricksWorkspace.class && hasAccount) {
           return ConditionEvaluationResult.disabled("Can't use workspace client in account env");
         } else if (type == DatabricksAccount.class && !hasAccount) {
@@ -70,7 +70,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
           if (envOrSkip == null) {
             continue;
           }
-          boolean hasEnv = env.map(x -> x.apply(envOrSkip.value())).isPresent();
+          boolean hasEnv = env.map(x -> x.get(envOrSkip.value())).isPresent();
           if (!hasEnv) {
             return ConditionEvaluationResult.disabled("No env", envOrSkip.value());
           }
@@ -85,8 +85,8 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
       ParameterContext parameterContext, ExtensionContext extensionContext)
       throws ParameterResolutionException {
     Parameter parameter = parameterContext.getParameter();
-    Optional<EnvGetter> env = makeEnvResolver(extensionContext);
-    Optional<DatabricksConfig> config = env.map(x -> new DatabricksConfig().resolve(x));
+    Optional<Map<String, String>> env = makeEnvResolver(extensionContext);
+    Optional<DatabricksConfig> config = env.map(x -> new DatabricksConfig().resolve(() -> x));
     if (!config.isPresent()) {
       return fail("Cannot resolve DatabricksConfig");
     }
@@ -96,7 +96,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
       return new DatabricksAccount(config.get());
     } else if (parameter.getType() == String.class) {
       EnvOrSkip envOrSkip = parameter.getAnnotation(EnvOrSkip.class);
-      Optional<String> envValue = env.map(x -> x.apply(envOrSkip.value()));
+      Optional<String> envValue = env.map(x -> x.get(envOrSkip.value()));
       if (!envValue.isPresent()) {
         return fail("No env: " + envOrSkip.value());
       }
@@ -105,9 +105,9 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
     return fail("Cannot resolve " + parameter.getName());
   }
 
-  private Optional<EnvGetter> makeEnvResolver(ExtensionContext context) {
+  private Optional<Map<String, String>> makeEnvResolver(ExtensionContext context) {
     ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.GLOBAL);
-    EnvGetter env = store.get(ENV_STORE_KEY, EnvGetter.class);
+    Map<String, String> env = (Map<String, String>) store.get(ENV_STORE_KEY);
     if (env != null) {
       // environment is already present in the parent context store
       return Optional.of(env);
@@ -118,11 +118,11 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
         .map(EnvContext::value)
         .map(
             contextName ->
-                store.getOrComputeIfAbsent(
-                    ENV_STORE_KEY, x -> makeEnvResolver(contextName), EnvGetter.class));
+                (Map<String, String>) store.getOrComputeIfAbsent(
+                    ENV_STORE_KEY, x -> makeEnvResolver(contextName)));
   }
 
-  private EnvGetter makeEnvResolver(String contextName) {
+  private Map<String, String> makeEnvResolver(String contextName) {
     String debugEnvFile =
         String.format("%s/.databricks/debug-env.json", System.getProperty("user.home"));
     try (InputStream in = Files.newInputStream(Paths.get(debugEnvFile))) {
@@ -130,12 +130,12 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
       Map<String, Map<String, String>> all = objectMapper.readValue(in, new DebugEnv());
       Map<String, String> found = all.get(contextName);
       if (found == null) {
-        return System::getenv;
+        return System.getenv();
       }
       found.put("HOME", "/tmp");
-      return found::get;
+      return found;
     } catch (IOException e) {
-      return System::getenv;
+      return System.getenv();
     }
   }
 

@@ -9,7 +9,7 @@ import com.databricks.sdk.client.oauth.OpenIDConnectEndpoints;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.Objects;
 import java.util.function.Supplier;
 import org.apache.http.HttpMessage;
 
@@ -145,16 +145,16 @@ public class DatabricksConfig {
   }
 
   public synchronized DatabricksConfig resolve() {
-    resolve(() -> System.getenv());
-    return this;
+    return resolve(() -> System.getenv());
   }
 
   public synchronized DatabricksConfig resolve(Supplier<Map<String, String>> getAllEnv) {
     allEnv = getAllEnv.get();
-    return resolve(allEnv::get);
+    return innerResolve();
   }
 
-  public synchronized DatabricksConfig resolve(Function<String, String> getEnv) {
+  private synchronized DatabricksConfig innerResolve() {
+    Objects.requireNonNull(allEnv);
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);

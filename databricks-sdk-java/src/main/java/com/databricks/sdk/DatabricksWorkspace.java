@@ -6,6 +6,7 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.ConfigLoader;
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
+import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
 import com.databricks.sdk.service.catalog.CatalogsService;
 import com.databricks.sdk.service.catalog.ExternalLocationsAPI;

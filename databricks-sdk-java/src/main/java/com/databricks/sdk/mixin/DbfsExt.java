@@ -50,7 +50,11 @@ public class DbfsExt extends DbfsAPI {
           return -1;
         }
 
-        return buffer[bufferOffset++];
+        byte b = buffer[bufferOffset++];
+        if (b == -1) {
+          return 255;
+        }
+        return b;
       }
     };
   }

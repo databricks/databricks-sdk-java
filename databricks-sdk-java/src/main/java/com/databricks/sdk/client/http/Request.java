@@ -3,7 +3,6 @@ package com.databricks.sdk.client.http;
 import com.databricks.sdk.client.BodyLogger;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.util.*;
 
 public class Request {
@@ -16,7 +15,7 @@ public class Request {
   private String url;
   private final Map<String, String> headers = new HashMap<>();
   private final Map<String, String> query = new TreeMap<>();
-  private String body;
+  private final String body;
 
   public Request(String method, String url) {
     this(method, url, null);
@@ -51,8 +50,8 @@ public class Request {
   protected static String mapToQuery(Map<String, String> in) {
     StringJoiner joiner = new StringJoiner("&");
     for (Map.Entry<String, String> entry : in.entrySet()) {
-      String encoded = URLEncoder.encode(entry.getValue()); // TODO: UTF-8?
-      joiner.add(String.format("%s=%s", entry.getKey(), encoded));
+//      String encoded = URLEncoder.encode(entry.getValue()); // TODO: UTF-8?
+      joiner.add(String.format("%s=%s", entry.getKey(), entry.getValue()));
     }
     return joiner.toString();
   }
