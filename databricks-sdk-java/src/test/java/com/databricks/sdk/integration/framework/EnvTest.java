@@ -91,7 +91,7 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
       return fail("Cannot resolve DatabricksConfig");
     }
     Map<String, String> env = envGetter.get().get();
-    DatabricksConfig config = getNewConfig();
+    DatabricksConfig config = new DatabricksConfig();
     resolveConfig(config, () -> env);
     if (parameter.getType() == DatabricksWorkspace.class) {
       return new DatabricksWorkspace(config);
