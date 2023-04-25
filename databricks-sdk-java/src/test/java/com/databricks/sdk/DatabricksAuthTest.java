@@ -6,15 +6,14 @@ package com.databricks.sdk;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.client.GithubUtils;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
-import com.databricks.sdk.client.GithubUtils;
 import org.junit.jupiter.api.Test;
 
 public class DatabricksAuthTest {
-
 
   // This should be patched upstream for making tests windows compatible.
   private static final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
