@@ -168,7 +168,7 @@ public class DatabricksAuthTest implements ConfigResolving {
           .with("DATABRICKS_PASSWORD", "x")
           .with("DATABRICKS_TOKEN", "x")
           .with("DATABRICKS_USERNAME", "x");
-            DatabricksConfig config = new DatabricksConfig().resolve(() -> env.env)
+            DatabricksConfig config = resolvedConfig(env)
               .setAuthType("basic");
             config.authenticate();
           
