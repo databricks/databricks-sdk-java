@@ -13,8 +13,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import org.apache.commons.io.IOUtils;
 
 public class CliTokenSource extends RefreshableTokenSource {
@@ -31,13 +29,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       String expiryField,
       Supplier<Map<String, String>> getAllEnv) {
     super();
-    if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-      this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
-    } else {
-      this.cmd =
-          Stream.concat(Arrays.asList("/bin/bash", "-c").stream(), cmd.stream())
-              .collect(Collectors.toList());
-    }
+    this.cmd = OSUtils.getCliExecutableCommand(cmd);
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;
