@@ -18,15 +18,9 @@ public interface OSUtils {
   // Return the executable command based on OS and tokenize them
   default List<String> getCliExecutableCommand(List<String> cmd) {
     if (getOS().equals("win")) {
-      return Stream.concat(Stream.of("cmd.exe", "/c"), cmd.stream())
-          .collect(Collectors.toList());
+      return Stream.concat(Stream.of("cmd.exe", "/c"), cmd.stream()).collect(Collectors.toList());
     } else {
-      return Stream.concat(Stream.of("/bin/bash", "-c"), cmd.stream())
-          .collect(Collectors.toList());
+      return Stream.concat(Stream.of("/bin/bash", "-c"), cmd.stream()).collect(Collectors.toList());
     }
   }
-
-
-
-
 }
