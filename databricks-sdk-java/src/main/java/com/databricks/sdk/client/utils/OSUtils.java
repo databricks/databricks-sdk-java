@@ -1,5 +1,6 @@
 package com.databricks.sdk.client.utils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -35,10 +36,11 @@ public interface OSUtils {
    *     will be wrapped in "/bin/bash -c".
    */
   default List<String> getCliExecutableCommand(List<String> cmd) {
+    String cmdToString = String.join(" ", cmd);
     if (getOS().equals("win")) {
-      return Stream.concat(Stream.of("cmd.exe", "/c"), cmd.stream()).collect(Collectors.toList());
+      return Arrays.asList("cmd.exe", "/c", cmdToString);
     } else {
-      return Stream.concat(Stream.of("/bin/bash", "-c"), cmd.stream()).collect(Collectors.toList());
+      return Arrays.asList("/bin/bash", "-c", cmdToString);
     }
   }
 }
