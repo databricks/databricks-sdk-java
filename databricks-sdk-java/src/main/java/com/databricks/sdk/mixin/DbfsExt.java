@@ -190,9 +190,7 @@ public class DbfsExt extends DbfsAPI {
     return path;
   }
 
-  /**
-   * An iterator which iterates over the files in a directory lazily.
-   */
+  /** An iterator which iterates over the files in a directory lazily. */
   private class LazyDirectoryIterator implements Iterator<FileInfo> {
     private final Queue<String> dirsToVisit;
     private Iterator<FileInfo> currentFiles;

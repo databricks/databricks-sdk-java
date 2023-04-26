@@ -110,10 +110,10 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
 
   private Optional<EnvGetter> makeEnvResolver(ExtensionContext context) {
     ExtensionContext.Store store = context.getStore(ExtensionContext.Namespace.GLOBAL);
-    Map<String, String> env = (Map<String, String>) store.get(ENV_STORE_KEY);
+    EnvGetter env = store.get(ENV_STORE_KEY, EnvGetter.class);
     if (env != null) {
       // Environment is already present in the parent context store
-      return Optional.of(() -> env);
+      return Optional.of(env);
     }
     return context
         .getElement()
@@ -121,7 +121,8 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
         .map(EnvContext::value)
         .map(
             contextName ->
-                  store.getOrComputeIfAbsent(ENV_STORE_KEY, x -> makeEnvResolver(contextName), EnvGetter.class));
+                store.getOrComputeIfAbsent(
+                    ENV_STORE_KEY, x -> makeEnvResolver(contextName), EnvGetter.class));
   }
 
   private EnvGetter makeEnvResolver(String contextName) {
@@ -132,12 +133,12 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
       Map<String, Map<String, String>> all = objectMapper.readValue(in, new DebugEnv());
       Map<String, String> found = all.get(contextName);
       if (found == null) {
-        return () -> System.getenv();
+        return System::getenv;
       }
       found.put("HOME", "/tmp");
       return () -> found;
     } catch (IOException e) {
-      return () -> System.getenv();
+      return System::getenv;
     }
   }
 

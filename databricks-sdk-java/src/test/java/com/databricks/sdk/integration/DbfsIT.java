@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.service.files.Delete;
+import com.databricks.sdk.service.files.FileInfo;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,9 +15,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
-import com.databricks.sdk.service.files.Delete;
-import com.databricks.sdk.service.files.FileInfo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -49,9 +48,9 @@ public class DbfsIT {
   }
 
   /**
-   * An integration test which creates a directory in DBFS, creates a random set of files and directories within that
-   * directory, and then recursively lists the contents of the directory to ensure that the contents of the directory
-   * match the expected contents.
+   * An integration test which creates a directory in DBFS, creates a random set of files and
+   * directories within that directory, and then recursively lists the contents of the directory to
+   * ensure that the contents of the directory match the expected contents.
    */
   @Test
   void testRecursiveListing(DatabricksWorkspace workspace) throws IOException {
@@ -70,15 +69,16 @@ public class DbfsIT {
       workspace.dbfs().write(Paths.get(directoryName, "dir2", "file5"), new byte[0]);
 
       // List the contents of the directory recursively.
-      String[] expectedContents = new String[] {
-          relativeDirectoryName + "/file1",
-          relativeDirectoryName + "/file2",
-          relativeDirectoryName + "/dir1",
-          relativeDirectoryName + "/dir1/file3",
-          relativeDirectoryName + "/dir1/file4",
-          relativeDirectoryName + "/dir2",
-          relativeDirectoryName + "/dir2/file5"
-      };
+      String[] expectedContents =
+          new String[] {
+            relativeDirectoryName + "/file1",
+            relativeDirectoryName + "/file2",
+            relativeDirectoryName + "/dir1",
+            relativeDirectoryName + "/dir1/file3",
+            relativeDirectoryName + "/dir1/file4",
+            relativeDirectoryName + "/dir2",
+            relativeDirectoryName + "/dir2/file5"
+          };
       Set<String> expectedContentsSet = new HashSet<>(Arrays.asList(expectedContents));
       Iterable<FileInfo> actualContents = workspace.dbfs().recursiveList(directoryName);
       Set<String> actualContentsSet = new HashSet<>();
@@ -93,5 +93,4 @@ public class DbfsIT {
       workspace.dbfs().delete(new Delete().setPath(directoryName).setRecursive(true));
     }
   }
-
 }
