@@ -1,8 +1,12 @@
 package com.databricks.sdk.client.http;
 
+import com.databricks.sdk.client.DatabricksException;
+
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Request {
@@ -50,8 +54,12 @@ public class Request {
   protected static String mapToQuery(Map<String, String> in) {
     StringJoiner joiner = new StringJoiner("&");
     for (Map.Entry<String, String> entry : in.entrySet()) {
-      // String encoded = URLEncoder.encode(entry.getValue()); // TODO: UTF-8?
-      joiner.add(String.format("%s=%s", entry.getKey(), entry.getValue()));
+      try {
+        String encoded = URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8.name()); // TODO: UTF-8?
+        joiner.add(String.format("%s=%s", entry.getKey(), encoded));
+      } catch (UnsupportedEncodingException e) {
+        throw new DatabricksException("Unable to encode query parameter: " + e.getMessage(), e);
+      }
     }
     return joiner.toString();
   }
@@ -63,8 +71,8 @@ public class Request {
       rawQuery = rawQuery == null ? "" : rawQuery + "&";
       rawQuery += mapToQuery(query);
       try {
-        return new URI(
-            uri.getScheme(), null, uri.getHost(), uri.getPort(), uri.getPath(), rawQuery, null);
+        String uriStr = uri.getScheme() + "://" + uri.getHost() + ":" + uri.getPort() + uri.getPath() + "?" + rawQuery;
+        return new URI(uriStr);
       } catch (URISyntaxException e) {
         throw new IllegalArgumentException(e);
       }
