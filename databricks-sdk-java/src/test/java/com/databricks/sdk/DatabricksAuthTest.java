@@ -7,15 +7,25 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.client.ConfigResolving;
 import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.client.utils.GitHubUtils;
+import com.databricks.sdk.client.utils.TestOSUtils;
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
-public class DatabricksAuthTest implements ConfigResolving {
+public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResolving {
 
-  private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
+  private static String prefixPath;
+
+  public DatabricksAuthTest() {
+    if (checkIfRunningOnGithub()) {
+      setPermissionOnTestAz();
+    }
+    prefixPath = System.getProperty("user.dir") + getTestDir();
+  }
 
   @Test
   public void testTestConfigNoParams() {
@@ -459,8 +469,6 @@ public class DatabricksAuthTest implements ConfigResolving {
   static class StaticEnv implements Supplier<Map<String, String>> {
     private final Map<String, String> env = new HashMap<>();
 
-    private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
-
     public StaticEnv with(String key, String value) {
       if (key.equals("PATH")) {
         value = prefixPath + value;
@@ -482,6 +490,11 @@ public class DatabricksAuthTest implements ConfigResolving {
     } catch (Exception e) {
       raised = true;
       String message = e.getMessage();
+      message =
+          message.replace(
+              File.separator,
+              "/"); // We would need to do this upstream also for making paths compatible with
+      // windows
       message = message.replace(prefixPath, "");
       if (!message.contains(contains)) {
         fail(String.format("Expected exception to contain '%s'", contains), e);

@@ -1,5 +1,7 @@
-package com.databricks.sdk.client;
+package com.databricks.sdk.client.utils;
 
+import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.client.DatabricksException;
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
 import com.databricks.sdk.client.oauth.AuthParameterPosition;

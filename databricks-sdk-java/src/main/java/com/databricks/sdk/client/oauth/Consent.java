@@ -171,7 +171,7 @@ public class Consent implements Serializable {
     }
 
     public void handleInner(HttpExchange exchange) throws IOException {
-      if (!exchange.getRequestMethod().equals("GET")) {
+      if (!"GET".equals(exchange.getRequestMethod())) {
         sendError(
             exchange,
             400,

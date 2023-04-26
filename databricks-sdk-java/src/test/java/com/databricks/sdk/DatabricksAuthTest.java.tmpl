@@ -3,21 +3,30 @@
 
 package com.databricks.sdk;
 
+import static org.junit.jupiter.api.Assertions.*;
 import com.databricks.sdk.client.ConfigResolving;
 import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.client.utils.GitHubUtils;
+import com.databricks.sdk.client.utils.TestOSUtils;
+import java.io.File;
 import org.junit.jupiter.api.Test;
-
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
 
-import static org.junit.jupiter.api.Assertions.*;
+public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResolving {
 
-public class DatabricksAuthTest implements ConfigResolving {
+    private static String prefixPath;
 
-    private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
+    public DatabricksAuthTest() {
+      if (checkIfRunningOnGithub()) {
+        setPermissionOnTestAz();
+      }
+      prefixPath = System.getProperty("user.dir") + getTestDir();
+    }
+
     {{range .}}
     @Test
     public void test{{.PascalName}}() {
@@ -40,46 +49,49 @@ public class DatabricksAuthTest implements ConfigResolving {
     {{end}}
 
     private String resource(String file) {
-        URL resource = getClass().getResource(file);
-        if (resource == null) {
-            fail("Asset not found: " + file);
-        }
-        return resource.getFile();
+      URL resource = getClass().getResource(file);
+      if (resource == null) {
+        fail("Asset not found: " + file);
+      }
+      return resource.getFile();
     }
 
-    static class StaticEnv implements Supplier<Map<String,String>> {
-        private final Map<String,String> env = new HashMap<>();
+    static class StaticEnv implements Supplier<Map<String, String>> {
+      private final Map<String, String> env = new HashMap<>();
 
-        private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
-
-        public StaticEnv with(String key, String value) {
-            if (key.equals("PATH")) {
-                value = prefixPath + value;
-            }
-            env.put(key, value);
-            return this;
+      public StaticEnv with(String key, String value) {
+        if (key.equals("PATH")) {
+          value = prefixPath + value;
         }
+        env.put(key, value);
+        return this;
+      }
 
-        @Override
-        public Map<String, String> get() {
-            return env;
-        }
+      @Override
+      public Map<String, String> get() {
+        return env;
+      }
     }
 
     private void raises(String contains, Runnable cb) {
-        boolean raised = false;
-        try {
-            cb.run();
-        } catch (Exception e) {
-            raised = true;
-            String message = e.getMessage();
-            message = message.replace(prefixPath, "");
-            if (!message.contains(contains)) {
-                fail(String.format("Expected exception to contain '%s'", contains), e);
-            }
+      boolean raised = false;
+      try {
+        cb.run();
+      } catch (Exception e) {
+        raised = true;
+        String message = e.getMessage();
+        message =
+            message.replace(
+                File.separator,
+                "/"); // We would need to do this upstream also for making paths compatible with
+        // windows
+        message = message.replace(prefixPath, "");
+        if (!message.contains(contains)) {
+          fail(String.format("Expected exception to contain '%s'", contains), e);
         }
-        if (!raised) {
-            fail("Expected exception, none thrown");
-        }
+      }
+      if (!raised) {
+        fail("Expected exception, none thrown");
+      }
     }
 }

@@ -2,6 +2,7 @@ package com.databricks.sdk.client;
 
 import com.databricks.sdk.client.oauth.RefreshableTokenSource;
 import com.databricks.sdk.client.oauth.Token;
+import com.databricks.sdk.client.utils.OSUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -13,10 +14,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 
-public class CliTokenSource extends RefreshableTokenSource {
+public class CliTokenSource extends RefreshableTokenSource implements OSUtils {
   private List<String> cmd;
   private String tokenTypeField;
   private String accessTokenField;
@@ -30,11 +30,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       String expiryField,
       Supplier<Map<String, String>> getAllEnv) {
     super();
-    if (System.getProperty("os.name").toLowerCase().startsWith("win")) {
-      this.cmd = Arrays.asList("cmd.exe", "/c", cmd.stream().collect(Collectors.joining(" ")));
-    } else {
-      this.cmd = Arrays.asList("/bin/sh", "-c", cmd.stream().collect(Collectors.joining(" ")));
-    }
+    this.cmd = getCliExecutableCommand(cmd);
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;
@@ -73,7 +69,7 @@ public class CliTokenSource extends RefreshableTokenSource {
       String stderr = getProcessStream(process.getErrorStream());
       int exitCode = process.waitFor();
       if (exitCode != 0) {
-        if (stderr.contains("command not found")) {
+        if (stderr.contains("not found")) {
           throw new DatabricksException(stderr);
         } else {
           throw new IOException(stderr);
