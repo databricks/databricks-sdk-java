@@ -2,8 +2,6 @@ package com.databricks.sdk.client.utils;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * OSUtils is an interface that provides utility methods for determining the current operating
