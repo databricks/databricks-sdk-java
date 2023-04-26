@@ -39,6 +39,9 @@ public class ConfigLoader {
   }
 
   static void loadFromEnvironmentVariables(DatabricksConfig cfg) throws IllegalAccessException {
+    if (cfg.getAllEnv() == null) {
+      return;
+    }
     try {
       for (ConfigAttributeAccessor accessor : accessors) {
         String env = cfg.getAllEnv().get(accessor.getEnvVariable());
@@ -90,7 +93,7 @@ public class ConfigLoader {
 
     Profile.Section section = ini.get(profile);
     if (section == null && !hasExplicitProfile) {
-      // logger.Debugf("%s has no %s profile configured", configFile, profile)
+      LOG.info("{} has no {} profile configured", configFile, profile);
       return;
     }
 

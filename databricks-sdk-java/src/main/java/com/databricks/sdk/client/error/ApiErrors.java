@@ -34,7 +34,7 @@ public class ApiErrors {
       errorBody.setMessage(errorBody.getApi12Error());
     }
     if (errorBody.getMessage() == null || errorBody.getMessage().isEmpty()) {
-      if (errorBody.getScimDetail() != null && !errorBody.getScimDetail().equals("null")) {
+      if (errorBody.getScimDetail() != null && !"null".equals(errorBody.getScimDetail())) {
         errorBody.setMessage(errorBody.getScimDetail());
       } else {
         errorBody.setMessage("SCIM API Internal Error");

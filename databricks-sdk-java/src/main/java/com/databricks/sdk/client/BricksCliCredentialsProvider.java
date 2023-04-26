@@ -50,7 +50,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
       };
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
-      if (stderr.contains("command not found")) {
+      if (stderr.contains("not found")) {
         LOG.info("Most likely Bricks CLI is not installed");
         return null;
       }
