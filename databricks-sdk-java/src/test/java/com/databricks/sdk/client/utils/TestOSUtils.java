@@ -11,16 +11,12 @@ public interface TestOSUtils extends OSUtils {
   }
 
   default List<String> commandToSetTestAzExecutable() {
-    if (getOS().equals("mac")) {
-      return Arrays.asList(
-          "/bin/bash",
-          "-c",
-          "chmod a+x /Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
-    } else {
-      return Arrays.asList(
-          "/bin/bash",
-          "-c",
-          "chmod a+x /home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata/az");
-    }
+    // Ubuntu:
+    // HOME=/home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata
+    // Mac:
+    // HOME=/Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata
+    String home = System.getenv("HOME");
+    String pathToAz = "chmod a+x " + home + "/".replace("/", File.separator) + "az";
+    return Arrays.asList("/bin/bash", "-c", pathToAz);
   }
 }
