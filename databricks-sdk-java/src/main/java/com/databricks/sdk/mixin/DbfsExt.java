@@ -9,6 +9,12 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.util.*;
 
+/**
+ * Utility methods for the DBFS API.
+ *
+ * <p>This class provides utility methods for the DBFS API that are not part of the official API
+ * surface. These methods are subject to change without notice.
+ */
 public class DbfsExt extends DbfsAPI {
   public DbfsExt(ApiClient apiClient) {
     super(apiClient);
@@ -29,8 +35,7 @@ public class DbfsExt extends DbfsAPI {
    * @param path the path to the file to read
    * @return an InputStream that reads from the given file in DBFS
    */
-  public InputStream getInputStream(String path) {
-    DbfsExt outer = this;
+  public InputStream open(String path) {
     return new InputStream() {
       private long offset = 0;
       private byte[] buffer = new byte[0];
@@ -42,7 +47,7 @@ public class DbfsExt extends DbfsAPI {
           // Buffer is exhausted, refill it.
           ReadDbfsRequest request =
               new ReadDbfsRequest().setPath(path).setOffset(offset).setLength(1024 * 1024L);
-          ReadResponse response = outer.read(request);
+          ReadResponse response = DbfsExt.this.read(request);
           buffer = Base64.getDecoder().decode(response.getData());
           bufferOffset = 0;
           offset += buffer.length;
@@ -73,7 +78,7 @@ public class DbfsExt extends DbfsAPI {
    * @throws IOException if an I/O error occurs
    */
   public byte[] readAllBytes(Path path) throws IOException {
-    try (InputStream in = getInputStream(path.toString())) {
+    try (InputStream in = open(path.toString())) {
       ByteArrayOutputStream out = new ByteArrayOutputStream();
       byte[] buffer = new byte[1024 * 1024];
       int result;
@@ -130,8 +135,7 @@ public class DbfsExt extends DbfsAPI {
    * @return an OutputStream that writes to the given file in DBFS
    */
   public OutputStream getOutputStream(String path) {
-    DbfsExt outer = this;
-    CreateResponse createResponse = outer.create(new Create().setPath(path).setOverwrite(true));
+    CreateResponse createResponse = this.create(new Create().setPath(path).setOverwrite(true));
     long handle = createResponse.getHandle();
     return new OutputStream() {
       private final byte[] buffer = new byte[1024 * 1024];
@@ -152,7 +156,7 @@ public class DbfsExt extends DbfsAPI {
         if (bufferOffset > 0) {
           // Flush the remaining bytes in the buffer.
           byte[] remainingBytes = Arrays.copyOfRange(buffer, 0, bufferOffset);
-          outer.addBlock(
+          DbfsExt.this.addBlock(
               new AddBlock()
                   .setHandle(handle)
                   .setData(Base64.getEncoder().encodeToString(remainingBytes)));
@@ -163,7 +167,7 @@ public class DbfsExt extends DbfsAPI {
       @Override
       public void close() {
         flush();
-        outer.close(new Close().setHandle(handle));
+        DbfsExt.this.close(new Close().setHandle(handle));
       }
     };
   }
@@ -187,6 +191,43 @@ public class DbfsExt extends DbfsAPI {
   }
 
   /**
+   * An iterator which iterates over the files in a directory lazily.
+   */
+  private class LazyDirectoryIterator implements Iterator<FileInfo> {
+    private final Queue<String> dirsToVisit;
+    private Iterator<FileInfo> currentFiles;
+
+    public LazyDirectoryIterator(String path) {
+      this.dirsToVisit = new ArrayDeque<>();
+      this.dirsToVisit.add(path);
+      this.currentFiles = Collections.emptyIterator();
+    }
+
+    @Override
+    public boolean hasNext() {
+      while (!currentFiles.hasNext() && !dirsToVisit.isEmpty()) {
+        String nextDir = dirsToVisit.remove();
+        currentFiles = list(nextDir).iterator();
+      }
+
+      return currentFiles.hasNext();
+    }
+
+    @Override
+    public FileInfo next() {
+      if (!hasNext()) {
+        throw new NoSuchElementException();
+      }
+
+      FileInfo nextFile = currentFiles.next();
+      if (nextFile.getIsDir()) {
+        dirsToVisit.add(nextFile.getPath());
+      }
+      return nextFile;
+    }
+  }
+
+  /**
    * Recursively lists files in DBFS, starting from the provided directory.
    *
    * @param path the path to the directory to list
@@ -194,21 +235,6 @@ public class DbfsExt extends DbfsAPI {
    *     directory, recursively
    */
   public Iterable<FileInfo> recursiveList(String path) {
-    List<FileInfo> allFiles = new ArrayList<>();
-    Queue<String> dirsToVisit = new ArrayDeque<>();
-    dirsToVisit.add(path);
-
-    while (!dirsToVisit.isEmpty()) {
-      String dir = dirsToVisit.remove();
-      Iterable<FileInfo> files = list(dir);
-      for (FileInfo file : files) {
-        if (file.getIsDir()) {
-          dirsToVisit.add(file.getPath());
-        }
-        allFiles.add(file);
-      }
-    }
-
-    return allFiles;
+    return () -> new LazyDirectoryIterator(path);
   }
 }

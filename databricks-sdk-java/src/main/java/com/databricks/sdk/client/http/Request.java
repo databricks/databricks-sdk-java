@@ -1,8 +1,8 @@
 package com.databricks.sdk.client.http;
 
-import com.databricks.sdk.client.BodyLogger;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.util.*;
 
 public class Request {
@@ -120,25 +120,5 @@ public class Request {
   @Override
   public String toString() {
     return getRequestLine();
-  }
-
-  public String toDebugString(BodyLogger bodyLogger, boolean printDebugHeaders) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("> ");
-    sb.append(getRequestLine());
-    if (printDebugHeaders) {
-      sb.append("\n * Host: ");
-      sb.append(getUri().getHost());
-      getHeaders()
-          .forEach((header, value) -> sb.append(String.format("\n * %s: %s", header, value)));
-    }
-    String requestBody = getBody();
-    if (requestBody != null && !requestBody.isEmpty()) {
-      for (String line : bodyLogger.redactedDump(requestBody).split("\n")) {
-        sb.append("\n> ");
-        sb.append(line);
-      }
-    }
-    return sb.toString();
   }
 }

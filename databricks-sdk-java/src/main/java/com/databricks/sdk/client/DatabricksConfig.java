@@ -2,7 +2,6 @@ package com.databricks.sdk.client;
 
 import com.databricks.sdk.client.commons.CommonsHttpClient;
 import com.databricks.sdk.client.http.HttpClient;
-import com.databricks.sdk.client.http.LoggingHttpClient;
 import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
 import com.databricks.sdk.client.oauth.OpenIDConnectEndpoints;
@@ -175,7 +174,7 @@ public class DatabricksConfig {
       timeout = httpTimeoutSeconds;
     }
     // eventually it'll get decoupled from config.
-    httpClient = new LoggingHttpClient(new CommonsHttpClient(timeout));
+    httpClient = new CommonsHttpClient(timeout);
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {
