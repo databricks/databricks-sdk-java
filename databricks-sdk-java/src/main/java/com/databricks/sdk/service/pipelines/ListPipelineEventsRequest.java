@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 /** List pipeline events */
-public class ListPipelineEvents {
+public class ListPipelineEventsRequest {
   /**
    * Criteria to select a subset of results, expressed using a SQL-like syntax. The supported
    * filters are:
@@ -53,7 +53,7 @@ public class ListPipelineEvents {
   /** */
   private String pipelineId;
 
-  public ListPipelineEvents setFilter(String filter) {
+  public ListPipelineEventsRequest setFilter(String filter) {
     this.filter = filter;
     return this;
   }
@@ -62,7 +62,7 @@ public class ListPipelineEvents {
     return filter;
   }
 
-  public ListPipelineEvents setMaxResults(Long maxResults) {
+  public ListPipelineEventsRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
     return this;
   }
@@ -71,7 +71,7 @@ public class ListPipelineEvents {
     return maxResults;
   }
 
-  public ListPipelineEvents setOrderBy(Collection<String> orderBy) {
+  public ListPipelineEventsRequest setOrderBy(Collection<String> orderBy) {
     this.orderBy = orderBy;
     return this;
   }
@@ -80,7 +80,7 @@ public class ListPipelineEvents {
     return orderBy;
   }
 
-  public ListPipelineEvents setPageToken(String pageToken) {
+  public ListPipelineEventsRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
   }
@@ -89,7 +89,7 @@ public class ListPipelineEvents {
     return pageToken;
   }
 
-  public ListPipelineEvents setPipelineId(String pipelineId) {
+  public ListPipelineEventsRequest setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
   }
@@ -102,7 +102,7 @@ public class ListPipelineEvents {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ListPipelineEvents that = (ListPipelineEvents) o;
+    ListPipelineEventsRequest that = (ListPipelineEventsRequest) o;
     return Objects.equals(filter, that.filter)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(orderBy, that.orderBy)
@@ -117,7 +117,7 @@ public class ListPipelineEvents {
 
   @Override
   public String toString() {
-    return new ToStringer(ListPipelineEvents.class)
+    return new ToStringer(ListPipelineEventsRequest.class)
         .add("filter", filter)
         .add("maxResults", maxResults)
         .add("orderBy", orderBy)

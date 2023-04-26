@@ -7,12 +7,12 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get the output for a single run */
-public class GetRunOutput {
+public class GetRunOutputRequest {
   /** The canonical identifier for the run. This field is required. */
   @QueryParam("run_id")
   private Long runId;
 
-  public GetRunOutput setRunId(Long runId) {
+  public GetRunOutputRequest setRunId(Long runId) {
     this.runId = runId;
     return this;
   }
@@ -25,7 +25,7 @@ public class GetRunOutput {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetRunOutput that = (GetRunOutput) o;
+    GetRunOutputRequest that = (GetRunOutputRequest) o;
     return Objects.equals(runId, that.runId);
   }
 
@@ -36,6 +36,6 @@ public class GetRunOutput {
 
   @Override
   public String toString() {
-    return new ToStringer(GetRunOutput.class).add("runId", runId).toString();
+    return new ToStringer(GetRunOutputRequest.class).add("runId", runId).toString();
   }
 }

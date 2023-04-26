@@ -58,7 +58,7 @@ public class JobsAPI {
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
-      Run poll = getRun(new GetRun().setRunId(runId));
+      Run poll = getRun(new GetRunRequest().setRunId(runId));
       RunLifeCycleState status = poll.getState().getLifeCycleState();
       statusMessage = String.format("current status: %s", status);
       if (poll.getState() != null) {
@@ -161,7 +161,7 @@ public class JobsAPI {
   }
 
   public ExportRunOutput exportRun(long runId) {
-    return exportRun(new ExportRun().setRunId(runId));
+    return exportRun(new ExportRunRequest().setRunId(runId));
   }
 
   /**
@@ -169,12 +169,12 @@ public class JobsAPI {
    *
    * <p>Export and retrieve the job run task.
    */
-  public ExportRunOutput exportRun(ExportRun request) {
+  public ExportRunOutput exportRun(ExportRunRequest request) {
     return impl.exportRun(request);
   }
 
   public Job get(long jobId) {
-    return get(new Get().setJobId(jobId));
+    return get(new GetJobRequest().setJobId(jobId));
   }
 
   /**
@@ -182,12 +182,12 @@ public class JobsAPI {
    *
    * <p>Retrieves the details for a single job.
    */
-  public Job get(Get request) {
+  public Job get(GetJobRequest request) {
     return impl.get(request);
   }
 
   public Run getRun(long runId) {
-    return getRun(new GetRun().setRunId(runId));
+    return getRun(new GetRunRequest().setRunId(runId));
   }
 
   /**
@@ -195,12 +195,12 @@ public class JobsAPI {
    *
    * <p>Retrieve the metadata of a run.
    */
-  public Run getRun(GetRun request) {
+  public Run getRun(GetRunRequest request) {
     return impl.getRun(request);
   }
 
   public RunOutput getRunOutput(long runId) {
-    return getRunOutput(new GetRunOutput().setRunId(runId));
+    return getRunOutput(new GetRunOutputRequest().setRunId(runId));
   }
 
   /**
@@ -216,7 +216,7 @@ public class JobsAPI {
    * If you to want to reference them beyond 60 days, you must save old run results before they
    * expire.
    */
-  public RunOutput getRunOutput(GetRunOutput request) {
+  public RunOutput getRunOutput(GetRunOutputRequest request) {
     return impl.getRunOutput(request);
   }
 
@@ -225,7 +225,7 @@ public class JobsAPI {
    *
    * <p>Retrieves a list of jobs.
    */
-  public Iterable<BaseJob> list(List request) {
+  public Iterable<BaseJob> list(ListJobsRequest request) {
     request.setOffset(0L);
     return new Paginator<>(
             request,
@@ -247,7 +247,7 @@ public class JobsAPI {
    *
    * <p>List runs in descending order by start time.
    */
-  public Iterable<BaseRun> listRuns(ListRuns request) {
+  public Iterable<BaseRun> listRuns(ListRunsRequest request) {
     request.setOffset(0L);
     return new Paginator<>(
             request,

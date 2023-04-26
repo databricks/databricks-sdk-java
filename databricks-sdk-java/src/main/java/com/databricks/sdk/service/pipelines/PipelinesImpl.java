@@ -19,19 +19,19 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
-  public void delete(Delete request) {
+  public void delete(DeletePipelineRequest request) {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
-  public GetPipelineResponse get(Get request) {
+  public GetPipelineResponse get(GetPipelineRequest request) {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     return apiClient.GET(path, request, GetPipelineResponse.class);
   }
 
   @Override
-  public GetUpdateResponse getUpdate(GetUpdate request) {
+  public GetUpdateResponse getUpdate(GetUpdateRequest request) {
     String path =
         String.format(
             "/api/2.0/pipelines/%s/updates/%s", request.getPipelineId(), request.getUpdateId());
@@ -39,25 +39,25 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
-  public ListPipelineEventsResponse listPipelineEvents(ListPipelineEvents request) {
+  public ListPipelineEventsResponse listPipelineEvents(ListPipelineEventsRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/events", request.getPipelineId());
     return apiClient.GET(path, request, ListPipelineEventsResponse.class);
   }
 
   @Override
-  public ListPipelinesResponse listPipelines(ListPipelines request) {
+  public ListPipelinesResponse listPipelines(ListPipelinesRequest request) {
     String path = "/api/2.0/pipelines";
     return apiClient.GET(path, request, ListPipelinesResponse.class);
   }
 
   @Override
-  public ListUpdatesResponse listUpdates(ListUpdates request) {
+  public ListUpdatesResponse listUpdates(ListUpdatesRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/updates", request.getPipelineId());
     return apiClient.GET(path, request, ListUpdatesResponse.class);
   }
 
   @Override
-  public void reset(Reset request) {
+  public void reset(ResetRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/reset", request.getPipelineId());
     apiClient.POST(path, request, Void.class);
   }
@@ -69,7 +69,7 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
-  public void stop(Stop request) {
+  public void stop(StopRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/stop", request.getPipelineId());
     apiClient.POST(path, request, Void.class);
   }

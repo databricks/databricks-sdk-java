@@ -45,7 +45,7 @@ public class WorkspaceAPI {
   }
 
   public ExportResponse export(String path) {
-    return export(new Export().setPath(path));
+    return export(new ExportRequest().setPath(path));
   }
 
   /**
@@ -59,12 +59,12 @@ public class WorkspaceAPI {
    * limit, this call returns `MAX_NOTEBOOK_SIZE_EXCEEDED`. Currently, this API does not support
    * exporting a library.
    */
-  public ExportResponse export(Export request) {
+  public ExportResponse export(ExportRequest request) {
     return impl.export(request);
   }
 
   public ObjectInfo getStatus(String path) {
-    return getStatus(new GetStatus().setPath(path));
+    return getStatus(new GetStatusRequest().setPath(path));
   }
 
   /**
@@ -73,7 +73,7 @@ public class WorkspaceAPI {
    * <p>Gets the status of an object or a directory. If `path` does not exist, this call returns an
    * error `RESOURCE_DOES_NOT_EXIST`.
    */
-  public ObjectInfo getStatus(GetStatus request) {
+  public ObjectInfo getStatus(GetStatusRequest request) {
     return impl.getStatus(request);
   }
 
@@ -93,7 +93,7 @@ public class WorkspaceAPI {
   }
 
   public Iterable<ObjectInfo> list(String path) {
-    return list(new List().setPath(path));
+    return list(new ListWorkspaceRequest().setPath(path));
   }
 
   /**
@@ -102,7 +102,7 @@ public class WorkspaceAPI {
    * <p>Lists the contents of a directory, or the object if it is not a directory.If the input path
    * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    */
-  public Iterable<ObjectInfo> list(List request) {
+  public Iterable<ObjectInfo> list(ListWorkspaceRequest request) {
     return impl.list(request).getObjects();
   }
 
