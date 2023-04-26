@@ -1,10 +1,16 @@
 package com.databricks.sdk.client.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 public interface TestOSUtils extends OSUtils {
+
+  Logger LOG = LoggerFactory.getLogger(TestOSUtils.class);
+
   default String getTestDir() {
     String testDir = "/target/test-classes/";
     return testDir.replace("/", File.separator);
@@ -16,7 +22,11 @@ public interface TestOSUtils extends OSUtils {
     // Mac:
     // HOME=/Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata
     String home = System.getenv("HOME");
-    String pathToAz = "chmod a+x " + home + "/".replace("/", File.separator) + "az";
-    return Arrays.asList("/bin/bash", "-c", pathToAz);
+    String cmd = "chmod a+x " + home + "/".replace("/", File.separator) + "az";
+
+    LOG.info("tanmaytest -- home = {}", cmd);
+    LOG.info("tanmaytest -- pathToAz = {}", cmd);
+
+    return Arrays.asList("/bin/bash", "-c", cmd);
   }
 }

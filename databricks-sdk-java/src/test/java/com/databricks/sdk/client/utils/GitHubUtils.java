@@ -2,6 +2,7 @@ package com.databricks.sdk.client.utils;
 
 import com.databricks.sdk.client.ProcessUtils;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ public interface GitHubUtils extends TestOSUtils, ProcessUtils {
     try {
       List<String> cmd = commandToSetTestAzExecutable();
       runProcess(cmd);
+      runProcess(Arrays.asList("/bin/bash", "-c", "env"));
     } catch (IOException e) {
       LOG.info("Failed to set executable permission for test az script: {}", e.getMessage());
     } catch (InterruptedException e) {
