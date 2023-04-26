@@ -1,11 +1,10 @@
 package com.databricks.sdk.client.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public interface TestOSUtils extends OSUtils {
 
@@ -20,13 +19,14 @@ public interface TestOSUtils extends OSUtils {
     // Ubuntu:
     // OLDPWD=/home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata
     String cmd = "";
-    if(getOS().equals("linux")) {
-      cmd = "chmod a+x " + System.getenv("OLDPWD") + "/target/test-classes/testdata/".replace("/", File.separator) + "az";
+    if (getOS().equals("linux")) {
+      cmd =
+          "chmod a+x "
+              + System.getenv("OLDPWD")
+              + "/target/test-classes/testdata/".replace("/", File.separator)
+              + "az";
     }
-
-    LOG.info("tanmaytest -- home = {}", cmd);
-    LOG.info("tanmaytest -- pathToAz = {}", cmd);
-
+    LOG.info("Running command: {}", cmd);
     return Arrays.asList("/bin/bash", "-c", cmd);
   }
 }
