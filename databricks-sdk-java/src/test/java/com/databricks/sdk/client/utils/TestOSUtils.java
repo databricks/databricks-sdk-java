@@ -19,15 +19,10 @@ public interface TestOSUtils extends OSUtils {
   default List<String> commandToSetTestAzExecutable() {
     // Ubuntu:
     // OLDPWD=/home/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata
-    // Mac:
-    // HOME=/Users/runner/work/databricks-sdk-jvm/databricks-sdk-jvm/databricks-sdk-java/target/test-classes/testdata
-    String home = "";
-    if(getOS().equals("mac")) {
-      home = System.getenv("HOME");
-    } else if(getOS().equals("linux")) {
-      home = System.getenv("OLDPWD");
+    String cmd = "";
+    if(getOS().equals("linux")) {
+      cmd = "chmod a+x " + System.getenv("OLDPWD") + "/target/test-classes/testdata/".replace("/", File.separator) + "az";
     }
-    String cmd = "chmod a+x " + home + "/".replace("/", File.separator) + "az";
 
     LOG.info("tanmaytest -- home = {}", cmd);
     LOG.info("tanmaytest -- pathToAz = {}", cmd);

@@ -27,6 +27,10 @@ public interface GitHubUtils extends TestOSUtils, ProcessUtils {
   // works fine for macOS.
   default void setPermissionOnTestAz() {
     try {
+      if(getOS().equals("mac")) {
+        // We don't require to set this for macOS
+        return;
+      }
       List<String> cmd = commandToSetTestAzExecutable();
       runProcess(cmd);
       runProcess(Arrays.asList("/bin/bash", "-c", "env"));
