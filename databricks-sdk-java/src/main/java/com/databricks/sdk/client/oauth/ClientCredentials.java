@@ -11,6 +11,9 @@ import java.util.*;
  * HttpClient to fetch OAuth tokens. Additional parameters and scopes can be specified as well. To
  * support all OAuth endpoints, authentication parameters can be passed in the request body or in
  * the Authorization header.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class ClientCredentials extends RefreshableTokenSource {
   public static class Builder {
@@ -91,6 +94,7 @@ public class ClientCredentials extends RefreshableTokenSource {
     this.position = position;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Token refresh() {
     Map<String, String> params = new HashMap<>();

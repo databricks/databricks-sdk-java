@@ -15,6 +15,9 @@ import java.util.Collection;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface WorkspacesService {
   /**
@@ -28,6 +31,9 @@ public interface WorkspacesService {
    * workspace ID (`workspace_id`) field in the response to identify the new workspace and make
    * repeated `GET` requests with the workspace ID and check its status. The workspace becomes
    * available when the status changes to `RUNNING`.
+   *
+   * @param createWorkspaceRequest a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.Workspace} object
    */
   Workspace create(CreateWorkspaceRequest createWorkspaceRequest);
 
@@ -40,6 +46,8 @@ public interface WorkspacesService {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
+   *
+   * @param deleteWorkspaceRequest a {@link com.databricks.sdk.service.provisioning.DeleteWorkspaceRequest} object
    */
   void delete(DeleteWorkspaceRequest deleteWorkspaceRequest);
 
@@ -59,6 +67,9 @@ public interface WorkspacesService {
    *
    * <p>[Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   *
+   * @param getWorkspaceRequest a {@link com.databricks.sdk.service.provisioning.GetWorkspaceRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.Workspace} object
    */
   Workspace get(GetWorkspaceRequest getWorkspaceRequest);
 
@@ -69,6 +80,8 @@ public interface WorkspacesService {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
+   *
+   * @return a {@link java.util.Collection} object
    */
   Collection<Workspace> list();
 
@@ -171,6 +184,8 @@ public interface WorkspacesService {
    * https://docs.databricks.com/administration-guide/account-settings-e2/account-console-e2.html
    * [Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   *
+   * @param updateWorkspaceRequest a {@link com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest} object
    */
   void update(UpdateWorkspaceRequest updateWorkspaceRequest);
 }

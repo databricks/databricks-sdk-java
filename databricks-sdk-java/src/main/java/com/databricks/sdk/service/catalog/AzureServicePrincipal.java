@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>AzureServicePrincipal class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class AzureServicePrincipal {
   /** The application ID of the application registration within the referenced AAD tenant. */
   @JsonProperty("application_id")
@@ -21,33 +27,67 @@ public class AzureServicePrincipal {
   @JsonProperty("directory_id")
   private String directoryId;
 
+  /**
+   * <p>Setter for the field <code>applicationId</code>.</p>
+   *
+   * @param applicationId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.AzureServicePrincipal} object
+   */
   public AzureServicePrincipal setApplicationId(String applicationId) {
     this.applicationId = applicationId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>applicationId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getApplicationId() {
     return applicationId;
   }
 
+  /**
+   * <p>Setter for the field <code>clientSecret</code>.</p>
+   *
+   * @param clientSecret a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.AzureServicePrincipal} object
+   */
   public AzureServicePrincipal setClientSecret(String clientSecret) {
     this.clientSecret = clientSecret;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clientSecret</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getClientSecret() {
     return clientSecret;
   }
 
+  /**
+   * <p>Setter for the field <code>directoryId</code>.</p>
+   *
+   * @param directoryId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.AzureServicePrincipal} object
+   */
   public AzureServicePrincipal setDirectoryId(String directoryId) {
     this.directoryId = directoryId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>directoryId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDirectoryId() {
     return directoryId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -58,11 +98,13 @@ public class AzureServicePrincipal {
         && Objects.equals(directoryId, that.directoryId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(applicationId, clientSecret, directoryId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(AzureServicePrincipal.class)

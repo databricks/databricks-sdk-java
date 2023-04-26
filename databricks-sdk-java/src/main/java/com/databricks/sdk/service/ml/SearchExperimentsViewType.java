@@ -4,6 +4,9 @@ package com.databricks.sdk.service.ml;
 
 /**
  * Qualifier for type of experiments to be returned. If unspecified, return only active experiments.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum SearchExperimentsViewType {
   ACTIVE_ONLY,

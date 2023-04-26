@@ -7,7 +7,12 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Collection;
 import java.util.Objects;
 
-/** List registry webhooks */
+/**
+ * List registry webhooks
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ListWebhooksRequest {
   /**
    * If `events` is specified, any webhook with one or more of the specified trigger events is
@@ -28,33 +33,67 @@ public class ListWebhooksRequest {
   @QueryParam("page_token")
   private String pageToken;
 
+  /**
+   * <p>Setter for the field <code>events</code>.</p>
+   *
+   * @param events a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.ListWebhooksRequest} object
+   */
   public ListWebhooksRequest setEvents(Collection<RegistryWebhookEvent> events) {
     this.events = events;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>events</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<RegistryWebhookEvent> getEvents() {
     return events;
   }
 
+  /**
+   * <p>Setter for the field <code>modelName</code>.</p>
+   *
+   * @param modelName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.ListWebhooksRequest} object
+   */
   public ListWebhooksRequest setModelName(String modelName) {
     this.modelName = modelName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>modelName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getModelName() {
     return modelName;
   }
 
+  /**
+   * <p>Setter for the field <code>pageToken</code>.</p>
+   *
+   * @param pageToken a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.ListWebhooksRequest} object
+   */
   public ListWebhooksRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pageToken</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPageToken() {
     return pageToken;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -65,11 +104,13 @@ public class ListWebhooksRequest {
         && Objects.equals(pageToken, that.pageToken);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(events, modelName, pageToken);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ListWebhooksRequest.class)

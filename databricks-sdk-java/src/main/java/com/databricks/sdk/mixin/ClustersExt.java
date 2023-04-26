@@ -13,15 +13,38 @@ import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+/**
+ * <p>ClustersExt class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ClustersExt extends ClustersAPI {
+  /**
+   * <p>Constructor for ClustersExt.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public ClustersExt(ApiClient apiClient) {
     super(apiClient);
   }
 
+  /**
+   * <p>Constructor for ClustersExt.</p>
+   *
+   * @param mock a {@link com.databricks.sdk.service.compute.ClustersService} object
+   */
   public ClustersExt(ClustersService mock) {
     super(mock);
   }
 
+  /**
+   * <p>selectSparkVersion.</p>
+   *
+   * @param selector a {@link com.databricks.sdk.mixin.SparkVersionSelector} object
+   * @return a {@link java.lang.String} object
+   * @throws java.lang.IllegalArgumentException if any.
+   */
   public String selectSparkVersion(SparkVersionSelector selector) throws IllegalArgumentException {
     // Logic ported from
     // https://github.com/databricks/databricks-sdk-go/blob/main/service/clusters/spark_version.go
@@ -61,6 +84,12 @@ public class ClustersExt extends ClustersAPI {
     return versions.get(0);
   }
 
+  /**
+   * <p>selectNodeType.</p>
+   *
+   * @param selector a {@link com.databricks.sdk.mixin.NodeTypeSelector} object
+   * @return a {@link java.lang.String} object
+   */
   public String selectNodeType(NodeTypeSelector selector) {
     // Logic ported from
     // https://github.com/databricks/databricks-sdk-go/blob/main/service/clusters/node_type.go
@@ -180,6 +209,12 @@ public class ClustersExt extends ClustersAPI {
     return false;
   }
 
+  /**
+   * <p>ensureClusterIsRunning.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public void ensureClusterIsRunning(String clusterId) throws TimeoutException {
     ClusterInfo info = get(clusterId);
     if (info.getState() == State.TERMINATED) {

@@ -7,7 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Budget configuration with daily status. */
+/**
+ * Budget configuration with daily status.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class BudgetWithStatus {
   /** */
   @JsonProperty("alerts")
@@ -71,105 +76,227 @@ public class BudgetWithStatus {
   @JsonProperty("update_time")
   private String updateTime;
 
+  /**
+   * <p>Setter for the field <code>alerts</code>.</p>
+   *
+   * @param alerts a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setAlerts(Collection<BudgetAlert> alerts) {
     this.alerts = alerts;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>alerts</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<BudgetAlert> getAlerts() {
     return alerts;
   }
 
+  /**
+   * <p>Setter for the field <code>budgetId</code>.</p>
+   *
+   * @param budgetId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setBudgetId(String budgetId) {
     this.budgetId = budgetId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>budgetId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getBudgetId() {
     return budgetId;
   }
 
+  /**
+   * <p>Setter for the field <code>creationTime</code>.</p>
+   *
+   * @param creationTime a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setCreationTime(String creationTime) {
     this.creationTime = creationTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>creationTime</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCreationTime() {
     return creationTime;
   }
 
+  /**
+   * <p>Setter for the field <code>endDate</code>.</p>
+   *
+   * @param endDate a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setEndDate(String endDate) {
     this.endDate = endDate;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>endDate</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getEndDate() {
     return endDate;
   }
 
+  /**
+   * <p>Setter for the field <code>filter</code>.</p>
+   *
+   * @param filter a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setFilter(String filter) {
     this.filter = filter;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>filter</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFilter() {
     return filter;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>period</code>.</p>
+   *
+   * @param period a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setPeriod(String period) {
     this.period = period;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>period</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPeriod() {
     return period;
   }
 
+  /**
+   * <p>Setter for the field <code>startDate</code>.</p>
+   *
+   * @param startDate a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setStartDate(String startDate) {
     this.startDate = startDate;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>startDate</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStartDate() {
     return startDate;
   }
 
+  /**
+   * <p>Setter for the field <code>statusDaily</code>.</p>
+   *
+   * @param statusDaily a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setStatusDaily(Collection<BudgetWithStatusStatusDailyItem> statusDaily) {
     this.statusDaily = statusDaily;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>statusDaily</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<BudgetWithStatusStatusDailyItem> getStatusDaily() {
     return statusDaily;
   }
 
+  /**
+   * <p>Setter for the field <code>targetAmount</code>.</p>
+   *
+   * @param targetAmount a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setTargetAmount(String targetAmount) {
     this.targetAmount = targetAmount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>targetAmount</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTargetAmount() {
     return targetAmount;
   }
 
+  /**
+   * <p>Setter for the field <code>updateTime</code>.</p>
+   *
+   * @param updateTime a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.BudgetWithStatus} object
+   */
   public BudgetWithStatus setUpdateTime(String updateTime) {
     this.updateTime = updateTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>updateTime</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUpdateTime() {
     return updateTime;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -188,6 +315,7 @@ public class BudgetWithStatus {
         && Objects.equals(updateTime, that.updateTime);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -204,6 +332,7 @@ public class BudgetWithStatus {
         updateTime);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(BudgetWithStatus.class)

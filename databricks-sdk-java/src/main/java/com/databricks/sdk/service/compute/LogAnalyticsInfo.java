@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>LogAnalyticsInfo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class LogAnalyticsInfo {
   /** <needs content added> */
   @JsonProperty("log_analytics_primary_key")
@@ -15,24 +21,47 @@ public class LogAnalyticsInfo {
   @JsonProperty("log_analytics_workspace_id")
   private String logAnalyticsWorkspaceId;
 
+  /**
+   * <p>Setter for the field <code>logAnalyticsPrimaryKey</code>.</p>
+   *
+   * @param logAnalyticsPrimaryKey a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.LogAnalyticsInfo} object
+   */
   public LogAnalyticsInfo setLogAnalyticsPrimaryKey(String logAnalyticsPrimaryKey) {
     this.logAnalyticsPrimaryKey = logAnalyticsPrimaryKey;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>logAnalyticsPrimaryKey</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getLogAnalyticsPrimaryKey() {
     return logAnalyticsPrimaryKey;
   }
 
+  /**
+   * <p>Setter for the field <code>logAnalyticsWorkspaceId</code>.</p>
+   *
+   * @param logAnalyticsWorkspaceId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.LogAnalyticsInfo} object
+   */
   public LogAnalyticsInfo setLogAnalyticsWorkspaceId(String logAnalyticsWorkspaceId) {
     this.logAnalyticsWorkspaceId = logAnalyticsWorkspaceId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>logAnalyticsWorkspaceId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getLogAnalyticsWorkspaceId() {
     return logAnalyticsWorkspaceId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -42,11 +71,13 @@ public class LogAnalyticsInfo {
         && Objects.equals(logAnalyticsWorkspaceId, that.logAnalyticsWorkspaceId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(logAnalyticsPrimaryKey, logAnalyticsWorkspaceId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(LogAnalyticsInfo.class)

@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
-/** What triggered this update. */
+/**
+ * What triggered this update.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum UpdateInfoCause {
   API_CALL,
   JOB_TASK,

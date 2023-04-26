@@ -7,6 +7,9 @@ package com.databricks.sdk.service.provisioning;
  * creating this VPC endpoint.
  *
  * <p>[endpoint service]: https://docs.aws.amazon.com/vpc/latest/privatelink/endpoint-service.html
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum EndpointUseCase {
   DATAPLANE_RELAY_ACCESS,

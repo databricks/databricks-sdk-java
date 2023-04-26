@@ -21,6 +21,9 @@ import java.util.Collection;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface EncryptionKeysService {
   /**
@@ -39,6 +42,9 @@ public interface EncryptionKeysService {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
+   *
+   * @param createCustomerManagedKeyRequest a {@link com.databricks.sdk.service.provisioning.CreateCustomerManagedKeyRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CustomerManagedKey} object
    */
   CustomerManagedKey create(CreateCustomerManagedKeyRequest createCustomerManagedKeyRequest);
 
@@ -47,6 +53,8 @@ public interface EncryptionKeysService {
    *
    * <p>Deletes a customer-managed key configuration object for an account. You cannot delete a
    * configuration that is associated with a running workspace.
+   *
+   * @param deleteEncryptionKeyRequest a {@link com.databricks.sdk.service.provisioning.DeleteEncryptionKeyRequest} object
    */
   void delete(DeleteEncryptionKeyRequest deleteEncryptionKeyRequest);
 
@@ -65,6 +73,9 @@ public interface EncryptionKeysService {
    * subscription types, and AWS regions.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
+   *
+   * @param getEncryptionKeyRequest a {@link com.databricks.sdk.service.provisioning.GetEncryptionKeyRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CustomerManagedKey} object
    */
   CustomerManagedKey get(GetEncryptionKeyRequest getEncryptionKeyRequest);
 
@@ -82,6 +93,8 @@ public interface EncryptionKeysService {
    * subscription types, and AWS regions.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
+   *
+   * @return a {@link java.util.Collection} object
    */
   Collection<CustomerManagedKey> list();
 }

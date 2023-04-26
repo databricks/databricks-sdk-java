@@ -6,6 +6,9 @@ package com.databricks.sdk.service.compute;
  * Shows the Availability type used for the spot nodes.
  *
  * <p>The default value is defined by InstancePoolConf.instancePoolDefaultAzureAvailability
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum InstancePoolAzureAttributesAvailability {
   ON_DEMAND_AZURE,

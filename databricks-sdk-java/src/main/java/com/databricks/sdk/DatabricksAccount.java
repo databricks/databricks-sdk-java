@@ -48,7 +48,12 @@ import com.databricks.sdk.service.provisioning.WorkspacesService;
 import com.databricks.sdk.service.settings.AccountIpAccessListsAPI;
 import com.databricks.sdk.service.settings.AccountIpAccessListsService;
 
-/** Entry point for accessing Databricks account-level APIs */
+/**
+ * Entry point for accessing Databricks account-level APIs
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class DatabricksAccount {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
@@ -75,10 +80,18 @@ public class DatabricksAccount {
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
   private WorkspacesAPI workspacesAPI;
 
+  /**
+   * <p>Constructor for DatabricksAccount.</p>
+   */
   public DatabricksAccount() {
     this(ConfigLoader.getDefault());
   }
 
+  /**
+   * <p>Constructor for DatabricksAccount.</p>
+   *
+   * @param config a {@link com.databricks.sdk.client.DatabricksConfig} object
+   */
   public DatabricksAccount(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
@@ -106,7 +119,11 @@ public class DatabricksAccount {
     workspacesAPI = new WorkspacesAPI(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a boolean
+   */
   public DatabricksAccount(boolean mock) {
     apiClient = null;
     config = null;
@@ -115,6 +132,8 @@ public class DatabricksAccount {
   /**
    * This API allows you to download billable usage logs for the specified account and date range.
    * This feature works with all account types.
+   *
+   * @return a {@link com.databricks.sdk.service.billing.BillableUsageAPI} object
    */
   public BillableUsageAPI billableUsage() {
     return billableUsageAPI;
@@ -123,6 +142,8 @@ public class DatabricksAccount {
   /**
    * These APIs manage budget configuration including notifications for exceeding a budget for a
    * period. They can also retrieve the status of each budget.
+   *
+   * @return a {@link com.databricks.sdk.service.billing.BudgetsAPI} object
    */
   public BudgetsAPI budgets() {
     return budgetsAPI;
@@ -133,6 +154,8 @@ public class DatabricksAccount {
    * cross-account service IAM role in your AWS account so that Databricks can deploy clusters in
    * the appropriate VPC for the new workspace. A credential configuration encapsulates this role
    * information, and its ID is used when creating a new workspace.
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.CredentialsAPI} object
    */
   public CredentialsAPI credentials() {
     return credentialsAPI;
@@ -144,6 +167,8 @@ public class DatabricksAccount {
    *
    * <p>**Note:** You can only add/use the OAuth custom application integrations when OAuth
    * enrollment status is enabled. For more details see :method:OAuthEnrollment/create
+   *
+   * @return a {@link com.databricks.sdk.service.oauth2.CustomAppIntegrationAPI} object
    */
   public CustomAppIntegrationAPI customAppIntegration() {
     return customAppIntegrationAPI;
@@ -164,6 +189,8 @@ public class DatabricksAccount {
    * Updating a running workspace with workspace storage encryption requires that the workspace is
    * on the E2 version of the platform. If you have an older workspace, it might not be on the E2
    * version of the platform. If you are not sure, contact your Databricks representative.
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.EncryptionKeysAPI} object
    */
   public EncryptionKeysAPI encryptionKeys() {
     return encryptionKeysAPI;
@@ -177,6 +204,8 @@ public class DatabricksAccount {
    * Catalog to groups, instead of to users individually. All Databricks Account identities can be
    * assigned as members of groups, and members inherit permissions that are assigned to their
    * group.
+   *
+   * @return a {@link com.databricks.sdk.service.iam.AccountGroupsAPI} object
    */
   public AccountGroupsAPI groups() {
     return groupsAPI;
@@ -203,6 +232,8 @@ public class DatabricksAccount {
    *
    * <p>After changes to the account-level IP access lists, it can take a few minutes for changes to
    * take effect.
+   *
+   * @return a {@link com.databricks.sdk.service.settings.AccountIpAccessListsAPI} object
    */
   public AccountIpAccessListsAPI ipAccessLists() {
     return ipAccessListsAPI;
@@ -264,12 +295,18 @@ public class DatabricksAccount {
    * [Usage page]: https://docs.databricks.com/administration-guide/account-settings/usage.html
    * [create a new AWS S3 bucket]:
    * https://docs.databricks.com/administration-guide/account-api/aws-storage.html
+   *
+   * @return a {@link com.databricks.sdk.service.billing.LogDeliveryAPI} object
    */
   public LogDeliveryAPI logDelivery() {
     return logDeliveryAPI;
   }
 
-  /** These APIs manage metastore assignments to a workspace. */
+  /**
+   * These APIs manage metastore assignments to a workspace.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.AccountMetastoreAssignmentsAPI} object
+   */
   public AccountMetastoreAssignmentsAPI metastoreAssignments() {
     return metastoreAssignmentsAPI;
   }
@@ -277,6 +314,8 @@ public class DatabricksAccount {
   /**
    * These APIs manage Unity Catalog metastores for an account. A metastore contains catalogs that
    * can be associated with workspaces
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.AccountMetastoresAPI} object
    */
   public AccountMetastoresAPI metastores() {
     return metastoresAPI;
@@ -285,6 +324,8 @@ public class DatabricksAccount {
   /**
    * These APIs manage network configurations for customer-managed VPCs (optional). Its ID is used
    * when creating a new workspace if you use customer-managed VPCs.
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.NetworksAPI} object
    */
   public NetworksAPI networks() {
     return networksAPI;
@@ -296,12 +337,18 @@ public class DatabricksAccount {
    *
    * <p>**Note:** Your account must be on the E2 version to use these APIs, this is because OAuth is
    * only supported on the E2 version.
+   *
+   * @return a {@link com.databricks.sdk.service.oauth2.OAuthEnrollmentAPI} object
    */
   public OAuthEnrollmentAPI oAuthEnrollment() {
     return oAuthEnrollmentAPI;
   }
 
-  /** These APIs manage private access settings for this account. */
+  /**
+   * These APIs manage private access settings for this account.
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.PrivateAccessAPI} object
+   */
   public PrivateAccessAPI privateAccess() {
     return privateAccessAPI;
   }
@@ -313,6 +360,8 @@ public class DatabricksAccount {
    *
    * <p>**Note:** You can only add/use the OAuth published application integrations when OAuth
    * enrollment status is enabled. For more details see :method:OAuthEnrollment/create
+   *
+   * @return a {@link com.databricks.sdk.service.oauth2.PublishedAppIntegrationAPI} object
    */
   public PublishedAppIntegrationAPI publishedAppIntegration() {
     return publishedAppIntegrationAPI;
@@ -324,6 +373,8 @@ public class DatabricksAccount {
    * production data. If all processes that act on production data run with service principals,
    * interactive users do not need any write, delete, or modify privileges in production. This
    * eliminates the risk of a user overwriting production data by accident.
+   *
+   * @return a {@link com.databricks.sdk.service.iam.AccountServicePrincipalsAPI} object
    */
   public AccountServicePrincipalsAPI servicePrincipals() {
     return servicePrincipalsAPI;
@@ -335,12 +386,18 @@ public class DatabricksAccount {
    * You can also use the root storage S3 bucket for storage of non-production DBFS data. A storage
    * configuration encapsulates this bucket information, and its ID is used when creating a new
    * workspace.
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageAPI} object
    */
   public StorageAPI storage() {
     return storageAPI;
   }
 
-  /** These APIs manage storage credentials for a particular metastore. */
+  /**
+   * These APIs manage storage credentials for a particular metastore.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.AccountStorageCredentialsAPI} object
+   */
   public AccountStorageCredentialsAPI storageCredentials() {
     return storageCredentialsAPI;
   }
@@ -355,12 +412,18 @@ public class DatabricksAccount {
    * access to Databricks Account, admins can terminate the user in your identity provider and that
    * user’s account will also be removed from Databricks Account. This ensures a consistent
    * offboarding process and prevents unauthorized users from accessing sensitive data.
+   *
+   * @return a {@link com.databricks.sdk.service.iam.AccountUsersAPI} object
    */
   public AccountUsersAPI users() {
     return usersAPI;
   }
 
-  /** These APIs manage VPC endpoint configurations for this account. */
+  /**
+   * These APIs manage VPC endpoint configurations for this account.
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpointsAPI} object
+   */
   public VpcEndpointsAPI vpcEndpoints() {
     return vpcEndpointsAPI;
   }
@@ -368,6 +431,8 @@ public class DatabricksAccount {
   /**
    * The Workspace Permission Assignment API allows you to manage workspace permissions for
    * principals in your account.
+   *
+   * @return a {@link com.databricks.sdk.service.iam.WorkspaceAssignmentAPI} object
    */
   public WorkspaceAssignmentAPI workspaceAssignment() {
     return workspaceAssignmentAPI;
@@ -381,147 +446,264 @@ public class DatabricksAccount {
    *
    * <p>These endpoints are available if your account is on the E2 version of the platform or on a
    * select custom plan that allows multiple workspaces per account.
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.WorkspacesAPI} object
    */
   public WorkspacesAPI workspaces() {
     return workspacesAPI;
   }
 
-  /** Override BillableUsageAPI with mock */
+  /**
+   * Override BillableUsageAPI with mock
+   *
+   * @param billableUsage a {@link com.databricks.sdk.service.billing.BillableUsageService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withBillableUsageImpl(BillableUsageService billableUsage) {
     billableUsageAPI = new BillableUsageAPI(billableUsage);
     return this;
   }
 
-  /** Override BudgetsAPI with mock */
+  /**
+   * Override BudgetsAPI with mock
+   *
+   * @param budgets a {@link com.databricks.sdk.service.billing.BudgetsService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withBudgetsImpl(BudgetsService budgets) {
     budgetsAPI = new BudgetsAPI(budgets);
     return this;
   }
 
-  /** Override CredentialsAPI with mock */
+  /**
+   * Override CredentialsAPI with mock
+   *
+   * @param credentials a {@link com.databricks.sdk.service.provisioning.CredentialsService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withCredentialsImpl(CredentialsService credentials) {
     credentialsAPI = new CredentialsAPI(credentials);
     return this;
   }
 
-  /** Override CustomAppIntegrationAPI with mock */
+  /**
+   * Override CustomAppIntegrationAPI with mock
+   *
+   * @param customAppIntegration a {@link com.databricks.sdk.service.oauth2.CustomAppIntegrationService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withCustomAppIntegrationImpl(
       CustomAppIntegrationService customAppIntegration) {
     customAppIntegrationAPI = new CustomAppIntegrationAPI(customAppIntegration);
     return this;
   }
 
-  /** Override EncryptionKeysAPI with mock */
+  /**
+   * Override EncryptionKeysAPI with mock
+   *
+   * @param encryptionKeys a {@link com.databricks.sdk.service.provisioning.EncryptionKeysService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withEncryptionKeysImpl(EncryptionKeysService encryptionKeys) {
     encryptionKeysAPI = new EncryptionKeysAPI(encryptionKeys);
     return this;
   }
 
-  /** Override AccountGroupsAPI with mock */
+  /**
+   * Override AccountGroupsAPI with mock
+   *
+   * @param accountGroups a {@link com.databricks.sdk.service.iam.AccountGroupsService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withGroupsImpl(AccountGroupsService accountGroups) {
     groupsAPI = new AccountGroupsAPI(accountGroups);
     return this;
   }
 
-  /** Override AccountIpAccessListsAPI with mock */
+  /**
+   * Override AccountIpAccessListsAPI with mock
+   *
+   * @param accountIpAccessLists a {@link com.databricks.sdk.service.settings.AccountIpAccessListsService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withIpAccessListsImpl(AccountIpAccessListsService accountIpAccessLists) {
     ipAccessListsAPI = new AccountIpAccessListsAPI(accountIpAccessLists);
     return this;
   }
 
-  /** Override LogDeliveryAPI with mock */
+  /**
+   * Override LogDeliveryAPI with mock
+   *
+   * @param logDelivery a {@link com.databricks.sdk.service.billing.LogDeliveryService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withLogDeliveryImpl(LogDeliveryService logDelivery) {
     logDeliveryAPI = new LogDeliveryAPI(logDelivery);
     return this;
   }
 
-  /** Override AccountMetastoreAssignmentsAPI with mock */
+  /**
+   * Override AccountMetastoreAssignmentsAPI with mock
+   *
+   * @param accountMetastoreAssignments a {@link com.databricks.sdk.service.catalog.AccountMetastoreAssignmentsService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withMetastoreAssignmentsImpl(
       AccountMetastoreAssignmentsService accountMetastoreAssignments) {
     metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(accountMetastoreAssignments);
     return this;
   }
 
-  /** Override AccountMetastoresAPI with mock */
+  /**
+   * Override AccountMetastoresAPI with mock
+   *
+   * @param accountMetastores a {@link com.databricks.sdk.service.catalog.AccountMetastoresService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withMetastoresImpl(AccountMetastoresService accountMetastores) {
     metastoresAPI = new AccountMetastoresAPI(accountMetastores);
     return this;
   }
 
-  /** Override NetworksAPI with mock */
+  /**
+   * Override NetworksAPI with mock
+   *
+   * @param networks a {@link com.databricks.sdk.service.provisioning.NetworksService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withNetworksImpl(NetworksService networks) {
     networksAPI = new NetworksAPI(networks);
     return this;
   }
 
-  /** Override OAuthEnrollmentAPI with mock */
+  /**
+   * Override OAuthEnrollmentAPI with mock
+   *
+   * @param oAuthEnrollment a {@link com.databricks.sdk.service.oauth2.OAuthEnrollmentService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withOAuthEnrollmentImpl(OAuthEnrollmentService oAuthEnrollment) {
     oAuthEnrollmentAPI = new OAuthEnrollmentAPI(oAuthEnrollment);
     return this;
   }
 
-  /** Override PrivateAccessAPI with mock */
+  /**
+   * Override PrivateAccessAPI with mock
+   *
+   * @param privateAccess a {@link com.databricks.sdk.service.provisioning.PrivateAccessService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withPrivateAccessImpl(PrivateAccessService privateAccess) {
     privateAccessAPI = new PrivateAccessAPI(privateAccess);
     return this;
   }
 
-  /** Override PublishedAppIntegrationAPI with mock */
+  /**
+   * Override PublishedAppIntegrationAPI with mock
+   *
+   * @param publishedAppIntegration a {@link com.databricks.sdk.service.oauth2.PublishedAppIntegrationService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withPublishedAppIntegrationImpl(
       PublishedAppIntegrationService publishedAppIntegration) {
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(publishedAppIntegration);
     return this;
   }
 
-  /** Override AccountServicePrincipalsAPI with mock */
+  /**
+   * Override AccountServicePrincipalsAPI with mock
+   *
+   * @param accountServicePrincipals a {@link com.databricks.sdk.service.iam.AccountServicePrincipalsService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withServicePrincipalsImpl(
       AccountServicePrincipalsService accountServicePrincipals) {
     servicePrincipalsAPI = new AccountServicePrincipalsAPI(accountServicePrincipals);
     return this;
   }
 
-  /** Override StorageAPI with mock */
+  /**
+   * Override StorageAPI with mock
+   *
+   * @param storage a {@link com.databricks.sdk.service.provisioning.StorageService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withStorageImpl(StorageService storage) {
     storageAPI = new StorageAPI(storage);
     return this;
   }
 
-  /** Override AccountStorageCredentialsAPI with mock */
+  /**
+   * Override AccountStorageCredentialsAPI with mock
+   *
+   * @param accountStorageCredentials a {@link com.databricks.sdk.service.catalog.AccountStorageCredentialsService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withStorageCredentialsImpl(
       AccountStorageCredentialsService accountStorageCredentials) {
     storageCredentialsAPI = new AccountStorageCredentialsAPI(accountStorageCredentials);
     return this;
   }
 
-  /** Override AccountUsersAPI with mock */
+  /**
+   * Override AccountUsersAPI with mock
+   *
+   * @param accountUsers a {@link com.databricks.sdk.service.iam.AccountUsersService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withUsersImpl(AccountUsersService accountUsers) {
     usersAPI = new AccountUsersAPI(accountUsers);
     return this;
   }
 
-  /** Override VpcEndpointsAPI with mock */
+  /**
+   * Override VpcEndpointsAPI with mock
+   *
+   * @param vpcEndpoints a {@link com.databricks.sdk.service.provisioning.VpcEndpointsService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withVpcEndpointsImpl(VpcEndpointsService vpcEndpoints) {
     vpcEndpointsAPI = new VpcEndpointsAPI(vpcEndpoints);
     return this;
   }
 
-  /** Override WorkspaceAssignmentAPI with mock */
+  /**
+   * Override WorkspaceAssignmentAPI with mock
+   *
+   * @param workspaceAssignment a {@link com.databricks.sdk.service.iam.WorkspaceAssignmentService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withWorkspaceAssignmentImpl(
       WorkspaceAssignmentService workspaceAssignment) {
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(workspaceAssignment);
     return this;
   }
 
-  /** Override WorkspacesAPI with mock */
+  /**
+   * Override WorkspacesAPI with mock
+   *
+   * @param workspaces a {@link com.databricks.sdk.service.provisioning.WorkspacesService} object
+   * @return a {@link com.databricks.sdk.DatabricksAccount} object
+   */
   public DatabricksAccount withWorkspacesImpl(WorkspacesService workspaces) {
     workspacesAPI = new WorkspacesAPI(workspaces);
     return this;
   }
 
+  /**
+   * <p>apiClient.</p>
+   *
+   * @return a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public ApiClient apiClient() {
     return apiClient;
   }
 
+  /**
+   * <p>config.</p>
+   *
+   * @return a {@link com.databricks.sdk.client.DatabricksConfig} object
+   */
   public DatabricksConfig config() {
     return config;
   }

@@ -104,7 +104,12 @@ import com.databricks.sdk.service.workspace.SecretsService;
 import com.databricks.sdk.service.workspace.WorkspaceAPI;
 import com.databricks.sdk.service.workspace.WorkspaceService;
 
-/** Entry point for accessing Databricks workspace-level APIs */
+/**
+ * Entry point for accessing Databricks workspace-level APIs
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class DatabricksWorkspace {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
@@ -159,10 +164,18 @@ public class DatabricksWorkspace {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceConfAPI workspaceConfAPI;
 
+  /**
+   * <p>Constructor for DatabricksWorkspace.</p>
+   */
   public DatabricksWorkspace() {
     this(ConfigLoader.getDefault());
   }
 
+  /**
+   * <p>Constructor for DatabricksWorkspace.</p>
+   *
+   * @param config a {@link com.databricks.sdk.client.DatabricksConfig} object
+   */
   public DatabricksWorkspace(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
@@ -218,7 +231,11 @@ public class DatabricksWorkspace {
     workspaceConfAPI = new WorkspaceConfAPI(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a boolean
+   */
   public DatabricksWorkspace(boolean mock) {
     apiClient = null;
     config = null;
@@ -228,6 +245,8 @@ public class DatabricksWorkspace {
    * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
    * object that periodically runs a query, evaluates a condition of its result, and notifies one or
    * more users and/or notification destinations if the condition was met.
+   *
+   * @return a {@link com.databricks.sdk.service.sql.AlertsAPI} object
    */
   public AlertsAPI alerts() {
     return alertsAPI;
@@ -241,6 +260,8 @@ public class DatabricksWorkspace {
    * <p>In Unity Catalog, admins and data stewards manage users and their access to data centrally
    * across all of the workspaces in a Databricks account. Users in different workspaces can share
    * access to the same data, depending on privileges granted centrally in Unity Catalog.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.CatalogsAPI} object
    */
   public CatalogsAPI catalogs() {
     return catalogsAPI;
@@ -267,6 +288,8 @@ public class DatabricksWorkspace {
    *
    * <p>Only admin users can create, edit, and delete policies. Admin users also have access to all
    * policies.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ClusterPoliciesAPI} object
    */
   public ClusterPoliciesAPI clusterPolicies() {
     return clusterPoliciesAPI;
@@ -295,6 +318,8 @@ public class DatabricksWorkspace {
    * clusters terminated in the last 30 days and up to 30 job clusters recently terminated by the
    * job scheduler. To keep an all-purpose cluster configuration even after it has been terminated
    * for more than 30 days, an administrator can pin a cluster to the cluster list.
+   *
+   * @return a {@link com.databricks.sdk.mixin.ClustersExt} object
    */
   public ClustersExt clusters() {
     return clustersAPI;
@@ -302,6 +327,8 @@ public class DatabricksWorkspace {
 
   /**
    * This API allows execution of Python, Scala, SQL, or R commands on running Databricks Clusters.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.CommandExecutionAPI} object
    */
   public CommandExecutionAPI commandExecution() {
     return commandExecutionAPI;
@@ -309,6 +336,8 @@ public class DatabricksWorkspace {
 
   /**
    * This API allows retrieving information about currently authenticated user or service principal.
+   *
+   * @return a {@link com.databricks.sdk.service.iam.CurrentUserAPI} object
    */
   public CurrentUserAPI currentUser() {
     return currentUserAPI;
@@ -319,6 +348,8 @@ public class DatabricksWorkspace {
    * to use dashboard objects to look-up a collection of related query IDs. The API can also be used
    * to duplicate multiple dashboards at once since you can get a dashboard definition with a GET
    * request and then POST it to create a new one.
+   *
+   * @return a {@link com.databricks.sdk.service.sql.DashboardsAPI} object
    */
   public DashboardsAPI dashboards() {
     return dashboardsAPI;
@@ -333,6 +364,8 @@ public class DatabricksWorkspace {
    * <p>This API does not support searches. It returns the full list of SQL warehouses in your
    * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
    * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
+   *
+   * @return a {@link com.databricks.sdk.service.sql.DataSourcesAPI} object
    */
   public DataSourcesAPI dataSources() {
     return dataSourcesAPI;
@@ -341,6 +374,8 @@ public class DatabricksWorkspace {
   /**
    * DBFS API makes it simple to interact with various data sources without having to include a
    * users credentials every time to read a file.
+   *
+   * @return a {@link com.databricks.sdk.service.files.DbfsAPI} object
    */
   public DbfsAPI dbfs() {
     return dbfsAPI;
@@ -359,11 +394,18 @@ public class DatabricksWorkspace {
    *
    * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
    * `CAN_RUN`)
+   *
+   * @return a {@link com.databricks.sdk.service.sql.DbsqlPermissionsAPI} object
    */
   public DbsqlPermissionsAPI dbsqlPermissions() {
     return dbsqlPermissionsAPI;
   }
 
+  /**
+   * <p>experiments.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.ExperimentsAPI} object
+   */
   public ExperimentsAPI experiments() {
     return experimentsAPI;
   }
@@ -380,6 +422,8 @@ public class DatabricksWorkspace {
    *
    * <p>To create external locations, you must be a metastore admin or a user with the
    * **CREATE_EXTERNAL_LOCATION** privilege.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.ExternalLocationsAPI} object
    */
   public ExternalLocationsAPI externalLocations() {
     return externalLocationsAPI;
@@ -392,6 +436,8 @@ public class DatabricksWorkspace {
    * wherever a table reference is allowed in a query. In Unity Catalog, a function resides at the
    * same level as a table, so it can be referenced with the form
    * __catalog_name__.__schema_name__.__function_name__.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.FunctionsAPI} object
    */
   public FunctionsAPI functions() {
     return functionsAPI;
@@ -403,6 +449,8 @@ public class DatabricksWorkspace {
    * <p>See [more info].
    *
    * <p>[more info]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.GitCredentialsAPI} object
    */
   public GitCredentialsAPI gitCredentials() {
     return gitCredentialsAPI;
@@ -417,6 +465,8 @@ public class DatabricksWorkspace {
    * code, the Apache Spark container fails to launch and init scripts with later position are
    * skipped. If enough containers fail, the entire cluster fails with a
    * `GLOBAL_INIT_SCRIPT_FAILURE` error code.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.GlobalInitScriptsAPI} object
    */
   public GlobalInitScriptsAPI globalInitScripts() {
     return globalInitScriptsAPI;
@@ -432,6 +482,8 @@ public class DatabricksWorkspace {
    * This means that granting a privilege on the catalog automatically grants the privilege to all
    * current and future objects within the catalog. Similarly, privileges granted on a schema are
    * inherited by all current and future objects within that schema.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.GrantsAPI} object
    */
   public GrantsAPI grants() {
     return grantsAPI;
@@ -445,6 +497,8 @@ public class DatabricksWorkspace {
    * Catalog to groups, instead of to users individually. All Databricks Workspace identities can be
    * assigned as members of groups, and members inherit permissions that are assigned to their
    * group.
+   *
+   * @return a {@link com.databricks.sdk.service.iam.GroupsAPI} object
    */
   public GroupsAPI groups() {
     return groupsAPI;
@@ -466,6 +520,8 @@ public class DatabricksWorkspace {
    *
    * <p>Databricks does not charge DBUs while instances are idle in the pool. Instance provider
    * billing does apply. See pricing.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.InstancePoolsAPI} object
    */
   public InstancePoolsAPI instancePools() {
     return instancePoolsAPI;
@@ -478,6 +534,8 @@ public class DatabricksWorkspace {
    *
    * <p>[Secure access to S3 buckets]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html
+   *
+   * @return a {@link com.databricks.sdk.service.compute.InstanceProfilesAPI} object
    */
   public InstanceProfilesAPI instanceProfiles() {
     return instanceProfilesAPI;
@@ -503,6 +561,8 @@ public class DatabricksWorkspace {
    *
    * <p>After changes to the IP access list feature, it can take a few minutes for changes to take
    * effect.
+   *
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListsAPI} object
    */
   public IpAccessListsAPI ipAccessLists() {
     return ipAccessListsAPI;
@@ -525,6 +585,8 @@ public class DatabricksWorkspace {
    *
    * <p>[Databricks CLI]: https://docs.databricks.com/dev-tools/cli/index.html [Secrets utility]:
    * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.JobsAPI} object
    */
   public JobsAPI jobs() {
     return jobsAPI;
@@ -550,6 +612,8 @@ public class DatabricksWorkspace {
    * <p>When you uninstall a library from a cluster, the library is removed only when you restart
    * the cluster. Until you restart the cluster, the status of the uninstalled library appears as
    * Uninstall pending restart.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.LibrariesAPI} object
    */
   public LibrariesAPI libraries() {
     return librariesAPI;
@@ -568,11 +632,18 @@ public class DatabricksWorkspace {
    * <p>NOTE: This metastore is distinct from the metastore included in Databricks workspaces
    * created before Unity Catalog was released. If your workspace includes a legacy Hive metastore,
    * the data in that metastore is available in a catalog named hive_metastore.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoresAPI} object
    */
   public MetastoresAPI metastores() {
     return metastoresAPI;
   }
 
+  /**
+   * <p>modelRegistry.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.ModelRegistryAPI} object
+   */
   public ModelRegistryAPI modelRegistry() {
     return modelRegistryAPI;
   }
@@ -580,6 +651,8 @@ public class DatabricksWorkspace {
   /**
    * Permissions API are used to create read, write, edit, update and manage access for various
    * users on different objects and endpoints.
+   *
+   * @return a {@link com.databricks.sdk.service.iam.PermissionsAPI} object
    */
   public PermissionsAPI permissions() {
     return permissionsAPI;
@@ -599,6 +672,8 @@ public class DatabricksWorkspace {
    * processing step. You can also enforce data quality with Delta Live Tables expectations.
    * Expectations allow you to define expected data quality and specify how to handle records that
    * fail those expectations.
+   *
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelinesAPI} object
    */
   public PipelinesAPI pipelines() {
     return pipelinesAPI;
@@ -614,12 +689,18 @@ public class DatabricksWorkspace {
    * <p>Policy families cannot be used directly to create clusters. Instead, you create cluster
    * policies using a policy family. Cluster policies created using a policy family inherit the
    * policy family's policy definition.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.PolicyFamiliesAPI} object
    */
   public PolicyFamiliesAPI policyFamilies() {
     return policyFamiliesAPI;
   }
 
-  /** Databricks Providers REST API */
+  /**
+   * Databricks Providers REST API
+   *
+   * @return a {@link com.databricks.sdk.service.sharing.ProvidersAPI} object
+   */
   public ProvidersAPI providers() {
     return providersAPI;
   }
@@ -627,22 +708,36 @@ public class DatabricksWorkspace {
   /**
    * These endpoints are used for CRUD operations on query definitions. Query definitions include
    * the target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
+   *
+   * @return a {@link com.databricks.sdk.service.sql.QueriesAPI} object
    */
   public QueriesAPI queries() {
     return queriesAPI;
   }
 
-  /** Access the history of queries through SQL warehouses. */
+  /**
+   * Access the history of queries through SQL warehouses.
+   *
+   * @return a {@link com.databricks.sdk.service.sql.QueryHistoryAPI} object
+   */
   public QueryHistoryAPI queryHistory() {
     return queryHistoryAPI;
   }
 
-  /** Databricks Recipient Activation REST API */
+  /**
+   * Databricks Recipient Activation REST API
+   *
+   * @return a {@link com.databricks.sdk.service.sharing.RecipientActivationAPI} object
+   */
   public RecipientActivationAPI recipientActivation() {
     return recipientActivationAPI;
   }
 
-  /** Databricks Recipients REST API */
+  /**
+   * Databricks Recipients REST API
+   *
+   * @return a {@link com.databricks.sdk.service.sharing.RecipientsAPI} object
+   */
   public RecipientsAPI recipients() {
     return recipientsAPI;
   }
@@ -658,6 +753,8 @@ public class DatabricksWorkspace {
    * <p>Within Repos you can develop code in notebooks or other files and follow data science and
    * engineering code development best practices using Git for version control, collaboration, and
    * CI/CD.
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.ReposAPI} object
    */
   public ReposAPI repos() {
     return reposAPI;
@@ -668,6 +765,8 @@ public class DatabricksWorkspace {
    * A schema organizes tables, views and functions. To access (or list) a table or view in a
    * schema, users must have the USE_SCHEMA data permission on the schema and its parent catalog,
    * and they must have the SELECT permission on the table or view.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.SchemasAPI} object
    */
   public SchemasAPI schemas() {
     return schemasAPI;
@@ -683,6 +782,8 @@ public class DatabricksWorkspace {
    * <p>Administrators, secret creators, and users granted permission can read Databricks secrets.
    * While Databricks makes an effort to redact secret values that might be displayed in notebooks,
    * it is not possible to prevent such users from reading secrets.
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.SecretsAPI} object
    */
   public SecretsAPI secrets() {
     return secretsAPI;
@@ -694,6 +795,8 @@ public class DatabricksWorkspace {
    * production data. If all processes that act on production data run with service principals,
    * interactive users do not need any write, delete, or modify privileges in production. This
    * eliminates the risk of a user overwriting production data by accident.
+   *
+   * @return a {@link com.databricks.sdk.service.iam.ServicePrincipalsAPI} object
    */
   public ServicePrincipalsAPI servicePrincipals() {
     return servicePrincipalsAPI;
@@ -710,12 +813,18 @@ public class DatabricksWorkspace {
    * ten served models. You can configure traffic settings to define how requests should be routed
    * to your served models behind an endpoint. Additionally, you can configure the scale of
    * resources that should be applied to each served model.
+   *
+   * @return a {@link com.databricks.sdk.service.serving.ServingEndpointsAPI} object
    */
   public ServingEndpointsAPI servingEndpoints() {
     return servingEndpointsAPI;
   }
 
-  /** Databricks Shares REST API */
+  /**
+   * Databricks Shares REST API
+   *
+   * @return a {@link com.databricks.sdk.service.sharing.SharesAPI} object
+   */
   public SharesAPI shares() {
     return sharesAPI;
   }
@@ -878,6 +987,8 @@ public class DatabricksWorkspace {
    * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Public Preview]:
    * https://docs.databricks.com/release-notes/release-types.html [SQL Statement Execution API
    * tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
+   *
+   * @return a {@link com.databricks.sdk.service.sql.StatementExecutionAPI} object
    */
   public StatementExecutionAPI statementExecution() {
     return statementExecutionAPI;
@@ -896,6 +1007,8 @@ public class DatabricksWorkspace {
    * <p>To create storage credentials, you must be a Databricks account admin. The account admin who
    * creates the storage credential can delegate ownership to another user or group to manage
    * permissions on it.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialsAPI} object
    */
   public StorageCredentialsAPI storageCredentials() {
     return storageCredentialsAPI;
@@ -912,6 +1025,8 @@ public class DatabricksWorkspace {
    *
    * <p>You can declare primary keys and foreign keys as part of the table specification during
    * table creation. You can also add or drop constraints on existing tables.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.TableConstraintsAPI} object
    */
   public TableConstraintsAPI tableConstraints() {
     return tableConstraintsAPI;
@@ -926,6 +1041,8 @@ public class DatabricksWorkspace {
    *
    * <p>A table can be managed or external. From an API perspective, a __VIEW__ is a particular kind
    * of table (rather than a managed or external table).
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.TablesAPI} object
    */
   public TablesAPI tables() {
     return tablesAPI;
@@ -934,6 +1051,8 @@ public class DatabricksWorkspace {
   /**
    * Enables administrators to get all tokens and delete tokens for other users. Admins can either
    * get every token, get a specific token by ID, or get all tokens for a particular user.
+   *
+   * @return a {@link com.databricks.sdk.service.settings.TokenManagementAPI} object
    */
   public TokenManagementAPI tokenManagement() {
     return tokenManagementAPI;
@@ -942,6 +1061,8 @@ public class DatabricksWorkspace {
   /**
    * The Token API allows you to create, list, and revoke tokens that can be used to authenticate
    * and access Databricks REST APIs.
+   *
+   * @return a {@link com.databricks.sdk.service.settings.TokensAPI} object
    */
   public TokensAPI tokens() {
     return tokensAPI;
@@ -957,6 +1078,8 @@ public class DatabricksWorkspace {
    * access to Databricks Workspace, admins can terminate the user in your identity provider and
    * that user’s account will also be removed from Databricks Workspace. This ensures a consistent
    * offboarding process and prevents unauthorized users from accessing sensitive data.
+   *
+   * @return a {@link com.databricks.sdk.service.iam.UsersAPI} object
    */
   public UsersAPI users() {
     return usersAPI;
@@ -970,6 +1093,8 @@ public class DatabricksWorkspace {
    * machines, storing library and config files of arbitrary formats such as .whl or .txt centrally
    * and providing secure access across workspaces to it, or transforming and querying non-tabular
    * data files in ETL.
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.VolumesAPI} object
    */
   public VolumesAPI volumes() {
     return volumesAPI;
@@ -979,6 +1104,8 @@ public class DatabricksWorkspace {
    * A SQL warehouse is a compute resource that lets you run SQL commands on data objects within
    * Databricks SQL. Compute resources are infrastructure resources that provide processing
    * capabilities in the cloud.
+   *
+   * @return a {@link com.databricks.sdk.service.sql.WarehousesAPI} object
    */
   public WarehousesAPI warehouses() {
     return warehousesAPI;
@@ -989,317 +1116,578 @@ public class DatabricksWorkspace {
    *
    * <p>A notebook is a web-based interface to a document that contains runnable code,
    * visualizations, and explanatory text.
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.WorkspaceAPI} object
    */
   public WorkspaceAPI workspace() {
     return workspaceAPI;
   }
 
-  /** This API allows updating known workspace settings for advanced users. */
+  /**
+   * This API allows updating known workspace settings for advanced users.
+   *
+   * @return a {@link com.databricks.sdk.service.settings.WorkspaceConfAPI} object
+   */
   public WorkspaceConfAPI workspaceConf() {
     return workspaceConfAPI;
   }
 
-  /** Replace AlertsAPI implementation with mock */
+  /**
+   * Replace AlertsAPI implementation with mock
+   *
+   * @param alerts a {@link com.databricks.sdk.service.sql.AlertsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withAlertsImpl(AlertsService alerts) {
     alertsAPI = new AlertsAPI(alerts);
     return this;
   }
 
-  /** Replace CatalogsAPI implementation with mock */
+  /**
+   * Replace CatalogsAPI implementation with mock
+   *
+   * @param catalogs a {@link com.databricks.sdk.service.catalog.CatalogsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withCatalogsImpl(CatalogsService catalogs) {
     catalogsAPI = new CatalogsAPI(catalogs);
     return this;
   }
 
-  /** Replace ClusterPoliciesAPI implementation with mock */
+  /**
+   * Replace ClusterPoliciesAPI implementation with mock
+   *
+   * @param clusterPolicies a {@link com.databricks.sdk.service.compute.ClusterPoliciesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withClusterPoliciesImpl(ClusterPoliciesService clusterPolicies) {
     clusterPoliciesAPI = new ClusterPoliciesAPI(clusterPolicies);
     return this;
   }
 
-  /** Replace ClustersAPI implementation with mock */
+  /**
+   * Replace ClustersAPI implementation with mock
+   *
+   * @param clusters a {@link com.databricks.sdk.service.compute.ClustersService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withClustersImpl(ClustersService clusters) {
     clustersAPI = new ClustersExt(clusters);
     return this;
   }
 
-  /** Replace CommandExecutionAPI implementation with mock */
+  /**
+   * Replace CommandExecutionAPI implementation with mock
+   *
+   * @param commandExecution a {@link com.databricks.sdk.service.compute.CommandExecutionService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withCommandExecutionImpl(CommandExecutionService commandExecution) {
     commandExecutionAPI = new CommandExecutionAPI(commandExecution);
     return this;
   }
 
-  /** Replace CurrentUserAPI implementation with mock */
+  /**
+   * Replace CurrentUserAPI implementation with mock
+   *
+   * @param currentUser a {@link com.databricks.sdk.service.iam.CurrentUserService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withCurrentUserImpl(CurrentUserService currentUser) {
     currentUserAPI = new CurrentUserAPI(currentUser);
     return this;
   }
 
-  /** Replace DashboardsAPI implementation with mock */
+  /**
+   * Replace DashboardsAPI implementation with mock
+   *
+   * @param dashboards a {@link com.databricks.sdk.service.sql.DashboardsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withDashboardsImpl(DashboardsService dashboards) {
     dashboardsAPI = new DashboardsAPI(dashboards);
     return this;
   }
 
-  /** Replace DataSourcesAPI implementation with mock */
+  /**
+   * Replace DataSourcesAPI implementation with mock
+   *
+   * @param dataSources a {@link com.databricks.sdk.service.sql.DataSourcesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withDataSourcesImpl(DataSourcesService dataSources) {
     dataSourcesAPI = new DataSourcesAPI(dataSources);
     return this;
   }
 
-  /** Replace DbfsAPI implementation with mock */
+  /**
+   * Replace DbfsAPI implementation with mock
+   *
+   * @param dbfs a {@link com.databricks.sdk.service.files.DbfsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withDbfsImpl(DbfsService dbfs) {
     dbfsAPI = new DbfsAPI(dbfs);
     return this;
   }
 
-  /** Replace DbsqlPermissionsAPI implementation with mock */
+  /**
+   * Replace DbsqlPermissionsAPI implementation with mock
+   *
+   * @param dbsqlPermissions a {@link com.databricks.sdk.service.sql.DbsqlPermissionsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withDbsqlPermissionsImpl(DbsqlPermissionsService dbsqlPermissions) {
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(dbsqlPermissions);
     return this;
   }
 
-  /** Replace ExperimentsAPI implementation with mock */
+  /**
+   * Replace ExperimentsAPI implementation with mock
+   *
+   * @param experiments a {@link com.databricks.sdk.service.ml.ExperimentsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withExperimentsImpl(ExperimentsService experiments) {
     experimentsAPI = new ExperimentsAPI(experiments);
     return this;
   }
 
-  /** Replace ExternalLocationsAPI implementation with mock */
+  /**
+   * Replace ExternalLocationsAPI implementation with mock
+   *
+   * @param externalLocations a {@link com.databricks.sdk.service.catalog.ExternalLocationsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withExternalLocationsImpl(ExternalLocationsService externalLocations) {
     externalLocationsAPI = new ExternalLocationsAPI(externalLocations);
     return this;
   }
 
-  /** Replace FunctionsAPI implementation with mock */
+  /**
+   * Replace FunctionsAPI implementation with mock
+   *
+   * @param functions a {@link com.databricks.sdk.service.catalog.FunctionsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withFunctionsImpl(FunctionsService functions) {
     functionsAPI = new FunctionsAPI(functions);
     return this;
   }
 
-  /** Replace GitCredentialsAPI implementation with mock */
+  /**
+   * Replace GitCredentialsAPI implementation with mock
+   *
+   * @param gitCredentials a {@link com.databricks.sdk.service.workspace.GitCredentialsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withGitCredentialsImpl(GitCredentialsService gitCredentials) {
     gitCredentialsAPI = new GitCredentialsAPI(gitCredentials);
     return this;
   }
 
-  /** Replace GlobalInitScriptsAPI implementation with mock */
+  /**
+   * Replace GlobalInitScriptsAPI implementation with mock
+   *
+   * @param globalInitScripts a {@link com.databricks.sdk.service.compute.GlobalInitScriptsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withGlobalInitScriptsImpl(GlobalInitScriptsService globalInitScripts) {
     globalInitScriptsAPI = new GlobalInitScriptsAPI(globalInitScripts);
     return this;
   }
 
-  /** Replace GrantsAPI implementation with mock */
+  /**
+   * Replace GrantsAPI implementation with mock
+   *
+   * @param grants a {@link com.databricks.sdk.service.catalog.GrantsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withGrantsImpl(GrantsService grants) {
     grantsAPI = new GrantsAPI(grants);
     return this;
   }
 
-  /** Replace GroupsAPI implementation with mock */
+  /**
+   * Replace GroupsAPI implementation with mock
+   *
+   * @param groups a {@link com.databricks.sdk.service.iam.GroupsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withGroupsImpl(GroupsService groups) {
     groupsAPI = new GroupsAPI(groups);
     return this;
   }
 
-  /** Replace InstancePoolsAPI implementation with mock */
+  /**
+   * Replace InstancePoolsAPI implementation with mock
+   *
+   * @param instancePools a {@link com.databricks.sdk.service.compute.InstancePoolsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withInstancePoolsImpl(InstancePoolsService instancePools) {
     instancePoolsAPI = new InstancePoolsAPI(instancePools);
     return this;
   }
 
-  /** Replace InstanceProfilesAPI implementation with mock */
+  /**
+   * Replace InstanceProfilesAPI implementation with mock
+   *
+   * @param instanceProfiles a {@link com.databricks.sdk.service.compute.InstanceProfilesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withInstanceProfilesImpl(InstanceProfilesService instanceProfiles) {
     instanceProfilesAPI = new InstanceProfilesAPI(instanceProfiles);
     return this;
   }
 
-  /** Replace IpAccessListsAPI implementation with mock */
+  /**
+   * Replace IpAccessListsAPI implementation with mock
+   *
+   * @param ipAccessLists a {@link com.databricks.sdk.service.settings.IpAccessListsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withIpAccessListsImpl(IpAccessListsService ipAccessLists) {
     ipAccessListsAPI = new IpAccessListsAPI(ipAccessLists);
     return this;
   }
 
-  /** Replace JobsAPI implementation with mock */
+  /**
+   * Replace JobsAPI implementation with mock
+   *
+   * @param jobs a {@link com.databricks.sdk.service.jobs.JobsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withJobsImpl(JobsService jobs) {
     jobsAPI = new JobsAPI(jobs);
     return this;
   }
 
-  /** Replace LibrariesAPI implementation with mock */
+  /**
+   * Replace LibrariesAPI implementation with mock
+   *
+   * @param libraries a {@link com.databricks.sdk.service.compute.LibrariesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withLibrariesImpl(LibrariesService libraries) {
     librariesAPI = new LibrariesAPI(libraries);
     return this;
   }
 
-  /** Replace MetastoresAPI implementation with mock */
+  /**
+   * Replace MetastoresAPI implementation with mock
+   *
+   * @param metastores a {@link com.databricks.sdk.service.catalog.MetastoresService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withMetastoresImpl(MetastoresService metastores) {
     metastoresAPI = new MetastoresAPI(metastores);
     return this;
   }
 
-  /** Replace ModelRegistryAPI implementation with mock */
+  /**
+   * Replace ModelRegistryAPI implementation with mock
+   *
+   * @param modelRegistry a {@link com.databricks.sdk.service.ml.ModelRegistryService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withModelRegistryImpl(ModelRegistryService modelRegistry) {
     modelRegistryAPI = new ModelRegistryAPI(modelRegistry);
     return this;
   }
 
-  /** Replace PermissionsAPI implementation with mock */
+  /**
+   * Replace PermissionsAPI implementation with mock
+   *
+   * @param permissions a {@link com.databricks.sdk.service.iam.PermissionsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withPermissionsImpl(PermissionsService permissions) {
     permissionsAPI = new PermissionsAPI(permissions);
     return this;
   }
 
-  /** Replace PipelinesAPI implementation with mock */
+  /**
+   * Replace PipelinesAPI implementation with mock
+   *
+   * @param pipelines a {@link com.databricks.sdk.service.pipelines.PipelinesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withPipelinesImpl(PipelinesService pipelines) {
     pipelinesAPI = new PipelinesAPI(pipelines);
     return this;
   }
 
-  /** Replace PolicyFamiliesAPI implementation with mock */
+  /**
+   * Replace PolicyFamiliesAPI implementation with mock
+   *
+   * @param policyFamilies a {@link com.databricks.sdk.service.compute.PolicyFamiliesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withPolicyFamiliesImpl(PolicyFamiliesService policyFamilies) {
     policyFamiliesAPI = new PolicyFamiliesAPI(policyFamilies);
     return this;
   }
 
-  /** Replace ProvidersAPI implementation with mock */
+  /**
+   * Replace ProvidersAPI implementation with mock
+   *
+   * @param providers a {@link com.databricks.sdk.service.sharing.ProvidersService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withProvidersImpl(ProvidersService providers) {
     providersAPI = new ProvidersAPI(providers);
     return this;
   }
 
-  /** Replace QueriesAPI implementation with mock */
+  /**
+   * Replace QueriesAPI implementation with mock
+   *
+   * @param queries a {@link com.databricks.sdk.service.sql.QueriesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withQueriesImpl(QueriesService queries) {
     queriesAPI = new QueriesAPI(queries);
     return this;
   }
 
-  /** Replace QueryHistoryAPI implementation with mock */
+  /**
+   * Replace QueryHistoryAPI implementation with mock
+   *
+   * @param queryHistory a {@link com.databricks.sdk.service.sql.QueryHistoryService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withQueryHistoryImpl(QueryHistoryService queryHistory) {
     queryHistoryAPI = new QueryHistoryAPI(queryHistory);
     return this;
   }
 
-  /** Replace RecipientActivationAPI implementation with mock */
+  /**
+   * Replace RecipientActivationAPI implementation with mock
+   *
+   * @param recipientActivation a {@link com.databricks.sdk.service.sharing.RecipientActivationService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withRecipientActivationImpl(
       RecipientActivationService recipientActivation) {
     recipientActivationAPI = new RecipientActivationAPI(recipientActivation);
     return this;
   }
 
-  /** Replace RecipientsAPI implementation with mock */
+  /**
+   * Replace RecipientsAPI implementation with mock
+   *
+   * @param recipients a {@link com.databricks.sdk.service.sharing.RecipientsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withRecipientsImpl(RecipientsService recipients) {
     recipientsAPI = new RecipientsAPI(recipients);
     return this;
   }
 
-  /** Replace ReposAPI implementation with mock */
+  /**
+   * Replace ReposAPI implementation with mock
+   *
+   * @param repos a {@link com.databricks.sdk.service.workspace.ReposService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withReposImpl(ReposService repos) {
     reposAPI = new ReposAPI(repos);
     return this;
   }
 
-  /** Replace SchemasAPI implementation with mock */
+  /**
+   * Replace SchemasAPI implementation with mock
+   *
+   * @param schemas a {@link com.databricks.sdk.service.catalog.SchemasService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withSchemasImpl(SchemasService schemas) {
     schemasAPI = new SchemasAPI(schemas);
     return this;
   }
 
-  /** Replace SecretsAPI implementation with mock */
+  /**
+   * Replace SecretsAPI implementation with mock
+   *
+   * @param secrets a {@link com.databricks.sdk.service.workspace.SecretsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withSecretsImpl(SecretsService secrets) {
     secretsAPI = new SecretsAPI(secrets);
     return this;
   }
 
-  /** Replace ServicePrincipalsAPI implementation with mock */
+  /**
+   * Replace ServicePrincipalsAPI implementation with mock
+   *
+   * @param servicePrincipals a {@link com.databricks.sdk.service.iam.ServicePrincipalsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
     servicePrincipalsAPI = new ServicePrincipalsAPI(servicePrincipals);
     return this;
   }
 
-  /** Replace ServingEndpointsAPI implementation with mock */
+  /**
+   * Replace ServingEndpointsAPI implementation with mock
+   *
+   * @param servingEndpoints a {@link com.databricks.sdk.service.serving.ServingEndpointsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withServingEndpointsImpl(ServingEndpointsService servingEndpoints) {
     servingEndpointsAPI = new ServingEndpointsAPI(servingEndpoints);
     return this;
   }
 
-  /** Replace SharesAPI implementation with mock */
+  /**
+   * Replace SharesAPI implementation with mock
+   *
+   * @param shares a {@link com.databricks.sdk.service.sharing.SharesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withSharesImpl(SharesService shares) {
     sharesAPI = new SharesAPI(shares);
     return this;
   }
 
-  /** Replace StatementExecutionAPI implementation with mock */
+  /**
+   * Replace StatementExecutionAPI implementation with mock
+   *
+   * @param statementExecution a {@link com.databricks.sdk.service.sql.StatementExecutionService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withStatementExecutionImpl(
       StatementExecutionService statementExecution) {
     statementExecutionAPI = new StatementExecutionAPI(statementExecution);
     return this;
   }
 
-  /** Replace StorageCredentialsAPI implementation with mock */
+  /**
+   * Replace StorageCredentialsAPI implementation with mock
+   *
+   * @param storageCredentials a {@link com.databricks.sdk.service.catalog.StorageCredentialsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withStorageCredentialsImpl(
       StorageCredentialsService storageCredentials) {
     storageCredentialsAPI = new StorageCredentialsAPI(storageCredentials);
     return this;
   }
 
-  /** Replace TableConstraintsAPI implementation with mock */
+  /**
+   * Replace TableConstraintsAPI implementation with mock
+   *
+   * @param tableConstraints a {@link com.databricks.sdk.service.catalog.TableConstraintsService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withTableConstraintsImpl(TableConstraintsService tableConstraints) {
     tableConstraintsAPI = new TableConstraintsAPI(tableConstraints);
     return this;
   }
 
-  /** Replace TablesAPI implementation with mock */
+  /**
+   * Replace TablesAPI implementation with mock
+   *
+   * @param tables a {@link com.databricks.sdk.service.catalog.TablesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withTablesImpl(TablesService tables) {
     tablesAPI = new TablesAPI(tables);
     return this;
   }
 
-  /** Replace TokenManagementAPI implementation with mock */
+  /**
+   * Replace TokenManagementAPI implementation with mock
+   *
+   * @param tokenManagement a {@link com.databricks.sdk.service.settings.TokenManagementService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withTokenManagementImpl(TokenManagementService tokenManagement) {
     tokenManagementAPI = new TokenManagementAPI(tokenManagement);
     return this;
   }
 
-  /** Replace TokensAPI implementation with mock */
+  /**
+   * Replace TokensAPI implementation with mock
+   *
+   * @param tokens a {@link com.databricks.sdk.service.settings.TokensService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withTokensImpl(TokensService tokens) {
     tokensAPI = new TokensAPI(tokens);
     return this;
   }
 
-  /** Replace UsersAPI implementation with mock */
+  /**
+   * Replace UsersAPI implementation with mock
+   *
+   * @param users a {@link com.databricks.sdk.service.iam.UsersService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withUsersImpl(UsersService users) {
     usersAPI = new UsersAPI(users);
     return this;
   }
 
-  /** Replace VolumesAPI implementation with mock */
+  /**
+   * Replace VolumesAPI implementation with mock
+   *
+   * @param volumes a {@link com.databricks.sdk.service.catalog.VolumesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withVolumesImpl(VolumesService volumes) {
     volumesAPI = new VolumesAPI(volumes);
     return this;
   }
 
-  /** Replace WarehousesAPI implementation with mock */
+  /**
+   * Replace WarehousesAPI implementation with mock
+   *
+   * @param warehouses a {@link com.databricks.sdk.service.sql.WarehousesService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withWarehousesImpl(WarehousesService warehouses) {
     warehousesAPI = new WarehousesAPI(warehouses);
     return this;
   }
 
-  /** Replace WorkspaceAPI implementation with mock */
+  /**
+   * Replace WorkspaceAPI implementation with mock
+   *
+   * @param workspace a {@link com.databricks.sdk.service.workspace.WorkspaceService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withWorkspaceImpl(WorkspaceService workspace) {
     workspaceAPI = new WorkspaceAPI(workspace);
     return this;
   }
 
-  /** Replace WorkspaceConfAPI implementation with mock */
+  /**
+   * Replace WorkspaceConfAPI implementation with mock
+   *
+   * @param workspaceConf a {@link com.databricks.sdk.service.settings.WorkspaceConfService} object
+   * @return a {@link com.databricks.sdk.DatabricksWorkspace} object
+   */
   public DatabricksWorkspace withWorkspaceConfImpl(WorkspaceConfService workspaceConf) {
     workspaceConfAPI = new WorkspaceConfAPI(workspaceConf);
     return this;
   }
 
+  /**
+   * <p>apiClient.</p>
+   *
+   * @return a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public ApiClient apiClient() {
     return apiClient;
   }
 
+  /**
+   * <p>config.</p>
+   *
+   * @return a {@link com.databricks.sdk.client.DatabricksConfig} object
+   */
   public DatabricksConfig config() {
     return config;
   }

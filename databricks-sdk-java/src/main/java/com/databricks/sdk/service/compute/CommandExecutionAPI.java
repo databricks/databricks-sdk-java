@@ -12,28 +12,59 @@ import org.slf4j.LoggerFactory;
 
 /**
  * This API allows execution of Python, Scala, SQL, or R commands on running Databricks Clusters.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class CommandExecutionAPI {
   private static final Logger LOG = LoggerFactory.getLogger(CommandExecutionAPI.class);
 
   private final CommandExecutionService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public CommandExecutionAPI(ApiClient apiClient) {
     impl = new CommandExecutionImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.compute.CommandExecutionService} object
+   */
   public CommandExecutionAPI(CommandExecutionService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>waitCommandStatusCommandExecutionCancelled.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param commandId a {@link java.lang.String} object
+   * @param contextId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CommandStatusResponse} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public CommandStatusResponse waitCommandStatusCommandExecutionCancelled(
       String clusterId, String commandId, String contextId) throws TimeoutException {
     return waitCommandStatusCommandExecutionCancelled(
         clusterId, commandId, contextId, Duration.ofMinutes(20), null);
   }
 
+  /**
+   * <p>waitCommandStatusCommandExecutionCancelled.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param commandId a {@link java.lang.String} object
+   * @param contextId a {@link java.lang.String} object
+   * @param timeout a {@link java.time.Duration} object
+   * @param callback a {@link java.util.function.Consumer} object
+   * @return a {@link com.databricks.sdk.service.compute.CommandStatusResponse} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public CommandStatusResponse waitCommandStatusCommandExecutionCancelled(
       String clusterId,
       String commandId,
@@ -88,12 +119,32 @@ public class CommandExecutionAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
+  /**
+   * <p>waitCommandStatusCommandExecutionFinishedOrError.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param commandId a {@link java.lang.String} object
+   * @param contextId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CommandStatusResponse} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public CommandStatusResponse waitCommandStatusCommandExecutionFinishedOrError(
       String clusterId, String commandId, String contextId) throws TimeoutException {
     return waitCommandStatusCommandExecutionFinishedOrError(
         clusterId, commandId, contextId, Duration.ofMinutes(20), null);
   }
 
+  /**
+   * <p>waitCommandStatusCommandExecutionFinishedOrError.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param commandId a {@link java.lang.String} object
+   * @param contextId a {@link java.lang.String} object
+   * @param timeout a {@link java.time.Duration} object
+   * @param callback a {@link java.util.function.Consumer} object
+   * @return a {@link com.databricks.sdk.service.compute.CommandStatusResponse} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public CommandStatusResponse waitCommandStatusCommandExecutionFinishedOrError(
       String clusterId,
       String commandId,
@@ -148,12 +199,30 @@ public class CommandExecutionAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
+  /**
+   * <p>waitContextStatusCommandExecutionRunning.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param contextId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.ContextStatusResponse} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public ContextStatusResponse waitContextStatusCommandExecutionRunning(
       String clusterId, String contextId) throws TimeoutException {
     return waitContextStatusCommandExecutionRunning(
         clusterId, contextId, Duration.ofMinutes(20), null);
   }
 
+  /**
+   * <p>waitContextStatusCommandExecutionRunning.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param contextId a {@link java.lang.String} object
+   * @param timeout a {@link java.time.Duration} object
+   * @param callback a {@link java.util.function.Consumer} object
+   * @return a {@link com.databricks.sdk.service.compute.ContextStatusResponse} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public ContextStatusResponse waitContextStatusCommandExecutionRunning(
       String clusterId,
       String contextId,
@@ -204,6 +273,9 @@ public class CommandExecutionAPI {
    * <p>Cancels a currently running command within an execution context.
    *
    * <p>The command ID is obtained from a prior successful call to __execute__.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.CancelCommand} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<CommandStatusResponse, Void> cancel(CancelCommand request) {
     impl.cancel(request);
@@ -217,6 +289,14 @@ public class CommandExecutionAPI {
                 callback));
   }
 
+  /**
+   * <p>commandStatus.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param contextId a {@link java.lang.String} object
+   * @param commandId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CommandStatusResponse} object
+   */
   public CommandStatusResponse commandStatus(String clusterId, String contextId, String commandId) {
     return commandStatus(
         new CommandStatusRequest()
@@ -231,11 +311,21 @@ public class CommandExecutionAPI {
    * <p>Gets the status of and, if available, the results from a currently executing command.
    *
    * <p>The command ID is obtained from a prior successful call to __execute__.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.CommandStatusRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.CommandStatusResponse} object
    */
   public CommandStatusResponse commandStatus(CommandStatusRequest request) {
     return impl.commandStatus(request);
   }
 
+  /**
+   * <p>contextStatus.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param contextId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.ContextStatusResponse} object
+   */
   public ContextStatusResponse contextStatus(String clusterId, String contextId) {
     return contextStatus(
         new ContextStatusRequest().setClusterId(clusterId).setContextId(contextId));
@@ -245,6 +335,9 @@ public class CommandExecutionAPI {
    * Get status.
    *
    * <p>Gets the status for an execution context.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.ContextStatusRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.ContextStatusResponse} object
    */
   public ContextStatusResponse contextStatus(ContextStatusRequest request) {
     return impl.contextStatus(request);
@@ -256,6 +349,9 @@ public class CommandExecutionAPI {
    * <p>Creates an execution context for running cluster commands.
    *
    * <p>If successful, this method returns the ID of the new execution context.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.CreateContext} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<ContextStatusResponse, Created> create(CreateContext request) {
     Created response = impl.create(request);
@@ -266,6 +362,12 @@ public class CommandExecutionAPI {
         response);
   }
 
+  /**
+   * <p>destroy.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param contextId a {@link java.lang.String} object
+   */
   public void destroy(String clusterId, String contextId) {
     destroy(new DestroyContext().setClusterId(clusterId).setContextId(contextId));
   }
@@ -274,6 +376,8 @@ public class CommandExecutionAPI {
    * Delete an execution context.
    *
    * <p>Deletes an execution context.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.DestroyContext} object
    */
   public void destroy(DestroyContext request) {
     impl.destroy(request);
@@ -285,6 +389,9 @@ public class CommandExecutionAPI {
    * <p>Runs a cluster command in the given execution context, using the provided language.
    *
    * <p>If successful, it returns an ID for tracking the status of the command's execution.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.Command} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<CommandStatusResponse, Created> execute(Command request) {
     Created response = impl.execute(request);
@@ -299,6 +406,11 @@ public class CommandExecutionAPI {
         response);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.CommandExecutionService} object
+   */
   public CommandExecutionService impl() {
     return impl;
   }

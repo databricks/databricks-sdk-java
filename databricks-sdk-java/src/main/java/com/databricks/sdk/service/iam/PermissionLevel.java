@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.iam;
 
-/** Permission level */
+/**
+ * Permission level
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum PermissionLevel {
   CAN_ATTACH_TO,
   CAN_BIND,

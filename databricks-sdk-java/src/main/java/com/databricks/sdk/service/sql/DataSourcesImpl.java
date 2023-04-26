@@ -9,10 +9,16 @@ import org.apache.http.client.methods.*;
 class DataSourcesImpl implements DataSourcesService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for DataSourcesImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public DataSourcesImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Collection<DataSource> list() {
     String path = "/api/2.0/preview/sql/data_sources";

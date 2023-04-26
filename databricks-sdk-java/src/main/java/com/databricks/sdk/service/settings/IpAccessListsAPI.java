@@ -26,22 +26,41 @@ import org.slf4j.LoggerFactory;
  *
  * <p>After changes to the IP access list feature, it can take a few minutes for changes to take
  * effect.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class IpAccessListsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(IpAccessListsAPI.class);
 
   private final IpAccessListsService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public IpAccessListsAPI(ApiClient apiClient) {
     impl = new IpAccessListsImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.settings.IpAccessListsService} object
+   */
   public IpAccessListsAPI(IpAccessListsService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param label a {@link java.lang.String} object
+   * @param listType a {@link com.databricks.sdk.service.settings.ListType} object
+   * @param ipAddresses a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.settings.CreateIpAccessListResponse} object
+   */
   public CreateIpAccessListResponse create(
       String label, ListType listType, Collection<String> ipAddresses) {
     return create(
@@ -65,11 +84,19 @@ public class IpAccessListsAPI {
    *
    * <p>It can take a few minutes for the changes to take effect. **Note**: Your new IP access list
    * has no effect until you enable the feature. See :method:workspaceconf/setStatus
+   *
+   * @param request a {@link com.databricks.sdk.service.settings.CreateIpAccessList} object
+   * @return a {@link com.databricks.sdk.service.settings.CreateIpAccessListResponse} object
    */
   public CreateIpAccessListResponse create(CreateIpAccessList request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param ipAccessListId a {@link java.lang.String} object
+   */
   public void delete(String ipAccessListId) {
     delete(new DeleteIpAccessListRequest().setIpAccessListId(ipAccessListId));
   }
@@ -78,11 +105,19 @@ public class IpAccessListsAPI {
    * Delete access list.
    *
    * <p>Deletes an IP access list, specified by its list ID.
+   *
+   * @param request a {@link com.databricks.sdk.service.settings.DeleteIpAccessListRequest} object
    */
   public void delete(DeleteIpAccessListRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param ipAccessListId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.settings.FetchIpAccessListResponse} object
+   */
   public FetchIpAccessListResponse get(String ipAccessListId) {
     return get(new GetIpAccessListRequest().setIpAccessListId(ipAccessListId));
   }
@@ -91,6 +126,9 @@ public class IpAccessListsAPI {
    * Get access list.
    *
    * <p>Gets an IP access list, specified by its list ID.
+   *
+   * @param request a {@link com.databricks.sdk.service.settings.GetIpAccessListRequest} object
+   * @return a {@link com.databricks.sdk.service.settings.FetchIpAccessListResponse} object
    */
   public FetchIpAccessListResponse get(GetIpAccessListRequest request) {
     return impl.get(request);
@@ -100,11 +138,22 @@ public class IpAccessListsAPI {
    * Get access lists.
    *
    * <p>Gets all IP access lists for the specified workspace.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<IpAccessListInfo> list() {
     return impl.list().getIpAccessLists();
   }
 
+  /**
+   * <p>replace.</p>
+   *
+   * @param label a {@link java.lang.String} object
+   * @param listType a {@link com.databricks.sdk.service.settings.ListType} object
+   * @param ipAddresses a {@link java.util.Collection} object
+   * @param enabled a boolean
+   * @param ipAccessListId a {@link java.lang.String} object
+   */
   public void replace(
       String label,
       ListType listType,
@@ -133,11 +182,22 @@ public class IpAccessListsAPI {
    * calling user's current IP, error 400 is returned with `error_code` value `INVALID_STATE`. It
    * can take a few minutes for the changes to take effect. Note that your resulting IP access list
    * has no effect until you enable the feature. See :method:workspaceconf/setStatus.
+   *
+   * @param request a {@link com.databricks.sdk.service.settings.ReplaceIpAccessList} object
    */
   public void replace(ReplaceIpAccessList request) {
     impl.replace(request);
   }
 
+  /**
+   * <p>update.</p>
+   *
+   * @param label a {@link java.lang.String} object
+   * @param listType a {@link com.databricks.sdk.service.settings.ListType} object
+   * @param ipAddresses a {@link java.util.Collection} object
+   * @param enabled a boolean
+   * @param ipAccessListId a {@link java.lang.String} object
+   */
   public void update(
       String label,
       ListType listType,
@@ -170,11 +230,18 @@ public class IpAccessListsAPI {
    *
    * <p>It can take a few minutes for the changes to take effect. Note that your resulting IP access
    * list has no effect until you enable the feature. See :method:workspaceconf/setStatus.
+   *
+   * @param request a {@link com.databricks.sdk.service.settings.UpdateIpAccessList} object
    */
   public void update(UpdateIpAccessList request) {
     impl.update(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListsService} object
+   */
   public IpAccessListsService impl() {
     return impl;
   }

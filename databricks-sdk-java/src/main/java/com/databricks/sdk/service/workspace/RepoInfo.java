@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>RepoInfo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class RepoInfo {
   /** Branch that the local version of the repo is checked out to. */
   @JsonProperty("branch")
@@ -41,69 +47,147 @@ public class RepoInfo {
   @JsonProperty("url")
   private String url;
 
+  /**
+   * <p>Setter for the field <code>branch</code>.</p>
+   *
+   * @param branch a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
+   */
   public RepoInfo setBranch(String branch) {
     this.branch = branch;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>branch</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getBranch() {
     return branch;
   }
 
+  /**
+   * <p>Setter for the field <code>headCommitId</code>.</p>
+   *
+   * @param headCommitId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
+   */
   public RepoInfo setHeadCommitId(String headCommitId) {
     this.headCommitId = headCommitId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>headCommitId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getHeadCommitId() {
     return headCommitId;
   }
 
+  /**
+   * <p>Setter for the field <code>id</code>.</p>
+   *
+   * @param id a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
+   */
   public RepoInfo setId(Long id) {
     this.id = id;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>id</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   * <p>Setter for the field <code>path</code>.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
+   */
   public RepoInfo setPath(String path) {
     this.path = path;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>path</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPath() {
     return path;
   }
 
+  /**
+   * <p>Setter for the field <code>provider</code>.</p>
+   *
+   * @param provider a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
+   */
   public RepoInfo setProvider(String provider) {
     this.provider = provider;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>provider</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getProvider() {
     return provider;
   }
 
+  /**
+   * <p>Setter for the field <code>sparseCheckout</code>.</p>
+   *
+   * @param sparseCheckout a {@link com.databricks.sdk.service.workspace.SparseCheckout} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
+   */
   public RepoInfo setSparseCheckout(SparseCheckout sparseCheckout) {
     this.sparseCheckout = sparseCheckout;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparseCheckout</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.SparseCheckout} object
+   */
   public SparseCheckout getSparseCheckout() {
     return sparseCheckout;
   }
 
+  /**
+   * <p>Setter for the field <code>url</code>.</p>
+   *
+   * @param url a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
+   */
   public RepoInfo setUrl(String url) {
     this.url = url;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>url</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUrl() {
     return url;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -118,11 +202,13 @@ public class RepoInfo {
         && Objects.equals(url, that.url);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(branch, headCommitId, id, path, provider, sparseCheckout, url);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(RepoInfo.class)

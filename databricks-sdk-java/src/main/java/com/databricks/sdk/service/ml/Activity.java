@@ -6,7 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Activity recorded for the action. */
+/**
+ * Activity recorded for the action.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class Activity {
   /** This describes an enum */
   @JsonProperty("activity_type")
@@ -68,87 +73,187 @@ public class Activity {
   @JsonProperty("user_id")
   private String userId;
 
+  /**
+   * <p>Setter for the field <code>activityType</code>.</p>
+   *
+   * @param activityType a {@link com.databricks.sdk.service.ml.ActivityType} object
+   * @return a {@link com.databricks.sdk.service.ml.Activity} object
+   */
   public Activity setActivityType(ActivityType activityType) {
     this.activityType = activityType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>activityType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.ActivityType} object
+   */
   public ActivityType getActivityType() {
     return activityType;
   }
 
+  /**
+   * <p>Setter for the field <code>comment</code>.</p>
+   *
+   * @param comment a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.Activity} object
+   */
   public Activity setComment(String comment) {
     this.comment = comment;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>comment</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getComment() {
     return comment;
   }
 
+  /**
+   * <p>Setter for the field <code>creationTimestamp</code>.</p>
+   *
+   * @param creationTimestamp a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.Activity} object
+   */
   public Activity setCreationTimestamp(Long creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>creationTimestamp</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCreationTimestamp() {
     return creationTimestamp;
   }
 
+  /**
+   * <p>Setter for the field <code>fromStage</code>.</p>
+   *
+   * @param fromStage a {@link com.databricks.sdk.service.ml.Stage} object
+   * @return a {@link com.databricks.sdk.service.ml.Activity} object
+   */
   public Activity setFromStage(Stage fromStage) {
     this.fromStage = fromStage;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>fromStage</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.Stage} object
+   */
   public Stage getFromStage() {
     return fromStage;
   }
 
+  /**
+   * <p>Setter for the field <code>id</code>.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.Activity} object
+   */
   public Activity setId(String id) {
     this.id = id;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>id</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * <p>Setter for the field <code>lastUpdatedTimestamp</code>.</p>
+   *
+   * @param lastUpdatedTimestamp a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.Activity} object
+   */
   public Activity setLastUpdatedTimestamp(Long lastUpdatedTimestamp) {
     this.lastUpdatedTimestamp = lastUpdatedTimestamp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>lastUpdatedTimestamp</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getLastUpdatedTimestamp() {
     return lastUpdatedTimestamp;
   }
 
+  /**
+   * <p>Setter for the field <code>systemComment</code>.</p>
+   *
+   * @param systemComment a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.Activity} object
+   */
   public Activity setSystemComment(String systemComment) {
     this.systemComment = systemComment;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>systemComment</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSystemComment() {
     return systemComment;
   }
 
+  /**
+   * <p>Setter for the field <code>toStage</code>.</p>
+   *
+   * @param toStage a {@link com.databricks.sdk.service.ml.Stage} object
+   * @return a {@link com.databricks.sdk.service.ml.Activity} object
+   */
   public Activity setToStage(Stage toStage) {
     this.toStage = toStage;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>toStage</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.Stage} object
+   */
   public Stage getToStage() {
     return toStage;
   }
 
+  /**
+   * <p>Setter for the field <code>userId</code>.</p>
+   *
+   * @param userId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.Activity} object
+   */
   public Activity setUserId(String userId) {
     this.userId = userId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>userId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUserId() {
     return userId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -165,6 +270,7 @@ public class Activity {
         && Objects.equals(userId, that.userId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -179,6 +285,7 @@ public class Activity {
         userId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(Activity.class)

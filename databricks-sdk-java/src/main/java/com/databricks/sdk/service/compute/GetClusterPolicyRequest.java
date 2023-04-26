@@ -6,21 +6,38 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get entity */
+/**
+ * Get entity
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GetClusterPolicyRequest {
   /** Canonical unique identifier for the cluster policy. */
   @QueryParam("policy_id")
   private String policyId;
 
+  /**
+   * <p>Setter for the field <code>policyId</code>.</p>
+   *
+   * @param policyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.GetClusterPolicyRequest} object
+   */
   public GetClusterPolicyRequest setPolicyId(String policyId) {
     this.policyId = policyId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>policyId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPolicyId() {
     return policyId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -29,11 +46,13 @@ public class GetClusterPolicyRequest {
     return Objects.equals(policyId, that.policyId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(policyId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GetClusterPolicyRequest.class).add("policyId", policyId).toString();

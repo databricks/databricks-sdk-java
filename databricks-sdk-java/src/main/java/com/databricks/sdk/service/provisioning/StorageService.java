@@ -13,6 +13,9 @@ import java.util.Collection;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface StorageService {
   /**
@@ -28,6 +31,9 @@ public interface StorageService {
    *
    * <p>[Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   *
+   * @param createStorageConfigurationRequest a {@link com.databricks.sdk.service.provisioning.CreateStorageConfigurationRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
    */
   StorageConfiguration create(CreateStorageConfigurationRequest createStorageConfigurationRequest);
 
@@ -36,6 +42,8 @@ public interface StorageService {
    *
    * <p>Deletes a Databricks storage configuration. You cannot delete a storage configuration that
    * is associated with any workspace.
+   *
+   * @param deleteStorageRequest a {@link com.databricks.sdk.service.provisioning.DeleteStorageRequest} object
    */
   void delete(DeleteStorageRequest deleteStorageRequest);
 
@@ -43,6 +51,9 @@ public interface StorageService {
    * Get storage configuration.
    *
    * <p>Gets a Databricks storage configuration for an account, both specified by ID.
+   *
+   * @param getStorageRequest a {@link com.databricks.sdk.service.provisioning.GetStorageRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
    */
   StorageConfiguration get(GetStorageRequest getStorageRequest);
 
@@ -50,6 +61,8 @@ public interface StorageService {
    * Get all storage configurations.
    *
    * <p>Gets a list of all Databricks storage configurations for your account, specified by ID.
+   *
+   * @return a {@link java.util.Collection} object
    */
   Collection<StorageConfiguration> list();
 }

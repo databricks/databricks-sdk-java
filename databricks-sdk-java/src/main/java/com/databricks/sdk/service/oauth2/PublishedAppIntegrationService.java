@@ -11,6 +11,9 @@ package com.databricks.sdk.service.oauth2;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface PublishedAppIntegrationService {
   /**
@@ -19,6 +22,9 @@ public interface PublishedAppIntegrationService {
    * <p>Create Published OAuth App Integration.
    *
    * <p>You can retrieve the published oauth app integration via :method:get.
+   *
+   * @param createPublishedAppIntegration a {@link com.databricks.sdk.service.oauth2.CreatePublishedAppIntegration} object
+   * @return a {@link com.databricks.sdk.service.oauth2.CreatePublishedAppIntegrationOutput} object
    */
   CreatePublishedAppIntegrationOutput create(
       CreatePublishedAppIntegration createPublishedAppIntegration);
@@ -28,6 +34,8 @@ public interface PublishedAppIntegrationService {
    *
    * <p>Delete an existing Published OAuth App Integration. You can retrieve the published oauth app
    * integration via :method:get.
+   *
+   * @param deletePublishedAppIntegrationRequest a {@link com.databricks.sdk.service.oauth2.DeletePublishedAppIntegrationRequest} object
    */
   void delete(DeletePublishedAppIntegrationRequest deletePublishedAppIntegrationRequest);
 
@@ -35,6 +43,9 @@ public interface PublishedAppIntegrationService {
    * Get OAuth Published App Integration.
    *
    * <p>Gets the Published OAuth App Integration for the given integration id.
+   *
+   * @param getPublishedAppIntegrationRequest a {@link com.databricks.sdk.service.oauth2.GetPublishedAppIntegrationRequest} object
+   * @return a {@link com.databricks.sdk.service.oauth2.GetPublishedAppIntegrationOutput} object
    */
   GetPublishedAppIntegrationOutput get(
       GetPublishedAppIntegrationRequest getPublishedAppIntegrationRequest);
@@ -43,6 +54,8 @@ public interface PublishedAppIntegrationService {
    * Get published oauth app integrations.
    *
    * <p>Get the list of published oauth app integrations for the specified Databricks Account
+   *
+   * @return a {@link com.databricks.sdk.service.oauth2.GetPublishedAppIntegrationsOutput} object
    */
   GetPublishedAppIntegrationsOutput list();
 
@@ -51,6 +64,8 @@ public interface PublishedAppIntegrationService {
    *
    * <p>Updates an existing published OAuth App Integration. You can retrieve the published oauth
    * app integration via :method:get.
+   *
+   * @param updatePublishedAppIntegration a {@link com.databricks.sdk.service.oauth2.UpdatePublishedAppIntegration} object
    */
   void update(UpdatePublishedAppIntegration updatePublishedAppIntegration);
 }

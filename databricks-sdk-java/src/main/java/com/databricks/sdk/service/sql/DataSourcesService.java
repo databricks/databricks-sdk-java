@@ -16,6 +16,9 @@ import java.util.Collection;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface DataSourcesService {
   /**
@@ -24,6 +27,8 @@ public interface DataSourcesService {
    * <p>Retrieves a full list of SQL warehouses available in this workspace. All fields that appear
    * in this API response are enumerated for clarity. However, you need only a SQL warehouse's `id`
    * to create new queries against it.
+   *
+   * @return a {@link java.util.Collection} object
    */
   Collection<DataSource> list();
 }

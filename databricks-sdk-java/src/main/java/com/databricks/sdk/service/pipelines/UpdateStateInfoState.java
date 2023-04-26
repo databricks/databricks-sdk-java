@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
+/**
+ * <p>UpdateStateInfoState class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum UpdateStateInfoState {
   CANCELED,
   COMPLETED,

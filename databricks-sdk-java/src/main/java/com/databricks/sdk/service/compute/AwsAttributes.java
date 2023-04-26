@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>AwsAttributes class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class AwsAttributes {
   /**
    * Availability type used for all subsequent nodes past the `first_on_demand` ones.
@@ -110,96 +116,207 @@ public class AwsAttributes {
   @JsonProperty("zone_id")
   private String zoneId;
 
+  /**
+   * <p>Setter for the field <code>availability</code>.</p>
+   *
+   * @param availability a {@link com.databricks.sdk.service.compute.AwsAvailability} object
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes setAvailability(AwsAvailability availability) {
     this.availability = availability;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>availability</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.AwsAvailability} object
+   */
   public AwsAvailability getAvailability() {
     return availability;
   }
 
+  /**
+   * <p>Setter for the field <code>ebsVolumeCount</code>.</p>
+   *
+   * @param ebsVolumeCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes setEbsVolumeCount(Long ebsVolumeCount) {
     this.ebsVolumeCount = ebsVolumeCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ebsVolumeCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getEbsVolumeCount() {
     return ebsVolumeCount;
   }
 
+  /**
+   * <p>Setter for the field <code>ebsVolumeIops</code>.</p>
+   *
+   * @param ebsVolumeIops a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes setEbsVolumeIops(Long ebsVolumeIops) {
     this.ebsVolumeIops = ebsVolumeIops;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ebsVolumeIops</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getEbsVolumeIops() {
     return ebsVolumeIops;
   }
 
+  /**
+   * <p>Setter for the field <code>ebsVolumeSize</code>.</p>
+   *
+   * @param ebsVolumeSize a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes setEbsVolumeSize(Long ebsVolumeSize) {
     this.ebsVolumeSize = ebsVolumeSize;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ebsVolumeSize</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getEbsVolumeSize() {
     return ebsVolumeSize;
   }
 
+  /**
+   * <p>Setter for the field <code>ebsVolumeThroughput</code>.</p>
+   *
+   * @param ebsVolumeThroughput a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes setEbsVolumeThroughput(Long ebsVolumeThroughput) {
     this.ebsVolumeThroughput = ebsVolumeThroughput;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ebsVolumeThroughput</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getEbsVolumeThroughput() {
     return ebsVolumeThroughput;
   }
 
+  /**
+   * <p>Setter for the field <code>ebsVolumeType</code>.</p>
+   *
+   * @param ebsVolumeType a {@link com.databricks.sdk.service.compute.EbsVolumeType} object
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes setEbsVolumeType(EbsVolumeType ebsVolumeType) {
     this.ebsVolumeType = ebsVolumeType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ebsVolumeType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.EbsVolumeType} object
+   */
   public EbsVolumeType getEbsVolumeType() {
     return ebsVolumeType;
   }
 
+  /**
+   * <p>Setter for the field <code>firstOnDemand</code>.</p>
+   *
+   * @param firstOnDemand a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes setFirstOnDemand(Long firstOnDemand) {
     this.firstOnDemand = firstOnDemand;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>firstOnDemand</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getFirstOnDemand() {
     return firstOnDemand;
   }
 
+  /**
+   * <p>Setter for the field <code>instanceProfileArn</code>.</p>
+   *
+   * @param instanceProfileArn a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes setInstanceProfileArn(String instanceProfileArn) {
     this.instanceProfileArn = instanceProfileArn;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instanceProfileArn</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstanceProfileArn() {
     return instanceProfileArn;
   }
 
+  /**
+   * <p>Setter for the field <code>spotBidPricePercent</code>.</p>
+   *
+   * @param spotBidPricePercent a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes setSpotBidPricePercent(Long spotBidPricePercent) {
     this.spotBidPricePercent = spotBidPricePercent;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>spotBidPricePercent</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getSpotBidPricePercent() {
     return spotBidPricePercent;
   }
 
+  /**
+   * <p>Setter for the field <code>zoneId</code>.</p>
+   *
+   * @param zoneId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes setZoneId(String zoneId) {
     this.zoneId = zoneId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>zoneId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getZoneId() {
     return zoneId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -217,6 +334,7 @@ public class AwsAttributes {
         && Objects.equals(zoneId, that.zoneId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -232,6 +350,7 @@ public class AwsAttributes {
         zoneId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(AwsAttributes.class)

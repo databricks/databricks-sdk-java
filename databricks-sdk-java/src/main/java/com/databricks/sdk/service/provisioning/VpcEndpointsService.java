@@ -9,6 +9,9 @@ import java.util.Collection;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface VpcEndpointsService {
   /**
@@ -28,6 +31,9 @@ public interface VpcEndpointsService {
    * endpoint]: https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html [endpoint
    * service]:
    * https://docs.aws.amazon.com/vpc/latest/privatelink/privatelink-share-your-services.html
+   *
+   * @param createVpcEndpointRequest a {@link com.databricks.sdk.service.provisioning.CreateVpcEndpointRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
    */
   VpcEndpoint create(CreateVpcEndpointRequest createVpcEndpointRequest);
 
@@ -43,6 +49,8 @@ public interface VpcEndpointsService {
    * https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html [Databricks article about
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   *
+   * @param deleteVpcEndpointRequest a {@link com.databricks.sdk.service.provisioning.DeleteVpcEndpointRequest} object
    */
   void delete(DeleteVpcEndpointRequest deleteVpcEndpointRequest);
 
@@ -54,6 +62,9 @@ public interface VpcEndpointsService {
    *
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [VPC endpoint]:
    * https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html
+   *
+   * @param getVpcEndpointRequest a {@link com.databricks.sdk.service.provisioning.GetVpcEndpointRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
    */
   VpcEndpoint get(GetVpcEndpointRequest getVpcEndpointRequest);
 
@@ -66,6 +77,8 @@ public interface VpcEndpointsService {
    *
    * <p>[Databricks article about PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   *
+   * @return a {@link java.util.Collection} object
    */
   Collection<VpcEndpoint> list();
 }

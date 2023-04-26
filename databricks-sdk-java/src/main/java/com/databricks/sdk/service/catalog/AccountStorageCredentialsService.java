@@ -9,6 +9,9 @@ import java.util.Collection;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface AccountStorageCredentialsService {
   /**
@@ -21,6 +24,9 @@ public interface AccountStorageCredentialsService {
    *
    * <p>The caller must be a metastore admin and have the **CREATE_STORAGE_CREDENTIAL** privilege on
    * the metastore.
+   *
+   * @param createStorageCredential a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
    */
   StorageCredentialInfo create(CreateStorageCredential createStorageCredential);
 
@@ -29,6 +35,9 @@ public interface AccountStorageCredentialsService {
    *
    * <p>Gets a storage credential from the metastore. The caller must be a metastore admin, the
    * owner of the storage credential, or have a level of privilege on the storage credential.
+   *
+   * @param getAccountStorageCredentialRequest a {@link com.databricks.sdk.service.catalog.GetAccountStorageCredentialRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
    */
   StorageCredentialInfo get(GetAccountStorageCredentialRequest getAccountStorageCredentialRequest);
 
@@ -36,6 +45,9 @@ public interface AccountStorageCredentialsService {
    * Get all storage credentials assigned to a metastore.
    *
    * <p>Gets a list of all storage credentials that have been assigned to given metastore.
+   *
+   * @param listAccountStorageCredentialsRequest a {@link com.databricks.sdk.service.catalog.ListAccountStorageCredentialsRequest} object
+   * @return a {@link java.util.Collection} object
    */
   Collection<StorageCredentialInfo> list(
       ListAccountStorageCredentialsRequest listAccountStorageCredentialsRequest);

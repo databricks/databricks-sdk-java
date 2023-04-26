@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class LogDeliveryImpl implements LogDeliveryService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for LogDeliveryImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public LogDeliveryImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public WrappedLogDeliveryConfiguration create(WrappedCreateLogDeliveryConfiguration request) {
     String path =
@@ -19,6 +25,7 @@ class LogDeliveryImpl implements LogDeliveryService {
     return apiClient.POST(path, request, WrappedLogDeliveryConfiguration.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public WrappedLogDeliveryConfiguration get(GetLogDeliveryRequest request) {
     String path =
@@ -28,6 +35,7 @@ class LogDeliveryImpl implements LogDeliveryService {
     return apiClient.GET(path, request, WrappedLogDeliveryConfiguration.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public WrappedLogDeliveryConfigurations list(ListLogDeliveryRequest request) {
     String path =
@@ -35,6 +43,7 @@ class LogDeliveryImpl implements LogDeliveryService {
     return apiClient.GET(path, request, WrappedLogDeliveryConfigurations.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void patchStatus(UpdateLogDeliveryConfigurationStatusRequest request) {
     String path =

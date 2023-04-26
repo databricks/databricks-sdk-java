@@ -15,22 +15,38 @@ import org.slf4j.LoggerFactory;
  *
  * <p>A table can be managed or external. From an API perspective, a __VIEW__ is a particular kind
  * of table (rather than a managed or external table).
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class TablesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(TablesAPI.class);
 
   private final TablesService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public TablesAPI(ApiClient apiClient) {
     impl = new TablesImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.catalog.TablesService} object
+   */
   public TablesAPI(TablesService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param fullName a {@link java.lang.String} object
+   */
   public void delete(String fullName) {
     delete(new DeleteTableRequest().setFullName(fullName));
   }
@@ -42,11 +58,19 @@ public class TablesAPI {
    * of the parent catalog, have the **USE_CATALOG** privilege on the parent catalog and be the
    * owner of the parent schema, or be the owner of the table and have the **USE_CATALOG** privilege
    * on the parent catalog and the **USE_SCHEMA** privilege on the parent schema.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.DeleteTableRequest} object
    */
   public void delete(DeleteTableRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param fullName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.TableInfo} object
+   */
   public TableInfo get(String fullName) {
     return get(new GetTableRequest().setFullName(fullName));
   }
@@ -58,11 +82,21 @@ public class TablesAPI {
    * metastore admin, be the owner of the table and have the **USE_CATALOG** privilege on the parent
    * catalog and the **USE_SCHEMA** privilege on the parent schema, or be the owner of the table and
    * have the **SELECT** privilege on it as well.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.GetTableRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.TableInfo} object
    */
   public TableInfo get(GetTableRequest request) {
     return impl.get(request);
   }
 
+  /**
+   * <p>list.</p>
+   *
+   * @param catalogName a {@link java.lang.String} object
+   * @param schemaName a {@link java.lang.String} object
+   * @return a {@link java.lang.Iterable} object
+   */
   public Iterable<TableInfo> list(String catalogName, String schemaName) {
     return list(new ListTablesRequest().setCatalogName(catalogName).setSchemaName(schemaName));
   }
@@ -75,6 +109,9 @@ public class TablesAPI {
    * table. For the latter case, the caller must also be the owner or have the **USE_CATALOG**
    * privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent schema. There is
    * no guarantee of a specific ordering of the elements in the array.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.ListTablesRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<TableInfo> list(ListTablesRequest request) {
     return new Paginator<>(
@@ -90,6 +127,12 @@ public class TablesAPI {
         });
   }
 
+  /**
+   * <p>listSummaries.</p>
+   *
+   * @param catalogName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.ListTableSummariesResponse} object
+   */
   public ListTableSummariesResponse listSummaries(String catalogName) {
     return listSummaries(new ListSummariesRequest().setCatalogName(catalogName));
   }
@@ -107,11 +150,19 @@ public class TablesAPI {
    * the user also has ownership or the **USE_CATALOG** privilege on the parent catalog.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the array.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.ListSummariesRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.ListTableSummariesResponse} object
    */
   public ListTableSummariesResponse listSummaries(ListSummariesRequest request) {
     return impl.listSummaries(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.TablesService} object
+   */
   public TablesService impl() {
     return impl;
   }

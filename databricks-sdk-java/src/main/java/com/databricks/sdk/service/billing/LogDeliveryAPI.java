@@ -60,18 +60,29 @@ import org.slf4j.LoggerFactory;
  * [Usage page]: https://docs.databricks.com/administration-guide/account-settings/usage.html
  * [create a new AWS S3 bucket]:
  * https://docs.databricks.com/administration-guide/account-api/aws-storage.html
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class LogDeliveryAPI {
   private static final Logger LOG = LoggerFactory.getLogger(LogDeliveryAPI.class);
 
   private final LogDeliveryService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public LogDeliveryAPI(ApiClient apiClient) {
     impl = new LogDeliveryImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.billing.LogDeliveryService} object
+   */
   public LogDeliveryAPI(LogDeliveryService mock) {
     impl = mock;
   }
@@ -103,11 +114,20 @@ public class LogDeliveryAPI {
    * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [Deliver and
    * access billable usage logs]:
    * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
+   *
+   * @param request a {@link com.databricks.sdk.service.billing.WrappedCreateLogDeliveryConfiguration} object
+   * @return a {@link com.databricks.sdk.service.billing.WrappedLogDeliveryConfiguration} object
    */
   public WrappedLogDeliveryConfiguration create(WrappedCreateLogDeliveryConfiguration request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param logDeliveryConfigurationId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.WrappedLogDeliveryConfiguration} object
+   */
   public WrappedLogDeliveryConfiguration get(String logDeliveryConfigurationId) {
     return get(
         new GetLogDeliveryRequest().setLogDeliveryConfigurationId(logDeliveryConfigurationId));
@@ -117,6 +137,9 @@ public class LogDeliveryAPI {
    * Get log delivery configuration.
    *
    * <p>Gets a Databricks log delivery configuration object for an account, both specified by ID.
+   *
+   * @param request a {@link com.databricks.sdk.service.billing.GetLogDeliveryRequest} object
+   * @return a {@link com.databricks.sdk.service.billing.WrappedLogDeliveryConfiguration} object
    */
   public WrappedLogDeliveryConfiguration get(GetLogDeliveryRequest request) {
     return impl.get(request);
@@ -126,11 +149,20 @@ public class LogDeliveryAPI {
    * Get all log delivery configurations.
    *
    * <p>Gets all Databricks log delivery configurations associated with an account specified by ID.
+   *
+   * @param request a {@link com.databricks.sdk.service.billing.ListLogDeliveryRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<LogDeliveryConfiguration> list(ListLogDeliveryRequest request) {
     return impl.list(request).getLogDeliveryConfigurations();
   }
 
+  /**
+   * <p>patchStatus.</p>
+   *
+   * @param status a {@link com.databricks.sdk.service.billing.LogDeliveryConfigStatus} object
+   * @param logDeliveryConfigurationId a {@link java.lang.String} object
+   */
   public void patchStatus(LogDeliveryConfigStatus status, String logDeliveryConfigurationId) {
     patchStatus(
         new UpdateLogDeliveryConfigurationStatusRequest()
@@ -145,11 +177,18 @@ public class LogDeliveryAPI {
    * supported, so disable log delivery configurations that are no longer needed. Note that you
    * can't re-enable a delivery configuration if this would violate the delivery configuration
    * limits described under [Create log delivery](#operation/create-log-delivery-config).
+   *
+   * @param request a {@link com.databricks.sdk.service.billing.UpdateLogDeliveryConfigurationStatusRequest} object
    */
   public void patchStatus(UpdateLogDeliveryConfigurationStatusRequest request) {
     impl.patchStatus(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.billing.LogDeliveryService} object
+   */
   public LogDeliveryService impl() {
     return impl;
   }

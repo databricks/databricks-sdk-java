@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>MetastoreInfo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class MetastoreInfo {
   /** Cloud vendor of the metastore home shard (e.g., `aws`, `azure`, `gcp`). */
   @JsonProperty("cloud")
@@ -85,169 +91,368 @@ public class MetastoreInfo {
   @JsonProperty("updated_by")
   private String updatedBy;
 
+  /**
+   * <p>Setter for the field <code>cloud</code>.</p>
+   *
+   * @param cloud a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setCloud(String cloud) {
     this.cloud = cloud;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>cloud</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCloud() {
     return cloud;
   }
 
+  /**
+   * <p>Setter for the field <code>createdAt</code>.</p>
+   *
+   * @param createdAt a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setCreatedAt(Long createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>createdAt</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCreatedAt() {
     return createdAt;
   }
 
+  /**
+   * <p>Setter for the field <code>createdBy</code>.</p>
+   *
+   * @param createdBy a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setCreatedBy(String createdBy) {
     this.createdBy = createdBy;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>createdBy</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCreatedBy() {
     return createdBy;
   }
 
+  /**
+   * <p>Setter for the field <code>defaultDataAccessConfigId</code>.</p>
+   *
+   * @param defaultDataAccessConfigId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setDefaultDataAccessConfigId(String defaultDataAccessConfigId) {
     this.defaultDataAccessConfigId = defaultDataAccessConfigId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>defaultDataAccessConfigId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDefaultDataAccessConfigId() {
     return defaultDataAccessConfigId;
   }
 
+  /**
+   * <p>Setter for the field <code>deltaSharingOrganizationName</code>.</p>
+   *
+   * @param deltaSharingOrganizationName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setDeltaSharingOrganizationName(String deltaSharingOrganizationName) {
     this.deltaSharingOrganizationName = deltaSharingOrganizationName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>deltaSharingOrganizationName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDeltaSharingOrganizationName() {
     return deltaSharingOrganizationName;
   }
 
+  /**
+   * <p>Setter for the field <code>deltaSharingRecipientTokenLifetimeInSeconds</code>.</p>
+   *
+   * @param deltaSharingRecipientTokenLifetimeInSeconds a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setDeltaSharingRecipientTokenLifetimeInSeconds(
       Long deltaSharingRecipientTokenLifetimeInSeconds) {
     this.deltaSharingRecipientTokenLifetimeInSeconds = deltaSharingRecipientTokenLifetimeInSeconds;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>deltaSharingRecipientTokenLifetimeInSeconds</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getDeltaSharingRecipientTokenLifetimeInSeconds() {
     return deltaSharingRecipientTokenLifetimeInSeconds;
   }
 
+  /**
+   * <p>Setter for the field <code>deltaSharingScope</code>.</p>
+   *
+   * @param deltaSharingScope a {@link com.databricks.sdk.service.catalog.MetastoreInfoDeltaSharingScope} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setDeltaSharingScope(MetastoreInfoDeltaSharingScope deltaSharingScope) {
     this.deltaSharingScope = deltaSharingScope;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>deltaSharingScope</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfoDeltaSharingScope} object
+   */
   public MetastoreInfoDeltaSharingScope getDeltaSharingScope() {
     return deltaSharingScope;
   }
 
+  /**
+   * <p>Setter for the field <code>globalMetastoreId</code>.</p>
+   *
+   * @param globalMetastoreId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setGlobalMetastoreId(String globalMetastoreId) {
     this.globalMetastoreId = globalMetastoreId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>globalMetastoreId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGlobalMetastoreId() {
     return globalMetastoreId;
   }
 
+  /**
+   * <p>Setter for the field <code>metastoreId</code>.</p>
+   *
+   * @param metastoreId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>metastoreId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMetastoreId() {
     return metastoreId;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>owner</code>.</p>
+   *
+   * @param owner a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setOwner(String owner) {
     this.owner = owner;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>owner</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getOwner() {
     return owner;
   }
 
+  /**
+   * <p>Setter for the field <code>privilegeModelVersion</code>.</p>
+   *
+   * @param privilegeModelVersion a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setPrivilegeModelVersion(String privilegeModelVersion) {
     this.privilegeModelVersion = privilegeModelVersion;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>privilegeModelVersion</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPrivilegeModelVersion() {
     return privilegeModelVersion;
   }
 
+  /**
+   * <p>Setter for the field <code>region</code>.</p>
+   *
+   * @param region a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setRegion(String region) {
     this.region = region;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>region</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRegion() {
     return region;
   }
 
+  /**
+   * <p>Setter for the field <code>storageRoot</code>.</p>
+   *
+   * @param storageRoot a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setStorageRoot(String storageRoot) {
     this.storageRoot = storageRoot;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageRoot</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageRoot() {
     return storageRoot;
   }
 
+  /**
+   * <p>Setter for the field <code>storageRootCredentialId</code>.</p>
+   *
+   * @param storageRootCredentialId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setStorageRootCredentialId(String storageRootCredentialId) {
     this.storageRootCredentialId = storageRootCredentialId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageRootCredentialId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageRootCredentialId() {
     return storageRootCredentialId;
   }
 
+  /**
+   * <p>Setter for the field <code>storageRootCredentialName</code>.</p>
+   *
+   * @param storageRootCredentialName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setStorageRootCredentialName(String storageRootCredentialName) {
     this.storageRootCredentialName = storageRootCredentialName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageRootCredentialName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageRootCredentialName() {
     return storageRootCredentialName;
   }
 
+  /**
+   * <p>Setter for the field <code>updatedAt</code>.</p>
+   *
+   * @param updatedAt a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setUpdatedAt(Long updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>updatedAt</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getUpdatedAt() {
     return updatedAt;
   }
 
+  /**
+   * <p>Setter for the field <code>updatedBy</code>.</p>
+   *
+   * @param updatedBy a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.MetastoreInfo} object
+   */
   public MetastoreInfo setUpdatedBy(String updatedBy) {
     this.updatedBy = updatedBy;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>updatedBy</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUpdatedBy() {
     return updatedBy;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -275,6 +480,7 @@ public class MetastoreInfo {
         && Objects.equals(updatedBy, that.updatedBy);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -298,6 +504,7 @@ public class MetastoreInfo {
         updatedBy);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(MetastoreInfo.class)

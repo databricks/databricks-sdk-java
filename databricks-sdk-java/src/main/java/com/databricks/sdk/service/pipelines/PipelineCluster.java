@@ -8,6 +8,12 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * <p>PipelineCluster class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class PipelineCluster {
   /** Note: This field won't be persisted. Only API users will check this field. */
   @JsonProperty("apply_policy_default_values")
@@ -146,159 +152,347 @@ public class PipelineCluster {
   @JsonProperty("ssh_public_keys")
   private Collection<String> sshPublicKeys;
 
+  /**
+   * <p>Setter for the field <code>applyPolicyDefaultValues</code>.</p>
+   *
+   * @param applyPolicyDefaultValues a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setApplyPolicyDefaultValues(Boolean applyPolicyDefaultValues) {
     this.applyPolicyDefaultValues = applyPolicyDefaultValues;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>applyPolicyDefaultValues</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getApplyPolicyDefaultValues() {
     return applyPolicyDefaultValues;
   }
 
+  /**
+   * <p>Setter for the field <code>autoscale</code>.</p>
+   *
+   * @param autoscale a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setAutoscale(Object /* MISSING TYPE */ autoscale) {
     this.autoscale = autoscale;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>autoscale</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getAutoscale() {
     return autoscale;
   }
 
+  /**
+   * <p>Setter for the field <code>awsAttributes</code>.</p>
+   *
+   * @param awsAttributes a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setAwsAttributes(Object /* MISSING TYPE */ awsAttributes) {
     this.awsAttributes = awsAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsAttributes</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getAwsAttributes() {
     return awsAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>azureAttributes</code>.</p>
+   *
+   * @param azureAttributes a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setAzureAttributes(Object /* MISSING TYPE */ azureAttributes) {
     this.azureAttributes = azureAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>azureAttributes</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getAzureAttributes() {
     return azureAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>clusterLogConf</code>.</p>
+   *
+   * @param clusterLogConf a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setClusterLogConf(Object /* MISSING TYPE */ clusterLogConf) {
     this.clusterLogConf = clusterLogConf;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusterLogConf</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getClusterLogConf() {
     return clusterLogConf;
   }
 
+  /**
+   * <p>Setter for the field <code>customTags</code>.</p>
+   *
+   * @param customTags a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setCustomTags(Map<String, String> customTags) {
     this.customTags = customTags;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>customTags</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getCustomTags() {
     return customTags;
   }
 
+  /**
+   * <p>Setter for the field <code>driverInstancePoolId</code>.</p>
+   *
+   * @param driverInstancePoolId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setDriverInstancePoolId(String driverInstancePoolId) {
     this.driverInstancePoolId = driverInstancePoolId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>driverInstancePoolId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDriverInstancePoolId() {
     return driverInstancePoolId;
   }
 
+  /**
+   * <p>Setter for the field <code>driverNodeTypeId</code>.</p>
+   *
+   * @param driverNodeTypeId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setDriverNodeTypeId(String driverNodeTypeId) {
     this.driverNodeTypeId = driverNodeTypeId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>driverNodeTypeId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDriverNodeTypeId() {
     return driverNodeTypeId;
   }
 
+  /**
+   * <p>Setter for the field <code>gcpAttributes</code>.</p>
+   *
+   * @param gcpAttributes a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setGcpAttributes(Object /* MISSING TYPE */ gcpAttributes) {
     this.gcpAttributes = gcpAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gcpAttributes</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getGcpAttributes() {
     return gcpAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>instancePoolId</code>.</p>
+   *
+   * @param instancePoolId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instancePoolId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstancePoolId() {
     return instancePoolId;
   }
 
+  /**
+   * <p>Setter for the field <code>label</code>.</p>
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setLabel(String label) {
     this.label = label;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>label</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getLabel() {
     return label;
   }
 
+  /**
+   * <p>Setter for the field <code>nodeTypeId</code>.</p>
+   *
+   * @param nodeTypeId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setNodeTypeId(String nodeTypeId) {
     this.nodeTypeId = nodeTypeId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>nodeTypeId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getNodeTypeId() {
     return nodeTypeId;
   }
 
+  /**
+   * <p>Setter for the field <code>numWorkers</code>.</p>
+   *
+   * @param numWorkers a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setNumWorkers(Long numWorkers) {
     this.numWorkers = numWorkers;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>numWorkers</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getNumWorkers() {
     return numWorkers;
   }
 
+  /**
+   * <p>Setter for the field <code>policyId</code>.</p>
+   *
+   * @param policyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setPolicyId(String policyId) {
     this.policyId = policyId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>policyId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPolicyId() {
     return policyId;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkConf</code>.</p>
+   *
+   * @param sparkConf a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setSparkConf(Map<String, String> sparkConf) {
     this.sparkConf = sparkConf;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkConf</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getSparkConf() {
     return sparkConf;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkEnvVars</code>.</p>
+   *
+   * @param sparkEnvVars a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setSparkEnvVars(Map<String, String> sparkEnvVars) {
     this.sparkEnvVars = sparkEnvVars;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkEnvVars</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getSparkEnvVars() {
     return sparkEnvVars;
   }
 
+  /**
+   * <p>Setter for the field <code>sshPublicKeys</code>.</p>
+   *
+   * @param sshPublicKeys a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineCluster} object
+   */
   public PipelineCluster setSshPublicKeys(Collection<String> sshPublicKeys) {
     this.sshPublicKeys = sshPublicKeys;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sshPublicKeys</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getSshPublicKeys() {
     return sshPublicKeys;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -323,6 +517,7 @@ public class PipelineCluster {
         && Objects.equals(sshPublicKeys, that.sshPublicKeys);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -345,6 +540,7 @@ public class PipelineCluster {
         sshPublicKeys);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(PipelineCluster.class)

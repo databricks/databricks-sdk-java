@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** Data source format */
+/**
+ * Data source format
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum DataSourceFormat {
   AVRO,
   CSV,

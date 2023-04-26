@@ -10,22 +10,40 @@ import org.slf4j.LoggerFactory;
  * cross-account service IAM role in your AWS account so that Databricks can deploy clusters in the
  * appropriate VPC for the new workspace. A credential configuration encapsulates this role
  * information, and its ID is used when creating a new workspace.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class CredentialsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(CredentialsAPI.class);
 
   private final CredentialsService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public CredentialsAPI(ApiClient apiClient) {
     impl = new CredentialsImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.provisioning.CredentialsService} object
+   */
   public CredentialsAPI(CredentialsService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param credentialsName a {@link java.lang.String} object
+   * @param awsCredentials a {@link com.databricks.sdk.service.provisioning.CreateCredentialAwsCredentials} object
+   * @return a {@link com.databricks.sdk.service.provisioning.Credential} object
+   */
   public Credential create(String credentialsName, CreateCredentialAwsCredentials awsCredentials) {
     return create(
         new CreateCredentialRequest()
@@ -50,11 +68,19 @@ public class CredentialsAPI {
    *
    * <p>[Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.CreateCredentialRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.Credential} object
    */
   public Credential create(CreateCredentialRequest request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param credentialsId a {@link java.lang.String} object
+   */
   public void delete(String credentialsId) {
     delete(new DeleteCredentialRequest().setCredentialsId(credentialsId));
   }
@@ -64,11 +90,19 @@ public class CredentialsAPI {
    *
    * <p>Deletes a Databricks credential configuration object for an account, both specified by ID.
    * You cannot delete a credential that is associated with any workspace.
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.DeleteCredentialRequest} object
    */
   public void delete(DeleteCredentialRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param credentialsId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.Credential} object
+   */
   public Credential get(String credentialsId) {
     return get(new GetCredentialRequest().setCredentialsId(credentialsId));
   }
@@ -77,6 +111,9 @@ public class CredentialsAPI {
    * Get credential configuration.
    *
    * <p>Gets a Databricks credential configuration object for an account, both specified by ID.
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.GetCredentialRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.Credential} object
    */
   public Credential get(GetCredentialRequest request) {
     return impl.get(request);
@@ -86,11 +123,18 @@ public class CredentialsAPI {
    * Get all credential configurations.
    *
    * <p>Gets all Databricks credential configurations associated with an account specified by ID.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<Credential> list() {
     return impl.list();
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.CredentialsService} object
+   */
   public CredentialsService impl() {
     return impl;
   }

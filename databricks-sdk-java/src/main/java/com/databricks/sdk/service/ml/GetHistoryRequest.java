@@ -6,7 +6,12 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get history of a given metric within a run */
+/**
+ * Get history of a given metric within a run
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GetHistoryRequest {
   /**
    * Maximum number of Metric records to return per paginated request. Default is set to 25,000. If
@@ -34,51 +39,107 @@ public class GetHistoryRequest {
   @QueryParam("run_uuid")
   private String runUuid;
 
+  /**
+   * <p>Setter for the field <code>maxResults</code>.</p>
+   *
+   * @param maxResults a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.GetHistoryRequest} object
+   */
   public GetHistoryRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>maxResults</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMaxResults() {
     return maxResults;
   }
 
+  /**
+   * <p>Setter for the field <code>metricKey</code>.</p>
+   *
+   * @param metricKey a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.GetHistoryRequest} object
+   */
   public GetHistoryRequest setMetricKey(String metricKey) {
     this.metricKey = metricKey;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>metricKey</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMetricKey() {
     return metricKey;
   }
 
+  /**
+   * <p>Setter for the field <code>pageToken</code>.</p>
+   *
+   * @param pageToken a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.GetHistoryRequest} object
+   */
   public GetHistoryRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pageToken</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPageToken() {
     return pageToken;
   }
 
+  /**
+   * <p>Setter for the field <code>runId</code>.</p>
+   *
+   * @param runId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.GetHistoryRequest} object
+   */
   public GetHistoryRequest setRunId(String runId) {
     this.runId = runId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRunId() {
     return runId;
   }
 
+  /**
+   * <p>Setter for the field <code>runUuid</code>.</p>
+   *
+   * @param runUuid a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.GetHistoryRequest} object
+   */
   public GetHistoryRequest setRunUuid(String runUuid) {
     this.runUuid = runUuid;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runUuid</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRunUuid() {
     return runUuid;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -91,11 +152,13 @@ public class GetHistoryRequest {
         && Objects.equals(runUuid, that.runUuid);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(maxResults, metricKey, pageToken, runId, runUuid);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GetHistoryRequest.class)

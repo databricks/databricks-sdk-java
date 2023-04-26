@@ -26,12 +26,18 @@ package com.databricks.sdk.service.compute;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface ClusterPoliciesService {
   /**
    * Create a new policy.
    *
    * <p>Creates a new policy with prescribed settings.
+   *
+   * @param createPolicy a {@link com.databricks.sdk.service.compute.CreatePolicy} object
+   * @return a {@link com.databricks.sdk.service.compute.CreatePolicyResponse} object
    */
   CreatePolicyResponse create(CreatePolicy createPolicy);
 
@@ -40,6 +46,8 @@ public interface ClusterPoliciesService {
    *
    * <p>Delete a policy for a cluster. Clusters governed by this policy can still run, but cannot be
    * edited.
+   *
+   * @param deletePolicy a {@link com.databricks.sdk.service.compute.DeletePolicy} object
    */
   void delete(DeletePolicy deletePolicy);
 
@@ -48,6 +56,8 @@ public interface ClusterPoliciesService {
    *
    * <p>Update an existing policy for cluster. This operation may make some clusters governed by the
    * previous policy invalid.
+   *
+   * @param editPolicy a {@link com.databricks.sdk.service.compute.EditPolicy} object
    */
   void edit(EditPolicy editPolicy);
 
@@ -55,6 +65,9 @@ public interface ClusterPoliciesService {
    * Get entity.
    *
    * <p>Get a cluster policy entity. Creation and editing is available to admins only.
+   *
+   * @param getClusterPolicyRequest a {@link com.databricks.sdk.service.compute.GetClusterPolicyRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
    */
   Policy get(GetClusterPolicyRequest getClusterPolicyRequest);
 
@@ -62,6 +75,9 @@ public interface ClusterPoliciesService {
    * Get a cluster policy.
    *
    * <p>Returns a list of policies accessible by the requesting user.
+   *
+   * @param listClusterPoliciesRequest a {@link com.databricks.sdk.service.compute.ListClusterPoliciesRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.ListPoliciesResponse} object
    */
   ListPoliciesResponse list(ListClusterPoliciesRequest listClusterPoliciesRequest);
 }

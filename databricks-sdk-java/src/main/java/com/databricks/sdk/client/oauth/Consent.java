@@ -41,6 +41,9 @@ import org.slf4j.LoggerFactory;
  * browser to navigate to the authorization page for the current application. A short-lived HTTP
  * server is launched to listen to the callback, and on success, the browser page is closed and the
  * authorization code is collected and exchanged for an OAuth token.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class Consent implements Serializable {
   private static final Long serialVersionUID = -3832904096215095559L;
@@ -121,36 +124,77 @@ public class Consent implements Serializable {
     this.clientSecret = builder.clientSecret;
   }
 
+  /**
+   * <p>setHttpClient.</p>
+   *
+   * @param hc a {@link com.databricks.sdk.client.http.HttpClient} object
+   * @return a {@link com.databricks.sdk.client.oauth.Consent} object
+   */
   public Consent setHttpClient(HttpClient hc) {
     // Allow setting HttpClient on deserialization.
     this.hc = hc;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>authUrl</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAuthUrl() {
     return authUrl;
   }
 
+  /**
+   * <p>Getter for the field <code>verifier</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getVerifier() {
     return verifier;
   }
 
+  /**
+   * <p>Getter for the field <code>state</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getState() {
     return state;
   }
 
+  /**
+   * <p>Getter for the field <code>tokenUrl</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTokenUrl() {
     return tokenUrl;
   }
 
+  /**
+   * <p>Getter for the field <code>redirectUrl</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRedirectUrl() {
     return redirectUrl;
   }
 
+  /**
+   * <p>Getter for the field <code>clientId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getClientId() {
     return clientId;
   }
 
+  /**
+   * <p>Getter for the field <code>clientSecret</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getClientSecret() {
     return clientSecret;
   }
@@ -263,7 +307,7 @@ public class Consent implements Serializable {
    * Launch a browser to collect an authorization code and exchange the code for an OAuth token.
    *
    * @return A {@code RefreshableCredentials} instance representing the retrieved OAuth token.
-   * @throws IOException if the webserver cannot be started, or if the browser cannot be opened
+   * @throws java.io.IOException if the webserver cannot be started, or if the browser cannot be opened
    */
   public RefreshableCredentials launchExternalBrowser() throws IOException {
     URL redirect = new URL(getRedirectUrl());
@@ -284,6 +328,12 @@ public class Consent implements Serializable {
     return exchangeCallbackParameters(params);
   }
 
+  /**
+   * <p>exchangeCallbackParameters.</p>
+   *
+   * @param query a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.client.oauth.RefreshableCredentials} object
+   */
   public RefreshableCredentials exchangeCallbackParameters(Map<String, String> query) {
     if (query.containsKey("error")) {
       throw new DatabricksException(query.get("error") + ": " + query.get("error_description"));
@@ -294,6 +344,13 @@ public class Consent implements Serializable {
     return exchange(query.get("code"), query.get("state"));
   }
 
+  /**
+   * <p>exchange.</p>
+   *
+   * @param code a {@link java.lang.String} object
+   * @param state a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.client.oauth.RefreshableCredentials} object
+   */
   public RefreshableCredentials exchange(String code, String state) {
     if (!this.state.equals(state)) {
       throw new DatabricksException(

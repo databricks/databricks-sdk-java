@@ -7,7 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Transition request details. */
+/**
+ * Transition request details.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class TransitionRequest {
   /** Array of actions on the activity allowed for the current viewer. */
   @JsonProperty("available_actions")
@@ -39,51 +44,107 @@ public class TransitionRequest {
   @JsonProperty("user_id")
   private String userId;
 
+  /**
+   * <p>Setter for the field <code>availableActions</code>.</p>
+   *
+   * @param availableActions a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.TransitionRequest} object
+   */
   public TransitionRequest setAvailableActions(Collection<ActivityAction> availableActions) {
     this.availableActions = availableActions;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>availableActions</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<ActivityAction> getAvailableActions() {
     return availableActions;
   }
 
+  /**
+   * <p>Setter for the field <code>comment</code>.</p>
+   *
+   * @param comment a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.TransitionRequest} object
+   */
   public TransitionRequest setComment(String comment) {
     this.comment = comment;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>comment</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getComment() {
     return comment;
   }
 
+  /**
+   * <p>Setter for the field <code>creationTimestamp</code>.</p>
+   *
+   * @param creationTimestamp a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.TransitionRequest} object
+   */
   public TransitionRequest setCreationTimestamp(Long creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>creationTimestamp</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCreationTimestamp() {
     return creationTimestamp;
   }
 
+  /**
+   * <p>Setter for the field <code>toStage</code>.</p>
+   *
+   * @param toStage a {@link com.databricks.sdk.service.ml.Stage} object
+   * @return a {@link com.databricks.sdk.service.ml.TransitionRequest} object
+   */
   public TransitionRequest setToStage(Stage toStage) {
     this.toStage = toStage;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>toStage</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.Stage} object
+   */
   public Stage getToStage() {
     return toStage;
   }
 
+  /**
+   * <p>Setter for the field <code>userId</code>.</p>
+   *
+   * @param userId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.TransitionRequest} object
+   */
   public TransitionRequest setUserId(String userId) {
     this.userId = userId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>userId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUserId() {
     return userId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -96,11 +157,13 @@ public class TransitionRequest {
         && Objects.equals(userId, that.userId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(availableActions, comment, creationTimestamp, toStage, userId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(TransitionRequest.class)

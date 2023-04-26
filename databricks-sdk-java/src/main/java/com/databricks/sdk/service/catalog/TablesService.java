@@ -14,6 +14,9 @@ package com.databricks.sdk.service.catalog;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface TablesService {
   /**
@@ -23,6 +26,8 @@ public interface TablesService {
    * of the parent catalog, have the **USE_CATALOG** privilege on the parent catalog and be the
    * owner of the parent schema, or be the owner of the table and have the **USE_CATALOG** privilege
    * on the parent catalog and the **USE_SCHEMA** privilege on the parent schema.
+   *
+   * @param deleteTableRequest a {@link com.databricks.sdk.service.catalog.DeleteTableRequest} object
    */
   void delete(DeleteTableRequest deleteTableRequest);
 
@@ -33,6 +38,9 @@ public interface TablesService {
    * metastore admin, be the owner of the table and have the **USE_CATALOG** privilege on the parent
    * catalog and the **USE_SCHEMA** privilege on the parent schema, or be the owner of the table and
    * have the **SELECT** privilege on it as well.
+   *
+   * @param getTableRequest a {@link com.databricks.sdk.service.catalog.GetTableRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.TableInfo} object
    */
   TableInfo get(GetTableRequest getTableRequest);
 
@@ -44,6 +52,9 @@ public interface TablesService {
    * table. For the latter case, the caller must also be the owner or have the **USE_CATALOG**
    * privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent schema. There is
    * no guarantee of a specific ordering of the elements in the array.
+   *
+   * @param listTablesRequest a {@link com.databricks.sdk.service.catalog.ListTablesRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.ListTablesResponse} object
    */
   ListTablesResponse list(ListTablesRequest listTablesRequest);
 
@@ -60,6 +71,9 @@ public interface TablesService {
    * the user also has ownership or the **USE_CATALOG** privilege on the parent catalog.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the array.
+   *
+   * @param listSummariesRequest a {@link com.databricks.sdk.service.catalog.ListSummariesRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.ListTableSummariesResponse} object
    */
   ListTableSummariesResponse listSummaries(ListSummariesRequest listSummariesRequest);
 }

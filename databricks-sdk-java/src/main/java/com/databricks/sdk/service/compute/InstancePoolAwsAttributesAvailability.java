@@ -6,6 +6,9 @@ package com.databricks.sdk.service.compute;
  * Availability type used for the spot nodes.
  *
  * <p>The default value is defined by InstancePoolConf.instancePoolDefaultAwsAvailability
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum InstancePoolAwsAttributesAvailability {
   ON_DEMAND,

@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class QueryHistoryImpl implements QueryHistoryService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for QueryHistoryImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public QueryHistoryImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListQueriesResponse list(ListQueryHistoryRequest request) {
     String path = "/api/2.0/sql/history/queries";

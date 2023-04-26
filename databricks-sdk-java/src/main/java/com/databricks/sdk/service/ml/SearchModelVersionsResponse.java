@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>SearchModelVersionsResponse class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class SearchModelVersionsResponse {
   /** Models that match the search criteria */
   @JsonProperty("model_versions")
@@ -16,24 +22,47 @@ public class SearchModelVersionsResponse {
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
+  /**
+   * <p>Setter for the field <code>modelVersions</code>.</p>
+   *
+   * @param modelVersions a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchModelVersionsResponse} object
+   */
   public SearchModelVersionsResponse setModelVersions(Collection<ModelVersion> modelVersions) {
     this.modelVersions = modelVersions;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>modelVersions</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<ModelVersion> getModelVersions() {
     return modelVersions;
   }
 
+  /**
+   * <p>Setter for the field <code>nextPageToken</code>.</p>
+   *
+   * @param nextPageToken a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchModelVersionsResponse} object
+   */
   public SearchModelVersionsResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>nextPageToken</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getNextPageToken() {
     return nextPageToken;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -43,11 +72,13 @@ public class SearchModelVersionsResponse {
         && Objects.equals(nextPageToken, that.nextPageToken);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(modelVersions, nextPageToken);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(SearchModelVersionsResponse.class)

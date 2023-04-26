@@ -26,6 +26,9 @@ import java.util.stream.Collectors;
  * of the Code Verifier, called the Code Challenge, and sends it over HTTPS to obtain an
  * Authorization Code. By intercepting the Authorization Code, a malicious attacker cannot exchange
  * it for a token without possessing the Code Verifier.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class OAuthClient {
   public static class Builder {
@@ -85,6 +88,12 @@ public class OAuthClient {
   private final boolean isAws;
   private final boolean isAzure;
 
+  /**
+   * <p>Constructor for OAuthClient.</p>
+   *
+   * @param config a {@link com.databricks.sdk.client.DatabricksConfig} object
+   * @throws java.io.IOException if any.
+   */
   public OAuthClient(DatabricksConfig config) throws IOException {
     this(
         new Builder()
@@ -125,38 +134,83 @@ public class OAuthClient {
     this.scopes = scopes;
   }
 
+  /**
+   * <p>Getter for the field <code>host</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getHost() {
     return host;
   }
 
+  /**
+   * <p>Getter for the field <code>clientId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getClientId() {
     return clientId;
   }
 
+  /**
+   * <p>Getter for the field <code>clientSecret</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getClientSecret() {
     return clientSecret;
   }
 
+  /**
+   * <p>Getter for the field <code>redirectUrl</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRedirectUrl() {
     return redirectUrl;
   }
 
+  /**
+   * <p>Getter for the field <code>tokenUrl</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTokenUrl() {
     return tokenUrl;
   }
 
+  /**
+   * <p>Getter for the field <code>authUrl</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAuthUrl() {
     return authUrl;
   }
 
+  /**
+   * <p>Getter for the field <code>scopes</code>.</p>
+   *
+   * @return a {@link java.util.List} object
+   */
   public List<String> getScopes() {
     return scopes;
   }
 
+  /**
+   * <p>isAws.</p>
+   *
+   * @return a boolean
+   */
   public boolean isAws() {
     return isAws;
   }
 
+  /**
+   * <p>isAzure.</p>
+   *
+   * @return a boolean
+   */
   public boolean isAzure() {
     return isAzure;
   }
@@ -184,6 +238,12 @@ public class OAuthClient {
     return urlBase + "?" + queryParams.replaceAll(" ", "%20");
   }
 
+  /**
+   * <p>initiateConsent.</p>
+   *
+   * @return a {@link com.databricks.sdk.client.oauth.Consent} object
+   * @throws java.net.MalformedURLException if any.
+   */
   public Consent initiateConsent() throws MalformedURLException {
     String state = tokenUrlSafe(16);
     String verifier = tokenUrlSafe(32);

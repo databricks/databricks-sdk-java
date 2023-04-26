@@ -13,6 +13,9 @@ package com.databricks.sdk.service.billing;
  * <p>[Configuring audit logs]:
  * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [View billable
  * usage]: https://docs.databricks.com/administration-guide/account-settings/usage.html
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum OutputFormat {
   CSV,

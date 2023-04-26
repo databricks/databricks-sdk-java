@@ -9,16 +9,23 @@ import org.apache.http.client.methods.*;
 class WorkspacesImpl implements WorkspacesService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for WorkspacesImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public WorkspacesImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Workspace create(CreateWorkspaceRequest request) {
     String path = String.format("/api/2.0/accounts/%s/workspaces", apiClient.configuredAccountID());
     return apiClient.POST(path, request, Workspace.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteWorkspaceRequest request) {
     String path =
@@ -28,6 +35,7 @@ class WorkspacesImpl implements WorkspacesService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Workspace get(GetWorkspaceRequest request) {
     String path =
@@ -37,12 +45,14 @@ class WorkspacesImpl implements WorkspacesService {
     return apiClient.GET(path, request, Workspace.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Collection<Workspace> list() {
     String path = String.format("/api/2.0/accounts/%s/workspaces", apiClient.configuredAccountID());
     return apiClient.GET(path, Collection.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(UpdateWorkspaceRequest request) {
     String path =

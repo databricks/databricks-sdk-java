@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
-/** Indicate whether this schedule is paused or not. */
+/**
+ * Indicate whether this schedule is paused or not.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum CronSchedulePauseStatus {
   PAUSED,
   UNPAUSED,

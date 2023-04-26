@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>RunInfo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class RunInfo {
   /**
    * URI of the directory where artifacts should be uploaded. This can be a local path (starting
@@ -53,87 +59,187 @@ public class RunInfo {
   @JsonProperty("user_id")
   private String userId;
 
+  /**
+   * <p>Setter for the field <code>artifactUri</code>.</p>
+   *
+   * @param artifactUri a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RunInfo} object
+   */
   public RunInfo setArtifactUri(String artifactUri) {
     this.artifactUri = artifactUri;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>artifactUri</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getArtifactUri() {
     return artifactUri;
   }
 
+  /**
+   * <p>Setter for the field <code>endTime</code>.</p>
+   *
+   * @param endTime a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.RunInfo} object
+   */
   public RunInfo setEndTime(Long endTime) {
     this.endTime = endTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>endTime</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getEndTime() {
     return endTime;
   }
 
+  /**
+   * <p>Setter for the field <code>experimentId</code>.</p>
+   *
+   * @param experimentId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RunInfo} object
+   */
   public RunInfo setExperimentId(String experimentId) {
     this.experimentId = experimentId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>experimentId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getExperimentId() {
     return experimentId;
   }
 
+  /**
+   * <p>Setter for the field <code>lifecycleStage</code>.</p>
+   *
+   * @param lifecycleStage a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RunInfo} object
+   */
   public RunInfo setLifecycleStage(String lifecycleStage) {
     this.lifecycleStage = lifecycleStage;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>lifecycleStage</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getLifecycleStage() {
     return lifecycleStage;
   }
 
+  /**
+   * <p>Setter for the field <code>runId</code>.</p>
+   *
+   * @param runId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RunInfo} object
+   */
   public RunInfo setRunId(String runId) {
     this.runId = runId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRunId() {
     return runId;
   }
 
+  /**
+   * <p>Setter for the field <code>runUuid</code>.</p>
+   *
+   * @param runUuid a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RunInfo} object
+   */
   public RunInfo setRunUuid(String runUuid) {
     this.runUuid = runUuid;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runUuid</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRunUuid() {
     return runUuid;
   }
 
+  /**
+   * <p>Setter for the field <code>startTime</code>.</p>
+   *
+   * @param startTime a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.RunInfo} object
+   */
   public RunInfo setStartTime(Long startTime) {
     this.startTime = startTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>startTime</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getStartTime() {
     return startTime;
   }
 
+  /**
+   * <p>Setter for the field <code>status</code>.</p>
+   *
+   * @param status a {@link com.databricks.sdk.service.ml.RunInfoStatus} object
+   * @return a {@link com.databricks.sdk.service.ml.RunInfo} object
+   */
   public RunInfo setStatus(RunInfoStatus status) {
     this.status = status;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>status</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.RunInfoStatus} object
+   */
   public RunInfoStatus getStatus() {
     return status;
   }
 
+  /**
+   * <p>Setter for the field <code>userId</code>.</p>
+   *
+   * @param userId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RunInfo} object
+   */
   public RunInfo setUserId(String userId) {
     this.userId = userId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>userId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUserId() {
     return userId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -150,6 +256,7 @@ public class RunInfo {
         && Objects.equals(userId, that.userId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -164,6 +271,7 @@ public class RunInfo {
         userId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(RunInfo.class)

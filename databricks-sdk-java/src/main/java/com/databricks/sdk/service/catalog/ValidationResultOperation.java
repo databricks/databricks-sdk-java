@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** The operation tested. */
+/**
+ * The operation tested.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum ValidationResultOperation {
   DELETE,
   LIST,

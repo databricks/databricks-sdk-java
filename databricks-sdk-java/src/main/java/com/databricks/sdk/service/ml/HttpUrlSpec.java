@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>HttpUrlSpec class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class HttpUrlSpec {
   /**
    * Value of the authorization header that should be sent in the request sent by the wehbook. It
@@ -36,42 +42,87 @@ public class HttpUrlSpec {
   @JsonProperty("url")
   private String url;
 
+  /**
+   * <p>Setter for the field <code>authorization</code>.</p>
+   *
+   * @param authorization a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.HttpUrlSpec} object
+   */
   public HttpUrlSpec setAuthorization(String authorization) {
     this.authorization = authorization;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>authorization</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAuthorization() {
     return authorization;
   }
 
+  /**
+   * <p>Setter for the field <code>enableSslVerification</code>.</p>
+   *
+   * @param enableSslVerification a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.ml.HttpUrlSpec} object
+   */
   public HttpUrlSpec setEnableSslVerification(Boolean enableSslVerification) {
     this.enableSslVerification = enableSslVerification;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enableSslVerification</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnableSslVerification() {
     return enableSslVerification;
   }
 
+  /**
+   * <p>Setter for the field <code>secret</code>.</p>
+   *
+   * @param secret a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.HttpUrlSpec} object
+   */
   public HttpUrlSpec setSecret(String secret) {
     this.secret = secret;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>secret</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSecret() {
     return secret;
   }
 
+  /**
+   * <p>Setter for the field <code>url</code>.</p>
+   *
+   * @param url a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.HttpUrlSpec} object
+   */
   public HttpUrlSpec setUrl(String url) {
     this.url = url;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>url</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUrl() {
     return url;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -83,11 +134,13 @@ public class HttpUrlSpec {
         && Objects.equals(url, that.url);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(authorization, enableSslVerification, secret, url);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(HttpUrlSpec.class)

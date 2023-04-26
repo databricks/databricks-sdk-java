@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>CreateMetastoreAssignment class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateMetastoreAssignment {
   /** The name of the default catalog in the metastore. */
   @JsonProperty("default_catalog_name")
@@ -18,33 +24,67 @@ public class CreateMetastoreAssignment {
   /** Workspace ID. */
   private Long workspaceId;
 
+  /**
+   * <p>Setter for the field <code>defaultCatalogName</code>.</p>
+   *
+   * @param defaultCatalogName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateMetastoreAssignment} object
+   */
   public CreateMetastoreAssignment setDefaultCatalogName(String defaultCatalogName) {
     this.defaultCatalogName = defaultCatalogName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>defaultCatalogName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDefaultCatalogName() {
     return defaultCatalogName;
   }
 
+  /**
+   * <p>Setter for the field <code>metastoreId</code>.</p>
+   *
+   * @param metastoreId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateMetastoreAssignment} object
+   */
   public CreateMetastoreAssignment setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>metastoreId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMetastoreId() {
     return metastoreId;
   }
 
+  /**
+   * <p>Setter for the field <code>workspaceId</code>.</p>
+   *
+   * @param workspaceId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateMetastoreAssignment} object
+   */
   public CreateMetastoreAssignment setWorkspaceId(Long workspaceId) {
     this.workspaceId = workspaceId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>workspaceId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getWorkspaceId() {
     return workspaceId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -55,11 +95,13 @@ public class CreateMetastoreAssignment {
         && Objects.equals(workspaceId, that.workspaceId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(defaultCatalogName, metastoreId, workspaceId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateMetastoreAssignment.class)

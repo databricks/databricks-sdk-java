@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sharing;
 
-/** The delta sharing authentication type. */
+/**
+ * The delta sharing authentication type.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum AuthenticationType {
   DATABRICKS,
   TOKEN,

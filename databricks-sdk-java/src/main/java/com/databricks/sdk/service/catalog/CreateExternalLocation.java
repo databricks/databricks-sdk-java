@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>CreateExternalLocation class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateExternalLocation {
   /** User-provided free-form text description. */
   @JsonProperty("comment")
@@ -31,60 +37,127 @@ public class CreateExternalLocation {
   @JsonProperty("url")
   private String url;
 
+  /**
+   * <p>Setter for the field <code>comment</code>.</p>
+   *
+   * @param comment a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateExternalLocation} object
+   */
   public CreateExternalLocation setComment(String comment) {
     this.comment = comment;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>comment</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getComment() {
     return comment;
   }
 
+  /**
+   * <p>Setter for the field <code>credentialName</code>.</p>
+   *
+   * @param credentialName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateExternalLocation} object
+   */
   public CreateExternalLocation setCredentialName(String credentialName) {
     this.credentialName = credentialName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>credentialName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCredentialName() {
     return credentialName;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateExternalLocation} object
+   */
   public CreateExternalLocation setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>readOnly</code>.</p>
+   *
+   * @param readOnly a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateExternalLocation} object
+   */
   public CreateExternalLocation setReadOnly(Boolean readOnly) {
     this.readOnly = readOnly;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>readOnly</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getReadOnly() {
     return readOnly;
   }
 
+  /**
+   * <p>Setter for the field <code>skipValidation</code>.</p>
+   *
+   * @param skipValidation a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateExternalLocation} object
+   */
   public CreateExternalLocation setSkipValidation(Boolean skipValidation) {
     this.skipValidation = skipValidation;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>skipValidation</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getSkipValidation() {
     return skipValidation;
   }
 
+  /**
+   * <p>Setter for the field <code>url</code>.</p>
+   *
+   * @param url a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateExternalLocation} object
+   */
   public CreateExternalLocation setUrl(String url) {
     this.url = url;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>url</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUrl() {
     return url;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -98,11 +171,13 @@ public class CreateExternalLocation {
         && Objects.equals(url, that.url);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(comment, credentialName, name, readOnly, skipValidation, url);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateExternalLocation.class)

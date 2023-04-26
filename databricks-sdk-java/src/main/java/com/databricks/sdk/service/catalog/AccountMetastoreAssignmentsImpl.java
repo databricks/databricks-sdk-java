@@ -9,10 +9,16 @@ import org.apache.http.client.methods.*;
 class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for AccountMetastoreAssignmentsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public AccountMetastoreAssignmentsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public MetastoreAssignment create(CreateMetastoreAssignment request) {
     String path =
@@ -22,6 +28,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     return apiClient.POST(path, request, MetastoreAssignment.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteAccountMetastoreAssignmentRequest request) {
     String path =
@@ -31,6 +38,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public MetastoreAssignment get(GetAccountMetastoreAssignmentRequest request) {
     String path =
@@ -40,6 +48,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     return apiClient.GET(path, request, MetastoreAssignment.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Collection<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
     String path =
@@ -49,6 +58,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     return apiClient.GET(path, request, Collection.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public MetastoreAssignment update(UpdateMetastoreAssignment request) {
     String path =

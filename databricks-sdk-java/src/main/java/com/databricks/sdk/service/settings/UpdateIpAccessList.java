@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>UpdateIpAccessList class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class UpdateIpAccessList {
   /** Specifies whether this IP access list is enabled. */
   @JsonProperty("enabled")
@@ -31,60 +37,127 @@ public class UpdateIpAccessList {
   @JsonProperty("list_type")
   private ListType listType;
 
+  /**
+   * <p>Setter for the field <code>enabled</code>.</p>
+   *
+   * @param enabled a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.settings.UpdateIpAccessList} object
+   */
   public UpdateIpAccessList setEnabled(Boolean enabled) {
     this.enabled = enabled;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enabled</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnabled() {
     return enabled;
   }
 
+  /**
+   * <p>Setter for the field <code>ipAccessListId</code>.</p>
+   *
+   * @param ipAccessListId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.settings.UpdateIpAccessList} object
+   */
   public UpdateIpAccessList setIpAccessListId(String ipAccessListId) {
     this.ipAccessListId = ipAccessListId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ipAccessListId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getIpAccessListId() {
     return ipAccessListId;
   }
 
+  /**
+   * <p>Setter for the field <code>ipAddresses</code>.</p>
+   *
+   * @param ipAddresses a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.settings.UpdateIpAccessList} object
+   */
   public UpdateIpAccessList setIpAddresses(Collection<String> ipAddresses) {
     this.ipAddresses = ipAddresses;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ipAddresses</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getIpAddresses() {
     return ipAddresses;
   }
 
+  /**
+   * <p>Setter for the field <code>label</code>.</p>
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.settings.UpdateIpAccessList} object
+   */
   public UpdateIpAccessList setLabel(String label) {
     this.label = label;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>label</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getLabel() {
     return label;
   }
 
+  /**
+   * <p>Setter for the field <code>listId</code>.</p>
+   *
+   * @param listId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.settings.UpdateIpAccessList} object
+   */
   public UpdateIpAccessList setListId(String listId) {
     this.listId = listId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>listId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getListId() {
     return listId;
   }
 
+  /**
+   * <p>Setter for the field <code>listType</code>.</p>
+   *
+   * @param listType a {@link com.databricks.sdk.service.settings.ListType} object
+   * @return a {@link com.databricks.sdk.service.settings.UpdateIpAccessList} object
+   */
   public UpdateIpAccessList setListType(ListType listType) {
     this.listType = listType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>listType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.settings.ListType} object
+   */
   public ListType getListType() {
     return listType;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -98,11 +171,13 @@ public class UpdateIpAccessList {
         && Objects.equals(listType, that.listType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(enabled, ipAccessListId, ipAddresses, label, listId, listType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(UpdateIpAccessList.class)

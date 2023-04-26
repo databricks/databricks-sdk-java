@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>SparkPythonTask class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class SparkPythonTask {
   /**
    * Command line parameters passed to the Python file.
@@ -31,33 +37,67 @@ public class SparkPythonTask {
   @JsonProperty("source")
   private SparkPythonTaskSource source;
 
+  /**
+   * <p>Setter for the field <code>parameters</code>.</p>
+   *
+   * @param parameters a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.SparkPythonTask} object
+   */
   public SparkPythonTask setParameters(Collection<String> parameters) {
     this.parameters = parameters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>parameters</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getParameters() {
     return parameters;
   }
 
+  /**
+   * <p>Setter for the field <code>pythonFile</code>.</p>
+   *
+   * @param pythonFile a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.SparkPythonTask} object
+   */
   public SparkPythonTask setPythonFile(String pythonFile) {
     this.pythonFile = pythonFile;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pythonFile</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPythonFile() {
     return pythonFile;
   }
 
+  /**
+   * <p>Setter for the field <code>source</code>.</p>
+   *
+   * @param source a {@link com.databricks.sdk.service.jobs.SparkPythonTaskSource} object
+   * @return a {@link com.databricks.sdk.service.jobs.SparkPythonTask} object
+   */
   public SparkPythonTask setSource(SparkPythonTaskSource source) {
     this.source = source;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>source</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SparkPythonTaskSource} object
+   */
   public SparkPythonTaskSource getSource() {
     return source;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -68,11 +108,13 @@ public class SparkPythonTask {
         && Objects.equals(source, that.source);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(parameters, pythonFile, source);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(SparkPythonTask.class)

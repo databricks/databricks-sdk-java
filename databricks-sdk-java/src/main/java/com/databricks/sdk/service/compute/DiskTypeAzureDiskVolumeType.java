@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
+/**
+ * <p>DiskTypeAzureDiskVolumeType class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum DiskTypeAzureDiskVolumeType {
   PREMIUM_LRS,
   STANDARD_LRS,

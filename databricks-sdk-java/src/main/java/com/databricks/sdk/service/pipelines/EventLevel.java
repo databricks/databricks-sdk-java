@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
-/** The severity level of the event. */
+/**
+ * The severity level of the event.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum EventLevel {
   ERROR,
   INFO,

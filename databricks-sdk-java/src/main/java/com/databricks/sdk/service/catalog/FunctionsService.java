@@ -12,6 +12,9 @@ package com.databricks.sdk.service.catalog;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface FunctionsService {
   /**
@@ -22,6 +25,9 @@ public interface FunctionsService {
    * <p>The user must have the following permissions in order for the function to be created: -
    * **USE_CATALOG** on the function's parent catalog - **USE_SCHEMA** and **CREATE_FUNCTION** on
    * the function's parent schema
+   *
+   * @param createFunction a {@link com.databricks.sdk.service.catalog.CreateFunction} object
+   * @return a {@link com.databricks.sdk.service.catalog.FunctionInfo} object
    */
   FunctionInfo create(CreateFunction createFunction);
 
@@ -33,6 +39,8 @@ public interface FunctionsService {
    * Is the owner of the function's parent schema and have the **USE_CATALOG** privilege on its
    * parent catalog - Is the owner of the function itself and have both the **USE_CATALOG**
    * privilege on its parent catalog and the **USE_SCHEMA** privilege on its parent schema
+   *
+   * @param deleteFunctionRequest a {@link com.databricks.sdk.service.catalog.DeleteFunctionRequest} object
    */
   void delete(DeleteFunctionRequest deleteFunctionRequest);
 
@@ -45,6 +53,9 @@ public interface FunctionsService {
    * and be the owner of the function - Have the **USE_CATALOG** privilege on the function's parent
    * catalog, the **USE_SCHEMA** privilege on the function's parent schema, and the **EXECUTE**
    * privilege on the function itself
+   *
+   * @param getFunctionRequest a {@link com.databricks.sdk.service.catalog.GetFunctionRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.FunctionInfo} object
    */
   FunctionInfo get(GetFunctionRequest getFunctionRequest);
 
@@ -57,6 +68,9 @@ public interface FunctionsService {
    * the output list contains only functions for which either the user has the **EXECUTE** privilege
    * or the user is the owner. There is no guarantee of a specific ordering of the elements in the
    * array.
+   *
+   * @param listFunctionsRequest a {@link com.databricks.sdk.service.catalog.ListFunctionsRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.ListFunctionsResponse} object
    */
   ListFunctionsResponse list(ListFunctionsRequest listFunctionsRequest);
 
@@ -69,6 +83,9 @@ public interface FunctionsService {
    * - Is the owner of the function's parent schema and has the **USE_CATALOG** privilege on its
    * parent catalog - Is the owner of the function itself and has the **USE_CATALOG** privilege on
    * its parent catalog as well as the **USE_SCHEMA** privilege on the function's parent schema.
+   *
+   * @param updateFunction a {@link com.databricks.sdk.service.catalog.UpdateFunction} object
+   * @return a {@link com.databricks.sdk.service.catalog.FunctionInfo} object
    */
   FunctionInfo update(UpdateFunction updateFunction);
 }

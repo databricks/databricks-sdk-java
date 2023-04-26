@@ -26,6 +26,9 @@ package com.databricks.sdk.service.settings;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface AccountIpAccessListsService {
   /**
@@ -44,6 +47,9 @@ public interface AccountIpAccessListsService {
    * current IP, error 400 is returned with `error_code` value `INVALID_STATE`.
    *
    * <p>It can take a few minutes for the changes to take effect.
+   *
+   * @param createIpAccessList a {@link com.databricks.sdk.service.settings.CreateIpAccessList} object
+   * @return a {@link com.databricks.sdk.service.settings.CreateIpAccessListResponse} object
    */
   CreateIpAccessListResponse create(CreateIpAccessList createIpAccessList);
 
@@ -51,6 +57,8 @@ public interface AccountIpAccessListsService {
    * Delete access list.
    *
    * <p>Deletes an IP access list, specified by its list ID.
+   *
+   * @param deleteAccountIpAccessListRequest a {@link com.databricks.sdk.service.settings.DeleteAccountIpAccessListRequest} object
    */
   void delete(DeleteAccountIpAccessListRequest deleteAccountIpAccessListRequest);
 
@@ -58,6 +66,9 @@ public interface AccountIpAccessListsService {
    * Get IP access list.
    *
    * <p>Gets an IP access list, specified by its list ID.
+   *
+   * @param getAccountIpAccessListRequest a {@link com.databricks.sdk.service.settings.GetAccountIpAccessListRequest} object
+   * @return a {@link com.databricks.sdk.service.settings.GetIpAccessListResponse} object
    */
   GetIpAccessListResponse get(GetAccountIpAccessListRequest getAccountIpAccessListRequest);
 
@@ -65,6 +76,8 @@ public interface AccountIpAccessListsService {
    * Get access lists.
    *
    * <p>Gets all IP access lists for the specified account.
+   *
+   * @return a {@link com.databricks.sdk.service.settings.GetIpAccessListsResponse} object
    */
   GetIpAccessListsResponse list();
 
@@ -80,6 +93,8 @@ public interface AccountIpAccessListsService {
    * error 400 with `error_code` value `QUOTA_EXCEEDED`. * If the resulting list would block the
    * calling user's current IP, error 400 is returned with `error_code` value `INVALID_STATE`. It
    * can take a few minutes for the changes to take effect.
+   *
+   * @param replaceIpAccessList a {@link com.databricks.sdk.service.settings.ReplaceIpAccessList} object
    */
   void replace(ReplaceIpAccessList replaceIpAccessList);
 
@@ -99,6 +114,8 @@ public interface AccountIpAccessListsService {
    * user's current IP, error 400 is returned with `error_code` value `INVALID_STATE`.
    *
    * <p>It can take a few minutes for the changes to take effect.
+   *
+   * @param updateIpAccessList a {@link com.databricks.sdk.service.settings.UpdateIpAccessList} object
    */
   void update(UpdateIpAccessList updateIpAccessList);
 }

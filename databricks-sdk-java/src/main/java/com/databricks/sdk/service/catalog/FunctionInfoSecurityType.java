@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** Function security type. */
+/**
+ * Function security type.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum FunctionInfoSecurityType {
   DEFINER,
 }

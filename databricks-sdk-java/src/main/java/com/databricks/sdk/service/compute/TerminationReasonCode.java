@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
-/** status code indicating why the cluster was terminated */
+/**
+ * status code indicating why the cluster was terminated
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum TerminationReasonCode {
   ABUSE_DETECTED,
   ATTACH_PROJECT_FAILURE,

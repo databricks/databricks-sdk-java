@@ -6,7 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Metrics about query execution. */
+/**
+ * Metrics about query execution.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class QueryMetrics {
   /** Time spent loading metadata and optimizing the query, in milliseconds. */
   @JsonProperty("compilation_time_ms")
@@ -100,195 +105,427 @@ public class QueryMetrics {
   @JsonProperty("write_remote_bytes")
   private Long writeRemoteBytes;
 
+  /**
+   * <p>Setter for the field <code>compilationTimeMs</code>.</p>
+   *
+   * @param compilationTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setCompilationTimeMs(Long compilationTimeMs) {
     this.compilationTimeMs = compilationTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>compilationTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCompilationTimeMs() {
     return compilationTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>executionTimeMs</code>.</p>
+   *
+   * @param executionTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setExecutionTimeMs(Long executionTimeMs) {
     this.executionTimeMs = executionTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>executionTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getExecutionTimeMs() {
     return executionTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>networkSentBytes</code>.</p>
+   *
+   * @param networkSentBytes a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setNetworkSentBytes(Long networkSentBytes) {
     this.networkSentBytes = networkSentBytes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>networkSentBytes</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getNetworkSentBytes() {
     return networkSentBytes;
   }
 
+  /**
+   * <p>Setter for the field <code>photonTotalTimeMs</code>.</p>
+   *
+   * @param photonTotalTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setPhotonTotalTimeMs(Long photonTotalTimeMs) {
     this.photonTotalTimeMs = photonTotalTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>photonTotalTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getPhotonTotalTimeMs() {
     return photonTotalTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>queuedOverloadTimeMs</code>.</p>
+   *
+   * @param queuedOverloadTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setQueuedOverloadTimeMs(Long queuedOverloadTimeMs) {
     this.queuedOverloadTimeMs = queuedOverloadTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>queuedOverloadTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getQueuedOverloadTimeMs() {
     return queuedOverloadTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>queuedProvisioningTimeMs</code>.</p>
+   *
+   * @param queuedProvisioningTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setQueuedProvisioningTimeMs(Long queuedProvisioningTimeMs) {
     this.queuedProvisioningTimeMs = queuedProvisioningTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>queuedProvisioningTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getQueuedProvisioningTimeMs() {
     return queuedProvisioningTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>readBytes</code>.</p>
+   *
+   * @param readBytes a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setReadBytes(Long readBytes) {
     this.readBytes = readBytes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>readBytes</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getReadBytes() {
     return readBytes;
   }
 
+  /**
+   * <p>Setter for the field <code>readCacheBytes</code>.</p>
+   *
+   * @param readCacheBytes a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setReadCacheBytes(Long readCacheBytes) {
     this.readCacheBytes = readCacheBytes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>readCacheBytes</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getReadCacheBytes() {
     return readCacheBytes;
   }
 
+  /**
+   * <p>Setter for the field <code>readFilesCount</code>.</p>
+   *
+   * @param readFilesCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setReadFilesCount(Long readFilesCount) {
     this.readFilesCount = readFilesCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>readFilesCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getReadFilesCount() {
     return readFilesCount;
   }
 
+  /**
+   * <p>Setter for the field <code>readPartitionsCount</code>.</p>
+   *
+   * @param readPartitionsCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setReadPartitionsCount(Long readPartitionsCount) {
     this.readPartitionsCount = readPartitionsCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>readPartitionsCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getReadPartitionsCount() {
     return readPartitionsCount;
   }
 
+  /**
+   * <p>Setter for the field <code>readRemoteBytes</code>.</p>
+   *
+   * @param readRemoteBytes a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setReadRemoteBytes(Long readRemoteBytes) {
     this.readRemoteBytes = readRemoteBytes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>readRemoteBytes</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getReadRemoteBytes() {
     return readRemoteBytes;
   }
 
+  /**
+   * <p>Setter for the field <code>resultFetchTimeMs</code>.</p>
+   *
+   * @param resultFetchTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setResultFetchTimeMs(Long resultFetchTimeMs) {
     this.resultFetchTimeMs = resultFetchTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>resultFetchTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getResultFetchTimeMs() {
     return resultFetchTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>resultFromCache</code>.</p>
+   *
+   * @param resultFromCache a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setResultFromCache(Boolean resultFromCache) {
     this.resultFromCache = resultFromCache;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>resultFromCache</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getResultFromCache() {
     return resultFromCache;
   }
 
+  /**
+   * <p>Setter for the field <code>rowsProducedCount</code>.</p>
+   *
+   * @param rowsProducedCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setRowsProducedCount(Long rowsProducedCount) {
     this.rowsProducedCount = rowsProducedCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>rowsProducedCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRowsProducedCount() {
     return rowsProducedCount;
   }
 
+  /**
+   * <p>Setter for the field <code>rowsReadCount</code>.</p>
+   *
+   * @param rowsReadCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setRowsReadCount(Long rowsReadCount) {
     this.rowsReadCount = rowsReadCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>rowsReadCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRowsReadCount() {
     return rowsReadCount;
   }
 
+  /**
+   * <p>Setter for the field <code>spillToDiskBytes</code>.</p>
+   *
+   * @param spillToDiskBytes a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setSpillToDiskBytes(Long spillToDiskBytes) {
     this.spillToDiskBytes = spillToDiskBytes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>spillToDiskBytes</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getSpillToDiskBytes() {
     return spillToDiskBytes;
   }
 
+  /**
+   * <p>Setter for the field <code>taskTotalTimeMs</code>.</p>
+   *
+   * @param taskTotalTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setTaskTotalTimeMs(Long taskTotalTimeMs) {
     this.taskTotalTimeMs = taskTotalTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>taskTotalTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTaskTotalTimeMs() {
     return taskTotalTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>totalFilesCount</code>.</p>
+   *
+   * @param totalFilesCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setTotalFilesCount(Long totalFilesCount) {
     this.totalFilesCount = totalFilesCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>totalFilesCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTotalFilesCount() {
     return totalFilesCount;
   }
 
+  /**
+   * <p>Setter for the field <code>totalPartitionsCount</code>.</p>
+   *
+   * @param totalPartitionsCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setTotalPartitionsCount(Long totalPartitionsCount) {
     this.totalPartitionsCount = totalPartitionsCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>totalPartitionsCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTotalPartitionsCount() {
     return totalPartitionsCount;
   }
 
+  /**
+   * <p>Setter for the field <code>totalTimeMs</code>.</p>
+   *
+   * @param totalTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setTotalTimeMs(Long totalTimeMs) {
     this.totalTimeMs = totalTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>totalTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTotalTimeMs() {
     return totalTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>writeRemoteBytes</code>.</p>
+   *
+   * @param writeRemoteBytes a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics setWriteRemoteBytes(Long writeRemoteBytes) {
     this.writeRemoteBytes = writeRemoteBytes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>writeRemoteBytes</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getWriteRemoteBytes() {
     return writeRemoteBytes;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -317,6 +554,7 @@ public class QueryMetrics {
         && Objects.equals(writeRemoteBytes, that.writeRemoteBytes);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -343,6 +581,7 @@ public class QueryMetrics {
         writeRemoteBytes);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(QueryMetrics.class)

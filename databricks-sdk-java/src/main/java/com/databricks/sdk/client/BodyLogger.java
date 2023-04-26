@@ -20,6 +20,13 @@ class BodyLogger {
   private int debugTruncateBytes = 96;
   private final ObjectMapper mapper;
 
+  /**
+   * <p>Constructor for BodyLogger.</p>
+   *
+   * @param mapper a {@link com.fasterxml.jackson.databind.ObjectMapper} object
+   * @param maxBytes a int
+   * @param debugTruncateBytes a int
+   */
   public BodyLogger(ObjectMapper mapper, int maxBytes, int debugTruncateBytes) {
     this.mapper = mapper;
     if (maxBytes == 0) {
@@ -39,6 +46,12 @@ class BodyLogger {
     return keys;
   }
 
+  /**
+   * <p>redactedDump.</p>
+   *
+   * @param body a {@link java.lang.String} object
+   * @return a {@link java.lang.String} object
+   */
   public String redactedDump(String body) {
     if (body == null || body.isEmpty()) {
       return "";

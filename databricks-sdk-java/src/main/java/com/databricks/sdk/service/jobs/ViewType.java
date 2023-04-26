@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum ViewType {
   DASHBOARD, // Dashboard view item.
   NOTEBOOK, // Notebook view item.

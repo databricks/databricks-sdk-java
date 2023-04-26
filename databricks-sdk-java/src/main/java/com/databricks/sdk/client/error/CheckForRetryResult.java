@@ -16,6 +16,9 @@ import org.slf4j.LoggerFactory;
  * the behavior depends on the value of error. If error is null, the request was successful and
  * should be parsed and returned to the user. If error is not null, the request has failed in an
  * unrecoverable way and this exception should be thrown, potentially wrapped in another exception.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class CheckForRetryResult {
   private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
@@ -41,14 +44,33 @@ public class CheckForRetryResult {
   private final String errorCode;
   private final int statusCode;
 
+  /**
+   * <p>Constructor for CheckForRetryResult.</p>
+   *
+   * @param statusCode a int
+   */
   public CheckForRetryResult(int statusCode) {
     this("OK", null, statusCode, null);
   }
 
+  /**
+   * <p>Constructor for CheckForRetryResult.</p>
+   *
+   * @param message a {@link java.lang.String} object
+   * @param errorCode a {@link java.lang.String} object
+   * @param statusCode a int
+   */
   public CheckForRetryResult(String message, String errorCode, int statusCode) {
     this(message, errorCode, statusCode, null);
   }
 
+  /**
+   * <p>Constructor for CheckForRetryResult.</p>
+   *
+   * @param errorCode a {@link java.lang.String} object
+   * @param statusCode a int
+   * @param cause a {@link java.lang.Throwable} object
+   */
   public CheckForRetryResult(String errorCode, int statusCode, Throwable cause) {
     this(cause.getMessage(), errorCode, statusCode, cause);
   }
@@ -60,6 +82,11 @@ public class CheckForRetryResult {
     this.statusCode = statusCode;
   }
 
+  /**
+   * <p>toException.</p>
+   *
+   * @return a {@link com.databricks.sdk.client.DatabricksException} object
+   */
   public DatabricksException toException() {
     if (errorCode == null) {
       return null;
@@ -69,22 +96,47 @@ public class CheckForRetryResult {
         cause);
   }
 
+  /**
+   * <p>Getter for the field <code>errorCode</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getErrorCode() {
     return errorCode;
   }
 
+  /**
+   * <p>Getter for the field <code>statusCode</code>.</p>
+   *
+   * @return a int
+   */
   public int getStatusCode() {
     return statusCode;
   }
 
+  /**
+   * <p>isMissing.</p>
+   *
+   * @return a boolean
+   */
   public boolean isMissing() {
     return statusCode == 404;
   }
 
+  /**
+   * <p>isTooManyRequests.</p>
+   *
+   * @return a boolean
+   */
   public boolean isTooManyRequests() {
     return statusCode == 429;
   }
 
+  /**
+   * <p>isRetriable.</p>
+   *
+   * @return a boolean
+   */
   public boolean isRetriable() {
     if (isTooManyRequests()) {
       return true;

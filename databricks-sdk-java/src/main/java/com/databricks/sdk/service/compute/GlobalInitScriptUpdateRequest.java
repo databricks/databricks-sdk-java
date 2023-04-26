@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>GlobalInitScriptUpdateRequest class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GlobalInitScriptUpdateRequest {
   /** Specifies whether the script is enabled. The script runs only if enabled. */
   @JsonProperty("enabled")
@@ -37,51 +43,107 @@ public class GlobalInitScriptUpdateRequest {
   /** The ID of the global init script. */
   private String scriptId;
 
+  /**
+   * <p>Setter for the field <code>enabled</code>.</p>
+   *
+   * @param enabled a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.GlobalInitScriptUpdateRequest} object
+   */
   public GlobalInitScriptUpdateRequest setEnabled(Boolean enabled) {
     this.enabled = enabled;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enabled</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnabled() {
     return enabled;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.GlobalInitScriptUpdateRequest} object
+   */
   public GlobalInitScriptUpdateRequest setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>position</code>.</p>
+   *
+   * @param position a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.GlobalInitScriptUpdateRequest} object
+   */
   public GlobalInitScriptUpdateRequest setPosition(Long position) {
     this.position = position;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>position</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getPosition() {
     return position;
   }
 
+  /**
+   * <p>Setter for the field <code>script</code>.</p>
+   *
+   * @param script a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.GlobalInitScriptUpdateRequest} object
+   */
   public GlobalInitScriptUpdateRequest setScript(String script) {
     this.script = script;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>script</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getScript() {
     return script;
   }
 
+  /**
+   * <p>Setter for the field <code>scriptId</code>.</p>
+   *
+   * @param scriptId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.GlobalInitScriptUpdateRequest} object
+   */
   public GlobalInitScriptUpdateRequest setScriptId(String scriptId) {
     this.scriptId = scriptId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>scriptId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getScriptId() {
     return scriptId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -94,11 +156,13 @@ public class GlobalInitScriptUpdateRequest {
         && Objects.equals(scriptId, that.scriptId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(enabled, name, position, script, scriptId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GlobalInitScriptUpdateRequest.class)

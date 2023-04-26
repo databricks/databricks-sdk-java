@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>TriggerSettings class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class TriggerSettings {
   /** File arrival trigger settings. */
   @JsonProperty("file_arrival")
@@ -15,24 +21,47 @@ public class TriggerSettings {
   @JsonProperty("pause_status")
   private TriggerSettingsPauseStatus pauseStatus;
 
+  /**
+   * <p>Setter for the field <code>fileArrival</code>.</p>
+   *
+   * @param fileArrival a {@link com.databricks.sdk.service.jobs.FileArrivalTriggerSettings} object
+   * @return a {@link com.databricks.sdk.service.jobs.TriggerSettings} object
+   */
   public TriggerSettings setFileArrival(FileArrivalTriggerSettings fileArrival) {
     this.fileArrival = fileArrival;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>fileArrival</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.FileArrivalTriggerSettings} object
+   */
   public FileArrivalTriggerSettings getFileArrival() {
     return fileArrival;
   }
 
+  /**
+   * <p>Setter for the field <code>pauseStatus</code>.</p>
+   *
+   * @param pauseStatus a {@link com.databricks.sdk.service.jobs.TriggerSettingsPauseStatus} object
+   * @return a {@link com.databricks.sdk.service.jobs.TriggerSettings} object
+   */
   public TriggerSettings setPauseStatus(TriggerSettingsPauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pauseStatus</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.TriggerSettingsPauseStatus} object
+   */
   public TriggerSettingsPauseStatus getPauseStatus() {
     return pauseStatus;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -42,11 +71,13 @@ public class TriggerSettings {
         && Objects.equals(pauseStatus, that.pauseStatus);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(fileArrival, pauseStatus);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(TriggerSettings.class)

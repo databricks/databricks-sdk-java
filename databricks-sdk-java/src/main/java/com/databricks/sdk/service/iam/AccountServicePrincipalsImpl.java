@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for AccountServicePrincipalsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public AccountServicePrincipalsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ServicePrincipal create(ServicePrincipal request) {
     String path =
@@ -20,6 +26,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     return apiClient.POST(path, request, ServicePrincipal.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteAccountServicePrincipalRequest request) {
     String path =
@@ -29,6 +36,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public ServicePrincipal get(GetAccountServicePrincipalRequest request) {
     String path =
@@ -38,6 +46,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     return apiClient.GET(path, request, ServicePrincipal.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListServicePrincipalResponse list(ListAccountServicePrincipalsRequest request) {
     String path =
@@ -46,6 +55,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     return apiClient.GET(path, request, ListServicePrincipalResponse.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void patch(PartialUpdate request) {
     String path =
@@ -55,6 +65,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     apiClient.PATCH(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(ServicePrincipal request) {
     String path =

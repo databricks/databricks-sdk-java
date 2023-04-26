@@ -9,10 +9,16 @@ import org.apache.http.client.methods.*;
 class VpcEndpointsImpl implements VpcEndpointsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for VpcEndpointsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public VpcEndpointsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public VpcEndpoint create(CreateVpcEndpointRequest request) {
     String path =
@@ -20,6 +26,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
     return apiClient.POST(path, request, VpcEndpoint.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteVpcEndpointRequest request) {
     String path =
@@ -29,6 +36,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public VpcEndpoint get(GetVpcEndpointRequest request) {
     String path =
@@ -38,6 +46,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
     return apiClient.GET(path, request, VpcEndpoint.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Collection<VpcEndpoint> list() {
     String path =

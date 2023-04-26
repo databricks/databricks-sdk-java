@@ -19,6 +19,9 @@ import java.util.Collection;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface StorageCredentialsService {
   /**
@@ -31,6 +34,9 @@ public interface StorageCredentialsService {
    *
    * <p>The caller must be a metastore admin and have the **CREATE_STORAGE_CREDENTIAL** privilege on
    * the metastore.
+   *
+   * @param createStorageCredential a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
    */
   StorageCredentialInfo create(CreateStorageCredential createStorageCredential);
 
@@ -39,6 +45,8 @@ public interface StorageCredentialsService {
    *
    * <p>Deletes a storage credential from the metastore. The caller must be an owner of the storage
    * credential.
+   *
+   * @param deleteStorageCredentialRequest a {@link com.databricks.sdk.service.catalog.DeleteStorageCredentialRequest} object
    */
   void delete(DeleteStorageCredentialRequest deleteStorageCredentialRequest);
 
@@ -47,6 +55,9 @@ public interface StorageCredentialsService {
    *
    * <p>Gets a storage credential from the metastore. The caller must be a metastore admin, the
    * owner of the storage credential, or have some permission on the storage credential.
+   *
+   * @param getStorageCredentialRequest a {@link com.databricks.sdk.service.catalog.GetStorageCredentialRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
    */
   StorageCredentialInfo get(GetStorageCredentialRequest getStorageCredentialRequest);
 
@@ -57,6 +68,8 @@ public interface StorageCredentialsService {
    * limited to only those storage credentials the caller has permission to access. If the caller is
    * a metastore admin, all storage credentials will be retrieved. There is no guarantee of a
    * specific ordering of the elements in the array.
+   *
+   * @return a {@link java.util.Collection} object
    */
   Collection<StorageCredentialInfo> list();
 
@@ -66,6 +79,9 @@ public interface StorageCredentialsService {
    * <p>Updates a storage credential on the metastore. The caller must be the owner of the storage
    * credential or a metastore admin. If the caller is a metastore admin, only the __owner__
    * credential can be changed.
+   *
+   * @param updateStorageCredential a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
    */
   StorageCredentialInfo update(UpdateStorageCredential updateStorageCredential);
 
@@ -81,6 +97,9 @@ public interface StorageCredentialsService {
    *
    * <p>The caller must be a metastore admin or the storage credential owner or have the
    * **CREATE_EXTERNAL_LOCATION** privilege on the metastore and the storage credential.
+   *
+   * @param validateStorageCredential a {@link com.databricks.sdk.service.catalog.ValidateStorageCredential} object
+   * @return a {@link com.databricks.sdk.service.catalog.ValidateStorageCredentialResponse} object
    */
   ValidateStorageCredentialResponse validate(ValidateStorageCredential validateStorageCredential);
 }

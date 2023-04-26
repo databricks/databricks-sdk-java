@@ -11,6 +11,9 @@ package com.databricks.sdk.service.oauth2;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface OAuthEnrollmentService {
   /**
@@ -23,6 +26,8 @@ public interface OAuthEnrollmentService {
    *
    * <p>The enrollment is executed asynchronously, so the API will return 204 immediately. The
    * actual enrollment take a few minutes, you can check the status via API :method:get.
+   *
+   * @param createOAuthEnrollment a {@link com.databricks.sdk.service.oauth2.CreateOAuthEnrollment} object
    */
   void create(CreateOAuthEnrollment createOAuthEnrollment);
 
@@ -33,6 +38,8 @@ public interface OAuthEnrollmentService {
    *
    * <p>You can only add/use the OAuth published/custom application integrations when OAuth
    * enrollment status is enabled.
+   *
+   * @return a {@link com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus} object
    */
   OAuthEnrollmentStatus get();
 }

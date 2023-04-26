@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** The results of the tested operation. */
+/**
+ * The results of the tested operation.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum ValidationResultResult {
   FAIL,
   PASS,

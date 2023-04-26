@@ -12,6 +12,9 @@ import java.util.Collection;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface CredentialsService {
   /**
@@ -31,6 +34,9 @@ public interface CredentialsService {
    *
    * <p>[Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   *
+   * @param createCredentialRequest a {@link com.databricks.sdk.service.provisioning.CreateCredentialRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.Credential} object
    */
   Credential create(CreateCredentialRequest createCredentialRequest);
 
@@ -39,6 +45,8 @@ public interface CredentialsService {
    *
    * <p>Deletes a Databricks credential configuration object for an account, both specified by ID.
    * You cannot delete a credential that is associated with any workspace.
+   *
+   * @param deleteCredentialRequest a {@link com.databricks.sdk.service.provisioning.DeleteCredentialRequest} object
    */
   void delete(DeleteCredentialRequest deleteCredentialRequest);
 
@@ -46,6 +54,9 @@ public interface CredentialsService {
    * Get credential configuration.
    *
    * <p>Gets a Databricks credential configuration object for an account, both specified by ID.
+   *
+   * @param getCredentialRequest a {@link com.databricks.sdk.service.provisioning.GetCredentialRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.Credential} object
    */
   Credential get(GetCredentialRequest getCredentialRequest);
 
@@ -53,6 +64,8 @@ public interface CredentialsService {
    * Get all credential configurations.
    *
    * <p>Gets all Databricks credential configurations associated with an account specified by ID.
+   *
+   * @return a {@link java.util.Collection} object
    */
   Collection<Credential> list();
 }

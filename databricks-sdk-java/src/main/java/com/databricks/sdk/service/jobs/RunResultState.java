@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum RunResultState {
   CANCELED, // The run was canceled at user request.
   FAILED, // The task completed with an error.

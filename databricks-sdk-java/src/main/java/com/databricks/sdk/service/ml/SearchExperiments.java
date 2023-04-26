@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>SearchExperiments class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class SearchExperiments {
   /** String representing a SQL filter condition (e.g. "name ILIKE 'my-experiment%'") */
   @JsonProperty("filter")
@@ -35,51 +41,107 @@ public class SearchExperiments {
   @JsonProperty("view_type")
   private SearchExperimentsViewType viewType;
 
+  /**
+   * <p>Setter for the field <code>filter</code>.</p>
+   *
+   * @param filter a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchExperiments} object
+   */
   public SearchExperiments setFilter(String filter) {
     this.filter = filter;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>filter</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFilter() {
     return filter;
   }
 
+  /**
+   * <p>Setter for the field <code>maxResults</code>.</p>
+   *
+   * @param maxResults a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchExperiments} object
+   */
   public SearchExperiments setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>maxResults</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMaxResults() {
     return maxResults;
   }
 
+  /**
+   * <p>Setter for the field <code>orderBy</code>.</p>
+   *
+   * @param orderBy a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchExperiments} object
+   */
   public SearchExperiments setOrderBy(Collection<String> orderBy) {
     this.orderBy = orderBy;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>orderBy</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getOrderBy() {
     return orderBy;
   }
 
+  /**
+   * <p>Setter for the field <code>pageToken</code>.</p>
+   *
+   * @param pageToken a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchExperiments} object
+   */
   public SearchExperiments setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pageToken</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPageToken() {
     return pageToken;
   }
 
+  /**
+   * <p>Setter for the field <code>viewType</code>.</p>
+   *
+   * @param viewType a {@link com.databricks.sdk.service.ml.SearchExperimentsViewType} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchExperiments} object
+   */
   public SearchExperiments setViewType(SearchExperimentsViewType viewType) {
     this.viewType = viewType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>viewType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.SearchExperimentsViewType} object
+   */
   public SearchExperimentsViewType getViewType() {
     return viewType;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -92,11 +154,13 @@ public class SearchExperiments {
         && Objects.equals(viewType, that.viewType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(filter, maxResults, orderBy, pageToken, viewType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(SearchExperiments.class)

@@ -17,22 +17,40 @@ import org.slf4j.LoggerFactory;
  * <p>Within Repos you can develop code in notebooks or other files and follow data science and
  * engineering code development best practices using Git for version control, collaboration, and
  * CI/CD.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class ReposAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ReposAPI.class);
 
   private final ReposService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public ReposAPI(ApiClient apiClient) {
     impl = new ReposImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.workspace.ReposService} object
+   */
   public ReposAPI(ReposService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param url a {@link java.lang.String} object
+   * @param provider a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
+   */
   public RepoInfo create(String url, String provider) {
     return create(new CreateRepo().setUrl(url).setProvider(provider));
   }
@@ -43,11 +61,19 @@ public class ReposAPI {
    * <p>Creates a repo in the workspace and links it to the remote Git repo specified. Note that
    * repos created programmatically must be linked to a remote Git repo, unlike repos created in the
    * browser.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.CreateRepo} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
    */
   public RepoInfo create(CreateRepo request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param repoId a long
+   */
   public void delete(long repoId) {
     delete(new DeleteRepoRequest().setRepoId(repoId));
   }
@@ -56,11 +82,19 @@ public class ReposAPI {
    * Delete a repo.
    *
    * <p>Deletes the specified repo.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.DeleteRepoRequest} object
    */
   public void delete(DeleteRepoRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param repoId a long
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
+   */
   public RepoInfo get(long repoId) {
     return get(new GetRepoRequest().setRepoId(repoId));
   }
@@ -69,6 +103,9 @@ public class ReposAPI {
    * Get a repo.
    *
    * <p>Returns the repo with the given repo ID.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.GetRepoRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
    */
   public RepoInfo get(GetRepoRequest request) {
     return impl.get(request);
@@ -79,6 +116,9 @@ public class ReposAPI {
    *
    * <p>Returns repos that the calling user has Manage permissions on. Results are paginated with
    * each page containing twenty repos.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.ListReposRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<RepoInfo> list(ListReposRequest request) {
     return new Paginator<>(
@@ -94,6 +134,11 @@ public class ReposAPI {
         });
   }
 
+  /**
+   * <p>update.</p>
+   *
+   * @param repoId a long
+   */
   public void update(long repoId) {
     update(new UpdateRepo().setRepoId(repoId));
   }
@@ -103,11 +148,18 @@ public class ReposAPI {
    *
    * <p>Updates the repo to a different branch or tag, or updates the repo to the latest commit on
    * the same branch.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.UpdateRepo} object
    */
   public void update(UpdateRepo request) {
     impl.update(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.ReposService} object
+   */
   public ReposService impl() {
     return impl;
   }

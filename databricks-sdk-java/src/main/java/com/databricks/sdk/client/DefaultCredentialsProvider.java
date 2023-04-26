@@ -8,6 +8,12 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * <p>DefaultCredentialsProvider class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class DefaultCredentialsProvider implements CredentialsProvider {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
 
@@ -15,10 +21,18 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
 
   private String authType = "default";
 
+  /**
+   * <p>authType.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String authType() {
     return authType;
   }
 
+  /**
+   * <p>Constructor for DefaultCredentialsProvider.</p>
+   */
   public DefaultCredentialsProvider() {
     providers =
         Arrays.asList(
@@ -31,6 +45,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             new BricksCliCredentialsProvider());
   }
 
+  /** {@inheritDoc} */
   @Override
   public synchronized HeaderFactory configure(DatabricksConfig config) {
     for (CredentialsProvider provider : providers) {

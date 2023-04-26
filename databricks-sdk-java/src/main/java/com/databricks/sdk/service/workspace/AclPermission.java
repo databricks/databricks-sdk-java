@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.workspace;
 
+/**
+ * <p>AclPermission class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum AclPermission {
   MANAGE,
   READ,

@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.provisioning;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum VpcStatus {
   BROKEN, // Broken.
   UNATTACHED, // Unattached.

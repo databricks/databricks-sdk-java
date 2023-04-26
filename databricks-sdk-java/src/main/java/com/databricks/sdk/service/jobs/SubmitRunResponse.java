@@ -6,20 +6,38 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>SubmitRunResponse class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class SubmitRunResponse {
   /** The canonical identifier for the newly submitted run. */
   @JsonProperty("run_id")
   private Long runId;
 
+  /**
+   * <p>Setter for the field <code>runId</code>.</p>
+   *
+   * @param runId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.SubmitRunResponse} object
+   */
   public SubmitRunResponse setRunId(Long runId) {
     this.runId = runId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRunId() {
     return runId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -28,11 +46,13 @@ public class SubmitRunResponse {
     return Objects.equals(runId, that.runId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(runId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(SubmitRunResponse.class).add("runId", runId).toString();

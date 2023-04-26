@@ -8,6 +8,12 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * <p>GetInstancePool class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GetInstancePool {
   /**
    * Attributes related to pool running on Amazon Web Services. If not specified at pool creation, a
@@ -129,170 +135,369 @@ public class GetInstancePool {
   @JsonProperty("status")
   private InstancePoolStatus status;
 
+  /**
+   * <p>Setter for the field <code>awsAttributes</code>.</p>
+   *
+   * @param awsAttributes a {@link com.databricks.sdk.service.compute.InstancePoolAwsAttributes} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setAwsAttributes(InstancePoolAwsAttributes awsAttributes) {
     this.awsAttributes = awsAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsAttributes</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.InstancePoolAwsAttributes} object
+   */
   public InstancePoolAwsAttributes getAwsAttributes() {
     return awsAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>azureAttributes</code>.</p>
+   *
+   * @param azureAttributes a {@link com.databricks.sdk.service.compute.InstancePoolAzureAttributes} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setAzureAttributes(InstancePoolAzureAttributes azureAttributes) {
     this.azureAttributes = azureAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>azureAttributes</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.InstancePoolAzureAttributes} object
+   */
   public InstancePoolAzureAttributes getAzureAttributes() {
     return azureAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>customTags</code>.</p>
+   *
+   * @param customTags a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setCustomTags(Map<String, String> customTags) {
     this.customTags = customTags;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>customTags</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getCustomTags() {
     return customTags;
   }
 
+  /**
+   * <p>Setter for the field <code>defaultTags</code>.</p>
+   *
+   * @param defaultTags a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setDefaultTags(Map<String, String> defaultTags) {
     this.defaultTags = defaultTags;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>defaultTags</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getDefaultTags() {
     return defaultTags;
   }
 
+  /**
+   * <p>Setter for the field <code>diskSpec</code>.</p>
+   *
+   * @param diskSpec a {@link com.databricks.sdk.service.compute.DiskSpec} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setDiskSpec(DiskSpec diskSpec) {
     this.diskSpec = diskSpec;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>diskSpec</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.DiskSpec} object
+   */
   public DiskSpec getDiskSpec() {
     return diskSpec;
   }
 
+  /**
+   * <p>Setter for the field <code>enableElasticDisk</code>.</p>
+   *
+   * @param enableElasticDisk a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setEnableElasticDisk(Boolean enableElasticDisk) {
     this.enableElasticDisk = enableElasticDisk;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enableElasticDisk</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnableElasticDisk() {
     return enableElasticDisk;
   }
 
+  /**
+   * <p>Setter for the field <code>idleInstanceAutoterminationMinutes</code>.</p>
+   *
+   * @param idleInstanceAutoterminationMinutes a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setIdleInstanceAutoterminationMinutes(
       Long idleInstanceAutoterminationMinutes) {
     this.idleInstanceAutoterminationMinutes = idleInstanceAutoterminationMinutes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>idleInstanceAutoterminationMinutes</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getIdleInstanceAutoterminationMinutes() {
     return idleInstanceAutoterminationMinutes;
   }
 
+  /**
+   * <p>Setter for the field <code>instancePoolFleetAttributes</code>.</p>
+   *
+   * @param instancePoolFleetAttributes a {@link com.databricks.sdk.service.compute.InstancePoolFleetAttributes} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setInstancePoolFleetAttributes(
       InstancePoolFleetAttributes instancePoolFleetAttributes) {
     this.instancePoolFleetAttributes = instancePoolFleetAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instancePoolFleetAttributes</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.InstancePoolFleetAttributes} object
+   */
   public InstancePoolFleetAttributes getInstancePoolFleetAttributes() {
     return instancePoolFleetAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>instancePoolId</code>.</p>
+   *
+   * @param instancePoolId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instancePoolId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstancePoolId() {
     return instancePoolId;
   }
 
+  /**
+   * <p>Setter for the field <code>instancePoolName</code>.</p>
+   *
+   * @param instancePoolName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setInstancePoolName(String instancePoolName) {
     this.instancePoolName = instancePoolName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instancePoolName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstancePoolName() {
     return instancePoolName;
   }
 
+  /**
+   * <p>Setter for the field <code>maxCapacity</code>.</p>
+   *
+   * @param maxCapacity a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setMaxCapacity(Long maxCapacity) {
     this.maxCapacity = maxCapacity;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>maxCapacity</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMaxCapacity() {
     return maxCapacity;
   }
 
+  /**
+   * <p>Setter for the field <code>minIdleInstances</code>.</p>
+   *
+   * @param minIdleInstances a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setMinIdleInstances(Long minIdleInstances) {
     this.minIdleInstances = minIdleInstances;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>minIdleInstances</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMinIdleInstances() {
     return minIdleInstances;
   }
 
+  /**
+   * <p>Setter for the field <code>nodeTypeId</code>.</p>
+   *
+   * @param nodeTypeId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setNodeTypeId(String nodeTypeId) {
     this.nodeTypeId = nodeTypeId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>nodeTypeId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getNodeTypeId() {
     return nodeTypeId;
   }
 
+  /**
+   * <p>Setter for the field <code>preloadedDockerImages</code>.</p>
+   *
+   * @param preloadedDockerImages a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setPreloadedDockerImages(Collection<DockerImage> preloadedDockerImages) {
     this.preloadedDockerImages = preloadedDockerImages;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>preloadedDockerImages</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<DockerImage> getPreloadedDockerImages() {
     return preloadedDockerImages;
   }
 
+  /**
+   * <p>Setter for the field <code>preloadedSparkVersions</code>.</p>
+   *
+   * @param preloadedSparkVersions a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setPreloadedSparkVersions(Collection<String> preloadedSparkVersions) {
     this.preloadedSparkVersions = preloadedSparkVersions;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>preloadedSparkVersions</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getPreloadedSparkVersions() {
     return preloadedSparkVersions;
   }
 
+  /**
+   * <p>Setter for the field <code>state</code>.</p>
+   *
+   * @param state a {@link com.databricks.sdk.service.compute.InstancePoolState} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setState(InstancePoolState state) {
     this.state = state;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>state</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.InstancePoolState} object
+   */
   public InstancePoolState getState() {
     return state;
   }
 
+  /**
+   * <p>Setter for the field <code>stats</code>.</p>
+   *
+   * @param stats a {@link com.databricks.sdk.service.compute.InstancePoolStats} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setStats(InstancePoolStats stats) {
     this.stats = stats;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>stats</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.InstancePoolStats} object
+   */
   public InstancePoolStats getStats() {
     return stats;
   }
 
+  /**
+   * <p>Setter for the field <code>status</code>.</p>
+   *
+   * @param status a {@link com.databricks.sdk.service.compute.InstancePoolStatus} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool setStatus(InstancePoolStatus status) {
     this.status = status;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>status</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.InstancePoolStatus} object
+   */
   public InstancePoolStatus getStatus() {
     return status;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -319,6 +524,7 @@ public class GetInstancePool {
         && Objects.equals(status, that.status);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -342,6 +548,7 @@ public class GetInstancePool {
         status);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GetInstancePool.class)

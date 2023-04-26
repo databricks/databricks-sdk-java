@@ -8,6 +8,9 @@ package com.databricks.sdk.service.sql;
  * for failure described in accomanying error message - `CANCELED`: user canceled; can come from
  * explicit cancel call, or timeout with `on_wait_timeout=CANCEL` - `CLOSED`: execution successful,
  * and statement closed; result no longer available for fetch
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum StatementState {
   CANCELED,

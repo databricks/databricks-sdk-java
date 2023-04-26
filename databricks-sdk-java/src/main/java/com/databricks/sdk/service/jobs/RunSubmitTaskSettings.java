@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>RunSubmitTaskSettings class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class RunSubmitTaskSettings {
   /**
    * An optional array of objects specifying the dependency graph of the task. All tasks specified
@@ -81,114 +87,247 @@ public class RunSubmitTaskSettings {
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
+  /**
+   * <p>Setter for the field <code>dependsOn</code>.</p>
+   *
+   * @param dependsOn a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setDependsOn(Collection<TaskDependenciesItem> dependsOn) {
     this.dependsOn = dependsOn;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dependsOn</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<TaskDependenciesItem> getDependsOn() {
     return dependsOn;
   }
 
+  /**
+   * <p>Setter for the field <code>existingClusterId</code>.</p>
+   *
+   * @param existingClusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setExistingClusterId(String existingClusterId) {
     this.existingClusterId = existingClusterId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>existingClusterId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getExistingClusterId() {
     return existingClusterId;
   }
 
+  /**
+   * <p>Setter for the field <code>libraries</code>.</p>
+   *
+   * @param libraries a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
     this.libraries = libraries;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>libraries</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<Object /* MISSING TYPE */> getLibraries() {
     return libraries;
   }
 
+  /**
+   * <p>Setter for the field <code>newCluster</code>.</p>
+   *
+   * @param newCluster a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setNewCluster(Object /* MISSING TYPE */ newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>newCluster</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getNewCluster() {
     return newCluster;
   }
 
+  /**
+   * <p>Setter for the field <code>notebookTask</code>.</p>
+   *
+   * @param notebookTask a {@link com.databricks.sdk.service.jobs.NotebookTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setNotebookTask(NotebookTask notebookTask) {
     this.notebookTask = notebookTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>notebookTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.NotebookTask} object
+   */
   public NotebookTask getNotebookTask() {
     return notebookTask;
   }
 
+  /**
+   * <p>Setter for the field <code>pipelineTask</code>.</p>
+   *
+   * @param pipelineTask a {@link com.databricks.sdk.service.jobs.PipelineTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setPipelineTask(PipelineTask pipelineTask) {
     this.pipelineTask = pipelineTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pipelineTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.PipelineTask} object
+   */
   public PipelineTask getPipelineTask() {
     return pipelineTask;
   }
 
+  /**
+   * <p>Setter for the field <code>pythonWheelTask</code>.</p>
+   *
+   * @param pythonWheelTask a {@link com.databricks.sdk.service.jobs.PythonWheelTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setPythonWheelTask(PythonWheelTask pythonWheelTask) {
     this.pythonWheelTask = pythonWheelTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pythonWheelTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.PythonWheelTask} object
+   */
   public PythonWheelTask getPythonWheelTask() {
     return pythonWheelTask;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkJarTask</code>.</p>
+   *
+   * @param sparkJarTask a {@link com.databricks.sdk.service.jobs.SparkJarTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setSparkJarTask(SparkJarTask sparkJarTask) {
     this.sparkJarTask = sparkJarTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkJarTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SparkJarTask} object
+   */
   public SparkJarTask getSparkJarTask() {
     return sparkJarTask;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkPythonTask</code>.</p>
+   *
+   * @param sparkPythonTask a {@link com.databricks.sdk.service.jobs.SparkPythonTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setSparkPythonTask(SparkPythonTask sparkPythonTask) {
     this.sparkPythonTask = sparkPythonTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkPythonTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SparkPythonTask} object
+   */
   public SparkPythonTask getSparkPythonTask() {
     return sparkPythonTask;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkSubmitTask</code>.</p>
+   *
+   * @param sparkSubmitTask a {@link com.databricks.sdk.service.jobs.SparkSubmitTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setSparkSubmitTask(SparkSubmitTask sparkSubmitTask) {
     this.sparkSubmitTask = sparkSubmitTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkSubmitTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SparkSubmitTask} object
+   */
   public SparkSubmitTask getSparkSubmitTask() {
     return sparkSubmitTask;
   }
 
+  /**
+   * <p>Setter for the field <code>taskKey</code>.</p>
+   *
+   * @param taskKey a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setTaskKey(String taskKey) {
     this.taskKey = taskKey;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>taskKey</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTaskKey() {
     return taskKey;
   }
 
+  /**
+   * <p>Setter for the field <code>timeoutSeconds</code>.</p>
+   *
+   * @param timeoutSeconds a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunSubmitTaskSettings} object
+   */
   public RunSubmitTaskSettings setTimeoutSeconds(Long timeoutSeconds) {
     this.timeoutSeconds = timeoutSeconds;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>timeoutSeconds</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTimeoutSeconds() {
     return timeoutSeconds;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -208,6 +347,7 @@ public class RunSubmitTaskSettings {
         && Objects.equals(timeoutSeconds, that.timeoutSeconds);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -225,6 +365,7 @@ public class RunSubmitTaskSettings {
         timeoutSeconds);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(RunSubmitTaskSettings.class)

@@ -9,10 +9,16 @@ import org.apache.http.client.methods.*;
 class CredentialsImpl implements CredentialsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for CredentialsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public CredentialsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Credential create(CreateCredentialRequest request) {
     String path =
@@ -20,6 +26,7 @@ class CredentialsImpl implements CredentialsService {
     return apiClient.POST(path, request, Credential.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteCredentialRequest request) {
     String path =
@@ -29,6 +36,7 @@ class CredentialsImpl implements CredentialsService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Credential get(GetCredentialRequest request) {
     String path =
@@ -38,6 +46,7 @@ class CredentialsImpl implements CredentialsService {
     return apiClient.GET(path, request, Credential.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Collection<Credential> list() {
     String path =

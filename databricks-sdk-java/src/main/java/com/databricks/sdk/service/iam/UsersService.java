@@ -15,6 +15,9 @@ package com.databricks.sdk.service.iam;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface UsersService {
   /**
@@ -22,6 +25,9 @@ public interface UsersService {
    *
    * <p>Creates a new user in the Databricks Workspace. This new user will also be added to the
    * Databricks account.
+   *
+   * @param user a {@link com.databricks.sdk.service.iam.User} object
+   * @return a {@link com.databricks.sdk.service.iam.User} object
    */
   User create(User user);
 
@@ -30,6 +36,8 @@ public interface UsersService {
    *
    * <p>Deletes a user. Deleting a user from a Databricks Workspace also removes objects associated
    * with the user.
+   *
+   * @param deleteUserRequest a {@link com.databricks.sdk.service.iam.DeleteUserRequest} object
    */
   void delete(DeleteUserRequest deleteUserRequest);
 
@@ -37,6 +45,9 @@ public interface UsersService {
    * Get user details.
    *
    * <p>Gets information for a specific user in Databricks Workspace.
+   *
+   * @param getUserRequest a {@link com.databricks.sdk.service.iam.GetUserRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.User} object
    */
   User get(GetUserRequest getUserRequest);
 
@@ -44,6 +55,9 @@ public interface UsersService {
    * List users.
    *
    * <p>Gets details for all the users associated with a Databricks Workspace.
+   *
+   * @param listUsersRequest a {@link com.databricks.sdk.service.iam.ListUsersRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.ListUsersResponse} object
    */
   ListUsersResponse list(ListUsersRequest listUsersRequest);
 
@@ -52,6 +66,8 @@ public interface UsersService {
    *
    * <p>Partially updates a user resource by applying the supplied operations on specific user
    * attributes.
+   *
+   * @param partialUpdate a {@link com.databricks.sdk.service.iam.PartialUpdate} object
    */
   void patch(PartialUpdate partialUpdate);
 
@@ -59,6 +75,8 @@ public interface UsersService {
    * Replace a user.
    *
    * <p>Replaces a user's information with the data supplied in request.
+   *
+   * @param user a {@link com.databricks.sdk.service.iam.User} object
    */
   void update(User user);
 }

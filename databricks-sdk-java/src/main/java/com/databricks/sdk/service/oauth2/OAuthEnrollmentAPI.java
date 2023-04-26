@@ -11,18 +11,29 @@ import org.slf4j.LoggerFactory;
  *
  * <p>**Note:** Your account must be on the E2 version to use these APIs, this is because OAuth is
  * only supported on the E2 version.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class OAuthEnrollmentAPI {
   private static final Logger LOG = LoggerFactory.getLogger(OAuthEnrollmentAPI.class);
 
   private final OAuthEnrollmentService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public OAuthEnrollmentAPI(ApiClient apiClient) {
     impl = new OAuthEnrollmentImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.oauth2.OAuthEnrollmentService} object
+   */
   public OAuthEnrollmentAPI(OAuthEnrollmentService mock) {
     impl = mock;
   }
@@ -37,6 +48,8 @@ public class OAuthEnrollmentAPI {
    *
    * <p>The enrollment is executed asynchronously, so the API will return 204 immediately. The
    * actual enrollment take a few minutes, you can check the status via API :method:get.
+   *
+   * @param request a {@link com.databricks.sdk.service.oauth2.CreateOAuthEnrollment} object
    */
   public void create(CreateOAuthEnrollment request) {
     impl.create(request);
@@ -49,11 +62,18 @@ public class OAuthEnrollmentAPI {
    *
    * <p>You can only add/use the OAuth published/custom application integrations when OAuth
    * enrollment status is enabled.
+   *
+   * @return a {@link com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus} object
    */
   public OAuthEnrollmentStatus get() {
     return impl.get();
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.oauth2.OAuthEnrollmentService} object
+   */
   public OAuthEnrollmentService impl() {
     return impl;
   }

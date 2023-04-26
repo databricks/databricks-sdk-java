@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
-/** Maturity level for EventDetails. */
+/**
+ * Maturity level for EventDetails.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum MaturityLevel {
   DEPRECATED,
   EVOLVING,

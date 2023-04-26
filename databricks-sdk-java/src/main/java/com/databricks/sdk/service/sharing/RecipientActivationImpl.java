@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class RecipientActivationImpl implements RecipientActivationService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for RecipientActivationImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public RecipientActivationImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void getActivationUrlInfo(GetActivationUrlInfoRequest request) {
     String path =
@@ -21,6 +27,7 @@ class RecipientActivationImpl implements RecipientActivationService {
     apiClient.GET(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public RetrieveTokenResponse retrieveToken(RetrieveTokenRequest request) {
     String path =

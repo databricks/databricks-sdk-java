@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>Origin class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class Origin {
   /** The id of a batch. Unique within a flow. */
   @JsonProperty("batch_id")
@@ -78,159 +84,347 @@ public class Origin {
   @JsonProperty("update_id")
   private String updateId;
 
+  /**
+   * <p>Setter for the field <code>batchId</code>.</p>
+   *
+   * @param batchId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setBatchId(Long batchId) {
     this.batchId = batchId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>batchId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getBatchId() {
     return batchId;
   }
 
+  /**
+   * <p>Setter for the field <code>cloud</code>.</p>
+   *
+   * @param cloud a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setCloud(String cloud) {
     this.cloud = cloud;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>cloud</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCloud() {
     return cloud;
   }
 
+  /**
+   * <p>Setter for the field <code>clusterId</code>.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusterId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getClusterId() {
     return clusterId;
   }
 
+  /**
+   * <p>Setter for the field <code>datasetName</code>.</p>
+   *
+   * @param datasetName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setDatasetName(String datasetName) {
     this.datasetName = datasetName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>datasetName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDatasetName() {
     return datasetName;
   }
 
+  /**
+   * <p>Setter for the field <code>flowId</code>.</p>
+   *
+   * @param flowId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setFlowId(String flowId) {
     this.flowId = flowId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>flowId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFlowId() {
     return flowId;
   }
 
+  /**
+   * <p>Setter for the field <code>flowName</code>.</p>
+   *
+   * @param flowName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setFlowName(String flowName) {
     this.flowName = flowName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>flowName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFlowName() {
     return flowName;
   }
 
+  /**
+   * <p>Setter for the field <code>host</code>.</p>
+   *
+   * @param host a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setHost(String host) {
     this.host = host;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>host</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getHost() {
     return host;
   }
 
+  /**
+   * <p>Setter for the field <code>maintenanceId</code>.</p>
+   *
+   * @param maintenanceId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setMaintenanceId(String maintenanceId) {
     this.maintenanceId = maintenanceId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>maintenanceId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMaintenanceId() {
     return maintenanceId;
   }
 
+  /**
+   * <p>Setter for the field <code>materializationName</code>.</p>
+   *
+   * @param materializationName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setMaterializationName(String materializationName) {
     this.materializationName = materializationName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>materializationName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMaterializationName() {
     return materializationName;
   }
 
+  /**
+   * <p>Setter for the field <code>orgId</code>.</p>
+   *
+   * @param orgId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setOrgId(Long orgId) {
     this.orgId = orgId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>orgId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getOrgId() {
     return orgId;
   }
 
+  /**
+   * <p>Setter for the field <code>pipelineId</code>.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pipelineId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPipelineId() {
     return pipelineId;
   }
 
+  /**
+   * <p>Setter for the field <code>pipelineName</code>.</p>
+   *
+   * @param pipelineName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setPipelineName(String pipelineName) {
     this.pipelineName = pipelineName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pipelineName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPipelineName() {
     return pipelineName;
   }
 
+  /**
+   * <p>Setter for the field <code>region</code>.</p>
+   *
+   * @param region a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setRegion(String region) {
     this.region = region;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>region</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRegion() {
     return region;
   }
 
+  /**
+   * <p>Setter for the field <code>requestId</code>.</p>
+   *
+   * @param requestId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setRequestId(String requestId) {
     this.requestId = requestId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>requestId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRequestId() {
     return requestId;
   }
 
+  /**
+   * <p>Setter for the field <code>tableId</code>.</p>
+   *
+   * @param tableId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setTableId(String tableId) {
     this.tableId = tableId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>tableId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTableId() {
     return tableId;
   }
 
+  /**
+   * <p>Setter for the field <code>ucResourceId</code>.</p>
+   *
+   * @param ucResourceId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setUcResourceId(String ucResourceId) {
     this.ucResourceId = ucResourceId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ucResourceId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUcResourceId() {
     return ucResourceId;
   }
 
+  /**
+   * <p>Setter for the field <code>updateId</code>.</p>
+   *
+   * @param updateId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.Origin} object
+   */
   public Origin setUpdateId(String updateId) {
     this.updateId = updateId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>updateId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUpdateId() {
     return updateId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -255,6 +449,7 @@ public class Origin {
         && Objects.equals(updateId, that.updateId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -277,6 +472,7 @@ public class Origin {
         updateId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(Origin.class)

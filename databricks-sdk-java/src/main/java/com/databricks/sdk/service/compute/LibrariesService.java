@@ -25,6 +25,9 @@ package com.databricks.sdk.service.compute;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface LibrariesService {
   /**
@@ -33,6 +36,8 @@ public interface LibrariesService {
    * <p>Get the status of all libraries on all clusters. A status will be available for all
    * libraries installed on this cluster via the API or the libraries UI as well as libraries set to
    * be installed on all clusters via the libraries UI.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ListAllClusterLibraryStatusesResponse} object
    */
   ListAllClusterLibraryStatusesResponse allClusterStatuses();
 
@@ -52,6 +57,9 @@ public interface LibrariesService {
    *
    * <p>3. Libraries that were previously requested on this cluster or on all clusters, but now
    * marked for removal. Within this group there is no order guarantee.
+   *
+   * @param clusterStatusRequest a {@link com.databricks.sdk.service.compute.ClusterStatusRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterLibraryStatuses} object
    */
   ClusterLibraryStatuses clusterStatus(ClusterStatusRequest clusterStatusRequest);
 
@@ -64,6 +72,8 @@ public interface LibrariesService {
    * <p>**Note**: The actual set of libraries to be installed on a cluster is the union of the
    * libraries specified via this method and the libraries set to be installed on all clusters via
    * the libraries UI.
+   *
+   * @param installLibraries a {@link com.databricks.sdk.service.compute.InstallLibraries} object
    */
   void install(InstallLibraries installLibraries);
 
@@ -73,6 +83,8 @@ public interface LibrariesService {
    * <p>Set libraries to be uninstalled on a cluster. The libraries won't be uninstalled until the
    * cluster is restarted. Uninstalling libraries that are not installed on the cluster will have no
    * impact but is not an error.
+   *
+   * @param uninstallLibraries a {@link com.databricks.sdk.service.compute.UninstallLibraries} object
    */
   void uninstall(UninstallLibraries uninstallLibraries);
 }

@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>SharedDataObject class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class SharedDataObject {
   /** The time when this data object is added to the share, in epoch milliseconds. */
   @JsonProperty("added_at")
@@ -65,96 +71,207 @@ public class SharedDataObject {
   @JsonProperty("status")
   private SharedDataObjectStatus status;
 
+  /**
+   * <p>Setter for the field <code>addedAt</code>.</p>
+   *
+   * @param addedAt a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObject} object
+   */
   public SharedDataObject setAddedAt(Long addedAt) {
     this.addedAt = addedAt;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>addedAt</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getAddedAt() {
     return addedAt;
   }
 
+  /**
+   * <p>Setter for the field <code>addedBy</code>.</p>
+   *
+   * @param addedBy a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObject} object
+   */
   public SharedDataObject setAddedBy(String addedBy) {
     this.addedBy = addedBy;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>addedBy</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAddedBy() {
     return addedBy;
   }
 
+  /**
+   * <p>Setter for the field <code>cdfEnabled</code>.</p>
+   *
+   * @param cdfEnabled a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObject} object
+   */
   public SharedDataObject setCdfEnabled(Boolean cdfEnabled) {
     this.cdfEnabled = cdfEnabled;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>cdfEnabled</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getCdfEnabled() {
     return cdfEnabled;
   }
 
+  /**
+   * <p>Setter for the field <code>comment</code>.</p>
+   *
+   * @param comment a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObject} object
+   */
   public SharedDataObject setComment(String comment) {
     this.comment = comment;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>comment</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getComment() {
     return comment;
   }
 
+  /**
+   * <p>Setter for the field <code>dataObjectType</code>.</p>
+   *
+   * @param dataObjectType a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObject} object
+   */
   public SharedDataObject setDataObjectType(String dataObjectType) {
     this.dataObjectType = dataObjectType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dataObjectType</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDataObjectType() {
     return dataObjectType;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObject} object
+   */
   public SharedDataObject setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>partitions</code>.</p>
+   *
+   * @param partitions a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObject} object
+   */
   public SharedDataObject setPartitions(Collection<Partition> partitions) {
     this.partitions = partitions;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>partitions</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<Partition> getPartitions() {
     return partitions;
   }
 
+  /**
+   * <p>Setter for the field <code>sharedAs</code>.</p>
+   *
+   * @param sharedAs a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObject} object
+   */
   public SharedDataObject setSharedAs(String sharedAs) {
     this.sharedAs = sharedAs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sharedAs</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSharedAs() {
     return sharedAs;
   }
 
+  /**
+   * <p>Setter for the field <code>startVersion</code>.</p>
+   *
+   * @param startVersion a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObject} object
+   */
   public SharedDataObject setStartVersion(Long startVersion) {
     this.startVersion = startVersion;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>startVersion</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getStartVersion() {
     return startVersion;
   }
 
+  /**
+   * <p>Setter for the field <code>status</code>.</p>
+   *
+   * @param status a {@link com.databricks.sdk.service.sharing.SharedDataObjectStatus} object
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObject} object
+   */
   public SharedDataObject setStatus(SharedDataObjectStatus status) {
     this.status = status;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>status</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sharing.SharedDataObjectStatus} object
+   */
   public SharedDataObjectStatus getStatus() {
     return status;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -172,6 +289,7 @@ public class SharedDataObject {
         && Objects.equals(status, that.status);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -187,6 +305,7 @@ public class SharedDataObject {
         status);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(SharedDataObject.class)

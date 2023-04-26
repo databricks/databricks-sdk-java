@@ -162,22 +162,38 @@ import org.slf4j.LoggerFactory;
  * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Public Preview]:
  * https://docs.databricks.com/release-notes/release-types.html [SQL Statement Execution API
  * tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class StatementExecutionAPI {
   private static final Logger LOG = LoggerFactory.getLogger(StatementExecutionAPI.class);
 
   private final StatementExecutionService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public StatementExecutionAPI(ApiClient apiClient) {
     impl = new StatementExecutionImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.sql.StatementExecutionService} object
+   */
   public StatementExecutionAPI(StatementExecutionService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>cancelExecution.</p>
+   *
+   * @param statementId a {@link java.lang.String} object
+   */
   public void cancelExecution(String statementId) {
     cancelExecution(new CancelExecutionRequest().setStatementId(statementId));
   }
@@ -187,6 +203,8 @@ public class StatementExecutionAPI {
    *
    * <p>Requests that an executing statement be canceled. Callers must poll for status to see the
    * terminal state.
+   *
+   * @param request a {@link com.databricks.sdk.service.sql.CancelExecutionRequest} object
    */
   public void cancelExecution(CancelExecutionRequest request) {
     impl.cancelExecution(request);
@@ -196,11 +214,20 @@ public class StatementExecutionAPI {
    * Execute a SQL statement.
    *
    * <p>Execute a SQL statement, and if flagged as such, await its result for a specified time.
+   *
+   * @param request a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementResponse} object
    */
   public ExecuteStatementResponse executeStatement(ExecuteStatementRequest request) {
     return impl.executeStatement(request);
   }
 
+  /**
+   * <p>getStatement.</p>
+   *
+   * @param statementId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.GetStatementResponse} object
+   */
   public GetStatementResponse getStatement(String statementId) {
     return getStatement(new GetStatementRequest().setStatementId(statementId));
   }
@@ -215,11 +242,21 @@ public class StatementExecutionAPI {
    * from the warehouse and further calls will receive an HTTP 404 response.
    *
    * <p>**NOTE** This call currently may take up to 5 seconds to get the latest status and result.
+   *
+   * @param request a {@link com.databricks.sdk.service.sql.GetStatementRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.GetStatementResponse} object
    */
   public GetStatementResponse getStatement(GetStatementRequest request) {
     return impl.getStatement(request);
   }
 
+  /**
+   * <p>getStatementResultChunkN.</p>
+   *
+   * @param statementId a {@link java.lang.String} object
+   * @param chunkIndex a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ResultData} object
+   */
   public ResultData getStatementResultChunkN(String statementId, Long chunkIndex) {
     return getStatementResultChunkN(
         new GetStatementResultChunkNRequest()
@@ -236,11 +273,19 @@ public class StatementExecutionAPI {
    * is identical to the nested `result` element described in the `get status` request, and
    * similarly includes the `next_chunk_index` and `next_chunk_internal_link` fields for simple
    * iteration through the result set.
+   *
+   * @param request a {@link com.databricks.sdk.service.sql.GetStatementResultChunkNRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.ResultData} object
    */
   public ResultData getStatementResultChunkN(GetStatementResultChunkNRequest request) {
     return impl.getStatementResultChunkN(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.StatementExecutionService} object
+   */
   public StatementExecutionService impl() {
     return impl;
   }

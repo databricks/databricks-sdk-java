@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>JobWebhookNotifications class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class JobWebhookNotifications {
   /**
    * An optional list of system notification IDs to call when the run fails. A maximum of 3
@@ -29,36 +35,70 @@ public class JobWebhookNotifications {
   @JsonProperty("on_success")
   private Collection<JobWebhookNotificationsOnSuccessItem> onSuccess;
 
+  /**
+   * <p>Setter for the field <code>onFailure</code>.</p>
+   *
+   * @param onFailure a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobWebhookNotifications} object
+   */
   public JobWebhookNotifications setOnFailure(
       Collection<JobWebhookNotificationsOnFailureItem> onFailure) {
     this.onFailure = onFailure;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>onFailure</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<JobWebhookNotificationsOnFailureItem> getOnFailure() {
     return onFailure;
   }
 
+  /**
+   * <p>Setter for the field <code>onStart</code>.</p>
+   *
+   * @param onStart a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobWebhookNotifications} object
+   */
   public JobWebhookNotifications setOnStart(
       Collection<JobWebhookNotificationsOnStartItem> onStart) {
     this.onStart = onStart;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>onStart</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<JobWebhookNotificationsOnStartItem> getOnStart() {
     return onStart;
   }
 
+  /**
+   * <p>Setter for the field <code>onSuccess</code>.</p>
+   *
+   * @param onSuccess a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobWebhookNotifications} object
+   */
   public JobWebhookNotifications setOnSuccess(
       Collection<JobWebhookNotificationsOnSuccessItem> onSuccess) {
     this.onSuccess = onSuccess;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>onSuccess</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<JobWebhookNotificationsOnSuccessItem> getOnSuccess() {
     return onSuccess;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -69,11 +109,13 @@ public class JobWebhookNotifications {
         && Objects.equals(onSuccess, that.onSuccess);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(onFailure, onStart, onSuccess);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(JobWebhookNotifications.class)

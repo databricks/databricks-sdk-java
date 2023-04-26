@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>InstanceProfile class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class InstanceProfile {
   /**
    * The AWS IAM role ARN of the role associated with the instance profile. This field is required
@@ -33,33 +39,67 @@ public class InstanceProfile {
   @JsonProperty("is_meta_instance_profile")
   private Boolean isMetaInstanceProfile;
 
+  /**
+   * <p>Setter for the field <code>iamRoleArn</code>.</p>
+   *
+   * @param iamRoleArn a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.InstanceProfile} object
+   */
   public InstanceProfile setIamRoleArn(String iamRoleArn) {
     this.iamRoleArn = iamRoleArn;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>iamRoleArn</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getIamRoleArn() {
     return iamRoleArn;
   }
 
+  /**
+   * <p>Setter for the field <code>instanceProfileArn</code>.</p>
+   *
+   * @param instanceProfileArn a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.InstanceProfile} object
+   */
   public InstanceProfile setInstanceProfileArn(String instanceProfileArn) {
     this.instanceProfileArn = instanceProfileArn;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instanceProfileArn</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstanceProfileArn() {
     return instanceProfileArn;
   }
 
+  /**
+   * <p>Setter for the field <code>isMetaInstanceProfile</code>.</p>
+   *
+   * @param isMetaInstanceProfile a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.InstanceProfile} object
+   */
   public InstanceProfile setIsMetaInstanceProfile(Boolean isMetaInstanceProfile) {
     this.isMetaInstanceProfile = isMetaInstanceProfile;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>isMetaInstanceProfile</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getIsMetaInstanceProfile() {
     return isMetaInstanceProfile;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -70,11 +110,13 @@ public class InstanceProfile {
         && Objects.equals(isMetaInstanceProfile, that.isMetaInstanceProfile);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(iamRoleArn, instanceProfileArn, isMetaInstanceProfile);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(InstanceProfile.class)

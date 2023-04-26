@@ -13,22 +13,42 @@ import org.slf4j.LoggerFactory;
  * storing library and config files of arbitrary formats such as .whl or .txt centrally and
  * providing secure access across workspaces to it, or transforming and querying non-tabular data
  * files in ETL.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class VolumesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(VolumesAPI.class);
 
   private final VolumesService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public VolumesAPI(ApiClient apiClient) {
     impl = new VolumesImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.catalog.VolumesService} object
+   */
   public VolumesAPI(VolumesService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param catalogName a {@link java.lang.String} object
+   * @param name a {@link java.lang.String} object
+   * @param schemaName a {@link java.lang.String} object
+   * @param volumeType a {@link com.databricks.sdk.service.catalog.VolumeType} object
+   * @return a {@link com.databricks.sdk.service.catalog.VolumeInfo} object
+   */
   public VolumeInfo create(
       String catalogName, String name, String schemaName, VolumeType volumeType) {
     return create(
@@ -58,11 +78,19 @@ public class VolumesAPI {
    * **CREATE EXTERNAL VOLUME** privilege on the external location. - There are no other tables, nor
    * volumes existing in the specified storage location. - The specified storage location is not
    * under the location of other tables, nor volumes, or catalogs or schemas.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.CreateVolumeRequestContent} object
+   * @return a {@link com.databricks.sdk.service.catalog.VolumeInfo} object
    */
   public VolumeInfo create(CreateVolumeRequestContent request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param fullNameArg a {@link java.lang.String} object
+   */
   public void delete(String fullNameArg) {
     delete(new DeleteVolumeRequest().setFullNameArg(fullNameArg));
   }
@@ -75,11 +103,20 @@ public class VolumesAPI {
    * <p>The caller must be a metastore admin or an owner of the volume. For the latter case, the
    * caller must also be the owner or have the **USE_CATALOG** privilege on the parent catalog and
    * the **USE_SCHEMA** privilege on the parent schema.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.DeleteVolumeRequest} object
    */
   public void delete(DeleteVolumeRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>list.</p>
+   *
+   * @param catalogName a {@link java.lang.String} object
+   * @param schemaName a {@link java.lang.String} object
+   * @return a {@link java.lang.Iterable} object
+   */
   public Iterable<VolumeInfo> list(String catalogName, String schemaName) {
     return list(new ListVolumesRequest().setCatalogName(catalogName).setSchemaName(schemaName));
   }
@@ -96,11 +133,20 @@ public class VolumesAPI {
    * parent catalog and the **USE_SCHEMA** privilege on the parent schema.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the array.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.ListVolumesRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<VolumeInfo> list(ListVolumesRequest request) {
     return impl.list(request).getVolumes();
   }
 
+  /**
+   * <p>read.</p>
+   *
+   * @param fullNameArg a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.VolumeInfo} object
+   */
   public VolumeInfo read(String fullNameArg) {
     return read(new ReadVolumeRequest().setFullNameArg(fullNameArg));
   }
@@ -114,11 +160,20 @@ public class VolumesAPI {
    * on) the volume. For the latter case, the caller must also be the owner or have the
    * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
    * schema.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.ReadVolumeRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.VolumeInfo} object
    */
   public VolumeInfo read(ReadVolumeRequest request) {
     return impl.read(request);
   }
 
+  /**
+   * <p>update.</p>
+   *
+   * @param fullNameArg a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.VolumeInfo} object
+   */
   public VolumeInfo update(String fullNameArg) {
     return update(new UpdateVolumeRequestContent().setFullNameArg(fullNameArg));
   }
@@ -133,11 +188,19 @@ public class VolumesAPI {
    * the **USE_SCHEMA** privilege on the parent schema.
    *
    * <p>Currently only the name, the owner or the comment of the volume could be updated.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.UpdateVolumeRequestContent} object
+   * @return a {@link com.databricks.sdk.service.catalog.VolumeInfo} object
    */
   public VolumeInfo update(UpdateVolumeRequestContent request) {
     return impl.update(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.VolumesService} object
+   */
   public VolumesService impl() {
     return impl;
   }

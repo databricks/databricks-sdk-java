@@ -9,10 +9,16 @@ import org.apache.http.client.methods.*;
 class StorageImpl implements StorageService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for StorageImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public StorageImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public StorageConfiguration create(CreateStorageConfigurationRequest request) {
     String path =
@@ -21,6 +27,7 @@ class StorageImpl implements StorageService {
     return apiClient.POST(path, request, StorageConfiguration.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteStorageRequest request) {
     String path =
@@ -30,6 +37,7 @@ class StorageImpl implements StorageService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public StorageConfiguration get(GetStorageRequest request) {
     String path =
@@ -39,6 +47,7 @@ class StorageImpl implements StorageService {
     return apiClient.GET(path, request, StorageConfiguration.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Collection<StorageConfiguration> list() {
     String path =

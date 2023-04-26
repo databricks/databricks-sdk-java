@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** Whether auto maintenance should be enabled for this object and objects under it. */
+/**
+ * Whether auto maintenance should be enabled for this object and objects under it.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum EnableAutoMaintenance {
   DISABLE,
   ENABLE,

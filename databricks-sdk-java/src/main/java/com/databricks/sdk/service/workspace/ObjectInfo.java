@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>ObjectInfo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ObjectInfo {
   /** <content needed> */
   @JsonProperty("created_at")
@@ -35,69 +41,147 @@ public class ObjectInfo {
   @JsonProperty("size")
   private Long size;
 
+  /**
+   * <p>Setter for the field <code>createdAt</code>.</p>
+   *
+   * @param createdAt a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.workspace.ObjectInfo} object
+   */
   public ObjectInfo setCreatedAt(Long createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>createdAt</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCreatedAt() {
     return createdAt;
   }
 
+  /**
+   * <p>Setter for the field <code>language</code>.</p>
+   *
+   * @param language a {@link com.databricks.sdk.service.workspace.Language} object
+   * @return a {@link com.databricks.sdk.service.workspace.ObjectInfo} object
+   */
   public ObjectInfo setLanguage(Language language) {
     this.language = language;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>language</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.Language} object
+   */
   public Language getLanguage() {
     return language;
   }
 
+  /**
+   * <p>Setter for the field <code>modifiedAt</code>.</p>
+   *
+   * @param modifiedAt a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.workspace.ObjectInfo} object
+   */
   public ObjectInfo setModifiedAt(Long modifiedAt) {
     this.modifiedAt = modifiedAt;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>modifiedAt</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getModifiedAt() {
     return modifiedAt;
   }
 
+  /**
+   * <p>Setter for the field <code>objectId</code>.</p>
+   *
+   * @param objectId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.workspace.ObjectInfo} object
+   */
   public ObjectInfo setObjectId(Long objectId) {
     this.objectId = objectId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>objectId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getObjectId() {
     return objectId;
   }
 
+  /**
+   * <p>Setter for the field <code>objectType</code>.</p>
+   *
+   * @param objectType a {@link com.databricks.sdk.service.workspace.ObjectType} object
+   * @return a {@link com.databricks.sdk.service.workspace.ObjectInfo} object
+   */
   public ObjectInfo setObjectType(ObjectType objectType) {
     this.objectType = objectType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>objectType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.ObjectType} object
+   */
   public ObjectType getObjectType() {
     return objectType;
   }
 
+  /**
+   * <p>Setter for the field <code>path</code>.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.ObjectInfo} object
+   */
   public ObjectInfo setPath(String path) {
     this.path = path;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>path</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPath() {
     return path;
   }
 
+  /**
+   * <p>Setter for the field <code>size</code>.</p>
+   *
+   * @param size a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.workspace.ObjectInfo} object
+   */
   public ObjectInfo setSize(Long size) {
     this.size = size;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>size</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getSize() {
     return size;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -112,11 +196,13 @@ public class ObjectInfo {
         && Objects.equals(size, that.size);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(createdAt, language, modifiedAt, objectId, objectType, path, size);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ObjectInfo.class)

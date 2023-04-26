@@ -6,7 +6,12 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get effective permissions */
+/**
+ * Get effective permissions
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GetEffectiveRequest {
   /** Full name of securable. */
   private String fullName;
@@ -21,33 +26,67 @@ public class GetEffectiveRequest {
   /** Type of securable. */
   private SecurableType securableType;
 
+  /**
+   * <p>Setter for the field <code>fullName</code>.</p>
+   *
+   * @param fullName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.GetEffectiveRequest} object
+   */
   public GetEffectiveRequest setFullName(String fullName) {
     this.fullName = fullName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>fullName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFullName() {
     return fullName;
   }
 
+  /**
+   * <p>Setter for the field <code>principal</code>.</p>
+   *
+   * @param principal a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.GetEffectiveRequest} object
+   */
   public GetEffectiveRequest setPrincipal(String principal) {
     this.principal = principal;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>principal</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPrincipal() {
     return principal;
   }
 
+  /**
+   * <p>Setter for the field <code>securableType</code>.</p>
+   *
+   * @param securableType a {@link com.databricks.sdk.service.catalog.SecurableType} object
+   * @return a {@link com.databricks.sdk.service.catalog.GetEffectiveRequest} object
+   */
   public GetEffectiveRequest setSecurableType(SecurableType securableType) {
     this.securableType = securableType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>securableType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.SecurableType} object
+   */
   public SecurableType getSecurableType() {
     return securableType;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -58,11 +97,13 @@ public class GetEffectiveRequest {
         && Objects.equals(securableType, that.securableType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(fullName, principal, securableType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GetEffectiveRequest.class)

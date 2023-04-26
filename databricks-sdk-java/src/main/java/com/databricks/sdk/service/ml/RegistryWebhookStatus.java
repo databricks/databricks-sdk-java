@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum RegistryWebhookStatus {
   ACTIVE, // Webhook is triggered when an associated event happens.
   DISABLED, // Webhook is not triggered.

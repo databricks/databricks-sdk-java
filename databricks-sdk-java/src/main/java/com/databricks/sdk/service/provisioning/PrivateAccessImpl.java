@@ -9,10 +9,16 @@ import org.apache.http.client.methods.*;
 class PrivateAccessImpl implements PrivateAccessService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for PrivateAccessImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public PrivateAccessImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public PrivateAccessSettings create(UpsertPrivateAccessSettingsRequest request) {
     String path =
@@ -21,6 +27,7 @@ class PrivateAccessImpl implements PrivateAccessService {
     return apiClient.POST(path, request, PrivateAccessSettings.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeletePrivateAccesRequest request) {
     String path =
@@ -30,6 +37,7 @@ class PrivateAccessImpl implements PrivateAccessService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public PrivateAccessSettings get(GetPrivateAccesRequest request) {
     String path =
@@ -39,6 +47,7 @@ class PrivateAccessImpl implements PrivateAccessService {
     return apiClient.GET(path, request, PrivateAccessSettings.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Collection<PrivateAccessSettings> list() {
     String path =
@@ -47,6 +56,7 @@ class PrivateAccessImpl implements PrivateAccessService {
     return apiClient.GET(path, Collection.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void replace(UpsertPrivateAccessSettingsRequest request) {
     String path =

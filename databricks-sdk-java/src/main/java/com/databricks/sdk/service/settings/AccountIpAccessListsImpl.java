@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class AccountIpAccessListsImpl implements AccountIpAccessListsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for AccountIpAccessListsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public AccountIpAccessListsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CreateIpAccessListResponse create(CreateIpAccessList request) {
     String path =
@@ -20,6 +26,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     return apiClient.POST(path, request, CreateIpAccessListResponse.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteAccountIpAccessListRequest request) {
     String path =
@@ -29,6 +36,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public GetIpAccessListResponse get(GetAccountIpAccessListRequest request) {
     String path =
@@ -38,6 +46,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     return apiClient.GET(path, request, GetIpAccessListResponse.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public GetIpAccessListsResponse list() {
     String path =
@@ -46,6 +55,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     return apiClient.GET(path, GetIpAccessListsResponse.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void replace(ReplaceIpAccessList request) {
     String path =
@@ -55,6 +65,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     apiClient.PUT(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(UpdateIpAccessList request) {
     String path =

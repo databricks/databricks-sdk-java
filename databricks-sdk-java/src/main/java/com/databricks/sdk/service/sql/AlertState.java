@@ -5,6 +5,9 @@ package com.databricks.sdk.service.sql;
 /**
  * State of the alert. Possible values are: `unknown` (yet to be evaluated), `triggered` (evaluated
  * and fulfilled trigger conditions), or `ok` (evaluated and did not fulfill trigger conditions).
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum AlertState {
   ok,

@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
-/** Configurations whether the warehouse should use spot instances. */
+/**
+ * Configurations whether the warehouse should use spot instances.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum SpotInstancePolicy {
   COST_OPTIMIZED,
   POLICY_UNSPECIFIED,

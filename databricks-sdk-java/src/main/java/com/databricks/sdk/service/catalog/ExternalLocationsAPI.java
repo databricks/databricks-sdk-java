@@ -16,22 +16,41 @@ import org.slf4j.LoggerFactory;
  *
  * <p>To create external locations, you must be a metastore admin or a user with the
  * **CREATE_EXTERNAL_LOCATION** privilege.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class ExternalLocationsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ExternalLocationsAPI.class);
 
   private final ExternalLocationsService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public ExternalLocationsAPI(ApiClient apiClient) {
     impl = new ExternalLocationsImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.catalog.ExternalLocationsService} object
+   */
   public ExternalLocationsAPI(ExternalLocationsService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @param url a {@link java.lang.String} object
+   * @param credentialName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.ExternalLocationInfo} object
+   */
   public ExternalLocationInfo create(String name, String url, String credentialName) {
     return create(
         new CreateExternalLocation().setName(name).setUrl(url).setCredentialName(credentialName));
@@ -43,11 +62,19 @@ public class ExternalLocationsAPI {
    * <p>Creates a new external location entry in the metastore. The caller must be a metastore admin
    * or have the **CREATE_EXTERNAL_LOCATION** privilege on both the metastore and the associated
    * storage credential.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.CreateExternalLocation} object
+   * @return a {@link com.databricks.sdk.service.catalog.ExternalLocationInfo} object
    */
   public ExternalLocationInfo create(CreateExternalLocation request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   */
   public void delete(String name) {
     delete(new DeleteExternalLocationRequest().setName(name));
   }
@@ -57,11 +84,19 @@ public class ExternalLocationsAPI {
    *
    * <p>Deletes the specified external location from the metastore. The caller must be the owner of
    * the external location.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.DeleteExternalLocationRequest} object
    */
   public void delete(DeleteExternalLocationRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.ExternalLocationInfo} object
+   */
   public ExternalLocationInfo get(String name) {
     return get(new GetExternalLocationRequest().setName(name));
   }
@@ -71,6 +106,9 @@ public class ExternalLocationsAPI {
    *
    * <p>Gets an external location from the metastore. The caller must be either a metastore admin,
    * the owner of the external location, or a user that has some privilege on the external location.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.GetExternalLocationRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.ExternalLocationInfo} object
    */
   public ExternalLocationInfo get(GetExternalLocationRequest request) {
     return impl.get(request);
@@ -83,11 +121,19 @@ public class ExternalLocationsAPI {
    * The caller must be a metastore admin, the owner of the external location, or a user that has
    * some privilege on the external location. There is no guarantee of a specific ordering of the
    * elements in the array.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<ExternalLocationInfo> list() {
     return impl.list().getExternalLocations();
   }
 
+  /**
+   * <p>update.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.ExternalLocationInfo} object
+   */
   public ExternalLocationInfo update(String name) {
     return update(new UpdateExternalLocation().setName(name));
   }
@@ -98,11 +144,19 @@ public class ExternalLocationsAPI {
    * <p>Updates an external location in the metastore. The caller must be the owner of the external
    * location, or be a metastore admin. In the second case, the admin can only update the name of
    * the external location.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.UpdateExternalLocation} object
+   * @return a {@link com.databricks.sdk.service.catalog.ExternalLocationInfo} object
    */
   public ExternalLocationInfo update(UpdateExternalLocation request) {
     return impl.update(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.ExternalLocationsService} object
+   */
   public ExternalLocationsService impl() {
     return impl;
   }

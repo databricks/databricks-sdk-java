@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class BillableUsageImpl implements BillableUsageService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for BillableUsageImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public BillableUsageImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void download(DownloadRequest request) {
     String path =

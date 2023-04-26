@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>SetWorkspaceWarehouseConfigRequest class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class SetWorkspaceWarehouseConfigRequest {
   /** Optional: Channel selection details */
   @JsonProperty("channel")
@@ -57,100 +63,211 @@ public class SetWorkspaceWarehouseConfigRequest {
   @JsonProperty("sql_configuration_parameters")
   private RepeatedEndpointConfPairs sqlConfigurationParameters;
 
+  /**
+   * <p>Setter for the field <code>channel</code>.</p>
+   *
+   * @param channel a {@link com.databricks.sdk.service.sql.Channel} object
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequest} object
+   */
   public SetWorkspaceWarehouseConfigRequest setChannel(Channel channel) {
     this.channel = channel;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>channel</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.Channel} object
+   */
   public Channel getChannel() {
     return channel;
   }
 
+  /**
+   * <p>Setter for the field <code>configParam</code>.</p>
+   *
+   * @param configParam a {@link com.databricks.sdk.service.sql.RepeatedEndpointConfPairs} object
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequest} object
+   */
   public SetWorkspaceWarehouseConfigRequest setConfigParam(RepeatedEndpointConfPairs configParam) {
     this.configParam = configParam;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>configParam</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.RepeatedEndpointConfPairs} object
+   */
   public RepeatedEndpointConfPairs getConfigParam() {
     return configParam;
   }
 
+  /**
+   * <p>Setter for the field <code>dataAccessConfig</code>.</p>
+   *
+   * @param dataAccessConfig a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequest} object
+   */
   public SetWorkspaceWarehouseConfigRequest setDataAccessConfig(
       Collection<EndpointConfPair> dataAccessConfig) {
     this.dataAccessConfig = dataAccessConfig;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dataAccessConfig</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<EndpointConfPair> getDataAccessConfig() {
     return dataAccessConfig;
   }
 
+  /**
+   * <p>Setter for the field <code>enabledWarehouseTypes</code>.</p>
+   *
+   * @param enabledWarehouseTypes a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequest} object
+   */
   public SetWorkspaceWarehouseConfigRequest setEnabledWarehouseTypes(
       Collection<WarehouseTypePair> enabledWarehouseTypes) {
     this.enabledWarehouseTypes = enabledWarehouseTypes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enabledWarehouseTypes</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<WarehouseTypePair> getEnabledWarehouseTypes() {
     return enabledWarehouseTypes;
   }
 
+  /**
+   * <p>Setter for the field <code>globalParam</code>.</p>
+   *
+   * @param globalParam a {@link com.databricks.sdk.service.sql.RepeatedEndpointConfPairs} object
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequest} object
+   */
   public SetWorkspaceWarehouseConfigRequest setGlobalParam(RepeatedEndpointConfPairs globalParam) {
     this.globalParam = globalParam;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>globalParam</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.RepeatedEndpointConfPairs} object
+   */
   public RepeatedEndpointConfPairs getGlobalParam() {
     return globalParam;
   }
 
+  /**
+   * <p>Setter for the field <code>googleServiceAccount</code>.</p>
+   *
+   * @param googleServiceAccount a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequest} object
+   */
   public SetWorkspaceWarehouseConfigRequest setGoogleServiceAccount(String googleServiceAccount) {
     this.googleServiceAccount = googleServiceAccount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>googleServiceAccount</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGoogleServiceAccount() {
     return googleServiceAccount;
   }
 
+  /**
+   * <p>Setter for the field <code>instanceProfileArn</code>.</p>
+   *
+   * @param instanceProfileArn a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequest} object
+   */
   public SetWorkspaceWarehouseConfigRequest setInstanceProfileArn(String instanceProfileArn) {
     this.instanceProfileArn = instanceProfileArn;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instanceProfileArn</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstanceProfileArn() {
     return instanceProfileArn;
   }
 
+  /**
+   * <p>Setter for the field <code>securityPolicy</code>.</p>
+   *
+   * @param securityPolicy a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequestSecurityPolicy} object
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequest} object
+   */
   public SetWorkspaceWarehouseConfigRequest setSecurityPolicy(
       SetWorkspaceWarehouseConfigRequestSecurityPolicy securityPolicy) {
     this.securityPolicy = securityPolicy;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>securityPolicy</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequestSecurityPolicy} object
+   */
   public SetWorkspaceWarehouseConfigRequestSecurityPolicy getSecurityPolicy() {
     return securityPolicy;
   }
 
+  /**
+   * <p>Setter for the field <code>serverlessAgreement</code>.</p>
+   *
+   * @param serverlessAgreement a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequest} object
+   */
   public SetWorkspaceWarehouseConfigRequest setServerlessAgreement(Boolean serverlessAgreement) {
     this.serverlessAgreement = serverlessAgreement;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>serverlessAgreement</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getServerlessAgreement() {
     return serverlessAgreement;
   }
 
+  /**
+   * <p>Setter for the field <code>sqlConfigurationParameters</code>.</p>
+   *
+   * @param sqlConfigurationParameters a {@link com.databricks.sdk.service.sql.RepeatedEndpointConfPairs} object
+   * @return a {@link com.databricks.sdk.service.sql.SetWorkspaceWarehouseConfigRequest} object
+   */
   public SetWorkspaceWarehouseConfigRequest setSqlConfigurationParameters(
       RepeatedEndpointConfPairs sqlConfigurationParameters) {
     this.sqlConfigurationParameters = sqlConfigurationParameters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sqlConfigurationParameters</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.RepeatedEndpointConfPairs} object
+   */
   public RepeatedEndpointConfPairs getSqlConfigurationParameters() {
     return sqlConfigurationParameters;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -168,6 +285,7 @@ public class SetWorkspaceWarehouseConfigRequest {
         && Objects.equals(sqlConfigurationParameters, that.sqlConfigurationParameters);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -183,6 +301,7 @@ public class SetWorkspaceWarehouseConfigRequest {
         sqlConfigurationParameters);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(SetWorkspaceWarehouseConfigRequest.class)

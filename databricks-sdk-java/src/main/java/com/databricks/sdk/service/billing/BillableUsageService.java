@@ -8,6 +8,9 @@ package com.databricks.sdk.service.billing;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface BillableUsageService {
   /**
@@ -19,6 +22,8 @@ public interface BillableUsageService {
    *
    * <p>[CSV file schema]:
    * https://docs.databricks.com/administration-guide/account-settings/usage-analysis.html#schema
+   *
+   * @param downloadRequest a {@link com.databricks.sdk.service.billing.DownloadRequest} object
    */
   void download(DownloadRequest downloadRequest);
 }

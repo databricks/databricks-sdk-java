@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for WorkspaceAssignmentImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public WorkspaceAssignmentImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteWorkspaceAssignmentRequest request) {
     String path =
@@ -21,6 +27,7 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public WorkspacePermissions get(GetWorkspaceAssignmentRequest request) {
     String path =
@@ -30,6 +37,7 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
     return apiClient.GET(path, request, WorkspacePermissions.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public PermissionAssignments list(ListWorkspaceAssignmentRequest request) {
     String path =
@@ -39,6 +47,7 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
     return apiClient.GET(path, request, PermissionAssignments.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(UpdateWorkspaceAssignments request) {
     String path =

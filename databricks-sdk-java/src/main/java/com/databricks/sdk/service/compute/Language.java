@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
+/**
+ * <p>Language class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum Language {
   python,
   scala,

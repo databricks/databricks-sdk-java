@@ -8,6 +8,12 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * <p>PythonWheelTask class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class PythonWheelTask {
   /**
    * Named entry point to use, if it does not exist in the metadata of the package it executes the
@@ -34,42 +40,87 @@ public class PythonWheelTask {
   @JsonProperty("parameters")
   private Collection<String> parameters;
 
+  /**
+   * <p>Setter for the field <code>entryPoint</code>.</p>
+   *
+   * @param entryPoint a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.PythonWheelTask} object
+   */
   public PythonWheelTask setEntryPoint(String entryPoint) {
     this.entryPoint = entryPoint;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>entryPoint</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getEntryPoint() {
     return entryPoint;
   }
 
+  /**
+   * <p>Setter for the field <code>namedParameters</code>.</p>
+   *
+   * @param namedParameters a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.jobs.PythonWheelTask} object
+   */
   public PythonWheelTask setNamedParameters(Map<String, String> namedParameters) {
     this.namedParameters = namedParameters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>namedParameters</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getNamedParameters() {
     return namedParameters;
   }
 
+  /**
+   * <p>Setter for the field <code>packageName</code>.</p>
+   *
+   * @param packageName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.PythonWheelTask} object
+   */
   public PythonWheelTask setPackageName(String packageName) {
     this.packageName = packageName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>packageName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPackageName() {
     return packageName;
   }
 
+  /**
+   * <p>Setter for the field <code>parameters</code>.</p>
+   *
+   * @param parameters a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.PythonWheelTask} object
+   */
   public PythonWheelTask setParameters(Collection<String> parameters) {
     this.parameters = parameters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>parameters</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getParameters() {
     return parameters;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -81,11 +132,13 @@ public class PythonWheelTask {
         && Objects.equals(parameters, that.parameters);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(entryPoint, namedParameters, packageName, parameters);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(PythonWheelTask.class)

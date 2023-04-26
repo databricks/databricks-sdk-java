@@ -15,6 +15,9 @@ package com.databricks.sdk.service.workspace;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface SecretsService {
   /**
@@ -22,6 +25,8 @@ public interface SecretsService {
    *
    * <p>The scope name must consist of alphanumeric characters, dashes, underscores, and periods,
    * and may not exceed 128 characters. The maximum number of scopes in a workspace is 100.
+   *
+   * @param createScope a {@link com.databricks.sdk.service.workspace.CreateScope} object
    */
   void createScope(CreateScope createScope);
 
@@ -33,6 +38,8 @@ public interface SecretsService {
    * <p>Users must have the `MANAGE` permission to invoke this API. Throws `RESOURCE_DOES_NOT_EXIST`
    * if no such secret scope, principal, or ACL exists. Throws `PERMISSION_DENIED` if the user does
    * not have permission to make this API call.
+   *
+   * @param deleteAcl a {@link com.databricks.sdk.service.workspace.DeleteAcl} object
    */
   void deleteAcl(DeleteAcl deleteAcl);
 
@@ -43,6 +50,8 @@ public interface SecretsService {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if the scope does not exist. Throws `PERMISSION_DENIED` if
    * the user does not have permission to make this API call.
+   *
+   * @param deleteScope a {@link com.databricks.sdk.service.workspace.DeleteScope} object
    */
   void deleteScope(DeleteScope deleteScope);
 
@@ -54,6 +63,8 @@ public interface SecretsService {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope or secret exists. Throws
    * `PERMISSION_DENIED` if the user does not have permission to make this API call.
+   *
+   * @param deleteSecret a {@link com.databricks.sdk.service.workspace.DeleteSecret} object
    */
   void deleteSecret(DeleteSecret deleteSecret);
 
@@ -65,6 +76,9 @@ public interface SecretsService {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED`
    * if the user does not have permission to make this API call.
+   *
+   * @param getAclRequest a {@link com.databricks.sdk.service.workspace.GetAclRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.AclItem} object
    */
   AclItem getAcl(GetAclRequest getAclRequest);
 
@@ -76,6 +90,9 @@ public interface SecretsService {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED`
    * if the user does not have permission to make this API call.
+   *
+   * @param listAclsRequest a {@link com.databricks.sdk.service.workspace.ListAclsRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.ListAclsResponse} object
    */
   ListAclsResponse listAcls(ListAclsRequest listAclsRequest);
 
@@ -85,6 +102,8 @@ public interface SecretsService {
    * <p>Lists all secret scopes available in the workspace.
    *
    * <p>Throws `PERMISSION_DENIED` if the user does not have permission to make this API call.
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.ListScopesResponse} object
    */
   ListScopesResponse listScopes();
 
@@ -98,6 +117,9 @@ public interface SecretsService {
    * <p>The lastUpdatedTimestamp returned is in milliseconds since epoch. Throws
    * `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED` if the
    * user does not have permission to make this API call.
+   *
+   * @param listSecretsRequest a {@link com.databricks.sdk.service.workspace.ListSecretsRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.ListSecretsResponse} object
    */
   ListSecretsResponse listSecrets(ListSecretsRequest listSecretsRequest);
 
@@ -128,6 +150,8 @@ public interface SecretsService {
    * `RESOURCE_ALREADY_EXISTS` if a permission for the principal already exists. Throws
    * `INVALID_PARAMETER_VALUE` if the permission is invalid. Throws `PERMISSION_DENIED` if the user
    * does not have permission to make this API call.
+   *
+   * @param putAcl a {@link com.databricks.sdk.service.workspace.PutAcl} object
    */
   void putAcl(PutAcl putAcl);
 
@@ -150,6 +174,8 @@ public interface SecretsService {
    * `RESOURCE_LIMIT_EXCEEDED` if maximum number of secrets in scope is exceeded. Throws
    * `INVALID_PARAMETER_VALUE` if the key name or value length is invalid. Throws
    * `PERMISSION_DENIED` if the user does not have permission to make this API call.
+   *
+   * @param putSecret a {@link com.databricks.sdk.service.workspace.PutSecret} object
    */
   void putSecret(PutSecret putSecret);
 }

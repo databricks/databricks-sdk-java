@@ -5,6 +5,9 @@ package com.databricks.sdk.service.ml;
  * This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface ExperimentsService {
   /**
@@ -15,6 +18,9 @@ public interface ExperimentsService {
    * experiment with the same name already exists.
    *
    * <p>Throws `RESOURCE_ALREADY_EXISTS` if a experiment with the given name exists.
+   *
+   * @param createExperiment a {@link com.databricks.sdk.service.ml.CreateExperiment} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateExperimentResponse} object
    */
   CreateExperimentResponse createExperiment(CreateExperiment createExperiment);
 
@@ -24,6 +30,9 @@ public interface ExperimentsService {
    * <p>Creates a new run within an experiment. A run is usually a single execution of a machine
    * learning or data ETL pipeline. MLflow uses runs to track the `mlflowParam`, `mlflowMetric` and
    * `mlflowRunTag` associated with a single execution.
+   *
+   * @param createRun a {@link com.databricks.sdk.service.ml.CreateRun} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateRunResponse} object
    */
   CreateRunResponse createRun(CreateRun createRun);
 
@@ -32,6 +41,8 @@ public interface ExperimentsService {
    *
    * <p>Marks an experiment and associated metadata, runs, metrics, params, and tags for deletion.
    * If the experiment uses FileStore, artifacts associated with experiment are also deleted.
+   *
+   * @param deleteExperiment a {@link com.databricks.sdk.service.ml.DeleteExperiment} object
    */
   void deleteExperiment(DeleteExperiment deleteExperiment);
 
@@ -39,6 +50,8 @@ public interface ExperimentsService {
    * Delete a run.
    *
    * <p>Marks a run for deletion.
+   *
+   * @param deleteRun a {@link com.databricks.sdk.service.ml.DeleteRun} object
    */
   void deleteRun(DeleteRun deleteRun);
 
@@ -47,6 +60,8 @@ public interface ExperimentsService {
    *
    * <p>Deletes a tag on a run. Tags are run metadata that can be updated during a run and after a
    * run completes.
+   *
+   * @param deleteTag a {@link com.databricks.sdk.service.ml.DeleteTag} object
    */
   void deleteTag(DeleteTag deleteTag);
 
@@ -60,6 +75,9 @@ public interface ExperimentsService {
    * same name, the API will return one of them.
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no experiment with the specified name exists.S
+   *
+   * @param getByNameRequest a {@link com.databricks.sdk.service.ml.GetByNameRequest} object
+   * @return a {@link com.databricks.sdk.service.ml.GetExperimentByNameResponse} object
    */
   GetExperimentByNameResponse getByName(GetByNameRequest getByNameRequest);
 
@@ -67,6 +85,9 @@ public interface ExperimentsService {
    * Get an experiment.
    *
    * <p>Gets metadata for an experiment. This method works on deleted experiments.
+   *
+   * @param getExperimentRequest a {@link com.databricks.sdk.service.ml.GetExperimentRequest} object
+   * @return a {@link com.databricks.sdk.service.ml.Experiment} object
    */
   Experiment getExperiment(GetExperimentRequest getExperimentRequest);
 
@@ -74,6 +95,9 @@ public interface ExperimentsService {
    * Get history of a given metric within a run.
    *
    * <p>Gets a list of all values for the specified metric for a given run.
+   *
+   * @param getHistoryRequest a {@link com.databricks.sdk.service.ml.GetHistoryRequest} object
+   * @return a {@link com.databricks.sdk.service.ml.GetMetricHistoryResponse} object
    */
   GetMetricHistoryResponse getHistory(GetHistoryRequest getHistoryRequest);
 
@@ -84,6 +108,9 @@ public interface ExperimentsService {
    * with the same key are logged for a run, return only the value with the latest timestamp.
    *
    * <p>If there are multiple values with the latest timestamp, return the maximum of these values.
+   *
+   * @param getRunRequest a {@link com.databricks.sdk.service.ml.GetRunRequest} object
+   * @return a {@link com.databricks.sdk.service.ml.GetRunResponse} object
    */
   GetRunResponse getRun(GetRunRequest getRunRequest);
 
@@ -92,6 +119,9 @@ public interface ExperimentsService {
    *
    * <p>List artifacts for a run. Takes an optional `artifact_path` prefix. If it is specified, the
    * response contains only artifacts with the specified prefix.",
+   *
+   * @param listArtifactsRequest a {@link com.databricks.sdk.service.ml.ListArtifactsRequest} object
+   * @return a {@link com.databricks.sdk.service.ml.ListArtifactsResponse} object
    */
   ListArtifactsResponse listArtifacts(ListArtifactsRequest listArtifactsRequest);
 
@@ -99,6 +129,9 @@ public interface ExperimentsService {
    * List experiments.
    *
    * <p>Gets a list of all experiments.
+   *
+   * @param listExperimentsRequest a {@link com.databricks.sdk.service.ml.ListExperimentsRequest} object
+   * @return a {@link com.databricks.sdk.service.ml.ListExperimentsResponse} object
    */
   ListExperimentsResponse listExperiments(ListExperimentsRequest listExperimentsRequest);
 
@@ -141,6 +174,8 @@ public interface ExperimentsService {
    *
    * <p>* Metric keyes, param keys, and tag keys can be up to 250 characters in length * Parameter
    * and tag values can be up to 250 characters in length
+   *
+   * @param logBatch a {@link com.databricks.sdk.service.ml.LogBatch} object
    */
   void logBatch(LogBatch logBatch);
 
@@ -150,6 +185,8 @@ public interface ExperimentsService {
    * <p>Logs a metric for a run. A metric is a key-value pair (string key, float value) with an
    * associated timestamp. Examples include the various metrics that represent ML model accuracy. A
    * metric can be logged multiple times.
+   *
+   * @param logMetric a {@link com.databricks.sdk.service.ml.LogMetric} object
    */
   void logMetric(LogMetric logMetric);
 
@@ -158,6 +195,8 @@ public interface ExperimentsService {
    *
    * <p>**NOTE:** Experimental: This API may change or be removed in a future release without
    * warning.
+   *
+   * @param logModel a {@link com.databricks.sdk.service.ml.LogModel} object
    */
   void logModel(LogModel logModel);
 
@@ -167,6 +206,8 @@ public interface ExperimentsService {
    * <p>Logs a param used for a run. A param is a key-value pair (string key, string value).
    * Examples include hyperparameters used for ML model training and constant dates and values used
    * in an ETL pipeline. A param can be logged only once for a run.
+   *
+   * @param logParam a {@link com.databricks.sdk.service.ml.LogParam} object
    */
   void logParam(LogParam logParam);
 
@@ -179,6 +220,8 @@ public interface ExperimentsService {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if experiment was never created or was permanently
    * deleted.",
+   *
+   * @param restoreExperiment a {@link com.databricks.sdk.service.ml.RestoreExperiment} object
    */
   void restoreExperiment(RestoreExperiment restoreExperiment);
 
@@ -186,6 +229,8 @@ public interface ExperimentsService {
    * Restore a run.
    *
    * <p>Restores a deleted run.
+   *
+   * @param restoreRun a {@link com.databricks.sdk.service.ml.RestoreRun} object
    */
   void restoreRun(RestoreRun restoreRun);
 
@@ -193,6 +238,9 @@ public interface ExperimentsService {
    * Search experiments.
    *
    * <p>Searches for experiments that satisfy specified search criteria.
+   *
+   * @param searchExperiments a {@link com.databricks.sdk.service.ml.SearchExperiments} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchExperimentsResponse} object
    */
   SearchExperimentsResponse searchExperiments(SearchExperiments searchExperiments);
 
@@ -202,6 +250,9 @@ public interface ExperimentsService {
    * <p>Searches for runs that satisfy expressions.
    *
    * <p>Search expressions can use `mlflowMetric` and `mlflowParam` keys.",
+   *
+   * @param searchRuns a {@link com.databricks.sdk.service.ml.SearchRuns} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchRunsResponse} object
    */
   SearchRunsResponse searchRuns(SearchRuns searchRuns);
 
@@ -209,6 +260,8 @@ public interface ExperimentsService {
    * Set a tag.
    *
    * <p>Sets a tag on an experiment. Experiment tags are metadata that can be updated.
+   *
+   * @param setExperimentTag a {@link com.databricks.sdk.service.ml.SetExperimentTag} object
    */
   void setExperimentTag(SetExperimentTag setExperimentTag);
 
@@ -217,6 +270,8 @@ public interface ExperimentsService {
    *
    * <p>Sets a tag on a run. Tags are run metadata that can be updated during a run and after a run
    * completes.
+   *
+   * @param setTag a {@link com.databricks.sdk.service.ml.SetTag} object
    */
   void setTag(SetTag setTag);
 
@@ -224,6 +279,8 @@ public interface ExperimentsService {
    * Update an experiment.
    *
    * <p>Updates experiment metadata.
+   *
+   * @param updateExperiment a {@link com.databricks.sdk.service.ml.UpdateExperiment} object
    */
   void updateExperiment(UpdateExperiment updateExperiment);
 
@@ -231,6 +288,9 @@ public interface ExperimentsService {
    * Update a run.
    *
    * <p>Updates run metadata.
+   *
+   * @param updateRun a {@link com.databricks.sdk.service.ml.UpdateRun} object
+   * @return a {@link com.databricks.sdk.service.ml.UpdateRunResponse} object
    */
   UpdateRunResponse updateRun(UpdateRun updateRun);
 }

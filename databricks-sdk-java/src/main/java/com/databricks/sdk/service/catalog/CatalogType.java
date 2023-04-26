@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** The type of the catalog. */
+/**
+ * The type of the catalog.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum CatalogType {
   DELTASHARING_CATALOG,
   MANAGED_CATALOG,

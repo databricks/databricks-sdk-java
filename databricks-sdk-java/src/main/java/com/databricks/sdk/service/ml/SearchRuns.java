@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>SearchRuns class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class SearchRuns {
   /** List of experiment IDs to search over. */
   @JsonProperty("experiment_ids")
@@ -49,60 +55,127 @@ public class SearchRuns {
   @JsonProperty("run_view_type")
   private SearchRunsRunViewType runViewType;
 
+  /**
+   * <p>Setter for the field <code>experimentIds</code>.</p>
+   *
+   * @param experimentIds a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchRuns} object
+   */
   public SearchRuns setExperimentIds(Collection<String> experimentIds) {
     this.experimentIds = experimentIds;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>experimentIds</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getExperimentIds() {
     return experimentIds;
   }
 
+  /**
+   * <p>Setter for the field <code>filter</code>.</p>
+   *
+   * @param filter a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchRuns} object
+   */
   public SearchRuns setFilter(String filter) {
     this.filter = filter;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>filter</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getFilter() {
     return filter;
   }
 
+  /**
+   * <p>Setter for the field <code>maxResults</code>.</p>
+   *
+   * @param maxResults a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchRuns} object
+   */
   public SearchRuns setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>maxResults</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMaxResults() {
     return maxResults;
   }
 
+  /**
+   * <p>Setter for the field <code>orderBy</code>.</p>
+   *
+   * @param orderBy a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchRuns} object
+   */
   public SearchRuns setOrderBy(Collection<String> orderBy) {
     this.orderBy = orderBy;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>orderBy</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getOrderBy() {
     return orderBy;
   }
 
+  /**
+   * <p>Setter for the field <code>pageToken</code>.</p>
+   *
+   * @param pageToken a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchRuns} object
+   */
   public SearchRuns setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pageToken</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPageToken() {
     return pageToken;
   }
 
+  /**
+   * <p>Setter for the field <code>runViewType</code>.</p>
+   *
+   * @param runViewType a {@link com.databricks.sdk.service.ml.SearchRunsRunViewType} object
+   * @return a {@link com.databricks.sdk.service.ml.SearchRuns} object
+   */
   public SearchRuns setRunViewType(SearchRunsRunViewType runViewType) {
     this.runViewType = runViewType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runViewType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.SearchRunsRunViewType} object
+   */
   public SearchRunsRunViewType getRunViewType() {
     return runViewType;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -116,11 +189,13 @@ public class SearchRuns {
         && Objects.equals(runViewType, that.runViewType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(experimentIds, filter, maxResults, orderBy, pageToken, runViewType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(SearchRuns.class)

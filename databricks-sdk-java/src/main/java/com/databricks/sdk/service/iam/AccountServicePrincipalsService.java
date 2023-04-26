@@ -11,12 +11,18 @@ package com.databricks.sdk.service.iam;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface AccountServicePrincipalsService {
   /**
    * Create a service principal.
    *
    * <p>Creates a new service principal in the Databricks Account.
+   *
+   * @param servicePrincipal a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
+   * @return a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
    */
   ServicePrincipal create(ServicePrincipal servicePrincipal);
 
@@ -24,6 +30,8 @@ public interface AccountServicePrincipalsService {
    * Delete a service principal.
    *
    * <p>Delete a single service principal in the Databricks Account.
+   *
+   * @param deleteAccountServicePrincipalRequest a {@link com.databricks.sdk.service.iam.DeleteAccountServicePrincipalRequest} object
    */
   void delete(DeleteAccountServicePrincipalRequest deleteAccountServicePrincipalRequest);
 
@@ -31,6 +39,9 @@ public interface AccountServicePrincipalsService {
    * Get service principal details.
    *
    * <p>Gets the details for a single service principal define in the Databricks Account.
+   *
+   * @param getAccountServicePrincipalRequest a {@link com.databricks.sdk.service.iam.GetAccountServicePrincipalRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
    */
   ServicePrincipal get(GetAccountServicePrincipalRequest getAccountServicePrincipalRequest);
 
@@ -38,6 +49,9 @@ public interface AccountServicePrincipalsService {
    * List service principals.
    *
    * <p>Gets the set of service principals associated with a Databricks Account.
+   *
+   * @param listAccountServicePrincipalsRequest a {@link com.databricks.sdk.service.iam.ListAccountServicePrincipalsRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.ListServicePrincipalResponse} object
    */
   ListServicePrincipalResponse list(
       ListAccountServicePrincipalsRequest listAccountServicePrincipalsRequest);
@@ -46,6 +60,8 @@ public interface AccountServicePrincipalsService {
    * Update service principal details.
    *
    * <p>Partially updates the details of a single service principal in the Databricks Account.
+   *
+   * @param partialUpdate a {@link com.databricks.sdk.service.iam.PartialUpdate} object
    */
   void patch(PartialUpdate partialUpdate);
 
@@ -55,6 +71,8 @@ public interface AccountServicePrincipalsService {
    * <p>Updates the details of a single service principal.
    *
    * <p>This action replaces the existing service principal with the same name.
+   *
+   * @param servicePrincipal a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
    */
   void update(ServicePrincipal servicePrincipal);
 }

@@ -26,18 +26,29 @@ import org.slf4j.LoggerFactory;
  * <p>When you uninstall a library from a cluster, the library is removed only when you restart the
  * cluster. Until you restart the cluster, the status of the uninstalled library appears as
  * Uninstall pending restart.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class LibrariesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(LibrariesAPI.class);
 
   private final LibrariesService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public LibrariesAPI(ApiClient apiClient) {
     impl = new LibrariesImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.compute.LibrariesService} object
+   */
   public LibrariesAPI(LibrariesService mock) {
     impl = mock;
   }
@@ -48,11 +59,19 @@ public class LibrariesAPI {
    * <p>Get the status of all libraries on all clusters. A status will be available for all
    * libraries installed on this cluster via the API or the libraries UI as well as libraries set to
    * be installed on all clusters via the libraries UI.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ListAllClusterLibraryStatusesResponse} object
    */
   public ListAllClusterLibraryStatusesResponse allClusterStatuses() {
     return impl.allClusterStatuses();
   }
 
+  /**
+   * <p>clusterStatus.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterLibraryStatuses} object
+   */
   public ClusterLibraryStatuses clusterStatus(String clusterId) {
     return clusterStatus(new ClusterStatusRequest().setClusterId(clusterId));
   }
@@ -73,11 +92,20 @@ public class LibrariesAPI {
    *
    * <p>3. Libraries that were previously requested on this cluster or on all clusters, but now
    * marked for removal. Within this group there is no order guarantee.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.ClusterStatusRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterLibraryStatuses} object
    */
   public ClusterLibraryStatuses clusterStatus(ClusterStatusRequest request) {
     return impl.clusterStatus(request);
   }
 
+  /**
+   * <p>install.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param libraries a {@link java.util.Collection} object
+   */
   public void install(String clusterId, Collection<Library> libraries) {
     install(new InstallLibraries().setClusterId(clusterId).setLibraries(libraries));
   }
@@ -91,11 +119,19 @@ public class LibrariesAPI {
    * <p>**Note**: The actual set of libraries to be installed on a cluster is the union of the
    * libraries specified via this method and the libraries set to be installed on all clusters via
    * the libraries UI.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.InstallLibraries} object
    */
   public void install(InstallLibraries request) {
     impl.install(request);
   }
 
+  /**
+   * <p>uninstall.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param libraries a {@link java.util.Collection} object
+   */
   public void uninstall(String clusterId, Collection<Library> libraries) {
     uninstall(new UninstallLibraries().setClusterId(clusterId).setLibraries(libraries));
   }
@@ -106,11 +142,18 @@ public class LibrariesAPI {
    * <p>Set libraries to be uninstalled on a cluster. The libraries won't be uninstalled until the
    * cluster is restarted. Uninstalling libraries that are not installed on the cluster will have no
    * impact but is not an error.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.UninstallLibraries} object
    */
   public void uninstall(UninstallLibraries request) {
     impl.uninstall(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.LibrariesService} object
+   */
   public LibrariesService impl() {
     return impl;
   }

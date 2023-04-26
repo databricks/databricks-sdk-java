@@ -11,12 +11,18 @@ package com.databricks.sdk.service.iam;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface ServicePrincipalsService {
   /**
    * Create a service principal.
    *
    * <p>Creates a new service principal in the Databricks Workspace.
+   *
+   * @param servicePrincipal a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
+   * @return a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
    */
   ServicePrincipal create(ServicePrincipal servicePrincipal);
 
@@ -24,6 +30,8 @@ public interface ServicePrincipalsService {
    * Delete a service principal.
    *
    * <p>Delete a single service principal in the Databricks Workspace.
+   *
+   * @param deleteServicePrincipalRequest a {@link com.databricks.sdk.service.iam.DeleteServicePrincipalRequest} object
    */
   void delete(DeleteServicePrincipalRequest deleteServicePrincipalRequest);
 
@@ -31,6 +39,9 @@ public interface ServicePrincipalsService {
    * Get service principal details.
    *
    * <p>Gets the details for a single service principal define in the Databricks Workspace.
+   *
+   * @param getServicePrincipalRequest a {@link com.databricks.sdk.service.iam.GetServicePrincipalRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
    */
   ServicePrincipal get(GetServicePrincipalRequest getServicePrincipalRequest);
 
@@ -38,6 +49,9 @@ public interface ServicePrincipalsService {
    * List service principals.
    *
    * <p>Gets the set of service principals associated with a Databricks Workspace.
+   *
+   * @param listServicePrincipalsRequest a {@link com.databricks.sdk.service.iam.ListServicePrincipalsRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.ListServicePrincipalResponse} object
    */
   ListServicePrincipalResponse list(ListServicePrincipalsRequest listServicePrincipalsRequest);
 
@@ -45,6 +59,8 @@ public interface ServicePrincipalsService {
    * Update service principal details.
    *
    * <p>Partially updates the details of a single service principal in the Databricks Workspace.
+   *
+   * @param partialUpdate a {@link com.databricks.sdk.service.iam.PartialUpdate} object
    */
   void patch(PartialUpdate partialUpdate);
 
@@ -54,6 +70,8 @@ public interface ServicePrincipalsService {
    * <p>Updates the details of a single service principal.
    *
    * <p>This action replaces the existing service principal with the same name.
+   *
+   * @param servicePrincipal a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
    */
   void update(ServicePrincipal servicePrincipal);
 }

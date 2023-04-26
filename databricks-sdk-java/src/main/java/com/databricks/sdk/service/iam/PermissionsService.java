@@ -8,6 +8,9 @@ package com.databricks.sdk.service.iam;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface PermissionsService {
   /**
@@ -15,6 +18,9 @@ public interface PermissionsService {
    *
    * <p>Gets the permission of an object. Objects can inherit permissions from their parent objects
    * or root objects.
+   *
+   * @param getPermissionRequest a {@link com.databricks.sdk.service.iam.GetPermissionRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.ObjectPermissions} object
    */
   ObjectPermissions get(GetPermissionRequest getPermissionRequest);
 
@@ -22,6 +28,9 @@ public interface PermissionsService {
    * Get permission levels.
    *
    * <p>Gets the permission levels that a user can have on an object.
+   *
+   * @param getPermissionLevelsRequest a {@link com.databricks.sdk.service.iam.GetPermissionLevelsRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.GetPermissionLevelsResponse} object
    */
   GetPermissionLevelsResponse getPermissionLevels(
       GetPermissionLevelsRequest getPermissionLevelsRequest);
@@ -31,6 +40,8 @@ public interface PermissionsService {
    *
    * <p>Sets permissions on object. Objects can inherit permissions from their parent objects and
    * root objects.
+   *
+   * @param permissionsRequest a {@link com.databricks.sdk.service.iam.PermissionsRequest} object
    */
   void set(PermissionsRequest permissionsRequest);
 
@@ -38,6 +49,8 @@ public interface PermissionsService {
    * Update permission.
    *
    * <p>Updates the permissions on an object.
+   *
+   * @param permissionsRequest a {@link com.databricks.sdk.service.iam.PermissionsRequest} object
    */
   void update(PermissionsRequest permissionsRequest);
 }

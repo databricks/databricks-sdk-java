@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** The type of Unity Catalog securable */
+/**
+ * The type of Unity Catalog securable
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum SecurableType {
   CATALOG,
   EXTERNAL_LOCATION,

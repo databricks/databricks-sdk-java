@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
+/**
+ * <p>RegistryWebhookEvent class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum RegistryWebhookEvent {
   COMMENT_CREATED,
   MODEL_VERSION_CREATED,

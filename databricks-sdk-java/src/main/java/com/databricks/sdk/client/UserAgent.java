@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * <p>UserAgent class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class UserAgent {
   private static String product = "unknown";
   private static String productVersion = "0.0.0";
@@ -15,11 +21,23 @@ public class UserAgent {
   // or getClass().getPackage().getImplementationVersion() is enough.
   private static final String version = "0.0.1";
 
+  /**
+   * <p>withProduct.</p>
+   *
+   * @param product a {@link java.lang.String} object
+   * @param productVersion a {@link java.lang.String} object
+   */
   public static void withProduct(String product, String productVersion) {
     UserAgent.product = product;
     UserAgent.productVersion = productVersion;
   }
 
+  /**
+   * <p>withOtherInfo.</p>
+   *
+   * @param key a {@link java.lang.String} object
+   * @param value a {@link java.lang.String} object
+   */
   public static void withOtherInfo(String key, String value) {
     otherInfo.put(key, value);
   }
@@ -42,6 +60,11 @@ public class UserAgent {
     return split[0];
   }
 
+  /**
+   * <p>asString.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public static String asString() {
     String otherInfo =
         UserAgent.otherInfo.entrySet().stream()

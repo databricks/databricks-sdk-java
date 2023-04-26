@@ -8,6 +8,12 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * <p>CreateCluster class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateCluster {
   /** Note: This field won't be true for webapp requests. Only API users will check this field. */
   @JsonProperty("apply_policy_default_values")
@@ -192,222 +198,487 @@ public class CreateCluster {
   @JsonProperty("workload_type")
   private WorkloadType workloadType;
 
+  /**
+   * <p>Setter for the field <code>applyPolicyDefaultValues</code>.</p>
+   *
+   * @param applyPolicyDefaultValues a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setApplyPolicyDefaultValues(Boolean applyPolicyDefaultValues) {
     this.applyPolicyDefaultValues = applyPolicyDefaultValues;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>applyPolicyDefaultValues</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getApplyPolicyDefaultValues() {
     return applyPolicyDefaultValues;
   }
 
+  /**
+   * <p>Setter for the field <code>autoscale</code>.</p>
+   *
+   * @param autoscale a {@link com.databricks.sdk.service.compute.AutoScale} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setAutoscale(AutoScale autoscale) {
     this.autoscale = autoscale;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>autoscale</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.AutoScale} object
+   */
   public AutoScale getAutoscale() {
     return autoscale;
   }
 
+  /**
+   * <p>Setter for the field <code>autoterminationMinutes</code>.</p>
+   *
+   * @param autoterminationMinutes a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setAutoterminationMinutes(Long autoterminationMinutes) {
     this.autoterminationMinutes = autoterminationMinutes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>autoterminationMinutes</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getAutoterminationMinutes() {
     return autoterminationMinutes;
   }
 
+  /**
+   * <p>Setter for the field <code>awsAttributes</code>.</p>
+   *
+   * @param awsAttributes a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setAwsAttributes(AwsAttributes awsAttributes) {
     this.awsAttributes = awsAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsAttributes</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.AwsAttributes} object
+   */
   public AwsAttributes getAwsAttributes() {
     return awsAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>azureAttributes</code>.</p>
+   *
+   * @param azureAttributes a {@link com.databricks.sdk.service.compute.AzureAttributes} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setAzureAttributes(AzureAttributes azureAttributes) {
     this.azureAttributes = azureAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>azureAttributes</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.AzureAttributes} object
+   */
   public AzureAttributes getAzureAttributes() {
     return azureAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>clusterLogConf</code>.</p>
+   *
+   * @param clusterLogConf a {@link com.databricks.sdk.service.compute.ClusterLogConf} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setClusterLogConf(ClusterLogConf clusterLogConf) {
     this.clusterLogConf = clusterLogConf;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusterLogConf</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ClusterLogConf} object
+   */
   public ClusterLogConf getClusterLogConf() {
     return clusterLogConf;
   }
 
+  /**
+   * <p>Setter for the field <code>clusterName</code>.</p>
+   *
+   * @param clusterName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setClusterName(String clusterName) {
     this.clusterName = clusterName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusterName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getClusterName() {
     return clusterName;
   }
 
+  /**
+   * <p>Setter for the field <code>clusterSource</code>.</p>
+   *
+   * @param clusterSource a {@link com.databricks.sdk.service.compute.ClusterSource} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setClusterSource(ClusterSource clusterSource) {
     this.clusterSource = clusterSource;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusterSource</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ClusterSource} object
+   */
   public ClusterSource getClusterSource() {
     return clusterSource;
   }
 
+  /**
+   * <p>Setter for the field <code>customTags</code>.</p>
+   *
+   * @param customTags a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setCustomTags(Map<String, String> customTags) {
     this.customTags = customTags;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>customTags</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getCustomTags() {
     return customTags;
   }
 
+  /**
+   * <p>Setter for the field <code>driverInstancePoolId</code>.</p>
+   *
+   * @param driverInstancePoolId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setDriverInstancePoolId(String driverInstancePoolId) {
     this.driverInstancePoolId = driverInstancePoolId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>driverInstancePoolId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDriverInstancePoolId() {
     return driverInstancePoolId;
   }
 
+  /**
+   * <p>Setter for the field <code>driverNodeTypeId</code>.</p>
+   *
+   * @param driverNodeTypeId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setDriverNodeTypeId(String driverNodeTypeId) {
     this.driverNodeTypeId = driverNodeTypeId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>driverNodeTypeId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDriverNodeTypeId() {
     return driverNodeTypeId;
   }
 
+  /**
+   * <p>Setter for the field <code>enableElasticDisk</code>.</p>
+   *
+   * @param enableElasticDisk a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setEnableElasticDisk(Boolean enableElasticDisk) {
     this.enableElasticDisk = enableElasticDisk;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enableElasticDisk</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnableElasticDisk() {
     return enableElasticDisk;
   }
 
+  /**
+   * <p>Setter for the field <code>enableLocalDiskEncryption</code>.</p>
+   *
+   * @param enableLocalDiskEncryption a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setEnableLocalDiskEncryption(Boolean enableLocalDiskEncryption) {
     this.enableLocalDiskEncryption = enableLocalDiskEncryption;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enableLocalDiskEncryption</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnableLocalDiskEncryption() {
     return enableLocalDiskEncryption;
   }
 
+  /**
+   * <p>Setter for the field <code>gcpAttributes</code>.</p>
+   *
+   * @param gcpAttributes a {@link com.databricks.sdk.service.compute.GcpAttributes} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setGcpAttributes(GcpAttributes gcpAttributes) {
     this.gcpAttributes = gcpAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gcpAttributes</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.GcpAttributes} object
+   */
   public GcpAttributes getGcpAttributes() {
     return gcpAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>instancePoolId</code>.</p>
+   *
+   * @param instancePoolId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instancePoolId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstancePoolId() {
     return instancePoolId;
   }
 
+  /**
+   * <p>Setter for the field <code>nodeTypeId</code>.</p>
+   *
+   * @param nodeTypeId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setNodeTypeId(String nodeTypeId) {
     this.nodeTypeId = nodeTypeId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>nodeTypeId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getNodeTypeId() {
     return nodeTypeId;
   }
 
+  /**
+   * <p>Setter for the field <code>numWorkers</code>.</p>
+   *
+   * @param numWorkers a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setNumWorkers(Long numWorkers) {
     this.numWorkers = numWorkers;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>numWorkers</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getNumWorkers() {
     return numWorkers;
   }
 
+  /**
+   * <p>Setter for the field <code>policyId</code>.</p>
+   *
+   * @param policyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setPolicyId(String policyId) {
     this.policyId = policyId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>policyId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPolicyId() {
     return policyId;
   }
 
+  /**
+   * <p>Setter for the field <code>runtimeEngine</code>.</p>
+   *
+   * @param runtimeEngine a {@link com.databricks.sdk.service.compute.RuntimeEngine} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setRuntimeEngine(RuntimeEngine runtimeEngine) {
     this.runtimeEngine = runtimeEngine;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runtimeEngine</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.RuntimeEngine} object
+   */
   public RuntimeEngine getRuntimeEngine() {
     return runtimeEngine;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkConf</code>.</p>
+   *
+   * @param sparkConf a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setSparkConf(Map<String, String> sparkConf) {
     this.sparkConf = sparkConf;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkConf</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getSparkConf() {
     return sparkConf;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkEnvVars</code>.</p>
+   *
+   * @param sparkEnvVars a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setSparkEnvVars(Map<String, String> sparkEnvVars) {
     this.sparkEnvVars = sparkEnvVars;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkEnvVars</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getSparkEnvVars() {
     return sparkEnvVars;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkVersion</code>.</p>
+   *
+   * @param sparkVersion a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setSparkVersion(String sparkVersion) {
     this.sparkVersion = sparkVersion;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkVersion</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSparkVersion() {
     return sparkVersion;
   }
 
+  /**
+   * <p>Setter for the field <code>sshPublicKeys</code>.</p>
+   *
+   * @param sshPublicKeys a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setSshPublicKeys(Collection<String> sshPublicKeys) {
     this.sshPublicKeys = sshPublicKeys;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sshPublicKeys</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getSshPublicKeys() {
     return sshPublicKeys;
   }
 
+  /**
+   * <p>Setter for the field <code>workloadType</code>.</p>
+   *
+   * @param workloadType a {@link com.databricks.sdk.service.compute.WorkloadType} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   */
   public CreateCluster setWorkloadType(WorkloadType workloadType) {
     this.workloadType = workloadType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>workloadType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.WorkloadType} object
+   */
   public WorkloadType getWorkloadType() {
     return workloadType;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -439,6 +710,7 @@ public class CreateCluster {
         && Objects.equals(workloadType, that.workloadType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -468,6 +740,7 @@ public class CreateCluster {
         workloadType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateCluster.class)

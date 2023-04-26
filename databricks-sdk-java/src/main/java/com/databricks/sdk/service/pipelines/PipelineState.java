@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
-/** The pipeline state. */
+/**
+ * The pipeline state.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum PipelineState {
   DELETED,
   DEPLOYING,

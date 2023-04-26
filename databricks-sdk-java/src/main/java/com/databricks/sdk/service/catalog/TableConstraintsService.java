@@ -16,6 +16,9 @@ package com.databricks.sdk.service.catalog;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface TableConstraintsService {
   /**
@@ -29,6 +32,9 @@ public interface TableConstraintsService {
    * the new constraint is a __ForeignKeyConstraint__, the user must have the **USE_CATALOG**
    * privilege on the referenced parent table's catalog, the **USE_SCHEMA** privilege on the
    * referenced parent table's schema, and be the owner of the referenced parent table.
+   *
+   * @param createTableConstraint a {@link com.databricks.sdk.service.catalog.CreateTableConstraint} object
+   * @return a {@link com.databricks.sdk.service.catalog.TableConstraint} object
    */
   TableConstraint create(CreateTableConstraint createTableConstraint);
 
@@ -43,6 +49,8 @@ public interface TableConstraintsService {
    * __cascade__ argument is **true**, the user must have the following permissions on all of the
    * child tables: the **USE_CATALOG** privilege on the table's catalog, the **USE_SCHEMA**
    * privilege on the table's schema, and be the owner of the table.
+   *
+   * @param deleteTableConstraintRequest a {@link com.databricks.sdk.service.catalog.DeleteTableConstraintRequest} object
    */
   void delete(DeleteTableConstraintRequest deleteTableConstraintRequest);
 }

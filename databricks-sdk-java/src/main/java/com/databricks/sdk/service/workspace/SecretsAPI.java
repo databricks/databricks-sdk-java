@@ -15,22 +15,38 @@ import org.slf4j.LoggerFactory;
  * <p>Administrators, secret creators, and users granted permission can read Databricks secrets.
  * While Databricks makes an effort to redact secret values that might be displayed in notebooks, it
  * is not possible to prevent such users from reading secrets.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class SecretsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(SecretsAPI.class);
 
   private final SecretsService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public SecretsAPI(ApiClient apiClient) {
     impl = new SecretsImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.workspace.SecretsService} object
+   */
   public SecretsAPI(SecretsService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>createScope.</p>
+   *
+   * @param scope a {@link java.lang.String} object
+   */
   public void createScope(String scope) {
     createScope(new CreateScope().setScope(scope));
   }
@@ -40,11 +56,19 @@ public class SecretsAPI {
    *
    * <p>The scope name must consist of alphanumeric characters, dashes, underscores, and periods,
    * and may not exceed 128 characters. The maximum number of scopes in a workspace is 100.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.CreateScope} object
    */
   public void createScope(CreateScope request) {
     impl.createScope(request);
   }
 
+  /**
+   * <p>deleteAcl.</p>
+   *
+   * @param scope a {@link java.lang.String} object
+   * @param principal a {@link java.lang.String} object
+   */
   public void deleteAcl(String scope, String principal) {
     deleteAcl(new DeleteAcl().setScope(scope).setPrincipal(principal));
   }
@@ -57,11 +81,18 @@ public class SecretsAPI {
    * <p>Users must have the `MANAGE` permission to invoke this API. Throws `RESOURCE_DOES_NOT_EXIST`
    * if no such secret scope, principal, or ACL exists. Throws `PERMISSION_DENIED` if the user does
    * not have permission to make this API call.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.DeleteAcl} object
    */
   public void deleteAcl(DeleteAcl request) {
     impl.deleteAcl(request);
   }
 
+  /**
+   * <p>deleteScope.</p>
+   *
+   * @param scope a {@link java.lang.String} object
+   */
   public void deleteScope(String scope) {
     deleteScope(new DeleteScope().setScope(scope));
   }
@@ -73,11 +104,19 @@ public class SecretsAPI {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if the scope does not exist. Throws `PERMISSION_DENIED` if
    * the user does not have permission to make this API call.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.DeleteScope} object
    */
   public void deleteScope(DeleteScope request) {
     impl.deleteScope(request);
   }
 
+  /**
+   * <p>deleteSecret.</p>
+   *
+   * @param scope a {@link java.lang.String} object
+   * @param key a {@link java.lang.String} object
+   */
   public void deleteSecret(String scope, String key) {
     deleteSecret(new DeleteSecret().setScope(scope).setKey(key));
   }
@@ -90,11 +129,20 @@ public class SecretsAPI {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope or secret exists. Throws
    * `PERMISSION_DENIED` if the user does not have permission to make this API call.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.DeleteSecret} object
    */
   public void deleteSecret(DeleteSecret request) {
     impl.deleteSecret(request);
   }
 
+  /**
+   * <p>getAcl.</p>
+   *
+   * @param scope a {@link java.lang.String} object
+   * @param principal a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.AclItem} object
+   */
   public AclItem getAcl(String scope, String principal) {
     return getAcl(new GetAclRequest().setScope(scope).setPrincipal(principal));
   }
@@ -107,11 +155,20 @@ public class SecretsAPI {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED`
    * if the user does not have permission to make this API call.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.GetAclRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.AclItem} object
    */
   public AclItem getAcl(GetAclRequest request) {
     return impl.getAcl(request);
   }
 
+  /**
+   * <p>listAcls.</p>
+   *
+   * @param scope a {@link java.lang.String} object
+   * @return a {@link java.lang.Iterable} object
+   */
   public Iterable<AclItem> listAcls(String scope) {
     return listAcls(new ListAclsRequest().setScope(scope));
   }
@@ -124,6 +181,9 @@ public class SecretsAPI {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED`
    * if the user does not have permission to make this API call.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.ListAclsRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<AclItem> listAcls(ListAclsRequest request) {
     return impl.listAcls(request).getItems();
@@ -135,11 +195,19 @@ public class SecretsAPI {
    * <p>Lists all secret scopes available in the workspace.
    *
    * <p>Throws `PERMISSION_DENIED` if the user does not have permission to make this API call.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<SecretScope> listScopes() {
     return impl.listScopes().getScopes();
   }
 
+  /**
+   * <p>listSecrets.</p>
+   *
+   * @param scope a {@link java.lang.String} object
+   * @return a {@link java.lang.Iterable} object
+   */
   public Iterable<SecretMetadata> listSecrets(String scope) {
     return listSecrets(new ListSecretsRequest().setScope(scope));
   }
@@ -154,11 +222,21 @@ public class SecretsAPI {
    * <p>The lastUpdatedTimestamp returned is in milliseconds since epoch. Throws
    * `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws `PERMISSION_DENIED` if the
    * user does not have permission to make this API call.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.ListSecretsRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<SecretMetadata> listSecrets(ListSecretsRequest request) {
     return impl.listSecrets(request).getSecrets();
   }
 
+  /**
+   * <p>putAcl.</p>
+   *
+   * @param scope a {@link java.lang.String} object
+   * @param principal a {@link java.lang.String} object
+   * @param permission a {@link com.databricks.sdk.service.workspace.AclPermission} object
+   */
   public void putAcl(String scope, String principal, AclPermission permission) {
     putAcl(new PutAcl().setScope(scope).setPrincipal(principal).setPermission(permission));
   }
@@ -190,11 +268,19 @@ public class SecretsAPI {
    * `RESOURCE_ALREADY_EXISTS` if a permission for the principal already exists. Throws
    * `INVALID_PARAMETER_VALUE` if the permission is invalid. Throws `PERMISSION_DENIED` if the user
    * does not have permission to make this API call.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.PutAcl} object
    */
   public void putAcl(PutAcl request) {
     impl.putAcl(request);
   }
 
+  /**
+   * <p>putSecret.</p>
+   *
+   * @param scope a {@link java.lang.String} object
+   * @param key a {@link java.lang.String} object
+   */
   public void putSecret(String scope, String key) {
     putSecret(new PutSecret().setScope(scope).setKey(key));
   }
@@ -218,11 +304,18 @@ public class SecretsAPI {
    * `RESOURCE_LIMIT_EXCEEDED` if maximum number of secrets in scope is exceeded. Throws
    * `INVALID_PARAMETER_VALUE` if the key name or value length is invalid. Throws
    * `PERMISSION_DENIED` if the user does not have permission to make this API call.
+   *
+   * @param request a {@link com.databricks.sdk.service.workspace.PutSecret} object
    */
   public void putSecret(PutSecret request) {
     impl.putSecret(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.SecretsService} object
+   */
   public SecretsService impl() {
     return impl;
   }

@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>VpcEndpoint class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class VpcEndpoint {
   /** The Databricks account ID that hosts the VPC endpoint configuration. */
   @JsonProperty("account_id")
@@ -69,96 +75,207 @@ public class VpcEndpoint {
   @JsonProperty("vpc_endpoint_name")
   private String vpcEndpointName;
 
+  /**
+   * <p>Setter for the field <code>accountId</code>.</p>
+   *
+   * @param accountId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
+   */
   public VpcEndpoint setAccountId(String accountId) {
     this.accountId = accountId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>accountId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAccountId() {
     return accountId;
   }
 
+  /**
+   * <p>Setter for the field <code>awsAccountId</code>.</p>
+   *
+   * @param awsAccountId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
+   */
   public VpcEndpoint setAwsAccountId(String awsAccountId) {
     this.awsAccountId = awsAccountId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsAccountId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAwsAccountId() {
     return awsAccountId;
   }
 
+  /**
+   * <p>Setter for the field <code>awsEndpointServiceId</code>.</p>
+   *
+   * @param awsEndpointServiceId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
+   */
   public VpcEndpoint setAwsEndpointServiceId(String awsEndpointServiceId) {
     this.awsEndpointServiceId = awsEndpointServiceId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsEndpointServiceId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAwsEndpointServiceId() {
     return awsEndpointServiceId;
   }
 
+  /**
+   * <p>Setter for the field <code>awsVpcEndpointId</code>.</p>
+   *
+   * @param awsVpcEndpointId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
+   */
   public VpcEndpoint setAwsVpcEndpointId(String awsVpcEndpointId) {
     this.awsVpcEndpointId = awsVpcEndpointId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsVpcEndpointId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAwsVpcEndpointId() {
     return awsVpcEndpointId;
   }
 
+  /**
+   * <p>Setter for the field <code>gcpVpcEndpointInfo</code>.</p>
+   *
+   * @param gcpVpcEndpointInfo a {@link com.databricks.sdk.service.provisioning.GcpVpcEndpointInfo} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
+   */
   public VpcEndpoint setGcpVpcEndpointInfo(GcpVpcEndpointInfo gcpVpcEndpointInfo) {
     this.gcpVpcEndpointInfo = gcpVpcEndpointInfo;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gcpVpcEndpointInfo</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.GcpVpcEndpointInfo} object
+   */
   public GcpVpcEndpointInfo getGcpVpcEndpointInfo() {
     return gcpVpcEndpointInfo;
   }
 
+  /**
+   * <p>Setter for the field <code>region</code>.</p>
+   *
+   * @param region a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
+   */
   public VpcEndpoint setRegion(String region) {
     this.region = region;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>region</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRegion() {
     return region;
   }
 
+  /**
+   * <p>Setter for the field <code>state</code>.</p>
+   *
+   * @param state a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
+   */
   public VpcEndpoint setState(String state) {
     this.state = state;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>state</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getState() {
     return state;
   }
 
+  /**
+   * <p>Setter for the field <code>useCase</code>.</p>
+   *
+   * @param useCase a {@link com.databricks.sdk.service.provisioning.EndpointUseCase} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
+   */
   public VpcEndpoint setUseCase(EndpointUseCase useCase) {
     this.useCase = useCase;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>useCase</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.EndpointUseCase} object
+   */
   public EndpointUseCase getUseCase() {
     return useCase;
   }
 
+  /**
+   * <p>Setter for the field <code>vpcEndpointId</code>.</p>
+   *
+   * @param vpcEndpointId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
+   */
   public VpcEndpoint setVpcEndpointId(String vpcEndpointId) {
     this.vpcEndpointId = vpcEndpointId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>vpcEndpointId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getVpcEndpointId() {
     return vpcEndpointId;
   }
 
+  /**
+   * <p>Setter for the field <code>vpcEndpointName</code>.</p>
+   *
+   * @param vpcEndpointName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.VpcEndpoint} object
+   */
   public VpcEndpoint setVpcEndpointName(String vpcEndpointName) {
     this.vpcEndpointName = vpcEndpointName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>vpcEndpointName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getVpcEndpointName() {
     return vpcEndpointName;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -176,6 +293,7 @@ public class VpcEndpoint {
         && Objects.equals(vpcEndpointName, that.vpcEndpointName);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -191,6 +309,7 @@ public class VpcEndpoint {
         vpcEndpointName);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(VpcEndpoint.class)

@@ -8,6 +8,9 @@ package com.databricks.sdk.service.iam;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface WorkspaceAssignmentService {
   /**
@@ -15,6 +18,8 @@ public interface WorkspaceAssignmentService {
    *
    * <p>Deletes the workspace permissions assignment in a given account and workspace for the
    * specified principal.
+   *
+   * @param deleteWorkspaceAssignmentRequest a {@link com.databricks.sdk.service.iam.DeleteWorkspaceAssignmentRequest} object
    */
   void delete(DeleteWorkspaceAssignmentRequest deleteWorkspaceAssignmentRequest);
 
@@ -22,6 +27,9 @@ public interface WorkspaceAssignmentService {
    * List workspace permissions.
    *
    * <p>Get an array of workspace permissions for the specified account and workspace.
+   *
+   * @param getWorkspaceAssignmentRequest a {@link com.databricks.sdk.service.iam.GetWorkspaceAssignmentRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.WorkspacePermissions} object
    */
   WorkspacePermissions get(GetWorkspaceAssignmentRequest getWorkspaceAssignmentRequest);
 
@@ -30,6 +38,9 @@ public interface WorkspaceAssignmentService {
    *
    * <p>Get the permission assignments for the specified Databricks Account and Databricks
    * Workspace.
+   *
+   * @param listWorkspaceAssignmentRequest a {@link com.databricks.sdk.service.iam.ListWorkspaceAssignmentRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.PermissionAssignments} object
    */
   PermissionAssignments list(ListWorkspaceAssignmentRequest listWorkspaceAssignmentRequest);
 
@@ -38,6 +49,8 @@ public interface WorkspaceAssignmentService {
    *
    * <p>Creates or updates the workspace permissions assignment in a given account and workspace for
    * the specified principal.
+   *
+   * @param updateWorkspaceAssignments a {@link com.databricks.sdk.service.iam.UpdateWorkspaceAssignments} object
    */
   void update(UpdateWorkspaceAssignments updateWorkspaceAssignments);
 }

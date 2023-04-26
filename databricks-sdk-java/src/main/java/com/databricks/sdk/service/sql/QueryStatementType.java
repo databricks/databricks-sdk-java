@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
-/** Type of statement for this query */
+/**
+ * Type of statement for this query
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum QueryStatementType {
   ALTER,
   ANALYZE,

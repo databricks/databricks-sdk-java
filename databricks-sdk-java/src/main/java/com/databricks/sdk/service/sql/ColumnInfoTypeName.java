@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
-/** Name of type (INT, STRUCT, MAP, and so on) */
+/**
+ * Name of type (INT, STRUCT, MAP, and so on)
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum ColumnInfoTypeName {
   ARRAY,
   BINARY,

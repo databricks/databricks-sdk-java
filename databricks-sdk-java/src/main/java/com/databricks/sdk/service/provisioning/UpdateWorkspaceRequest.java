@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>UpdateWorkspaceRequest class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class UpdateWorkspaceRequest {
   /**
    * The AWS region of the workspace's data plane (for example, `us-west-2`). This parameter is
@@ -53,70 +59,148 @@ public class UpdateWorkspaceRequest {
   /** Workspace ID. */
   private Long workspaceId;
 
+  /**
+   * <p>Setter for the field <code>awsRegion</code>.</p>
+   *
+   * @param awsRegion a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest} object
+   */
   public UpdateWorkspaceRequest setAwsRegion(String awsRegion) {
     this.awsRegion = awsRegion;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsRegion</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAwsRegion() {
     return awsRegion;
   }
 
+  /**
+   * <p>Setter for the field <code>credentialsId</code>.</p>
+   *
+   * @param credentialsId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest} object
+   */
   public UpdateWorkspaceRequest setCredentialsId(String credentialsId) {
     this.credentialsId = credentialsId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>credentialsId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCredentialsId() {
     return credentialsId;
   }
 
+  /**
+   * <p>Setter for the field <code>managedServicesCustomerManagedKeyId</code>.</p>
+   *
+   * @param managedServicesCustomerManagedKeyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest} object
+   */
   public UpdateWorkspaceRequest setManagedServicesCustomerManagedKeyId(
       String managedServicesCustomerManagedKeyId) {
     this.managedServicesCustomerManagedKeyId = managedServicesCustomerManagedKeyId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>managedServicesCustomerManagedKeyId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getManagedServicesCustomerManagedKeyId() {
     return managedServicesCustomerManagedKeyId;
   }
 
+  /**
+   * <p>Setter for the field <code>networkId</code>.</p>
+   *
+   * @param networkId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest} object
+   */
   public UpdateWorkspaceRequest setNetworkId(String networkId) {
     this.networkId = networkId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>networkId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getNetworkId() {
     return networkId;
   }
 
+  /**
+   * <p>Setter for the field <code>storageConfigurationId</code>.</p>
+   *
+   * @param storageConfigurationId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest} object
+   */
   public UpdateWorkspaceRequest setStorageConfigurationId(String storageConfigurationId) {
     this.storageConfigurationId = storageConfigurationId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageConfigurationId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageConfigurationId() {
     return storageConfigurationId;
   }
 
+  /**
+   * <p>Setter for the field <code>storageCustomerManagedKeyId</code>.</p>
+   *
+   * @param storageCustomerManagedKeyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest} object
+   */
   public UpdateWorkspaceRequest setStorageCustomerManagedKeyId(String storageCustomerManagedKeyId) {
     this.storageCustomerManagedKeyId = storageCustomerManagedKeyId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageCustomerManagedKeyId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageCustomerManagedKeyId() {
     return storageCustomerManagedKeyId;
   }
 
+  /**
+   * <p>Setter for the field <code>workspaceId</code>.</p>
+   *
+   * @param workspaceId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest} object
+   */
   public UpdateWorkspaceRequest setWorkspaceId(Long workspaceId) {
     this.workspaceId = workspaceId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>workspaceId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getWorkspaceId() {
     return workspaceId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -132,6 +216,7 @@ public class UpdateWorkspaceRequest {
         && Objects.equals(workspaceId, that.workspaceId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -144,6 +229,7 @@ public class UpdateWorkspaceRequest {
         workspaceId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(UpdateWorkspaceRequest.class)

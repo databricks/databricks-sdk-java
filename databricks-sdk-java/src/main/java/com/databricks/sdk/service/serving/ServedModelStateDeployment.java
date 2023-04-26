@@ -12,6 +12,9 @@ package com.databricks.sdk.service.serving;
  * failed, the model server failed to start due to a model loading error, etc.) DEPLOYMENT_ABORTED
  * indicates that the deployment was terminated likely due to a failure in bringing up another
  * served model under the same endpoint and config version.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum ServedModelStateDeployment {
   DEPLOYMENT_ABORTED,

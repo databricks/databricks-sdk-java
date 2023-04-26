@@ -10,6 +10,9 @@ package com.databricks.sdk.service.workspace;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface WorkspaceService {
   /**
@@ -21,6 +24,8 @@ public interface WorkspaceService {
    * error `DIRECTORY_NOT_EMPTY`.
    *
    * <p>Object deletion cannot be undone and deleting a directory recursively is not atomic.
+   *
+   * @param delete a {@link com.databricks.sdk.service.workspace.Delete} object
    */
   void delete(Delete delete);
 
@@ -34,6 +39,9 @@ public interface WorkspaceService {
    * <p>One can only export a directory in `DBC` format. If the exported data would exceed size
    * limit, this call returns `MAX_NOTEBOOK_SIZE_EXCEEDED`. Currently, this API does not support
    * exporting a library.
+   *
+   * @param exportRequest a {@link com.databricks.sdk.service.workspace.ExportRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.ExportResponse} object
    */
   ExportResponse export(ExportRequest exportRequest);
 
@@ -42,6 +50,9 @@ public interface WorkspaceService {
    *
    * <p>Gets the status of an object or a directory. If `path` does not exist, this call returns an
    * error `RESOURCE_DOES_NOT_EXIST`.
+   *
+   * @param getStatusRequest a {@link com.databricks.sdk.service.workspace.GetStatusRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.ObjectInfo} object
    */
   ObjectInfo getStatus(GetStatusRequest getStatusRequest);
 
@@ -51,6 +62,8 @@ public interface WorkspaceService {
    * <p>Imports a workspace object (for example, a notebook or file) or the contents of an entire
    * directory. If `path` already exists and `overwrite` is set to `false`, this call returns an
    * error `RESOURCE_ALREADY_EXISTS`. One can only use `DBC` format to import a directory.
+   *
+   * @param importContent a {@link com.databricks.sdk.service.workspace.Import} object
    */
   void importContent(Import importContent);
 
@@ -59,6 +72,9 @@ public interface WorkspaceService {
    *
    * <p>Lists the contents of a directory, or the object if it is not a directory.If the input path
    * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
+   *
+   * @param listWorkspaceRequest a {@link com.databricks.sdk.service.workspace.ListWorkspaceRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.ListResponse} object
    */
   ListResponse list(ListWorkspaceRequest listWorkspaceRequest);
 
@@ -71,6 +87,8 @@ public interface WorkspaceService {
    *
    * <p>Note that if this operation fails it may have succeeded in creating some of the necessary
    * parrent directories.
+   *
+   * @param mkdirs a {@link com.databricks.sdk.service.workspace.Mkdirs} object
    */
   void mkdirs(Mkdirs mkdirs);
 }

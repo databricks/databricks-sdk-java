@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>RepairHistoryItem class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class RepairHistoryItem {
   /** The end time of the (repaired) run. */
   @JsonProperty("end_time")
@@ -34,60 +40,127 @@ public class RepairHistoryItem {
   @JsonProperty("type")
   private RepairHistoryItemType typeValue;
 
+  /**
+   * <p>Setter for the field <code>endTime</code>.</p>
+   *
+   * @param endTime a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairHistoryItem} object
+   */
   public RepairHistoryItem setEndTime(Long endTime) {
     this.endTime = endTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>endTime</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getEndTime() {
     return endTime;
   }
 
+  /**
+   * <p>Setter for the field <code>id</code>.</p>
+   *
+   * @param id a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairHistoryItem} object
+   */
   public RepairHistoryItem setId(Long id) {
     this.id = id;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>id</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getId() {
     return id;
   }
 
+  /**
+   * <p>Setter for the field <code>startTime</code>.</p>
+   *
+   * @param startTime a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairHistoryItem} object
+   */
   public RepairHistoryItem setStartTime(Long startTime) {
     this.startTime = startTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>startTime</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getStartTime() {
     return startTime;
   }
 
+  /**
+   * <p>Setter for the field <code>state</code>.</p>
+   *
+   * @param state a {@link com.databricks.sdk.service.jobs.RunState} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairHistoryItem} object
+   */
   public RepairHistoryItem setState(RunState state) {
     this.state = state;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>state</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.RunState} object
+   */
   public RunState getState() {
     return state;
   }
 
+  /**
+   * <p>Setter for the field <code>taskRunIds</code>.</p>
+   *
+   * @param taskRunIds a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairHistoryItem} object
+   */
   public RepairHistoryItem setTaskRunIds(Collection<Long> taskRunIds) {
     this.taskRunIds = taskRunIds;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>taskRunIds</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<Long> getTaskRunIds() {
     return taskRunIds;
   }
 
+  /**
+   * <p>setType.</p>
+   *
+   * @param typeValue a {@link com.databricks.sdk.service.jobs.RepairHistoryItemType} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairHistoryItem} object
+   */
   public RepairHistoryItem setType(RepairHistoryItemType typeValue) {
     this.typeValue = typeValue;
     return this;
   }
 
+  /**
+   * <p>getType.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.RepairHistoryItemType} object
+   */
   public RepairHistoryItemType getType() {
     return typeValue;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -101,11 +174,13 @@ public class RepairHistoryItem {
         && Objects.equals(typeValue, that.typeValue);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(endTime, id, startTime, state, taskRunIds, typeValue);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(RepairHistoryItem.class)

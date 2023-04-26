@@ -9,6 +9,9 @@ package com.databricks.sdk.service.workspace;
  * notebook,depending on an analysis of the item’s extension and the header content provided in the
  * request. The value is case sensitive. In addition, if the item is imported as a notebook, then
  * the item’s extension is automatically removed.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum ExportFormat {
   AUTO,

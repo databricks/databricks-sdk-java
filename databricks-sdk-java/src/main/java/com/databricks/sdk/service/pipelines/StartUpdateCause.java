@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
+/**
+ * <p>StartUpdateCause class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum StartUpdateCause {
   API_CALL,
   JOB_TASK,

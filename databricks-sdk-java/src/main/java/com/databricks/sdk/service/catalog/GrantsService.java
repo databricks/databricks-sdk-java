@@ -15,12 +15,18 @@ package com.databricks.sdk.service.catalog;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface GrantsService {
   /**
    * Get permissions.
    *
    * <p>Gets the permissions for a securable.
+   *
+   * @param getGrantRequest a {@link com.databricks.sdk.service.catalog.GetGrantRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.PermissionsList} object
    */
   PermissionsList get(GetGrantRequest getGrantRequest);
 
@@ -28,6 +34,9 @@ public interface GrantsService {
    * Get effective permissions.
    *
    * <p>Gets the effective permissions for a securable.
+   *
+   * @param getEffectiveRequest a {@link com.databricks.sdk.service.catalog.GetEffectiveRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.EffectivePermissionsList} object
    */
   EffectivePermissionsList getEffective(GetEffectiveRequest getEffectiveRequest);
 
@@ -35,6 +44,9 @@ public interface GrantsService {
    * Update permissions.
    *
    * <p>Updates the permissions for a securable.
+   *
+   * @param updatePermissions a {@link com.databricks.sdk.service.catalog.UpdatePermissions} object
+   * @return a {@link com.databricks.sdk.service.catalog.PermissionsList} object
    */
   PermissionsList update(UpdatePermissions updatePermissions);
 }

@@ -18,12 +18,18 @@ package com.databricks.sdk.service.sql;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface DbsqlPermissionsService {
   /**
    * Get object ACL.
    *
    * <p>Gets a JSON representation of the access control list (ACL) for a specified object.
+   *
+   * @param getDbsqlPermissionRequest a {@link com.databricks.sdk.service.sql.GetDbsqlPermissionRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.GetResponse} object
    */
   GetResponse get(GetDbsqlPermissionRequest getDbsqlPermissionRequest);
 
@@ -32,6 +38,9 @@ public interface DbsqlPermissionsService {
    *
    * <p>Sets the access control list (ACL) for a specified object. This operation will complete
    * rewrite the ACL.
+   *
+   * @param setRequest a {@link com.databricks.sdk.service.sql.SetRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.SetResponse} object
    */
   SetResponse set(SetRequest setRequest);
 
@@ -40,6 +49,9 @@ public interface DbsqlPermissionsService {
    *
    * <p>Transfers ownership of a dashboard, query, or alert to an active user. Requires an admin API
    * key.
+   *
+   * @param transferOwnershipRequest a {@link com.databricks.sdk.service.sql.TransferOwnershipRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.Success} object
    */
   Success transferOwnership(TransferOwnershipRequest transferOwnershipRequest);
 }

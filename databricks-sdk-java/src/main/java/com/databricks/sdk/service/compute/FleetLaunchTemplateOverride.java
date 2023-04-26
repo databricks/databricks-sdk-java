@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>FleetLaunchTemplateOverride class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class FleetLaunchTemplateOverride {
   /**
    * User-assigned preferred availability zone. It will adjust to the default zone of the worker
@@ -32,42 +38,87 @@ public class FleetLaunchTemplateOverride {
   @JsonProperty("priority")
   private Float priority;
 
+  /**
+   * <p>Setter for the field <code>availabilityZone</code>.</p>
+   *
+   * @param availabilityZone a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.FleetLaunchTemplateOverride} object
+   */
   public FleetLaunchTemplateOverride setAvailabilityZone(String availabilityZone) {
     this.availabilityZone = availabilityZone;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>availabilityZone</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAvailabilityZone() {
     return availabilityZone;
   }
 
+  /**
+   * <p>Setter for the field <code>instanceType</code>.</p>
+   *
+   * @param instanceType a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.FleetLaunchTemplateOverride} object
+   */
   public FleetLaunchTemplateOverride setInstanceType(String instanceType) {
     this.instanceType = instanceType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instanceType</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstanceType() {
     return instanceType;
   }
 
+  /**
+   * <p>Setter for the field <code>maxPrice</code>.</p>
+   *
+   * @param maxPrice a {@link java.lang.Float} object
+   * @return a {@link com.databricks.sdk.service.compute.FleetLaunchTemplateOverride} object
+   */
   public FleetLaunchTemplateOverride setMaxPrice(Float maxPrice) {
     this.maxPrice = maxPrice;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>maxPrice</code>.</p>
+   *
+   * @return a {@link java.lang.Float} object
+   */
   public Float getMaxPrice() {
     return maxPrice;
   }
 
+  /**
+   * <p>Setter for the field <code>priority</code>.</p>
+   *
+   * @param priority a {@link java.lang.Float} object
+   * @return a {@link com.databricks.sdk.service.compute.FleetLaunchTemplateOverride} object
+   */
   public FleetLaunchTemplateOverride setPriority(Float priority) {
     this.priority = priority;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>priority</code>.</p>
+   *
+   * @return a {@link java.lang.Float} object
+   */
   public Float getPriority() {
     return priority;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -79,11 +130,13 @@ public class FleetLaunchTemplateOverride {
         && Objects.equals(priority, that.priority);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(availabilityZone, instanceType, maxPrice, priority);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(FleetLaunchTemplateOverride.class)

@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** Function parameter style. **S** is the value for SQL. */
+/**
+ * Function parameter style. **S** is the value for SQL.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum CreateFunctionParameterStyle {
   S,
 }

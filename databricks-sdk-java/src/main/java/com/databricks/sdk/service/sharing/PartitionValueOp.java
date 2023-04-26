@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sharing;
 
-/** The operator to apply for the value. */
+/**
+ * The operator to apply for the value.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum PartitionValueOp {
   EQUAL,
   LIKE,

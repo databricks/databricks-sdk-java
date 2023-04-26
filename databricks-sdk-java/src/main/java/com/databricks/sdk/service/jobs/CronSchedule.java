@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>CronSchedule class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CronSchedule {
   /** Indicate whether this schedule is paused or not. */
   @JsonProperty("pause_status")
@@ -30,33 +36,67 @@ public class CronSchedule {
   @JsonProperty("timezone_id")
   private String timezoneId;
 
+  /**
+   * <p>Setter for the field <code>pauseStatus</code>.</p>
+   *
+   * @param pauseStatus a {@link com.databricks.sdk.service.jobs.CronSchedulePauseStatus} object
+   * @return a {@link com.databricks.sdk.service.jobs.CronSchedule} object
+   */
   public CronSchedule setPauseStatus(CronSchedulePauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pauseStatus</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.CronSchedulePauseStatus} object
+   */
   public CronSchedulePauseStatus getPauseStatus() {
     return pauseStatus;
   }
 
+  /**
+   * <p>Setter for the field <code>quartzCronExpression</code>.</p>
+   *
+   * @param quartzCronExpression a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.CronSchedule} object
+   */
   public CronSchedule setQuartzCronExpression(String quartzCronExpression) {
     this.quartzCronExpression = quartzCronExpression;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>quartzCronExpression</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getQuartzCronExpression() {
     return quartzCronExpression;
   }
 
+  /**
+   * <p>Setter for the field <code>timezoneId</code>.</p>
+   *
+   * @param timezoneId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.CronSchedule} object
+   */
   public CronSchedule setTimezoneId(String timezoneId) {
     this.timezoneId = timezoneId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>timezoneId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTimezoneId() {
     return timezoneId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -67,11 +107,13 @@ public class CronSchedule {
         && Objects.equals(timezoneId, that.timezoneId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(pauseStatus, quartzCronExpression, timezoneId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CronSchedule.class)

@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** The scope of Delta Sharing enabled for the metastore. */
+/**
+ * The scope of Delta Sharing enabled for the metastore.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum UpdateMetastoreDeltaSharingScope {
   INTERNAL,
   INTERNAL_AND_EXTERNAL,

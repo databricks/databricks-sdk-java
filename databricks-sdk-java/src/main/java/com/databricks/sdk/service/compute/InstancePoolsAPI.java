@@ -21,22 +21,40 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Databricks does not charge DBUs while instances are idle in the pool. Instance provider
  * billing does apply. See pricing.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class InstancePoolsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(InstancePoolsAPI.class);
 
   private final InstancePoolsService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public InstancePoolsAPI(ApiClient apiClient) {
     impl = new InstancePoolsImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.compute.InstancePoolsService} object
+   */
   public InstancePoolsAPI(InstancePoolsService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param instancePoolName a {@link java.lang.String} object
+   * @param nodeTypeId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateInstancePoolResponse} object
+   */
   public CreateInstancePoolResponse create(String instancePoolName, String nodeTypeId) {
     return create(
         new CreateInstancePool().setInstancePoolName(instancePoolName).setNodeTypeId(nodeTypeId));
@@ -46,11 +64,19 @@ public class InstancePoolsAPI {
    * Create a new instance pool.
    *
    * <p>Creates a new instance pool using idle and ready-to-use cloud instances.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.CreateInstancePool} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateInstancePoolResponse} object
    */
   public CreateInstancePoolResponse create(CreateInstancePool request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param instancePoolId a {@link java.lang.String} object
+   */
   public void delete(String instancePoolId) {
     delete(new DeleteInstancePool().setInstancePoolId(instancePoolId));
   }
@@ -60,11 +86,20 @@ public class InstancePoolsAPI {
    *
    * <p>Deletes the instance pool permanently. The idle instances in the pool are terminated
    * asynchronously.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.DeleteInstancePool} object
    */
   public void delete(DeleteInstancePool request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>edit.</p>
+   *
+   * @param instancePoolId a {@link java.lang.String} object
+   * @param instancePoolName a {@link java.lang.String} object
+   * @param nodeTypeId a {@link java.lang.String} object
+   */
   public void edit(String instancePoolId, String instancePoolName, String nodeTypeId) {
     edit(
         new EditInstancePool()
@@ -77,11 +112,19 @@ public class InstancePoolsAPI {
    * Edit an existing instance pool.
    *
    * <p>Modifies the configuration of an existing instance pool.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.EditInstancePool} object
    */
   public void edit(EditInstancePool request) {
     impl.edit(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param instancePoolId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
+   */
   public GetInstancePool get(String instancePoolId) {
     return get(new GetInstancePoolRequest().setInstancePoolId(instancePoolId));
   }
@@ -90,6 +133,9 @@ public class InstancePoolsAPI {
    * Get instance pool information.
    *
    * <p>Retrieve the information for an instance pool based on its identifier.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.GetInstancePoolRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
    */
   public GetInstancePool get(GetInstancePoolRequest request) {
     return impl.get(request);
@@ -99,11 +145,18 @@ public class InstancePoolsAPI {
    * List instance pool info.
    *
    * <p>Gets a list of instance pools with their statistics.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<InstancePoolAndStats> list() {
     return impl.list().getInstancePools();
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.InstancePoolsService} object
+   */
   public InstancePoolsService impl() {
     return impl;
   }

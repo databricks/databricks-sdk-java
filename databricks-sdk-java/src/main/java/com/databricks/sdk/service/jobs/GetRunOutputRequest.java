@@ -6,21 +6,38 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get the output for a single run */
+/**
+ * Get the output for a single run
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GetRunOutputRequest {
   /** The canonical identifier for the run. This field is required. */
   @QueryParam("run_id")
   private Long runId;
 
+  /**
+   * <p>Setter for the field <code>runId</code>.</p>
+   *
+   * @param runId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.GetRunOutputRequest} object
+   */
   public GetRunOutputRequest setRunId(Long runId) {
     this.runId = runId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRunId() {
     return runId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -29,11 +46,13 @@ public class GetRunOutputRequest {
     return Objects.equals(runId, that.runId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(runId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GetRunOutputRequest.class).add("runId", runId).toString();

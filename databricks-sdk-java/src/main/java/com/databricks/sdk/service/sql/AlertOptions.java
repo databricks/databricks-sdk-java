@@ -6,7 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Alert configuration options. */
+/**
+ * Alert configuration options.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class AlertOptions {
   /** Name of column in the query result to compare in alert evaluation. */
   @JsonProperty("column")
@@ -44,60 +49,127 @@ public class AlertOptions {
   @JsonProperty("value")
   private String value;
 
+  /**
+   * <p>Setter for the field <code>column</code>.</p>
+   *
+   * @param column a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.AlertOptions} object
+   */
   public AlertOptions setColumn(String column) {
     this.column = column;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>column</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getColumn() {
     return column;
   }
 
+  /**
+   * <p>Setter for the field <code>customBody</code>.</p>
+   *
+   * @param customBody a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.AlertOptions} object
+   */
   public AlertOptions setCustomBody(String customBody) {
     this.customBody = customBody;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>customBody</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCustomBody() {
     return customBody;
   }
 
+  /**
+   * <p>Setter for the field <code>customSubject</code>.</p>
+   *
+   * @param customSubject a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.AlertOptions} object
+   */
   public AlertOptions setCustomSubject(String customSubject) {
     this.customSubject = customSubject;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>customSubject</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCustomSubject() {
     return customSubject;
   }
 
+  /**
+   * <p>Setter for the field <code>muted</code>.</p>
+   *
+   * @param muted a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.sql.AlertOptions} object
+   */
   public AlertOptions setMuted(Boolean muted) {
     this.muted = muted;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>muted</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getMuted() {
     return muted;
   }
 
+  /**
+   * <p>Setter for the field <code>op</code>.</p>
+   *
+   * @param op a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.AlertOptions} object
+   */
   public AlertOptions setOp(String op) {
     this.op = op;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>op</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getOp() {
     return op;
   }
 
+  /**
+   * <p>Setter for the field <code>value</code>.</p>
+   *
+   * @param value a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.AlertOptions} object
+   */
   public AlertOptions setValue(String value) {
     this.value = value;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>value</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getValue() {
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -111,11 +183,13 @@ public class AlertOptions {
         && Objects.equals(value, that.value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(column, customBody, customSubject, muted, op, value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(AlertOptions.class)

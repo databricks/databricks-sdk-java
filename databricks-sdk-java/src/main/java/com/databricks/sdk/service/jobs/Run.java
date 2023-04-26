@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>Run class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class Run {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
@@ -161,240 +167,527 @@ public class Run {
   @JsonProperty("trigger")
   private TriggerType trigger;
 
+  /**
+   * <p>Setter for the field <code>attemptNumber</code>.</p>
+   *
+   * @param attemptNumber a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setAttemptNumber(Long attemptNumber) {
     this.attemptNumber = attemptNumber;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>attemptNumber</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getAttemptNumber() {
     return attemptNumber;
   }
 
+  /**
+   * <p>Setter for the field <code>cleanupDuration</code>.</p>
+   *
+   * @param cleanupDuration a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setCleanupDuration(Long cleanupDuration) {
     this.cleanupDuration = cleanupDuration;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>cleanupDuration</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCleanupDuration() {
     return cleanupDuration;
   }
 
+  /**
+   * <p>Setter for the field <code>clusterInstance</code>.</p>
+   *
+   * @param clusterInstance a {@link com.databricks.sdk.service.jobs.ClusterInstance} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setClusterInstance(ClusterInstance clusterInstance) {
     this.clusterInstance = clusterInstance;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusterInstance</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.ClusterInstance} object
+   */
   public ClusterInstance getClusterInstance() {
     return clusterInstance;
   }
 
+  /**
+   * <p>Setter for the field <code>clusterSpec</code>.</p>
+   *
+   * @param clusterSpec a {@link com.databricks.sdk.service.jobs.ClusterSpec} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setClusterSpec(ClusterSpec clusterSpec) {
     this.clusterSpec = clusterSpec;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusterSpec</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.ClusterSpec} object
+   */
   public ClusterSpec getClusterSpec() {
     return clusterSpec;
   }
 
+  /**
+   * <p>Setter for the field <code>continuous</code>.</p>
+   *
+   * @param continuous a {@link com.databricks.sdk.service.jobs.Continuous} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setContinuous(Continuous continuous) {
     this.continuous = continuous;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>continuous</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.Continuous} object
+   */
   public Continuous getContinuous() {
     return continuous;
   }
 
+  /**
+   * <p>Setter for the field <code>creatorUserName</code>.</p>
+   *
+   * @param creatorUserName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setCreatorUserName(String creatorUserName) {
     this.creatorUserName = creatorUserName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>creatorUserName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCreatorUserName() {
     return creatorUserName;
   }
 
+  /**
+   * <p>Setter for the field <code>endTime</code>.</p>
+   *
+   * @param endTime a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setEndTime(Long endTime) {
     this.endTime = endTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>endTime</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getEndTime() {
     return endTime;
   }
 
+  /**
+   * <p>Setter for the field <code>executionDuration</code>.</p>
+   *
+   * @param executionDuration a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setExecutionDuration(Long executionDuration) {
     this.executionDuration = executionDuration;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>executionDuration</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getExecutionDuration() {
     return executionDuration;
   }
 
+  /**
+   * <p>Setter for the field <code>gitSource</code>.</p>
+   *
+   * @param gitSource a {@link com.databricks.sdk.service.jobs.GitSource} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setGitSource(GitSource gitSource) {
     this.gitSource = gitSource;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitSource</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.GitSource} object
+   */
   public GitSource getGitSource() {
     return gitSource;
   }
 
+  /**
+   * <p>Setter for the field <code>jobClusters</code>.</p>
+   *
+   * @param jobClusters a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setJobClusters(Collection<JobCluster> jobClusters) {
     this.jobClusters = jobClusters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>jobClusters</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<JobCluster> getJobClusters() {
     return jobClusters;
   }
 
+  /**
+   * <p>Setter for the field <code>jobId</code>.</p>
+   *
+   * @param jobId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setJobId(Long jobId) {
     this.jobId = jobId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>jobId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getJobId() {
     return jobId;
   }
 
+  /**
+   * <p>Setter for the field <code>numberInJob</code>.</p>
+   *
+   * @param numberInJob a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setNumberInJob(Long numberInJob) {
     this.numberInJob = numberInJob;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>numberInJob</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getNumberInJob() {
     return numberInJob;
   }
 
+  /**
+   * <p>Setter for the field <code>originalAttemptRunId</code>.</p>
+   *
+   * @param originalAttemptRunId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setOriginalAttemptRunId(Long originalAttemptRunId) {
     this.originalAttemptRunId = originalAttemptRunId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>originalAttemptRunId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getOriginalAttemptRunId() {
     return originalAttemptRunId;
   }
 
+  /**
+   * <p>Setter for the field <code>overridingParameters</code>.</p>
+   *
+   * @param overridingParameters a {@link com.databricks.sdk.service.jobs.RunParameters} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setOverridingParameters(RunParameters overridingParameters) {
     this.overridingParameters = overridingParameters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>overridingParameters</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.RunParameters} object
+   */
   public RunParameters getOverridingParameters() {
     return overridingParameters;
   }
 
+  /**
+   * <p>Setter for the field <code>repairHistory</code>.</p>
+   *
+   * @param repairHistory a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setRepairHistory(Collection<RepairHistoryItem> repairHistory) {
     this.repairHistory = repairHistory;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>repairHistory</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<RepairHistoryItem> getRepairHistory() {
     return repairHistory;
   }
 
+  /**
+   * <p>Setter for the field <code>runDuration</code>.</p>
+   *
+   * @param runDuration a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setRunDuration(Long runDuration) {
     this.runDuration = runDuration;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runDuration</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRunDuration() {
     return runDuration;
   }
 
+  /**
+   * <p>Setter for the field <code>runId</code>.</p>
+   *
+   * @param runId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setRunId(Long runId) {
     this.runId = runId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRunId() {
     return runId;
   }
 
+  /**
+   * <p>Setter for the field <code>runName</code>.</p>
+   *
+   * @param runName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setRunName(String runName) {
     this.runName = runName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRunName() {
     return runName;
   }
 
+  /**
+   * <p>Setter for the field <code>runPageUrl</code>.</p>
+   *
+   * @param runPageUrl a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setRunPageUrl(String runPageUrl) {
     this.runPageUrl = runPageUrl;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runPageUrl</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRunPageUrl() {
     return runPageUrl;
   }
 
+  /**
+   * <p>Setter for the field <code>runType</code>.</p>
+   *
+   * @param runType a {@link com.databricks.sdk.service.jobs.RunType} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setRunType(RunType runType) {
     this.runType = runType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.RunType} object
+   */
   public RunType getRunType() {
     return runType;
   }
 
+  /**
+   * <p>Setter for the field <code>schedule</code>.</p>
+   *
+   * @param schedule a {@link com.databricks.sdk.service.jobs.CronSchedule} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setSchedule(CronSchedule schedule) {
     this.schedule = schedule;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>schedule</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.CronSchedule} object
+   */
   public CronSchedule getSchedule() {
     return schedule;
   }
 
+  /**
+   * <p>Setter for the field <code>setupDuration</code>.</p>
+   *
+   * @param setupDuration a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setSetupDuration(Long setupDuration) {
     this.setupDuration = setupDuration;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>setupDuration</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getSetupDuration() {
     return setupDuration;
   }
 
+  /**
+   * <p>Setter for the field <code>startTime</code>.</p>
+   *
+   * @param startTime a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setStartTime(Long startTime) {
     this.startTime = startTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>startTime</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getStartTime() {
     return startTime;
   }
 
+  /**
+   * <p>Setter for the field <code>state</code>.</p>
+   *
+   * @param state a {@link com.databricks.sdk.service.jobs.RunState} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setState(RunState state) {
     this.state = state;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>state</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.RunState} object
+   */
   public RunState getState() {
     return state;
   }
 
+  /**
+   * <p>Setter for the field <code>tasks</code>.</p>
+   *
+   * @param tasks a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setTasks(Collection<RunTask> tasks) {
     this.tasks = tasks;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>tasks</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<RunTask> getTasks() {
     return tasks;
   }
 
+  /**
+   * <p>Setter for the field <code>trigger</code>.</p>
+   *
+   * @param trigger a {@link com.databricks.sdk.service.jobs.TriggerType} object
+   * @return a {@link com.databricks.sdk.service.jobs.Run} object
+   */
   public Run setTrigger(TriggerType trigger) {
     this.trigger = trigger;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>trigger</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.TriggerType} object
+   */
   public TriggerType getTrigger() {
     return trigger;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -428,6 +721,7 @@ public class Run {
         && Objects.equals(trigger, that.trigger);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -459,6 +753,7 @@ public class Run {
         trigger);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(Run.class)

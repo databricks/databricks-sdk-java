@@ -1,6 +1,11 @@
 package com.databricks.sdk.client.oauth;
 
-/** Options for where authentication parameters can be provided in a request. */
+/**
+ * Options for where authentication parameters can be provided in a request.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum AuthParameterPosition {
   /** The parameter should be passed as part of the Authorization header. */
   HEADER,

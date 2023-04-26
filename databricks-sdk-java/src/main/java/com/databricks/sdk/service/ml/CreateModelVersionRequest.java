@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>CreateModelVersionRequest class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateModelVersionRequest {
   /** Optional description for model version. */
   @JsonProperty("description")
@@ -38,60 +44,127 @@ public class CreateModelVersionRequest {
   @JsonProperty("tags")
   private Collection<ModelVersionTag> tags;
 
+  /**
+   * <p>Setter for the field <code>description</code>.</p>
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateModelVersionRequest} object
+   */
   public CreateModelVersionRequest setDescription(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>description</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateModelVersionRequest} object
+   */
   public CreateModelVersionRequest setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>runId</code>.</p>
+   *
+   * @param runId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateModelVersionRequest} object
+   */
   public CreateModelVersionRequest setRunId(String runId) {
     this.runId = runId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRunId() {
     return runId;
   }
 
+  /**
+   * <p>Setter for the field <code>runLink</code>.</p>
+   *
+   * @param runLink a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateModelVersionRequest} object
+   */
   public CreateModelVersionRequest setRunLink(String runLink) {
     this.runLink = runLink;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runLink</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRunLink() {
     return runLink;
   }
 
+  /**
+   * <p>Setter for the field <code>source</code>.</p>
+   *
+   * @param source a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateModelVersionRequest} object
+   */
   public CreateModelVersionRequest setSource(String source) {
     this.source = source;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>source</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSource() {
     return source;
   }
 
+  /**
+   * <p>Setter for the field <code>tags</code>.</p>
+   *
+   * @param tags a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateModelVersionRequest} object
+   */
   public CreateModelVersionRequest setTags(Collection<ModelVersionTag> tags) {
     this.tags = tags;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>tags</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<ModelVersionTag> getTags() {
     return tags;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -105,11 +178,13 @@ public class CreateModelVersionRequest {
         && Objects.equals(tags, that.tags);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(description, name, runId, runLink, source, tags);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateModelVersionRequest.class)

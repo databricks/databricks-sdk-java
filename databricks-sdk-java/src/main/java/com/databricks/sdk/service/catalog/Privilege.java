@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
+/**
+ * <p>Privilege class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum Privilege {
   ALL_PRIVILEGES,
   CREATE,

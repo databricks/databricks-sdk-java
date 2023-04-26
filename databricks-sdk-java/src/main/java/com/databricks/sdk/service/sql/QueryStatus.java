@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum QueryStatus {
   CANCELED, // Query has been cancelled by the user.
   FAILED, // Query has failed.

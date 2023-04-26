@@ -5,20 +5,37 @@ package com.databricks.sdk.service.iam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** List workspace permissions */
+/**
+ * List workspace permissions
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GetWorkspaceAssignmentRequest {
   /** The workspace ID. */
   private Long workspaceId;
 
+  /**
+   * <p>Setter for the field <code>workspaceId</code>.</p>
+   *
+   * @param workspaceId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.iam.GetWorkspaceAssignmentRequest} object
+   */
   public GetWorkspaceAssignmentRequest setWorkspaceId(Long workspaceId) {
     this.workspaceId = workspaceId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>workspaceId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getWorkspaceId() {
     return workspaceId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -27,11 +44,13 @@ public class GetWorkspaceAssignmentRequest {
     return Objects.equals(workspaceId, that.workspaceId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(workspaceId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GetWorkspaceAssignmentRequest.class)

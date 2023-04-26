@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>CreateCredentials class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateCredentials {
   /**
    * Git provider. This field is case-insensitive. The available Git providers are gitHub,
@@ -23,33 +29,67 @@ public class CreateCredentials {
   @JsonProperty("personal_access_token")
   private String personalAccessToken;
 
+  /**
+   * <p>Setter for the field <code>gitProvider</code>.</p>
+   *
+   * @param gitProvider a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.CreateCredentials} object
+   */
   public CreateCredentials setGitProvider(String gitProvider) {
     this.gitProvider = gitProvider;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitProvider</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGitProvider() {
     return gitProvider;
   }
 
+  /**
+   * <p>Setter for the field <code>gitUsername</code>.</p>
+   *
+   * @param gitUsername a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.CreateCredentials} object
+   */
   public CreateCredentials setGitUsername(String gitUsername) {
     this.gitUsername = gitUsername;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitUsername</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGitUsername() {
     return gitUsername;
   }
 
+  /**
+   * <p>Setter for the field <code>personalAccessToken</code>.</p>
+   *
+   * @param personalAccessToken a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.CreateCredentials} object
+   */
   public CreateCredentials setPersonalAccessToken(String personalAccessToken) {
     this.personalAccessToken = personalAccessToken;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>personalAccessToken</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPersonalAccessToken() {
     return personalAccessToken;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -60,11 +100,13 @@ public class CreateCredentials {
         && Objects.equals(personalAccessToken, that.personalAccessToken);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(gitProvider, gitUsername, personalAccessToken);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateCredentials.class)

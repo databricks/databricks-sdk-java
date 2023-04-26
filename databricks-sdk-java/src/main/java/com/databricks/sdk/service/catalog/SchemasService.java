@@ -10,6 +10,9 @@ package com.databricks.sdk.service.catalog;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface SchemasService {
   /**
@@ -17,6 +20,9 @@ public interface SchemasService {
    *
    * <p>Creates a new schema for catalog in the Metatastore. The caller must be a metastore admin,
    * or have the **CREATE_SCHEMA** privilege in the parent catalog.
+   *
+   * @param createSchema a {@link com.databricks.sdk.service.catalog.CreateSchema} object
+   * @return a {@link com.databricks.sdk.service.catalog.SchemaInfo} object
    */
   SchemaInfo create(CreateSchema createSchema);
 
@@ -25,6 +31,8 @@ public interface SchemasService {
    *
    * <p>Deletes the specified schema from the parent catalog. The caller must be the owner of the
    * schema or an owner of the parent catalog.
+   *
+   * @param deleteSchemaRequest a {@link com.databricks.sdk.service.catalog.DeleteSchemaRequest} object
    */
   void delete(DeleteSchemaRequest deleteSchemaRequest);
 
@@ -33,6 +41,9 @@ public interface SchemasService {
    *
    * <p>Gets the specified schema within the metastore. The caller must be a metastore admin, the
    * owner of the schema, or a user that has the **USE_SCHEMA** privilege on the schema.
+   *
+   * @param getSchemaRequest a {@link com.databricks.sdk.service.catalog.GetSchemaRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.SchemaInfo} object
    */
   SchemaInfo get(GetSchemaRequest getSchemaRequest);
 
@@ -44,6 +55,9 @@ public interface SchemasService {
    * Otherwise, only schemas owned by the caller (or for which the caller has the **USE_SCHEMA**
    * privilege) will be retrieved. There is no guarantee of a specific ordering of the elements in
    * the array.
+   *
+   * @param listSchemasRequest a {@link com.databricks.sdk.service.catalog.ListSchemasRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.ListSchemasResponse} object
    */
   ListSchemasResponse list(ListSchemasRequest listSchemasRequest);
 
@@ -54,6 +68,9 @@ public interface SchemasService {
    * admin. If the caller is a metastore admin, only the __owner__ field can be changed in the
    * update. If the __name__ field must be updated, the caller must be a metastore admin or have the
    * **CREATE_SCHEMA** privilege on the parent catalog.
+   *
+   * @param updateSchema a {@link com.databricks.sdk.service.catalog.UpdateSchema} object
+   * @return a {@link com.databricks.sdk.service.catalog.SchemaInfo} object
    */
   SchemaInfo update(UpdateSchema updateSchema);
 }

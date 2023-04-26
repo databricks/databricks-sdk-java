@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>RunTask class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class RunTask {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
@@ -165,222 +171,487 @@ public class RunTask {
   @JsonProperty("task_key")
   private String taskKey;
 
+  /**
+   * <p>Setter for the field <code>attemptNumber</code>.</p>
+   *
+   * @param attemptNumber a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setAttemptNumber(Long attemptNumber) {
     this.attemptNumber = attemptNumber;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>attemptNumber</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getAttemptNumber() {
     return attemptNumber;
   }
 
+  /**
+   * <p>Setter for the field <code>cleanupDuration</code>.</p>
+   *
+   * @param cleanupDuration a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setCleanupDuration(Long cleanupDuration) {
     this.cleanupDuration = cleanupDuration;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>cleanupDuration</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCleanupDuration() {
     return cleanupDuration;
   }
 
+  /**
+   * <p>Setter for the field <code>clusterInstance</code>.</p>
+   *
+   * @param clusterInstance a {@link com.databricks.sdk.service.jobs.ClusterInstance} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setClusterInstance(ClusterInstance clusterInstance) {
     this.clusterInstance = clusterInstance;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusterInstance</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.ClusterInstance} object
+   */
   public ClusterInstance getClusterInstance() {
     return clusterInstance;
   }
 
+  /**
+   * <p>Setter for the field <code>dbtTask</code>.</p>
+   *
+   * @param dbtTask a {@link com.databricks.sdk.service.jobs.DbtTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setDbtTask(DbtTask dbtTask) {
     this.dbtTask = dbtTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dbtTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.DbtTask} object
+   */
   public DbtTask getDbtTask() {
     return dbtTask;
   }
 
+  /**
+   * <p>Setter for the field <code>dependsOn</code>.</p>
+   *
+   * @param dependsOn a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setDependsOn(Collection<TaskDependenciesItem> dependsOn) {
     this.dependsOn = dependsOn;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dependsOn</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<TaskDependenciesItem> getDependsOn() {
     return dependsOn;
   }
 
+  /**
+   * <p>Setter for the field <code>description</code>.</p>
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setDescription(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>description</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * <p>Setter for the field <code>endTime</code>.</p>
+   *
+   * @param endTime a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setEndTime(Long endTime) {
     this.endTime = endTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>endTime</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getEndTime() {
     return endTime;
   }
 
+  /**
+   * <p>Setter for the field <code>executionDuration</code>.</p>
+   *
+   * @param executionDuration a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setExecutionDuration(Long executionDuration) {
     this.executionDuration = executionDuration;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>executionDuration</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getExecutionDuration() {
     return executionDuration;
   }
 
+  /**
+   * <p>Setter for the field <code>existingClusterId</code>.</p>
+   *
+   * @param existingClusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setExistingClusterId(String existingClusterId) {
     this.existingClusterId = existingClusterId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>existingClusterId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getExistingClusterId() {
     return existingClusterId;
   }
 
+  /**
+   * <p>Setter for the field <code>gitSource</code>.</p>
+   *
+   * @param gitSource a {@link com.databricks.sdk.service.jobs.GitSource} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setGitSource(GitSource gitSource) {
     this.gitSource = gitSource;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitSource</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.GitSource} object
+   */
   public GitSource getGitSource() {
     return gitSource;
   }
 
+  /**
+   * <p>Setter for the field <code>libraries</code>.</p>
+   *
+   * @param libraries a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
     this.libraries = libraries;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>libraries</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<Object /* MISSING TYPE */> getLibraries() {
     return libraries;
   }
 
+  /**
+   * <p>Setter for the field <code>newCluster</code>.</p>
+   *
+   * @param newCluster a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setNewCluster(Object /* MISSING TYPE */ newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>newCluster</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getNewCluster() {
     return newCluster;
   }
 
+  /**
+   * <p>Setter for the field <code>notebookTask</code>.</p>
+   *
+   * @param notebookTask a {@link com.databricks.sdk.service.jobs.NotebookTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setNotebookTask(NotebookTask notebookTask) {
     this.notebookTask = notebookTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>notebookTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.NotebookTask} object
+   */
   public NotebookTask getNotebookTask() {
     return notebookTask;
   }
 
+  /**
+   * <p>Setter for the field <code>pipelineTask</code>.</p>
+   *
+   * @param pipelineTask a {@link com.databricks.sdk.service.jobs.PipelineTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setPipelineTask(PipelineTask pipelineTask) {
     this.pipelineTask = pipelineTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pipelineTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.PipelineTask} object
+   */
   public PipelineTask getPipelineTask() {
     return pipelineTask;
   }
 
+  /**
+   * <p>Setter for the field <code>pythonWheelTask</code>.</p>
+   *
+   * @param pythonWheelTask a {@link com.databricks.sdk.service.jobs.PythonWheelTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setPythonWheelTask(PythonWheelTask pythonWheelTask) {
     this.pythonWheelTask = pythonWheelTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pythonWheelTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.PythonWheelTask} object
+   */
   public PythonWheelTask getPythonWheelTask() {
     return pythonWheelTask;
   }
 
+  /**
+   * <p>Setter for the field <code>runId</code>.</p>
+   *
+   * @param runId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setRunId(Long runId) {
     this.runId = runId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRunId() {
     return runId;
   }
 
+  /**
+   * <p>Setter for the field <code>setupDuration</code>.</p>
+   *
+   * @param setupDuration a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setSetupDuration(Long setupDuration) {
     this.setupDuration = setupDuration;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>setupDuration</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getSetupDuration() {
     return setupDuration;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkJarTask</code>.</p>
+   *
+   * @param sparkJarTask a {@link com.databricks.sdk.service.jobs.SparkJarTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setSparkJarTask(SparkJarTask sparkJarTask) {
     this.sparkJarTask = sparkJarTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkJarTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SparkJarTask} object
+   */
   public SparkJarTask getSparkJarTask() {
     return sparkJarTask;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkPythonTask</code>.</p>
+   *
+   * @param sparkPythonTask a {@link com.databricks.sdk.service.jobs.SparkPythonTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setSparkPythonTask(SparkPythonTask sparkPythonTask) {
     this.sparkPythonTask = sparkPythonTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkPythonTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SparkPythonTask} object
+   */
   public SparkPythonTask getSparkPythonTask() {
     return sparkPythonTask;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkSubmitTask</code>.</p>
+   *
+   * @param sparkSubmitTask a {@link com.databricks.sdk.service.jobs.SparkSubmitTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setSparkSubmitTask(SparkSubmitTask sparkSubmitTask) {
     this.sparkSubmitTask = sparkSubmitTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkSubmitTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SparkSubmitTask} object
+   */
   public SparkSubmitTask getSparkSubmitTask() {
     return sparkSubmitTask;
   }
 
+  /**
+   * <p>Setter for the field <code>sqlTask</code>.</p>
+   *
+   * @param sqlTask a {@link com.databricks.sdk.service.jobs.SqlTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setSqlTask(SqlTask sqlTask) {
     this.sqlTask = sqlTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sqlTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SqlTask} object
+   */
   public SqlTask getSqlTask() {
     return sqlTask;
   }
 
+  /**
+   * <p>Setter for the field <code>startTime</code>.</p>
+   *
+   * @param startTime a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setStartTime(Long startTime) {
     this.startTime = startTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>startTime</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getStartTime() {
     return startTime;
   }
 
+  /**
+   * <p>Setter for the field <code>state</code>.</p>
+   *
+   * @param state a {@link com.databricks.sdk.service.jobs.RunState} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setState(RunState state) {
     this.state = state;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>state</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.RunState} object
+   */
   public RunState getState() {
     return state;
   }
 
+  /**
+   * <p>Setter for the field <code>taskKey</code>.</p>
+   *
+   * @param taskKey a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunTask} object
+   */
   public RunTask setTaskKey(String taskKey) {
     this.taskKey = taskKey;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>taskKey</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTaskKey() {
     return taskKey;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -412,6 +683,7 @@ public class RunTask {
         && Objects.equals(taskKey, that.taskKey);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -441,6 +713,7 @@ public class RunTask {
         taskKey);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(RunTask.class)

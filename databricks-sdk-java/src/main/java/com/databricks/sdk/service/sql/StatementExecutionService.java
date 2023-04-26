@@ -162,6 +162,9 @@ package com.databricks.sdk.service.sql;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface StatementExecutionService {
   /**
@@ -169,6 +172,8 @@ public interface StatementExecutionService {
    *
    * <p>Requests that an executing statement be canceled. Callers must poll for status to see the
    * terminal state.
+   *
+   * @param cancelExecutionRequest a {@link com.databricks.sdk.service.sql.CancelExecutionRequest} object
    */
   void cancelExecution(CancelExecutionRequest cancelExecutionRequest);
 
@@ -176,6 +181,9 @@ public interface StatementExecutionService {
    * Execute a SQL statement.
    *
    * <p>Execute a SQL statement, and if flagged as such, await its result for a specified time.
+   *
+   * @param executeStatementRequest a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementResponse} object
    */
   ExecuteStatementResponse executeStatement(ExecuteStatementRequest executeStatementRequest);
 
@@ -189,6 +197,9 @@ public interface StatementExecutionService {
    * from the warehouse and further calls will receive an HTTP 404 response.
    *
    * <p>**NOTE** This call currently may take up to 5 seconds to get the latest status and result.
+   *
+   * @param getStatementRequest a {@link com.databricks.sdk.service.sql.GetStatementRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.GetStatementResponse} object
    */
   GetStatementResponse getStatement(GetStatementRequest getStatementRequest);
 
@@ -201,6 +212,9 @@ public interface StatementExecutionService {
    * is identical to the nested `result` element described in the `get status` request, and
    * similarly includes the `next_chunk_index` and `next_chunk_internal_link` fields for simple
    * iteration through the result set.
+   *
+   * @param getStatementResultChunkNRequest a {@link com.databricks.sdk.service.sql.GetStatementResultChunkNRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.ResultData} object
    */
   ResultData getStatementResultChunkN(
       GetStatementResultChunkNRequest getStatementResultChunkNRequest);

@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>ListServicePrincipalResponse class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ListServicePrincipalResponse {
   /** Total results returned in the response. */
   @JsonProperty("itemsPerPage")
@@ -24,42 +30,87 @@ public class ListServicePrincipalResponse {
   @JsonProperty("totalResults")
   private Long totalResults;
 
+  /**
+   * <p>Setter for the field <code>itemsPerPage</code>.</p>
+   *
+   * @param itemsPerPage a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.iam.ListServicePrincipalResponse} object
+   */
   public ListServicePrincipalResponse setItemsPerPage(Long itemsPerPage) {
     this.itemsPerPage = itemsPerPage;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>itemsPerPage</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getItemsPerPage() {
     return itemsPerPage;
   }
 
+  /**
+   * <p>Setter for the field <code>resources</code>.</p>
+   *
+   * @param resources a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.iam.ListServicePrincipalResponse} object
+   */
   public ListServicePrincipalResponse setResources(Collection<ServicePrincipal> resources) {
     this.resources = resources;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>resources</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<ServicePrincipal> getResources() {
     return resources;
   }
 
+  /**
+   * <p>Setter for the field <code>startIndex</code>.</p>
+   *
+   * @param startIndex a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.iam.ListServicePrincipalResponse} object
+   */
   public ListServicePrincipalResponse setStartIndex(Long startIndex) {
     this.startIndex = startIndex;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>startIndex</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getStartIndex() {
     return startIndex;
   }
 
+  /**
+   * <p>Setter for the field <code>totalResults</code>.</p>
+   *
+   * @param totalResults a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.iam.ListServicePrincipalResponse} object
+   */
   public ListServicePrincipalResponse setTotalResults(Long totalResults) {
     this.totalResults = totalResults;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>totalResults</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTotalResults() {
     return totalResults;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -71,11 +122,13 @@ public class ListServicePrincipalResponse {
         && Objects.equals(totalResults, that.totalResults);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(itemsPerPage, resources, startIndex, totalResults);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ListServicePrincipalResponse.class)

@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>IpAccessListInfo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class IpAccessListInfo {
   /** Total number of IP or CIDR values. */
   @JsonProperty("address_count")
@@ -48,96 +54,207 @@ public class IpAccessListInfo {
   @JsonProperty("updated_by")
   private Long updatedBy;
 
+  /**
+   * <p>Setter for the field <code>addressCount</code>.</p>
+   *
+   * @param addressCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListInfo} object
+   */
   public IpAccessListInfo setAddressCount(Long addressCount) {
     this.addressCount = addressCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>addressCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getAddressCount() {
     return addressCount;
   }
 
+  /**
+   * <p>Setter for the field <code>createdAt</code>.</p>
+   *
+   * @param createdAt a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListInfo} object
+   */
   public IpAccessListInfo setCreatedAt(Long createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>createdAt</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCreatedAt() {
     return createdAt;
   }
 
+  /**
+   * <p>Setter for the field <code>createdBy</code>.</p>
+   *
+   * @param createdBy a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListInfo} object
+   */
   public IpAccessListInfo setCreatedBy(Long createdBy) {
     this.createdBy = createdBy;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>createdBy</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCreatedBy() {
     return createdBy;
   }
 
+  /**
+   * <p>Setter for the field <code>enabled</code>.</p>
+   *
+   * @param enabled a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListInfo} object
+   */
   public IpAccessListInfo setEnabled(Boolean enabled) {
     this.enabled = enabled;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enabled</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnabled() {
     return enabled;
   }
 
+  /**
+   * <p>Setter for the field <code>ipAddresses</code>.</p>
+   *
+   * @param ipAddresses a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListInfo} object
+   */
   public IpAccessListInfo setIpAddresses(Collection<String> ipAddresses) {
     this.ipAddresses = ipAddresses;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ipAddresses</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getIpAddresses() {
     return ipAddresses;
   }
 
+  /**
+   * <p>Setter for the field <code>label</code>.</p>
+   *
+   * @param label a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListInfo} object
+   */
   public IpAccessListInfo setLabel(String label) {
     this.label = label;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>label</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getLabel() {
     return label;
   }
 
+  /**
+   * <p>Setter for the field <code>listId</code>.</p>
+   *
+   * @param listId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListInfo} object
+   */
   public IpAccessListInfo setListId(String listId) {
     this.listId = listId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>listId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getListId() {
     return listId;
   }
 
+  /**
+   * <p>Setter for the field <code>listType</code>.</p>
+   *
+   * @param listType a {@link com.databricks.sdk.service.settings.ListType} object
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListInfo} object
+   */
   public IpAccessListInfo setListType(ListType listType) {
     this.listType = listType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>listType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.settings.ListType} object
+   */
   public ListType getListType() {
     return listType;
   }
 
+  /**
+   * <p>Setter for the field <code>updatedAt</code>.</p>
+   *
+   * @param updatedAt a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListInfo} object
+   */
   public IpAccessListInfo setUpdatedAt(Long updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>updatedAt</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getUpdatedAt() {
     return updatedAt;
   }
 
+  /**
+   * <p>Setter for the field <code>updatedBy</code>.</p>
+   *
+   * @param updatedBy a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.settings.IpAccessListInfo} object
+   */
   public IpAccessListInfo setUpdatedBy(Long updatedBy) {
     this.updatedBy = updatedBy;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>updatedBy</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getUpdatedBy() {
     return updatedBy;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -155,6 +272,7 @@ public class IpAccessListInfo {
         && Objects.equals(updatedBy, that.updatedBy);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -170,6 +288,7 @@ public class IpAccessListInfo {
         updatedBy);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(IpAccessListInfo.class)

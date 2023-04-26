@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>ClusterSize class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ClusterSize {
   /**
    * Parameters needed in order to automatically scale clusters up and down based on load. Note:
@@ -27,24 +33,47 @@ public class ClusterSize {
   @JsonProperty("num_workers")
   private Long numWorkers;
 
+  /**
+   * <p>Setter for the field <code>autoscale</code>.</p>
+   *
+   * @param autoscale a {@link com.databricks.sdk.service.compute.AutoScale} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterSize} object
+   */
   public ClusterSize setAutoscale(AutoScale autoscale) {
     this.autoscale = autoscale;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>autoscale</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.AutoScale} object
+   */
   public AutoScale getAutoscale() {
     return autoscale;
   }
 
+  /**
+   * <p>Setter for the field <code>numWorkers</code>.</p>
+   *
+   * @param numWorkers a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterSize} object
+   */
   public ClusterSize setNumWorkers(Long numWorkers) {
     this.numWorkers = numWorkers;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>numWorkers</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getNumWorkers() {
     return numWorkers;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -53,11 +82,13 @@ public class ClusterSize {
     return Objects.equals(autoscale, that.autoscale) && Objects.equals(numWorkers, that.numWorkers);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(autoscale, numWorkers);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ClusterSize.class)

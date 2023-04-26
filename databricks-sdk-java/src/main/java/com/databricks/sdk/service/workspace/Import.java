@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>Import class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class Import {
   /**
    * The base64-encoded content. This has a limit of 10 MB.
@@ -45,51 +51,107 @@ public class Import {
   @JsonProperty("path")
   private String path;
 
+  /**
+   * <p>Setter for the field <code>content</code>.</p>
+   *
+   * @param content a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.Import} object
+   */
   public Import setContent(String content) {
     this.content = content;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>content</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getContent() {
     return content;
   }
 
+  /**
+   * <p>Setter for the field <code>format</code>.</p>
+   *
+   * @param format a {@link com.databricks.sdk.service.workspace.ExportFormat} object
+   * @return a {@link com.databricks.sdk.service.workspace.Import} object
+   */
   public Import setFormat(ExportFormat format) {
     this.format = format;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>format</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.ExportFormat} object
+   */
   public ExportFormat getFormat() {
     return format;
   }
 
+  /**
+   * <p>Setter for the field <code>language</code>.</p>
+   *
+   * @param language a {@link com.databricks.sdk.service.workspace.Language} object
+   * @return a {@link com.databricks.sdk.service.workspace.Import} object
+   */
   public Import setLanguage(Language language) {
     this.language = language;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>language</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.Language} object
+   */
   public Language getLanguage() {
     return language;
   }
 
+  /**
+   * <p>Setter for the field <code>overwrite</code>.</p>
+   *
+   * @param overwrite a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.workspace.Import} object
+   */
   public Import setOverwrite(Boolean overwrite) {
     this.overwrite = overwrite;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>overwrite</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getOverwrite() {
     return overwrite;
   }
 
+  /**
+   * <p>Setter for the field <code>path</code>.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.Import} object
+   */
   public Import setPath(String path) {
     this.path = path;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>path</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPath() {
     return path;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -102,11 +164,13 @@ public class Import {
         && Objects.equals(path, that.path);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(content, format, language, overwrite, path);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(Import.class)

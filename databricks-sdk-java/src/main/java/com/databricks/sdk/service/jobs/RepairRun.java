@@ -8,6 +8,12 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * <p>RepairRun class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class RepairRun {
   /**
    * An array of commands to execute for jobs with the dbt task, for example `"dbt_commands": ["dbt
@@ -129,114 +135,247 @@ public class RepairRun {
   @JsonProperty("sql_params")
   private Map<String, String> sqlParams;
 
+  /**
+   * <p>Setter for the field <code>dbtCommands</code>.</p>
+   *
+   * @param dbtCommands a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setDbtCommands(Collection<String> dbtCommands) {
     this.dbtCommands = dbtCommands;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dbtCommands</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getDbtCommands() {
     return dbtCommands;
   }
 
+  /**
+   * <p>Setter for the field <code>jarParams</code>.</p>
+   *
+   * @param jarParams a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setJarParams(Collection<String> jarParams) {
     this.jarParams = jarParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>jarParams</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getJarParams() {
     return jarParams;
   }
 
+  /**
+   * <p>Setter for the field <code>latestRepairId</code>.</p>
+   *
+   * @param latestRepairId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setLatestRepairId(Long latestRepairId) {
     this.latestRepairId = latestRepairId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>latestRepairId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getLatestRepairId() {
     return latestRepairId;
   }
 
+  /**
+   * <p>Setter for the field <code>notebookParams</code>.</p>
+   *
+   * @param notebookParams a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setNotebookParams(Map<String, String> notebookParams) {
     this.notebookParams = notebookParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>notebookParams</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getNotebookParams() {
     return notebookParams;
   }
 
+  /**
+   * <p>Setter for the field <code>pipelineParams</code>.</p>
+   *
+   * @param pipelineParams a {@link com.databricks.sdk.service.jobs.PipelineParams} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setPipelineParams(PipelineParams pipelineParams) {
     this.pipelineParams = pipelineParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pipelineParams</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.PipelineParams} object
+   */
   public PipelineParams getPipelineParams() {
     return pipelineParams;
   }
 
+  /**
+   * <p>Setter for the field <code>pythonNamedParams</code>.</p>
+   *
+   * @param pythonNamedParams a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setPythonNamedParams(Map<String, String> pythonNamedParams) {
     this.pythonNamedParams = pythonNamedParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pythonNamedParams</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getPythonNamedParams() {
     return pythonNamedParams;
   }
 
+  /**
+   * <p>Setter for the field <code>pythonParams</code>.</p>
+   *
+   * @param pythonParams a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setPythonParams(Collection<String> pythonParams) {
     this.pythonParams = pythonParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pythonParams</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getPythonParams() {
     return pythonParams;
   }
 
+  /**
+   * <p>Setter for the field <code>rerunAllFailedTasks</code>.</p>
+   *
+   * @param rerunAllFailedTasks a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setRerunAllFailedTasks(Boolean rerunAllFailedTasks) {
     this.rerunAllFailedTasks = rerunAllFailedTasks;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>rerunAllFailedTasks</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getRerunAllFailedTasks() {
     return rerunAllFailedTasks;
   }
 
+  /**
+   * <p>Setter for the field <code>rerunTasks</code>.</p>
+   *
+   * @param rerunTasks a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setRerunTasks(Collection<String> rerunTasks) {
     this.rerunTasks = rerunTasks;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>rerunTasks</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getRerunTasks() {
     return rerunTasks;
   }
 
+  /**
+   * <p>Setter for the field <code>runId</code>.</p>
+   *
+   * @param runId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setRunId(Long runId) {
     this.runId = runId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRunId() {
     return runId;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkSubmitParams</code>.</p>
+   *
+   * @param sparkSubmitParams a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setSparkSubmitParams(Collection<String> sparkSubmitParams) {
     this.sparkSubmitParams = sparkSubmitParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkSubmitParams</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getSparkSubmitParams() {
     return sparkSubmitParams;
   }
 
+  /**
+   * <p>Setter for the field <code>sqlParams</code>.</p>
+   *
+   * @param sqlParams a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.jobs.RepairRun} object
+   */
   public RepairRun setSqlParams(Map<String, String> sqlParams) {
     this.sqlParams = sqlParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sqlParams</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getSqlParams() {
     return sqlParams;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -256,6 +395,7 @@ public class RepairRun {
         && Objects.equals(sqlParams, that.sqlParams);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -273,6 +413,7 @@ public class RepairRun {
         sqlParams);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(RepairRun.class)

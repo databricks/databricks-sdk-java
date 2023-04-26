@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>UpdateRecipient class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class UpdateRecipient {
   /** Description about the recipient. */
   @JsonProperty("comment")
@@ -32,51 +38,107 @@ public class UpdateRecipient {
   @JsonProperty("properties_kvpairs")
   private Object /* MISSING TYPE */ propertiesKvpairs;
 
+  /**
+   * <p>Setter for the field <code>comment</code>.</p>
+   *
+   * @param comment a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.UpdateRecipient} object
+   */
   public UpdateRecipient setComment(String comment) {
     this.comment = comment;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>comment</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getComment() {
     return comment;
   }
 
+  /**
+   * <p>Setter for the field <code>ipAccessList</code>.</p>
+   *
+   * @param ipAccessList a {@link com.databricks.sdk.service.sharing.IpAccessList} object
+   * @return a {@link com.databricks.sdk.service.sharing.UpdateRecipient} object
+   */
   public UpdateRecipient setIpAccessList(IpAccessList ipAccessList) {
     this.ipAccessList = ipAccessList;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ipAccessList</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sharing.IpAccessList} object
+   */
   public IpAccessList getIpAccessList() {
     return ipAccessList;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.UpdateRecipient} object
+   */
   public UpdateRecipient setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>owner</code>.</p>
+   *
+   * @param owner a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.UpdateRecipient} object
+   */
   public UpdateRecipient setOwner(String owner) {
     this.owner = owner;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>owner</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getOwner() {
     return owner;
   }
 
+  /**
+   * <p>Setter for the field <code>propertiesKvpairs</code>.</p>
+   *
+   * @param propertiesKvpairs a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.sharing.UpdateRecipient} object
+   */
   public UpdateRecipient setPropertiesKvpairs(Object /* MISSING TYPE */ propertiesKvpairs) {
     this.propertiesKvpairs = propertiesKvpairs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>propertiesKvpairs</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getPropertiesKvpairs() {
     return propertiesKvpairs;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -89,11 +151,13 @@ public class UpdateRecipient {
         && Objects.equals(propertiesKvpairs, that.propertiesKvpairs);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(comment, ipAccessList, name, owner, propertiesKvpairs);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(UpdateRecipient.class)

@@ -16,6 +16,9 @@ package com.databricks.sdk.service.workspace;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface ReposService {
   /**
@@ -24,6 +27,9 @@ public interface ReposService {
    * <p>Creates a repo in the workspace and links it to the remote Git repo specified. Note that
    * repos created programmatically must be linked to a remote Git repo, unlike repos created in the
    * browser.
+   *
+   * @param createRepo a {@link com.databricks.sdk.service.workspace.CreateRepo} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
    */
   RepoInfo create(CreateRepo createRepo);
 
@@ -31,6 +37,8 @@ public interface ReposService {
    * Delete a repo.
    *
    * <p>Deletes the specified repo.
+   *
+   * @param deleteRepoRequest a {@link com.databricks.sdk.service.workspace.DeleteRepoRequest} object
    */
   void delete(DeleteRepoRequest deleteRepoRequest);
 
@@ -38,6 +46,9 @@ public interface ReposService {
    * Get a repo.
    *
    * <p>Returns the repo with the given repo ID.
+   *
+   * @param getRepoRequest a {@link com.databricks.sdk.service.workspace.GetRepoRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.RepoInfo} object
    */
   RepoInfo get(GetRepoRequest getRepoRequest);
 
@@ -46,6 +57,9 @@ public interface ReposService {
    *
    * <p>Returns repos that the calling user has Manage permissions on. Results are paginated with
    * each page containing twenty repos.
+   *
+   * @param listReposRequest a {@link com.databricks.sdk.service.workspace.ListReposRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.ListReposResponse} object
    */
   ListReposResponse list(ListReposRequest listReposRequest);
 
@@ -54,6 +68,8 @@ public interface ReposService {
    *
    * <p>Updates the repo to a different branch or tag, or updates the repo to the latest commit on
    * the same branch.
+   *
+   * @param updateRepo a {@link com.databricks.sdk.service.workspace.UpdateRepo} object
    */
   void update(UpdateRepo updateRepo);
 }

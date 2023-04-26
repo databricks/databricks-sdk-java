@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
-/** State of the warehouse */
+/**
+ * State of the warehouse
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum State {
   DELETED,
   DELETING,

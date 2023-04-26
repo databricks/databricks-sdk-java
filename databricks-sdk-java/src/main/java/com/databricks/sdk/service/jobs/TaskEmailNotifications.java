@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>TaskEmailNotifications class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class TaskEmailNotifications {
   /**
    * A list of email addresses to be notified when a run unsuccessfully completes. A run is
@@ -33,33 +39,67 @@ public class TaskEmailNotifications {
   @JsonProperty("on_success")
   private Collection<String> onSuccess;
 
+  /**
+   * <p>Setter for the field <code>onFailure</code>.</p>
+   *
+   * @param onFailure a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.TaskEmailNotifications} object
+   */
   public TaskEmailNotifications setOnFailure(Collection<String> onFailure) {
     this.onFailure = onFailure;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>onFailure</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getOnFailure() {
     return onFailure;
   }
 
+  /**
+   * <p>Setter for the field <code>onStart</code>.</p>
+   *
+   * @param onStart a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.TaskEmailNotifications} object
+   */
   public TaskEmailNotifications setOnStart(Collection<String> onStart) {
     this.onStart = onStart;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>onStart</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getOnStart() {
     return onStart;
   }
 
+  /**
+   * <p>Setter for the field <code>onSuccess</code>.</p>
+   *
+   * @param onSuccess a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.TaskEmailNotifications} object
+   */
   public TaskEmailNotifications setOnSuccess(Collection<String> onSuccess) {
     this.onSuccess = onSuccess;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>onSuccess</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getOnSuccess() {
     return onSuccess;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -70,11 +110,13 @@ public class TaskEmailNotifications {
         && Objects.equals(onSuccess, that.onSuccess);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(onFailure, onStart, onSuccess);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(TaskEmailNotifications.class)

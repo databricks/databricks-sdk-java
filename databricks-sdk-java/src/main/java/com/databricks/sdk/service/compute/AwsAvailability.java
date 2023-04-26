@@ -7,6 +7,9 @@ package com.databricks.sdk.service.compute;
  *
  * <p>Note: If `first_on_demand` is zero, this availability type will be used for the entire
  * cluster.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum AwsAvailability {
   ON_DEMAND,

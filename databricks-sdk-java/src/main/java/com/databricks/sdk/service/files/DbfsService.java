@@ -8,6 +8,9 @@ package com.databricks.sdk.service.files;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface DbfsService {
   /**
@@ -18,6 +21,8 @@ public interface DbfsService {
    *
    * <p>If the block of data exceeds 1 MB, this call will throw an exception with
    * `MAX_BLOCK_SIZE_EXCEEDED`.
+   *
+   * @param addBlock a {@link com.databricks.sdk.service.files.AddBlock} object
    */
   void addBlock(AddBlock addBlock);
 
@@ -26,6 +31,8 @@ public interface DbfsService {
    *
    * <p>Closes the stream specified by the input handle. If the handle does not exist, this call
    * throws an exception with `RESOURCE_DOES_NOT_EXIST`.
+   *
+   * @param close a {@link com.databricks.sdk.service.files.Close} object
    */
   void close(Close close);
 
@@ -40,6 +47,9 @@ public interface DbfsService {
    *
    * <p>1. Issue a `create` call and get a handle. 2. Issue one or more `add-block` calls with the
    * handle you have. 3. Issue a `close` call with the handle you have.
+   *
+   * @param create a {@link com.databricks.sdk.service.files.Create} object
+   * @return a {@link com.databricks.sdk.service.files.CreateResponse} object
    */
   CreateResponse create(Create create);
 
@@ -61,6 +71,8 @@ public interface DbfsService {
    * functional scope of the DBFS REST API, but from notebooks. Running such operations using
    * notebooks provides better control and manageability, such as selective deletes, and the
    * possibility to automate periodic delete jobs.
+   *
+   * @param delete a {@link com.databricks.sdk.service.files.Delete} object
    */
   void delete(Delete delete);
 
@@ -69,6 +81,9 @@ public interface DbfsService {
    *
    * <p>Gets the file information for a file or directory. If the file or directory does not exist,
    * this call throws an exception with `RESOURCE_DOES_NOT_EXIST`.
+   *
+   * @param getStatusRequest a {@link com.databricks.sdk.service.files.GetStatusRequest} object
+   * @return a {@link com.databricks.sdk.service.files.FileInfo} object
    */
   FileInfo getStatus(GetStatusRequest getStatusRequest);
 
@@ -84,6 +99,9 @@ public interface DbfsService {
    * we recommend that you perform such operations in the context of a cluster, using the [File
    * system utility (dbutils.fs)](/dev-tools/databricks-utils.html#dbutils-fs), which provides the
    * same functionality without timing out.
+   *
+   * @param listDbfsRequest a {@link com.databricks.sdk.service.files.ListDbfsRequest} object
+   * @return a {@link com.databricks.sdk.service.files.ListStatusResponse} object
    */
   ListStatusResponse list(ListDbfsRequest listDbfsRequest);
 
@@ -94,6 +112,8 @@ public interface DbfsService {
    * (not a directory) exists at any prefix of the input path, this call throws an exception with
    * `RESOURCE_ALREADY_EXISTS`. **Note**: If this operation fails, it might have succeeded in
    * creating some of the necessary parent directories.
+   *
+   * @param mkDirs a {@link com.databricks.sdk.service.files.MkDirs} object
    */
   void mkdirs(MkDirs mkDirs);
 
@@ -104,6 +124,8 @@ public interface DbfsService {
    * exist, this call throws an exception with `RESOURCE_DOES_NOT_EXIST`. If a file already exists
    * in the destination path, this call throws an exception with `RESOURCE_ALREADY_EXISTS`. If the
    * given source path is a directory, this call always recursively moves all files.",
+   *
+   * @param move a {@link com.databricks.sdk.service.files.Move} object
    */
   void move(Move move);
 
@@ -120,6 +142,8 @@ public interface DbfsService {
    *
    * <p>If you want to upload large files, use the streaming upload. For details, see
    * :method:dbfs/create, :method:dbfs/addBlock, :method:dbfs/close.
+   *
+   * @param put a {@link com.databricks.sdk.service.files.Put} object
    */
   void put(Put put);
 
@@ -133,6 +157,9 @@ public interface DbfsService {
    *
    * <p>If `offset + length` exceeds the number of bytes in a file, it reads the contents until the
    * end of file.",
+   *
+   * @param readDbfsRequest a {@link com.databricks.sdk.service.files.ReadDbfsRequest} object
+   * @return a {@link com.databricks.sdk.service.files.ReadResponse} object
    */
   ReadResponse read(ReadDbfsRequest readDbfsRequest);
 }

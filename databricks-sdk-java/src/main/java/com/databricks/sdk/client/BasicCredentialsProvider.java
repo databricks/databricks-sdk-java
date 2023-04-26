@@ -4,14 +4,23 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <p>BasicCredentialsProvider class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class BasicCredentialsProvider implements CredentialsProvider {
+  /** Constant <code>BASIC="basic"</code> */
   public static final String BASIC = "basic";
 
+  /** {@inheritDoc} */
   @Override
   public String authType() {
     return BASIC;
   }
 
+  /** {@inheritDoc} */
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     String username = config.getUsername();

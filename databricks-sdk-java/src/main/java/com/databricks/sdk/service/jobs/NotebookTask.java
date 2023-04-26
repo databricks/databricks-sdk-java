@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * <p>NotebookTask class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class NotebookTask {
   /**
    * Base parameters to be used for each run of this job. If the run is initiated by a call to
@@ -39,33 +45,67 @@ public class NotebookTask {
   @JsonProperty("source")
   private NotebookTaskSource source;
 
+  /**
+   * <p>Setter for the field <code>baseParameters</code>.</p>
+   *
+   * @param baseParameters a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.jobs.NotebookTask} object
+   */
   public NotebookTask setBaseParameters(Map<String, String> baseParameters) {
     this.baseParameters = baseParameters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>baseParameters</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getBaseParameters() {
     return baseParameters;
   }
 
+  /**
+   * <p>Setter for the field <code>notebookPath</code>.</p>
+   *
+   * @param notebookPath a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.NotebookTask} object
+   */
   public NotebookTask setNotebookPath(String notebookPath) {
     this.notebookPath = notebookPath;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>notebookPath</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getNotebookPath() {
     return notebookPath;
   }
 
+  /**
+   * <p>Setter for the field <code>source</code>.</p>
+   *
+   * @param source a {@link com.databricks.sdk.service.jobs.NotebookTaskSource} object
+   * @return a {@link com.databricks.sdk.service.jobs.NotebookTask} object
+   */
   public NotebookTask setSource(NotebookTaskSource source) {
     this.source = source;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>source</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.NotebookTaskSource} object
+   */
   public NotebookTaskSource getSource() {
     return source;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -76,11 +116,13 @@ public class NotebookTask {
         && Objects.equals(source, that.source);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(baseParameters, notebookPath, source);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(NotebookTask.class)

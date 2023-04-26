@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** The mode of the function parameter. */
+/**
+ * The mode of the function parameter.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum FunctionParameterMode {
   IN,
 }

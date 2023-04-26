@@ -11,6 +11,9 @@ package com.databricks.sdk.service.workspace;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface GitCredentialsService {
   /**
@@ -19,6 +22,9 @@ public interface GitCredentialsService {
    * <p>Creates a Git credential entry for the user. Only one Git credential per user is supported,
    * so any attempts to create credentials if an entry already exists will fail. Use the PATCH
    * endpoint to update existing credentials, or the DELETE endpoint to delete existing credentials.
+   *
+   * @param createCredentials a {@link com.databricks.sdk.service.workspace.CreateCredentials} object
+   * @return a {@link com.databricks.sdk.service.workspace.CreateCredentialsResponse} object
    */
   CreateCredentialsResponse create(CreateCredentials createCredentials);
 
@@ -26,6 +32,8 @@ public interface GitCredentialsService {
    * Delete a credential.
    *
    * <p>Deletes the specified Git credential.
+   *
+   * @param deleteGitCredentialRequest a {@link com.databricks.sdk.service.workspace.DeleteGitCredentialRequest} object
    */
   void delete(DeleteGitCredentialRequest deleteGitCredentialRequest);
 
@@ -33,6 +41,9 @@ public interface GitCredentialsService {
    * Get a credential entry.
    *
    * <p>Gets the Git credential with the specified credential ID.
+   *
+   * @param getGitCredentialRequest a {@link com.databricks.sdk.service.workspace.GetGitCredentialRequest} object
+   * @return a {@link com.databricks.sdk.service.workspace.CredentialInfo} object
    */
   CredentialInfo get(GetGitCredentialRequest getGitCredentialRequest);
 
@@ -40,6 +51,8 @@ public interface GitCredentialsService {
    * Get Git credentials.
    *
    * <p>Lists the calling user's Git credentials. One credential per user is supported.
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.GetCredentialsResponse} object
    */
   GetCredentialsResponse list();
 
@@ -47,6 +60,8 @@ public interface GitCredentialsService {
    * Update a credential.
    *
    * <p>Updates the specified Git credential.
+   *
+   * @param updateCredentials a {@link com.databricks.sdk.service.workspace.UpdateCredentials} object
    */
   void update(UpdateCredentials updateCredentials);
 }

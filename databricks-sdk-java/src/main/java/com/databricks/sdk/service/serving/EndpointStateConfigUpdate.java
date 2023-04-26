@@ -7,6 +7,9 @@ package com.databricks.sdk.service.serving;
  * progress, if the update failed, or if there is no update in progress. Note that if the endpoint's
  * config_update state value is IN_PROGRESS, another update can not be made until the update
  * completes or fails."
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum EndpointStateConfigUpdate {
   IN_PROGRESS,

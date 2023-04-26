@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>SparkNode class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class SparkNode {
   /** The private IP address of the host instance. */
   @JsonProperty("host_private_ip")
@@ -50,69 +56,147 @@ public class SparkNode {
   @JsonProperty("start_timestamp")
   private Long startTimestamp;
 
+  /**
+   * <p>Setter for the field <code>hostPrivateIp</code>.</p>
+   *
+   * @param hostPrivateIp a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.SparkNode} object
+   */
   public SparkNode setHostPrivateIp(String hostPrivateIp) {
     this.hostPrivateIp = hostPrivateIp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>hostPrivateIp</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getHostPrivateIp() {
     return hostPrivateIp;
   }
 
+  /**
+   * <p>Setter for the field <code>instanceId</code>.</p>
+   *
+   * @param instanceId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.SparkNode} object
+   */
   public SparkNode setInstanceId(String instanceId) {
     this.instanceId = instanceId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instanceId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstanceId() {
     return instanceId;
   }
 
+  /**
+   * <p>Setter for the field <code>nodeAwsAttributes</code>.</p>
+   *
+   * @param nodeAwsAttributes a {@link com.databricks.sdk.service.compute.SparkNodeAwsAttributes} object
+   * @return a {@link com.databricks.sdk.service.compute.SparkNode} object
+   */
   public SparkNode setNodeAwsAttributes(SparkNodeAwsAttributes nodeAwsAttributes) {
     this.nodeAwsAttributes = nodeAwsAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>nodeAwsAttributes</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.SparkNodeAwsAttributes} object
+   */
   public SparkNodeAwsAttributes getNodeAwsAttributes() {
     return nodeAwsAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>nodeId</code>.</p>
+   *
+   * @param nodeId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.SparkNode} object
+   */
   public SparkNode setNodeId(String nodeId) {
     this.nodeId = nodeId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>nodeId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getNodeId() {
     return nodeId;
   }
 
+  /**
+   * <p>Setter for the field <code>privateIp</code>.</p>
+   *
+   * @param privateIp a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.SparkNode} object
+   */
   public SparkNode setPrivateIp(String privateIp) {
     this.privateIp = privateIp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>privateIp</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPrivateIp() {
     return privateIp;
   }
 
+  /**
+   * <p>Setter for the field <code>publicDns</code>.</p>
+   *
+   * @param publicDns a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.SparkNode} object
+   */
   public SparkNode setPublicDns(String publicDns) {
     this.publicDns = publicDns;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>publicDns</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPublicDns() {
     return publicDns;
   }
 
+  /**
+   * <p>Setter for the field <code>startTimestamp</code>.</p>
+   *
+   * @param startTimestamp a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.SparkNode} object
+   */
   public SparkNode setStartTimestamp(Long startTimestamp) {
     this.startTimestamp = startTimestamp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>startTimestamp</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getStartTimestamp() {
     return startTimestamp;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -127,12 +211,14 @@ public class SparkNode {
         && Objects.equals(startTimestamp, that.startTimestamp);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
         hostPrivateIp, instanceId, nodeAwsAttributes, nodeId, privateIp, publicDns, startTimestamp);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(SparkNode.class)

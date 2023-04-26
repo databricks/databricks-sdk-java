@@ -8,34 +8,44 @@ import org.apache.http.client.methods.*;
 class ReposImpl implements ReposService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for ReposImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public ReposImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public RepoInfo create(CreateRepo request) {
     String path = "/api/2.0/repos";
     return apiClient.POST(path, request, RepoInfo.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public RepoInfo get(GetRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     return apiClient.GET(path, request, RepoInfo.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListReposResponse list(ListReposRequest request) {
     String path = "/api/2.0/repos";
     return apiClient.GET(path, request, ListReposResponse.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(UpdateRepo request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());

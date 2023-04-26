@@ -9,6 +9,9 @@ import java.util.Objects;
 /**
  * An optional specification for a remote repository containing the notebooks used by this job's
  * notebook tasks.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class GitSource {
   /**
@@ -54,60 +57,127 @@ public class GitSource {
   @JsonProperty("git_url")
   private String gitUrl;
 
+  /**
+   * <p>Setter for the field <code>gitBranch</code>.</p>
+   *
+   * @param gitBranch a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.GitSource} object
+   */
   public GitSource setGitBranch(String gitBranch) {
     this.gitBranch = gitBranch;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitBranch</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGitBranch() {
     return gitBranch;
   }
 
+  /**
+   * <p>Setter for the field <code>gitCommit</code>.</p>
+   *
+   * @param gitCommit a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.GitSource} object
+   */
   public GitSource setGitCommit(String gitCommit) {
     this.gitCommit = gitCommit;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitCommit</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGitCommit() {
     return gitCommit;
   }
 
+  /**
+   * <p>Setter for the field <code>gitProvider</code>.</p>
+   *
+   * @param gitProvider a {@link com.databricks.sdk.service.jobs.GitSourceGitProvider} object
+   * @return a {@link com.databricks.sdk.service.jobs.GitSource} object
+   */
   public GitSource setGitProvider(GitSourceGitProvider gitProvider) {
     this.gitProvider = gitProvider;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitProvider</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.GitSourceGitProvider} object
+   */
   public GitSourceGitProvider getGitProvider() {
     return gitProvider;
   }
 
+  /**
+   * <p>Setter for the field <code>gitSnapshot</code>.</p>
+   *
+   * @param gitSnapshot a {@link com.databricks.sdk.service.jobs.GitSnapshot} object
+   * @return a {@link com.databricks.sdk.service.jobs.GitSource} object
+   */
   public GitSource setGitSnapshot(GitSnapshot gitSnapshot) {
     this.gitSnapshot = gitSnapshot;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitSnapshot</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.GitSnapshot} object
+   */
   public GitSnapshot getGitSnapshot() {
     return gitSnapshot;
   }
 
+  /**
+   * <p>Setter for the field <code>gitTag</code>.</p>
+   *
+   * @param gitTag a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.GitSource} object
+   */
   public GitSource setGitTag(String gitTag) {
     this.gitTag = gitTag;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitTag</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGitTag() {
     return gitTag;
   }
 
+  /**
+   * <p>Setter for the field <code>gitUrl</code>.</p>
+   *
+   * @param gitUrl a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.GitSource} object
+   */
   public GitSource setGitUrl(String gitUrl) {
     this.gitUrl = gitUrl;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitUrl</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGitUrl() {
     return gitUrl;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -121,11 +191,13 @@ public class GitSource {
         && Objects.equals(gitUrl, that.gitUrl);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(gitBranch, gitCommit, gitProvider, gitSnapshot, gitTag, gitUrl);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GitSource.class)

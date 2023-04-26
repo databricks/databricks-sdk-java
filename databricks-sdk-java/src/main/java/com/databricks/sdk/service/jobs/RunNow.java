@@ -8,6 +8,12 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * <p>RunNow class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class RunNow {
   /**
    * An array of commands to execute for jobs with the dbt task, for example `"dbt_commands": ["dbt
@@ -128,96 +134,207 @@ public class RunNow {
   @JsonProperty("sql_params")
   private Map<String, String> sqlParams;
 
+  /**
+   * <p>Setter for the field <code>dbtCommands</code>.</p>
+   *
+   * @param dbtCommands a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunNow} object
+   */
   public RunNow setDbtCommands(Collection<String> dbtCommands) {
     this.dbtCommands = dbtCommands;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dbtCommands</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getDbtCommands() {
     return dbtCommands;
   }
 
+  /**
+   * <p>Setter for the field <code>idempotencyToken</code>.</p>
+   *
+   * @param idempotencyToken a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunNow} object
+   */
   public RunNow setIdempotencyToken(String idempotencyToken) {
     this.idempotencyToken = idempotencyToken;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>idempotencyToken</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getIdempotencyToken() {
     return idempotencyToken;
   }
 
+  /**
+   * <p>Setter for the field <code>jarParams</code>.</p>
+   *
+   * @param jarParams a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunNow} object
+   */
   public RunNow setJarParams(Collection<String> jarParams) {
     this.jarParams = jarParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>jarParams</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getJarParams() {
     return jarParams;
   }
 
+  /**
+   * <p>Setter for the field <code>jobId</code>.</p>
+   *
+   * @param jobId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunNow} object
+   */
   public RunNow setJobId(Long jobId) {
     this.jobId = jobId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>jobId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getJobId() {
     return jobId;
   }
 
+  /**
+   * <p>Setter for the field <code>notebookParams</code>.</p>
+   *
+   * @param notebookParams a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunNow} object
+   */
   public RunNow setNotebookParams(Map<String, String> notebookParams) {
     this.notebookParams = notebookParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>notebookParams</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getNotebookParams() {
     return notebookParams;
   }
 
+  /**
+   * <p>Setter for the field <code>pipelineParams</code>.</p>
+   *
+   * @param pipelineParams a {@link com.databricks.sdk.service.jobs.PipelineParams} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunNow} object
+   */
   public RunNow setPipelineParams(PipelineParams pipelineParams) {
     this.pipelineParams = pipelineParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pipelineParams</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.PipelineParams} object
+   */
   public PipelineParams getPipelineParams() {
     return pipelineParams;
   }
 
+  /**
+   * <p>Setter for the field <code>pythonNamedParams</code>.</p>
+   *
+   * @param pythonNamedParams a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunNow} object
+   */
   public RunNow setPythonNamedParams(Map<String, String> pythonNamedParams) {
     this.pythonNamedParams = pythonNamedParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pythonNamedParams</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getPythonNamedParams() {
     return pythonNamedParams;
   }
 
+  /**
+   * <p>Setter for the field <code>pythonParams</code>.</p>
+   *
+   * @param pythonParams a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunNow} object
+   */
   public RunNow setPythonParams(Collection<String> pythonParams) {
     this.pythonParams = pythonParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pythonParams</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getPythonParams() {
     return pythonParams;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkSubmitParams</code>.</p>
+   *
+   * @param sparkSubmitParams a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunNow} object
+   */
   public RunNow setSparkSubmitParams(Collection<String> sparkSubmitParams) {
     this.sparkSubmitParams = sparkSubmitParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkSubmitParams</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getSparkSubmitParams() {
     return sparkSubmitParams;
   }
 
+  /**
+   * <p>Setter for the field <code>sqlParams</code>.</p>
+   *
+   * @param sqlParams a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.jobs.RunNow} object
+   */
   public RunNow setSqlParams(Map<String, String> sqlParams) {
     this.sqlParams = sqlParams;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sqlParams</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getSqlParams() {
     return sqlParams;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -235,6 +352,7 @@ public class RunNow {
         && Objects.equals(sqlParams, that.sqlParams);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -250,6 +368,7 @@ public class RunNow {
         sqlParams);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(RunNow.class)

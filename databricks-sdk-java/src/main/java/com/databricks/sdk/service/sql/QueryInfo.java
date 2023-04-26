@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>QueryInfo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class QueryInfo {
   /** Channel information for the SQL warehouse at the time of query execution */
   @JsonProperty("channel_used")
@@ -95,204 +101,447 @@ public class QueryInfo {
   @JsonProperty("warehouse_id")
   private String warehouseId;
 
+  /**
+   * <p>Setter for the field <code>channelUsed</code>.</p>
+   *
+   * @param channelUsed a {@link com.databricks.sdk.service.sql.ChannelInfo} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setChannelUsed(ChannelInfo channelUsed) {
     this.channelUsed = channelUsed;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>channelUsed</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.ChannelInfo} object
+   */
   public ChannelInfo getChannelUsed() {
     return channelUsed;
   }
 
+  /**
+   * <p>Setter for the field <code>duration</code>.</p>
+   *
+   * @param duration a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setDuration(Long duration) {
     this.duration = duration;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>duration</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getDuration() {
     return duration;
   }
 
+  /**
+   * <p>Setter for the field <code>endpointId</code>.</p>
+   *
+   * @param endpointId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setEndpointId(String endpointId) {
     this.endpointId = endpointId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>endpointId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getEndpointId() {
     return endpointId;
   }
 
+  /**
+   * <p>Setter for the field <code>errorMessage</code>.</p>
+   *
+   * @param errorMessage a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setErrorMessage(String errorMessage) {
     this.errorMessage = errorMessage;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>errorMessage</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getErrorMessage() {
     return errorMessage;
   }
 
+  /**
+   * <p>Setter for the field <code>executedAsUserId</code>.</p>
+   *
+   * @param executedAsUserId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setExecutedAsUserId(Long executedAsUserId) {
     this.executedAsUserId = executedAsUserId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>executedAsUserId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getExecutedAsUserId() {
     return executedAsUserId;
   }
 
+  /**
+   * <p>Setter for the field <code>executedAsUserName</code>.</p>
+   *
+   * @param executedAsUserName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setExecutedAsUserName(String executedAsUserName) {
     this.executedAsUserName = executedAsUserName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>executedAsUserName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getExecutedAsUserName() {
     return executedAsUserName;
   }
 
+  /**
+   * <p>Setter for the field <code>executionEndTimeMs</code>.</p>
+   *
+   * @param executionEndTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setExecutionEndTimeMs(Long executionEndTimeMs) {
     this.executionEndTimeMs = executionEndTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>executionEndTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getExecutionEndTimeMs() {
     return executionEndTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>isFinal</code>.</p>
+   *
+   * @param isFinal a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setIsFinal(Boolean isFinal) {
     this.isFinal = isFinal;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>isFinal</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getIsFinal() {
     return isFinal;
   }
 
+  /**
+   * <p>Setter for the field <code>lookupKey</code>.</p>
+   *
+   * @param lookupKey a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setLookupKey(String lookupKey) {
     this.lookupKey = lookupKey;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>lookupKey</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getLookupKey() {
     return lookupKey;
   }
 
+  /**
+   * <p>Setter for the field <code>metrics</code>.</p>
+   *
+   * @param metrics a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setMetrics(QueryMetrics metrics) {
     this.metrics = metrics;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>metrics</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.QueryMetrics} object
+   */
   public QueryMetrics getMetrics() {
     return metrics;
   }
 
+  /**
+   * <p>Setter for the field <code>plansState</code>.</p>
+   *
+   * @param plansState a {@link com.databricks.sdk.service.sql.PlansState} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setPlansState(PlansState plansState) {
     this.plansState = plansState;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>plansState</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.PlansState} object
+   */
   public PlansState getPlansState() {
     return plansState;
   }
 
+  /**
+   * <p>Setter for the field <code>queryEndTimeMs</code>.</p>
+   *
+   * @param queryEndTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setQueryEndTimeMs(Long queryEndTimeMs) {
     this.queryEndTimeMs = queryEndTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>queryEndTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getQueryEndTimeMs() {
     return queryEndTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>queryId</code>.</p>
+   *
+   * @param queryId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setQueryId(String queryId) {
     this.queryId = queryId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>queryId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getQueryId() {
     return queryId;
   }
 
+  /**
+   * <p>Setter for the field <code>queryStartTimeMs</code>.</p>
+   *
+   * @param queryStartTimeMs a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setQueryStartTimeMs(Long queryStartTimeMs) {
     this.queryStartTimeMs = queryStartTimeMs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>queryStartTimeMs</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getQueryStartTimeMs() {
     return queryStartTimeMs;
   }
 
+  /**
+   * <p>Setter for the field <code>queryText</code>.</p>
+   *
+   * @param queryText a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setQueryText(String queryText) {
     this.queryText = queryText;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>queryText</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getQueryText() {
     return queryText;
   }
 
+  /**
+   * <p>Setter for the field <code>rowsProduced</code>.</p>
+   *
+   * @param rowsProduced a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setRowsProduced(Long rowsProduced) {
     this.rowsProduced = rowsProduced;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>rowsProduced</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRowsProduced() {
     return rowsProduced;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkUiUrl</code>.</p>
+   *
+   * @param sparkUiUrl a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setSparkUiUrl(String sparkUiUrl) {
     this.sparkUiUrl = sparkUiUrl;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkUiUrl</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSparkUiUrl() {
     return sparkUiUrl;
   }
 
+  /**
+   * <p>Setter for the field <code>statementType</code>.</p>
+   *
+   * @param statementType a {@link com.databricks.sdk.service.sql.QueryStatementType} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setStatementType(QueryStatementType statementType) {
     this.statementType = statementType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>statementType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.QueryStatementType} object
+   */
   public QueryStatementType getStatementType() {
     return statementType;
   }
 
+  /**
+   * <p>Setter for the field <code>status</code>.</p>
+   *
+   * @param status a {@link com.databricks.sdk.service.sql.QueryStatus} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setStatus(QueryStatus status) {
     this.status = status;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>status</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.QueryStatus} object
+   */
   public QueryStatus getStatus() {
     return status;
   }
 
+  /**
+   * <p>Setter for the field <code>userId</code>.</p>
+   *
+   * @param userId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setUserId(Long userId) {
     this.userId = userId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>userId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getUserId() {
     return userId;
   }
 
+  /**
+   * <p>Setter for the field <code>userName</code>.</p>
+   *
+   * @param userName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setUserName(String userName) {
     this.userName = userName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>userName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUserName() {
     return userName;
   }
 
+  /**
+   * <p>Setter for the field <code>warehouseId</code>.</p>
+   *
+   * @param warehouseId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryInfo} object
+   */
   public QueryInfo setWarehouseId(String warehouseId) {
     this.warehouseId = warehouseId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>warehouseId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getWarehouseId() {
     return warehouseId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -322,6 +571,7 @@ public class QueryInfo {
         && Objects.equals(warehouseId, that.warehouseId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -349,6 +599,7 @@ public class QueryInfo {
         warehouseId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(QueryInfo.class)

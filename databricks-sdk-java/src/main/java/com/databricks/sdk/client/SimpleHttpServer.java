@@ -24,19 +24,42 @@ class SimpleHttpServer implements Runnable {
     void accept(BufferedReader in, PrintWriter out) throws IOException;
   }
 
+  /**
+   * <p>Constructor for SimpleHttpServer.</p>
+   *
+   * @param handler a {@link com.databricks.sdk.client.SimpleHttpServer.Handler} object
+   * @throws java.io.IOException if any.
+   */
   public SimpleHttpServer(Handler handler) throws IOException {
     this(0, handler);
   }
 
+  /**
+   * <p>Constructor for SimpleHttpServer.</p>
+   *
+   * @param port a int
+   * @param handler a {@link com.databricks.sdk.client.SimpleHttpServer.Handler} object
+   * @throws java.io.IOException if any.
+   */
   public SimpleHttpServer(int port, Handler handler) throws IOException {
     this.handler = handler;
     server = new ServerSocket(port);
   }
 
+  /**
+   * <p>getUrl.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUrl() {
     return String.format("http://localhost:%d", server.getLocalPort());
   }
 
+  /**
+   * <p>accept.</p>
+   *
+   * @throws java.io.IOException if any.
+   */
   public void accept() throws IOException {
     Socket clientSocket = server.accept();
     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -46,6 +69,11 @@ class SimpleHttpServer implements Runnable {
     out.close();
   }
 
+  /**
+   * <p>start.</p>
+   *
+   * @throws java.lang.InterruptedException if any.
+   */
   public void start() throws InterruptedException {
     running = true;
     thread = new Thread(this);
@@ -54,11 +82,15 @@ class SimpleHttpServer implements Runnable {
     thread.start();
   }
 
+  /**
+   * <p>stop.</p>
+   */
   public synchronized void stop() {
     running = false;
     thread.interrupt();
   }
 
+  /** {@inheritDoc} */
   @Override
   public void run() {
     while (running) {
@@ -70,6 +102,12 @@ class SimpleHttpServer implements Runnable {
     }
   }
 
+  /**
+   * <p>query.</p>
+   *
+   * @param line a {@link java.lang.String} object
+   * @return a {@link java.util.Map} object
+   */
   public static Map<String, String> query(String line) {
     final String regex = "(\\\\?|&)(\\w+)=(.*?)(?:&|\\s|$)";
     final Pattern pattern = Pattern.compile(regex, Pattern.MULTILINE);
@@ -87,6 +125,12 @@ class SimpleHttpServer implements Runnable {
     return query;
   }
 
+  /**
+   * <p>main.</p>
+   *
+   * @param args an array of {@link java.lang.String} objects
+   * @throws java.io.IOException if any.
+   */
   public static void main(String[] args) throws IOException {
     SimpleHttpServer srv =
         new SimpleHttpServer(

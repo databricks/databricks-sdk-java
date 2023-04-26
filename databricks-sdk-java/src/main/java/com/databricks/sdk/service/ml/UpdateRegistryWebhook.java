@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>UpdateRegistryWebhook class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class UpdateRegistryWebhook {
   /** User-specified description for the webhook. */
   @JsonProperty("description")
@@ -62,60 +68,127 @@ public class UpdateRegistryWebhook {
   @JsonProperty("status")
   private RegistryWebhookStatus status;
 
+  /**
+   * <p>Setter for the field <code>description</code>.</p>
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.UpdateRegistryWebhook} object
+   */
   public UpdateRegistryWebhook setDescription(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>description</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * <p>Setter for the field <code>events</code>.</p>
+   *
+   * @param events a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.UpdateRegistryWebhook} object
+   */
   public UpdateRegistryWebhook setEvents(Collection<RegistryWebhookEvent> events) {
     this.events = events;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>events</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<RegistryWebhookEvent> getEvents() {
     return events;
   }
 
+  /**
+   * <p>Setter for the field <code>httpUrlSpec</code>.</p>
+   *
+   * @param httpUrlSpec a {@link com.databricks.sdk.service.ml.HttpUrlSpec} object
+   * @return a {@link com.databricks.sdk.service.ml.UpdateRegistryWebhook} object
+   */
   public UpdateRegistryWebhook setHttpUrlSpec(HttpUrlSpec httpUrlSpec) {
     this.httpUrlSpec = httpUrlSpec;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>httpUrlSpec</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.HttpUrlSpec} object
+   */
   public HttpUrlSpec getHttpUrlSpec() {
     return httpUrlSpec;
   }
 
+  /**
+   * <p>Setter for the field <code>id</code>.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.UpdateRegistryWebhook} object
+   */
   public UpdateRegistryWebhook setId(String id) {
     this.id = id;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>id</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * <p>Setter for the field <code>jobSpec</code>.</p>
+   *
+   * @param jobSpec a {@link com.databricks.sdk.service.ml.JobSpec} object
+   * @return a {@link com.databricks.sdk.service.ml.UpdateRegistryWebhook} object
+   */
   public UpdateRegistryWebhook setJobSpec(JobSpec jobSpec) {
     this.jobSpec = jobSpec;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>jobSpec</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.JobSpec} object
+   */
   public JobSpec getJobSpec() {
     return jobSpec;
   }
 
+  /**
+   * <p>Setter for the field <code>status</code>.</p>
+   *
+   * @param status a {@link com.databricks.sdk.service.ml.RegistryWebhookStatus} object
+   * @return a {@link com.databricks.sdk.service.ml.UpdateRegistryWebhook} object
+   */
   public UpdateRegistryWebhook setStatus(RegistryWebhookStatus status) {
     this.status = status;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>status</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhookStatus} object
+   */
   public RegistryWebhookStatus getStatus() {
     return status;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -129,11 +202,13 @@ public class UpdateRegistryWebhook {
         && Objects.equals(status, that.status);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(description, events, httpUrlSpec, id, jobSpec, status);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(UpdateRegistryWebhook.class)

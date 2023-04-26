@@ -12,15 +12,20 @@ import java.util.Map;
 /**
  * Adds refreshed Databricks machine-to-machine OAuth Bearer token to every request, if
  * /oidc/.well-known/oauth-authorization-server is available on the given host.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsProvider {
   private final ObjectMapper mapper = new ObjectMapper();
 
+  /** {@inheritDoc} */
   @Override
   public String authType() {
     return "oauth-m2m";
   }
 
+  /** {@inheritDoc} */
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     if (config.getClientId() == null

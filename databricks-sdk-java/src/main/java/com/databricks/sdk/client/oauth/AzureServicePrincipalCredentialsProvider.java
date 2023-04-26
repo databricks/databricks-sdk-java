@@ -8,15 +8,20 @@ import java.util.Map;
 /**
  * Adds refreshed Azure Active Directory (AAD) Service Principal OAuth tokens to every request,
  * while automatically resolving different Azure environment endpoints.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class AzureServicePrincipalCredentialsProvider implements CredentialsProvider, AzureUtils {
   private final ObjectMapper mapper = new ObjectMapper();
 
+  /** {@inheritDoc} */
   @Override
   public String authType() {
     return "azure-client-secret";
   }
 
+  /** {@inheritDoc} */
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     if (!config.isAzure()

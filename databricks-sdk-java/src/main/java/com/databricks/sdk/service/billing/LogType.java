@@ -17,6 +17,9 @@ package com.databricks.sdk.service.billing;
  * delivery]: https://docs.databricks.com/administration-guide/account-settings/audit-logs.html
  * [billable usage log delivery]:
  * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum LogType {
   AUDIT_LOGS,

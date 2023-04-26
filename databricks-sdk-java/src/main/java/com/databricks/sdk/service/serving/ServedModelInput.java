@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>ServedModelInput class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ServedModelInput {
   /** The name of the model in Databricks Model Registry to be served. */
   @JsonProperty("model_name")
@@ -38,51 +44,107 @@ public class ServedModelInput {
   @JsonProperty("workload_size")
   private String workloadSize;
 
+  /**
+   * <p>Setter for the field <code>modelName</code>.</p>
+   *
+   * @param modelName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.serving.ServedModelInput} object
+   */
   public ServedModelInput setModelName(String modelName) {
     this.modelName = modelName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>modelName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getModelName() {
     return modelName;
   }
 
+  /**
+   * <p>Setter for the field <code>modelVersion</code>.</p>
+   *
+   * @param modelVersion a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.serving.ServedModelInput} object
+   */
   public ServedModelInput setModelVersion(String modelVersion) {
     this.modelVersion = modelVersion;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>modelVersion</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getModelVersion() {
     return modelVersion;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.serving.ServedModelInput} object
+   */
   public ServedModelInput setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>scaleToZeroEnabled</code>.</p>
+   *
+   * @param scaleToZeroEnabled a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.serving.ServedModelInput} object
+   */
   public ServedModelInput setScaleToZeroEnabled(Boolean scaleToZeroEnabled) {
     this.scaleToZeroEnabled = scaleToZeroEnabled;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>scaleToZeroEnabled</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getScaleToZeroEnabled() {
     return scaleToZeroEnabled;
   }
 
+  /**
+   * <p>Setter for the field <code>workloadSize</code>.</p>
+   *
+   * @param workloadSize a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.serving.ServedModelInput} object
+   */
   public ServedModelInput setWorkloadSize(String workloadSize) {
     this.workloadSize = workloadSize;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>workloadSize</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getWorkloadSize() {
     return workloadSize;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -95,11 +157,13 @@ public class ServedModelInput {
         && Objects.equals(workloadSize, that.workloadSize);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(modelName, modelVersion, name, scaleToZeroEnabled, workloadSize);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ServedModelInput.class)

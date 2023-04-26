@@ -9,6 +9,9 @@ import java.util.Map;
  * <p>Tokens fetched from Azure AAD can be scoped to a specific resource. The identifiers for these
  * resources vary depending on the cloud environment: public, germany, govcloud, or china. Depending
  * on the operation, tokens scoped to a specific endpoint are needed.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class AzureEnvironment {
   private String name;
@@ -16,6 +19,14 @@ public class AzureEnvironment {
   private String resourceManagerEndpoint;
   private String activeDirectoryEndpoint;
 
+  /**
+   * <p>Constructor for AzureEnvironment.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @param serviceManagementEndpoint a {@link java.lang.String} object
+   * @param resourceManagerEndpoint a {@link java.lang.String} object
+   * @param activeDirectoryEndpoint a {@link java.lang.String} object
+   */
   public AzureEnvironment(
       String name,
       String serviceManagementEndpoint,
@@ -27,18 +38,38 @@ public class AzureEnvironment {
     this.activeDirectoryEndpoint = activeDirectoryEndpoint;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Getter for the field <code>serviceManagementEndpoint</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getServiceManagementEndpoint() {
     return serviceManagementEndpoint;
   }
 
+  /**
+   * <p>Getter for the field <code>resourceManagerEndpoint</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getResourceManagerEndpoint() {
     return resourceManagerEndpoint;
   }
 
+  /**
+   * <p>Getter for the field <code>activeDirectoryEndpoint</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getActiveDirectoryEndpoint() {
     return activeDirectoryEndpoint;
   }
@@ -80,6 +111,12 @@ public class AzureEnvironment {
             "https://login.chinacloudapi.cn/"));
   }
 
+  /**
+   * <p>getEnvironment.</p>
+   *
+   * @param env a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.client.AzureEnvironment} object
+   */
   public static AzureEnvironment getEnvironment(String env) {
     if (!ENVIRONMENTS.containsKey(env)) {
       throw new IllegalArgumentException("Cannot find Azure " + env + " Environment");

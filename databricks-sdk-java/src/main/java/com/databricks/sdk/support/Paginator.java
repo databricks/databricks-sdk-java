@@ -10,6 +10,8 @@ import java.util.function.Function;
  * @param <RQ> request type
  * @param <RS> response type
  * @param <T> item type
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class Paginator<RQ, RS, T> implements Iterable<T> {
   private final Function<RQ, RS> requestFn;
@@ -99,6 +101,7 @@ public class Paginator<RQ, RS, T> implements Iterable<T> {
     return this;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Iterator<T> iterator() {
     return all;

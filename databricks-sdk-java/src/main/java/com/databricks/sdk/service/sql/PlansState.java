@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
-/** Whether plans exist for the execution, or the reason why they are missing */
+/**
+ * Whether plans exist for the execution, or the reason why they are missing
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum PlansState {
   EMPTY,
   EXISTS,

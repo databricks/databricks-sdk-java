@@ -13,6 +13,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <p>AzureUtils interface.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public interface AzureUtils {
 
   /**
@@ -42,6 +48,13 @@ public interface AzureUtils {
         .build();
   }
 
+  /**
+   * <p>getWorkspaceFromJsonResponse.</p>
+   *
+   * @param jsonResponse a {@link com.fasterxml.jackson.databind.node.ObjectNode} object
+   * @return a {@link java.lang.String} object
+   * @throws java.io.IOException if any.
+   */
   default String getWorkspaceFromJsonResponse(ObjectNode jsonResponse) throws IOException {
     JsonNode properties = jsonResponse.get("properties");
     if (properties == null) {
@@ -56,7 +69,12 @@ public interface AzureUtils {
     return workspaceUrl.asText();
   }
 
-  /** Resolves Azure Databricks workspace URL from ARM Resource ID */
+  /**
+   * Resolves Azure Databricks workspace URL from ARM Resource ID
+   *
+   * @param config a {@link com.databricks.sdk.client.DatabricksConfig} object
+   * @param mapper a {@link com.fasterxml.jackson.databind.ObjectMapper} object
+   */
   default void ensureHostPresent(DatabricksConfig config, ObjectMapper mapper) {
     if (config.getHost() != null) {
       return;

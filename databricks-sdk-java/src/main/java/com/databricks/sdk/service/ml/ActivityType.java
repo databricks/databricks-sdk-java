@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum ActivityType {
   APPLIED_TRANSITION, // User applied the corresponding stage transition.
   APPROVED_REQUEST, // User approved the corresponding stage transition.

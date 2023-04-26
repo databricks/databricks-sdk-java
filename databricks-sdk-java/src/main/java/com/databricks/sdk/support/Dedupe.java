@@ -20,11 +20,18 @@ class Dedupe<IT, ID> implements Iterator<IT> {
   private IT current;
   private final Set<ID> seen = new HashSet<>();
 
+  /**
+   * <p>Constructor for Dedupe.</p>
+   *
+   * @param inner a {@link java.util.Iterator} object
+   * @param idGetter a {@link java.util.function.Function} object
+   */
   public Dedupe(Iterator<IT> inner, Function<IT, ID> idGetter) {
     this.inner = inner;
     this.idGetter = idGetter;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean hasNext() {
     IT tmp;
@@ -41,6 +48,7 @@ class Dedupe<IT, ID> implements Iterator<IT> {
     return false;
   }
 
+  /** {@inheritDoc} */
   @Override
   public IT next() {
     return current;

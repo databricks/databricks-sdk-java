@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>S3StorageInfo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class S3StorageInfo {
   /**
    * (Optional) Set canned access control list for the logs, e.g. `bucket-owner-full-control`. If
@@ -59,69 +65,147 @@ public class S3StorageInfo {
   @JsonProperty("region")
   private String region;
 
+  /**
+   * <p>Setter for the field <code>cannedAcl</code>.</p>
+   *
+   * @param cannedAcl a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.S3StorageInfo} object
+   */
   public S3StorageInfo setCannedAcl(String cannedAcl) {
     this.cannedAcl = cannedAcl;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>cannedAcl</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCannedAcl() {
     return cannedAcl;
   }
 
+  /**
+   * <p>Setter for the field <code>destination</code>.</p>
+   *
+   * @param destination a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.S3StorageInfo} object
+   */
   public S3StorageInfo setDestination(String destination) {
     this.destination = destination;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>destination</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDestination() {
     return destination;
   }
 
+  /**
+   * <p>Setter for the field <code>enableEncryption</code>.</p>
+   *
+   * @param enableEncryption a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.S3StorageInfo} object
+   */
   public S3StorageInfo setEnableEncryption(Boolean enableEncryption) {
     this.enableEncryption = enableEncryption;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enableEncryption</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnableEncryption() {
     return enableEncryption;
   }
 
+  /**
+   * <p>Setter for the field <code>encryptionType</code>.</p>
+   *
+   * @param encryptionType a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.S3StorageInfo} object
+   */
   public S3StorageInfo setEncryptionType(String encryptionType) {
     this.encryptionType = encryptionType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>encryptionType</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getEncryptionType() {
     return encryptionType;
   }
 
+  /**
+   * <p>Setter for the field <code>endpoint</code>.</p>
+   *
+   * @param endpoint a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.S3StorageInfo} object
+   */
   public S3StorageInfo setEndpoint(String endpoint) {
     this.endpoint = endpoint;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>endpoint</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getEndpoint() {
     return endpoint;
   }
 
+  /**
+   * <p>Setter for the field <code>kmsKey</code>.</p>
+   *
+   * @param kmsKey a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.S3StorageInfo} object
+   */
   public S3StorageInfo setKmsKey(String kmsKey) {
     this.kmsKey = kmsKey;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>kmsKey</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getKmsKey() {
     return kmsKey;
   }
 
+  /**
+   * <p>Setter for the field <code>region</code>.</p>
+   *
+   * @param region a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.S3StorageInfo} object
+   */
   public S3StorageInfo setRegion(String region) {
     this.region = region;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>region</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRegion() {
     return region;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -136,12 +220,14 @@ public class S3StorageInfo {
         && Objects.equals(region, that.region);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
         cannedAcl, destination, enableEncryption, encryptionType, endpoint, kmsKey, region);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(S3StorageInfo.class)

@@ -79,8 +79,9 @@
         <!-- Running the command "$ mvn site:run" will launch a jetty server and show the docs at http://localhost:8080/ -->
         <version>3.5.0</version>
         <configuration>
-          <show>public</show>
           <!-- Generate Javadoc for only public members -->
+          <show>public</show>
+          <failOnError>false</failOnError>
         </configuration>
       </plugin>
     </plugins>

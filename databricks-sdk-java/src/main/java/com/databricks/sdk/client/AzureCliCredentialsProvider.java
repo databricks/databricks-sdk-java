@@ -9,17 +9,26 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * <p>AzureCliCredentialsProvider class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUtils {
   private final ObjectMapper mapper = new ObjectMapper();
   private static final Logger LOG = LoggerFactory.getLogger(AzureCliCredentialsProvider.class);
 
+  /** Constant <code>AZURE_CLI="azure-cli"</code> */
   public static final String AZURE_CLI = "azure-cli";
 
+  /** {@inheritDoc} */
   @Override
   public String authType() {
     return AZURE_CLI;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CliTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     List<String> cmd =
@@ -28,6 +37,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
     return new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config::getAllEnv);
   }
 
+  /** {@inheritDoc} */
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     if (!config.isAzure()) {

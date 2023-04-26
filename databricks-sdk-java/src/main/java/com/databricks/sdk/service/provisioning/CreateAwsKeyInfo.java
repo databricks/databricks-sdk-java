@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>CreateAwsKeyInfo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateAwsKeyInfo {
   /** The AWS KMS key alias. */
   @JsonProperty("key_alias")
@@ -26,33 +32,67 @@ public class CreateAwsKeyInfo {
   @JsonProperty("reuse_key_for_cluster_volumes")
   private Boolean reuseKeyForClusterVolumes;
 
+  /**
+   * <p>Setter for the field <code>keyAlias</code>.</p>
+   *
+   * @param keyAlias a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateAwsKeyInfo} object
+   */
   public CreateAwsKeyInfo setKeyAlias(String keyAlias) {
     this.keyAlias = keyAlias;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>keyAlias</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getKeyAlias() {
     return keyAlias;
   }
 
+  /**
+   * <p>Setter for the field <code>keyArn</code>.</p>
+   *
+   * @param keyArn a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateAwsKeyInfo} object
+   */
   public CreateAwsKeyInfo setKeyArn(String keyArn) {
     this.keyArn = keyArn;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>keyArn</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getKeyArn() {
     return keyArn;
   }
 
+  /**
+   * <p>Setter for the field <code>reuseKeyForClusterVolumes</code>.</p>
+   *
+   * @param reuseKeyForClusterVolumes a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateAwsKeyInfo} object
+   */
   public CreateAwsKeyInfo setReuseKeyForClusterVolumes(Boolean reuseKeyForClusterVolumes) {
     this.reuseKeyForClusterVolumes = reuseKeyForClusterVolumes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>reuseKeyForClusterVolumes</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getReuseKeyForClusterVolumes() {
     return reuseKeyForClusterVolumes;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -63,11 +103,13 @@ public class CreateAwsKeyInfo {
         && Objects.equals(reuseKeyForClusterVolumes, that.reuseKeyForClusterVolumes);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(keyAlias, keyArn, reuseKeyForClusterVolumes);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateAwsKeyInfo.class)

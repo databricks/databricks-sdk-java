@@ -7,6 +7,9 @@ package com.databricks.sdk.service.sharing;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface RecipientsService {
   /**
@@ -14,6 +17,9 @@ public interface RecipientsService {
    *
    * <p>Creates a new recipient with the delta sharing authentication type in the metastore. The
    * caller must be a metastore admin or has the **CREATE_RECIPIENT** privilege on the metastore.
+   *
+   * @param createRecipient a {@link com.databricks.sdk.service.sharing.CreateRecipient} object
+   * @return a {@link com.databricks.sdk.service.sharing.RecipientInfo} object
    */
   RecipientInfo create(CreateRecipient createRecipient);
 
@@ -22,6 +28,8 @@ public interface RecipientsService {
    *
    * <p>Deletes the specified recipient from the metastore. The caller must be the owner of the
    * recipient.
+   *
+   * @param deleteRecipientRequest a {@link com.databricks.sdk.service.sharing.DeleteRecipientRequest} object
    */
   void delete(DeleteRecipientRequest deleteRecipientRequest);
 
@@ -31,6 +39,9 @@ public interface RecipientsService {
    * <p>Gets a share recipient from the metastore if:
    *
    * <p>* the caller is the owner of the share recipient, or: * is a metastore admin
+   *
+   * @param getRecipientRequest a {@link com.databricks.sdk.service.sharing.GetRecipientRequest} object
+   * @return a {@link com.databricks.sdk.service.sharing.RecipientInfo} object
    */
   RecipientInfo get(GetRecipientRequest getRecipientRequest);
 
@@ -41,6 +52,9 @@ public interface RecipientsService {
    *
    * <p>* the caller is a metastore admin, or * the caller is the owner. There is no guarantee of a
    * specific ordering of the elements in the array.
+   *
+   * @param listRecipientsRequest a {@link com.databricks.sdk.service.sharing.ListRecipientsRequest} object
+   * @return a {@link com.databricks.sdk.service.sharing.ListRecipientsResponse} object
    */
   ListRecipientsResponse list(ListRecipientsRequest listRecipientsRequest);
 
@@ -49,6 +63,9 @@ public interface RecipientsService {
    *
    * <p>Refreshes the specified recipient's delta sharing authentication token with the provided
    * token info. The caller must be the owner of the recipient.
+   *
+   * @param rotateRecipientToken a {@link com.databricks.sdk.service.sharing.RotateRecipientToken} object
+   * @return a {@link com.databricks.sdk.service.sharing.RecipientInfo} object
    */
   RecipientInfo rotateToken(RotateRecipientToken rotateRecipientToken);
 
@@ -57,6 +74,9 @@ public interface RecipientsService {
    *
    * <p>Gets the share permissions for the specified Recipient. The caller must be a metastore admin
    * or the owner of the Recipient.
+   *
+   * @param sharePermissionsRequest a {@link com.databricks.sdk.service.sharing.SharePermissionsRequest} object
+   * @return a {@link com.databricks.sdk.service.sharing.GetRecipientSharePermissionsResponse} object
    */
   GetRecipientSharePermissionsResponse sharePermissions(
       SharePermissionsRequest sharePermissionsRequest);
@@ -67,6 +87,8 @@ public interface RecipientsService {
    * <p>Updates an existing recipient in the metastore. The caller must be a metastore admin or the
    * owner of the recipient. If the recipient name will be updated, the user must be both a
    * metastore admin and the owner of the recipient.
+   *
+   * @param updateRecipient a {@link com.databricks.sdk.service.sharing.UpdateRecipient} object
    */
   void update(UpdateRecipient updateRecipient);
 }

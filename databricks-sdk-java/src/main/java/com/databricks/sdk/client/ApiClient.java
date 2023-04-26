@@ -22,6 +22,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Simplified REST API client with retries, JSON POJO SerDe through Jackson and exception POJO
  * guessing
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class ApiClient {
   private static final Logger LOG = LoggerFactory.getLogger(ApiClient.class);
@@ -38,18 +41,37 @@ public class ApiClient {
   private final BodyLogger bodyLogger;
   private final Timer timer;
 
+  /**
+   * <p>Constructor for ApiClient.</p>
+   */
   public ApiClient() {
     this(ConfigLoader.getDefault());
   }
 
+  /**
+   * <p>configuredAccountID.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String configuredAccountID() {
     return config.getAccountId();
   }
 
+  /**
+   * <p>Constructor for ApiClient.</p>
+   *
+   * @param config a {@link com.databricks.sdk.client.DatabricksConfig} object
+   */
   public ApiClient(DatabricksConfig config) {
     this(config, new RealTimer());
   }
 
+  /**
+   * <p>Constructor for ApiClient.</p>
+   *
+   * @param config a {@link com.databricks.sdk.client.DatabricksConfig} object
+   * @param timer a {@link com.databricks.sdk.client.utils.Timer} object
+   */
   public ApiClient(DatabricksConfig config, Timer timer) {
     this.config = config;
     config.resolve();
@@ -110,10 +132,28 @@ public class ApiClient {
     }
   }
 
+  /**
+   * <p>GET.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @param target a {@link java.lang.Class} object
+   * @param <O> a O class
+   * @return a O object
+   */
   public <O> O GET(String path, Class<O> target) {
     return GET(path, null, target);
   }
 
+  /**
+   * <p>GET.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @param in a I object
+   * @param target a {@link java.lang.Class} object
+   * @param <I> a I class
+   * @param <O> a O class
+   * @return a O object
+   */
   public <I, O> O GET(String path, I in, Class<O> target) {
     try {
       return execute(withQuery(new Request("GET", path), in), target);
@@ -122,6 +162,16 @@ public class ApiClient {
     }
   }
 
+  /**
+   * <p>POST.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @param in a I object
+   * @param target a {@link java.lang.Class} object
+   * @param <I> a I class
+   * @param <O> a O class
+   * @return a O object
+   */
   public <I, O> O POST(String path, I in, Class<O> target) {
     try {
       return execute(new Request("POST", path, serialize(in)), target);
@@ -130,6 +180,16 @@ public class ApiClient {
     }
   }
 
+  /**
+   * <p>PUT.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @param in a I object
+   * @param target a {@link java.lang.Class} object
+   * @param <I> a I class
+   * @param <O> a O class
+   * @return a O object
+   */
   public <I, O> O PUT(String path, I in, Class<O> target) {
     try {
       return execute(new Request("PUT", path, serialize(in)), target);
@@ -138,6 +198,16 @@ public class ApiClient {
     }
   }
 
+  /**
+   * <p>PATCH.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @param in a I object
+   * @param target a {@link java.lang.Class} object
+   * @param <I> a I class
+   * @param <O> a O class
+   * @return a O object
+   */
   public <I, O> O PATCH(String path, I in, Class<O> target) {
     try {
       return execute(new Request("PATCH", path, serialize(in)), target);
@@ -146,6 +216,16 @@ public class ApiClient {
     }
   }
 
+  /**
+   * <p>DELETE.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @param in a I object
+   * @param target a {@link java.lang.Class} object
+   * @param <I> a I class
+   * @param <O> a O class
+   * @return a O object
+   */
   public <I, O> O DELETE(String path, I in, Class<O> target) {
     try {
       return execute(withQuery(new Request("DELETE", path), in), target);
@@ -264,6 +344,15 @@ public class ApiClient {
     return sb.toString();
   }
 
+  /**
+   * <p>deserialize.</p>
+   *
+   * @param body a {@link java.lang.String} object
+   * @param target a {@link java.lang.Class} object
+   * @param <T> a T class
+   * @return a T object
+   * @throws java.io.IOException if any.
+   */
   public <T> T deserialize(String body, Class<T> target) throws IOException {
     return mapper.readValue(body, target);
   }

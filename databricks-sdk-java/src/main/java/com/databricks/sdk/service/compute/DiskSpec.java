@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>DiskSpec class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class DiskSpec {
   /**
    * The number of disks launched for each instance: - This feature is only enabled for supported
@@ -49,51 +55,107 @@ public class DiskSpec {
   @JsonProperty("disk_type")
   private DiskType diskType;
 
+  /**
+   * <p>Setter for the field <code>diskCount</code>.</p>
+   *
+   * @param diskCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.DiskSpec} object
+   */
   public DiskSpec setDiskCount(Long diskCount) {
     this.diskCount = diskCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>diskCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getDiskCount() {
     return diskCount;
   }
 
+  /**
+   * <p>Setter for the field <code>diskIops</code>.</p>
+   *
+   * @param diskIops a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.DiskSpec} object
+   */
   public DiskSpec setDiskIops(Long diskIops) {
     this.diskIops = diskIops;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>diskIops</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getDiskIops() {
     return diskIops;
   }
 
+  /**
+   * <p>Setter for the field <code>diskSize</code>.</p>
+   *
+   * @param diskSize a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.DiskSpec} object
+   */
   public DiskSpec setDiskSize(Long diskSize) {
     this.diskSize = diskSize;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>diskSize</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getDiskSize() {
     return diskSize;
   }
 
+  /**
+   * <p>Setter for the field <code>diskThroughput</code>.</p>
+   *
+   * @param diskThroughput a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.DiskSpec} object
+   */
   public DiskSpec setDiskThroughput(Long diskThroughput) {
     this.diskThroughput = diskThroughput;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>diskThroughput</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getDiskThroughput() {
     return diskThroughput;
   }
 
+  /**
+   * <p>Setter for the field <code>diskType</code>.</p>
+   *
+   * @param diskType a {@link com.databricks.sdk.service.compute.DiskType} object
+   * @return a {@link com.databricks.sdk.service.compute.DiskSpec} object
+   */
   public DiskSpec setDiskType(DiskType diskType) {
     this.diskType = diskType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>diskType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.DiskType} object
+   */
   public DiskType getDiskType() {
     return diskType;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -106,11 +168,13 @@ public class DiskSpec {
         && Objects.equals(diskType, that.diskType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(diskCount, diskIops, diskSize, diskThroughput, diskType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(DiskSpec.class)

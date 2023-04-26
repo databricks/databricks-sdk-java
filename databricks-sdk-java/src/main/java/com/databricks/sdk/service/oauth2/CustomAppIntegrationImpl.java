@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class CustomAppIntegrationImpl implements CustomAppIntegrationService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for CustomAppIntegrationImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public CustomAppIntegrationImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CreateCustomAppIntegrationOutput create(CreateCustomAppIntegration request) {
     String path =
@@ -20,6 +26,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     return apiClient.POST(path, request, CreateCustomAppIntegrationOutput.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteCustomAppIntegrationRequest request) {
     String path =
@@ -29,6 +36,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public GetCustomAppIntegrationOutput get(GetCustomAppIntegrationRequest request) {
     String path =
@@ -38,6 +46,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     return apiClient.GET(path, request, GetCustomAppIntegrationOutput.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public GetCustomAppIntegrationsOutput list() {
     String path =
@@ -46,6 +55,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     return apiClient.GET(path, GetCustomAppIntegrationsOutput.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(UpdateCustomAppIntegration request) {
     String path =

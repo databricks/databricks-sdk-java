@@ -8,6 +8,12 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * <p>CreatePipeline class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreatePipeline {
   /** If false, deployment will fail if name conflicts with that of another pipeline. */
   @JsonProperty("allow_duplicate_names")
@@ -86,159 +92,347 @@ public class CreatePipeline {
   @JsonProperty("trigger")
   private PipelineTrigger trigger;
 
+  /**
+   * <p>Setter for the field <code>allowDuplicateNames</code>.</p>
+   *
+   * @param allowDuplicateNames a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setAllowDuplicateNames(Boolean allowDuplicateNames) {
     this.allowDuplicateNames = allowDuplicateNames;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>allowDuplicateNames</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getAllowDuplicateNames() {
     return allowDuplicateNames;
   }
 
+  /**
+   * <p>Setter for the field <code>catalog</code>.</p>
+   *
+   * @param catalog a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setCatalog(String catalog) {
     this.catalog = catalog;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>catalog</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCatalog() {
     return catalog;
   }
 
+  /**
+   * <p>Setter for the field <code>channel</code>.</p>
+   *
+   * @param channel a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setChannel(String channel) {
     this.channel = channel;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>channel</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getChannel() {
     return channel;
   }
 
+  /**
+   * <p>Setter for the field <code>clusters</code>.</p>
+   *
+   * @param clusters a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setClusters(Collection<PipelineCluster> clusters) {
     this.clusters = clusters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusters</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<PipelineCluster> getClusters() {
     return clusters;
   }
 
+  /**
+   * <p>Setter for the field <code>configuration</code>.</p>
+   *
+   * @param configuration a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setConfiguration(Map<String, String> configuration) {
     this.configuration = configuration;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>configuration</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getConfiguration() {
     return configuration;
   }
 
+  /**
+   * <p>Setter for the field <code>continuous</code>.</p>
+   *
+   * @param continuous a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setContinuous(Boolean continuous) {
     this.continuous = continuous;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>continuous</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getContinuous() {
     return continuous;
   }
 
+  /**
+   * <p>Setter for the field <code>development</code>.</p>
+   *
+   * @param development a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setDevelopment(Boolean development) {
     this.development = development;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>development</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getDevelopment() {
     return development;
   }
 
+  /**
+   * <p>Setter for the field <code>dryRun</code>.</p>
+   *
+   * @param dryRun a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setDryRun(Boolean dryRun) {
     this.dryRun = dryRun;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dryRun</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getDryRun() {
     return dryRun;
   }
 
+  /**
+   * <p>Setter for the field <code>edition</code>.</p>
+   *
+   * @param edition a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setEdition(String edition) {
     this.edition = edition;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>edition</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getEdition() {
     return edition;
   }
 
+  /**
+   * <p>Setter for the field <code>filters</code>.</p>
+   *
+   * @param filters a {@link com.databricks.sdk.service.pipelines.Filters} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setFilters(Filters filters) {
     this.filters = filters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>filters</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.pipelines.Filters} object
+   */
   public Filters getFilters() {
     return filters;
   }
 
+  /**
+   * <p>Setter for the field <code>id</code>.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setId(String id) {
     this.id = id;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>id</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * <p>Setter for the field <code>libraries</code>.</p>
+   *
+   * @param libraries a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setLibraries(Collection<PipelineLibrary> libraries) {
     this.libraries = libraries;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>libraries</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<PipelineLibrary> getLibraries() {
     return libraries;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>photon</code>.</p>
+   *
+   * @param photon a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setPhoton(Boolean photon) {
     this.photon = photon;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>photon</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getPhoton() {
     return photon;
   }
 
+  /**
+   * <p>Setter for the field <code>storage</code>.</p>
+   *
+   * @param storage a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setStorage(String storage) {
     this.storage = storage;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storage</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorage() {
     return storage;
   }
 
+  /**
+   * <p>Setter for the field <code>target</code>.</p>
+   *
+   * @param target a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setTarget(String target) {
     this.target = target;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>target</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTarget() {
     return target;
   }
 
+  /**
+   * <p>Setter for the field <code>trigger</code>.</p>
+   *
+   * @param trigger a {@link com.databricks.sdk.service.pipelines.PipelineTrigger} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   */
   public CreatePipeline setTrigger(PipelineTrigger trigger) {
     this.trigger = trigger;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>trigger</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelineTrigger} object
+   */
   public PipelineTrigger getTrigger() {
     return trigger;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -263,6 +457,7 @@ public class CreatePipeline {
         && Objects.equals(trigger, that.trigger);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -285,6 +480,7 @@ public class CreatePipeline {
         trigger);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreatePipeline.class)

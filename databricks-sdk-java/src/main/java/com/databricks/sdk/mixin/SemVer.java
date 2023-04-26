@@ -3,6 +3,12 @@ package com.databricks.sdk.mixin;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * <p>SemVer class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class SemVer implements Comparable<SemVer> {
   public final int major;
   public final int minor;
@@ -18,6 +24,15 @@ public class SemVer implements Comparable<SemVer> {
               + "(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?"
               + "(?:\\+(?<build>[0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$");
 
+  /**
+   * <p>Constructor for SemVer.</p>
+   *
+   * @param major a int
+   * @param minor a int
+   * @param patch a int
+   * @param preRelease a {@link java.lang.String} object
+   * @param build a {@link java.lang.String} object
+   */
   public SemVer(int major, int minor, int patch, String preRelease, String build) {
     this.major = major;
     this.minor = minor;
@@ -26,6 +41,12 @@ public class SemVer implements Comparable<SemVer> {
     this.build = build;
   }
 
+  /**
+   * <p>parse.</p>
+   *
+   * @param v a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.mixin.SemVer} object
+   */
   public static SemVer parse(String v) {
     if (v == null || v.isEmpty()) {
       throw new IllegalArgumentException("Not a valid SemVer: " + v);
@@ -47,6 +68,7 @@ public class SemVer implements Comparable<SemVer> {
         m.group("build"));
   }
 
+  /** {@inheritDoc} */
   @Override
   public int compareTo(SemVer other) {
     if (other == null) {

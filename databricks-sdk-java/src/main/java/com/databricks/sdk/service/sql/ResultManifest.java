@@ -7,7 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** The result manifest provides schema and metadata for the result set. */
+/**
+ * The result manifest provides schema and metadata for the result set.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ResultManifest {
   /** Array of result set chunk metadata. */
   @JsonProperty("chunks")
@@ -57,60 +62,127 @@ public class ResultManifest {
   @JsonProperty("total_row_count")
   private Long totalRowCount;
 
+  /**
+   * <p>Setter for the field <code>chunks</code>.</p>
+   *
+   * @param chunks a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.sql.ResultManifest} object
+   */
   public ResultManifest setChunks(Collection<ChunkInfo> chunks) {
     this.chunks = chunks;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>chunks</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<ChunkInfo> getChunks() {
     return chunks;
   }
 
+  /**
+   * <p>Setter for the field <code>format</code>.</p>
+   *
+   * @param format a {@link com.databricks.sdk.service.sql.Format} object
+   * @return a {@link com.databricks.sdk.service.sql.ResultManifest} object
+   */
   public ResultManifest setFormat(Format format) {
     this.format = format;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>format</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.Format} object
+   */
   public Format getFormat() {
     return format;
   }
 
+  /**
+   * <p>Setter for the field <code>schema</code>.</p>
+   *
+   * @param schema a {@link com.databricks.sdk.service.sql.ResultSchema} object
+   * @return a {@link com.databricks.sdk.service.sql.ResultManifest} object
+   */
   public ResultManifest setSchema(ResultSchema schema) {
     this.schema = schema;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>schema</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.ResultSchema} object
+   */
   public ResultSchema getSchema() {
     return schema;
   }
 
+  /**
+   * <p>Setter for the field <code>totalByteCount</code>.</p>
+   *
+   * @param totalByteCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ResultManifest} object
+   */
   public ResultManifest setTotalByteCount(Long totalByteCount) {
     this.totalByteCount = totalByteCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>totalByteCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTotalByteCount() {
     return totalByteCount;
   }
 
+  /**
+   * <p>Setter for the field <code>totalChunkCount</code>.</p>
+   *
+   * @param totalChunkCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ResultManifest} object
+   */
   public ResultManifest setTotalChunkCount(Long totalChunkCount) {
     this.totalChunkCount = totalChunkCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>totalChunkCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTotalChunkCount() {
     return totalChunkCount;
   }
 
+  /**
+   * <p>Setter for the field <code>totalRowCount</code>.</p>
+   *
+   * @param totalRowCount a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ResultManifest} object
+   */
   public ResultManifest setTotalRowCount(Long totalRowCount) {
     this.totalRowCount = totalRowCount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>totalRowCount</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTotalRowCount() {
     return totalRowCount;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -124,11 +196,13 @@ public class ResultManifest {
         && Objects.equals(totalRowCount, that.totalRowCount);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(chunks, format, schema, totalByteCount, totalChunkCount, totalRowCount);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ResultManifest.class)

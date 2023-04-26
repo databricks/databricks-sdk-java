@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>RejectTransitionRequest class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class RejectTransitionRequest {
   /** User-provided comment on the action. */
   @JsonProperty("comment")
@@ -33,42 +39,87 @@ public class RejectTransitionRequest {
   @JsonProperty("version")
   private String version;
 
+  /**
+   * <p>Setter for the field <code>comment</code>.</p>
+   *
+   * @param comment a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RejectTransitionRequest} object
+   */
   public RejectTransitionRequest setComment(String comment) {
     this.comment = comment;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>comment</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getComment() {
     return comment;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RejectTransitionRequest} object
+   */
   public RejectTransitionRequest setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>stage</code>.</p>
+   *
+   * @param stage a {@link com.databricks.sdk.service.ml.Stage} object
+   * @return a {@link com.databricks.sdk.service.ml.RejectTransitionRequest} object
+   */
   public RejectTransitionRequest setStage(Stage stage) {
     this.stage = stage;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>stage</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.Stage} object
+   */
   public Stage getStage() {
     return stage;
   }
 
+  /**
+   * <p>Setter for the field <code>version</code>.</p>
+   *
+   * @param version a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RejectTransitionRequest} object
+   */
   public RejectTransitionRequest setVersion(String version) {
     this.version = version;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>version</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getVersion() {
     return version;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -80,11 +131,13 @@ public class RejectTransitionRequest {
         && Objects.equals(version, that.version);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(comment, name, stage, version);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(RejectTransitionRequest.class)

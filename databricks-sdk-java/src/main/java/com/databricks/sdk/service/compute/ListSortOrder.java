@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
+/**
+ * <p>ListSortOrder class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum ListSortOrder {
   ASC,
   DESC,

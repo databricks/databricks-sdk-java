@@ -60,6 +60,9 @@ package com.databricks.sdk.service.billing;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface LogDeliveryService {
   /**
@@ -89,6 +92,9 @@ public interface LogDeliveryService {
    * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [Deliver and
    * access billable usage logs]:
    * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
+   *
+   * @param wrappedCreateLogDeliveryConfiguration a {@link com.databricks.sdk.service.billing.WrappedCreateLogDeliveryConfiguration} object
+   * @return a {@link com.databricks.sdk.service.billing.WrappedLogDeliveryConfiguration} object
    */
   WrappedLogDeliveryConfiguration create(
       WrappedCreateLogDeliveryConfiguration wrappedCreateLogDeliveryConfiguration);
@@ -97,6 +103,9 @@ public interface LogDeliveryService {
    * Get log delivery configuration.
    *
    * <p>Gets a Databricks log delivery configuration object for an account, both specified by ID.
+   *
+   * @param getLogDeliveryRequest a {@link com.databricks.sdk.service.billing.GetLogDeliveryRequest} object
+   * @return a {@link com.databricks.sdk.service.billing.WrappedLogDeliveryConfiguration} object
    */
   WrappedLogDeliveryConfiguration get(GetLogDeliveryRequest getLogDeliveryRequest);
 
@@ -104,6 +113,9 @@ public interface LogDeliveryService {
    * Get all log delivery configurations.
    *
    * <p>Gets all Databricks log delivery configurations associated with an account specified by ID.
+   *
+   * @param listLogDeliveryRequest a {@link com.databricks.sdk.service.billing.ListLogDeliveryRequest} object
+   * @return a {@link com.databricks.sdk.service.billing.WrappedLogDeliveryConfigurations} object
    */
   WrappedLogDeliveryConfigurations list(ListLogDeliveryRequest listLogDeliveryRequest);
 
@@ -114,6 +126,8 @@ public interface LogDeliveryService {
    * supported, so disable log delivery configurations that are no longer needed. Note that you
    * can't re-enable a delivery configuration if this would violate the delivery configuration
    * limits described under [Create log delivery](#operation/create-log-delivery-config).
+   *
+   * @param updateLogDeliveryConfigurationStatusRequest a {@link com.databricks.sdk.service.billing.UpdateLogDeliveryConfigurationStatusRequest} object
    */
   void patchStatus(
       UpdateLogDeliveryConfigurationStatusRequest updateLogDeliveryConfigurationStatusRequest);

@@ -9,10 +9,16 @@ import org.apache.http.client.methods.*;
 class EncryptionKeysImpl implements EncryptionKeysService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for EncryptionKeysImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public EncryptionKeysImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CustomerManagedKey create(CreateCustomerManagedKeyRequest request) {
     String path =
@@ -21,6 +27,7 @@ class EncryptionKeysImpl implements EncryptionKeysService {
     return apiClient.POST(path, request, CustomerManagedKey.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteEncryptionKeyRequest request) {
     String path =
@@ -30,6 +37,7 @@ class EncryptionKeysImpl implements EncryptionKeysService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public CustomerManagedKey get(GetEncryptionKeyRequest request) {
     String path =
@@ -39,6 +47,7 @@ class EncryptionKeysImpl implements EncryptionKeysService {
     return apiClient.GET(path, request, CustomerManagedKey.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Collection<CustomerManagedKey> list() {
     String path =

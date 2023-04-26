@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>EditWarehouseRequest class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class EditWarehouseRequest {
   /**
    * The amount of time in minutes that a SQL warehouse must be idle (i.e., no RUNNING queries)
@@ -107,132 +113,287 @@ public class EditWarehouseRequest {
   @JsonProperty("warehouse_type")
   private WarehouseType warehouseType;
 
+  /**
+   * <p>Setter for the field <code>autoStopMins</code>.</p>
+   *
+   * @param autoStopMins a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setAutoStopMins(Long autoStopMins) {
     this.autoStopMins = autoStopMins;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>autoStopMins</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getAutoStopMins() {
     return autoStopMins;
   }
 
+  /**
+   * <p>Setter for the field <code>channel</code>.</p>
+   *
+   * @param channel a {@link com.databricks.sdk.service.sql.Channel} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setChannel(Channel channel) {
     this.channel = channel;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>channel</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.Channel} object
+   */
   public Channel getChannel() {
     return channel;
   }
 
+  /**
+   * <p>Setter for the field <code>clusterSize</code>.</p>
+   *
+   * @param clusterSize a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setClusterSize(String clusterSize) {
     this.clusterSize = clusterSize;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusterSize</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getClusterSize() {
     return clusterSize;
   }
 
+  /**
+   * <p>Setter for the field <code>creatorName</code>.</p>
+   *
+   * @param creatorName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setCreatorName(String creatorName) {
     this.creatorName = creatorName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>creatorName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCreatorName() {
     return creatorName;
   }
 
+  /**
+   * <p>Setter for the field <code>enablePhoton</code>.</p>
+   *
+   * @param enablePhoton a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setEnablePhoton(Boolean enablePhoton) {
     this.enablePhoton = enablePhoton;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enablePhoton</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnablePhoton() {
     return enablePhoton;
   }
 
+  /**
+   * <p>Setter for the field <code>enableServerlessCompute</code>.</p>
+   *
+   * @param enableServerlessCompute a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setEnableServerlessCompute(Boolean enableServerlessCompute) {
     this.enableServerlessCompute = enableServerlessCompute;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enableServerlessCompute</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnableServerlessCompute() {
     return enableServerlessCompute;
   }
 
+  /**
+   * <p>Setter for the field <code>id</code>.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setId(String id) {
     this.id = id;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>id</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * <p>Setter for the field <code>instanceProfileArn</code>.</p>
+   *
+   * @param instanceProfileArn a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setInstanceProfileArn(String instanceProfileArn) {
     this.instanceProfileArn = instanceProfileArn;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instanceProfileArn</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstanceProfileArn() {
     return instanceProfileArn;
   }
 
+  /**
+   * <p>Setter for the field <code>maxNumClusters</code>.</p>
+   *
+   * @param maxNumClusters a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setMaxNumClusters(Long maxNumClusters) {
     this.maxNumClusters = maxNumClusters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>maxNumClusters</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMaxNumClusters() {
     return maxNumClusters;
   }
 
+  /**
+   * <p>Setter for the field <code>minNumClusters</code>.</p>
+   *
+   * @param minNumClusters a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setMinNumClusters(Long minNumClusters) {
     this.minNumClusters = minNumClusters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>minNumClusters</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMinNumClusters() {
     return minNumClusters;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>spotInstancePolicy</code>.</p>
+   *
+   * @param spotInstancePolicy a {@link com.databricks.sdk.service.sql.SpotInstancePolicy} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setSpotInstancePolicy(SpotInstancePolicy spotInstancePolicy) {
     this.spotInstancePolicy = spotInstancePolicy;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>spotInstancePolicy</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.SpotInstancePolicy} object
+   */
   public SpotInstancePolicy getSpotInstancePolicy() {
     return spotInstancePolicy;
   }
 
+  /**
+   * <p>Setter for the field <code>tags</code>.</p>
+   *
+   * @param tags a {@link com.databricks.sdk.service.sql.EndpointTags} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setTags(EndpointTags tags) {
     this.tags = tags;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>tags</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.EndpointTags} object
+   */
   public EndpointTags getTags() {
     return tags;
   }
 
+  /**
+   * <p>Setter for the field <code>warehouseType</code>.</p>
+   *
+   * @param warehouseType a {@link com.databricks.sdk.service.sql.WarehouseType} object
+   * @return a {@link com.databricks.sdk.service.sql.EditWarehouseRequest} object
+   */
   public EditWarehouseRequest setWarehouseType(WarehouseType warehouseType) {
     this.warehouseType = warehouseType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>warehouseType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.WarehouseType} object
+   */
   public WarehouseType getWarehouseType() {
     return warehouseType;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -254,6 +415,7 @@ public class EditWarehouseRequest {
         && Objects.equals(warehouseType, that.warehouseType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -273,6 +435,7 @@ public class EditWarehouseRequest {
         warehouseType);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(EditWarehouseRequest.class)

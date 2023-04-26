@@ -5,22 +5,43 @@ import com.databricks.sdk.client.ApiClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** These APIs manage private access settings for this account. */
+/**
+ * These APIs manage private access settings for this account.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class PrivateAccessAPI {
   private static final Logger LOG = LoggerFactory.getLogger(PrivateAccessAPI.class);
 
   private final PrivateAccessService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public PrivateAccessAPI(ApiClient apiClient) {
     impl = new PrivateAccessImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.provisioning.PrivateAccessService} object
+   */
   public PrivateAccessAPI(PrivateAccessService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param privateAccessSettingsName a {@link java.lang.String} object
+   * @param region a {@link java.lang.String} object
+   * @param privateAccessSettingsId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.PrivateAccessSettings} object
+   */
   public PrivateAccessSettings create(
       String privateAccessSettingsName, String region, String privateAccessSettingsId) {
     return create(
@@ -46,11 +67,19 @@ public class PrivateAccessAPI {
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.UpsertPrivateAccessSettingsRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.PrivateAccessSettings} object
    */
   public PrivateAccessSettings create(UpsertPrivateAccessSettingsRequest request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param privateAccessSettingsId a {@link java.lang.String} object
+   */
   public void delete(String privateAccessSettingsId) {
     delete(new DeletePrivateAccesRequest().setPrivateAccessSettingsId(privateAccessSettingsId));
   }
@@ -66,11 +95,19 @@ public class PrivateAccessAPI {
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.DeletePrivateAccesRequest} object
    */
   public void delete(DeletePrivateAccesRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param privateAccessSettingsId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.PrivateAccessSettings} object
+   */
   public PrivateAccessSettings get(String privateAccessSettingsId) {
     return get(new GetPrivateAccesRequest().setPrivateAccessSettingsId(privateAccessSettingsId));
   }
@@ -86,6 +123,9 @@ public class PrivateAccessAPI {
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.GetPrivateAccesRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.PrivateAccessSettings} object
    */
   public PrivateAccessSettings get(GetPrivateAccesRequest request) {
     return impl.get(request);
@@ -95,11 +135,20 @@ public class PrivateAccessAPI {
    * Get all private access settings objects.
    *
    * <p>Gets a list of all private access settings objects for an account, specified by ID.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<PrivateAccessSettings> list() {
     return impl.list();
   }
 
+  /**
+   * <p>replace.</p>
+   *
+   * @param privateAccessSettingsName a {@link java.lang.String} object
+   * @param region a {@link java.lang.String} object
+   * @param privateAccessSettingsId a {@link java.lang.String} object
+   */
   public void replace(
       String privateAccessSettingsName, String region, String privateAccessSettingsId) {
     replace(
@@ -130,11 +179,18 @@ public class PrivateAccessAPI {
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.UpsertPrivateAccessSettingsRequest} object
    */
   public void replace(UpsertPrivateAccessSettingsRequest request) {
     impl.replace(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.PrivateAccessService} object
+   */
   public PrivateAccessService impl() {
     return impl;
   }

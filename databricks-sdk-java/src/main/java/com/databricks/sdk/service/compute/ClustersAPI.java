@@ -34,26 +34,53 @@ import org.slf4j.LoggerFactory;
  * clusters terminated in the last 30 days and up to 30 job clusters recently terminated by the job
  * scheduler. To keep an all-purpose cluster configuration even after it has been terminated for
  * more than 30 days, an administrator can pin a cluster to the cluster list.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class ClustersAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ClustersAPI.class);
 
   private final ClustersService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public ClustersAPI(ApiClient apiClient) {
     impl = new ClustersImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.compute.ClustersService} object
+   */
   public ClustersAPI(ClustersService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>waitGetClusterRunning.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterInfo} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public ClusterInfo waitGetClusterRunning(String clusterId) throws TimeoutException {
     return waitGetClusterRunning(clusterId, Duration.ofMinutes(20), null);
   }
 
+  /**
+   * <p>waitGetClusterRunning.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param timeout a {@link java.time.Duration} object
+   * @param callback a {@link java.util.function.Consumer} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterInfo} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public ClusterInfo waitGetClusterRunning(
       String clusterId, Duration timeout, Consumer<ClusterInfo> callback) throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
@@ -93,10 +120,26 @@ public class ClustersAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
+  /**
+   * <p>waitGetClusterTerminated.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterInfo} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public ClusterInfo waitGetClusterTerminated(String clusterId) throws TimeoutException {
     return waitGetClusterTerminated(clusterId, Duration.ofMinutes(20), null);
   }
 
+  /**
+   * <p>waitGetClusterTerminated.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param timeout a {@link java.time.Duration} object
+   * @param callback a {@link java.util.function.Consumer} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterInfo} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public ClusterInfo waitGetClusterTerminated(
       String clusterId, Duration timeout, Consumer<ClusterInfo> callback) throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
@@ -136,6 +179,12 @@ public class ClustersAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
+  /**
+   * <p>changeOwner.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param ownerUsername a {@link java.lang.String} object
+   */
   public void changeOwner(String clusterId, String ownerUsername) {
     changeOwner(new ChangeClusterOwner().setClusterId(clusterId).setOwnerUsername(ownerUsername));
   }
@@ -144,11 +193,19 @@ public class ClustersAPI {
    * Change cluster owner.
    *
    * <p>Change the owner of the cluster. You must be an admin to perform this operation.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.ChangeClusterOwner} object
    */
   public void changeOwner(ChangeClusterOwner request) {
     impl.changeOwner(request);
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param sparkVersion a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
+   */
   public Wait<ClusterInfo, CreateClusterResponse> create(String sparkVersion) {
     return create(new CreateCluster().setSparkVersion(sparkVersion));
   }
@@ -166,6 +223,9 @@ public class ClustersAPI {
    *
    * <p>If Databricks acquires at least 85% of the requested on-demand nodes, cluster creation will
    * succeed. Otherwise the cluster will terminate with an informative error message.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<ClusterInfo, CreateClusterResponse> create(CreateCluster request) {
     CreateClusterResponse response = impl.create(request);
@@ -174,6 +234,12 @@ public class ClustersAPI {
         response);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
+   */
   public Wait<ClusterInfo, Void> delete(String clusterId) {
     return delete(new DeleteCluster().setClusterId(clusterId));
   }
@@ -184,6 +250,9 @@ public class ClustersAPI {
    * <p>Terminates the Spark cluster with the specified ID. The cluster is removed asynchronously.
    * Once the termination has completed, the cluster will be in a `TERMINATED` state. If the cluster
    * is already in a `TERMINATING` or `TERMINATED` state, nothing will happen.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.DeleteCluster} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<ClusterInfo, Void> delete(DeleteCluster request) {
     impl.delete(request);
@@ -191,6 +260,13 @@ public class ClustersAPI {
         (timeout, callback) -> waitGetClusterTerminated(request.getClusterId(), timeout, callback));
   }
 
+  /**
+   * <p>edit.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @param sparkVersion a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
+   */
   public Wait<ClusterInfo, Void> edit(String clusterId, String sparkVersion) {
     return edit(new EditCluster().setClusterId(clusterId).setSparkVersion(sparkVersion));
   }
@@ -210,6 +286,9 @@ public class ClustersAPI {
    * code.
    *
    * <p>Clusters created by the Databricks Jobs service cannot be edited.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.EditCluster} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<ClusterInfo, Void> edit(EditCluster request) {
     impl.edit(request);
@@ -217,6 +296,12 @@ public class ClustersAPI {
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
+  /**
+   * <p>events.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @return a {@link java.lang.Iterable} object
+   */
   public Iterable<ClusterEvent> events(String clusterId) {
     return events(new GetEvents().setClusterId(clusterId));
   }
@@ -227,6 +312,9 @@ public class ClustersAPI {
    * <p>Retrieves a list of events about the activity of a cluster. This API is paginated. If there
    * are more events to read, the response includes all the nparameters necessary to request the
    * next page of events.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.GetEvents} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<ClusterEvent> events(GetEvents request) {
     return new Paginator<>(
@@ -238,6 +326,12 @@ public class ClustersAPI {
         });
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterInfo} object
+   */
   public ClusterInfo get(String clusterId) {
     return get(new GetClusterRequest().setClusterId(clusterId));
   }
@@ -247,6 +341,9 @@ public class ClustersAPI {
    *
    * <p>"Retrieves the information for a cluster given its identifier. Clusters can be described
    * while they are running, or up to 60 days after they are terminated.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.GetClusterRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterInfo} object
    */
   public ClusterInfo get(GetClusterRequest request) {
     return impl.get(request);
@@ -263,6 +360,9 @@ public class ClustersAPI {
    * clusters in the past 30 days, and 50 terminated job clusters in the past 30 days, then this API
    * returns the 1 pinned cluster, 4 active clusters, all 45 terminated all-purpose clusters, and
    * the 30 most recently terminated job clusters.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.ListClustersRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<ClusterInfo> list(ListClustersRequest request) {
     return impl.list(request).getClusters();
@@ -273,6 +373,8 @@ public class ClustersAPI {
    *
    * <p>Returns a list of supported Spark node types. These node types can be used to launch a
    * cluster.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ListNodeTypesResponse} object
    */
   public ListNodeTypesResponse listNodeTypes() {
     return impl.listNodeTypes();
@@ -283,11 +385,18 @@ public class ClustersAPI {
    *
    * <p>Returns a list of availability zones where clusters can be created in (For example,
    * us-west-2a). These zones can be used to launch a cluster.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ListAvailableZonesResponse} object
    */
   public ListAvailableZonesResponse listZones() {
     return impl.listZones();
   }
 
+  /**
+   * <p>permanentDelete.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   */
   public void permanentDelete(String clusterId) {
     permanentDelete(new PermanentDeleteCluster().setClusterId(clusterId));
   }
@@ -300,11 +409,18 @@ public class ClustersAPI {
    *
    * <p>In addition, users will no longer see permanently deleted clusters in the cluster list, and
    * API users can no longer perform any action on permanently deleted clusters.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.PermanentDeleteCluster} object
    */
   public void permanentDelete(PermanentDeleteCluster request) {
     impl.permanentDelete(request);
   }
 
+  /**
+   * <p>pin.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   */
   public void pin(String clusterId) {
     pin(new PinCluster().setClusterId(clusterId));
   }
@@ -315,11 +431,19 @@ public class ClustersAPI {
    * <p>Pinning a cluster ensures that the cluster will always be returned by the ListClusters API.
    * Pinning a cluster that is already pinned will have no effect. This API can only be called by
    * workspace admins.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.PinCluster} object
    */
   public void pin(PinCluster request) {
     impl.pin(request);
   }
 
+  /**
+   * <p>resize.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
+   */
   public Wait<ClusterInfo, Void> resize(String clusterId) {
     return resize(new ResizeCluster().setClusterId(clusterId));
   }
@@ -329,6 +453,9 @@ public class ClustersAPI {
    *
    * <p>Resizes a cluster to have a desired number of workers. This will fail unless the cluster is
    * in a `RUNNING` state.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.ResizeCluster} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<ClusterInfo, Void> resize(ResizeCluster request) {
     impl.resize(request);
@@ -336,6 +463,12 @@ public class ClustersAPI {
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
+  /**
+   * <p>restart.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
+   */
   public Wait<ClusterInfo, Void> restart(String clusterId) {
     return restart(new RestartCluster().setClusterId(clusterId));
   }
@@ -345,6 +478,9 @@ public class ClustersAPI {
    *
    * <p>Restarts a Spark cluster with the supplied ID. If the cluster is not currently in a
    * `RUNNING` state, nothing will happen.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.RestartCluster} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<ClusterInfo, Void> restart(RestartCluster request) {
     impl.restart(request);
@@ -357,11 +493,19 @@ public class ClustersAPI {
    *
    * <p>Returns the list of available Spark versions. These versions can be used to launch a
    * cluster.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.GetSparkVersionsResponse} object
    */
   public GetSparkVersionsResponse sparkVersions() {
     return impl.sparkVersions();
   }
 
+  /**
+   * <p>start.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
+   */
   public Wait<ClusterInfo, Void> start(String clusterId) {
     return start(new StartCluster().setClusterId(clusterId));
   }
@@ -376,6 +520,9 @@ public class ClustersAPI {
    * specified cluster size. * If the previous cluster was an autoscaling cluster, the current
    * cluster starts with the minimum number of nodes. * If the cluster is not currently in a
    * `TERMINATED` state, nothing will happen. * Clusters launched to run a job cannot be started.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.StartCluster} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<ClusterInfo, Void> start(StartCluster request) {
     impl.start(request);
@@ -383,6 +530,11 @@ public class ClustersAPI {
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
+  /**
+   * <p>unpin.</p>
+   *
+   * @param clusterId a {@link java.lang.String} object
+   */
   public void unpin(String clusterId) {
     unpin(new UnpinCluster().setClusterId(clusterId));
   }
@@ -393,11 +545,18 @@ public class ClustersAPI {
    * <p>Unpinning a cluster will allow the cluster to eventually be removed from the ListClusters
    * API. Unpinning a cluster that is not pinned will have no effect. This API can only be called by
    * workspace admins.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.UnpinCluster} object
    */
   public void unpin(UnpinCluster request) {
     impl.unpin(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ClustersService} object
+   */
   public ClustersService impl() {
     return impl;
   }

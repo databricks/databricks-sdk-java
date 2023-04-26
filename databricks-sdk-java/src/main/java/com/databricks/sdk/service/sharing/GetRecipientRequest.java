@@ -5,20 +5,37 @@ package com.databricks.sdk.service.sharing;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get a share recipient */
+/**
+ * Get a share recipient
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GetRecipientRequest {
   /** Name of the recipient. */
   private String name;
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.GetRecipientRequest} object
+   */
   public GetRecipientRequest setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -27,11 +44,13 @@ public class GetRecipientRequest {
     return Objects.equals(name, that.name);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(name);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GetRecipientRequest.class).add("name", name).toString();

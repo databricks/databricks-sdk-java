@@ -12,6 +12,9 @@ package com.databricks.sdk.service.compute;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface InstanceProfilesService {
   /**
@@ -19,6 +22,8 @@ public interface InstanceProfilesService {
    *
    * <p>In the UI, you can select the instance profile when launching clusters. This API is only
    * available to admin users.
+   *
+   * @param addInstanceProfile a {@link com.databricks.sdk.service.compute.AddInstanceProfile} object
    */
   void add(AddInstanceProfile addInstanceProfile);
 
@@ -38,6 +43,8 @@ public interface InstanceProfilesService {
    *
    * <p>[Databricks SQL Serverless]: https://docs.databricks.com/sql/admin/serverless.html [Enable
    * serverless SQL warehouses]: https://docs.databricks.com/sql/admin/serverless.html
+   *
+   * @param instanceProfile a {@link com.databricks.sdk.service.compute.InstanceProfile} object
    */
   void edit(InstanceProfile instanceProfile);
 
@@ -47,6 +54,8 @@ public interface InstanceProfilesService {
    * <p>List the instance profiles that the calling user can use to launch a cluster.
    *
    * <p>This API is available to all users.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ListInstanceProfilesResponse} object
    */
   ListInstanceProfilesResponse list();
 
@@ -57,6 +66,8 @@ public interface InstanceProfilesService {
    * profile will continue to function.
    *
    * <p>This API is only accessible to admin users.
+   *
+   * @param removeInstanceProfile a {@link com.databricks.sdk.service.compute.RemoveInstanceProfile} object
    */
   void remove(RemoveInstanceProfile removeInstanceProfile);
 }

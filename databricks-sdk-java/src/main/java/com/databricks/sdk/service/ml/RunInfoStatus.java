@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
-/** Current status of the run. */
+/**
+ * Current status of the run.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum RunInfoStatus {
   FAILED,
   FINISHED,

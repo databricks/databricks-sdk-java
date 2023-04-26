@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>Parameter class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class Parameter {
   /** The literal parameter marker that appears between double curly braces in the query text. */
   @JsonProperty("name")
@@ -23,42 +29,87 @@ public class Parameter {
   @JsonProperty("value")
   private Object /* MISSING TYPE */ value;
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.Parameter} object
+   */
   public Parameter setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>title</code>.</p>
+   *
+   * @param title a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.Parameter} object
+   */
   public Parameter setTitle(String title) {
     this.title = title;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>title</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * <p>setType.</p>
+   *
+   * @param typeValue a {@link com.databricks.sdk.service.sql.ParameterType} object
+   * @return a {@link com.databricks.sdk.service.sql.Parameter} object
+   */
   public Parameter setType(ParameterType typeValue) {
     this.typeValue = typeValue;
     return this;
   }
 
+  /**
+   * <p>getType.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.ParameterType} object
+   */
   public ParameterType getType() {
     return typeValue;
   }
 
+  /**
+   * <p>Setter for the field <code>value</code>.</p>
+   *
+   * @param value a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.sql.Parameter} object
+   */
   public Parameter setValue(Object /* MISSING TYPE */ value) {
     this.value = value;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>value</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getValue() {
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -70,11 +121,13 @@ public class Parameter {
         && Objects.equals(value, that.value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(name, title, typeValue, value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(Parameter.class)

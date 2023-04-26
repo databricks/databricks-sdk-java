@@ -7,6 +7,9 @@ package com.databricks.sdk.service.billing;
  * Defaults to `ENABLED`. You can [enable or disable the
  * configuration](#operation/patch-log-delivery-config-status) later. Deletion of a configuration is
  * not supported, so disable a log delivery configuration that is no longer needed.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum LogDeliveryConfigStatus {
   DISABLED,

@@ -18,26 +18,53 @@ import org.slf4j.LoggerFactory;
  *
  * <p>These endpoints are available if your account is on the E2 version of the platform or on a
  * select custom plan that allows multiple workspaces per account.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class WorkspacesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(WorkspacesAPI.class);
 
   private final WorkspacesService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public WorkspacesAPI(ApiClient apiClient) {
     impl = new WorkspacesImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.provisioning.WorkspacesService} object
+   */
   public WorkspacesAPI(WorkspacesService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>waitGetWorkspaceRunning.</p>
+   *
+   * @param workspaceId a long
+   * @return a {@link com.databricks.sdk.service.provisioning.Workspace} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public Workspace waitGetWorkspaceRunning(long workspaceId) throws TimeoutException {
     return waitGetWorkspaceRunning(workspaceId, Duration.ofMinutes(20), null);
   }
 
+  /**
+   * <p>waitGetWorkspaceRunning.</p>
+   *
+   * @param workspaceId a long
+   * @param timeout a {@link java.time.Duration} object
+   * @param callback a {@link java.util.function.Consumer} object
+   * @return a {@link com.databricks.sdk.service.provisioning.Workspace} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public Workspace waitGetWorkspaceRunning(
       long workspaceId, Duration timeout, Consumer<Workspace> callback) throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
@@ -78,6 +105,12 @@ public class WorkspacesAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param workspaceName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
+   */
   public Wait<Workspace, Workspace> create(String workspaceName) {
     return create(new CreateWorkspaceRequest().setWorkspaceName(workspaceName));
   }
@@ -93,6 +126,9 @@ public class WorkspacesAPI {
    * workspace ID (`workspace_id`) field in the response to identify the new workspace and make
    * repeated `GET` requests with the workspace ID and check its status. The workspace becomes
    * available when the status changes to `RUNNING`.
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<Workspace, Workspace> create(CreateWorkspaceRequest request) {
     Workspace response = impl.create(request);
@@ -102,6 +138,11 @@ public class WorkspacesAPI {
         response);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param workspaceId a long
+   */
   public void delete(long workspaceId) {
     delete(new DeleteWorkspaceRequest().setWorkspaceId(workspaceId));
   }
@@ -115,11 +156,19 @@ public class WorkspacesAPI {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.DeleteWorkspaceRequest} object
    */
   public void delete(DeleteWorkspaceRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param workspaceId a long
+   * @return a {@link com.databricks.sdk.service.provisioning.Workspace} object
+   */
   public Workspace get(long workspaceId) {
     return get(new GetWorkspaceRequest().setWorkspaceId(workspaceId));
   }
@@ -140,6 +189,9 @@ public class WorkspacesAPI {
    *
    * <p>[Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.GetWorkspaceRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.Workspace} object
    */
   public Workspace get(GetWorkspaceRequest request) {
     return impl.get(request);
@@ -152,11 +204,19 @@ public class WorkspacesAPI {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<Workspace> list() {
     return impl.list();
   }
 
+  /**
+   * <p>update.</p>
+   *
+   * @param workspaceId a long
+   * @return a {@link com.databricks.sdk.support.Wait} object
+   */
   public Wait<Workspace, Void> update(long workspaceId) {
     return update(new UpdateWorkspaceRequest().setWorkspaceId(workspaceId));
   }
@@ -260,6 +320,9 @@ public class WorkspacesAPI {
    * https://docs.databricks.com/administration-guide/account-settings-e2/account-console-e2.html
    * [Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<Workspace, Void> update(UpdateWorkspaceRequest request) {
     impl.update(request);
@@ -268,6 +331,11 @@ public class WorkspacesAPI {
             waitGetWorkspaceRunning(request.getWorkspaceId(), timeout, callback));
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.WorkspacesService} object
+   */
   public WorkspacesService impl() {
     return impl;
   }

@@ -17,22 +17,40 @@ import org.slf4j.LoggerFactory;
  * <p>To create storage credentials, you must be a Databricks account admin. The account admin who
  * creates the storage credential can delegate ownership to another user or group to manage
  * permissions on it.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class StorageCredentialsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(StorageCredentialsAPI.class);
 
   private final StorageCredentialsService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public StorageCredentialsAPI(ApiClient apiClient) {
     impl = new StorageCredentialsImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.catalog.StorageCredentialsService} object
+   */
   public StorageCredentialsAPI(StorageCredentialsService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @param metastoreId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
+   */
   public StorageCredentialInfo create(String name, String metastoreId) {
     return create(new CreateStorageCredential().setName(name).setMetastoreId(metastoreId));
   }
@@ -47,11 +65,19 @@ public class StorageCredentialsAPI {
    *
    * <p>The caller must be a metastore admin and have the **CREATE_STORAGE_CREDENTIAL** privilege on
    * the metastore.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
    */
   public StorageCredentialInfo create(CreateStorageCredential request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   */
   public void delete(String name) {
     delete(new DeleteStorageCredentialRequest().setName(name));
   }
@@ -61,11 +87,19 @@ public class StorageCredentialsAPI {
    *
    * <p>Deletes a storage credential from the metastore. The caller must be an owner of the storage
    * credential.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.DeleteStorageCredentialRequest} object
    */
   public void delete(DeleteStorageCredentialRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
+   */
   public StorageCredentialInfo get(String name) {
     return get(new GetStorageCredentialRequest().setName(name));
   }
@@ -75,6 +109,9 @@ public class StorageCredentialsAPI {
    *
    * <p>Gets a storage credential from the metastore. The caller must be a metastore admin, the
    * owner of the storage credential, or have some permission on the storage credential.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.GetStorageCredentialRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
    */
   public StorageCredentialInfo get(GetStorageCredentialRequest request) {
     return impl.get(request);
@@ -87,11 +124,19 @@ public class StorageCredentialsAPI {
    * limited to only those storage credentials the caller has permission to access. If the caller is
    * a metastore admin, all storage credentials will be retrieved. There is no guarantee of a
    * specific ordering of the elements in the array.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<StorageCredentialInfo> list() {
     return impl.list();
   }
 
+  /**
+   * <p>update.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
+   */
   public StorageCredentialInfo update(String name) {
     return update(new UpdateStorageCredential().setName(name));
   }
@@ -102,6 +147,9 @@ public class StorageCredentialsAPI {
    * <p>Updates a storage credential on the metastore. The caller must be the owner of the storage
    * credential or a metastore admin. If the caller is a metastore admin, only the __owner__
    * credential can be changed.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialInfo} object
    */
   public StorageCredentialInfo update(UpdateStorageCredential request) {
     return impl.update(request);
@@ -119,11 +167,19 @@ public class StorageCredentialsAPI {
    *
    * <p>The caller must be a metastore admin or the storage credential owner or have the
    * **CREATE_EXTERNAL_LOCATION** privilege on the metastore and the storage credential.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.ValidateStorageCredential} object
+   * @return a {@link com.databricks.sdk.service.catalog.ValidateStorageCredentialResponse} object
    */
   public ValidateStorageCredentialResponse validate(ValidateStorageCredential request) {
     return impl.validate(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.StorageCredentialsService} object
+   */
   public StorageCredentialsService impl() {
     return impl;
   }

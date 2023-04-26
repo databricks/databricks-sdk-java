@@ -5,7 +5,12 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get result chunk by index */
+/**
+ * Get result chunk by index
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GetStatementResultChunkNRequest {
   /** */
   private Long chunkIndex;
@@ -13,24 +18,47 @@ public class GetStatementResultChunkNRequest {
   /** */
   private String statementId;
 
+  /**
+   * <p>Setter for the field <code>chunkIndex</code>.</p>
+   *
+   * @param chunkIndex a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.GetStatementResultChunkNRequest} object
+   */
   public GetStatementResultChunkNRequest setChunkIndex(Long chunkIndex) {
     this.chunkIndex = chunkIndex;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>chunkIndex</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getChunkIndex() {
     return chunkIndex;
   }
 
+  /**
+   * <p>Setter for the field <code>statementId</code>.</p>
+   *
+   * @param statementId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.GetStatementResultChunkNRequest} object
+   */
   public GetStatementResultChunkNRequest setStatementId(String statementId) {
     this.statementId = statementId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>statementId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStatementId() {
     return statementId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -40,11 +68,13 @@ public class GetStatementResultChunkNRequest {
         && Objects.equals(statementId, that.statementId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(chunkIndex, statementId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GetStatementResultChunkNRequest.class)

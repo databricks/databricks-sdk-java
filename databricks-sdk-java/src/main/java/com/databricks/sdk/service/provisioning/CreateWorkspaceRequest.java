@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>CreateWorkspaceRequest class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateWorkspaceRequest {
   /** The AWS region of the workspace's data plane. */
   @JsonProperty("aws_region")
@@ -115,125 +121,269 @@ public class CreateWorkspaceRequest {
   @JsonProperty("workspace_name")
   private String workspaceName;
 
+  /**
+   * <p>Setter for the field <code>awsRegion</code>.</p>
+   *
+   * @param awsRegion a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setAwsRegion(String awsRegion) {
     this.awsRegion = awsRegion;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsRegion</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAwsRegion() {
     return awsRegion;
   }
 
+  /**
+   * <p>Setter for the field <code>cloud</code>.</p>
+   *
+   * @param cloud a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setCloud(String cloud) {
     this.cloud = cloud;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>cloud</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCloud() {
     return cloud;
   }
 
+  /**
+   * <p>Setter for the field <code>cloudResourceContainer</code>.</p>
+   *
+   * @param cloudResourceContainer a {@link com.databricks.sdk.service.provisioning.CloudResourceContainer} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setCloudResourceContainer(
       CloudResourceContainer cloudResourceContainer) {
     this.cloudResourceContainer = cloudResourceContainer;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>cloudResourceContainer</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.CloudResourceContainer} object
+   */
   public CloudResourceContainer getCloudResourceContainer() {
     return cloudResourceContainer;
   }
 
+  /**
+   * <p>Setter for the field <code>credentialsId</code>.</p>
+   *
+   * @param credentialsId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setCredentialsId(String credentialsId) {
     this.credentialsId = credentialsId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>credentialsId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCredentialsId() {
     return credentialsId;
   }
 
+  /**
+   * <p>Setter for the field <code>deploymentName</code>.</p>
+   *
+   * @param deploymentName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setDeploymentName(String deploymentName) {
     this.deploymentName = deploymentName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>deploymentName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDeploymentName() {
     return deploymentName;
   }
 
+  /**
+   * <p>Setter for the field <code>location</code>.</p>
+   *
+   * @param location a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setLocation(String location) {
     this.location = location;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>location</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getLocation() {
     return location;
   }
 
+  /**
+   * <p>Setter for the field <code>managedServicesCustomerManagedKeyId</code>.</p>
+   *
+   * @param managedServicesCustomerManagedKeyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setManagedServicesCustomerManagedKeyId(
       String managedServicesCustomerManagedKeyId) {
     this.managedServicesCustomerManagedKeyId = managedServicesCustomerManagedKeyId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>managedServicesCustomerManagedKeyId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getManagedServicesCustomerManagedKeyId() {
     return managedServicesCustomerManagedKeyId;
   }
 
+  /**
+   * <p>Setter for the field <code>networkId</code>.</p>
+   *
+   * @param networkId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setNetworkId(String networkId) {
     this.networkId = networkId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>networkId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getNetworkId() {
     return networkId;
   }
 
+  /**
+   * <p>Setter for the field <code>pricingTier</code>.</p>
+   *
+   * @param pricingTier a {@link com.databricks.sdk.service.provisioning.PricingTier} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setPricingTier(PricingTier pricingTier) {
     this.pricingTier = pricingTier;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pricingTier</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.PricingTier} object
+   */
   public PricingTier getPricingTier() {
     return pricingTier;
   }
 
+  /**
+   * <p>Setter for the field <code>privateAccessSettingsId</code>.</p>
+   *
+   * @param privateAccessSettingsId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setPrivateAccessSettingsId(String privateAccessSettingsId) {
     this.privateAccessSettingsId = privateAccessSettingsId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>privateAccessSettingsId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPrivateAccessSettingsId() {
     return privateAccessSettingsId;
   }
 
+  /**
+   * <p>Setter for the field <code>storageConfigurationId</code>.</p>
+   *
+   * @param storageConfigurationId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setStorageConfigurationId(String storageConfigurationId) {
     this.storageConfigurationId = storageConfigurationId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageConfigurationId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageConfigurationId() {
     return storageConfigurationId;
   }
 
+  /**
+   * <p>Setter for the field <code>storageCustomerManagedKeyId</code>.</p>
+   *
+   * @param storageCustomerManagedKeyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setStorageCustomerManagedKeyId(String storageCustomerManagedKeyId) {
     this.storageCustomerManagedKeyId = storageCustomerManagedKeyId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageCustomerManagedKeyId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageCustomerManagedKeyId() {
     return storageCustomerManagedKeyId;
   }
 
+  /**
+   * <p>Setter for the field <code>workspaceName</code>.</p>
+   *
+   * @param workspaceName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateWorkspaceRequest} object
+   */
   public CreateWorkspaceRequest setWorkspaceName(String workspaceName) {
     this.workspaceName = workspaceName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>workspaceName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getWorkspaceName() {
     return workspaceName;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -255,6 +405,7 @@ public class CreateWorkspaceRequest {
         && Objects.equals(workspaceName, that.workspaceName);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -273,6 +424,7 @@ public class CreateWorkspaceRequest {
         workspaceName);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateWorkspaceRequest.class)

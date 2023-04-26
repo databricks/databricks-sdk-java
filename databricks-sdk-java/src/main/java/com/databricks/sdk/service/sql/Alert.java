@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>Alert class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class Alert {
   /** Timestamp when the alert was created. */
   @JsonProperty("created_at")
@@ -60,105 +66,227 @@ public class Alert {
   @JsonProperty("user")
   private User user;
 
+  /**
+   * <p>Setter for the field <code>createdAt</code>.</p>
+   *
+   * @param createdAt a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>createdAt</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCreatedAt() {
     return createdAt;
   }
 
+  /**
+   * <p>Setter for the field <code>id</code>.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setId(String id) {
     this.id = id;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>id</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * <p>Setter for the field <code>lastTriggeredAt</code>.</p>
+   *
+   * @param lastTriggeredAt a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setLastTriggeredAt(String lastTriggeredAt) {
     this.lastTriggeredAt = lastTriggeredAt;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>lastTriggeredAt</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getLastTriggeredAt() {
     return lastTriggeredAt;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>options</code>.</p>
+   *
+   * @param options a {@link com.databricks.sdk.service.sql.AlertOptions} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setOptions(AlertOptions options) {
     this.options = options;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>options</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.AlertOptions} object
+   */
   public AlertOptions getOptions() {
     return options;
   }
 
+  /**
+   * <p>Setter for the field <code>parent</code>.</p>
+   *
+   * @param parent a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setParent(String parent) {
     this.parent = parent;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>parent</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getParent() {
     return parent;
   }
 
+  /**
+   * <p>Setter for the field <code>query</code>.</p>
+   *
+   * @param query a {@link com.databricks.sdk.service.sql.Query} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setQuery(Query query) {
     this.query = query;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>query</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.Query} object
+   */
   public Query getQuery() {
     return query;
   }
 
+  /**
+   * <p>Setter for the field <code>rearm</code>.</p>
+   *
+   * @param rearm a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setRearm(Long rearm) {
     this.rearm = rearm;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>rearm</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRearm() {
     return rearm;
   }
 
+  /**
+   * <p>Setter for the field <code>state</code>.</p>
+   *
+   * @param state a {@link com.databricks.sdk.service.sql.AlertState} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setState(AlertState state) {
     this.state = state;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>state</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.AlertState} object
+   */
   public AlertState getState() {
     return state;
   }
 
+  /**
+   * <p>Setter for the field <code>updatedAt</code>.</p>
+   *
+   * @param updatedAt a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setUpdatedAt(String updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>updatedAt</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUpdatedAt() {
     return updatedAt;
   }
 
+  /**
+   * <p>Setter for the field <code>user</code>.</p>
+   *
+   * @param user a {@link com.databricks.sdk.service.sql.User} object
+   * @return a {@link com.databricks.sdk.service.sql.Alert} object
+   */
   public Alert setUser(User user) {
     this.user = user;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>user</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.User} object
+   */
   public User getUser() {
     return user;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -177,6 +305,7 @@ public class Alert {
         && Objects.equals(user, that.user);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -193,6 +322,7 @@ public class Alert {
         user);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(Alert.class)

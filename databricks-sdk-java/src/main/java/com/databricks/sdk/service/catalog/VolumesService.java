@@ -13,6 +13,9 @@ package com.databricks.sdk.service.catalog;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface VolumesService {
   /**
@@ -34,6 +37,9 @@ public interface VolumesService {
    * **CREATE EXTERNAL VOLUME** privilege on the external location. - There are no other tables, nor
    * volumes existing in the specified storage location. - The specified storage location is not
    * under the location of other tables, nor volumes, or catalogs or schemas.
+   *
+   * @param createVolumeRequestContent a {@link com.databricks.sdk.service.catalog.CreateVolumeRequestContent} object
+   * @return a {@link com.databricks.sdk.service.catalog.VolumeInfo} object
    */
   VolumeInfo create(CreateVolumeRequestContent createVolumeRequestContent);
 
@@ -45,6 +51,8 @@ public interface VolumesService {
    * <p>The caller must be a metastore admin or an owner of the volume. For the latter case, the
    * caller must also be the owner or have the **USE_CATALOG** privilege on the parent catalog and
    * the **USE_SCHEMA** privilege on the parent schema.
+   *
+   * @param deleteVolumeRequest a {@link com.databricks.sdk.service.catalog.DeleteVolumeRequest} object
    */
   void delete(DeleteVolumeRequest deleteVolumeRequest);
 
@@ -60,6 +68,9 @@ public interface VolumesService {
    * parent catalog and the **USE_SCHEMA** privilege on the parent schema.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the array.
+   *
+   * @param listVolumesRequest a {@link com.databricks.sdk.service.catalog.ListVolumesRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.ListVolumesResponseContent} object
    */
   ListVolumesResponseContent list(ListVolumesRequest listVolumesRequest);
 
@@ -72,6 +83,9 @@ public interface VolumesService {
    * on) the volume. For the latter case, the caller must also be the owner or have the
    * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
    * schema.
+   *
+   * @param readVolumeRequest a {@link com.databricks.sdk.service.catalog.ReadVolumeRequest} object
+   * @return a {@link com.databricks.sdk.service.catalog.VolumeInfo} object
    */
   VolumeInfo read(ReadVolumeRequest readVolumeRequest);
 
@@ -85,6 +99,9 @@ public interface VolumesService {
    * the **USE_SCHEMA** privilege on the parent schema.
    *
    * <p>Currently only the name, the owner or the comment of the volume could be updated.
+   *
+   * @param updateVolumeRequestContent a {@link com.databricks.sdk.service.catalog.UpdateVolumeRequestContent} object
+   * @return a {@link com.databricks.sdk.service.catalog.VolumeInfo} object
    */
   VolumeInfo update(UpdateVolumeRequestContent updateVolumeRequestContent);
 }

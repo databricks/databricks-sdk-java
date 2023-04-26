@@ -25,26 +25,53 @@ import org.slf4j.LoggerFactory;
  * processing step. You can also enforce data quality with Delta Live Tables expectations.
  * Expectations allow you to define expected data quality and specify how to handle records that
  * fail those expectations.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class PipelinesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(PipelinesAPI.class);
 
   private final PipelinesService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public PipelinesAPI(ApiClient apiClient) {
     impl = new PipelinesImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.pipelines.PipelinesService} object
+   */
   public PipelinesAPI(PipelinesService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>waitGetPipelineIdle.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.GetPipelineResponse} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public GetPipelineResponse waitGetPipelineIdle(String pipelineId) throws TimeoutException {
     return waitGetPipelineIdle(pipelineId, Duration.ofMinutes(20), null);
   }
 
+  /**
+   * <p>waitGetPipelineIdle.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @param timeout a {@link java.time.Duration} object
+   * @param callback a {@link java.util.function.Consumer} object
+   * @return a {@link com.databricks.sdk.service.pipelines.GetPipelineResponse} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public GetPipelineResponse waitGetPipelineIdle(
       String pipelineId, Duration timeout, Consumer<GetPipelineResponse> callback)
       throws TimeoutException {
@@ -85,10 +112,26 @@ public class PipelinesAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
+  /**
+   * <p>waitGetPipelineRunning.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.GetPipelineResponse} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public GetPipelineResponse waitGetPipelineRunning(String pipelineId) throws TimeoutException {
     return waitGetPipelineRunning(pipelineId, Duration.ofMinutes(20), null);
   }
 
+  /**
+   * <p>waitGetPipelineRunning.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @param timeout a {@link java.time.Duration} object
+   * @param callback a {@link java.util.function.Consumer} object
+   * @return a {@link com.databricks.sdk.service.pipelines.GetPipelineResponse} object
+   * @throws java.util.concurrent.TimeoutException if any.
+   */
   public GetPipelineResponse waitGetPipelineRunning(
       String pipelineId, Duration timeout, Consumer<GetPipelineResponse> callback)
       throws TimeoutException {
@@ -134,11 +177,19 @@ public class PipelinesAPI {
    *
    * <p>Creates a new data processing pipeline based on the requested configuration. If successful,
    * this method returns the ID of the new pipeline.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.CreatePipeline} object
+   * @return a {@link com.databricks.sdk.service.pipelines.CreatePipelineResponse} object
    */
   public CreatePipelineResponse create(CreatePipeline request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   */
   public void delete(String pipelineId) {
     delete(new DeletePipelineRequest().setPipelineId(pipelineId));
   }
@@ -147,20 +198,40 @@ public class PipelinesAPI {
    * Delete a pipeline.
    *
    * <p>Deletes a pipeline.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.DeletePipelineRequest} object
    */
   public void delete(DeletePipelineRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.GetPipelineResponse} object
+   */
   public GetPipelineResponse get(String pipelineId) {
     return get(new GetPipelineRequest().setPipelineId(pipelineId));
   }
 
-  /** Get a pipeline. */
+  /**
+   * Get a pipeline.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.GetPipelineRequest} object
+   * @return a {@link com.databricks.sdk.service.pipelines.GetPipelineResponse} object
+   */
   public GetPipelineResponse get(GetPipelineRequest request) {
     return impl.get(request);
   }
 
+  /**
+   * <p>getUpdate.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @param updateId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.GetUpdateResponse} object
+   */
   public GetUpdateResponse getUpdate(String pipelineId, String updateId) {
     return getUpdate(new GetUpdateRequest().setPipelineId(pipelineId).setUpdateId(updateId));
   }
@@ -169,11 +240,20 @@ public class PipelinesAPI {
    * Get a pipeline update.
    *
    * <p>Gets an update from an active pipeline.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.GetUpdateRequest} object
+   * @return a {@link com.databricks.sdk.service.pipelines.GetUpdateResponse} object
    */
   public GetUpdateResponse getUpdate(GetUpdateRequest request) {
     return impl.getUpdate(request);
   }
 
+  /**
+   * <p>listPipelineEvents.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @return a {@link java.lang.Iterable} object
+   */
   public Iterable<PipelineEvent> listPipelineEvents(String pipelineId) {
     return listPipelineEvents(new ListPipelineEventsRequest().setPipelineId(pipelineId));
   }
@@ -182,6 +262,9 @@ public class PipelinesAPI {
    * List pipeline events.
    *
    * <p>Retrieves events for a pipeline.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.ListPipelineEventsRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<PipelineEvent> listPipelineEvents(ListPipelineEventsRequest request) {
     return new Paginator<>(
@@ -201,6 +284,9 @@ public class PipelinesAPI {
    * List pipelines.
    *
    * <p>Lists pipelines defined in the Delta Live Tables system.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.ListPipelinesRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<PipelineStateInfo> listPipelines(ListPipelinesRequest request) {
     return new Paginator<>(
@@ -216,6 +302,12 @@ public class PipelinesAPI {
         });
   }
 
+  /**
+   * <p>listUpdates.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.ListUpdatesResponse} object
+   */
   public ListUpdatesResponse listUpdates(String pipelineId) {
     return listUpdates(new ListUpdatesRequest().setPipelineId(pipelineId));
   }
@@ -224,11 +316,20 @@ public class PipelinesAPI {
    * List pipeline updates.
    *
    * <p>List updates for an active pipeline.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.ListUpdatesRequest} object
+   * @return a {@link com.databricks.sdk.service.pipelines.ListUpdatesResponse} object
    */
   public ListUpdatesResponse listUpdates(ListUpdatesRequest request) {
     return impl.listUpdates(request);
   }
 
+  /**
+   * <p>reset.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
+   */
   public Wait<GetPipelineResponse, Void> reset(String pipelineId) {
     return reset(new ResetRequest().setPipelineId(pipelineId));
   }
@@ -237,6 +338,9 @@ public class PipelinesAPI {
    * Reset a pipeline.
    *
    * <p>Resets a pipeline.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.ResetRequest} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<GetPipelineResponse, Void> reset(ResetRequest request) {
     impl.reset(request);
@@ -244,6 +348,12 @@ public class PipelinesAPI {
         (timeout, callback) -> waitGetPipelineRunning(request.getPipelineId(), timeout, callback));
   }
 
+  /**
+   * <p>startUpdate.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.StartUpdateResponse} object
+   */
   public StartUpdateResponse startUpdate(String pipelineId) {
     return startUpdate(new StartUpdate().setPipelineId(pipelineId));
   }
@@ -252,11 +362,20 @@ public class PipelinesAPI {
    * Queue a pipeline update.
    *
    * <p>Starts or queues a pipeline update.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.StartUpdate} object
+   * @return a {@link com.databricks.sdk.service.pipelines.StartUpdateResponse} object
    */
   public StartUpdateResponse startUpdate(StartUpdate request) {
     return impl.startUpdate(request);
   }
 
+  /**
+   * <p>stop.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
+   */
   public Wait<GetPipelineResponse, Void> stop(String pipelineId) {
     return stop(new StopRequest().setPipelineId(pipelineId));
   }
@@ -265,6 +384,9 @@ public class PipelinesAPI {
    * Stop a pipeline.
    *
    * <p>Stops a pipeline.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.StopRequest} object
+   * @return a {@link com.databricks.sdk.support.Wait} object
    */
   public Wait<GetPipelineResponse, Void> stop(StopRequest request) {
     impl.stop(request);
@@ -272,6 +394,11 @@ public class PipelinesAPI {
         (timeout, callback) -> waitGetPipelineIdle(request.getPipelineId(), timeout, callback));
   }
 
+  /**
+   * <p>update.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   */
   public void update(String pipelineId) {
     update(new EditPipeline().setPipelineId(pipelineId));
   }
@@ -280,11 +407,18 @@ public class PipelinesAPI {
    * Edit a pipeline.
    *
    * <p>Updates a pipeline with the supplied configuration.
+   *
+   * @param request a {@link com.databricks.sdk.service.pipelines.EditPipeline} object
    */
   public void update(EditPipeline request) {
     impl.update(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.pipelines.PipelinesService} object
+   */
   public PipelinesService impl() {
     return impl;
   }

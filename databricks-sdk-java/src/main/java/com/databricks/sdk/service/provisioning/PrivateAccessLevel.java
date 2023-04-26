@@ -8,6 +8,9 @@ package com.databricks.sdk.service.provisioning;
  * default) allows only VPC endpoints that are registered in your Databricks account connect to your
  * workspace. * `ENDPOINT` level access allows only specified VPC endpoints connect to your
  * workspace. For details, see `allowed_vpc_endpoint_ids`.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum PrivateAccessLevel {
   ACCOUNT,

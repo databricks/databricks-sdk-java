@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
-/** Whether this trigger is paused or not. */
+/**
+ * Whether this trigger is paused or not.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum TriggerSettingsPauseStatus {
   PAUSED,
   UNPAUSED,

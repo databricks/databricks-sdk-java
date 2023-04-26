@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * <p>TerminationReason class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class TerminationReason {
   /** status code indicating why the cluster was terminated */
   @JsonProperty("code")
@@ -20,33 +26,67 @@ public class TerminationReason {
   @JsonProperty("type")
   private TerminationReasonType typeValue;
 
+  /**
+   * <p>Setter for the field <code>code</code>.</p>
+   *
+   * @param code a {@link com.databricks.sdk.service.sql.TerminationReasonCode} object
+   * @return a {@link com.databricks.sdk.service.sql.TerminationReason} object
+   */
   public TerminationReason setCode(TerminationReasonCode code) {
     this.code = code;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>code</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.TerminationReasonCode} object
+   */
   public TerminationReasonCode getCode() {
     return code;
   }
 
+  /**
+   * <p>Setter for the field <code>parameters</code>.</p>
+   *
+   * @param parameters a {@link java.util.Map} object
+   * @return a {@link com.databricks.sdk.service.sql.TerminationReason} object
+   */
   public TerminationReason setParameters(Map<String, String> parameters) {
     this.parameters = parameters;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>parameters</code>.</p>
+   *
+   * @return a {@link java.util.Map} object
+   */
   public Map<String, String> getParameters() {
     return parameters;
   }
 
+  /**
+   * <p>setType.</p>
+   *
+   * @param typeValue a {@link com.databricks.sdk.service.sql.TerminationReasonType} object
+   * @return a {@link com.databricks.sdk.service.sql.TerminationReason} object
+   */
   public TerminationReason setType(TerminationReasonType typeValue) {
     this.typeValue = typeValue;
     return this;
   }
 
+  /**
+   * <p>getType.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.TerminationReasonType} object
+   */
   public TerminationReasonType getType() {
     return typeValue;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -57,11 +97,13 @@ public class TerminationReason {
         && Objects.equals(typeValue, that.typeValue);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(code, parameters, typeValue);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(TerminationReason.class)

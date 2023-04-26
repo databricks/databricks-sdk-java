@@ -16,6 +16,12 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 
+/**
+ * <p>CliTokenSource class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CliTokenSource extends RefreshableTokenSource {
   private List<String> cmd;
   private String tokenTypeField;
@@ -23,6 +29,15 @@ public class CliTokenSource extends RefreshableTokenSource {
   private String expiryField;
   private Supplier<Map<String, String>> getAllEnv;
 
+  /**
+   * <p>Constructor for CliTokenSource.</p>
+   *
+   * @param cmd a {@link java.util.List} object
+   * @param tokenTypeField a {@link java.lang.String} object
+   * @param accessTokenField a {@link java.lang.String} object
+   * @param expiryField a {@link java.lang.String} object
+   * @param getAllEnv a {@link java.util.function.Supplier} object
+   */
   public CliTokenSource(
       List<String> cmd,
       String tokenTypeField,
@@ -63,6 +78,7 @@ public class CliTokenSource extends RefreshableTokenSource {
     return new String(bytes);
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Token refresh() {
     try {

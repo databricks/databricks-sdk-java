@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>SubmitRun class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class SubmitRun {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
@@ -66,78 +72,167 @@ public class SubmitRun {
   @JsonProperty("webhook_notifications")
   private JobWebhookNotifications webhookNotifications;
 
+  /**
+   * <p>Setter for the field <code>accessControlList</code>.</p>
+   *
+   * @param accessControlList a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.SubmitRun} object
+   */
   public SubmitRun setAccessControlList(Collection<Object /* MISSING TYPE */> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>accessControlList</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<Object /* MISSING TYPE */> getAccessControlList() {
     return accessControlList;
   }
 
+  /**
+   * <p>Setter for the field <code>gitSource</code>.</p>
+   *
+   * @param gitSource a {@link com.databricks.sdk.service.jobs.GitSource} object
+   * @return a {@link com.databricks.sdk.service.jobs.SubmitRun} object
+   */
   public SubmitRun setGitSource(GitSource gitSource) {
     this.gitSource = gitSource;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gitSource</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.GitSource} object
+   */
   public GitSource getGitSource() {
     return gitSource;
   }
 
+  /**
+   * <p>Setter for the field <code>idempotencyToken</code>.</p>
+   *
+   * @param idempotencyToken a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.SubmitRun} object
+   */
   public SubmitRun setIdempotencyToken(String idempotencyToken) {
     this.idempotencyToken = idempotencyToken;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>idempotencyToken</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getIdempotencyToken() {
     return idempotencyToken;
   }
 
+  /**
+   * <p>Setter for the field <code>notificationSettings</code>.</p>
+   *
+   * @param notificationSettings a {@link com.databricks.sdk.service.jobs.JobNotificationSettings} object
+   * @return a {@link com.databricks.sdk.service.jobs.SubmitRun} object
+   */
   public SubmitRun setNotificationSettings(JobNotificationSettings notificationSettings) {
     this.notificationSettings = notificationSettings;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>notificationSettings</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.JobNotificationSettings} object
+   */
   public JobNotificationSettings getNotificationSettings() {
     return notificationSettings;
   }
 
+  /**
+   * <p>Setter for the field <code>runName</code>.</p>
+   *
+   * @param runName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.SubmitRun} object
+   */
   public SubmitRun setRunName(String runName) {
     this.runName = runName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>runName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRunName() {
     return runName;
   }
 
+  /**
+   * <p>Setter for the field <code>tasks</code>.</p>
+   *
+   * @param tasks a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.SubmitRun} object
+   */
   public SubmitRun setTasks(Collection<RunSubmitTaskSettings> tasks) {
     this.tasks = tasks;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>tasks</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<RunSubmitTaskSettings> getTasks() {
     return tasks;
   }
 
+  /**
+   * <p>Setter for the field <code>timeoutSeconds</code>.</p>
+   *
+   * @param timeoutSeconds a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.SubmitRun} object
+   */
   public SubmitRun setTimeoutSeconds(Long timeoutSeconds) {
     this.timeoutSeconds = timeoutSeconds;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>timeoutSeconds</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTimeoutSeconds() {
     return timeoutSeconds;
   }
 
+  /**
+   * <p>Setter for the field <code>webhookNotifications</code>.</p>
+   *
+   * @param webhookNotifications a {@link com.databricks.sdk.service.jobs.JobWebhookNotifications} object
+   * @return a {@link com.databricks.sdk.service.jobs.SubmitRun} object
+   */
   public SubmitRun setWebhookNotifications(JobWebhookNotifications webhookNotifications) {
     this.webhookNotifications = webhookNotifications;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>webhookNotifications</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.JobWebhookNotifications} object
+   */
   public JobWebhookNotifications getWebhookNotifications() {
     return webhookNotifications;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -153,6 +248,7 @@ public class SubmitRun {
         && Objects.equals(webhookNotifications, that.webhookNotifications);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -166,6 +262,7 @@ public class SubmitRun {
         webhookNotifications);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(SubmitRun.class)

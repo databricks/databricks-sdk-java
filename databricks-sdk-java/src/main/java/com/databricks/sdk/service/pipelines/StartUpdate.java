@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>StartUpdate class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class StartUpdate {
   /** */
   @JsonProperty("cause")
@@ -35,51 +41,107 @@ public class StartUpdate {
   @JsonProperty("refresh_selection")
   private Collection<String> refreshSelection;
 
+  /**
+   * <p>Setter for the field <code>cause</code>.</p>
+   *
+   * @param cause a {@link com.databricks.sdk.service.pipelines.StartUpdateCause} object
+   * @return a {@link com.databricks.sdk.service.pipelines.StartUpdate} object
+   */
   public StartUpdate setCause(StartUpdateCause cause) {
     this.cause = cause;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>cause</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.pipelines.StartUpdateCause} object
+   */
   public StartUpdateCause getCause() {
     return cause;
   }
 
+  /**
+   * <p>Setter for the field <code>fullRefresh</code>.</p>
+   *
+   * @param fullRefresh a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.pipelines.StartUpdate} object
+   */
   public StartUpdate setFullRefresh(Boolean fullRefresh) {
     this.fullRefresh = fullRefresh;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>fullRefresh</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getFullRefresh() {
     return fullRefresh;
   }
 
+  /**
+   * <p>Setter for the field <code>fullRefreshSelection</code>.</p>
+   *
+   * @param fullRefreshSelection a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.pipelines.StartUpdate} object
+   */
   public StartUpdate setFullRefreshSelection(Collection<String> fullRefreshSelection) {
     this.fullRefreshSelection = fullRefreshSelection;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>fullRefreshSelection</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getFullRefreshSelection() {
     return fullRefreshSelection;
   }
 
+  /**
+   * <p>Setter for the field <code>pipelineId</code>.</p>
+   *
+   * @param pipelineId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.pipelines.StartUpdate} object
+   */
   public StartUpdate setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pipelineId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPipelineId() {
     return pipelineId;
   }
 
+  /**
+   * <p>Setter for the field <code>refreshSelection</code>.</p>
+   *
+   * @param refreshSelection a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.pipelines.StartUpdate} object
+   */
   public StartUpdate setRefreshSelection(Collection<String> refreshSelection) {
     this.refreshSelection = refreshSelection;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>refreshSelection</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getRefreshSelection() {
     return refreshSelection;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -92,11 +154,13 @@ public class StartUpdate {
         && Objects.equals(refreshSelection, that.refreshSelection);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(cause, fullRefresh, fullRefreshSelection, pipelineId, refreshSelection);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(StartUpdate.class)

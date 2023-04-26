@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
-/** Current state of the instance pool. */
+/**
+ * Current state of the instance pool.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum InstancePoolState {
   ACTIVE,
   DELETED,

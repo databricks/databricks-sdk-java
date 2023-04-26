@@ -26,6 +26,9 @@ package com.databricks.sdk.service.sql;
  *
  * <p>[Apache Arrow Streaming Format]:
  * https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum Format {
   ARROW_STREAM,

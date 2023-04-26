@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum CommentActivityAction {
   DELETE_COMMENT, // Delete the comment
   EDIT_COMMENT, // Edit the comment

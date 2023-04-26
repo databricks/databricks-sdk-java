@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
-/** type of the termination */
+/**
+ * type of the termination
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum TerminationReasonType {
   CLIENT_ERROR,
   CLOUD_FAILURE,

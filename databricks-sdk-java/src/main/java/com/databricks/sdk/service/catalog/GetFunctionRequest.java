@@ -5,7 +5,12 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get a function */
+/**
+ * Get a function
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GetFunctionRequest {
   /**
    * The fully-qualified name of the function (of the form
@@ -13,15 +18,27 @@ public class GetFunctionRequest {
    */
   private String name;
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.GetFunctionRequest} object
+   */
   public GetFunctionRequest setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -30,11 +47,13 @@ public class GetFunctionRequest {
     return Objects.equals(name, that.name);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(name);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GetFunctionRequest.class).add("name", name).toString();

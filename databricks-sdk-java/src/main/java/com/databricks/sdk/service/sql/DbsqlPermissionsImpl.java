@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class DbsqlPermissionsImpl implements DbsqlPermissionsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for DbsqlPermissionsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public DbsqlPermissionsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public GetResponse get(GetDbsqlPermissionRequest request) {
     String path =
@@ -21,6 +27,7 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
     return apiClient.GET(path, request, GetResponse.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public SetResponse set(SetRequest request) {
     String path =
@@ -30,6 +37,7 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
     return apiClient.POST(path, request, SetResponse.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Success transferOwnership(TransferOwnershipRequest request) {
     String path =

@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>RegistryWebhook class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class RegistryWebhook {
   /** Creation time of the object, as a Unix timestamp in milliseconds. */
   @JsonProperty("creation_timestamp")
@@ -74,87 +80,187 @@ public class RegistryWebhook {
   @JsonProperty("status")
   private RegistryWebhookStatus status;
 
+  /**
+   * <p>Setter for the field <code>creationTimestamp</code>.</p>
+   *
+   * @param creationTimestamp a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhook} object
+   */
   public RegistryWebhook setCreationTimestamp(Long creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>creationTimestamp</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCreationTimestamp() {
     return creationTimestamp;
   }
 
+  /**
+   * <p>Setter for the field <code>description</code>.</p>
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhook} object
+   */
   public RegistryWebhook setDescription(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>description</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * <p>Setter for the field <code>events</code>.</p>
+   *
+   * @param events a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhook} object
+   */
   public RegistryWebhook setEvents(Collection<RegistryWebhookEvent> events) {
     this.events = events;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>events</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<RegistryWebhookEvent> getEvents() {
     return events;
   }
 
+  /**
+   * <p>Setter for the field <code>httpUrlSpec</code>.</p>
+   *
+   * @param httpUrlSpec a {@link com.databricks.sdk.service.ml.HttpUrlSpecWithoutSecret} object
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhook} object
+   */
   public RegistryWebhook setHttpUrlSpec(HttpUrlSpecWithoutSecret httpUrlSpec) {
     this.httpUrlSpec = httpUrlSpec;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>httpUrlSpec</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.HttpUrlSpecWithoutSecret} object
+   */
   public HttpUrlSpecWithoutSecret getHttpUrlSpec() {
     return httpUrlSpec;
   }
 
+  /**
+   * <p>Setter for the field <code>id</code>.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhook} object
+   */
   public RegistryWebhook setId(String id) {
     this.id = id;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>id</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * <p>Setter for the field <code>jobSpec</code>.</p>
+   *
+   * @param jobSpec a {@link com.databricks.sdk.service.ml.JobSpecWithoutSecret} object
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhook} object
+   */
   public RegistryWebhook setJobSpec(JobSpecWithoutSecret jobSpec) {
     this.jobSpec = jobSpec;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>jobSpec</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.JobSpecWithoutSecret} object
+   */
   public JobSpecWithoutSecret getJobSpec() {
     return jobSpec;
   }
 
+  /**
+   * <p>Setter for the field <code>lastUpdatedTimestamp</code>.</p>
+   *
+   * @param lastUpdatedTimestamp a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhook} object
+   */
   public RegistryWebhook setLastUpdatedTimestamp(Long lastUpdatedTimestamp) {
     this.lastUpdatedTimestamp = lastUpdatedTimestamp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>lastUpdatedTimestamp</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getLastUpdatedTimestamp() {
     return lastUpdatedTimestamp;
   }
 
+  /**
+   * <p>Setter for the field <code>modelName</code>.</p>
+   *
+   * @param modelName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhook} object
+   */
   public RegistryWebhook setModelName(String modelName) {
     this.modelName = modelName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>modelName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getModelName() {
     return modelName;
   }
 
+  /**
+   * <p>Setter for the field <code>status</code>.</p>
+   *
+   * @param status a {@link com.databricks.sdk.service.ml.RegistryWebhookStatus} object
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhook} object
+   */
   public RegistryWebhook setStatus(RegistryWebhookStatus status) {
     this.status = status;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>status</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.RegistryWebhookStatus} object
+   */
   public RegistryWebhookStatus getStatus() {
     return status;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -171,6 +277,7 @@ public class RegistryWebhook {
         && Objects.equals(status, that.status);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -185,6 +292,7 @@ public class RegistryWebhook {
         status);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(RegistryWebhook.class)

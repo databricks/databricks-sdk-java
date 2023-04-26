@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>EventDetails class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class EventDetails {
   /**
    * * For created clusters, the attributes of the cluster. * For edited clusters, the new
@@ -94,178 +100,388 @@ public class EventDetails {
   @JsonProperty("user")
   private String user;
 
+  /**
+   * <p>Setter for the field <code>attributes</code>.</p>
+   *
+   * @param attributes a {@link com.databricks.sdk.service.compute.ClusterAttributes} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setAttributes(ClusterAttributes attributes) {
     this.attributes = attributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>attributes</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ClusterAttributes} object
+   */
   public ClusterAttributes getAttributes() {
     return attributes;
   }
 
+  /**
+   * <p>Setter for the field <code>cause</code>.</p>
+   *
+   * @param cause a {@link com.databricks.sdk.service.compute.EventDetailsCause} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setCause(EventDetailsCause cause) {
     this.cause = cause;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>cause</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.EventDetailsCause} object
+   */
   public EventDetailsCause getCause() {
     return cause;
   }
 
+  /**
+   * <p>Setter for the field <code>clusterSize</code>.</p>
+   *
+   * @param clusterSize a {@link com.databricks.sdk.service.compute.ClusterSize} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setClusterSize(ClusterSize clusterSize) {
     this.clusterSize = clusterSize;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>clusterSize</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ClusterSize} object
+   */
   public ClusterSize getClusterSize() {
     return clusterSize;
   }
 
+  /**
+   * <p>Setter for the field <code>currentNumVcpus</code>.</p>
+   *
+   * @param currentNumVcpus a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setCurrentNumVcpus(Long currentNumVcpus) {
     this.currentNumVcpus = currentNumVcpus;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>currentNumVcpus</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCurrentNumVcpus() {
     return currentNumVcpus;
   }
 
+  /**
+   * <p>Setter for the field <code>currentNumWorkers</code>.</p>
+   *
+   * @param currentNumWorkers a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setCurrentNumWorkers(Long currentNumWorkers) {
     this.currentNumWorkers = currentNumWorkers;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>currentNumWorkers</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCurrentNumWorkers() {
     return currentNumWorkers;
   }
 
+  /**
+   * <p>Setter for the field <code>didNotExpandReason</code>.</p>
+   *
+   * @param didNotExpandReason a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setDidNotExpandReason(String didNotExpandReason) {
     this.didNotExpandReason = didNotExpandReason;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>didNotExpandReason</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDidNotExpandReason() {
     return didNotExpandReason;
   }
 
+  /**
+   * <p>Setter for the field <code>diskSize</code>.</p>
+   *
+   * @param diskSize a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setDiskSize(Long diskSize) {
     this.diskSize = diskSize;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>diskSize</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getDiskSize() {
     return diskSize;
   }
 
+  /**
+   * <p>Setter for the field <code>driverStateMessage</code>.</p>
+   *
+   * @param driverStateMessage a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setDriverStateMessage(String driverStateMessage) {
     this.driverStateMessage = driverStateMessage;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>driverStateMessage</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDriverStateMessage() {
     return driverStateMessage;
   }
 
+  /**
+   * <p>Setter for the field <code>enableTerminationForNodeBlocklisted</code>.</p>
+   *
+   * @param enableTerminationForNodeBlocklisted a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setEnableTerminationForNodeBlocklisted(
       Boolean enableTerminationForNodeBlocklisted) {
     this.enableTerminationForNodeBlocklisted = enableTerminationForNodeBlocklisted;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>enableTerminationForNodeBlocklisted</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getEnableTerminationForNodeBlocklisted() {
     return enableTerminationForNodeBlocklisted;
   }
 
+  /**
+   * <p>Setter for the field <code>freeSpace</code>.</p>
+   *
+   * @param freeSpace a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setFreeSpace(Long freeSpace) {
     this.freeSpace = freeSpace;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>freeSpace</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getFreeSpace() {
     return freeSpace;
   }
 
+  /**
+   * <p>Setter for the field <code>instanceId</code>.</p>
+   *
+   * @param instanceId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setInstanceId(String instanceId) {
     this.instanceId = instanceId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instanceId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstanceId() {
     return instanceId;
   }
 
+  /**
+   * <p>Setter for the field <code>jobRunName</code>.</p>
+   *
+   * @param jobRunName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setJobRunName(String jobRunName) {
     this.jobRunName = jobRunName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>jobRunName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getJobRunName() {
     return jobRunName;
   }
 
+  /**
+   * <p>Setter for the field <code>previousAttributes</code>.</p>
+   *
+   * @param previousAttributes a {@link com.databricks.sdk.service.compute.ClusterAttributes} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setPreviousAttributes(ClusterAttributes previousAttributes) {
     this.previousAttributes = previousAttributes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>previousAttributes</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ClusterAttributes} object
+   */
   public ClusterAttributes getPreviousAttributes() {
     return previousAttributes;
   }
 
+  /**
+   * <p>Setter for the field <code>previousClusterSize</code>.</p>
+   *
+   * @param previousClusterSize a {@link com.databricks.sdk.service.compute.ClusterSize} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setPreviousClusterSize(ClusterSize previousClusterSize) {
     this.previousClusterSize = previousClusterSize;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>previousClusterSize</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ClusterSize} object
+   */
   public ClusterSize getPreviousClusterSize() {
     return previousClusterSize;
   }
 
+  /**
+   * <p>Setter for the field <code>previousDiskSize</code>.</p>
+   *
+   * @param previousDiskSize a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setPreviousDiskSize(Long previousDiskSize) {
     this.previousDiskSize = previousDiskSize;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>previousDiskSize</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getPreviousDiskSize() {
     return previousDiskSize;
   }
 
+  /**
+   * <p>Setter for the field <code>reason</code>.</p>
+   *
+   * @param reason a {@link com.databricks.sdk.service.compute.TerminationReason} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setReason(TerminationReason reason) {
     this.reason = reason;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>reason</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.TerminationReason} object
+   */
   public TerminationReason getReason() {
     return reason;
   }
 
+  /**
+   * <p>Setter for the field <code>targetNumVcpus</code>.</p>
+   *
+   * @param targetNumVcpus a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setTargetNumVcpus(Long targetNumVcpus) {
     this.targetNumVcpus = targetNumVcpus;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>targetNumVcpus</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTargetNumVcpus() {
     return targetNumVcpus;
   }
 
+  /**
+   * <p>Setter for the field <code>targetNumWorkers</code>.</p>
+   *
+   * @param targetNumWorkers a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setTargetNumWorkers(Long targetNumWorkers) {
     this.targetNumWorkers = targetNumWorkers;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>targetNumWorkers</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTargetNumWorkers() {
     return targetNumWorkers;
   }
 
+  /**
+   * <p>Setter for the field <code>user</code>.</p>
+   *
+   * @param user a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.EventDetails} object
+   */
   public EventDetails setUser(String user) {
     this.user = user;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>user</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUser() {
     return user;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -293,6 +509,7 @@ public class EventDetails {
         && Objects.equals(user, that.user);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -317,6 +534,7 @@ public class EventDetails {
         user);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(EventDetails.class)

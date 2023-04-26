@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum DataSecurityMode {
   LEGACY_PASSTHROUGH, // This mode is for users migrating from legacy Passthrough on high
   // concurrency

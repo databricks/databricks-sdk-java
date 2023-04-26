@@ -16,6 +16,9 @@ package com.databricks.sdk.service.serving;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface ServingEndpointsService {
   /**
@@ -23,13 +26,25 @@ public interface ServingEndpointsService {
    * endpoint's served model.
    *
    * <p>Retrieves the build logs associated with the provided served model.
+   *
+   * @param buildLogsRequest a {@link com.databricks.sdk.service.serving.BuildLogsRequest} object
+   * @return a {@link com.databricks.sdk.service.serving.BuildLogsResponse} object
    */
   BuildLogsResponse buildLogs(BuildLogsRequest buildLogsRequest);
 
-  /** Create a new serving endpoint. */
+  /**
+   * Create a new serving endpoint.
+   *
+   * @param createServingEndpoint a {@link com.databricks.sdk.service.serving.CreateServingEndpoint} object
+   * @return a {@link com.databricks.sdk.service.serving.ServingEndpointDetailed} object
+   */
   ServingEndpointDetailed create(CreateServingEndpoint createServingEndpoint);
 
-  /** Delete a serving endpoint. */
+  /**
+   * Delete a serving endpoint.
+   *
+   * @param deleteServingEndpointRequest a {@link com.databricks.sdk.service.serving.DeleteServingEndpointRequest} object
+   */
   void delete(DeleteServingEndpointRequest deleteServingEndpointRequest);
 
   /**
@@ -38,6 +53,8 @@ public interface ServingEndpointsService {
    *
    * <p>Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
    * OpenMetrics exposition format.
+   *
+   * @param exportMetricsRequest a {@link com.databricks.sdk.service.serving.ExportMetricsRequest} object
    */
   void exportMetrics(ExportMetricsRequest exportMetricsRequest);
 
@@ -45,20 +62,35 @@ public interface ServingEndpointsService {
    * Get a single serving endpoint.
    *
    * <p>Retrieves the details for a single serving endpoint.
+   *
+   * @param getServingEndpointRequest a {@link com.databricks.sdk.service.serving.GetServingEndpointRequest} object
+   * @return a {@link com.databricks.sdk.service.serving.ServingEndpointDetailed} object
    */
   ServingEndpointDetailed get(GetServingEndpointRequest getServingEndpointRequest);
 
-  /** Retrieve all serving endpoints. */
+  /**
+   * Retrieve all serving endpoints.
+   *
+   * @return a {@link com.databricks.sdk.service.serving.ListEndpointsResponse} object
+   */
   ListEndpointsResponse list();
 
   /**
    * Retrieve the most recent log lines associated with a given serving endpoint's served model.
    *
    * <p>Retrieves the service logs associated with the provided served model.
+   *
+   * @param logsRequest a {@link com.databricks.sdk.service.serving.LogsRequest} object
+   * @return a {@link com.databricks.sdk.service.serving.ServerLogsResponse} object
    */
   ServerLogsResponse logs(LogsRequest logsRequest);
 
-  /** Query a serving endpoint with provided model input. */
+  /**
+   * Query a serving endpoint with provided model input.
+   *
+   * @param queryRequest a {@link com.databricks.sdk.service.serving.QueryRequest} object
+   * @return a {@link com.databricks.sdk.service.serving.QueryEndpointResponse} object
+   */
   QueryEndpointResponse query(QueryRequest queryRequest);
 
   /**
@@ -67,6 +99,9 @@ public interface ServingEndpointsService {
    * <p>Updates any combination of the serving endpoint's served models, the compute configuration
    * of those served models, and the endpoint's traffic config. An endpoint that already has an
    * update in progress can not be updated until the current update completes or fails.
+   *
+   * @param endpointCoreConfigInput a {@link com.databricks.sdk.service.serving.EndpointCoreConfigInput} object
+   * @return a {@link com.databricks.sdk.service.serving.ServingEndpointDetailed} object
    */
   ServingEndpointDetailed updateConfig(EndpointCoreConfigInput endpointCoreConfigInput);
 }

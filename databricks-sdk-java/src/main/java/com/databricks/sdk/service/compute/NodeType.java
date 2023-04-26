@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>NodeType class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class NodeType {
   /** */
   @JsonProperty("category")
@@ -94,186 +100,407 @@ public class NodeType {
   @JsonProperty("support_port_forwarding")
   private Boolean supportPortForwarding;
 
+  /**
+   * <p>Setter for the field <code>category</code>.</p>
+   *
+   * @param category a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setCategory(String category) {
     this.category = category;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>category</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCategory() {
     return category;
   }
 
+  /**
+   * <p>Setter for the field <code>description</code>.</p>
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setDescription(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>description</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * <p>Setter for the field <code>displayOrder</code>.</p>
+   *
+   * @param displayOrder a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setDisplayOrder(Long displayOrder) {
     this.displayOrder = displayOrder;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>displayOrder</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getDisplayOrder() {
     return displayOrder;
   }
 
+  /**
+   * <p>Setter for the field <code>instanceTypeId</code>.</p>
+   *
+   * @param instanceTypeId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setInstanceTypeId(String instanceTypeId) {
     this.instanceTypeId = instanceTypeId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>instanceTypeId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getInstanceTypeId() {
     return instanceTypeId;
   }
 
+  /**
+   * <p>Setter for the field <code>isDeprecated</code>.</p>
+   *
+   * @param isDeprecated a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setIsDeprecated(Boolean isDeprecated) {
     this.isDeprecated = isDeprecated;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>isDeprecated</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getIsDeprecated() {
     return isDeprecated;
   }
 
+  /**
+   * <p>Setter for the field <code>isEncryptedInTransit</code>.</p>
+   *
+   * @param isEncryptedInTransit a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setIsEncryptedInTransit(Boolean isEncryptedInTransit) {
     this.isEncryptedInTransit = isEncryptedInTransit;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>isEncryptedInTransit</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getIsEncryptedInTransit() {
     return isEncryptedInTransit;
   }
 
+  /**
+   * <p>Setter for the field <code>isGraviton</code>.</p>
+   *
+   * @param isGraviton a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setIsGraviton(Boolean isGraviton) {
     this.isGraviton = isGraviton;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>isGraviton</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getIsGraviton() {
     return isGraviton;
   }
 
+  /**
+   * <p>Setter for the field <code>isHidden</code>.</p>
+   *
+   * @param isHidden a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setIsHidden(Boolean isHidden) {
     this.isHidden = isHidden;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>isHidden</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getIsHidden() {
     return isHidden;
   }
 
+  /**
+   * <p>Setter for the field <code>isIoCacheEnabled</code>.</p>
+   *
+   * @param isIoCacheEnabled a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setIsIoCacheEnabled(Boolean isIoCacheEnabled) {
     this.isIoCacheEnabled = isIoCacheEnabled;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>isIoCacheEnabled</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getIsIoCacheEnabled() {
     return isIoCacheEnabled;
   }
 
+  /**
+   * <p>Setter for the field <code>memoryMb</code>.</p>
+   *
+   * @param memoryMb a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setMemoryMb(Long memoryMb) {
     this.memoryMb = memoryMb;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>memoryMb</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMemoryMb() {
     return memoryMb;
   }
 
+  /**
+   * <p>Setter for the field <code>nodeInfo</code>.</p>
+   *
+   * @param nodeInfo a {@link com.databricks.sdk.service.compute.CloudProviderNodeInfo} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setNodeInfo(CloudProviderNodeInfo nodeInfo) {
     this.nodeInfo = nodeInfo;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>nodeInfo</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.CloudProviderNodeInfo} object
+   */
   public CloudProviderNodeInfo getNodeInfo() {
     return nodeInfo;
   }
 
+  /**
+   * <p>Setter for the field <code>nodeInstanceType</code>.</p>
+   *
+   * @param nodeInstanceType a {@link com.databricks.sdk.service.compute.NodeInstanceType} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setNodeInstanceType(NodeInstanceType nodeInstanceType) {
     this.nodeInstanceType = nodeInstanceType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>nodeInstanceType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.NodeInstanceType} object
+   */
   public NodeInstanceType getNodeInstanceType() {
     return nodeInstanceType;
   }
 
+  /**
+   * <p>Setter for the field <code>nodeTypeId</code>.</p>
+   *
+   * @param nodeTypeId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setNodeTypeId(String nodeTypeId) {
     this.nodeTypeId = nodeTypeId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>nodeTypeId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getNodeTypeId() {
     return nodeTypeId;
   }
 
+  /**
+   * <p>Setter for the field <code>numCores</code>.</p>
+   *
+   * @param numCores a {@link java.lang.Float} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setNumCores(Float numCores) {
     this.numCores = numCores;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>numCores</code>.</p>
+   *
+   * @return a {@link java.lang.Float} object
+   */
   public Float getNumCores() {
     return numCores;
   }
 
+  /**
+   * <p>Setter for the field <code>numGpus</code>.</p>
+   *
+   * @param numGpus a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setNumGpus(Long numGpus) {
     this.numGpus = numGpus;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>numGpus</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getNumGpus() {
     return numGpus;
   }
 
+  /**
+   * <p>Setter for the field <code>photonDriverCapable</code>.</p>
+   *
+   * @param photonDriverCapable a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setPhotonDriverCapable(Boolean photonDriverCapable) {
     this.photonDriverCapable = photonDriverCapable;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>photonDriverCapable</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getPhotonDriverCapable() {
     return photonDriverCapable;
   }
 
+  /**
+   * <p>Setter for the field <code>photonWorkerCapable</code>.</p>
+   *
+   * @param photonWorkerCapable a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setPhotonWorkerCapable(Boolean photonWorkerCapable) {
     this.photonWorkerCapable = photonWorkerCapable;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>photonWorkerCapable</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getPhotonWorkerCapable() {
     return photonWorkerCapable;
   }
 
+  /**
+   * <p>Setter for the field <code>supportClusterTags</code>.</p>
+   *
+   * @param supportClusterTags a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setSupportClusterTags(Boolean supportClusterTags) {
     this.supportClusterTags = supportClusterTags;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>supportClusterTags</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getSupportClusterTags() {
     return supportClusterTags;
   }
 
+  /**
+   * <p>Setter for the field <code>supportEbsVolumes</code>.</p>
+   *
+   * @param supportEbsVolumes a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setSupportEbsVolumes(Boolean supportEbsVolumes) {
     this.supportEbsVolumes = supportEbsVolumes;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>supportEbsVolumes</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getSupportEbsVolumes() {
     return supportEbsVolumes;
   }
 
+  /**
+   * <p>Setter for the field <code>supportPortForwarding</code>.</p>
+   *
+   * @param supportPortForwarding a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.NodeType} object
+   */
   public NodeType setSupportPortForwarding(Boolean supportPortForwarding) {
     this.supportPortForwarding = supportPortForwarding;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>supportPortForwarding</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getSupportPortForwarding() {
     return supportPortForwarding;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -301,6 +528,7 @@ public class NodeType {
         && Objects.equals(supportPortForwarding, that.supportPortForwarding);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -326,6 +554,7 @@ public class NodeType {
         supportPortForwarding);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(NodeType.class)

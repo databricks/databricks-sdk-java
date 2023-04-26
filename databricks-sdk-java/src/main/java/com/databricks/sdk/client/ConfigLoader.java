@@ -12,6 +12,12 @@ import org.ini4j.Profile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * <p>ConfigLoader class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ConfigLoader {
   private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
 
@@ -28,6 +34,13 @@ public class ConfigLoader {
     return attrs;
   }
 
+  /**
+   * <p>resolve.</p>
+   *
+   * @param cfg a {@link com.databricks.sdk.client.DatabricksConfig} object
+   * @return a {@link com.databricks.sdk.client.DatabricksConfig} object
+   * @throws com.databricks.sdk.client.DatabricksException if any.
+   */
   public static DatabricksConfig resolve(DatabricksConfig cfg) throws DatabricksException {
     try {
       loadFromEnvironmentVariables(cfg);
@@ -122,6 +135,11 @@ public class ConfigLoader {
     return ini;
   }
 
+  /**
+   * <p>fixHostIfNeeded.</p>
+   *
+   * @param cfg a {@link com.databricks.sdk.client.DatabricksConfig} object
+   */
   public static void fixHostIfNeeded(DatabricksConfig cfg) {
     if (isNullOrEmpty(cfg.getHost())) {
       return;
@@ -166,11 +184,28 @@ public class ConfigLoader {
     }
   }
 
+  /**
+   * <p>makeNicerError.</p>
+   *
+   * @param message a {@link java.lang.String} object
+   * @param e a {@link java.lang.Exception} object
+   * @param cfg a {@link com.databricks.sdk.client.DatabricksConfig} object
+   * @return a {@link com.databricks.sdk.client.DatabricksException} object
+   */
   public static DatabricksException makeNicerError(
       String message, Exception e, DatabricksConfig cfg) {
     return makeNicerError(message, e, 200, cfg);
   }
 
+  /**
+   * <p>makeNicerError.</p>
+   *
+   * @param message a {@link java.lang.String} object
+   * @param e a {@link java.lang.Exception} object
+   * @param statusCode a {@link java.lang.Integer} object
+   * @param cfg a {@link com.databricks.sdk.client.DatabricksConfig} object
+   * @return a {@link com.databricks.sdk.client.DatabricksException} object
+   */
   public static DatabricksException makeNicerError(
       String message, Exception e, Integer statusCode, DatabricksConfig cfg) {
     boolean isHttpUnauthorizedOrForbidden =
@@ -186,6 +221,12 @@ public class ConfigLoader {
     return new DatabricksException(message, e);
   }
 
+  /**
+   * <p>debugString.</p>
+   *
+   * @param cfg a {@link com.databricks.sdk.client.DatabricksConfig} object
+   * @return a {@link java.lang.String} object
+   */
   public static String debugString(DatabricksConfig cfg) {
     try {
       List<String> envsUsed = new ArrayList<>();
@@ -227,15 +268,33 @@ public class ConfigLoader {
     }
   }
 
+  /**
+   * <p>getDefault.</p>
+   *
+   * @return a {@link com.databricks.sdk.client.DatabricksConfig} object
+   */
   public static DatabricksConfig getDefault() {
     DatabricksConfig cfg = new DatabricksConfig();
     return cfg.resolve();
   }
 
+  /**
+   * <p>isNullOrEmpty.</p>
+   *
+   * @param target a {@link java.lang.Object} object
+   * @return a boolean
+   */
   public static boolean isNullOrEmpty(Object target) {
     return target == null || target.toString().isEmpty();
   }
 
+  /**
+   * <p>isAnyAuthConfigured.</p>
+   *
+   * @param cfg a {@link com.databricks.sdk.client.DatabricksConfig} object
+   * @return a boolean
+   * @throws java.lang.IllegalAccessException if any.
+   */
   public static boolean isAnyAuthConfigured(DatabricksConfig cfg) throws IllegalAccessException {
     for (ConfigAttributeAccessor accessor : accessors) {
       if (isNullOrEmpty(accessor.getAuthType())) {

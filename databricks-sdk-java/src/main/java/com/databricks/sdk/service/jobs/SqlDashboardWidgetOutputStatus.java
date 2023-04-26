@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
-/** The execution status of the SQL widget. */
+/**
+ * The execution status of the SQL widget.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum SqlDashboardWidgetOutputStatus {
   CANCELLED,
   FAILED,

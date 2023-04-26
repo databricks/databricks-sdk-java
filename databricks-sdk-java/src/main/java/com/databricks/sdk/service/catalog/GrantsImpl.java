@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class GrantsImpl implements GrantsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for GrantsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public GrantsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public PermissionsList get(GetGrantRequest request) {
     String path =
@@ -21,6 +27,7 @@ class GrantsImpl implements GrantsService {
     return apiClient.GET(path, request, PermissionsList.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public EffectivePermissionsList getEffective(GetEffectiveRequest request) {
     String path =
@@ -30,6 +37,7 @@ class GrantsImpl implements GrantsService {
     return apiClient.GET(path, request, EffectivePermissionsList.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public PermissionsList update(UpdatePermissions request) {
     String path =

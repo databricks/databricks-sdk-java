@@ -8,22 +8,39 @@ import org.slf4j.LoggerFactory;
 /**
  * DBFS API makes it simple to interact with various data sources without having to include a users
  * credentials every time to read a file.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class DbfsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(DbfsAPI.class);
 
   private final DbfsService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public DbfsAPI(ApiClient apiClient) {
     impl = new DbfsImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.files.DbfsService} object
+   */
   public DbfsAPI(DbfsService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>addBlock.</p>
+   *
+   * @param handle a long
+   * @param data a {@link java.lang.String} object
+   */
   public void addBlock(long handle, String data) {
     addBlock(new AddBlock().setHandle(handle).setData(data));
   }
@@ -36,11 +53,18 @@ public class DbfsAPI {
    *
    * <p>If the block of data exceeds 1 MB, this call will throw an exception with
    * `MAX_BLOCK_SIZE_EXCEEDED`.
+   *
+   * @param request a {@link com.databricks.sdk.service.files.AddBlock} object
    */
   public void addBlock(AddBlock request) {
     impl.addBlock(request);
   }
 
+  /**
+   * <p>close.</p>
+   *
+   * @param handle a long
+   */
   public void close(long handle) {
     close(new Close().setHandle(handle));
   }
@@ -50,11 +74,19 @@ public class DbfsAPI {
    *
    * <p>Closes the stream specified by the input handle. If the handle does not exist, this call
    * throws an exception with `RESOURCE_DOES_NOT_EXIST`.
+   *
+   * @param request a {@link com.databricks.sdk.service.files.Close} object
    */
   public void close(Close request) {
     impl.close(request);
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.files.CreateResponse} object
+   */
   public CreateResponse create(String path) {
     return create(new Create().setPath(path));
   }
@@ -70,11 +102,19 @@ public class DbfsAPI {
    *
    * <p>1. Issue a `create` call and get a handle. 2. Issue one or more `add-block` calls with the
    * handle you have. 3. Issue a `close` call with the handle you have.
+   *
+   * @param request a {@link com.databricks.sdk.service.files.Create} object
+   * @return a {@link com.databricks.sdk.service.files.CreateResponse} object
    */
   public CreateResponse create(Create request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   */
   public void delete(String path) {
     delete(new Delete().setPath(path));
   }
@@ -97,11 +137,19 @@ public class DbfsAPI {
    * functional scope of the DBFS REST API, but from notebooks. Running such operations using
    * notebooks provides better control and manageability, such as selective deletes, and the
    * possibility to automate periodic delete jobs.
+   *
+   * @param request a {@link com.databricks.sdk.service.files.Delete} object
    */
   public void delete(Delete request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>getStatus.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.files.FileInfo} object
+   */
   public FileInfo getStatus(String path) {
     return getStatus(new GetStatusRequest().setPath(path));
   }
@@ -111,11 +159,20 @@ public class DbfsAPI {
    *
    * <p>Gets the file information for a file or directory. If the file or directory does not exist,
    * this call throws an exception with `RESOURCE_DOES_NOT_EXIST`.
+   *
+   * @param request a {@link com.databricks.sdk.service.files.GetStatusRequest} object
+   * @return a {@link com.databricks.sdk.service.files.FileInfo} object
    */
   public FileInfo getStatus(GetStatusRequest request) {
     return impl.getStatus(request);
   }
 
+  /**
+   * <p>list.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @return a {@link java.lang.Iterable} object
+   */
   public Iterable<FileInfo> list(String path) {
     return list(new ListDbfsRequest().setPath(path));
   }
@@ -132,11 +189,19 @@ public class DbfsAPI {
    * we recommend that you perform such operations in the context of a cluster, using the [File
    * system utility (dbutils.fs)](/dev-tools/databricks-utils.html#dbutils-fs), which provides the
    * same functionality without timing out.
+   *
+   * @param request a {@link com.databricks.sdk.service.files.ListDbfsRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<FileInfo> list(ListDbfsRequest request) {
     return impl.list(request).getFiles();
   }
 
+  /**
+   * <p>mkdirs.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   */
   public void mkdirs(String path) {
     mkdirs(new MkDirs().setPath(path));
   }
@@ -148,11 +213,19 @@ public class DbfsAPI {
    * (not a directory) exists at any prefix of the input path, this call throws an exception with
    * `RESOURCE_ALREADY_EXISTS`. **Note**: If this operation fails, it might have succeeded in
    * creating some of the necessary parent directories.
+   *
+   * @param request a {@link com.databricks.sdk.service.files.MkDirs} object
    */
   public void mkdirs(MkDirs request) {
     impl.mkdirs(request);
   }
 
+  /**
+   * <p>move.</p>
+   *
+   * @param sourcePath a {@link java.lang.String} object
+   * @param destinationPath a {@link java.lang.String} object
+   */
   public void move(String sourcePath, String destinationPath) {
     move(new Move().setSourcePath(sourcePath).setDestinationPath(destinationPath));
   }
@@ -164,11 +237,18 @@ public class DbfsAPI {
    * exist, this call throws an exception with `RESOURCE_DOES_NOT_EXIST`. If a file already exists
    * in the destination path, this call throws an exception with `RESOURCE_ALREADY_EXISTS`. If the
    * given source path is a directory, this call always recursively moves all files.",
+   *
+   * @param request a {@link com.databricks.sdk.service.files.Move} object
    */
   public void move(Move request) {
     impl.move(request);
   }
 
+  /**
+   * <p>put.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   */
   public void put(String path) {
     put(new Put().setPath(path));
   }
@@ -186,11 +266,19 @@ public class DbfsAPI {
    *
    * <p>If you want to upload large files, use the streaming upload. For details, see
    * :method:dbfs/create, :method:dbfs/addBlock, :method:dbfs/close.
+   *
+   * @param request a {@link com.databricks.sdk.service.files.Put} object
    */
   public void put(Put request) {
     impl.put(request);
   }
 
+  /**
+   * <p>read.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.files.ReadResponse} object
+   */
   public ReadResponse read(String path) {
     return read(new ReadDbfsRequest().setPath(path));
   }
@@ -205,11 +293,19 @@ public class DbfsAPI {
    *
    * <p>If `offset + length` exceeds the number of bytes in a file, it reads the contents until the
    * end of file.",
+   *
+   * @param request a {@link com.databricks.sdk.service.files.ReadDbfsRequest} object
+   * @return a {@link com.databricks.sdk.service.files.ReadResponse} object
    */
   public ReadResponse read(ReadDbfsRequest request) {
     return impl.read(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.files.DbfsService} object
+   */
   public DbfsService impl() {
     return impl;
   }

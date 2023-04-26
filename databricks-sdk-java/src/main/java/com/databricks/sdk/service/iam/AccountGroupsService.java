@@ -12,6 +12,9 @@ package com.databricks.sdk.service.iam;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface AccountGroupsService {
   /**
@@ -19,6 +22,9 @@ public interface AccountGroupsService {
    *
    * <p>Creates a group in the Databricks Account with a unique name, using the supplied group
    * details.
+   *
+   * @param group a {@link com.databricks.sdk.service.iam.Group} object
+   * @return a {@link com.databricks.sdk.service.iam.Group} object
    */
   Group create(Group group);
 
@@ -26,6 +32,8 @@ public interface AccountGroupsService {
    * Delete a group.
    *
    * <p>Deletes a group from the Databricks Account.
+   *
+   * @param deleteAccountGroupRequest a {@link com.databricks.sdk.service.iam.DeleteAccountGroupRequest} object
    */
   void delete(DeleteAccountGroupRequest deleteAccountGroupRequest);
 
@@ -33,6 +41,9 @@ public interface AccountGroupsService {
    * Get group details.
    *
    * <p>Gets the information for a specific group in the Databricks Account.
+   *
+   * @param getAccountGroupRequest a {@link com.databricks.sdk.service.iam.GetAccountGroupRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.Group} object
    */
   Group get(GetAccountGroupRequest getAccountGroupRequest);
 
@@ -40,6 +51,9 @@ public interface AccountGroupsService {
    * List group details.
    *
    * <p>Gets all details of the groups associated with the Databricks Account.
+   *
+   * @param listAccountGroupsRequest a {@link com.databricks.sdk.service.iam.ListAccountGroupsRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.ListGroupsResponse} object
    */
   ListGroupsResponse list(ListAccountGroupsRequest listAccountGroupsRequest);
 
@@ -47,6 +61,8 @@ public interface AccountGroupsService {
    * Update group details.
    *
    * <p>Partially updates the details of a group.
+   *
+   * @param partialUpdate a {@link com.databricks.sdk.service.iam.PartialUpdate} object
    */
   void patch(PartialUpdate partialUpdate);
 
@@ -54,6 +70,8 @@ public interface AccountGroupsService {
    * Replace a group.
    *
    * <p>Updates the details of a group by replacing the entire group entity.
+   *
+   * @param group a {@link com.databricks.sdk.service.iam.Group} object
    */
   void update(Group group);
 }

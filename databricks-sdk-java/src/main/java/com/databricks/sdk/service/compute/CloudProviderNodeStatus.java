@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
+/**
+ * <p>CloudProviderNodeStatus class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum CloudProviderNodeStatus {
   NotAvailableInRegion,
   NotEnabledOnSubscription,

@@ -5,6 +5,9 @@ package com.databricks.sdk.service.ml;
 /**
  * Permission level of the requesting user on the object. For what is allowed at each level, see
  * [MLflow Model permissions](..).
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum PermissionLevel {
   CAN_EDIT,

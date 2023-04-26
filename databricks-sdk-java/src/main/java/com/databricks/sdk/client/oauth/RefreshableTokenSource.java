@@ -17,12 +17,23 @@ import org.apache.http.HttpHeaders;
  *
  * <p>Calls to getToken() will first check if the token is still valid (currently defined by having
  * at least 10 seconds until expiry). If not, refresh() is called first to refresh the token.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public abstract class RefreshableTokenSource implements TokenSource {
   protected Token token;
 
+  /**
+   * <p>Constructor for RefreshableTokenSource.</p>
+   */
   public RefreshableTokenSource() {}
 
+  /**
+   * <p>Constructor for RefreshableTokenSource.</p>
+   *
+   * @param token a {@link com.databricks.sdk.client.oauth.Token} object
+   */
   public RefreshableTokenSource(Token token) {
     this.token = token;
   }
@@ -37,6 +48,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
    * @param headers Additional headers.
    * @param position The position of the authentication parameters in the request.
    * @return The newly fetched Token.
+   * @param hc a {@link com.databricks.sdk.client.http.HttpClient} object
    */
   protected static Token retrieveToken(
       HttpClient hc,
@@ -77,8 +89,18 @@ public abstract class RefreshableTokenSource implements TokenSource {
     }
   }
 
+  /**
+   * <p>refresh.</p>
+   *
+   * @return a {@link com.databricks.sdk.client.oauth.Token} object
+   */
   protected abstract Token refresh();
 
+  /**
+   * <p>Getter for the field <code>token</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.client.oauth.Token} object
+   */
   public synchronized Token getToken() {
     if (token == null || !token.isValid()) {
       token = refresh();

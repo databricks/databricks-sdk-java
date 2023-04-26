@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>ColumnInfo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ColumnInfo {
   /** Name of Column. */
   @JsonProperty("name")
@@ -35,69 +41,147 @@ public class ColumnInfo {
   @JsonProperty("type_text")
   private String typeText;
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.ColumnInfo} object
+   */
   public ColumnInfo setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>position</code>.</p>
+   *
+   * @param position a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ColumnInfo} object
+   */
   public ColumnInfo setPosition(Long position) {
     this.position = position;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>position</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getPosition() {
     return position;
   }
 
+  /**
+   * <p>Setter for the field <code>typeIntervalType</code>.</p>
+   *
+   * @param typeIntervalType a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.ColumnInfo} object
+   */
   public ColumnInfo setTypeIntervalType(String typeIntervalType) {
     this.typeIntervalType = typeIntervalType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>typeIntervalType</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTypeIntervalType() {
     return typeIntervalType;
   }
 
+  /**
+   * <p>Setter for the field <code>typeName</code>.</p>
+   *
+   * @param typeName a {@link com.databricks.sdk.service.sql.ColumnInfoTypeName} object
+   * @return a {@link com.databricks.sdk.service.sql.ColumnInfo} object
+   */
   public ColumnInfo setTypeName(ColumnInfoTypeName typeName) {
     this.typeName = typeName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>typeName</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.ColumnInfoTypeName} object
+   */
   public ColumnInfoTypeName getTypeName() {
     return typeName;
   }
 
+  /**
+   * <p>Setter for the field <code>typePrecision</code>.</p>
+   *
+   * @param typePrecision a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ColumnInfo} object
+   */
   public ColumnInfo setTypePrecision(Long typePrecision) {
     this.typePrecision = typePrecision;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>typePrecision</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTypePrecision() {
     return typePrecision;
   }
 
+  /**
+   * <p>Setter for the field <code>typeScale</code>.</p>
+   *
+   * @param typeScale a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ColumnInfo} object
+   */
   public ColumnInfo setTypeScale(Long typeScale) {
     this.typeScale = typeScale;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>typeScale</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTypeScale() {
     return typeScale;
   }
 
+  /**
+   * <p>Setter for the field <code>typeText</code>.</p>
+   *
+   * @param typeText a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.ColumnInfo} object
+   */
   public ColumnInfo setTypeText(String typeText) {
     this.typeText = typeText;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>typeText</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTypeText() {
     return typeText;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -112,12 +196,14 @@ public class ColumnInfo {
         && Objects.equals(typeText, that.typeText);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
         name, position, typeIntervalType, typeName, typePrecision, typeScale, typeText);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ColumnInfo.class)

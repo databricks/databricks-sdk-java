@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>StorageConfiguration class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class StorageConfiguration {
   /** The Databricks account ID that hosts the credential. */
   @JsonProperty("account_id")
@@ -27,51 +33,107 @@ public class StorageConfiguration {
   @JsonProperty("storage_configuration_name")
   private String storageConfigurationName;
 
+  /**
+   * <p>Setter for the field <code>accountId</code>.</p>
+   *
+   * @param accountId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
+   */
   public StorageConfiguration setAccountId(String accountId) {
     this.accountId = accountId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>accountId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getAccountId() {
     return accountId;
   }
 
+  /**
+   * <p>Setter for the field <code>creationTime</code>.</p>
+   *
+   * @param creationTime a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
+   */
   public StorageConfiguration setCreationTime(Long creationTime) {
     this.creationTime = creationTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>creationTime</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCreationTime() {
     return creationTime;
   }
 
+  /**
+   * <p>Setter for the field <code>rootBucketInfo</code>.</p>
+   *
+   * @param rootBucketInfo a {@link com.databricks.sdk.service.provisioning.RootBucketInfo} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
+   */
   public StorageConfiguration setRootBucketInfo(RootBucketInfo rootBucketInfo) {
     this.rootBucketInfo = rootBucketInfo;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>rootBucketInfo</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.RootBucketInfo} object
+   */
   public RootBucketInfo getRootBucketInfo() {
     return rootBucketInfo;
   }
 
+  /**
+   * <p>Setter for the field <code>storageConfigurationId</code>.</p>
+   *
+   * @param storageConfigurationId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
+   */
   public StorageConfiguration setStorageConfigurationId(String storageConfigurationId) {
     this.storageConfigurationId = storageConfigurationId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageConfigurationId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageConfigurationId() {
     return storageConfigurationId;
   }
 
+  /**
+   * <p>Setter for the field <code>storageConfigurationName</code>.</p>
+   *
+   * @param storageConfigurationName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
+   */
   public StorageConfiguration setStorageConfigurationName(String storageConfigurationName) {
     this.storageConfigurationName = storageConfigurationName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageConfigurationName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageConfigurationName() {
     return storageConfigurationName;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -84,12 +146,14 @@ public class StorageConfiguration {
         && Objects.equals(storageConfigurationName, that.storageConfigurationName);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
         accountId, creationTime, rootBucketInfo, storageConfigurationId, storageConfigurationName);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(StorageConfiguration.class)

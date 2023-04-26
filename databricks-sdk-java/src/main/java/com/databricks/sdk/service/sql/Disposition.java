@@ -23,6 +23,9 @@ package com.databricks.sdk.service.sql;
  *
  * <p>2. These are presigned URLs with a specific expiration, indicated in the response. The
  * behavior when attempting to use an expired link is cloud specific.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum Disposition {
   EXTERNAL_LINKS,

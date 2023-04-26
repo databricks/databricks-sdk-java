@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class PermissionsImpl implements PermissionsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for PermissionsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public PermissionsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public ObjectPermissions get(GetPermissionRequest request) {
     String path =
@@ -21,6 +27,7 @@ class PermissionsImpl implements PermissionsService {
     return apiClient.GET(path, request, ObjectPermissions.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public GetPermissionLevelsResponse getPermissionLevels(GetPermissionLevelsRequest request) {
     String path =
@@ -30,6 +37,7 @@ class PermissionsImpl implements PermissionsService {
     return apiClient.GET(path, request, GetPermissionLevelsResponse.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void set(PermissionsRequest request) {
     String path =
@@ -39,6 +47,7 @@ class PermissionsImpl implements PermissionsService {
     apiClient.PUT(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(PermissionsRequest request) {
     String path =

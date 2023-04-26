@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** The type of function parameter. */
+/**
+ * The type of function parameter.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum FunctionParameterType {
   COLUMN,
   PARAM,

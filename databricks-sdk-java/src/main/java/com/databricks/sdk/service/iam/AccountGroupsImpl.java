@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class AccountGroupsImpl implements AccountGroupsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for AccountGroupsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public AccountGroupsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public Group create(Group request) {
     String path =
@@ -19,6 +25,7 @@ class AccountGroupsImpl implements AccountGroupsService {
     return apiClient.POST(path, request, Group.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteAccountGroupRequest request) {
     String path =
@@ -28,6 +35,7 @@ class AccountGroupsImpl implements AccountGroupsService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Group get(GetAccountGroupRequest request) {
     String path =
@@ -37,6 +45,7 @@ class AccountGroupsImpl implements AccountGroupsService {
     return apiClient.GET(path, request, Group.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListGroupsResponse list(ListAccountGroupsRequest request) {
     String path =
@@ -44,6 +53,7 @@ class AccountGroupsImpl implements AccountGroupsService {
     return apiClient.GET(path, request, ListGroupsResponse.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void patch(PartialUpdate request) {
     String path =
@@ -53,6 +63,7 @@ class AccountGroupsImpl implements AccountGroupsService {
     apiClient.PATCH(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(Group request) {
     String path =

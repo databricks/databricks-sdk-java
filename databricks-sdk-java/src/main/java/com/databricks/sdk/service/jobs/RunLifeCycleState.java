@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum RunLifeCycleState {
   BLOCKED, // The run is blocked on an upstream dependency.
   INTERNAL_ERROR, // An exceptional state that indicates a failure in the Jobs service, such as

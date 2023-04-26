@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>UpdateJob class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class UpdateJob {
   /**
    * Remove top-level fields in the job settings. Removing nested fields is not supported. This
@@ -29,33 +35,67 @@ public class UpdateJob {
   @JsonProperty("new_settings")
   private JobSettings newSettings;
 
+  /**
+   * <p>Setter for the field <code>fieldsToRemove</code>.</p>
+   *
+   * @param fieldsToRemove a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.UpdateJob} object
+   */
   public UpdateJob setFieldsToRemove(Collection<String> fieldsToRemove) {
     this.fieldsToRemove = fieldsToRemove;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>fieldsToRemove</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getFieldsToRemove() {
     return fieldsToRemove;
   }
 
+  /**
+   * <p>Setter for the field <code>jobId</code>.</p>
+   *
+   * @param jobId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.UpdateJob} object
+   */
   public UpdateJob setJobId(Long jobId) {
     this.jobId = jobId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>jobId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getJobId() {
     return jobId;
   }
 
+  /**
+   * <p>Setter for the field <code>newSettings</code>.</p>
+   *
+   * @param newSettings a {@link com.databricks.sdk.service.jobs.JobSettings} object
+   * @return a {@link com.databricks.sdk.service.jobs.UpdateJob} object
+   */
   public UpdateJob setNewSettings(JobSettings newSettings) {
     this.newSettings = newSettings;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>newSettings</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.JobSettings} object
+   */
   public JobSettings getNewSettings() {
     return newSettings;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -66,11 +106,13 @@ public class UpdateJob {
         && Objects.equals(newSettings, that.newSettings);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(fieldsToRemove, jobId, newSettings);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(UpdateJob.class)

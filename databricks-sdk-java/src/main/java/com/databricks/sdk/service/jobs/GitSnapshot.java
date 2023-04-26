@@ -9,6 +9,9 @@ import java.util.Objects;
 /**
  * Read-only state of the remote repository at the time the job was run. This field is only included
  * on job runs.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class GitSnapshot {
   /**
@@ -19,15 +22,27 @@ public class GitSnapshot {
   @JsonProperty("used_commit")
   private String usedCommit;
 
+  /**
+   * <p>Setter for the field <code>usedCommit</code>.</p>
+   *
+   * @param usedCommit a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.GitSnapshot} object
+   */
   public GitSnapshot setUsedCommit(String usedCommit) {
     this.usedCommit = usedCommit;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>usedCommit</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUsedCommit() {
     return usedCommit;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -36,11 +51,13 @@ public class GitSnapshot {
     return Objects.equals(usedCommit, that.usedCommit);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(usedCommit);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GitSnapshot.class).add("usedCommit", usedCommit).toString();

@@ -21,12 +21,18 @@ package com.databricks.sdk.service.compute;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface InstancePoolsService {
   /**
    * Create a new instance pool.
    *
    * <p>Creates a new instance pool using idle and ready-to-use cloud instances.
+   *
+   * @param createInstancePool a {@link com.databricks.sdk.service.compute.CreateInstancePool} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateInstancePoolResponse} object
    */
   CreateInstancePoolResponse create(CreateInstancePool createInstancePool);
 
@@ -35,6 +41,8 @@ public interface InstancePoolsService {
    *
    * <p>Deletes the instance pool permanently. The idle instances in the pool are terminated
    * asynchronously.
+   *
+   * @param deleteInstancePool a {@link com.databricks.sdk.service.compute.DeleteInstancePool} object
    */
   void delete(DeleteInstancePool deleteInstancePool);
 
@@ -42,6 +50,8 @@ public interface InstancePoolsService {
    * Edit an existing instance pool.
    *
    * <p>Modifies the configuration of an existing instance pool.
+   *
+   * @param editInstancePool a {@link com.databricks.sdk.service.compute.EditInstancePool} object
    */
   void edit(EditInstancePool editInstancePool);
 
@@ -49,6 +59,9 @@ public interface InstancePoolsService {
    * Get instance pool information.
    *
    * <p>Retrieve the information for an instance pool based on its identifier.
+   *
+   * @param getInstancePoolRequest a {@link com.databricks.sdk.service.compute.GetInstancePoolRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.GetInstancePool} object
    */
   GetInstancePool get(GetInstancePoolRequest getInstancePoolRequest);
 
@@ -56,6 +69,8 @@ public interface InstancePoolsService {
    * List instance pool info.
    *
    * <p>Gets a list of instance pools with their statistics.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ListInstancePools} object
    */
   ListInstancePools list();
 }

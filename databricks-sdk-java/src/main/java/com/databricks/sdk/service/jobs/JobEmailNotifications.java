@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>JobEmailNotifications class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class JobEmailNotifications {
   /** If true, do not send email to recipients specified in `on_failure` if the run is skipped. */
   @JsonProperty("no_alert_for_skipped_runs")
@@ -37,42 +43,87 @@ public class JobEmailNotifications {
   @JsonProperty("on_success")
   private Collection<String> onSuccess;
 
+  /**
+   * <p>Setter for the field <code>noAlertForSkippedRuns</code>.</p>
+   *
+   * @param noAlertForSkippedRuns a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobEmailNotifications} object
+   */
   public JobEmailNotifications setNoAlertForSkippedRuns(Boolean noAlertForSkippedRuns) {
     this.noAlertForSkippedRuns = noAlertForSkippedRuns;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>noAlertForSkippedRuns</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getNoAlertForSkippedRuns() {
     return noAlertForSkippedRuns;
   }
 
+  /**
+   * <p>Setter for the field <code>onFailure</code>.</p>
+   *
+   * @param onFailure a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobEmailNotifications} object
+   */
   public JobEmailNotifications setOnFailure(Collection<String> onFailure) {
     this.onFailure = onFailure;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>onFailure</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getOnFailure() {
     return onFailure;
   }
 
+  /**
+   * <p>Setter for the field <code>onStart</code>.</p>
+   *
+   * @param onStart a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobEmailNotifications} object
+   */
   public JobEmailNotifications setOnStart(Collection<String> onStart) {
     this.onStart = onStart;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>onStart</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getOnStart() {
     return onStart;
   }
 
+  /**
+   * <p>Setter for the field <code>onSuccess</code>.</p>
+   *
+   * @param onSuccess a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobEmailNotifications} object
+   */
   public JobEmailNotifications setOnSuccess(Collection<String> onSuccess) {
     this.onSuccess = onSuccess;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>onSuccess</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getOnSuccess() {
     return onSuccess;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -84,11 +135,13 @@ public class JobEmailNotifications {
         && Objects.equals(onSuccess, that.onSuccess);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(noAlertForSkippedRuns, onFailure, onStart, onSuccess);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(JobEmailNotifications.class)

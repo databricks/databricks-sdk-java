@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class AccountUsersImpl implements AccountUsersService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for AccountUsersImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public AccountUsersImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public User create(User request) {
     String path =
@@ -19,6 +25,7 @@ class AccountUsersImpl implements AccountUsersService {
     return apiClient.POST(path, request, User.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteAccountUserRequest request) {
     String path =
@@ -28,6 +35,7 @@ class AccountUsersImpl implements AccountUsersService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public User get(GetAccountUserRequest request) {
     String path =
@@ -37,6 +45,7 @@ class AccountUsersImpl implements AccountUsersService {
     return apiClient.GET(path, request, User.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public ListUsersResponse list(ListAccountUsersRequest request) {
     String path =
@@ -44,6 +53,7 @@ class AccountUsersImpl implements AccountUsersService {
     return apiClient.GET(path, request, ListUsersResponse.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void patch(PartialUpdate request) {
     String path =
@@ -53,6 +63,7 @@ class AccountUsersImpl implements AccountUsersService {
     apiClient.PATCH(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(User request) {
     String path =

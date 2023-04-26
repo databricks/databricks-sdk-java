@@ -22,12 +22,23 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
+/**
+ * <p>CommonsHttpClient class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CommonsHttpClient implements HttpClient {
   private final PoolingHttpClientConnectionManager connectionManager =
       new PoolingHttpClientConnectionManager();
   private final CloseableHttpClient hc;
   private int timeout;
 
+  /**
+   * <p>Constructor for CommonsHttpClient.</p>
+   *
+   * @param timeoutSeconds a int
+   */
   public CommonsHttpClient(int timeoutSeconds) {
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
@@ -49,6 +60,7 @@ public class CommonsHttpClient implements HttpClient {
         .build();
   }
 
+  /** {@inheritDoc} */
   @Override
   public Response execute(Request in) throws IOException {
     HttpUriRequest request = transformRequest(in);

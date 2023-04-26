@@ -10,6 +10,9 @@ package com.databricks.sdk.service.provisioning;
  *
  * <p>Set to `PUBLIC_NODE_PUBLIC_MASTER` for a public GKE cluster. The nodes of a public GKE cluster
  * have public IP addresses.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum GkeConfigConnectivityType {
   PRIVATE_NODE_PUBLIC_MASTER,

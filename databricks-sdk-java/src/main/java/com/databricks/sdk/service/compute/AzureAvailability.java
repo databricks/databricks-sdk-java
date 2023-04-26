@@ -6,6 +6,9 @@ package com.databricks.sdk.service.compute;
  * Availability type used for all subsequent nodes past the `first_on_demand` ones. Note: If
  * `first_on_demand` is zero (which only happens on pool clusters), this availability type will be
  * used for the entire cluster.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum AzureAvailability {
   ON_DEMAND_AZURE,

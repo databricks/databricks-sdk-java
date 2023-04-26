@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>QueryEditContent class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class QueryEditContent {
   /** The ID of the data source / SQL warehouse where this query will run. */
   @JsonProperty("data_source_id")
@@ -37,60 +43,127 @@ public class QueryEditContent {
   /** */
   private String queryId;
 
+  /**
+   * <p>Setter for the field <code>dataSourceId</code>.</p>
+   *
+   * @param dataSourceId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryEditContent} object
+   */
   public QueryEditContent setDataSourceId(String dataSourceId) {
     this.dataSourceId = dataSourceId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dataSourceId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDataSourceId() {
     return dataSourceId;
   }
 
+  /**
+   * <p>Setter for the field <code>description</code>.</p>
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryEditContent} object
+   */
   public QueryEditContent setDescription(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>description</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryEditContent} object
+   */
   public QueryEditContent setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>options</code>.</p>
+   *
+   * @param options a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryEditContent} object
+   */
   public QueryEditContent setOptions(Object /* MISSING TYPE */ options) {
     this.options = options;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>options</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getOptions() {
     return options;
   }
 
+  /**
+   * <p>Setter for the field <code>query</code>.</p>
+   *
+   * @param query a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryEditContent} object
+   */
   public QueryEditContent setQuery(String query) {
     this.query = query;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>query</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getQuery() {
     return query;
   }
 
+  /**
+   * <p>Setter for the field <code>queryId</code>.</p>
+   *
+   * @param queryId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.QueryEditContent} object
+   */
   public QueryEditContent setQueryId(String queryId) {
     this.queryId = queryId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>queryId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getQueryId() {
     return queryId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -104,11 +177,13 @@ public class QueryEditContent {
         && Objects.equals(queryId, that.queryId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(dataSourceId, description, name, options, query, queryId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(QueryEditContent.class)

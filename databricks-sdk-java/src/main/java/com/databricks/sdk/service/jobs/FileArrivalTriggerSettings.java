@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>FileArrivalTriggerSettings class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class FileArrivalTriggerSettings {
   /**
    * If set, the trigger starts a run only after the specified amount of time passed since the last
@@ -29,34 +35,68 @@ public class FileArrivalTriggerSettings {
   @JsonProperty("wait_after_last_change_seconds")
   private Long waitAfterLastChangeSeconds;
 
+  /**
+   * <p>Setter for the field <code>minTimeBetweenTriggerSeconds</code>.</p>
+   *
+   * @param minTimeBetweenTriggerSeconds a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.FileArrivalTriggerSettings} object
+   */
   public FileArrivalTriggerSettings setMinTimeBetweenTriggerSeconds(
       Long minTimeBetweenTriggerSeconds) {
     this.minTimeBetweenTriggerSeconds = minTimeBetweenTriggerSeconds;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>minTimeBetweenTriggerSeconds</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMinTimeBetweenTriggerSeconds() {
     return minTimeBetweenTriggerSeconds;
   }
 
+  /**
+   * <p>Setter for the field <code>url</code>.</p>
+   *
+   * @param url a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.FileArrivalTriggerSettings} object
+   */
   public FileArrivalTriggerSettings setUrl(String url) {
     this.url = url;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>url</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUrl() {
     return url;
   }
 
+  /**
+   * <p>Setter for the field <code>waitAfterLastChangeSeconds</code>.</p>
+   *
+   * @param waitAfterLastChangeSeconds a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.FileArrivalTriggerSettings} object
+   */
   public FileArrivalTriggerSettings setWaitAfterLastChangeSeconds(Long waitAfterLastChangeSeconds) {
     this.waitAfterLastChangeSeconds = waitAfterLastChangeSeconds;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>waitAfterLastChangeSeconds</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getWaitAfterLastChangeSeconds() {
     return waitAfterLastChangeSeconds;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -67,11 +107,13 @@ public class FileArrivalTriggerSettings {
         && Objects.equals(waitAfterLastChangeSeconds, that.waitAfterLastChangeSeconds);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(minTimeBetweenTriggerSeconds, url, waitAfterLastChangeSeconds);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(FileArrivalTriggerSettings.class)

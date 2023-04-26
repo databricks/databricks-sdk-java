@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
-/** The cause of a change in target size. */
+/**
+ * The cause of a change in target size.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum EventDetailsCause {
   AUTORECOVERY,
   AUTOSCALE,

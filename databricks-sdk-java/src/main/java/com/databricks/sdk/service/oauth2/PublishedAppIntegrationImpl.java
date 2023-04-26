@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for PublishedAppIntegrationImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public PublishedAppIntegrationImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public CreatePublishedAppIntegrationOutput create(CreatePublishedAppIntegration request) {
     String path =
@@ -21,6 +27,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
     return apiClient.POST(path, request, CreatePublishedAppIntegrationOutput.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeletePublishedAppIntegrationRequest request) {
     String path =
@@ -30,6 +37,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public GetPublishedAppIntegrationOutput get(GetPublishedAppIntegrationRequest request) {
     String path =
@@ -39,6 +47,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
     return apiClient.GET(path, request, GetPublishedAppIntegrationOutput.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public GetPublishedAppIntegrationsOutput list() {
     String path =
@@ -48,6 +57,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
     return apiClient.GET(path, GetPublishedAppIntegrationsOutput.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(UpdatePublishedAppIntegration request) {
     String path =

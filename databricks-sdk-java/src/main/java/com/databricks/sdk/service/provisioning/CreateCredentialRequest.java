@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>CreateCredentialRequest class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateCredentialRequest {
   /** */
   @JsonProperty("aws_credentials")
@@ -15,24 +21,47 @@ public class CreateCredentialRequest {
   @JsonProperty("credentials_name")
   private String credentialsName;
 
+  /**
+   * <p>Setter for the field <code>awsCredentials</code>.</p>
+   *
+   * @param awsCredentials a {@link com.databricks.sdk.service.provisioning.CreateCredentialAwsCredentials} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateCredentialRequest} object
+   */
   public CreateCredentialRequest setAwsCredentials(CreateCredentialAwsCredentials awsCredentials) {
     this.awsCredentials = awsCredentials;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsCredentials</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateCredentialAwsCredentials} object
+   */
   public CreateCredentialAwsCredentials getAwsCredentials() {
     return awsCredentials;
   }
 
+  /**
+   * <p>Setter for the field <code>credentialsName</code>.</p>
+   *
+   * @param credentialsName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateCredentialRequest} object
+   */
   public CreateCredentialRequest setCredentialsName(String credentialsName) {
     this.credentialsName = credentialsName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>credentialsName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCredentialsName() {
     return credentialsName;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -42,11 +71,13 @@ public class CreateCredentialRequest {
         && Objects.equals(credentialsName, that.credentialsName);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(awsCredentials, credentialsName);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateCredentialRequest.class)

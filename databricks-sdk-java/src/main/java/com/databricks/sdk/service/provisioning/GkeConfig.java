@@ -6,7 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The configurations for the GKE cluster of a Databricks workspace. */
+/**
+ * The configurations for the GKE cluster of a Databricks workspace.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GkeConfig {
   /**
    * Specifies the network connectivity types for the GKE nodes and the GKE master network.
@@ -29,24 +34,47 @@ public class GkeConfig {
   @JsonProperty("master_ip_range")
   private String masterIpRange;
 
+  /**
+   * <p>Setter for the field <code>connectivityType</code>.</p>
+   *
+   * @param connectivityType a {@link com.databricks.sdk.service.provisioning.GkeConfigConnectivityType} object
+   * @return a {@link com.databricks.sdk.service.provisioning.GkeConfig} object
+   */
   public GkeConfig setConnectivityType(GkeConfigConnectivityType connectivityType) {
     this.connectivityType = connectivityType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>connectivityType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.GkeConfigConnectivityType} object
+   */
   public GkeConfigConnectivityType getConnectivityType() {
     return connectivityType;
   }
 
+  /**
+   * <p>Setter for the field <code>masterIpRange</code>.</p>
+   *
+   * @param masterIpRange a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.GkeConfig} object
+   */
   public GkeConfig setMasterIpRange(String masterIpRange) {
     this.masterIpRange = masterIpRange;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>masterIpRange</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMasterIpRange() {
     return masterIpRange;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -56,11 +84,13 @@ public class GkeConfig {
         && Objects.equals(masterIpRange, that.masterIpRange);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(connectivityType, masterIpRange);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GkeConfig.class)

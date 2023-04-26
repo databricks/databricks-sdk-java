@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
+/**
+ * <p>EventType class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum EventType {
   AUTOSCALING_STATS_REPORT,
   CREATING,

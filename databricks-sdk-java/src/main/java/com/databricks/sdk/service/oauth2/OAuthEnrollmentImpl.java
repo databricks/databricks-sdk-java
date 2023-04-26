@@ -8,10 +8,16 @@ import org.apache.http.client.methods.*;
 class OAuthEnrollmentImpl implements OAuthEnrollmentService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for OAuthEnrollmentImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public OAuthEnrollmentImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public void create(CreateOAuthEnrollment request) {
     String path =
@@ -19,6 +25,7 @@ class OAuthEnrollmentImpl implements OAuthEnrollmentService {
     apiClient.POST(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public OAuthEnrollmentStatus get() {
     String path =

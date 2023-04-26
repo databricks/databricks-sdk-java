@@ -6,7 +6,12 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** List all tokens */
+/**
+ * List all tokens
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ListTokenManagementRequest {
   /** User ID of the user that created the token. */
   @QueryParam("created_by_id")
@@ -16,24 +21,47 @@ public class ListTokenManagementRequest {
   @QueryParam("created_by_username")
   private String createdByUsername;
 
+  /**
+   * <p>Setter for the field <code>createdById</code>.</p>
+   *
+   * @param createdById a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.settings.ListTokenManagementRequest} object
+   */
   public ListTokenManagementRequest setCreatedById(String createdById) {
     this.createdById = createdById;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>createdById</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCreatedById() {
     return createdById;
   }
 
+  /**
+   * <p>Setter for the field <code>createdByUsername</code>.</p>
+   *
+   * @param createdByUsername a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.settings.ListTokenManagementRequest} object
+   */
   public ListTokenManagementRequest setCreatedByUsername(String createdByUsername) {
     this.createdByUsername = createdByUsername;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>createdByUsername</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCreatedByUsername() {
     return createdByUsername;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -43,11 +71,13 @@ public class ListTokenManagementRequest {
         && Objects.equals(createdByUsername, that.createdByUsername);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(createdById, createdByUsername);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ListTokenManagementRequest.class)

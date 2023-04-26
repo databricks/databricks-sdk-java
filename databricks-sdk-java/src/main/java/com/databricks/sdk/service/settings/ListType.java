@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.settings;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum ListType {
   ALLOW, // An allow list. Include this IP or range.
   BLOCK, // A block list. Exclude this IP or range. IP addresses in the block list are

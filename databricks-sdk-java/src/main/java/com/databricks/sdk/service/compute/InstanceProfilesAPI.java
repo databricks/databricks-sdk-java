@@ -12,22 +12,38 @@ import org.slf4j.LoggerFactory;
  *
  * <p>[Secure access to S3 buckets]:
  * https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class InstanceProfilesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(InstanceProfilesAPI.class);
 
   private final InstanceProfilesService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public InstanceProfilesAPI(ApiClient apiClient) {
     impl = new InstanceProfilesImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.compute.InstanceProfilesService} object
+   */
   public InstanceProfilesAPI(InstanceProfilesService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>add.</p>
+   *
+   * @param instanceProfileArn a {@link java.lang.String} object
+   */
   public void add(String instanceProfileArn) {
     add(new AddInstanceProfile().setInstanceProfileArn(instanceProfileArn));
   }
@@ -37,11 +53,18 @@ public class InstanceProfilesAPI {
    *
    * <p>In the UI, you can select the instance profile when launching clusters. This API is only
    * available to admin users.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.AddInstanceProfile} object
    */
   public void add(AddInstanceProfile request) {
     impl.add(request);
   }
 
+  /**
+   * <p>edit.</p>
+   *
+   * @param instanceProfileArn a {@link java.lang.String} object
+   */
   public void edit(String instanceProfileArn) {
     edit(new InstanceProfile().setInstanceProfileArn(instanceProfileArn));
   }
@@ -62,6 +85,8 @@ public class InstanceProfilesAPI {
    *
    * <p>[Databricks SQL Serverless]: https://docs.databricks.com/sql/admin/serverless.html [Enable
    * serverless SQL warehouses]: https://docs.databricks.com/sql/admin/serverless.html
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.InstanceProfile} object
    */
   public void edit(InstanceProfile request) {
     impl.edit(request);
@@ -73,11 +98,18 @@ public class InstanceProfilesAPI {
    * <p>List the instance profiles that the calling user can use to launch a cluster.
    *
    * <p>This API is available to all users.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<InstanceProfile> list() {
     return impl.list().getInstanceProfiles();
   }
 
+  /**
+   * <p>remove.</p>
+   *
+   * @param instanceProfileArn a {@link java.lang.String} object
+   */
   public void remove(String instanceProfileArn) {
     remove(new RemoveInstanceProfile().setInstanceProfileArn(instanceProfileArn));
   }
@@ -89,11 +121,18 @@ public class InstanceProfilesAPI {
    * profile will continue to function.
    *
    * <p>This API is only accessible to admin users.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.RemoveInstanceProfile} object
    */
   public void remove(RemoveInstanceProfile request) {
     impl.remove(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.InstanceProfilesService} object
+   */
   public InstanceProfilesService impl() {
     return impl;
   }

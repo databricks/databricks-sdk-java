@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.iam;
 
-/** Type of patch operation. */
+/**
+ * Type of patch operation.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum PatchOp {
   add,
   remove,

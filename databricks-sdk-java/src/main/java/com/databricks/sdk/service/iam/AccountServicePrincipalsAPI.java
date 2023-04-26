@@ -11,22 +11,39 @@ import org.slf4j.LoggerFactory;
  * production data. If all processes that act on production data run with service principals,
  * interactive users do not need any write, delete, or modify privileges in production. This
  * eliminates the risk of a user overwriting production data by accident.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class AccountServicePrincipalsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(AccountServicePrincipalsAPI.class);
 
   private final AccountServicePrincipalsService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public AccountServicePrincipalsAPI(ApiClient apiClient) {
     impl = new AccountServicePrincipalsImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.iam.AccountServicePrincipalsService} object
+   */
   public AccountServicePrincipalsAPI(AccountServicePrincipalsService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
+   */
   public ServicePrincipal create(String id) {
     return create(new ServicePrincipal().setId(id));
   }
@@ -35,11 +52,19 @@ public class AccountServicePrincipalsAPI {
    * Create a service principal.
    *
    * <p>Creates a new service principal in the Databricks Account.
+   *
+   * @param request a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
+   * @return a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
    */
   public ServicePrincipal create(ServicePrincipal request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   */
   public void delete(String id) {
     delete(new DeleteAccountServicePrincipalRequest().setId(id));
   }
@@ -48,11 +73,19 @@ public class AccountServicePrincipalsAPI {
    * Delete a service principal.
    *
    * <p>Delete a single service principal in the Databricks Account.
+   *
+   * @param request a {@link com.databricks.sdk.service.iam.DeleteAccountServicePrincipalRequest} object
    */
   public void delete(DeleteAccountServicePrincipalRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
+   */
   public ServicePrincipal get(String id) {
     return get(new GetAccountServicePrincipalRequest().setId(id));
   }
@@ -61,6 +94,9 @@ public class AccountServicePrincipalsAPI {
    * Get service principal details.
    *
    * <p>Gets the details for a single service principal define in the Databricks Account.
+   *
+   * @param request a {@link com.databricks.sdk.service.iam.GetAccountServicePrincipalRequest} object
+   * @return a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
    */
   public ServicePrincipal get(GetAccountServicePrincipalRequest request) {
     return impl.get(request);
@@ -70,11 +106,19 @@ public class AccountServicePrincipalsAPI {
    * List service principals.
    *
    * <p>Gets the set of service principals associated with a Databricks Account.
+   *
+   * @param request a {@link com.databricks.sdk.service.iam.ListAccountServicePrincipalsRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<ServicePrincipal> list(ListAccountServicePrincipalsRequest request) {
     return impl.list(request).getResources();
   }
 
+  /**
+   * <p>patch.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   */
   public void patch(String id) {
     patch(new PartialUpdate().setId(id));
   }
@@ -83,11 +127,18 @@ public class AccountServicePrincipalsAPI {
    * Update service principal details.
    *
    * <p>Partially updates the details of a single service principal in the Databricks Account.
+   *
+   * @param request a {@link com.databricks.sdk.service.iam.PartialUpdate} object
    */
   public void patch(PartialUpdate request) {
     impl.patch(request);
   }
 
+  /**
+   * <p>update.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   */
   public void update(String id) {
     update(new ServicePrincipal().setId(id));
   }
@@ -98,11 +149,18 @@ public class AccountServicePrincipalsAPI {
    * <p>Updates the details of a single service principal.
    *
    * <p>This action replaces the existing service principal with the same name.
+   *
+   * @param request a {@link com.databricks.sdk.service.iam.ServicePrincipal} object
    */
   public void update(ServicePrincipal request) {
     impl.update(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.iam.AccountServicePrincipalsService} object
+   */
   public AccountServicePrincipalsService impl() {
     return impl;
   }

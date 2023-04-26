@@ -9,14 +9,19 @@ import java.io.IOException;
 /**
  * A {@code CredentialsProvider} which implements the Authorization Code + PKCE flow by opening a
  * browser for the user to authorize the application.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
+  /** {@inheritDoc} */
   @Override
   public String authType() {
     return "external-browser";
   }
 
+  /** {@inheritDoc} */
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     if (config.getHost() == null || config.getAuthType() != "external-browser") {

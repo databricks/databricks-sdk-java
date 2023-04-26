@@ -6,7 +6,12 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get all log delivery configurations */
+/**
+ * Get all log delivery configurations
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ListLogDeliveryRequest {
   /** Filter by credential configuration ID. */
   @QueryParam("credentials_id")
@@ -20,33 +25,67 @@ public class ListLogDeliveryRequest {
   @QueryParam("storage_configuration_id")
   private String storageConfigurationId;
 
+  /**
+   * <p>Setter for the field <code>credentialsId</code>.</p>
+   *
+   * @param credentialsId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.ListLogDeliveryRequest} object
+   */
   public ListLogDeliveryRequest setCredentialsId(String credentialsId) {
     this.credentialsId = credentialsId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>credentialsId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCredentialsId() {
     return credentialsId;
   }
 
+  /**
+   * <p>Setter for the field <code>status</code>.</p>
+   *
+   * @param status a {@link com.databricks.sdk.service.billing.LogDeliveryConfigStatus} object
+   * @return a {@link com.databricks.sdk.service.billing.ListLogDeliveryRequest} object
+   */
   public ListLogDeliveryRequest setStatus(LogDeliveryConfigStatus status) {
     this.status = status;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>status</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.billing.LogDeliveryConfigStatus} object
+   */
   public LogDeliveryConfigStatus getStatus() {
     return status;
   }
 
+  /**
+   * <p>Setter for the field <code>storageConfigurationId</code>.</p>
+   *
+   * @param storageConfigurationId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.ListLogDeliveryRequest} object
+   */
   public ListLogDeliveryRequest setStorageConfigurationId(String storageConfigurationId) {
     this.storageConfigurationId = storageConfigurationId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageConfigurationId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageConfigurationId() {
     return storageConfigurationId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -57,11 +96,13 @@ public class ListLogDeliveryRequest {
         && Objects.equals(storageConfigurationId, that.storageConfigurationId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(credentialsId, status, storageConfigurationId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ListLogDeliveryRequest.class)

@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>ExecuteStatementRequest class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ExecuteStatementRequest {
   /**
    * Applies the given byte limit to the statement's result size. Byte counts are based on internal
@@ -118,87 +124,187 @@ public class ExecuteStatementRequest {
   @JsonProperty("warehouse_id")
   private String warehouseId;
 
+  /**
+   * <p>Setter for the field <code>byteLimit</code>.</p>
+   *
+   * @param byteLimit a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   */
   public ExecuteStatementRequest setByteLimit(Long byteLimit) {
     this.byteLimit = byteLimit;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>byteLimit</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getByteLimit() {
     return byteLimit;
   }
 
+  /**
+   * <p>Setter for the field <code>catalog</code>.</p>
+   *
+   * @param catalog a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   */
   public ExecuteStatementRequest setCatalog(String catalog) {
     this.catalog = catalog;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>catalog</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCatalog() {
     return catalog;
   }
 
+  /**
+   * <p>Setter for the field <code>disposition</code>.</p>
+   *
+   * @param disposition a {@link com.databricks.sdk.service.sql.Disposition} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   */
   public ExecuteStatementRequest setDisposition(Disposition disposition) {
     this.disposition = disposition;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>disposition</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.Disposition} object
+   */
   public Disposition getDisposition() {
     return disposition;
   }
 
+  /**
+   * <p>Setter for the field <code>format</code>.</p>
+   *
+   * @param format a {@link com.databricks.sdk.service.sql.Format} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   */
   public ExecuteStatementRequest setFormat(Format format) {
     this.format = format;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>format</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.Format} object
+   */
   public Format getFormat() {
     return format;
   }
 
+  /**
+   * <p>Setter for the field <code>onWaitTimeout</code>.</p>
+   *
+   * @param onWaitTimeout a {@link com.databricks.sdk.service.sql.TimeoutAction} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   */
   public ExecuteStatementRequest setOnWaitTimeout(TimeoutAction onWaitTimeout) {
     this.onWaitTimeout = onWaitTimeout;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>onWaitTimeout</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sql.TimeoutAction} object
+   */
   public TimeoutAction getOnWaitTimeout() {
     return onWaitTimeout;
   }
 
+  /**
+   * <p>Setter for the field <code>schema</code>.</p>
+   *
+   * @param schema a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   */
   public ExecuteStatementRequest setSchema(String schema) {
     this.schema = schema;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>schema</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSchema() {
     return schema;
   }
 
+  /**
+   * <p>Setter for the field <code>statement</code>.</p>
+   *
+   * @param statement a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   */
   public ExecuteStatementRequest setStatement(String statement) {
     this.statement = statement;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>statement</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStatement() {
     return statement;
   }
 
+  /**
+   * <p>Setter for the field <code>waitTimeout</code>.</p>
+   *
+   * @param waitTimeout a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   */
   public ExecuteStatementRequest setWaitTimeout(String waitTimeout) {
     this.waitTimeout = waitTimeout;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>waitTimeout</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getWaitTimeout() {
     return waitTimeout;
   }
 
+  /**
+   * <p>Setter for the field <code>warehouseId</code>.</p>
+   *
+   * @param warehouseId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sql.ExecuteStatementRequest} object
+   */
   public ExecuteStatementRequest setWarehouseId(String warehouseId) {
     this.warehouseId = warehouseId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>warehouseId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getWarehouseId() {
     return warehouseId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -215,6 +321,7 @@ public class ExecuteStatementRequest {
         && Objects.equals(warehouseId, that.warehouseId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -229,6 +336,7 @@ public class ExecuteStatementRequest {
         warehouseId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ExecuteStatementRequest.class)

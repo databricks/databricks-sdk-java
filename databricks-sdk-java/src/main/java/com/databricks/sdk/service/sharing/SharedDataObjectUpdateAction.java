@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sharing;
 
-/** One of: **ADD**, **REMOVE**, **UPDATE**. */
+/**
+ * One of: **ADD**, **REMOVE**, **UPDATE**.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum SharedDataObjectUpdateAction {
   ADD,
   REMOVE,

@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>CreateNetworkRequest class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateNetworkRequest {
   /**
    * The Google Cloud specific information for this network (for example, the VPC ID, subnet ID, and
@@ -49,60 +55,127 @@ public class CreateNetworkRequest {
   @JsonProperty("vpc_id")
   private String vpcId;
 
+  /**
+   * <p>Setter for the field <code>gcpNetworkInfo</code>.</p>
+   *
+   * @param gcpNetworkInfo a {@link com.databricks.sdk.service.provisioning.GcpNetworkInfo} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateNetworkRequest} object
+   */
   public CreateNetworkRequest setGcpNetworkInfo(GcpNetworkInfo gcpNetworkInfo) {
     this.gcpNetworkInfo = gcpNetworkInfo;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gcpNetworkInfo</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.GcpNetworkInfo} object
+   */
   public GcpNetworkInfo getGcpNetworkInfo() {
     return gcpNetworkInfo;
   }
 
+  /**
+   * <p>Setter for the field <code>networkName</code>.</p>
+   *
+   * @param networkName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateNetworkRequest} object
+   */
   public CreateNetworkRequest setNetworkName(String networkName) {
     this.networkName = networkName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>networkName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getNetworkName() {
     return networkName;
   }
 
+  /**
+   * <p>Setter for the field <code>securityGroupIds</code>.</p>
+   *
+   * @param securityGroupIds a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateNetworkRequest} object
+   */
   public CreateNetworkRequest setSecurityGroupIds(Collection<String> securityGroupIds) {
     this.securityGroupIds = securityGroupIds;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>securityGroupIds</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getSecurityGroupIds() {
     return securityGroupIds;
   }
 
+  /**
+   * <p>Setter for the field <code>subnetIds</code>.</p>
+   *
+   * @param subnetIds a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateNetworkRequest} object
+   */
   public CreateNetworkRequest setSubnetIds(Collection<String> subnetIds) {
     this.subnetIds = subnetIds;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>subnetIds</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<String> getSubnetIds() {
     return subnetIds;
   }
 
+  /**
+   * <p>Setter for the field <code>vpcEndpoints</code>.</p>
+   *
+   * @param vpcEndpoints a {@link com.databricks.sdk.service.provisioning.NetworkVpcEndpoints} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateNetworkRequest} object
+   */
   public CreateNetworkRequest setVpcEndpoints(NetworkVpcEndpoints vpcEndpoints) {
     this.vpcEndpoints = vpcEndpoints;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>vpcEndpoints</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.NetworkVpcEndpoints} object
+   */
   public NetworkVpcEndpoints getVpcEndpoints() {
     return vpcEndpoints;
   }
 
+  /**
+   * <p>Setter for the field <code>vpcId</code>.</p>
+   *
+   * @param vpcId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CreateNetworkRequest} object
+   */
   public CreateNetworkRequest setVpcId(String vpcId) {
     this.vpcId = vpcId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>vpcId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getVpcId() {
     return vpcId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -116,12 +189,14 @@ public class CreateNetworkRequest {
         && Objects.equals(vpcId, that.vpcId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
         gcpNetworkInfo, networkName, securityGroupIds, subnetIds, vpcEndpoints, vpcId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateNetworkRequest.class)

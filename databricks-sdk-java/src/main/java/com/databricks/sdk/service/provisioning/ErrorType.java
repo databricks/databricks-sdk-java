@@ -5,6 +5,9 @@ package com.databricks.sdk.service.provisioning;
 /**
  * The AWS resource associated with this error: credentials, VPC, subnet, security group, or network
  * ACL.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum ErrorType {
   credentials,

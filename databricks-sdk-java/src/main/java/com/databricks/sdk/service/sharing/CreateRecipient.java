@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>CreateRecipient class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateRecipient {
   /** The delta sharing authentication type. */
   @JsonProperty("authentication_type")
@@ -48,79 +54,168 @@ public class CreateRecipient {
   @JsonProperty("sharing_code")
   private String sharingCode;
 
+  /**
+   * <p>Setter for the field <code>authenticationType</code>.</p>
+   *
+   * @param authenticationType a {@link com.databricks.sdk.service.sharing.AuthenticationType} object
+   * @return a {@link com.databricks.sdk.service.sharing.CreateRecipient} object
+   */
   public CreateRecipient setAuthenticationType(AuthenticationType authenticationType) {
     this.authenticationType = authenticationType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>authenticationType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sharing.AuthenticationType} object
+   */
   public AuthenticationType getAuthenticationType() {
     return authenticationType;
   }
 
+  /**
+   * <p>Setter for the field <code>comment</code>.</p>
+   *
+   * @param comment a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.CreateRecipient} object
+   */
   public CreateRecipient setComment(String comment) {
     this.comment = comment;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>comment</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getComment() {
     return comment;
   }
 
+  /**
+   * <p>Setter for the field <code>dataRecipientGlobalMetastoreId</code>.</p>
+   *
+   * @param dataRecipientGlobalMetastoreId a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.sharing.CreateRecipient} object
+   */
   public CreateRecipient setDataRecipientGlobalMetastoreId(
       Object /* MISSING TYPE */ dataRecipientGlobalMetastoreId) {
     this.dataRecipientGlobalMetastoreId = dataRecipientGlobalMetastoreId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dataRecipientGlobalMetastoreId</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getDataRecipientGlobalMetastoreId() {
     return dataRecipientGlobalMetastoreId;
   }
 
+  /**
+   * <p>Setter for the field <code>ipAccessList</code>.</p>
+   *
+   * @param ipAccessList a {@link com.databricks.sdk.service.sharing.IpAccessList} object
+   * @return a {@link com.databricks.sdk.service.sharing.CreateRecipient} object
+   */
   public CreateRecipient setIpAccessList(IpAccessList ipAccessList) {
     this.ipAccessList = ipAccessList;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>ipAccessList</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.sharing.IpAccessList} object
+   */
   public IpAccessList getIpAccessList() {
     return ipAccessList;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.CreateRecipient} object
+   */
   public CreateRecipient setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>owner</code>.</p>
+   *
+   * @param owner a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.CreateRecipient} object
+   */
   public CreateRecipient setOwner(String owner) {
     this.owner = owner;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>owner</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getOwner() {
     return owner;
   }
 
+  /**
+   * <p>Setter for the field <code>propertiesKvpairs</code>.</p>
+   *
+   * @param propertiesKvpairs a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.sharing.CreateRecipient} object
+   */
   public CreateRecipient setPropertiesKvpairs(Object /* MISSING TYPE */ propertiesKvpairs) {
     this.propertiesKvpairs = propertiesKvpairs;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>propertiesKvpairs</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getPropertiesKvpairs() {
     return propertiesKvpairs;
   }
 
+  /**
+   * <p>Setter for the field <code>sharingCode</code>.</p>
+   *
+   * @param sharingCode a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.sharing.CreateRecipient} object
+   */
   public CreateRecipient setSharingCode(String sharingCode) {
     this.sharingCode = sharingCode;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sharingCode</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSharingCode() {
     return sharingCode;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -136,6 +231,7 @@ public class CreateRecipient {
         && Objects.equals(sharingCode, that.sharingCode);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -149,6 +245,7 @@ public class CreateRecipient {
         sharingCode);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateRecipient.class)

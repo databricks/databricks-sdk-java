@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
+/**
+ * <p>TableType class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum TableType {
   EXTERNAL,
   MANAGED,

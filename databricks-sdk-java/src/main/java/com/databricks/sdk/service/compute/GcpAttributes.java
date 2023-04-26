@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>GcpAttributes class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class GcpAttributes {
   /**
    * This field determines whether the spark executors will be scheduled to run on preemptible VMs,
@@ -27,33 +33,67 @@ public class GcpAttributes {
   @JsonProperty("google_service_account")
   private String googleServiceAccount;
 
+  /**
+   * <p>Setter for the field <code>availability</code>.</p>
+   *
+   * @param availability a {@link com.databricks.sdk.service.compute.GcpAvailability} object
+   * @return a {@link com.databricks.sdk.service.compute.GcpAttributes} object
+   */
   public GcpAttributes setAvailability(GcpAvailability availability) {
     this.availability = availability;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>availability</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.GcpAvailability} object
+   */
   public GcpAvailability getAvailability() {
     return availability;
   }
 
+  /**
+   * <p>Setter for the field <code>bootDiskSize</code>.</p>
+   *
+   * @param bootDiskSize a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.GcpAttributes} object
+   */
   public GcpAttributes setBootDiskSize(Long bootDiskSize) {
     this.bootDiskSize = bootDiskSize;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>bootDiskSize</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getBootDiskSize() {
     return bootDiskSize;
   }
 
+  /**
+   * <p>Setter for the field <code>googleServiceAccount</code>.</p>
+   *
+   * @param googleServiceAccount a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.GcpAttributes} object
+   */
   public GcpAttributes setGoogleServiceAccount(String googleServiceAccount) {
     this.googleServiceAccount = googleServiceAccount;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>googleServiceAccount</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGoogleServiceAccount() {
     return googleServiceAccount;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -64,11 +104,13 @@ public class GcpAttributes {
         && Objects.equals(googleServiceAccount, that.googleServiceAccount);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(availability, bootDiskSize, googleServiceAccount);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GcpAttributes.class)

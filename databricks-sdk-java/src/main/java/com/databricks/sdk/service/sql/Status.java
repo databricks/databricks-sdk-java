@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
-/** Health status of the warehouse. */
+/**
+ * Health status of the warehouse.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum Status {
   DEGRADED,
   FAILED,

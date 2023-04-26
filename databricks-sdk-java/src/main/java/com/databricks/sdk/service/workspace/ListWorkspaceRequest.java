@@ -6,7 +6,12 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** List contents */
+/**
+ * List contents
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ListWorkspaceRequest {
   /** <content needed> */
   @QueryParam("notebooks_modified_after")
@@ -16,24 +21,47 @@ public class ListWorkspaceRequest {
   @QueryParam("path")
   private String path;
 
+  /**
+   * <p>Setter for the field <code>notebooksModifiedAfter</code>.</p>
+   *
+   * @param notebooksModifiedAfter a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.workspace.ListWorkspaceRequest} object
+   */
   public ListWorkspaceRequest setNotebooksModifiedAfter(Long notebooksModifiedAfter) {
     this.notebooksModifiedAfter = notebooksModifiedAfter;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>notebooksModifiedAfter</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getNotebooksModifiedAfter() {
     return notebooksModifiedAfter;
   }
 
+  /**
+   * <p>Setter for the field <code>path</code>.</p>
+   *
+   * @param path a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.ListWorkspaceRequest} object
+   */
   public ListWorkspaceRequest setPath(String path) {
     this.path = path;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>path</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPath() {
     return path;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -43,11 +71,13 @@ public class ListWorkspaceRequest {
         && Objects.equals(path, that.path);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(notebooksModifiedAfter, path);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ListWorkspaceRequest.class)

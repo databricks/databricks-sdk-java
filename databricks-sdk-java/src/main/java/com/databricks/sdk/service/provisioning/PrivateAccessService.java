@@ -9,6 +9,9 @@ import java.util.Collection;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface PrivateAccessService {
   /**
@@ -27,6 +30,9 @@ public interface PrivateAccessService {
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   *
+   * @param upsertPrivateAccessSettingsRequest a {@link com.databricks.sdk.service.provisioning.UpsertPrivateAccessSettingsRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.PrivateAccessSettings} object
    */
   PrivateAccessSettings create(
       UpsertPrivateAccessSettingsRequest upsertPrivateAccessSettingsRequest);
@@ -42,6 +48,8 @@ public interface PrivateAccessService {
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   *
+   * @param deletePrivateAccesRequest a {@link com.databricks.sdk.service.provisioning.DeletePrivateAccesRequest} object
    */
   void delete(DeletePrivateAccesRequest deletePrivateAccesRequest);
 
@@ -56,6 +64,9 @@ public interface PrivateAccessService {
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   *
+   * @param getPrivateAccesRequest a {@link com.databricks.sdk.service.provisioning.GetPrivateAccesRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.PrivateAccessSettings} object
    */
   PrivateAccessSettings get(GetPrivateAccesRequest getPrivateAccesRequest);
 
@@ -63,6 +74,8 @@ public interface PrivateAccessService {
    * Get all private access settings objects.
    *
    * <p>Gets a list of all private access settings objects for an account, specified by ID.
+   *
+   * @return a {@link java.util.Collection} object
    */
   Collection<PrivateAccessSettings> list();
 
@@ -87,6 +100,8 @@ public interface PrivateAccessService {
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
+   *
+   * @param upsertPrivateAccessSettingsRequest a {@link com.databricks.sdk.service.provisioning.UpsertPrivateAccessSettingsRequest} object
    */
   void replace(UpsertPrivateAccessSettingsRequest upsertPrivateAccessSettingsRequest);
 }

@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>CreateLogDeliveryConfigurationParams class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateLogDeliveryConfigurationParams {
   /** The optional human-readable name of the log delivery configuration. Defaults to empty. */
   @JsonProperty("config_name")
@@ -109,89 +115,189 @@ public class CreateLogDeliveryConfigurationParams {
   @JsonProperty("workspace_ids_filter")
   private Collection<Long> workspaceIdsFilter;
 
+  /**
+   * <p>Setter for the field <code>configName</code>.</p>
+   *
+   * @param configName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.CreateLogDeliveryConfigurationParams} object
+   */
   public CreateLogDeliveryConfigurationParams setConfigName(String configName) {
     this.configName = configName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>configName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getConfigName() {
     return configName;
   }
 
+  /**
+   * <p>Setter for the field <code>credentialsId</code>.</p>
+   *
+   * @param credentialsId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.CreateLogDeliveryConfigurationParams} object
+   */
   public CreateLogDeliveryConfigurationParams setCredentialsId(String credentialsId) {
     this.credentialsId = credentialsId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>credentialsId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCredentialsId() {
     return credentialsId;
   }
 
+  /**
+   * <p>Setter for the field <code>deliveryPathPrefix</code>.</p>
+   *
+   * @param deliveryPathPrefix a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.CreateLogDeliveryConfigurationParams} object
+   */
   public CreateLogDeliveryConfigurationParams setDeliveryPathPrefix(String deliveryPathPrefix) {
     this.deliveryPathPrefix = deliveryPathPrefix;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>deliveryPathPrefix</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDeliveryPathPrefix() {
     return deliveryPathPrefix;
   }
 
+  /**
+   * <p>Setter for the field <code>deliveryStartTime</code>.</p>
+   *
+   * @param deliveryStartTime a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.CreateLogDeliveryConfigurationParams} object
+   */
   public CreateLogDeliveryConfigurationParams setDeliveryStartTime(String deliveryStartTime) {
     this.deliveryStartTime = deliveryStartTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>deliveryStartTime</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDeliveryStartTime() {
     return deliveryStartTime;
   }
 
+  /**
+   * <p>Setter for the field <code>logType</code>.</p>
+   *
+   * @param logType a {@link com.databricks.sdk.service.billing.LogType} object
+   * @return a {@link com.databricks.sdk.service.billing.CreateLogDeliveryConfigurationParams} object
+   */
   public CreateLogDeliveryConfigurationParams setLogType(LogType logType) {
     this.logType = logType;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>logType</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.billing.LogType} object
+   */
   public LogType getLogType() {
     return logType;
   }
 
+  /**
+   * <p>Setter for the field <code>outputFormat</code>.</p>
+   *
+   * @param outputFormat a {@link com.databricks.sdk.service.billing.OutputFormat} object
+   * @return a {@link com.databricks.sdk.service.billing.CreateLogDeliveryConfigurationParams} object
+   */
   public CreateLogDeliveryConfigurationParams setOutputFormat(OutputFormat outputFormat) {
     this.outputFormat = outputFormat;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>outputFormat</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.billing.OutputFormat} object
+   */
   public OutputFormat getOutputFormat() {
     return outputFormat;
   }
 
+  /**
+   * <p>Setter for the field <code>status</code>.</p>
+   *
+   * @param status a {@link com.databricks.sdk.service.billing.LogDeliveryConfigStatus} object
+   * @return a {@link com.databricks.sdk.service.billing.CreateLogDeliveryConfigurationParams} object
+   */
   public CreateLogDeliveryConfigurationParams setStatus(LogDeliveryConfigStatus status) {
     this.status = status;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>status</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.billing.LogDeliveryConfigStatus} object
+   */
   public LogDeliveryConfigStatus getStatus() {
     return status;
   }
 
+  /**
+   * <p>Setter for the field <code>storageConfigurationId</code>.</p>
+   *
+   * @param storageConfigurationId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.billing.CreateLogDeliveryConfigurationParams} object
+   */
   public CreateLogDeliveryConfigurationParams setStorageConfigurationId(
       String storageConfigurationId) {
     this.storageConfigurationId = storageConfigurationId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>storageConfigurationId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getStorageConfigurationId() {
     return storageConfigurationId;
   }
 
+  /**
+   * <p>Setter for the field <code>workspaceIdsFilter</code>.</p>
+   *
+   * @param workspaceIdsFilter a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.billing.CreateLogDeliveryConfigurationParams} object
+   */
   public CreateLogDeliveryConfigurationParams setWorkspaceIdsFilter(
       Collection<Long> workspaceIdsFilter) {
     this.workspaceIdsFilter = workspaceIdsFilter;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>workspaceIdsFilter</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<Long> getWorkspaceIdsFilter() {
     return workspaceIdsFilter;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -208,6 +314,7 @@ public class CreateLogDeliveryConfigurationParams {
         && Objects.equals(workspaceIdsFilter, that.workspaceIdsFilter);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -222,6 +329,7 @@ public class CreateLogDeliveryConfigurationParams {
         workspaceIdsFilter);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateLogDeliveryConfigurationParams.class)

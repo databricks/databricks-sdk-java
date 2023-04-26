@@ -6,11 +6,23 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** Helper methods for inspecting the response and errors thrown during API requests. */
+/**
+ * Helper methods for inspecting the response and errors thrown during API requests.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ApiErrors {
   private static final ObjectMapper MAPPER = new ObjectMapper();
   private static final Pattern HTML_ERROR_REGEX = Pattern.compile("<pre>(.*)</pre>");
 
+  /**
+   * <p>checkForRetry.</p>
+   *
+   * @param out a {@link com.databricks.sdk.client.http.Response} object
+   * @param error a {@link java.lang.Exception} object
+   * @return a {@link com.databricks.sdk.client.error.CheckForRetryResult} object
+   */
   public static CheckForRetryResult checkForRetry(Response out, Exception error) {
     if (error != null) {
       // If the endpoint did not respond to the request, interpret the exception.

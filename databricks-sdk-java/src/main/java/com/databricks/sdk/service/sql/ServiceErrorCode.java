@@ -2,6 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
+/**
+ * <p>ServiceErrorCode class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum ServiceErrorCode {
   ABORTED,
   ALREADY_EXISTS,

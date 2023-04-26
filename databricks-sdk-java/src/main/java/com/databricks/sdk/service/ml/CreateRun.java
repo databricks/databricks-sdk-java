@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>CreateRun class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateRun {
   /** ID of the associated experiment. */
   @JsonProperty("experiment_id")
@@ -27,42 +33,87 @@ public class CreateRun {
   @JsonProperty("user_id")
   private String userId;
 
+  /**
+   * <p>Setter for the field <code>experimentId</code>.</p>
+   *
+   * @param experimentId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateRun} object
+   */
   public CreateRun setExperimentId(String experimentId) {
     this.experimentId = experimentId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>experimentId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getExperimentId() {
     return experimentId;
   }
 
+  /**
+   * <p>Setter for the field <code>startTime</code>.</p>
+   *
+   * @param startTime a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateRun} object
+   */
   public CreateRun setStartTime(Long startTime) {
     this.startTime = startTime;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>startTime</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getStartTime() {
     return startTime;
   }
 
+  /**
+   * <p>Setter for the field <code>tags</code>.</p>
+   *
+   * @param tags a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateRun} object
+   */
   public CreateRun setTags(Collection<RunTag> tags) {
     this.tags = tags;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>tags</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<RunTag> getTags() {
     return tags;
   }
 
+  /**
+   * <p>Setter for the field <code>userId</code>.</p>
+   *
+   * @param userId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.CreateRun} object
+   */
   public CreateRun setUserId(String userId) {
     this.userId = userId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>userId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUserId() {
     return userId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -74,11 +125,13 @@ public class CreateRun {
         && Objects.equals(userId, that.userId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(experimentId, startTime, tags, userId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateRun.class)

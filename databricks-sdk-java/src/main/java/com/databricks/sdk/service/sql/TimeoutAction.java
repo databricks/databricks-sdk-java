@@ -11,6 +11,9 @@ package com.databricks.sdk.service.sql;
  *
  * <p>`CANCEL` → the statement execution is canceled and the call returns immediately with a
  * `CANCELED` state.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum TimeoutAction {
   CANCEL,

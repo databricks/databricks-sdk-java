@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>UpdateRepo class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class UpdateRepo {
   /** Branch that the local version of the repo is checked out to. */
   @JsonProperty("branch")
@@ -29,42 +35,87 @@ public class UpdateRepo {
   @JsonProperty("tag")
   private String tag;
 
+  /**
+   * <p>Setter for the field <code>branch</code>.</p>
+   *
+   * @param branch a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.UpdateRepo} object
+   */
   public UpdateRepo setBranch(String branch) {
     this.branch = branch;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>branch</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getBranch() {
     return branch;
   }
 
+  /**
+   * <p>Setter for the field <code>repoId</code>.</p>
+   *
+   * @param repoId a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.workspace.UpdateRepo} object
+   */
   public UpdateRepo setRepoId(Long repoId) {
     this.repoId = repoId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>repoId</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getRepoId() {
     return repoId;
   }
 
+  /**
+   * <p>Setter for the field <code>sparseCheckout</code>.</p>
+   *
+   * @param sparseCheckout a {@link com.databricks.sdk.service.workspace.SparseCheckoutUpdate} object
+   * @return a {@link com.databricks.sdk.service.workspace.UpdateRepo} object
+   */
   public UpdateRepo setSparseCheckout(SparseCheckoutUpdate sparseCheckout) {
     this.sparseCheckout = sparseCheckout;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparseCheckout</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.workspace.SparseCheckoutUpdate} object
+   */
   public SparseCheckoutUpdate getSparseCheckout() {
     return sparseCheckout;
   }
 
+  /**
+   * <p>Setter for the field <code>tag</code>.</p>
+   *
+   * @param tag a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.workspace.UpdateRepo} object
+   */
   public UpdateRepo setTag(String tag) {
     this.tag = tag;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>tag</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTag() {
     return tag;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -76,11 +127,13 @@ public class UpdateRepo {
         && Objects.equals(tag, that.tag);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(branch, repoId, sparseCheckout, tag);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(UpdateRepo.class)

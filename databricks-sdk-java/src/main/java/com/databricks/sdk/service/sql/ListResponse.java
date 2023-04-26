@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>ListResponse class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ListResponse {
   /** The total number of dashboards. */
   @JsonProperty("count")
@@ -24,42 +30,87 @@ public class ListResponse {
   @JsonProperty("results")
   private Collection<Dashboard> results;
 
+  /**
+   * <p>Setter for the field <code>count</code>.</p>
+   *
+   * @param count a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ListResponse} object
+   */
   public ListResponse setCount(Long count) {
     this.count = count;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>count</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCount() {
     return count;
   }
 
+  /**
+   * <p>Setter for the field <code>page</code>.</p>
+   *
+   * @param page a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ListResponse} object
+   */
   public ListResponse setPage(Long page) {
     this.page = page;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>page</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getPage() {
     return page;
   }
 
+  /**
+   * <p>Setter for the field <code>pageSize</code>.</p>
+   *
+   * @param pageSize a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.sql.ListResponse} object
+   */
   public ListResponse setPageSize(Long pageSize) {
     this.pageSize = pageSize;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pageSize</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getPageSize() {
     return pageSize;
   }
 
+  /**
+   * <p>Setter for the field <code>results</code>.</p>
+   *
+   * @param results a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.sql.ListResponse} object
+   */
   public ListResponse setResults(Collection<Dashboard> results) {
     this.results = results;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>results</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<Dashboard> getResults() {
     return results;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -71,11 +122,13 @@ public class ListResponse {
         && Objects.equals(results, that.results);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(count, page, pageSize, results);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ListResponse.class)

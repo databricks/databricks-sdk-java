@@ -11,6 +11,9 @@ package com.databricks.sdk.service.oauth2;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface CustomAppIntegrationService {
   /**
@@ -19,6 +22,9 @@ public interface CustomAppIntegrationService {
    * <p>Create Custom OAuth App Integration.
    *
    * <p>You can retrieve the custom oauth app integration via :method:get.
+   *
+   * @param createCustomAppIntegration a {@link com.databricks.sdk.service.oauth2.CreateCustomAppIntegration} object
+   * @return a {@link com.databricks.sdk.service.oauth2.CreateCustomAppIntegrationOutput} object
    */
   CreateCustomAppIntegrationOutput create(CreateCustomAppIntegration createCustomAppIntegration);
 
@@ -27,6 +33,8 @@ public interface CustomAppIntegrationService {
    *
    * <p>Delete an existing Custom OAuth App Integration. You can retrieve the custom oauth app
    * integration via :method:get.
+   *
+   * @param deleteCustomAppIntegrationRequest a {@link com.databricks.sdk.service.oauth2.DeleteCustomAppIntegrationRequest} object
    */
   void delete(DeleteCustomAppIntegrationRequest deleteCustomAppIntegrationRequest);
 
@@ -34,6 +42,9 @@ public interface CustomAppIntegrationService {
    * Get OAuth Custom App Integration.
    *
    * <p>Gets the Custom OAuth App Integration for the given integration id.
+   *
+   * @param getCustomAppIntegrationRequest a {@link com.databricks.sdk.service.oauth2.GetCustomAppIntegrationRequest} object
+   * @return a {@link com.databricks.sdk.service.oauth2.GetCustomAppIntegrationOutput} object
    */
   GetCustomAppIntegrationOutput get(GetCustomAppIntegrationRequest getCustomAppIntegrationRequest);
 
@@ -41,6 +52,8 @@ public interface CustomAppIntegrationService {
    * Get custom oauth app integrations.
    *
    * <p>Get the list of custom oauth app integrations for the specified Databricks Account
+   *
+   * @return a {@link com.databricks.sdk.service.oauth2.GetCustomAppIntegrationsOutput} object
    */
   GetCustomAppIntegrationsOutput list();
 
@@ -49,6 +62,8 @@ public interface CustomAppIntegrationService {
    *
    * <p>Updates an existing custom OAuth App Integration. You can retrieve the custom oauth app
    * integration via :method:get.
+   *
+   * @param updateCustomAppIntegration a {@link com.databricks.sdk.service.oauth2.UpdateCustomAppIntegration} object
    */
   void update(UpdateCustomAppIntegration updateCustomAppIntegration);
 }

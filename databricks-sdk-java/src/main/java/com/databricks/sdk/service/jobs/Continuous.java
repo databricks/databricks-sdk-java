@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>Continuous class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class Continuous {
   /**
    * Indicate whether the continuous execution of the job is paused or not. Defaults to UNPAUSED.
@@ -13,15 +19,27 @@ public class Continuous {
   @JsonProperty("pause_status")
   private ContinuousPauseStatus pauseStatus;
 
+  /**
+   * <p>Setter for the field <code>pauseStatus</code>.</p>
+   *
+   * @param pauseStatus a {@link com.databricks.sdk.service.jobs.ContinuousPauseStatus} object
+   * @return a {@link com.databricks.sdk.service.jobs.Continuous} object
+   */
   public Continuous setPauseStatus(ContinuousPauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pauseStatus</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.ContinuousPauseStatus} object
+   */
   public ContinuousPauseStatus getPauseStatus() {
     return pauseStatus;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -30,11 +48,13 @@ public class Continuous {
     return Objects.equals(pauseStatus, that.pauseStatus);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(pauseStatus);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(Continuous.class).add("pauseStatus", pauseStatus).toString();

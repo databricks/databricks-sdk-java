@@ -28,12 +28,17 @@ package com.databricks.sdk.service.compute;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface ClustersService {
   /**
    * Change cluster owner.
    *
    * <p>Change the owner of the cluster. You must be an admin to perform this operation.
+   *
+   * @param changeClusterOwner a {@link com.databricks.sdk.service.compute.ChangeClusterOwner} object
    */
   void changeOwner(ChangeClusterOwner changeClusterOwner);
 
@@ -50,6 +55,9 @@ public interface ClustersService {
    *
    * <p>If Databricks acquires at least 85% of the requested on-demand nodes, cluster creation will
    * succeed. Otherwise the cluster will terminate with an informative error message.
+   *
+   * @param createCluster a {@link com.databricks.sdk.service.compute.CreateCluster} object
+   * @return a {@link com.databricks.sdk.service.compute.CreateClusterResponse} object
    */
   CreateClusterResponse create(CreateCluster createCluster);
 
@@ -59,6 +67,8 @@ public interface ClustersService {
    * <p>Terminates the Spark cluster with the specified ID. The cluster is removed asynchronously.
    * Once the termination has completed, the cluster will be in a `TERMINATED` state. If the cluster
    * is already in a `TERMINATING` or `TERMINATED` state, nothing will happen.
+   *
+   * @param deleteCluster a {@link com.databricks.sdk.service.compute.DeleteCluster} object
    */
   void delete(DeleteCluster deleteCluster);
 
@@ -77,6 +87,8 @@ public interface ClustersService {
    * code.
    *
    * <p>Clusters created by the Databricks Jobs service cannot be edited.
+   *
+   * @param editCluster a {@link com.databricks.sdk.service.compute.EditCluster} object
    */
   void edit(EditCluster editCluster);
 
@@ -86,6 +98,9 @@ public interface ClustersService {
    * <p>Retrieves a list of events about the activity of a cluster. This API is paginated. If there
    * are more events to read, the response includes all the nparameters necessary to request the
    * next page of events.
+   *
+   * @param getEvents a {@link com.databricks.sdk.service.compute.GetEvents} object
+   * @return a {@link com.databricks.sdk.service.compute.GetEventsResponse} object
    */
   GetEventsResponse events(GetEvents getEvents);
 
@@ -94,6 +109,9 @@ public interface ClustersService {
    *
    * <p>"Retrieves the information for a cluster given its identifier. Clusters can be described
    * while they are running, or up to 60 days after they are terminated.
+   *
+   * @param getClusterRequest a {@link com.databricks.sdk.service.compute.GetClusterRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.ClusterInfo} object
    */
   ClusterInfo get(GetClusterRequest getClusterRequest);
 
@@ -108,6 +126,9 @@ public interface ClustersService {
    * clusters in the past 30 days, and 50 terminated job clusters in the past 30 days, then this API
    * returns the 1 pinned cluster, 4 active clusters, all 45 terminated all-purpose clusters, and
    * the 30 most recently terminated job clusters.
+   *
+   * @param listClustersRequest a {@link com.databricks.sdk.service.compute.ListClustersRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.ListClustersResponse} object
    */
   ListClustersResponse list(ListClustersRequest listClustersRequest);
 
@@ -116,6 +137,8 @@ public interface ClustersService {
    *
    * <p>Returns a list of supported Spark node types. These node types can be used to launch a
    * cluster.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ListNodeTypesResponse} object
    */
   ListNodeTypesResponse listNodeTypes();
 
@@ -124,6 +147,8 @@ public interface ClustersService {
    *
    * <p>Returns a list of availability zones where clusters can be created in (For example,
    * us-west-2a). These zones can be used to launch a cluster.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ListAvailableZonesResponse} object
    */
   ListAvailableZonesResponse listZones();
 
@@ -135,6 +160,8 @@ public interface ClustersService {
    *
    * <p>In addition, users will no longer see permanently deleted clusters in the cluster list, and
    * API users can no longer perform any action on permanently deleted clusters.
+   *
+   * @param permanentDeleteCluster a {@link com.databricks.sdk.service.compute.PermanentDeleteCluster} object
    */
   void permanentDelete(PermanentDeleteCluster permanentDeleteCluster);
 
@@ -144,6 +171,8 @@ public interface ClustersService {
    * <p>Pinning a cluster ensures that the cluster will always be returned by the ListClusters API.
    * Pinning a cluster that is already pinned will have no effect. This API can only be called by
    * workspace admins.
+   *
+   * @param pinCluster a {@link com.databricks.sdk.service.compute.PinCluster} object
    */
   void pin(PinCluster pinCluster);
 
@@ -152,6 +181,8 @@ public interface ClustersService {
    *
    * <p>Resizes a cluster to have a desired number of workers. This will fail unless the cluster is
    * in a `RUNNING` state.
+   *
+   * @param resizeCluster a {@link com.databricks.sdk.service.compute.ResizeCluster} object
    */
   void resize(ResizeCluster resizeCluster);
 
@@ -160,6 +191,8 @@ public interface ClustersService {
    *
    * <p>Restarts a Spark cluster with the supplied ID. If the cluster is not currently in a
    * `RUNNING` state, nothing will happen.
+   *
+   * @param restartCluster a {@link com.databricks.sdk.service.compute.RestartCluster} object
    */
   void restart(RestartCluster restartCluster);
 
@@ -168,6 +201,8 @@ public interface ClustersService {
    *
    * <p>Returns the list of available Spark versions. These versions can be used to launch a
    * cluster.
+   *
+   * @return a {@link com.databricks.sdk.service.compute.GetSparkVersionsResponse} object
    */
   GetSparkVersionsResponse sparkVersions();
 
@@ -181,6 +216,8 @@ public interface ClustersService {
    * specified cluster size. * If the previous cluster was an autoscaling cluster, the current
    * cluster starts with the minimum number of nodes. * If the cluster is not currently in a
    * `TERMINATED` state, nothing will happen. * Clusters launched to run a job cannot be started.
+   *
+   * @param startCluster a {@link com.databricks.sdk.service.compute.StartCluster} object
    */
   void start(StartCluster startCluster);
 
@@ -190,6 +227,8 @@ public interface ClustersService {
    * <p>Unpinning a cluster will allow the cluster to eventually be removed from the ListClusters
    * API. Unpinning a cluster that is not pinned will have no effect. This API can only be called by
    * workspace admins.
+   *
+   * @param unpinCluster a {@link com.databricks.sdk.service.compute.UnpinCluster} object
    */
   void unpin(UnpinCluster unpinCluster);
 }

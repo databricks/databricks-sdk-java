@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>CreateStorageCredential class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class CreateStorageCredential {
   /** The AWS IAM role configuration. */
   @JsonProperty("aws_iam_role")
@@ -38,80 +44,169 @@ public class CreateStorageCredential {
   @JsonProperty("skip_validation")
   private Boolean skipValidation;
 
+  /**
+   * <p>Setter for the field <code>awsIamRole</code>.</p>
+   *
+   * @param awsIamRole a {@link com.databricks.sdk.service.catalog.AwsIamRole} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   */
   public CreateStorageCredential setAwsIamRole(AwsIamRole awsIamRole) {
     this.awsIamRole = awsIamRole;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsIamRole</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.AwsIamRole} object
+   */
   public AwsIamRole getAwsIamRole() {
     return awsIamRole;
   }
 
+  /**
+   * <p>Setter for the field <code>azureServicePrincipal</code>.</p>
+   *
+   * @param azureServicePrincipal a {@link com.databricks.sdk.service.catalog.AzureServicePrincipal} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   */
   public CreateStorageCredential setAzureServicePrincipal(
       AzureServicePrincipal azureServicePrincipal) {
     this.azureServicePrincipal = azureServicePrincipal;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>azureServicePrincipal</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.AzureServicePrincipal} object
+   */
   public AzureServicePrincipal getAzureServicePrincipal() {
     return azureServicePrincipal;
   }
 
+  /**
+   * <p>Setter for the field <code>comment</code>.</p>
+   *
+   * @param comment a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   */
   public CreateStorageCredential setComment(String comment) {
     this.comment = comment;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>comment</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getComment() {
     return comment;
   }
 
+  /**
+   * <p>Setter for the field <code>gcpServiceAccountKey</code>.</p>
+   *
+   * @param gcpServiceAccountKey a {@link com.databricks.sdk.service.catalog.GcpServiceAccountKey} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   */
   public CreateStorageCredential setGcpServiceAccountKey(
       GcpServiceAccountKey gcpServiceAccountKey) {
     this.gcpServiceAccountKey = gcpServiceAccountKey;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gcpServiceAccountKey</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.GcpServiceAccountKey} object
+   */
   public GcpServiceAccountKey getGcpServiceAccountKey() {
     return gcpServiceAccountKey;
   }
 
+  /**
+   * <p>Setter for the field <code>metastoreId</code>.</p>
+   *
+   * @param metastoreId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   */
   public CreateStorageCredential setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>metastoreId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getMetastoreId() {
     return metastoreId;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   */
   public CreateStorageCredential setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>readOnly</code>.</p>
+   *
+   * @param readOnly a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   */
   public CreateStorageCredential setReadOnly(Boolean readOnly) {
     this.readOnly = readOnly;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>readOnly</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getReadOnly() {
     return readOnly;
   }
 
+  /**
+   * <p>Setter for the field <code>skipValidation</code>.</p>
+   *
+   * @param skipValidation a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.catalog.CreateStorageCredential} object
+   */
   public CreateStorageCredential setSkipValidation(Boolean skipValidation) {
     this.skipValidation = skipValidation;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>skipValidation</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getSkipValidation() {
     return skipValidation;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -127,6 +222,7 @@ public class CreateStorageCredential {
         && Objects.equals(skipValidation, that.skipValidation);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -140,6 +236,7 @@ public class CreateStorageCredential {
         skipValidation);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(CreateStorageCredential.class)

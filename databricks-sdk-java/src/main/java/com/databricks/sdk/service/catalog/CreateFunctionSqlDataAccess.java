@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** Function SQL data access. */
+/**
+ * Function SQL data access.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum CreateFunctionSqlDataAccess {
   CONTAINS_SQL,
   NO_SQL,

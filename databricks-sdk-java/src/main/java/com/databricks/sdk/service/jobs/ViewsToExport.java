@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum ViewsToExport {
   ALL, // All views of the notebook.
   CODE, // Code view of the notebook.

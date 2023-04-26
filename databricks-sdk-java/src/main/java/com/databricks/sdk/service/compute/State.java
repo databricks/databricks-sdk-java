@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
-/** Current state of the cluster. */
+/**
+ * Current state of the cluster.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum State {
   ERROR,
   PENDING,

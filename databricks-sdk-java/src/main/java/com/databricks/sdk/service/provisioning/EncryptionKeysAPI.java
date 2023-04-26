@@ -20,22 +20,40 @@ import org.slf4j.LoggerFactory;
  * running workspace with workspace storage encryption requires that the workspace is on the E2
  * version of the platform. If you have an older workspace, it might not be on the E2 version of the
  * platform. If you are not sure, contact your Databricks representative.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class EncryptionKeysAPI {
   private static final Logger LOG = LoggerFactory.getLogger(EncryptionKeysAPI.class);
 
   private final EncryptionKeysService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public EncryptionKeysAPI(ApiClient apiClient) {
     impl = new EncryptionKeysImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.provisioning.EncryptionKeysService} object
+   */
   public EncryptionKeysAPI(EncryptionKeysService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param awsKeyInfo a {@link com.databricks.sdk.service.provisioning.CreateAwsKeyInfo} object
+   * @param useCases a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CustomerManagedKey} object
+   */
   public CustomerManagedKey create(CreateAwsKeyInfo awsKeyInfo, Collection<KeyUseCase> useCases) {
     return create(
         new CreateCustomerManagedKeyRequest().setAwsKeyInfo(awsKeyInfo).setUseCases(useCases));
@@ -57,11 +75,19 @@ public class EncryptionKeysAPI {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.CreateCustomerManagedKeyRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CustomerManagedKey} object
    */
   public CustomerManagedKey create(CreateCustomerManagedKeyRequest request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param customerManagedKeyId a {@link java.lang.String} object
+   */
   public void delete(String customerManagedKeyId) {
     delete(new DeleteEncryptionKeyRequest().setCustomerManagedKeyId(customerManagedKeyId));
   }
@@ -71,11 +97,19 @@ public class EncryptionKeysAPI {
    *
    * <p>Deletes a customer-managed key configuration object for an account. You cannot delete a
    * configuration that is associated with a running workspace.
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.DeleteEncryptionKeyRequest} object
    */
   public void delete(DeleteEncryptionKeyRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param customerManagedKeyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CustomerManagedKey} object
+   */
   public CustomerManagedKey get(String customerManagedKeyId) {
     return get(new GetEncryptionKeyRequest().setCustomerManagedKeyId(customerManagedKeyId));
   }
@@ -95,6 +129,9 @@ public class EncryptionKeysAPI {
    * subscription types, and AWS regions.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.GetEncryptionKeyRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.CustomerManagedKey} object
    */
   public CustomerManagedKey get(GetEncryptionKeyRequest request) {
     return impl.get(request);
@@ -114,11 +151,18 @@ public class EncryptionKeysAPI {
    * subscription types, and AWS regions.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<CustomerManagedKey> list() {
     return impl.list();
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.EncryptionKeysService} object
+   */
   public EncryptionKeysService impl() {
     return impl;
   }

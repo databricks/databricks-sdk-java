@@ -11,22 +11,40 @@ import org.slf4j.LoggerFactory;
  * can also use the root storage S3 bucket for storage of non-production DBFS data. A storage
  * configuration encapsulates this bucket information, and its ID is used when creating a new
  * workspace.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class StorageAPI {
   private static final Logger LOG = LoggerFactory.getLogger(StorageAPI.class);
 
   private final StorageService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public StorageAPI(ApiClient apiClient) {
     impl = new StorageImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.provisioning.StorageService} object
+   */
   public StorageAPI(StorageService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param storageConfigurationName a {@link java.lang.String} object
+   * @param rootBucketInfo a {@link com.databricks.sdk.service.provisioning.RootBucketInfo} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
+   */
   public StorageConfiguration create(
       String storageConfigurationName, RootBucketInfo rootBucketInfo) {
     return create(
@@ -48,11 +66,19 @@ public class StorageAPI {
    *
    * <p>[Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.CreateStorageConfigurationRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
    */
   public StorageConfiguration create(CreateStorageConfigurationRequest request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param storageConfigurationId a {@link java.lang.String} object
+   */
   public void delete(String storageConfigurationId) {
     delete(new DeleteStorageRequest().setStorageConfigurationId(storageConfigurationId));
   }
@@ -62,11 +88,19 @@ public class StorageAPI {
    *
    * <p>Deletes a Databricks storage configuration. You cannot delete a storage configuration that
    * is associated with any workspace.
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.DeleteStorageRequest} object
    */
   public void delete(DeleteStorageRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param storageConfigurationId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
+   */
   public StorageConfiguration get(String storageConfigurationId) {
     return get(new GetStorageRequest().setStorageConfigurationId(storageConfigurationId));
   }
@@ -75,6 +109,9 @@ public class StorageAPI {
    * Get storage configuration.
    *
    * <p>Gets a Databricks storage configuration for an account, both specified by ID.
+   *
+   * @param request a {@link com.databricks.sdk.service.provisioning.GetStorageRequest} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageConfiguration} object
    */
   public StorageConfiguration get(GetStorageRequest request) {
     return impl.get(request);
@@ -84,11 +121,18 @@ public class StorageAPI {
    * Get all storage configurations.
    *
    * <p>Gets a list of all Databricks storage configurations for your account, specified by ID.
+   *
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<StorageConfiguration> list() {
     return impl.list();
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.provisioning.StorageService} object
+   */
   public StorageService impl() {
     return impl;
   }

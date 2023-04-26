@@ -8,16 +8,23 @@ import org.apache.http.client.methods.*;
 class BudgetsImpl implements BudgetsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for BudgetsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public BudgetsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public WrappedBudgetWithStatus create(WrappedBudget request) {
     String path = String.format("/api/2.0/accounts/%s/budget", apiClient.configuredAccountID());
     return apiClient.POST(path, request, WrappedBudgetWithStatus.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void delete(DeleteBudgetRequest request) {
     String path =
@@ -27,6 +34,7 @@ class BudgetsImpl implements BudgetsService {
     apiClient.DELETE(path, request, Void.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public WrappedBudgetWithStatus get(GetBudgetRequest request) {
     String path =
@@ -36,12 +44,14 @@ class BudgetsImpl implements BudgetsService {
     return apiClient.GET(path, request, WrappedBudgetWithStatus.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public BudgetList list() {
     String path = String.format("/api/2.0/accounts/%s/budget", apiClient.configuredAccountID());
     return apiClient.GET(path, BudgetList.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public void update(WrappedBudget request) {
     String path =

@@ -26,6 +26,9 @@ import java.util.Objects;
  *
  * <p>[calculate subnet sizes for a new workspace]:
  * https://docs.gcp.databricks.com/administration-guide/cloud-configurations/gcp/network-sizing.html
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class GcpManagedNetworkConfig {
   /**
@@ -49,33 +52,67 @@ public class GcpManagedNetworkConfig {
   @JsonProperty("subnet_cidr")
   private String subnetCidr;
 
+  /**
+   * <p>Setter for the field <code>gkeClusterPodIpRange</code>.</p>
+   *
+   * @param gkeClusterPodIpRange a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.GcpManagedNetworkConfig} object
+   */
   public GcpManagedNetworkConfig setGkeClusterPodIpRange(String gkeClusterPodIpRange) {
     this.gkeClusterPodIpRange = gkeClusterPodIpRange;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gkeClusterPodIpRange</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGkeClusterPodIpRange() {
     return gkeClusterPodIpRange;
   }
 
+  /**
+   * <p>Setter for the field <code>gkeClusterServiceIpRange</code>.</p>
+   *
+   * @param gkeClusterServiceIpRange a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.GcpManagedNetworkConfig} object
+   */
   public GcpManagedNetworkConfig setGkeClusterServiceIpRange(String gkeClusterServiceIpRange) {
     this.gkeClusterServiceIpRange = gkeClusterServiceIpRange;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gkeClusterServiceIpRange</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getGkeClusterServiceIpRange() {
     return gkeClusterServiceIpRange;
   }
 
+  /**
+   * <p>Setter for the field <code>subnetCidr</code>.</p>
+   *
+   * @param subnetCidr a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.GcpManagedNetworkConfig} object
+   */
   public GcpManagedNetworkConfig setSubnetCidr(String subnetCidr) {
     this.subnetCidr = subnetCidr;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>subnetCidr</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getSubnetCidr() {
     return subnetCidr;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -86,11 +123,13 @@ public class GcpManagedNetworkConfig {
         && Objects.equals(subnetCidr, that.subnetCidr);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(gkeClusterPodIpRange, gkeClusterServiceIpRange, subnetCidr);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(GcpManagedNetworkConfig.class)

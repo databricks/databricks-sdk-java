@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>StsRole class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class StsRole {
   /**
    * The external ID that needs to be trusted by the cross-account role. This is always your
@@ -18,24 +24,47 @@ public class StsRole {
   @JsonProperty("role_arn")
   private String roleArn;
 
+  /**
+   * <p>Setter for the field <code>externalId</code>.</p>
+   *
+   * @param externalId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StsRole} object
+   */
   public StsRole setExternalId(String externalId) {
     this.externalId = externalId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>externalId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getExternalId() {
     return externalId;
   }
 
+  /**
+   * <p>Setter for the field <code>roleArn</code>.</p>
+   *
+   * @param roleArn a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.provisioning.StsRole} object
+   */
   public StsRole setRoleArn(String roleArn) {
     this.roleArn = roleArn;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>roleArn</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getRoleArn() {
     return roleArn;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -44,11 +73,13 @@ public class StsRole {
     return Objects.equals(externalId, that.externalId) && Objects.equals(roleArn, that.roleArn);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(externalId, roleArn);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(StsRole.class)

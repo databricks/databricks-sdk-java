@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.billing;
 
-/** This describes an enum */
+/**
+ * This describes an enum
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum DeliveryStatus {
   CREATED, // There were no log delivery attempts since the config was created.
   NOT_FOUND, // The log delivery status as the configuration has been disabled since the

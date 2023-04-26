@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>AzureAttributes class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class AzureAttributes {
   /**
    * Availability type used for all subsequent nodes past the `first_on_demand` ones. Note: If
@@ -40,42 +46,87 @@ public class AzureAttributes {
   @JsonProperty("spot_bid_max_price")
   private Float spotBidMaxPrice;
 
+  /**
+   * <p>Setter for the field <code>availability</code>.</p>
+   *
+   * @param availability a {@link com.databricks.sdk.service.compute.AzureAvailability} object
+   * @return a {@link com.databricks.sdk.service.compute.AzureAttributes} object
+   */
   public AzureAttributes setAvailability(AzureAvailability availability) {
     this.availability = availability;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>availability</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.AzureAvailability} object
+   */
   public AzureAvailability getAvailability() {
     return availability;
   }
 
+  /**
+   * <p>Setter for the field <code>firstOnDemand</code>.</p>
+   *
+   * @param firstOnDemand a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.AzureAttributes} object
+   */
   public AzureAttributes setFirstOnDemand(Long firstOnDemand) {
     this.firstOnDemand = firstOnDemand;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>firstOnDemand</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getFirstOnDemand() {
     return firstOnDemand;
   }
 
+  /**
+   * <p>Setter for the field <code>logAnalyticsInfo</code>.</p>
+   *
+   * @param logAnalyticsInfo a {@link com.databricks.sdk.service.compute.LogAnalyticsInfo} object
+   * @return a {@link com.databricks.sdk.service.compute.AzureAttributes} object
+   */
   public AzureAttributes setLogAnalyticsInfo(LogAnalyticsInfo logAnalyticsInfo) {
     this.logAnalyticsInfo = logAnalyticsInfo;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>logAnalyticsInfo</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.LogAnalyticsInfo} object
+   */
   public LogAnalyticsInfo getLogAnalyticsInfo() {
     return logAnalyticsInfo;
   }
 
+  /**
+   * <p>Setter for the field <code>spotBidMaxPrice</code>.</p>
+   *
+   * @param spotBidMaxPrice a {@link java.lang.Float} object
+   * @return a {@link com.databricks.sdk.service.compute.AzureAttributes} object
+   */
   public AzureAttributes setSpotBidMaxPrice(Float spotBidMaxPrice) {
     this.spotBidMaxPrice = spotBidMaxPrice;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>spotBidMaxPrice</code>.</p>
+   *
+   * @return a {@link java.lang.Float} object
+   */
   public Float getSpotBidMaxPrice() {
     return spotBidMaxPrice;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -87,11 +138,13 @@ public class AzureAttributes {
         && Objects.equals(spotBidMaxPrice, that.spotBidMaxPrice);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(availability, firstOnDemand, logAnalyticsInfo, spotBidMaxPrice);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(AzureAttributes.class)

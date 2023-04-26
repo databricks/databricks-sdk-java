@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>UpdateStorageCredential class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class UpdateStorageCredential {
   /** The AWS IAM role configuration. */
   @JsonProperty("aws_iam_role")
@@ -43,89 +49,189 @@ public class UpdateStorageCredential {
   @JsonProperty("skip_validation")
   private Boolean skipValidation;
 
+  /**
+   * <p>Setter for the field <code>awsIamRole</code>.</p>
+   *
+   * @param awsIamRole a {@link com.databricks.sdk.service.catalog.AwsIamRole} object
+   * @return a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   */
   public UpdateStorageCredential setAwsIamRole(AwsIamRole awsIamRole) {
     this.awsIamRole = awsIamRole;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>awsIamRole</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.AwsIamRole} object
+   */
   public AwsIamRole getAwsIamRole() {
     return awsIamRole;
   }
 
+  /**
+   * <p>Setter for the field <code>azureServicePrincipal</code>.</p>
+   *
+   * @param azureServicePrincipal a {@link com.databricks.sdk.service.catalog.AzureServicePrincipal} object
+   * @return a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   */
   public UpdateStorageCredential setAzureServicePrincipal(
       AzureServicePrincipal azureServicePrincipal) {
     this.azureServicePrincipal = azureServicePrincipal;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>azureServicePrincipal</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.AzureServicePrincipal} object
+   */
   public AzureServicePrincipal getAzureServicePrincipal() {
     return azureServicePrincipal;
   }
 
+  /**
+   * <p>Setter for the field <code>comment</code>.</p>
+   *
+   * @param comment a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   */
   public UpdateStorageCredential setComment(String comment) {
     this.comment = comment;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>comment</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getComment() {
     return comment;
   }
 
+  /**
+   * <p>Setter for the field <code>force</code>.</p>
+   *
+   * @param force a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   */
   public UpdateStorageCredential setForce(Boolean force) {
     this.force = force;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>force</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getForce() {
     return force;
   }
 
+  /**
+   * <p>Setter for the field <code>gcpServiceAccountKey</code>.</p>
+   *
+   * @param gcpServiceAccountKey a {@link com.databricks.sdk.service.catalog.GcpServiceAccountKey} object
+   * @return a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   */
   public UpdateStorageCredential setGcpServiceAccountKey(
       GcpServiceAccountKey gcpServiceAccountKey) {
     this.gcpServiceAccountKey = gcpServiceAccountKey;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>gcpServiceAccountKey</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.GcpServiceAccountKey} object
+   */
   public GcpServiceAccountKey getGcpServiceAccountKey() {
     return gcpServiceAccountKey;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   */
   public UpdateStorageCredential setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>owner</code>.</p>
+   *
+   * @param owner a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   */
   public UpdateStorageCredential setOwner(String owner) {
     this.owner = owner;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>owner</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getOwner() {
     return owner;
   }
 
+  /**
+   * <p>Setter for the field <code>readOnly</code>.</p>
+   *
+   * @param readOnly a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   */
   public UpdateStorageCredential setReadOnly(Boolean readOnly) {
     this.readOnly = readOnly;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>readOnly</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getReadOnly() {
     return readOnly;
   }
 
+  /**
+   * <p>Setter for the field <code>skipValidation</code>.</p>
+   *
+   * @param skipValidation a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.catalog.UpdateStorageCredential} object
+   */
   public UpdateStorageCredential setSkipValidation(Boolean skipValidation) {
     this.skipValidation = skipValidation;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>skipValidation</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getSkipValidation() {
     return skipValidation;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -142,6 +248,7 @@ public class UpdateStorageCredential {
         && Objects.equals(skipValidation, that.skipValidation);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -156,6 +263,7 @@ public class UpdateStorageCredential {
         skipValidation);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(UpdateStorageCredential.class)

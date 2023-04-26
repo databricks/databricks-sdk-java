@@ -9,10 +9,16 @@ import org.apache.http.client.methods.*;
 class AccountStorageCredentialsImpl implements AccountStorageCredentialsService {
   private final ApiClient apiClient;
 
+  /**
+   * <p>Constructor for AccountStorageCredentialsImpl.</p>
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public AccountStorageCredentialsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
+  /** {@inheritDoc} */
   @Override
   public StorageCredentialInfo create(CreateStorageCredential request) {
     String path =
@@ -22,6 +28,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
     return apiClient.POST(path, request, StorageCredentialInfo.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public StorageCredentialInfo get(GetAccountStorageCredentialRequest request) {
     String path =
@@ -31,6 +38,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
     return apiClient.GET(path, request, StorageCredentialInfo.class);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Collection<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
     String path =

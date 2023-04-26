@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
-/** The health of a pipeline. */
+/**
+ * The health of a pipeline.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum GetPipelineResponseHealth {
   HEALTHY,
   UNHEALTHY,

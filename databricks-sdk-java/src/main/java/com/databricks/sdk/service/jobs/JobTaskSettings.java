@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>JobTaskSettings class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class JobTaskSettings {
   /**
    * If dbt_task, indicates that this must execute a dbt task. It requires both Databricks SQL and
@@ -140,195 +146,427 @@ public class JobTaskSettings {
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
+  /**
+   * <p>Setter for the field <code>dbtTask</code>.</p>
+   *
+   * @param dbtTask a {@link com.databricks.sdk.service.jobs.DbtTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setDbtTask(DbtTask dbtTask) {
     this.dbtTask = dbtTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dbtTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.DbtTask} object
+   */
   public DbtTask getDbtTask() {
     return dbtTask;
   }
 
+  /**
+   * <p>Setter for the field <code>dependsOn</code>.</p>
+   *
+   * @param dependsOn a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setDependsOn(Collection<TaskDependenciesItem> dependsOn) {
     this.dependsOn = dependsOn;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>dependsOn</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<TaskDependenciesItem> getDependsOn() {
     return dependsOn;
   }
 
+  /**
+   * <p>Setter for the field <code>description</code>.</p>
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setDescription(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>description</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * <p>Setter for the field <code>emailNotifications</code>.</p>
+   *
+   * @param emailNotifications a {@link com.databricks.sdk.service.jobs.TaskEmailNotifications} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setEmailNotifications(TaskEmailNotifications emailNotifications) {
     this.emailNotifications = emailNotifications;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>emailNotifications</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.TaskEmailNotifications} object
+   */
   public TaskEmailNotifications getEmailNotifications() {
     return emailNotifications;
   }
 
+  /**
+   * <p>Setter for the field <code>existingClusterId</code>.</p>
+   *
+   * @param existingClusterId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setExistingClusterId(String existingClusterId) {
     this.existingClusterId = existingClusterId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>existingClusterId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getExistingClusterId() {
     return existingClusterId;
   }
 
+  /**
+   * <p>Setter for the field <code>jobClusterKey</code>.</p>
+   *
+   * @param jobClusterKey a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setJobClusterKey(String jobClusterKey) {
     this.jobClusterKey = jobClusterKey;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>jobClusterKey</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getJobClusterKey() {
     return jobClusterKey;
   }
 
+  /**
+   * <p>Setter for the field <code>libraries</code>.</p>
+   *
+   * @param libraries a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
     this.libraries = libraries;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>libraries</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<Object /* MISSING TYPE */> getLibraries() {
     return libraries;
   }
 
+  /**
+   * <p>Setter for the field <code>maxRetries</code>.</p>
+   *
+   * @param maxRetries a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setMaxRetries(Long maxRetries) {
     this.maxRetries = maxRetries;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>maxRetries</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMaxRetries() {
     return maxRetries;
   }
 
+  /**
+   * <p>Setter for the field <code>minRetryIntervalMillis</code>.</p>
+   *
+   * @param minRetryIntervalMillis a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setMinRetryIntervalMillis(Long minRetryIntervalMillis) {
     this.minRetryIntervalMillis = minRetryIntervalMillis;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>minRetryIntervalMillis</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMinRetryIntervalMillis() {
     return minRetryIntervalMillis;
   }
 
+  /**
+   * <p>Setter for the field <code>newCluster</code>.</p>
+   *
+   * @param newCluster a {@link java.lang.Object} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setNewCluster(Object /* MISSING TYPE */ newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>newCluster</code>.</p>
+   *
+   * @return a {@link java.lang.Object} object
+   */
   public Object /* MISSING TYPE */ getNewCluster() {
     return newCluster;
   }
 
+  /**
+   * <p>Setter for the field <code>notebookTask</code>.</p>
+   *
+   * @param notebookTask a {@link com.databricks.sdk.service.jobs.NotebookTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setNotebookTask(NotebookTask notebookTask) {
     this.notebookTask = notebookTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>notebookTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.NotebookTask} object
+   */
   public NotebookTask getNotebookTask() {
     return notebookTask;
   }
 
+  /**
+   * <p>Setter for the field <code>notificationSettings</code>.</p>
+   *
+   * @param notificationSettings a {@link com.databricks.sdk.service.jobs.TaskNotificationSettings} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setNotificationSettings(TaskNotificationSettings notificationSettings) {
     this.notificationSettings = notificationSettings;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>notificationSettings</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.TaskNotificationSettings} object
+   */
   public TaskNotificationSettings getNotificationSettings() {
     return notificationSettings;
   }
 
+  /**
+   * <p>Setter for the field <code>pipelineTask</code>.</p>
+   *
+   * @param pipelineTask a {@link com.databricks.sdk.service.jobs.PipelineTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setPipelineTask(PipelineTask pipelineTask) {
     this.pipelineTask = pipelineTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pipelineTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.PipelineTask} object
+   */
   public PipelineTask getPipelineTask() {
     return pipelineTask;
   }
 
+  /**
+   * <p>Setter for the field <code>pythonWheelTask</code>.</p>
+   *
+   * @param pythonWheelTask a {@link com.databricks.sdk.service.jobs.PythonWheelTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setPythonWheelTask(PythonWheelTask pythonWheelTask) {
     this.pythonWheelTask = pythonWheelTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>pythonWheelTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.PythonWheelTask} object
+   */
   public PythonWheelTask getPythonWheelTask() {
     return pythonWheelTask;
   }
 
+  /**
+   * <p>Setter for the field <code>retryOnTimeout</code>.</p>
+   *
+   * @param retryOnTimeout a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setRetryOnTimeout(Boolean retryOnTimeout) {
     this.retryOnTimeout = retryOnTimeout;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>retryOnTimeout</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getRetryOnTimeout() {
     return retryOnTimeout;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkJarTask</code>.</p>
+   *
+   * @param sparkJarTask a {@link com.databricks.sdk.service.jobs.SparkJarTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setSparkJarTask(SparkJarTask sparkJarTask) {
     this.sparkJarTask = sparkJarTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkJarTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SparkJarTask} object
+   */
   public SparkJarTask getSparkJarTask() {
     return sparkJarTask;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkPythonTask</code>.</p>
+   *
+   * @param sparkPythonTask a {@link com.databricks.sdk.service.jobs.SparkPythonTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setSparkPythonTask(SparkPythonTask sparkPythonTask) {
     this.sparkPythonTask = sparkPythonTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkPythonTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SparkPythonTask} object
+   */
   public SparkPythonTask getSparkPythonTask() {
     return sparkPythonTask;
   }
 
+  /**
+   * <p>Setter for the field <code>sparkSubmitTask</code>.</p>
+   *
+   * @param sparkSubmitTask a {@link com.databricks.sdk.service.jobs.SparkSubmitTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setSparkSubmitTask(SparkSubmitTask sparkSubmitTask) {
     this.sparkSubmitTask = sparkSubmitTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sparkSubmitTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SparkSubmitTask} object
+   */
   public SparkSubmitTask getSparkSubmitTask() {
     return sparkSubmitTask;
   }
 
+  /**
+   * <p>Setter for the field <code>sqlTask</code>.</p>
+   *
+   * @param sqlTask a {@link com.databricks.sdk.service.jobs.SqlTask} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setSqlTask(SqlTask sqlTask) {
     this.sqlTask = sqlTask;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>sqlTask</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.jobs.SqlTask} object
+   */
   public SqlTask getSqlTask() {
     return sqlTask;
   }
 
+  /**
+   * <p>Setter for the field <code>taskKey</code>.</p>
+   *
+   * @param taskKey a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setTaskKey(String taskKey) {
     this.taskKey = taskKey;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>taskKey</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getTaskKey() {
     return taskKey;
   }
 
+  /**
+   * <p>Setter for the field <code>timeoutSeconds</code>.</p>
+   *
+   * @param timeoutSeconds a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.jobs.JobTaskSettings} object
+   */
   public JobTaskSettings setTimeoutSeconds(Long timeoutSeconds) {
     this.timeoutSeconds = timeoutSeconds;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>timeoutSeconds</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getTimeoutSeconds() {
     return timeoutSeconds;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -357,6 +595,7 @@ public class JobTaskSettings {
         && Objects.equals(timeoutSeconds, that.timeoutSeconds);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -383,6 +622,7 @@ public class JobTaskSettings {
         timeoutSeconds);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(JobTaskSettings.class)

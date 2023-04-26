@@ -6,6 +6,12 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/**
+ * <p>Policy class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class Policy {
   /** Creation time. The timestamp (in millisecond) when this Cluster Policy was created. */
   @JsonProperty("created_at_timestamp")
@@ -65,96 +71,207 @@ public class Policy {
   @JsonProperty("policy_id")
   private String policyId;
 
+  /**
+   * <p>Setter for the field <code>createdAtTimestamp</code>.</p>
+   *
+   * @param createdAtTimestamp a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy setCreatedAtTimestamp(Long createdAtTimestamp) {
     this.createdAtTimestamp = createdAtTimestamp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>createdAtTimestamp</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCreatedAtTimestamp() {
     return createdAtTimestamp;
   }
 
+  /**
+   * <p>Setter for the field <code>creatorUserName</code>.</p>
+   *
+   * @param creatorUserName a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy setCreatorUserName(String creatorUserName) {
     this.creatorUserName = creatorUserName;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>creatorUserName</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getCreatorUserName() {
     return creatorUserName;
   }
 
+  /**
+   * <p>Setter for the field <code>definition</code>.</p>
+   *
+   * @param definition a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy setDefinition(String definition) {
     this.definition = definition;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>definition</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDefinition() {
     return definition;
   }
 
+  /**
+   * <p>Setter for the field <code>description</code>.</p>
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy setDescription(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>description</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * <p>Setter for the field <code>isDefault</code>.</p>
+   *
+   * @param isDefault a {@link java.lang.Boolean} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy setIsDefault(Boolean isDefault) {
     this.isDefault = isDefault;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>isDefault</code>.</p>
+   *
+   * @return a {@link java.lang.Boolean} object
+   */
   public Boolean getIsDefault() {
     return isDefault;
   }
 
+  /**
+   * <p>Setter for the field <code>maxClustersPerUser</code>.</p>
+   *
+   * @param maxClustersPerUser a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy setMaxClustersPerUser(Long maxClustersPerUser) {
     this.maxClustersPerUser = maxClustersPerUser;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>maxClustersPerUser</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getMaxClustersPerUser() {
     return maxClustersPerUser;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>policyFamilyDefinitionOverrides</code>.</p>
+   *
+   * @param policyFamilyDefinitionOverrides a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy setPolicyFamilyDefinitionOverrides(String policyFamilyDefinitionOverrides) {
     this.policyFamilyDefinitionOverrides = policyFamilyDefinitionOverrides;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>policyFamilyDefinitionOverrides</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPolicyFamilyDefinitionOverrides() {
     return policyFamilyDefinitionOverrides;
   }
 
+  /**
+   * <p>Setter for the field <code>policyFamilyId</code>.</p>
+   *
+   * @param policyFamilyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy setPolicyFamilyId(String policyFamilyId) {
     this.policyFamilyId = policyFamilyId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>policyFamilyId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPolicyFamilyId() {
     return policyFamilyId;
   }
 
+  /**
+   * <p>Setter for the field <code>policyId</code>.</p>
+   *
+   * @param policyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy setPolicyId(String policyId) {
     this.policyId = policyId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>policyId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getPolicyId() {
     return policyId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -172,6 +289,7 @@ public class Policy {
         && Objects.equals(policyId, that.policyId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -187,6 +305,7 @@ public class Policy {
         policyId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(Policy.class)

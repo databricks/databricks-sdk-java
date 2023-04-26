@@ -25,6 +25,9 @@ package com.databricks.sdk.service.settings;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface IpAccessListsService {
   /**
@@ -44,6 +47,9 @@ public interface IpAccessListsService {
    *
    * <p>It can take a few minutes for the changes to take effect. **Note**: Your new IP access list
    * has no effect until you enable the feature. See :method:workspaceconf/setStatus
+   *
+   * @param createIpAccessList a {@link com.databricks.sdk.service.settings.CreateIpAccessList} object
+   * @return a {@link com.databricks.sdk.service.settings.CreateIpAccessListResponse} object
    */
   CreateIpAccessListResponse create(CreateIpAccessList createIpAccessList);
 
@@ -51,6 +57,8 @@ public interface IpAccessListsService {
    * Delete access list.
    *
    * <p>Deletes an IP access list, specified by its list ID.
+   *
+   * @param deleteIpAccessListRequest a {@link com.databricks.sdk.service.settings.DeleteIpAccessListRequest} object
    */
   void delete(DeleteIpAccessListRequest deleteIpAccessListRequest);
 
@@ -58,6 +66,9 @@ public interface IpAccessListsService {
    * Get access list.
    *
    * <p>Gets an IP access list, specified by its list ID.
+   *
+   * @param getIpAccessListRequest a {@link com.databricks.sdk.service.settings.GetIpAccessListRequest} object
+   * @return a {@link com.databricks.sdk.service.settings.FetchIpAccessListResponse} object
    */
   FetchIpAccessListResponse get(GetIpAccessListRequest getIpAccessListRequest);
 
@@ -65,6 +76,8 @@ public interface IpAccessListsService {
    * Get access lists.
    *
    * <p>Gets all IP access lists for the specified workspace.
+   *
+   * @return a {@link com.databricks.sdk.service.settings.GetIpAccessListResponse} object
    */
   GetIpAccessListResponse list();
 
@@ -81,6 +94,8 @@ public interface IpAccessListsService {
    * calling user's current IP, error 400 is returned with `error_code` value `INVALID_STATE`. It
    * can take a few minutes for the changes to take effect. Note that your resulting IP access list
    * has no effect until you enable the feature. See :method:workspaceconf/setStatus.
+   *
+   * @param replaceIpAccessList a {@link com.databricks.sdk.service.settings.ReplaceIpAccessList} object
    */
   void replace(ReplaceIpAccessList replaceIpAccessList);
 
@@ -101,6 +116,8 @@ public interface IpAccessListsService {
    *
    * <p>It can take a few minutes for the changes to take effect. Note that your resulting IP access
    * list has no effect until you enable the feature. See :method:workspaceconf/setStatus.
+   *
+   * @param updateIpAccessList a {@link com.databricks.sdk.service.settings.UpdateIpAccessList} object
    */
   void update(UpdateIpAccessList updateIpAccessList);
 }

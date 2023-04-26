@@ -5,6 +5,9 @@ package com.databricks.sdk.service.provisioning;
 /**
  * The status of the workspace. For workspace creation, usually it is set to `PROVISIONING`
  * initially. Continue to check the status until the status is `RUNNING`.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public enum WorkspaceStatus {
   BANNED,

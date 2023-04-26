@@ -8,12 +8,20 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * <p>BricksCliCredentialsProvider class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class BricksCliCredentialsProvider implements CredentialsProvider {
 
   private static final Logger LOG = LoggerFactory.getLogger(BricksCliCredentialsProvider.class);
 
+  /** Constant <code>BRICKS_CLI="bricks-cli"</code> */
   public static final String BRICKS_CLI = "bricks-cli";
 
+  /** {@inheritDoc} */
   @Override
   public String authType() {
     return BRICKS_CLI;
@@ -32,6 +40,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
     return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config::getAllEnv);
   }
 
+  /** {@inheritDoc} */
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     String host = config.getHost();

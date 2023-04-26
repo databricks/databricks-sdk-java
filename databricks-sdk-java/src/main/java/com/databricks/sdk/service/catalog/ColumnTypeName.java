@@ -2,7 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
-/** Name of type (INT, STRUCT, MAP, etc.). */
+/**
+ * Name of type (INT, STRUCT, MAP, etc.).
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public enum ColumnTypeName {
   ARRAY,
   BINARY,

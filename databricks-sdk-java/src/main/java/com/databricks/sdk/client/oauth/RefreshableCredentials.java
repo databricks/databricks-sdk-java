@@ -16,16 +16,21 @@ import org.apache.http.HttpHeaders;
  * <p>RefreshableCredentials are OAuth credentials with a short-lived access token, used to make
  * requests to an API, and a long-lived refresh token, which can be used to fetch new access tokens.
  * Calling refresh() uses the refresh token to retrieve a new access token to authenticate to APIs.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class RefreshableCredentials extends RefreshableTokenSource
     implements CredentialsProvider, Serializable {
   private static final long serialVersionUID = 3083941540130596650L;
 
+  /** {@inheritDoc} */
   @Override
   public String authType() {
     return "oauth-u2m";
   }
 
+  /** {@inheritDoc} */
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     return () -> {
@@ -94,6 +99,7 @@ public class RefreshableCredentials extends RefreshableTokenSource
     this.clientSecret = b.clientSecret;
   }
 
+  /** {@inheritDoc} */
   @Override
   protected Token refresh() {
     String refreshToken = this.token.getRefreshToken();

@@ -26,22 +26,39 @@ import org.slf4j.LoggerFactory;
  *
  * <p>Only admin users can create, edit, and delete policies. Admin users also have access to all
  * policies.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class ClusterPoliciesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ClusterPoliciesAPI.class);
 
   private final ClusterPoliciesService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public ClusterPoliciesAPI(ApiClient apiClient) {
     impl = new ClusterPoliciesImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.compute.ClusterPoliciesService} object
+   */
   public ClusterPoliciesAPI(ClusterPoliciesService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.CreatePolicyResponse} object
+   */
   public CreatePolicyResponse create(String name) {
     return create(new CreatePolicy().setName(name));
   }
@@ -50,11 +67,19 @@ public class ClusterPoliciesAPI {
    * Create a new policy.
    *
    * <p>Creates a new policy with prescribed settings.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.CreatePolicy} object
+   * @return a {@link com.databricks.sdk.service.compute.CreatePolicyResponse} object
    */
   public CreatePolicyResponse create(CreatePolicy request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param policyId a {@link java.lang.String} object
+   */
   public void delete(String policyId) {
     delete(new DeletePolicy().setPolicyId(policyId));
   }
@@ -64,11 +89,19 @@ public class ClusterPoliciesAPI {
    *
    * <p>Delete a policy for a cluster. Clusters governed by this policy can still run, but cannot be
    * edited.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.DeletePolicy} object
    */
   public void delete(DeletePolicy request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>edit.</p>
+   *
+   * @param policyId a {@link java.lang.String} object
+   * @param name a {@link java.lang.String} object
+   */
   public void edit(String policyId, String name) {
     edit(new EditPolicy().setPolicyId(policyId).setName(name));
   }
@@ -78,11 +111,19 @@ public class ClusterPoliciesAPI {
    *
    * <p>Update an existing policy for cluster. This operation may make some clusters governed by the
    * previous policy invalid.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.EditPolicy} object
    */
   public void edit(EditPolicy request) {
     impl.edit(request);
   }
 
+  /**
+   * <p>get.</p>
+   *
+   * @param policyId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
+   */
   public Policy get(String policyId) {
     return get(new GetClusterPolicyRequest().setPolicyId(policyId));
   }
@@ -91,6 +132,9 @@ public class ClusterPoliciesAPI {
    * Get entity.
    *
    * <p>Get a cluster policy entity. Creation and editing is available to admins only.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.GetClusterPolicyRequest} object
+   * @return a {@link com.databricks.sdk.service.compute.Policy} object
    */
   public Policy get(GetClusterPolicyRequest request) {
     return impl.get(request);
@@ -100,11 +144,19 @@ public class ClusterPoliciesAPI {
    * Get a cluster policy.
    *
    * <p>Returns a list of policies accessible by the requesting user.
+   *
+   * @param request a {@link com.databricks.sdk.service.compute.ListClusterPoliciesRequest} object
+   * @return a {@link java.lang.Iterable} object
    */
   public Iterable<Policy> list(ListClusterPoliciesRequest request) {
     return impl.list(request).getPolicies();
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.compute.ClusterPoliciesService} object
+   */
   public ClusterPoliciesService impl() {
     return impl;
   }

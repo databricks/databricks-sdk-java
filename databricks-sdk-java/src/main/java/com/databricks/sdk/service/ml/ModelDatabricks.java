@@ -7,6 +7,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * <p>ModelDatabricks class.</p>
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
+ */
 public class ModelDatabricks {
   /** Creation time of the object, as a Unix timestamp in milliseconds. */
   @JsonProperty("creation_timestamp")
@@ -47,87 +53,187 @@ public class ModelDatabricks {
   @JsonProperty("user_id")
   private String userId;
 
+  /**
+   * <p>Setter for the field <code>creationTimestamp</code>.</p>
+   *
+   * @param creationTimestamp a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.ModelDatabricks} object
+   */
   public ModelDatabricks setCreationTimestamp(Long creationTimestamp) {
     this.creationTimestamp = creationTimestamp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>creationTimestamp</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getCreationTimestamp() {
     return creationTimestamp;
   }
 
+  /**
+   * <p>Setter for the field <code>description</code>.</p>
+   *
+   * @param description a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.ModelDatabricks} object
+   */
   public ModelDatabricks setDescription(String description) {
     this.description = description;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>description</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getDescription() {
     return description;
   }
 
+  /**
+   * <p>Setter for the field <code>id</code>.</p>
+   *
+   * @param id a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.ModelDatabricks} object
+   */
   public ModelDatabricks setId(String id) {
     this.id = id;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>id</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getId() {
     return id;
   }
 
+  /**
+   * <p>Setter for the field <code>lastUpdatedTimestamp</code>.</p>
+   *
+   * @param lastUpdatedTimestamp a {@link java.lang.Long} object
+   * @return a {@link com.databricks.sdk.service.ml.ModelDatabricks} object
+   */
   public ModelDatabricks setLastUpdatedTimestamp(Long lastUpdatedTimestamp) {
     this.lastUpdatedTimestamp = lastUpdatedTimestamp;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>lastUpdatedTimestamp</code>.</p>
+   *
+   * @return a {@link java.lang.Long} object
+   */
   public Long getLastUpdatedTimestamp() {
     return lastUpdatedTimestamp;
   }
 
+  /**
+   * <p>Setter for the field <code>latestVersions</code>.</p>
+   *
+   * @param latestVersions a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.ModelDatabricks} object
+   */
   public ModelDatabricks setLatestVersions(Collection<ModelVersion> latestVersions) {
     this.latestVersions = latestVersions;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>latestVersions</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<ModelVersion> getLatestVersions() {
     return latestVersions;
   }
 
+  /**
+   * <p>Setter for the field <code>name</code>.</p>
+   *
+   * @param name a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.ModelDatabricks} object
+   */
   public ModelDatabricks setName(String name) {
     this.name = name;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>name</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getName() {
     return name;
   }
 
+  /**
+   * <p>Setter for the field <code>permissionLevel</code>.</p>
+   *
+   * @param permissionLevel a {@link com.databricks.sdk.service.ml.PermissionLevel} object
+   * @return a {@link com.databricks.sdk.service.ml.ModelDatabricks} object
+   */
   public ModelDatabricks setPermissionLevel(PermissionLevel permissionLevel) {
     this.permissionLevel = permissionLevel;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>permissionLevel</code>.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.ml.PermissionLevel} object
+   */
   public PermissionLevel getPermissionLevel() {
     return permissionLevel;
   }
 
+  /**
+   * <p>Setter for the field <code>tags</code>.</p>
+   *
+   * @param tags a {@link java.util.Collection} object
+   * @return a {@link com.databricks.sdk.service.ml.ModelDatabricks} object
+   */
   public ModelDatabricks setTags(Collection<ModelTag> tags) {
     this.tags = tags;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>tags</code>.</p>
+   *
+   * @return a {@link java.util.Collection} object
+   */
   public Collection<ModelTag> getTags() {
     return tags;
   }
 
+  /**
+   * <p>Setter for the field <code>userId</code>.</p>
+   *
+   * @param userId a {@link java.lang.String} object
+   * @return a {@link com.databricks.sdk.service.ml.ModelDatabricks} object
+   */
   public ModelDatabricks setUserId(String userId) {
     this.userId = userId;
     return this;
   }
 
+  /**
+   * <p>Getter for the field <code>userId</code>.</p>
+   *
+   * @return a {@link java.lang.String} object
+   */
   public String getUserId() {
     return userId;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -144,6 +250,7 @@ public class ModelDatabricks {
         && Objects.equals(userId, that.userId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public int hashCode() {
     return Objects.hash(
@@ -158,6 +265,7 @@ public class ModelDatabricks {
         userId);
   }
 
+  /** {@inheritDoc} */
   @Override
   public String toString() {
     return new ToStringer(ModelDatabricks.class)

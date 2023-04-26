@@ -16,22 +16,40 @@ import org.slf4j.LoggerFactory;
  *
  * <p>You can declare primary keys and foreign keys as part of the table specification during table
  * creation. You can also add or drop constraints on existing tables.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public class TableConstraintsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(TableConstraintsAPI.class);
 
   private final TableConstraintsService impl;
 
-  /** Regular-use constructor */
+  /**
+   * Regular-use constructor
+   *
+   * @param apiClient a {@link com.databricks.sdk.client.ApiClient} object
+   */
   public TableConstraintsAPI(ApiClient apiClient) {
     impl = new TableConstraintsImpl(apiClient);
   }
 
-  /** Constructor for mocks */
+  /**
+   * Constructor for mocks
+   *
+   * @param mock a {@link com.databricks.sdk.service.catalog.TableConstraintsService} object
+   */
   public TableConstraintsAPI(TableConstraintsService mock) {
     impl = mock;
   }
 
+  /**
+   * <p>create.</p>
+   *
+   * @param fullNameArg a {@link java.lang.String} object
+   * @param constraint a {@link com.databricks.sdk.service.catalog.TableConstraint} object
+   * @return a {@link com.databricks.sdk.service.catalog.TableConstraint} object
+   */
   public TableConstraint create(String fullNameArg, TableConstraint constraint) {
     return create(
         new CreateTableConstraint().setFullNameArg(fullNameArg).setConstraint(constraint));
@@ -48,11 +66,21 @@ public class TableConstraintsAPI {
    * the new constraint is a __ForeignKeyConstraint__, the user must have the **USE_CATALOG**
    * privilege on the referenced parent table's catalog, the **USE_SCHEMA** privilege on the
    * referenced parent table's schema, and be the owner of the referenced parent table.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.CreateTableConstraint} object
+   * @return a {@link com.databricks.sdk.service.catalog.TableConstraint} object
    */
   public TableConstraint create(CreateTableConstraint request) {
     return impl.create(request);
   }
 
+  /**
+   * <p>delete.</p>
+   *
+   * @param fullName a {@link java.lang.String} object
+   * @param constraintName a {@link java.lang.String} object
+   * @param cascade a boolean
+   */
   public void delete(String fullName, String constraintName, boolean cascade) {
     delete(
         new DeleteTableConstraintRequest()
@@ -72,11 +100,18 @@ public class TableConstraintsAPI {
    * __cascade__ argument is **true**, the user must have the following permissions on all of the
    * child tables: the **USE_CATALOG** privilege on the table's catalog, the **USE_SCHEMA**
    * privilege on the table's schema, and be the owner of the table.
+   *
+   * @param request a {@link com.databricks.sdk.service.catalog.DeleteTableConstraintRequest} object
    */
   public void delete(DeleteTableConstraintRequest request) {
     impl.delete(request);
   }
 
+  /**
+   * <p>impl.</p>
+   *
+   * @return a {@link com.databricks.sdk.service.catalog.TableConstraintsService} object
+   */
   public TableConstraintsService impl() {
     return impl;
   }

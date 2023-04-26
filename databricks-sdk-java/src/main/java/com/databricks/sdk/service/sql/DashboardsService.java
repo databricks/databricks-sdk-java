@@ -10,9 +10,17 @@ package com.databricks.sdk.service.sql;
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
+ *
+ * @author tanmay.rustagi
+ * @version $Id: $Id
  */
 public interface DashboardsService {
-  /** Create a dashboard object. */
+  /**
+   * Create a dashboard object.
+   *
+   * @param createDashboardRequest a {@link com.databricks.sdk.service.sql.CreateDashboardRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.Dashboard} object
+   */
   Dashboard create(CreateDashboardRequest createDashboardRequest);
 
   /**
@@ -20,6 +28,8 @@ public interface DashboardsService {
    *
    * <p>Moves a dashboard to the trash. Trashed dashboards do not appear in list views or searches,
    * and cannot be shared.
+   *
+   * @param deleteDashboardRequest a {@link com.databricks.sdk.service.sql.DeleteDashboardRequest} object
    */
   void delete(DeleteDashboardRequest deleteDashboardRequest);
 
@@ -28,6 +38,9 @@ public interface DashboardsService {
    *
    * <p>Returns a JSON representation of a dashboard object, including its visualization and query
    * objects.
+   *
+   * @param getDashboardRequest a {@link com.databricks.sdk.service.sql.GetDashboardRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.Dashboard} object
    */
   Dashboard get(GetDashboardRequest getDashboardRequest);
 
@@ -35,6 +48,9 @@ public interface DashboardsService {
    * Get dashboard objects.
    *
    * <p>Fetch a paginated list of dashboard objects.
+   *
+   * @param listDashboardsRequest a {@link com.databricks.sdk.service.sql.ListDashboardsRequest} object
+   * @return a {@link com.databricks.sdk.service.sql.ListResponse} object
    */
   ListResponse list(ListDashboardsRequest listDashboardsRequest);
 
@@ -42,6 +58,8 @@ public interface DashboardsService {
    * Restore a dashboard.
    *
    * <p>A restored dashboard appears in list views and searches and can be shared.
+   *
+   * @param restoreDashboardRequest a {@link com.databricks.sdk.service.sql.RestoreDashboardRequest} object
    */
   void restore(RestoreDashboardRequest restoreDashboardRequest);
 }
