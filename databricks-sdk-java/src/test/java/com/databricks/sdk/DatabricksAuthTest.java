@@ -5,6 +5,7 @@ package com.databricks.sdk;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.databricks.sdk.client.ConfigResolving;
 import com.databricks.sdk.client.DatabricksConfig;
 import java.net.URL;
 import java.util.HashMap;
@@ -12,16 +13,18 @@ import java.util.Map;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
-public class DatabricksAuthTest {
+public class DatabricksAuthTest implements ConfigResolving {
 
   private final String prefixPath = System.getProperty("user.dir") + "/target/test-classes/";
 
   @Test
   public void testTestConfigNoParams() {
+
     raises(
         "default auth: cannot configure default credentials",
         () -> {
           DatabricksConfig config = new DatabricksConfig();
+
           config.authenticate();
         });
   }
@@ -33,7 +36,8 @@ public class DatabricksAuthTest {
     raises(
         "default auth: cannot configure default credentials. Config: host=https://x. Env: DATABRICKS_HOST",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = new DatabricksConfig();
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -45,7 +49,8 @@ public class DatabricksAuthTest {
     raises(
         "default auth: cannot configure default credentials. Config: token=***. Env: DATABRICKS_TOKEN",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = new DatabricksConfig();
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -54,7 +59,8 @@ public class DatabricksAuthTest {
   public void testTestConfigHostTokenEnv() {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("DATABRICKS_HOST", "x").with("DATABRICKS_TOKEN", "x");
-    DatabricksConfig config = new DatabricksConfig().resolve(env);
+    DatabricksConfig config = new DatabricksConfig();
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("pat", config.getAuthType());
@@ -65,7 +71,8 @@ public class DatabricksAuthTest {
   public void testTestConfigHostParamTokenEnv() {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("DATABRICKS_TOKEN", "x");
-    DatabricksConfig config = new DatabricksConfig().setHost("https://x").resolve(env);
+    DatabricksConfig config = new DatabricksConfig().setHost("https://x");
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("pat", config.getAuthType());
@@ -80,7 +87,8 @@ public class DatabricksAuthTest {
     raises(
         "default auth: cannot configure default credentials. Config: username=x, password=***. Env: DATABRICKS_USERNAME, DATABRICKS_PASSWORD",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = new DatabricksConfig();
+          resolveConfig(config, env);
           config.authenticate();
 
           assertEquals("https://x", config.getHost());
@@ -95,7 +103,8 @@ public class DatabricksAuthTest {
             .with("DATABRICKS_HOST", "x")
             .with("DATABRICKS_PASSWORD", "x")
             .with("DATABRICKS_USERNAME", "x");
-    DatabricksConfig config = new DatabricksConfig().resolve(env);
+    DatabricksConfig config = new DatabricksConfig();
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("basic", config.getAuthType());
@@ -110,7 +119,8 @@ public class DatabricksAuthTest {
             .with("DATABRICKS_HOST", "x")
             .with("DATABRICKS_PASSWORD", "x")
             .with("DATABRICKS_USERNAME", "x");
-    DatabricksConfig config = new DatabricksConfig().setHost("y").resolve(env);
+    DatabricksConfig config = new DatabricksConfig().setHost("y");
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("basic", config.getAuthType());
@@ -121,7 +131,8 @@ public class DatabricksAuthTest {
   public void testTestConfigBasicAuthMix() {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("DATABRICKS_PASSWORD", "x");
-    DatabricksConfig config = new DatabricksConfig().setHost("y").setUsername("x").resolve(env);
+    DatabricksConfig config = new DatabricksConfig().setHost("y").setUsername("x");
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("basic", config.getAuthType());
@@ -132,6 +143,7 @@ public class DatabricksAuthTest {
   public void testTestConfigBasicAuthAttrs() {
 
     DatabricksConfig config = new DatabricksConfig().setHost("y").setUsername("x").setPassword("x");
+
     config.authenticate();
 
     assertEquals("basic", config.getAuthType());
@@ -150,7 +162,8 @@ public class DatabricksAuthTest {
     raises(
         "validate: more than one authorization method configured: basic and pat. Config: host=x, token=***, username=x, password=***. Env: DATABRICKS_HOST, DATABRICKS_TOKEN, DATABRICKS_USERNAME, DATABRICKS_PASSWORD",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = new DatabricksConfig();
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -164,7 +177,8 @@ public class DatabricksAuthTest {
             .with("DATABRICKS_PASSWORD", "x")
             .with("DATABRICKS_TOKEN", "x")
             .with("DATABRICKS_USERNAME", "x");
-    DatabricksConfig config = new DatabricksConfig().setAuthType("basic").resolve(env);
+    DatabricksConfig config = new DatabricksConfig().setAuthType("basic");
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("basic", config.getAuthType());
@@ -178,7 +192,8 @@ public class DatabricksAuthTest {
     raises(
         "default auth: cannot configure default credentials. Config: config_file=x. Env: DATABRICKS_CONFIG_FILE",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = new DatabricksConfig();
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -190,7 +205,8 @@ public class DatabricksAuthTest {
     raises(
         "default auth: cannot configure default credentials. Config: host=https://x",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().setHost("x").resolve(env);
+          DatabricksConfig config = new DatabricksConfig().setHost("x");
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -199,7 +215,8 @@ public class DatabricksAuthTest {
   public void testTestConfigPatFromDatabricksCfg() {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("HOME", resource("/testdata"));
-    DatabricksConfig config = new DatabricksConfig().resolve(env);
+    DatabricksConfig config = new DatabricksConfig();
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("pat", config.getAuthType());
@@ -213,7 +230,8 @@ public class DatabricksAuthTest {
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "pat.with.dot")
             .with("HOME", resource("/testdata"));
-    DatabricksConfig config = new DatabricksConfig().resolve(env);
+    DatabricksConfig config = new DatabricksConfig();
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("pat", config.getAuthType());
@@ -230,7 +248,8 @@ public class DatabricksAuthTest {
     raises(
         "default auth: cannot configure default credentials. Config: token=***, profile=nohost. Env: DATABRICKS_CONFIG_PROFILE",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = new DatabricksConfig();
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -246,7 +265,8 @@ public class DatabricksAuthTest {
     raises(
         "default auth: cannot configure default credentials. Config: token=***, profile=nohost. Env: DATABRICKS_TOKEN, DATABRICKS_CONFIG_PROFILE",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = new DatabricksConfig();
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -262,7 +282,8 @@ public class DatabricksAuthTest {
     raises(
         "validate: more than one authorization method configured: basic and pat. Config: token=***, username=x, profile=nohost. Env: DATABRICKS_USERNAME, DATABRICKS_CONFIG_PROFILE",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = new DatabricksConfig();
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -272,6 +293,7 @@ public class DatabricksAuthTest {
 
     DatabricksConfig config =
         new DatabricksConfig().setHost("https://adb-xxx.y.azuredatabricks.net/").setToken("y");
+
     config.authenticate();
 
     assertEquals("pat", config.getAuthType());
@@ -285,7 +307,8 @@ public class DatabricksAuthTest {
     StaticEnv env =
         new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", "testdata:/bin");
     DatabricksConfig config =
-        new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws").resolve(env);
+        new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("azure-cli", config.getAuthType());
@@ -305,7 +328,8 @@ public class DatabricksAuthTest {
         "default auth: azure-cli: cannot get access token: This is just a failing script.\n. Config: azure_workspace_resource_id=/sub/rg/ws",
         () -> {
           DatabricksConfig config =
-              new DatabricksConfig().setAzureWorkspaceResourceId("/sub/rg/ws").resolve(env);
+              new DatabricksConfig().setAzureWorkspaceResourceId("/sub/rg/ws");
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -319,7 +343,8 @@ public class DatabricksAuthTest {
         "default auth: cannot configure default credentials. Config: azure_workspace_resource_id=/sub/rg/ws",
         () -> {
           DatabricksConfig config =
-              new DatabricksConfig().setAzureWorkspaceResourceId("/sub/rg/ws").resolve(env);
+              new DatabricksConfig().setAzureWorkspaceResourceId("/sub/rg/ws");
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -333,10 +358,8 @@ public class DatabricksAuthTest {
         "validate: more than one authorization method configured: azure and pat. Config: token=***, azure_workspace_resource_id=/sub/rg/ws",
         () -> {
           DatabricksConfig config =
-              new DatabricksConfig()
-                  .setToken("x")
-                  .setAzureWorkspaceResourceId("/sub/rg/ws")
-                  .resolve(env);
+              new DatabricksConfig().setToken("x").setAzureWorkspaceResourceId("/sub/rg/ws");
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -347,7 +370,8 @@ public class DatabricksAuthTest {
     StaticEnv env =
         new StaticEnv().with("HOME", resource("/testdata")).with("PATH", "testdata:/bin");
     DatabricksConfig config =
-        new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws").resolve(env);
+        new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("azure-cli", config.getAuthType());
@@ -364,7 +388,8 @@ public class DatabricksAuthTest {
             .with("HOME", resource("/testdata/azure"))
             .with("PATH", "testdata:/bin");
     DatabricksConfig config =
-        new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws").resolve(env);
+        new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("azure-cli", config.getAuthType());
@@ -384,10 +409,8 @@ public class DatabricksAuthTest {
         "validate: more than one authorization method configured: azure and basic. Config: host=x, username=x, azure_workspace_resource_id=/sub/rg/ws. Env: DATABRICKS_USERNAME",
         () -> {
           DatabricksConfig config =
-              new DatabricksConfig()
-                  .setHost("x")
-                  .setAzureWorkspaceResourceId("/sub/rg/ws")
-                  .resolve(env);
+              new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -402,7 +425,8 @@ public class DatabricksAuthTest {
     raises(
         "resolve: testdata/corrupt/.databrickscfg has no DEFAULT profile configured. Config: profile=DEFAULT. Env: DATABRICKS_CONFIG_PROFILE",
         () -> {
-          DatabricksConfig config = new DatabricksConfig().resolve(env);
+          DatabricksConfig config = new DatabricksConfig();
+          resolveConfig(config, env);
           config.authenticate();
         });
   }
@@ -416,7 +440,8 @@ public class DatabricksAuthTest {
             .with("DATABRICKS_PASSWORD", "password")
             .with("DATABRICKS_TOKEN", "token")
             .with("DATABRICKS_USERNAME", "user");
-    DatabricksConfig config = new DatabricksConfig().setHost("x").resolve(env);
+    DatabricksConfig config = new DatabricksConfig().setHost("x");
+    resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("basic", config.getAuthType());
