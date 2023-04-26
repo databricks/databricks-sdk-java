@@ -73,6 +73,13 @@ public class CreateJob {
   private String name;
 
   /**
+   * Optional notification settings that are used when sending notifications to each of the
+   * `email_notifications` and `webhook_notifications` for this job.
+   */
+  @JsonProperty("notification_settings")
+  private JobNotificationSettings notificationSettings;
+
+  /**
    * An optional periodic schedule for this job. The default behavior is that the job only runs when
    * triggered by clicking “Run Now” in the Jobs UI or sending an API request to `runNow`.
    */
@@ -185,6 +192,15 @@ public class CreateJob {
     return name;
   }
 
+  public CreateJob setNotificationSettings(JobNotificationSettings notificationSettings) {
+    this.notificationSettings = notificationSettings;
+    return this;
+  }
+
+  public JobNotificationSettings getNotificationSettings() {
+    return notificationSettings;
+  }
+
   public CreateJob setSchedule(CronSchedule schedule) {
     this.schedule = schedule;
     return this;
@@ -252,6 +268,7 @@ public class CreateJob {
         && Objects.equals(jobClusters, that.jobClusters)
         && Objects.equals(maxConcurrentRuns, that.maxConcurrentRuns)
         && Objects.equals(name, that.name)
+        && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(schedule, that.schedule)
         && Objects.equals(tags, that.tags)
         && Objects.equals(tasks, that.tasks)
@@ -271,6 +288,7 @@ public class CreateJob {
         jobClusters,
         maxConcurrentRuns,
         name,
+        notificationSettings,
         schedule,
         tags,
         tasks,
@@ -290,6 +308,7 @@ public class CreateJob {
         .add("jobClusters", jobClusters)
         .add("maxConcurrentRuns", maxConcurrentRuns)
         .add("name", name)
+        .add("notificationSettings", notificationSettings)
         .add("schedule", schedule)
         .add("tags", tags)
         .add("tasks", tasks)
