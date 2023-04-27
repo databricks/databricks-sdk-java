@@ -24,4 +24,11 @@ class RequestTest {
     URI uri = new Request("GET", "/foo?api=1.0").withQueryParam("foo", "bar").getUri();
     assertEquals("/foo?api=1.0&foo=bar", uri.toString());
   }
+
+  // Test that forward-slashes are appropriately encoded in query parameters.
+  @Test
+  void requestUriWithQueryWithForwardSlash() {
+    URI uri = new Request("GET", "/foo").withQueryParam("foo", "bar/baz").getUri();
+    assertEquals("/foo?foo=bar%2Fbaz", uri.toString());
+  }
 }
