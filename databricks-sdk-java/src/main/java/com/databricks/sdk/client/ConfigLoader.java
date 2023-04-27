@@ -184,7 +184,7 @@ public class ConfigLoader {
       debugString = debugString(cfg);
     }
     if (!debugString.isEmpty() && isHttpUnauthorizedOrForbidden) {
-      message = String.format("%s. %s", message.replaceAll("\\.*$", ""), debugString);
+      message = String.format("%s. %s", message, debugString);
     }
     return new DatabricksException(message, e);
   }
