@@ -54,9 +54,9 @@ public class Request {
     StringJoiner joiner = new StringJoiner("&");
     for (Map.Entry<String, String> entry : in.entrySet()) {
       try {
-        String encoded =
-            URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8.name()); // TODO: UTF-8?
-        joiner.add(String.format("%s=%s", entry.getKey(), encoded));
+        String encodedKey = URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8.name());
+        String encodedValue = URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8.name());
+        joiner.add(encodedKey + "=" + encodedValue);
       } catch (UnsupportedEncodingException e) {
         throw new DatabricksException("Unable to encode query parameter: " + e.getMessage(), e);
       }
@@ -70,20 +70,25 @@ public class Request {
       String rawQuery = uri.getRawQuery();
       rawQuery = rawQuery == null ? "" : rawQuery + "&";
       rawQuery += mapToQuery(query);
-      try {
-        String uriStr =
-            uri.getScheme()
-                + "://"
-                + uri.getHost()
-                + ":"
-                + uri.getPort()
-                + uri.getPath()
-                + "?"
-                + rawQuery;
-        return new URI(uriStr);
-      } catch (URISyntaxException e) {
-        throw new IllegalArgumentException(e);
+      // We need to construct the query by hand and cannot use the new URI(uri.getScheme(), uri.getAuthority(),
+      // uri.getPath(), rawQuery, uri.getFragment()) constructor. This constructor does not percent-encode certain
+      // characters in the query, such as '/'. Instead, the query is encoded here, and the complete URI is passed into
+      // the new URI(String) constructor, which assumes that the URI is already encoded.
+      StringBuilder updatedUriString = new StringBuilder();
+      if (uri.getScheme() != null) {
+        updatedUriString.append(uri.getScheme()).append("://");
       }
+      if (uri.getAuthority() != null) {
+        updatedUriString.append(uri.getAuthority());
+      }
+      updatedUriString.append(uri.getPath());
+      if (!rawQuery.isEmpty()) {
+        updatedUriString.append("?").append(rawQuery);
+      }
+      if (uri.getFragment() != null) {
+        updatedUriString.append("#").append(uri.getFragment());
+      }
+      return URI.create(updatedUriString.toString());
     }
     return uri;
   }
