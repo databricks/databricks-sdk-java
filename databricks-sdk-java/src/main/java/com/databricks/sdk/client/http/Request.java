@@ -3,7 +3,6 @@ package com.databricks.sdk.client.http;
 import com.databricks.sdk.client.DatabricksException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
@@ -70,9 +69,12 @@ public class Request {
       String rawQuery = uri.getRawQuery();
       rawQuery = rawQuery == null ? "" : rawQuery + "&";
       rawQuery += mapToQuery(query);
-      // We need to construct the query by hand and cannot use the new URI(uri.getScheme(), uri.getAuthority(),
-      // uri.getPath(), rawQuery, uri.getFragment()) constructor. This constructor does not percent-encode certain
-      // characters in the query, such as '/'. Instead, the query is encoded here, and the complete URI is passed into
+      // We need to construct the query by hand and cannot use the new URI(uri.getScheme(),
+      // uri.getAuthority(),
+      // uri.getPath(), rawQuery, uri.getFragment()) constructor. This constructor does not
+      // percent-encode certain
+      // characters in the query, such as '/'. Instead, the query is encoded here, and the complete
+      // URI is passed into
       // the new URI(String) constructor, which assumes that the URI is already encoded.
       StringBuilder updatedUriString = new StringBuilder();
       if (uri.getScheme() != null) {

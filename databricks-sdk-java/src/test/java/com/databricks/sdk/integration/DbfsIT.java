@@ -49,8 +49,9 @@ public class DbfsIT {
   }
 
   /**
-   * An integration test for DbfsExt.readAllLines which writes newline-delimited text to DBFS, reads the
-   * written file back, and ensures that the contents of the file are the same as what was written out.
+   * An integration test for DbfsExt.readAllLines which writes newline-delimited text to DBFS, reads
+   * the written file back, and ensures that the contents of the file are the same as what was
+   * written out.
    */
   @Test
   void writeLinesAndReadLines(DatabricksWorkspace workspace) throws IOException {
@@ -70,7 +71,8 @@ public class DbfsIT {
 
     try {
       // Read the file back from DBFS.
-      String[] readLines = workspace.dbfs().readAllLines(path, StandardCharsets.UTF_8).toArray(new String[0]);
+      String[] readLines =
+          workspace.dbfs().readAllLines(path, StandardCharsets.UTF_8).toArray(new String[0]);
 
       // Assert that the contents of the file are the same as what was written out.
       assertArrayEquals(lines, readLines);
