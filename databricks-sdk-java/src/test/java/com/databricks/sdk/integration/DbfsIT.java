@@ -9,6 +9,7 @@ import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.service.files.Delete;
 import com.databricks.sdk.service.files.FileInfo;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -42,6 +43,37 @@ public class DbfsIT {
 
       // Assert that the contents of the file are the same as what was written out.
       assertArrayEquals(fileContents, readContents);
+    } finally {
+      workspace.dbfs().delete(fileName);
+    }
+  }
+
+  /**
+   * An integration test for DbfsExt.readAllLines which writes newline-delimited text to DBFS, reads the
+   * written file back, and ensures that the contents of the file are the same as what was written out.
+   */
+  @Test
+  void writeLinesAndReadLines(DatabricksWorkspace workspace) throws IOException {
+    // Generate a random file name and random contents of 10 KiB.
+    String fileName = "dbfs:/tmp/test-file-" + UUID.randomUUID();
+    String[] lines = new String[100];
+    StringBuilder file = new StringBuilder();
+    for (int i = 0; i < lines.length; i++) {
+      lines[i] = "line " + i;
+      file.append(lines[i]).append("\n");
+    }
+    Path path = Paths.get(fileName);
+
+    // Write the file to DBFS.
+
+    workspace.dbfs().write(path, file.toString().getBytes(StandardCharsets.UTF_8));
+
+    try {
+      // Read the file back from DBFS.
+      String[] readLines = workspace.dbfs().readAllLines(path, StandardCharsets.UTF_8).toArray(new String[0]);
+
+      // Assert that the contents of the file are the same as what was written out.
+      assertArrayEquals(lines, readLines);
     } finally {
       workspace.dbfs().delete(fileName);
     }
