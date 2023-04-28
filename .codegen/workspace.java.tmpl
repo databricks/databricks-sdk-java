@@ -5,14 +5,18 @@ package com.databricks.sdk;
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.ConfigLoader;
 import com.databricks.sdk.client.DatabricksConfig;
+{{- /* The mapping of mixin replacements should be defined in the .codegen.json file somehow, so that it can be used
+       in multiple pipelines in the template itself. Pipelines in go template are not able to reference variables
+       defined in an outer scope (https://github.com/golang/go/issues/17454). */ -}}
 import com.databricks.sdk.mixin.ClustersExt;
+import com.databricks.sdk.mixin.DbfsExt;
 {{range .Services}}{{if not .IsAccounts}}
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}API;
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;
 {{end}}{{end}}
 
 {{- define "api" -}}
-  {{- $mixins := dict "ClustersAPI" "ClustersExt" -}}
+  {{- $mixins := dict "ClustersAPI" "ClustersExt" "DbfsAPI" "DbfsExt" -}}
   {{- $genApi := concat .PascalName "API" -}}
   {{- getOrDefault $mixins $genApi $genApi -}}
 {{- end -}}

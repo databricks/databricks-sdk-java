@@ -6,6 +6,7 @@ import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.ConfigLoader;
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
+import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
 import com.databricks.sdk.service.catalog.CatalogsService;
 import com.databricks.sdk.service.catalog.ExternalLocationsAPI;
@@ -41,7 +42,6 @@ import com.databricks.sdk.service.compute.LibrariesAPI;
 import com.databricks.sdk.service.compute.LibrariesService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
-import com.databricks.sdk.service.files.DbfsAPI;
 import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.iam.CurrentUserAPI;
 import com.databricks.sdk.service.iam.CurrentUserService;
@@ -117,7 +117,7 @@ public class DatabricksWorkspace {
   private CurrentUserAPI currentUserAPI;
   private DashboardsAPI dashboardsAPI;
   private DataSourcesAPI dataSourcesAPI;
-  private DbfsAPI dbfsAPI;
+  private DbfsExt dbfsAPI;
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private ExperimentsAPI experimentsAPI;
   private ExternalLocationsAPI externalLocationsAPI;
@@ -175,7 +175,7 @@ public class DatabricksWorkspace {
     currentUserAPI = new CurrentUserAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
-    dbfsAPI = new DbfsAPI(apiClient);
+    dbfsAPI = new DbfsExt(apiClient);
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
@@ -342,7 +342,7 @@ public class DatabricksWorkspace {
    * DBFS API makes it simple to interact with various data sources without having to include a
    * users credentials every time to read a file.
    */
-  public DbfsAPI dbfs() {
+  public DbfsExt dbfs() {
     return dbfsAPI;
   }
 
@@ -1049,7 +1049,7 @@ public class DatabricksWorkspace {
 
   /** Replace DbfsAPI implementation with mock */
   public DatabricksWorkspace withDbfsImpl(DbfsService dbfs) {
-    dbfsAPI = new DbfsAPI(dbfs);
+    dbfsAPI = new DbfsExt(dbfs);
     return this;
   }
 

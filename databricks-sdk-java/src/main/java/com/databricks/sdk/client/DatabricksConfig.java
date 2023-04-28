@@ -8,6 +8,7 @@ import com.databricks.sdk.client.oauth.OpenIDConnectEndpoints;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Supplier;
 import org.apache.http.HttpMessage;
 
@@ -26,10 +27,10 @@ public class DatabricksConfig {
   @ConfigAttribute(value = "token", env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
   private String token;
 
-  @ConfigAttribute(value = "client_id", env = "DATABRICKS_CLIENT_ID", auth = "oath")
+  @ConfigAttribute(value = "client_id", env = "DATABRICKS_CLIENT_ID", auth = "oauth")
   private String clientId;
 
-  @ConfigAttribute(value = "client_secret", env = "DATABRICKS_CLIENT_SECRET", auth = "oath")
+  @ConfigAttribute(value = "client_secret", env = "DATABRICKS_CLIENT_SECRET", auth = "oauth")
   private String clientSecret;
 
   @ConfigAttribute(value = "username", env = "DATABRICKS_USERNAME", auth = "basic")
@@ -153,6 +154,7 @@ public class DatabricksConfig {
   }
 
   private synchronized DatabricksConfig innerResolve() {
+    Objects.requireNonNull(allEnv);
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);

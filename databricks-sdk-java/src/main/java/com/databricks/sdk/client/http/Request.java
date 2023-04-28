@@ -1,8 +1,10 @@
 package com.databricks.sdk.client.http;
 
+import com.databricks.sdk.client.DatabricksException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Request {
@@ -15,7 +17,7 @@ public class Request {
   private String url;
   private final Map<String, String> headers = new HashMap<>();
   private final Map<String, String> query = new TreeMap<>();
-  private String body;
+  private final String body;
 
   public Request(String method, String url) {
     this(method, url, null);
@@ -50,8 +52,13 @@ public class Request {
   protected static String mapToQuery(Map<String, String> in) {
     StringJoiner joiner = new StringJoiner("&");
     for (Map.Entry<String, String> entry : in.entrySet()) {
-      String encoded = URLEncoder.encode(entry.getValue()); // TODO: UTF-8?
-      joiner.add(String.format("%s=%s", entry.getKey(), encoded));
+      try {
+        String encodedKey = URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8.name());
+        String encodedValue = URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8.name());
+        joiner.add(encodedKey + "=" + encodedValue);
+      } catch (UnsupportedEncodingException e) {
+        throw new DatabricksException("Unable to encode query parameter: " + e.getMessage(), e);
+      }
     }
     return joiner.toString();
   }
@@ -62,12 +69,28 @@ public class Request {
       String rawQuery = uri.getRawQuery();
       rawQuery = rawQuery == null ? "" : rawQuery + "&";
       rawQuery += mapToQuery(query);
-      try {
-        return new URI(
-            uri.getScheme(), null, uri.getHost(), uri.getPort(), uri.getPath(), rawQuery, null);
-      } catch (URISyntaxException e) {
-        throw new IllegalArgumentException(e);
+      // We need to construct the query by hand and cannot use the new URI(uri.getScheme(),
+      // uri.getAuthority(),
+      // uri.getPath(), rawQuery, uri.getFragment()) constructor. This constructor does not
+      // percent-encode certain
+      // characters in the query, such as '/'. Instead, the query is encoded here, and the complete
+      // URI is passed into
+      // the new URI(String) constructor, which assumes that the URI is already encoded.
+      StringBuilder updatedUriString = new StringBuilder();
+      if (uri.getScheme() != null) {
+        updatedUriString.append(uri.getScheme()).append("://");
       }
+      if (uri.getAuthority() != null) {
+        updatedUriString.append(uri.getAuthority());
+      }
+      updatedUriString.append(uri.getPath());
+      if (!rawQuery.isEmpty()) {
+        updatedUriString.append("?").append(rawQuery);
+      }
+      if (uri.getFragment() != null) {
+        updatedUriString.append("#").append(uri.getFragment());
+      }
+      return URI.create(updatedUriString.toString());
     }
     return uri;
   }
