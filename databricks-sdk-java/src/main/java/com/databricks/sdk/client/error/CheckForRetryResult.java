@@ -65,7 +65,7 @@ public class CheckForRetryResult {
       return null;
     }
     return new DatabricksException(
-        String.format("message: %s, errorCode: %s, statusCode: %d", message, errorCode, statusCode),
+        String.format("errorCode: %s, message: %s, statusCode: %d", errorCode, message, statusCode),
         cause);
   }
 
