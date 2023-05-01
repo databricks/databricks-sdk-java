@@ -62,7 +62,7 @@ If you use Databricks [configuration profiles](https://docs.databricks.com/dev-t
 import com.databricks.sdk.DatabricksWorkspace;
 ...
 DatabricksWorkspace workspace = new DatabricksWorkspace();
-workspace. # press <TAB> for autocompletion
+workspace. // press <TAB> for autocompletion
 ```
 
 ### In this section
