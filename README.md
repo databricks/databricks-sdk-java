@@ -28,7 +28,7 @@ You can install Databricks SDK for Java by adding the following to your `pom.xml
 </dependency>
 ```
 
-Using the SDK is as simple as instantiating `DatabricksWorkspace` and `DatabricksAccount` classes:
+Using the SDK is as simple as instantiating the `DatabricksWorkspace` class:
 
 ```java
 import com.databricks.sdk.DatabricksWorkspace;
@@ -43,7 +43,21 @@ public class App {
     for (ClusterInfo c : workspace.clusters().list(new ListClustersRequest())) {
       System.out.println(c.getClusterName());
     }
-    
+  }
+}
+```
+
+To access account-level APIs, you can instantiate the `DatabricksAccount` class:
+
+```java
+import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.DatabricksAccount;
+import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.service.compute.ClusterInfo;
+import com.databricks.sdk.service.compute.ListClustersRequest;
+
+public class App {
+  public static void main(String[] args) {
     DatabricksAccount account = new DatabricksAccount();
     for (Workspace w : account.workspaces().list()) {
        System.out.println(w.getWorkspaceName());
@@ -75,7 +89,7 @@ workspace. // press <TAB> for autocompletion
 
 ### Default authentication flow
 
-If you run the [Databricks Terraform Provider](https://registry.terraform.io/providers/databrickslabs/databricks/latest), the [Databricks SDK for Go](https://github.com/databricks/databricks-sdk-go), the [Databricks CLI](https://docs.databricks.com/dev-tools/cli/index.html), or applications that target the Databricks SDKs for other languages, most likely they will all interoperate nicely together. By default, the Databricks SDK for Java tries the following [authentication](https://docs.databricks.com/dev-tools/auth.html) methods, in the following order, until it succeeds:
+If you run the [Databricks Terraform Provider](https://registry.terraform.io/providers/databrickslabs/databricks/latest), the [Databricks SDK for Go](https://github.com/databricks/databricks-sdk-go), the [Databricks SDK for Python](https://github.com/databricks/databricks-sdk-py), the [Databricks CLI](https://docs.databricks.com/dev-tools/cli/index.html), or applications that target the Databricks SDKs for other languages, most likely they will all interoperate nicely together. By default, the Databricks SDK for Java tries the following [authentication](https://docs.databricks.com/dev-tools/auth.html) methods, in the following order, until it succeeds:
 
 1. [Databricks native authentication](#databricks-native-authentication)
 2. [Azure native authentication](#azure-native-authentication)
