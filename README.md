@@ -262,6 +262,49 @@ On the platform side the Databricks APIs have different wait to deal with pagina
 
 The Databricks SDK for Java hides this complexity under the `Paginator` abstraction. Users can iterate over the results of a paginated API, and the SDK will lazily load the next page of results as needed.
 
+```java
+Map<Long, BaseJob> allJobs = new HashMap<>();
+Map<Long, List<Long>> durations = new HashMap<>();
+Map<Long, BaseRun> latestState = new HashMap<>();
+
+DatabricksWorkspace workspace = new DatabricksWorkspace();
+for (BaseJob job : workspace.jobs().list(new ListJobsRequest())) {
+   allJobs.put(job.getJobId(), job);
+   for (BaseRun run : workspace.jobs().listRuns(new ListRunsRequest().setJobId(job.getJobId()).setExpandTasks(false))) {
+      durations.computeIfAbsent(job.getJobId(), k -> new ArrayList<>()).add(run.getRunDuration());
+      if (!latestState.containsKey(job.getJobId())) {
+         latestState.put(job.getJobId(), run);
+         continue;
+      }
+      if (run.getEndTime() < latestState.get(job.getJobId()).getEndTime()) {
+         continue;
+      }
+      latestState.put(job.getJobId(), run);
+   }
+}
+
+// JobSummary is a custom POJO.
+List<JobSummary> summary = new ArrayList<>();
+for (Map.Entry<Long, BaseRun> entry : latestState.entrySet()) {
+   Long jobId = entry.getKey();
+   BaseRun run = entry.getValue();
+   BaseJob job = allJobs.get(jobId);
+   List<Long> jobDurations = durations.get(jobId);
+
+   JobSummary jobSummary = new JobSummary(
+           job.getSettings().getName(),
+           run.getState().getResultState(),
+           ZonedDateTime.ofInstant(Instant.ofEpochMilli(run.getEndTime()), ZoneId.of("UTC")),
+           jobDurations.stream().mapToLong(Long::longValue).average().orElse(0)
+   );
+   summary.add(jobSummary);
+}
+
+summary.stream()
+   .sorted(Comparator.comparing(JobSummary::getLastFinished).reversed())
+   .forEach(jobSummary -> LOGGER.info("Latest: {}", jobSummary));
+```
+
 ## Single-Sign-On (SSO) with OAuth
 
 ### Authorization Code flow with PKCE
