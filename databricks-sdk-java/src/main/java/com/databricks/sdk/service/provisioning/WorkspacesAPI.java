@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ import org.slf4j.LoggerFactory;
  * <p>These endpoints are available if your account is on the E2 version of the platform or on a
  * select custom plan that allows multiple workspaces per account.
  */
+@Generated
 public class WorkspacesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(WorkspacesAPI.class);
 

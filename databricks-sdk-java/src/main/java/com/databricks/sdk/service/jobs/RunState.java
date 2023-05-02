@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /** The result and lifecycle state of the run. */
+@Generated
 public class RunState {
   /**
    * A description of a run’s current location in the run lifecycle. This field is always available

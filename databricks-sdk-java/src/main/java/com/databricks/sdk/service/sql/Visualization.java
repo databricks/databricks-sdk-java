@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -12,6 +13,7 @@ import java.util.Objects;
  * create a new one with a POST request to the same endpoint. Databricks does not recommend
  * constructing ad-hoc visualizations entirely in JSON.
  */
+@Generated
 public class Visualization {
   /** */
   @JsonProperty("created_at")

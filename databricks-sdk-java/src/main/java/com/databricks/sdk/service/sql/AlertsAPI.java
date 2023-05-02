@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
  * object that periodically runs a query, evaluates a condition of its result, and notifies one or
  * more users and/or notification destinations if the condition was met.
  */
+@Generated
 public class AlertsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(AlertsAPI.class);
 

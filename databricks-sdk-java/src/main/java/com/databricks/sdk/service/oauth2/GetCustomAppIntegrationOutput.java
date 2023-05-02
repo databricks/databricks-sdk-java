@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class GetCustomAppIntegrationOutput {
   /** oauth client id of the custom oauth app */
   @JsonProperty("client_id")

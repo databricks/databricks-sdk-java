@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List share recipients */
+@Generated
 public class ListRecipientsRequest {
   /**
    * If not provided, all recipients will be returned. If no recipients exist with this ID, no

@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get repos */
+@Generated
 public class ListReposRequest {
   /**
    * Token used to get the next page of results. If not specified, returns the first page of results

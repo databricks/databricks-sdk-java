@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of Grants */
+@Generated
 class GrantsImpl implements GrantsService {
   private final ApiClient apiClient;
 

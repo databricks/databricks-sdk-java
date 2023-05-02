@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class CreatePublishedAppIntegration {
   /** app_id of the oauth published app integration. For example power-bi, tableau-deskop */
   @JsonProperty("app_id")

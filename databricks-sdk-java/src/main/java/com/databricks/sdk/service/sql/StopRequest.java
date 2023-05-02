@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Stop a warehouse */
+@Generated
 public class StopRequest {
   /** Required. Id of the SQL warehouse. */
   private String id;

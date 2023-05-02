@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
+
 /** Whether this trigger is paused or not. */
+@Generated
 public enum TriggerSettingsPauseStatus {
   PAUSED,
   UNPAUSED,

@@ -44,7 +44,7 @@ public class ApiErrors {
       errorBody.setErrorCode("SCIM_" + errorBody.getScimStatus());
     }
     return new CheckForRetryResult(
-        errorBody.getMessage(), errorBody.getErrorCode(), response.getStatusCode());
+        errorBody.getErrorCode(), errorBody.getMessage(), response.getStatusCode());
   }
 
   /**

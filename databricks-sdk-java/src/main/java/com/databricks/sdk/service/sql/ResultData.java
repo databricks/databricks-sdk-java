@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
@@ -12,6 +13,7 @@ import java.util.Objects;
  * in the `external_link` field when using `EXTERNAL_LINKS` disposition. Exactly one of these will
  * be set.
  */
+@Generated
 public class ResultData {
   /** Number of bytes in the result chunk. */
   @JsonProperty("byte_count")

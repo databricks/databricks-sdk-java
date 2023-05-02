@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /** Test webhook response object. */
+@Generated
 public class TestRegistryWebhook {
   /** Body of the response from the webhook URL */
   @JsonProperty("body")

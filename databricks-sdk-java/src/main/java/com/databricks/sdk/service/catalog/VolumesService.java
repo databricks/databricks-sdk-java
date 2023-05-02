@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Volumes are a Unity Catalog (UC) capability for accessing, storing, governing, organizing and
  * processing files. Use cases include running machine learning on unstructured data such as image,
@@ -14,6 +16,7 @@ package com.databricks.sdk.service.catalog;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface VolumesService {
   /**
    * Create a Volume.

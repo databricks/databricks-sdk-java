@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List transition requests */
+@Generated
 public class ListTransitionRequestsRequest {
   /** Name of the model. */
   @QueryParam("name")

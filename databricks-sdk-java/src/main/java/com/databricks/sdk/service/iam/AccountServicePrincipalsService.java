@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
  * platforms. Databricks recommends creating service principals to run production jobs or modify
@@ -12,6 +14,7 @@ package com.databricks.sdk.service.iam;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface AccountServicePrincipalsService {
   /**
    * Create a service principal.

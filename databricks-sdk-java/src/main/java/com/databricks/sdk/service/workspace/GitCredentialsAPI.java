@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
  *
  * <p>[more info]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
  */
+@Generated
 public class GitCredentialsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(GitCredentialsAPI.class);
 

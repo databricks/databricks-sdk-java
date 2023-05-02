@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class DeleteAcl {
   /** The principal to remove an existing ACL from. */
   @JsonProperty("principal")

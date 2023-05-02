@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class SubmitRunResponse {
   /** The canonical identifier for the newly submitted run. */
   @JsonProperty("run_id")

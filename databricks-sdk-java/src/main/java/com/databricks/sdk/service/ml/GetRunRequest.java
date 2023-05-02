@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a run */
+@Generated
 public class GetRunRequest {
   /** ID of the run to fetch. Must be provided. */
   @QueryParam("run_id")

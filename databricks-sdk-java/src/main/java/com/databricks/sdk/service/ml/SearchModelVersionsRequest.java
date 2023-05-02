@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Searches model versions */
+@Generated
 public class SearchModelVersionsRequest {
   /**
    * String filter condition, like "name='my-model-name'". Must be a single boolean condition, with

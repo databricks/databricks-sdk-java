@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /** Name of type (INT, STRUCT, MAP, and so on) */
+@Generated
 public enum ColumnInfoTypeName {
   ARRAY,
   BINARY,

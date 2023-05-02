@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class RunNowResponse {
   /** A unique identifier for this job run. This is set to the same value as `run_id`. */
   @JsonProperty("number_in_job")

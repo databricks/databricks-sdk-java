@@ -7,6 +7,7 @@ import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
 import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 class ClustersExtTest {
 
@@ -18,13 +19,16 @@ class ClustersExtTest {
                 new Request("GET", "https://localhost/api/2.0/clusters/get")
                     .withQueryParam("cluster_id", "abc"),
                 new Response("{}"));
-    ClustersExt clustersExt =
-        new ClustersExt(
-            new ApiClient(
-                new DatabricksConfig()
-                    .setHost("localhost")
-                    .setToken("bcd")
-                    .setHttpClient(httpClient)));
+
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setHost("https://localhost")
+            .setToken("bcd")
+            .setHttpClient(httpClient);
+    DatabricksConfig mockConfig = Mockito.spy(config);
+    Mockito.doReturn(mockConfig).when(mockConfig).resolve();
+
+    ClustersExt clustersExt = new ClustersExt(new ApiClient(mockConfig));
 
     clustersExt.ensureClusterIsRunning("abc");
   }

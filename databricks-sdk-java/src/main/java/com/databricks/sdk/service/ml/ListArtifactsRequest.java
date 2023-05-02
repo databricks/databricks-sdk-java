@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get all artifacts */
+@Generated
 public class ListArtifactsRequest {
   /** Token indicating the page of artifact results to fetch */
   @QueryParam("page_token")

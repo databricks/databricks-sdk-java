@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class PutSecret {
   /** If specified, value will be stored as bytes. */
   @JsonProperty("bytes_value")

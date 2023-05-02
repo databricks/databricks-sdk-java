@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /** A function that is dependent on a SQL object. */
+@Generated
 public class FunctionDependency {
   /**
    * Full name of the dependent function, in the form of

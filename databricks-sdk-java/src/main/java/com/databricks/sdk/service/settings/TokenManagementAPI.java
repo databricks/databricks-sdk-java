@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
  * Enables administrators to get all tokens and delete tokens for other users. Admins can either get
  * every token, get a specific token by ID, or get all tokens for a particular user.
  */
+@Generated
 public class TokenManagementAPI {
   private static final Logger LOG = LoggerFactory.getLogger(TokenManagementAPI.class);
 

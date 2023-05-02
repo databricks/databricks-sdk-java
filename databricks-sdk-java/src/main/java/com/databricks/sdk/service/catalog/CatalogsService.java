@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * A catalog is the first layer of Unity Catalog’s three-level namespace. It’s used to organize your
  * data assets. Users can see all catalogs on which they have been assigned the USE_CATALOG data
@@ -14,6 +16,7 @@ package com.databricks.sdk.service.catalog;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface CatalogsService {
   /**
    * Create a catalog.

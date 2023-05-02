@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of ModelRegistry */
+@Generated
 class ModelRegistryImpl implements ModelRegistryService {
   private final ApiClient apiClient;
 

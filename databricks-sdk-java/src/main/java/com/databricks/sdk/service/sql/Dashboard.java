@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
 /** A JSON representing a dashboard containing widgets of visualizations and text boxes. */
+@Generated
 public class Dashboard {
   /** Whether the authenticated user can edit the query definition. */
   @JsonProperty("can_edit")

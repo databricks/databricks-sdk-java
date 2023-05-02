@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
  * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
  * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
  */
+@Generated
 public class DataSourcesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(DataSourcesAPI.class);
 

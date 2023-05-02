@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
  * These APIs manage network configurations for customer-managed VPCs (optional). Its ID is used
  * when creating a new workspace if you use customer-managed VPCs.
  */
+@Generated
 public class NetworksAPI {
   private static final Logger LOG = LoggerFactory.getLogger(NetworksAPI.class);
 

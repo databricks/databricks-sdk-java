@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a credential */
+@Generated
 public class DeleteStorageCredentialRequest {
   /** Force deletion even if there are dependent external locations or external tables. */
   @QueryParam("force")

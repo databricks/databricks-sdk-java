@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /** A table that is dependent on a SQL object. */
+@Generated
 public class TableDependency {
   /**
    * Full name of the dependent table, in the form of

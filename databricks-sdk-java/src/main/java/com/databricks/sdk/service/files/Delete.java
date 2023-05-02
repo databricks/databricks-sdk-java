@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.files;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class Delete {
   /** The path of the file or directory to delete. The path should be the absolute DBFS path. */
   @JsonProperty("path")

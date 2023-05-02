@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get recipient share permissions */
+@Generated
 public class SharePermissionsRequest {
   /** The name of the Recipient. */
   private String name;

@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get an external location */
+@Generated
 public class GetExternalLocationRequest {
   /** Name of the external location. */
   private String name;

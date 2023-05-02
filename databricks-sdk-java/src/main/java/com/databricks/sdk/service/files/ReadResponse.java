@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.files;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class ReadResponse {
   /**
    * The number of bytes read (could be less than `length` if we hit end of file). This refers to

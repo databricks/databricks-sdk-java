@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
  * <p>You can declare primary keys and foreign keys as part of the table specification during table
  * creation. You can also add or drop constraints on existing tables.
  */
+@Generated
 public class TableConstraintsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(TableConstraintsAPI.class);
 

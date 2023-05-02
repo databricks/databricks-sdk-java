@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Libraries API allows you to install and uninstall libraries and get the status of libraries
  * on a cluster.
@@ -26,6 +28,7 @@ package com.databricks.sdk.service.compute;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface LibrariesService {
   /**
    * Get all statuses.

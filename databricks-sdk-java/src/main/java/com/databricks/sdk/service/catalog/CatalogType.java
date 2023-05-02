@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /** The type of the catalog. */
+@Generated
 public enum CatalogType {
   DELTASHARING_CATALOG,
   MANAGED_CATALOG,

@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Gets the named storage credential */
+@Generated
 public class GetAccountStorageCredentialRequest {
   /** Databricks Unity Catalog metastore ID */
   private String metastoreId;

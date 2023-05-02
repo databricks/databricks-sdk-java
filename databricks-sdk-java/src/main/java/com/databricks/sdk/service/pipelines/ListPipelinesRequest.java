@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Collection;
 import java.util.Objects;
 
 /** List pipelines */
+@Generated
 public class ListPipelinesRequest {
   /**
    * Select a subset of results based on the specified criteria. The supported filters are:

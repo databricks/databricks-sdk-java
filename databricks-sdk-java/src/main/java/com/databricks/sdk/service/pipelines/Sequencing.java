@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class Sequencing {
   /** A sequence number, unique and increasing within the control plane. */
   @JsonProperty("control_plane_seq_no")

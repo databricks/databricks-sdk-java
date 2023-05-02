@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class CreateRepo {
   /**
    * Desired path for the repo in the workspace. Must be in the format /Repos/{folder}/{repo-name}.

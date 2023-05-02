@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class SqlDashboardWidgetOutput {
   /** Time (in epoch milliseconds) when execution of the SQL widget ends. */
   @JsonProperty("end_time")

@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Collection;
 import java.util.Objects;
 
 /** List registry webhooks */
+@Generated
 public class ListWebhooksRequest {
   /**
    * If `events` is specified, any webhook with one or more of the specified trigger events is

@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * These APIs manage budget configuration including notifications for exceeding a budget for a
  * period. They can also retrieve the status of each budget.
@@ -9,6 +11,7 @@ package com.databricks.sdk.service.billing;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface BudgetsService {
   /**
    * Create a new budget.

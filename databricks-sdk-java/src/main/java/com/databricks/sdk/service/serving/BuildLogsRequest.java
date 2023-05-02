@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.serving;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
@@ -9,6 +10,7 @@ import java.util.Objects;
  * Retrieve the logs associated with building the model's environment for a given serving endpoint's
  * served model.
  */
+@Generated
 public class BuildLogsRequest {
   /** The name of the serving endpoint that the served model belongs to. This field is required. */
   private String name;

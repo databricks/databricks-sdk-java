@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /** Current state of the cluster. */
+@Generated
 public enum State {
   ERROR,
   PENDING,

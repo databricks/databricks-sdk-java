@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /** Alert configuration options. */
+@Generated
 public class AlertOptions {
   /** Name of column in the query result to compare in alert evaluation. */
   @JsonProperty("column")

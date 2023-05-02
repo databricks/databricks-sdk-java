@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a network configuration */
+@Generated
 public class DeleteNetworkRequest {
   /** Databricks Account API network configuration ID. */
   private String networkId;

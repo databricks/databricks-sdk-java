@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete access list */
+@Generated
 public class DeleteIpAccessListRequest {
   /** The ID for the corresponding IP access list to modify. */
   private String ipAccessListId;

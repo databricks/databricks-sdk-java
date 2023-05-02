@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Instance Pools API are used to create, edit, delete and list instance pools by using ready-to-use
  * cloud instances which reduces a cluster start and auto-scaling times.
@@ -22,6 +24,7 @@ package com.databricks.sdk.service.compute;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface InstancePoolsService {
   /**
    * Create a new instance pool.

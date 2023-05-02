@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Check configuration status */
+@Generated
 public class GetStatusRequest {
   /** */
   @QueryParam("keys")

@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List table summaries */
+@Generated
 public class ListSummariesRequest {
   /** Name of parent catalog for tables of interest. */
   @QueryParam("catalog_name")

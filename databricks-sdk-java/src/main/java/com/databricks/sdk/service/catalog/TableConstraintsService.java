@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Primary key and foreign key constraints encode relationships between fields in tables.
  *
@@ -17,6 +19,7 @@ package com.databricks.sdk.service.catalog;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface TableConstraintsService {
   /**
    * Create a table constraint.

@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * This API allows execution of Python, Scala, SQL, or R commands on running Databricks Clusters.
  *
@@ -8,6 +10,7 @@ package com.databricks.sdk.service.compute;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface CommandExecutionService {
   /**
    * Cancel a command.

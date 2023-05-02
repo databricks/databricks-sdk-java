@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
  * appropriate VPC for the new workspace. A credential configuration encapsulates this role
  * information, and its ID is used when creating a new workspace.
  */
+@Generated
 public class CredentialsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(CredentialsAPI.class);
 

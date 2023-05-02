@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class BudgetAlert {
   /**
    * List of email addresses to be notified when budget percentage is exceeded in the given period.

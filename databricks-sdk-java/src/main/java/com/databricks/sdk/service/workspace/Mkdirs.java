@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class Mkdirs {
   /**
    * The absolute path of the directory. If the parent directories do not exist, it will also create

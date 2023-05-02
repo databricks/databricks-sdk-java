@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class PublicTokenInfo {
   /** Comment the token was created with, if applicable. */
   @JsonProperty("comment")

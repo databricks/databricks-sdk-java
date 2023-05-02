@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a list of queries */
+@Generated
 public class ListQueriesRequest {
   /**
    * Name of query attribute to order by. Default sort order is ascending. Append a dash (`-`) to

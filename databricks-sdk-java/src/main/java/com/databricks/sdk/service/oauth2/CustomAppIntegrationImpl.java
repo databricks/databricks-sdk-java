@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of CustomAppIntegration */
+@Generated
 class CustomAppIntegrationImpl implements CustomAppIntegrationService {
   private final ApiClient apiClient;
 

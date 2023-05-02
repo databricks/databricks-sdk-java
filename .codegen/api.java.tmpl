@@ -15,12 +15,14 @@ import org.slf4j.LoggerFactory;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.client.DatabricksException;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
 
 {{if .Description}}/**
  {{.Comment " * " 80}}
  */{{end}}
+@Generated
 public class {{.PascalName}}API {
   private static final Logger LOG = LoggerFactory.getLogger({{.PascalName}}API.class);
 

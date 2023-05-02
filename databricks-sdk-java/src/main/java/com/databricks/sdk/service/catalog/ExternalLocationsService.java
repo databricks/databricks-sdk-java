@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * An external location is an object that combines a cloud storage path with a storage credential
  * that authorizes access to the cloud storage path. Each external location is subject to Unity
@@ -17,6 +19,7 @@ package com.databricks.sdk.service.catalog;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface ExternalLocationsService {
   /**
    * Create an external location.

@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.serving;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class ServedModelOutput {
   /** The creation timestamp of the served model in Unix time. */
   @JsonProperty("creation_timestamp")

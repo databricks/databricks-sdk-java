@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
  * Catalog to groups, instead of to users individually. All Databricks Account identities can be
  * assigned as members of groups, and members inherit permissions that are assigned to their group.
  */
+@Generated
 public class AccountGroupsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(AccountGroupsAPI.class);
 

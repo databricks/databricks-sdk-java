@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class GetPublishedAppIntegrationsOutput {
   /** Array of Published OAuth App Integrations defined for the account. */
   @JsonProperty("apps")

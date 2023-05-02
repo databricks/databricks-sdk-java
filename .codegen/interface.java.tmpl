@@ -4,6 +4,8 @@ package com.databricks.sdk.service.{{.Package.Name}};
 import java.util.Collection;
 import java.util.Map;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  {{.Comment " * " 80}}
  *
@@ -11,6 +13,7 @@ import java.util.Map;
  *
  * Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface {{.PascalName}}Service {
 	{{- range .Methods}}
 	{{if .Description}}/**

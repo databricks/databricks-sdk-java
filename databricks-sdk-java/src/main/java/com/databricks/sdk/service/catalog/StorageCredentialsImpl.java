@@ -2,10 +2,12 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of StorageCredentials */
+@Generated
 class StorageCredentialsImpl implements StorageCredentialsService {
   private final ApiClient apiClient;
 

@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a function */
+@Generated
 public class DeleteFunctionRequest {
   /** Force deletion even if the function is notempty. */
   @QueryParam("force")

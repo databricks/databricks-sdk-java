@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class LibraryFullStatus {
   /** Whether the library was set to be installed on all clusters via the libraries UI. */
   @JsonProperty("is_library_for_all_clusters")

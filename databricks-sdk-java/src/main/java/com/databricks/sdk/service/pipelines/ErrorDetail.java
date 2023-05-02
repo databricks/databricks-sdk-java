@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class ErrorDetail {
   /** The exception thrown for this error, with its chain of cause. */
   @JsonProperty("exceptions")

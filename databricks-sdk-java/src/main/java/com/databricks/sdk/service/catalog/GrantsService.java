@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * In Unity Catalog, data is secure by default. Initially, users have no access to data in a
  * metastore. Access can be granted by either a metastore admin, the owner of an object, or the
@@ -16,6 +18,7 @@ package com.databricks.sdk.service.catalog;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface GrantsService {
   /**
    * Get permissions.

@@ -2,10 +2,12 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of Workspaces */
+@Generated
 class WorkspacesImpl implements WorkspacesService {
   private final ApiClient apiClient;
 

@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Registers personal access token for Databricks to do operations on behalf of the user.
  *
@@ -12,6 +14,7 @@ package com.databricks.sdk.service.workspace;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface GitCredentialsService {
   /**
    * Create a credential entry.

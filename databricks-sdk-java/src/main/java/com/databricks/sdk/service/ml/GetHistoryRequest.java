@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get history of a given metric within a run */
+@Generated
 public class GetHistoryRequest {
   /**
    * Maximum number of Metric records to return per paginated request. Default is set to 25,000. If

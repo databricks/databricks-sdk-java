@@ -103,8 +103,10 @@ import com.databricks.sdk.service.workspace.SecretsAPI;
 import com.databricks.sdk.service.workspace.SecretsService;
 import com.databricks.sdk.service.workspace.WorkspaceAPI;
 import com.databricks.sdk.service.workspace.WorkspaceService;
+import com.databricks.sdk.support.Generated;
 
 /** Entry point for accessing Databricks workspace-level APIs */
+@Generated
 public class DatabricksWorkspace {
   private final ApiClient apiClient;
   private final DatabricksConfig config;

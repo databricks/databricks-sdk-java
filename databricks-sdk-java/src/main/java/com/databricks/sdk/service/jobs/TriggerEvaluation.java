@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class TriggerEvaluation {
   /**
    * Human-readable description of the the trigger evaluation result. Explains why the trigger

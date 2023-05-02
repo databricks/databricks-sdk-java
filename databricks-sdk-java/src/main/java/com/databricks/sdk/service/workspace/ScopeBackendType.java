@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
+
+@Generated
 public enum ScopeBackendType {
   AZURE_KEYVAULT,
   DATABRICKS,

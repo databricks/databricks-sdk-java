@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
@@ -29,6 +30,7 @@ import org.slf4j.LoggerFactory;
  * <p>[Databricks CLI]: https://docs.databricks.com/dev-tools/cli/index.html [Secrets utility]:
  * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
  */
+@Generated
 public class JobsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(JobsAPI.class);
 

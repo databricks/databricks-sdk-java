@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class ExportResponse {
   /**
    * The base64-encoded content. If the limit (10MB) is exceeded, exception with error code

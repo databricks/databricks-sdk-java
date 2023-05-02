@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
  * before Unity Catalog was released. If your workspace includes a legacy Hive metastore, the data
  * in that metastore is available in a catalog named hive_metastore.
  */
+@Generated
 public class MetastoresAPI {
   private static final Logger LOG = LoggerFactory.getLogger(MetastoresAPI.class);
 
