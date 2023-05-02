@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class PipelineParams {
   /** If true, triggers a full refresh on the delta live table. */
   @JsonProperty("full_refresh")

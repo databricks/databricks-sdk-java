@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /** The Google Cloud specific information for this Private Service Connect endpoint. */
+@Generated
 public class GcpVpcEndpointInfo {
   /** Region of the PSC endpoint. */
   @JsonProperty("endpoint_region")

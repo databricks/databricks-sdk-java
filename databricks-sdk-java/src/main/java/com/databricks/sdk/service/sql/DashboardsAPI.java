@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * duplicate multiple dashboards at once since you can get a dashboard definition with a GET request
  * and then POST it to create a new one.
  */
+@Generated
 public class DashboardsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(DashboardsAPI.class);
 

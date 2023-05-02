@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
  * the Apache Spark container fails to launch and init scripts with later position are skipped. If
  * enough containers fail, the entire cluster fails with a `GLOBAL_INIT_SCRIPT_FAILURE` error code.
  */
+@Generated
 public class GlobalInitScriptsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(GlobalInitScriptsAPI.class);
 

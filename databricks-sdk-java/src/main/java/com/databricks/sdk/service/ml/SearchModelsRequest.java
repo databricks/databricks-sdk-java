@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Search models */
+@Generated
 public class SearchModelsRequest {
   /**
    * String filter condition, like "name LIKE 'my-model-name'". Interpreted in the backend

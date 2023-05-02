@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class PartialUpdate {
   /** Unique ID for a group in the Databricks Account. */
   private String id;

@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List users */
+@Generated
 public class ListUsersRequest {
   /** Comma-separated list of attributes to return in response. */
   @QueryParam("attributes")

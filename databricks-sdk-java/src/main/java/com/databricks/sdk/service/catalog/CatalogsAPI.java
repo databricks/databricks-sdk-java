@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
  * across all of the workspaces in a Databricks account. Users in different workspaces can share
  * access to the same data, depending on privileges granted centrally in Unity Catalog.
  */
+@Generated
 public class CatalogsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(CatalogsAPI.class);
 

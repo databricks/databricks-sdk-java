@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
+
 /** This describes an enum */
+@Generated
 public enum RunLifeCycleState {
   BLOCKED, // The run is blocked on an upstream dependency.
   INTERNAL_ERROR, // An exceptional state that indicates a failure in the Jobs service, such as

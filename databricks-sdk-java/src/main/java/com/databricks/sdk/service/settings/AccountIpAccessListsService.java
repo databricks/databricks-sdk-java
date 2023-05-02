@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Accounts IP Access List API enables account admins to configure IP access lists for access to
  * the account console.
@@ -27,6 +29,7 @@ package com.databricks.sdk.service.settings;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface AccountIpAccessListsService {
   /**
    * Create access list.

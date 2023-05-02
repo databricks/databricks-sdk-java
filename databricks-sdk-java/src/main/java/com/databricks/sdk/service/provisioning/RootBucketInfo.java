@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /** Root S3 bucket information. */
+@Generated
 public class RootBucketInfo {
   /** The name of the S3 bucket. */
   @JsonProperty("bucket_name")

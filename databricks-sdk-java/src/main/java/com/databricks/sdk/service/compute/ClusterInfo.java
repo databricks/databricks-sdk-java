@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+@Generated
 public class ClusterInfo {
   /**
    * Parameters needed in order to automatically scale clusters up and down based on load. Note:

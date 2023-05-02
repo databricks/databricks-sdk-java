@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class GlobalInitScriptCreateRequest {
   /** Specifies whether the script is enabled. The script runs only if enabled. */
   @JsonProperty("enabled")

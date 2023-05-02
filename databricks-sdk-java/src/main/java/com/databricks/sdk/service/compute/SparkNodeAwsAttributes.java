@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class SparkNodeAwsAttributes {
   /** Whether this node is on an Amazon spot instance. */
   @JsonProperty("is_spot")

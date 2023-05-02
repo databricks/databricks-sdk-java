@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.files;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class FileInfo {
   /** The length of the file in bytes or zero if the path is a directory. */
   @JsonProperty("file_size")

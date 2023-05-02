@@ -47,8 +47,10 @@ import com.databricks.sdk.service.provisioning.WorkspacesAPI;
 import com.databricks.sdk.service.provisioning.WorkspacesService;
 import com.databricks.sdk.service.settings.AccountIpAccessListsAPI;
 import com.databricks.sdk.service.settings.AccountIpAccessListsService;
+import com.databricks.sdk.support.Generated;
 
 /** Entry point for accessing Databricks account-level APIs */
+@Generated
 public class DatabricksAccount {
   private final ApiClient apiClient;
   private final DatabricksConfig config;

@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class SharedDataObjectUpdate {
   /** One of: **ADD**, **REMOVE**, **UPDATE**. */
   @JsonProperty("action")

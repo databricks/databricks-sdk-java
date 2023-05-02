@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class QueryEditContent {
   /** The ID of the data source / SQL warehouse where this query will run. */
   @JsonProperty("data_source_id")

@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +23,7 @@ import org.slf4j.LoggerFactory;
  * <p>Databricks does not charge DBUs while instances are idle in the pool. Instance provider
  * billing does apply. See pricing.
  */
+@Generated
 public class InstancePoolsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(InstancePoolsAPI.class);
 

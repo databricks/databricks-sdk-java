@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class TableRowFilter {
   /**
    * The list of table columns to be passed as input to the row filter function. The column types

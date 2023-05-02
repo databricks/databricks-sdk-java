@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
+@Generated
 public class DbtOutput {
   /** An optional map of headers to send when retrieving the artifact from the `artifacts_link`. */
   @JsonProperty("artifacts_headers")

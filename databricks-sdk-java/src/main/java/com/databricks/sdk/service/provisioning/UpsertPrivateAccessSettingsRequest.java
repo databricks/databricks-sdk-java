@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class UpsertPrivateAccessSettingsRequest {
   /**
    * An array of Databricks VPC endpoint IDs. This is the Databricks ID that is returned when

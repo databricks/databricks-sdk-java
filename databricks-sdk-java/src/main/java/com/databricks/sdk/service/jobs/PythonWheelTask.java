@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+@Generated
 public class PythonWheelTask {
   /**
    * Named entry point to use, if it does not exist in the metadata of the package it executes the

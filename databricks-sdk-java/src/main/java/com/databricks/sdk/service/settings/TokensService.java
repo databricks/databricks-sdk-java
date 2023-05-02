@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Token API allows you to create, list, and revoke tokens that can be used to authenticate and
  * access Databricks REST APIs.
@@ -9,6 +11,7 @@ package com.databricks.sdk.service.settings;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface TokensService {
   /**
    * Create a user token.

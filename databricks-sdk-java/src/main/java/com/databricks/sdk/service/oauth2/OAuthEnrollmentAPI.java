@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * <p>**Note:** Your account must be on the E2 version to use these APIs, this is because OAuth is
  * only supported on the E2 version.
  */
+@Generated
 public class OAuthEnrollmentAPI {
   private static final Logger LOG = LoggerFactory.getLogger(OAuthEnrollmentAPI.class);
 

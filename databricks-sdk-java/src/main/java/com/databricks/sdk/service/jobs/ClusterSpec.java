@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class ClusterSpec {
   /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs of this job.

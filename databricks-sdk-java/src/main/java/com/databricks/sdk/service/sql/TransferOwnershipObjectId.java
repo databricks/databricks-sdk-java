@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class TransferOwnershipObjectId {
   /** Email address for the new owner, who must exist in the workspace. */
   @JsonProperty("new_owner")

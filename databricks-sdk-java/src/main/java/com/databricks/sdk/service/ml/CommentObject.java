@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Comment details. */
+@Generated
 public class CommentObject {
   /** Array of actions on the activity allowed for the current viewer. */
   @JsonProperty("available_actions")

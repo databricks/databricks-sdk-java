@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
+
 /** This describes an enum */
+@Generated
 public enum TriggerType {
   FILE_ARRIVAL, // Indicates a run that is triggered by a file arrival.
   ONE_TIME, // One time triggers that fire a single run. This occurs you triggered a single

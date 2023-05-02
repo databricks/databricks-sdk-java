@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a function */
+@Generated
 public class GetFunctionRequest {
   /**
    * The fully-qualified name of the function (of the form

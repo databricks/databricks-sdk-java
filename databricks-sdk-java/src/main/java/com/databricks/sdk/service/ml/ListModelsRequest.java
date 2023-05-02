@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List models */
+@Generated
 public class ListModelsRequest {
   /** Maximum number of registered models desired. Max threshold is 1000. */
   @QueryParam("max_results")

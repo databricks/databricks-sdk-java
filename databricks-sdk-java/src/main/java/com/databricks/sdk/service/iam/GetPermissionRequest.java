@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get object permissions */
+@Generated
 public class GetPermissionRequest {
   /** */
   private String requestObjectId;

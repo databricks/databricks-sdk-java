@@ -1,6 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import java.util.Collection;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Collection;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface PrivateAccessService {
   /**
    * Create private access settings.

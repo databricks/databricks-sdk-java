@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /** The cause of a change in target size. */
+@Generated
 public enum EventDetailsCause {
   AUTORECOVERY,
   AUTOSCALE,

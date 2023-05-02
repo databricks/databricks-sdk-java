@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /** Only lowest-price and prioritized are allowed */
+@Generated
 public enum FleetOnDemandOptionAllocationStrategy {
   CAPACITY_OPTIMIZED,
   DIVERSIFIED,

@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
  * policies using a policy family. Cluster policies created using a policy family inherit the policy
  * family's policy definition.
  */
+@Generated
 public class PolicyFamiliesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(PolicyFamiliesAPI.class);
 

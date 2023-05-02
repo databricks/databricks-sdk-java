@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
  * While Databricks makes an effort to redact secret values that might be displayed in notebooks, it
  * is not possible to prevent such users from reading secrets.
  */
+@Generated
 public class SecretsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(SecretsAPI.class);
 

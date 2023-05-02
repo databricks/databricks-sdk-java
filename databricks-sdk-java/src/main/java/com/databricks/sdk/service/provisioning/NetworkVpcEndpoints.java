@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
@@ -13,6 +14,7 @@ import java.util.Objects;
  *
  * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink/
  */
+@Generated
 public class NetworkVpcEndpoints {
   /**
    * The VPC endpoint ID used by this network to access the Databricks secure cluster connectivity

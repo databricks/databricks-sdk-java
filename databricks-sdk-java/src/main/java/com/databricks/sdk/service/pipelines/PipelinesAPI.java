@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
@@ -26,6 +27,7 @@ import org.slf4j.LoggerFactory;
  * Expectations allow you to define expected data quality and specify how to handle records that
  * fail those expectations.
  */
+@Generated
 public class PipelinesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(PipelinesAPI.class);
 

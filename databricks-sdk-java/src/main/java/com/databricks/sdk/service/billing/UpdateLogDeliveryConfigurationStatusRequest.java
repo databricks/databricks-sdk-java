@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class UpdateLogDeliveryConfigurationStatusRequest {
   /** Databricks log delivery configuration ID */
   private String logDeliveryConfigurationId;

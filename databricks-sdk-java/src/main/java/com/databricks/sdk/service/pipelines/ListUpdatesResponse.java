@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class ListUpdatesResponse {
   /**
    * If present, then there are more results, and this a token to be used in a subsequent request to

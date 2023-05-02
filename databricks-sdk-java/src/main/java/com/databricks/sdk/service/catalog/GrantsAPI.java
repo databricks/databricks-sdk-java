@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
  * current and future objects within the catalog. Similarly, privileges granted on a schema are
  * inherited by all current and future objects within that schema.
  */
+@Generated
 public class GrantsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(GrantsAPI.class);
 

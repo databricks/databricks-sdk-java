@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * In general, there is little need to modify dashboards using the API. However, it can be useful to
  * use dashboard objects to look-up a collection of related query IDs. The API can also be used to
@@ -11,6 +13,7 @@ package com.databricks.sdk.service.sql;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface DashboardsService {
   /** Create a dashboard object. */
   Dashboard create(CreateDashboardRequest createDashboardRequest);

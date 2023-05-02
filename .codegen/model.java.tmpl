@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 
@@ -21,6 +22,7 @@ types.
  {{.Comment " * " 80}}
  */{{end}}
 {{if .Fields -}}
+@Generated
 public class {{.PascalName}} {
   {{- range .Fields}}
   /**
@@ -64,10 +66,13 @@ public class {{.PascalName}} {
 }
 {{else if .ArrayValue}}// type {{.PascalName}} []{{template "type" .ArrayValue}}
 {{else if .MapValue}}// type {{.PascalName}} {{template "type" .}}
-{{else if .Enum}}public enum {{.PascalName}}{
+{{else if .Enum -}}
+@Generated
+public enum {{.PascalName}}{
   {{range .Enum }}{{.Content}},{{.Comment "// " 80}}
   {{end}}
-}{{end}}
+}
+{{- end}}
 
 {{- define "type" -}}
 	{{- if not . }}Object /* ERROR */

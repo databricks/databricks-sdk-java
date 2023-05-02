@@ -2,10 +2,13 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Permission level of the requesting user on the object. For what is allowed at each level, see
  * [MLflow Model permissions](..).
  */
+@Generated
 public enum PermissionLevel {
   CAN_EDIT,
   CAN_MANAGE,

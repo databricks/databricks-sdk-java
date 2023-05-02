@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
+
+@Generated
 public enum ListSortOrder {
   ascending,
   descending,

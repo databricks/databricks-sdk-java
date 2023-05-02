@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Workspace Permission Assignment API allows you to manage workspace permissions for principals
  * in your account.
@@ -9,6 +11,7 @@ package com.databricks.sdk.service.iam;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface WorkspaceAssignmentService {
   /**
    * Delete permissions assignment.

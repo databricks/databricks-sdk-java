@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class VolumeInfo {
   /** The name of the catalog where the schema and the volume are */
   @JsonProperty("catalog_name")

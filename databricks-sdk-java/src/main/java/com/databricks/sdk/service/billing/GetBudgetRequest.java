@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get budget and its status */
+@Generated
 public class GetBudgetRequest {
   /** Budget ID */
   private String budgetId;

@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.files;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class ListStatusResponse {
   /** A list of FileInfo's that describe contents of directory or file. See example above. */
   @JsonProperty("files")

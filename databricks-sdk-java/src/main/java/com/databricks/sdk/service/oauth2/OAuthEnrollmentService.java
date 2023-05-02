@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * These APIs enable administrators to enroll OAuth for their accounts, which is required for
  * adding/using any OAuth published/custom application integration.
@@ -12,6 +14,7 @@ package com.databricks.sdk.service.oauth2;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface OAuthEnrollmentService {
   /**
    * Create OAuth Enrollment request.

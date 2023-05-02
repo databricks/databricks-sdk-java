@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List schemas */
+@Generated
 public class ListSchemasRequest {
   /** Parent catalog for schemas of interest. */
   @QueryParam("catalog_name")

@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class ListRegistryWebhooks {
   /** Token that can be used to retrieve the next page of artifact results */
   @JsonProperty("next_page_token")

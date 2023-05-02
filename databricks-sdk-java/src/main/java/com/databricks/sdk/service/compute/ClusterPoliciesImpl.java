@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of ClusterPolicies */
+@Generated
 class ClusterPoliciesImpl implements ClusterPoliciesService {
   private final ApiClient apiClient;
 

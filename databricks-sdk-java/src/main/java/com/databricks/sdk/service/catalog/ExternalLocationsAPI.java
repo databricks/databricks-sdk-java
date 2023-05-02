@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
  * <p>To create external locations, you must be a metastore admin or a user with the
  * **CREATE_EXTERNAL_LOCATION** privilege.
  */
+@Generated
 public class ExternalLocationsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ExternalLocationsAPI.class);
 

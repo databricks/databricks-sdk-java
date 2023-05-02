@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
+
+@Generated
 public enum Privilege {
   ALL_PRIVILEGES,
   CREATE,

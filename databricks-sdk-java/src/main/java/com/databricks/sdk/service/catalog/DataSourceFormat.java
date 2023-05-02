@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /** Data source format */
+@Generated
 public enum DataSourceFormat {
   AVRO,
   CSV,

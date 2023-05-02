@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class IpAccessList {
   /** Allowed IP Addresses in CIDR notation. Limit of 100. */
   @JsonProperty("allowed_ip_addresses")

@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List functions */
+@Generated
 public class ListFunctionsRequest {
   /** Name of parent catalog for functions of interest. */
   @QueryParam("catalog_name")

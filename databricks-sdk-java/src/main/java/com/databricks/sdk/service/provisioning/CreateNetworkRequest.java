@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class CreateNetworkRequest {
   /**
    * The Google Cloud specific information for this network (for example, the VPC ID, subnet ID, and

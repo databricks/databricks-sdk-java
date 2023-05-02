@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /** The results of the tested operation. */
+@Generated
 public enum ValidationResultResult {
   FAIL,
   PASS,

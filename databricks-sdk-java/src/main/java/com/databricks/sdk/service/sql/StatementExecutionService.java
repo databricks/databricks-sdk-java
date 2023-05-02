@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The SQL Statement Execution API manages the execution of arbitrary SQL statements and the
  * fetching of result data.
@@ -163,6 +165,7 @@ package com.databricks.sdk.service.sql;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface StatementExecutionService {
   /**
    * Cancel statement execution.

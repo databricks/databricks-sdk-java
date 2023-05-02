@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Secrets API allows you to manage secrets, secret scopes, and access permissions.
  *
@@ -16,6 +18,7 @@ package com.databricks.sdk.service.workspace;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface SecretsService {
   /**
    * Create a new secret scope.

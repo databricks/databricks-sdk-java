@@ -2,10 +2,12 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** These APIs manage private access settings for this account. */
+@Generated
 public class PrivateAccessAPI {
   private static final Logger LOG = LoggerFactory.getLogger(PrivateAccessAPI.class);
 

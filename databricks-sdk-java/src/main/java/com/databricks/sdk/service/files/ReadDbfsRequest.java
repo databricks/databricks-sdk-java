@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.files;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get the contents of a file */
+@Generated
 public class ReadDbfsRequest {
   /**
    * The number of bytes to read starting from the offset. This has a limit of 1 MB, and a default

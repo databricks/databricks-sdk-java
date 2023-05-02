@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete credential configuration */
+@Generated
 public class DeleteCredentialRequest {
   /** Databricks Account API credential configuration ID */
   private String credentialsId;

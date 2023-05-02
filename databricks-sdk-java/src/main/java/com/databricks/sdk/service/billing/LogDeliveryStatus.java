@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /** Databricks log delivery status. */
+@Generated
 public class LogDeliveryStatus {
   /** The UTC time for the latest log delivery attempt. */
   @JsonProperty("last_attempt_time")

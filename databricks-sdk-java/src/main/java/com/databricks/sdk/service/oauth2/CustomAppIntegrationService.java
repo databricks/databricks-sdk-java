@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * These APIs enable administrators to manage custom oauth app integrations, which is required for
  * adding/using Custom OAuth App Integration like Tableau Cloud for Databricks in AWS cloud.
@@ -12,6 +14,7 @@ package com.databricks.sdk.service.oauth2;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface CustomAppIntegrationService {
   /**
    * Create Custom OAuth App Integration.

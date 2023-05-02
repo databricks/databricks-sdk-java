@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
@@ -23,6 +24,7 @@ import org.slf4j.LoggerFactory;
  * served models behind an endpoint. Additionally, you can configure the scale of resources that
  * should be applied to each served model.
  */
+@Generated
 public class ServingEndpointsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ServingEndpointsAPI.class);
 

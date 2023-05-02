@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /** The operation tested. */
+@Generated
 public enum ValidationResultOperation {
   DELETE,
   LIST,

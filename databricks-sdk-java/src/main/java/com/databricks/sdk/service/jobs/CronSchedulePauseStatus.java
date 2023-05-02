@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
+
 /** Indicate whether this schedule is paused or not. */
+@Generated
 public enum CronSchedulePauseStatus {
   PAUSED,
   UNPAUSED,

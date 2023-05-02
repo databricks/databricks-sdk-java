@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class SharedDataObject {
   /** The time when this data object is added to the share, in epoch milliseconds. */
   @JsonProperty("added_at")

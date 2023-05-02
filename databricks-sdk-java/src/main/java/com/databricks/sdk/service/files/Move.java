@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.files;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class Move {
   /** The destination path of the file or directory. The path should be the absolute DBFS path. */
   @JsonProperty("destination_path")

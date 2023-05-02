@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List runs for a job */
+@Generated
 public class ListRunsRequest {
   /**
    * If active_only is `true`, only active runs are included in the results; otherwise, lists both

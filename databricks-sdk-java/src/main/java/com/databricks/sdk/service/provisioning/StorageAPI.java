@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * configuration encapsulates this bucket information, and its ID is used when creating a new
  * workspace.
  */
+@Generated
 public class StorageAPI {
   private static final Logger LOG = LoggerFactory.getLogger(StorageAPI.class);
 

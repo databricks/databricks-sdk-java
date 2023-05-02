@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a cluster policy */
+@Generated
 public class ListClusterPoliciesRequest {
   /**
    * The cluster policy attribute to sort by. * `POLICY_CREATION_TIME` - Sort result list by policy

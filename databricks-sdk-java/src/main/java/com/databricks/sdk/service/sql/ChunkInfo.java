@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
  * Describes metadata for a particular chunk, within a result set; this structure is used both
  * within a manifest, and when fetching individual chunk data or links.
  */
+@Generated
 public class ChunkInfo {
   /** Number of bytes in the result chunk. */
   @JsonProperty("byte_count")

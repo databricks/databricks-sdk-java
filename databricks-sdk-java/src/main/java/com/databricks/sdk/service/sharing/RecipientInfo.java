@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class RecipientInfo {
   /**
    * A boolean status field showing whether the Recipient's activation URL has been exercised or

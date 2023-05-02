@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a VPC endpoint configuration */
+@Generated
 public class GetVpcEndpointRequest {
   /** Databricks VPC endpoint ID. */
   private String vpcEndpointId;

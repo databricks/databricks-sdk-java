@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
+
 /** This describes an enum */
+@Generated
 public enum RunResultState {
   CANCELED, // The run was canceled at user request.
   FAILED, // The task completed with an error.

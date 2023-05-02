@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /** Parameters can have several different types. */
+@Generated
 public enum ParameterType {
   datetime,
   number,

@@ -2,11 +2,13 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Access the history of queries through SQL warehouses. */
+@Generated
 public class QueryHistoryAPI {
   private static final Logger LOG = LoggerFactory.getLogger(QueryHistoryAPI.class);
 

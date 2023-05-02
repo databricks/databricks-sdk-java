@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
 
+@Generated
 public class SqlTask {
   /** If alert, indicates that this job must refresh a SQL alert. */
   @JsonProperty("alert")

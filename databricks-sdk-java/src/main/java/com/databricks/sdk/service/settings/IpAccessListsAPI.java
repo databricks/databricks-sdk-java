@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import org.slf4j.LoggerFactory;
  * <p>After changes to the IP access list feature, it can take a few minutes for changes to take
  * effect.
  */
+@Generated
 public class IpAccessListsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(IpAccessListsAPI.class);
 

@@ -2,10 +2,12 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import java.util.Map;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of WorkspaceConf */
+@Generated
 class WorkspaceConfImpl implements WorkspaceConfService {
   private final ApiClient apiClient;
 

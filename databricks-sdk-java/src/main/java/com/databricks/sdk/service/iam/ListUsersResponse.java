@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class ListUsersResponse {
   /** Total results returned in the response. */
   @JsonProperty("itemsPerPage")

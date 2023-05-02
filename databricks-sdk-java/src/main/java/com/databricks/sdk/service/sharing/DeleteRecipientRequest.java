@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a share recipient */
+@Generated
 public class DeleteRecipientRequest {
   /** Name of the recipient. */
   private String name;

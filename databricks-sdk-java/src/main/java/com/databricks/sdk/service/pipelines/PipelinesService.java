@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Delta Live Tables API allows you to create, edit, delete, start, and view details about
  * pipelines.
@@ -20,6 +22,7 @@ package com.databricks.sdk.service.pipelines;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface PipelinesService {
   /**
    * Create a pipeline.

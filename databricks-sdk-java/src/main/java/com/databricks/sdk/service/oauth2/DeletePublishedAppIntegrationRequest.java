@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete Published OAuth App Integration */
+@Generated
 public class DeletePublishedAppIntegrationRequest {
   /** The oauth app integration ID. */
   private String integrationId;

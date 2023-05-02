@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a pipeline */
+@Generated
 public class GetPipelineRequest {
   /** */
   private String pipelineId;

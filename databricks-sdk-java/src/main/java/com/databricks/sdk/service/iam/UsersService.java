@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * User identities recognized by Databricks and represented by email addresses.
  *
@@ -16,6 +18,7 @@ package com.databricks.sdk.service.iam;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface UsersService {
   /**
    * Create a new user.

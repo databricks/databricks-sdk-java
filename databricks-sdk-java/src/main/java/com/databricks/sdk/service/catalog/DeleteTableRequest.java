@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a table */
+@Generated
 public class DeleteTableRequest {
   /** Full name of the table. */
   private String fullName;

@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List shares by Provider */
+@Generated
 public class ListSharesRequest {
   /** Name of the provider in which to list shares. */
   private String name;

@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List all clusters */
+@Generated
 public class ListClustersRequest {
   /**
    * Filter clusters based on what type of client it can be used for. Could be either NOTEBOOKS or

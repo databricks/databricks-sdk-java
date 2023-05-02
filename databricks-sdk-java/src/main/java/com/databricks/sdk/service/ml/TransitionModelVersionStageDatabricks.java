@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class TransitionModelVersionStageDatabricks {
   /** Specifies whether to archive all current model versions in the target stage. */
   @JsonProperty("archive_existing_versions")

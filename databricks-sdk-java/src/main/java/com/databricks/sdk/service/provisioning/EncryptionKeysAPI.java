@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +22,7 @@ import org.slf4j.LoggerFactory;
  * version of the platform. If you have an older workspace, it might not be on the E2 version of the
  * platform. If you are not sure, contact your Databricks representative.
  */
+@Generated
 public class EncryptionKeysAPI {
   private static final Logger LOG = LoggerFactory.getLogger(EncryptionKeysAPI.class);
 

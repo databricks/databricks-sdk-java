@@ -2,11 +2,14 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The pricing tier of the workspace. For pricing tier information, see [AWS Pricing].
  *
  * <p>[AWS Pricing]: https://databricks.com/product/aws-pricing
  */
+@Generated
 public enum PricingTier {
   COMMUNITY_EDITION,
   DEDICATED,
