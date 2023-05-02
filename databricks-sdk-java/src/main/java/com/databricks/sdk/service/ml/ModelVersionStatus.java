@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
+
 /** Current status of `model_version` */
+@Generated
 public enum ModelVersionStatus {
   FAILED_REGISTRATION,
   PENDING_REGISTRATION,

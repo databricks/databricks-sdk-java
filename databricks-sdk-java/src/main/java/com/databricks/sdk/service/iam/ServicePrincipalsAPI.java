@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * interactive users do not need any write, delete, or modify privileges in production. This
  * eliminates the risk of a user overwriting production data by accident.
  */
+@Generated
 public class ServicePrincipalsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ServicePrincipalsAPI.class);
 

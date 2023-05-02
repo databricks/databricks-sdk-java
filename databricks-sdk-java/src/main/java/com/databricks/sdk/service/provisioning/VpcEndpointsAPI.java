@@ -2,10 +2,12 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** These APIs manage VPC endpoint configurations for this account. */
+@Generated
 public class VpcEndpointsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(VpcEndpointsAPI.class);
 

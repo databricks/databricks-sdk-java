@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a catalog */
+@Generated
 public class DeleteCatalogRequest {
   /** Force deletion even if the catalog is not empty. */
   @QueryParam("force")

@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
  * creates the storage credential can delegate ownership to another user or group to manage
  * permissions on it.
  */
+@Generated
 public class StorageCredentialsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(StorageCredentialsAPI.class);
 

@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List all tokens */
+@Generated
 public class ListTokenManagementRequest {
   /** User ID of the user that created the token. */
   @QueryParam("created_by_id")

@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
  * users must have the USE_SCHEMA data permission on the schema and its parent catalog, and they
  * must have the SELECT permission on the table or view.
  */
+@Generated
 public class SchemasAPI {
   private static final Logger LOG = LoggerFactory.getLogger(SchemasAPI.class);
 

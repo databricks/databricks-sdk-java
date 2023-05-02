@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+@Generated
 public class PipelineSpec {
   /**
    * A catalog in Unity Catalog to publish data from this pipeline to. If `target` is specified,

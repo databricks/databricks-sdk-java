@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get status */
+@Generated
 public class ClusterStatusRequest {
   /** Unique identifier of the cluster whose status should be retrieved. */
   @QueryParam("cluster_id")

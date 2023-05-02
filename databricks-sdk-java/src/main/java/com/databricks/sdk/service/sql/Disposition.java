@@ -2,6 +2,8 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The fetch disposition provides two modes of fetching results: `INLINE` and `EXTERNAL_LINKS`.
  *
@@ -24,6 +26,7 @@ package com.databricks.sdk.service.sql;
  * <p>2. These are presigned URLs with a specific expiration, indicated in the response. The
  * behavior when attempting to use an expired link is cloud specific.
  */
+@Generated
 public enum Disposition {
   EXTERNAL_LINKS,
   INLINE,

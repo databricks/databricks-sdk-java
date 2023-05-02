@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Create a dashboard object */
+@Generated
 public class CreateDashboardRequest {
   /**
    * In the web application, query filters that share a name are coupled to a single selection box

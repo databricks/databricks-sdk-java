@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class GetRunResponse {
   /** Run metadata (name, start time, etc) and data (metrics, params, and tags). */
   @JsonProperty("run")

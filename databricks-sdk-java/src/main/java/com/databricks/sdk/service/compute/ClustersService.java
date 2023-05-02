@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Clusters API allows you to create, start, edit, list, terminate, and delete clusters.
  *
@@ -29,6 +31,7 @@ package com.databricks.sdk.service.compute;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface ClustersService {
   /**
    * Change cluster owner.

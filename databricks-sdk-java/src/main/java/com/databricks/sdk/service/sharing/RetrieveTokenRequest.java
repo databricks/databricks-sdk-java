@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get an access token */
+@Generated
 public class RetrieveTokenRequest {
   /** The one time activation url. It also accepts activation token. */
   private String activationUrl;

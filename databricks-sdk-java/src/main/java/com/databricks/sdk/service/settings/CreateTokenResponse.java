@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class CreateTokenResponse {
   /** The information for the new token. */
   @JsonProperty("token_info")

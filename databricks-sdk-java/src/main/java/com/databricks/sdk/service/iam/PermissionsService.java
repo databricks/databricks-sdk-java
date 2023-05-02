@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Permissions API are used to create read, write, edit, update and manage access for various users
  * on different objects and endpoints.
@@ -9,6 +11,7 @@ package com.databricks.sdk.service.iam;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface PermissionsService {
   /**
    * Get object permissions.

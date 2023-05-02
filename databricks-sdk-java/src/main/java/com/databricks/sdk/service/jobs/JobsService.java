@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Jobs API allows you to create, edit, and delete jobs.
  *
@@ -23,6 +25,7 @@ package com.databricks.sdk.service.jobs;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface JobsService {
   /**
    * Cancel all runs of a job.

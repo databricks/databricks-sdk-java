@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete permissions assignment */
+@Generated
 public class DeleteWorkspaceAssignmentRequest {
   /** The ID of the user, service principal, or group. */
   private Long principalId;

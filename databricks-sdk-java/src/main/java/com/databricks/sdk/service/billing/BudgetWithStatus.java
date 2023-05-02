@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Budget configuration with daily status. */
+@Generated
 public class BudgetWithStatus {
   /** */
   @JsonProperty("alerts")

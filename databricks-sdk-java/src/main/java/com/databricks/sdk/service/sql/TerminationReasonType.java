@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /** type of the termination */
+@Generated
 public enum TerminationReasonType {
   CLIENT_ERROR,
   CLOUD_FAILURE,

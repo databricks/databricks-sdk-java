@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
+@Generated
 public class PipelineCluster {
   /** Note: This field won't be persisted. Only API users will check this field. */
   @JsonProperty("apply_policy_default_values")

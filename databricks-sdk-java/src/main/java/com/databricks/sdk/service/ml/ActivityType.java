@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
+
 /** This describes an enum */
+@Generated
 public enum ActivityType {
   APPLIED_TRANSITION, // User applied the corresponding stage transition.
   APPROVED_REQUEST, // User approved the corresponding stage transition.

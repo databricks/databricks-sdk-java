@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class RunInfo {
   /**
    * URI of the directory where artifacts should be uploaded. This can be a local path (starting

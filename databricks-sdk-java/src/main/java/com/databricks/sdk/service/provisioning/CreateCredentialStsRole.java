@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class CreateCredentialStsRole {
   /** The Amazon Resource Name (ARN) of the cross account role. */
   @JsonProperty("role_arn")

@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
+
 /** The type of the object in workspace. */
+@Generated
 public enum ObjectType {
   DIRECTORY,
   FILE,

@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
  * An optional specification for a remote repository containing the notebooks used by this job's
  * notebook tasks.
  */
+@Generated
 public class GitSource {
   /**
    * Name of the branch to be checked out and used by this job. This field cannot be specified in

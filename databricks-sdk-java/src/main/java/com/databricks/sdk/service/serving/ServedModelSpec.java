@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.serving;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class ServedModelSpec {
   /** The name of the model in Databricks Model Registry. */
   @JsonProperty("model_name")

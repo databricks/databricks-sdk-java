@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class Policy {
   /** Creation time. The timestamp (in millisecond) when this Cluster Policy was created. */
   @JsonProperty("created_at_timestamp")

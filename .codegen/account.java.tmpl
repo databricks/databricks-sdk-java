@@ -8,10 +8,12 @@ import com.databricks.sdk.client.DatabricksConfig;
 {{range .Services}}{{if .IsAccounts}}
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}API;
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;{{end}}{{end}}
+import com.databricks.sdk.support.Generated;
 
 /**
  * Entry point for accessing Databricks account-level APIs
  */
+@Generated
 public class DatabricksAccount {
   private final ApiClient apiClient;
   private final DatabricksConfig config;

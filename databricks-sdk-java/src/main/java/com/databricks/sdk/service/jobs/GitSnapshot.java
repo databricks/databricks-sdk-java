@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
  * Read-only state of the remote repository at the time the job was run. This field is only included
  * on job runs.
  */
+@Generated
 public class GitSnapshot {
   /**
    * Commit that was used to execute the run. If git_branch was specified, this points to the HEAD

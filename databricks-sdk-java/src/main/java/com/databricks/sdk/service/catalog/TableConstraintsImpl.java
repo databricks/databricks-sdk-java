@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of TableConstraints */
+@Generated
 class TableConstraintsImpl implements TableConstraintsService {
   private final ApiClient apiClient;
 

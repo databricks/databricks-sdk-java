@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.oauth2;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class CreateOAuthEnrollment {
   /** If true, enable OAuth for all the published applications in the account. */
   @JsonProperty("enable_all_published_apps")

@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
+
+@Generated
 public enum RegistryWebhookEvent {
   COMMENT_CREATED,
   MODEL_VERSION_CREATED,

@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of WorkspaceAssignment */
+@Generated
 class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
   private final ApiClient apiClient;
 

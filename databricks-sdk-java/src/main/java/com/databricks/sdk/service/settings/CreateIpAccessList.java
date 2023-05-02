@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class CreateIpAccessList {
   /** Array of IP addresses or CIDR values to be added to the IP access list. */
   @JsonProperty("ip_addresses")

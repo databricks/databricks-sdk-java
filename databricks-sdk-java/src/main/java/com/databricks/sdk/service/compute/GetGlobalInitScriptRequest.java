@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get an init script */
+@Generated
 public class GetGlobalInitScriptRequest {
   /** The ID of the global init script. */
   private String scriptId;

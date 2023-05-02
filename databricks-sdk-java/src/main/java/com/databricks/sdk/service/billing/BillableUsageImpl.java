@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of BillableUsage */
+@Generated
 class BillableUsageImpl implements BillableUsageService {
   private final ApiClient apiClient;
 

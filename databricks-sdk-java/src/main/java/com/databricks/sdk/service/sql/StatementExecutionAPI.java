@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -163,6 +164,7 @@ import org.slf4j.LoggerFactory;
  * https://docs.databricks.com/release-notes/release-types.html [SQL Statement Execution API
  * tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
  */
+@Generated
 public class StatementExecutionAPI {
   private static final Logger LOG = LoggerFactory.getLogger(StatementExecutionAPI.class);
 

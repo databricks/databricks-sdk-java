@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Return billable usage logs */
+@Generated
 public class DownloadRequest {
   /** Format: `YYYY-MM`. Last month to return billable usage logs for. This field is required. */
   @QueryParam("end_month")

@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * These APIs manage Unity Catalog metastores for an account. A metastore contains catalogs that can
  * be associated with workspaces
@@ -9,6 +11,7 @@ package com.databricks.sdk.service.catalog;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface AccountMetastoresService {
   /**
    * Create metastore.

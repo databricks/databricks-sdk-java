@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.serving;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Serving Endpoints API allows you to create, update, and delete model serving endpoints.
  *
@@ -17,6 +19,7 @@ package com.databricks.sdk.service.serving;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface ServingEndpointsService {
   /**
    * Retrieve the logs associated with building the model's environment for a given serving

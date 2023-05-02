@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -27,6 +28,7 @@ import java.util.Objects;
  * <p>[calculate subnet sizes for a new workspace]:
  * https://docs.gcp.databricks.com/administration-guide/cloud-configurations/gcp/network-sizing.html
  */
+@Generated
 public class GcpManagedNetworkConfig {
   /**
    * The IP range from which to allocate GKE cluster pods. No bigger than `/9` and no smaller than

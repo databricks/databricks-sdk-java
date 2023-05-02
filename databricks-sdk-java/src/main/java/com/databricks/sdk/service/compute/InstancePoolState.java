@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /** Current state of the instance pool. */
+@Generated
 public enum InstancePoolState {
   ACTIVE,
   DELETED,

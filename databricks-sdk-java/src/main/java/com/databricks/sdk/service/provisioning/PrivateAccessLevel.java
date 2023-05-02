@@ -2,6 +2,8 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The private access level controls which VPC endpoints can connect to the UI or API of any
  * workspace that attaches this private access settings object. * `ACCOUNT` level access (the
@@ -9,6 +11,7 @@ package com.databricks.sdk.service.provisioning;
  * workspace. * `ENDPOINT` level access allows only specified VPC endpoints connect to your
  * workspace. For details, see `allowed_vpc_endpoint_ids`.
  */
+@Generated
 public enum PrivateAccessLevel {
   ACCOUNT,
   ENDPOINT,

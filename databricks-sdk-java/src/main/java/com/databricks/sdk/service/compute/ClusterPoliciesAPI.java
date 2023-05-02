@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +28,7 @@ import org.slf4j.LoggerFactory;
  * <p>Only admin users can create, edit, and delete policies. Admin users also have access to all
  * policies.
  */
+@Generated
 public class ClusterPoliciesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ClusterPoliciesAPI.class);
 

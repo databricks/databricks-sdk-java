@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
+@Generated
 public enum DiskTypeAzureDiskVolumeType {
   PREMIUM_LRS,
   STANDARD_LRS,

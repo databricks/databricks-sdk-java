@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class ListPolicyFamiliesResponse {
   /**
    * A token that can be used to get the next page of results. If not present, there are no more

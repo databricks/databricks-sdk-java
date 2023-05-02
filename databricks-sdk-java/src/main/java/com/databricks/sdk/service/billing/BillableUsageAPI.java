@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
  * This API allows you to download billable usage logs for the specified account and date range.
  * This feature works with all account types.
  */
+@Generated
 public class BillableUsageAPI {
   private static final Logger LOG = LoggerFactory.getLogger(BillableUsageAPI.class);
 

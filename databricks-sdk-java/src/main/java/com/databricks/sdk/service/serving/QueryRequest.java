@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.serving;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Query a serving endpoint with provided model input. */
+@Generated
 public class QueryRequest {
   /** The name of the serving endpoint. This field is required. */
   private String name;

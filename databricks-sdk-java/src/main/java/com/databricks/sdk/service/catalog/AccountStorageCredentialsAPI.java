@@ -2,10 +2,12 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** These APIs manage storage credentials for a particular metastore. */
+@Generated
 public class AccountStorageCredentialsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(AccountStorageCredentialsAPI.class);
 

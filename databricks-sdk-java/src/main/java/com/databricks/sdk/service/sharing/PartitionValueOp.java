@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
+
 /** The operator to apply for the value. */
+@Generated
 public enum PartitionValueOp {
   EQUAL,
   LIKE,

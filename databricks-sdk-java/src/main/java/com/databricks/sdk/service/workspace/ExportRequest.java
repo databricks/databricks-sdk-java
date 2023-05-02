@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Export a workspace object */
+@Generated
 public class ExportRequest {
   /**
    * Flag to enable direct download. If it is `true`, the response will be the exported file itself.

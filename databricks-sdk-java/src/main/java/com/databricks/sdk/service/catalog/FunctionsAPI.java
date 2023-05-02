@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
  * as a table, so it can be referenced with the form
  * __catalog_name__.__schema_name__.__function_name__.
  */
+@Generated
 public class FunctionsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(FunctionsAPI.class);
 

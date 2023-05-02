@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * View available policy families. A policy family contains a policy definition providing best
  * practices for configuring clusters for a particular use case.
@@ -16,6 +18,7 @@ package com.databricks.sdk.service.compute;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface PolicyFamiliesService {
 
   PolicyFamily get(GetPolicyFamilyRequest getPolicyFamilyRequest);

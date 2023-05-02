@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of Secrets */
+@Generated
 class SecretsImpl implements SecretsService {
   private final ApiClient apiClient;
 

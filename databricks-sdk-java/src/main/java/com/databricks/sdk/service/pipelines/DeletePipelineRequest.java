@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a pipeline */
+@Generated
 public class DeletePipelineRequest {
   /** */
   private String pipelineId;

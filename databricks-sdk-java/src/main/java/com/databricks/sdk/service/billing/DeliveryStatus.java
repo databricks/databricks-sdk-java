@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
+
 /** This describes an enum */
+@Generated
 public enum DeliveryStatus {
   CREATED, // There were no log delivery attempts since the config was created.
   NOT_FOUND, // The log delivery status as the configuration has been disabled since the

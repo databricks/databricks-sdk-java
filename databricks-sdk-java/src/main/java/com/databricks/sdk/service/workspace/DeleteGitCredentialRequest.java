@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a credential */
+@Generated
 public class DeleteGitCredentialRequest {
   /** The ID for the corresponding credential to access. */
   private Long credentialId;

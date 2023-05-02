@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List Queries */
+@Generated
 public class ListQueryHistoryRequest {
   /** A filter to limit query history results. This field is optional. */
   @QueryParam("filter_by")

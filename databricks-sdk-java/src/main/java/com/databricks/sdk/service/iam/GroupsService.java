@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Groups simplify identity management, making it easier to assign access to Databricks Workspace,
  * data, and other securable objects.
@@ -13,6 +15,7 @@ package com.databricks.sdk.service.iam;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface GroupsService {
   /**
    * Create a new group.

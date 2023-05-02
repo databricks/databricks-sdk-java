@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List warehouses */
+@Generated
 public class ListWarehousesRequest {
   /**
    * Service Principal which will be used to fetch the list of warehouses. If not specified, the

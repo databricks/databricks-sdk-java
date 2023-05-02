@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
  * A table constraint, as defined by *one* of the following fields being set:
  * __primary_key_constraint__, __foreign_key_constraint__, __named_table_constraint__.
  */
+@Generated
 public class TableConstraint {
   /** */
   @JsonProperty("foreign_key_constraint")

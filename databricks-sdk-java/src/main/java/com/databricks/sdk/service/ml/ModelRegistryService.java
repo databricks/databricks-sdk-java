@@ -1,11 +1,14 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface ModelRegistryService {
   /**
    * Approve transition request.

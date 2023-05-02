@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
 /** Schema is an ordered list of column descriptions. */
+@Generated
 public class ResultSchema {
   /** */
   @JsonProperty("column_count")

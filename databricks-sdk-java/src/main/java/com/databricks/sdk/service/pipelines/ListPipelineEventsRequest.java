@@ -2,12 +2,14 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Collection;
 import java.util.Objects;
 
 /** List pipeline events */
+@Generated
 public class ListPipelineEventsRequest {
   /**
    * Criteria to select a subset of results, expressed using a SQL-like syntax. The supported

@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a user */
+@Generated
 public class DeleteAccountUserRequest {
   /** Unique ID for a user in the Databricks Account. */
   private String id;

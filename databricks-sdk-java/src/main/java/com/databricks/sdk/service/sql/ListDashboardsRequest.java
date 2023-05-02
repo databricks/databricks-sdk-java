@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get dashboard objects */
+@Generated
 public class ListDashboardsRequest {
   /** Name of dashboard attribute to order by. */
   @QueryParam("order")

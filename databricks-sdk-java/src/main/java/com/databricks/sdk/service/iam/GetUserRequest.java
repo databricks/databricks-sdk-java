@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get user details */
+@Generated
 public class GetUserRequest {
   /** Unique ID for a user in the Databricks Workspace. */
   private String id;

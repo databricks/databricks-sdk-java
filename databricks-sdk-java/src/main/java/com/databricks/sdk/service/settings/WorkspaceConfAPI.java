@@ -2,11 +2,13 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** This API allows updating known workspace settings for advanced users. */
+@Generated
 public class WorkspaceConfAPI {
   private static final Logger LOG = LoggerFactory.getLogger(WorkspaceConfAPI.class);
 

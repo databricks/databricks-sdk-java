@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of DbsqlPermissions */
+@Generated
 class DbsqlPermissionsImpl implements DbsqlPermissionsService {
   private final ApiClient apiClient;
 

@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * A schema (also called a database) is the second layer of Unity Catalog’s three-level namespace. A
  * schema organizes tables, views and functions. To access (or list) a table or view in a schema,
@@ -11,6 +13,7 @@ package com.databricks.sdk.service.catalog;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface SchemasService {
   /**
    * Create a schema.

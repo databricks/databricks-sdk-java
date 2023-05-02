@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The SQL Permissions API is similar to the endpoints of the :method:permissions/set. However, this
  * exposes only one endpoint, which gets the Access Control List for a given object. You cannot
@@ -19,6 +21,7 @@ package com.databricks.sdk.service.sql;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface DbsqlPermissionsService {
   /**
    * Get object ACL.

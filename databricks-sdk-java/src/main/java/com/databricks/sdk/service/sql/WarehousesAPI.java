@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import org.slf4j.LoggerFactory;
  * Databricks SQL. Compute resources are infrastructure resources that provide processing
  * capabilities in the cloud.
  */
+@Generated
 public class WarehousesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(WarehousesAPI.class);
 

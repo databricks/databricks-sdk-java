@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Access the history of queries through SQL warehouses.
  *
@@ -8,6 +10,7 @@ package com.databricks.sdk.service.sql;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface QueryHistoryService {
   /**
    * List Queries.

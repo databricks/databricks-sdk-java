@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.serving;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
@@ -9,6 +10,7 @@ import java.util.Objects;
  * Retrieve the metrics corresponding to a serving endpoint for the current time in Prometheus or
  * OpenMetrics exposition format
  */
+@Generated
 public class ExportMetricsRequest {
   /** The name of the serving endpoint to retrieve metrics for. This field is required. */
   private String name;

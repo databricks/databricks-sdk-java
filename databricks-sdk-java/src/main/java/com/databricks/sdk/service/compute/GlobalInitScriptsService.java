@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Global Init Scripts API enables Workspace administrators to configure global initialization
  * scripts for their workspace. These scripts run on every node in every cluster in the workspace.
@@ -14,6 +16,7 @@ package com.databricks.sdk.service.compute;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface GlobalInitScriptsService {
   /**
    * Create init script.

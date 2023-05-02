@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a Volume */
+@Generated
 public class ReadVolumeRequest {
   /** The three-level (fully qualified) name of the volume */
   private String fullNameArg;

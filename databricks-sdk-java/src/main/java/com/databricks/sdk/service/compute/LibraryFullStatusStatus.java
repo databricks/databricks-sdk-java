@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /** Status of installing the library on the cluster. */
+@Generated
 public enum LibraryFullStatusStatus {
   FAILED,
   INSTALLED,

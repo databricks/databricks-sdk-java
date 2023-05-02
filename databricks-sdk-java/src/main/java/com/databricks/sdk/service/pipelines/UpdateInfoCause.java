@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
+
 /** What triggered this update. */
+@Generated
 public enum UpdateInfoCause {
   API_CALL,
   JOB_TASK,

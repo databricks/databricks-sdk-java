@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class HttpUrlSpec {
   /**
    * Value of the authorization header that should be sent in the request sent by the wehbook. It

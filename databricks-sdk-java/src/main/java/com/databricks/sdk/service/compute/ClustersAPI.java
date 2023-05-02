@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
@@ -35,6 +36,7 @@ import org.slf4j.LoggerFactory;
  * scheduler. To keep an all-purpose cluster configuration even after it has been terminated for
  * more than 30 days, an administrator can pin a cluster to the cluster list.
  */
+@Generated
 public class ClustersAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ClustersAPI.class);
 

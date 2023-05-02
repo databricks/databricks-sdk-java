@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /** Whether plans exist for the execution, or the reason why they are missing */
+@Generated
 public enum PlansState {
   EMPTY,
   EXISTS,

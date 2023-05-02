@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /** This describes an enum */
+@Generated
 public enum DataSecurityMode {
   LEGACY_PASSTHROUGH, // This mode is for users migrating from legacy Passthrough on high
   // concurrency

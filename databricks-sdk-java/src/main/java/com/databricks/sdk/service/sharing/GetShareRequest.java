@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a share */
+@Generated
 public class GetShareRequest {
   /** Query for data to include in the share. */
   @QueryParam("include_shared_data")

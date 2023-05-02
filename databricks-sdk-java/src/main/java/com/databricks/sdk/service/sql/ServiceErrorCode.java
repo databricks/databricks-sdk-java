@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
+@Generated
 public enum ServiceErrorCode {
   ABORTED,
   ALREADY_EXISTS,

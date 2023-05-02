@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get result chunk by index */
+@Generated
 public class GetStatementResultChunkNRequest {
   /** */
   private Long chunkIndex;

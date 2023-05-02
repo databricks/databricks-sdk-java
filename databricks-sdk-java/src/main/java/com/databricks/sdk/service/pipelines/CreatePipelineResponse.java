@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class CreatePipelineResponse {
   /** Only returned when dry_run is true. */
   @JsonProperty("effective_settings")

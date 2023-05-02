@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * These endpoints are used for CRUD operations on query definitions. Query definitions include the
  * target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
@@ -9,6 +11,7 @@ package com.databricks.sdk.service.sql;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface QueriesService {
   /**
    * Create a new query definition.

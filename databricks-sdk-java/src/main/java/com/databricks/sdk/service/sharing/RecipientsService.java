@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Databricks Recipients REST API
  *
@@ -8,6 +10,7 @@ package com.databricks.sdk.service.sharing;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface RecipientsService {
   /**
    * Create a share recipient.
