@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List workspace permissions */
+@Generated
 public class GetWorkspaceAssignmentRequest {
   /** The workspace ID. */
   private Long workspaceId;

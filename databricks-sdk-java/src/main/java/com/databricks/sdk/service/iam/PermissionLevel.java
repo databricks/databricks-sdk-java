@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
+
 /** Permission level */
+@Generated
 public enum PermissionLevel {
   CAN_ATTACH_TO,
   CAN_BIND,

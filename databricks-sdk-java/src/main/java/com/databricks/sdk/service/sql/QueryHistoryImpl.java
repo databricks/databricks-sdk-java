@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of QueryHistory */
+@Generated
 class QueryHistoryImpl implements QueryHistoryService {
   private final ApiClient apiClient;
 

@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get access list */
+@Generated
 public class GetIpAccessListRequest {
   /** The ID for the corresponding IP access list to modify. */
   private String ipAccessListId;

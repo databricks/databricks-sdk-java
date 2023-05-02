@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
  * <p>A notebook is a web-based interface to a document that contains runnable code, visualizations,
  * and explanatory text.
  */
+@Generated
 public class WorkspaceAPI {
   private static final Logger LOG = LoggerFactory.getLogger(WorkspaceAPI.class);
 

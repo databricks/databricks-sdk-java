@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.serving;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+@Generated
 public class EndpointCoreConfigInput {
   /** The name of the serving endpoint to update. This field is required. */
   private String name;

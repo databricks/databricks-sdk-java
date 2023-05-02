@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get service principal details */
+@Generated
 public class GetAccountServicePrincipalRequest {
   /** Unique ID for a service principal in the Databricks Account. */
   private String id;

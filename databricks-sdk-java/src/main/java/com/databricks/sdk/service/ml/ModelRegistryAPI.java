@@ -2,11 +2,13 @@
 package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Generated
 public class ModelRegistryAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ModelRegistryAPI.class);
 

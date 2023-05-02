@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * A metastore is the top-level container of objects in Unity Catalog. It stores data assets (tables
  * and views) and the permissions that govern access to them. Databricks account admins can create
@@ -18,6 +20,7 @@ package com.databricks.sdk.service.catalog;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface MetastoresService {
   /**
    * Create an assignment.

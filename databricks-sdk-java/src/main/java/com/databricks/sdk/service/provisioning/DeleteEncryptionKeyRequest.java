@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete encryption key configuration */
+@Generated
 public class DeleteEncryptionKeyRequest {
   /** Databricks encryption key configuration ID. */
   private String customerManagedKeyId;

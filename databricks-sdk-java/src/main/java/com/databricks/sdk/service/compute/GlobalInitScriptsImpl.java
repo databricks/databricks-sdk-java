@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of GlobalInitScripts */
+@Generated
 class GlobalInitScriptsImpl implements GlobalInitScriptsService {
   private final ApiClient apiClient;
 

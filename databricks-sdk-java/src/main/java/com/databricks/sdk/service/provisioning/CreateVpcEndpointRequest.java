@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class CreateVpcEndpointRequest {
   /** The ID of the VPC endpoint object in AWS. */
   @JsonProperty("aws_vpc_endpoint_id")

@@ -2,10 +2,12 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import java.util.Collection;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of Alerts */
+@Generated
 class AlertsImpl implements AlertsService {
   private final ApiClient apiClient;
 

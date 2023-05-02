@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a single job run */
+@Generated
 public class GetRunRequest {
   /** Whether to include the repair history in the response. */
   @QueryParam("include_history")

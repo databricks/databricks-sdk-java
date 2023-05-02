@@ -2,6 +2,8 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Log delivery type. Supported values are:
  *
@@ -18,6 +20,7 @@ package com.databricks.sdk.service.billing;
  * [billable usage log delivery]:
  * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html
  */
+@Generated
 public enum LogType {
   AUDIT_LOGS,
   BILLABLE_USAGE,

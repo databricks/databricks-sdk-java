@@ -2,10 +2,12 @@
 package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /** Databricks Shares REST API */
+@Generated
 public class SharesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(SharesAPI.class);
 

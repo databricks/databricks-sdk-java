@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.files;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get the information of a file or directory */
+@Generated
 public class GetStatusRequest {
   /** The path of the file or directory. The path should be the absolute DBFS path. */
   @QueryParam("path")

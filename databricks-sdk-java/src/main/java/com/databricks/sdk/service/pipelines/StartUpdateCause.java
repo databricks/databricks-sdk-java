@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
+
+@Generated
 public enum StartUpdateCause {
   API_CALL,
   JOB_TASK,

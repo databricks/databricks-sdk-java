@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a private access settings object */
+@Generated
 public class DeletePrivateAccesRequest {
   /** Databricks Account API private access settings ID. */
   private String privateAccessSettingsId;

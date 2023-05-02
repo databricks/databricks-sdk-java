@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
  * DBFS API makes it simple to interact with various data sources without having to include a users
  * credentials every time to read a file.
  */
+@Generated
 public class DbfsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(DbfsAPI.class);
 

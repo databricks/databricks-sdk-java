@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Repos API allows users to manage their git repos. Users can use the API to access all repos
  * that they have manage permissions on.
@@ -17,6 +19,7 @@ package com.databricks.sdk.service.workspace;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface ReposService {
   /**
    * Create a repo.

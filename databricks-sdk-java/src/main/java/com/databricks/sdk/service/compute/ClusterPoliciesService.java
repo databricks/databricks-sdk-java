@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Cluster policy limits the ability to configure clusters based on a set of rules. The policy rules
  * limit the attributes or attribute values available for cluster creation. Cluster policies have
@@ -27,6 +29,7 @@ package com.databricks.sdk.service.compute;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface ClusterPoliciesService {
   /**
    * Create a new policy.

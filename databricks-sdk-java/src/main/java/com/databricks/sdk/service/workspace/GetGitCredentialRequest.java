@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a credential entry */
+@Generated
 public class GetGitCredentialRequest {
   /** The ID for the corresponding credential to access. */
   private Long credentialId;

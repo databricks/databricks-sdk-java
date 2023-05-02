@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a token */
+@Generated
 public class DeleteTokenManagementRequest {
   /** The ID of the token to get. */
   private String tokenId;

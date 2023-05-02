@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
  * account will also be removed from Databricks Workspace. This ensures a consistent offboarding
  * process and prevents unauthorized users from accessing sensitive data.
  */
+@Generated
 public class UsersAPI {
   private static final Logger LOG = LoggerFactory.getLogger(UsersAPI.class);
 

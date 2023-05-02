@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
+
 /** The health of a pipeline. */
+@Generated
 public enum GetPipelineResponseHealth {
   HEALTHY,
   UNHEALTHY,

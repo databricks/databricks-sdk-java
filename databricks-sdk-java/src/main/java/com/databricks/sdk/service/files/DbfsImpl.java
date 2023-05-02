@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of Dbfs */
+@Generated
 class DbfsImpl implements DbfsService {
   private final ApiClient apiClient;
 

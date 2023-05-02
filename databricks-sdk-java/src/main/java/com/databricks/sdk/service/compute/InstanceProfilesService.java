@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The Instance Profiles API allows admins to add, list, and remove instance profiles that users can
  * launch clusters with. Regular users can list the instance profiles available to them. See [Secure
@@ -13,6 +15,7 @@ package com.databricks.sdk.service.compute;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface InstanceProfilesService {
   /**
    * Register an instance profile.

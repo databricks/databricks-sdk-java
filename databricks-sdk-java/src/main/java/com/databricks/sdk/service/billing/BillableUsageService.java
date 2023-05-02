@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * This API allows you to download billable usage logs for the specified account and date range.
  * This feature works with all account types.
@@ -9,6 +11,7 @@ package com.databricks.sdk.service.billing;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface BillableUsageService {
   /**
    * Return billable usage logs.

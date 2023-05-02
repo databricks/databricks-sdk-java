@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete budget */
+@Generated
 public class DeleteBudgetRequest {
   /** Budget ID */
   private String budgetId;

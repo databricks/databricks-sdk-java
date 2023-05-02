@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,6 +62,7 @@ import org.slf4j.LoggerFactory;
  * [create a new AWS S3 bucket]:
  * https://docs.databricks.com/administration-guide/account-api/aws-storage.html
  */
+@Generated
 public class LogDeliveryAPI {
   private static final Logger LOG = LoggerFactory.getLogger(LogDeliveryAPI.class);
 

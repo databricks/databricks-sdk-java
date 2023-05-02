@@ -2,6 +2,8 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The file type of log delivery.
  *
@@ -14,6 +16,7 @@ package com.databricks.sdk.service.billing;
  * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [View billable
  * usage]: https://docs.databricks.com/administration-guide/account-settings/usage.html
  */
+@Generated
 public enum OutputFormat {
   CSV,
   JSON,

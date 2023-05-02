@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
  * A dependency of a SQL object. Either the __table__ field or the __function__ field must be
  * defined.
  */
+@Generated
 public class Dependency {
   /** A function that is dependent on a SQL object. */
   @JsonProperty("function")

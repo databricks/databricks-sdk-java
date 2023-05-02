@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get all log delivery configurations */
+@Generated
 public class ListLogDeliveryRequest {
   /** Filter by credential configuration ID. */
   @QueryParam("credentials_id")

@@ -14,6 +14,7 @@ import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}API;
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;
 {{end}}{{end}}
+import com.databricks.sdk.support.Generated;
 
 {{- define "api" -}}
   {{- $mixins := dict "ClustersAPI" "ClustersExt" "DbfsAPI" "DbfsExt" -}}
@@ -24,6 +25,7 @@ import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;
 /**
  * Entry point for accessing Databricks workspace-level APIs
  */
+@Generated
 public class DatabricksWorkspace {
   private final ApiClient apiClient;
   private final DatabricksConfig config;

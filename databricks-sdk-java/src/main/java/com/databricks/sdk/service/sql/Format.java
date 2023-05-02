@@ -2,6 +2,8 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Statement execution supports two result formats: `JSON_ARRAY` (default), and `ARROW_STREAM`.
  *
@@ -27,6 +29,7 @@ package com.databricks.sdk.service.sql;
  * <p>[Apache Arrow Streaming Format]:
  * https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format
  */
+@Generated
 public enum Format {
   ARROW_STREAM,
   JSON_ARRAY,

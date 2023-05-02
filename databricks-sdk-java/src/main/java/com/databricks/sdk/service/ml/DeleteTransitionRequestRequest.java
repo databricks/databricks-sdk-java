@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a ransition request */
+@Generated
 public class DeleteTransitionRequestRequest {
   /** User-provided comment on the action. */
   @QueryParam("comment")

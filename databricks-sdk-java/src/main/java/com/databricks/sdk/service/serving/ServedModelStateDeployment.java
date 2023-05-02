@@ -2,6 +2,8 @@
 
 package com.databricks.sdk.service.serving;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * The state of the served model deployment. DEPLOYMENT_CREATING indicates that the served model is
  * not ready yet because the deployment is still being created (i.e container image is building,
@@ -13,6 +15,7 @@ package com.databricks.sdk.service.serving;
  * indicates that the deployment was terminated likely due to a failure in bringing up another
  * served model under the same endpoint and config version.
  */
+@Generated
 public enum ServedModelStateDeployment {
   DEPLOYMENT_ABORTED,
   DEPLOYMENT_CREATING,

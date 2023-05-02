@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
  * The Google Cloud specific information for this network (for example, the VPC ID, subnet ID, and
  * secondary IP ranges).
  */
+@Generated
 public class GcpNetworkInfo {
   /** The Google Cloud project ID of the VPC network. */
   @JsonProperty("network_project_id")

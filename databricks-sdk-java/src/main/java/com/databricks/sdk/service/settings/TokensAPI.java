@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
  * The Token API allows you to create, list, and revoke tokens that can be used to authenticate and
  * access Databricks REST APIs.
  */
+@Generated
 public class TokensAPI {
   private static final Logger LOG = LoggerFactory.getLogger(TokensAPI.class);
 

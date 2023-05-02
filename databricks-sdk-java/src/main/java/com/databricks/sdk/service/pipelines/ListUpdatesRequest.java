@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List pipeline updates */
+@Generated
 public class ListUpdatesRequest {
   /** Max number of entries to return in a single page. */
   @QueryParam("max_results")

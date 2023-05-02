@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.files;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class MkDirs {
   /** The path of the new directory. The path should be the absolute DBFS path. */
   @JsonProperty("path")

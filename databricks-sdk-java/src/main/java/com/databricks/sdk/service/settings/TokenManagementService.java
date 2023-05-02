@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * Enables administrators to get all tokens and delete tokens for other users. Admins can either get
  * every token, get a specific token by ID, or get all tokens for a particular user.
@@ -9,6 +11,7 @@ package com.databricks.sdk.service.settings;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface TokenManagementService {
   /**
    * Create on-behalf token.

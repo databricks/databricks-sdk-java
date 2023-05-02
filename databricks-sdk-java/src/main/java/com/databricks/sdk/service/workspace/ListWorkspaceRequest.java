@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.workspace;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List contents */
+@Generated
 public class ListWorkspaceRequest {
   /** <content needed> */
   @QueryParam("notebooks_modified_after")

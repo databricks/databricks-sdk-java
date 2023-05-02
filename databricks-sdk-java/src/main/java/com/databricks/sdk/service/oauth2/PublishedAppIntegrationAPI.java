@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * <p>**Note:** You can only add/use the OAuth published application integrations when OAuth
  * enrollment status is enabled. For more details see :method:OAuthEnrollment/create
  */
+@Generated
 public class PublishedAppIntegrationAPI {
   private static final Logger LOG = LoggerFactory.getLogger(PublishedAppIntegrationAPI.class);
 

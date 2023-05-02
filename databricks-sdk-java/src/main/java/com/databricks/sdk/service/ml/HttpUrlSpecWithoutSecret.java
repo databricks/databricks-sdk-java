@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class HttpUrlSpecWithoutSecret {
   /**
    * Enable/disable SSL certificate validation. Default is true. For self-signed certificates, this

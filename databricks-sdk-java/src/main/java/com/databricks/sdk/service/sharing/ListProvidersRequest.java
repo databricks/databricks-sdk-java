@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.sharing;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List providers */
+@Generated
 public class ListProvidersRequest {
   /**
    * If not provided, all providers will be returned. If no providers exist with this ID, no results

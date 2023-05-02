@@ -2,9 +2,11 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.apache.http.client.methods.*;
 
 /** Package-local implementation of ServingEndpoints */
+@Generated
 class ServingEndpointsImpl implements ServingEndpointsService {
   private final ApiClient apiClient;
 

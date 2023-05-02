@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
+
+@Generated
 public enum CloudProviderNodeStatus {
   NotAvailableInRegion,
   NotEnabledOnSubscription,

@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get a schema */
+@Generated
 public class GetSchemaRequest {
   /** Full name of the schema. */
   private String fullName;

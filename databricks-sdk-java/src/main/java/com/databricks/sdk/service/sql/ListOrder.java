@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
+@Generated
 public enum ListOrder {
   created_at,
   name,

@@ -1,6 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
 import java.util.Map;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Map;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface WorkspaceConfService {
   /**
    * Check configuration status.

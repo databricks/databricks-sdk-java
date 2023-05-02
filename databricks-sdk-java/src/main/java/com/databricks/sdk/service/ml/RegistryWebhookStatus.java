@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.ml;
 
+import com.databricks.sdk.support.Generated;
+
 /** This describes an enum */
+@Generated
 public enum RegistryWebhookStatus {
   ACTIVE, // Webhook is triggered when an associated event happens.
   DISABLED, // Webhook is not triggered.

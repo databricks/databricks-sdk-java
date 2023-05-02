@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /** Function SQL data access. */
+@Generated
 public enum CreateFunctionSqlDataAccess {
   CONTAINS_SQL,
   NO_SQL,

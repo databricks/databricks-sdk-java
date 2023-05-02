@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** List Volumes */
+@Generated
 public class ListVolumesRequest {
   /** The identifier of the catalog */
   @QueryParam("catalog_name")

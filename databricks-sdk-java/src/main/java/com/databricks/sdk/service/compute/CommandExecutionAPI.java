@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This API allows execution of Python, Scala, SQL, or R commands on running Databricks Clusters.
  */
+@Generated
 public class CommandExecutionAPI {
   private static final Logger LOG = LoggerFactory.getLogger(CommandExecutionAPI.class);
 

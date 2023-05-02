@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.compute;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
+@Generated
 public class ListPolicyFamiliesRequest {
   /** The max number of policy families to return. */
   @QueryParam("max_results")

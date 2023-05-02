@@ -2,6 +2,9 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
+@Generated
 public enum VolumeType {
   EXTERNAL,
   MANAGED,

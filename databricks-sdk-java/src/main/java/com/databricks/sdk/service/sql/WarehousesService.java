@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * A SQL warehouse is a compute resource that lets you run SQL commands on data objects within
  * Databricks SQL. Compute resources are infrastructure resources that provide processing
@@ -10,6 +12,7 @@ package com.databricks.sdk.service.sql;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface WarehousesService {
   /**
    * Create a warehouse.

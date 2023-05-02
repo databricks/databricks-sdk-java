@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
+import com.databricks.sdk.support.Generated;
+
 /** Type of statement for this query */
+@Generated
 public enum QueryStatementType {
   ALTER,
   ANALYZE,

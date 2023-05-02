@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+@Generated
 public class DataPlaneId {
   /** The instance name of the data plane emitting an event. */
   @JsonProperty("instance")

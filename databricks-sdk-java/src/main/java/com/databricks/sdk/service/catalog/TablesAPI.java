@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
  * <p>A table can be managed or external. From an API perspective, a __VIEW__ is a particular kind
  * of table (rather than a managed or external table).
  */
+@Generated
 public class TablesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(TablesAPI.class);
 

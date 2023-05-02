@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,7 @@ import org.slf4j.LoggerFactory;
  * <p>[Secure access to S3 buckets]:
  * https://docs.databricks.com/administration-guide/cloud-configurations/aws/instance-profiles.html
  */
+@Generated
 public class InstanceProfilesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(InstanceProfilesAPI.class);
 

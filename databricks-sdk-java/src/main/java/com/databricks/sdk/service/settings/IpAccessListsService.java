@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.settings;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * IP Access List enables admins to configure IP access lists.
  *
@@ -26,6 +28,7 @@ package com.databricks.sdk.service.settings;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface IpAccessListsService {
   /**
    * Create access list.

@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a group */
+@Generated
 public class DeleteGroupRequest {
   /** Unique ID for a group in the Databricks Workspace. */
   private String id;

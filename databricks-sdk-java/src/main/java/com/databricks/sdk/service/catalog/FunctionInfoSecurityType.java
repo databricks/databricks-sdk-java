@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
+
 /** Function security type. */
+@Generated
 public enum FunctionInfoSecurityType {
   DEFINER,
 }

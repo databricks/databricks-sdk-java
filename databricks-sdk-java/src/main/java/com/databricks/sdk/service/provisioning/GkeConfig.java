@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /** The configurations for the GKE cluster of a Databricks workspace. */
+@Generated
 public class GkeConfig {
   /**
    * Specifies the network connectivity types for the GKE nodes and the GKE master network.

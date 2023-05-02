@@ -1,6 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.billing;
 
+import com.databricks.sdk.support.Generated;
+
 /**
  * These APIs manage log delivery configurations for this account. The two supported log types for
  * this API are _billable usage logs_ and _audit logs_. This feature is in Public Preview. This
@@ -61,6 +63,7 @@ package com.databricks.sdk.service.billing;
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
+@Generated
 public interface LogDeliveryService {
   /**
    * Create a new log delivery configuration.

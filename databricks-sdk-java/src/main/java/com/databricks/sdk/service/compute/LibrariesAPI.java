@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.support.Generated;
 import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +28,7 @@ import org.slf4j.LoggerFactory;
  * cluster. Until you restart the cluster, the status of the uninstalled library appears as
  * Uninstall pending restart.
  */
+@Generated
 public class LibrariesAPI {
   private static final Logger LOG = LoggerFactory.getLogger(LibrariesAPI.class);
 

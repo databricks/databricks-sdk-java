@@ -2,7 +2,10 @@
 
 package com.databricks.sdk.service.provisioning;
 
+import com.databricks.sdk.support.Generated;
+
 /** This describes an enum */
+@Generated
 public enum VpcStatus {
   BROKEN, // Broken.
   UNATTACHED, // Unattached.

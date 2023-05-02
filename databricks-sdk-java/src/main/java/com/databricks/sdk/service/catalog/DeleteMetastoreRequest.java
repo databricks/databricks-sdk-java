@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a metastore */
+@Generated
 public class DeleteMetastoreRequest {
   /** Force deletion even if the metastore is not empty. Default is false. */
   @QueryParam("force")

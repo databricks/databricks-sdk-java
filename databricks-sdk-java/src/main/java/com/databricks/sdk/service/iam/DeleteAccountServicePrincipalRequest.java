@@ -2,10 +2,12 @@
 
 package com.databricks.sdk.service.iam;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete a service principal */
+@Generated
 public class DeleteAccountServicePrincipalRequest {
   /** Unique ID for a service principal in the Databricks Account. */
   private String id;

@@ -2,11 +2,13 @@
 
 package com.databricks.sdk.service.catalog;
 
+import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Delete an external location */
+@Generated
 public class DeleteExternalLocationRequest {
   /** Force deletion even if there are dependent external tables or mounts. */
   @QueryParam("force")
