@@ -128,10 +128,7 @@ public class EnvTest
   }
 
   private EnvGetter makeEnvResolver(String contextName) {
-    System.out.println("CI is -" + System.getenv("CI"));
-    System.out.println("GITHUB_ACTIONS is -" + System.getenv("GITHUB_ACTIONS"));
     if (checkIfRunningOnGithub()) {
-      System.out.println("ALL ENV is -" + System.getenv().toString());
       return System::getenv;
     }
     String debugEnvFile =

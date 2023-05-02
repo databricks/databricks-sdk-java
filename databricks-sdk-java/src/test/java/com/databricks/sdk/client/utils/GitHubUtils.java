@@ -21,7 +21,7 @@ public interface GitHubUtils extends TestOSUtils, ProcessUtils {
    * @return true if the process is running in a GitHub Actions environment, false otherwise.
    */
   default boolean checkIfRunningOnGithub() {
-    if (System.getenv("CI") != null) {
+    if (System.getenv("GITHUB_ACTIONS") != null) {
       return true;
     }
     return false;
