@@ -128,6 +128,7 @@ public class EnvTest
   }
 
   private EnvGetter makeEnvResolver(String contextName) {
+    System.out.println("totest-" + System.getenv("CI"));
     if (checkIfRunningOnGithub()) {
       return System::getenv;
     }
