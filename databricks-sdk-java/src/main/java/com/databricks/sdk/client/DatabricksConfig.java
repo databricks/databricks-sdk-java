@@ -30,7 +30,11 @@ public class DatabricksConfig {
   @ConfigAttribute(value = "client_id", env = "DATABRICKS_CLIENT_ID", auth = "oauth")
   private String clientId;
 
-  @ConfigAttribute(value = "client_secret", env = "DATABRICKS_CLIENT_SECRET", auth = "oauth", sensitive = true)
+  @ConfigAttribute(
+      value = "client_secret",
+      env = "DATABRICKS_CLIENT_SECRET",
+      auth = "oauth",
+      sensitive = true)
   private String clientSecret;
 
   @ConfigAttribute(value = "username", env = "DATABRICKS_USERNAME", auth = "basic")
