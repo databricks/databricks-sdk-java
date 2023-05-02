@@ -1,22 +1,21 @@
 package com.databricks.sdk.integration;
 
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.DatabricksAccount;
 import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
-import com.databricks.sdk.service.workspace.ListReposRequest;
-import com.databricks.sdk.service.workspace.RepoInfo;
+import com.databricks.sdk.service.provisioning.Workspace;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-@EnvContext("workspace")
+@EnvContext("account")
 @ExtendWith(EnvTest.class)
-public class ReposIT {
+public class WorkspacesIT {
   @Test
-  void listsRepos(DatabricksWorkspace w) {
-    Iterable<RepoInfo> list = w.repos().list(new ListReposRequest());
+  void listsWorkspaces(DatabricksAccount a) {
+    Iterable<Workspace> list = a.workspaces().list();
 
-    java.util.List<RepoInfo> all = CollectionUtils.asList(list);
+    java.util.List<Workspace> all = CollectionUtils.asList(list);
 
     CollectionUtils.assertUnique(all);
   }
