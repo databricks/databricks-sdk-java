@@ -42,21 +42,21 @@ public class CheckForRetryResult {
   private final int statusCode;
 
   public CheckForRetryResult(int statusCode) {
-    this("OK", null, statusCode, null);
+    this(null, "OK", statusCode, null);
   }
 
-  public CheckForRetryResult(String message, String errorCode, int statusCode) {
-    this(message, errorCode, statusCode, null);
+  public CheckForRetryResult(String errorCode, String message, int statusCode) {
+    this(errorCode, message, statusCode, null);
   }
 
   public CheckForRetryResult(String errorCode, int statusCode, Throwable cause) {
-    this(cause.getMessage(), errorCode, statusCode, cause);
+    this(errorCode, cause.getMessage(), statusCode, cause);
   }
 
-  private CheckForRetryResult(String message, String errorCode, int statusCode, Throwable cause) {
+  private CheckForRetryResult(String errorCode, String message, int statusCode, Throwable cause) {
+    this.errorCode = errorCode;
     this.message = message;
     this.cause = cause;
-    this.errorCode = errorCode;
     this.statusCode = statusCode;
   }
 
@@ -65,7 +65,7 @@ public class CheckForRetryResult {
       return null;
     }
     return new DatabricksException(
-        String.format("message: %s, errorCode: %s, statusCode: %d", message, errorCode, statusCode),
+        String.format("errorCode: %s, message: %s, statusCode: %d", errorCode, message, statusCode),
         cause);
   }
 
