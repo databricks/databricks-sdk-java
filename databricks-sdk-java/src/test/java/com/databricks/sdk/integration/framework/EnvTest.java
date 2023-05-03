@@ -7,6 +7,7 @@ import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.client.ConfigResolving;
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.client.UserAgent;
+import com.databricks.sdk.client.utils.GitHubUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -23,7 +24,8 @@ import java.util.*;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.extension.*;
 
-public class EnvTest implements Extension, ParameterResolver, ExecutionCondition, ConfigResolving {
+public class EnvTest
+    implements Extension, ParameterResolver, ExecutionCondition, ConfigResolving, GitHubUtils {
   static {
     UserAgent.withProduct("integration-tests", "0.0.1");
   }
@@ -126,6 +128,9 @@ public class EnvTest implements Extension, ParameterResolver, ExecutionCondition
   }
 
   private EnvGetter makeEnvResolver(String contextName) {
+    if (checkIfRunningOnGithub()) {
+      return System::getenv;
+    }
     String debugEnvFile =
         String.format("%s/.databricks/debug-env.json", System.getProperty("user.home"));
     try (InputStream in = Files.newInputStream(Paths.get(debugEnvFile))) {
