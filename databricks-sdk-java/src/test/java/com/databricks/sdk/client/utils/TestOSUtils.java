@@ -1,8 +1,6 @@
 package com.databricks.sdk.client.utils;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
