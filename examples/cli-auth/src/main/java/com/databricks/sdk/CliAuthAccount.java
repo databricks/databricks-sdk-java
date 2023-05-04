@@ -28,7 +28,7 @@ public class CliAuthAccount {
     }
 
     /**
-     Authenticate and retrieve the list of clusters from the workspace
+     Authenticate and retrieve the list of workspaces from account
      */
     public static void main(String[] args) {
         DatabricksConfig config = getConfig();
