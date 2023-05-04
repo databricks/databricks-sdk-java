@@ -1,10 +1,7 @@
 package com.databricks.sdk.client;
 
 import com.databricks.sdk.client.oauth.Token;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +21,8 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
     if (cliPath == null) {
       cliPath = "bricks";
     }
-    List<String> cmd = Arrays.asList(cliPath, "auth", "token", "--host", config.getHost());
+    List<String> cmd =
+        new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
     if (config.isAccountClient()) {
       cmd.add("--account-id");
       cmd.add(config.getAccountId());

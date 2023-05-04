@@ -3,10 +3,7 @@ package com.databricks.sdk.client;
 import com.databricks.sdk.client.oauth.Token;
 import com.databricks.sdk.client.utils.AzureUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +21,9 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
   @Override
   public CliTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     List<String> cmd =
-        Arrays.asList(
-            "az", "account", "get-access-token", "--resource", resource, "--output", "json");
+        new ArrayList<>(
+            Arrays.asList(
+                "az", "account", "get-access-token", "--resource", resource, "--output", "json"));
     return new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config::getAllEnv);
   }
 
