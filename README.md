@@ -189,7 +189,7 @@ import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.client.DatabricksConfig;
 ...
 DatabricksConfig config = new DatabricksConfig()
-   .setProfile("profile");
+   .setProfile("MYPROFILE");
 DatabricksWorkspace workspace = new DatabricksWorkspace(config);
 ```
 
@@ -245,7 +245,7 @@ In the following example, `workspace.clusters().create()` returns `ClusterInfo` 
 ```java
 CreateCluster request = new CreateCluster()
    .setClusterName("test-cluster")
-   .setSparkVersion("13.0.x-scala2.11")
+   .setSparkVersion("13.0.x-scala2.12")
    .setNodeTypeId("i3.xlarge")
    .setAutoterminationMinutes(10L)
    .setNumWorkers(1L);
