@@ -4,12 +4,12 @@ import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.CreateCluster;
-import com.databricks.sdk.service.files.Create;
-import com.databricks.sdk.service.files.CreateResponse;
 import com.databricks.sdk.service.jobs.*;
 import com.databricks.sdk.support.Wait;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
@@ -20,21 +20,11 @@ import java.util.concurrent.TimeoutException;
 public class TriggerJobToRunPythonProgram {
 
     /**
-     Returns a DatabricksConfig object with the configuration for connecting to Databricks.
-     @return The DatabricksConfig object.
-     */
-    private static DatabricksConfig getConfig() {
-        DatabricksConfig config = new DatabricksConfig();
-        config.resolve().authenticate();
-        return config;
-    }
-
-    /**
-     Returns a DatabricksWorkspace object initialized with the configuration from getConfig().
+     Returns a DatabricksWorkspace object initialized with the configuration.
      @return The DatabricksWorkspace object.
      */
     private static DatabricksWorkspace getWorkspace() {
-        DatabricksConfig config = getConfig();
+        DatabricksConfig config = new DatabricksConfig();
         return new DatabricksWorkspace(config);
     }
 
@@ -81,11 +71,13 @@ public class TriggerJobToRunPythonProgram {
     private static List<String> triggerJobOn(DatabricksWorkspace testWorkspace, ClusterInfo cluster) {
         String pyFileOnDBFS = String.format("/home/%s/java-sdk-test-sample.py", testWorkspace.currentUser().me().getUserName());
         String pyProgram = getSamplePythonProgram();
-        String encodedPyProgram = Base64.getEncoder().encodeToString(pyProgram.getBytes(StandardCharsets.UTF_8));
 
-        CreateResponse stream = testWorkspace.dbfs().create(new Create().setOverwrite(true).setPath(pyFileOnDBFS));
-        testWorkspace.dbfs().addBlock(stream.getHandle(), encodedPyProgram);
-        testWorkspace.dbfs().close(stream.getHandle());
+        try {
+            testWorkspace.dbfs().write(Paths.get(pyFileOnDBFS), pyProgram.getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            System.err.println("Couldn't write DBFS file: " + e.getMessage());
+            System.exit(1);
+        }
 
         String runName = String.format("java-sdk-run-%s", System.currentTimeMillis()/1000.0);
 

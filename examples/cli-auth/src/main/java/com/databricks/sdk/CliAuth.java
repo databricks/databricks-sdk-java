@@ -15,10 +15,9 @@ public class CliAuth {
      */
     private static DatabricksConfig getConfig() {
         // Change to "azure-cli" if you want to authenticate through azure cli
+        // For details on authenticating via bricks cli, please see: https://docs.databricks.com/dev-tools/cli/auth-commands.html
         String authType = "bricks-cli";
-        DatabricksConfig config = new DatabricksConfig().setAuthType(authType);
-        config.resolve().authenticate();
-        return config;
+        return new DatabricksConfig().setAuthType(authType);
     }
 
     /**
