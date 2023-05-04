@@ -1,8 +1,16 @@
 package com.databricks.sdk.client.utils;
 
-import com.databricks.sdk.client.ProcessUtils;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.PosixFilePermission;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,7 +18,7 @@ import org.slf4j.LoggerFactory;
  * GitHubUtils is an interface that provides utility methods for working with GitHub actions and
  * testing on various operating systems.
  */
-public interface GitHubUtils extends TestOSUtils, ProcessUtils {
+public interface GitHubUtils extends TestOSUtils {
 
   Logger LOG = LoggerFactory.getLogger(GitHubUtils.class);
 
@@ -30,30 +38,20 @@ public interface GitHubUtils extends TestOSUtils, ProcessUtils {
   /**
    * Sets executable permission for the az test script, if required for the current operating
    * system.
-   *
-   * <p>This method is needed because in the GitHub actions (for Ubuntu), the runner doesn't have
-   * executable permission on the generated az test script by maven. This happens even if a step is
-   * added to the GitHub workflows to explicitly set executable permission on the source az file.
-   * Hence, this method is called inside the test so that the script is found inside the $PATH
-   * environment variable. This works fine for macOS.
-   *
-   * @throws IOException if there is an error setting the executable permission.
-   * @throws InterruptedException if the thread is interrupted while waiting for the process to
-   *     complete.
    */
   default void setPermissionOnTestAz() {
     try {
-      if (getOS().equals("mac")) {
-        // We don't require to set this for macOS
-        return;
+      Set<PosixFilePermission> perms = new HashSet<>();
+      perms.add(PosixFilePermission.OWNER_READ);
+      perms.add(PosixFilePermission.OWNER_EXECUTE);
+      URL azStub = getClass().getResource("/testdata/az");
+      if (azStub == null) {
+        throw new IOException("cannot find `az` mock script");
       }
-      List<String> cmd = commandToSetTestAzExecutable();
-      runProcess(cmd);
+      File file = new File(Objects.requireNonNull(azStub).getPath());
+      Files.setPosixFilePermissions(file.toPath(), perms);
     } catch (IOException e) {
       LOG.info("Failed to set executable permission for test az script: {}", e.getMessage());
-    } catch (InterruptedException e) {
-      LOG.info("Failed to set executable permission for test az script: {}", e.getMessage());
-      Thread.currentThread().interrupt();
     }
   }
 }

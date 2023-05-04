@@ -21,9 +21,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
   private static String prefixPath;
 
   public DatabricksAuthTest() {
-    if (checkIfRunningOnGithub()) {
-      setPermissionOnTestAz();
-    }
+    setPermissionOnTestAz();
     prefixPath = System.getProperty("user.dir") + getTestDir();
   }
 
