@@ -45,7 +45,7 @@ public class TriggerJobToRunPythonProgram {
         try {
             CreateCluster request = new CreateCluster()
                     .setClusterName("test-cluster")
-                    .setSparkVersion("8.2.x-scala2.12")
+                    .setSparkVersion("13.0.x-scala2.12")
                     .setNodeTypeId("i3.xlarge")
                     .setAutoterminationMinutes(10L)
                     .setNumWorkers(1L);
