@@ -1,6 +1,9 @@
 package com.databricks.sdk.integration.framework;
 
+import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
 import com.databricks.sdk.DatabricksAccount;
 import com.databricks.sdk.DatabricksWorkspace;
@@ -15,6 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -22,7 +26,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Supplier;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.junit.jupiter.api.extension.*;
+import org.junit.platform.commons.util.Preconditions;
 
 public class EnvTest
     implements Extension, ParameterResolver, ExecutionCondition, ConfigResolving, GitHubUtils {
@@ -79,6 +85,10 @@ public class EnvTest
           }
         }
       }
+    }
+    ConditionEvaluationResult envVariableCondition = isDisabledByEnvironmentVariable(context, env);
+    if (envVariableCondition.isDisabled()) {
+      return envVariableCondition;
     }
     return enabled;
   }
@@ -150,6 +160,53 @@ public class EnvTest
   private static class DebugEnv extends TypeReference<Map<String, Map<String, String>>> {}
 
   private interface EnvGetter extends Supplier<Map<String, String>> {}
+
+  /**
+   * Check whether the test should be disabled due to an environment variable.
+   *
+   * <p>Ideally, we would be able to override the DisabledIfEnvironmentVariableCondition class to use the environment
+   * supplier from this class, but that class is not public. For now, I've inlined the evaluate method here.
+   *
+   * @param context A {@code ClassExtensionContext} for the test class.
+   * @param env The environment used for the test run.
+   * @return A {@code ConditionEvaluationResult} indicating whether the test should be disabled.
+   */
+  private ConditionEvaluationResult isDisabledByEnvironmentVariable(
+      ExtensionContext context, Map<String, String> env) {
+    Optional<DisabledIfEnvironmentVariable> annotationOpt = context
+        .getElement()
+        .map(x -> x.getAnnotation(DisabledIfEnvironmentVariable.class));
+    if (!annotationOpt.isPresent()) {
+      return ConditionEvaluationResult.enabled("no DisableIfEnvironmentVariable annotation");
+    }
+    DisabledIfEnvironmentVariable annotation = annotationOpt.get();
+
+    // Below is taken from DisabledIfEnvironmentVariableCondition.evaluate
+    String name = annotation.named().trim();
+    String regex = annotation.matches();
+    Preconditions.notBlank(name, () -> "The 'named' attribute must not be blank in " + annotation);
+    Preconditions.notBlank(
+        regex, () -> "The 'matches' attribute must not be blank in " + annotation);
+    String actual = env.get(name);
+
+    // Nothing to match against?
+    if (actual == null) {
+      return enabled(format("Environment variable [%s] does not exist", name));
+    }
+
+    if (actual.matches(regex)) {
+      return disabled(
+          format(
+              "Environment variable [%s] with value [%s] matches regular expression [%s]",
+              name, actual, regex),
+          annotation.disabledReason());
+    }
+    // else
+    return enabled(
+        format(
+            "Environment variable [%s] with value [%s] does not match regular expression [%s]",
+            name, actual, regex));
+  }
 
   private ObjectMapper makeObjectMapper() {
     ObjectMapper mapper = new ObjectMapper();
