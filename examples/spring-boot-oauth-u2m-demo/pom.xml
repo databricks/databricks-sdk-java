@@ -8,7 +8,7 @@
     <relativePath></relativePath>
   </parent>
 
-  <groupId>com.databricks.sdk</groupId>
+  <groupId>com.databricks</groupId>
   <artifactId>spring-boot-oauth-u2m-demo</artifactId>
   <version>0.0.1</version>
 

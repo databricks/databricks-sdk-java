@@ -3,6 +3,12 @@ package com.databricks.sdk.client;
 import java.util.Map;
 
 public interface HeaderFactory {
-  /** @return a map of HTTP headers with refreshed tokens */
+  /**
+   * Part of the Unified Client Authentication framework.
+   *
+   * <p>HeaderFactory is supposed to be returned from CredentialsProvider, once it's configured.
+   *
+   * @return a map of HTTP headers with refreshed tokens
+   */
   Map<String, String> headers();
 }

@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>databricks-sdk-parent</artifactId>
-    <groupId>com.databricks.sdk</groupId>
+    <groupId>com.databricks</groupId>
     <version>0.0.1</version>
   </parent>
 
-  <groupId>com.databricks.sdk</groupId>
+  <groupId>com.databricks</groupId>
   <artifactId>cli-oauth-u2m-demo</artifactId>
   <version>0.0.1</version>
 

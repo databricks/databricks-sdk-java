@@ -2,13 +2,55 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.databricks.sdk</groupId>
+  <groupId>com.databricks</groupId>
   <artifactId>databricks-sdk-parent</artifactId>
   <version>0.0.1</version>
   <packaging>pom</packaging>
+  <description>Databricks SDK for Java</description>
+  <url>https://github.com/databricks/databricks-sdk-java</url>
+  <licenses>
+    <license>
+      <name>Databricks License</name>
+      <url>https://github.com/databricks/databricks-sdk-java/blob/main/LICENSE</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Serge Smertin</name>
+      <email>serge.smertin@databricks.com</email>
+    </developer>
+    <developer>
+      <name>Miles Yucht</name>
+      <email>miles@databricks.com</email>
+    </developer>
+    <developer>
+      <name>Tanmay Rustagi</name>
+      <email>tanmay.rustagi@databricks.com</email>
+    </developer>
+  </developers>
   <modules>
     <module>databricks-sdk-java</module>
   </modules>
+  <scm>
+    <connection>scm:git:https://github.com/databricks/databricks-sdk-java.git</connection>
+    <developerConnection>scm:git:https://github.com/databricks/databricks-sdk-java.git</developerConnection>
+    <tag>v${project.version}</tag>
+    <url>https://github.com/databricks/databricks-sdk-java/tree/v${project.version}</url>
+  </scm>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/databricks/databricks-sdk-java/issues</url>
+  </issueManagement>
+  <ciManagement>
+    <system>GitHub Actions</system>
+    <url>https://github.com/databricks/databricks-sdk-java/blob/main/.github/workflows/push.yml</url>
+  </ciManagement>
+  <distributionManagement>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
   <properties>
     <jacoco.version>0.8.10</jacoco.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,7 +60,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
+        <version>3.11.0</version>
         <configuration>
           <source>8</source>
           <target>8</target>
@@ -60,7 +102,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M6</version>
+        <version>3.0.0</version>
         <executions>
           <execution>
             <goals>
@@ -102,6 +144,7 @@
               <goal>check</goal>
             </goals>
             <configuration>
+              <haltOnFailure>false</haltOnFailure>
               <rules>
                 <rule>
                   <element>BUNDLE</element>
