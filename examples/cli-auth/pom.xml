@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>databricks-sdk-parent</artifactId>
-        <groupId>com.databricks.sdk</groupId>
+        <groupId>com.databricks</groupId>
         <version>0.0.1</version>
     </parent>
-    <groupId>com.databricks.sdk</groupId>
+    <groupId>com.databricks</groupId>
     <artifactId>cli-auth</artifactId>
     <version>0.0.1</version>
 
@@ -43,6 +43,24 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
             <version>2.20.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.databricks</groupId>
+            <artifactId>databricks-sdk-java</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.databricks</groupId>
+            <artifactId>databricks-sdk-java</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.databricks</groupId>
+            <artifactId>databricks-sdk-java</artifactId>
+            <version>0.0.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
