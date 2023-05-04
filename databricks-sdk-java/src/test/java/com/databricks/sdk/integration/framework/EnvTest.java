@@ -18,7 +18,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -27,6 +26,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariables;
 import org.junit.jupiter.api.extension.*;
 import org.junit.platform.commons.util.Preconditions;
 
@@ -164,8 +164,9 @@ public class EnvTest
   /**
    * Check whether the test should be disabled due to an environment variable.
    *
-   * <p>Ideally, we would be able to override the DisabledIfEnvironmentVariableCondition class to use the environment
-   * supplier from this class, but that class is not public. For now, I've inlined the evaluate method here.
+   * <p>Ideally, we would be able to override the DisabledIfEnvironmentVariableCondition class to
+   * use the environment supplier from this class, but that class is not public. For now, I've
+   * inlined the evaluate method here.
    *
    * @param context A {@code ClassExtensionContext} for the test class.
    * @param env The environment used for the test run.
@@ -173,15 +174,29 @@ public class EnvTest
    */
   private ConditionEvaluationResult isDisabledByEnvironmentVariable(
       ExtensionContext context, Map<String, String> env) {
-    Optional<DisabledIfEnvironmentVariable> annotationOpt = context
-        .getElement()
-        .map(x -> x.getAnnotation(DisabledIfEnvironmentVariable.class));
-    if (!annotationOpt.isPresent()) {
-      return ConditionEvaluationResult.enabled("no DisableIfEnvironmentVariable annotation");
+    Optional<DisabledIfEnvironmentVariable> singleAnnotation =
+        context.getElement().map(x -> x.getAnnotation(DisabledIfEnvironmentVariable.class));
+    Optional<DisabledIfEnvironmentVariables> repeatedAnnotation =
+        context.getElement().map(x -> x.getAnnotation(DisabledIfEnvironmentVariables.class));
+    if (singleAnnotation.isPresent()) {
+      return evaluate(singleAnnotation.get(), env);
     }
-    DisabledIfEnvironmentVariable annotation = annotationOpt.get();
+    if (repeatedAnnotation.isPresent()) {
+      for (DisabledIfEnvironmentVariable annotation : repeatedAnnotation.get().value()) {
+        ConditionEvaluationResult res = evaluate(annotation, env);
+        if (res.isDisabled()) {
+          return res;
+        }
+      }
+      return ConditionEvaluationResult.enabled("no DisableIfEnvironmentVariable matched");
+    }
 
-    // Below is taken from DisabledIfEnvironmentVariableCondition.evaluate
+    return ConditionEvaluationResult.enabled("no DisableIfEnvironmentVariable present");
+  }
+
+  private ConditionEvaluationResult evaluate(
+      DisabledIfEnvironmentVariable annotation, Map<String, String> env) {
+    // Below is taken from DisabledIfEnvironmentVariableCondition.evaluate, aside from env lookup.
     String name = annotation.named().trim();
     String regex = annotation.matches();
     Preconditions.notBlank(name, () -> "The 'named' attribute must not be blank in " + annotation);
