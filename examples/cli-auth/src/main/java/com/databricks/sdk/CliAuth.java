@@ -4,9 +4,15 @@ import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 
-import java.util.Objects;
-
+/**
+ Example for authenticating with Databricks through CLI.
+ The authentication type can be set to either "bricks-cli" or "azure-cli".
+ */
 public class CliAuth {
+    /**
+     Get config used for authenticating with Databricks.
+     @return DatabricksConfig object used for authentication
+     */
     private static DatabricksConfig getConfig() {
         // Change to "azure-cli" if you want to authenticate through azure cli
         String authType = "bricks-cli";
@@ -14,6 +20,10 @@ public class CliAuth {
         config.resolve().authenticate();
         return config;
     }
+
+    /**
+     Authenticate and retrieve the list of clusters from the workspace.
+     */
     public static void main(String[] args) {
         DatabricksConfig config = getConfig();
         DatabricksWorkspace workspace = new DatabricksWorkspace(config);
