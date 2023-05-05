@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.JavaType;
+import com.google.gson.Gson;
+
 import org.apache.http.client.methods.*;
 
 import com.databricks.sdk.client.ApiClient;
@@ -31,4 +34,5 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
       {{- end -}}{{else}}, Void{{end}}.class);
   }
   {{end}}
+
 }
