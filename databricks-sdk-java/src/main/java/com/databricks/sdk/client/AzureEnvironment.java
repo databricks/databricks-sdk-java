@@ -1,5 +1,7 @@
 package com.databricks.sdk.client;
 
+import com.databricks.sdk.support.DeveloperApi;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import java.util.Map;
  * resources vary depending on the cloud environment: public, germany, govcloud, or china. Depending
  * on the operation, tokens scoped to a specific endpoint are needed.
  */
+@DeveloperApi
 public class AzureEnvironment {
   private String name;
   private String serviceManagementEndpoint;

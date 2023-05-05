@@ -3,6 +3,7 @@ package com.databricks.sdk.client;
 import com.databricks.sdk.client.oauth.RefreshableTokenSource;
 import com.databricks.sdk.client.oauth.Token;
 import com.databricks.sdk.client.utils.OSUtils;
+import com.databricks.sdk.support.DeveloperApi;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -16,7 +17,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 import org.apache.commons.io.IOUtils;
 
-public class CliTokenSource extends RefreshableTokenSource implements OSUtils {
+@DeveloperApi
+class CliTokenSource extends RefreshableTokenSource implements OSUtils {
   private List<String> cmd;
   private String tokenTypeField;
   private String accessTokenField;

@@ -1,9 +1,11 @@
 package com.databricks.sdk.client.http;
 
+import com.databricks.sdk.support.DeveloperApi;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+@DeveloperApi
 public class Response {
   private Request request;
   private int statusCode;

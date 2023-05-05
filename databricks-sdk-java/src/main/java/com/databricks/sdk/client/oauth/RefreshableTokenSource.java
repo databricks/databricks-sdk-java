@@ -4,6 +4,7 @@ import com.databricks.sdk.client.DatabricksException;
 import com.databricks.sdk.client.http.FormRequest;
 import com.databricks.sdk.client.http.HttpClient;
 import com.databricks.sdk.client.http.Response;
+import com.databricks.sdk.support.DeveloperApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import org.apache.http.HttpHeaders;
  * <p>Calls to getToken() will first check if the token is still valid (currently defined by having
  * at least 10 seconds until expiry). If not, refresh() is called first to refresh the token.
  */
+@DeveloperApi
 public abstract class RefreshableTokenSource implements TokenSource {
   protected Token token;
 
