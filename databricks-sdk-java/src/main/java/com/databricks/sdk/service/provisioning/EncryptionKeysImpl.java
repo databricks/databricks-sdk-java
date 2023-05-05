@@ -3,6 +3,9 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.databind.JavaType;
+import com.google.gson.Gson;
+import java.io.IOException;
 import java.util.Collection;
 import org.apache.http.client.methods.*;
 
@@ -46,6 +49,17 @@ class EncryptionKeysImpl implements EncryptionKeysService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/customer-managed-keys", apiClient.configuredAccountID());
-    return apiClient.GET(path, Collection.class);
+    JavaType tpe =
+        apiClient
+            .getObjectMapper()
+            .getTypeFactory()
+            .constructCollectionType(Collection.class, Object.class);
+    try {
+      return apiClient
+          .getObjectMapper()
+          .readValue(new Gson().toJson(apiClient.GET(path, Collection.class)), tpe);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

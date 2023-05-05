@@ -3,6 +3,9 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.databind.JavaType;
+import com.google.gson.Gson;
+import java.io.IOException;
 import java.util.Collection;
 import org.apache.http.client.methods.*;
 
@@ -48,7 +51,18 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/workspaces",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.GET(path, request, Collection.class);
+    JavaType tpe =
+        apiClient
+            .getObjectMapper()
+            .getTypeFactory()
+            .constructCollectionType(Collection.class, Object.class);
+    try {
+      return apiClient
+          .getObjectMapper()
+          .readValue(new Gson().toJson(apiClient.GET(path, Collection.class)), tpe);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
