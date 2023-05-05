@@ -13,6 +13,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Random;
@@ -29,6 +30,8 @@ public class ApiClient {
   private final int maxAttempts;
 
   private final ObjectMapper mapper;
+
+  private final Gson gson;
 
   private final DatabricksConfig config;
 
@@ -66,6 +69,7 @@ public class ApiClient {
 
     maxAttempts = 3;
     mapper = makeObjectMapper();
+    gson = new Gson();
     random = new Random();
     httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
@@ -270,5 +274,13 @@ public class ApiClient {
 
   private String serialize(Object body) throws JsonProcessingException {
     return mapper.writeValueAsString(body);
+  }
+
+  public ObjectMapper getObjectMapper() {
+    return this.mapper;
+  }
+
+  public Gson getGson() {
+    return this.gson;
   }
 }
