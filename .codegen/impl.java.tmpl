@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JavaType;
-import com.google.gson.Gson;
 
 import org.apache.http.client.methods.*;
 
@@ -32,14 +31,14 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
         {{- if .Response.ArrayValue -}}
         JavaType tpe = apiClient.getObjectMapper().getTypeFactory().constructCollectionType(Collection.class, Object.class);
         try {
-          return apiClient.getObjectMapper().readValue(new Gson().toJson(apiClient.{{.Verb}}(path, {{if .Request -}} request,{{- end -}} Collection.class)), tpe);
+          return apiClient.getObjectMapper().readValue(apiClient.{{.Verb}}(path, {{if .Request -}} request,{{- end -}} Collection.class), tpe);
         } catch (IOException e) {
           throw new RuntimeException(e);
         }
         {{- else if .Response.MapValue -}}
         JavaType tpe = apiClient.getObjectMapper().getTypeFactory().constructMapType(Map.class, Object.class, Object.class);
         try {
-          return apiClient.getObjectMapper().readValue(new Gson().toJson(apiClient.{{.Verb}}(path, {{if .Request -}} request,{{- end -}} Map.class)), tpe);
+          return apiClient.getObjectMapper().readValue(apiClient.{{.Verb}}(path, {{if .Request -}} request,{{- end -}} Map.class), tpe);
         } catch (IOException e) {
           throw new RuntimeException(e);
         }
