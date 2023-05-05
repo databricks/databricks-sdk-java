@@ -32,12 +32,14 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   @Override
   public void delete(DeleteServingEndpointRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public void exportMetrics(ExportMetricsRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/metrics", request.getName());
+
     apiClient.GET(path, request, Void.class);
   }
 

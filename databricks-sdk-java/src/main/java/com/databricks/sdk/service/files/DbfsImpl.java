@@ -17,12 +17,14 @@ class DbfsImpl implements DbfsService {
   @Override
   public void addBlock(AddBlock request) {
     String path = "/api/2.0/dbfs/add-block";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void close(Close request) {
     String path = "/api/2.0/dbfs/close";
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -35,6 +37,7 @@ class DbfsImpl implements DbfsService {
   @Override
   public void delete(Delete request) {
     String path = "/api/2.0/dbfs/delete";
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -53,18 +56,21 @@ class DbfsImpl implements DbfsService {
   @Override
   public void mkdirs(MkDirs request) {
     String path = "/api/2.0/dbfs/mkdirs";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void move(Move request) {
     String path = "/api/2.0/dbfs/move";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void put(Put request) {
     String path = "/api/2.0/dbfs/put";
+
     apiClient.POST(path, request, Void.class);
   }
 

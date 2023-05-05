@@ -23,6 +23,7 @@ class DashboardsImpl implements DashboardsService {
   @Override
   public void delete(DeleteDashboardRequest request) {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -42,6 +43,7 @@ class DashboardsImpl implements DashboardsService {
   public void restore(RestoreDashboardRequest request) {
     String path =
         String.format("/api/2.0/preview/sql/dashboards/trash/%s", request.getDashboardId());
+
     apiClient.POST(path, request, Void.class);
   }
 }

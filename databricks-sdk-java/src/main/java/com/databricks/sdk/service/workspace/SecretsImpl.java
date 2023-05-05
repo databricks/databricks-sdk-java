@@ -17,24 +17,28 @@ class SecretsImpl implements SecretsService {
   @Override
   public void createScope(CreateScope request) {
     String path = "/api/2.0/secrets/scopes/create";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void deleteAcl(DeleteAcl request) {
     String path = "/api/2.0/secrets/acls/delete";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void deleteScope(DeleteScope request) {
     String path = "/api/2.0/secrets/scopes/delete";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void deleteSecret(DeleteSecret request) {
     String path = "/api/2.0/secrets/delete";
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -65,12 +69,14 @@ class SecretsImpl implements SecretsService {
   @Override
   public void putAcl(PutAcl request) {
     String path = "/api/2.0/secrets/acls/put";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void putSecret(PutSecret request) {
     String path = "/api/2.0/secrets/put";
+
     apiClient.POST(path, request, Void.class);
   }
 }

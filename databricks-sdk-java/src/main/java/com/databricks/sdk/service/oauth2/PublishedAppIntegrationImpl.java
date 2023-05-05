@@ -29,6 +29,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
         String.format(
             "/api/2.0/accounts/%s/oauth2/published-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -56,6 +57,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
         String.format(
             "/api/2.0/accounts/%s/oauth2/published-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
+
     apiClient.PATCH(path, request, Void.class);
   }
 }

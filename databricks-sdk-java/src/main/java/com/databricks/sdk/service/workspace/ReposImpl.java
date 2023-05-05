@@ -23,6 +23,7 @@ class ReposImpl implements ReposService {
   @Override
   public void delete(DeleteRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -41,6 +42,7 @@ class ReposImpl implements ReposService {
   @Override
   public void update(UpdateRepo request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
+
     apiClient.PATCH(path, request, Void.class);
   }
 }

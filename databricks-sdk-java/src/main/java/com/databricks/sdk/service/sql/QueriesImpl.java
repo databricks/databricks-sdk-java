@@ -23,6 +23,7 @@ class QueriesImpl implements QueriesService {
   @Override
   public void delete(DeleteQueryRequest request) {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -41,6 +42,7 @@ class QueriesImpl implements QueriesService {
   @Override
   public void restore(RestoreQueryRequest request) {
     String path = String.format("/api/2.0/preview/sql/queries/trash/%s", request.getQueryId());
+
     apiClient.POST(path, request, Void.class);
   }
 

@@ -23,6 +23,7 @@ class IpAccessListsImpl implements IpAccessListsService {
   @Override
   public void delete(DeleteIpAccessListRequest request) {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -41,12 +42,14 @@ class IpAccessListsImpl implements IpAccessListsService {
   @Override
   public void replace(ReplaceIpAccessList request) {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
+
     apiClient.PUT(path, request, Void.class);
   }
 
   @Override
   public void update(UpdateIpAccessList request) {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
+
     apiClient.PATCH(path, request, Void.class);
   }
 }

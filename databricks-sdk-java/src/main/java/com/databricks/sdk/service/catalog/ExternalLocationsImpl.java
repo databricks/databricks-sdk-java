@@ -23,6 +23,7 @@ class ExternalLocationsImpl implements ExternalLocationsService {
   @Override
   public void delete(DeleteExternalLocationRequest request) {
     String path = String.format("/api/2.1/unity-catalog/external-locations/%s", request.getName());
+
     apiClient.DELETE(path, request, Void.class);
   }
 

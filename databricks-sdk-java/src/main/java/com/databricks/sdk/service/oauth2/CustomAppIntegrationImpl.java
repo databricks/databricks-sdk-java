@@ -28,6 +28,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -54,6 +55,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
+
     apiClient.PATCH(path, request, Void.class);
   }
 }

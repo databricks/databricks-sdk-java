@@ -38,6 +38,7 @@ class PermissionsImpl implements PermissionsService {
         String.format(
             "/api/2.0/permissions/%s/%s",
             request.getRequestObjectType(), request.getRequestObjectId());
+
     apiClient.PUT(path, request, Void.class);
   }
 
@@ -47,6 +48,7 @@ class PermissionsImpl implements PermissionsService {
         String.format(
             "/api/2.0/permissions/%s/%s",
             request.getRequestObjectType(), request.getRequestObjectId());
+
     apiClient.PATCH(path, request, Void.class);
   }
 }

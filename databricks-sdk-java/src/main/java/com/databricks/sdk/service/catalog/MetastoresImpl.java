@@ -18,6 +18,7 @@ class MetastoresImpl implements MetastoresService {
   public void assign(CreateMetastoreAssignment request) {
     String path =
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
+
     apiClient.PUT(path, request, Void.class);
   }
 
@@ -36,6 +37,7 @@ class MetastoresImpl implements MetastoresService {
   @Override
   public void delete(DeleteMetastoreRequest request) {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -67,6 +69,7 @@ class MetastoresImpl implements MetastoresService {
   public void unassign(UnassignRequest request) {
     String path =
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -80,6 +83,7 @@ class MetastoresImpl implements MetastoresService {
   public void updateAssignment(UpdateMetastoreAssignment request) {
     String path =
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
+
     apiClient.PATCH(path, request, Void.class);
   }
 }

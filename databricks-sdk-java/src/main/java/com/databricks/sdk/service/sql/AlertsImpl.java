@@ -24,6 +24,7 @@ class AlertsImpl implements AlertsService {
   @Override
   public void delete(DeleteAlertRequest request) {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -36,12 +37,13 @@ class AlertsImpl implements AlertsService {
   @Override
   public Collection<Alert> list() {
     String path = "/api/2.0/preview/sql/alerts";
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, Alert.class);
   }
 
   @Override
   public void update(EditAlert request) {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
+
     apiClient.PUT(path, request, Void.class);
   }
 }

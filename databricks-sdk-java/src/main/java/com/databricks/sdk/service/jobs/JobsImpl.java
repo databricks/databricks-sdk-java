@@ -17,12 +17,14 @@ class JobsImpl implements JobsService {
   @Override
   public void cancelAllRuns(CancelAllRuns request) {
     String path = "/api/2.1/jobs/runs/cancel-all";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void cancelRun(CancelRun request) {
     String path = "/api/2.1/jobs/runs/cancel";
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -35,12 +37,14 @@ class JobsImpl implements JobsService {
   @Override
   public void delete(DeleteJob request) {
     String path = "/api/2.1/jobs/delete";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void deleteRun(DeleteRun request) {
     String path = "/api/2.1/jobs/runs/delete";
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -89,6 +93,7 @@ class JobsImpl implements JobsService {
   @Override
   public void reset(ResetJob request) {
     String path = "/api/2.1/jobs/reset";
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -107,6 +112,7 @@ class JobsImpl implements JobsService {
   @Override
   public void update(UpdateJob request) {
     String path = "/api/2.1/jobs/update";
+
     apiClient.POST(path, request, Void.class);
   }
 }

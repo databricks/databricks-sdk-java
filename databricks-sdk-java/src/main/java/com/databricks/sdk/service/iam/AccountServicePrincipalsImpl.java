@@ -28,6 +28,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -54,6 +55,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
+
     apiClient.PATCH(path, request, Void.class);
   }
 
@@ -63,6 +65,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
+
     apiClient.PUT(path, request, Void.class);
   }
 }

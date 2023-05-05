@@ -29,12 +29,14 @@ class LibrariesImpl implements LibrariesService {
   @Override
   public void install(InstallLibraries request) {
     String path = "/api/2.0/libraries/install";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void uninstall(UninstallLibraries request) {
     String path = "/api/2.0/libraries/uninstall";
+
     apiClient.POST(path, request, Void.class);
   }
 }

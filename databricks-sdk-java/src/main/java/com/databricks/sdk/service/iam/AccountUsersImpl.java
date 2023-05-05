@@ -27,6 +27,7 @@ class AccountUsersImpl implements AccountUsersService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Users/%s",
             apiClient.configuredAccountID(), request.getId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -52,6 +53,7 @@ class AccountUsersImpl implements AccountUsersService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Users/%s",
             apiClient.configuredAccountID(), request.getId());
+
     apiClient.PATCH(path, request, Void.class);
   }
 
@@ -61,6 +63,7 @@ class AccountUsersImpl implements AccountUsersService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Users/%s",
             apiClient.configuredAccountID(), request.getId());
+
     apiClient.PUT(path, request, Void.class);
   }
 }

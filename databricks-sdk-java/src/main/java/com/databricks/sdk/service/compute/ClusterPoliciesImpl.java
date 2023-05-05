@@ -23,12 +23,14 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
   @Override
   public void delete(DeletePolicy request) {
     String path = "/api/2.0/policies/clusters/delete";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void edit(EditPolicy request) {
     String path = "/api/2.0/policies/clusters/edit";
+
     apiClient.POST(path, request, Void.class);
   }
 

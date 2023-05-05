@@ -29,6 +29,7 @@ class StorageImpl implements StorageService {
         String.format(
             "/api/2.0/accounts/%s/storage-configurations/%s",
             apiClient.configuredAccountID(), request.getStorageConfigurationId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -46,6 +47,6 @@ class StorageImpl implements StorageService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/storage-configurations", apiClient.configuredAccountID());
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, StorageConfiguration.class);
   }
 }

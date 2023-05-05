@@ -29,6 +29,7 @@ class PrivateAccessImpl implements PrivateAccessService {
         String.format(
             "/api/2.0/accounts/%s/private-access-settings/%s",
             apiClient.configuredAccountID(), request.getPrivateAccessSettingsId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -46,7 +47,7 @@ class PrivateAccessImpl implements PrivateAccessService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/private-access-settings", apiClient.configuredAccountID());
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, PrivateAccessSettings.class);
   }
 
   @Override
@@ -55,6 +56,7 @@ class PrivateAccessImpl implements PrivateAccessService {
         String.format(
             "/api/2.0/accounts/%s/private-access-settings/%s",
             apiClient.configuredAccountID(), request.getPrivateAccessSettingsId());
+
     apiClient.PUT(path, request, Void.class);
   }
 }

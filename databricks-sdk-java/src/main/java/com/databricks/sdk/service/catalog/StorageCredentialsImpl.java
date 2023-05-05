@@ -24,6 +24,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
   @Override
   public void delete(DeleteStorageCredentialRequest request) {
     String path = String.format("/api/2.1/unity-catalog/storage-credentials/%s", request.getName());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -36,7 +37,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
   @Override
   public Collection<StorageCredentialInfo> list() {
     String path = "/api/2.1/unity-catalog/storage-credentials";
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, StorageCredentialInfo.class);
   }
 
   @Override

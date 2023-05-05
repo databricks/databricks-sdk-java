@@ -29,18 +29,21 @@ class ExperimentsImpl implements ExperimentsService {
   @Override
   public void deleteExperiment(DeleteExperiment request) {
     String path = "/api/2.0/mlflow/experiments/delete";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void deleteRun(DeleteRun request) {
     String path = "/api/2.0/mlflow/runs/delete";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void deleteTag(DeleteTag request) {
     String path = "/api/2.0/mlflow/runs/delete-tag";
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -83,36 +86,42 @@ class ExperimentsImpl implements ExperimentsService {
   @Override
   public void logBatch(LogBatch request) {
     String path = "/api/2.0/mlflow/runs/log-batch";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void logMetric(LogMetric request) {
     String path = "/api/2.0/mlflow/runs/log-metric";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void logModel(LogModel request) {
     String path = "/api/2.0/mlflow/runs/log-model";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void logParam(LogParam request) {
     String path = "/api/2.0/mlflow/runs/log-parameter";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void restoreExperiment(RestoreExperiment request) {
     String path = "/api/2.0/mlflow/experiments/restore";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void restoreRun(RestoreRun request) {
     String path = "/api/2.0/mlflow/runs/restore";
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -131,18 +140,21 @@ class ExperimentsImpl implements ExperimentsService {
   @Override
   public void setExperimentTag(SetExperimentTag request) {
     String path = "/api/2.0/mlflow/experiments/set-experiment-tag";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void setTag(SetTag request) {
     String path = "/api/2.0/mlflow/runs/set-tag";
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void updateExperiment(UpdateExperiment request) {
     String path = "/api/2.0/mlflow/experiments/update";
+
     apiClient.POST(path, request, Void.class);
   }
 

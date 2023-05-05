@@ -23,6 +23,7 @@ class SharesImpl implements SharesService {
   @Override
   public void delete(DeleteShareRequest request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -53,6 +54,7 @@ class SharesImpl implements SharesService {
   @Override
   public void updatePermissions(UpdateSharePermissions request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
+
     apiClient.PATCH(path, request, Void.class);
   }
 }

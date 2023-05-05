@@ -17,6 +17,7 @@ class WorkspaceImpl implements WorkspaceService {
   @Override
   public void delete(Delete request) {
     String path = "/api/2.0/workspace/delete";
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -35,6 +36,7 @@ class WorkspaceImpl implements WorkspaceService {
   @Override
   public void importContent(Import request) {
     String path = "/api/2.0/workspace/import";
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -47,6 +49,7 @@ class WorkspaceImpl implements WorkspaceService {
   @Override
   public void mkdirs(Mkdirs request) {
     String path = "/api/2.0/workspace/mkdirs";
+
     apiClient.POST(path, request, Void.class);
   }
 }

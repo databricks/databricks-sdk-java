@@ -23,12 +23,14 @@ class WarehousesImpl implements WarehousesService {
   @Override
   public void delete(DeleteWarehouseRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
+
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public void edit(EditWarehouseRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/edit", request.getId());
+
     apiClient.POST(path, request, Void.class);
   }
 
@@ -53,18 +55,21 @@ class WarehousesImpl implements WarehousesService {
   @Override
   public void setWorkspaceWarehouseConfig(SetWorkspaceWarehouseConfigRequest request) {
     String path = "/api/2.0/sql/config/warehouses";
+
     apiClient.PUT(path, request, Void.class);
   }
 
   @Override
   public void start(StartRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/start", request.getId());
+
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void stop(StopRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
+
     apiClient.POST(path, request, Void.class);
   }
 }
