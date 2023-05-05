@@ -54,7 +54,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
         apiClient
             .getObjectMapper()
             .getTypeFactory()
-            .constructCollectionType(Collection.class, Object.class);
+            .constructCollectionType(Collection.class, MetastoreAssignment.class);
     try {
       return apiClient
           .getObjectMapper()

@@ -50,7 +50,7 @@ class CredentialsImpl implements CredentialsService {
         apiClient
             .getObjectMapper()
             .getTypeFactory()
-            .constructCollectionType(Collection.class, Object.class);
+            .constructCollectionType(Collection.class, Credential.class);
     try {
       return apiClient.getObjectMapper().readValue(apiClient.GET(path, Collection.class), tpe);
     } catch (IOException e) {

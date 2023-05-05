@@ -24,7 +24,7 @@ class WorkspaceConfImpl implements WorkspaceConfService {
         apiClient
             .getObjectMapper()
             .getTypeFactory()
-            .constructMapType(Map.class, Object.class, Object.class);
+            .constructMapType(Map.class, String.class, String.class);
     try {
       return apiClient.getObjectMapper().readValue(apiClient.GET(path, request, Map.class), tpe);
     } catch (IOException e) {

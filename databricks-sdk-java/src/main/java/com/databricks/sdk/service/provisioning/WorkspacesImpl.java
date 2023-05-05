@@ -48,7 +48,7 @@ class WorkspacesImpl implements WorkspacesService {
         apiClient
             .getObjectMapper()
             .getTypeFactory()
-            .constructCollectionType(Collection.class, Object.class);
+            .constructCollectionType(Collection.class, Workspace.class);
     try {
       return apiClient.getObjectMapper().readValue(apiClient.GET(path, Collection.class), tpe);
     } catch (IOException e) {

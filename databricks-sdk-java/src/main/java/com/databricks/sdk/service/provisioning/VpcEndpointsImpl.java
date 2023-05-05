@@ -50,7 +50,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
         apiClient
             .getObjectMapper()
             .getTypeFactory()
-            .constructCollectionType(Collection.class, Object.class);
+            .constructCollectionType(Collection.class, VpcEndpoint.class);
     try {
       return apiClient.getObjectMapper().readValue(apiClient.GET(path, Collection.class), tpe);
     } catch (IOException e) {

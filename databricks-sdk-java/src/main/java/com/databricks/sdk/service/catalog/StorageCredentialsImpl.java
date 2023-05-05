@@ -42,7 +42,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
         apiClient
             .getObjectMapper()
             .getTypeFactory()
-            .constructCollectionType(Collection.class, Object.class);
+            .constructCollectionType(Collection.class, StorageCredentialInfo.class);
     try {
       return apiClient.getObjectMapper().readValue(apiClient.GET(path, Collection.class), tpe);
     } catch (IOException e) {

@@ -48,7 +48,7 @@ class NetworksImpl implements NetworksService {
         apiClient
             .getObjectMapper()
             .getTypeFactory()
-            .constructCollectionType(Collection.class, Object.class);
+            .constructCollectionType(Collection.class, Network.class);
     try {
       return apiClient.getObjectMapper().readValue(apiClient.GET(path, Collection.class), tpe);
     } catch (IOException e) {

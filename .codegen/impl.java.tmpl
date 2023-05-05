@@ -29,14 +29,14 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
       {{- else}}"{{.Path}}"{{end}};
       {{if .Response -}}
         {{- if .Response.ArrayValue -}}
-        JavaType tpe = apiClient.getObjectMapper().getTypeFactory().constructCollectionType(Collection.class, Object.class);
+        JavaType tpe = apiClient.getObjectMapper().getTypeFactory().constructCollectionType(Collection.class, {{template "type" .Response.ArrayValue}}.class);
         try {
           return apiClient.getObjectMapper().readValue(apiClient.{{.Verb}}(path, {{if .Request -}} request,{{- end -}} Collection.class), tpe);
         } catch (IOException e) {
           throw new RuntimeException(e);
         }
         {{- else if .Response.MapValue -}}
-        JavaType tpe = apiClient.getObjectMapper().getTypeFactory().constructMapType(Map.class, Object.class, Object.class);
+        JavaType tpe = apiClient.getObjectMapper().getTypeFactory().constructMapType(Map.class, String.class, {{template "type" .Response.MapValue}}.class);
         try {
           return apiClient.getObjectMapper().readValue(apiClient.{{.Verb}}(path, {{if .Request -}} request,{{- end -}} Map.class), tpe);
         } catch (IOException e) {
