@@ -3,8 +3,6 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.databind.JavaType;
-import java.io.IOException;
 import java.util.Collection;
 import org.apache.http.client.methods.*;
 
@@ -46,15 +44,6 @@ class CredentialsImpl implements CredentialsService {
   public Collection<Credential> list() {
     String path =
         String.format("/api/2.0/accounts/%s/credentials", apiClient.configuredAccountID());
-    JavaType tpe =
-        apiClient
-            .getObjectMapper()
-            .getTypeFactory()
-            .constructCollectionType(Collection.class, Credential.class);
-    try {
-      return apiClient.getObjectMapper().readValue(apiClient.GET(path, Collection.class), tpe);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    return apiClient.GET(path, Collection.class);
   }
 }

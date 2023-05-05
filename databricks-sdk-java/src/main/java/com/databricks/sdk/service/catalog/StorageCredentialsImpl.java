@@ -3,8 +3,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.databind.JavaType;
-import java.io.IOException;
 import java.util.Collection;
 import org.apache.http.client.methods.*;
 
@@ -38,16 +36,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
   @Override
   public Collection<StorageCredentialInfo> list() {
     String path = "/api/2.1/unity-catalog/storage-credentials";
-    JavaType tpe =
-        apiClient
-            .getObjectMapper()
-            .getTypeFactory()
-            .constructCollectionType(Collection.class, StorageCredentialInfo.class);
-    try {
-      return apiClient.getObjectMapper().readValue(apiClient.GET(path, Collection.class), tpe);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    return apiClient.GET(path, Collection.class);
   }
 
   @Override

@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.JavaType;
-
 import org.apache.http.client.methods.*;
 
 import com.databricks.sdk.client.ApiClient;
@@ -24,36 +22,13 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
 	{{range .Methods}}
   @Override
   public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
-      String path = {{if .PathParts -}}
-        String.format("{{range  .PathParts}}{{.Prefix}}{{if or .Field .IsAccountId}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{ else if .IsAccountId }}, apiClient.configuredAccountID(){{end}}{{ end }})
-      {{- else}}"{{.Path}}"{{end}};
-      {{if .Response -}}
-        {{- if .Response.ArrayValue -}}
-        JavaType tpe = apiClient.getObjectMapper().getTypeFactory().constructCollectionType(Collection.class, {{template "type" .Response.ArrayValue}}.class);
-        try {
-          return apiClient.getObjectMapper().readValue(apiClient.{{.Verb}}(path, {{if .Request -}} request,{{- end -}} Collection.class), tpe);
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
-        {{- else if .Response.MapValue -}}
-        JavaType tpe = apiClient.getObjectMapper().getTypeFactory().constructMapType(Map.class, String.class, {{template "type" .Response.MapValue}}.class);
-        try {
-          return apiClient.getObjectMapper().readValue(apiClient.{{.Verb}}(path, {{if .Request -}} request,{{- end -}} Map.class), tpe);
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
-        {{- else -}}
-          return apiClient.{{.Verb}}(path{{if .Request}}, request{{end}}{{if .Response -}}, {{if .Response.ArrayValue }}Collection
-            {{- else if .Response.MapValue }}Map
-            {{- else}}{{template "type" .Response}}
-            {{- end -}}{{else}}, Void{{end}}.class);
-        {{- end}}
-      {{else -}}
-        apiClient.{{.Verb}}(path{{if .Request}}, request{{end}}{{if .Response -}}, {{if .Response.ArrayValue }}Collection
-        {{- else if .Response.MapValue }}Map
-        {{- else}}{{template "type" .Response}}
-        {{- end -}}{{else}}, Void{{end}}.class);
-      {{- end}}
+    String path = {{if .PathParts -}}
+      String.format("{{range  .PathParts}}{{.Prefix}}{{if or .Field .IsAccountId}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{ else if .IsAccountId }}, apiClient.configuredAccountID(){{end}}{{ end }})
+    {{- else}}"{{.Path}}"{{end}};
+    {{if .Response -}}return {{end}}apiClient.{{.Verb}}(path{{if .Request}}, request{{end}}{{if .Response -}}, {{if .Response.ArrayValue }}Collection
+      {{- else if .Response.MapValue }}Map
+      {{- else}}{{template "type" .Response}}
+      {{- end -}}{{else}}, Void{{end}}.class);
   }
   {{end}}
 }
