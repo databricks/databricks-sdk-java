@@ -199,7 +199,6 @@ public class ApiClient {
     // TODO: add auth/<auth-type> once PR#9 is merged
     in.withHeader("User-Agent", userAgent);
     in.withHeader("Accept", "application/json");
-    Response out = executeInner(in);
     return executeInner(in);
   }
 
