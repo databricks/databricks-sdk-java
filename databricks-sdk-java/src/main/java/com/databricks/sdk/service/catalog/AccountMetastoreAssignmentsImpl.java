@@ -59,7 +59,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     try {
       return apiClient
           .getObjectMapper()
-          .readValue(new Gson().toJson(apiClient.GET(path, Collection.class)), tpe);
+          .readValue(new Gson().toJson(apiClient.GET(path, request, Collection.class)), tpe);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

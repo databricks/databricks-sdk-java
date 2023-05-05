@@ -3,6 +3,9 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.client.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.databind.JavaType;
+import com.google.gson.Gson;
+import java.io.IOException;
 import java.util.Map;
 import org.apache.http.client.methods.*;
 
@@ -18,7 +21,18 @@ class WorkspaceConfImpl implements WorkspaceConfService {
   @Override
   public Map<String, String> getStatus(GetStatusRequest request) {
     String path = "/api/2.0/workspace-conf";
-    return apiClient.GET(path, request, Map.class);
+    JavaType tpe =
+        apiClient
+            .getObjectMapper()
+            .getTypeFactory()
+            .constructMapType(Map.class, Object.class, Object.class);
+    try {
+      return apiClient
+          .getObjectMapper()
+          .readValue(new Gson().toJson(apiClient.GET(path, request, Map.class)), tpe);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
