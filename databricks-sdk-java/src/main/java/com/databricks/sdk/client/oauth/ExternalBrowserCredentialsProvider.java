@@ -19,7 +19,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
-    if (config.getHost() == null || config.getAuthType() != "external-browser") {
+    if (config.getHost() == null || config.getClientId() == null) {
       return null;
     }
     try {
