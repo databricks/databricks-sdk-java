@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:examples/jobs-demo/src/main/java/com/databricks/example/TriggerJobToRunPythonProgram.java
 package com.databricks.example;
-========
-package com.databricks.sdk;
->>>>>>>> main:examples/jobs/src/main/java/com/databricks/sdk/TriggerJobToRunPythonProgram.java
 
 import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.client.DatabricksConfig;
