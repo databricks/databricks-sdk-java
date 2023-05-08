@@ -42,7 +42,7 @@ class WorkspacesImpl implements WorkspacesService {
   @Override
   public Collection<Workspace> list() {
     String path = String.format("/api/2.0/accounts/%s/workspaces", apiClient.configuredAccountID());
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, Workspace.class);
   }
 
   @Override

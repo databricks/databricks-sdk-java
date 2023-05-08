@@ -44,6 +44,6 @@ class CredentialsImpl implements CredentialsService {
   public Collection<Credential> list() {
     String path =
         String.format("/api/2.0/accounts/%s/credentials", apiClient.configuredAccountID());
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, Credential.class);
   }
 }

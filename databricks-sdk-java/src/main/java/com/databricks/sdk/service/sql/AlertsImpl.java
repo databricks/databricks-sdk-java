@@ -36,7 +36,7 @@ class AlertsImpl implements AlertsService {
   @Override
   public Collection<Alert> list() {
     String path = "/api/2.0/preview/sql/alerts";
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, Alert.class);
   }
 
   @Override

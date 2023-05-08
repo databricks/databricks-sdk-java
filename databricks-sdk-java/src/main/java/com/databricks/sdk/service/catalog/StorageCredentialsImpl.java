@@ -36,7 +36,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
   @Override
   public Collection<StorageCredentialInfo> list() {
     String path = "/api/2.1/unity-catalog/storage-credentials";
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, StorageCredentialInfo.class);
   }
 
   @Override

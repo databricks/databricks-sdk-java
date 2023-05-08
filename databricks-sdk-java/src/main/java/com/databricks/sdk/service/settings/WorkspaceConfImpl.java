@@ -18,7 +18,7 @@ class WorkspaceConfImpl implements WorkspaceConfService {
   @Override
   public Map<String, String> getStatus(GetStatusRequest request) {
     String path = "/api/2.0/workspace-conf";
-    return apiClient.GET(path, request, Map.class);
+    return apiClient.getStringMap(path, request);
   }
 
   @Override

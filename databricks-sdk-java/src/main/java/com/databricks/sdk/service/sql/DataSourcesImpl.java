@@ -18,6 +18,6 @@ class DataSourcesImpl implements DataSourcesService {
   @Override
   public Collection<DataSource> list() {
     String path = "/api/2.0/preview/sql/data_sources";
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, DataSource.class);
   }
 }

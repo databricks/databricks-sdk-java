@@ -25,10 +25,18 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
     String path = {{if .PathParts -}}
       String.format("{{range  .PathParts}}{{.Prefix}}{{if or .Field .IsAccountId}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{ else if .IsAccountId }}, apiClient.configuredAccountID(){{end}}{{ end }})
     {{- else}}"{{.Path}}"{{end}};
-    {{if .Response -}}return {{end}}apiClient.{{.Verb}}(path{{if .Request}}, request{{end}}{{if .Response -}}, {{if .Response.ArrayValue }}Collection
+    {{if .Response -}}
+      {{- if .Response.ArrayValue -}} return apiClient.getCollection(path, null, {{template "type" .Response.ArrayValue}}.class);
+      {{- else if .Response.MapValue -}} return apiClient.getStringMap(path, request);
+      {{- else -}} return apiClient.{{.Verb}}(path{{if .Request}}, request{{end}}{{if .Response -}}, {{if .Response.ArrayValue }}Collection
+                        {{- else if .Response.MapValue }}Map
+                        {{- else}}{{template "type" .Response}}
+                        {{- end -}}{{else}}, Void{{end}}.class);{{end}}
+    {{- else -}}apiClient.{{.Verb}}(path{{if .Request}}, request{{end}}{{if .Response -}}, {{if .Response.ArrayValue }}Collection
       {{- else if .Response.MapValue }}Map
       {{- else}}{{template "type" .Response}}
       {{- end -}}{{else}}, Void{{end}}.class);
+    {{end}}
   }
   {{end}}
 }
