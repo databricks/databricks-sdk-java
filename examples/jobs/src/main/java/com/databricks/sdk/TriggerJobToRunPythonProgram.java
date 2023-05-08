@@ -1,4 +1,4 @@
-package com.databricks.sdk.examples;
+package com.databricks.sdk;
 
 import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.client.DatabricksConfig;
