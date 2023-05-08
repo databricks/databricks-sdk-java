@@ -1,5 +1,6 @@
-package com.databricks.sdk;
+package com.databricks.example;
 
+import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.client.DatabricksConfig;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.ListClustersRequest;
