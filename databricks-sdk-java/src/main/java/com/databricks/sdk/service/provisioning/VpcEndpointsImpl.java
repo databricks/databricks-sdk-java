@@ -44,6 +44,6 @@ class VpcEndpointsImpl implements VpcEndpointsService {
   public Collection<VpcEndpoint> list() {
     String path =
         String.format("/api/2.0/accounts/%s/vpc-endpoints", apiClient.configuredAccountID());
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, VpcEndpoint.class);
   }
 }

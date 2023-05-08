@@ -42,6 +42,6 @@ class NetworksImpl implements NetworksService {
   @Override
   public Collection<Network> list() {
     String path = String.format("/api/2.0/accounts/%s/networks", apiClient.configuredAccountID());
-    return apiClient.GET(path, Collection.class);
+    return apiClient.getCollection(path, null, Network.class);
   }
 }

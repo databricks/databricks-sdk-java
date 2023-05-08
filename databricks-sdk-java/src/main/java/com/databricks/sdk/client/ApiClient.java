@@ -11,10 +11,13 @@ import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.Map;
 import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -110,6 +113,26 @@ public class ApiClient {
     }
   }
 
+  public <I, O> Collection<O> getCollection(String path, I in, Class<O> element) {
+    return withJavaType(
+        path, in, mapper.getTypeFactory().constructCollectionType(Collection.class, element));
+  }
+
+  public <I> Map<String, String> getStringMap(String path, I in) {
+    return withJavaType(
+        path, in, mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class));
+  }
+
+  protected <I, O> O withJavaType(String path, I in, JavaType javaType) {
+    try {
+      Request request = withQuery(new Request("GET", path), in);
+      Response response = getResponse(request);
+      return deserialize(response.getBody(), javaType);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
   public <O> O GET(String path, Class<O> target) {
     return GET(path, null, target);
   }
@@ -162,18 +185,21 @@ public class ApiClient {
    * @return POJO of requested type
    */
   private <T> T execute(Request in, Class<T> target) throws IOException {
+    Response out = getResponse(in);
+    if (target == Void.class) {
+      return null;
+    }
+    return deserialize(out.getBody(), target);
+  }
+
+  private Response getResponse(Request in) {
     in.withUrl(config.getHost() + in.getUrl());
 
     String userAgent = UserAgent.asString();
     // TODO: add auth/<auth-type> once PR#9 is merged
     in.withHeader("User-Agent", userAgent);
     in.withHeader("Accept", "application/json");
-    Response out = executeInner(in);
-
-    if (target == Void.class) {
-      return null;
-    }
-    return deserialize(out.getBody(), target);
+    return executeInner(in);
   }
 
   private Response executeInner(Request in) {
@@ -265,6 +291,10 @@ public class ApiClient {
   }
 
   public <T> T deserialize(String body, Class<T> target) throws IOException {
+    return mapper.readValue(body, target);
+  }
+
+  public <T> T deserialize(String body, JavaType target) throws IOException {
     return mapper.readValue(body, target);
   }
 
