@@ -1,12 +1,14 @@
 package com.databricks.sdk.client.http;
 
 import com.databricks.sdk.client.DatabricksException;
+import com.databricks.sdk.support.DeveloperApi;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+@DeveloperApi
 public class Request {
   public static final String GET = "GET";
   public static final String DELETE = "DELETE";

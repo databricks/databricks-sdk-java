@@ -8,6 +8,7 @@ import com.databricks.sdk.client.oauth.AuthParameterPosition;
 import com.databricks.sdk.client.oauth.ClientCredentials;
 import com.databricks.sdk.client.oauth.RefreshableTokenSource;
 import com.databricks.sdk.client.oauth.Token;
+import com.databricks.sdk.support.DeveloperApi;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@DeveloperApi
 public interface AzureUtils {
 
   /**

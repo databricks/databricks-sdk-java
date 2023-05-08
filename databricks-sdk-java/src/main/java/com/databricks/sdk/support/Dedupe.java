@@ -14,6 +14,7 @@ import java.util.function.Function;
  * @param <IT> item of iteration
  * @param <ID> identifier
  */
+@DeveloperApi
 class Dedupe<IT, ID> implements Iterator<IT> {
   private final Iterator<IT> inner;
   private final Function<IT, ID> idGetter;

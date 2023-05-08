@@ -1,5 +1,6 @@
 package com.databricks.sdk.client.error;
 
+import com.databricks.sdk.support.DeveloperApi;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * href="https://github.com/databricks/databricks-sdk-go/blob/main/apierr/errors.go#L31">the
  * APIErrorBody struct from the Go SDK</a>.
  */
+@DeveloperApi
 public class ApiErrorBody {
   private String errorCode;
   private String message;

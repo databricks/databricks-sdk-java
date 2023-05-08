@@ -11,6 +11,7 @@ import java.util.function.Function;
  * @param <RS> response type
  * @param <T> item type
  */
+@DeveloperApi
 public class Paginator<RQ, RS, T> implements Iterable<T> {
   private final Function<RQ, RS> requestFn;
   private final Function<RS, Collection<T>> itemsFn;

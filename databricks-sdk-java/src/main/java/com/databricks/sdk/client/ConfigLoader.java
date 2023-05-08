@@ -1,5 +1,6 @@
 package com.databricks.sdk.client;
 
+import com.databricks.sdk.support.DeveloperApi;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import org.ini4j.Profile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@DeveloperApi
 public class ConfigLoader {
   private static final Logger LOG = LoggerFactory.getLogger(ConfigLoader.class);
 

@@ -1,5 +1,6 @@
 package com.databricks.sdk.client;
 
+import com.databricks.sdk.support.DeveloperApi;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,6 +14,7 @@ import java.util.regex.Pattern;
  * Simplistic and short-lived HTTP server intended to handle one or two requests before shutting
  * down. Not intended to serve traffic to the Internet.
  */
+@DeveloperApi
 class SimpleHttpServer implements Runnable {
 
   private final ServerSocket server;

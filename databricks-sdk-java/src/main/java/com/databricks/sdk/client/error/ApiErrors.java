@@ -1,12 +1,14 @@
 package com.databricks.sdk.client.error;
 
 import com.databricks.sdk.client.http.Response;
+import com.databricks.sdk.support.DeveloperApi;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /** Helper methods for inspecting the response and errors thrown during API requests. */
+@DeveloperApi
 public class ApiErrors {
   private static final ObjectMapper MAPPER = new ObjectMapper();
   private static final Pattern HTML_ERROR_REGEX = Pattern.compile("<pre>(.*)</pre>");

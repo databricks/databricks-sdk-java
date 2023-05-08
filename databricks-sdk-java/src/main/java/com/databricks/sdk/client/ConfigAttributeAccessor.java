@@ -1,9 +1,12 @@
 package com.databricks.sdk.client;
 
+import com.databricks.sdk.support.DeveloperApi;
+
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Objects;
 
+@DeveloperApi
 class ConfigAttributeAccessor {
   private ConfigAttribute configAttribute;
   private Field field;

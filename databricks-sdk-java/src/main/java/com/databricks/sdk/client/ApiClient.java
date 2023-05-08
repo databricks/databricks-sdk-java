@@ -7,6 +7,7 @@ import com.databricks.sdk.client.http.Request;
 import com.databricks.sdk.client.http.Response;
 import com.databricks.sdk.client.utils.RealTimer;
 import com.databricks.sdk.client.utils.Timer;
+import com.databricks.sdk.support.DeveloperApi;
 import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,6 +27,7 @@ import org.slf4j.LoggerFactory;
  * Simplified REST API client with retries, JSON POJO SerDe through Jackson and exception POJO
  * guessing
  */
+@DeveloperApi
 public class ApiClient {
   private static final Logger LOG = LoggerFactory.getLogger(ApiClient.class);
 

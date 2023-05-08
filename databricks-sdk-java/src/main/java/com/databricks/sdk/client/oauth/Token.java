@@ -1,10 +1,12 @@
 package com.databricks.sdk.client.oauth;
 
+import com.databricks.sdk.support.DeveloperApi;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
+@DeveloperApi
 public class Token {
   @JsonProperty private String accessToken;
 

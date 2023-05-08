@@ -1,5 +1,6 @@
 package com.databricks.sdk.client.utils;
 
+import com.databricks.sdk.support.DeveloperApi;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import java.util.List;
  * OSUtils is an interface that provides utility methods for determining the current operating
  * system and returning executable command based on the operating system.
  */
+@DeveloperApi
 public interface OSUtils {
 
   /**

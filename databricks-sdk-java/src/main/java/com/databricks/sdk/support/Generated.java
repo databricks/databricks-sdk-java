@@ -8,6 +8,7 @@ import java.lang.annotation.*;
  * <p>This annotation is used to exclude the class or method from code coverage.
  */
 @Documented
+@DeveloperApi
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR})
 public @interface Generated {}

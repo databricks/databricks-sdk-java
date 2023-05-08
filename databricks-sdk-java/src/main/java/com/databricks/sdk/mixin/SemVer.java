@@ -1,8 +1,11 @@
 package com.databricks.sdk.mixin;
 
+import com.databricks.sdk.support.DeveloperApi;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@DeveloperApi
 public class SemVer implements Comparable<SemVer> {
   public final int major;
   public final int minor;

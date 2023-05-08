@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
+@DeveloperApi
 public class Wait<T, R> {
   private final WaitStarter<T> impl;
   private final R response;

@@ -1,6 +1,7 @@
 package com.databricks.sdk.client.error;
 
 import com.databricks.sdk.client.DatabricksException;
+import com.databricks.sdk.support.DeveloperApi;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -17,6 +18,7 @@ import org.slf4j.LoggerFactory;
  * should be parsed and returned to the user. If error is not null, the request has failed in an
  * unrecoverable way and this exception should be thrown, potentially wrapped in another exception.
  */
+@DeveloperApi
 public class CheckForRetryResult {
   private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
 

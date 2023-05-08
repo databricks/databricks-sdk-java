@@ -2,6 +2,7 @@ package com.databricks.sdk.support;
 
 import java.util.StringJoiner;
 
+@DeveloperApi
 public class ToStringer {
   private final StringJoiner joiner;
 

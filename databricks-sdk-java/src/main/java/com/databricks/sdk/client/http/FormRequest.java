@@ -1,7 +1,9 @@
 package com.databricks.sdk.client.http;
 
+import com.databricks.sdk.support.DeveloperApi;
 import java.util.Map;
 
+@DeveloperApi
 public class FormRequest extends Request {
   public FormRequest(String url, Map<String, String> form) {
     this(POST, url, form);
