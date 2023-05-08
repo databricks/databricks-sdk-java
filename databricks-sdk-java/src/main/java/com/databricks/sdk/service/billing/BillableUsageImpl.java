@@ -18,7 +18,6 @@ class BillableUsageImpl implements BillableUsageService {
   public void download(DownloadRequest request) {
     String path =
         String.format("/api/2.0/accounts/%s/usage/download", apiClient.configuredAccountID());
-
     apiClient.GET(path, request, Void.class);
   }
 }

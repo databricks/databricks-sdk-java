@@ -20,7 +20,6 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/permissionassignments/principals/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -48,7 +47,6 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/permissionassignments/principals/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
-
     apiClient.PUT(path, request, Void.class);
   }
 }

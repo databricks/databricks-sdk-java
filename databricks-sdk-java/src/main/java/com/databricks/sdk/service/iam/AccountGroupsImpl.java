@@ -27,7 +27,6 @@ class AccountGroupsImpl implements AccountGroupsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -53,7 +52,6 @@ class AccountGroupsImpl implements AccountGroupsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
-
     apiClient.PATCH(path, request, Void.class);
   }
 
@@ -63,7 +61,6 @@ class AccountGroupsImpl implements AccountGroupsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
-
     apiClient.PUT(path, request, Void.class);
   }
 }

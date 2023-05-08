@@ -23,7 +23,6 @@ class ServicePrincipalsImpl implements ServicePrincipalsService {
   @Override
   public void delete(DeleteServicePrincipalRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -42,14 +41,12 @@ class ServicePrincipalsImpl implements ServicePrincipalsService {
   @Override
   public void patch(PartialUpdate request) {
     String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
-
     apiClient.PATCH(path, request, Void.class);
   }
 
   @Override
   public void update(ServicePrincipal request) {
     String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
-
     apiClient.PUT(path, request, Void.class);
   }
 }

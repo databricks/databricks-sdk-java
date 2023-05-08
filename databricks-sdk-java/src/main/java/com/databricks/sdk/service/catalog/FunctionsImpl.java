@@ -23,7 +23,6 @@ class FunctionsImpl implements FunctionsService {
   @Override
   public void delete(DeleteFunctionRequest request) {
     String path = String.format("/api/2.1/unity-catalog/functions/%s", request.getName());
-
     apiClient.DELETE(path, request, Void.class);
   }
 

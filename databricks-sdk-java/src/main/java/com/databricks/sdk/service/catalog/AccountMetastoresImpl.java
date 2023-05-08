@@ -26,7 +26,6 @@ class AccountMetastoresImpl implements AccountMetastoresService {
         String.format(
             "/api/2.0/accounts/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getMetastoreId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 

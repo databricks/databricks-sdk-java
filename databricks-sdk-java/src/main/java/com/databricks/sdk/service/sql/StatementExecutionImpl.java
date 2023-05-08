@@ -17,7 +17,6 @@ class StatementExecutionImpl implements StatementExecutionService {
   @Override
   public void cancelExecution(CancelExecutionRequest request) {
     String path = String.format("/api/2.0/sql/statements/%s/cancel", request.getStatementId());
-
     apiClient.POST(path, request, Void.class);
   }
 

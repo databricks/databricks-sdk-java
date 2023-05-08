@@ -23,7 +23,6 @@ class PipelinesImpl implements PipelinesService {
   @Override
   public void delete(DeletePipelineRequest request) {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -62,7 +61,6 @@ class PipelinesImpl implements PipelinesService {
   @Override
   public void reset(ResetRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/reset", request.getPipelineId());
-
     apiClient.POST(path, request, Void.class);
   }
 
@@ -75,14 +73,12 @@ class PipelinesImpl implements PipelinesService {
   @Override
   public void stop(StopRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/stop", request.getPipelineId());
-
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void update(EditPipeline request) {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
-
     apiClient.PUT(path, request, Void.class);
   }
 }

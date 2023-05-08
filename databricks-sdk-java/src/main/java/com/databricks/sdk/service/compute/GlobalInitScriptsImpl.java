@@ -23,7 +23,6 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
   @Override
   public void delete(DeleteGlobalInitScriptRequest request) {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -42,7 +41,6 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
   @Override
   public void update(GlobalInitScriptUpdateRequest request) {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
-
     apiClient.PATCH(path, request, Void.class);
   }
 }

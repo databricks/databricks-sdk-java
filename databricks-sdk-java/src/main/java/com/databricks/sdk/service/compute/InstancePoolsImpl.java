@@ -23,14 +23,12 @@ class InstancePoolsImpl implements InstancePoolsService {
   @Override
   public void delete(DeleteInstancePool request) {
     String path = "/api/2.0/instance-pools/delete";
-
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void edit(EditInstancePool request) {
     String path = "/api/2.0/instance-pools/edit";
-
     apiClient.POST(path, request, Void.class);
   }
 

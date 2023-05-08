@@ -28,7 +28,6 @@ class CredentialsImpl implements CredentialsService {
         String.format(
             "/api/2.0/accounts/%s/credentials/%s",
             apiClient.configuredAccountID(), request.getCredentialsId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 

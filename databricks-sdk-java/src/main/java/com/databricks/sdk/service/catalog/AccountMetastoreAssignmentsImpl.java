@@ -30,7 +30,6 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 

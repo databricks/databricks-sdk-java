@@ -17,14 +17,12 @@ class InstanceProfilesImpl implements InstanceProfilesService {
   @Override
   public void add(AddInstanceProfile request) {
     String path = "/api/2.0/instance-profiles/add";
-
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void edit(InstanceProfile request) {
     String path = "/api/2.0/instance-profiles/edit";
-
     apiClient.POST(path, request, Void.class);
   }
 
@@ -37,7 +35,6 @@ class InstanceProfilesImpl implements InstanceProfilesService {
   @Override
   public void remove(RemoveInstanceProfile request) {
     String path = "/api/2.0/instance-profiles/remove";
-
     apiClient.POST(path, request, Void.class);
   }
 }

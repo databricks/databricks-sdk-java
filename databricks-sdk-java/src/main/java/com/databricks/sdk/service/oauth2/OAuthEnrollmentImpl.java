@@ -18,7 +18,6 @@ class OAuthEnrollmentImpl implements OAuthEnrollmentService {
   public void create(CreateOAuthEnrollment request) {
     String path =
         String.format("/api/2.0/accounts/%s/oauth2/enrollment", apiClient.configuredAccountID());
-
     apiClient.POST(path, request, Void.class);
   }
 

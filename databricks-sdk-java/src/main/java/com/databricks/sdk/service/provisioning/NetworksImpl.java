@@ -27,7 +27,6 @@ class NetworksImpl implements NetworksService {
         String.format(
             "/api/2.0/accounts/%s/networks/%s",
             apiClient.configuredAccountID(), request.getNetworkId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 

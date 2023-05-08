@@ -23,7 +23,6 @@ class TokensImpl implements TokensService {
   @Override
   public void delete(RevokeTokenRequest request) {
     String path = "/api/2.0/token/delete";
-
     apiClient.POST(path, request, Void.class);
   }
 

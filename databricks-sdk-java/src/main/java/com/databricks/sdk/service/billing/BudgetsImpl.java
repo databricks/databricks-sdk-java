@@ -26,7 +26,6 @@ class BudgetsImpl implements BudgetsService {
         String.format(
             "/api/2.0/accounts/%s/budget/%s",
             apiClient.configuredAccountID(), request.getBudgetId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -51,7 +50,6 @@ class BudgetsImpl implements BudgetsService {
         String.format(
             "/api/2.0/accounts/%s/budget/%s",
             apiClient.configuredAccountID(), request.getBudgetId());
-
     apiClient.PATCH(path, request, Void.class);
   }
 }

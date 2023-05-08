@@ -17,7 +17,6 @@ class CommandExecutionImpl implements CommandExecutionService {
   @Override
   public void cancel(CancelCommand request) {
     String path = "/api/1.2/commands/cancel";
-
     apiClient.POST(path, request, Void.class);
   }
 
@@ -42,7 +41,6 @@ class CommandExecutionImpl implements CommandExecutionService {
   @Override
   public void destroy(DestroyContext request) {
     String path = "/api/1.2/contexts/destroy";
-
     apiClient.POST(path, request, Void.class);
   }
 

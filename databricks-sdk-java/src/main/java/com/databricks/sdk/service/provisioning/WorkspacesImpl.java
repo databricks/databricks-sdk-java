@@ -27,7 +27,6 @@ class WorkspacesImpl implements WorkspacesService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -52,7 +51,6 @@ class WorkspacesImpl implements WorkspacesService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-
     apiClient.PATCH(path, request, Void.class);
   }
 }

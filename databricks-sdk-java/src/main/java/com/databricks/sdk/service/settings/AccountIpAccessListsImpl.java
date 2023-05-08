@@ -28,7 +28,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -55,7 +54,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
-
     apiClient.PUT(path, request, Void.class);
   }
 
@@ -65,7 +63,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
-
     apiClient.PATCH(path, request, Void.class);
   }
 }

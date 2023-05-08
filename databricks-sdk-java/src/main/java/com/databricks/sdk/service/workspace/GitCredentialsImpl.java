@@ -23,7 +23,6 @@ class GitCredentialsImpl implements GitCredentialsService {
   @Override
   public void delete(DeleteGitCredentialRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -42,7 +41,6 @@ class GitCredentialsImpl implements GitCredentialsService {
   @Override
   public void update(UpdateCredentials request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-
     apiClient.PATCH(path, request, Void.class);
   }
 }

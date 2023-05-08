@@ -29,7 +29,6 @@ class StorageImpl implements StorageService {
         String.format(
             "/api/2.0/accounts/%s/storage-configurations/%s",
             apiClient.configuredAccountID(), request.getStorageConfigurationId());
-
     apiClient.DELETE(path, request, Void.class);
   }
 

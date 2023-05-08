@@ -54,49 +54,42 @@ class ModelRegistryImpl implements ModelRegistryService {
   @Override
   public void deleteComment(DeleteCommentRequest request) {
     String path = "/api/2.0/mlflow/comments/delete";
-
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public void deleteModel(DeleteModelRequest request) {
     String path = "/api/2.0/mlflow/registered-models/delete";
-
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public void deleteModelTag(DeleteModelTagRequest request) {
     String path = "/api/2.0/mlflow/registered-models/delete-tag";
-
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public void deleteModelVersion(DeleteModelVersionRequest request) {
     String path = "/api/2.0/mlflow/model-versions/delete";
-
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public void deleteModelVersionTag(DeleteModelVersionTagRequest request) {
     String path = "/api/2.0/mlflow/model-versions/delete-tag";
-
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public void deleteTransitionRequest(DeleteTransitionRequestRequest request) {
     String path = "/api/2.0/mlflow/transition-requests/delete";
-
     apiClient.DELETE(path, request, Void.class);
   }
 
   @Override
   public void deleteWebhook(DeleteWebhookRequest request) {
     String path = "/api/2.0/mlflow/registry-webhooks/delete";
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -171,14 +164,12 @@ class ModelRegistryImpl implements ModelRegistryService {
   @Override
   public void setModelTag(SetModelTagRequest request) {
     String path = "/api/2.0/mlflow/registered-models/set-tag";
-
     apiClient.POST(path, request, Void.class);
   }
 
   @Override
   public void setModelVersionTag(SetModelVersionTagRequest request) {
     String path = "/api/2.0/mlflow/model-versions/set-tag";
-
     apiClient.POST(path, request, Void.class);
   }
 
@@ -203,21 +194,18 @@ class ModelRegistryImpl implements ModelRegistryService {
   @Override
   public void updateModel(UpdateModelRequest request) {
     String path = "/api/2.0/mlflow/registered-models/update";
-
     apiClient.PATCH(path, request, Void.class);
   }
 
   @Override
   public void updateModelVersion(UpdateModelVersionRequest request) {
     String path = "/api/2.0/mlflow/model-versions/update";
-
     apiClient.PATCH(path, request, Void.class);
   }
 
   @Override
   public void updateWebhook(UpdateRegistryWebhook request) {
     String path = "/api/2.0/mlflow/registry-webhooks/update";
-
     apiClient.PATCH(path, request, Void.class);
   }
 }

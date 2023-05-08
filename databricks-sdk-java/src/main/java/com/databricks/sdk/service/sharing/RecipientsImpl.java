@@ -23,7 +23,6 @@ class RecipientsImpl implements RecipientsService {
   @Override
   public void delete(DeleteRecipientRequest request) {
     String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
-
     apiClient.DELETE(path, request, Void.class);
   }
 
@@ -56,7 +55,6 @@ class RecipientsImpl implements RecipientsService {
   @Override
   public void update(UpdateRecipient request) {
     String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
-
     apiClient.PATCH(path, request, Void.class);
   }
 }

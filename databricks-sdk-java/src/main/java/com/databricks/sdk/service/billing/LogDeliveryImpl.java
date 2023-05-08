@@ -43,7 +43,6 @@ class LogDeliveryImpl implements LogDeliveryService {
         String.format(
             "/api/2.0/accounts/%s/log-delivery/%s",
             apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
-
     apiClient.PATCH(path, request, Void.class);
   }
 }
