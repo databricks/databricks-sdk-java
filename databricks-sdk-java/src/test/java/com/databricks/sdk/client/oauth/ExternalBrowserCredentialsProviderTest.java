@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ExternalBrowserCredentialsProviderTest {
@@ -15,10 +16,11 @@ public class ExternalBrowserCredentialsProviderTest {
     void OAuthClientTest() {
         try (FixtureServer fixtures = new FixtureServer()) {
             fixtures.with("GET /oidc/.well-known/oauth-authorization-server", "{\"\": []}");
+            String clientID = "test-client-id";
             DatabricksConfig config = new DatabricksConfig()
                     .setAuthType("external-browser")
                     .setHost(fixtures.getUrl())
-                    .setClientId("test-client-id")
+                    .setClientId(clientID)
                     .setHttpClient(new CommonsHttpClient(30));
 
             config.resolve();
@@ -28,7 +30,7 @@ public class ExternalBrowserCredentialsProviderTest {
             } catch (IOException e) {
                 throw new DatabricksException(e.getMessage());
             }
-            assertNotNull(testClient);
+            assertEquals(testClient.getClientId(), clientID);
         } catch (IOException e) {
             throw new DatabricksException(e.getMessage());
         }
