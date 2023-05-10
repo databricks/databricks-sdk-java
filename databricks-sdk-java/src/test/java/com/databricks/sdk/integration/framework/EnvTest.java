@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
 import com.databricks.sdk.DatabricksAccount;
 import com.databricks.sdk.DatabricksWorkspace;
-import com.databricks.sdk.client.ConfigResolving;
-import com.databricks.sdk.client.DatabricksConfig;
-import com.databricks.sdk.client.UserAgent;
-import com.databricks.sdk.client.utils.GitHubUtils;
+import com.databricks.sdk.core.ConfigResolving;
+import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.UserAgent;
+import com.databricks.sdk.core.utils.GitHubUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
