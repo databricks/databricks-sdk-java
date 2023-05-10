@@ -1,6 +1,6 @@
 package com.databricks.sdk.mixin;
 
-import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.service.files.*;
 import java.io.*;
 import java.nio.ByteBuffer;

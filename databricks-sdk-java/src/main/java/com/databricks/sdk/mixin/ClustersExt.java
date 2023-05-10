@@ -3,7 +3,7 @@ package com.databricks.sdk.mixin;
 import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.NotAvailableInRegion;
 import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.NotEnabledOnSubscription;
 
-import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.service.compute.*;
 import java.util.ArrayList;
 import java.util.Arrays;

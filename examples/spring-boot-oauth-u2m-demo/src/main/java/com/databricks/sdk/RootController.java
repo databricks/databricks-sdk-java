@@ -1,10 +1,10 @@
 package com.databricks.sdk;
 
-import com.databricks.sdk.client.DatabricksConfig;
-import com.databricks.sdk.client.http.HttpClient;
-import com.databricks.sdk.client.oauth.Consent;
-import com.databricks.sdk.client.oauth.OAuthClient;
-import com.databricks.sdk.client.oauth.RefreshableCredentials;
+import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.core.oauth.Consent;
+import com.databricks.sdk.core.oauth.OAuthClient;
+import com.databricks.sdk.core.oauth.RefreshableCredentials;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 import com.databricks.sdk.service.oauth2.CreateCustomAppIntegrationOutput;
