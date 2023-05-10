@@ -1,10 +1,9 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.client.ApiClient;
+import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import java.util.Collection;
-import org.apache.http.client.methods.*;
 
 /** Package-local implementation of Alerts */
 @Generated

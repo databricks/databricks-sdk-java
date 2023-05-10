@@ -2,9 +2,9 @@
 
 package com.databricks.sdk;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.ConfigLoader;
-import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.ConfigLoader;
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.service.catalog.CatalogsAPI;

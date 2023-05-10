@@ -33,17 +33,17 @@ Using the SDK is as simple as instantiating the `DatabricksWorkspace` class:
 ```java
 import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.DatabricksAccount;
-import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 
 public class App {
-  public static void main(String[] args) {
-    DatabricksWorkspace workspace = new DatabricksWorkspace();
-    for (ClusterInfo c : workspace.clusters().list(new ListClustersRequest())) {
-      System.out.println(c.getClusterName());
-    }
-  }
+   public static void main(String[] args) {
+      DatabricksWorkspace workspace = new DatabricksWorkspace();
+      for (ClusterInfo c : workspace.clusters().list(new ListClustersRequest())) {
+         System.out.println(c.getClusterName());
+      }
+   }
 }
 ```
 
@@ -52,17 +52,17 @@ To access account-level APIs, you can instantiate the `DatabricksAccount` class:
 ```java
 import com.databricks.sdk.DatabricksWorkspace;
 import com.databricks.sdk.DatabricksAccount;
-import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 
 public class App {
-  public static void main(String[] args) {
-    DatabricksAccount account = new DatabricksAccount();
-    for (Workspace w : account.workspaces().list()) {
-       System.out.println(w.getWorkspaceName());
-    }
-  }
+   public static void main(String[] args) {
+      DatabricksAccount account = new DatabricksAccount();
+      for (Workspace w : account.workspaces().list()) {
+         System.out.println(w.getWorkspaceName());
+      }
+   }
 }
 ```
 
@@ -129,13 +129,13 @@ For example, to use Databricks token authentication:
 
 ```java
 import com.databricks.sdk.DatabricksWorkspace;
-import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.core.DatabricksConfig;
 ...
-DatabricksConfig config = new DatabricksConfig()
-    .setAuthType("pat")
-    .setHost("https://my-databricks-instance.com")
-    .setToken("my-token");
-DatabricksWorkspace workspace = new DatabricksWorkspace(config);
+        DatabricksConfig config=new DatabricksConfig()
+        .setAuthType("pat")
+        .setHost("https://my-databricks-instance.com")
+        .setToken("my-token");
+        DatabricksWorkspace workspace=new DatabricksWorkspace(config);
 ```
 
 ### Azure native authentication
@@ -162,15 +162,15 @@ For example, to use Azure client secret authentication:
 
 ```java
 import com.databricks.sdk.DatabricksWorkspace;
-import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.core.DatabricksConfig;
 ...
-DatabricksConfig config = new DatabricksConfig()
-   .setAuthType("azure-client-secret")
-   .setHost("https://my-databricks-instance.com")
-   .setAzureTenantId("tenant-id")
-   .setAzureClientId("client-id")
-   .setAzureClientSecret("client-secret");
-DatabricksWorkspace workspace = new DatabricksWorkspace(config);
+        DatabricksConfig config=new DatabricksConfig()
+        .setAuthType("azure-client-secret")
+        .setHost("https://my-databricks-instance.com")
+        .setAzureTenantId("tenant-id")
+        .setAzureClientId("client-id")
+        .setAzureClientSecret("client-secret");
+        DatabricksWorkspace workspace=new DatabricksWorkspace(config);
 ```
 
 ### Overriding `.databrickscfg`
@@ -186,11 +186,11 @@ For example, to use a profile named `MYPROFILE` instead of `DEFAULT`:
 
 ```java
 import com.databricks.sdk.DatabricksWorkspace;
-import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.core.DatabricksConfig;
 ...
-DatabricksConfig config = new DatabricksConfig()
-   .setProfile("MYPROFILE");
-DatabricksWorkspace workspace = new DatabricksWorkspace(config);
+        DatabricksConfig config=new DatabricksConfig()
+        .setProfile("MYPROFILE");
+        DatabricksWorkspace workspace=new DatabricksWorkspace(config);
 ```
 
 ### Additional authentication configuration options
@@ -209,11 +209,11 @@ For example, to turn on debug HTTP headers:
 
 ```java
 import com.databricks.sdk.DatabricksWorkspace;
-import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.core.DatabricksConfig;
 ...
-DatabricksConfig config = new DatabricksConfig()
-   .setDebugHeaders(true);
-DatabricksWorkspace workspace = new DatabricksWorkspace(config);
+        DatabricksConfig config=new DatabricksConfig()
+        .setDebugHeaders(true);
+        DatabricksWorkspace workspace=new DatabricksWorkspace(config);
 ```
 
 ## Code examples

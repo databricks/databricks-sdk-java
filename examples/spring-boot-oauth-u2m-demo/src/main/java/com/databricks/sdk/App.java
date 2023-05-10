@@ -1,7 +1,7 @@
 package com.databricks.sdk;
 
-import com.databricks.sdk.client.commons.CommonsHttpClient;
-import com.databricks.sdk.client.http.HttpClient;
+import com.databricks.sdk.core.commons.CommonsHttpClient;
+import com.databricks.sdk.core.http.HttpClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.boot.SpringApplication;

@@ -1,7 +1,7 @@
 package com.databricks.example;
 
 import com.databricks.sdk.DatabricksAccount;
-import com.databricks.sdk.client.DatabricksConfig;
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.service.provisioning.Workspace;
 
 /**

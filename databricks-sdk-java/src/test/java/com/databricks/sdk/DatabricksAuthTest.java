@@ -5,10 +5,10 @@ package com.databricks.sdk;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.databricks.sdk.client.ConfigResolving;
-import com.databricks.sdk.client.DatabricksConfig;
-import com.databricks.sdk.client.utils.GitHubUtils;
-import com.databricks.sdk.client.utils.TestOSUtils;
+import com.databricks.sdk.core.ConfigResolving;
+import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.utils.GitHubUtils;
+import com.databricks.sdk.core.utils.TestOSUtils;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;

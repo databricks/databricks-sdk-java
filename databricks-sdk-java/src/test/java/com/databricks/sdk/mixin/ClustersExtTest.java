@@ -1,10 +1,10 @@
 package com.databricks.sdk.mixin;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksConfig;
-import com.databricks.sdk.client.DummyHttpClient;
-import com.databricks.sdk.client.http.Request;
-import com.databricks.sdk.client.http.Response;
+import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.DummyHttpClient;
+import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.core.http.Response;
 import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
