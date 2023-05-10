@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 public class ExternalBrowserCredentialsProviderTest {
   @Test
-  void OAuthClientTest() {
+  void clientAndConsentTest() {
     try (FixtureServer fixtures = new FixtureServer()) {
       fixtures.with(
           "GET /oidc/.well-known/oauth-authorization-server",
@@ -24,14 +24,12 @@ public class ExternalBrowserCredentialsProviderTest {
               .setClientId(clientID)
               .setHttpClient(new CommonsHttpClient(30));
       config.resolve();
-      OAuthClient testClient;
-      try {
-        testClient = new OAuthClient(config);
-        Consent testConsent = testClient.initiateConsent();
-      } catch (IOException e) {
-        throw new DatabricksException(e.getMessage());
-      }
+
+      OAuthClient testClient = new OAuthClient(config);
       assertEquals(testClient.getClientId(), clientID);
+
+      Consent testConsent = testClient.initiateConsent();
+      assertEquals(testConsent.getTokenUrl(), "token-test-end-point");
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }
