@@ -1,5 +1,6 @@
 package com.databricks.sdk.client.oauth;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.databricks.sdk.client.commons.CommonsHttpClient;
@@ -20,5 +21,8 @@ public class ClientCredentialsTest {
             .build();
 
     assertNotNull(testClientCreds);
+    assertEquals(testClientCreds.getClientId(), "test-client-id");
+    assertEquals(testClientCreds.getClientSecret(), "test-client-secret");
+    assertEquals(testClientCreds.getTokenUrl(), "test-token-url");
   }
 }

@@ -20,5 +20,9 @@ public class RefreshableCredentialsTest {
 
     assertNotNull(testRefreshableCreds);
     assertEquals(testRefreshableCreds.authType(), "oauth-u2m");
+    assertEquals(testRefreshableCreds.getClientId(), "test-client-id");
+    assertEquals(testRefreshableCreds.getClientSecret(), "test-client-secret");
+    assertEquals(testRefreshableCreds.getTokenUrl(), "test-token-url");
+    assertEquals(testRefreshableCreds.getRedirectUrl(), "test-redirect-url");
   }
 }

@@ -103,4 +103,32 @@ public class ClientCredentials extends RefreshableTokenSource {
     }
     return retrieveToken(hc, clientId, clientSecret, tokenUrl, params, new HashMap<>(), position);
   }
+
+  public String getClientId() {
+    return clientId;
+  }
+
+  public HttpClient getHc() {
+    return hc;
+  }
+
+  public Map<String, String> getEndpointParams() {
+    return endpointParams;
+  }
+
+  public String getClientSecret() {
+    return clientSecret;
+  }
+
+  public String getTokenUrl() {
+    return tokenUrl;
+  }
+
+  public AuthParameterPosition getPosition() {
+    return position;
+  }
+
+  public List<String> getScopes() {
+    return scopes;
+  }
 }
