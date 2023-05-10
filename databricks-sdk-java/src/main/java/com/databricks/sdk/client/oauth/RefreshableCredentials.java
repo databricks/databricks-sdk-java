@@ -113,24 +113,4 @@ public class RefreshableCredentials extends RefreshableTokenSource
     return retrieveToken(
         hc, clientId, clientSecret, tokenUrl, params, headers, AuthParameterPosition.BODY);
   }
-
-  public String getClientId() {
-    return clientId;
-  }
-
-  public HttpClient getHc() {
-    return hc;
-  }
-
-  public String getClientSecret() {
-    return clientSecret;
-  }
-
-  public String getTokenUrl() {
-    return tokenUrl;
-  }
-
-  public String getRedirectUrl() {
-    return redirectUrl;
-  }
 }
