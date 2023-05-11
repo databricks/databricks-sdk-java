@@ -1,4 +1,4 @@
-package com.databricks.sdk.client.oauth;
+package com.databricks.sdk.core.oauth;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -6,8 +6,6 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.FixtureServer;
 import com.databricks.sdk.core.commons.CommonsHttpClient;
-import com.databricks.sdk.core.oauth.Consent;
-import com.databricks.sdk.core.oauth.OAuthClient;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 
