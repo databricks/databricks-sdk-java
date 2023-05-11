@@ -22,12 +22,17 @@ public class ClustersExt extends ClustersAPI {
     super(mock);
   }
 
+  public GetSparkVersionsResponse getSparkVersions() {
+    return sparkVersions();
+  }
+
   public String selectSparkVersion(SparkVersionSelector selector) throws IllegalArgumentException {
     // Logic ported from
     // https://github.com/databricks/databricks-sdk-go/blob/main/service/clusters/spark_version.go
     List<String> versions = new ArrayList<>();
-    GetSparkVersionsResponse sv = sparkVersions();
+    GetSparkVersionsResponse sv = getSparkVersions();
     for (SparkVersion version : sv.getVersions()) {
+      if(version.getName() == null) continue;
       if (selector.scala != null && !version.getKey().contains("-scala" + selector.scala)) {
         continue;
       }
@@ -61,17 +66,24 @@ public class ClustersExt extends ClustersAPI {
     return versions.get(0);
   }
 
+  public ListNodeTypesResponse listNodeTypesResponse() {
+    return this.listNodeTypes();
+  }
+
   public String selectNodeType(NodeTypeSelector selector) {
     // Logic ported from
     // https://github.com/databricks/databricks-sdk-go/blob/main/service/clusters/node_type.go
-    ListNodeTypesResponse res = this.listNodeTypes();
+    ListNodeTypesResponse res = listNodeTypesResponse();
     List<NodeType> types =
         res.getNodeTypes().stream().sorted(nodeSortingComparator).collect(Collectors.toList());
     for (NodeType nt : types) {
       if (shouldNodeBeSkipped(nt)) {
         continue;
       }
-      Long gbs = nt.getMemoryMb() / 1024;
+      Long gbs = 0L;
+      if (nt.getMemoryMb() != null) {
+        gbs = nt.getMemoryMb() / 1024;
+      }
       if (selector.fleet != null && !nt.getNodeTypeId().contains(selector.fleet)) {
         continue;
       }
@@ -85,7 +97,7 @@ public class ClustersExt extends ClustersAPI {
         continue;
       }
       if ((selector.minGpus != null && nt.getNumGpus() < selector.minGpus)
-          || (selector.minGpus == null && nt.getNumGpus() > 0)) {
+          || (selector.minGpus == null && nt.getNumGpus() != null && nt.getNumGpus() > 0)) {
         continue;
       }
       if (selector.localDisk != null || selector.localDiskMinSize != null) {
@@ -152,6 +164,7 @@ public class ClustersExt extends ClustersAPI {
     };
   }
 
+  // TODO: Make nullsafe? Might not be required since getting list of types of nodes is internal
   private final Comparator<NodeType> nodeSortingComparator =
       (item1, item2) ->
           Comparator.comparing(NodeType::getIsDeprecated)
