@@ -53,7 +53,8 @@ public class DbfsExtTest {
     ApiClient apiClient = new ApiClient();
     DbfsExt mockedDbfsExt = Mockito.spy(new DbfsExt(apiClient));
 
-    // Mocking read() leads to an infinite loop, since we aren't going to use the API response, mocking open()  instead of read() in DbfsExt
+    // Mocking read() leads to an infinite loop, since we aren't going to use the API response,
+    // mocking open()  instead of read() in DbfsExt
     Mockito.doReturn(
             new InputStream() {
               @Override

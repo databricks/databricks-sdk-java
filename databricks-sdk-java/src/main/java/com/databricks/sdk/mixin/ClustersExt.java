@@ -32,7 +32,7 @@ public class ClustersExt extends ClustersAPI {
     List<String> versions = new ArrayList<>();
     GetSparkVersionsResponse sv = getSparkVersions();
     for (SparkVersion version : sv.getVersions()) {
-      if(version.getName() == null) continue;
+      if (version.getName() == null) continue;
       if (selector.scala != null && !version.getKey().contains("-scala" + selector.scala)) {
         continue;
       }

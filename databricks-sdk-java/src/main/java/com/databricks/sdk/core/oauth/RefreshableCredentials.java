@@ -96,6 +96,9 @@ public class RefreshableCredentials extends RefreshableTokenSource
 
   @Override
   protected Token refresh() {
+    if (this.token == null) {
+      throw new DatabricksException("oauth2: token is not set");
+    }
     String refreshToken = this.token.getRefreshToken();
     if (refreshToken == null) {
       throw new DatabricksException("oauth2: token expired and refresh token is not set");
