@@ -1,7 +1,6 @@
 package com.databricks.sdk.core.oauth;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 import com.databricks.sdk.core.DatabricksConfig;
@@ -41,6 +40,9 @@ public class ExternalBrowserCredentialsProviderTest {
       assertEquals("tokenEndPointFromServer", testConsent.getTokenUrl());
       assertEquals("test-client-id", testConsent.getClientId());
       assertNotNull(testConsent.getAuthUrl());
+      assertTrue(testConsent.getAuthUrl().contains("response_type=code"));
+      assertTrue(testConsent.getAuthUrl().contains("client_id=test-client-id"));
+      assertTrue(testConsent.getAuthUrl().contains("redirect_uri=http://localhost:8080/callback"));
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }
