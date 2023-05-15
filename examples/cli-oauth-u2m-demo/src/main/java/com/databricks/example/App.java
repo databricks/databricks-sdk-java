@@ -1,6 +1,6 @@
 package com.databricks.example;
 
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.ListClustersRequest;
@@ -16,7 +16,7 @@ public class App {
             .setAuthType("external-browser")
             .setClientId("")
             .setHost("");
-        DatabricksWorkspace workspace = new DatabricksWorkspace(config);
+        WorkspaceClient workspace = new WorkspaceClient(config);
         for (ClusterInfo c : workspace.clusters().list(new ListClustersRequest())) {
             System.out.println(c.getClusterName());
         }

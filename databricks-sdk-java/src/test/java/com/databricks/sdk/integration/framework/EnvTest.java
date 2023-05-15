@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
-import com.databricks.sdk.DatabricksAccount;
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.AccountClient;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.ConfigResolving;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.UserAgent;
@@ -43,8 +43,8 @@ public class EnvTest
       ParameterContext parameterContext, ExtensionContext extensionContext)
       throws ParameterResolutionException {
     Parameter parameter = parameterContext.getParameter();
-    return parameter.getType() == DatabricksWorkspace.class
-        || parameter.getType() == DatabricksAccount.class
+    return parameter.getType() == WorkspaceClient.class
+        || parameter.getType() == AccountClient.class
         || parameter.isAnnotationPresent(EnvOrSkip.class);
   }
 
@@ -70,9 +70,9 @@ public class EnvTest
       for (Parameter parameter : methodParams.get()) {
         Class<?> type = parameter.getType();
         boolean hasAccount = env.containsKey("DATABRICKS_ACCOUNT_ID");
-        if (type == DatabricksWorkspace.class && hasAccount) {
+        if (type == WorkspaceClient.class && hasAccount) {
           return ConditionEvaluationResult.disabled("Can't use workspace client in account env");
-        } else if (type == DatabricksAccount.class && !hasAccount) {
+        } else if (type == AccountClient.class && !hasAccount) {
           return ConditionEvaluationResult.disabled("Can't use account client in workspace env");
         } else if (type == String.class) {
           EnvOrSkip envOrSkip = parameter.getAnnotation(EnvOrSkip.class);
@@ -105,10 +105,10 @@ public class EnvTest
     Map<String, String> env = envGetter.get().get();
     DatabricksConfig config = new DatabricksConfig();
     resolveConfig(config, () -> env);
-    if (parameter.getType() == DatabricksWorkspace.class) {
-      return new DatabricksWorkspace(config);
-    } else if (parameter.getType() == DatabricksAccount.class) {
-      return new DatabricksAccount(config);
+    if (parameter.getType() == WorkspaceClient.class) {
+      return new WorkspaceClient(config);
+    } else if (parameter.getType() == AccountClient.class) {
+      return new AccountClient(config);
     } else if (parameter.getType() == String.class) {
       EnvOrSkip envOrSkip = parameter.getAnnotation(EnvOrSkip.class);
       boolean envValue = env.containsKey(envOrSkip.value());

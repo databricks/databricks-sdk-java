@@ -1,6 +1,6 @@
 package com.databricks.example;
 
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.CreateCluster;
@@ -20,12 +20,12 @@ import java.util.concurrent.TimeoutException;
 public class TriggerJobToRunPythonProgram {
 
     /**
-     Returns a DatabricksWorkspace object initialized with the configuration.
-     @return The DatabricksWorkspace object.
+     Returns a WorkspaceClient object initialized with the configuration.
+     @return The WorkspaceClient object.
      */
-    private static DatabricksWorkspace getWorkspace() {
+    private static WorkspaceClient getWorkspace() {
         DatabricksConfig config = new DatabricksConfig();
-        return new DatabricksWorkspace(config);
+        return new WorkspaceClient(config);
     }
 
     /**
@@ -41,7 +41,7 @@ public class TriggerJobToRunPythonProgram {
      @param testWorkspace The Databricks workspace where the cluster will be created.
      @return The ClusterInfo object representing the newly created cluster, or null if the creation process timed out.
      */
-    private static ClusterInfo getCluster(DatabricksWorkspace testWorkspace) {
+    private static ClusterInfo getCluster(WorkspaceClient testWorkspace) {
         try {
             CreateCluster request = new CreateCluster()
                     .setClusterName("test-cluster")
@@ -68,7 +68,7 @@ public class TriggerJobToRunPythonProgram {
      @param cluster the cluster on which to trigger the job
      @return a list of strings that contains the results of the job for each task in the job
      */
-    private static List<String> triggerJobOn(DatabricksWorkspace testWorkspace, ClusterInfo cluster) {
+    private static List<String> triggerJobOn(WorkspaceClient testWorkspace, ClusterInfo cluster) {
         String pyFileOnDBFS = String.format("/home/%s/java-sdk-test-sample.py", testWorkspace.currentUser().me().getUserName());
         String pyProgram = getSamplePythonProgram();
 
@@ -118,7 +118,7 @@ public class TriggerJobToRunPythonProgram {
      */
     public static void main(String[] args) {
         // Get your workspace
-        DatabricksWorkspace testWorkspace = getWorkspace();
+        WorkspaceClient testWorkspace = getWorkspace();
 
         // Get cluster you want to run the job on
         ClusterInfo cluster = getCluster(testWorkspace);

@@ -3,7 +3,7 @@ package com.databricks.sdk.integration;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.service.files.Delete;
@@ -25,7 +25,7 @@ public class DbfsIT {
   // An integration test for DbfsExt which writes a file of 10 KiB to DBFS, reads the written file
   // back, and ensures that the contents of the file are the same as what was written out.
   @Test
-  void writeFileAndReadFile(DatabricksWorkspace workspace) throws IOException {
+  void writeFileAndReadFile(WorkspaceClient workspace) throws IOException {
     // Generate a random file name and random contents of 10 KiB.
     String fileName = "dbfs:/tmp/test-file-" + UUID.randomUUID();
     byte[] fileContents = new byte[1024 * 10];
@@ -54,7 +54,7 @@ public class DbfsIT {
    * written out.
    */
   @Test
-  void writeLinesAndReadLines(DatabricksWorkspace workspace) throws IOException {
+  void writeLinesAndReadLines(WorkspaceClient workspace) throws IOException {
     // Generate a random file name and random contents of 10 KiB.
     String fileName = "dbfs:/tmp/test-file-" + UUID.randomUUID();
     String[] lines = new String[100];
@@ -87,7 +87,7 @@ public class DbfsIT {
    * ensure that the contents of the directory match the expected contents.
    */
   @Test
-  void testRecursiveListing(DatabricksWorkspace workspace) throws IOException {
+  void testRecursiveListing(WorkspaceClient workspace) throws IOException {
     // Create a directory in DBFS.
     String relativeDirectoryName = "/tmp/test-directory-" + UUID.randomUUID();
     String directoryName = "dbfs:" + relativeDirectoryName;
