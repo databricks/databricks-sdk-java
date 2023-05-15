@@ -508,8 +508,7 @@ public class AccountClient {
   }
 
   /** Override WorkspaceAssignmentAPI with mock */
-  public AccountClient withWorkspaceAssignmentImpl(
-      WorkspaceAssignmentService workspaceAssignment) {
+  public AccountClient withWorkspaceAssignmentImpl(WorkspaceAssignmentService workspaceAssignment) {
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(workspaceAssignment);
     return this;
   }

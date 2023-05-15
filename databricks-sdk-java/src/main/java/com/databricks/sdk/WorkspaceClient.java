@@ -1231,15 +1231,13 @@ public class WorkspaceClient {
   }
 
   /** Replace StatementExecutionAPI implementation with mock */
-  public WorkspaceClient withStatementExecutionImpl(
-      StatementExecutionService statementExecution) {
+  public WorkspaceClient withStatementExecutionImpl(StatementExecutionService statementExecution) {
     statementExecutionAPI = new StatementExecutionAPI(statementExecution);
     return this;
   }
 
   /** Replace StorageCredentialsAPI implementation with mock */
-  public WorkspaceClient withStorageCredentialsImpl(
-      StorageCredentialsService storageCredentials) {
+  public WorkspaceClient withStorageCredentialsImpl(StorageCredentialsService storageCredentials) {
     storageCredentialsAPI = new StorageCredentialsAPI(storageCredentials);
     return this;
   }
