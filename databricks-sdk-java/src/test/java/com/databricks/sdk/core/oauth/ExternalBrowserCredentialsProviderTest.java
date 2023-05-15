@@ -1,6 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 
 import com.databricks.sdk.core.DatabricksConfig;
@@ -11,6 +12,8 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -20,8 +23,7 @@ public class ExternalBrowserCredentialsProviderTest {
     try (FixtureServer fixtures = new FixtureServer()) {
       fixtures.with(
           "GET /oidc/.well-known/oauth-authorization-server",
-          "{\"token_endpoint\": \"token-test-end-point\"}");
-      fixtures.with("GET /callback", "{\"1token_endpoint\": \"1token-test-end-point\"}");
+          "{\"token_endpoint\": \"tokenEndPointFromServer\"}");
       String clientID = "test-client-id";
       DatabricksConfig config =
           new DatabricksConfig()
@@ -35,7 +37,9 @@ public class ExternalBrowserCredentialsProviderTest {
       assertEquals(testClient.getClientId(), clientID);
 
       Consent testConsent = testClient.initiateConsent();
-      assertEquals(testConsent.getTokenUrl(), "token-test-end-point");
+      assertEquals(testConsent.getTokenUrl(), "tokenEndPointFromServer");
+      assertEquals(testConsent.getClientId(), "test-client-id");
+      assertNotNull(testConsent.getAuthUrl());
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }
@@ -46,9 +50,9 @@ public class ExternalBrowserCredentialsProviderTest {
     try {
       CommonsHttpClient hc = Mockito.spy(new CommonsHttpClient(30));
       String resp =
-          "{\"access_token\": \"testAccessToken\", \"token_type\": \"tokenType\", \"expires_in\": \"10\", \"refresh_token\": \"refreshToken\"}";
+          "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
 
-      // Mock because it's POST Request to http client
+      // Mock because it's a POST Request to http client
       Mockito.doReturn(new Response(resp)).when(hc).execute(any(Request.class));
 
       Consent mockConsent =
@@ -64,8 +68,28 @@ public class ExternalBrowserCredentialsProviderTest {
                   .withHttpClient(hc)
                   .build());
 
-      RefreshableCredentials creds = mockConsent.exchange("testCode", "testState");
-      assertEquals(creds.token.getAccessToken(), "testAccessToken");
+      Map<String, String> queryError = new HashMap<>();
+      queryError.put("error", "testError");
+      queryError.put("error_description", "testErrorDescription");
+      try {
+        mockConsent.exchangeCallbackParameters(queryError);
+      } catch (DatabricksException e) {
+        assertEquals(e.getMessage(), "testError: testErrorDescription");
+      }
+
+      Map<String, String> queryNoCodeCallback = new HashMap<>();
+      try {
+        mockConsent.exchangeCallbackParameters(queryNoCodeCallback);
+      } catch (DatabricksException e) {
+        assertEquals(e.getMessage(), "No code returned in callback");
+      }
+
+      Map<String, String> queryCreds = new HashMap<>();
+      queryCreds.put("code", "testCode");
+      queryCreds.put("state", "testState");
+      RefreshableCredentials creds = mockConsent.exchangeCallbackParameters(queryCreds);
+      assertEquals(creds.token.getAccessToken(), "accessTokenFromServer");
+      assertEquals(creds.token.getRefreshToken(), "refreshTokenFromServer");
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }
