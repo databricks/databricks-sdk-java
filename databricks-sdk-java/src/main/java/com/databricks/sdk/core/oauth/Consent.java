@@ -259,10 +259,6 @@ public class Consent implements Serializable {
     }
   }
 
-  protected void desktopBrowser() throws IOException {
-    Desktop.getDesktop().browse(URI.create(this.authUrl));
-  }
-
   /**
    * Launch a browser to collect an authorization code and exchange the code for an OAuth token.
    *
@@ -284,9 +280,12 @@ public class Consent implements Serializable {
     httpServer.start();
     desktopBrowser();
     Map<String, String> params = handler.getParams();
-    ;
     httpServer.stop(0);
     return exchangeCallbackParameters(params);
+  }
+
+  protected void desktopBrowser() throws IOException {
+    Desktop.getDesktop().browse(URI.create(this.authUrl));
   }
 
   public RefreshableCredentials exchangeCallbackParameters(Map<String, String> query) {

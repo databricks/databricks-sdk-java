@@ -22,7 +22,7 @@ public class ClustersExt extends ClustersAPI {
     super(mock);
   }
 
-  public GetSparkVersionsResponse getSparkVersions() {
+  protected GetSparkVersionsResponse getSparkVersions() {
     return sparkVersions();
   }
 
@@ -66,7 +66,7 @@ public class ClustersExt extends ClustersAPI {
     return versions.get(0);
   }
 
-  public ListNodeTypesResponse listNodeTypesResponse() {
+  protected ListNodeTypesResponse listNodeTypesResponse() {
     return this.listNodeTypes();
   }
 
