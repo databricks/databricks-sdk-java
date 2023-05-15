@@ -14,8 +14,8 @@ public class App {
     public static void main(String[] args) {
         DatabricksConfig config = new DatabricksConfig()
             .setAuthType("external-browser")
-            .setClientId("")
-            .setHost("");
+            .setClientId("abc")
+            .setHost("https://localhost");
         DatabricksWorkspace workspace = new DatabricksWorkspace(config);
         for (ClusterInfo c : workspace.clusters().list(new ListClustersRequest())) {
             System.out.println(c.getClusterName());

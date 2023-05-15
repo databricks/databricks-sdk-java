@@ -24,23 +24,22 @@ public class ExternalBrowserCredentialsProviderTest {
       fixtures.with(
           "GET /oidc/.well-known/oauth-authorization-server",
           "{\"token_endpoint\": \"tokenEndPointFromServer\"}");
-      String clientID = "test-client-id";
       DatabricksConfig config =
           new DatabricksConfig()
               .setAuthType("external-browser")
               .setHost(fixtures.getUrl())
-              .setClientId(clientID)
+              .setClientId("test-client-id")
               .setHttpClient(new CommonsHttpClient(30));
       config.resolve();
 
-      assertEquals(config.getOidcEndpoints().getTokenEndpoint(), "tokenEndPointFromServer");
+      assertEquals("tokenEndPointFromServer", config.getOidcEndpoints().getTokenEndpoint());
 
       OAuthClient testClient = new OAuthClient(config);
-      assertEquals(testClient.getClientId(), clientID);
+      assertEquals("test-client-id", testClient.getClientId());
 
       Consent testConsent = testClient.initiateConsent();
-      assertEquals(testConsent.getTokenUrl(), "tokenEndPointFromServer");
-      assertEquals(testConsent.getClientId(), "test-client-id");
+      assertEquals("tokenEndPointFromServer", testConsent.getTokenUrl());
+      assertEquals("test-client-id", testConsent.getClientId());
       assertNotNull(testConsent.getAuthUrl());
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
@@ -60,8 +59,8 @@ public class ExternalBrowserCredentialsProviderTest {
       config.resolve();
 
       String prefix = testHost + "/oidc/accounts/" + config.getAccountId();
-      assertEquals(config.getOidcEndpoints().getTokenEndpoint(), prefix + "/v1/token");
-      assertEquals(config.getOidcEndpoints().getAuthorizationEndpoint(), prefix + "/v1/authorize");
+      assertEquals(prefix + "/v1/token", config.getOidcEndpoints().getTokenEndpoint());
+      assertEquals(prefix + "/v1/authorize", config.getOidcEndpoints().getAuthorizationEndpoint());
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }
@@ -96,22 +95,22 @@ public class ExternalBrowserCredentialsProviderTest {
       try {
         mockConsent.exchangeCallbackParameters(queryError);
       } catch (DatabricksException e) {
-        assertEquals(e.getMessage(), "testError: testErrorDescription");
+        assertEquals("testError: testErrorDescription", e.getMessage());
       }
 
       Map<String, String> queryNoCodeCallback = new HashMap<>();
       try {
         mockConsent.exchangeCallbackParameters(queryNoCodeCallback);
       } catch (DatabricksException e) {
-        assertEquals(e.getMessage(), "No code returned in callback");
+        assertEquals("No code returned in callback", e.getMessage());
       }
 
       Map<String, String> queryCreds = new HashMap<>();
       queryCreds.put("code", "testCode");
       queryCreds.put("state", "testState");
       RefreshableCredentials creds = mockConsent.exchangeCallbackParameters(queryCreds);
-      assertEquals(creds.token.getAccessToken(), "accessTokenFromServer");
-      assertEquals(creds.token.getRefreshToken(), "refreshTokenFromServer");
+      assertEquals("accessTokenFromServer", creds.token.getAccessToken());
+      assertEquals("refreshTokenFromServer", creds.token.getRefreshToken());
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }
@@ -133,8 +132,8 @@ public class ExternalBrowserCredentialsProviderTest {
               .withTokenUrl("https://tokenUrl")
               .build();
       Token token = clientCredentials.refresh();
-      assertEquals(token.getAccessToken(), "accessTokenFromServer");
-      assertEquals(token.getRefreshToken(), "refreshTokenFromServer");
+      assertEquals("accessTokenFromServer", token.getAccessToken());
+      assertEquals("refreshTokenFromServer", token.getRefreshToken());
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }
@@ -165,8 +164,8 @@ public class ExternalBrowserCredentialsProviderTest {
 
       // We check that we are actually getting the token from server response (that is defined
       // above) rather than what was given while creating refreshable credentials
-      assertEquals(token.getAccessToken(), "accessTokenFromServer");
-      assertEquals(token.getRefreshToken(), "refreshTokenFromServer");
+      assertEquals("accessTokenFromServer", token.getAccessToken());
+      assertEquals("refreshTokenFromServer", token.getRefreshToken());
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }

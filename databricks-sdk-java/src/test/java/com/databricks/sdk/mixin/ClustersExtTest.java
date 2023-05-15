@@ -50,7 +50,7 @@ class ClustersExtTest {
     ClustersExt mockClusterExt = Mockito.spy(clustersExt);
     Mockito.doReturn(testGetSparkVersions()).when(mockClusterExt).getSparkVersions();
     String sparkVersion = mockClusterExt.selectSparkVersion(new SparkVersionSelector());
-    assertEquals(sparkVersion, "testVersion");
+    assertEquals("testVersion", sparkVersion);
   }
 
   private ListNodeTypesResponse testListNodeTypesResponseComparator() {
@@ -69,7 +69,7 @@ class ClustersExtTest {
         .when(mockClusterExt)
         .listNodeTypesResponse();
     String nodeType = mockClusterExt.selectNodeType(new NodeTypeSelector());
-    assertEquals(nodeType, "testId1");
+    assertEquals("testId1", nodeType);
   }
 
   private ListNodeTypesResponse testListNodeTypesResponseLocalDisk() {
@@ -94,6 +94,6 @@ class ClustersExtTest {
         .when(mockClusterExt)
         .listNodeTypesResponse();
     String nodeType = mockClusterExt.selectNodeType(new NodeTypeSelector().withLocalDisk());
-    assertEquals(nodeType, "testId");
+    assertEquals("testId", nodeType);
   }
 }

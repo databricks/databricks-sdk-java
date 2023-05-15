@@ -39,7 +39,7 @@ public class DbfsExtTest {
               .toString();
 
       // Returned path should match the original
-      assertEquals(testPath, filePath);
+      assertEquals(filePath, testPath);
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }
@@ -68,7 +68,6 @@ public class DbfsExtTest {
     try {
       List<String> readData =
           mockedDbfsExt.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8);
-      String a = readData.toString();
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }
