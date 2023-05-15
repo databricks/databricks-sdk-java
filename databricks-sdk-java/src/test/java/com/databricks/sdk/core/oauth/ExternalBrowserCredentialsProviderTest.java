@@ -33,6 +33,8 @@ public class ExternalBrowserCredentialsProviderTest {
               .setHttpClient(new CommonsHttpClient(30));
       config.resolve();
 
+      assertEquals(config.getOidcEndpoints().getTokenEndpoint(), "tokenEndPointFromServer");
+
       OAuthClient testClient = new OAuthClient(config);
       assertEquals(testClient.getClientId(), clientID);
 
@@ -40,6 +42,26 @@ public class ExternalBrowserCredentialsProviderTest {
       assertEquals(testConsent.getTokenUrl(), "tokenEndPointFromServer");
       assertEquals(testConsent.getClientId(), "test-client-id");
       assertNotNull(testConsent.getAuthUrl());
+    } catch (IOException e) {
+      throw new DatabricksException(e.getMessage());
+    }
+  }
+
+  @Test
+  void openIDConnectEndPointsTestAccounts() {
+    try {
+      String testHost = "https://localhost:8080";
+      DatabricksConfig config =
+          new DatabricksConfig()
+              .setAuthType("external-browser")
+              .setHost("https://localhost:8080")
+              .setHttpClient(new CommonsHttpClient(30))
+              .setAccountId("testAccountId");
+      config.resolve();
+
+      String prefix = testHost + "/oidc/accounts/" + config.getAccountId();
+      assertEquals(config.getOidcEndpoints().getTokenEndpoint(), prefix + "/v1/token");
+      assertEquals(config.getOidcEndpoints().getAuthorizationEndpoint(), prefix + "/v1/authorize");
     } catch (IOException e) {
       throw new DatabricksException(e.getMessage());
     }
