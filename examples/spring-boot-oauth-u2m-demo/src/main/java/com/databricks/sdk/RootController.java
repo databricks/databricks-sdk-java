@@ -39,7 +39,7 @@ public class RootController {
   // Initialized by initializeApp(). This should be initialized in a more Spring-friendly way.
   private OAuthClient client;
   // Initialized by callback(). This should be initialized in a more Spring-friendly way.
-  private DatabricksWorkspace workspace;
+  private WorkspaceClient workspace;
 
   @Value("${server.port}")
   private int serverPort;
@@ -104,7 +104,7 @@ public class RootController {
         .setHost(getAccountsHost(cloud))
         .setAccountId(accountId)
         .setHttpClient(hc);
-    DatabricksAccount account = new DatabricksAccount(c);
+    AccountClient account = new AccountClient(c);
     account.oAuthEnrollment().create(new CreateOAuthEnrollment().setEnableAllPublishedApps(true));
     OAuthEnrollmentStatus status = account.oAuthEnrollment().get();
     CreateCustomAppIntegrationOutput result = account.customAppIntegration().create(
@@ -134,7 +134,7 @@ public class RootController {
     DatabricksConfig conf = new DatabricksConfig();
     conf.setCredentialsProvider(creds);
     conf.setHost(client.getHost());
-    workspace = new DatabricksWorkspace(conf);
+    workspace = new WorkspaceClient(conf);
     return "redirect:/";
   }
 

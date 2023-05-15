@@ -28,18 +28,18 @@ You can install Databricks SDK for Java by adding the following to your `pom.xml
 </dependency>
 ```
 
-Using the SDK is as simple as instantiating the `DatabricksWorkspace` class:
+Using the SDK is as simple as instantiating the `WorkspaceClient` class:
 
 ```java
-import com.databricks.sdk.DatabricksWorkspace;
-import com.databricks.sdk.DatabricksAccount;
+import com.databricks.sdk.WorkspaceClient;
+import com.databricks.sdk.AccountClient;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 
 public class App {
    public static void main(String[] args) {
-      DatabricksWorkspace workspace = new DatabricksWorkspace();
+      WorkspaceClient workspace = new WorkspaceClient();
       for (ClusterInfo c : workspace.clusters().list(new ListClustersRequest())) {
          System.out.println(c.getClusterName());
       }
@@ -47,18 +47,18 @@ public class App {
 }
 ```
 
-To access account-level APIs, you can instantiate the `DatabricksAccount` class:
+To access account-level APIs, you can instantiate the `AccountClient` class:
 
 ```java
-import com.databricks.sdk.DatabricksWorkspace;
-import com.databricks.sdk.DatabricksAccount;
+import com.databricks.sdk.WorkspaceClient;
+import com.databricks.sdk.AccountClient;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 
 public class App {
    public static void main(String[] args) {
-      DatabricksAccount account = new DatabricksAccount();
+      AccountClient account = new AccountClient();
       for (Workspace w : account.workspaces().list()) {
          System.out.println(w.getWorkspaceName());
       }
@@ -73,9 +73,9 @@ Databricks SDK for Java is compatible with Java 8 and higher. CI testing runs on
 If you use Databricks [configuration profiles](https://docs.databricks.com/dev-tools/auth.html#configuration-profiles) or Databricks-specific [environment variables](https://docs.databricks.com/dev-tools/auth.html#environment-variables) for [Databricks authentication](https://docs.databricks.com/dev-tools/auth.html), the only code required to start working with a Databricks workspace is the following code snippet, which instructs the Databricks SDK for Java to use its [default authentication flow](#default-authentication-flow):
 
 ```java
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 ...
-DatabricksWorkspace workspace = new DatabricksWorkspace();
+WorkspaceClient workspace = new WorkspaceClient();
 workspace. // press <TAB> for autocompletion
 ```
 
@@ -108,7 +108,7 @@ For each authentication method, the SDK searches for compatible authentication c
 4. For Azure native authentication, the SDK searches for credentials through the Azure CLI as needed.
 5. For Bricks CLI authentication, the SDK reuses OAuth credentials obtained by running `bricks auth login`.
 
-Depending on the Databricks authentication method, the SDK uses the following information. Presented are the `DatabricksWorkspace` and `DatabricksAccount` arguments (which have corresponding `.databrickscfg` file fields), their descriptions, and any corresponding environment variables.
+Depending on the Databricks authentication method, the SDK uses the following information. Presented are the `WorkspaceClient` and `AccountClient` arguments (which have corresponding `.databrickscfg` file fields), their descriptions, and any corresponding environment variables.
 
 ### Databricks native authentication
 
@@ -128,14 +128,14 @@ By default, the Databricks SDK for Java initially tries [Databricks token authen
 For example, to use Databricks token authentication:
 
 ```java
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksConfig;
 ...
         DatabricksConfig config=new DatabricksConfig()
         .setAuthType("pat")
         .setHost("https://my-databricks-instance.com")
         .setToken("my-token");
-        DatabricksWorkspace workspace=new DatabricksWorkspace(config);
+        WorkspaceClient workspace=new WorkspaceClient(config);
 ```
 
 ### Azure native authentication
@@ -161,7 +161,7 @@ To authenticate as an Azure Active Directory (Azure AD) service principal, you m
 For example, to use Azure client secret authentication:
 
 ```java
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksConfig;
 ...
         DatabricksConfig config=new DatabricksConfig()
@@ -170,7 +170,7 @@ import com.databricks.sdk.core.DatabricksConfig;
         .setAzureTenantId("tenant-id")
         .setAzureClientId("client-id")
         .setAzureClientSecret("client-secret");
-        DatabricksWorkspace workspace=new DatabricksWorkspace(config);
+        WorkspaceClient workspace=new WorkspaceClient(config);
 ```
 
 ### Overriding `.databrickscfg`
@@ -185,12 +185,12 @@ For [Databricks native authentication](#databricks-native-authentication), you c
 For example, to use a profile named `MYPROFILE` instead of `DEFAULT`:
 
 ```java
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksConfig;
 ...
         DatabricksConfig config=new DatabricksConfig()
         .setProfile("MYPROFILE");
-        DatabricksWorkspace workspace=new DatabricksWorkspace(config);
+        WorkspaceClient workspace=new WorkspaceClient(config);
 ```
 
 ### Additional authentication configuration options
@@ -208,12 +208,12 @@ For all authentication methods, you can override the default behavior in client 
 For example, to turn on debug HTTP headers:
 
 ```java
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksConfig;
 ...
         DatabricksConfig config=new DatabricksConfig()
         .setDebugHeaders(true);
-        DatabricksWorkspace workspace=new DatabricksWorkspace(config);
+        WorkspaceClient workspace=new WorkspaceClient(config);
 ```
 
 ## Code examples
@@ -267,7 +267,7 @@ Map<Long, BaseJob> allJobs = new HashMap<>();
 Map<Long, List<Long>> durations = new HashMap<>();
 Map<Long, BaseRun> latestState = new HashMap<>();
 
-DatabricksWorkspace workspace = new DatabricksWorkspace();
+WorkspaceClient workspace = new WorkspaceClient();
 for (BaseJob job : workspace.jobs().list(new ListJobsRequest())) {
    allJobs.put(job.getJobId(), job);
    for (BaseRun run : workspace.jobs().listRuns(new ListRunsRequest().setJobId(job.getJobId()).setExpandTasks(false))) {
@@ -323,7 +323,7 @@ For applications, that do run on developer workstations, Databricks SDK for Java
 
 ### Creating custom OAuth applications
 
-In order to use OAuth with Databricks SDK for Python, you should use `DatabricksAccount.customAppIntegration().create()` API. Usage of this can be seen in the [Spring Boot example project](/examples/spring-boot-oauth-u2m-demo/src/main/java/com/databricks/sdk/App.java).
+In order to use OAuth with Databricks SDK for Python, you should use `AccountClient.customAppIntegration().create()` API. Usage of this can be seen in the [Spring Boot example project](/examples/spring-boot-oauth-u2m-demo/src/main/java/com/databricks/sdk/App.java).
 
 ## Logging
 

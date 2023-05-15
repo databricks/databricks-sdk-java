@@ -2,7 +2,7 @@ package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.service.compute.ListNodeTypesResponse;
 import java.io.IOException;
@@ -24,7 +24,7 @@ class SimpleHttpServerTest {
       DatabricksConfig mockConfig = Mockito.spy(config);
       Mockito.doReturn(mockConfig).when(mockConfig).resolve();
 
-      DatabricksWorkspace workspace = new DatabricksWorkspace(mockConfig);
+      WorkspaceClient workspace = new WorkspaceClient(mockConfig);
       ListNodeTypesResponse nodeTypes = workspace.clusters().listNodeTypes();
 
       assertEquals(0, nodeTypes.getNodeTypes().size());

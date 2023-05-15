@@ -30,7 +30,7 @@ public class MockingTest {
     when(clustersMock.get(new GetClusterRequest().setClusterId("foo")))
         .thenReturn(new ClusterInfo().setState(State.RUNNING));
 
-    DatabricksWorkspace workspace = new DatabricksWorkspace(true).withClustersImpl(clustersMock);
+    WorkspaceClient workspace = new WorkspaceClient(true).withClustersImpl(clustersMock);
 
     ClusterInfo info = workspace.clusters().get("foo");
 
@@ -42,7 +42,7 @@ public class MockingTest {
     when(clustersMock.get(new GetClusterRequest().setClusterId("foo")))
         .thenReturn(new ClusterInfo().setState(State.RUNNING));
 
-    DatabricksWorkspace workspace = new DatabricksWorkspace(true).withClustersImpl(clustersMock);
+    WorkspaceClient workspace = new WorkspaceClient(true).withClustersImpl(clustersMock);
 
     workspace.clusters().ensureClusterIsRunning("foo");
   }

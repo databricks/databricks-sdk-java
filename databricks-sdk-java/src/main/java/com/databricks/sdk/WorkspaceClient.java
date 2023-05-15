@@ -107,7 +107,7 @@ import com.databricks.sdk.support.Generated;
 
 /** Entry point for accessing Databricks workspace-level APIs */
 @Generated
-public class DatabricksWorkspace {
+public class WorkspaceClient {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
 
@@ -161,11 +161,11 @@ public class DatabricksWorkspace {
   private WorkspaceAPI workspaceAPI;
   private WorkspaceConfAPI workspaceConfAPI;
 
-  public DatabricksWorkspace() {
+  public WorkspaceClient() {
     this(ConfigLoader.getDefault());
   }
 
-  public DatabricksWorkspace(DatabricksConfig config) {
+  public WorkspaceClient(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
 
@@ -221,7 +221,7 @@ public class DatabricksWorkspace {
   }
 
   /** Constructor for mocks */
-  public DatabricksWorkspace(boolean mock) {
+  public WorkspaceClient(boolean mock) {
     apiClient = null;
     config = null;
   }
@@ -1002,298 +1002,298 @@ public class DatabricksWorkspace {
   }
 
   /** Replace AlertsAPI implementation with mock */
-  public DatabricksWorkspace withAlertsImpl(AlertsService alerts) {
+  public WorkspaceClient withAlertsImpl(AlertsService alerts) {
     alertsAPI = new AlertsAPI(alerts);
     return this;
   }
 
   /** Replace CatalogsAPI implementation with mock */
-  public DatabricksWorkspace withCatalogsImpl(CatalogsService catalogs) {
+  public WorkspaceClient withCatalogsImpl(CatalogsService catalogs) {
     catalogsAPI = new CatalogsAPI(catalogs);
     return this;
   }
 
   /** Replace ClusterPoliciesAPI implementation with mock */
-  public DatabricksWorkspace withClusterPoliciesImpl(ClusterPoliciesService clusterPolicies) {
+  public WorkspaceClient withClusterPoliciesImpl(ClusterPoliciesService clusterPolicies) {
     clusterPoliciesAPI = new ClusterPoliciesAPI(clusterPolicies);
     return this;
   }
 
   /** Replace ClustersAPI implementation with mock */
-  public DatabricksWorkspace withClustersImpl(ClustersService clusters) {
+  public WorkspaceClient withClustersImpl(ClustersService clusters) {
     clustersAPI = new ClustersExt(clusters);
     return this;
   }
 
   /** Replace CommandExecutionAPI implementation with mock */
-  public DatabricksWorkspace withCommandExecutionImpl(CommandExecutionService commandExecution) {
+  public WorkspaceClient withCommandExecutionImpl(CommandExecutionService commandExecution) {
     commandExecutionAPI = new CommandExecutionAPI(commandExecution);
     return this;
   }
 
   /** Replace CurrentUserAPI implementation with mock */
-  public DatabricksWorkspace withCurrentUserImpl(CurrentUserService currentUser) {
+  public WorkspaceClient withCurrentUserImpl(CurrentUserService currentUser) {
     currentUserAPI = new CurrentUserAPI(currentUser);
     return this;
   }
 
   /** Replace DashboardsAPI implementation with mock */
-  public DatabricksWorkspace withDashboardsImpl(DashboardsService dashboards) {
+  public WorkspaceClient withDashboardsImpl(DashboardsService dashboards) {
     dashboardsAPI = new DashboardsAPI(dashboards);
     return this;
   }
 
   /** Replace DataSourcesAPI implementation with mock */
-  public DatabricksWorkspace withDataSourcesImpl(DataSourcesService dataSources) {
+  public WorkspaceClient withDataSourcesImpl(DataSourcesService dataSources) {
     dataSourcesAPI = new DataSourcesAPI(dataSources);
     return this;
   }
 
   /** Replace DbfsAPI implementation with mock */
-  public DatabricksWorkspace withDbfsImpl(DbfsService dbfs) {
+  public WorkspaceClient withDbfsImpl(DbfsService dbfs) {
     dbfsAPI = new DbfsExt(dbfs);
     return this;
   }
 
   /** Replace DbsqlPermissionsAPI implementation with mock */
-  public DatabricksWorkspace withDbsqlPermissionsImpl(DbsqlPermissionsService dbsqlPermissions) {
+  public WorkspaceClient withDbsqlPermissionsImpl(DbsqlPermissionsService dbsqlPermissions) {
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(dbsqlPermissions);
     return this;
   }
 
   /** Replace ExperimentsAPI implementation with mock */
-  public DatabricksWorkspace withExperimentsImpl(ExperimentsService experiments) {
+  public WorkspaceClient withExperimentsImpl(ExperimentsService experiments) {
     experimentsAPI = new ExperimentsAPI(experiments);
     return this;
   }
 
   /** Replace ExternalLocationsAPI implementation with mock */
-  public DatabricksWorkspace withExternalLocationsImpl(ExternalLocationsService externalLocations) {
+  public WorkspaceClient withExternalLocationsImpl(ExternalLocationsService externalLocations) {
     externalLocationsAPI = new ExternalLocationsAPI(externalLocations);
     return this;
   }
 
   /** Replace FunctionsAPI implementation with mock */
-  public DatabricksWorkspace withFunctionsImpl(FunctionsService functions) {
+  public WorkspaceClient withFunctionsImpl(FunctionsService functions) {
     functionsAPI = new FunctionsAPI(functions);
     return this;
   }
 
   /** Replace GitCredentialsAPI implementation with mock */
-  public DatabricksWorkspace withGitCredentialsImpl(GitCredentialsService gitCredentials) {
+  public WorkspaceClient withGitCredentialsImpl(GitCredentialsService gitCredentials) {
     gitCredentialsAPI = new GitCredentialsAPI(gitCredentials);
     return this;
   }
 
   /** Replace GlobalInitScriptsAPI implementation with mock */
-  public DatabricksWorkspace withGlobalInitScriptsImpl(GlobalInitScriptsService globalInitScripts) {
+  public WorkspaceClient withGlobalInitScriptsImpl(GlobalInitScriptsService globalInitScripts) {
     globalInitScriptsAPI = new GlobalInitScriptsAPI(globalInitScripts);
     return this;
   }
 
   /** Replace GrantsAPI implementation with mock */
-  public DatabricksWorkspace withGrantsImpl(GrantsService grants) {
+  public WorkspaceClient withGrantsImpl(GrantsService grants) {
     grantsAPI = new GrantsAPI(grants);
     return this;
   }
 
   /** Replace GroupsAPI implementation with mock */
-  public DatabricksWorkspace withGroupsImpl(GroupsService groups) {
+  public WorkspaceClient withGroupsImpl(GroupsService groups) {
     groupsAPI = new GroupsAPI(groups);
     return this;
   }
 
   /** Replace InstancePoolsAPI implementation with mock */
-  public DatabricksWorkspace withInstancePoolsImpl(InstancePoolsService instancePools) {
+  public WorkspaceClient withInstancePoolsImpl(InstancePoolsService instancePools) {
     instancePoolsAPI = new InstancePoolsAPI(instancePools);
     return this;
   }
 
   /** Replace InstanceProfilesAPI implementation with mock */
-  public DatabricksWorkspace withInstanceProfilesImpl(InstanceProfilesService instanceProfiles) {
+  public WorkspaceClient withInstanceProfilesImpl(InstanceProfilesService instanceProfiles) {
     instanceProfilesAPI = new InstanceProfilesAPI(instanceProfiles);
     return this;
   }
 
   /** Replace IpAccessListsAPI implementation with mock */
-  public DatabricksWorkspace withIpAccessListsImpl(IpAccessListsService ipAccessLists) {
+  public WorkspaceClient withIpAccessListsImpl(IpAccessListsService ipAccessLists) {
     ipAccessListsAPI = new IpAccessListsAPI(ipAccessLists);
     return this;
   }
 
   /** Replace JobsAPI implementation with mock */
-  public DatabricksWorkspace withJobsImpl(JobsService jobs) {
+  public WorkspaceClient withJobsImpl(JobsService jobs) {
     jobsAPI = new JobsAPI(jobs);
     return this;
   }
 
   /** Replace LibrariesAPI implementation with mock */
-  public DatabricksWorkspace withLibrariesImpl(LibrariesService libraries) {
+  public WorkspaceClient withLibrariesImpl(LibrariesService libraries) {
     librariesAPI = new LibrariesAPI(libraries);
     return this;
   }
 
   /** Replace MetastoresAPI implementation with mock */
-  public DatabricksWorkspace withMetastoresImpl(MetastoresService metastores) {
+  public WorkspaceClient withMetastoresImpl(MetastoresService metastores) {
     metastoresAPI = new MetastoresAPI(metastores);
     return this;
   }
 
   /** Replace ModelRegistryAPI implementation with mock */
-  public DatabricksWorkspace withModelRegistryImpl(ModelRegistryService modelRegistry) {
+  public WorkspaceClient withModelRegistryImpl(ModelRegistryService modelRegistry) {
     modelRegistryAPI = new ModelRegistryAPI(modelRegistry);
     return this;
   }
 
   /** Replace PermissionsAPI implementation with mock */
-  public DatabricksWorkspace withPermissionsImpl(PermissionsService permissions) {
+  public WorkspaceClient withPermissionsImpl(PermissionsService permissions) {
     permissionsAPI = new PermissionsAPI(permissions);
     return this;
   }
 
   /** Replace PipelinesAPI implementation with mock */
-  public DatabricksWorkspace withPipelinesImpl(PipelinesService pipelines) {
+  public WorkspaceClient withPipelinesImpl(PipelinesService pipelines) {
     pipelinesAPI = new PipelinesAPI(pipelines);
     return this;
   }
 
   /** Replace PolicyFamiliesAPI implementation with mock */
-  public DatabricksWorkspace withPolicyFamiliesImpl(PolicyFamiliesService policyFamilies) {
+  public WorkspaceClient withPolicyFamiliesImpl(PolicyFamiliesService policyFamilies) {
     policyFamiliesAPI = new PolicyFamiliesAPI(policyFamilies);
     return this;
   }
 
   /** Replace ProvidersAPI implementation with mock */
-  public DatabricksWorkspace withProvidersImpl(ProvidersService providers) {
+  public WorkspaceClient withProvidersImpl(ProvidersService providers) {
     providersAPI = new ProvidersAPI(providers);
     return this;
   }
 
   /** Replace QueriesAPI implementation with mock */
-  public DatabricksWorkspace withQueriesImpl(QueriesService queries) {
+  public WorkspaceClient withQueriesImpl(QueriesService queries) {
     queriesAPI = new QueriesAPI(queries);
     return this;
   }
 
   /** Replace QueryHistoryAPI implementation with mock */
-  public DatabricksWorkspace withQueryHistoryImpl(QueryHistoryService queryHistory) {
+  public WorkspaceClient withQueryHistoryImpl(QueryHistoryService queryHistory) {
     queryHistoryAPI = new QueryHistoryAPI(queryHistory);
     return this;
   }
 
   /** Replace RecipientActivationAPI implementation with mock */
-  public DatabricksWorkspace withRecipientActivationImpl(
+  public WorkspaceClient withRecipientActivationImpl(
       RecipientActivationService recipientActivation) {
     recipientActivationAPI = new RecipientActivationAPI(recipientActivation);
     return this;
   }
 
   /** Replace RecipientsAPI implementation with mock */
-  public DatabricksWorkspace withRecipientsImpl(RecipientsService recipients) {
+  public WorkspaceClient withRecipientsImpl(RecipientsService recipients) {
     recipientsAPI = new RecipientsAPI(recipients);
     return this;
   }
 
   /** Replace ReposAPI implementation with mock */
-  public DatabricksWorkspace withReposImpl(ReposService repos) {
+  public WorkspaceClient withReposImpl(ReposService repos) {
     reposAPI = new ReposAPI(repos);
     return this;
   }
 
   /** Replace SchemasAPI implementation with mock */
-  public DatabricksWorkspace withSchemasImpl(SchemasService schemas) {
+  public WorkspaceClient withSchemasImpl(SchemasService schemas) {
     schemasAPI = new SchemasAPI(schemas);
     return this;
   }
 
   /** Replace SecretsAPI implementation with mock */
-  public DatabricksWorkspace withSecretsImpl(SecretsService secrets) {
+  public WorkspaceClient withSecretsImpl(SecretsService secrets) {
     secretsAPI = new SecretsAPI(secrets);
     return this;
   }
 
   /** Replace ServicePrincipalsAPI implementation with mock */
-  public DatabricksWorkspace withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
+  public WorkspaceClient withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
     servicePrincipalsAPI = new ServicePrincipalsAPI(servicePrincipals);
     return this;
   }
 
   /** Replace ServingEndpointsAPI implementation with mock */
-  public DatabricksWorkspace withServingEndpointsImpl(ServingEndpointsService servingEndpoints) {
+  public WorkspaceClient withServingEndpointsImpl(ServingEndpointsService servingEndpoints) {
     servingEndpointsAPI = new ServingEndpointsAPI(servingEndpoints);
     return this;
   }
 
   /** Replace SharesAPI implementation with mock */
-  public DatabricksWorkspace withSharesImpl(SharesService shares) {
+  public WorkspaceClient withSharesImpl(SharesService shares) {
     sharesAPI = new SharesAPI(shares);
     return this;
   }
 
   /** Replace StatementExecutionAPI implementation with mock */
-  public DatabricksWorkspace withStatementExecutionImpl(
+  public WorkspaceClient withStatementExecutionImpl(
       StatementExecutionService statementExecution) {
     statementExecutionAPI = new StatementExecutionAPI(statementExecution);
     return this;
   }
 
   /** Replace StorageCredentialsAPI implementation with mock */
-  public DatabricksWorkspace withStorageCredentialsImpl(
+  public WorkspaceClient withStorageCredentialsImpl(
       StorageCredentialsService storageCredentials) {
     storageCredentialsAPI = new StorageCredentialsAPI(storageCredentials);
     return this;
   }
 
   /** Replace TableConstraintsAPI implementation with mock */
-  public DatabricksWorkspace withTableConstraintsImpl(TableConstraintsService tableConstraints) {
+  public WorkspaceClient withTableConstraintsImpl(TableConstraintsService tableConstraints) {
     tableConstraintsAPI = new TableConstraintsAPI(tableConstraints);
     return this;
   }
 
   /** Replace TablesAPI implementation with mock */
-  public DatabricksWorkspace withTablesImpl(TablesService tables) {
+  public WorkspaceClient withTablesImpl(TablesService tables) {
     tablesAPI = new TablesAPI(tables);
     return this;
   }
 
   /** Replace TokenManagementAPI implementation with mock */
-  public DatabricksWorkspace withTokenManagementImpl(TokenManagementService tokenManagement) {
+  public WorkspaceClient withTokenManagementImpl(TokenManagementService tokenManagement) {
     tokenManagementAPI = new TokenManagementAPI(tokenManagement);
     return this;
   }
 
   /** Replace TokensAPI implementation with mock */
-  public DatabricksWorkspace withTokensImpl(TokensService tokens) {
+  public WorkspaceClient withTokensImpl(TokensService tokens) {
     tokensAPI = new TokensAPI(tokens);
     return this;
   }
 
   /** Replace UsersAPI implementation with mock */
-  public DatabricksWorkspace withUsersImpl(UsersService users) {
+  public WorkspaceClient withUsersImpl(UsersService users) {
     usersAPI = new UsersAPI(users);
     return this;
   }
 
   /** Replace VolumesAPI implementation with mock */
-  public DatabricksWorkspace withVolumesImpl(VolumesService volumes) {
+  public WorkspaceClient withVolumesImpl(VolumesService volumes) {
     volumesAPI = new VolumesAPI(volumes);
     return this;
   }
 
   /** Replace WarehousesAPI implementation with mock */
-  public DatabricksWorkspace withWarehousesImpl(WarehousesService warehouses) {
+  public WorkspaceClient withWarehousesImpl(WarehousesService warehouses) {
     warehousesAPI = new WarehousesAPI(warehouses);
     return this;
   }
 
   /** Replace WorkspaceAPI implementation with mock */
-  public DatabricksWorkspace withWorkspaceImpl(WorkspaceService workspace) {
+  public WorkspaceClient withWorkspaceImpl(WorkspaceService workspace) {
     workspaceAPI = new WorkspaceAPI(workspace);
     return this;
   }
 
   /** Replace WorkspaceConfAPI implementation with mock */
-  public DatabricksWorkspace withWorkspaceConfImpl(WorkspaceConfService workspaceConf) {
+  public WorkspaceClient withWorkspaceConfImpl(WorkspaceConfService workspaceConf) {
     workspaceConfAPI = new WorkspaceConfAPI(workspaceConf);
     return this;
   }

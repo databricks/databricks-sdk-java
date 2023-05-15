@@ -1,6 +1,6 @@
 package com.databricks.example;
 
-import com.databricks.sdk.DatabricksAccount;
+import com.databricks.sdk.AccountClient;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.service.provisioning.Workspace;
 
@@ -31,7 +31,7 @@ public class CliAuthAccount {
     public static void main(String[] args) {
         DatabricksConfig config = getConfig();
 
-        DatabricksAccount account = new DatabricksAccount(config);
+        AccountClient account = new AccountClient(config);
         for (Workspace w : account.workspaces().list()) {
             System.out.println(w.getWorkspaceName());
         }

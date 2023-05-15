@@ -1,5 +1,5 @@
-databricks-sdk-java/src/main/java/com/databricks/sdk/DatabricksAccount.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/DatabricksWorkspace.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/AccountClient.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/WorkspaceClient.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BillableUsageAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BillableUsageImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BillableUsageService.java linguist-generated=true
