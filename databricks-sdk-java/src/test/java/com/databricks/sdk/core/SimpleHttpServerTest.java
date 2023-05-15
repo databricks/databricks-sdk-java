@@ -15,10 +15,6 @@ import org.mockito.Mockito;
 
 class SimpleHttpServerTest {
 
-  /**
-   * Verify that list of nodetypes ore correctly returned from the server while calling
-   * listNodeTypes()
-   */
   @Test
   void sample() throws IOException {
     try (FixtureServer fixtures = new FixtureServer()) {
@@ -42,10 +38,6 @@ class SimpleHttpServerTest {
     }
   }
 
-  /**
-   * Verify that the method correctly parses the query string and creates a map of parameters and
-   * their values.
-   */
   @Test
   public void testQuery() {
     String line = "?param1=value1&param2=value2&param3=value3";
