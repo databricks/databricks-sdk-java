@@ -7,12 +7,9 @@ import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.service.files.*;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.Base64;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
