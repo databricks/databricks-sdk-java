@@ -21,7 +21,8 @@ public class ApiErrorBodyDeserializationSuite {
     assertEquals(error.getApi12Error(), "theerror");
   }
 
-  // Test that an ApiErrorBody can be deserialized, even if the response includes unexpected parameters.
+  // Test that an ApiErrorBody can be deserialized, even if the response includes unexpected
+  // parameters.
   @Test
   void handleUnexpectedFieldsInErrorResponse() throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
