@@ -22,15 +22,11 @@ public class ClustersExt extends ClustersAPI {
     super(mock);
   }
 
-  protected GetSparkVersionsResponse getSparkVersions() {
-    return sparkVersions();
-  }
-
   public String selectSparkVersion(SparkVersionSelector selector) throws IllegalArgumentException {
     // Logic ported from
     // https://github.com/databricks/databricks-sdk-go/blob/main/service/clusters/spark_version.go
     List<String> versions = new ArrayList<>();
-    GetSparkVersionsResponse sv = getSparkVersions();
+    GetSparkVersionsResponse sv = sparkVersions();
     for (SparkVersion version : sv.getVersions()) {
       if (version.getName() == null) continue;
       if (selector.scala != null && !version.getKey().contains("-scala" + selector.scala)) {
@@ -66,14 +62,10 @@ public class ClustersExt extends ClustersAPI {
     return versions.get(0);
   }
 
-  protected ListNodeTypesResponse listNodeTypesResponse() {
-    return this.listNodeTypes();
-  }
-
   public String selectNodeType(NodeTypeSelector selector) {
     // Logic ported from
     // https://github.com/databricks/databricks-sdk-go/blob/main/service/clusters/node_type.go
-    ListNodeTypesResponse res = listNodeTypesResponse();
+    ListNodeTypesResponse res = this.listNodeTypes();
     List<NodeType> types =
         res.getNodeTypes().stream().sorted(nodeSortingComparator).collect(Collectors.toList());
     for (NodeType nt : types) {
@@ -164,18 +156,25 @@ public class ClustersExt extends ClustersAPI {
     };
   }
 
-  // TODO: Make nullsafe? Might not be required since getting list of types of nodes is internal
   private final Comparator<NodeType> nodeSortingComparator =
       (item1, item2) ->
-          Comparator.comparing(NodeType::getIsDeprecated)
-              .thenComparing(NodeType::getNumCores)
-              .thenComparing(NodeType::getMemoryMb)
-              .thenComparing(instanceTypeComparator(NodeInstanceType::getLocalDisks))
-              .thenComparing(instanceTypeComparator(NodeInstanceType::getLocalDiskSizeGb))
-              .thenComparing(instanceTypeComparator(NodeInstanceType::getLocalNvmeDisks))
-              .thenComparing(instanceTypeComparator(NodeInstanceType::getLocalNvmeDiskSizeGb))
-              .thenComparing(NodeType::getNumGpus)
-              .thenComparing(NodeType::getInstanceTypeId)
+          Comparator.comparing(NodeType::getIsDeprecated, Comparator.nullsLast(Boolean::compare))
+              .thenComparing(NodeType::getNumCores, Comparator.nullsLast(Float::compare))
+              .thenComparing(NodeType::getMemoryMb, Comparator.nullsLast(Long::compare))
+              .thenComparing(
+                  instanceTypeComparator(NodeInstanceType::getLocalDisks),
+                  Comparator.nullsLast(Long::compare))
+              .thenComparing(
+                  instanceTypeComparator(NodeInstanceType::getLocalDiskSizeGb),
+                  Comparator.nullsLast(Long::compare))
+              .thenComparing(
+                  instanceTypeComparator(NodeInstanceType::getLocalNvmeDisks),
+                  Comparator.nullsLast(Long::compare))
+              .thenComparing(
+                  instanceTypeComparator(NodeInstanceType::getLocalNvmeDiskSizeGb),
+                  Comparator.nullsLast(Long::compare))
+              .thenComparing(NodeType::getNumGpus, Comparator.nullsLast(Long::compare))
+              .thenComparing(NodeType::getInstanceTypeId, Comparator.nullsLast(String::compareTo))
               .compare(item1, item2);
 
   private static boolean shouldNodeBeSkipped(NodeType nt) {

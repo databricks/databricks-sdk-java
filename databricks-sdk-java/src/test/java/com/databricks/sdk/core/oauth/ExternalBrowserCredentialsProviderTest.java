@@ -44,6 +44,7 @@ public class ExternalBrowserCredentialsProviderTest {
       assertTrue(testConsent.getAuthUrl().contains("response_type=code"));
       assertTrue(testConsent.getAuthUrl().contains("client_id=test-client-id"));
       assertTrue(testConsent.getAuthUrl().contains("redirect_uri=http://localhost:8080/callback"));
+      assertTrue(testConsent.getAuthUrl().contains("scope=offline_access%20clusters%20sql"));
     }
   }
 
