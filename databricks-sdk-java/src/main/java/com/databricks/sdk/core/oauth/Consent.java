@@ -278,10 +278,14 @@ public class Consent implements Serializable {
         HttpServer.create(new InetSocketAddress(redirect.getHost(), redirect.getPort()), 0);
     httpServer.createContext("/", handler);
     httpServer.start();
-    Desktop.getDesktop().browse(URI.create(this.authUrl));
+    desktopBrowser();
     Map<String, String> params = handler.getParams();
     httpServer.stop(0);
     return exchangeCallbackParameters(params);
+  }
+
+  protected void desktopBrowser() throws IOException {
+    Desktop.getDesktop().browse(URI.create(this.authUrl));
   }
 
   public SessionCredentials exchangeCallbackParameters(Map<String, String> query) {

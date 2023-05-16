@@ -28,6 +28,7 @@ public class ClustersExt extends ClustersAPI {
     List<String> versions = new ArrayList<>();
     GetSparkVersionsResponse sv = sparkVersions();
     for (SparkVersion version : sv.getVersions()) {
+      if (version.getName() == null) continue;
       if (selector.scala != null && !version.getKey().contains("-scala" + selector.scala)) {
         continue;
       }
@@ -71,7 +72,10 @@ public class ClustersExt extends ClustersAPI {
       if (shouldNodeBeSkipped(nt)) {
         continue;
       }
-      Long gbs = nt.getMemoryMb() / 1024;
+      Long gbs = 0L;
+      if (nt.getMemoryMb() != null) {
+        gbs = nt.getMemoryMb() / 1024;
+      }
       if (selector.fleet != null && !nt.getNodeTypeId().contains(selector.fleet)) {
         continue;
       }
@@ -85,7 +89,7 @@ public class ClustersExt extends ClustersAPI {
         continue;
       }
       if ((selector.minGpus != null && nt.getNumGpus() < selector.minGpus)
-          || (selector.minGpus == null && nt.getNumGpus() > 0)) {
+          || (selector.minGpus == null && nt.getNumGpus() != null && nt.getNumGpus() > 0)) {
         continue;
       }
       if (selector.localDisk != null || selector.localDiskMinSize != null) {
@@ -154,15 +158,23 @@ public class ClustersExt extends ClustersAPI {
 
   private final Comparator<NodeType> nodeSortingComparator =
       (item1, item2) ->
-          Comparator.comparing(NodeType::getIsDeprecated)
-              .thenComparing(NodeType::getNumCores)
-              .thenComparing(NodeType::getMemoryMb)
-              .thenComparing(instanceTypeComparator(NodeInstanceType::getLocalDisks))
-              .thenComparing(instanceTypeComparator(NodeInstanceType::getLocalDiskSizeGb))
-              .thenComparing(instanceTypeComparator(NodeInstanceType::getLocalNvmeDisks))
-              .thenComparing(instanceTypeComparator(NodeInstanceType::getLocalNvmeDiskSizeGb))
-              .thenComparing(NodeType::getNumGpus)
-              .thenComparing(NodeType::getInstanceTypeId)
+          Comparator.comparing(NodeType::getIsDeprecated, Comparator.nullsLast(Boolean::compare))
+              .thenComparing(NodeType::getNumCores, Comparator.nullsLast(Float::compare))
+              .thenComparing(NodeType::getMemoryMb, Comparator.nullsLast(Long::compare))
+              .thenComparing(
+                  instanceTypeComparator(NodeInstanceType::getLocalDisks),
+                  Comparator.nullsLast(Long::compare))
+              .thenComparing(
+                  instanceTypeComparator(NodeInstanceType::getLocalDiskSizeGb),
+                  Comparator.nullsLast(Long::compare))
+              .thenComparing(
+                  instanceTypeComparator(NodeInstanceType::getLocalNvmeDisks),
+                  Comparator.nullsLast(Long::compare))
+              .thenComparing(
+                  instanceTypeComparator(NodeInstanceType::getLocalNvmeDiskSizeGb),
+                  Comparator.nullsLast(Long::compare))
+              .thenComparing(NodeType::getNumGpus, Comparator.nullsLast(Long::compare))
+              .thenComparing(NodeType::getInstanceTypeId, Comparator.nullsLast(String::compareTo))
               .compare(item1, item2);
 
   private static boolean shouldNodeBeSkipped(NodeType nt) {
