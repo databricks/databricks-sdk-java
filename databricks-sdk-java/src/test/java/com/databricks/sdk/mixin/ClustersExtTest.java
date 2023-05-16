@@ -23,7 +23,6 @@ class ClustersExtTest {
 
   @Test
   void ensureClusterIsRunning() throws TimeoutException {
-
     DummyHttpClient httpClient =
         new DummyHttpClient()
             .with(
