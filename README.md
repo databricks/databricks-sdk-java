@@ -315,7 +315,7 @@ To enhance the security of the Authorization Code Flow, the PKCE (Proof Key for 
 
 The [presented sample](/examples/spring-boot-oauth-u2m-demo/src/main/java/com/databricks/sdk/App.java) is a Spring Boot application that uses the Databricks SDK for Java to demonstrate how to implement the OAuth Authorization Code flow with PKCE security. It can be used to build an app where each user uses their identity to access Databricks resources. The script can be executed with or without client and secret credentials for a custom OAuth app.
 
-Databricks SDK for Java exposes the `OAuthClient.initiateConsent()` helper to acquire user redirect URL and initiate PKCE state verification. Application developers are expected to persist `RefreshableCredentials` in the webapp session using Java serialization. The underlying `HttpClient`, used for refreshing the access token, is not serializable, so this must be rehydrated by the application on every request.
+Databricks SDK for Java exposes the `OAuthClient.initiateConsent()` helper to acquire user redirect URL and initiate PKCE state verification. Application developers are expected to persist `SessionCredentials` in the webapp session using Java serialization. The underlying `HttpClient`, used for refreshing the access token, is not serializable, so this must be rehydrated by the application on every request.
 
 ### SSO for local scripts on development machines
 

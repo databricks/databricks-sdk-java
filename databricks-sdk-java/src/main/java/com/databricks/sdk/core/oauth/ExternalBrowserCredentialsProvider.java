@@ -25,7 +25,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
     try {
       OAuthClient client = new OAuthClient(config);
       Consent consent = client.initiateConsent();
-      RefreshableCredentials creds = consent.launchExternalBrowser();
+      SessionCredentials creds = consent.launchExternalBrowser();
       return creds.configure(config);
     } catch (IOException | DatabricksException e) {
       return null;

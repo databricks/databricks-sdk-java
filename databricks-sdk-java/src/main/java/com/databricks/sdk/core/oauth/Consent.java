@@ -262,10 +262,10 @@ public class Consent implements Serializable {
   /**
    * Launch a browser to collect an authorization code and exchange the code for an OAuth token.
    *
-   * @return A {@code RefreshableCredentials} instance representing the retrieved OAuth token.
+   * @return A {@code SessionCredentials} instance representing the retrieved OAuth token.
    * @throws IOException if the webserver cannot be started, or if the browser cannot be opened
    */
-  public RefreshableCredentials launchExternalBrowser() throws IOException {
+  public SessionCredentials launchExternalBrowser() throws IOException {
     URL redirect = new URL(getRedirectUrl());
     if (!Arrays.asList("localhost", "127.0.0.1").contains(redirect.getHost())) {
       throw new IllegalArgumentException(
@@ -284,7 +284,7 @@ public class Consent implements Serializable {
     return exchangeCallbackParameters(params);
   }
 
-  public RefreshableCredentials exchangeCallbackParameters(Map<String, String> query) {
+  public SessionCredentials exchangeCallbackParameters(Map<String, String> query) {
     if (query.containsKey("error")) {
       throw new DatabricksException(query.get("error") + ": " + query.get("error_description"));
     }
@@ -294,7 +294,7 @@ public class Consent implements Serializable {
     return exchange(query.get("code"), query.get("state"));
   }
 
-  public RefreshableCredentials exchange(String code, String state) {
+  public SessionCredentials exchange(String code, String state) {
     if (!this.state.equals(state)) {
       throw new DatabricksException(
           "state mismatch: original state: " + this.state + "; retrieved state: " + state);
@@ -317,7 +317,7 @@ public class Consent implements Serializable {
             params,
             headers,
             AuthParameterPosition.BODY);
-    return new RefreshableCredentials.Builder()
+    return new SessionCredentials.Builder()
         .withHttpClient(this.hc)
         .withClientId(this.clientId)
         .withClientSecret(this.clientSecret)
