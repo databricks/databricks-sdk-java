@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.error;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -8,7 +9,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * <p>This is a direct translation of <a
  * href="https://github.com/databricks/databricks-sdk-go/blob/main/apierr/errors.go#L31">the
  * APIErrorBody struct from the Go SDK</a>.
+ *
+ * <p>Unknown properties in the response should be ignored.
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiErrorBody {
   private String errorCode;
   private String message;

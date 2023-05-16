@@ -20,4 +20,15 @@ public class ApiErrorBodyDeserializationSuite {
     assertEquals(error.getScimType(), "thescimtype");
     assertEquals(error.getApi12Error(), "theerror");
   }
+
+  // Test that an ApiErrorBody can be deserialized, even if the response includes unexpected parameters.
+  @Test
+  void handleUnexpectedFieldsInErrorResponse() throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    String rawResponse =
+        "{\"error_code\":\"theerrorcode\",\"message\":\"themessage\",\"details\":[\"unexpected\"]}";
+    ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
+    assertEquals(error.getErrorCode(), "theerrorcode");
+    assertEquals(error.getMessage(), "themessage");
+  }
 }
