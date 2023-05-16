@@ -130,13 +130,13 @@ public class ExternalBrowserCredentialsProviderTest {
   }
 
   @Test
-  void refreshableCredentials() throws IOException {
+  void sessionCredentials() throws IOException {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
         "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
     Mockito.doReturn(new Response(response)).when(hc).execute(any(Request.class));
 
-    SessionCredentials refreshableCredentials =
+    SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()
             .withHttpClient(hc)
             .withClientId("testClientId")
@@ -149,10 +149,10 @@ public class ExternalBrowserCredentialsProviderTest {
                     "originalRefreshToken",
                     LocalDateTime.MAX))
             .build();
-    Token token = refreshableCredentials.refresh();
+    Token token = sessionCredentials.refresh();
 
     // We check that we are actually getting the token from server response (that is defined
-    // above) rather than what was given while creating refreshable credentials
+    // above) rather than what was given while creating session credentials
     assertEquals("accessTokenFromServer", token.getAccessToken());
     assertEquals("refreshTokenFromServer", token.getRefreshToken());
   }
