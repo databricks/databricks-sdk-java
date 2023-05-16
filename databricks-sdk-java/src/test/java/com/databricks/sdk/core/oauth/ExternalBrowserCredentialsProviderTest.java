@@ -40,11 +40,12 @@ public class ExternalBrowserCredentialsProviderTest {
       Consent testConsent = testClient.initiateConsent();
       assertEquals("tokenEndPointFromServer", testConsent.getTokenUrl());
       assertEquals("test-client-id", testConsent.getClientId());
-      assertNotNull(testConsent.getAuthUrl());
-      assertTrue(testConsent.getAuthUrl().contains("response_type=code"));
-      assertTrue(testConsent.getAuthUrl().contains("client_id=test-client-id"));
-      assertTrue(testConsent.getAuthUrl().contains("redirect_uri=http://localhost:8080/callback"));
-      assertTrue(testConsent.getAuthUrl().contains("scope=offline_access%20clusters%20sql"));
+      String authUrl = testConsent.getAuthUrl();
+      assertNotNull(authUrl);
+      assertTrue(authUrl.contains("response_type=code"));
+      assertTrue(authUrl.contains("client_id=test-client-id"));
+      assertTrue(authUrl.contains("redirect_uri=http://localhost:8080/callback"));
+      assertTrue(authUrl.contains("scope=offline_access%20clusters%20sql"));
     }
   }
 
@@ -104,7 +105,7 @@ public class ExternalBrowserCredentialsProviderTest {
     Map<String, String> queryCreds = new HashMap<>();
     queryCreds.put("code", "testCode");
     queryCreds.put("state", "testState");
-    RefreshableCredentials creds = testConsent.exchangeCallbackParameters(queryCreds);
+    SessionCredentials creds = testConsent.exchangeCallbackParameters(queryCreds);
     assertEquals("accessTokenFromServer", creds.token.getAccessToken());
     assertEquals("refreshTokenFromServer", creds.token.getRefreshToken());
   }
@@ -135,8 +136,8 @@ public class ExternalBrowserCredentialsProviderTest {
         "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
     Mockito.doReturn(new Response(response)).when(hc).execute(any(Request.class));
 
-    RefreshableCredentials refreshableCredentials =
-        new RefreshableCredentials.Builder()
+    SessionCredentials refreshableCredentials =
+        new SessionCredentials.Builder()
             .withHttpClient(hc)
             .withClientId("testClientId")
             .withClientSecret("abc")

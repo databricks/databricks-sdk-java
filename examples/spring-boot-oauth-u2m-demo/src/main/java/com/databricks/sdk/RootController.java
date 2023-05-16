@@ -4,7 +4,7 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.oauth.Consent;
 import com.databricks.sdk.core.oauth.OAuthClient;
-import com.databricks.sdk.core.oauth.RefreshableCredentials;
+import com.databricks.sdk.core.oauth.SessionCredentials;
 import com.databricks.sdk.service.compute.ClusterInfo;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 import com.databricks.sdk.service.oauth2.CreateCustomAppIntegrationOutput;
@@ -39,7 +39,7 @@ public class RootController {
   // Initialized by initializeApp(). This should be initialized in a more Spring-friendly way.
   private OAuthClient client;
   // Initialized by callback(). This should be initialized in a more Spring-friendly way.
-  private DatabricksWorkspace workspace;
+  private WorkspaceClient workspace;
 
   @Value("${server.port}")
   private int serverPort;
@@ -55,7 +55,7 @@ public class RootController {
       model.addAttribute("clientSecret", client.getClientSecret());
       model.addAttribute("hostname", client.getHost());
     }
-    RefreshableCredentials sessionCreds = (RefreshableCredentials) session.getAttribute("sessionCreds");
+    SessionCredentials sessionCreds = (SessionCredentials) session.getAttribute("sessionCreds");
     if (sessionCreds != null) {
       model.addAttribute("sessionCreds", mapper.writeValueAsString(sessionCreds.getToken()));
     }
@@ -104,7 +104,7 @@ public class RootController {
         .setHost(getAccountsHost(cloud))
         .setAccountId(accountId)
         .setHttpClient(hc);
-    DatabricksAccount account = new DatabricksAccount(c);
+    AccountClient account = new AccountClient(c);
     account.oAuthEnrollment().create(new CreateOAuthEnrollment().setEnableAllPublishedApps(true));
     OAuthEnrollmentStatus status = account.oAuthEnrollment().get();
     CreateCustomAppIntegrationOutput result = account.customAppIntegration().create(
@@ -129,12 +129,12 @@ public class RootController {
   public String callback(HttpSession session, @RequestParam Map<String, String> allParams) throws IOException {
     Consent consent = (Consent) session.getAttribute("consent");
     consent.setHttpClient(hc);
-    RefreshableCredentials creds = consent.exchangeCallbackParameters(allParams);
+    SessionCredentials creds = consent.exchangeCallbackParameters(allParams);
     session.setAttribute("sessionCreds", creds);
     DatabricksConfig conf = new DatabricksConfig();
     conf.setCredentialsProvider(creds);
     conf.setHost(client.getHost());
-    workspace = new DatabricksWorkspace(conf);
+    workspace = new WorkspaceClient(conf);
     return "redirect:/";
   }
 

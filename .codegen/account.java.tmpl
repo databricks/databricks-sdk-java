@@ -14,17 +14,17 @@ import com.databricks.sdk.support.Generated;
  * Entry point for accessing Databricks account-level APIs
  */
 @Generated
-public class DatabricksAccount {
+public class AccountClient {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
   {{range .Services}}{{if .IsAccounts}}
   private {{.PascalName}}API {{(.TrimPrefix "account").CamelName}}API;{{end}}{{end}}
 
-  public DatabricksAccount() {
+  public AccountClient() {
     this(ConfigLoader.getDefault());
   }
 
-  public DatabricksAccount(DatabricksConfig config) {
+  public AccountClient(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
     {{range .Services}}{{if .IsAccounts}}
@@ -32,7 +32,7 @@ public class DatabricksAccount {
   }
 
   /** Constructor for mocks */
-  public DatabricksAccount(boolean mock) {
+  public AccountClient(boolean mock) {
     apiClient = null;
     config = null;
   }
@@ -46,7 +46,7 @@ public class DatabricksAccount {
   {{end}}{{end}}
   {{range .Services}}{{if .IsAccounts}}
   /** Override {{.PascalName}}API with mock */
-  public DatabricksAccount with{{(.TrimPrefix "account").PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
+  public AccountClient with{{(.TrimPrefix "account").PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
     {{(.TrimPrefix "account").CamelName}}API = new {{.PascalName}}API({{.CamelName}});
     return this;
   }

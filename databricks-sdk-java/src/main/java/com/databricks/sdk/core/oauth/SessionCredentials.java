@@ -13,11 +13,11 @@ import org.apache.http.HttpHeaders;
 /**
  * An implementation of RefreshableTokenSource implementing the refresh_token OAuth grant type.
  *
- * <p>RefreshableCredentials are OAuth credentials with a short-lived access token, used to make
+ * <p>SessionCredentials are OAuth credentials with a short-lived access token, used to make
  * requests to an API, and a long-lived refresh token, which can be used to fetch new access tokens.
  * Calling refresh() uses the refresh token to retrieve a new access token to authenticate to APIs.
  */
-public class RefreshableCredentials extends RefreshableTokenSource
+public class SessionCredentials extends RefreshableTokenSource
     implements CredentialsProvider, Serializable {
   private static final long serialVersionUID = 3083941540130596650L;
 
@@ -74,8 +74,8 @@ public class RefreshableCredentials extends RefreshableTokenSource
       return this;
     }
 
-    public RefreshableCredentials build() {
-      return new RefreshableCredentials(this);
+    public SessionCredentials build() {
+      return new SessionCredentials(this);
     }
   }
 
@@ -85,7 +85,7 @@ public class RefreshableCredentials extends RefreshableTokenSource
   private final String clientId;
   private final String clientSecret;
 
-  private RefreshableCredentials(Builder b) {
+  private SessionCredentials(Builder b) {
     super(b.token);
     this.hc = b.hc;
     this.tokenUrl = b.tokenUrl;

@@ -1,6 +1,6 @@
 package com.databricks.sdk.integration;
 
-import com.databricks.sdk.DatabricksAccount;
+import com.databricks.sdk.AccountClient;
 import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(EnvTest.class)
 public class EncryptionKeysIT {
   @Test
-  void lists(DatabricksAccount a) {
+  void lists(AccountClient a) {
     Iterable<CustomerManagedKey> list = a.encryptionKeys().list();
 
     java.util.List<CustomerManagedKey> all = CollectionUtils.asList(list);

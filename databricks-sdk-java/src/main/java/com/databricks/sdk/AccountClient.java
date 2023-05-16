@@ -51,7 +51,7 @@ import com.databricks.sdk.support.Generated;
 
 /** Entry point for accessing Databricks account-level APIs */
 @Generated
-public class DatabricksAccount {
+public class AccountClient {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
 
@@ -77,11 +77,11 @@ public class DatabricksAccount {
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
   private WorkspacesAPI workspacesAPI;
 
-  public DatabricksAccount() {
+  public AccountClient() {
     this(ConfigLoader.getDefault());
   }
 
-  public DatabricksAccount(DatabricksConfig config) {
+  public AccountClient(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
 
@@ -109,7 +109,7 @@ public class DatabricksAccount {
   }
 
   /** Constructor for mocks */
-  public DatabricksAccount(boolean mock) {
+  public AccountClient(boolean mock) {
     apiClient = null;
     config = null;
   }
@@ -389,133 +389,132 @@ public class DatabricksAccount {
   }
 
   /** Override BillableUsageAPI with mock */
-  public DatabricksAccount withBillableUsageImpl(BillableUsageService billableUsage) {
+  public AccountClient withBillableUsageImpl(BillableUsageService billableUsage) {
     billableUsageAPI = new BillableUsageAPI(billableUsage);
     return this;
   }
 
   /** Override BudgetsAPI with mock */
-  public DatabricksAccount withBudgetsImpl(BudgetsService budgets) {
+  public AccountClient withBudgetsImpl(BudgetsService budgets) {
     budgetsAPI = new BudgetsAPI(budgets);
     return this;
   }
 
   /** Override CredentialsAPI with mock */
-  public DatabricksAccount withCredentialsImpl(CredentialsService credentials) {
+  public AccountClient withCredentialsImpl(CredentialsService credentials) {
     credentialsAPI = new CredentialsAPI(credentials);
     return this;
   }
 
   /** Override CustomAppIntegrationAPI with mock */
-  public DatabricksAccount withCustomAppIntegrationImpl(
+  public AccountClient withCustomAppIntegrationImpl(
       CustomAppIntegrationService customAppIntegration) {
     customAppIntegrationAPI = new CustomAppIntegrationAPI(customAppIntegration);
     return this;
   }
 
   /** Override EncryptionKeysAPI with mock */
-  public DatabricksAccount withEncryptionKeysImpl(EncryptionKeysService encryptionKeys) {
+  public AccountClient withEncryptionKeysImpl(EncryptionKeysService encryptionKeys) {
     encryptionKeysAPI = new EncryptionKeysAPI(encryptionKeys);
     return this;
   }
 
   /** Override AccountGroupsAPI with mock */
-  public DatabricksAccount withGroupsImpl(AccountGroupsService accountGroups) {
+  public AccountClient withGroupsImpl(AccountGroupsService accountGroups) {
     groupsAPI = new AccountGroupsAPI(accountGroups);
     return this;
   }
 
   /** Override AccountIpAccessListsAPI with mock */
-  public DatabricksAccount withIpAccessListsImpl(AccountIpAccessListsService accountIpAccessLists) {
+  public AccountClient withIpAccessListsImpl(AccountIpAccessListsService accountIpAccessLists) {
     ipAccessListsAPI = new AccountIpAccessListsAPI(accountIpAccessLists);
     return this;
   }
 
   /** Override LogDeliveryAPI with mock */
-  public DatabricksAccount withLogDeliveryImpl(LogDeliveryService logDelivery) {
+  public AccountClient withLogDeliveryImpl(LogDeliveryService logDelivery) {
     logDeliveryAPI = new LogDeliveryAPI(logDelivery);
     return this;
   }
 
   /** Override AccountMetastoreAssignmentsAPI with mock */
-  public DatabricksAccount withMetastoreAssignmentsImpl(
+  public AccountClient withMetastoreAssignmentsImpl(
       AccountMetastoreAssignmentsService accountMetastoreAssignments) {
     metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(accountMetastoreAssignments);
     return this;
   }
 
   /** Override AccountMetastoresAPI with mock */
-  public DatabricksAccount withMetastoresImpl(AccountMetastoresService accountMetastores) {
+  public AccountClient withMetastoresImpl(AccountMetastoresService accountMetastores) {
     metastoresAPI = new AccountMetastoresAPI(accountMetastores);
     return this;
   }
 
   /** Override NetworksAPI with mock */
-  public DatabricksAccount withNetworksImpl(NetworksService networks) {
+  public AccountClient withNetworksImpl(NetworksService networks) {
     networksAPI = new NetworksAPI(networks);
     return this;
   }
 
   /** Override OAuthEnrollmentAPI with mock */
-  public DatabricksAccount withOAuthEnrollmentImpl(OAuthEnrollmentService oAuthEnrollment) {
+  public AccountClient withOAuthEnrollmentImpl(OAuthEnrollmentService oAuthEnrollment) {
     oAuthEnrollmentAPI = new OAuthEnrollmentAPI(oAuthEnrollment);
     return this;
   }
 
   /** Override PrivateAccessAPI with mock */
-  public DatabricksAccount withPrivateAccessImpl(PrivateAccessService privateAccess) {
+  public AccountClient withPrivateAccessImpl(PrivateAccessService privateAccess) {
     privateAccessAPI = new PrivateAccessAPI(privateAccess);
     return this;
   }
 
   /** Override PublishedAppIntegrationAPI with mock */
-  public DatabricksAccount withPublishedAppIntegrationImpl(
+  public AccountClient withPublishedAppIntegrationImpl(
       PublishedAppIntegrationService publishedAppIntegration) {
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(publishedAppIntegration);
     return this;
   }
 
   /** Override AccountServicePrincipalsAPI with mock */
-  public DatabricksAccount withServicePrincipalsImpl(
+  public AccountClient withServicePrincipalsImpl(
       AccountServicePrincipalsService accountServicePrincipals) {
     servicePrincipalsAPI = new AccountServicePrincipalsAPI(accountServicePrincipals);
     return this;
   }
 
   /** Override StorageAPI with mock */
-  public DatabricksAccount withStorageImpl(StorageService storage) {
+  public AccountClient withStorageImpl(StorageService storage) {
     storageAPI = new StorageAPI(storage);
     return this;
   }
 
   /** Override AccountStorageCredentialsAPI with mock */
-  public DatabricksAccount withStorageCredentialsImpl(
+  public AccountClient withStorageCredentialsImpl(
       AccountStorageCredentialsService accountStorageCredentials) {
     storageCredentialsAPI = new AccountStorageCredentialsAPI(accountStorageCredentials);
     return this;
   }
 
   /** Override AccountUsersAPI with mock */
-  public DatabricksAccount withUsersImpl(AccountUsersService accountUsers) {
+  public AccountClient withUsersImpl(AccountUsersService accountUsers) {
     usersAPI = new AccountUsersAPI(accountUsers);
     return this;
   }
 
   /** Override VpcEndpointsAPI with mock */
-  public DatabricksAccount withVpcEndpointsImpl(VpcEndpointsService vpcEndpoints) {
+  public AccountClient withVpcEndpointsImpl(VpcEndpointsService vpcEndpoints) {
     vpcEndpointsAPI = new VpcEndpointsAPI(vpcEndpoints);
     return this;
   }
 
   /** Override WorkspaceAssignmentAPI with mock */
-  public DatabricksAccount withWorkspaceAssignmentImpl(
-      WorkspaceAssignmentService workspaceAssignment) {
+  public AccountClient withWorkspaceAssignmentImpl(WorkspaceAssignmentService workspaceAssignment) {
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(workspaceAssignment);
     return this;
   }
 
   /** Override WorkspacesAPI with mock */
-  public DatabricksAccount withWorkspacesImpl(WorkspacesService workspaces) {
+  public AccountClient withWorkspacesImpl(WorkspacesService workspaces) {
     workspacesAPI = new WorkspacesAPI(workspaces);
     return this;
   }

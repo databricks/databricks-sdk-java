@@ -26,17 +26,17 @@ import com.databricks.sdk.support.Generated;
  * Entry point for accessing Databricks workspace-level APIs
  */
 @Generated
-public class DatabricksWorkspace {
+public class WorkspaceClient {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
   {{range .Services}}{{if not .IsAccounts}}
   private {{template "api" .}} {{.CamelName}}API;{{end}}{{end}}
 
-  public DatabricksWorkspace() {
+  public WorkspaceClient() {
     this(ConfigLoader.getDefault());
   }
 
-  public DatabricksWorkspace(DatabricksConfig config) {
+  public WorkspaceClient(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
     {{range .Services}}{{if not .IsAccounts}}
@@ -44,7 +44,7 @@ public class DatabricksWorkspace {
   }
 
   /** Constructor for mocks */
-  public DatabricksWorkspace(boolean mock) {
+  public WorkspaceClient(boolean mock) {
     apiClient = null;
     config = null;
   }
@@ -58,7 +58,7 @@ public class DatabricksWorkspace {
   {{end}}{{end}}
   {{range .Services}}{{if not .IsAccounts}}
   /** Replace {{.PascalName}}API implementation with mock */
-  public DatabricksWorkspace with{{.PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
+  public WorkspaceClient with{{.PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
     {{.CamelName}}API = new {{template "api" .}}({{.CamelName}});
     return this;
   }

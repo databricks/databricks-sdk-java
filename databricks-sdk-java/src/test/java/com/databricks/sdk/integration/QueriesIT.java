@@ -1,6 +1,6 @@
 package com.databricks.sdk.integration;
 
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(EnvTest.class)
 class QueriesIT {
   @Test
-  void listsQueries(DatabricksWorkspace w) {
+  void listsQueries(WorkspaceClient w) {
     Iterable<Query> list = w.queries().list(new ListQueriesRequest().setPageSize(2L));
 
     java.util.List<Query> all = CollectionUtils.asList(list);

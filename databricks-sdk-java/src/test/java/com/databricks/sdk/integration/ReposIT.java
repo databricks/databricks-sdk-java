@@ -1,6 +1,6 @@
 package com.databricks.sdk.integration;
 
-import com.databricks.sdk.DatabricksWorkspace;
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(EnvTest.class)
 public class ReposIT {
   @Test
-  void listsRepos(DatabricksWorkspace w) {
+  void listsRepos(WorkspaceClient w) {
     Iterable<RepoInfo> list = w.repos().list(new ListReposRequest());
 
     java.util.List<RepoInfo> all = CollectionUtils.asList(list);

@@ -1,6 +1,6 @@
 package com.databricks.sdk.integration;
 
-import com.databricks.sdk.DatabricksAccount;
+import com.databricks.sdk.AccountClient;
 import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(EnvTest.class)
 public class NetworksIT {
   @Test
-  void lists(DatabricksAccount a) {
+  void lists(AccountClient a) {
     Iterable<Network> list = a.networks().list();
 
     java.util.List<Network> all = CollectionUtils.asList(list);
