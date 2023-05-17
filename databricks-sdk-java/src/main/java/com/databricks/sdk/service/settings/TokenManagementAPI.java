@@ -26,7 +26,7 @@ public class TokenManagementAPI {
     impl = mock;
   }
 
-  public CreateOboTokenResponse createOboToken(String applicationId, long lifetimeSeconds) {
+  public CreateOboTokenResponse createOboToken(String applicationId, Long lifetimeSeconds) {
     return createOboToken(
         new CreateOboTokenRequest()
             .setApplicationId(applicationId)

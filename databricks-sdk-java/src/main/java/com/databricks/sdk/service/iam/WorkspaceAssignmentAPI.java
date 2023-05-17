@@ -27,7 +27,7 @@ public class WorkspaceAssignmentAPI {
     impl = mock;
   }
 
-  public void delete(long workspaceId, long principalId) {
+  public void delete(Long workspaceId, Long principalId) {
     delete(
         new DeleteWorkspaceAssignmentRequest()
             .setWorkspaceId(workspaceId)
@@ -44,7 +44,7 @@ public class WorkspaceAssignmentAPI {
     impl.delete(request);
   }
 
-  public WorkspacePermissions get(long workspaceId) {
+  public WorkspacePermissions get(Long workspaceId) {
     return get(new GetWorkspaceAssignmentRequest().setWorkspaceId(workspaceId));
   }
 
@@ -57,7 +57,7 @@ public class WorkspaceAssignmentAPI {
     return impl.get(request);
   }
 
-  public Iterable<PermissionAssignment> list(long workspaceId) {
+  public Iterable<PermissionAssignment> list(Long workspaceId) {
     return list(new ListWorkspaceAssignmentRequest().setWorkspaceId(workspaceId));
   }
 
@@ -72,7 +72,7 @@ public class WorkspaceAssignmentAPI {
   }
 
   public void update(
-      Collection<WorkspacePermission> permissions, long workspaceId, long principalId) {
+      Collection<WorkspacePermission> permissions, Long workspaceId, Long principalId) {
     update(
         new UpdateWorkspaceAssignments()
             .setPermissions(permissions)

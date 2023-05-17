@@ -36,7 +36,7 @@ public class Visualization {
    * Databricks does not recommend modifying visualization settings in JSON.
    */
   @JsonProperty("options")
-  private Object /* MISSING TYPE */ options;
+  private Object options;
 
   /** The type of visualization: chart, table, pivot table, and so on. */
   @JsonProperty("type")
@@ -82,12 +82,12 @@ public class Visualization {
     return name;
   }
 
-  public Visualization setOptions(Object /* MISSING TYPE */ options) {
+  public Visualization setOptions(Object options) {
     this.options = options;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getOptions() {
+  public Object getOptions() {
     return options;
   }
 

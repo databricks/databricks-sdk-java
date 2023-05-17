@@ -30,7 +30,7 @@ public class QueryEditContent {
    * It can be overridden at runtime.
    */
   @JsonProperty("options")
-  private Object /* MISSING TYPE */ options;
+  private Object options;
 
   /** The text of the query. */
   @JsonProperty("query")
@@ -66,12 +66,12 @@ public class QueryEditContent {
     return name;
   }
 
-  public QueryEditContent setOptions(Object /* MISSING TYPE */ options) {
+  public QueryEditContent setOptions(Object options) {
     this.options = options;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getOptions() {
+  public Object getOptions() {
     return options;
   }
 

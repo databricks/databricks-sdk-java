@@ -24,7 +24,7 @@ public class AccountMetastoreAssignmentsAPI {
   }
 
   public MetastoreAssignment create(
-      String metastoreId, String defaultCatalogName, long workspaceId) {
+      String metastoreId, String defaultCatalogName, Long workspaceId) {
     return create(
         new CreateMetastoreAssignment()
             .setMetastoreId(metastoreId)
@@ -41,7 +41,7 @@ public class AccountMetastoreAssignmentsAPI {
     return impl.create(request);
   }
 
-  public void delete(long workspaceId, String metastoreId) {
+  public void delete(Long workspaceId, String metastoreId) {
     delete(
         new DeleteAccountMetastoreAssignmentRequest()
             .setWorkspaceId(workspaceId)
@@ -57,7 +57,7 @@ public class AccountMetastoreAssignmentsAPI {
     impl.delete(request);
   }
 
-  public MetastoreAssignment get(long workspaceId) {
+  public MetastoreAssignment get(Long workspaceId) {
     return get(new GetAccountMetastoreAssignmentRequest().setWorkspaceId(workspaceId));
   }
 
@@ -85,7 +85,7 @@ public class AccountMetastoreAssignmentsAPI {
     return impl.list(request);
   }
 
-  public MetastoreAssignment update(long workspaceId, String metastoreId) {
+  public MetastoreAssignment update(Long workspaceId, String metastoreId) {
     return update(
         new UpdateMetastoreAssignment().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
   }

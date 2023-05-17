@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.service.catalog.PermissionsList;
 import com.databricks.sdk.support.Generated;
 
 /** Package-local implementation of Shares */
@@ -38,9 +39,9 @@ class SharesImpl implements SharesService {
   }
 
   @Override
-  public Object /* MISSING TYPE */ sharePermissions(SharePermissionsRequest request) {
+  public PermissionsList sharePermissions(SharePermissionsRequest request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
-    return apiClient.GET(path, request, Object /* MISSING TYPE */.class);
+    return apiClient.GET(path, request, PermissionsList.class);
   }
 
   @Override

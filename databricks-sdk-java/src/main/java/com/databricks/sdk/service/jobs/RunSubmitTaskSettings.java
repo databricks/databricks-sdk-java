@@ -2,6 +2,8 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.service.compute.BaseClusterInfo;
+import com.databricks.sdk.service.compute.Library;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,11 +34,11 @@ public class RunSubmitTaskSettings {
    * default value is an empty list.
    */
   @JsonProperty("libraries")
-  private Collection<Object /* MISSING TYPE */> libraries;
+  private Collection<Library> libraries;
 
   /** If new_cluster, a description of a cluster that is created for each run. */
   @JsonProperty("new_cluster")
-  private Object /* MISSING TYPE */ newCluster;
+  private BaseClusterInfo newCluster;
 
   /**
    * If notebook_task, indicates that this task must run a notebook. This field may not be specified
@@ -101,21 +103,21 @@ public class RunSubmitTaskSettings {
     return existingClusterId;
   }
 
-  public RunSubmitTaskSettings setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
+  public RunSubmitTaskSettings setLibraries(Collection<Library> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getLibraries() {
+  public Collection<Library> getLibraries() {
     return libraries;
   }
 
-  public RunSubmitTaskSettings setNewCluster(Object /* MISSING TYPE */ newCluster) {
+  public RunSubmitTaskSettings setNewCluster(BaseClusterInfo newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getNewCluster() {
+  public BaseClusterInfo getNewCluster() {
     return newCluster;
   }
 

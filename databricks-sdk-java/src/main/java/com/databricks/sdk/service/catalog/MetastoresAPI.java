@@ -35,7 +35,7 @@ public class MetastoresAPI {
     impl = mock;
   }
 
-  public void assign(String metastoreId, String defaultCatalogName, long workspaceId) {
+  public void assign(String metastoreId, String defaultCatalogName, Long workspaceId) {
     assign(
         new CreateMetastoreAssignment()
             .setMetastoreId(metastoreId)
@@ -114,7 +114,7 @@ public class MetastoresAPI {
     return impl.list().getMetastores();
   }
 
-  public UpdateAutoMaintenanceResponse maintenance(String metastoreId, boolean enable) {
+  public UpdateAutoMaintenanceResponse maintenance(String metastoreId, Boolean enable) {
     return maintenance(new UpdateAutoMaintenance().setMetastoreId(metastoreId).setEnable(enable));
   }
 
@@ -137,7 +137,7 @@ public class MetastoresAPI {
     return impl.summary();
   }
 
-  public void unassign(long workspaceId, String metastoreId) {
+  public void unassign(Long workspaceId, String metastoreId) {
     unassign(new UnassignRequest().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
   }
 
@@ -163,7 +163,7 @@ public class MetastoresAPI {
     return impl.update(request);
   }
 
-  public void updateAssignment(long workspaceId, String metastoreId) {
+  public void updateAssignment(Long workspaceId, String metastoreId) {
     updateAssignment(
         new UpdateMetastoreAssignment().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
   }

@@ -25,7 +25,7 @@ public class CreateRecipient {
    * <p>The identifier is of format __cloud__:__region__:__metastore-uuid__.
    */
   @JsonProperty("data_recipient_global_metastore_id")
-  private Object /* MISSING TYPE */ dataRecipientGlobalMetastoreId;
+  private Object dataRecipientGlobalMetastoreId;
 
   /** IP Access List */
   @JsonProperty("ip_access_list")
@@ -41,7 +41,7 @@ public class CreateRecipient {
 
   /** Recipient properties as map of string key-value pairs. */
   @JsonProperty("properties_kvpairs")
-  private Object /* MISSING TYPE */ propertiesKvpairs;
+  private Object propertiesKvpairs;
 
   /**
    * The one-time sharing code provided by the data recipient. This field is required when the
@@ -68,13 +68,12 @@ public class CreateRecipient {
     return comment;
   }
 
-  public CreateRecipient setDataRecipientGlobalMetastoreId(
-      Object /* MISSING TYPE */ dataRecipientGlobalMetastoreId) {
+  public CreateRecipient setDataRecipientGlobalMetastoreId(Object dataRecipientGlobalMetastoreId) {
     this.dataRecipientGlobalMetastoreId = dataRecipientGlobalMetastoreId;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getDataRecipientGlobalMetastoreId() {
+  public Object getDataRecipientGlobalMetastoreId() {
     return dataRecipientGlobalMetastoreId;
   }
 
@@ -105,12 +104,12 @@ public class CreateRecipient {
     return owner;
   }
 
-  public CreateRecipient setPropertiesKvpairs(Object /* MISSING TYPE */ propertiesKvpairs) {
+  public CreateRecipient setPropertiesKvpairs(Object propertiesKvpairs) {
     this.propertiesKvpairs = propertiesKvpairs;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getPropertiesKvpairs() {
+  public Object getPropertiesKvpairs() {
     return propertiesKvpairs;
   }
 

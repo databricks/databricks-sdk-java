@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.service.iam.AccessControlRequest;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +14,7 @@ import java.util.Objects;
 public class CreateJob {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
-  private Collection<Object /* MISSING TYPE */> accessControlList;
+  private Collection<AccessControlRequest> accessControlList;
 
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
@@ -75,13 +76,6 @@ public class CreateJob {
   private String name;
 
   /**
-   * Optional notification settings that are used when sending notifications to each of the
-   * `email_notifications` and `webhook_notifications` for this job.
-   */
-  @JsonProperty("notification_settings")
-  private JobNotificationSettings notificationSettings;
-
-  /**
    * An optional periodic schedule for this job. The default behavior is that the job only runs when
    * triggered by clicking “Run Now” in the Jobs UI or sending an API request to `runNow`.
    */
@@ -122,12 +116,12 @@ public class CreateJob {
   @JsonProperty("webhook_notifications")
   private JobWebhookNotifications webhookNotifications;
 
-  public CreateJob setAccessControlList(Collection<Object /* MISSING TYPE */> accessControlList) {
+  public CreateJob setAccessControlList(Collection<AccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getAccessControlList() {
+  public Collection<AccessControlRequest> getAccessControlList() {
     return accessControlList;
   }
 
@@ -192,15 +186,6 @@ public class CreateJob {
 
   public String getName() {
     return name;
-  }
-
-  public CreateJob setNotificationSettings(JobNotificationSettings notificationSettings) {
-    this.notificationSettings = notificationSettings;
-    return this;
-  }
-
-  public JobNotificationSettings getNotificationSettings() {
-    return notificationSettings;
   }
 
   public CreateJob setSchedule(CronSchedule schedule) {
@@ -270,7 +255,6 @@ public class CreateJob {
         && Objects.equals(jobClusters, that.jobClusters)
         && Objects.equals(maxConcurrentRuns, that.maxConcurrentRuns)
         && Objects.equals(name, that.name)
-        && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(schedule, that.schedule)
         && Objects.equals(tags, that.tags)
         && Objects.equals(tasks, that.tasks)
@@ -290,7 +274,6 @@ public class CreateJob {
         jobClusters,
         maxConcurrentRuns,
         name,
-        notificationSettings,
         schedule,
         tags,
         tasks,
@@ -310,7 +293,6 @@ public class CreateJob {
         .add("jobClusters", jobClusters)
         .add("maxConcurrentRuns", maxConcurrentRuns)
         .add("name", name)
-        .add("notificationSettings", notificationSettings)
         .add("schedule", schedule)
         .add("tags", tags)
         .add("tasks", tasks)

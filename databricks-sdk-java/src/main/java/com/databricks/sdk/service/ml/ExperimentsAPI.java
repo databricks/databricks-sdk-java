@@ -236,7 +236,7 @@ public class ExperimentsAPI {
     impl.logBatch(request);
   }
 
-  public void logMetric(String key, float value, long timestamp) {
+  public void logMetric(String key, Float value, Long timestamp) {
     logMetric(new LogMetric().setKey(key).setValue(value).setTimestamp(timestamp));
   }
 

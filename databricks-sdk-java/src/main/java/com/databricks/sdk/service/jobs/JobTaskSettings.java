@@ -2,6 +2,8 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.service.compute.BaseClusterInfo;
+import com.databricks.sdk.service.compute.Library;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -35,7 +37,7 @@ public class JobTaskSettings {
    * well as when this task is deleted. The default behavior is to not send any emails.
    */
   @JsonProperty("email_notifications")
-  private TaskEmailNotifications emailNotifications;
+  private JobEmailNotifications emailNotifications;
 
   /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs of this task.
@@ -57,7 +59,7 @@ public class JobTaskSettings {
    * default value is an empty list.
    */
   @JsonProperty("libraries")
-  private Collection<Object /* MISSING TYPE */> libraries;
+  private Collection<Library> libraries;
 
   /**
    * An optional maximum number of times to retry an unsuccessful run. A run is considered to be
@@ -77,7 +79,7 @@ public class JobTaskSettings {
 
   /** If new_cluster, a description of a cluster that is created for only for this task. */
   @JsonProperty("new_cluster")
-  private Object /* MISSING TYPE */ newCluster;
+  private BaseClusterInfo newCluster;
 
   /**
    * If notebook_task, indicates that this task must run a notebook. This field may not be specified
@@ -85,13 +87,6 @@ public class JobTaskSettings {
    */
   @JsonProperty("notebook_task")
   private NotebookTask notebookTask;
-
-  /**
-   * Optional notification settings that are used when sending notifications to each of the
-   * `email_notifications` for this task.
-   */
-  @JsonProperty("notification_settings")
-  private TaskNotificationSettings notificationSettings;
 
   /** If pipeline_task, indicates that this task must execute a Pipeline. */
   @JsonProperty("pipeline_task")
@@ -169,12 +164,12 @@ public class JobTaskSettings {
     return description;
   }
 
-  public JobTaskSettings setEmailNotifications(TaskEmailNotifications emailNotifications) {
+  public JobTaskSettings setEmailNotifications(JobEmailNotifications emailNotifications) {
     this.emailNotifications = emailNotifications;
     return this;
   }
 
-  public TaskEmailNotifications getEmailNotifications() {
+  public JobEmailNotifications getEmailNotifications() {
     return emailNotifications;
   }
 
@@ -196,12 +191,12 @@ public class JobTaskSettings {
     return jobClusterKey;
   }
 
-  public JobTaskSettings setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
+  public JobTaskSettings setLibraries(Collection<Library> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getLibraries() {
+  public Collection<Library> getLibraries() {
     return libraries;
   }
 
@@ -223,12 +218,12 @@ public class JobTaskSettings {
     return minRetryIntervalMillis;
   }
 
-  public JobTaskSettings setNewCluster(Object /* MISSING TYPE */ newCluster) {
+  public JobTaskSettings setNewCluster(BaseClusterInfo newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getNewCluster() {
+  public BaseClusterInfo getNewCluster() {
     return newCluster;
   }
 
@@ -239,15 +234,6 @@ public class JobTaskSettings {
 
   public NotebookTask getNotebookTask() {
     return notebookTask;
-  }
-
-  public JobTaskSettings setNotificationSettings(TaskNotificationSettings notificationSettings) {
-    this.notificationSettings = notificationSettings;
-    return this;
-  }
-
-  public TaskNotificationSettings getNotificationSettings() {
-    return notificationSettings;
   }
 
   public JobTaskSettings setPipelineTask(PipelineTask pipelineTask) {
@@ -347,7 +333,6 @@ public class JobTaskSettings {
         && Objects.equals(minRetryIntervalMillis, that.minRetryIntervalMillis)
         && Objects.equals(newCluster, that.newCluster)
         && Objects.equals(notebookTask, that.notebookTask)
-        && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(retryOnTimeout, that.retryOnTimeout)
@@ -373,7 +358,6 @@ public class JobTaskSettings {
         minRetryIntervalMillis,
         newCluster,
         notebookTask,
-        notificationSettings,
         pipelineTask,
         pythonWheelTask,
         retryOnTimeout,
@@ -399,7 +383,6 @@ public class JobTaskSettings {
         .add("minRetryIntervalMillis", minRetryIntervalMillis)
         .add("newCluster", newCluster)
         .add("notebookTask", notebookTask)
-        .add("notificationSettings", notificationSettings)
         .add("pipelineTask", pipelineTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("retryOnTimeout", retryOnTimeout)

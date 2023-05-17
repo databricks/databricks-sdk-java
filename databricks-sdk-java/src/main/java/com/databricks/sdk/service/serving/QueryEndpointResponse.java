@@ -12,14 +12,14 @@ import java.util.Objects;
 public class QueryEndpointResponse {
   /** The predictions returned by the serving endpoint. */
   @JsonProperty("predictions")
-  private Collection<Object /* MISSING TYPE */> predictions;
+  private Collection<Object> predictions;
 
-  public QueryEndpointResponse setPredictions(Collection<Object /* MISSING TYPE */> predictions) {
+  public QueryEndpointResponse setPredictions(Collection<Object> predictions) {
     this.predictions = predictions;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getPredictions() {
+  public Collection<Object> getPredictions() {
     return predictions;
   }
 

@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.service.compute.MavenLibrary;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -19,7 +20,7 @@ public class PipelineLibrary {
 
   /** Specification of a maven library to be installed. */
   @JsonProperty("maven")
-  private Object /* MISSING TYPE */ maven;
+  private MavenLibrary maven;
 
   /** The path to a notebook that defines a pipeline and is stored in the Databricks workspace. */
   @JsonProperty("notebook")
@@ -47,12 +48,12 @@ public class PipelineLibrary {
     return jar;
   }
 
-  public PipelineLibrary setMaven(Object /* MISSING TYPE */ maven) {
+  public PipelineLibrary setMaven(MavenLibrary maven) {
     this.maven = maven;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getMaven() {
+  public MavenLibrary getMaven() {
     return maven;
   }
 

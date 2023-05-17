@@ -23,7 +23,7 @@ public class Parameter {
 
   /** The default value for this parameter. */
   @JsonProperty("value")
-  private Object /* MISSING TYPE */ value;
+  private Object value;
 
   public Parameter setName(String name) {
     this.name = name;
@@ -52,12 +52,12 @@ public class Parameter {
     return typeValue;
   }
 
-  public Parameter setValue(Object /* MISSING TYPE */ value) {
+  public Parameter setValue(Object value) {
     this.value = value;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getValue() {
+  public Object getValue() {
     return value;
   }
 

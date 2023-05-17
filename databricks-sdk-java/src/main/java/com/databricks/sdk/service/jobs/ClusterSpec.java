@@ -2,6 +2,8 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.service.compute.BaseClusterInfo;
+import com.databricks.sdk.service.compute.Library;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -23,11 +25,11 @@ public class ClusterSpec {
    * value is an empty list.
    */
   @JsonProperty("libraries")
-  private Collection<Object /* MISSING TYPE */> libraries;
+  private Collection<Library> libraries;
 
   /** If new_cluster, a description of a cluster that is created for each run. */
   @JsonProperty("new_cluster")
-  private Object /* MISSING TYPE */ newCluster;
+  private BaseClusterInfo newCluster;
 
   public ClusterSpec setExistingClusterId(String existingClusterId) {
     this.existingClusterId = existingClusterId;
@@ -38,21 +40,21 @@ public class ClusterSpec {
     return existingClusterId;
   }
 
-  public ClusterSpec setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
+  public ClusterSpec setLibraries(Collection<Library> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getLibraries() {
+  public Collection<Library> getLibraries() {
     return libraries;
   }
 
-  public ClusterSpec setNewCluster(Object /* MISSING TYPE */ newCluster) {
+  public ClusterSpec setNewCluster(BaseClusterInfo newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getNewCluster() {
+  public BaseClusterInfo getNewCluster() {
     return newCluster;
   }
 

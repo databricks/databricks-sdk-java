@@ -55,7 +55,7 @@ public class TableConstraintsAPI {
     return impl.create(request);
   }
 
-  public void delete(String fullName, String constraintName, boolean cascade) {
+  public void delete(String fullName, String constraintName, Boolean cascade) {
     delete(
         new DeleteTableConstraintRequest()
             .setFullName(fullName)

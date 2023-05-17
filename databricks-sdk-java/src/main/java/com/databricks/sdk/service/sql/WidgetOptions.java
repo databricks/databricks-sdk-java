@@ -26,14 +26,14 @@ public class WidgetOptions {
    * dashboard. Databricks does not recommend modifying this definition in JSON.
    */
   @JsonProperty("parameterMappings")
-  private Object /* MISSING TYPE */ parameterMappings;
+  private Object parameterMappings;
 
   /**
    * Coordinates of this widget on a dashboard. This portion of the API changes frequently and is
    * unsupported.
    */
   @JsonProperty("position")
-  private Object /* MISSING TYPE */ position;
+  private Object position;
 
   /**
    * If this is a textbox widget, the application displays this text. This field is ignored if the
@@ -73,21 +73,21 @@ public class WidgetOptions {
     return isHidden;
   }
 
-  public WidgetOptions setParameterMappings(Object /* MISSING TYPE */ parameterMappings) {
+  public WidgetOptions setParameterMappings(Object parameterMappings) {
     this.parameterMappings = parameterMappings;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getParameterMappings() {
+  public Object getParameterMappings() {
     return parameterMappings;
   }
 
-  public WidgetOptions setPosition(Object /* MISSING TYPE */ position) {
+  public WidgetOptions setPosition(Object position) {
     this.position = position;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getPosition() {
+  public Object getPosition() {
     return position;
   }
 

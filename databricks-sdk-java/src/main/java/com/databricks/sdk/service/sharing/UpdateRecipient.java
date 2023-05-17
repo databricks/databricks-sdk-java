@@ -32,7 +32,7 @@ public class UpdateRecipient {
    * properties. To add and remove properties, one would need to perform a read-modify-write.
    */
   @JsonProperty("properties_kvpairs")
-  private Object /* MISSING TYPE */ propertiesKvpairs;
+  private Object propertiesKvpairs;
 
   public UpdateRecipient setComment(String comment) {
     this.comment = comment;
@@ -70,12 +70,12 @@ public class UpdateRecipient {
     return owner;
   }
 
-  public UpdateRecipient setPropertiesKvpairs(Object /* MISSING TYPE */ propertiesKvpairs) {
+  public UpdateRecipient setPropertiesKvpairs(Object propertiesKvpairs) {
     this.propertiesKvpairs = propertiesKvpairs;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getPropertiesKvpairs() {
+  public Object getPropertiesKvpairs() {
     return propertiesKvpairs;
   }
 

@@ -15,7 +15,7 @@ public class PipelineTrigger {
 
   /** */
   @JsonProperty("manual")
-  private Object /* MISSING TYPE */ manual;
+  private Object manual;
 
   public PipelineTrigger setCron(CronTrigger cron) {
     this.cron = cron;
@@ -26,12 +26,12 @@ public class PipelineTrigger {
     return cron;
   }
 
-  public PipelineTrigger setManual(Object /* MISSING TYPE */ manual) {
+  public PipelineTrigger setManual(Object manual) {
     this.manual = manual;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getManual() {
+  public Object getManual() {
     return manual;
   }
 
