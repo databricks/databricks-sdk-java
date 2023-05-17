@@ -1,5 +1,6 @@
 package com.databricks.sdk.core.error;
 
+import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
@@ -11,21 +12,21 @@ public class ApiErrors {
   private static final ObjectMapper MAPPER = new ObjectMapper();
   private static final Pattern HTML_ERROR_REGEX = Pattern.compile("<pre>(.*)</pre>");
 
-  public static CheckForRetryResult checkForRetry(Response out, Exception error) {
+  public static DatabricksError checkForRetry(Response out, Exception error) {
     if (error != null) {
       // If the endpoint did not respond to the request, interpret the exception.
-      return new CheckForRetryResult("IO_ERROR", 523, error);
+      return new DatabricksError("IO_ERROR", 523, error);
     } else if (out.getStatusCode() == 429) {
-      return new CheckForRetryResult("TOO_MANY_REQUESTS", "Current request has to be retried", 429);
+      return new DatabricksError("TOO_MANY_REQUESTS", "Current request has to be retried", 429);
     } else if (out.getStatusCode() >= 400) {
       return readErrorFromResponse(out);
     } else {
       // The request succeeded; do not retry.
-      return new CheckForRetryResult(out.getStatusCode());
+      return new DatabricksError(out.getStatusCode());
     }
   }
 
-  private static CheckForRetryResult readErrorFromResponse(Response response) {
+  private static DatabricksError readErrorFromResponse(Response response) {
     ApiErrorBody errorBody = parseApiError(response);
 
     // Condense API v1.2 and SCIM error string and code into the message and errorCode fields of
@@ -43,7 +44,7 @@ public class ApiErrors {
       errorBody.setMessage(message.trim());
       errorBody.setErrorCode("SCIM_" + errorBody.getScimStatus());
     }
-    return new CheckForRetryResult(
+    return new DatabricksError(
         errorBody.getErrorCode(), errorBody.getMessage(), response.getStatusCode());
   }
 
