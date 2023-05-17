@@ -19,10 +19,12 @@ public class ApiClientTest {
   private final ObjectMapper mapper = new ObjectMapper();
 
   static class MyEndpointResponse {
+    @JsonProperty("key")
     String key;
 
-    MyEndpointResponse(@JsonProperty("key") String key) {
+    public MyEndpointResponse setKey(String key) {
       this.key = key;
+      return this;
     }
 
     @Override
@@ -81,6 +83,11 @@ public class ApiClientTest {
         new Response(req, 200, "OK", Collections.emptyMap(), "{\"key\":\"value\"}"));
   }
 
+  private SuccessfulResponse getSuccessResponseExtraKeys(Request req) {
+    return new SuccessfulResponse(
+        new Response(req, 200, "OK", Collections.emptyMap(), "{\"key\":\"value\", \"foo\": 1}"));
+  }
+
   private SuccessfulResponse getTooManyRequestsResponse(Request req) {
     return new SuccessfulResponse(
         new Response(req, 429, "Too Many Requests", Collections.emptyMap(), null));
@@ -108,7 +115,17 @@ public class ApiClientTest {
         req,
         Collections.singletonList(getSuccessResponse(req)),
         MyEndpointResponse.class,
-        new MyEndpointResponse("value"));
+        new MyEndpointResponse().setKey("value"));
+  }
+
+  @Test
+  void unknownKey() {
+    Request req = getBasicRequest();
+    runApiClientTest(
+        req,
+        Collections.singletonList(getSuccessResponseExtraKeys(req)),
+        MyEndpointResponse.class,
+        new MyEndpointResponse().setKey("value"));
   }
 
   @Test
@@ -121,7 +138,7 @@ public class ApiClientTest {
             getTooManyRequestsResponse(req),
             getSuccessResponse(req)),
         MyEndpointResponse.class,
-        new MyEndpointResponse("value"));
+        new MyEndpointResponse().setKey("value"));
   }
 
   @Test
@@ -158,7 +175,7 @@ public class ApiClientTest {
                     "Workspace 123 does not have any associated worker environments")),
             getSuccessResponse(req)),
         MyEndpointResponse.class,
-        new MyEndpointResponse("value"));
+        new MyEndpointResponse().setKey("value"));
   }
 
   @Test
@@ -181,7 +198,7 @@ public class ApiClientTest {
                     null)),
             getSuccessResponse(req)),
         MyEndpointResponse.class,
-        new MyEndpointResponse("value"));
+        new MyEndpointResponse().setKey("value"));
   }
 
   @Test
@@ -193,6 +210,6 @@ public class ApiClientTest {
         Arrays.asList(
             new Failure(new SocketTimeoutException("Connect timed out")), getSuccessResponse(req)),
         MyEndpointResponse.class,
-        new MyEndpointResponse("value"));
+        new MyEndpointResponse().setKey("value"));
   }
 }
