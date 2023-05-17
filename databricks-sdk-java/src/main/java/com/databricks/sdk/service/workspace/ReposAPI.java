@@ -50,7 +50,7 @@ public class ReposAPI {
     return impl.create(request);
   }
 
-  public void delete(Long repoId) {
+  public void delete(long repoId) {
     delete(new DeleteRepoRequest().setRepoId(repoId));
   }
 
@@ -63,7 +63,7 @@ public class ReposAPI {
     impl.delete(request);
   }
 
-  public RepoInfo get(Long repoId) {
+  public RepoInfo get(long repoId) {
     return get(new GetRepoRequest().setRepoId(repoId));
   }
 
@@ -96,7 +96,7 @@ public class ReposAPI {
         });
   }
 
-  public void update(Long repoId) {
+  public void update(long repoId) {
     update(new UpdateRepo().setRepoId(repoId));
   }
 

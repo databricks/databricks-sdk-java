@@ -30,10 +30,10 @@ public interface {{.PascalName}}Service {
 	{{- else if .IsEmpty}}Object
   {{- else if .IsAny}}Object
 	{{- else if .IsString}}String
-	{{- else if .IsBool}}Boolean
-	{{- else if .IsInt64}}Long
-	{{- else if .IsFloat64}}Float
-	{{- else if .IsInt}}Long
+	{{- else if .IsBool}}boolean
+  {{- else if .IsInt64}}long
+  {{- else if .IsFloat64}}float
+	{{- else if .IsInt}}long
 	{{- else if .ArrayValue }}Collection<{{template "type" .ArrayValue}}>
 	{{- else if .MapValue }}Map<String,{{template "type" .MapValue}}>
 	{{- else if .IsObject }}{{.PascalName}}

@@ -26,7 +26,7 @@ public class DbfsAPI {
     impl = mock;
   }
 
-  public void addBlock(Long handle, String data) {
+  public void addBlock(long handle, String data) {
     addBlock(new AddBlock().setHandle(handle).setData(data));
   }
 
@@ -43,7 +43,7 @@ public class DbfsAPI {
     impl.addBlock(request);
   }
 
-  public void close(Long handle) {
+  public void close(long handle) {
     close(new Close().setHandle(handle));
   }
 

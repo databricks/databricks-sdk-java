@@ -36,12 +36,12 @@ public class WorkspacesAPI {
     impl = mock;
   }
 
-  public Workspace waitGetWorkspaceRunning(Long workspaceId) throws TimeoutException {
+  public Workspace waitGetWorkspaceRunning(long workspaceId) throws TimeoutException {
     return waitGetWorkspaceRunning(workspaceId, Duration.ofMinutes(20), null);
   }
 
   public Workspace waitGetWorkspaceRunning(
-      Long workspaceId, Duration timeout, Consumer<Workspace> callback) throws TimeoutException {
+      long workspaceId, Duration timeout, Consumer<Workspace> callback) throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
     java.util.List<WorkspaceStatus> targetStates = Arrays.asList(WorkspaceStatus.RUNNING);
     java.util.List<WorkspaceStatus> failureStates =
@@ -104,7 +104,7 @@ public class WorkspacesAPI {
         response);
   }
 
-  public void delete(Long workspaceId) {
+  public void delete(long workspaceId) {
     delete(new DeleteWorkspaceRequest().setWorkspaceId(workspaceId));
   }
 
@@ -122,7 +122,7 @@ public class WorkspacesAPI {
     impl.delete(request);
   }
 
-  public Workspace get(Long workspaceId) {
+  public Workspace get(long workspaceId) {
     return get(new GetWorkspaceRequest().setWorkspaceId(workspaceId));
   }
 
@@ -159,7 +159,7 @@ public class WorkspacesAPI {
     return impl.list();
   }
 
-  public Wait<Workspace, Void> update(Long workspaceId) {
+  public Wait<Workspace, Void> update(long workspaceId) {
     return update(new UpdateWorkspaceRequest().setWorkspaceId(workspaceId));
   }
 

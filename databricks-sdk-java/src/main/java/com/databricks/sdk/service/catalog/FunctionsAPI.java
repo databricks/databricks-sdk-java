@@ -43,9 +43,9 @@ public class FunctionsAPI {
       String routineDefinition,
       Collection<Dependency> routineDependencies,
       CreateFunctionParameterStyle parameterStyle,
-      Boolean isDeterministic,
+      boolean isDeterministic,
       CreateFunctionSqlDataAccess sqlDataAccess,
-      Boolean isNullCall,
+      boolean isNullCall,
       CreateFunctionSecurityType securityType,
       String specificName) {
     return create(
