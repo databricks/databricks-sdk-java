@@ -1,6 +1,5 @@
-package com.databricks.sdk.core.error;
+package com.databricks.sdk.core;
 
-import com.databricks.sdk.core.DatabricksException;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
@@ -17,7 +16,7 @@ import org.slf4j.LoggerFactory;
  * should be parsed and returned to the user. If error is not null, the request has failed in an
  * unrecoverable way and this exception should be thrown, potentially wrapped in another exception.
  */
-public class CheckForRetryResult {
+public class DatabricksError extends DatabricksException {
   private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
 
   /** Errors returned by Databricks services which are known to be retriable. */
@@ -41,39 +40,35 @@ public class CheckForRetryResult {
   private final String errorCode;
   private final int statusCode;
 
-  public CheckForRetryResult(int statusCode) {
-    this(null, "OK", statusCode, null);
+  public DatabricksError(int statusCode) {
+    this("", "OK", statusCode, null);
   }
 
-  public CheckForRetryResult(String errorCode, String message, int statusCode) {
+  public DatabricksError(String errorCode, String message) {
+    this(errorCode, message, 400, null);
+  }
+
+  public DatabricksError(String errorCode, String message, int statusCode) {
     this(errorCode, message, statusCode, null);
   }
 
-  public CheckForRetryResult(String errorCode, int statusCode, Throwable cause) {
+  public DatabricksError(String errorCode, int statusCode, Throwable cause) {
     this(errorCode, cause.getMessage(), statusCode, cause);
   }
 
-  private CheckForRetryResult(String errorCode, String message, int statusCode, Throwable cause) {
+  private DatabricksError(String errorCode, String message, int statusCode, Throwable cause) {
+    super(message, cause);
     this.errorCode = errorCode;
     this.message = message;
     this.cause = cause;
     this.statusCode = statusCode;
   }
 
-  public DatabricksException toException() {
-    if (errorCode == null) {
-      return null;
-    }
-    return new DatabricksException(
-        String.format("errorCode: %s, message: %s, statusCode: %d", errorCode, message, statusCode),
-        cause);
-  }
-
   public String getErrorCode() {
     return errorCode;
   }
 
-  public int getStatusCode() {
+  int getStatusCode() {
     return statusCode;
   }
 

@@ -4,7 +4,9 @@ import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.NotAvai
 import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.NotEnabledOnSubscription;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.service.compute.*;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -12,8 +14,12 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ClustersExt extends ClustersAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(ClustersExt.class);
+
   public ClustersExt(ApiClient apiClient) {
     super(apiClient);
   }
@@ -193,23 +199,32 @@ public class ClustersExt extends ClustersAPI {
   }
 
   public void ensureClusterIsRunning(String clusterId) throws TimeoutException {
-    ClusterInfo info = get(clusterId);
-    if (info.getState() == State.TERMINATED) {
-      start(clusterId).get();
-    } else if (info.getState() == State.TERMINATING) {
-      waitGetClusterTerminated(clusterId);
-      start(clusterId).get();
-    } else if (Arrays.asList(State.PENDING, State.RESIZING, State.RESTARTING)
-        .contains(info.getState())) {
-      waitGetClusterRunning(clusterId);
-    } else if (Arrays.asList(State.ERROR, State.UNKNOWN).contains(info.getState())) {
-      throw new RuntimeException(
-          "Cluster "
-              + info.getClusterName()
-              + " is "
-              + info.getState()
-              + ": "
-              + info.getStateMessage());
+    Duration outerTimeout = Duration.ofMinutes(20);
+    long deadline = System.currentTimeMillis() + outerTimeout.toMillis();
+    while (System.currentTimeMillis() < deadline) {
+      try {
+        ClusterInfo info = get(clusterId);
+        if (info.getState() == State.TERMINATED) {
+          start(clusterId).get();
+        } else if (info.getState() == State.TERMINATING) {
+          waitGetClusterTerminated(clusterId);
+          start(clusterId).get();
+        } else if (Arrays.asList(State.PENDING, State.RESIZING, State.RESTARTING)
+            .contains(info.getState())) {
+          waitGetClusterRunning(clusterId);
+        } else if (Arrays.asList(State.ERROR, State.UNKNOWN).contains(info.getState())) {
+          throw new DatabricksError(info.getState().name(), info.getStateMessage());
+        }
+        // running, reconfiguring
+        LOG.debug("Cluster is {}: {}", info.getState(), info.getStateMessage());
+        return;
+      } catch (IllegalStateException e) {
+        LOG.debug("Cluster reached illegal state. Retrying startup", e);
+      } catch (DatabricksError e) {
+        LOG.debug("Received {} error code", e.getErrorCode());
+        throw e;
+      }
     }
+    throw new TimeoutException("Cannot ensure cluster to start");
   }
 }

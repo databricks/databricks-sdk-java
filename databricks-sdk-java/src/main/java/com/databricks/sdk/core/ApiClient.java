@@ -1,7 +1,6 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.error.ApiErrors;
-import com.databricks.sdk.core.error.CheckForRetryResult;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
@@ -219,6 +218,9 @@ public class ApiClient {
         if (LOG.isDebugEnabled()) {
           LOG.debug(makeLogRecord(in, out));
         }
+        if (out.getStatusCode() < 400) {
+          return out;
+        }
       } catch (IOException e) {
         err = e;
         LOG.debug("Request {} failed", in, e);
@@ -230,13 +232,12 @@ public class ApiClient {
       // 2. The request failed with a non-retriable error (err != null, out == null).
       // 3. The request failed with a retriable error, but the number of attempts exceeds
       // maxAttempts.
-      CheckForRetryResult res = ApiErrors.checkForRetry(out, err);
+      DatabricksError res = ApiErrors.checkForRetry(out, err);
       if (!res.isRetriable()) {
         if (res.getErrorCode() == null) {
           return out;
         }
-        throw new DatabricksException(
-            String.format("Request %s failed and retry disallowed", in), res.toException());
+        throw res;
       }
       if (attemptNumber == maxAttempts) {
         throw new DatabricksException(
