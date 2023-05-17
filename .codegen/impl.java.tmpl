@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
-import org.apache.http.client.methods.*;
-
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksException;
+import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.support.Generated;
+
+{{range .Package.ImportedEntities}}
+import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}};{{end}}
 
 /** Package-local implementation of {{.PascalName}} */
 @Generated

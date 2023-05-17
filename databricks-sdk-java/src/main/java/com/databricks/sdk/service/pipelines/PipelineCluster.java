@@ -2,6 +2,11 @@
 
 package com.databricks.sdk.service.pipelines;
 
+import com.databricks.sdk.service.compute.AutoScale;
+import com.databricks.sdk.service.compute.AwsAttributes;
+import com.databricks.sdk.service.compute.AzureAttributes;
+import com.databricks.sdk.service.compute.ClusterLogConf;
+import com.databricks.sdk.service.compute.GcpAttributes;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,21 +25,21 @@ public class PipelineCluster {
    * autoscaling works best with DB runtime versions 3.0 or later.
    */
   @JsonProperty("autoscale")
-  private Object /* MISSING TYPE */ autoscale;
+  private AutoScale autoscale;
 
   /**
    * Attributes related to clusters running on Amazon Web Services. If not specified at cluster
    * creation, a set of default values will be used.
    */
   @JsonProperty("aws_attributes")
-  private Object /* MISSING TYPE */ awsAttributes;
+  private AwsAttributes awsAttributes;
 
   /**
    * Attributes related to clusters running on Microsoft Azure. If not specified at cluster
    * creation, a set of default values will be used.
    */
   @JsonProperty("azure_attributes")
-  private Object /* MISSING TYPE */ azureAttributes;
+  private AzureAttributes azureAttributes;
 
   /**
    * The configuration for delivering spark logs to a long-term storage destination. Only dbfs
@@ -44,7 +49,7 @@ public class PipelineCluster {
    * `$destination/$clusterId/executor`.
    */
   @JsonProperty("cluster_log_conf")
-  private Object /* MISSING TYPE */ clusterLogConf;
+  private ClusterLogConf clusterLogConf;
 
   /**
    * Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS
@@ -77,7 +82,7 @@ public class PipelineCluster {
    * creation, a set of default values will be used.
    */
   @JsonProperty("gcp_attributes")
-  private Object /* MISSING TYPE */ gcpAttributes;
+  private GcpAttributes gcpAttributes;
 
   /** The optional ID of the instance pool to which the cluster belongs. */
   @JsonProperty("instance_pool_id")
@@ -157,39 +162,39 @@ public class PipelineCluster {
     return applyPolicyDefaultValues;
   }
 
-  public PipelineCluster setAutoscale(Object /* MISSING TYPE */ autoscale) {
+  public PipelineCluster setAutoscale(AutoScale autoscale) {
     this.autoscale = autoscale;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getAutoscale() {
+  public AutoScale getAutoscale() {
     return autoscale;
   }
 
-  public PipelineCluster setAwsAttributes(Object /* MISSING TYPE */ awsAttributes) {
+  public PipelineCluster setAwsAttributes(AwsAttributes awsAttributes) {
     this.awsAttributes = awsAttributes;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getAwsAttributes() {
+  public AwsAttributes getAwsAttributes() {
     return awsAttributes;
   }
 
-  public PipelineCluster setAzureAttributes(Object /* MISSING TYPE */ azureAttributes) {
+  public PipelineCluster setAzureAttributes(AzureAttributes azureAttributes) {
     this.azureAttributes = azureAttributes;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getAzureAttributes() {
+  public AzureAttributes getAzureAttributes() {
     return azureAttributes;
   }
 
-  public PipelineCluster setClusterLogConf(Object /* MISSING TYPE */ clusterLogConf) {
+  public PipelineCluster setClusterLogConf(ClusterLogConf clusterLogConf) {
     this.clusterLogConf = clusterLogConf;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getClusterLogConf() {
+  public ClusterLogConf getClusterLogConf() {
     return clusterLogConf;
   }
 
@@ -220,12 +225,12 @@ public class PipelineCluster {
     return driverNodeTypeId;
   }
 
-  public PipelineCluster setGcpAttributes(Object /* MISSING TYPE */ gcpAttributes) {
+  public PipelineCluster setGcpAttributes(GcpAttributes gcpAttributes) {
     this.gcpAttributes = gcpAttributes;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getGcpAttributes() {
+  public GcpAttributes getGcpAttributes() {
     return gcpAttributes;
   }
 

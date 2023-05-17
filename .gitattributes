@@ -480,7 +480,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/GitSourceGitPr
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/Job.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobCluster.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobEmailNotifications.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobNotificationSettings.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobSettings.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobSettingsFormat.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobTaskSettings.java linguist-generated=true
@@ -539,8 +538,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SqlTaskSubscri
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SubmitRun.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/SubmitRunResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TaskDependenciesItem.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TaskEmailNotifications.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TaskNotificationSettings.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerEvaluation.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerHistory.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/TriggerSettings.java linguist-generated=true

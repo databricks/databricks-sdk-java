@@ -31,7 +31,7 @@ public class ValidateStorageCredential {
 
   /** The name of the storage credential to validate. */
   @JsonProperty("storage_credential_name")
-  private Object /* MISSING TYPE */ storageCredentialName;
+  private Object storageCredentialName;
 
   /** The external location url to validate. */
   @JsonProperty("url")
@@ -84,13 +84,12 @@ public class ValidateStorageCredential {
     return readOnly;
   }
 
-  public ValidateStorageCredential setStorageCredentialName(
-      Object /* MISSING TYPE */ storageCredentialName) {
+  public ValidateStorageCredential setStorageCredentialName(Object storageCredentialName) {
     this.storageCredentialName = storageCredentialName;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getStorageCredentialName() {
+  public Object getStorageCredentialName() {
     return storageCredentialName;
   }
 

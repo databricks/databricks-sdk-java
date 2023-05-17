@@ -2,6 +2,7 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.service.iam.AccessControlRequest;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class SubmitRun {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
-  private Collection<Object /* MISSING TYPE */> accessControlList;
+  private Collection<AccessControlRequest> accessControlList;
 
   /**
    * An optional specification for a remote repository containing the notebooks used by this job's
@@ -39,13 +40,6 @@ public class SubmitRun {
   @JsonProperty("idempotency_token")
   private String idempotencyToken;
 
-  /**
-   * Optional notification settings that are used when sending notifications to each of the
-   * `webhook_notifications` for this run.
-   */
-  @JsonProperty("notification_settings")
-  private JobNotificationSettings notificationSettings;
-
   /** An optional name for the run. The default value is `Untitled`. */
   @JsonProperty("run_name")
   private String runName;
@@ -68,12 +62,12 @@ public class SubmitRun {
   @JsonProperty("webhook_notifications")
   private JobWebhookNotifications webhookNotifications;
 
-  public SubmitRun setAccessControlList(Collection<Object /* MISSING TYPE */> accessControlList) {
+  public SubmitRun setAccessControlList(Collection<AccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getAccessControlList() {
+  public Collection<AccessControlRequest> getAccessControlList() {
     return accessControlList;
   }
 
@@ -93,15 +87,6 @@ public class SubmitRun {
 
   public String getIdempotencyToken() {
     return idempotencyToken;
-  }
-
-  public SubmitRun setNotificationSettings(JobNotificationSettings notificationSettings) {
-    this.notificationSettings = notificationSettings;
-    return this;
-  }
-
-  public JobNotificationSettings getNotificationSettings() {
-    return notificationSettings;
   }
 
   public SubmitRun setRunName(String runName) {
@@ -148,7 +133,6 @@ public class SubmitRun {
     return Objects.equals(accessControlList, that.accessControlList)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(idempotencyToken, that.idempotencyToken)
-        && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(runName, that.runName)
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
@@ -161,7 +145,6 @@ public class SubmitRun {
         accessControlList,
         gitSource,
         idempotencyToken,
-        notificationSettings,
         runName,
         tasks,
         timeoutSeconds,
@@ -174,7 +157,6 @@ public class SubmitRun {
         .add("accessControlList", accessControlList)
         .add("gitSource", gitSource)
         .add("idempotencyToken", idempotencyToken)
-        .add("notificationSettings", notificationSettings)
         .add("runName", runName)
         .add("tasks", tasks)
         .add("timeoutSeconds", timeoutSeconds)

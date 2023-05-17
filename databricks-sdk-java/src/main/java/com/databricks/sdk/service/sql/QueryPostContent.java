@@ -30,7 +30,7 @@ public class QueryPostContent {
    * It can be overridden at runtime.
    */
   @JsonProperty("options")
-  private Object /* MISSING TYPE */ options;
+  private Object options;
 
   /**
    * The identifier of the workspace folder containing the query. The default is the user's home
@@ -70,12 +70,12 @@ public class QueryPostContent {
     return name;
   }
 
-  public QueryPostContent setOptions(Object /* MISSING TYPE */ options) {
+  public QueryPostContent setOptions(Object options) {
     this.options = options;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getOptions() {
+  public Object getOptions() {
     return options;
   }
 

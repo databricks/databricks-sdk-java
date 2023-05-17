@@ -17,7 +17,7 @@ public class Results {
 
   /** */
   @JsonProperty("data")
-  private Object /* MISSING TYPE */ data;
+  private Object data;
 
   /** The image filename */
   @JsonProperty("fileName")
@@ -41,7 +41,7 @@ public class Results {
 
   /** The table schema */
   @JsonProperty("schema")
-  private Collection<Map<String, Object /* MISSING TYPE */>> schema;
+  private Collection<Map<String, Object>> schema;
 
   /** The summary of the error */
   @JsonProperty("summary")
@@ -60,12 +60,12 @@ public class Results {
     return cause;
   }
 
-  public Results setData(Object /* MISSING TYPE */ data) {
+  public Results setData(Object data) {
     this.data = data;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getData() {
+  public Object getData() {
     return data;
   }
 
@@ -114,12 +114,12 @@ public class Results {
     return resultType;
   }
 
-  public Results setSchema(Collection<Map<String, Object /* MISSING TYPE */>> schema) {
+  public Results setSchema(Collection<Map<String, Object>> schema) {
     this.schema = schema;
     return this;
   }
 
-  public Collection<Map<String, Object /* MISSING TYPE */>> getSchema() {
+  public Collection<Map<String, Object>> getSchema() {
     return schema;
   }
 

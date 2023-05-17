@@ -2,6 +2,8 @@
 
 package com.databricks.sdk.service.jobs;
 
+import com.databricks.sdk.service.compute.BaseClusterInfo;
+import com.databricks.sdk.service.compute.Library;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -93,11 +95,11 @@ public class RunTask {
    * value is an empty list.
    */
   @JsonProperty("libraries")
-  private Collection<Object /* MISSING TYPE */> libraries;
+  private Collection<Library> libraries;
 
   /** If new_cluster, a description of a new cluster that is created only for this task. */
   @JsonProperty("new_cluster")
-  private Object /* MISSING TYPE */ newCluster;
+  private BaseClusterInfo newCluster;
 
   /**
    * If notebook_task, indicates that this job must run a notebook. This field may not be specified
@@ -257,21 +259,21 @@ public class RunTask {
     return gitSource;
   }
 
-  public RunTask setLibraries(Collection<Object /* MISSING TYPE */> libraries) {
+  public RunTask setLibraries(Collection<Library> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getLibraries() {
+  public Collection<Library> getLibraries() {
     return libraries;
   }
 
-  public RunTask setNewCluster(Object /* MISSING TYPE */ newCluster) {
+  public RunTask setNewCluster(BaseClusterInfo newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
-  public Object /* MISSING TYPE */ getNewCluster() {
+  public BaseClusterInfo getNewCluster() {
     return newCluster;
   }
 

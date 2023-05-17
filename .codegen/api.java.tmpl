@@ -13,11 +13,14 @@ import java.util.function.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.databricks.sdk.client.ApiClient;
-import com.databricks.sdk.client.DatabricksException;
+import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
+
+{{range .Package.ImportedEntities}}
+import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}};{{end}}
 
 {{if .Description}}/**
  {{.Comment " * " 80}}
