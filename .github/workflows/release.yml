@@ -10,13 +10,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cache Maven packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-
       - name: Set up Java for publishing to Maven Central Repository
         uses: actions/setup-java@v1
         with:
