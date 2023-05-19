@@ -193,10 +193,6 @@ public class ApiClient {
 
   private Response getResponse(Request in) {
     in.withUrl(config.getHost() + in.getUrl());
-
-    String userAgent = UserAgent.asString();
-    // TODO: add auth/<auth-type> once PR#9 is merged
-    in.withHeader("User-Agent", userAgent);
     in.withHeader("Accept", "application/json");
     return executeInner(in);
   }
@@ -211,6 +207,11 @@ public class ApiClient {
 
       // Authenticate the request. Failures should not be retried.
       in.withHeaders(config.authenticate());
+
+      // Set User-Agent with auth type info, which is available only
+      // after the first invocation to config.authenticate()
+      String userAgent = String.format("%s auth/%s", UserAgent.asString(), config.getAuthType());
+      in.withHeader("User-Agent", userAgent);
 
       // Make the request, catching any exceptions, as we may want to retry.
       try {
