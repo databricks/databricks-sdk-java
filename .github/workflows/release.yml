@@ -25,6 +25,8 @@ jobs:
         run: mvn -Prelease -DskipTests=true --batch-mode deploy
         env:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          MAVEN_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
