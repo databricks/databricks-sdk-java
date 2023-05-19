@@ -24,7 +24,7 @@ jobs:
       - name: Publish to the Maven Central Repository
         run: mvn -Prelease -DskipTests=true --batch-mode deploy
         env:
-          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
