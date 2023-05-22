@@ -58,7 +58,7 @@ public class TokensAPI {
    *
    * <p>Lists all the valid tokens for a user-workspace pair.
    */
-  public Iterable<PublicTokenInfo> list() {
+  public Iterable<TokenInfo> list() {
     return impl.list().getTokenInfos();
   }
 

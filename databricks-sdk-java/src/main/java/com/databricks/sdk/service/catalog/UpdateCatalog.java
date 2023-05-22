@@ -14,6 +14,13 @@ public class UpdateCatalog {
   @JsonProperty("comment")
   private String comment;
 
+  /**
+   * Whether the current securable is accessible from all workspaces or a specific set of
+   * workspaces.
+   */
+  @JsonProperty("isolation_mode")
+  private IsolationMode isolationMode;
+
   /** Name of catalog. */
   @JsonProperty("name")
   private String name;
@@ -33,6 +40,15 @@ public class UpdateCatalog {
 
   public String getComment() {
     return comment;
+  }
+
+  public UpdateCatalog setIsolationMode(IsolationMode isolationMode) {
+    this.isolationMode = isolationMode;
+    return this;
+  }
+
+  public IsolationMode getIsolationMode() {
+    return isolationMode;
   }
 
   public UpdateCatalog setName(String name) {
@@ -68,6 +84,7 @@ public class UpdateCatalog {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateCatalog that = (UpdateCatalog) o;
     return Objects.equals(comment, that.comment)
+        && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties);
@@ -75,13 +92,14 @@ public class UpdateCatalog {
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, name, owner, properties);
+    return Objects.hash(comment, isolationMode, name, owner, properties);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateCatalog.class)
         .add("comment", comment)
+        .add("isolationMode", isolationMode)
         .add("name", name)
         .add("owner", owner)
         .add("properties", properties)

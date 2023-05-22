@@ -26,6 +26,10 @@ public class CustomerManagedKey {
   @JsonProperty("customer_managed_key_id")
   private String customerManagedKeyId;
 
+  /** */
+  @JsonProperty("gcp_key_info")
+  private GcpKeyInfo gcpKeyInfo;
+
   /** The cases that the key can be used for. */
   @JsonProperty("use_cases")
   private Collection<KeyUseCase> useCases;
@@ -66,6 +70,15 @@ public class CustomerManagedKey {
     return customerManagedKeyId;
   }
 
+  public CustomerManagedKey setGcpKeyInfo(GcpKeyInfo gcpKeyInfo) {
+    this.gcpKeyInfo = gcpKeyInfo;
+    return this;
+  }
+
+  public GcpKeyInfo getGcpKeyInfo() {
+    return gcpKeyInfo;
+  }
+
   public CustomerManagedKey setUseCases(Collection<KeyUseCase> useCases) {
     this.useCases = useCases;
     return this;
@@ -84,12 +97,14 @@ public class CustomerManagedKey {
         && Objects.equals(awsKeyInfo, that.awsKeyInfo)
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(customerManagedKeyId, that.customerManagedKeyId)
+        && Objects.equals(gcpKeyInfo, that.gcpKeyInfo)
         && Objects.equals(useCases, that.useCases);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, awsKeyInfo, creationTime, customerManagedKeyId, useCases);
+    return Objects.hash(
+        accountId, awsKeyInfo, creationTime, customerManagedKeyId, gcpKeyInfo, useCases);
   }
 
   @Override
@@ -99,6 +114,7 @@ public class CustomerManagedKey {
         .add("awsKeyInfo", awsKeyInfo)
         .add("creationTime", creationTime)
         .add("customerManagedKeyId", customerManagedKeyId)
+        .add("gcpKeyInfo", gcpKeyInfo)
         .add("useCases", useCases)
         .toString();
   }

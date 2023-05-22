@@ -73,7 +73,7 @@ public class TokenManagementAPI {
    *
    * <p>Lists all tokens associated with the specified workspace or user.
    */
-  public Iterable<PublicTokenInfo> list(ListTokenManagementRequest request) {
+  public Iterable<TokenInfo> list(ListTokenManagementRequest request) {
     return impl.list(request).getTokenInfos();
   }
 

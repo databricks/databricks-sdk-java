@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Delete a metastore assignment */
 @Generated
 public class DeleteAccountMetastoreAssignmentRequest {
-  /** Databricks Unity Catalog metastore ID */
+  /** Unity Catalog metastore ID */
   private String metastoreId;
 
   /** Workspace ID. */

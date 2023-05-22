@@ -37,7 +37,7 @@ public interface EncryptionKeysService {
    * workspace's root DBFS and system data) and, optionally, cluster EBS volume data.
    *
    * <p>**Important**: Customer-managed keys are supported only for some deployment types,
-   * subscription types, and AWS regions.
+   * subscription types, and AWS regions that currently support creation of Databricks workspaces.
    *
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
@@ -66,7 +66,7 @@ public interface EncryptionKeysService {
    * <p>**Important**: Customer-managed keys are supported only for some deployment types,
    * subscription types, and AWS regions.
    *
-   * <p>This operation is available only if your account is on the E2 version of the platform.
+   * <p>This operation is available only if your account is on the E2 version of the platform.",
    */
   CustomerManagedKey get(GetEncryptionKeyRequest getEncryptionKeyRequest);
 

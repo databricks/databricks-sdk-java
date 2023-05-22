@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 /**
  * These endpoints are used for CRUD operations on query definitions. Query definitions include the
  * target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
+ * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

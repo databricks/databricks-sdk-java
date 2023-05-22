@@ -25,7 +25,7 @@ public class CreateStorageCredential {
   @JsonProperty("gcp_service_account_key")
   private GcpServiceAccountKey gcpServiceAccountKey;
 
-  /** Databricks Unity Catalog metastore ID */
+  /** Unity Catalog metastore ID */
   private String metastoreId;
 
   /** The credential name. The name must be unique within the metastore. */

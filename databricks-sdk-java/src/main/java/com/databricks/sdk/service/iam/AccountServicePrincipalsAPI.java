@@ -36,7 +36,7 @@ public class AccountServicePrincipalsAPI {
   /**
    * Create a service principal.
    *
-   * <p>Creates a new service principal in the Databricks Account.
+   * <p>Creates a new service principal in the Databricks account.
    */
   public ServicePrincipal create(ServicePrincipal request) {
     return impl.create(request);
@@ -49,7 +49,7 @@ public class AccountServicePrincipalsAPI {
   /**
    * Delete a service principal.
    *
-   * <p>Delete a single service principal in the Databricks Account.
+   * <p>Delete a single service principal in the Databricks account.
    */
   public void delete(DeleteAccountServicePrincipalRequest request) {
     impl.delete(request);
@@ -62,7 +62,7 @@ public class AccountServicePrincipalsAPI {
   /**
    * Get service principal details.
    *
-   * <p>Gets the details for a single service principal define in the Databricks Account.
+   * <p>Gets the details for a single service principal define in the Databricks account.
    */
   public ServicePrincipal get(GetAccountServicePrincipalRequest request) {
     return impl.get(request);
@@ -71,7 +71,7 @@ public class AccountServicePrincipalsAPI {
   /**
    * List service principals.
    *
-   * <p>Gets the set of service principals associated with a Databricks Account.
+   * <p>Gets the set of service principals associated with a Databricks account.
    */
   public Iterable<ServicePrincipal> list(ListAccountServicePrincipalsRequest request) {
     return impl.list(request).getResources();
@@ -84,7 +84,7 @@ public class AccountServicePrincipalsAPI {
   /**
    * Update service principal details.
    *
-   * <p>Partially updates the details of a single service principal in the Databricks Account.
+   * <p>Partially updates the details of a single service principal in the Databricks account.
    */
   public void patch(PartialUpdate request) {
     impl.patch(request);

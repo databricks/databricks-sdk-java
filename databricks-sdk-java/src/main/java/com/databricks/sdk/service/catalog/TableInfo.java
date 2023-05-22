@@ -48,7 +48,7 @@ public class TableInfo {
 
   /** Information pertaining to current state of the delta table. */
   @JsonProperty("delta_runtime_properties_kvpairs")
-  private Object deltaRuntimePropertiesKvpairs;
+  private DeltaRuntimePropertiesKvPairs deltaRuntimePropertiesKvpairs;
 
   /** */
   @JsonProperty("effective_auto_maintenance_flag")
@@ -209,12 +209,13 @@ public class TableInfo {
     return deletedAt;
   }
 
-  public TableInfo setDeltaRuntimePropertiesKvpairs(Object deltaRuntimePropertiesKvpairs) {
+  public TableInfo setDeltaRuntimePropertiesKvpairs(
+      DeltaRuntimePropertiesKvPairs deltaRuntimePropertiesKvpairs) {
     this.deltaRuntimePropertiesKvpairs = deltaRuntimePropertiesKvpairs;
     return this;
   }
 
-  public Object getDeltaRuntimePropertiesKvpairs() {
+  public DeltaRuntimePropertiesKvPairs getDeltaRuntimePropertiesKvpairs() {
     return deltaRuntimePropertiesKvpairs;
   }
 

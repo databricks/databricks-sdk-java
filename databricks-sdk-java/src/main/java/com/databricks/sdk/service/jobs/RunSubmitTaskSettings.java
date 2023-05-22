@@ -70,6 +70,10 @@ public class RunSubmitTaskSettings {
   @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
 
+  /** If sql_task, indicates that this job must execute a SQL. */
+  @JsonProperty("sql_task")
+  private SqlTask sqlTask;
+
   /**
    * A unique name for the task. This field is used to refer to this task from other tasks. This
    * field is required and must be unique within its parent job. On Update or Reset, this field is
@@ -175,6 +179,15 @@ public class RunSubmitTaskSettings {
     return sparkSubmitTask;
   }
 
+  public RunSubmitTaskSettings setSqlTask(SqlTask sqlTask) {
+    this.sqlTask = sqlTask;
+    return this;
+  }
+
+  public SqlTask getSqlTask() {
+    return sqlTask;
+  }
+
   public RunSubmitTaskSettings setTaskKey(String taskKey) {
     this.taskKey = taskKey;
     return this;
@@ -208,6 +221,7 @@ public class RunSubmitTaskSettings {
         && Objects.equals(sparkJarTask, that.sparkJarTask)
         && Objects.equals(sparkPythonTask, that.sparkPythonTask)
         && Objects.equals(sparkSubmitTask, that.sparkSubmitTask)
+        && Objects.equals(sqlTask, that.sqlTask)
         && Objects.equals(taskKey, that.taskKey)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds);
   }
@@ -225,6 +239,7 @@ public class RunSubmitTaskSettings {
         sparkJarTask,
         sparkPythonTask,
         sparkSubmitTask,
+        sqlTask,
         taskKey,
         timeoutSeconds);
   }
@@ -242,6 +257,7 @@ public class RunSubmitTaskSettings {
         .add("sparkJarTask", sparkJarTask)
         .add("sparkPythonTask", sparkPythonTask)
         .add("sparkSubmitTask", sparkSubmitTask)
+        .add("sqlTask", sqlTask)
         .add("taskKey", taskKey)
         .add("timeoutSeconds", timeoutSeconds)
         .toString();

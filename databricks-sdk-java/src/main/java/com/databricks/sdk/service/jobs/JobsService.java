@@ -14,11 +14,12 @@ import com.databricks.sdk.support.Generated;
  * using notebooks, JARS, Delta Live Tables pipelines, or Python, Scala, Spark submit, and Java
  * applications.
  *
- * <p>You should never hard code secrets or store them in plain text. Use the :service:secrets to
+ * <p>You should never hard code secrets or store them in plain text. Use the [Secrets CLI] to
  * manage secrets in the [Databricks CLI]. Use the [Secrets utility] to reference secrets in
  * notebooks and jobs.
  *
- * <p>[Databricks CLI]: https://docs.databricks.com/dev-tools/cli/index.html [Secrets utility]:
+ * <p>[Databricks CLI]: https://docs.databricks.com/dev-tools/cli/index.html [Secrets CLI]:
+ * https://docs.databricks.com/dev-tools/cli/secrets-cli.html [Secrets utility]:
  * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
  *
  * <p>This is the high-level interface, that contains generated methods.
@@ -147,7 +148,7 @@ public interface JobsService {
   SubmitRunResponse submit(SubmitRun submitRun);
 
   /**
-   * Partially updates a job.
+   * Partially update a job.
    *
    * <p>Add, update, or remove specific settings of an existing job. Use the ResetJob to overwrite
    * all job settings.

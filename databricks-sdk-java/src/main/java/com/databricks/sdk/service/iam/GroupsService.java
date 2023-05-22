@@ -4,11 +4,11 @@ package com.databricks.sdk.service.iam;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Groups simplify identity management, making it easier to assign access to Databricks Workspace,
+ * Groups simplify identity management, making it easier to assign access to Databricks workspace,
  * data, and other securable objects.
  *
  * <p>It is best practice to assign access to workspaces and access-control policies in Unity
- * Catalog to groups, instead of to users individually. All Databricks Workspace identities can be
+ * Catalog to groups, instead of to users individually. All Databricks workspace identities can be
  * assigned as members of groups, and members inherit permissions that are assigned to their group.
  *
  * <p>This is the high-level interface, that contains generated methods.
@@ -20,7 +20,7 @@ public interface GroupsService {
   /**
    * Create a new group.
    *
-   * <p>Creates a group in the Databricks Workspace with a unique name, using the supplied group
+   * <p>Creates a group in the Databricks workspace with a unique name, using the supplied group
    * details.
    */
   Group create(Group group);
@@ -28,21 +28,21 @@ public interface GroupsService {
   /**
    * Delete a group.
    *
-   * <p>Deletes a group from the Databricks Workspace.
+   * <p>Deletes a group from the Databricks workspace.
    */
   void delete(DeleteGroupRequest deleteGroupRequest);
 
   /**
    * Get group details.
    *
-   * <p>Gets the information for a specific group in the Databricks Workspace.
+   * <p>Gets the information for a specific group in the Databricks workspace.
    */
   Group get(GetGroupRequest getGroupRequest);
 
   /**
    * List group details.
    *
-   * <p>Gets all details of the groups associated with the Databricks Workspace.
+   * <p>Gets all details of the groups associated with the Databricks workspace.
    */
   ListGroupsResponse list(ListGroupsRequest listGroupsRequest);
 

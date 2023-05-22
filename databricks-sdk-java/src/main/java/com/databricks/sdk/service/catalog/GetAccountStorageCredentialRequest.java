@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Gets the named storage credential */
 @Generated
 public class GetAccountStorageCredentialRequest {
-  /** Databricks Unity Catalog metastore ID */
+  /** Unity Catalog metastore ID */
   private String metastoreId;
 
   /** Name of the storage credential. */

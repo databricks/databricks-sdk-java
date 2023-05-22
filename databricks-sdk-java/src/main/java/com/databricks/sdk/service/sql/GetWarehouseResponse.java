@@ -132,7 +132,7 @@ public class GetWarehouseResponse {
    * `PRO` and also set the field `enable_serverless_compute` to `true`.
    */
   @JsonProperty("warehouse_type")
-  private WarehouseType warehouseType;
+  private GetWarehouseResponseWarehouseType warehouseType;
 
   public GetWarehouseResponse setAutoStopMins(Long autoStopMins) {
     this.autoStopMins = autoStopMins;
@@ -305,12 +305,12 @@ public class GetWarehouseResponse {
     return tags;
   }
 
-  public GetWarehouseResponse setWarehouseType(WarehouseType warehouseType) {
+  public GetWarehouseResponse setWarehouseType(GetWarehouseResponseWarehouseType warehouseType) {
     this.warehouseType = warehouseType;
     return this;
   }
 
-  public WarehouseType getWarehouseType() {
+  public GetWarehouseResponseWarehouseType getWarehouseType() {
     return warehouseType;
   }
 

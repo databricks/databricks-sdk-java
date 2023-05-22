@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Delete a user */
 @Generated
 public class DeleteAccountUserRequest {
-  /** Unique ID for a user in the Databricks Account. */
+  /** Unique ID for a user in the Databricks account. */
   private String id;
 
   public DeleteAccountUserRequest setId(String id) {

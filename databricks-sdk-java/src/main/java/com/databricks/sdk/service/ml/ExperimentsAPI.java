@@ -99,13 +99,13 @@ public class ExperimentsAPI {
   /**
    * Get metadata.
    *
-   * <p>"Gets metadata for an experiment.
+   * <p>Gets metadata for an experiment.
    *
    * <p>This endpoint will return deleted experiments, but prefers the active experiment if an
    * active and deleted experiment share the same name. If multiple deleted experiments share the
    * same name, the API will return one of them.
    *
-   * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no experiment with the specified name exists.S
+   * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no experiment with the specified name exists.
    */
   public GetExperimentByNameResponse getByName(GetByNameRequest request) {
     return impl.getByName(request);
@@ -144,7 +144,7 @@ public class ExperimentsAPI {
   /**
    * Get a run.
    *
-   * <p>"Gets the metadata, metrics, params, and tags for a run. In the case where multiple metrics
+   * <p>Gets the metadata, metrics, params, and tags for a run. In the case where multiple metrics
    * with the same key are logged for a run, return only the value with the latest timestamp.
    *
    * <p>If there are multiple values with the latest timestamp, return the maximum of these values.
@@ -236,6 +236,16 @@ public class ExperimentsAPI {
     impl.logBatch(request);
   }
 
+  /**
+   * Log inputs to a run.
+   *
+   * <p>**NOTE:** Experimental: This API may change or be removed in a future release without
+   * warning.
+   */
+  public void logInputs(LogInputs request) {
+    impl.logInputs(request);
+  }
+
   public void logMetric(String key, float value, long timestamp) {
     logMetric(new LogMetric().setKey(key).setValue(value).setTimestamp(timestamp));
   }
@@ -283,12 +293,11 @@ public class ExperimentsAPI {
   /**
    * Restores an experiment.
    *
-   * <p>"Restore an experiment marked for deletion. This also restores associated metadata, runs,
+   * <p>Restore an experiment marked for deletion. This also restores associated metadata, runs,
    * metrics, params, and tags. If experiment uses FileStore, underlying artifacts associated with
    * experiment are also restored.
    *
-   * <p>Throws `RESOURCE_DOES_NOT_EXIST` if experiment was never created or was permanently
-   * deleted.",
+   * <p>Throws `RESOURCE_DOES_NOT_EXIST` if experiment was never created or was permanently deleted.
    */
   public void restoreExperiment(RestoreExperiment request) {
     impl.restoreExperiment(request);

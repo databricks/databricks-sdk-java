@@ -21,7 +21,8 @@ public interface PublishedAppIntegrationService {
    *
    * <p>Create Published OAuth App Integration.
    *
-   * <p>You can retrieve the published oauth app integration via :method:get.
+   * <p>You can retrieve the published oauth app integration via
+   * :method:PublishedAppIntegration/get.
    */
   CreatePublishedAppIntegrationOutput create(
       CreatePublishedAppIntegration createPublishedAppIntegration);
@@ -30,7 +31,7 @@ public interface PublishedAppIntegrationService {
    * Delete Published OAuth App Integration.
    *
    * <p>Delete an existing Published OAuth App Integration. You can retrieve the published oauth app
-   * integration via :method:get.
+   * integration via :method:PublishedAppIntegration/get.
    */
   void delete(DeletePublishedAppIntegrationRequest deletePublishedAppIntegrationRequest);
 
@@ -45,7 +46,7 @@ public interface PublishedAppIntegrationService {
   /**
    * Get published oauth app integrations.
    *
-   * <p>Get the list of published oauth app integrations for the specified Databricks Account
+   * <p>Get the list of published oauth app integrations for the specified Databricks account
    */
   GetPublishedAppIntegrationsOutput list();
 
@@ -53,7 +54,7 @@ public interface PublishedAppIntegrationService {
    * Updates Published OAuth App Integration.
    *
    * <p>Updates an existing published OAuth App Integration. You can retrieve the published oauth
-   * app integration via :method:get.
+   * app integration via :method:PublishedAppIntegration/get.
    */
   void update(UpdatePublishedAppIntegration updatePublishedAppIntegration);
 }

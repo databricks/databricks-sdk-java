@@ -15,7 +15,7 @@ public class CreateServingEndpoint {
 
   /**
    * The name of the serving endpoint. This field is required and must be unique across a Databricks
-   * Workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores.
+   * workspace. An endpoint name can consist of alphanumeric characters, dashes, and underscores.
    */
   @JsonProperty("name")
   private String name;

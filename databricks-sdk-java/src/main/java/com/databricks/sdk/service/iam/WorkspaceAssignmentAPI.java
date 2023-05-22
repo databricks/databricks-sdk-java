@@ -64,8 +64,8 @@ public class WorkspaceAssignmentAPI {
   /**
    * Get permission assignments.
    *
-   * <p>Get the permission assignments for the specified Databricks Account and Databricks
-   * Workspace.
+   * <p>Get the permission assignments for the specified Databricks account and Databricks
+   * workspace.
    */
   public Iterable<PermissionAssignment> list(ListWorkspaceAssignmentRequest request) {
     return impl.list(request).getPermissionAssignments();

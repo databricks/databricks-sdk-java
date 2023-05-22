@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Delete a metastore */
 @Generated
 public class DeleteAccountMetastoreRequest {
-  /** Databricks Unity Catalog metastore ID */
+  /** Unity Catalog metastore ID */
   private String metastoreId;
 
   public DeleteAccountMetastoreRequest setMetastoreId(String metastoreId) {

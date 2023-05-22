@@ -51,10 +51,6 @@ public class SetWorkspaceWarehouseConfigRequest {
   @JsonProperty("security_policy")
   private SetWorkspaceWarehouseConfigRequestSecurityPolicy securityPolicy;
 
-  /** Internal. Used by frontend to save serverless compute agreement value. */
-  @JsonProperty("serverless_agreement")
-  private Boolean serverlessAgreement;
-
   /** SQL configuration parameters */
   @JsonProperty("sql_configuration_parameters")
   private RepeatedEndpointConfPairs sqlConfigurationParameters;
@@ -134,15 +130,6 @@ public class SetWorkspaceWarehouseConfigRequest {
     return securityPolicy;
   }
 
-  public SetWorkspaceWarehouseConfigRequest setServerlessAgreement(Boolean serverlessAgreement) {
-    this.serverlessAgreement = serverlessAgreement;
-    return this;
-  }
-
-  public Boolean getServerlessAgreement() {
-    return serverlessAgreement;
-  }
-
   public SetWorkspaceWarehouseConfigRequest setSqlConfigurationParameters(
       RepeatedEndpointConfPairs sqlConfigurationParameters) {
     this.sqlConfigurationParameters = sqlConfigurationParameters;
@@ -166,7 +153,6 @@ public class SetWorkspaceWarehouseConfigRequest {
         && Objects.equals(googleServiceAccount, that.googleServiceAccount)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
         && Objects.equals(securityPolicy, that.securityPolicy)
-        && Objects.equals(serverlessAgreement, that.serverlessAgreement)
         && Objects.equals(sqlConfigurationParameters, that.sqlConfigurationParameters);
   }
 
@@ -181,7 +167,6 @@ public class SetWorkspaceWarehouseConfigRequest {
         googleServiceAccount,
         instanceProfileArn,
         securityPolicy,
-        serverlessAgreement,
         sqlConfigurationParameters);
   }
 
@@ -196,7 +181,6 @@ public class SetWorkspaceWarehouseConfigRequest {
         .add("googleServiceAccount", googleServiceAccount)
         .add("instanceProfileArn", instanceProfileArn)
         .add("securityPolicy", securityPolicy)
-        .add("serverlessAgreement", serverlessAgreement)
         .add("sqlConfigurationParameters", sqlConfigurationParameters)
         .toString();
   }

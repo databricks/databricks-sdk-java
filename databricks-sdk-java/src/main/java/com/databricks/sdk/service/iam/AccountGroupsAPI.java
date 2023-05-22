@@ -7,11 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Groups simplify identity management, making it easier to assign access to Databricks Account,
+ * Groups simplify identity management, making it easier to assign access to Databricks account,
  * data, and other securable objects.
  *
  * <p>It is best practice to assign access to workspaces and access-control policies in Unity
- * Catalog to groups, instead of to users individually. All Databricks Account identities can be
+ * Catalog to groups, instead of to users individually. All Databricks account identities can be
  * assigned as members of groups, and members inherit permissions that are assigned to their group.
  */
 @Generated
@@ -37,7 +37,7 @@ public class AccountGroupsAPI {
   /**
    * Create a new group.
    *
-   * <p>Creates a group in the Databricks Account with a unique name, using the supplied group
+   * <p>Creates a group in the Databricks account with a unique name, using the supplied group
    * details.
    */
   public Group create(Group request) {
@@ -51,7 +51,7 @@ public class AccountGroupsAPI {
   /**
    * Delete a group.
    *
-   * <p>Deletes a group from the Databricks Account.
+   * <p>Deletes a group from the Databricks account.
    */
   public void delete(DeleteAccountGroupRequest request) {
     impl.delete(request);
@@ -64,7 +64,7 @@ public class AccountGroupsAPI {
   /**
    * Get group details.
    *
-   * <p>Gets the information for a specific group in the Databricks Account.
+   * <p>Gets the information for a specific group in the Databricks account.
    */
   public Group get(GetAccountGroupRequest request) {
     return impl.get(request);
@@ -73,7 +73,7 @@ public class AccountGroupsAPI {
   /**
    * List group details.
    *
-   * <p>Gets all details of the groups associated with the Databricks Account.
+   * <p>Gets all details of the groups associated with the Databricks account.
    */
   public Iterable<Group> list(ListAccountGroupsRequest request) {
     return impl.list(request).getResources();

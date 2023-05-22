@@ -91,11 +91,11 @@ public class StorageCredentialsAPI {
    * specific ordering of the elements in the array.
    */
   public Iterable<StorageCredentialInfo> list() {
-    return impl.list();
+    return impl.list().getStorageCredentials();
   }
 
-  public StorageCredentialInfo update(String name) {
-    return update(new UpdateStorageCredential().setName(name));
+  public StorageCredentialInfo update(String metastoreId, String name) {
+    return update(new UpdateStorageCredential().setMetastoreId(metastoreId).setName(name));
   }
 
   /**

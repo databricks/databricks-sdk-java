@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Get a metastore */
 @Generated
 public class GetAccountMetastoreRequest {
-  /** Databricks Unity Catalog metastore ID */
+  /** Unity Catalog metastore ID */
   private String metastoreId;
 
   public GetAccountMetastoreRequest setMetastoreId(String metastoreId) {

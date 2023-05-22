@@ -19,28 +19,28 @@ public interface AccountServicePrincipalsService {
   /**
    * Create a service principal.
    *
-   * <p>Creates a new service principal in the Databricks Account.
+   * <p>Creates a new service principal in the Databricks account.
    */
   ServicePrincipal create(ServicePrincipal servicePrincipal);
 
   /**
    * Delete a service principal.
    *
-   * <p>Delete a single service principal in the Databricks Account.
+   * <p>Delete a single service principal in the Databricks account.
    */
   void delete(DeleteAccountServicePrincipalRequest deleteAccountServicePrincipalRequest);
 
   /**
    * Get service principal details.
    *
-   * <p>Gets the details for a single service principal define in the Databricks Account.
+   * <p>Gets the details for a single service principal define in the Databricks account.
    */
   ServicePrincipal get(GetAccountServicePrincipalRequest getAccountServicePrincipalRequest);
 
   /**
    * List service principals.
    *
-   * <p>Gets the set of service principals associated with a Databricks Account.
+   * <p>Gets the set of service principals associated with a Databricks account.
    */
   ListServicePrincipalResponse list(
       ListAccountServicePrincipalsRequest listAccountServicePrincipalsRequest);
@@ -48,7 +48,7 @@ public interface AccountServicePrincipalsService {
   /**
    * Update service principal details.
    *
-   * <p>Partially updates the details of a single service principal in the Databricks Account.
+   * <p>Partially updates the details of a single service principal in the Databricks account.
    */
   void patch(PartialUpdate partialUpdate);
 

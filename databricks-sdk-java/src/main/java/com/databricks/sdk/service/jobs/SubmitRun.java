@@ -40,6 +40,13 @@ public class SubmitRun {
   @JsonProperty("idempotency_token")
   private String idempotencyToken;
 
+  /**
+   * Optional notification settings that are used when sending notifications to each of the
+   * `webhook_notifications` for this run.
+   */
+  @JsonProperty("notification_settings")
+  private JobNotificationSettings notificationSettings;
+
   /** An optional name for the run. The default value is `Untitled`. */
   @JsonProperty("run_name")
   private String runName;
@@ -89,6 +96,15 @@ public class SubmitRun {
     return idempotencyToken;
   }
 
+  public SubmitRun setNotificationSettings(JobNotificationSettings notificationSettings) {
+    this.notificationSettings = notificationSettings;
+    return this;
+  }
+
+  public JobNotificationSettings getNotificationSettings() {
+    return notificationSettings;
+  }
+
   public SubmitRun setRunName(String runName) {
     this.runName = runName;
     return this;
@@ -133,6 +149,7 @@ public class SubmitRun {
     return Objects.equals(accessControlList, that.accessControlList)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(idempotencyToken, that.idempotencyToken)
+        && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(runName, that.runName)
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
@@ -145,6 +162,7 @@ public class SubmitRun {
         accessControlList,
         gitSource,
         idempotencyToken,
+        notificationSettings,
         runName,
         tasks,
         timeoutSeconds,
@@ -157,6 +175,7 @@ public class SubmitRun {
         .add("accessControlList", accessControlList)
         .add("gitSource", gitSource)
         .add("idempotencyToken", idempotencyToken)
+        .add("notificationSettings", notificationSettings)
         .add("runName", runName)
         .add("tasks", tasks)
         .add("timeoutSeconds", timeoutSeconds)

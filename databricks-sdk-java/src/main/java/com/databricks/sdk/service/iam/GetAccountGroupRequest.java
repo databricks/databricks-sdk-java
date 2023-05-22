@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Get group details */
 @Generated
 public class GetAccountGroupRequest {
-  /** Unique ID for a group in the Databricks Account. */
+  /** Unique ID for a group in the Databricks account. */
   private String id;
 
   public GetAccountGroupRequest setId(String id) {

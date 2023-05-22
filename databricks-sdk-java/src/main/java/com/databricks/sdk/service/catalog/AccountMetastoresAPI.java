@@ -46,7 +46,7 @@ public class AccountMetastoresAPI {
   /**
    * Delete a metastore.
    *
-   * <p>Deletes a Databricks Unity Catalog metastore for an account, both specified by ID.
+   * <p>Deletes a Unity Catalog metastore for an account, both specified by ID.
    */
   public void delete(DeleteAccountMetastoreRequest request) {
     impl.delete(request);
@@ -59,7 +59,7 @@ public class AccountMetastoresAPI {
   /**
    * Get a metastore.
    *
-   * <p>Gets a Databricks Unity Catalog metastore from an account, both specified by ID.
+   * <p>Gets a Unity Catalog metastore from an account, both specified by ID.
    */
   public MetastoreInfo get(GetAccountMetastoreRequest request) {
     return impl.get(request);

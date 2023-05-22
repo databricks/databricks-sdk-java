@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Get all workspaces assigned to a metastore */
 @Generated
 public class ListAccountMetastoreAssignmentsRequest {
-  /** Databricks Unity Catalog metastore ID */
+  /** Unity Catalog metastore ID */
   private String metastoreId;
 
   public ListAccountMetastoreAssignmentsRequest setMetastoreId(String metastoreId) {

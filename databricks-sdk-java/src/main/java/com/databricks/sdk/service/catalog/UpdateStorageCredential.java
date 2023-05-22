@@ -29,6 +29,9 @@ public class UpdateStorageCredential {
   @JsonProperty("gcp_service_account_key")
   private GcpServiceAccountKey gcpServiceAccountKey;
 
+  /** Unity Catalog metastore ID */
+  private String metastoreId;
+
   /** The credential name. The name must be unique within the metastore. */
   @JsonProperty("name")
   private String name;
@@ -92,6 +95,15 @@ public class UpdateStorageCredential {
     return gcpServiceAccountKey;
   }
 
+  public UpdateStorageCredential setMetastoreId(String metastoreId) {
+    this.metastoreId = metastoreId;
+    return this;
+  }
+
+  public String getMetastoreId() {
+    return metastoreId;
+  }
+
   public UpdateStorageCredential setName(String name) {
     this.name = name;
     return this;
@@ -138,6 +150,7 @@ public class UpdateStorageCredential {
         && Objects.equals(comment, that.comment)
         && Objects.equals(force, that.force)
         && Objects.equals(gcpServiceAccountKey, that.gcpServiceAccountKey)
+        && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
         && Objects.equals(readOnly, that.readOnly)
@@ -152,6 +165,7 @@ public class UpdateStorageCredential {
         comment,
         force,
         gcpServiceAccountKey,
+        metastoreId,
         name,
         owner,
         readOnly,
@@ -166,6 +180,7 @@ public class UpdateStorageCredential {
         .add("comment", comment)
         .add("force", force)
         .add("gcpServiceAccountKey", gcpServiceAccountKey)
+        .add("metastoreId", metastoreId)
         .add("name", name)
         .add("owner", owner)
         .add("readOnly", readOnly)

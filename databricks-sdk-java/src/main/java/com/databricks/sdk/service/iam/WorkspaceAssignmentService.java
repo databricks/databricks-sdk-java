@@ -31,8 +31,8 @@ public interface WorkspaceAssignmentService {
   /**
    * Get permission assignments.
    *
-   * <p>Get the permission assignments for the specified Databricks Account and Databricks
-   * Workspace.
+   * <p>Get the permission assignments for the specified Databricks account and Databricks
+   * workspace.
    */
   PermissionAssignments list(ListWorkspaceAssignmentRequest listWorkspaceAssignmentRequest);
 

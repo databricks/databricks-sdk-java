@@ -18,6 +18,10 @@ public class SqlTask {
   @JsonProperty("dashboard")
   private SqlTaskDashboard dashboard;
 
+  /** If file, indicates that this job runs a SQL file in a remote Git repository. */
+  @JsonProperty("file")
+  private SqlTaskFile file;
+
   /**
    * Parameters to be used for each run of this job. The SQL alert task does not support custom
    * parameters.
@@ -54,6 +58,15 @@ public class SqlTask {
     return dashboard;
   }
 
+  public SqlTask setFile(SqlTaskFile file) {
+    this.file = file;
+    return this;
+  }
+
+  public SqlTaskFile getFile() {
+    return file;
+  }
+
   public SqlTask setParameters(Map<String, String> parameters) {
     this.parameters = parameters;
     return this;
@@ -88,6 +101,7 @@ public class SqlTask {
     SqlTask that = (SqlTask) o;
     return Objects.equals(alert, that.alert)
         && Objects.equals(dashboard, that.dashboard)
+        && Objects.equals(file, that.file)
         && Objects.equals(parameters, that.parameters)
         && Objects.equals(query, that.query)
         && Objects.equals(warehouseId, that.warehouseId);
@@ -95,7 +109,7 @@ public class SqlTask {
 
   @Override
   public int hashCode() {
-    return Objects.hash(alert, dashboard, parameters, query, warehouseId);
+    return Objects.hash(alert, dashboard, file, parameters, query, warehouseId);
   }
 
   @Override
@@ -103,6 +117,7 @@ public class SqlTask {
     return new ToStringer(SqlTask.class)
         .add("alert", alert)
         .add("dashboard", dashboard)
+        .add("file", file)
         .add("parameters", parameters)
         .add("query", query)
         .add("warehouseId", warehouseId)

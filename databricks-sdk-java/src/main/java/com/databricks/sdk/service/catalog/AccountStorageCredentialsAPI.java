@@ -42,6 +42,20 @@ public class AccountStorageCredentialsAPI {
     return impl.create(request);
   }
 
+  public void delete(String metastoreId, String name) {
+    delete(new DeleteAccountStorageCredentialRequest().setMetastoreId(metastoreId).setName(name));
+  }
+
+  /**
+   * Delete a storage credential.
+   *
+   * <p>Deletes a storage credential from the metastore. The caller must be an owner of the storage
+   * credential.
+   */
+  public void delete(DeleteAccountStorageCredentialRequest request) {
+    impl.delete(request);
+  }
+
   public StorageCredentialInfo get(String metastoreId, String name) {
     return get(new GetAccountStorageCredentialRequest().setMetastoreId(metastoreId).setName(name));
   }
@@ -56,7 +70,7 @@ public class AccountStorageCredentialsAPI {
     return impl.get(request);
   }
 
-  public Iterable<StorageCredentialInfo> list(String metastoreId) {
+  public ListStorageCredentialsResponse list(String metastoreId) {
     return list(new ListAccountStorageCredentialsRequest().setMetastoreId(metastoreId));
   }
 
@@ -65,8 +79,22 @@ public class AccountStorageCredentialsAPI {
    *
    * <p>Gets a list of all storage credentials that have been assigned to given metastore.
    */
-  public Iterable<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
+  public ListStorageCredentialsResponse list(ListAccountStorageCredentialsRequest request) {
     return impl.list(request);
+  }
+
+  public StorageCredentialInfo update(String metastoreId, String name) {
+    return update(new UpdateStorageCredential().setMetastoreId(metastoreId).setName(name));
+  }
+
+  /**
+   * Updates a storage credential.
+   *
+   * <p>Updates a storage credential on the metastore. The caller must be the owner of the storage
+   * credential. If the caller is a metastore admin, only the __owner__ credential can be changed.
+   */
+  public StorageCredentialInfo update(UpdateStorageCredential request) {
+    return impl.update(request);
   }
 
   public AccountStorageCredentialsService impl() {

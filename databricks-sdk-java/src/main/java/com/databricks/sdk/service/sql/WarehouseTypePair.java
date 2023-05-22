@@ -16,12 +16,9 @@ public class WarehouseTypePair {
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /**
-   * Warehouse type: `PRO` or `CLASSIC`. If you want to use serverless compute, you must set to
-   * `PRO` and also set the field `enable_serverless_compute` to `true`.
-   */
+  /** Warehouse type: `PRO` or `CLASSIC`. */
   @JsonProperty("warehouse_type")
-  private WarehouseType warehouseType;
+  private WarehouseTypePairWarehouseType warehouseType;
 
   public WarehouseTypePair setEnabled(Boolean enabled) {
     this.enabled = enabled;
@@ -32,12 +29,12 @@ public class WarehouseTypePair {
     return enabled;
   }
 
-  public WarehouseTypePair setWarehouseType(WarehouseType warehouseType) {
+  public WarehouseTypePair setWarehouseType(WarehouseTypePairWarehouseType warehouseType) {
     this.warehouseType = warehouseType;
     return this;
   }
 
-  public WarehouseType getWarehouseType() {
+  public WarehouseTypePairWarehouseType getWarehouseType() {
     return warehouseType;
   }
 

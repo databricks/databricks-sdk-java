@@ -41,7 +41,7 @@ public class CreateRecipient {
 
   /** Recipient properties as map of string key-value pairs. */
   @JsonProperty("properties_kvpairs")
-  private Object propertiesKvpairs;
+  private SecurablePropertiesKvPairs propertiesKvpairs;
 
   /**
    * The one-time sharing code provided by the data recipient. This field is required when the
@@ -104,12 +104,12 @@ public class CreateRecipient {
     return owner;
   }
 
-  public CreateRecipient setPropertiesKvpairs(Object propertiesKvpairs) {
+  public CreateRecipient setPropertiesKvpairs(SecurablePropertiesKvPairs propertiesKvpairs) {
     this.propertiesKvpairs = propertiesKvpairs;
     return this;
   }
 
-  public Object getPropertiesKvpairs() {
+  public SecurablePropertiesKvPairs getPropertiesKvpairs() {
     return propertiesKvpairs;
   }
 

@@ -7,11 +7,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Groups simplify identity management, making it easier to assign access to Databricks Workspace,
+ * Groups simplify identity management, making it easier to assign access to Databricks workspace,
  * data, and other securable objects.
  *
  * <p>It is best practice to assign access to workspaces and access-control policies in Unity
- * Catalog to groups, instead of to users individually. All Databricks Workspace identities can be
+ * Catalog to groups, instead of to users individually. All Databricks workspace identities can be
  * assigned as members of groups, and members inherit permissions that are assigned to their group.
  */
 @Generated
@@ -37,7 +37,7 @@ public class GroupsAPI {
   /**
    * Create a new group.
    *
-   * <p>Creates a group in the Databricks Workspace with a unique name, using the supplied group
+   * <p>Creates a group in the Databricks workspace with a unique name, using the supplied group
    * details.
    */
   public Group create(Group request) {
@@ -51,7 +51,7 @@ public class GroupsAPI {
   /**
    * Delete a group.
    *
-   * <p>Deletes a group from the Databricks Workspace.
+   * <p>Deletes a group from the Databricks workspace.
    */
   public void delete(DeleteGroupRequest request) {
     impl.delete(request);
@@ -64,7 +64,7 @@ public class GroupsAPI {
   /**
    * Get group details.
    *
-   * <p>Gets the information for a specific group in the Databricks Workspace.
+   * <p>Gets the information for a specific group in the Databricks workspace.
    */
   public Group get(GetGroupRequest request) {
     return impl.get(request);
@@ -73,7 +73,7 @@ public class GroupsAPI {
   /**
    * List group details.
    *
-   * <p>Gets all details of the groups associated with the Databricks Workspace.
+   * <p>Gets all details of the groups associated with the Databricks workspace.
    */
   public Iterable<Group> list(ListGroupsRequest request) {
     return impl.list(request).getResources();

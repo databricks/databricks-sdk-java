@@ -31,6 +31,8 @@ import com.databricks.sdk.service.oauth2.OAuthEnrollmentAPI;
 import com.databricks.sdk.service.oauth2.OAuthEnrollmentService;
 import com.databricks.sdk.service.oauth2.PublishedAppIntegrationAPI;
 import com.databricks.sdk.service.oauth2.PublishedAppIntegrationService;
+import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsAPI;
+import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsService;
 import com.databricks.sdk.service.provisioning.CredentialsAPI;
 import com.databricks.sdk.service.provisioning.CredentialsService;
 import com.databricks.sdk.service.provisioning.EncryptionKeysAPI;
@@ -69,6 +71,7 @@ public class AccountClient {
   private OAuthEnrollmentAPI oAuthEnrollmentAPI;
   private PrivateAccessAPI privateAccessAPI;
   private PublishedAppIntegrationAPI publishedAppIntegrationAPI;
+  private ServicePrincipalSecretsAPI servicePrincipalSecretsAPI;
   private AccountServicePrincipalsAPI servicePrincipalsAPI;
   private StorageAPI storageAPI;
   private AccountStorageCredentialsAPI storageCredentialsAPI;
@@ -99,6 +102,7 @@ public class AccountClient {
     oAuthEnrollmentAPI = new OAuthEnrollmentAPI(apiClient);
     privateAccessAPI = new PrivateAccessAPI(apiClient);
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(apiClient);
+    servicePrincipalSecretsAPI = new ServicePrincipalSecretsAPI(apiClient);
     servicePrincipalsAPI = new AccountServicePrincipalsAPI(apiClient);
     storageAPI = new StorageAPI(apiClient);
     storageCredentialsAPI = new AccountStorageCredentialsAPI(apiClient);
@@ -172,11 +176,11 @@ public class AccountClient {
   }
 
   /**
-   * Groups simplify identity management, making it easier to assign access to Databricks Account,
+   * Groups simplify identity management, making it easier to assign access to Databricks account,
    * data, and other securable objects.
    *
    * <p>It is best practice to assign access to workspaces and access-control policies in Unity
-   * Catalog to groups, instead of to users individually. All Databricks Account identities can be
+   * Catalog to groups, instead of to users individually. All Databricks account identities can be
    * assigned as members of groups, and members inherit permissions that are assigned to their
    * group.
    */
@@ -321,6 +325,26 @@ public class AccountClient {
   }
 
   /**
+   * These APIs enable administrators to manage service principal secrets.
+   *
+   * <p>You can use the generated secrets to obtain OAuth access tokens for a service principal,
+   * which can then be used to access Databricks Accounts and Workspace APIs. For more information,
+   * see [Authentication using OAuth tokens for service principals],
+   *
+   * <p>In addition, the generated secrets can be used to configure the Databricks Terraform
+   * Provider to authenticate with the service principal. For more information, see [Databricks
+   * Terraform Provider].
+   *
+   * <p>[Authentication using OAuth tokens for service principals]:
+   * https://docs.databricks.com/dev-tools/authentication-oauth.html [Databricks Terraform
+   * Provider]:
+   * https://github.com/databricks/terraform-provider-databricks/blob/master/docs/index.md#authenticating-with-service-principal
+   */
+  public ServicePrincipalSecretsAPI servicePrincipalSecrets() {
+    return servicePrincipalSecretsAPI;
+  }
+
+  /**
    * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
    * platforms. Databricks recommends creating service principals to run production jobs or modify
    * production data. If all processes that act on production data run with service principals,
@@ -351,11 +375,11 @@ public class AccountClient {
    * User identities recognized by Databricks and represented by email addresses.
    *
    * <p>Databricks recommends using SCIM provisioning to sync users and groups automatically from
-   * your identity provider to your Databricks Account. SCIM streamlines onboarding a new employee
-   * or team by using your identity provider to create users and groups in Databricks Account and
+   * your identity provider to your Databricks account. SCIM streamlines onboarding a new employee
+   * or team by using your identity provider to create users and groups in Databricks account and
    * give them the proper level of access. When a user leaves your organization or no longer needs
-   * access to Databricks Account, admins can terminate the user in your identity provider and that
-   * user’s account will also be removed from Databricks Account. This ensures a consistent
+   * access to Databricks account, admins can terminate the user in your identity provider and that
+   * user’s account will also be removed from Databricks account. This ensures a consistent
    * offboarding process and prevents unauthorized users from accessing sensitive data.
    */
   public AccountUsersAPI users() {
@@ -472,6 +496,13 @@ public class AccountClient {
   public AccountClient withPublishedAppIntegrationImpl(
       PublishedAppIntegrationService publishedAppIntegration) {
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(publishedAppIntegration);
+    return this;
+  }
+
+  /** Override ServicePrincipalSecretsAPI with mock */
+  public AccountClient withServicePrincipalSecretsImpl(
+      ServicePrincipalSecretsService servicePrincipalSecrets) {
+    servicePrincipalSecretsAPI = new ServicePrincipalSecretsAPI(servicePrincipalSecrets);
     return this;
   }
 

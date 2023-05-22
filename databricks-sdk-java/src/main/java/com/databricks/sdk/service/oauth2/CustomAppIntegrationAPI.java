@@ -39,7 +39,7 @@ public class CustomAppIntegrationAPI {
    *
    * <p>Create Custom OAuth App Integration.
    *
-   * <p>You can retrieve the custom oauth app integration via :method:get.
+   * <p>You can retrieve the custom oauth app integration via :method:CustomAppIntegration/get.
    */
   public CreateCustomAppIntegrationOutput create(CreateCustomAppIntegration request) {
     return impl.create(request);
@@ -53,7 +53,7 @@ public class CustomAppIntegrationAPI {
    * Delete Custom OAuth App Integration.
    *
    * <p>Delete an existing Custom OAuth App Integration. You can retrieve the custom oauth app
-   * integration via :method:get.
+   * integration via :method:CustomAppIntegration/get.
    */
   public void delete(DeleteCustomAppIntegrationRequest request) {
     impl.delete(request);
@@ -75,7 +75,7 @@ public class CustomAppIntegrationAPI {
   /**
    * Get custom oauth app integrations.
    *
-   * <p>Get the list of custom oauth app integrations for the specified Databricks Account
+   * <p>Get the list of custom oauth app integrations for the specified Databricks account
    */
   public Iterable<GetCustomAppIntegrationOutput> list() {
     return impl.list().getApps();
@@ -89,7 +89,7 @@ public class CustomAppIntegrationAPI {
    * Updates Custom OAuth App Integration.
    *
    * <p>Updates an existing custom OAuth App Integration. You can retrieve the custom oauth app
-   * integration via :method:get.
+   * integration via :method:CustomAppIntegration/get.
    */
   public void update(UpdateCustomAppIntegration request) {
     impl.update(request);

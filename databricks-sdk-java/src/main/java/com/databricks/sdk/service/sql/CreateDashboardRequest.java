@@ -12,19 +12,11 @@ import java.util.Objects;
 @Generated
 public class CreateDashboardRequest {
   /**
-   * In the web application, query filters that share a name are coupled to a single selection box
-   * if this value is true.
+   * Indicates whether this query object should appear in the current user's favorites list. The
+   * application uses this flag to determine whether or not the "favorite star " should selected.
    */
-  @JsonProperty("dashboard_filters_enabled")
-  private Boolean dashboardFiltersEnabled;
-
-  /** Draft dashboards only appear in list views for their owners. */
-  @JsonProperty("is_draft")
-  private Boolean isDraft;
-
-  /** Indicates whether the dashboard is trashed. Trashed dashboards don't appear in list views. */
-  @JsonProperty("is_trashed")
-  private Boolean isTrashed;
+  @JsonProperty("is_favorite")
+  private Boolean isFavorite;
 
   /**
    * The title of this dashboard that appears in list views and at the top of the dashboard page.
@@ -43,39 +35,13 @@ public class CreateDashboardRequest {
   @JsonProperty("tags")
   private Collection<String> tags;
 
-  /**
-   * An array of widget objects. A complete description of widget objects can be found in the
-   * response to [Retrieve A Dashboard Definition](#operation/sql-analytics-fetch-dashboard).
-   * Databricks does not recommend creating new widgets via this API.
-   */
-  @JsonProperty("widgets")
-  private Collection<Widget> widgets;
-
-  public CreateDashboardRequest setDashboardFiltersEnabled(Boolean dashboardFiltersEnabled) {
-    this.dashboardFiltersEnabled = dashboardFiltersEnabled;
+  public CreateDashboardRequest setIsFavorite(Boolean isFavorite) {
+    this.isFavorite = isFavorite;
     return this;
   }
 
-  public Boolean getDashboardFiltersEnabled() {
-    return dashboardFiltersEnabled;
-  }
-
-  public CreateDashboardRequest setIsDraft(Boolean isDraft) {
-    this.isDraft = isDraft;
-    return this;
-  }
-
-  public Boolean getIsDraft() {
-    return isDraft;
-  }
-
-  public CreateDashboardRequest setIsTrashed(Boolean isTrashed) {
-    this.isTrashed = isTrashed;
-    return this;
-  }
-
-  public Boolean getIsTrashed() {
-    return isTrashed;
+  public Boolean getIsFavorite() {
+    return isFavorite;
   }
 
   public CreateDashboardRequest setName(String name) {
@@ -105,44 +71,29 @@ public class CreateDashboardRequest {
     return tags;
   }
 
-  public CreateDashboardRequest setWidgets(Collection<Widget> widgets) {
-    this.widgets = widgets;
-    return this;
-  }
-
-  public Collection<Widget> getWidgets() {
-    return widgets;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateDashboardRequest that = (CreateDashboardRequest) o;
-    return Objects.equals(dashboardFiltersEnabled, that.dashboardFiltersEnabled)
-        && Objects.equals(isDraft, that.isDraft)
-        && Objects.equals(isTrashed, that.isTrashed)
+    return Objects.equals(isFavorite, that.isFavorite)
         && Objects.equals(name, that.name)
         && Objects.equals(parent, that.parent)
-        && Objects.equals(tags, that.tags)
-        && Objects.equals(widgets, that.widgets);
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dashboardFiltersEnabled, isDraft, isTrashed, name, parent, tags, widgets);
+    return Objects.hash(isFavorite, name, parent, tags);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateDashboardRequest.class)
-        .add("dashboardFiltersEnabled", dashboardFiltersEnabled)
-        .add("isDraft", isDraft)
-        .add("isTrashed", isTrashed)
+        .add("isFavorite", isFavorite)
         .add("name", name)
         .add("parent", parent)
         .add("tags", tags)
-        .add("widgets", widgets)
         .toString();
   }
 }

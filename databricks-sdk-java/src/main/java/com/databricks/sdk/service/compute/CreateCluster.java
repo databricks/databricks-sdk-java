@@ -114,6 +114,14 @@ public class CreateCluster {
   @JsonProperty("gcp_attributes")
   private GcpAttributes gcpAttributes;
 
+  /**
+   * The configuration for storing init scripts. Any number of destinations can be specified. The
+   * scripts are executed sequentially in the order provided. If `cluster_log_conf` is specified,
+   * init script logs are sent to `<destination>/<cluster-ID>/init_scripts`.
+   */
+  @JsonProperty("init_scripts")
+  private Collection<InitScriptInfo> initScripts;
+
   /** The optional ID of the instance pool to which the cluster belongs. */
   @JsonProperty("instance_pool_id")
   private String instancePoolId;
@@ -320,6 +328,15 @@ public class CreateCluster {
     return gcpAttributes;
   }
 
+  public CreateCluster setInitScripts(Collection<InitScriptInfo> initScripts) {
+    this.initScripts = initScripts;
+    return this;
+  }
+
+  public Collection<InitScriptInfo> getInitScripts() {
+    return initScripts;
+  }
+
   public CreateCluster setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;
     return this;
@@ -429,6 +446,7 @@ public class CreateCluster {
         && Objects.equals(enableElasticDisk, that.enableElasticDisk)
         && Objects.equals(enableLocalDiskEncryption, that.enableLocalDiskEncryption)
         && Objects.equals(gcpAttributes, that.gcpAttributes)
+        && Objects.equals(initScripts, that.initScripts)
         && Objects.equals(instancePoolId, that.instancePoolId)
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(numWorkers, that.numWorkers)
@@ -458,6 +476,7 @@ public class CreateCluster {
         enableElasticDisk,
         enableLocalDiskEncryption,
         gcpAttributes,
+        initScripts,
         instancePoolId,
         nodeTypeId,
         numWorkers,
@@ -487,6 +506,7 @@ public class CreateCluster {
         .add("enableElasticDisk", enableElasticDisk)
         .add("enableLocalDiskEncryption", enableLocalDiskEncryption)
         .add("gcpAttributes", gcpAttributes)
+        .add("initScripts", initScripts)
         .add("instancePoolId", instancePoolId)
         .add("nodeTypeId", nodeTypeId)
         .add("numWorkers", numWorkers)

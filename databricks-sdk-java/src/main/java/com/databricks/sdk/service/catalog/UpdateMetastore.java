@@ -27,7 +27,7 @@ public class UpdateMetastore {
   /** Unique ID of the metastore. */
   private String id;
 
-  /** Databricks Unity Catalog metastore ID */
+  /** Unity Catalog metastore ID */
   private String metastoreId;
 
   /** The user-specified name of the metastore. */
