@@ -7,7 +7,8 @@ import java.util.Collection;
 /**
  * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
  * object that periodically runs a query, evaluates a condition of its result, and notifies one or
- * more users and/or notification destinations if the condition was met.
+ * more users and/or notification destinations if the condition was met. Alerts can be scheduled
+ * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

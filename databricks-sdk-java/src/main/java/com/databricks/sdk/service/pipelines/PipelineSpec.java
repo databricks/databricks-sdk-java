@@ -64,6 +64,10 @@ public class PipelineSpec {
   @JsonProperty("photon")
   private Boolean photon;
 
+  /** Whether serverless compute is enabled for this pipeline. */
+  @JsonProperty("serverless")
+  private Boolean serverless;
+
   /** DBFS root directory for storing checkpoints and tables. */
   @JsonProperty("storage")
   private String storage;
@@ -188,6 +192,15 @@ public class PipelineSpec {
     return photon;
   }
 
+  public PipelineSpec setServerless(Boolean serverless) {
+    this.serverless = serverless;
+    return this;
+  }
+
+  public Boolean getServerless() {
+    return serverless;
+  }
+
   public PipelineSpec setStorage(String storage) {
     this.storage = storage;
     return this;
@@ -232,6 +245,7 @@ public class PipelineSpec {
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(name, that.name)
         && Objects.equals(photon, that.photon)
+        && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
         && Objects.equals(target, that.target)
         && Objects.equals(trigger, that.trigger);
@@ -252,6 +266,7 @@ public class PipelineSpec {
         libraries,
         name,
         photon,
+        serverless,
         storage,
         target,
         trigger);
@@ -272,6 +287,7 @@ public class PipelineSpec {
         .add("libraries", libraries)
         .add("name", name)
         .add("photon", photon)
+        .add("serverless", serverless)
         .add("storage", storage)
         .add("target", target)
         .add("trigger", trigger)

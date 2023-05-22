@@ -17,6 +17,10 @@ public class Run {
   @JsonProperty("info")
   private RunInfo info;
 
+  /** Run inputs. */
+  @JsonProperty("inputs")
+  private RunInputs inputs;
+
   public Run setData(RunData data) {
     this.data = data;
     return this;
@@ -35,21 +39,36 @@ public class Run {
     return info;
   }
 
+  public Run setInputs(RunInputs inputs) {
+    this.inputs = inputs;
+    return this;
+  }
+
+  public RunInputs getInputs() {
+    return inputs;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Run that = (Run) o;
-    return Objects.equals(data, that.data) && Objects.equals(info, that.info);
+    return Objects.equals(data, that.data)
+        && Objects.equals(info, that.info)
+        && Objects.equals(inputs, that.inputs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(data, info);
+    return Objects.hash(data, info, inputs);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(Run.class).add("data", data).add("info", info).toString();
+    return new ToStringer(Run.class)
+        .add("data", data)
+        .add("info", info)
+        .add("inputs", inputs)
+        .toString();
   }
 }

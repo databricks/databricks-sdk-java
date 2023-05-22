@@ -247,7 +247,7 @@ public class ClustersAPI {
   /**
    * Get cluster info.
    *
-   * <p>"Retrieves the information for a cluster given its identifier. Clusters can be described
+   * <p>Retrieves the information for a cluster given its identifier. Clusters can be described
    * while they are running, or up to 60 days after they are terminated.
    */
   public ClusterInfo get(GetClusterRequest request) {

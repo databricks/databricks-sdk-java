@@ -81,6 +81,10 @@ public class EditPipeline {
   @JsonProperty("pipeline_id")
   private String pipelineId;
 
+  /** Whether serverless compute is enabled for this pipeline. */
+  @JsonProperty("serverless")
+  private Boolean serverless;
+
   /** DBFS root directory for storing checkpoints and tables. */
   @JsonProperty("storage")
   private String storage;
@@ -232,6 +236,15 @@ public class EditPipeline {
     return pipelineId;
   }
 
+  public EditPipeline setServerless(Boolean serverless) {
+    this.serverless = serverless;
+    return this;
+  }
+
+  public Boolean getServerless() {
+    return serverless;
+  }
+
   public EditPipeline setStorage(String storage) {
     this.storage = storage;
     return this;
@@ -279,6 +292,7 @@ public class EditPipeline {
         && Objects.equals(name, that.name)
         && Objects.equals(photon, that.photon)
         && Objects.equals(pipelineId, that.pipelineId)
+        && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
         && Objects.equals(target, that.target)
         && Objects.equals(trigger, that.trigger);
@@ -302,6 +316,7 @@ public class EditPipeline {
         name,
         photon,
         pipelineId,
+        serverless,
         storage,
         target,
         trigger);
@@ -325,6 +340,7 @@ public class EditPipeline {
         .add("name", name)
         .add("photon", photon)
         .add("pipelineId", pipelineId)
+        .add("serverless", serverless)
         .add("storage", storage)
         .add("target", target)
         .add("trigger", trigger)

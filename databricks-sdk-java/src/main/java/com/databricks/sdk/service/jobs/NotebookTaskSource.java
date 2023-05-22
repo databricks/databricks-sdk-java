@@ -8,5 +8,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum NotebookTaskSource {
   GIT, // Notebook is located in cloud Git provider.
-  WORKSPACE, // Notebook is located in Databricks workspace.
+  WORKSPACE, // Notebook is located in <Databricks> workspace.
 }

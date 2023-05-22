@@ -129,7 +129,7 @@ public class ClusterInfo {
 
   /**
    * Node on which the Spark driver resides. The driver node contains the Spark master and the
-   * Databricks application that manages the per-notebook Spark REPLs.
+   * <Databricks> application that manages the per-notebook Spark REPLs.
    */
   @JsonProperty("driver")
   private SparkNode driver;
@@ -170,6 +170,14 @@ public class ClusterInfo {
    */
   @JsonProperty("gcp_attributes")
   private GcpAttributes gcpAttributes;
+
+  /**
+   * The configuration for storing init scripts. Any number of destinations can be specified. The
+   * scripts are executed sequentially in the order provided. If `cluster_log_conf` is specified,
+   * init script logs are sent to `<destination>/<cluster-ID>/init_scripts`.
+   */
+  @JsonProperty("init_scripts")
+  private Collection<InitScriptInfo> initScripts;
 
   /** The optional ID of the instance pool to which the cluster belongs. */
   @JsonProperty("instance_pool_id")
@@ -505,6 +513,15 @@ public class ClusterInfo {
     return gcpAttributes;
   }
 
+  public ClusterInfo setInitScripts(Collection<InitScriptInfo> initScripts) {
+    this.initScripts = initScripts;
+    return this;
+  }
+
+  public Collection<InitScriptInfo> getInitScripts() {
+    return initScripts;
+  }
+
   public ClusterInfo setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;
     return this;
@@ -712,6 +729,7 @@ public class ClusterInfo {
         && Objects.equals(enableLocalDiskEncryption, that.enableLocalDiskEncryption)
         && Objects.equals(executors, that.executors)
         && Objects.equals(gcpAttributes, that.gcpAttributes)
+        && Objects.equals(initScripts, that.initScripts)
         && Objects.equals(instancePoolId, that.instancePoolId)
         && Objects.equals(jdbcPort, that.jdbcPort)
         && Objects.equals(lastRestartedTime, that.lastRestartedTime)
@@ -759,6 +777,7 @@ public class ClusterInfo {
         enableLocalDiskEncryption,
         executors,
         gcpAttributes,
+        initScripts,
         instancePoolId,
         jdbcPort,
         lastRestartedTime,
@@ -806,6 +825,7 @@ public class ClusterInfo {
         .add("enableLocalDiskEncryption", enableLocalDiskEncryption)
         .add("executors", executors)
         .add("gcpAttributes", gcpAttributes)
+        .add("initScripts", initScripts)
         .add("instancePoolId", instancePoolId)
         .add("jdbcPort", jdbcPort)
         .add("lastRestartedTime", lastRestartedTime)

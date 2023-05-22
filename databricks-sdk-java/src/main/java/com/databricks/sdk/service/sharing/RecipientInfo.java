@@ -78,7 +78,7 @@ public class RecipientInfo {
 
   /** Recipient properties as map of string key-value pairs. */
   @JsonProperty("properties_kvpairs")
-  private Object propertiesKvpairs;
+  private SecurablePropertiesKvPairs propertiesKvpairs;
 
   /**
    * Cloud region of the recipient's Unity Catalog Metstore. This field is only present when the
@@ -214,12 +214,12 @@ public class RecipientInfo {
     return owner;
   }
 
-  public RecipientInfo setPropertiesKvpairs(Object propertiesKvpairs) {
+  public RecipientInfo setPropertiesKvpairs(SecurablePropertiesKvPairs propertiesKvpairs) {
     this.propertiesKvpairs = propertiesKvpairs;
     return this;
   }
 
-  public Object getPropertiesKvpairs() {
+  public SecurablePropertiesKvPairs getPropertiesKvpairs() {
     return propertiesKvpairs;
   }
 

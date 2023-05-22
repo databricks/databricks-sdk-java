@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
  * In general, there is little need to modify dashboards using the API. However, it can be useful to
  * use dashboard objects to look-up a collection of related query IDs. The API can also be used to
  * duplicate multiple dashboards at once since you can get a dashboard definition with a GET request
- * and then POST it to create a new one.
+ * and then POST it to create a new one. Dashboards can be scheduled using the `sql_task` type of
+ * the Jobs API, e.g. :method:jobs/create.
  */
 @Generated
 public class DashboardsAPI {

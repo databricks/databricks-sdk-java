@@ -3,7 +3,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 
 /** Package-local implementation of AccountStorageCredentials */
 @Generated
@@ -24,6 +23,15 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   }
 
   @Override
+  public void delete(DeleteAccountStorageCredentialRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
+            apiClient.configuredAccountID(), request.getMetastoreId());
+    apiClient.DELETE(path, request, Void.class);
+  }
+
+  @Override
   public StorageCredentialInfo get(GetAccountStorageCredentialRequest request) {
     String path =
         String.format(
@@ -33,11 +41,20 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   }
 
   @Override
-  public Collection<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
+  public ListStorageCredentialsResponse list(ListAccountStorageCredentialsRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.getCollection(path, null, StorageCredentialInfo.class);
+    return apiClient.GET(path, request, ListStorageCredentialsResponse.class);
+  }
+
+  @Override
+  public StorageCredentialInfo update(UpdateStorageCredential request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
+            apiClient.configuredAccountID(), request.getMetastoreId());
+    return apiClient.PUT(path, request, StorageCredentialInfo.class);
   }
 }

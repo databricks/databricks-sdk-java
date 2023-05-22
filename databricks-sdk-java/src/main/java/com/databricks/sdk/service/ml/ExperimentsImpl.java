@@ -86,6 +86,12 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public void logInputs(LogInputs request) {
+    String path = "/api/2.0/mlflow/runs/log-inputs";
+    apiClient.POST(path, request, Void.class);
+  }
+
+  @Override
   public void logMetric(LogMetric request) {
     String path = "/api/2.0/mlflow/runs/log-metric";
     apiClient.POST(path, request, Void.class);

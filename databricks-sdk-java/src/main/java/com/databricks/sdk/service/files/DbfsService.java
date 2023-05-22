@@ -35,7 +35,7 @@ public interface DbfsService {
   /**
    * Open a stream.
    *
-   * <p>"Opens a stream to write to a file and returns a handle to this stream. There is a 10 minute
+   * <p>Opens a stream to write to a file and returns a handle to this stream. There is a 10 minute
    * idle timeout on this handle. If a file or directory already exists on the given path and
    * __overwrite__ is set to `false`, this call throws an exception with `RESOURCE_ALREADY_EXISTS`.
    *
@@ -129,7 +129,7 @@ public interface DbfsService {
   /**
    * Get the contents of a file.
    *
-   * <p>"Returns the contents of a file. If the file does not exist, this call throws an exception
+   * <p>Returns the contents of a file. If the file does not exist, this call throws an exception
    * with `RESOURCE_DOES_NOT_EXIST`. If the path is a directory, the read length is negative, or if
    * the offset is negative, this call throws an exception with `INVALID_PARAMETER_VALUE`. If the
    * read length exceeds 1 MB, this call throws an exception with `MAX_READ_SIZE_EXCEEDED`.

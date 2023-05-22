@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Get all storage credentials assigned to a metastore */
 @Generated
 public class ListAccountStorageCredentialsRequest {
-  /** Databricks Unity Catalog metastore ID */
+  /** Unity Catalog metastore ID */
   private String metastoreId;
 
   public ListAccountStorageCredentialsRequest setMetastoreId(String metastoreId) {

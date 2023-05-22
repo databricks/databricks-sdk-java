@@ -4,9 +4,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.databricks</groupId>
   <artifactId>databricks-sdk-parent</artifactId>
-  <version>0.0.1</version>
+  <version>0.1.0</version>
   <packaging>pom</packaging>
-  <description>Databricks SDK for Java</description>
+  <name>Databricks SDK for Java</name>
+  <description>The Databricks SDK for Java includes functionality to accelerate development with Java for
+    the Databricks Lakehouse. It covers all public Databricks REST API operations. The SDK's internal HTTP client
+    is robust and handles failures on different levels by performing intelligent retries.</description>
   <url>https://github.com/databricks/databricks-sdk-java</url>
   <licenses>
     <license>
@@ -201,6 +204,9 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>3.5.0</version>
+            <configuration>
+              <doclint>none</doclint>
+            </configuration>
             <executions>
               <execution>
                 <id>attach-javadocs</id>

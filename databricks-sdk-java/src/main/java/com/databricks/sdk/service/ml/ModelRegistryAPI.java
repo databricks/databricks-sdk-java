@@ -183,7 +183,8 @@ public class ModelRegistryAPI {
     impl.deleteModelVersionTag(request);
   }
 
-  public void deleteTransitionRequest(String name, String version, String stage, String creator) {
+  public void deleteTransitionRequest(
+      String name, String version, DeleteTransitionRequestStage stage, String creator) {
     deleteTransitionRequest(
         new DeleteTransitionRequestRequest()
             .setName(name)
@@ -232,8 +233,8 @@ public class ModelRegistryAPI {
   /**
    * Get model.
    *
-   * <p>Get the details of a model. This is a Databricks Workspace version of the [MLflow endpoint]
-   * that also returns the model's Databricks Workspace ID and the permission level of the
+   * <p>Get the details of a model. This is a Databricks workspace version of the [MLflow endpoint]
+   * that also returns the model's Databricks workspace ID and the permission level of the
    * requesting user on the model.
    *
    * <p>[MLflow endpoint]: https://www.mlflow.org/docs/latest/rest-api.html#get-registeredmodel
@@ -450,7 +451,7 @@ public class ModelRegistryAPI {
   /**
    * Transition a stage.
    *
-   * <p>Transition a model version's stage. This is a Databricks Workspace version of the [MLflow
+   * <p>Transition a model version's stage. This is a Databricks workspace version of the [MLflow
    * endpoint] that also accepts a comment associated with the transition to be recorded.",
    *
    * <p>[MLflow endpoint]:

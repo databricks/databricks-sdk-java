@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
  * User identities recognized by Databricks and represented by email addresses.
  *
  * <p>Databricks recommends using SCIM provisioning to sync users and groups automatically from your
- * identity provider to your Databricks Workspace. SCIM streamlines onboarding a new employee or
- * team by using your identity provider to create users and groups in Databricks Workspace and give
+ * identity provider to your Databricks workspace. SCIM streamlines onboarding a new employee or
+ * team by using your identity provider to create users and groups in Databricks workspace and give
  * them the proper level of access. When a user leaves your organization or no longer needs access
- * to Databricks Workspace, admins can terminate the user in your identity provider and that user’s
- * account will also be removed from Databricks Workspace. This ensures a consistent offboarding
+ * to Databricks workspace, admins can terminate the user in your identity provider and that user’s
+ * account will also be removed from Databricks workspace. This ensures a consistent offboarding
  * process and prevents unauthorized users from accessing sensitive data.
  */
 @Generated
@@ -40,7 +40,7 @@ public class UsersAPI {
   /**
    * Create a new user.
    *
-   * <p>Creates a new user in the Databricks Workspace. This new user will also be added to the
+   * <p>Creates a new user in the Databricks workspace. This new user will also be added to the
    * Databricks account.
    */
   public User create(User request) {
@@ -54,7 +54,7 @@ public class UsersAPI {
   /**
    * Delete a user.
    *
-   * <p>Deletes a user. Deleting a user from a Databricks Workspace also removes objects associated
+   * <p>Deletes a user. Deleting a user from a Databricks workspace also removes objects associated
    * with the user.
    */
   public void delete(DeleteUserRequest request) {
@@ -68,7 +68,7 @@ public class UsersAPI {
   /**
    * Get user details.
    *
-   * <p>Gets information for a specific user in Databricks Workspace.
+   * <p>Gets information for a specific user in Databricks workspace.
    */
   public User get(GetUserRequest request) {
     return impl.get(request);
@@ -77,7 +77,7 @@ public class UsersAPI {
   /**
    * List users.
    *
-   * <p>Gets details for all the users associated with a Databricks Workspace.
+   * <p>Gets details for all the users associated with a Databricks workspace.
    */
   public Iterable<User> list(ListUsersRequest request) {
     return impl.list(request).getResources();

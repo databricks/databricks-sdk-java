@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Get user details */
 @Generated
 public class GetAccountUserRequest {
-  /** Unique ID for a user in the Databricks Account. */
+  /** Unique ID for a user in the Databricks account. */
   private String id;
 
   public GetAccountUserRequest setId(String id) {

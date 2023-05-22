@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Delete a group */
 @Generated
 public class DeleteGroupRequest {
-  /** Unique ID for a group in the Databricks Workspace. */
+  /** Unique ID for a group in the Databricks workspace. */
   private String id;
 
   public DeleteGroupRequest setId(String id) {

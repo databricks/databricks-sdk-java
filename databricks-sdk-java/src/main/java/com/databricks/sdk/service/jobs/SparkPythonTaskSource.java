@@ -8,7 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum SparkPythonTaskSource {
   GIT, // The Python file is located in a remote Git repository.
-  WORKSPACE, // The Python file is located in a Databricks workspace or at a cloud filesystem
-  // URI.
+  WORKSPACE, // The Python file is located in a <Databricks> workspace or at a cloud
+  // filesystem URI.
 
 }

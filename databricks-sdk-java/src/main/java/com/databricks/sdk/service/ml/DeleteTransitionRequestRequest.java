@@ -37,7 +37,7 @@ public class DeleteTransitionRequestRequest {
    * <p>* `Archived`: Archived stage.
    */
   @QueryParam("stage")
-  private String stage;
+  private DeleteTransitionRequestStage stage;
 
   /** Version of the model. */
   @QueryParam("version")
@@ -70,12 +70,12 @@ public class DeleteTransitionRequestRequest {
     return name;
   }
 
-  public DeleteTransitionRequestRequest setStage(String stage) {
+  public DeleteTransitionRequestRequest setStage(DeleteTransitionRequestStage stage) {
     this.stage = stage;
     return this;
   }
 
-  public String getStage() {
+  public DeleteTransitionRequestStage getStage() {
     return stage;
   }
 

@@ -47,7 +47,7 @@ public class EditWarehouseRequest {
   @JsonProperty("enable_photon")
   private Boolean enablePhoton;
 
-  /** Configures whether the warehouse should use serverless compute */
+  /** Configures whether the warehouse should use serverless compute. */
   @JsonProperty("enable_serverless_compute")
   private Boolean enableServerlessCompute;
 
@@ -107,7 +107,7 @@ public class EditWarehouseRequest {
    * `PRO` and also set the field `enable_serverless_compute` to `true`.
    */
   @JsonProperty("warehouse_type")
-  private WarehouseType warehouseType;
+  private EditWarehouseRequestWarehouseType warehouseType;
 
   public EditWarehouseRequest setAutoStopMins(Long autoStopMins) {
     this.autoStopMins = autoStopMins;
@@ -226,12 +226,12 @@ public class EditWarehouseRequest {
     return tags;
   }
 
-  public EditWarehouseRequest setWarehouseType(WarehouseType warehouseType) {
+  public EditWarehouseRequest setWarehouseType(EditWarehouseRequestWarehouseType warehouseType) {
     this.warehouseType = warehouseType;
     return this;
   }
 
-  public WarehouseType getWarehouseType() {
+  public EditWarehouseRequestWarehouseType getWarehouseType() {
     return warehouseType;
   }
 

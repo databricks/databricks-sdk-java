@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class PartialUpdate {
-  /** Unique ID for a group in the Databricks Account. */
+  /** Unique ID for a group in the Databricks account. */
   private String id;
 
   /** */

@@ -29,8 +29,8 @@ public class Policy {
   private String description;
 
   /**
-   * If true, policy is a default policy created and managed by Databricks. Default policies cannot
-   * be deleted, and their policy families cannot be changed.
+   * If true, policy is a default policy created and managed by <Databricks>. Default policies
+   * cannot be deleted, and their policy families cannot be changed.
    */
   @JsonProperty("is_default")
   private Boolean isDefault;

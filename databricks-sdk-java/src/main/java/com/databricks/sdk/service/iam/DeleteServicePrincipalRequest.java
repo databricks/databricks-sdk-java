@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Delete a service principal */
 @Generated
 public class DeleteServicePrincipalRequest {
-  /** Unique ID for a service principal in the Databricks Workspace. */
+  /** Unique ID for a service principal in the Databricks workspace. */
   private String id;
 
   public DeleteServicePrincipalRequest setId(String id) {

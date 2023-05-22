@@ -10,16 +10,16 @@ import java.util.Objects;
 
 @Generated
 public class ListTokensResponse {
-  /** The information for each token. */
+  /** */
   @JsonProperty("token_infos")
-  private Collection<PublicTokenInfo> tokenInfos;
+  private Collection<TokenInfo> tokenInfos;
 
-  public ListTokensResponse setTokenInfos(Collection<PublicTokenInfo> tokenInfos) {
+  public ListTokensResponse setTokenInfos(Collection<TokenInfo> tokenInfos) {
     this.tokenInfos = tokenInfos;
     return this;
   }
 
-  public Collection<PublicTokenInfo> getTokenInfos() {
+  public Collection<TokenInfo> getTokenInfos() {
     return tokenInfos;
   }
 

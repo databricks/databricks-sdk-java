@@ -38,7 +38,8 @@ public class OAuthEnrollmentAPI {
    * <p>The parter applications are: - Power BI - Tableau Desktop - Databricks CLI
    *
    * <p>The enrollment is executed asynchronously, so the API will return 204 immediately. The
-   * actual enrollment take a few minutes, you can check the status via API :method:get.
+   * actual enrollment take a few minutes, you can check the status via API
+   * :method:OAuthEnrollment/get.
    */
   public void create(CreateOAuthEnrollment request) {
     impl.create(request);

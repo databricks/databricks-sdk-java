@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 
 /**
  * These APIs manage storage credentials for a particular metastore.
@@ -27,6 +26,14 @@ public interface AccountStorageCredentialsService {
   StorageCredentialInfo create(CreateStorageCredential createStorageCredential);
 
   /**
+   * Delete a storage credential.
+   *
+   * <p>Deletes a storage credential from the metastore. The caller must be an owner of the storage
+   * credential.
+   */
+  void delete(DeleteAccountStorageCredentialRequest deleteAccountStorageCredentialRequest);
+
+  /**
    * Gets the named storage credential.
    *
    * <p>Gets a storage credential from the metastore. The caller must be a metastore admin, the
@@ -39,6 +46,14 @@ public interface AccountStorageCredentialsService {
    *
    * <p>Gets a list of all storage credentials that have been assigned to given metastore.
    */
-  Collection<StorageCredentialInfo> list(
+  ListStorageCredentialsResponse list(
       ListAccountStorageCredentialsRequest listAccountStorageCredentialsRequest);
+
+  /**
+   * Updates a storage credential.
+   *
+   * <p>Updates a storage credential on the metastore. The caller must be the owner of the storage
+   * credential. If the caller is a metastore admin, only the __owner__ credential can be changed.
+   */
+  StorageCredentialInfo update(UpdateStorageCredential updateStorageCredential);
 }

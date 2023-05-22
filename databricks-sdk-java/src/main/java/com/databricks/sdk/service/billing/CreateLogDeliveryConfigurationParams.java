@@ -86,9 +86,9 @@ public class CreateLogDeliveryConfigurationParams {
   private LogDeliveryConfigStatus status;
 
   /**
-   * "The ID for a method:storage/create that represents the S3 bucket with bucket policy as
+   * The ID for a method:storage/create that represents the S3 bucket with bucket policy as
    * described in the main billable usage documentation page. See [Configure billable usage
-   * delivery]."
+   * delivery].
    *
    * <p>[Configure billable usage delivery]:
    * https://docs.databricks.com/administration-guide/account-settings/billable-usage-delivery.html

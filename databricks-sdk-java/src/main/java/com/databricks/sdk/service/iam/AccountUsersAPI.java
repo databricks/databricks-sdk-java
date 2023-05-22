@@ -10,11 +10,11 @@ import org.slf4j.LoggerFactory;
  * User identities recognized by Databricks and represented by email addresses.
  *
  * <p>Databricks recommends using SCIM provisioning to sync users and groups automatically from your
- * identity provider to your Databricks Account. SCIM streamlines onboarding a new employee or team
- * by using your identity provider to create users and groups in Databricks Account and give them
+ * identity provider to your Databricks account. SCIM streamlines onboarding a new employee or team
+ * by using your identity provider to create users and groups in Databricks account and give them
  * the proper level of access. When a user leaves your organization or no longer needs access to
- * Databricks Account, admins can terminate the user in your identity provider and that user’s
- * account will also be removed from Databricks Account. This ensures a consistent offboarding
+ * Databricks account, admins can terminate the user in your identity provider and that user’s
+ * account will also be removed from Databricks account. This ensures a consistent offboarding
  * process and prevents unauthorized users from accessing sensitive data.
  */
 @Generated
@@ -40,7 +40,7 @@ public class AccountUsersAPI {
   /**
    * Create a new user.
    *
-   * <p>Creates a new user in the Databricks Account. This new user will also be added to the
+   * <p>Creates a new user in the Databricks account. This new user will also be added to the
    * Databricks account.
    */
   public User create(User request) {
@@ -54,7 +54,7 @@ public class AccountUsersAPI {
   /**
    * Delete a user.
    *
-   * <p>Deletes a user. Deleting a user from a Databricks Account also removes objects associated
+   * <p>Deletes a user. Deleting a user from a Databricks account also removes objects associated
    * with the user.
    */
   public void delete(DeleteAccountUserRequest request) {
@@ -68,7 +68,7 @@ public class AccountUsersAPI {
   /**
    * Get user details.
    *
-   * <p>Gets information for a specific user in Databricks Account.
+   * <p>Gets information for a specific user in Databricks account.
    */
   public User get(GetAccountUserRequest request) {
     return impl.get(request);
@@ -77,7 +77,7 @@ public class AccountUsersAPI {
   /**
    * List users.
    *
-   * <p>Gets details for all the users associated with a Databricks Account.
+   * <p>Gets details for all the users associated with a Databricks account.
    */
   public Iterable<User> list(ListAccountUsersRequest request) {
     return impl.list(request).getResources();

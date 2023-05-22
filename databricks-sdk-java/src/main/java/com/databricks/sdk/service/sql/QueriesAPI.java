@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * These endpoints are used for CRUD operations on query definitions. Query definitions include the
  * target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
+ * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
  */
 @Generated
 public class QueriesAPI {

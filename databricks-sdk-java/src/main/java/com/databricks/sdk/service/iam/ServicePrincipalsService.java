@@ -19,35 +19,35 @@ public interface ServicePrincipalsService {
   /**
    * Create a service principal.
    *
-   * <p>Creates a new service principal in the Databricks Workspace.
+   * <p>Creates a new service principal in the Databricks workspace.
    */
   ServicePrincipal create(ServicePrincipal servicePrincipal);
 
   /**
    * Delete a service principal.
    *
-   * <p>Delete a single service principal in the Databricks Workspace.
+   * <p>Delete a single service principal in the Databricks workspace.
    */
   void delete(DeleteServicePrincipalRequest deleteServicePrincipalRequest);
 
   /**
    * Get service principal details.
    *
-   * <p>Gets the details for a single service principal define in the Databricks Workspace.
+   * <p>Gets the details for a single service principal define in the Databricks workspace.
    */
   ServicePrincipal get(GetServicePrincipalRequest getServicePrincipalRequest);
 
   /**
    * List service principals.
    *
-   * <p>Gets the set of service principals associated with a Databricks Workspace.
+   * <p>Gets the set of service principals associated with a Databricks workspace.
    */
   ListServicePrincipalResponse list(ListServicePrincipalsRequest listServicePrincipalsRequest);
 
   /**
    * Update service principal details.
    *
-   * <p>Partially updates the details of a single service principal in the Databricks Workspace.
+   * <p>Partially updates the details of a single service principal in the Databricks workspace.
    */
   void patch(PartialUpdate partialUpdate);
 

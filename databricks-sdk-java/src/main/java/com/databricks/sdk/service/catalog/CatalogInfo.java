@@ -34,6 +34,13 @@ public class CatalogInfo {
   @JsonProperty("enable_auto_maintenance")
   private EnableAutoMaintenance enableAutoMaintenance;
 
+  /**
+   * Whether the current securable is accessible from all workspaces or a specific set of
+   * workspaces.
+   */
+  @JsonProperty("isolation_mode")
+  private IsolationMode isolationMode;
+
   /** Unique identifier of parent metastore. */
   @JsonProperty("metastore_id")
   private String metastoreId;
@@ -132,6 +139,15 @@ public class CatalogInfo {
 
   public EnableAutoMaintenance getEnableAutoMaintenance() {
     return enableAutoMaintenance;
+  }
+
+  public CatalogInfo setIsolationMode(IsolationMode isolationMode) {
+    this.isolationMode = isolationMode;
+    return this;
+  }
+
+  public IsolationMode getIsolationMode() {
+    return isolationMode;
   }
 
   public CatalogInfo setMetastoreId(String metastoreId) {
@@ -235,6 +251,7 @@ public class CatalogInfo {
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(effectiveAutoMaintenanceFlag, that.effectiveAutoMaintenanceFlag)
         && Objects.equals(enableAutoMaintenance, that.enableAutoMaintenance)
+        && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
@@ -256,6 +273,7 @@ public class CatalogInfo {
         createdBy,
         effectiveAutoMaintenanceFlag,
         enableAutoMaintenance,
+        isolationMode,
         metastoreId,
         name,
         owner,
@@ -277,6 +295,7 @@ public class CatalogInfo {
         .add("createdBy", createdBy)
         .add("effectiveAutoMaintenanceFlag", effectiveAutoMaintenanceFlag)
         .add("enableAutoMaintenance", enableAutoMaintenance)
+        .add("isolationMode", isolationMode)
         .add("metastoreId", metastoreId)
         .add("name", name)
         .add("owner", owner)

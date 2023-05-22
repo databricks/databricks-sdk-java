@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 
 /**
  * A storage credential represents an authentication and authorization mechanism for accessing data
@@ -60,7 +59,7 @@ public interface StorageCredentialsService {
    * a metastore admin, all storage credentials will be retrieved. There is no guarantee of a
    * specific ordering of the elements in the array.
    */
-  Collection<StorageCredentialInfo> list();
+  ListStorageCredentialsResponse list();
 
   /**
    * Update a credential.

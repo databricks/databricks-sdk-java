@@ -23,14 +23,14 @@ public interface AccountMetastoresService {
   /**
    * Delete a metastore.
    *
-   * <p>Deletes a Databricks Unity Catalog metastore for an account, both specified by ID.
+   * <p>Deletes a Unity Catalog metastore for an account, both specified by ID.
    */
   void delete(DeleteAccountMetastoreRequest deleteAccountMetastoreRequest);
 
   /**
    * Get a metastore.
    *
-   * <p>Gets a Databricks Unity Catalog metastore from an account, both specified by ID.
+   * <p>Gets a Unity Catalog metastore from an account, both specified by ID.
    */
   MetastoreInfo get(GetAccountMetastoreRequest getAccountMetastoreRequest);
 

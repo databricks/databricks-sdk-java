@@ -14,13 +14,13 @@ public class GetResponse {
   @JsonProperty("access_control_list")
   private Collection<AccessControl> accessControlList;
 
-  /** A singular noun object type. */
-  @JsonProperty("object_id")
-  private ObjectType objectId;
-
   /** An object's type and UUID, separated by a forward slash (/) character. */
+  @JsonProperty("object_id")
+  private String objectId;
+
+  /** A singular noun object type. */
   @JsonProperty("object_type")
-  private String objectType;
+  private ObjectType objectType;
 
   public GetResponse setAccessControlList(Collection<AccessControl> accessControlList) {
     this.accessControlList = accessControlList;
@@ -31,21 +31,21 @@ public class GetResponse {
     return accessControlList;
   }
 
-  public GetResponse setObjectId(ObjectType objectId) {
+  public GetResponse setObjectId(String objectId) {
     this.objectId = objectId;
     return this;
   }
 
-  public ObjectType getObjectId() {
+  public String getObjectId() {
     return objectId;
   }
 
-  public GetResponse setObjectType(String objectType) {
+  public GetResponse setObjectType(ObjectType objectType) {
     this.objectType = objectType;
     return this;
   }
 
-  public String getObjectType() {
+  public ObjectType getObjectType() {
     return objectType;
   }
 
