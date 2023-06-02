@@ -58,6 +58,9 @@ public class DatabricksConfig {
   @ConfigAttribute(value = "config_file", env = "DATABRICKS_CONFIG_FILE")
   private String configFile;
 
+  @ConfigAttribute(value = "cluster_id", env = "DATABRICKS_CLUSTER_ID")
+  private String clusterId;
+
   @ConfigAttribute(
       value = "google_service_account",
       env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT",
@@ -249,6 +252,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setUsername(String username) {
     this.username = username;
+    return this;
+  }
+
+  public String getClusterId() {
+    return clusterId;
+  }
+
+  public DatabricksConfig setClusterId(String clusterId) {
+    this.clusterId = clusterId;
     return this;
   }
 
