@@ -27,9 +27,6 @@ public class UpdateMetastore {
   /** Unique ID of the metastore. */
   private String id;
 
-  /** Unity Catalog metastore ID */
-  private String metastoreId;
-
   /** The user-specified name of the metastore. */
   @JsonProperty("name")
   private String name;
@@ -83,15 +80,6 @@ public class UpdateMetastore {
     return id;
   }
 
-  public UpdateMetastore setMetastoreId(String metastoreId) {
-    this.metastoreId = metastoreId;
-    return this;
-  }
-
-  public String getMetastoreId() {
-    return metastoreId;
-  }
-
   public UpdateMetastore setName(String name) {
     this.name = name;
     return this;
@@ -139,7 +127,6 @@ public class UpdateMetastore {
             that.deltaSharingRecipientTokenLifetimeInSeconds)
         && Objects.equals(deltaSharingScope, that.deltaSharingScope)
         && Objects.equals(id, that.id)
-        && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
         && Objects.equals(privilegeModelVersion, that.privilegeModelVersion)
@@ -153,7 +140,6 @@ public class UpdateMetastore {
         deltaSharingRecipientTokenLifetimeInSeconds,
         deltaSharingScope,
         id,
-        metastoreId,
         name,
         owner,
         privilegeModelVersion,
@@ -169,7 +155,6 @@ public class UpdateMetastore {
             deltaSharingRecipientTokenLifetimeInSeconds)
         .add("deltaSharingScope", deltaSharingScope)
         .add("id", id)
-        .add("metastoreId", metastoreId)
         .add("name", name)
         .add("owner", owner)
         .add("privilegeModelVersion", privilegeModelVersion)

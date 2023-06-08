@@ -33,10 +33,6 @@ public class AccountUsersAPI {
     impl = mock;
   }
 
-  public User create(String id) {
-    return create(new User().setId(id));
-  }
-
   /**
    * Create a new user.
    *

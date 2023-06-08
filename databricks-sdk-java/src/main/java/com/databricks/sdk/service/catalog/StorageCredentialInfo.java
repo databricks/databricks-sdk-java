@@ -13,6 +13,10 @@ public class StorageCredentialInfo {
   @JsonProperty("aws_iam_role")
   private AwsIamRole awsIamRole;
 
+  /** The Azure managed identity configuration. */
+  @JsonProperty("azure_managed_identity")
+  private AzureManagedIdentity azureManagedIdentity;
+
   /** The Azure service principal configuration. */
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
@@ -29,9 +33,9 @@ public class StorageCredentialInfo {
   @JsonProperty("created_by")
   private String createdBy;
 
-  /** The GCP service account key configuration. */
-  @JsonProperty("gcp_service_account_key")
-  private GcpServiceAccountKey gcpServiceAccountKey;
+  /** The <Databricks> managed GCP service account configuration. */
+  @JsonProperty("databricks_gcp_service_account")
+  private DatabricksGcpServiceAccountResponse databricksGcpServiceAccount;
 
   /** The unique identifier of the credential. */
   @JsonProperty("id")
@@ -74,6 +78,15 @@ public class StorageCredentialInfo {
     return awsIamRole;
   }
 
+  public StorageCredentialInfo setAzureManagedIdentity(AzureManagedIdentity azureManagedIdentity) {
+    this.azureManagedIdentity = azureManagedIdentity;
+    return this;
+  }
+
+  public AzureManagedIdentity getAzureManagedIdentity() {
+    return azureManagedIdentity;
+  }
+
   public StorageCredentialInfo setAzureServicePrincipal(
       AzureServicePrincipal azureServicePrincipal) {
     this.azureServicePrincipal = azureServicePrincipal;
@@ -111,13 +124,14 @@ public class StorageCredentialInfo {
     return createdBy;
   }
 
-  public StorageCredentialInfo setGcpServiceAccountKey(GcpServiceAccountKey gcpServiceAccountKey) {
-    this.gcpServiceAccountKey = gcpServiceAccountKey;
+  public StorageCredentialInfo setDatabricksGcpServiceAccount(
+      DatabricksGcpServiceAccountResponse databricksGcpServiceAccount) {
+    this.databricksGcpServiceAccount = databricksGcpServiceAccount;
     return this;
   }
 
-  public GcpServiceAccountKey getGcpServiceAccountKey() {
-    return gcpServiceAccountKey;
+  public DatabricksGcpServiceAccountResponse getDatabricksGcpServiceAccount() {
+    return databricksGcpServiceAccount;
   }
 
   public StorageCredentialInfo setId(String id) {
@@ -198,11 +212,12 @@ public class StorageCredentialInfo {
     if (o == null || getClass() != o.getClass()) return false;
     StorageCredentialInfo that = (StorageCredentialInfo) o;
     return Objects.equals(awsIamRole, that.awsIamRole)
+        && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
-        && Objects.equals(gcpServiceAccountKey, that.gcpServiceAccountKey)
+        && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(id, that.id)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -217,11 +232,12 @@ public class StorageCredentialInfo {
   public int hashCode() {
     return Objects.hash(
         awsIamRole,
+        azureManagedIdentity,
         azureServicePrincipal,
         comment,
         createdAt,
         createdBy,
-        gcpServiceAccountKey,
+        databricksGcpServiceAccount,
         id,
         metastoreId,
         name,
@@ -236,11 +252,12 @@ public class StorageCredentialInfo {
   public String toString() {
     return new ToStringer(StorageCredentialInfo.class)
         .add("awsIamRole", awsIamRole)
+        .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
-        .add("gcpServiceAccountKey", gcpServiceAccountKey)
+        .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("id", id)
         .add("metastoreId", metastoreId)
         .add("name", name)

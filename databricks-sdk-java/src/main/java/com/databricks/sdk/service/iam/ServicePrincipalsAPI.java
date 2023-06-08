@@ -29,10 +29,6 @@ public class ServicePrincipalsAPI {
     impl = mock;
   }
 
-  public ServicePrincipal create(String id) {
-    return create(new ServicePrincipal().setId(id));
-  }
-
   /**
    * Create a service principal.
    *

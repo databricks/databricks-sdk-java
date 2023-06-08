@@ -14,7 +14,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   }
 
   @Override
-  public StorageCredentialInfo create(CreateStorageCredential request) {
+  public StorageCredentialInfo create(AccountsCreateStorageCredential request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
@@ -50,7 +50,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   }
 
   @Override
-  public StorageCredentialInfo update(UpdateStorageCredential request) {
+  public StorageCredentialInfo update(AccountsUpdateStorageCredential request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",

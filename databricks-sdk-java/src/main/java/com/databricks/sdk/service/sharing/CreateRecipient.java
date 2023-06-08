@@ -18,11 +18,9 @@ public class CreateRecipient {
   private String comment;
 
   /**
-   * The global Unity Catalog metastore id provided by the data recipient.
-   *
-   * <p>This field is required when the __authentication_type__ is **DATABRICKS**.
-   *
-   * <p>The identifier is of format __cloud__:__region__:__metastore-uuid__.
+   * The global Unity Catalog metastore id provided by the data recipient. This field is required
+   * when the __authentication_type__ is **DATABRICKS**. The identifier is of format
+   * __cloud__:__region__:__metastore-uuid__.
    */
   @JsonProperty("data_recipient_global_metastore_id")
   private Object dataRecipientGlobalMetastoreId;

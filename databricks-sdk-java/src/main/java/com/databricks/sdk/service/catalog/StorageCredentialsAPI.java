@@ -35,8 +35,8 @@ public class StorageCredentialsAPI {
     impl = mock;
   }
 
-  public StorageCredentialInfo create(String name, String metastoreId) {
-    return create(new CreateStorageCredential().setName(name).setMetastoreId(metastoreId));
+  public StorageCredentialInfo create(String name) {
+    return create(new CreateStorageCredential().setName(name));
   }
 
   /**
@@ -44,8 +44,9 @@ public class StorageCredentialsAPI {
    *
    * <p>Creates a new storage credential. The request object is specific to the cloud:
    *
-   * <p>* **AwsIamRole** for AWS credentials * **AzureServicePrincipal** for Azure credentials *
-   * **GcpServiceAcountKey** for GCP credentials.
+   * <p>* **AwsIamRole** for AWS credentials. * **AzureServicePrincipal** for Azure credentials. *
+   * **AzureManagedIdentity** for Azure managed credentials. * **DatabricksGcpServiceAccount** for
+   * GCP managed credentials.
    *
    * <p>The caller must be a metastore admin and have the **CREATE_STORAGE_CREDENTIAL** privilege on
    * the metastore.
@@ -94,8 +95,8 @@ public class StorageCredentialsAPI {
     return impl.list().getStorageCredentials();
   }
 
-  public StorageCredentialInfo update(String metastoreId, String name) {
-    return update(new UpdateStorageCredential().setMetastoreId(metastoreId).setName(name));
+  public StorageCredentialInfo update(String name) {
+    return update(new UpdateStorageCredential().setName(name));
   }
 
   /**

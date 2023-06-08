@@ -23,13 +23,11 @@ public class PrivateAccessAPI {
     impl = mock;
   }
 
-  public PrivateAccessSettings create(
-      String privateAccessSettingsName, String region, String privateAccessSettingsId) {
+  public PrivateAccessSettings create(String privateAccessSettingsName, String region) {
     return create(
         new UpsertPrivateAccessSettingsRequest()
             .setPrivateAccessSettingsName(privateAccessSettingsName)
-            .setRegion(region)
-            .setPrivateAccessSettingsId(privateAccessSettingsId));
+            .setRegion(region));
   }
 
   /**

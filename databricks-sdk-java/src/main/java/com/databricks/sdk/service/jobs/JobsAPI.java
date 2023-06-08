@@ -229,20 +229,17 @@ public class JobsAPI {
    * <p>Retrieves a list of jobs.
    */
   public Iterable<BaseJob> list(ListJobsRequest request) {
-    request.setOffset(0L);
     return new Paginator<>(
-            request,
-            impl::list,
-            ListJobsResponse::getJobs,
-            response -> {
-              Long offset = request.getOffset();
-              if (offset == null) {
-                offset = 0L;
-              }
-              offset += response.getJobs().size();
-              return request.setOffset(offset);
-            })
-        .withDedupe(BaseJob::getJobId);
+        request,
+        impl::list,
+        ListJobsResponse::getJobs,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /**
@@ -251,20 +248,17 @@ public class JobsAPI {
    * <p>List runs in descending order by start time.
    */
   public Iterable<BaseRun> listRuns(ListRunsRequest request) {
-    request.setOffset(0L);
     return new Paginator<>(
-            request,
-            impl::listRuns,
-            ListRunsResponse::getRuns,
-            response -> {
-              Long offset = request.getOffset();
-              if (offset == null) {
-                offset = 0L;
-              }
-              offset += response.getRuns().size();
-              return request.setOffset(offset);
-            })
-        .withDedupe(BaseRun::getRunId);
+        request,
+        impl::listRuns,
+        ListRunsResponse::getRuns,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public Wait<Run, RepairRunResponse> repairRun(long runId) {

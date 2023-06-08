@@ -27,8 +27,9 @@ public interface StorageCredentialsService {
    *
    * <p>Creates a new storage credential. The request object is specific to the cloud:
    *
-   * <p>* **AwsIamRole** for AWS credentials * **AzureServicePrincipal** for Azure credentials *
-   * **GcpServiceAcountKey** for GCP credentials.
+   * <p>* **AwsIamRole** for AWS credentials. * **AzureServicePrincipal** for Azure credentials. *
+   * **AzureManagedIdentity** for Azure managed credentials. * **DatabricksGcpServiceAccount** for
+   * GCP managed credentials.
    *
    * <p>The caller must be a metastore admin and have the **CREATE_STORAGE_CREDENTIAL** privilege on
    * the metastore.

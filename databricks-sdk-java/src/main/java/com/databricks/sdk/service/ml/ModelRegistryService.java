@@ -4,7 +4,10 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 
 /**
- * This is the high-level interface, that contains generated methods.
+ * MLflow Model Registry is a centralized model repository and a UI and set of APIs that enable you
+ * to manage the full lifecycle of MLflow Models.
+ *
+ * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
@@ -97,7 +100,7 @@ public interface ModelRegistryService {
   void deleteModelVersionTag(DeleteModelVersionTagRequest deleteModelVersionTagRequest);
 
   /**
-   * Delete a ransition request.
+   * Delete a transition request.
    *
    * <p>Cancels a model version stage transition request.
    */

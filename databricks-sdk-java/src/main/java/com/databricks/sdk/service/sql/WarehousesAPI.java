@@ -32,47 +32,6 @@ public class WarehousesAPI {
     impl = mock;
   }
 
-  public GetWarehouseResponse waitGetWarehouseDeleted(String id) throws TimeoutException {
-    return waitGetWarehouseDeleted(id, Duration.ofMinutes(20), null);
-  }
-
-  public GetWarehouseResponse waitGetWarehouseDeleted(
-      String id, Duration timeout, Consumer<GetWarehouseResponse> callback)
-      throws TimeoutException {
-    long deadline = System.currentTimeMillis() + timeout.toMillis();
-    java.util.List<State> targetStates = Arrays.asList(State.DELETED);
-    String statusMessage = "polling...";
-    int attempt = 1;
-    while (System.currentTimeMillis() < deadline) {
-      GetWarehouseResponse poll = get(new GetWarehouseRequest().setId(id));
-      State status = poll.getState();
-      statusMessage = String.format("current status: %s", status);
-      if (poll.getHealth() != null) {
-        statusMessage = poll.getHealth().getSummary();
-      }
-      if (targetStates.contains(status)) {
-        return poll;
-      }
-      if (callback != null) {
-        callback.accept(poll);
-      }
-      String prefix = String.format("id=%s", id);
-      int sleep = attempt;
-      if (sleep > 10) {
-        // sleep 10s max per attempt
-        sleep = 10;
-      }
-      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
-      try {
-        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-      }
-      attempt++;
-    }
-    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
-  }
-
   public GetWarehouseResponse waitGetWarehouseRunning(String id) throws TimeoutException {
     return waitGetWarehouseRunning(id, Duration.ofMinutes(20), null);
   }
@@ -174,8 +133,8 @@ public class WarehousesAPI {
         response);
   }
 
-  public Wait<GetWarehouseResponse, Void> delete(String id) {
-    return delete(new DeleteWarehouseRequest().setId(id));
+  public void delete(String id) {
+    delete(new DeleteWarehouseRequest().setId(id));
   }
 
   /**
@@ -183,10 +142,8 @@ public class WarehousesAPI {
    *
    * <p>Deletes a SQL warehouse.
    */
-  public Wait<GetWarehouseResponse, Void> delete(DeleteWarehouseRequest request) {
+  public void delete(DeleteWarehouseRequest request) {
     impl.delete(request);
-    return new Wait<>(
-        (timeout, callback) -> waitGetWarehouseDeleted(request.getId(), timeout, callback));
   }
 
   public Wait<GetWarehouseResponse, Void> edit(String id) {

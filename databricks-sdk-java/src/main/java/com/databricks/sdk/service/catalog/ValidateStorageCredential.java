@@ -13,17 +13,21 @@ public class ValidateStorageCredential {
   @JsonProperty("aws_iam_role")
   private AwsIamRole awsIamRole;
 
+  /** The Azure managed identity configuration. */
+  @JsonProperty("azure_managed_identity")
+  private AzureManagedIdentity azureManagedIdentity;
+
   /** The Azure service principal configuration. */
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
+  /** The Databricks created GCP service account configuration. */
+  @JsonProperty("databricks_gcp_service_account")
+  private Object databricksGcpServiceAccount;
+
   /** The name of an existing external location to validate. */
   @JsonProperty("external_location_name")
   private String externalLocationName;
-
-  /** The GCP service account key configuration. */
-  @JsonProperty("gcp_service_account_key")
-  private GcpServiceAccountKey gcpServiceAccountKey;
 
   /** Whether the storage credential is only usable for read operations. */
   @JsonProperty("read_only")
@@ -46,6 +50,16 @@ public class ValidateStorageCredential {
     return awsIamRole;
   }
 
+  public ValidateStorageCredential setAzureManagedIdentity(
+      AzureManagedIdentity azureManagedIdentity) {
+    this.azureManagedIdentity = azureManagedIdentity;
+    return this;
+  }
+
+  public AzureManagedIdentity getAzureManagedIdentity() {
+    return azureManagedIdentity;
+  }
+
   public ValidateStorageCredential setAzureServicePrincipal(
       AzureServicePrincipal azureServicePrincipal) {
     this.azureServicePrincipal = azureServicePrincipal;
@@ -56,6 +70,16 @@ public class ValidateStorageCredential {
     return azureServicePrincipal;
   }
 
+  public ValidateStorageCredential setDatabricksGcpServiceAccount(
+      Object databricksGcpServiceAccount) {
+    this.databricksGcpServiceAccount = databricksGcpServiceAccount;
+    return this;
+  }
+
+  public Object getDatabricksGcpServiceAccount() {
+    return databricksGcpServiceAccount;
+  }
+
   public ValidateStorageCredential setExternalLocationName(String externalLocationName) {
     this.externalLocationName = externalLocationName;
     return this;
@@ -63,16 +87,6 @@ public class ValidateStorageCredential {
 
   public String getExternalLocationName() {
     return externalLocationName;
-  }
-
-  public ValidateStorageCredential setGcpServiceAccountKey(
-      GcpServiceAccountKey gcpServiceAccountKey) {
-    this.gcpServiceAccountKey = gcpServiceAccountKey;
-    return this;
-  }
-
-  public GcpServiceAccountKey getGcpServiceAccountKey() {
-    return gcpServiceAccountKey;
   }
 
   public ValidateStorageCredential setReadOnly(Boolean readOnly) {
@@ -108,9 +122,10 @@ public class ValidateStorageCredential {
     if (o == null || getClass() != o.getClass()) return false;
     ValidateStorageCredential that = (ValidateStorageCredential) o;
     return Objects.equals(awsIamRole, that.awsIamRole)
+        && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
+        && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(externalLocationName, that.externalLocationName)
-        && Objects.equals(gcpServiceAccountKey, that.gcpServiceAccountKey)
         && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(storageCredentialName, that.storageCredentialName)
         && Objects.equals(url, that.url);
@@ -120,9 +135,10 @@ public class ValidateStorageCredential {
   public int hashCode() {
     return Objects.hash(
         awsIamRole,
+        azureManagedIdentity,
         azureServicePrincipal,
+        databricksGcpServiceAccount,
         externalLocationName,
-        gcpServiceAccountKey,
         readOnly,
         storageCredentialName,
         url);
@@ -132,9 +148,10 @@ public class ValidateStorageCredential {
   public String toString() {
     return new ToStringer(ValidateStorageCredential.class)
         .add("awsIamRole", awsIamRole)
+        .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
+        .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("externalLocationName", externalLocationName)
-        .add("gcpServiceAccountKey", gcpServiceAccountKey)
         .add("readOnly", readOnly)
         .add("storageCredentialName", storageCredentialName)
         .add("url", url)

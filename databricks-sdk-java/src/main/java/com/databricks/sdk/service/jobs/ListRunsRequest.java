@@ -40,9 +40,20 @@ public class ListRunsRequest {
   @QueryParam("limit")
   private Long limit;
 
-  /** The offset of the first run to return, relative to the most recent run. */
+  /**
+   * The offset of the first run to return, relative to the most recent run.
+   *
+   * <p>Deprecated since June 2023. Use `page_token` to iterate through the pages instead.
+   */
   @QueryParam("offset")
   private Long offset;
+
+  /**
+   * Use `next_page_token` or `prev_page_token` returned from the previous request to list the next
+   * or previous page of runs respectively.
+   */
+  @QueryParam("page_token")
+  private String pageToken;
 
   /** The type of runs to return. For a description of run types, see :method:jobs/getRun. */
   @QueryParam("run_type")
@@ -116,6 +127,15 @@ public class ListRunsRequest {
     return offset;
   }
 
+  public ListRunsRequest setPageToken(String pageToken) {
+    this.pageToken = pageToken;
+    return this;
+  }
+
+  public String getPageToken() {
+    return pageToken;
+  }
+
   public ListRunsRequest setRunType(ListRunsRunType runType) {
     this.runType = runType;
     return this;
@@ -154,6 +174,7 @@ public class ListRunsRequest {
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(limit, that.limit)
         && Objects.equals(offset, that.offset)
+        && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(runType, that.runType)
         && Objects.equals(startTimeFrom, that.startTimeFrom)
         && Objects.equals(startTimeTo, that.startTimeTo);
@@ -168,6 +189,7 @@ public class ListRunsRequest {
         jobId,
         limit,
         offset,
+        pageToken,
         runType,
         startTimeFrom,
         startTimeTo);
@@ -182,6 +204,7 @@ public class ListRunsRequest {
         .add("jobId", jobId)
         .add("limit", limit)
         .add("offset", offset)
+        .add("pageToken", pageToken)
         .add("runType", runType)
         .add("startTimeFrom", startTimeFrom)
         .add("startTimeTo", startTimeTo)

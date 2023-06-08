@@ -7,7 +7,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Delete a ransition request */
+/** Delete a transition request */
 @Generated
 public class DeleteTransitionRequestRequest {
   /** User-provided comment on the action. */

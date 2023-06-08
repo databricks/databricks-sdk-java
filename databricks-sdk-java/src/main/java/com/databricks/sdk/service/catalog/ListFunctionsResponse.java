@@ -11,16 +11,16 @@ import java.util.Objects;
 @Generated
 public class ListFunctionsResponse {
   /** An array of function information objects. */
-  @JsonProperty("schemas")
-  private Collection<FunctionInfo> schemas;
+  @JsonProperty("functions")
+  private Collection<FunctionInfo> functions;
 
-  public ListFunctionsResponse setSchemas(Collection<FunctionInfo> schemas) {
-    this.schemas = schemas;
+  public ListFunctionsResponse setFunctions(Collection<FunctionInfo> functions) {
+    this.functions = functions;
     return this;
   }
 
-  public Collection<FunctionInfo> getSchemas() {
-    return schemas;
+  public Collection<FunctionInfo> getFunctions() {
+    return functions;
   }
 
   @Override
@@ -28,16 +28,16 @@ public class ListFunctionsResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListFunctionsResponse that = (ListFunctionsResponse) o;
-    return Objects.equals(schemas, that.schemas);
+    return Objects.equals(functions, that.functions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(schemas);
+    return Objects.hash(functions);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListFunctionsResponse.class).add("schemas", schemas).toString();
+    return new ToStringer(ListFunctionsResponse.class).add("functions", functions).toString();
   }
 }
