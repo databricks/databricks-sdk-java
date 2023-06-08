@@ -13,6 +13,10 @@ public class UpdateStorageCredential {
   @JsonProperty("aws_iam_role")
   private AwsIamRole awsIamRole;
 
+  /** The Azure managed identity configuration. */
+  @JsonProperty("azure_managed_identity")
+  private AzureManagedIdentity azureManagedIdentity;
+
   /** The Azure service principal configuration. */
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
@@ -21,16 +25,13 @@ public class UpdateStorageCredential {
   @JsonProperty("comment")
   private String comment;
 
+  /** The <Databricks> managed GCP service account configuration. */
+  @JsonProperty("databricks_gcp_service_account")
+  private Object databricksGcpServiceAccount;
+
   /** Force update even if there are dependent external locations or external tables. */
   @JsonProperty("force")
   private Boolean force;
-
-  /** The GCP service account key configuration. */
-  @JsonProperty("gcp_service_account_key")
-  private GcpServiceAccountKey gcpServiceAccountKey;
-
-  /** Unity Catalog metastore ID */
-  private String metastoreId;
 
   /** The credential name. The name must be unique within the metastore. */
   @JsonProperty("name")
@@ -57,6 +58,16 @@ public class UpdateStorageCredential {
     return awsIamRole;
   }
 
+  public UpdateStorageCredential setAzureManagedIdentity(
+      AzureManagedIdentity azureManagedIdentity) {
+    this.azureManagedIdentity = azureManagedIdentity;
+    return this;
+  }
+
+  public AzureManagedIdentity getAzureManagedIdentity() {
+    return azureManagedIdentity;
+  }
+
   public UpdateStorageCredential setAzureServicePrincipal(
       AzureServicePrincipal azureServicePrincipal) {
     this.azureServicePrincipal = azureServicePrincipal;
@@ -76,6 +87,16 @@ public class UpdateStorageCredential {
     return comment;
   }
 
+  public UpdateStorageCredential setDatabricksGcpServiceAccount(
+      Object databricksGcpServiceAccount) {
+    this.databricksGcpServiceAccount = databricksGcpServiceAccount;
+    return this;
+  }
+
+  public Object getDatabricksGcpServiceAccount() {
+    return databricksGcpServiceAccount;
+  }
+
   public UpdateStorageCredential setForce(Boolean force) {
     this.force = force;
     return this;
@@ -83,25 +104,6 @@ public class UpdateStorageCredential {
 
   public Boolean getForce() {
     return force;
-  }
-
-  public UpdateStorageCredential setGcpServiceAccountKey(
-      GcpServiceAccountKey gcpServiceAccountKey) {
-    this.gcpServiceAccountKey = gcpServiceAccountKey;
-    return this;
-  }
-
-  public GcpServiceAccountKey getGcpServiceAccountKey() {
-    return gcpServiceAccountKey;
-  }
-
-  public UpdateStorageCredential setMetastoreId(String metastoreId) {
-    this.metastoreId = metastoreId;
-    return this;
-  }
-
-  public String getMetastoreId() {
-    return metastoreId;
   }
 
   public UpdateStorageCredential setName(String name) {
@@ -146,11 +148,11 @@ public class UpdateStorageCredential {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateStorageCredential that = (UpdateStorageCredential) o;
     return Objects.equals(awsIamRole, that.awsIamRole)
+        && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
         && Objects.equals(comment, that.comment)
+        && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(force, that.force)
-        && Objects.equals(gcpServiceAccountKey, that.gcpServiceAccountKey)
-        && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
         && Objects.equals(readOnly, that.readOnly)
@@ -161,11 +163,11 @@ public class UpdateStorageCredential {
   public int hashCode() {
     return Objects.hash(
         awsIamRole,
+        azureManagedIdentity,
         azureServicePrincipal,
         comment,
+        databricksGcpServiceAccount,
         force,
-        gcpServiceAccountKey,
-        metastoreId,
         name,
         owner,
         readOnly,
@@ -176,11 +178,11 @@ public class UpdateStorageCredential {
   public String toString() {
     return new ToStringer(UpdateStorageCredential.class)
         .add("awsIamRole", awsIamRole)
+        .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
         .add("comment", comment)
+        .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("force", force)
-        .add("gcpServiceAccountKey", gcpServiceAccountKey)
-        .add("metastoreId", metastoreId)
         .add("name", name)
         .add("owner", owner)
         .add("readOnly", readOnly)

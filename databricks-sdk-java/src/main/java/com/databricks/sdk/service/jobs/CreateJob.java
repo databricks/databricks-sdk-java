@@ -83,6 +83,17 @@ public class CreateJob {
   private JobNotificationSettings notificationSettings;
 
   /**
+   * Write-only setting, available only in Create/Update/Reset and Submit calls. Specifies the user
+   * or service principal that the job runs as. If not specified, the job runs as the user who
+   * created the job.
+   *
+   * <p>Only `user_name` or `service_principal_name` can be specified. If both are specified, an
+   * error is thrown.
+   */
+  @JsonProperty("run_as")
+  private JobRunAs runAs;
+
+  /**
    * An optional periodic schedule for this job. The default behavior is that the job only runs when
    * triggered by clicking “Run Now” in the Jobs UI or sending an API request to `runNow`.
    */
@@ -204,6 +215,15 @@ public class CreateJob {
     return notificationSettings;
   }
 
+  public CreateJob setRunAs(JobRunAs runAs) {
+    this.runAs = runAs;
+    return this;
+  }
+
+  public JobRunAs getRunAs() {
+    return runAs;
+  }
+
   public CreateJob setSchedule(CronSchedule schedule) {
     this.schedule = schedule;
     return this;
@@ -272,6 +292,7 @@ public class CreateJob {
         && Objects.equals(maxConcurrentRuns, that.maxConcurrentRuns)
         && Objects.equals(name, that.name)
         && Objects.equals(notificationSettings, that.notificationSettings)
+        && Objects.equals(runAs, that.runAs)
         && Objects.equals(schedule, that.schedule)
         && Objects.equals(tags, that.tags)
         && Objects.equals(tasks, that.tasks)
@@ -292,6 +313,7 @@ public class CreateJob {
         maxConcurrentRuns,
         name,
         notificationSettings,
+        runAs,
         schedule,
         tags,
         tasks,
@@ -312,6 +334,7 @@ public class CreateJob {
         .add("maxConcurrentRuns", maxConcurrentRuns)
         .add("name", name)
         .add("notificationSettings", notificationSettings)
+        .add("runAs", runAs)
         .add("schedule", schedule)
         .add("tags", tags)
         .add("tasks", tasks)

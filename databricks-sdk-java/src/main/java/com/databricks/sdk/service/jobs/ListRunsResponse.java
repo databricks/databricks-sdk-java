@@ -14,6 +14,14 @@ public class ListRunsResponse {
   @JsonProperty("has_more")
   private Boolean hasMore;
 
+  /** A token that can be used to list the next page of runs. */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
+  /** A token that can be used to list the previous page of runs. */
+  @JsonProperty("prev_page_token")
+  private String prevPageToken;
+
   /** A list of runs, from most recently started to least. */
   @JsonProperty("runs")
   private Collection<BaseRun> runs;
@@ -25,6 +33,24 @@ public class ListRunsResponse {
 
   public Boolean getHasMore() {
     return hasMore;
+  }
+
+  public ListRunsResponse setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
+  public ListRunsResponse setPrevPageToken(String prevPageToken) {
+    this.prevPageToken = prevPageToken;
+    return this;
+  }
+
+  public String getPrevPageToken() {
+    return prevPageToken;
   }
 
   public ListRunsResponse setRuns(Collection<BaseRun> runs) {
@@ -41,18 +67,23 @@ public class ListRunsResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListRunsResponse that = (ListRunsResponse) o;
-    return Objects.equals(hasMore, that.hasMore) && Objects.equals(runs, that.runs);
+    return Objects.equals(hasMore, that.hasMore)
+        && Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(prevPageToken, that.prevPageToken)
+        && Objects.equals(runs, that.runs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(hasMore, runs);
+    return Objects.hash(hasMore, nextPageToken, prevPageToken, runs);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListRunsResponse.class)
         .add("hasMore", hasMore)
+        .add("nextPageToken", nextPageToken)
+        .add("prevPageToken", prevPageToken)
         .add("runs", runs)
         .toString();
   }

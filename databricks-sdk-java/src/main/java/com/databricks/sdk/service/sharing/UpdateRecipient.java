@@ -26,10 +26,9 @@ public class UpdateRecipient {
   private String owner;
 
   /**
-   * Recipient properties as map of string key-value pairs.
-   *
-   * <p>When provided in update request, the specified properties will override the existing
-   * properties. To add and remove properties, one would need to perform a read-modify-write.
+   * Recipient properties as map of string key-value pairs. When provided in update request, the
+   * specified properties will override the existing properties. To add and remove properties, one
+   * would need to perform a read-modify-write.
    */
   @JsonProperty("properties_kvpairs")
   private SecurablePropertiesKvPairs propertiesKvpairs;

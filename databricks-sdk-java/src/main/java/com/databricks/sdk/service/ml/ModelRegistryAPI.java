@@ -8,6 +8,10 @@ import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * MLflow Model Registry is a centralized model repository and a UI and set of APIs that enable you
+ * to manage the full lifecycle of MLflow Models.
+ */
 @Generated
 public class ModelRegistryAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ModelRegistryAPI.class);
@@ -194,7 +198,7 @@ public class ModelRegistryAPI {
   }
 
   /**
-   * Delete a ransition request.
+   * Delete a transition request.
    *
    * <p>Cancels a model version stage transition request.
    */

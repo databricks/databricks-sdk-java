@@ -16,8 +16,8 @@ public class ResetJob {
   /**
    * The new settings of the job. These settings completely replace the old settings.
    *
-   * <p>Changes to the field `JobSettings.timeout_seconds` are applied to active runs. Changes to
-   * other fields are applied to future runs only.
+   * <p>Changes to the field `JobBaseSettings.timeout_seconds` are applied to active runs. Changes
+   * to other fields are applied to future runs only.
    */
   @JsonProperty("new_settings")
   private JobSettings newSettings;

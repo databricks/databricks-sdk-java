@@ -26,8 +26,8 @@ public class BudgetsAPI {
     impl = mock;
   }
 
-  public WrappedBudgetWithStatus create(Budget budget, String budgetId) {
-    return create(new WrappedBudget().setBudget(budget).setBudgetId(budgetId));
+  public WrappedBudgetWithStatus create(Budget budget) {
+    return create(new WrappedBudget().setBudget(budget));
   }
 
   /**

@@ -15,7 +15,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public MetastoreAssignment create(CreateMetastoreAssignment request) {
+  public MetastoreAssignment create(AccountsCreateMetastoreAssignment request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
@@ -51,7 +51,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public MetastoreAssignment update(UpdateMetastoreAssignment request) {
+  public MetastoreAssignment update(AccountsUpdateMetastoreAssignment request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",

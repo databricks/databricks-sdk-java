@@ -150,8 +150,8 @@ public class MetastoresAPI {
     impl.unassign(request);
   }
 
-  public MetastoreInfo update(String metastoreId, String id) {
-    return update(new UpdateMetastore().setMetastoreId(metastoreId).setId(id));
+  public MetastoreInfo update(String id) {
+    return update(new UpdateMetastore().setId(id));
   }
 
   /**
@@ -163,9 +163,8 @@ public class MetastoresAPI {
     return impl.update(request);
   }
 
-  public void updateAssignment(long workspaceId, String metastoreId) {
-    updateAssignment(
-        new UpdateMetastoreAssignment().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
+  public void updateAssignment(long workspaceId) {
+    updateAssignment(new UpdateMetastoreAssignment().setWorkspaceId(workspaceId));
   }
 
   /**

@@ -155,8 +155,8 @@ public class ServingEndpointsAPI {
   }
 
   /** Retrieve all serving endpoints. */
-  public ListEndpointsResponse list() {
-    return impl.list();
+  public Iterable<ServingEndpoint> list() {
+    return impl.list().getEndpoints();
   }
 
   public ServerLogsResponse logs(String name, String servedModelName) {

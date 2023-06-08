@@ -17,7 +17,7 @@ public class UpdateMetastoreAssignment {
   @JsonProperty("metastore_id")
   private String metastoreId;
 
-  /** Workspace ID. */
+  /** A workspace ID. */
   private Long workspaceId;
 
   public UpdateMetastoreAssignment setDefaultCatalogName(String defaultCatalogName) {

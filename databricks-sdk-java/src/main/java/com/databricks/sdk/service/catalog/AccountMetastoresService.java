@@ -16,35 +16,40 @@ public interface AccountMetastoresService {
   /**
    * Create metastore.
    *
-   * <p>Creates a Unity Catalog metastore.
+   * <p>Creates a Unity Catalog metastore. Please add a header
+   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  MetastoreInfo create(CreateMetastore createMetastore);
+  MetastoreInfo create(AccountsCreateMetastore accountsCreateMetastore);
 
   /**
    * Delete a metastore.
    *
-   * <p>Deletes a Unity Catalog metastore for an account, both specified by ID.
+   * <p>Deletes a Unity Catalog metastore for an account, both specified by ID. Please add a header
+   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
   void delete(DeleteAccountMetastoreRequest deleteAccountMetastoreRequest);
 
   /**
    * Get a metastore.
    *
-   * <p>Gets a Unity Catalog metastore from an account, both specified by ID.
+   * <p>Gets a Unity Catalog metastore from an account, both specified by ID. Please add a header
+   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
   MetastoreInfo get(GetAccountMetastoreRequest getAccountMetastoreRequest);
 
   /**
    * Get all metastores associated with an account.
    *
-   * <p>Gets all Unity Catalog metastores associated with an account specified by ID.
+   * <p>Gets all Unity Catalog metastores associated with an account specified by ID. Please add a
+   * header X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
   ListMetastoresResponse list();
 
   /**
    * Update a metastore.
    *
-   * <p>Updates an existing Unity Catalog metastore.
+   * <p>Updates an existing Unity Catalog metastore. Please add a header
+   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  MetastoreInfo update(UpdateMetastore updateMetastore);
+  MetastoreInfo update(AccountsUpdateMetastore accountsUpdateMetastore);
 }

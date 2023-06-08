@@ -13,6 +13,10 @@ public class CreateStorageCredential {
   @JsonProperty("aws_iam_role")
   private AwsIamRole awsIamRole;
 
+  /** The Azure managed identity configuration. */
+  @JsonProperty("azure_managed_identity")
+  private AzureManagedIdentity azureManagedIdentity;
+
   /** The Azure service principal configuration. */
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
@@ -21,12 +25,9 @@ public class CreateStorageCredential {
   @JsonProperty("comment")
   private String comment;
 
-  /** The GCP service account key configuration. */
-  @JsonProperty("gcp_service_account_key")
-  private GcpServiceAccountKey gcpServiceAccountKey;
-
-  /** Unity Catalog metastore ID */
-  private String metastoreId;
+  /** The <Databricks> managed GCP service account configuration. */
+  @JsonProperty("databricks_gcp_service_account")
+  private Object databricksGcpServiceAccount;
 
   /** The credential name. The name must be unique within the metastore. */
   @JsonProperty("name")
@@ -49,6 +50,16 @@ public class CreateStorageCredential {
     return awsIamRole;
   }
 
+  public CreateStorageCredential setAzureManagedIdentity(
+      AzureManagedIdentity azureManagedIdentity) {
+    this.azureManagedIdentity = azureManagedIdentity;
+    return this;
+  }
+
+  public AzureManagedIdentity getAzureManagedIdentity() {
+    return azureManagedIdentity;
+  }
+
   public CreateStorageCredential setAzureServicePrincipal(
       AzureServicePrincipal azureServicePrincipal) {
     this.azureServicePrincipal = azureServicePrincipal;
@@ -68,23 +79,14 @@ public class CreateStorageCredential {
     return comment;
   }
 
-  public CreateStorageCredential setGcpServiceAccountKey(
-      GcpServiceAccountKey gcpServiceAccountKey) {
-    this.gcpServiceAccountKey = gcpServiceAccountKey;
+  public CreateStorageCredential setDatabricksGcpServiceAccount(
+      Object databricksGcpServiceAccount) {
+    this.databricksGcpServiceAccount = databricksGcpServiceAccount;
     return this;
   }
 
-  public GcpServiceAccountKey getGcpServiceAccountKey() {
-    return gcpServiceAccountKey;
-  }
-
-  public CreateStorageCredential setMetastoreId(String metastoreId) {
-    this.metastoreId = metastoreId;
-    return this;
-  }
-
-  public String getMetastoreId() {
-    return metastoreId;
+  public Object getDatabricksGcpServiceAccount() {
+    return databricksGcpServiceAccount;
   }
 
   public CreateStorageCredential setName(String name) {
@@ -120,10 +122,10 @@ public class CreateStorageCredential {
     if (o == null || getClass() != o.getClass()) return false;
     CreateStorageCredential that = (CreateStorageCredential) o;
     return Objects.equals(awsIamRole, that.awsIamRole)
+        && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
         && Objects.equals(comment, that.comment)
-        && Objects.equals(gcpServiceAccountKey, that.gcpServiceAccountKey)
-        && Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(name, that.name)
         && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(skipValidation, that.skipValidation);
@@ -133,10 +135,10 @@ public class CreateStorageCredential {
   public int hashCode() {
     return Objects.hash(
         awsIamRole,
+        azureManagedIdentity,
         azureServicePrincipal,
         comment,
-        gcpServiceAccountKey,
-        metastoreId,
+        databricksGcpServiceAccount,
         name,
         readOnly,
         skipValidation);
@@ -146,10 +148,10 @@ public class CreateStorageCredential {
   public String toString() {
     return new ToStringer(CreateStorageCredential.class)
         .add("awsIamRole", awsIamRole)
+        .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
         .add("comment", comment)
-        .add("gcpServiceAccountKey", gcpServiceAccountKey)
-        .add("metastoreId", metastoreId)
+        .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("name", name)
         .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)

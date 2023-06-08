@@ -23,21 +23,20 @@ public class AccountMetastoreAssignmentsAPI {
     impl = mock;
   }
 
-  public MetastoreAssignment create(
-      String metastoreId, String defaultCatalogName, long workspaceId) {
+  public MetastoreAssignment create(long workspaceId, String metastoreId) {
     return create(
-        new CreateMetastoreAssignment()
-            .setMetastoreId(metastoreId)
-            .setDefaultCatalogName(defaultCatalogName)
-            .setWorkspaceId(workspaceId));
+        new AccountsCreateMetastoreAssignment()
+            .setWorkspaceId(workspaceId)
+            .setMetastoreId(metastoreId));
   }
 
   /**
    * Assigns a workspace to a metastore.
    *
-   * <p>Creates an assignment to a metastore for a workspace
+   * <p>Creates an assignment to a metastore for a workspace Please add a header
+   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  public MetastoreAssignment create(CreateMetastoreAssignment request) {
+  public MetastoreAssignment create(AccountsCreateMetastoreAssignment request) {
     return impl.create(request);
   }
 
@@ -52,6 +51,7 @@ public class AccountMetastoreAssignmentsAPI {
    * Delete a metastore assignment.
    *
    * <p>Deletes a metastore assignment to a workspace, leaving the workspace with no metastore.
+   * Please add a header X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
   public void delete(DeleteAccountMetastoreAssignmentRequest request) {
     impl.delete(request);
@@ -66,7 +66,8 @@ public class AccountMetastoreAssignmentsAPI {
    *
    * <p>Gets the metastore assignment, if any, for the workspace specified by ID. If the workspace
    * is assigned a metastore, the mappig will be returned. If no metastore is assigned to the
-   * workspace, the assignment will not be found and a 404 returned.
+   * workspace, the assignment will not be found and a 404 returned. Please add a header
+   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
   public MetastoreAssignment get(GetAccountMetastoreAssignmentRequest request) {
     return impl.get(request);
@@ -80,6 +81,7 @@ public class AccountMetastoreAssignmentsAPI {
    * Get all workspaces assigned to a metastore.
    *
    * <p>Gets a list of all Databricks workspace IDs that have been assigned to given metastore.
+   * Please add a header X-Databricks-Account-Console-API-Version: 2.0 to access this API
    */
   public Iterable<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
     return impl.list(request);
@@ -87,16 +89,19 @@ public class AccountMetastoreAssignmentsAPI {
 
   public MetastoreAssignment update(long workspaceId, String metastoreId) {
     return update(
-        new UpdateMetastoreAssignment().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
+        new AccountsUpdateMetastoreAssignment()
+            .setWorkspaceId(workspaceId)
+            .setMetastoreId(metastoreId));
   }
 
   /**
    * Updates a metastore assignment to a workspaces.
    *
    * <p>Updates an assignment to a metastore for a workspace. Currently, only the default catalog
-   * may be updated
+   * may be updated. Please add a header X-Databricks-Account-Console-API-Version: 2.0 to access
+   * this API.
    */
-  public MetastoreAssignment update(UpdateMetastoreAssignment request) {
+  public MetastoreAssignment update(AccountsUpdateMetastoreAssignment request) {
     return impl.update(request);
   }
 

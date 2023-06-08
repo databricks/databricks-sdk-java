@@ -9,6 +9,8 @@ import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
 import com.databricks.sdk.service.catalog.CatalogsService;
+import com.databricks.sdk.service.catalog.ConnectionsAPI;
+import com.databricks.sdk.service.catalog.ConnectionsService;
 import com.databricks.sdk.service.catalog.ExternalLocationsAPI;
 import com.databricks.sdk.service.catalog.ExternalLocationsService;
 import com.databricks.sdk.service.catalog.FunctionsAPI;
@@ -118,6 +120,7 @@ public class WorkspaceClient {
   private ClusterPoliciesAPI clusterPoliciesAPI;
   private ClustersExt clustersAPI;
   private CommandExecutionAPI commandExecutionAPI;
+  private ConnectionsAPI connectionsAPI;
   private CurrentUserAPI currentUserAPI;
   private DashboardsAPI dashboardsAPI;
   private DataSourcesAPI dataSourcesAPI;
@@ -177,6 +180,7 @@ public class WorkspaceClient {
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
     clustersAPI = new ClustersExt(apiClient);
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
+    connectionsAPI = new ConnectionsAPI(apiClient);
     currentUserAPI = new CurrentUserAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
@@ -315,6 +319,21 @@ public class WorkspaceClient {
   }
 
   /**
+   * Connections allow for creating a connection to an external data source.
+   *
+   * <p>A connection is an abstraction of an external data source that can be connected from
+   * Databricks Compute. Creating a connection object is the first step to managing external data
+   * sources within Unity Catalog, with the second step being creating a data object (catalog,
+   * schema, or table) using the connection. Data objects derived from a connection can be written
+   * to or read from similar to other Unity Catalog data objects based on cloud storage. Users may
+   * create different types of connections with each connection having a unique set of configuration
+   * options to support credential management and other settings.
+   */
+  public ConnectionsAPI connections() {
+    return connectionsAPI;
+  }
+
+  /**
    * This API allows retrieving information about currently authenticated user or service principal.
    */
   public CurrentUserAPI currentUser() {
@@ -372,6 +391,15 @@ public class WorkspaceClient {
     return dbsqlPermissionsAPI;
   }
 
+  /**
+   * Experiments are the primary unit of organization in MLflow; all MLflow runs belong to an
+   * experiment. Each experiment lets you visualize, search, and compare runs, as well as download
+   * run artifacts or metadata for analysis in other tools. Experiments are maintained in a
+   * Databricks hosted MLflow tracking server.
+   *
+   * <p>Experiments are located in the workspace file tree. You manage experiments using the same
+   * tools you use to manage other workspace objects such as folders, notebooks, and libraries.
+   */
   public ExperimentsAPI experiments() {
     return experimentsAPI;
   }
@@ -582,6 +610,10 @@ public class WorkspaceClient {
     return metastoresAPI;
   }
 
+  /**
+   * MLflow Model Registry is a centralized model repository and a UI and set of APIs that enable
+   * you to manage the full lifecycle of MLflow Models.
+   */
   public ModelRegistryAPI modelRegistry() {
     return modelRegistryAPI;
   }
@@ -794,8 +826,8 @@ public class WorkspaceClient {
    *
    * <p>**Fetching result data: format and disposition**
    *
-   * <p>To specify the result data format, set the `format` field to `JSON_ARRAY` (JSON) or
-   * `ARROW_STREAM` ([Apache Arrow Columnar]).
+   * <p>To specify the result data format, set the `format` field to `JSON_ARRAY` (JSON),
+   * `ARROW_STREAM` ([Apache Arrow Columnar]), or `CSV`.
    *
    * <p>You can also configure how to fetch the result data in two different modes by setting the
    * `disposition` field to `INLINE` or `EXTERNAL_LINKS`.
@@ -804,8 +836,8 @@ public class WorkspaceClient {
    * to 16 MiB. When a statement executed with `INLINE` disposition exceeds this limit, the
    * execution is aborted, and no result can be fetched.
    *
-   * <p>The `EXTERNAL_LINKS` disposition allows fetching large result sets in both `JSON_ARRAY` and
-   * `ARROW_STREAM` formats, and with higher throughput.
+   * <p>The `EXTERNAL_LINKS` disposition allows fetching large result sets in `JSON_ARRAY`,
+   * `ARROW_STREAM` and `CSV` formats, and with higher throughput.
    *
    * <p>The API uses defaults of `format=JSON_ARRAY` and `disposition=INLINE`. Databricks recommends
    * that you explicit setting the format and the disposition for all production use cases.
@@ -1054,6 +1086,12 @@ public class WorkspaceClient {
   /** Replace CommandExecutionAPI implementation with mock */
   public WorkspaceClient withCommandExecutionImpl(CommandExecutionService commandExecution) {
     commandExecutionAPI = new CommandExecutionAPI(commandExecution);
+    return this;
+  }
+
+  /** Replace ConnectionsAPI implementation with mock */
+  public WorkspaceClient withConnectionsImpl(ConnectionsService connections) {
+    connectionsAPI = new ConnectionsAPI(connections);
     return this;
   }
 

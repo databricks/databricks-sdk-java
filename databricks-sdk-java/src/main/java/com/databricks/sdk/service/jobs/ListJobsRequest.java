@@ -25,9 +25,20 @@ public class ListJobsRequest {
   @QueryParam("name")
   private String name;
 
-  /** The offset of the first job to return, relative to the most recently created job. */
+  /**
+   * The offset of the first job to return, relative to the most recently created job.
+   *
+   * <p>Deprecated since June 2023. Use `page_token` to iterate through the pages instead.
+   */
   @QueryParam("offset")
   private Long offset;
+
+  /**
+   * Use `next_page_token` or `prev_page_token` returned from the previous request to list the next
+   * or previous page of jobs respectively.
+   */
+  @QueryParam("page_token")
+  private String pageToken;
 
   public ListJobsRequest setExpandTasks(Boolean expandTasks) {
     this.expandTasks = expandTasks;
@@ -65,6 +76,15 @@ public class ListJobsRequest {
     return offset;
   }
 
+  public ListJobsRequest setPageToken(String pageToken) {
+    this.pageToken = pageToken;
+    return this;
+  }
+
+  public String getPageToken() {
+    return pageToken;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -73,12 +93,13 @@ public class ListJobsRequest {
     return Objects.equals(expandTasks, that.expandTasks)
         && Objects.equals(limit, that.limit)
         && Objects.equals(name, that.name)
-        && Objects.equals(offset, that.offset);
+        && Objects.equals(offset, that.offset)
+        && Objects.equals(pageToken, that.pageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(expandTasks, limit, name, offset);
+    return Objects.hash(expandTasks, limit, name, offset, pageToken);
   }
 
   @Override
@@ -88,6 +109,7 @@ public class ListJobsRequest {
         .add("limit", limit)
         .add("name", name)
         .add("offset", offset)
+        .add("pageToken", pageToken)
         .toString();
   }
 }

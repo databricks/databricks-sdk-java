@@ -26,16 +26,13 @@ public class AccountMetastoresAPI {
     impl = mock;
   }
 
-  public MetastoreInfo create(String name, String storageRoot) {
-    return create(new CreateMetastore().setName(name).setStorageRoot(storageRoot));
-  }
-
   /**
    * Create metastore.
    *
-   * <p>Creates a Unity Catalog metastore.
+   * <p>Creates a Unity Catalog metastore. Please add a header
+   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  public MetastoreInfo create(CreateMetastore request) {
+  public MetastoreInfo create(AccountsCreateMetastore request) {
     return impl.create(request);
   }
 
@@ -46,7 +43,8 @@ public class AccountMetastoresAPI {
   /**
    * Delete a metastore.
    *
-   * <p>Deletes a Unity Catalog metastore for an account, both specified by ID.
+   * <p>Deletes a Unity Catalog metastore for an account, both specified by ID. Please add a header
+   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
   public void delete(DeleteAccountMetastoreRequest request) {
     impl.delete(request);
@@ -59,7 +57,8 @@ public class AccountMetastoresAPI {
   /**
    * Get a metastore.
    *
-   * <p>Gets a Unity Catalog metastore from an account, both specified by ID.
+   * <p>Gets a Unity Catalog metastore from an account, both specified by ID. Please add a header
+   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
   public MetastoreInfo get(GetAccountMetastoreRequest request) {
     return impl.get(request);
@@ -68,22 +67,24 @@ public class AccountMetastoresAPI {
   /**
    * Get all metastores associated with an account.
    *
-   * <p>Gets all Unity Catalog metastores associated with an account specified by ID.
+   * <p>Gets all Unity Catalog metastores associated with an account specified by ID. Please add a
+   * header X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
   public ListMetastoresResponse list() {
     return impl.list();
   }
 
-  public MetastoreInfo update(String metastoreId, String id) {
-    return update(new UpdateMetastore().setMetastoreId(metastoreId).setId(id));
+  public MetastoreInfo update(String metastoreId) {
+    return update(new AccountsUpdateMetastore().setMetastoreId(metastoreId));
   }
 
   /**
    * Update a metastore.
    *
-   * <p>Updates an existing Unity Catalog metastore.
+   * <p>Updates an existing Unity Catalog metastore. Please add a header
+   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  public MetastoreInfo update(UpdateMetastore request) {
+  public MetastoreInfo update(AccountsUpdateMetastore request) {
     return impl.update(request);
   }
 

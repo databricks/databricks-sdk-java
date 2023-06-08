@@ -10,16 +10,16 @@ import java.util.Objects;
 @Generated
 public class GetModelResponse {
   /** */
-  @JsonProperty("registered_model")
-  private ModelDatabricks registeredModel;
+  @JsonProperty("registered_model_databricks")
+  private ModelDatabricks registeredModelDatabricks;
 
-  public GetModelResponse setRegisteredModel(ModelDatabricks registeredModel) {
-    this.registeredModel = registeredModel;
+  public GetModelResponse setRegisteredModelDatabricks(ModelDatabricks registeredModelDatabricks) {
+    this.registeredModelDatabricks = registeredModelDatabricks;
     return this;
   }
 
-  public ModelDatabricks getRegisteredModel() {
-    return registeredModel;
+  public ModelDatabricks getRegisteredModelDatabricks() {
+    return registeredModelDatabricks;
   }
 
   @Override
@@ -27,18 +27,18 @@ public class GetModelResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetModelResponse that = (GetModelResponse) o;
-    return Objects.equals(registeredModel, that.registeredModel);
+    return Objects.equals(registeredModelDatabricks, that.registeredModelDatabricks);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(registeredModel);
+    return Objects.hash(registeredModelDatabricks);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetModelResponse.class)
-        .add("registeredModel", registeredModel)
+        .add("registeredModelDatabricks", registeredModelDatabricks)
         .toString();
   }
 }

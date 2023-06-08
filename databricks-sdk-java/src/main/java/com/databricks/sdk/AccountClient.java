@@ -17,6 +17,8 @@ import com.databricks.sdk.service.catalog.AccountMetastoresAPI;
 import com.databricks.sdk.service.catalog.AccountMetastoresService;
 import com.databricks.sdk.service.catalog.AccountStorageCredentialsAPI;
 import com.databricks.sdk.service.catalog.AccountStorageCredentialsService;
+import com.databricks.sdk.service.iam.AccountAccessControlAPI;
+import com.databricks.sdk.service.iam.AccountAccessControlService;
 import com.databricks.sdk.service.iam.AccountGroupsAPI;
 import com.databricks.sdk.service.iam.AccountGroupsService;
 import com.databricks.sdk.service.iam.AccountServicePrincipalsAPI;
@@ -49,6 +51,8 @@ import com.databricks.sdk.service.provisioning.WorkspacesAPI;
 import com.databricks.sdk.service.provisioning.WorkspacesService;
 import com.databricks.sdk.service.settings.AccountIpAccessListsAPI;
 import com.databricks.sdk.service.settings.AccountIpAccessListsService;
+import com.databricks.sdk.service.settings.AccountSettingsAPI;
+import com.databricks.sdk.service.settings.AccountSettingsService;
 import com.databricks.sdk.support.Generated;
 
 /** Entry point for accessing Databricks account-level APIs */
@@ -57,6 +61,7 @@ public class AccountClient {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
 
+  private AccountAccessControlAPI accessControlAPI;
   private BillableUsageAPI billableUsageAPI;
   private BudgetsAPI budgetsAPI;
   private CredentialsAPI credentialsAPI;
@@ -73,6 +78,7 @@ public class AccountClient {
   private PublishedAppIntegrationAPI publishedAppIntegrationAPI;
   private ServicePrincipalSecretsAPI servicePrincipalSecretsAPI;
   private AccountServicePrincipalsAPI servicePrincipalsAPI;
+  private AccountSettingsAPI settingsAPI;
   private StorageAPI storageAPI;
   private AccountStorageCredentialsAPI storageCredentialsAPI;
   private AccountUsersAPI usersAPI;
@@ -88,6 +94,7 @@ public class AccountClient {
     this.config = config;
     apiClient = new ApiClient(config);
 
+    accessControlAPI = new AccountAccessControlAPI(apiClient);
     billableUsageAPI = new BillableUsageAPI(apiClient);
     budgetsAPI = new BudgetsAPI(apiClient);
     credentialsAPI = new CredentialsAPI(apiClient);
@@ -104,6 +111,7 @@ public class AccountClient {
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(apiClient);
     servicePrincipalSecretsAPI = new ServicePrincipalSecretsAPI(apiClient);
     servicePrincipalsAPI = new AccountServicePrincipalsAPI(apiClient);
+    settingsAPI = new AccountSettingsAPI(apiClient);
     storageAPI = new StorageAPI(apiClient);
     storageCredentialsAPI = new AccountStorageCredentialsAPI(apiClient);
     usersAPI = new AccountUsersAPI(apiClient);
@@ -116,6 +124,15 @@ public class AccountClient {
   public AccountClient(boolean mock) {
     apiClient = null;
     config = null;
+  }
+
+  /**
+   * These APIs manage access rules on resources in an account. Currently, only grant rules are
+   * supported. A grant rule specifies a role assigned to a set of principals. A list of rules
+   * attached to a resource is called a rule set.
+   */
+  public AccountAccessControlAPI accessControl() {
+    return accessControlAPI;
   }
 
   /**
@@ -355,6 +372,11 @@ public class AccountClient {
     return servicePrincipalsAPI;
   }
 
+  /** TBD */
+  public AccountSettingsAPI settings() {
+    return settingsAPI;
+  }
+
   /**
    * These APIs manage storage configurations for this workspace. A root storage S3 bucket in your
    * account is required to store objects like cluster logs, notebook revisions, and job results.
@@ -410,6 +432,12 @@ public class AccountClient {
    */
   public WorkspacesAPI workspaces() {
     return workspacesAPI;
+  }
+
+  /** Override AccountAccessControlAPI with mock */
+  public AccountClient withAccessControlImpl(AccountAccessControlService accountAccessControl) {
+    accessControlAPI = new AccountAccessControlAPI(accountAccessControl);
+    return this;
   }
 
   /** Override BillableUsageAPI with mock */
@@ -510,6 +538,12 @@ public class AccountClient {
   public AccountClient withServicePrincipalsImpl(
       AccountServicePrincipalsService accountServicePrincipals) {
     servicePrincipalsAPI = new AccountServicePrincipalsAPI(accountServicePrincipals);
+    return this;
+  }
+
+  /** Override AccountSettingsAPI with mock */
+  public AccountClient withSettingsImpl(AccountSettingsService accountSettings) {
+    settingsAPI = new AccountSettingsAPI(accountSettings);
     return this;
   }
 

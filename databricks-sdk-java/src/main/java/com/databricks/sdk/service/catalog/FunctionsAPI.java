@@ -116,7 +116,7 @@ public class FunctionsAPI {
     return impl.get(request);
   }
 
-  public ListFunctionsResponse list(String catalogName, String schemaName) {
+  public Iterable<FunctionInfo> list(String catalogName, String schemaName) {
     return list(new ListFunctionsRequest().setCatalogName(catalogName).setSchemaName(schemaName));
   }
 
@@ -130,8 +130,8 @@ public class FunctionsAPI {
    * or the user is the owner. There is no guarantee of a specific ordering of the elements in the
    * array.
    */
-  public ListFunctionsResponse list(ListFunctionsRequest request) {
-    return impl.list(request);
+  public Iterable<FunctionInfo> list(ListFunctionsRequest request) {
+    return impl.list(request).getFunctions();
   }
 
   public FunctionInfo update(String name) {

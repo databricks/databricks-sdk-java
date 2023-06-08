@@ -27,8 +27,12 @@ public class Job {
   private Long jobId;
 
   /**
-   * The user name that the job runs as. `run_as_user_name` is based on the current job settings,
-   * and is set to the creator of the job if job access control is disabled, or the `is_owner`
+   * The email of an active workspace user or the application ID of a service principal that the job
+   * runs as. This value can be changed by setting the `run_as` field when creating or updating a
+   * job.
+   *
+   * <p>By default, `run_as_user_name` is based on the current job settings and is set to the
+   * creator of the job if job access control is disabled or to the user with the `is_owner`
    * permission if job access control is enabled.
    */
   @JsonProperty("run_as_user_name")

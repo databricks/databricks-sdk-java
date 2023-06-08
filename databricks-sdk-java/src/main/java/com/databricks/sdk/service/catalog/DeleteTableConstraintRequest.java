@@ -11,9 +11,8 @@ import java.util.Objects;
 @Generated
 public class DeleteTableConstraintRequest {
   /**
-   * If true, try deleting all child constraints of the current constraint.
-   *
-   * <p>If false, reject this operation if the current constraint has any child constraints.
+   * If true, try deleting all child constraints of the current constraint. If false, reject this
+   * operation if the current constraint has any child constraints.
    */
   @QueryParam("cascade")
   private Boolean cascade;

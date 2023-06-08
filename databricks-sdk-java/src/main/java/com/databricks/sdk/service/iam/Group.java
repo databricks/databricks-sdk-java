@@ -35,6 +35,10 @@ public class Group {
   private Collection<ComplexValue> members;
 
   /** */
+  @JsonProperty("meta")
+  private ResourceMetadata meta;
+
+  /** */
   @JsonProperty("roles")
   private Collection<ComplexValue> roles;
 
@@ -92,6 +96,15 @@ public class Group {
     return members;
   }
 
+  public Group setMeta(ResourceMetadata meta) {
+    this.meta = meta;
+    return this;
+  }
+
+  public ResourceMetadata getMeta() {
+    return meta;
+  }
+
   public Group setRoles(Collection<ComplexValue> roles) {
     this.roles = roles;
     return this;
@@ -112,12 +125,13 @@ public class Group {
         && Objects.equals(groups, that.groups)
         && Objects.equals(id, that.id)
         && Objects.equals(members, that.members)
+        && Objects.equals(meta, that.meta)
         && Objects.equals(roles, that.roles);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(displayName, entitlements, externalId, groups, id, members, roles);
+    return Objects.hash(displayName, entitlements, externalId, groups, id, members, meta, roles);
   }
 
   @Override
@@ -129,6 +143,7 @@ public class Group {
         .add("groups", groups)
         .add("id", id)
         .add("members", members)
+        .add("meta", meta)
         .add("roles", roles)
         .toString();
   }

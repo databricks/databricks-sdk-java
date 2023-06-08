@@ -30,10 +30,6 @@ public class AccountGroupsAPI {
     impl = mock;
   }
 
-  public Group create(String id) {
-    return create(new Group().setId(id));
-  }
-
   /**
    * Create a new group.
    *

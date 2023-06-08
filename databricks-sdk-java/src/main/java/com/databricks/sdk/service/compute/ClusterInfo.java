@@ -127,6 +127,10 @@ public class ClusterInfo {
   @JsonProperty("default_tags")
   private Map<String, String> defaultTags;
 
+  /** */
+  @JsonProperty("docker_image")
+  private DockerImage dockerImage;
+
   /**
    * Node on which the Spark driver resides. The driver node contains the Spark master and the
    * <Databricks> application that manages the per-notebook Spark REPLs.
@@ -450,6 +454,15 @@ public class ClusterInfo {
     return defaultTags;
   }
 
+  public ClusterInfo setDockerImage(DockerImage dockerImage) {
+    this.dockerImage = dockerImage;
+    return this;
+  }
+
+  public DockerImage getDockerImage() {
+    return dockerImage;
+  }
+
   public ClusterInfo setDriver(SparkNode driver) {
     this.driver = driver;
     return this;
@@ -722,6 +735,7 @@ public class ClusterInfo {
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(dataSecurityMode, that.dataSecurityMode)
         && Objects.equals(defaultTags, that.defaultTags)
+        && Objects.equals(dockerImage, that.dockerImage)
         && Objects.equals(driver, that.driver)
         && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
         && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
@@ -770,6 +784,7 @@ public class ClusterInfo {
         customTags,
         dataSecurityMode,
         defaultTags,
+        dockerImage,
         driver,
         driverInstancePoolId,
         driverNodeTypeId,
@@ -818,6 +833,7 @@ public class ClusterInfo {
         .add("customTags", customTags)
         .add("dataSecurityMode", dataSecurityMode)
         .add("defaultTags", defaultTags)
+        .add("dockerImage", dockerImage)
         .add("driver", driver)
         .add("driverInstancePoolId", driverInstancePoolId)
         .add("driverNodeTypeId", driverNodeTypeId)

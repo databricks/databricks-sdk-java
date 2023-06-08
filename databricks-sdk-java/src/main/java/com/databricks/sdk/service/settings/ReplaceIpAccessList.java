@@ -14,7 +14,7 @@ public class ReplaceIpAccessList {
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /** The ID for the corresponding IP access list. */
+  /** The ID for the corresponding IP access list to modify. */
   private String ipAccessListId;
 
   /** Array of IP addresses or CIDR values to be added to the IP access list. */
