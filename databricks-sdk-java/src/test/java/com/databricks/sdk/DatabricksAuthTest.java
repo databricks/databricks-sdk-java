@@ -220,6 +220,34 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
   }
 
   @Test
+  public void testTestConfigConfigFileWithEmptyDefaultProfileSelectDefault() {
+    // Set environment variables
+    StaticEnv env = new StaticEnv().with("HOME", resource("/testdata/empty_default"));
+    raises(
+        "default auth: cannot configure default credentials",
+        () -> {
+          DatabricksConfig config = new DatabricksConfig();
+          resolveConfig(config, env);
+          config.authenticate();
+        });
+  }
+
+  @Test
+  public void testTestConfigConfigFileWithEmptyDefaultProfileSelectAbc() {
+    // Set environment variables
+    StaticEnv env =
+        new StaticEnv()
+            .with("DATABRICKS_CONFIG_PROFILE", "abc")
+            .with("HOME", resource("/testdata/empty_default"));
+    DatabricksConfig config = new DatabricksConfig();
+    resolveConfig(config, env);
+    config.authenticate();
+
+    assertEquals("pat", config.getAuthType());
+    assertEquals("https://foo", config.getHost());
+  }
+
+  @Test
   public void testTestConfigPatFromDatabricksCfg() {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("HOME", resource("/testdata"));
