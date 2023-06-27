@@ -2,7 +2,6 @@
 
 package com.databricks.sdk.service.sharing;
 
-import com.databricks.sdk.service.catalog.PermissionsChange;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,17 +12,18 @@ import java.util.Objects;
 public class UpdateSharePermissions {
   /** Array of permission changes. */
   @JsonProperty("changes")
-  private Collection<PermissionsChange> changes;
+  private Collection<com.databricks.sdk.service.catalog.PermissionsChange> changes;
 
   /** The name of the share. */
   private String name;
 
-  public UpdateSharePermissions setChanges(Collection<PermissionsChange> changes) {
+  public UpdateSharePermissions setChanges(
+      Collection<com.databricks.sdk.service.catalog.PermissionsChange> changes) {
     this.changes = changes;
     return this;
   }
 
-  public Collection<PermissionsChange> getChanges() {
+  public Collection<com.databricks.sdk.service.catalog.PermissionsChange> getChanges() {
     return changes;
   }
 

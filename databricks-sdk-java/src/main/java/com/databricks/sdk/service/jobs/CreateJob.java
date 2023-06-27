@@ -2,7 +2,6 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.service.iam.AccessControlRequest;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,7 +13,7 @@ import java.util.Objects;
 public class CreateJob {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
-  private Collection<AccessControlRequest> accessControlList;
+  private Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList;
 
   /** A list of compute requirements that can be referenced by tasks of this job. */
   @JsonProperty("compute")
@@ -138,12 +137,13 @@ public class CreateJob {
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
-  public CreateJob setAccessControlList(Collection<AccessControlRequest> accessControlList) {
+  public CreateJob setAccessControlList(
+      Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public Collection<AccessControlRequest> getAccessControlList() {
+  public Collection<com.databricks.sdk.service.iam.AccessControlRequest> getAccessControlList() {
     return accessControlList;
   }
 

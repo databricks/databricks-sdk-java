@@ -2,8 +2,6 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.service.compute.ClusterSpec;
-import com.databricks.sdk.service.compute.Library;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -41,11 +39,11 @@ public class SubmitTask {
    * default value is an empty list.
    */
   @JsonProperty("libraries")
-  private Collection<Library> libraries;
+  private Collection<com.databricks.sdk.service.compute.Library> libraries;
 
   /** If new_cluster, a description of a cluster that is created for each run. */
   @JsonProperty("new_cluster")
-  private ClusterSpec newCluster;
+  private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
   /**
    * If notebook_task, indicates that this task must run a notebook. This field may not be specified
@@ -123,21 +121,21 @@ public class SubmitTask {
     return existingClusterId;
   }
 
-  public SubmitTask setLibraries(Collection<Library> libraries) {
+  public SubmitTask setLibraries(Collection<com.databricks.sdk.service.compute.Library> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public Collection<Library> getLibraries() {
+  public Collection<com.databricks.sdk.service.compute.Library> getLibraries() {
     return libraries;
   }
 
-  public SubmitTask setNewCluster(ClusterSpec newCluster) {
+  public SubmitTask setNewCluster(com.databricks.sdk.service.compute.ClusterSpec newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
-  public ClusterSpec getNewCluster() {
+  public com.databricks.sdk.service.compute.ClusterSpec getNewCluster() {
     return newCluster;
   }
 

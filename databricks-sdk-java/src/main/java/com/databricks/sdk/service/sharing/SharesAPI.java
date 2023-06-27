@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.core.ApiClient;
-import com.databricks.sdk.service.catalog.PermissionsList;
 import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -77,7 +76,7 @@ public class SharesAPI {
     return impl.list().getShares();
   }
 
-  public PermissionsList sharePermissions(String name) {
+  public com.databricks.sdk.service.catalog.PermissionsList sharePermissions(String name) {
     return sharePermissions(new SharePermissionsRequest().setName(name));
   }
 
@@ -87,7 +86,8 @@ public class SharesAPI {
    * <p>Gets the permissions for a data share from the metastore. The caller must be a metastore
    * admin or the owner of the share.
    */
-  public PermissionsList sharePermissions(SharePermissionsRequest request) {
+  public com.databricks.sdk.service.catalog.PermissionsList sharePermissions(
+      SharePermissionsRequest request) {
     return impl.sharePermissions(request);
   }
 

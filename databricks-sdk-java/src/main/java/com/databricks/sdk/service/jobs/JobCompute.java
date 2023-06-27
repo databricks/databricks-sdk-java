@@ -2,7 +2,6 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.service.compute.ComputeSpec;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,7 +19,7 @@ public class JobCompute {
 
   /** */
   @JsonProperty("spec")
-  private ComputeSpec spec;
+  private com.databricks.sdk.service.compute.ComputeSpec spec;
 
   public JobCompute setComputeKey(String computeKey) {
     this.computeKey = computeKey;
@@ -31,12 +30,12 @@ public class JobCompute {
     return computeKey;
   }
 
-  public JobCompute setSpec(ComputeSpec spec) {
+  public JobCompute setSpec(com.databricks.sdk.service.compute.ComputeSpec spec) {
     this.spec = spec;
     return this;
   }
 
-  public ComputeSpec getSpec() {
+  public com.databricks.sdk.service.compute.ComputeSpec getSpec() {
     return spec;
   }
 

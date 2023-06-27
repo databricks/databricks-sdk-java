@@ -2,7 +2,6 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.service.iam.AccessControlRequest;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +12,7 @@ import java.util.Objects;
 public class SubmitRun {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
-  private Collection<AccessControlRequest> accessControlList;
+  private Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList;
 
   /**
    * An optional specification for a remote repository containing the notebooks used by this job's
@@ -69,12 +68,13 @@ public class SubmitRun {
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
-  public SubmitRun setAccessControlList(Collection<AccessControlRequest> accessControlList) {
+  public SubmitRun setAccessControlList(
+      Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public Collection<AccessControlRequest> getAccessControlList() {
+  public Collection<com.databricks.sdk.service.iam.AccessControlRequest> getAccessControlList() {
     return accessControlList;
   }
 
