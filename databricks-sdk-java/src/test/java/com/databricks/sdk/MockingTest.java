@@ -17,10 +17,10 @@ public class MockingTest {
   @Test
   public void mockingAPI() {
     when(clustersMock.get(new GetClusterRequest().setClusterId("foo")))
-        .thenReturn(new ClusterInfo().setState(State.RUNNING));
+        .thenReturn(new ClusterDetails().setState(State.RUNNING));
 
     ClustersAPI clustersAPI = new ClustersAPI(clustersMock);
-    ClusterInfo info = clustersAPI.get("foo");
+    ClusterDetails info = clustersAPI.get("foo");
 
     assertEquals(State.RUNNING, info.getState());
   }
@@ -28,11 +28,11 @@ public class MockingTest {
   @Test
   public void mockingWorkspaceClient() {
     when(clustersMock.get(new GetClusterRequest().setClusterId("foo")))
-        .thenReturn(new ClusterInfo().setState(State.RUNNING));
+        .thenReturn(new ClusterDetails().setState(State.RUNNING));
 
     WorkspaceClient workspace = new WorkspaceClient(true).withClustersImpl(clustersMock);
 
-    ClusterInfo info = workspace.clusters().get("foo");
+    ClusterDetails info = workspace.clusters().get("foo");
 
     assertEquals(State.RUNNING, info.getState());
   }
@@ -40,7 +40,7 @@ public class MockingTest {
   @Test
   public void mockingMixin() throws TimeoutException {
     when(clustersMock.get(new GetClusterRequest().setClusterId("foo")))
-        .thenReturn(new ClusterInfo().setState(State.RUNNING));
+        .thenReturn(new ClusterDetails().setState(State.RUNNING));
 
     WorkspaceClient workspace = new WorkspaceClient(true).withClustersImpl(clustersMock);
 
