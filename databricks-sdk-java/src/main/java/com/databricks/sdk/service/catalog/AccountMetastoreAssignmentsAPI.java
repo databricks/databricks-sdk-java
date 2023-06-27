@@ -23,7 +23,8 @@ public class AccountMetastoreAssignmentsAPI {
     impl = mock;
   }
 
-  public MetastoreAssignment create(long workspaceId, String metastoreId) {
+  public Iterable<CreateMetastoreAssignmentsResponseItem> create(
+      long workspaceId, String metastoreId) {
     return create(
         new AccountsCreateMetastoreAssignment()
             .setWorkspaceId(workspaceId)
@@ -36,7 +37,8 @@ public class AccountMetastoreAssignmentsAPI {
    * <p>Creates an assignment to a metastore for a workspace Please add a header
    * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  public MetastoreAssignment create(AccountsCreateMetastoreAssignment request) {
+  public Iterable<CreateMetastoreAssignmentsResponseItem> create(
+      AccountsCreateMetastoreAssignment request) {
     return impl.create(request);
   }
 
@@ -57,7 +59,7 @@ public class AccountMetastoreAssignmentsAPI {
     impl.delete(request);
   }
 
-  public MetastoreAssignment get(long workspaceId) {
+  public AccountsMetastoreAssignment get(long workspaceId) {
     return get(new GetAccountMetastoreAssignmentRequest().setWorkspaceId(workspaceId));
   }
 
@@ -69,7 +71,7 @@ public class AccountMetastoreAssignmentsAPI {
    * workspace, the assignment will not be found and a 404 returned. Please add a header
    * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  public MetastoreAssignment get(GetAccountMetastoreAssignmentRequest request) {
+  public AccountsMetastoreAssignment get(GetAccountMetastoreAssignmentRequest request) {
     return impl.get(request);
   }
 
@@ -87,8 +89,8 @@ public class AccountMetastoreAssignmentsAPI {
     return impl.list(request);
   }
 
-  public MetastoreAssignment update(long workspaceId, String metastoreId) {
-    return update(
+  public void update(long workspaceId, String metastoreId) {
+    update(
         new AccountsUpdateMetastoreAssignment()
             .setWorkspaceId(workspaceId)
             .setMetastoreId(metastoreId));
@@ -101,8 +103,8 @@ public class AccountMetastoreAssignmentsAPI {
    * may be updated. Please add a header X-Databricks-Account-Console-API-Version: 2.0 to access
    * this API.
    */
-  public MetastoreAssignment update(AccountsUpdateMetastoreAssignment request) {
-    return impl.update(request);
+  public void update(AccountsUpdateMetastoreAssignment request) {
+    impl.update(request);
   }
 
   public AccountMetastoreAssignmentsService impl() {

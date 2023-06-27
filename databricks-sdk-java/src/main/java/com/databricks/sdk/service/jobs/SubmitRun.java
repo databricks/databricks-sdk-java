@@ -2,7 +2,6 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.service.iam.AccessControlRequest;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +12,7 @@ import java.util.Objects;
 public class SubmitRun {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
-  private Collection<AccessControlRequest> accessControlList;
+  private Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList;
 
   /**
    * An optional specification for a remote repository containing the notebooks used by this job's
@@ -53,7 +52,7 @@ public class SubmitRun {
 
   /** */
   @JsonProperty("tasks")
-  private Collection<RunSubmitTaskSettings> tasks;
+  private Collection<SubmitTask> tasks;
 
   /**
    * An optional timeout applied to each run of this job. The default behavior is to have no
@@ -67,14 +66,15 @@ public class SubmitRun {
    * behavior is to not send any system notifications.
    */
   @JsonProperty("webhook_notifications")
-  private JobWebhookNotifications webhookNotifications;
+  private WebhookNotifications webhookNotifications;
 
-  public SubmitRun setAccessControlList(Collection<AccessControlRequest> accessControlList) {
+  public SubmitRun setAccessControlList(
+      Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public Collection<AccessControlRequest> getAccessControlList() {
+  public Collection<com.databricks.sdk.service.iam.AccessControlRequest> getAccessControlList() {
     return accessControlList;
   }
 
@@ -114,12 +114,12 @@ public class SubmitRun {
     return runName;
   }
 
-  public SubmitRun setTasks(Collection<RunSubmitTaskSettings> tasks) {
+  public SubmitRun setTasks(Collection<SubmitTask> tasks) {
     this.tasks = tasks;
     return this;
   }
 
-  public Collection<RunSubmitTaskSettings> getTasks() {
+  public Collection<SubmitTask> getTasks() {
     return tasks;
   }
 
@@ -132,12 +132,12 @@ public class SubmitRun {
     return timeoutSeconds;
   }
 
-  public SubmitRun setWebhookNotifications(JobWebhookNotifications webhookNotifications) {
+  public SubmitRun setWebhookNotifications(WebhookNotifications webhookNotifications) {
     this.webhookNotifications = webhookNotifications;
     return this;
   }
 
-  public JobWebhookNotifications getWebhookNotifications() {
+  public WebhookNotifications getWebhookNotifications() {
     return webhookNotifications;
   }
 

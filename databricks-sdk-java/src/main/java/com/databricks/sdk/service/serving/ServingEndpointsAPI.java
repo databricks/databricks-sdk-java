@@ -131,8 +131,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Retrieve the metrics corresponding to a serving endpoint for the current time in Prometheus or
-   * OpenMetrics exposition format.
+   * Retrieve the metrics associated with a serving endpoint.
    *
    * <p>Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
    * OpenMetrics exposition format.

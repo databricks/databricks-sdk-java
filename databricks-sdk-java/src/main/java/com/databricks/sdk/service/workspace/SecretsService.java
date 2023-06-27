@@ -129,8 +129,8 @@ public interface SecretsService {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope exists. Throws
    * `RESOURCE_ALREADY_EXISTS` if a permission for the principal already exists. Throws
-   * `INVALID_PARAMETER_VALUE` if the permission is invalid. Throws `PERMISSION_DENIED` if the user
-   * does not have permission to make this API call.
+   * `INVALID_PARAMETER_VALUE` if the permission or principal is invalid. Throws `PERMISSION_DENIED`
+   * if the user does not have permission to make this API call.
    */
   void putAcl(PutAcl putAcl);
 

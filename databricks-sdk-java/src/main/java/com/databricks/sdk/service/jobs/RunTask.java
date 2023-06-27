@@ -2,8 +2,6 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.service.compute.BaseClusterInfo;
-import com.databricks.sdk.service.compute.Library;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -39,6 +37,14 @@ public class RunTask {
   private ClusterInstance clusterInstance;
 
   /**
+   * If condition_task, specifies a condition with an outcome that can be used to control the
+   * execution of other tasks. Does not require a cluster to execute and does not support retries or
+   * notifications.
+   */
+  @JsonProperty("condition_task")
+  private RunConditionTask conditionTask;
+
+  /**
    * If dbt_task, indicates that this must execute a dbt task. It requires both Databricks SQL and
    * the ability to use a serverless or a pro SQL warehouse.
    */
@@ -48,11 +54,10 @@ public class RunTask {
   /**
    * An optional array of objects specifying the dependency graph of the task. All tasks specified
    * in this field must complete successfully before executing this task. The key is `task_key`, and
-   * the value is the name assigned to the dependent task. This field is required when a job
-   * consists of more than one task.
+   * the value is the name assigned to the dependent task.
    */
   @JsonProperty("depends_on")
-  private Collection<TaskDependenciesItem> dependsOn;
+  private Collection<TaskDependency> dependsOn;
 
   /** An optional description for this task. The maximum length is 4096 bytes. */
   @JsonProperty("description")
@@ -95,11 +100,11 @@ public class RunTask {
    * value is an empty list.
    */
   @JsonProperty("libraries")
-  private Collection<Library> libraries;
+  private Collection<com.databricks.sdk.service.compute.Library> libraries;
 
   /** If new_cluster, a description of a new cluster that is created only for this task. */
   @JsonProperty("new_cluster")
-  private BaseClusterInfo newCluster;
+  private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
   /**
    * If notebook_task, indicates that this job must run a notebook. This field may not be specified
@@ -196,6 +201,15 @@ public class RunTask {
     return clusterInstance;
   }
 
+  public RunTask setConditionTask(RunConditionTask conditionTask) {
+    this.conditionTask = conditionTask;
+    return this;
+  }
+
+  public RunConditionTask getConditionTask() {
+    return conditionTask;
+  }
+
   public RunTask setDbtTask(DbtTask dbtTask) {
     this.dbtTask = dbtTask;
     return this;
@@ -205,12 +219,12 @@ public class RunTask {
     return dbtTask;
   }
 
-  public RunTask setDependsOn(Collection<TaskDependenciesItem> dependsOn) {
+  public RunTask setDependsOn(Collection<TaskDependency> dependsOn) {
     this.dependsOn = dependsOn;
     return this;
   }
 
-  public Collection<TaskDependenciesItem> getDependsOn() {
+  public Collection<TaskDependency> getDependsOn() {
     return dependsOn;
   }
 
@@ -259,21 +273,21 @@ public class RunTask {
     return gitSource;
   }
 
-  public RunTask setLibraries(Collection<Library> libraries) {
+  public RunTask setLibraries(Collection<com.databricks.sdk.service.compute.Library> libraries) {
     this.libraries = libraries;
     return this;
   }
 
-  public Collection<Library> getLibraries() {
+  public Collection<com.databricks.sdk.service.compute.Library> getLibraries() {
     return libraries;
   }
 
-  public RunTask setNewCluster(BaseClusterInfo newCluster) {
+  public RunTask setNewCluster(com.databricks.sdk.service.compute.ClusterSpec newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
-  public BaseClusterInfo getNewCluster() {
+  public com.databricks.sdk.service.compute.ClusterSpec getNewCluster() {
     return newCluster;
   }
 
@@ -393,6 +407,7 @@ public class RunTask {
     return Objects.equals(attemptNumber, that.attemptNumber)
         && Objects.equals(cleanupDuration, that.cleanupDuration)
         && Objects.equals(clusterInstance, that.clusterInstance)
+        && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
@@ -422,6 +437,7 @@ public class RunTask {
         attemptNumber,
         cleanupDuration,
         clusterInstance,
+        conditionTask,
         dbtTask,
         dependsOn,
         description,
@@ -451,6 +467,7 @@ public class RunTask {
         .add("attemptNumber", attemptNumber)
         .add("cleanupDuration", cleanupDuration)
         .add("clusterInstance", clusterInstance)
+        .add("conditionTask", conditionTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)

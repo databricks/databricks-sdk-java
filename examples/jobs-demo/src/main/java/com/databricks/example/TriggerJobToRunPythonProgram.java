@@ -2,7 +2,7 @@ package com.databricks.example;
 
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.service.compute.ClusterInfo;
+import com.databricks.sdk.service.compute.ClusterDetails;
 import com.databricks.sdk.service.compute.CreateCluster;
 import com.databricks.sdk.service.jobs.*;
 import com.databricks.sdk.support.Wait;
@@ -37,11 +37,11 @@ public class TriggerJobToRunPythonProgram {
     }
 
     /**
-     Creates a Databricks cluster with the given specifications and returns the corresponding ClusterInfo object.
+     Creates a Databricks cluster with the given specifications and returns the corresponding ClusterDetails object.
      @param testWorkspace The Databricks workspace where the cluster will be created.
-     @return The ClusterInfo object representing the newly created cluster, or null if the creation process timed out.
+     @return The ClusterDetails object representing the newly created cluster, or null if the creation process timed out.
      */
-    private static ClusterInfo getCluster(WorkspaceClient testWorkspace) {
+    private static ClusterDetails getCluster(WorkspaceClient testWorkspace) {
         try {
             CreateCluster request = new CreateCluster()
                     .setClusterName("test-cluster")
@@ -68,7 +68,7 @@ public class TriggerJobToRunPythonProgram {
      @param cluster the cluster on which to trigger the job
      @return a list of strings that contains the results of the job for each task in the job
      */
-    private static List<String> triggerJobOn(WorkspaceClient testWorkspace, ClusterInfo cluster) {
+    private static List<String> triggerJobOn(WorkspaceClient testWorkspace, ClusterDetails cluster) {
         String pyFileOnDBFS = String.format("/home/%s/java-sdk-test-sample.py", testWorkspace.currentUser().me().getUserName());
         String pyProgram = getSamplePythonProgram();
 
@@ -121,7 +121,7 @@ public class TriggerJobToRunPythonProgram {
         WorkspaceClient testWorkspace = getWorkspace();
 
         // Get cluster you want to run the job on
-        ClusterInfo cluster = getCluster(testWorkspace);
+        ClusterDetails cluster = getCluster(testWorkspace);
 
         // Trigger a job
         List<String> results = triggerJobOn(testWorkspace, cluster);

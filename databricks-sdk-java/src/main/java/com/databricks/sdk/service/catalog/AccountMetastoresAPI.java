@@ -32,7 +32,7 @@ public class AccountMetastoresAPI {
    * <p>Creates a Unity Catalog metastore. Please add a header
    * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  public MetastoreInfo create(AccountsCreateMetastore request) {
+  public AccountsMetastoreInfo create(AccountsCreateMetastore request) {
     return impl.create(request);
   }
 
@@ -50,7 +50,7 @@ public class AccountMetastoresAPI {
     impl.delete(request);
   }
 
-  public MetastoreInfo get(String metastoreId) {
+  public AccountsMetastoreInfo get(String metastoreId) {
     return get(new GetAccountMetastoreRequest().setMetastoreId(metastoreId));
   }
 
@@ -60,7 +60,7 @@ public class AccountMetastoresAPI {
    * <p>Gets a Unity Catalog metastore from an account, both specified by ID. Please add a header
    * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  public MetastoreInfo get(GetAccountMetastoreRequest request) {
+  public AccountsMetastoreInfo get(GetAccountMetastoreRequest request) {
     return impl.get(request);
   }
 
@@ -74,7 +74,7 @@ public class AccountMetastoresAPI {
     return impl.list();
   }
 
-  public MetastoreInfo update(String metastoreId) {
+  public AccountsMetastoreInfo update(String metastoreId) {
     return update(new AccountsUpdateMetastore().setMetastoreId(metastoreId));
   }
 
@@ -84,7 +84,7 @@ public class AccountMetastoresAPI {
    * <p>Updates an existing Unity Catalog metastore. Please add a header
    * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  public MetastoreInfo update(AccountsUpdateMetastore request) {
+  public AccountsMetastoreInfo update(AccountsUpdateMetastore request) {
     return impl.update(request);
   }
 

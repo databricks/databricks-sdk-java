@@ -11,27 +11,27 @@ import java.util.Objects;
 public class TriggerSettings {
   /** File arrival trigger settings. */
   @JsonProperty("file_arrival")
-  private FileArrivalTriggerSettings fileArrival;
+  private FileArrivalTriggerConfiguration fileArrival;
 
   /** Whether this trigger is paused or not. */
   @JsonProperty("pause_status")
-  private TriggerSettingsPauseStatus pauseStatus;
+  private PauseStatus pauseStatus;
 
-  public TriggerSettings setFileArrival(FileArrivalTriggerSettings fileArrival) {
+  public TriggerSettings setFileArrival(FileArrivalTriggerConfiguration fileArrival) {
     this.fileArrival = fileArrival;
     return this;
   }
 
-  public FileArrivalTriggerSettings getFileArrival() {
+  public FileArrivalTriggerConfiguration getFileArrival() {
     return fileArrival;
   }
 
-  public TriggerSettings setPauseStatus(TriggerSettingsPauseStatus pauseStatus) {
+  public TriggerSettings setPauseStatus(PauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
     return this;
   }
 
-  public TriggerSettingsPauseStatus getPauseStatus() {
+  public PauseStatus getPauseStatus() {
     return pauseStatus;
   }
 

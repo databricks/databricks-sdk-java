@@ -23,6 +23,8 @@ import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
 import com.databricks.sdk.service.catalog.StorageCredentialsService;
+import com.databricks.sdk.service.catalog.SystemSchemasAPI;
+import com.databricks.sdk.service.catalog.SystemSchemasService;
 import com.databricks.sdk.service.catalog.TableConstraintsAPI;
 import com.databricks.sdk.service.catalog.TableConstraintsService;
 import com.databricks.sdk.service.catalog.TablesAPI;
@@ -47,6 +49,8 @@ import com.databricks.sdk.service.compute.LibrariesService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
 import com.databricks.sdk.service.files.DbfsService;
+import com.databricks.sdk.service.iam.AccountAccessControlProxyAPI;
+import com.databricks.sdk.service.iam.AccountAccessControlProxyService;
 import com.databricks.sdk.service.iam.CurrentUserAPI;
 import com.databricks.sdk.service.iam.CurrentUserService;
 import com.databricks.sdk.service.iam.GroupsAPI;
@@ -115,6 +119,7 @@ public class WorkspaceClient {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
 
+  private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AlertsAPI alertsAPI;
   private CatalogsAPI catalogsAPI;
   private ClusterPoliciesAPI clusterPoliciesAPI;
@@ -156,6 +161,7 @@ public class WorkspaceClient {
   private SharesAPI sharesAPI;
   private StatementExecutionAPI statementExecutionAPI;
   private StorageCredentialsAPI storageCredentialsAPI;
+  private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
   private TokenManagementAPI tokenManagementAPI;
@@ -175,6 +181,7 @@ public class WorkspaceClient {
     this.config = config;
     apiClient = new ApiClient(config);
 
+    accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
@@ -216,6 +223,7 @@ public class WorkspaceClient {
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
+    systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
     tokenManagementAPI = new TokenManagementAPI(apiClient);
@@ -232,6 +240,16 @@ public class WorkspaceClient {
   public WorkspaceClient(boolean mock) {
     apiClient = null;
     config = null;
+  }
+
+  /**
+   * These APIs manage access rules on resources in an account. Currently, only grant rules are
+   * supported. A grant rule specifies a role assigned to a set of principals. A list of rules
+   * attached to a resource is called a rule set. A workspace must belong to an account for these
+   * APIs to work.
+   */
+  public AccountAccessControlProxyAPI accountAccessControlProxy() {
+    return accountAccessControlProxyAPI;
   }
 
   /**
@@ -950,6 +968,15 @@ public class WorkspaceClient {
   }
 
   /**
+   * A system schema is a schema that lives within the system catalog. A system schema may contain
+   * information about customer usage of Unity Catalog such as audit-logs, billing-logs, lineage
+   * information, etc.
+   */
+  public SystemSchemasAPI systemSchemas() {
+    return systemSchemasAPI;
+  }
+
+  /**
    * Primary key and foreign key constraints encode relationships between fields in tables.
    *
    * <p>Primary and foreign keys are informational only and are not enforced. Foreign keys must
@@ -1057,6 +1084,13 @@ public class WorkspaceClient {
   /** This API allows updating known workspace settings for advanced users. */
   public WorkspaceConfAPI workspaceConf() {
     return workspaceConfAPI;
+  }
+
+  /** Replace AccountAccessControlProxyAPI implementation with mock */
+  public WorkspaceClient withAccountAccessControlProxyImpl(
+      AccountAccessControlProxyService accountAccessControlProxy) {
+    accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(accountAccessControlProxy);
+    return this;
   }
 
   /** Replace AlertsAPI implementation with mock */
@@ -1303,6 +1337,12 @@ public class WorkspaceClient {
   /** Replace StorageCredentialsAPI implementation with mock */
   public WorkspaceClient withStorageCredentialsImpl(StorageCredentialsService storageCredentials) {
     storageCredentialsAPI = new StorageCredentialsAPI(storageCredentials);
+    return this;
+  }
+
+  /** Replace SystemSchemasAPI implementation with mock */
+  public WorkspaceClient withSystemSchemasImpl(SystemSchemasService systemSchemas) {
+    systemSchemasAPI = new SystemSchemasAPI(systemSchemas);
     return this;
   }
 

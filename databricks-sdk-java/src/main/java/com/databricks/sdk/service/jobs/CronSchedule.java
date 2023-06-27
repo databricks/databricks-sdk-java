@@ -11,7 +11,7 @@ import java.util.Objects;
 public class CronSchedule {
   /** Indicate whether this schedule is paused or not. */
   @JsonProperty("pause_status")
-  private CronSchedulePauseStatus pauseStatus;
+  private PauseStatus pauseStatus;
 
   /**
    * A Cron expression using Quartz syntax that describes the schedule for a job. See [Cron Trigger]
@@ -32,12 +32,12 @@ public class CronSchedule {
   @JsonProperty("timezone_id")
   private String timezoneId;
 
-  public CronSchedule setPauseStatus(CronSchedulePauseStatus pauseStatus) {
+  public CronSchedule setPauseStatus(PauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
     return this;
   }
 
-  public CronSchedulePauseStatus getPauseStatus() {
+  public PauseStatus getPauseStatus() {
     return pauseStatus;
   }
 

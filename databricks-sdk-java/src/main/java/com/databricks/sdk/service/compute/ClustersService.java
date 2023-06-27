@@ -44,12 +44,8 @@ public interface ClustersService {
    * Create new cluster.
    *
    * <p>Creates a new Spark cluster. This method will acquire new instances from the cloud provider
-   * if necessary. This method is asynchronous; the returned `cluster_id` can be used to poll the
-   * cluster status. When this method returns, the cluster will be in a `PENDING` state. The cluster
-   * will be usable once it enters a `RUNNING` state.
-   *
-   * <p>Note: Databricks may not be able to acquire some of the requested nodes, due to cloud
-   * provider limitations (account limits, spot price, etc.) or transient network issues.
+   * if necessary. Note: Databricks may not be able to acquire some of the requested nodes, due to
+   * cloud provider limitations (account limits, spot price, etc.) or transient network issues.
    *
    * <p>If Databricks acquires at least 85% of the requested on-demand nodes, cluster creation will
    * succeed. Otherwise the cluster will terminate with an informative error message.
@@ -98,7 +94,7 @@ public interface ClustersService {
    * <p>Retrieves the information for a cluster given its identifier. Clusters can be described
    * while they are running, or up to 60 days after they are terminated.
    */
-  ClusterInfo get(GetClusterRequest getClusterRequest);
+  ClusterDetails get(GetClusterRequest getClusterRequest);
 
   /**
    * List all clusters.

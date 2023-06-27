@@ -2,7 +2,6 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.service.compute.BaseClusterInfo;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,7 +19,7 @@ public class JobCluster {
 
   /** If new_cluster, a description of a cluster that is created for each task. */
   @JsonProperty("new_cluster")
-  private BaseClusterInfo newCluster;
+  private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
   public JobCluster setJobClusterKey(String jobClusterKey) {
     this.jobClusterKey = jobClusterKey;
@@ -31,12 +30,12 @@ public class JobCluster {
     return jobClusterKey;
   }
 
-  public JobCluster setNewCluster(BaseClusterInfo newCluster) {
+  public JobCluster setNewCluster(com.databricks.sdk.service.compute.ClusterSpec newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
-  public BaseClusterInfo getNewCluster() {
+  public com.databricks.sdk.service.compute.ClusterSpec getNewCluster() {
     return newCluster;
   }
 

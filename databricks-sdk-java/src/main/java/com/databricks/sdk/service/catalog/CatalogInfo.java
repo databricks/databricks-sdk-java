@@ -18,6 +18,10 @@ public class CatalogInfo {
   @JsonProperty("comment")
   private String comment;
 
+  /** The name of the connection to an external data source. */
+  @JsonProperty("connection_name")
+  private String connectionName;
+
   /** Time at which this catalog was created, in epoch milliseconds. */
   @JsonProperty("created_at")
   private Long createdAt;
@@ -48,6 +52,10 @@ public class CatalogInfo {
   /** Name of catalog. */
   @JsonProperty("name")
   private String name;
+
+  /** A map of key-value properties attached to the securable. */
+  @JsonProperty("options")
+  private Map<String, String> options;
 
   /** Username of current owner of catalog. */
   @JsonProperty("owner")
@@ -102,6 +110,15 @@ public class CatalogInfo {
 
   public String getComment() {
     return comment;
+  }
+
+  public CatalogInfo setConnectionName(String connectionName) {
+    this.connectionName = connectionName;
+    return this;
+  }
+
+  public String getConnectionName() {
+    return connectionName;
   }
 
   public CatalogInfo setCreatedAt(Long createdAt) {
@@ -166,6 +183,15 @@ public class CatalogInfo {
 
   public String getName() {
     return name;
+  }
+
+  public CatalogInfo setOptions(Map<String, String> options) {
+    this.options = options;
+    return this;
+  }
+
+  public Map<String, String> getOptions() {
+    return options;
   }
 
   public CatalogInfo setOwner(String owner) {
@@ -247,6 +273,7 @@ public class CatalogInfo {
     CatalogInfo that = (CatalogInfo) o;
     return Objects.equals(catalogType, that.catalogType)
         && Objects.equals(comment, that.comment)
+        && Objects.equals(connectionName, that.connectionName)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(effectiveAutoMaintenanceFlag, that.effectiveAutoMaintenanceFlag)
@@ -254,6 +281,7 @@ public class CatalogInfo {
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
+        && Objects.equals(options, that.options)
         && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties)
         && Objects.equals(providerName, that.providerName)
@@ -269,6 +297,7 @@ public class CatalogInfo {
     return Objects.hash(
         catalogType,
         comment,
+        connectionName,
         createdAt,
         createdBy,
         effectiveAutoMaintenanceFlag,
@@ -276,6 +305,7 @@ public class CatalogInfo {
         isolationMode,
         metastoreId,
         name,
+        options,
         owner,
         properties,
         providerName,
@@ -291,6 +321,7 @@ public class CatalogInfo {
     return new ToStringer(CatalogInfo.class)
         .add("catalogType", catalogType)
         .add("comment", comment)
+        .add("connectionName", connectionName)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
         .add("effectiveAutoMaintenanceFlag", effectiveAutoMaintenanceFlag)
@@ -298,6 +329,7 @@ public class CatalogInfo {
         .add("isolationMode", isolationMode)
         .add("metastoreId", metastoreId)
         .add("name", name)
+        .add("options", options)
         .add("owner", owner)
         .add("properties", properties)
         .add("providerName", providerName)

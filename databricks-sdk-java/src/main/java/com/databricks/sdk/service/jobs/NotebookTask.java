@@ -37,9 +37,17 @@ public class NotebookTask {
   @JsonProperty("notebook_path")
   private String notebookPath;
 
-  /** This describes an enum */
+  /**
+   * Optional location type of the notebook. When set to `WORKSPACE`, the notebook will be retrieved
+   * from the local <Databricks> workspace. When set to `GIT`, the notebook will be retrieved from a
+   * Git repository defined in `git_source`. If the value is empty, the task will use `GIT` if
+   * `git_source` is defined and `WORKSPACE` otherwise.
+   *
+   * <p>* `WORKSPACE`: Notebook is located in <Databricks> workspace. * `GIT`: Notebook is located
+   * in cloud Git provider.
+   */
   @JsonProperty("source")
-  private NotebookTaskSource source;
+  private Source source;
 
   public NotebookTask setBaseParameters(Map<String, String> baseParameters) {
     this.baseParameters = baseParameters;
@@ -59,12 +67,12 @@ public class NotebookTask {
     return notebookPath;
   }
 
-  public NotebookTask setSource(NotebookTaskSource source) {
+  public NotebookTask setSource(Source source) {
     this.source = source;
     return this;
   }
 
-  public NotebookTaskSource getSource() {
+  public Source getSource() {
     return source;
   }
 

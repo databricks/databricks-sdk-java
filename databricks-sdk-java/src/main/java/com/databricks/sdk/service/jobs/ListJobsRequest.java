@@ -7,7 +7,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** List all jobs */
+/** List jobs */
 @Generated
 public class ListJobsRequest {
   /** Whether to include task and cluster details in the response. */

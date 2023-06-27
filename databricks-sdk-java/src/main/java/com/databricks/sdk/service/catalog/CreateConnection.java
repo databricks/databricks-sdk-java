@@ -22,9 +22,9 @@ public class CreateConnection {
   @JsonProperty("name")
   private String name;
 
-  /** Object properties as map of string key-value pairs. */
+  /** A map of key-value properties attached to the securable. */
   @JsonProperty("options_kvpairs")
-  private OptionsKvPairs optionsKvpairs;
+  private Map<String, String> optionsKvpairs;
 
   /** Username of current owner of the connection. */
   @JsonProperty("owner")
@@ -65,12 +65,12 @@ public class CreateConnection {
     return name;
   }
 
-  public CreateConnection setOptionsKvpairs(OptionsKvPairs optionsKvpairs) {
+  public CreateConnection setOptionsKvpairs(Map<String, String> optionsKvpairs) {
     this.optionsKvpairs = optionsKvpairs;
     return this;
   }
 
-  public OptionsKvPairs getOptionsKvpairs() {
+  public Map<String, String> getOptionsKvpairs() {
     return optionsKvpairs;
   }
 

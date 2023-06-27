@@ -92,7 +92,7 @@ public class TablesAPI {
         });
   }
 
-  public ListTableSummariesResponse listSummaries(String catalogName) {
+  public Iterable<TableSummary> listSummaries(String catalogName) {
     return listSummaries(new ListSummariesRequest().setCatalogName(catalogName));
   }
 
@@ -110,8 +110,18 @@ public class TablesAPI {
    *
    * <p>There is no guarantee of a specific ordering of the elements in the array.
    */
-  public ListTableSummariesResponse listSummaries(ListSummariesRequest request) {
-    return impl.listSummaries(request);
+  public Iterable<TableSummary> listSummaries(ListSummariesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listSummaries,
+        ListTableSummariesResponse::getTables,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public TablesService impl() {

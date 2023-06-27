@@ -34,7 +34,7 @@ public class GitSource {
    * insensitive.
    */
   @JsonProperty("git_provider")
-  private GitSourceGitProvider gitProvider;
+  private GitProvider gitProvider;
 
   /**
    * Read-only state of the remote repository at the time the job was run. This field is only
@@ -74,12 +74,12 @@ public class GitSource {
     return gitCommit;
   }
 
-  public GitSource setGitProvider(GitSourceGitProvider gitProvider) {
+  public GitSource setGitProvider(GitProvider gitProvider) {
     this.gitProvider = gitProvider;
     return this;
   }
 
-  public GitSourceGitProvider getGitProvider() {
+  public GitProvider getGitProvider() {
     return gitProvider;
   }
 

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -16,9 +17,9 @@ public class UpdateConnection {
   /** Name of the connection. */
   private String nameArg;
 
-  /** Object properties as map of string key-value pairs. */
+  /** A map of key-value properties attached to the securable. */
   @JsonProperty("options_kvpairs")
-  private OptionsKvPairs optionsKvpairs;
+  private Map<String, String> optionsKvpairs;
 
   public UpdateConnection setName(String name) {
     this.name = name;
@@ -38,12 +39,12 @@ public class UpdateConnection {
     return nameArg;
   }
 
-  public UpdateConnection setOptionsKvpairs(OptionsKvPairs optionsKvpairs) {
+  public UpdateConnection setOptionsKvpairs(Map<String, String> optionsKvpairs) {
     this.optionsKvpairs = optionsKvpairs;
     return this;
   }
 
-  public OptionsKvPairs getOptionsKvpairs() {
+  public Map<String, String> getOptionsKvpairs() {
     return optionsKvpairs;
   }
 

@@ -7,7 +7,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** List runs for a job */
+/** List job runs */
 @Generated
 public class ListRunsRequest {
   /**

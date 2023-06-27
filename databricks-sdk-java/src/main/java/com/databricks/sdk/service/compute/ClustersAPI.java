@@ -52,19 +52,20 @@ public class ClustersAPI {
     impl = mock;
   }
 
-  public ClusterInfo waitGetClusterRunning(String clusterId) throws TimeoutException {
+  public ClusterDetails waitGetClusterRunning(String clusterId) throws TimeoutException {
     return waitGetClusterRunning(clusterId, Duration.ofMinutes(20), null);
   }
 
-  public ClusterInfo waitGetClusterRunning(
-      String clusterId, Duration timeout, Consumer<ClusterInfo> callback) throws TimeoutException {
+  public ClusterDetails waitGetClusterRunning(
+      String clusterId, Duration timeout, Consumer<ClusterDetails> callback)
+      throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
     java.util.List<State> targetStates = Arrays.asList(State.RUNNING);
     java.util.List<State> failureStates = Arrays.asList(State.ERROR, State.TERMINATED);
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
-      ClusterInfo poll = get(new GetClusterRequest().setClusterId(clusterId));
+      ClusterDetails poll = get(new GetClusterRequest().setClusterId(clusterId));
       State status = poll.getState();
       statusMessage = poll.getStateMessage();
       if (targetStates.contains(status)) {
@@ -95,19 +96,20 @@ public class ClustersAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public ClusterInfo waitGetClusterTerminated(String clusterId) throws TimeoutException {
+  public ClusterDetails waitGetClusterTerminated(String clusterId) throws TimeoutException {
     return waitGetClusterTerminated(clusterId, Duration.ofMinutes(20), null);
   }
 
-  public ClusterInfo waitGetClusterTerminated(
-      String clusterId, Duration timeout, Consumer<ClusterInfo> callback) throws TimeoutException {
+  public ClusterDetails waitGetClusterTerminated(
+      String clusterId, Duration timeout, Consumer<ClusterDetails> callback)
+      throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
     java.util.List<State> targetStates = Arrays.asList(State.TERMINATED);
     java.util.List<State> failureStates = Arrays.asList(State.ERROR);
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
-      ClusterInfo poll = get(new GetClusterRequest().setClusterId(clusterId));
+      ClusterDetails poll = get(new GetClusterRequest().setClusterId(clusterId));
       State status = poll.getState();
       statusMessage = poll.getStateMessage();
       if (targetStates.contains(status)) {
@@ -151,7 +153,7 @@ public class ClustersAPI {
     impl.changeOwner(request);
   }
 
-  public Wait<ClusterInfo, CreateClusterResponse> create(String sparkVersion) {
+  public Wait<ClusterDetails, CreateClusterResponse> create(String sparkVersion) {
     return create(new CreateCluster().setSparkVersion(sparkVersion));
   }
 
@@ -159,24 +161,20 @@ public class ClustersAPI {
    * Create new cluster.
    *
    * <p>Creates a new Spark cluster. This method will acquire new instances from the cloud provider
-   * if necessary. This method is asynchronous; the returned `cluster_id` can be used to poll the
-   * cluster status. When this method returns, the cluster will be in a `PENDING` state. The cluster
-   * will be usable once it enters a `RUNNING` state.
-   *
-   * <p>Note: Databricks may not be able to acquire some of the requested nodes, due to cloud
-   * provider limitations (account limits, spot price, etc.) or transient network issues.
+   * if necessary. Note: Databricks may not be able to acquire some of the requested nodes, due to
+   * cloud provider limitations (account limits, spot price, etc.) or transient network issues.
    *
    * <p>If Databricks acquires at least 85% of the requested on-demand nodes, cluster creation will
    * succeed. Otherwise the cluster will terminate with an informative error message.
    */
-  public Wait<ClusterInfo, CreateClusterResponse> create(CreateCluster request) {
+  public Wait<ClusterDetails, CreateClusterResponse> create(CreateCluster request) {
     CreateClusterResponse response = impl.create(request);
     return new Wait<>(
         (timeout, callback) -> waitGetClusterRunning(response.getClusterId(), timeout, callback),
         response);
   }
 
-  public Wait<ClusterInfo, Void> delete(String clusterId) {
+  public Wait<ClusterDetails, Void> delete(String clusterId) {
     return delete(new DeleteCluster().setClusterId(clusterId));
   }
 
@@ -187,13 +185,13 @@ public class ClustersAPI {
    * Once the termination has completed, the cluster will be in a `TERMINATED` state. If the cluster
    * is already in a `TERMINATING` or `TERMINATED` state, nothing will happen.
    */
-  public Wait<ClusterInfo, Void> delete(DeleteCluster request) {
+  public Wait<ClusterDetails, Void> delete(DeleteCluster request) {
     impl.delete(request);
     return new Wait<>(
         (timeout, callback) -> waitGetClusterTerminated(request.getClusterId(), timeout, callback));
   }
 
-  public Wait<ClusterInfo, Void> edit(String clusterId, String sparkVersion) {
+  public Wait<ClusterDetails, Void> edit(String clusterId, String sparkVersion) {
     return edit(new EditCluster().setClusterId(clusterId).setSparkVersion(sparkVersion));
   }
 
@@ -213,7 +211,7 @@ public class ClustersAPI {
    *
    * <p>Clusters created by the Databricks Jobs service cannot be edited.
    */
-  public Wait<ClusterInfo, Void> edit(EditCluster request) {
+  public Wait<ClusterDetails, Void> edit(EditCluster request) {
     impl.edit(request);
     return new Wait<>(
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
@@ -240,7 +238,7 @@ public class ClustersAPI {
         });
   }
 
-  public ClusterInfo get(String clusterId) {
+  public ClusterDetails get(String clusterId) {
     return get(new GetClusterRequest().setClusterId(clusterId));
   }
 
@@ -250,7 +248,7 @@ public class ClustersAPI {
    * <p>Retrieves the information for a cluster given its identifier. Clusters can be described
    * while they are running, or up to 60 days after they are terminated.
    */
-  public ClusterInfo get(GetClusterRequest request) {
+  public ClusterDetails get(GetClusterRequest request) {
     return impl.get(request);
   }
 
@@ -266,7 +264,7 @@ public class ClustersAPI {
    * returns the 1 pinned cluster, 4 active clusters, all 45 terminated all-purpose clusters, and
    * the 30 most recently terminated job clusters.
    */
-  public Iterable<ClusterInfo> list(ListClustersRequest request) {
+  public Iterable<ClusterDetails> list(ListClustersRequest request) {
     return impl.list(request).getClusters();
   }
 
@@ -322,7 +320,7 @@ public class ClustersAPI {
     impl.pin(request);
   }
 
-  public Wait<ClusterInfo, Void> resize(String clusterId) {
+  public Wait<ClusterDetails, Void> resize(String clusterId) {
     return resize(new ResizeCluster().setClusterId(clusterId));
   }
 
@@ -332,13 +330,13 @@ public class ClustersAPI {
    * <p>Resizes a cluster to have a desired number of workers. This will fail unless the cluster is
    * in a `RUNNING` state.
    */
-  public Wait<ClusterInfo, Void> resize(ResizeCluster request) {
+  public Wait<ClusterDetails, Void> resize(ResizeCluster request) {
     impl.resize(request);
     return new Wait<>(
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
-  public Wait<ClusterInfo, Void> restart(String clusterId) {
+  public Wait<ClusterDetails, Void> restart(String clusterId) {
     return restart(new RestartCluster().setClusterId(clusterId));
   }
 
@@ -348,7 +346,7 @@ public class ClustersAPI {
    * <p>Restarts a Spark cluster with the supplied ID. If the cluster is not currently in a
    * `RUNNING` state, nothing will happen.
    */
-  public Wait<ClusterInfo, Void> restart(RestartCluster request) {
+  public Wait<ClusterDetails, Void> restart(RestartCluster request) {
     impl.restart(request);
     return new Wait<>(
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
@@ -364,7 +362,7 @@ public class ClustersAPI {
     return impl.sparkVersions();
   }
 
-  public Wait<ClusterInfo, Void> start(String clusterId) {
+  public Wait<ClusterDetails, Void> start(String clusterId) {
     return start(new StartCluster().setClusterId(clusterId));
   }
 
@@ -379,7 +377,7 @@ public class ClustersAPI {
    * cluster starts with the minimum number of nodes. * If the cluster is not currently in a
    * `TERMINATED` state, nothing will happen. * Clusters launched to run a job cannot be started.
    */
-  public Wait<ClusterInfo, Void> start(StartCluster request) {
+  public Wait<ClusterDetails, Void> start(StartCluster request) {
     impl.start(request);
     return new Wait<>(
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));

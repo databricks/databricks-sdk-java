@@ -17,6 +17,15 @@ public class ServedModelOutput {
   @JsonProperty("creator")
   private String creator;
 
+  /**
+   * An object containing a set of optional, user-specified environment variable key-value pairs
+   * used for serving this model. Note: this is an experimental feature and subject to change.
+   * Example model environment variables that refer to Databricks secrets: `{"OPENAI_API_KEY":
+   * "{{secrets/my_scope/my_key}}", "DATABRICKS_TOKEN": "{{secrets/my_scope2/my_key2}}"}`
+   */
+  @JsonProperty("environment_vars")
+  private Object environmentVars;
+
   /** The name of the model in Databricks Model Registry. */
   @JsonProperty("model_name")
   private String modelName;
@@ -64,6 +73,15 @@ public class ServedModelOutput {
 
   public String getCreator() {
     return creator;
+  }
+
+  public ServedModelOutput setEnvironmentVars(Object environmentVars) {
+    this.environmentVars = environmentVars;
+    return this;
+  }
+
+  public Object getEnvironmentVars() {
+    return environmentVars;
   }
 
   public ServedModelOutput setModelName(String modelName) {
@@ -127,6 +145,7 @@ public class ServedModelOutput {
     ServedModelOutput that = (ServedModelOutput) o;
     return Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(environmentVars, that.environmentVars)
         && Objects.equals(modelName, that.modelName)
         && Objects.equals(modelVersion, that.modelVersion)
         && Objects.equals(name, that.name)
@@ -140,6 +159,7 @@ public class ServedModelOutput {
     return Objects.hash(
         creationTimestamp,
         creator,
+        environmentVars,
         modelName,
         modelVersion,
         name,
@@ -153,6 +173,7 @@ public class ServedModelOutput {
     return new ToStringer(ServedModelOutput.class)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)
+        .add("environmentVars", environmentVars)
         .add("modelName", modelName)
         .add("modelVersion", modelVersion)
         .add("name", name)

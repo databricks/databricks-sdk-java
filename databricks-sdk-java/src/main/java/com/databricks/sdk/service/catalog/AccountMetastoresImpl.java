@@ -14,9 +14,9 @@ class AccountMetastoresImpl implements AccountMetastoresService {
   }
 
   @Override
-  public MetastoreInfo create(AccountsCreateMetastore request) {
+  public AccountsMetastoreInfo create(AccountsCreateMetastore request) {
     String path = String.format("/api/2.0/accounts/%s/metastores", apiClient.configuredAccountID());
-    return apiClient.POST(path, request, MetastoreInfo.class);
+    return apiClient.POST(path, request, AccountsMetastoreInfo.class);
   }
 
   @Override
@@ -29,12 +29,12 @@ class AccountMetastoresImpl implements AccountMetastoresService {
   }
 
   @Override
-  public MetastoreInfo get(GetAccountMetastoreRequest request) {
+  public AccountsMetastoreInfo get(GetAccountMetastoreRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.GET(path, request, MetastoreInfo.class);
+    return apiClient.GET(path, request, AccountsMetastoreInfo.class);
   }
 
   @Override
@@ -44,11 +44,11 @@ class AccountMetastoresImpl implements AccountMetastoresService {
   }
 
   @Override
-  public MetastoreInfo update(AccountsUpdateMetastore request) {
+  public AccountsMetastoreInfo update(AccountsUpdateMetastore request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.PUT(path, request, MetastoreInfo.class);
+    return apiClient.PUT(path, request, AccountsMetastoreInfo.class);
   }
 }

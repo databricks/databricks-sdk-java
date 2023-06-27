@@ -14,27 +14,30 @@ class AccountAccessControlImpl implements AccountAccessControlService {
   }
 
   @Override
-  public RuleSetResponse get(GetAccountAccessControlRequest request) {
+  public GetAssignableRolesForResourceResponse getAssignableRolesForResource(
+      GetAssignableRolesForResourceRequest request) {
     String path =
         String.format(
-            "/preview/accounts/%s/access-control/rule-sets", apiClient.configuredAccountID());
-    return apiClient.GET(path, request, RuleSetResponse.class);
-  }
-
-  @Override
-  public GetAssignableRolesForResourceResponse list(ListAccountAccessControlRequest request) {
-    String path =
-        String.format(
-            "/preview/accounts/%s/access-control/assignable-roles",
+            "/api/2.0/preview/accounts/%s/access-control/assignable-roles",
             apiClient.configuredAccountID());
     return apiClient.GET(path, request, GetAssignableRolesForResourceResponse.class);
   }
 
   @Override
-  public RuleSetResponse update(UpdateRuleSetRequest request) {
+  public RuleSetResponse getRuleSet(GetRuleSetRequest request) {
     String path =
         String.format(
-            "/preview/accounts/%s/access-control/rule-sets", apiClient.configuredAccountID());
+            "/api/2.0/preview/accounts/%s/access-control/rule-sets",
+            apiClient.configuredAccountID());
+    return apiClient.GET(path, request, RuleSetResponse.class);
+  }
+
+  @Override
+  public RuleSetResponse updateRuleSet(UpdateRuleSetRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/preview/accounts/%s/access-control/rule-sets",
+            apiClient.configuredAccountID());
     return apiClient.PUT(path, request, RuleSetResponse.class);
   }
 }

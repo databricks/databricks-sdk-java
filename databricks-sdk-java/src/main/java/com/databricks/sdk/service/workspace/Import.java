@@ -12,22 +12,26 @@ public class Import {
   /**
    * The base64-encoded content. This has a limit of 10 MB.
    *
-   * <p>If the limit (10MB) is exceeded, exception with error code **MAX_NOTEBOOK_SIZE_EXCEEDED**
-   * will be thrown. This parameter might be absent, and instead a posted file will be used.
+   * <p>If the limit (10MB) is exceeded, exception with error code **MAX_NOTEBOOK_SIZE_EXCEEDED** is
+   * thrown. This parameter might be absent, and instead a posted file is used.
    */
   @JsonProperty("content")
   private String content;
 
   /**
-   * This specifies the format of the file to be imported. By default, this is `SOURCE`.
+   * This specifies the format of the file to be imported.
    *
-   * <p>If using `AUTO` the item is imported or exported as either a workspace file or a
-   * notebook,depending on an analysis of the item’s extension and the header content provided in
-   * the request. The value is case sensitive. In addition, if the item is imported as a notebook,
-   * then the item’s extension is automatically removed.
+   * <p>The value is case sensitive.
+   *
+   * <p>- `AUTO`: The item is imported depending on an analysis of the item's extension and the
+   * header content provided in the request. If the item is imported as a notebook, then the item's
+   * extension is automatically removed. - `SOURCE`: The notebook is imported as source code. -
+   * `HTML`: The notebook is imported as an HTML file. - `JUPYTER`: The notebook is imported as a
+   * Jupyter/IPython Notebook file. - `DBC`: The notebook is imported in Databricks archive format.
+   * Required for directories. - `R_MARKDOWN`: The notebook is imported from R Markdown format.
    */
   @JsonProperty("format")
-  private ExportFormat format;
+  private ImportFormat format;
 
   /** The language of the object. This value is set only if the object type is `NOTEBOOK`. */
   @JsonProperty("language")
@@ -56,12 +60,12 @@ public class Import {
     return content;
   }
 
-  public Import setFormat(ExportFormat format) {
+  public Import setFormat(ImportFormat format) {
     this.format = format;
     return this;
   }
 
-  public ExportFormat getFormat() {
+  public ImportFormat getFormat() {
     return format;
   }
 

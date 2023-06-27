@@ -2,11 +2,6 @@
 
 package com.databricks.sdk.service.pipelines;
 
-import com.databricks.sdk.service.compute.AutoScale;
-import com.databricks.sdk.service.compute.AwsAttributes;
-import com.databricks.sdk.service.compute.AzureAttributes;
-import com.databricks.sdk.service.compute.ClusterLogConf;
-import com.databricks.sdk.service.compute.GcpAttributes;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -25,21 +20,21 @@ public class PipelineCluster {
    * autoscaling works best with DB runtime versions 3.0 or later.
    */
   @JsonProperty("autoscale")
-  private AutoScale autoscale;
+  private com.databricks.sdk.service.compute.AutoScale autoscale;
 
   /**
    * Attributes related to clusters running on Amazon Web Services. If not specified at cluster
    * creation, a set of default values will be used.
    */
   @JsonProperty("aws_attributes")
-  private AwsAttributes awsAttributes;
+  private com.databricks.sdk.service.compute.AwsAttributes awsAttributes;
 
   /**
    * Attributes related to clusters running on Microsoft Azure. If not specified at cluster
    * creation, a set of default values will be used.
    */
   @JsonProperty("azure_attributes")
-  private AzureAttributes azureAttributes;
+  private com.databricks.sdk.service.compute.AzureAttributes azureAttributes;
 
   /**
    * The configuration for delivering spark logs to a long-term storage destination. Only dbfs
@@ -49,7 +44,7 @@ public class PipelineCluster {
    * `$destination/$clusterId/executor`.
    */
   @JsonProperty("cluster_log_conf")
-  private ClusterLogConf clusterLogConf;
+  private com.databricks.sdk.service.compute.ClusterLogConf clusterLogConf;
 
   /**
    * Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS
@@ -82,7 +77,7 @@ public class PipelineCluster {
    * creation, a set of default values will be used.
    */
   @JsonProperty("gcp_attributes")
-  private GcpAttributes gcpAttributes;
+  private com.databricks.sdk.service.compute.GcpAttributes gcpAttributes;
 
   /** The optional ID of the instance pool to which the cluster belongs. */
   @JsonProperty("instance_pool_id")
@@ -162,39 +157,42 @@ public class PipelineCluster {
     return applyPolicyDefaultValues;
   }
 
-  public PipelineCluster setAutoscale(AutoScale autoscale) {
+  public PipelineCluster setAutoscale(com.databricks.sdk.service.compute.AutoScale autoscale) {
     this.autoscale = autoscale;
     return this;
   }
 
-  public AutoScale getAutoscale() {
+  public com.databricks.sdk.service.compute.AutoScale getAutoscale() {
     return autoscale;
   }
 
-  public PipelineCluster setAwsAttributes(AwsAttributes awsAttributes) {
+  public PipelineCluster setAwsAttributes(
+      com.databricks.sdk.service.compute.AwsAttributes awsAttributes) {
     this.awsAttributes = awsAttributes;
     return this;
   }
 
-  public AwsAttributes getAwsAttributes() {
+  public com.databricks.sdk.service.compute.AwsAttributes getAwsAttributes() {
     return awsAttributes;
   }
 
-  public PipelineCluster setAzureAttributes(AzureAttributes azureAttributes) {
+  public PipelineCluster setAzureAttributes(
+      com.databricks.sdk.service.compute.AzureAttributes azureAttributes) {
     this.azureAttributes = azureAttributes;
     return this;
   }
 
-  public AzureAttributes getAzureAttributes() {
+  public com.databricks.sdk.service.compute.AzureAttributes getAzureAttributes() {
     return azureAttributes;
   }
 
-  public PipelineCluster setClusterLogConf(ClusterLogConf clusterLogConf) {
+  public PipelineCluster setClusterLogConf(
+      com.databricks.sdk.service.compute.ClusterLogConf clusterLogConf) {
     this.clusterLogConf = clusterLogConf;
     return this;
   }
 
-  public ClusterLogConf getClusterLogConf() {
+  public com.databricks.sdk.service.compute.ClusterLogConf getClusterLogConf() {
     return clusterLogConf;
   }
 
@@ -225,12 +223,13 @@ public class PipelineCluster {
     return driverNodeTypeId;
   }
 
-  public PipelineCluster setGcpAttributes(GcpAttributes gcpAttributes) {
+  public PipelineCluster setGcpAttributes(
+      com.databricks.sdk.service.compute.GcpAttributes gcpAttributes) {
     this.gcpAttributes = gcpAttributes;
     return this;
   }
 
-  public GcpAttributes getGcpAttributes() {
+  public com.databricks.sdk.service.compute.GcpAttributes getGcpAttributes() {
     return gcpAttributes;
   }
 

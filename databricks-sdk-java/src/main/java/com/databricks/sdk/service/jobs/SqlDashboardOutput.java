@@ -5,6 +5,7 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -15,7 +16,7 @@ public class SqlDashboardOutput {
 
   /** Widgets executed in the run. Only SQL query based widgets are listed. */
   @JsonProperty("widgets")
-  private SqlDashboardWidgetOutput widgets;
+  private Collection<SqlDashboardWidgetOutput> widgets;
 
   public SqlDashboardOutput setWarehouseId(String warehouseId) {
     this.warehouseId = warehouseId;
@@ -26,12 +27,12 @@ public class SqlDashboardOutput {
     return warehouseId;
   }
 
-  public SqlDashboardOutput setWidgets(SqlDashboardWidgetOutput widgets) {
+  public SqlDashboardOutput setWidgets(Collection<SqlDashboardWidgetOutput> widgets) {
     this.widgets = widgets;
     return this;
   }
 
-  public SqlDashboardWidgetOutput getWidgets() {
+  public Collection<SqlDashboardWidgetOutput> getWidgets() {
     return widgets;
   }
 

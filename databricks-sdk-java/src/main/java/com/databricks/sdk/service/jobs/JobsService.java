@@ -102,14 +102,14 @@ public interface JobsService {
   RunOutput getRunOutput(GetRunOutputRequest getRunOutputRequest);
 
   /**
-   * List all jobs.
+   * List jobs.
    *
    * <p>Retrieves a list of jobs.
    */
   ListJobsResponse list(ListJobsRequest listJobsRequest);
 
   /**
-   * List runs for a job.
+   * List job runs.
    *
    * <p>List runs in descending order by start time.
    */

@@ -9,13 +9,13 @@ import java.util.Objects;
 
 @Generated
 public class CreateScope {
+  /** The metadata for the secret scope if the type is `AZURE_KEYVAULT` */
+  @JsonProperty("backend_azure_keyvault")
+  private AzureKeyVaultSecretScopeMetadata backendAzureKeyvault;
+
   /** The principal that is initially granted `MANAGE` permission to the created scope. */
   @JsonProperty("initial_manage_principal")
   private String initialManagePrincipal;
-
-  /** The metadata for the secret scope if the type is `AZURE_KEYVAULT` */
-  @JsonProperty("keyvault_metadata")
-  private AzureKeyVaultSecretScopeMetadata keyvaultMetadata;
 
   /** Scope name requested by the user. Scope names are unique. */
   @JsonProperty("scope")
@@ -27,6 +27,16 @@ public class CreateScope {
   @JsonProperty("scope_backend_type")
   private ScopeBackendType scopeBackendType;
 
+  public CreateScope setBackendAzureKeyvault(
+      AzureKeyVaultSecretScopeMetadata backendAzureKeyvault) {
+    this.backendAzureKeyvault = backendAzureKeyvault;
+    return this;
+  }
+
+  public AzureKeyVaultSecretScopeMetadata getBackendAzureKeyvault() {
+    return backendAzureKeyvault;
+  }
+
   public CreateScope setInitialManagePrincipal(String initialManagePrincipal) {
     this.initialManagePrincipal = initialManagePrincipal;
     return this;
@@ -34,15 +44,6 @@ public class CreateScope {
 
   public String getInitialManagePrincipal() {
     return initialManagePrincipal;
-  }
-
-  public CreateScope setKeyvaultMetadata(AzureKeyVaultSecretScopeMetadata keyvaultMetadata) {
-    this.keyvaultMetadata = keyvaultMetadata;
-    return this;
-  }
-
-  public AzureKeyVaultSecretScopeMetadata getKeyvaultMetadata() {
-    return keyvaultMetadata;
   }
 
   public CreateScope setScope(String scope) {
@@ -68,22 +69,22 @@ public class CreateScope {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateScope that = (CreateScope) o;
-    return Objects.equals(initialManagePrincipal, that.initialManagePrincipal)
-        && Objects.equals(keyvaultMetadata, that.keyvaultMetadata)
+    return Objects.equals(backendAzureKeyvault, that.backendAzureKeyvault)
+        && Objects.equals(initialManagePrincipal, that.initialManagePrincipal)
         && Objects.equals(scope, that.scope)
         && Objects.equals(scopeBackendType, that.scopeBackendType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(initialManagePrincipal, keyvaultMetadata, scope, scopeBackendType);
+    return Objects.hash(backendAzureKeyvault, initialManagePrincipal, scope, scopeBackendType);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateScope.class)
+        .add("backendAzureKeyvault", backendAzureKeyvault)
         .add("initialManagePrincipal", initialManagePrincipal)
-        .add("keyvaultMetadata", keyvaultMetadata)
         .add("scope", scope)
         .add("scopeBackendType", scopeBackendType)
         .toString();

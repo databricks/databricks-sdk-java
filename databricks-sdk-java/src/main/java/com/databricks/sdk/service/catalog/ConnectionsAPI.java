@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +35,7 @@ public class ConnectionsAPI {
   }
 
   public ConnectionInfo create(
-      String name, ConnectionType connectionType, OptionsKvPairs optionsKvpairs) {
+      String name, ConnectionType connectionType, Map<String, String> optionsKvpairs) {
     return create(
         new CreateConnection()
             .setName(name)
@@ -89,7 +90,7 @@ public class ConnectionsAPI {
     return impl.list().getConnections();
   }
 
-  public ConnectionInfo update(String name, OptionsKvPairs optionsKvpairs, String nameArg) {
+  public ConnectionInfo update(String name, Map<String, String> optionsKvpairs, String nameArg) {
     return update(
         new UpdateConnection().setName(name).setOptionsKvpairs(optionsKvpairs).setNameArg(nameArg));
   }

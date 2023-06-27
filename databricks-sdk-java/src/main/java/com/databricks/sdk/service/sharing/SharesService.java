@@ -1,7 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sharing;
 
-import com.databricks.sdk.service.catalog.PermissionsList;
 import com.databricks.sdk.support.Generated;
 
 /**
@@ -52,7 +51,8 @@ public interface SharesService {
    * <p>Gets the permissions for a data share from the metastore. The caller must be a metastore
    * admin or the owner of the share.
    */
-  PermissionsList sharePermissions(SharePermissionsRequest sharePermissionsRequest);
+  com.databricks.sdk.service.catalog.PermissionsList sharePermissions(
+      SharePermissionsRequest sharePermissionsRequest);
 
   /**
    * Update a share.

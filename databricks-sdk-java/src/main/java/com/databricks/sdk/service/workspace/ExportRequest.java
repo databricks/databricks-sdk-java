@@ -11,36 +11,24 @@ import java.util.Objects;
 @Generated
 public class ExportRequest {
   /**
-   * Flag to enable direct download. If it is `true`, the response will be the exported file itself.
-   * Otherwise, the response contains content as base64 encoded string.
-   */
-  @QueryParam("direct_download")
-  private Boolean directDownload;
-
-  /**
-   * This specifies the format of the exported file. By default, this is `SOURCE`. However it may be
-   * one of: `SOURCE`, `HTML`, `JUPYTER`, `DBC`.
+   * This specifies the format of the exported file. By default, this is `SOURCE`.
    *
    * <p>The value is case sensitive.
+   *
+   * <p>- `SOURCE`: The notebook is exported as source code. - `HTML`: The notebook is exported as
+   * an HTML file. - `JUPYTER`: The notebook is exported as a Jupyter/IPython Notebook file. -
+   * `DBC`: The notebook is exported in Databricks archive format. - `R_MARKDOWN`: The notebook is
+   * exported to R Markdown format.
    */
   @QueryParam("format")
   private ExportFormat format;
 
   /**
    * The absolute path of the object or directory. Exporting a directory is only supported for the
-   * `DBC` format.
+   * `DBC` and `SOURCE` format.
    */
   @QueryParam("path")
   private String path;
-
-  public ExportRequest setDirectDownload(Boolean directDownload) {
-    this.directDownload = directDownload;
-    return this;
-  }
-
-  public Boolean getDirectDownload() {
-    return directDownload;
-  }
 
   public ExportRequest setFormat(ExportFormat format) {
     this.format = format;
@@ -65,22 +53,16 @@ public class ExportRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ExportRequest that = (ExportRequest) o;
-    return Objects.equals(directDownload, that.directDownload)
-        && Objects.equals(format, that.format)
-        && Objects.equals(path, that.path);
+    return Objects.equals(format, that.format) && Objects.equals(path, that.path);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(directDownload, format, path);
+    return Objects.hash(format, path);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ExportRequest.class)
-        .add("directDownload", directDownload)
-        .add("format", format)
-        .add("path", path)
-        .toString();
+    return new ToStringer(ExportRequest.class).add("format", format).add("path", path).toString();
   }
 }

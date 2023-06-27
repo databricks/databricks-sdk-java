@@ -12,15 +12,15 @@ import java.util.Objects;
 @Generated
 public class GetInstancePool {
   /**
-   * Attributes related to pool running on Amazon Web Services. If not specified at pool creation, a
-   * set of default values will be used.
+   * Attributes related to instance pools running on Amazon Web Services. If not specified at pool
+   * creation, a set of default values will be used.
    */
   @JsonProperty("aws_attributes")
   private InstancePoolAwsAttributes awsAttributes;
 
   /**
-   * Attributes related to pool running on Azure. If not specified at pool creation, a set of
-   * default values will be used.
+   * Attributes related to instance pools running on Azure. If not specified at pool creation, a set
+   * of default values will be used.
    */
   @JsonProperty("azure_attributes")
   private InstancePoolAzureAttributes azureAttributes;
@@ -60,6 +60,13 @@ public class GetInstancePool {
    */
   @JsonProperty("enable_elastic_disk")
   private Boolean enableElasticDisk;
+
+  /**
+   * Attributes related to instance pools running on Google Cloud Platform. If not specified at pool
+   * creation, a set of default values will be used.
+   */
+  @JsonProperty("gcp_attributes")
+  private InstancePoolGcpAttributes gcpAttributes;
 
   /**
    * Automatically terminates the extra instances in the pool cache after they are inactive for this
@@ -185,6 +192,15 @@ public class GetInstancePool {
     return enableElasticDisk;
   }
 
+  public GetInstancePool setGcpAttributes(InstancePoolGcpAttributes gcpAttributes) {
+    this.gcpAttributes = gcpAttributes;
+    return this;
+  }
+
+  public InstancePoolGcpAttributes getGcpAttributes() {
+    return gcpAttributes;
+  }
+
   public GetInstancePool setIdleInstanceAutoterminationMinutes(
       Long idleInstanceAutoterminationMinutes) {
     this.idleInstanceAutoterminationMinutes = idleInstanceAutoterminationMinutes;
@@ -306,6 +322,7 @@ public class GetInstancePool {
         && Objects.equals(defaultTags, that.defaultTags)
         && Objects.equals(diskSpec, that.diskSpec)
         && Objects.equals(enableElasticDisk, that.enableElasticDisk)
+        && Objects.equals(gcpAttributes, that.gcpAttributes)
         && Objects.equals(
             idleInstanceAutoterminationMinutes, that.idleInstanceAutoterminationMinutes)
         && Objects.equals(instancePoolFleetAttributes, that.instancePoolFleetAttributes)
@@ -330,6 +347,7 @@ public class GetInstancePool {
         defaultTags,
         diskSpec,
         enableElasticDisk,
+        gcpAttributes,
         idleInstanceAutoterminationMinutes,
         instancePoolFleetAttributes,
         instancePoolId,
@@ -353,6 +371,7 @@ public class GetInstancePool {
         .add("defaultTags", defaultTags)
         .add("diskSpec", diskSpec)
         .add("enableElasticDisk", enableElasticDisk)
+        .add("gcpAttributes", gcpAttributes)
         .add("idleInstanceAutoterminationMinutes", idleInstanceAutoterminationMinutes)
         .add("instancePoolFleetAttributes", instancePoolFleetAttributes)
         .add("instancePoolId", instancePoolId)

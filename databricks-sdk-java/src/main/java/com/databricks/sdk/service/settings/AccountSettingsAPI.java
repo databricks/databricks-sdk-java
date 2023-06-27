@@ -24,13 +24,33 @@ public class AccountSettingsAPI {
   }
 
   /**
+   * Delete Personal Compute setting.
+   *
+   * <p>TBD
+   */
+  public DeletePersonalComputeSettingResponse deletePersonalComputeSetting(
+      DeletePersonalComputeSettingRequest request) {
+    return impl.deletePersonalComputeSetting(request);
+  }
+
+  /**
    * Get Personal Compute setting.
    *
    * <p>TBD
    */
-  public ReadPersonalComputeSettingResponse readPersonalComputeSetting(
+  public PersonalComputeSetting readPersonalComputeSetting(
       ReadPersonalComputeSettingRequest request) {
     return impl.readPersonalComputeSetting(request);
+  }
+
+  /**
+   * Update Personal Compute setting.
+   *
+   * <p>TBD
+   */
+  public PersonalComputeSetting updatePersonalComputeSetting(
+      UpdatePersonalComputeSettingRequest request) {
+    return impl.updatePersonalComputeSetting(request);
   }
 
   public AccountSettingsService impl() {
