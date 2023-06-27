@@ -76,7 +76,7 @@ public class ProvidersAPI {
     return impl.list(request).getProviders();
   }
 
-  public ListProviderSharesResponse listShares(String name) {
+  public Iterable<ProviderShare> listShares(String name) {
     return listShares(new ListSharesRequest().setName(name));
   }
 
@@ -87,8 +87,8 @@ public class ProvidersAPI {
    *
    * <p>* the caller is a metastore admin, or * the caller is the owner.
    */
-  public ListProviderSharesResponse listShares(ListSharesRequest request) {
-    return impl.listShares(request);
+  public Iterable<ProviderShare> listShares(ListSharesRequest request) {
+    return impl.listShares(request).getShares();
   }
 
   public ProviderInfo update(String name) {

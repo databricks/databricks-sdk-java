@@ -29,9 +29,17 @@ public class SparkPythonTask {
   @JsonProperty("python_file")
   private String pythonFile;
 
-  /** This describes an enum */
+  /**
+   * Optional location type of the Python file. When set to `WORKSPACE` or not specified, the file
+   * will be retrieved from the local <Databricks> workspace or cloud location (if the `python_file`
+   * has a URI format). When set to `GIT`, the Python file will be retrieved from a Git repository
+   * defined in `git_source`.
+   *
+   * <p>* `WORKSPACE`: The Python file is located in a <Databricks> workspace or at a cloud
+   * filesystem URI. * `GIT`: The Python file is located in a remote Git repository.
+   */
   @JsonProperty("source")
-  private SparkPythonTaskSource source;
+  private Source source;
 
   public SparkPythonTask setParameters(Collection<String> parameters) {
     this.parameters = parameters;
@@ -51,12 +59,12 @@ public class SparkPythonTask {
     return pythonFile;
   }
 
-  public SparkPythonTask setSource(SparkPythonTaskSource source) {
+  public SparkPythonTask setSource(Source source) {
     this.source = source;
     return this;
   }
 
-  public SparkPythonTaskSource getSource() {
+  public Source getSource() {
     return source;
   }
 

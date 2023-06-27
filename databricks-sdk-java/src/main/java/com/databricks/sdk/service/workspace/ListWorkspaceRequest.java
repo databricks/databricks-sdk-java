@@ -10,7 +10,7 @@ import java.util.Objects;
 /** List contents */
 @Generated
 public class ListWorkspaceRequest {
-  /** <content needed> */
+  /** UTC timestamp in milliseconds */
   @QueryParam("notebooks_modified_after")
   private Long notebooksModifiedAfter;
 

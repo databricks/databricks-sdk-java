@@ -15,12 +15,13 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public MetastoreAssignment create(AccountsCreateMetastoreAssignment request) {
+  public Collection<CreateMetastoreAssignmentsResponseItem> create(
+      AccountsCreateMetastoreAssignment request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
-    return apiClient.POST(path, request, MetastoreAssignment.class);
+    return apiClient.getCollection(path, null, CreateMetastoreAssignmentsResponseItem.class);
   }
 
   @Override
@@ -33,12 +34,12 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public MetastoreAssignment get(GetAccountMetastoreAssignmentRequest request) {
+  public AccountsMetastoreAssignment get(GetAccountMetastoreAssignmentRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastore",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    return apiClient.GET(path, request, MetastoreAssignment.class);
+    return apiClient.GET(path, request, AccountsMetastoreAssignment.class);
   }
 
   @Override
@@ -51,11 +52,11 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public MetastoreAssignment update(AccountsUpdateMetastoreAssignment request) {
+  public void update(AccountsUpdateMetastoreAssignment request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
-    return apiClient.PUT(path, request, MetastoreAssignment.class);
+    apiClient.PUT(path, request, Void.class);
   }
 }

@@ -13,10 +13,26 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AccountSettingsService {
   /**
+   * Delete Personal Compute setting.
+   *
+   * <p>TBD
+   */
+  DeletePersonalComputeSettingResponse deletePersonalComputeSetting(
+      DeletePersonalComputeSettingRequest deletePersonalComputeSettingRequest);
+
+  /**
    * Get Personal Compute setting.
    *
    * <p>TBD
    */
-  ReadPersonalComputeSettingResponse readPersonalComputeSetting(
+  PersonalComputeSetting readPersonalComputeSetting(
       ReadPersonalComputeSettingRequest readPersonalComputeSettingRequest);
+
+  /**
+   * Update Personal Compute setting.
+   *
+   * <p>TBD
+   */
+  PersonalComputeSetting updatePersonalComputeSetting(
+      UpdatePersonalComputeSettingRequest updatePersonalComputeSettingRequest);
 }

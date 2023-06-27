@@ -224,7 +224,7 @@ public class JobsAPI {
   }
 
   /**
-   * List all jobs.
+   * List jobs.
    *
    * <p>Retrieves a list of jobs.
    */
@@ -243,7 +243,7 @@ public class JobsAPI {
   }
 
   /**
-   * List runs for a job.
+   * List job runs.
    *
    * <p>List runs in descending order by start time.
    */

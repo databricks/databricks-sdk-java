@@ -9,6 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class ServedModelInput {
+  /**
+   * An object containing a set of optional, user-specified environment variable key-value pairs
+   * used for serving this model. Note: this is an experimental feature and subject to change.
+   * Example model environment variables that refer to Databricks secrets: `{"OPENAI_API_KEY":
+   * "{{secrets/my_scope/my_key}}", "DATABRICKS_TOKEN": "{{secrets/my_scope2/my_key2}}"}`
+   */
+  @JsonProperty("environment_vars")
+  private Object environmentVars;
+
   /** The name of the model in Databricks Model Registry to be served. */
   @JsonProperty("model_name")
   private String modelName;
@@ -39,6 +48,15 @@ public class ServedModelInput {
    */
   @JsonProperty("workload_size")
   private String workloadSize;
+
+  public ServedModelInput setEnvironmentVars(Object environmentVars) {
+    this.environmentVars = environmentVars;
+    return this;
+  }
+
+  public Object getEnvironmentVars() {
+    return environmentVars;
+  }
 
   public ServedModelInput setModelName(String modelName) {
     this.modelName = modelName;
@@ -90,7 +108,8 @@ public class ServedModelInput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ServedModelInput that = (ServedModelInput) o;
-    return Objects.equals(modelName, that.modelName)
+    return Objects.equals(environmentVars, that.environmentVars)
+        && Objects.equals(modelName, that.modelName)
         && Objects.equals(modelVersion, that.modelVersion)
         && Objects.equals(name, that.name)
         && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
@@ -99,12 +118,14 @@ public class ServedModelInput {
 
   @Override
   public int hashCode() {
-    return Objects.hash(modelName, modelVersion, name, scaleToZeroEnabled, workloadSize);
+    return Objects.hash(
+        environmentVars, modelName, modelVersion, name, scaleToZeroEnabled, workloadSize);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ServedModelInput.class)
+        .add("environmentVars", environmentVars)
         .add("modelName", modelName)
         .add("modelVersion", modelVersion)
         .add("name", name)

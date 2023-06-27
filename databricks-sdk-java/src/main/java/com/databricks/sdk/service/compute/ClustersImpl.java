@@ -44,9 +44,9 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public ClusterInfo get(GetClusterRequest request) {
+  public ClusterDetails get(GetClusterRequest request) {
     String path = "/api/2.0/clusters/get";
-    return apiClient.GET(path, request, ClusterInfo.class);
+    return apiClient.GET(path, request, ClusterDetails.class);
   }
 
   @Override

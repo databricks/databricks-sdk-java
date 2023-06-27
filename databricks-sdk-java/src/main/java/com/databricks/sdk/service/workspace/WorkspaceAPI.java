@@ -57,9 +57,8 @@ public class WorkspaceAPI {
    *
    * <p>If `path` does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    *
-   * <p>One can only export a directory in `DBC` format. If the exported data would exceed size
-   * limit, this call returns `MAX_NOTEBOOK_SIZE_EXCEEDED`. Currently, this API does not support
-   * exporting a library.
+   * <p>If the exported data would exceed size limit, this call returns
+   * `MAX_NOTEBOOK_SIZE_EXCEEDED`. Currently, this API does not support exporting a library.
    */
   public ExportResponse export(ExportRequest request) {
     return impl.export(request);
@@ -101,7 +100,7 @@ public class WorkspaceAPI {
   /**
    * List contents.
    *
-   * <p>Lists the contents of a directory, or the object if it is not a directory.If the input path
+   * <p>Lists the contents of a directory, or the object if it is not a directory. If the input path
    * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    */
   public Iterable<ObjectInfo> list(ListWorkspaceRequest request) {
@@ -120,7 +119,7 @@ public class WorkspaceAPI {
    * error `RESOURCE_ALREADY_EXISTS`.
    *
    * <p>Note that if this operation fails it may have succeeded in creating some of the necessary
-   * parrent directories.
+   * parent directories.
    */
   public void mkdirs(Mkdirs request) {
     impl.mkdirs(request);

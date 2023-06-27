@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ObjectInfo {
-  /** <content needed> */
+  /** Only applicable to files. The creation UTC timestamp. */
   @JsonProperty("created_at")
   private Long createdAt;
 
@@ -17,15 +17,20 @@ public class ObjectInfo {
   @JsonProperty("language")
   private Language language;
 
-  /** <content needed> */
+  /** Only applicable to files, the last modified UTC timestamp. */
   @JsonProperty("modified_at")
   private Long modifiedAt;
 
-  /** <content needed> */
+  /** Unique identifier for the object. */
   @JsonProperty("object_id")
   private Long objectId;
 
-  /** The type of the object in workspace. */
+  /**
+   * The type of the object in workspace.
+   *
+   * <p>- `NOTEBOOK`: document that contains runnable code, visualizations, and explanatory text. -
+   * `DIRECTORY`: directory - `LIBRARY`: library - `FILE`: file - `REPO`: repository
+   */
   @JsonProperty("object_type")
   private ObjectType objectType;
 
@@ -33,7 +38,7 @@ public class ObjectInfo {
   @JsonProperty("path")
   private String path;
 
-  /** <content needed> */
+  /** Only applicable to files. The file size in bytes can be returned. */
   @JsonProperty("size")
   private Long size;
 

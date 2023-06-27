@@ -19,7 +19,7 @@ public class MetastoreAssignment {
 
   /** The unique ID of the Databricks workspace. */
   @JsonProperty("workspace_id")
-  private String workspaceId;
+  private Long workspaceId;
 
   public MetastoreAssignment setDefaultCatalogName(String defaultCatalogName) {
     this.defaultCatalogName = defaultCatalogName;
@@ -39,12 +39,12 @@ public class MetastoreAssignment {
     return metastoreId;
   }
 
-  public MetastoreAssignment setWorkspaceId(String workspaceId) {
+  public MetastoreAssignment setWorkspaceId(Long workspaceId) {
     this.workspaceId = workspaceId;
     return this;
   }
 
-  public String getWorkspaceId() {
+  public Long getWorkspaceId() {
     return workspaceId;
   }
 

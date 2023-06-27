@@ -19,7 +19,8 @@ public interface AccountMetastoreAssignmentsService {
    * <p>Creates an assignment to a metastore for a workspace Please add a header
    * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  MetastoreAssignment create(AccountsCreateMetastoreAssignment accountsCreateMetastoreAssignment);
+  Collection<CreateMetastoreAssignmentsResponseItem> create(
+      AccountsCreateMetastoreAssignment accountsCreateMetastoreAssignment);
 
   /**
    * Delete a metastore assignment.
@@ -37,7 +38,7 @@ public interface AccountMetastoreAssignmentsService {
    * workspace, the assignment will not be found and a 404 returned. Please add a header
    * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  MetastoreAssignment get(
+  AccountsMetastoreAssignment get(
       GetAccountMetastoreAssignmentRequest getAccountMetastoreAssignmentRequest);
 
   /**
@@ -56,5 +57,5 @@ public interface AccountMetastoreAssignmentsService {
    * may be updated. Please add a header X-Databricks-Account-Console-API-Version: 2.0 to access
    * this API.
    */
-  MetastoreAssignment update(AccountsUpdateMetastoreAssignment accountsUpdateMetastoreAssignment);
+  void update(AccountsUpdateMetastoreAssignment accountsUpdateMetastoreAssignment);
 }

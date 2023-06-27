@@ -19,7 +19,7 @@ public interface AccountMetastoresService {
    * <p>Creates a Unity Catalog metastore. Please add a header
    * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  MetastoreInfo create(AccountsCreateMetastore accountsCreateMetastore);
+  AccountsMetastoreInfo create(AccountsCreateMetastore accountsCreateMetastore);
 
   /**
    * Delete a metastore.
@@ -35,7 +35,7 @@ public interface AccountMetastoresService {
    * <p>Gets a Unity Catalog metastore from an account, both specified by ID. Please add a header
    * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  MetastoreInfo get(GetAccountMetastoreRequest getAccountMetastoreRequest);
+  AccountsMetastoreInfo get(GetAccountMetastoreRequest getAccountMetastoreRequest);
 
   /**
    * Get all metastores associated with an account.
@@ -51,5 +51,5 @@ public interface AccountMetastoresService {
    * <p>Updates an existing Unity Catalog metastore. Please add a header
    * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
-  MetastoreInfo update(AccountsUpdateMetastore accountsUpdateMetastore);
+  AccountsMetastoreInfo update(AccountsUpdateMetastore accountsUpdateMetastore);
 }

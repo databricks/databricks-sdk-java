@@ -13,14 +13,14 @@ public class Continuous {
    * Indicate whether the continuous execution of the job is paused or not. Defaults to UNPAUSED.
    */
   @JsonProperty("pause_status")
-  private ContinuousPauseStatus pauseStatus;
+  private PauseStatus pauseStatus;
 
-  public Continuous setPauseStatus(ContinuousPauseStatus pauseStatus) {
+  public Continuous setPauseStatus(PauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
     return this;
   }
 
-  public ContinuousPauseStatus getPauseStatus() {
+  public PauseStatus getPauseStatus() {
     return pauseStatus;
   }
 

@@ -12,14 +12,14 @@ import java.util.Objects;
 public class ListClustersResponse {
   /** <needs content added> */
   @JsonProperty("clusters")
-  private Collection<ClusterInfo> clusters;
+  private Collection<ClusterDetails> clusters;
 
-  public ListClustersResponse setClusters(Collection<ClusterInfo> clusters) {
+  public ListClustersResponse setClusters(Collection<ClusterDetails> clusters) {
     this.clusters = clusters;
     return this;
   }
 
-  public Collection<ClusterInfo> getClusters() {
+  public Collection<ClusterDetails> getClusters() {
     return clusters;
   }
 

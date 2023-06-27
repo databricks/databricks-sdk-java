@@ -16,6 +16,10 @@ public class CreateJob {
   @JsonProperty("access_control_list")
   private Collection<AccessControlRequest> accessControlList;
 
+  /** A list of compute requirements that can be referenced by tasks of this job. */
+  @JsonProperty("compute")
+  private Collection<JobCompute> compute;
+
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
    * always one run executing. Only one of `schedule` and `continuous` can be used.
@@ -35,7 +39,7 @@ public class CreateJob {
    * When using the Jobs API 2.1 this value is always set to `"MULTI_TASK"`.
    */
   @JsonProperty("format")
-  private CreateJobFormat format;
+  private Format format;
 
   /**
    * An optional specification for a remote repository containing the notebooks used by this job's
@@ -110,7 +114,7 @@ public class CreateJob {
 
   /** A list of task specifications to be executed by this job. */
   @JsonProperty("tasks")
-  private Collection<JobTaskSettings> tasks;
+  private Collection<Task> tasks;
 
   /**
    * An optional timeout applied to each run of this job. The default behavior is to have no
@@ -132,7 +136,7 @@ public class CreateJob {
    * behavior is to not send any system notifications.
    */
   @JsonProperty("webhook_notifications")
-  private JobWebhookNotifications webhookNotifications;
+  private WebhookNotifications webhookNotifications;
 
   public CreateJob setAccessControlList(Collection<AccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
@@ -141,6 +145,15 @@ public class CreateJob {
 
   public Collection<AccessControlRequest> getAccessControlList() {
     return accessControlList;
+  }
+
+  public CreateJob setCompute(Collection<JobCompute> compute) {
+    this.compute = compute;
+    return this;
+  }
+
+  public Collection<JobCompute> getCompute() {
+    return compute;
   }
 
   public CreateJob setContinuous(Continuous continuous) {
@@ -161,12 +174,12 @@ public class CreateJob {
     return emailNotifications;
   }
 
-  public CreateJob setFormat(CreateJobFormat format) {
+  public CreateJob setFormat(Format format) {
     this.format = format;
     return this;
   }
 
-  public CreateJobFormat getFormat() {
+  public Format getFormat() {
     return format;
   }
 
@@ -242,12 +255,12 @@ public class CreateJob {
     return tags;
   }
 
-  public CreateJob setTasks(Collection<JobTaskSettings> tasks) {
+  public CreateJob setTasks(Collection<Task> tasks) {
     this.tasks = tasks;
     return this;
   }
 
-  public Collection<JobTaskSettings> getTasks() {
+  public Collection<Task> getTasks() {
     return tasks;
   }
 
@@ -269,12 +282,12 @@ public class CreateJob {
     return trigger;
   }
 
-  public CreateJob setWebhookNotifications(JobWebhookNotifications webhookNotifications) {
+  public CreateJob setWebhookNotifications(WebhookNotifications webhookNotifications) {
     this.webhookNotifications = webhookNotifications;
     return this;
   }
 
-  public JobWebhookNotifications getWebhookNotifications() {
+  public WebhookNotifications getWebhookNotifications() {
     return webhookNotifications;
   }
 
@@ -284,6 +297,7 @@ public class CreateJob {
     if (o == null || getClass() != o.getClass()) return false;
     CreateJob that = (CreateJob) o;
     return Objects.equals(accessControlList, that.accessControlList)
+        && Objects.equals(compute, that.compute)
         && Objects.equals(continuous, that.continuous)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(format, that.format)
@@ -305,6 +319,7 @@ public class CreateJob {
   public int hashCode() {
     return Objects.hash(
         accessControlList,
+        compute,
         continuous,
         emailNotifications,
         format,
@@ -326,6 +341,7 @@ public class CreateJob {
   public String toString() {
     return new ToStringer(CreateJob.class)
         .add("accessControlList", accessControlList)
+        .add("compute", compute)
         .add("continuous", continuous)
         .add("emailNotifications", emailNotifications)
         .add("format", format)

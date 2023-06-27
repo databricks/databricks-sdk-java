@@ -10,9 +10,8 @@ import java.util.Objects;
 @Generated
 public class GcpAttributes {
   /**
-   * This field determines whether the spark executors will be scheduled to run on preemptible VMs,
-   * on-demand VMs, or preemptible VMs with a fallback to on-demand VMs if the former is
-   * unavailable.
+   * This field determines whether the instance pool will contain preemptible VMs, on-demand VMs, or
+   * preemptible VMs with a fallback to on-demand VMs if the former is unavailable.
    */
   @JsonProperty("availability")
   private GcpAvailability availability;
@@ -28,6 +27,17 @@ public class GcpAttributes {
    */
   @JsonProperty("google_service_account")
   private String googleServiceAccount;
+
+  /**
+   * If provided, each node (workers and driver) in the cluster will have this number of local SSDs
+   * attached. Each local SSD is 375GB in size. Refer to [GCP documentation] for the supported
+   * number of local SSDs for each instance type.
+   *
+   * <p>[GCP documentation]:
+   * https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds
+   */
+  @JsonProperty("local_ssd_count")
+  private Long localSsdCount;
 
   public GcpAttributes setAvailability(GcpAvailability availability) {
     this.availability = availability;
@@ -56,6 +66,15 @@ public class GcpAttributes {
     return googleServiceAccount;
   }
 
+  public GcpAttributes setLocalSsdCount(Long localSsdCount) {
+    this.localSsdCount = localSsdCount;
+    return this;
+  }
+
+  public Long getLocalSsdCount() {
+    return localSsdCount;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -63,12 +82,13 @@ public class GcpAttributes {
     GcpAttributes that = (GcpAttributes) o;
     return Objects.equals(availability, that.availability)
         && Objects.equals(bootDiskSize, that.bootDiskSize)
-        && Objects.equals(googleServiceAccount, that.googleServiceAccount);
+        && Objects.equals(googleServiceAccount, that.googleServiceAccount)
+        && Objects.equals(localSsdCount, that.localSsdCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(availability, bootDiskSize, googleServiceAccount);
+    return Objects.hash(availability, bootDiskSize, googleServiceAccount, localSsdCount);
   }
 
   @Override
@@ -77,6 +97,7 @@ public class GcpAttributes {
         .add("availability", availability)
         .add("bootDiskSize", bootDiskSize)
         .add("googleServiceAccount", googleServiceAccount)
+        .add("localSsdCount", localSsdCount)
         .toString();
   }
 }

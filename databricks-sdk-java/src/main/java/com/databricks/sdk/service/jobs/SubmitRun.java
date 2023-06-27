@@ -53,7 +53,7 @@ public class SubmitRun {
 
   /** */
   @JsonProperty("tasks")
-  private Collection<RunSubmitTaskSettings> tasks;
+  private Collection<SubmitTask> tasks;
 
   /**
    * An optional timeout applied to each run of this job. The default behavior is to have no
@@ -67,7 +67,7 @@ public class SubmitRun {
    * behavior is to not send any system notifications.
    */
   @JsonProperty("webhook_notifications")
-  private JobWebhookNotifications webhookNotifications;
+  private WebhookNotifications webhookNotifications;
 
   public SubmitRun setAccessControlList(Collection<AccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
@@ -114,12 +114,12 @@ public class SubmitRun {
     return runName;
   }
 
-  public SubmitRun setTasks(Collection<RunSubmitTaskSettings> tasks) {
+  public SubmitRun setTasks(Collection<SubmitTask> tasks) {
     this.tasks = tasks;
     return this;
   }
 
-  public Collection<RunSubmitTaskSettings> getTasks() {
+  public Collection<SubmitTask> getTasks() {
     return tasks;
   }
 
@@ -132,12 +132,12 @@ public class SubmitRun {
     return timeoutSeconds;
   }
 
-  public SubmitRun setWebhookNotifications(JobWebhookNotifications webhookNotifications) {
+  public SubmitRun setWebhookNotifications(WebhookNotifications webhookNotifications) {
     this.webhookNotifications = webhookNotifications;
     return this;
   }
 
-  public JobWebhookNotifications getWebhookNotifications() {
+  public WebhookNotifications getWebhookNotifications() {
     return webhookNotifications;
   }
 

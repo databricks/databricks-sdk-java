@@ -2,7 +2,7 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.service.compute.BaseClusterInfo;
+import com.databricks.sdk.service.compute.ClusterSpec;
 import com.databricks.sdk.service.compute.Library;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
@@ -29,7 +29,7 @@ public class ClusterSpec {
 
   /** If new_cluster, a description of a cluster that is created for each run. */
   @JsonProperty("new_cluster")
-  private BaseClusterInfo newCluster;
+  private ClusterSpec newCluster;
 
   public ClusterSpec setExistingClusterId(String existingClusterId) {
     this.existingClusterId = existingClusterId;
@@ -49,12 +49,12 @@ public class ClusterSpec {
     return libraries;
   }
 
-  public ClusterSpec setNewCluster(BaseClusterInfo newCluster) {
+  public ClusterSpec setNewCluster(ClusterSpec newCluster) {
     this.newCluster = newCluster;
     return this;
   }
 
-  public BaseClusterInfo getNewCluster() {
+  public ClusterSpec getNewCluster() {
     return newCluster;
   }
 

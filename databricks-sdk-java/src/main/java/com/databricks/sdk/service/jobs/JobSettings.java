@@ -11,6 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class JobSettings {
+  /** A list of compute requirements that can be referenced by tasks of this job. */
+  @JsonProperty("compute")
+  private Collection<JobCompute> compute;
+
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
    * always one run executing. Only one of `schedule` and `continuous` can be used.
@@ -30,7 +34,7 @@ public class JobSettings {
    * When using the Jobs API 2.1 this value is always set to `"MULTI_TASK"`.
    */
   @JsonProperty("format")
-  private JobSettingsFormat format;
+  private Format format;
 
   /**
    * An optional specification for a remote repository containing the notebooks used by this job's
@@ -105,7 +109,7 @@ public class JobSettings {
 
   /** A list of task specifications to be executed by this job. */
   @JsonProperty("tasks")
-  private Collection<JobTaskSettings> tasks;
+  private Collection<Task> tasks;
 
   /**
    * An optional timeout applied to each run of this job. The default behavior is to have no
@@ -127,7 +131,16 @@ public class JobSettings {
    * behavior is to not send any system notifications.
    */
   @JsonProperty("webhook_notifications")
-  private JobWebhookNotifications webhookNotifications;
+  private WebhookNotifications webhookNotifications;
+
+  public JobSettings setCompute(Collection<JobCompute> compute) {
+    this.compute = compute;
+    return this;
+  }
+
+  public Collection<JobCompute> getCompute() {
+    return compute;
+  }
 
   public JobSettings setContinuous(Continuous continuous) {
     this.continuous = continuous;
@@ -147,12 +160,12 @@ public class JobSettings {
     return emailNotifications;
   }
 
-  public JobSettings setFormat(JobSettingsFormat format) {
+  public JobSettings setFormat(Format format) {
     this.format = format;
     return this;
   }
 
-  public JobSettingsFormat getFormat() {
+  public Format getFormat() {
     return format;
   }
 
@@ -228,12 +241,12 @@ public class JobSettings {
     return tags;
   }
 
-  public JobSettings setTasks(Collection<JobTaskSettings> tasks) {
+  public JobSettings setTasks(Collection<Task> tasks) {
     this.tasks = tasks;
     return this;
   }
 
-  public Collection<JobTaskSettings> getTasks() {
+  public Collection<Task> getTasks() {
     return tasks;
   }
 
@@ -255,12 +268,12 @@ public class JobSettings {
     return trigger;
   }
 
-  public JobSettings setWebhookNotifications(JobWebhookNotifications webhookNotifications) {
+  public JobSettings setWebhookNotifications(WebhookNotifications webhookNotifications) {
     this.webhookNotifications = webhookNotifications;
     return this;
   }
 
-  public JobWebhookNotifications getWebhookNotifications() {
+  public WebhookNotifications getWebhookNotifications() {
     return webhookNotifications;
   }
 
@@ -269,7 +282,8 @@ public class JobSettings {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     JobSettings that = (JobSettings) o;
-    return Objects.equals(continuous, that.continuous)
+    return Objects.equals(compute, that.compute)
+        && Objects.equals(continuous, that.continuous)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(format, that.format)
         && Objects.equals(gitSource, that.gitSource)
@@ -289,6 +303,7 @@ public class JobSettings {
   @Override
   public int hashCode() {
     return Objects.hash(
+        compute,
         continuous,
         emailNotifications,
         format,
@@ -309,6 +324,7 @@ public class JobSettings {
   @Override
   public String toString() {
     return new ToStringer(JobSettings.class)
+        .add("compute", compute)
         .add("continuous", continuous)
         .add("emailNotifications", emailNotifications)
         .add("format", format)

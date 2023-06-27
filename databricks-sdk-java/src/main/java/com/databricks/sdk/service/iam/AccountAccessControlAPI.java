@@ -27,8 +27,24 @@ public class AccountAccessControlAPI {
     impl = mock;
   }
 
-  public RuleSetResponse get(String name, String etag) {
-    return get(new GetAccountAccessControlRequest().setName(name).setEtag(etag));
+  public GetAssignableRolesForResourceResponse getAssignableRolesForResource(String resource) {
+    return getAssignableRolesForResource(
+        new GetAssignableRolesForResourceRequest().setResource(resource));
+  }
+
+  /**
+   * Get assignable roles for a resource.
+   *
+   * <p>Gets all the roles that can be granted on an account level resource. A role is grantable if
+   * the rule set on the resource can contain an access rule of the role.
+   */
+  public GetAssignableRolesForResourceResponse getAssignableRolesForResource(
+      GetAssignableRolesForResourceRequest request) {
+    return impl.getAssignableRolesForResource(request);
+  }
+
+  public RuleSetResponse getRuleSet(String name, String etag) {
+    return getRuleSet(new GetRuleSetRequest().setName(name).setEtag(etag));
   }
 
   /**
@@ -38,26 +54,12 @@ public class AccountAccessControlAPI {
    * of access rules on the said resource. Currently only a default rule set for each resource is
    * supported.
    */
-  public RuleSetResponse get(GetAccountAccessControlRequest request) {
-    return impl.get(request);
+  public RuleSetResponse getRuleSet(GetRuleSetRequest request) {
+    return impl.getRuleSet(request);
   }
 
-  public GetAssignableRolesForResourceResponse list(String name) {
-    return list(new ListAccountAccessControlRequest().setName(name));
-  }
-
-  /**
-   * List assignable roles on a resource.
-   *
-   * <p>Gets all the roles that can be granted on an account level resource. A role is grantable if
-   * the rule set on the resource can contain an access rule of the role.
-   */
-  public GetAssignableRolesForResourceResponse list(ListAccountAccessControlRequest request) {
-    return impl.list(request);
-  }
-
-  public RuleSetResponse update(String name, RuleSetUpdateRequest ruleSet, String etag) {
-    return update(new UpdateRuleSetRequest().setName(name).setRuleSet(ruleSet).setEtag(etag));
+  public RuleSetResponse updateRuleSet(String name, RuleSetUpdateRequest ruleSet) {
+    return updateRuleSet(new UpdateRuleSetRequest().setName(name).setRuleSet(ruleSet));
   }
 
   /**
@@ -66,8 +68,8 @@ public class AccountAccessControlAPI {
    * <p>Replace the rules of a rule set. First, use get to read the current version of the rule set
    * before modifying it. This pattern helps prevent conflicts between concurrent updates.
    */
-  public RuleSetResponse update(UpdateRuleSetRequest request) {
-    return impl.update(request);
+  public RuleSetResponse updateRuleSet(UpdateRuleSetRequest request) {
+    return impl.updateRuleSet(request);
   }
 
   public AccountAccessControlService impl() {

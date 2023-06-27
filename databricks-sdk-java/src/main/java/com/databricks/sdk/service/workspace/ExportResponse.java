@@ -11,7 +11,7 @@ import java.util.Objects;
 public class ExportResponse {
   /**
    * The base64-encoded content. If the limit (10MB) is exceeded, exception with error code
-   * **MAX_NOTEBOOK_SIZE_EXCEEDED** will be thrown.
+   * **MAX_NOTEBOOK_SIZE_EXCEEDED** is thrown.
    */
   @JsonProperty("content")
   private String content;
