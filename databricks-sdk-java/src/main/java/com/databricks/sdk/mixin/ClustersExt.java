@@ -203,7 +203,7 @@ public class ClustersExt extends ClustersAPI {
     long deadline = System.currentTimeMillis() + outerTimeout.toMillis();
     while (System.currentTimeMillis() < deadline) {
       try {
-        ClusterInfo info = get(clusterId);
+        ClusterDetails info = get(clusterId);
         if (info.getState() == State.TERMINATED) {
           start(clusterId).get();
         } else if (info.getState() == State.TERMINATING) {

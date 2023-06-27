@@ -2,7 +2,7 @@ package com.databricks.example;
 
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.service.compute.ClusterInfo;
+import com.databricks.sdk.service.compute.ClusterDetails;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 
 /**
@@ -33,7 +33,7 @@ public class CliAuthWorkspace {
         DatabricksConfig config = getConfig();
 
         WorkspaceClient workspace = new WorkspaceClient(config);
-        for (ClusterInfo c : workspace.clusters().list(new ListClustersRequest())) {
+        for (ClusterDetails c : workspace.clusters().list(new ListClustersRequest())) {
             System.out.println(c.getClusterName());
         }
     }
