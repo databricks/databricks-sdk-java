@@ -491,10 +491,7 @@ public class DatabricksConfig {
     if (host == null) {
       return false;
     }
-    if (host.contains("https://accounts.")) {
-      return true;
-    }
-    return false;
+    return host.startsWith("https://accounts.") || host.startsWith("https://accounts-dod.");
   }
 
   public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
