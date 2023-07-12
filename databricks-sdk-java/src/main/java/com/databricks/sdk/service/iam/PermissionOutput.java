@@ -2,21 +2,32 @@
 
 package com.databricks.sdk.service.iam;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class PermissionOutput {
-  /** The results of a permissions query. */
+  /**
+   * The results of a permissions query.
+   */
   @JsonProperty("description")
   private String description;
-
-  /** */
+  
+  /**
+   
+   */
   @JsonProperty("permission_level")
   private WorkspacePermission permissionLevel;
-
+  
   public PermissionOutput setDescription(String description) {
     this.description = description;
     return this;
@@ -25,7 +36,7 @@ public class PermissionOutput {
   public String getDescription() {
     return description;
   }
-
+  
   public PermissionOutput setPermissionLevel(WorkspacePermission permissionLevel) {
     this.permissionLevel = permissionLevel;
     return this;
@@ -34,6 +45,7 @@ public class PermissionOutput {
   public WorkspacePermission getPermissionLevel() {
     return permissionLevel;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -41,7 +53,8 @@ public class PermissionOutput {
     if (o == null || getClass() != o.getClass()) return false;
     PermissionOutput that = (PermissionOutput) o;
     return Objects.equals(description, that.description)
-        && Objects.equals(permissionLevel, that.permissionLevel);
+    && Objects.equals(permissionLevel, that.permissionLevel)
+    ;
   }
 
   @Override
@@ -52,8 +65,7 @@ public class PermissionOutput {
   @Override
   public String toString() {
     return new ToStringer(PermissionOutput.class)
-        .add("description", description)
-        .add("permissionLevel", permissionLevel)
-        .toString();
+      .add("description", description)
+      .add("permissionLevel", permissionLevel).toString();
   }
 }

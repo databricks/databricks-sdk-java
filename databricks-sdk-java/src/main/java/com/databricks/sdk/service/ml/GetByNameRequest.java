@@ -2,18 +2,28 @@
 
 package com.databricks.sdk.service.ml;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** Get metadata */
+
+/**
+ * Get metadata
+ */
 @Generated
 public class GetByNameRequest {
-  /** Name of the associated experiment. */
+  /**
+   * Name of the associated experiment.
+   */
   @QueryParam("experiment_name")
   private String experimentName;
-
+  
   public GetByNameRequest setExperimentName(String experimentName) {
     this.experimentName = experimentName;
     return this;
@@ -22,13 +32,15 @@ public class GetByNameRequest {
   public String getExperimentName() {
     return experimentName;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetByNameRequest that = (GetByNameRequest) o;
-    return Objects.equals(experimentName, that.experimentName);
+    return Objects.equals(experimentName, that.experimentName)
+    ;
   }
 
   @Override
@@ -38,6 +50,7 @@ public class GetByNameRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetByNameRequest.class).add("experimentName", experimentName).toString();
+    return new ToStringer(GetByNameRequest.class)
+      .add("experimentName", experimentName).toString();
   }
 }

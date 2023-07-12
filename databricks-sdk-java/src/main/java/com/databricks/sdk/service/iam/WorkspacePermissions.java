@@ -2,18 +2,26 @@
 
 package com.databricks.sdk.service.iam;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class WorkspacePermissions {
-  /** Array of permissions defined for a workspace. */
+  /**
+   * Array of permissions defined for a workspace.
+   */
   @JsonProperty("permissions")
   private Collection<PermissionOutput> permissions;
-
+  
   public WorkspacePermissions setPermissions(Collection<PermissionOutput> permissions) {
     this.permissions = permissions;
     return this;
@@ -22,13 +30,15 @@ public class WorkspacePermissions {
   public Collection<PermissionOutput> getPermissions() {
     return permissions;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     WorkspacePermissions that = (WorkspacePermissions) o;
-    return Objects.equals(permissions, that.permissions);
+    return Objects.equals(permissions, that.permissions)
+    ;
   }
 
   @Override
@@ -38,6 +48,7 @@ public class WorkspacePermissions {
 
   @Override
   public String toString() {
-    return new ToStringer(WorkspacePermissions.class).add("permissions", permissions).toString();
+    return new ToStringer(WorkspacePermissions.class)
+      .add("permissions", permissions).toString();
   }
 }

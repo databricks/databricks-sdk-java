@@ -2,17 +2,26 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class PipelineParams {
-  /** If true, triggers a full refresh on the delta live table. */
+  /**
+   * If true, triggers a full refresh on the delta live table.
+   */
   @JsonProperty("full_refresh")
   private Boolean fullRefresh;
-
+  
   public PipelineParams setFullRefresh(Boolean fullRefresh) {
     this.fullRefresh = fullRefresh;
     return this;
@@ -21,13 +30,15 @@ public class PipelineParams {
   public Boolean getFullRefresh() {
     return fullRefresh;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PipelineParams that = (PipelineParams) o;
-    return Objects.equals(fullRefresh, that.fullRefresh);
+    return Objects.equals(fullRefresh, that.fullRefresh)
+    ;
   }
 
   @Override
@@ -37,6 +48,7 @@ public class PipelineParams {
 
   @Override
   public String toString() {
-    return new ToStringer(PipelineParams.class).add("fullRefresh", fullRefresh).toString();
+    return new ToStringer(PipelineParams.class)
+      .add("fullRefresh", fullRefresh).toString();
   }
 }

@@ -2,21 +2,32 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class PendingInstanceError {
-  /** */
+  /**
+   
+   */
   @JsonProperty("instance_id")
   private String instanceId;
-
-  /** */
+  
+  /**
+   
+   */
   @JsonProperty("message")
   private String message;
-
+  
   public PendingInstanceError setInstanceId(String instanceId) {
     this.instanceId = instanceId;
     return this;
@@ -25,7 +36,7 @@ public class PendingInstanceError {
   public String getInstanceId() {
     return instanceId;
   }
-
+  
   public PendingInstanceError setMessage(String message) {
     this.message = message;
     return this;
@@ -34,13 +45,16 @@ public class PendingInstanceError {
   public String getMessage() {
     return message;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PendingInstanceError that = (PendingInstanceError) o;
-    return Objects.equals(instanceId, that.instanceId) && Objects.equals(message, that.message);
+    return Objects.equals(instanceId, that.instanceId)
+    && Objects.equals(message, that.message)
+    ;
   }
 
   @Override
@@ -51,8 +65,7 @@ public class PendingInstanceError {
   @Override
   public String toString() {
     return new ToStringer(PendingInstanceError.class)
-        .add("instanceId", instanceId)
-        .add("message", message)
-        .toString();
+      .add("instanceId", instanceId)
+      .add("message", message).toString();
   }
 }

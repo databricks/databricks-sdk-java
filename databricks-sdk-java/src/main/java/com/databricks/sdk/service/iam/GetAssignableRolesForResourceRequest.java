@@ -2,18 +2,28 @@
 
 package com.databricks.sdk.service.iam;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** Get assignable roles for a resource */
+
+/**
+ * Get assignable roles for a resource
+ */
 @Generated
 public class GetAssignableRolesForResourceRequest {
-  /** The resource name for which assignable roles will be listed. */
+  /**
+   * The resource name for which assignable roles will be listed.
+   */
   @QueryParam("resource")
   private String resource;
-
+  
   public GetAssignableRolesForResourceRequest setResource(String resource) {
     this.resource = resource;
     return this;
@@ -22,13 +32,15 @@ public class GetAssignableRolesForResourceRequest {
   public String getResource() {
     return resource;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetAssignableRolesForResourceRequest that = (GetAssignableRolesForResourceRequest) o;
-    return Objects.equals(resource, that.resource);
+    return Objects.equals(resource, that.resource)
+    ;
   }
 
   @Override
@@ -39,7 +51,6 @@ public class GetAssignableRolesForResourceRequest {
   @Override
   public String toString() {
     return new ToStringer(GetAssignableRolesForResourceRequest.class)
-        .add("resource", resource)
-        .toString();
+      .add("resource", resource).toString();
   }
 }

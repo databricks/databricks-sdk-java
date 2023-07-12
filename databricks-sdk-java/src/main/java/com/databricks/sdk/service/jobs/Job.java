@@ -2,53 +2,65 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class Job {
   /**
-   * The time at which this job was created in epoch milliseconds (milliseconds since 1/1/1970 UTC).
+   * The time at which this job was created in epoch milliseconds (milliseconds
+   * since 1/1/1970 UTC).
    */
   @JsonProperty("created_time")
   private Long createdTime;
-
+  
   /**
-   * The creator user name. This field won’t be included in the response if the user has already
-   * been deleted.
+   * The creator user name. This field won’t be included in the response if
+   * the user has already been deleted.
    */
   @JsonProperty("creator_user_name")
   private String creatorUserName;
-
-  /** The canonical identifier for this job. */
+  
+  /**
+   * The canonical identifier for this job.
+   */
   @JsonProperty("job_id")
   private Long jobId;
-
+  
   /**
-   * The email of an active workspace user or the application ID of a service principal that the job
-   * runs as. This value can be changed by setting the `run_as` field when creating or updating a
-   * job.
-   *
-   * <p>By default, `run_as_user_name` is based on the current job settings and is set to the
-   * creator of the job if job access control is disabled or to the user with the `is_owner`
-   * permission if job access control is enabled.
+   * The email of an active workspace user or the application ID of a service
+   * principal that the job runs as. This value can be changed by setting the
+   * `run_as` field when creating or updating a job.
+   * 
+   * By default, `run_as_user_name` is based on the current job settings and is
+   * set to the creator of the job if job access control is disabled or to the
+   * user with the `is_owner` permission if job access control is enabled.
    */
   @JsonProperty("run_as_user_name")
   private String runAsUserName;
-
+  
   /**
-   * Settings for this job and all of its runs. These settings can be updated using the `resetJob`
-   * method.
+   * Settings for this job and all of its runs. These settings can be updated
+   * using the `resetJob` method.
    */
   @JsonProperty("settings")
   private JobSettings settings;
-
-  /** History of the file arrival trigger associated with the job. */
+  
+  /**
+   * History of the file arrival trigger associated with the job.
+   */
   @JsonProperty("trigger_history")
   private TriggerHistory triggerHistory;
-
+  
   public Job setCreatedTime(Long createdTime) {
     this.createdTime = createdTime;
     return this;
@@ -57,7 +69,7 @@ public class Job {
   public Long getCreatedTime() {
     return createdTime;
   }
-
+  
   public Job setCreatorUserName(String creatorUserName) {
     this.creatorUserName = creatorUserName;
     return this;
@@ -66,7 +78,7 @@ public class Job {
   public String getCreatorUserName() {
     return creatorUserName;
   }
-
+  
   public Job setJobId(Long jobId) {
     this.jobId = jobId;
     return this;
@@ -75,7 +87,7 @@ public class Job {
   public Long getJobId() {
     return jobId;
   }
-
+  
   public Job setRunAsUserName(String runAsUserName) {
     this.runAsUserName = runAsUserName;
     return this;
@@ -84,7 +96,7 @@ public class Job {
   public String getRunAsUserName() {
     return runAsUserName;
   }
-
+  
   public Job setSettings(JobSettings settings) {
     this.settings = settings;
     return this;
@@ -93,7 +105,7 @@ public class Job {
   public JobSettings getSettings() {
     return settings;
   }
-
+  
   public Job setTriggerHistory(TriggerHistory triggerHistory) {
     this.triggerHistory = triggerHistory;
     return this;
@@ -102,6 +114,7 @@ public class Job {
   public TriggerHistory getTriggerHistory() {
     return triggerHistory;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -109,28 +122,27 @@ public class Job {
     if (o == null || getClass() != o.getClass()) return false;
     Job that = (Job) o;
     return Objects.equals(createdTime, that.createdTime)
-        && Objects.equals(creatorUserName, that.creatorUserName)
-        && Objects.equals(jobId, that.jobId)
-        && Objects.equals(runAsUserName, that.runAsUserName)
-        && Objects.equals(settings, that.settings)
-        && Objects.equals(triggerHistory, that.triggerHistory);
+    && Objects.equals(creatorUserName, that.creatorUserName)
+    && Objects.equals(jobId, that.jobId)
+    && Objects.equals(runAsUserName, that.runAsUserName)
+    && Objects.equals(settings, that.settings)
+    && Objects.equals(triggerHistory, that.triggerHistory)
+    ;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        createdTime, creatorUserName, jobId, runAsUserName, settings, triggerHistory);
+    return Objects.hash(createdTime, creatorUserName, jobId, runAsUserName, settings, triggerHistory);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Job.class)
-        .add("createdTime", createdTime)
-        .add("creatorUserName", creatorUserName)
-        .add("jobId", jobId)
-        .add("runAsUserName", runAsUserName)
-        .add("settings", settings)
-        .add("triggerHistory", triggerHistory)
-        .toString();
+      .add("createdTime", createdTime)
+      .add("creatorUserName", creatorUserName)
+      .add("jobId", jobId)
+      .add("runAsUserName", runAsUserName)
+      .add("settings", settings)
+      .add("triggerHistory", triggerHistory).toString();
   }
 }

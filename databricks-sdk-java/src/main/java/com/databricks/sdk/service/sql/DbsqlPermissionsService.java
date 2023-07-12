@@ -1,48 +1,54 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
+import java.util.Collection;
+import java.util.Map;
+
 import com.databricks.sdk.support.Generated;
 
 /**
- * The SQL Permissions API is similar to the endpoints of the :method:permissions/set. However, this
- * exposes only one endpoint, which gets the Access Control List for a given object. You cannot
- * modify any permissions using this API.
+ * The SQL Permissions API is similar to the endpoints of the
+ * :method:permissions/set. However, this exposes only one endpoint, which gets
+ * the Access Control List for a given object. You cannot modify any permissions
+ * using this API.
+ * 
+ * There are three levels of permission:
+ * 
+ * - `CAN_VIEW`: Allows read-only access
+ * 
+ * - `CAN_RUN`: Allows read access and run access (superset of `CAN_VIEW`)
+ * 
+ * - `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify
+ * permissions (superset of `CAN_RUN`)
  *
- * <p>There are three levels of permission:
+ * This is the high-level interface, that contains generated methods.
  *
- * <p>- `CAN_VIEW`: Allows read-only access
- *
- * <p>- `CAN_RUN`: Allows read access and run access (superset of `CAN_VIEW`)
- *
- * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
- * `CAN_RUN`)
- *
- * <p>This is the high-level interface, that contains generated methods.
- *
- * <p>Evolving: this interface is under development. Method signatures may change.
+ * Evolving: this interface is under development. Method signatures may change.
  */
 @Generated
 public interface DbsqlPermissionsService {
-  /**
+	/**
    * Get object ACL.
-   *
-   * <p>Gets a JSON representation of the access control list (ACL) for a specified object.
+   * 
+   * Gets a JSON representation of the access control list (ACL) for a specified
+   * object.
    */
   GetResponse get(GetDbsqlPermissionRequest getDbsqlPermissionRequest);
-
-  /**
+  
+	/**
    * Set object ACL.
-   *
-   * <p>Sets the access control list (ACL) for a specified object. This operation will complete
-   * rewrite the ACL.
+   * 
+   * Sets the access control list (ACL) for a specified object. This operation
+   * will complete rewrite the ACL.
    */
   SetResponse set(SetRequest setRequest);
-
-  /**
+  
+	/**
    * Transfer object ownership.
-   *
-   * <p>Transfers ownership of a dashboard, query, or alert to an active user. Requires an admin API
-   * key.
+   * 
+   * Transfers ownership of a dashboard, query, or alert to an active user.
+   * Requires an admin API key.
    */
   Success transferOwnership(TransferOwnershipRequest transferOwnershipRequest);
+  
 }

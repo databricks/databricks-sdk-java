@@ -2,19 +2,34 @@
 
 package com.databricks.sdk.service.iam;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
-/** Get permission levels */
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Get permission levels
+ */
 @Generated
 public class GetPermissionLevelsRequest {
-  /** <needs content> */
+  /**
+   * <needs content>
+   */
+  
   private String requestObjectId;
-
-  /** <needs content> */
+  
+  /**
+   * <needs content>
+   */
+  
   private String requestObjectType;
-
+  
   public GetPermissionLevelsRequest setRequestObjectId(String requestObjectId) {
     this.requestObjectId = requestObjectId;
     return this;
@@ -23,7 +38,7 @@ public class GetPermissionLevelsRequest {
   public String getRequestObjectId() {
     return requestObjectId;
   }
-
+  
   public GetPermissionLevelsRequest setRequestObjectType(String requestObjectType) {
     this.requestObjectType = requestObjectType;
     return this;
@@ -32,6 +47,7 @@ public class GetPermissionLevelsRequest {
   public String getRequestObjectType() {
     return requestObjectType;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -39,7 +55,8 @@ public class GetPermissionLevelsRequest {
     if (o == null || getClass() != o.getClass()) return false;
     GetPermissionLevelsRequest that = (GetPermissionLevelsRequest) o;
     return Objects.equals(requestObjectId, that.requestObjectId)
-        && Objects.equals(requestObjectType, that.requestObjectType);
+    && Objects.equals(requestObjectType, that.requestObjectType)
+    ;
   }
 
   @Override
@@ -50,8 +67,7 @@ public class GetPermissionLevelsRequest {
   @Override
   public String toString() {
     return new ToStringer(GetPermissionLevelsRequest.class)
-        .add("requestObjectId", requestObjectId)
-        .add("requestObjectType", requestObjectType)
-        .toString();
+      .add("requestObjectId", requestObjectId)
+      .add("requestObjectType", requestObjectType).toString();
   }
 }

@@ -2,17 +2,26 @@
 
 package com.databricks.sdk.service.files;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class Close {
-  /** The handle on an open stream. */
+  /**
+   * The handle on an open stream.
+   */
   @JsonProperty("handle")
   private Long handle;
-
+  
   public Close setHandle(Long handle) {
     this.handle = handle;
     return this;
@@ -21,13 +30,15 @@ public class Close {
   public Long getHandle() {
     return handle;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Close that = (Close) o;
-    return Objects.equals(handle, that.handle);
+    return Objects.equals(handle, that.handle)
+    ;
   }
 
   @Override
@@ -37,6 +48,7 @@ public class Close {
 
   @Override
   public String toString() {
-    return new ToStringer(Close.class).add("handle", handle).toString();
+    return new ToStringer(Close.class)
+      .add("handle", handle).toString();
   }
 }

@@ -2,29 +2,44 @@
 
 package com.databricks.sdk.service.iam;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class AccessControlRequest {
-  /** name of the group */
+  /**
+   * name of the group
+   */
   @JsonProperty("group_name")
   private String groupName;
-
-  /** Permission level */
+  
+  /**
+   * Permission level
+   */
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
-
-  /** name of the service principal */
+  
+  /**
+   * name of the service principal
+   */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
-
-  /** name of the user */
+  
+  /**
+   * name of the user
+   */
   @JsonProperty("user_name")
   private String userName;
-
+  
   public AccessControlRequest setGroupName(String groupName) {
     this.groupName = groupName;
     return this;
@@ -33,7 +48,7 @@ public class AccessControlRequest {
   public String getGroupName() {
     return groupName;
   }
-
+  
   public AccessControlRequest setPermissionLevel(PermissionLevel permissionLevel) {
     this.permissionLevel = permissionLevel;
     return this;
@@ -42,7 +57,7 @@ public class AccessControlRequest {
   public PermissionLevel getPermissionLevel() {
     return permissionLevel;
   }
-
+  
   public AccessControlRequest setServicePrincipalName(String servicePrincipalName) {
     this.servicePrincipalName = servicePrincipalName;
     return this;
@@ -51,7 +66,7 @@ public class AccessControlRequest {
   public String getServicePrincipalName() {
     return servicePrincipalName;
   }
-
+  
   public AccessControlRequest setUserName(String userName) {
     this.userName = userName;
     return this;
@@ -60,6 +75,7 @@ public class AccessControlRequest {
   public String getUserName() {
     return userName;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -67,9 +83,10 @@ public class AccessControlRequest {
     if (o == null || getClass() != o.getClass()) return false;
     AccessControlRequest that = (AccessControlRequest) o;
     return Objects.equals(groupName, that.groupName)
-        && Objects.equals(permissionLevel, that.permissionLevel)
-        && Objects.equals(servicePrincipalName, that.servicePrincipalName)
-        && Objects.equals(userName, that.userName);
+    && Objects.equals(permissionLevel, that.permissionLevel)
+    && Objects.equals(servicePrincipalName, that.servicePrincipalName)
+    && Objects.equals(userName, that.userName)
+    ;
   }
 
   @Override
@@ -80,10 +97,9 @@ public class AccessControlRequest {
   @Override
   public String toString() {
     return new ToStringer(AccessControlRequest.class)
-        .add("groupName", groupName)
-        .add("permissionLevel", permissionLevel)
-        .add("servicePrincipalName", servicePrincipalName)
-        .add("userName", userName)
-        .toString();
+      .add("groupName", groupName)
+      .add("permissionLevel", permissionLevel)
+      .add("servicePrincipalName", servicePrincipalName)
+      .add("userName", userName).toString();
   }
 }

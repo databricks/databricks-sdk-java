@@ -2,18 +2,28 @@
 
 package com.databricks.sdk.service.compute;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** Get cluster info */
+
+/**
+ * Get cluster info
+ */
 @Generated
 public class GetClusterRequest {
-  /** The cluster about which to retrieve information. */
+  /**
+   * The cluster about which to retrieve information.
+   */
   @QueryParam("cluster_id")
   private String clusterId;
-
+  
   public GetClusterRequest setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -22,13 +32,15 @@ public class GetClusterRequest {
   public String getClusterId() {
     return clusterId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetClusterRequest that = (GetClusterRequest) o;
-    return Objects.equals(clusterId, that.clusterId);
+    return Objects.equals(clusterId, that.clusterId)
+    ;
   }
 
   @Override
@@ -38,6 +50,7 @@ public class GetClusterRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetClusterRequest.class).add("clusterId", clusterId).toString();
+    return new ToStringer(GetClusterRequest.class)
+      .add("clusterId", clusterId).toString();
   }
 }

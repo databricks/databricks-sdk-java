@@ -2,30 +2,37 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class InstancePoolAzureAttributes {
   /**
    * Shows the Availability type used for the spot nodes.
-   *
-   * <p>The default value is defined by InstancePoolConf.instancePoolDefaultAzureAvailability
+   * 
+   * The default value is defined by
+   * InstancePoolConf.instancePoolDefaultAzureAvailability
    */
   @JsonProperty("availability")
   private InstancePoolAzureAttributesAvailability availability;
-
+  
   /**
    * The default value and documentation here should be kept consistent with
    * CommonConf.defaultSpotBidMaxPrice.
    */
   @JsonProperty("spot_bid_max_price")
   private Float spotBidMaxPrice;
-
-  public InstancePoolAzureAttributes setAvailability(
-      InstancePoolAzureAttributesAvailability availability) {
+  
+  public InstancePoolAzureAttributes setAvailability(InstancePoolAzureAttributesAvailability availability) {
     this.availability = availability;
     return this;
   }
@@ -33,7 +40,7 @@ public class InstancePoolAzureAttributes {
   public InstancePoolAzureAttributesAvailability getAvailability() {
     return availability;
   }
-
+  
   public InstancePoolAzureAttributes setSpotBidMaxPrice(Float spotBidMaxPrice) {
     this.spotBidMaxPrice = spotBidMaxPrice;
     return this;
@@ -42,6 +49,7 @@ public class InstancePoolAzureAttributes {
   public Float getSpotBidMaxPrice() {
     return spotBidMaxPrice;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -49,7 +57,8 @@ public class InstancePoolAzureAttributes {
     if (o == null || getClass() != o.getClass()) return false;
     InstancePoolAzureAttributes that = (InstancePoolAzureAttributes) o;
     return Objects.equals(availability, that.availability)
-        && Objects.equals(spotBidMaxPrice, that.spotBidMaxPrice);
+    && Objects.equals(spotBidMaxPrice, that.spotBidMaxPrice)
+    ;
   }
 
   @Override
@@ -60,8 +69,7 @@ public class InstancePoolAzureAttributes {
   @Override
   public String toString() {
     return new ToStringer(InstancePoolAzureAttributes.class)
-        .add("availability", availability)
-        .add("spotBidMaxPrice", spotBidMaxPrice)
-        .toString();
+      .add("availability", availability)
+      .add("spotBidMaxPrice", spotBidMaxPrice).toString();
   }
 }

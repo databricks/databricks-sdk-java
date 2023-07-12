@@ -2,21 +2,32 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class TriggerSettings {
-  /** File arrival trigger settings. */
+  /**
+   * File arrival trigger settings.
+   */
   @JsonProperty("file_arrival")
   private FileArrivalTriggerConfiguration fileArrival;
-
-  /** Whether this trigger is paused or not. */
+  
+  /**
+   * Whether this trigger is paused or not.
+   */
   @JsonProperty("pause_status")
   private PauseStatus pauseStatus;
-
+  
   public TriggerSettings setFileArrival(FileArrivalTriggerConfiguration fileArrival) {
     this.fileArrival = fileArrival;
     return this;
@@ -25,7 +36,7 @@ public class TriggerSettings {
   public FileArrivalTriggerConfiguration getFileArrival() {
     return fileArrival;
   }
-
+  
   public TriggerSettings setPauseStatus(PauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
     return this;
@@ -34,6 +45,7 @@ public class TriggerSettings {
   public PauseStatus getPauseStatus() {
     return pauseStatus;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -41,7 +53,8 @@ public class TriggerSettings {
     if (o == null || getClass() != o.getClass()) return false;
     TriggerSettings that = (TriggerSettings) o;
     return Objects.equals(fileArrival, that.fileArrival)
-        && Objects.equals(pauseStatus, that.pauseStatus);
+    && Objects.equals(pauseStatus, that.pauseStatus)
+    ;
   }
 
   @Override
@@ -52,8 +65,7 @@ public class TriggerSettings {
   @Override
   public String toString() {
     return new ToStringer(TriggerSettings.class)
-        .add("fileArrival", fileArrival)
-        .add("pauseStatus", pauseStatus)
-        .toString();
+      .add("fileArrival", fileArrival)
+      .add("pauseStatus", pauseStatus).toString();
   }
 }

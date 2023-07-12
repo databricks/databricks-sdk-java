@@ -2,18 +2,27 @@
 
 package com.databricks.sdk.service.files;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class ListStatusResponse {
-  /** A list of FileInfo's that describe contents of directory or file. See example above. */
+  /**
+   * A list of FileInfo's that describe contents of directory or file. See
+   * example above.
+   */
   @JsonProperty("files")
   private Collection<FileInfo> files;
-
+  
   public ListStatusResponse setFiles(Collection<FileInfo> files) {
     this.files = files;
     return this;
@@ -22,13 +31,15 @@ public class ListStatusResponse {
   public Collection<FileInfo> getFiles() {
     return files;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListStatusResponse that = (ListStatusResponse) o;
-    return Objects.equals(files, that.files);
+    return Objects.equals(files, that.files)
+    ;
   }
 
   @Override
@@ -38,6 +49,7 @@ public class ListStatusResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(ListStatusResponse.class).add("files", files).toString();
+    return new ToStringer(ListStatusResponse.class)
+      .add("files", files).toString();
   }
 }

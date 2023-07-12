@@ -154,7 +154,7 @@ public class {{.PascalName}}API {
       offset += response.get{{.Pagination.Results.PascalName}}().size();
       return request.set{{.Pagination.Offset.PascalName}}(offset);
       {{- end}}
-    }){{if .Pagination.NeedsOffsetDedupe -}}.withDedupe({{.Pagination.Entity.PascalName}}::get{{.Pagination.Entity.IdentifierField.PascalName}}){{end}};
+    }){{if .NeedsOffsetDedupe -}}.withDedupe({{.Pagination.Entity.PascalName}}::get{{.IdentifierField.PascalName}}){{end}};
   {{- else -}}
     return impl.{{template "java-name" .}}({{if .Request}}request{{end}}){{with .Pagination.Results}}.get{{.PascalName}}(){{end}};
   {{- end -}}

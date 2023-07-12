@@ -2,13 +2,25 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** A singular noun object type. */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * A singular noun object type.
+ */
 @Generated
-public enum ObjectType {
+public enum ObjectType{
   alert,
   dashboard,
   data_source,
   query,
+  
 }

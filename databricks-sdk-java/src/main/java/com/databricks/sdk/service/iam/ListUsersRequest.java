@@ -2,52 +2,71 @@
 
 package com.databricks.sdk.service.iam;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** List users */
+
+/**
+ * List users
+ */
 @Generated
 public class ListUsersRequest {
-  /** Comma-separated list of attributes to return in response. */
+  /**
+   * Comma-separated list of attributes to return in response.
+   */
   @QueryParam("attributes")
   private String attributes;
-
-  /** Desired number of results per page. */
+  
+  /**
+   * Desired number of results per page.
+   */
   @QueryParam("count")
   private Long count;
-
-  /** Comma-separated list of attributes to exclude in response. */
+  
+  /**
+   * Comma-separated list of attributes to exclude in response.
+   */
   @QueryParam("excludedAttributes")
   private String excludedAttributes;
-
+  
   /**
-   * Query by which the results have to be filtered. Supported operators are equals(`eq`),
-   * contains(`co`), starts with(`sw`) and not equals(`ne`). Additionally, simple expressions can be
-   * formed using logical operators - `and` and `or`. The [SCIM RFC] has more details but we
-   * currently only support simple expressions.
-   *
-   * <p>[SCIM RFC]: https://tools.ietf.org/html/rfc7644#section-3.4.2.2
+   * Query by which the results have to be filtered. Supported operators are
+   * equals(`eq`), contains(`co`), starts with(`sw`) and not equals(`ne`).
+   * Additionally, simple expressions can be formed using logical operators -
+   * `and` and `or`. The [SCIM RFC] has more details but we currently only
+   * support simple expressions.
+   * 
+   * [SCIM RFC]: https://tools.ietf.org/html/rfc7644#section-3.4.2.2
    */
   @QueryParam("filter")
   private String filter;
-
+  
   /**
-   * Attribute to sort the results. Multi-part paths are supported. For example, `userName`,
-   * `name.givenName`, and `emails`.
+   * Attribute to sort the results. Multi-part paths are supported. For example,
+   * `userName`, `name.givenName`, and `emails`.
    */
   @QueryParam("sortBy")
   private String sortBy;
-
-  /** The order to sort the results. */
+  
+  /**
+   * The order to sort the results.
+   */
   @QueryParam("sortOrder")
   private ListSortOrder sortOrder;
-
-  /** Specifies the index of the first result. First item is number 1. */
+  
+  /**
+   * Specifies the index of the first result. First item is number 1.
+   */
   @QueryParam("startIndex")
   private Long startIndex;
-
+  
   public ListUsersRequest setAttributes(String attributes) {
     this.attributes = attributes;
     return this;
@@ -56,7 +75,7 @@ public class ListUsersRequest {
   public String getAttributes() {
     return attributes;
   }
-
+  
   public ListUsersRequest setCount(Long count) {
     this.count = count;
     return this;
@@ -65,7 +84,7 @@ public class ListUsersRequest {
   public Long getCount() {
     return count;
   }
-
+  
   public ListUsersRequest setExcludedAttributes(String excludedAttributes) {
     this.excludedAttributes = excludedAttributes;
     return this;
@@ -74,7 +93,7 @@ public class ListUsersRequest {
   public String getExcludedAttributes() {
     return excludedAttributes;
   }
-
+  
   public ListUsersRequest setFilter(String filter) {
     this.filter = filter;
     return this;
@@ -83,7 +102,7 @@ public class ListUsersRequest {
   public String getFilter() {
     return filter;
   }
-
+  
   public ListUsersRequest setSortBy(String sortBy) {
     this.sortBy = sortBy;
     return this;
@@ -92,7 +111,7 @@ public class ListUsersRequest {
   public String getSortBy() {
     return sortBy;
   }
-
+  
   public ListUsersRequest setSortOrder(ListSortOrder sortOrder) {
     this.sortOrder = sortOrder;
     return this;
@@ -101,7 +120,7 @@ public class ListUsersRequest {
   public ListSortOrder getSortOrder() {
     return sortOrder;
   }
-
+  
   public ListUsersRequest setStartIndex(Long startIndex) {
     this.startIndex = startIndex;
     return this;
@@ -110,6 +129,7 @@ public class ListUsersRequest {
   public Long getStartIndex() {
     return startIndex;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -117,30 +137,29 @@ public class ListUsersRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListUsersRequest that = (ListUsersRequest) o;
     return Objects.equals(attributes, that.attributes)
-        && Objects.equals(count, that.count)
-        && Objects.equals(excludedAttributes, that.excludedAttributes)
-        && Objects.equals(filter, that.filter)
-        && Objects.equals(sortBy, that.sortBy)
-        && Objects.equals(sortOrder, that.sortOrder)
-        && Objects.equals(startIndex, that.startIndex);
+    && Objects.equals(count, that.count)
+    && Objects.equals(excludedAttributes, that.excludedAttributes)
+    && Objects.equals(filter, that.filter)
+    && Objects.equals(sortBy, that.sortBy)
+    && Objects.equals(sortOrder, that.sortOrder)
+    && Objects.equals(startIndex, that.startIndex)
+    ;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        attributes, count, excludedAttributes, filter, sortBy, sortOrder, startIndex);
+    return Objects.hash(attributes, count, excludedAttributes, filter, sortBy, sortOrder, startIndex);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListUsersRequest.class)
-        .add("attributes", attributes)
-        .add("count", count)
-        .add("excludedAttributes", excludedAttributes)
-        .add("filter", filter)
-        .add("sortBy", sortBy)
-        .add("sortOrder", sortOrder)
-        .add("startIndex", startIndex)
-        .toString();
+      .add("attributes", attributes)
+      .add("count", count)
+      .add("excludedAttributes", excludedAttributes)
+      .add("filter", filter)
+      .add("sortBy", sortBy)
+      .add("sortOrder", sortOrder)
+      .add("startIndex", startIndex).toString();
   }
 }

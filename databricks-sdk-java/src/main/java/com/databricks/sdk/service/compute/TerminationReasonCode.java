@@ -2,11 +2,22 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** status code indicating why the cluster was terminated */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * status code indicating why the cluster was terminated
+ */
 @Generated
-public enum TerminationReasonCode {
+public enum TerminationReasonCode{
   ABUSE_DETECTED,
   ATTACH_PROJECT_FAILURE,
   AWS_AUTHORIZATION_FAILURE,
@@ -86,4 +97,5 @@ public enum TerminationReasonCode {
   WORKER_SETUP_FAILURE,
   WORKSPACE_CANCELLED_ERROR,
   WORKSPACE_CONFIGURATION_ERROR,
+  
 }

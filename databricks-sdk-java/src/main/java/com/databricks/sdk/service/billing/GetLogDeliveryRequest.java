@@ -2,16 +2,28 @@
 
 package com.databricks.sdk.service.billing;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
-/** Get log delivery configuration */
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Get log delivery configuration
+ */
 @Generated
 public class GetLogDeliveryRequest {
-  /** Databricks log delivery configuration ID */
+  /**
+   * Databricks log delivery configuration ID
+   */
+  
   private String logDeliveryConfigurationId;
-
+  
   public GetLogDeliveryRequest setLogDeliveryConfigurationId(String logDeliveryConfigurationId) {
     this.logDeliveryConfigurationId = logDeliveryConfigurationId;
     return this;
@@ -20,13 +32,15 @@ public class GetLogDeliveryRequest {
   public String getLogDeliveryConfigurationId() {
     return logDeliveryConfigurationId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetLogDeliveryRequest that = (GetLogDeliveryRequest) o;
-    return Objects.equals(logDeliveryConfigurationId, that.logDeliveryConfigurationId);
+    return Objects.equals(logDeliveryConfigurationId, that.logDeliveryConfigurationId)
+    ;
   }
 
   @Override
@@ -37,7 +51,6 @@ public class GetLogDeliveryRequest {
   @Override
   public String toString() {
     return new ToStringer(GetLogDeliveryRequest.class)
-        .add("logDeliveryConfigurationId", logDeliveryConfigurationId)
-        .toString();
+      .add("logDeliveryConfigurationId", logDeliveryConfigurationId).toString();
   }
 }

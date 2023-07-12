@@ -2,25 +2,38 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class CommandStatusResponse {
-  /** */
+  /**
+   
+   */
   @JsonProperty("id")
   private String id;
-
-  /** */
+  
+  /**
+   
+   */
   @JsonProperty("results")
   private Results results;
-
-  /** */
+  
+  /**
+   
+   */
   @JsonProperty("status")
   private CommandStatus status;
-
+  
   public CommandStatusResponse setId(String id) {
     this.id = id;
     return this;
@@ -29,7 +42,7 @@ public class CommandStatusResponse {
   public String getId() {
     return id;
   }
-
+  
   public CommandStatusResponse setResults(Results results) {
     this.results = results;
     return this;
@@ -38,7 +51,7 @@ public class CommandStatusResponse {
   public Results getResults() {
     return results;
   }
-
+  
   public CommandStatusResponse setStatus(CommandStatus status) {
     this.status = status;
     return this;
@@ -47,6 +60,7 @@ public class CommandStatusResponse {
   public CommandStatus getStatus() {
     return status;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -54,8 +68,9 @@ public class CommandStatusResponse {
     if (o == null || getClass() != o.getClass()) return false;
     CommandStatusResponse that = (CommandStatusResponse) o;
     return Objects.equals(id, that.id)
-        && Objects.equals(results, that.results)
-        && Objects.equals(status, that.status);
+    && Objects.equals(results, that.results)
+    && Objects.equals(status, that.status)
+    ;
   }
 
   @Override
@@ -66,9 +81,8 @@ public class CommandStatusResponse {
   @Override
   public String toString() {
     return new ToStringer(CommandStatusResponse.class)
-        .add("id", id)
-        .add("results", results)
-        .add("status", status)
-        .toString();
+      .add("id", id)
+      .add("results", results)
+      .add("status", status).toString();
   }
 }

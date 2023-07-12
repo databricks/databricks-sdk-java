@@ -2,17 +2,26 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class CreateInstancePoolResponse {
-  /** The ID of the created instance pool. */
+  /**
+   * The ID of the created instance pool.
+   */
   @JsonProperty("instance_pool_id")
   private String instancePoolId;
-
+  
   public CreateInstancePoolResponse setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;
     return this;
@@ -21,13 +30,15 @@ public class CreateInstancePoolResponse {
   public String getInstancePoolId() {
     return instancePoolId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateInstancePoolResponse that = (CreateInstancePoolResponse) o;
-    return Objects.equals(instancePoolId, that.instancePoolId);
+    return Objects.equals(instancePoolId, that.instancePoolId)
+    ;
   }
 
   @Override
@@ -38,7 +49,6 @@ public class CreateInstancePoolResponse {
   @Override
   public String toString() {
     return new ToStringer(CreateInstancePoolResponse.class)
-        .add("instancePoolId", instancePoolId)
-        .toString();
+      .add("instancePoolId", instancePoolId).toString();
   }
 }

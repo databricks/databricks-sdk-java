@@ -2,22 +2,34 @@
 
 package com.databricks.sdk.service.ml;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** List models */
+
+/**
+ * List models
+ */
 @Generated
 public class ListModelsRequest {
-  /** Maximum number of registered models desired. Max threshold is 1000. */
+  /**
+   * Maximum number of registered models desired. Max threshold is 1000.
+   */
   @QueryParam("max_results")
   private Long maxResults;
-
-  /** Pagination token to go to the next page based on a previous query. */
+  
+  /**
+   * Pagination token to go to the next page based on a previous query.
+   */
   @QueryParam("page_token")
   private String pageToken;
-
+  
   public ListModelsRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
     return this;
@@ -26,7 +38,7 @@ public class ListModelsRequest {
   public Long getMaxResults() {
     return maxResults;
   }
-
+  
   public ListModelsRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
@@ -35,13 +47,16 @@ public class ListModelsRequest {
   public String getPageToken() {
     return pageToken;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListModelsRequest that = (ListModelsRequest) o;
-    return Objects.equals(maxResults, that.maxResults) && Objects.equals(pageToken, that.pageToken);
+    return Objects.equals(maxResults, that.maxResults)
+    && Objects.equals(pageToken, that.pageToken)
+    ;
   }
 
   @Override
@@ -52,8 +67,7 @@ public class ListModelsRequest {
   @Override
   public String toString() {
     return new ToStringer(ListModelsRequest.class)
-        .add("maxResults", maxResults)
-        .add("pageToken", pageToken)
-        .toString();
+      .add("maxResults", maxResults)
+      .add("pageToken", pageToken).toString();
   }
 }

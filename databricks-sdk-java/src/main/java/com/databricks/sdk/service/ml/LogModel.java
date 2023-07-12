@@ -2,21 +2,32 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class LogModel {
-  /** MLmodel file in json format. */
+  /**
+   * MLmodel file in json format.
+   */
   @JsonProperty("model_json")
   private String modelJson;
-
-  /** ID of the run to log under */
+  
+  /**
+   * ID of the run to log under
+   */
   @JsonProperty("run_id")
   private String runId;
-
+  
   public LogModel setModelJson(String modelJson) {
     this.modelJson = modelJson;
     return this;
@@ -25,7 +36,7 @@ public class LogModel {
   public String getModelJson() {
     return modelJson;
   }
-
+  
   public LogModel setRunId(String runId) {
     this.runId = runId;
     return this;
@@ -34,13 +45,16 @@ public class LogModel {
   public String getRunId() {
     return runId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     LogModel that = (LogModel) o;
-    return Objects.equals(modelJson, that.modelJson) && Objects.equals(runId, that.runId);
+    return Objects.equals(modelJson, that.modelJson)
+    && Objects.equals(runId, that.runId)
+    ;
   }
 
   @Override
@@ -51,8 +65,7 @@ public class LogModel {
   @Override
   public String toString() {
     return new ToStringer(LogModel.class)
-        .add("modelJson", modelJson)
-        .add("runId", runId)
-        .toString();
+      .add("modelJson", modelJson)
+      .add("runId", runId).toString();
   }
 }

@@ -2,18 +2,26 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class ListInstancePools {
-  /** */
+  /**
+   
+   */
   @JsonProperty("instance_pools")
   private Collection<InstancePoolAndStats> instancePools;
-
+  
   public ListInstancePools setInstancePools(Collection<InstancePoolAndStats> instancePools) {
     this.instancePools = instancePools;
     return this;
@@ -22,13 +30,15 @@ public class ListInstancePools {
   public Collection<InstancePoolAndStats> getInstancePools() {
     return instancePools;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListInstancePools that = (ListInstancePools) o;
-    return Objects.equals(instancePools, that.instancePools);
+    return Objects.equals(instancePools, that.instancePools)
+    ;
   }
 
   @Override
@@ -38,6 +48,7 @@ public class ListInstancePools {
 
   @Override
   public String toString() {
-    return new ToStringer(ListInstancePools.class).add("instancePools", instancePools).toString();
+    return new ToStringer(ListInstancePools.class)
+      .add("instancePools", instancePools).toString();
   }
 }

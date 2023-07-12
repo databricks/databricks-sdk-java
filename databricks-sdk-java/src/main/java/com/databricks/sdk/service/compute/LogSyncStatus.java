@@ -2,27 +2,34 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class LogSyncStatus {
   /**
-   * The timestamp of last attempt. If the last attempt fails, `last_exception` will contain the
-   * exception in the last attempt.
+   * The timestamp of last attempt. If the last attempt fails, `last_exception`
+   * will contain the exception in the last attempt.
    */
   @JsonProperty("last_attempted")
   private Long lastAttempted;
-
+  
   /**
-   * The exception thrown in the last attempt, it would be null (omitted in the response) if there
-   * is no exception in last attempted.
+   * The exception thrown in the last attempt, it would be null (omitted in the
+   * response) if there is no exception in last attempted.
    */
   @JsonProperty("last_exception")
   private String lastException;
-
+  
   public LogSyncStatus setLastAttempted(Long lastAttempted) {
     this.lastAttempted = lastAttempted;
     return this;
@@ -31,7 +38,7 @@ public class LogSyncStatus {
   public Long getLastAttempted() {
     return lastAttempted;
   }
-
+  
   public LogSyncStatus setLastException(String lastException) {
     this.lastException = lastException;
     return this;
@@ -40,6 +47,7 @@ public class LogSyncStatus {
   public String getLastException() {
     return lastException;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -47,7 +55,8 @@ public class LogSyncStatus {
     if (o == null || getClass() != o.getClass()) return false;
     LogSyncStatus that = (LogSyncStatus) o;
     return Objects.equals(lastAttempted, that.lastAttempted)
-        && Objects.equals(lastException, that.lastException);
+    && Objects.equals(lastException, that.lastException)
+    ;
   }
 
   @Override
@@ -58,8 +67,7 @@ public class LogSyncStatus {
   @Override
   public String toString() {
     return new ToStringer(LogSyncStatus.class)
-        .add("lastAttempted", lastAttempted)
-        .add("lastException", lastException)
-        .toString();
+      .add("lastAttempted", lastAttempted)
+      .add("lastException", lastException).toString();
   }
 }

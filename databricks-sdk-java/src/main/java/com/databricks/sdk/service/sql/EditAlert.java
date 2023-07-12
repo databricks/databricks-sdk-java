@@ -2,35 +2,51 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class EditAlert {
-  /** */
+  /**
+   
+   */
+  
   private String alertId;
-
-  /** Name of the alert. */
+  
+  /**
+   * Name of the alert.
+   */
   @JsonProperty("name")
   private String name;
-
-  /** Alert configuration options. */
+  
+  /**
+   * Alert configuration options.
+   */
   @JsonProperty("options")
   private AlertOptions options;
-
-  /** ID of the query evaluated by the alert. */
+  
+  /**
+   * Query ID.
+   */
   @JsonProperty("query_id")
   private String queryId;
-
+  
   /**
-   * Number of seconds after being triggered before the alert rearms itself and can be triggered
-   * again. If `null`, alert will never be triggered again.
+   * Number of seconds after being triggered before the alert rearms itself and
+   * can be triggered again. If `null`, alert will never be triggered again.
    */
   @JsonProperty("rearm")
   private Long rearm;
-
+  
   public EditAlert setAlertId(String alertId) {
     this.alertId = alertId;
     return this;
@@ -39,7 +55,7 @@ public class EditAlert {
   public String getAlertId() {
     return alertId;
   }
-
+  
   public EditAlert setName(String name) {
     this.name = name;
     return this;
@@ -48,7 +64,7 @@ public class EditAlert {
   public String getName() {
     return name;
   }
-
+  
   public EditAlert setOptions(AlertOptions options) {
     this.options = options;
     return this;
@@ -57,7 +73,7 @@ public class EditAlert {
   public AlertOptions getOptions() {
     return options;
   }
-
+  
   public EditAlert setQueryId(String queryId) {
     this.queryId = queryId;
     return this;
@@ -66,7 +82,7 @@ public class EditAlert {
   public String getQueryId() {
     return queryId;
   }
-
+  
   public EditAlert setRearm(Long rearm) {
     this.rearm = rearm;
     return this;
@@ -75,6 +91,7 @@ public class EditAlert {
   public Long getRearm() {
     return rearm;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -82,10 +99,11 @@ public class EditAlert {
     if (o == null || getClass() != o.getClass()) return false;
     EditAlert that = (EditAlert) o;
     return Objects.equals(alertId, that.alertId)
-        && Objects.equals(name, that.name)
-        && Objects.equals(options, that.options)
-        && Objects.equals(queryId, that.queryId)
-        && Objects.equals(rearm, that.rearm);
+    && Objects.equals(name, that.name)
+    && Objects.equals(options, that.options)
+    && Objects.equals(queryId, that.queryId)
+    && Objects.equals(rearm, that.rearm)
+    ;
   }
 
   @Override
@@ -96,11 +114,10 @@ public class EditAlert {
   @Override
   public String toString() {
     return new ToStringer(EditAlert.class)
-        .add("alertId", alertId)
-        .add("name", name)
-        .add("options", options)
-        .add("queryId", queryId)
-        .add("rearm", rearm)
-        .toString();
+      .add("alertId", alertId)
+      .add("name", name)
+      .add("options", options)
+      .add("queryId", queryId)
+      .add("rearm", rearm).toString();
   }
 }

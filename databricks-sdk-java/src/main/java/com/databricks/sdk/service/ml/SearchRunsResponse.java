@@ -2,22 +2,32 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class SearchRunsResponse {
-  /** Token for the next page of runs. */
+  /**
+   * Token for the next page of runs.
+   */
   @JsonProperty("next_page_token")
   private String nextPageToken;
-
-  /** Runs that match the search criteria. */
+  
+  /**
+   * Runs that match the search criteria.
+   */
   @JsonProperty("runs")
   private Collection<Run> runs;
-
+  
   public SearchRunsResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
@@ -26,7 +36,7 @@ public class SearchRunsResponse {
   public String getNextPageToken() {
     return nextPageToken;
   }
-
+  
   public SearchRunsResponse setRuns(Collection<Run> runs) {
     this.runs = runs;
     return this;
@@ -35,13 +45,16 @@ public class SearchRunsResponse {
   public Collection<Run> getRuns() {
     return runs;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SearchRunsResponse that = (SearchRunsResponse) o;
-    return Objects.equals(nextPageToken, that.nextPageToken) && Objects.equals(runs, that.runs);
+    return Objects.equals(nextPageToken, that.nextPageToken)
+    && Objects.equals(runs, that.runs)
+    ;
   }
 
   @Override
@@ -52,8 +65,7 @@ public class SearchRunsResponse {
   @Override
   public String toString() {
     return new ToStringer(SearchRunsResponse.class)
-        .add("nextPageToken", nextPageToken)
-        .add("runs", runs)
-        .toString();
+      .add("nextPageToken", nextPageToken)
+      .add("runs", runs).toString();
   }
 }

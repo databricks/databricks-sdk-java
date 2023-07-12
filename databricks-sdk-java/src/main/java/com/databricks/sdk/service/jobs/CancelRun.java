@@ -2,17 +2,26 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class CancelRun {
-  /** This field is required. */
+  /**
+   * This field is required.
+   */
   @JsonProperty("run_id")
   private Long runId;
-
+  
   public CancelRun setRunId(Long runId) {
     this.runId = runId;
     return this;
@@ -21,13 +30,15 @@ public class CancelRun {
   public Long getRunId() {
     return runId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CancelRun that = (CancelRun) o;
-    return Objects.equals(runId, that.runId);
+    return Objects.equals(runId, that.runId)
+    ;
   }
 
   @Override
@@ -37,6 +48,7 @@ public class CancelRun {
 
   @Override
   public String toString() {
-    return new ToStringer(CancelRun.class).add("runId", runId).toString();
+    return new ToStringer(CancelRun.class)
+      .add("runId", runId).toString();
   }
 }

@@ -2,18 +2,29 @@
 
 package com.databricks.sdk.service.files;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** Get the information of a file or directory */
+
+/**
+ * Get the information of a file or directory
+ */
 @Generated
 public class GetStatusRequest {
-  /** The path of the file or directory. The path should be the absolute DBFS path. */
+  /**
+   * The path of the file or directory. The path should be the absolute DBFS
+   * path.
+   */
   @QueryParam("path")
   private String path;
-
+  
   public GetStatusRequest setPath(String path) {
     this.path = path;
     return this;
@@ -22,13 +33,15 @@ public class GetStatusRequest {
   public String getPath() {
     return path;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetStatusRequest that = (GetStatusRequest) o;
-    return Objects.equals(path, that.path);
+    return Objects.equals(path, that.path)
+    ;
   }
 
   @Override
@@ -38,6 +51,7 @@ public class GetStatusRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetStatusRequest.class).add("path", path).toString();
+    return new ToStringer(GetStatusRequest.class)
+      .add("path", path).toString();
   }
 }

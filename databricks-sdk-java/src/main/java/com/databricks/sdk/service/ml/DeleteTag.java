@@ -2,21 +2,32 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class DeleteTag {
-  /** Name of the tag. Maximum size is 255 bytes. Must be provided. */
+  /**
+   * Name of the tag. Maximum size is 255 bytes. Must be provided.
+   */
   @JsonProperty("key")
   private String key;
-
-  /** ID of the run that the tag was logged under. Must be provided. */
+  
+  /**
+   * ID of the run that the tag was logged under. Must be provided.
+   */
   @JsonProperty("run_id")
   private String runId;
-
+  
   public DeleteTag setKey(String key) {
     this.key = key;
     return this;
@@ -25,7 +36,7 @@ public class DeleteTag {
   public String getKey() {
     return key;
   }
-
+  
   public DeleteTag setRunId(String runId) {
     this.runId = runId;
     return this;
@@ -34,13 +45,16 @@ public class DeleteTag {
   public String getRunId() {
     return runId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteTag that = (DeleteTag) o;
-    return Objects.equals(key, that.key) && Objects.equals(runId, that.runId);
+    return Objects.equals(key, that.key)
+    && Objects.equals(runId, that.runId)
+    ;
   }
 
   @Override
@@ -50,6 +64,8 @@ public class DeleteTag {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteTag.class).add("key", key).add("runId", runId).toString();
+    return new ToStringer(DeleteTag.class)
+      .add("key", key)
+      .add("runId", runId).toString();
   }
 }

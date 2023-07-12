@@ -2,22 +2,32 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class InstallLibraries {
-  /** Unique identifier for the cluster on which to install these libraries. */
+  /**
+   * Unique identifier for the cluster on which to install these libraries.
+   */
   @JsonProperty("cluster_id")
   private String clusterId;
-
-  /** The libraries to install. */
+  
+  /**
+   * The libraries to install.
+   */
   @JsonProperty("libraries")
   private Collection<Library> libraries;
-
+  
   public InstallLibraries setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -26,7 +36,7 @@ public class InstallLibraries {
   public String getClusterId() {
     return clusterId;
   }
-
+  
   public InstallLibraries setLibraries(Collection<Library> libraries) {
     this.libraries = libraries;
     return this;
@@ -35,13 +45,16 @@ public class InstallLibraries {
   public Collection<Library> getLibraries() {
     return libraries;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     InstallLibraries that = (InstallLibraries) o;
-    return Objects.equals(clusterId, that.clusterId) && Objects.equals(libraries, that.libraries);
+    return Objects.equals(clusterId, that.clusterId)
+    && Objects.equals(libraries, that.libraries)
+    ;
   }
 
   @Override
@@ -52,8 +65,7 @@ public class InstallLibraries {
   @Override
   public String toString() {
     return new ToStringer(InstallLibraries.class)
-        .add("clusterId", clusterId)
-        .add("libraries", libraries)
-        .toString();
+      .add("clusterId", clusterId)
+      .add("libraries", libraries).toString();
   }
 }

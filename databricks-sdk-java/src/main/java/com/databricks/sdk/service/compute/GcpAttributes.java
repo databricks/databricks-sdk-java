@@ -2,43 +2,54 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class GcpAttributes {
   /**
-   * This field determines whether the instance pool will contain preemptible VMs, on-demand VMs, or
-   * preemptible VMs with a fallback to on-demand VMs if the former is unavailable.
+   * This field determines whether the instance pool will contain preemptible
+   * VMs, on-demand VMs, or preemptible VMs with a fallback to on-demand VMs if
+   * the former is unavailable.
    */
   @JsonProperty("availability")
   private GcpAvailability availability;
-
-  /** boot disk size in GB */
+  
+  /**
+   * boot disk size in GB
+   */
   @JsonProperty("boot_disk_size")
   private Long bootDiskSize;
-
+  
   /**
-   * If provided, the cluster will impersonate the google service account when accessing gcloud
-   * services (like GCS). The google service account must have previously been added to the
-   * Databricks environment by an account administrator.
+   * If provided, the cluster will impersonate the google service account when
+   * accessing gcloud services (like GCS). The google service account must have
+   * previously been added to the Databricks environment by an account
+   * administrator.
    */
   @JsonProperty("google_service_account")
   private String googleServiceAccount;
-
+  
   /**
-   * If provided, each node (workers and driver) in the cluster will have this number of local SSDs
-   * attached. Each local SSD is 375GB in size. Refer to [GCP documentation] for the supported
-   * number of local SSDs for each instance type.
-   *
-   * <p>[GCP documentation]:
-   * https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds
+   * If provided, each node (workers and driver) in the cluster will have this
+   * number of local SSDs attached. Each local SSD is 375GB in size. Refer to
+   * [GCP documentation] for the supported number of local SSDs for each
+   * instance type.
+   * 
+   * [GCP documentation]: https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds
    */
   @JsonProperty("local_ssd_count")
   private Long localSsdCount;
-
+  
   public GcpAttributes setAvailability(GcpAvailability availability) {
     this.availability = availability;
     return this;
@@ -47,7 +58,7 @@ public class GcpAttributes {
   public GcpAvailability getAvailability() {
     return availability;
   }
-
+  
   public GcpAttributes setBootDiskSize(Long bootDiskSize) {
     this.bootDiskSize = bootDiskSize;
     return this;
@@ -56,7 +67,7 @@ public class GcpAttributes {
   public Long getBootDiskSize() {
     return bootDiskSize;
   }
-
+  
   public GcpAttributes setGoogleServiceAccount(String googleServiceAccount) {
     this.googleServiceAccount = googleServiceAccount;
     return this;
@@ -65,7 +76,7 @@ public class GcpAttributes {
   public String getGoogleServiceAccount() {
     return googleServiceAccount;
   }
-
+  
   public GcpAttributes setLocalSsdCount(Long localSsdCount) {
     this.localSsdCount = localSsdCount;
     return this;
@@ -74,6 +85,7 @@ public class GcpAttributes {
   public Long getLocalSsdCount() {
     return localSsdCount;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -81,9 +93,10 @@ public class GcpAttributes {
     if (o == null || getClass() != o.getClass()) return false;
     GcpAttributes that = (GcpAttributes) o;
     return Objects.equals(availability, that.availability)
-        && Objects.equals(bootDiskSize, that.bootDiskSize)
-        && Objects.equals(googleServiceAccount, that.googleServiceAccount)
-        && Objects.equals(localSsdCount, that.localSsdCount);
+    && Objects.equals(bootDiskSize, that.bootDiskSize)
+    && Objects.equals(googleServiceAccount, that.googleServiceAccount)
+    && Objects.equals(localSsdCount, that.localSsdCount)
+    ;
   }
 
   @Override
@@ -94,10 +107,9 @@ public class GcpAttributes {
   @Override
   public String toString() {
     return new ToStringer(GcpAttributes.class)
-        .add("availability", availability)
-        .add("bootDiskSize", bootDiskSize)
-        .add("googleServiceAccount", googleServiceAccount)
-        .add("localSsdCount", localSsdCount)
-        .toString();
+      .add("availability", availability)
+      .add("bootDiskSize", bootDiskSize)
+      .add("googleServiceAccount", googleServiceAccount)
+      .add("localSsdCount", localSsdCount).toString();
   }
 }

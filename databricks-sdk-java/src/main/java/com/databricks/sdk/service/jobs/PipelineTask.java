@@ -2,21 +2,32 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class PipelineTask {
-  /** If true, a full refresh will be triggered on the delta live table. */
+  /**
+   * If true, a full refresh will be triggered on the delta live table.
+   */
   @JsonProperty("full_refresh")
   private Boolean fullRefresh;
-
-  /** The full name of the pipeline task to execute. */
+  
+  /**
+   * The full name of the pipeline task to execute.
+   */
   @JsonProperty("pipeline_id")
   private String pipelineId;
-
+  
   public PipelineTask setFullRefresh(Boolean fullRefresh) {
     this.fullRefresh = fullRefresh;
     return this;
@@ -25,7 +36,7 @@ public class PipelineTask {
   public Boolean getFullRefresh() {
     return fullRefresh;
   }
-
+  
   public PipelineTask setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
@@ -34,6 +45,7 @@ public class PipelineTask {
   public String getPipelineId() {
     return pipelineId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -41,7 +53,8 @@ public class PipelineTask {
     if (o == null || getClass() != o.getClass()) return false;
     PipelineTask that = (PipelineTask) o;
     return Objects.equals(fullRefresh, that.fullRefresh)
-        && Objects.equals(pipelineId, that.pipelineId);
+    && Objects.equals(pipelineId, that.pipelineId)
+    ;
   }
 
   @Override
@@ -52,8 +65,7 @@ public class PipelineTask {
   @Override
   public String toString() {
     return new ToStringer(PipelineTask.class)
-        .add("fullRefresh", fullRefresh)
-        .add("pipelineId", pipelineId)
-        .toString();
+      .add("fullRefresh", fullRefresh)
+      .add("pipelineId", pipelineId).toString();
   }
 }

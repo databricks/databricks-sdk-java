@@ -2,24 +2,33 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class WarehouseTypePair {
   /**
-   * If set to false the specific warehouse type will not be be allowed as a value for
-   * warehouse_type in CreateWarehouse and EditWarehouse
+   * If set to false the specific warehouse type will not be be allowed as a
+   * value for warehouse_type in CreateWarehouse and EditWarehouse
    */
   @JsonProperty("enabled")
   private Boolean enabled;
-
-  /** Warehouse type: `PRO` or `CLASSIC`. */
+  
+  /**
+   * Warehouse type: `PRO` or `CLASSIC`.
+   */
   @JsonProperty("warehouse_type")
   private WarehouseTypePairWarehouseType warehouseType;
-
+  
   public WarehouseTypePair setEnabled(Boolean enabled) {
     this.enabled = enabled;
     return this;
@@ -28,7 +37,7 @@ public class WarehouseTypePair {
   public Boolean getEnabled() {
     return enabled;
   }
-
+  
   public WarehouseTypePair setWarehouseType(WarehouseTypePairWarehouseType warehouseType) {
     this.warehouseType = warehouseType;
     return this;
@@ -37,6 +46,7 @@ public class WarehouseTypePair {
   public WarehouseTypePairWarehouseType getWarehouseType() {
     return warehouseType;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -44,7 +54,8 @@ public class WarehouseTypePair {
     if (o == null || getClass() != o.getClass()) return false;
     WarehouseTypePair that = (WarehouseTypePair) o;
     return Objects.equals(enabled, that.enabled)
-        && Objects.equals(warehouseType, that.warehouseType);
+    && Objects.equals(warehouseType, that.warehouseType)
+    ;
   }
 
   @Override
@@ -55,8 +66,7 @@ public class WarehouseTypePair {
   @Override
   public String toString() {
     return new ToStringer(WarehouseTypePair.class)
-        .add("enabled", enabled)
-        .add("warehouseType", warehouseType)
-        .toString();
+      .add("enabled", enabled)
+      .add("warehouseType", warehouseType).toString();
   }
 }

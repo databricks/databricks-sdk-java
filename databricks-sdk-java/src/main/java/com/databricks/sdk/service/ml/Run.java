@@ -2,25 +2,38 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class Run {
-  /** Run data. */
+  /**
+   * Run data.
+   */
   @JsonProperty("data")
   private RunData data;
-
-  /** Run metadata. */
+  
+  /**
+   * Run metadata.
+   */
   @JsonProperty("info")
   private RunInfo info;
-
-  /** Run inputs. */
+  
+  /**
+   * Run inputs.
+   */
   @JsonProperty("inputs")
   private RunInputs inputs;
-
+  
   public Run setData(RunData data) {
     this.data = data;
     return this;
@@ -29,7 +42,7 @@ public class Run {
   public RunData getData() {
     return data;
   }
-
+  
   public Run setInfo(RunInfo info) {
     this.info = info;
     return this;
@@ -38,7 +51,7 @@ public class Run {
   public RunInfo getInfo() {
     return info;
   }
-
+  
   public Run setInputs(RunInputs inputs) {
     this.inputs = inputs;
     return this;
@@ -47,6 +60,7 @@ public class Run {
   public RunInputs getInputs() {
     return inputs;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -54,8 +68,9 @@ public class Run {
     if (o == null || getClass() != o.getClass()) return false;
     Run that = (Run) o;
     return Objects.equals(data, that.data)
-        && Objects.equals(info, that.info)
-        && Objects.equals(inputs, that.inputs);
+    && Objects.equals(info, that.info)
+    && Objects.equals(inputs, that.inputs)
+    ;
   }
 
   @Override
@@ -66,9 +81,8 @@ public class Run {
   @Override
   public String toString() {
     return new ToStringer(Run.class)
-        .add("data", data)
-        .add("info", info)
-        .add("inputs", inputs)
-        .toString();
+      .add("data", data)
+      .add("info", info)
+      .add("inputs", inputs).toString();
   }
 }

@@ -2,24 +2,35 @@
 
 package com.databricks.sdk.service.jobs;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** Get a single job run */
+
+/**
+ * Get a single job run
+ */
 @Generated
 public class GetRunRequest {
-  /** Whether to include the repair history in the response. */
+  /**
+   * Whether to include the repair history in the response.
+   */
   @QueryParam("include_history")
   private Boolean includeHistory;
-
+  
   /**
-   * The canonical identifier of the run for which to retrieve the metadata. This field is required.
+   * The canonical identifier of the run for which to retrieve the metadata.
+   * This field is required.
    */
   @QueryParam("run_id")
   private Long runId;
-
+  
   public GetRunRequest setIncludeHistory(Boolean includeHistory) {
     this.includeHistory = includeHistory;
     return this;
@@ -28,7 +39,7 @@ public class GetRunRequest {
   public Boolean getIncludeHistory() {
     return includeHistory;
   }
-
+  
   public GetRunRequest setRunId(Long runId) {
     this.runId = runId;
     return this;
@@ -37,13 +48,16 @@ public class GetRunRequest {
   public Long getRunId() {
     return runId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetRunRequest that = (GetRunRequest) o;
-    return Objects.equals(includeHistory, that.includeHistory) && Objects.equals(runId, that.runId);
+    return Objects.equals(includeHistory, that.includeHistory)
+    && Objects.equals(runId, that.runId)
+    ;
   }
 
   @Override
@@ -54,8 +68,7 @@ public class GetRunRequest {
   @Override
   public String toString() {
     return new ToStringer(GetRunRequest.class)
-        .add("includeHistory", includeHistory)
-        .add("runId", runId)
-        .toString();
+      .add("includeHistory", includeHistory)
+      .add("runId", runId).toString();
   }
 }

@@ -2,22 +2,32 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class SearchModelVersionsResponse {
-  /** Models that match the search criteria */
+  /**
+   * Models that match the search criteria
+   */
   @JsonProperty("model_versions")
   private Collection<ModelVersion> modelVersions;
-
-  /** Pagination token to request next page of models for the same search query. */
+  
+  /**
+   * Pagination token to request next page of models for the same search query.
+   */
   @JsonProperty("next_page_token")
   private String nextPageToken;
-
+  
   public SearchModelVersionsResponse setModelVersions(Collection<ModelVersion> modelVersions) {
     this.modelVersions = modelVersions;
     return this;
@@ -26,7 +36,7 @@ public class SearchModelVersionsResponse {
   public Collection<ModelVersion> getModelVersions() {
     return modelVersions;
   }
-
+  
   public SearchModelVersionsResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
@@ -35,6 +45,7 @@ public class SearchModelVersionsResponse {
   public String getNextPageToken() {
     return nextPageToken;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -42,7 +53,8 @@ public class SearchModelVersionsResponse {
     if (o == null || getClass() != o.getClass()) return false;
     SearchModelVersionsResponse that = (SearchModelVersionsResponse) o;
     return Objects.equals(modelVersions, that.modelVersions)
-        && Objects.equals(nextPageToken, that.nextPageToken);
+    && Objects.equals(nextPageToken, that.nextPageToken)
+    ;
   }
 
   @Override
@@ -53,8 +65,7 @@ public class SearchModelVersionsResponse {
   @Override
   public String toString() {
     return new ToStringer(SearchModelVersionsResponse.class)
-        .add("modelVersions", modelVersions)
-        .add("nextPageToken", nextPageToken)
-        .toString();
+      .add("modelVersions", modelVersions)
+      .add("nextPageToken", nextPageToken).toString();
   }
 }

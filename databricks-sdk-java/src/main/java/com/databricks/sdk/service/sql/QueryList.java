@@ -2,30 +2,44 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class QueryList {
-  /** The total number of queries. */
+  /**
+   * The total number of queries.
+   */
   @JsonProperty("count")
   private Long count;
-
-  /** The page number that is currently displayed. */
+  
+  /**
+   * The page number that is currently displayed.
+   */
   @JsonProperty("page")
   private Long page;
-
-  /** The number of queries per page. */
+  
+  /**
+   * The number of queries per page.
+   */
   @JsonProperty("page_size")
   private Long pageSize;
-
-  /** List of queries returned. */
+  
+  /**
+   * List of queries returned.
+   */
   @JsonProperty("results")
   private Collection<Query> results;
-
+  
   public QueryList setCount(Long count) {
     this.count = count;
     return this;
@@ -34,7 +48,7 @@ public class QueryList {
   public Long getCount() {
     return count;
   }
-
+  
   public QueryList setPage(Long page) {
     this.page = page;
     return this;
@@ -43,7 +57,7 @@ public class QueryList {
   public Long getPage() {
     return page;
   }
-
+  
   public QueryList setPageSize(Long pageSize) {
     this.pageSize = pageSize;
     return this;
@@ -52,7 +66,7 @@ public class QueryList {
   public Long getPageSize() {
     return pageSize;
   }
-
+  
   public QueryList setResults(Collection<Query> results) {
     this.results = results;
     return this;
@@ -61,6 +75,7 @@ public class QueryList {
   public Collection<Query> getResults() {
     return results;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -68,9 +83,10 @@ public class QueryList {
     if (o == null || getClass() != o.getClass()) return false;
     QueryList that = (QueryList) o;
     return Objects.equals(count, that.count)
-        && Objects.equals(page, that.page)
-        && Objects.equals(pageSize, that.pageSize)
-        && Objects.equals(results, that.results);
+    && Objects.equals(page, that.page)
+    && Objects.equals(pageSize, that.pageSize)
+    && Objects.equals(results, that.results)
+    ;
   }
 
   @Override
@@ -81,10 +97,9 @@ public class QueryList {
   @Override
   public String toString() {
     return new ToStringer(QueryList.class)
-        .add("count", count)
-        .add("page", page)
-        .add("pageSize", pageSize)
-        .add("results", results)
-        .toString();
+      .add("count", count)
+      .add("page", page)
+      .add("pageSize", pageSize)
+      .add("results", results).toString();
   }
 }

@@ -2,18 +2,28 @@
 
 package com.databricks.sdk.service.ml;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** Delete a webhook */
+
+/**
+ * Delete a webhook
+ */
 @Generated
 public class DeleteWebhookRequest {
-  /** Webhook ID required to delete a registry webhook. */
+  /**
+   * Webhook ID required to delete a registry webhook.
+   */
   @QueryParam("id")
   private String id;
-
+  
   public DeleteWebhookRequest setId(String id) {
     this.id = id;
     return this;
@@ -22,13 +32,15 @@ public class DeleteWebhookRequest {
   public String getId() {
     return id;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteWebhookRequest that = (DeleteWebhookRequest) o;
-    return Objects.equals(id, that.id);
+    return Objects.equals(id, that.id)
+    ;
   }
 
   @Override
@@ -38,6 +50,7 @@ public class DeleteWebhookRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteWebhookRequest.class).add("id", id).toString();
+    return new ToStringer(DeleteWebhookRequest.class)
+      .add("id", id).toString();
   }
 }

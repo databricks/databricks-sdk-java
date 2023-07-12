@@ -2,19 +2,27 @@
 
 package com.databricks.sdk.service.billing;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class WrappedCreateLogDeliveryConfiguration {
-  /** */
+  /**
+   
+   */
   @JsonProperty("log_delivery_configuration")
   private CreateLogDeliveryConfigurationParams logDeliveryConfiguration;
-
-  public WrappedCreateLogDeliveryConfiguration setLogDeliveryConfiguration(
-      CreateLogDeliveryConfigurationParams logDeliveryConfiguration) {
+  
+  public WrappedCreateLogDeliveryConfiguration setLogDeliveryConfiguration(CreateLogDeliveryConfigurationParams logDeliveryConfiguration) {
     this.logDeliveryConfiguration = logDeliveryConfiguration;
     return this;
   }
@@ -22,13 +30,15 @@ public class WrappedCreateLogDeliveryConfiguration {
   public CreateLogDeliveryConfigurationParams getLogDeliveryConfiguration() {
     return logDeliveryConfiguration;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     WrappedCreateLogDeliveryConfiguration that = (WrappedCreateLogDeliveryConfiguration) o;
-    return Objects.equals(logDeliveryConfiguration, that.logDeliveryConfiguration);
+    return Objects.equals(logDeliveryConfiguration, that.logDeliveryConfiguration)
+    ;
   }
 
   @Override
@@ -39,7 +49,6 @@ public class WrappedCreateLogDeliveryConfiguration {
   @Override
   public String toString() {
     return new ToStringer(WrappedCreateLogDeliveryConfiguration.class)
-        .add("logDeliveryConfiguration", logDeliveryConfiguration)
-        .toString();
+      .add("logDeliveryConfiguration", logDeliveryConfiguration).toString();
   }
 }

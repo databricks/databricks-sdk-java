@@ -2,16 +2,28 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
-/** Delete init script */
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Delete init script
+ */
 @Generated
 public class DeleteGlobalInitScriptRequest {
-  /** The ID of the global init script. */
+  /**
+   * The ID of the global init script.
+   */
+  
   private String scriptId;
-
+  
   public DeleteGlobalInitScriptRequest setScriptId(String scriptId) {
     this.scriptId = scriptId;
     return this;
@@ -20,13 +32,15 @@ public class DeleteGlobalInitScriptRequest {
   public String getScriptId() {
     return scriptId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteGlobalInitScriptRequest that = (DeleteGlobalInitScriptRequest) o;
-    return Objects.equals(scriptId, that.scriptId);
+    return Objects.equals(scriptId, that.scriptId)
+    ;
   }
 
   @Override
@@ -36,6 +50,7 @@ public class DeleteGlobalInitScriptRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteGlobalInitScriptRequest.class).add("scriptId", scriptId).toString();
+    return new ToStringer(DeleteGlobalInitScriptRequest.class)
+      .add("scriptId", scriptId).toString();
   }
 }

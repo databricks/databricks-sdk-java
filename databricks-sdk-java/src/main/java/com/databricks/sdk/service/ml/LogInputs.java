@@ -2,22 +2,32 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class LogInputs {
-  /** Dataset inputs */
+  /**
+   * Dataset inputs
+   */
   @JsonProperty("datasets")
   private Collection<DatasetInput> datasets;
-
-  /** ID of the run to log under */
+  
+  /**
+   * ID of the run to log under
+   */
   @JsonProperty("run_id")
   private String runId;
-
+  
   public LogInputs setDatasets(Collection<DatasetInput> datasets) {
     this.datasets = datasets;
     return this;
@@ -26,7 +36,7 @@ public class LogInputs {
   public Collection<DatasetInput> getDatasets() {
     return datasets;
   }
-
+  
   public LogInputs setRunId(String runId) {
     this.runId = runId;
     return this;
@@ -35,13 +45,16 @@ public class LogInputs {
   public String getRunId() {
     return runId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     LogInputs that = (LogInputs) o;
-    return Objects.equals(datasets, that.datasets) && Objects.equals(runId, that.runId);
+    return Objects.equals(datasets, that.datasets)
+    && Objects.equals(runId, that.runId)
+    ;
   }
 
   @Override
@@ -51,6 +64,8 @@ public class LogInputs {
 
   @Override
   public String toString() {
-    return new ToStringer(LogInputs.class).add("datasets", datasets).add("runId", runId).toString();
+    return new ToStringer(LogInputs.class)
+      .add("datasets", datasets)
+      .add("runId", runId).toString();
   }
 }

@@ -1,13 +1,29 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.core.ApiClient;
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.Paginator;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Access the history of queries through SQL warehouses. */
+import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
+import com.databricks.sdk.support.Wait;
+
+
+
+/**
+ * Access the history of queries through SQL warehouses.
+ */
 @Generated
 public class QueryHistoryAPI {
   private static final Logger LOG = LoggerFactory.getLogger(QueryHistoryAPI.class);
@@ -23,29 +39,41 @@ public class QueryHistoryAPI {
   public QueryHistoryAPI(QueryHistoryService mock) {
     impl = mock;
   }
+  
 
-  /**
+	
+	
+
+	/**
    * List Queries.
-   *
-   * <p>List the history of queries through SQL warehouses.
-   *
-   * <p>You can filter by user ID, warehouse ID, status, and time range.
+   * 
+   * List the history of queries through SQL warehouses.
+   * 
+   * You can filter by user ID, warehouse ID, status, and time range.
    */
   public Iterable<QueryInfo> list(ListQueryHistoryRequest request) {
-    return new Paginator<>(
-        request,
-        impl::list,
-        ListQueriesResponse::getRes,
-        response -> {
-          String token = response.getNextPageToken();
-          if (token == null) {
-            return null;
-          }
-          return request.setPageToken(token);
-        });
+    return new Paginator<>(request, impl::list, ListQueriesResponse::getRes, response -> {
+      String token = response.getNextPageToken();
+      if (token == null) {
+        return null;
+      }
+      return request.setPageToken(token);
+    });
   }
-
+  
   public QueryHistoryService impl() {
     return impl;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+

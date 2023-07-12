@@ -2,25 +2,33 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class ListExperimentsResponse {
-  /** Paginated Experiments beginning with the first item on the requested page. */
+  /**
+   * Paginated Experiments beginning with the first item on the requested page.
+   */
   @JsonProperty("experiments")
   private Collection<Experiment> experiments;
-
+  
   /**
-   * Token that can be used to retrieve the next page of experiments. Empty token means no more
-   * experiment is available for retrieval.
+   * Token that can be used to retrieve the next page of experiments. Empty
+   * token means no more experiment is available for retrieval.
    */
   @JsonProperty("next_page_token")
   private String nextPageToken;
-
+  
   public ListExperimentsResponse setExperiments(Collection<Experiment> experiments) {
     this.experiments = experiments;
     return this;
@@ -29,7 +37,7 @@ public class ListExperimentsResponse {
   public Collection<Experiment> getExperiments() {
     return experiments;
   }
-
+  
   public ListExperimentsResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
@@ -38,6 +46,7 @@ public class ListExperimentsResponse {
   public String getNextPageToken() {
     return nextPageToken;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -45,7 +54,8 @@ public class ListExperimentsResponse {
     if (o == null || getClass() != o.getClass()) return false;
     ListExperimentsResponse that = (ListExperimentsResponse) o;
     return Objects.equals(experiments, that.experiments)
-        && Objects.equals(nextPageToken, that.nextPageToken);
+    && Objects.equals(nextPageToken, that.nextPageToken)
+    ;
   }
 
   @Override
@@ -56,8 +66,7 @@ public class ListExperimentsResponse {
   @Override
   public String toString() {
     return new ToStringer(ListExperimentsResponse.class)
-        .add("experiments", experiments)
-        .add("nextPageToken", nextPageToken)
-        .toString();
+      .add("experiments", experiments)
+      .add("nextPageToken", nextPageToken).toString();
   }
 }

@@ -2,13 +2,25 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** Health status of the warehouse. */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Health status of the warehouse.
+ */
 @Generated
-public enum Status {
+public enum Status{
   DEGRADED,
   FAILED,
   HEALTHY,
   STATUS_UNSPECIFIED,
+  
 }

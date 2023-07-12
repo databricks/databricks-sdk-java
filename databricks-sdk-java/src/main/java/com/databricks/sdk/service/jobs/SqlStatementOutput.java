@@ -2,17 +2,26 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class SqlStatementOutput {
-  /** A key that can be used to look up query details. */
+  /**
+   * A key that can be used to look up query details.
+   */
   @JsonProperty("lookup_key")
   private String lookupKey;
-
+  
   public SqlStatementOutput setLookupKey(String lookupKey) {
     this.lookupKey = lookupKey;
     return this;
@@ -21,13 +30,15 @@ public class SqlStatementOutput {
   public String getLookupKey() {
     return lookupKey;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SqlStatementOutput that = (SqlStatementOutput) o;
-    return Objects.equals(lookupKey, that.lookupKey);
+    return Objects.equals(lookupKey, that.lookupKey)
+    ;
   }
 
   @Override
@@ -37,6 +48,7 @@ public class SqlStatementOutput {
 
   @Override
   public String toString() {
-    return new ToStringer(SqlStatementOutput.class).add("lookupKey", lookupKey).toString();
+    return new ToStringer(SqlStatementOutput.class)
+      .add("lookupKey", lookupKey).toString();
   }
 }

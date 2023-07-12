@@ -2,16 +2,28 @@
 
 package com.databricks.sdk.service.billing;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
-/** Get budget and its status */
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Get budget and its status
+ */
 @Generated
 public class GetBudgetRequest {
-  /** Budget ID */
+  /**
+   * Budget ID
+   */
+  
   private String budgetId;
-
+  
   public GetBudgetRequest setBudgetId(String budgetId) {
     this.budgetId = budgetId;
     return this;
@@ -20,13 +32,15 @@ public class GetBudgetRequest {
   public String getBudgetId() {
     return budgetId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetBudgetRequest that = (GetBudgetRequest) o;
-    return Objects.equals(budgetId, that.budgetId);
+    return Objects.equals(budgetId, that.budgetId)
+    ;
   }
 
   @Override
@@ -36,6 +50,7 @@ public class GetBudgetRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetBudgetRequest.class).add("budgetId", budgetId).toString();
+    return new ToStringer(GetBudgetRequest.class)
+      .add("budgetId", budgetId).toString();
   }
 }

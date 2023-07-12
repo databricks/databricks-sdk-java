@@ -2,11 +2,22 @@
 
 package com.databricks.sdk.service.iam;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** Permission level */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Permission level
+ */
 @Generated
-public enum PermissionLevel {
+public enum PermissionLevel{
   CAN_ATTACH_TO,
   CAN_BIND,
   CAN_EDIT,
@@ -22,4 +33,5 @@ public enum PermissionLevel {
   CAN_VIEW,
   CAN_VIEW_METADATA,
   IS_OWNER,
+  
 }

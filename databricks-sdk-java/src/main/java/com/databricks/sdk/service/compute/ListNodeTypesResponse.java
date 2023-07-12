@@ -2,18 +2,26 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class ListNodeTypesResponse {
-  /** The list of available Spark node types. */
+  /**
+   * The list of available Spark node types.
+   */
   @JsonProperty("node_types")
   private Collection<NodeType> nodeTypes;
-
+  
   public ListNodeTypesResponse setNodeTypes(Collection<NodeType> nodeTypes) {
     this.nodeTypes = nodeTypes;
     return this;
@@ -22,13 +30,15 @@ public class ListNodeTypesResponse {
   public Collection<NodeType> getNodeTypes() {
     return nodeTypes;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListNodeTypesResponse that = (ListNodeTypesResponse) o;
-    return Objects.equals(nodeTypes, that.nodeTypes);
+    return Objects.equals(nodeTypes, that.nodeTypes)
+    ;
   }
 
   @Override
@@ -38,6 +48,7 @@ public class ListNodeTypesResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(ListNodeTypesResponse.class).add("nodeTypes", nodeTypes).toString();
+    return new ToStringer(ListNodeTypesResponse.class)
+      .add("nodeTypes", nodeTypes).toString();
   }
 }

@@ -2,22 +2,32 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class GetMetricHistoryResponse {
-  /** All logged values for this metric. */
+  /**
+   * All logged values for this metric.
+   */
   @JsonProperty("metrics")
   private Collection<Metric> metrics;
-
-  /** Token that can be used to retrieve the next page of metric history results */
+  
+  /**
+   * Token that can be used to retrieve the next page of metric history results
+   */
   @JsonProperty("next_page_token")
   private String nextPageToken;
-
+  
   public GetMetricHistoryResponse setMetrics(Collection<Metric> metrics) {
     this.metrics = metrics;
     return this;
@@ -26,7 +36,7 @@ public class GetMetricHistoryResponse {
   public Collection<Metric> getMetrics() {
     return metrics;
   }
-
+  
   public GetMetricHistoryResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
@@ -35,6 +45,7 @@ public class GetMetricHistoryResponse {
   public String getNextPageToken() {
     return nextPageToken;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -42,7 +53,8 @@ public class GetMetricHistoryResponse {
     if (o == null || getClass() != o.getClass()) return false;
     GetMetricHistoryResponse that = (GetMetricHistoryResponse) o;
     return Objects.equals(metrics, that.metrics)
-        && Objects.equals(nextPageToken, that.nextPageToken);
+    && Objects.equals(nextPageToken, that.nextPageToken)
+    ;
   }
 
   @Override
@@ -53,8 +65,7 @@ public class GetMetricHistoryResponse {
   @Override
   public String toString() {
     return new ToStringer(GetMetricHistoryResponse.class)
-        .add("metrics", metrics)
-        .add("nextPageToken", nextPageToken)
-        .toString();
+      .add("metrics", metrics)
+      .add("nextPageToken", nextPageToken).toString();
   }
 }

@@ -2,22 +2,33 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class DatasetInput {
-  /** The dataset being used as a Run input. */
+  /**
+   * The dataset being used as a Run input.
+   */
   @JsonProperty("dataset")
   private Dataset dataset;
-
-  /** A list of tags for the dataset input, e.g. a “context” tag with value “training” */
+  
+  /**
+   * A list of tags for the dataset input, e.g. a “context” tag with value
+   * “training”
+   */
   @JsonProperty("tags")
   private Collection<InputTag> tags;
-
+  
   public DatasetInput setDataset(Dataset dataset) {
     this.dataset = dataset;
     return this;
@@ -26,7 +37,7 @@ public class DatasetInput {
   public Dataset getDataset() {
     return dataset;
   }
-
+  
   public DatasetInput setTags(Collection<InputTag> tags) {
     this.tags = tags;
     return this;
@@ -35,13 +46,16 @@ public class DatasetInput {
   public Collection<InputTag> getTags() {
     return tags;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DatasetInput that = (DatasetInput) o;
-    return Objects.equals(dataset, that.dataset) && Objects.equals(tags, that.tags);
+    return Objects.equals(dataset, that.dataset)
+    && Objects.equals(tags, that.tags)
+    ;
   }
 
   @Override
@@ -51,6 +65,8 @@ public class DatasetInput {
 
   @Override
   public String toString() {
-    return new ToStringer(DatasetInput.class).add("dataset", dataset).add("tags", tags).toString();
+    return new ToStringer(DatasetInput.class)
+      .add("dataset", dataset)
+      .add("tags", tags).toString();
   }
 }

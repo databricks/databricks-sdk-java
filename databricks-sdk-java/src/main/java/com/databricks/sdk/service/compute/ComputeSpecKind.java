@@ -2,10 +2,22 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** The kind of compute described by this compute specification. */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * The kind of compute described by this compute specification.
+ */
 @Generated
-public enum ComputeSpecKind {
+public enum ComputeSpecKind{
   SERVERLESS_PREVIEW,
+  
 }

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class ColumnMask {
-  /** The full name of the column maks SQL UDF. */
+  /** The full name of the column mask SQL UDF. */
   @JsonProperty("function_name")
   private String functionName;
 

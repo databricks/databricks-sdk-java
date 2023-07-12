@@ -2,11 +2,22 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** Status of installing the library on the cluster. */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Status of installing the library on the cluster.
+ */
 @Generated
-public enum LibraryFullStatusStatus {
+public enum LibraryFullStatusStatus{
   FAILED,
   INSTALLED,
   INSTALLING,
@@ -14,4 +25,5 @@ public enum LibraryFullStatusStatus {
   RESOLVING,
   SKIPPED,
   UNINSTALL_ON_RESTART,
+  
 }

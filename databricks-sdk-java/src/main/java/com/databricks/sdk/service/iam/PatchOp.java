@@ -2,12 +2,24 @@
 
 package com.databricks.sdk.service.iam;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** Type of patch operation. */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Type of patch operation.
+ */
 @Generated
-public enum PatchOp {
+public enum PatchOp{
   add,
   remove,
   replace,
+  
 }

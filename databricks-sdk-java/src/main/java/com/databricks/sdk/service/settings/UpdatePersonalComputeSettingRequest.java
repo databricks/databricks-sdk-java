@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Update Personal Compute setting */
 @Generated
 public class UpdatePersonalComputeSettingRequest {
-  /** TBD */
+  /** This should always be set to true for Settings RPCs. Added for AIP compliance. */
   @JsonProperty("allow_missing")
   private Boolean allowMissing;
 

@@ -2,11 +2,23 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** This describes an enum */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * This describes an enum
+ */
 @Generated
-public enum ViewType {
-  DASHBOARD, // Dashboard view item.
-  NOTEBOOK, // Notebook view item.
+public enum ViewType{
+  DASHBOARD,// Dashboard view item.
+  NOTEBOOK,// Notebook view item.
+  
 }

@@ -2,75 +2,99 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** The result manifest provides schema and metadata for the result set. */
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * The result manifest provides schema and metadata for the result set.
+ */
 @Generated
 public class ResultManifest {
-  /** Array of result set chunk metadata. */
+  /**
+   * Array of result set chunk metadata.
+   */
   @JsonProperty("chunks")
   private Collection<ChunkInfo> chunks;
-
+  
   /**
-   * Statement execution supports three result formats: `JSON_ARRAY` (default), `ARROW_STREAM`, and
-   * `CSV`.
-   *
-   * <p>When specifying `format=JSON_ARRAY`, result data will be formatted as an array of arrays of
-   * values, where each value is either the *string representation* of a value, or `null`. For
-   * example, the output of `SELECT concat('id-', id) AS strCol, id AS intCol, null AS nullCol FROM
-   * range(3)` would look like this:
-   *
-   * <p>``` [ [ "id-1", "1", null ], [ "id-2", "2", null ], [ "id-3", "3", null ], ] ```
-   *
-   * <p>`JSON_ARRAY` is supported with `INLINE` and `EXTERNAL_LINKS` dispositions.
-   *
-   * <p>`INLINE` `JSON_ARRAY` data can be found at the path `StatementResponse.result.data_array`.
-   *
-   * <p>For `EXTERNAL_LINKS` `JSON_ARRAY` results, each URL points to a file in cloud storage that
-   * contains compact JSON with no indentation or extra whitespace.
-   *
-   * <p>When specifying `format=ARROW_STREAM`, each chunk in the result will be formatted as Apache
-   * Arrow Stream. See the [Apache Arrow streaming format].
-   *
-   * <p>IMPORTANT: The format `ARROW_STREAM` is supported only with `EXTERNAL_LINKS` disposition.
-   *
-   * <p>When specifying `format=CSV`, each chunk in the result will be a CSV according to [RFC 4180]
-   * standard. All the columns values will have *string representation* similar to the `JSON_ARRAY`
-   * format, and `null` values will be encoded as “null”. Only the first chunk in the result would
-   * contain a header row with column names. For example, the output of `SELECT concat('id-', id) AS
-   * strCol, id AS intCol, null as nullCol FROM range(3)` would look like this:
-   *
-   * <p>``` strCol,intCol,nullCol id-1,1,null id-2,2,null id-3,3,null ```
-   *
-   * <p>IMPORTANT: The format `CSV` is supported only with `EXTERNAL_LINKS` disposition.
-   *
-   * <p>[Apache Arrow streaming format]:
-   * https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format [RFC 4180]:
-   * https://www.rfc-editor.org/rfc/rfc4180
+   * Statement execution supports three result formats: `JSON_ARRAY` (default),
+   * `ARROW_STREAM`, and `CSV`.
+   * 
+   * When specifying `format=JSON_ARRAY`, result data will be formatted as an
+   * array of arrays of values, where each value is either the *string
+   * representation* of a value, or `null`. For example, the output of `SELECT
+   * concat('id-', id) AS strCol, id AS intCol, null AS nullCol FROM range(3)`
+   * would look like this:
+   * 
+   * ``` [ [ "id-1", "1", null ], [ "id-2", "2", null ], [ "id-3", "3", null ],
+   * ] ```
+   * 
+   * `JSON_ARRAY` is supported with `INLINE` and `EXTERNAL_LINKS` dispositions.
+   * 
+   * `INLINE` `JSON_ARRAY` data can be found at the path
+   * `StatementResponse.result.data_array`.
+   * 
+   * For `EXTERNAL_LINKS` `JSON_ARRAY` results, each URL points to a file in
+   * cloud storage that contains compact JSON with no indentation or extra
+   * whitespace.
+   * 
+   * When specifying `format=ARROW_STREAM`, each chunk in the result will be
+   * formatted as Apache Arrow Stream. See the [Apache Arrow streaming format].
+   * 
+   * IMPORTANT: The format `ARROW_STREAM` is supported only with
+   * `EXTERNAL_LINKS` disposition.
+   * 
+   * When specifying `format=CSV`, each chunk in the result will be a CSV
+   * according to [RFC 4180] standard. All the columns values will have *string
+   * representation* similar to the `JSON_ARRAY` format, and `null` values will
+   * be encoded as “null”. Only the first chunk in the result would contain
+   * a header row with column names. For example, the output of `SELECT
+   * concat('id-', id) AS strCol, id AS intCol, null as nullCol FROM range(3)`
+   * would look like this:
+   * 
+   * ``` strCol,intCol,nullCol id-1,1,null id-2,2,null id-3,3,null ```
+   * 
+   * IMPORTANT: The format `CSV` is supported only with `EXTERNAL_LINKS`
+   * disposition.
+   * 
+   * [Apache Arrow streaming format]: https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format
+   * [RFC 4180]: https://www.rfc-editor.org/rfc/rfc4180
    */
   @JsonProperty("format")
   private Format format;
-
-  /** Schema is an ordered list of column descriptions. */
+  
+  /**
+   * Schema is an ordered list of column descriptions.
+   */
   @JsonProperty("schema")
   private ResultSchema schema;
-
-  /** Total number of bytes in the result set. */
+  
+  /**
+   * Total number of bytes in the result set.
+   */
   @JsonProperty("total_byte_count")
   private Long totalByteCount;
-
-  /** Total number of chunks that the result set has been divided into. */
+  
+  /**
+   * Total number of chunks that the result set has been divided into.
+   */
   @JsonProperty("total_chunk_count")
   private Long totalChunkCount;
-
-  /** Total number of rows in the result set. */
+  
+  /**
+   * Total number of rows in the result set.
+   */
   @JsonProperty("total_row_count")
   private Long totalRowCount;
-
+  
   public ResultManifest setChunks(Collection<ChunkInfo> chunks) {
     this.chunks = chunks;
     return this;
@@ -79,7 +103,7 @@ public class ResultManifest {
   public Collection<ChunkInfo> getChunks() {
     return chunks;
   }
-
+  
   public ResultManifest setFormat(Format format) {
     this.format = format;
     return this;
@@ -88,7 +112,7 @@ public class ResultManifest {
   public Format getFormat() {
     return format;
   }
-
+  
   public ResultManifest setSchema(ResultSchema schema) {
     this.schema = schema;
     return this;
@@ -97,7 +121,7 @@ public class ResultManifest {
   public ResultSchema getSchema() {
     return schema;
   }
-
+  
   public ResultManifest setTotalByteCount(Long totalByteCount) {
     this.totalByteCount = totalByteCount;
     return this;
@@ -106,7 +130,7 @@ public class ResultManifest {
   public Long getTotalByteCount() {
     return totalByteCount;
   }
-
+  
   public ResultManifest setTotalChunkCount(Long totalChunkCount) {
     this.totalChunkCount = totalChunkCount;
     return this;
@@ -115,7 +139,7 @@ public class ResultManifest {
   public Long getTotalChunkCount() {
     return totalChunkCount;
   }
-
+  
   public ResultManifest setTotalRowCount(Long totalRowCount) {
     this.totalRowCount = totalRowCount;
     return this;
@@ -124,6 +148,7 @@ public class ResultManifest {
   public Long getTotalRowCount() {
     return totalRowCount;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -131,11 +156,12 @@ public class ResultManifest {
     if (o == null || getClass() != o.getClass()) return false;
     ResultManifest that = (ResultManifest) o;
     return Objects.equals(chunks, that.chunks)
-        && Objects.equals(format, that.format)
-        && Objects.equals(schema, that.schema)
-        && Objects.equals(totalByteCount, that.totalByteCount)
-        && Objects.equals(totalChunkCount, that.totalChunkCount)
-        && Objects.equals(totalRowCount, that.totalRowCount);
+    && Objects.equals(format, that.format)
+    && Objects.equals(schema, that.schema)
+    && Objects.equals(totalByteCount, that.totalByteCount)
+    && Objects.equals(totalChunkCount, that.totalChunkCount)
+    && Objects.equals(totalRowCount, that.totalRowCount)
+    ;
   }
 
   @Override
@@ -146,12 +172,11 @@ public class ResultManifest {
   @Override
   public String toString() {
     return new ToStringer(ResultManifest.class)
-        .add("chunks", chunks)
-        .add("format", format)
-        .add("schema", schema)
-        .add("totalByteCount", totalByteCount)
-        .add("totalChunkCount", totalChunkCount)
-        .add("totalRowCount", totalRowCount)
-        .toString();
+      .add("chunks", chunks)
+      .add("format", format)
+      .add("schema", schema)
+      .add("totalByteCount", totalByteCount)
+      .add("totalChunkCount", totalChunkCount)
+      .add("totalRowCount", totalRowCount).toString();
   }
 }

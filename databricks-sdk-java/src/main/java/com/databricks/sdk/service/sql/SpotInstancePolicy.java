@@ -2,12 +2,24 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** Configurations whether the warehouse should use spot instances. */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Configurations whether the warehouse should use spot instances.
+ */
 @Generated
-public enum SpotInstancePolicy {
+public enum SpotInstancePolicy{
   COST_OPTIMIZED,
   POLICY_UNSPECIFIED,
   RELIABILITY_OPTIMIZED,
+  
 }

@@ -2,12 +2,24 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** Current state of the instance pool. */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Current state of the instance pool.
+ */
 @Generated
-public enum InstancePoolState {
+public enum InstancePoolState{
   ACTIVE,
   DELETED,
   STOPPED,
+  
 }

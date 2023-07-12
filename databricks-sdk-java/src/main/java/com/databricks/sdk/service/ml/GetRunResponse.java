@@ -2,17 +2,26 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class GetRunResponse {
-  /** Run metadata (name, start time, etc) and data (metrics, params, and tags). */
+  /**
+   * Run metadata (name, start time, etc) and data (metrics, params, and tags).
+   */
   @JsonProperty("run")
   private Run run;
-
+  
   public GetRunResponse setRun(Run run) {
     this.run = run;
     return this;
@@ -21,13 +30,15 @@ public class GetRunResponse {
   public Run getRun() {
     return run;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetRunResponse that = (GetRunResponse) o;
-    return Objects.equals(run, that.run);
+    return Objects.equals(run, that.run)
+    ;
   }
 
   @Override
@@ -37,6 +48,7 @@ public class GetRunResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(GetRunResponse.class).add("run", run).toString();
+    return new ToStringer(GetRunResponse.class)
+      .add("run", run).toString();
   }
 }

@@ -2,34 +2,48 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class Widget {
-  /** The unique ID for this widget. */
+  /**
+   * The unique ID for this widget.
+   */
   @JsonProperty("id")
   private Long id;
-
-  /** */
+  
+  /**
+   
+   */
   @JsonProperty("options")
   private WidgetOptions options;
-
+  
   /**
-   * The visualization description API changes frequently and is unsupported. You can duplicate a
-   * visualization by copying description objects received _from the API_ and then using them to
-   * create a new one with a POST request to the same endpoint. Databricks does not recommend
-   * constructing ad-hoc visualizations entirely in JSON.
+   * The visualization description API changes frequently and is unsupported.
+   * You can duplicate a visualization by copying description objects received
+   * _from the API_ and then using them to create a new one with a POST request
+   * to the same endpoint. Databricks does not recommend constructing ad-hoc
+   * visualizations entirely in JSON.
    */
   @JsonProperty("visualization")
   private Visualization visualization;
-
-  /** Unused field. */
+  
+  /**
+   * Unused field.
+   */
   @JsonProperty("width")
   private Long width;
-
+  
   public Widget setId(Long id) {
     this.id = id;
     return this;
@@ -38,7 +52,7 @@ public class Widget {
   public Long getId() {
     return id;
   }
-
+  
   public Widget setOptions(WidgetOptions options) {
     this.options = options;
     return this;
@@ -47,7 +61,7 @@ public class Widget {
   public WidgetOptions getOptions() {
     return options;
   }
-
+  
   public Widget setVisualization(Visualization visualization) {
     this.visualization = visualization;
     return this;
@@ -56,7 +70,7 @@ public class Widget {
   public Visualization getVisualization() {
     return visualization;
   }
-
+  
   public Widget setWidth(Long width) {
     this.width = width;
     return this;
@@ -65,6 +79,7 @@ public class Widget {
   public Long getWidth() {
     return width;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -72,9 +87,10 @@ public class Widget {
     if (o == null || getClass() != o.getClass()) return false;
     Widget that = (Widget) o;
     return Objects.equals(id, that.id)
-        && Objects.equals(options, that.options)
-        && Objects.equals(visualization, that.visualization)
-        && Objects.equals(width, that.width);
+    && Objects.equals(options, that.options)
+    && Objects.equals(visualization, that.visualization)
+    && Objects.equals(width, that.width)
+    ;
   }
 
   @Override
@@ -85,10 +101,9 @@ public class Widget {
   @Override
   public String toString() {
     return new ToStringer(Widget.class)
-        .add("id", id)
-        .add("options", options)
-        .add("visualization", visualization)
-        .add("width", width)
-        .toString();
+      .add("id", id)
+      .add("options", options)
+      .add("visualization", visualization)
+      .add("width", width).toString();
   }
 }

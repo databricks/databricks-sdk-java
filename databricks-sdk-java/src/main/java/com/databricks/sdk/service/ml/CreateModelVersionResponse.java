@@ -2,17 +2,26 @@
 
 package com.databricks.sdk.service.ml;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class CreateModelVersionResponse {
-  /** Return new version number generated for this model in registry. */
+  /**
+   * Return new version number generated for this model in registry.
+   */
   @JsonProperty("model_version")
   private ModelVersion modelVersion;
-
+  
   public CreateModelVersionResponse setModelVersion(ModelVersion modelVersion) {
     this.modelVersion = modelVersion;
     return this;
@@ -21,13 +30,15 @@ public class CreateModelVersionResponse {
   public ModelVersion getModelVersion() {
     return modelVersion;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateModelVersionResponse that = (CreateModelVersionResponse) o;
-    return Objects.equals(modelVersion, that.modelVersion);
+    return Objects.equals(modelVersion, that.modelVersion)
+    ;
   }
 
   @Override
@@ -38,7 +49,6 @@ public class CreateModelVersionResponse {
   @Override
   public String toString() {
     return new ToStringer(CreateModelVersionResponse.class)
-        .add("modelVersion", modelVersion)
-        .toString();
+      .add("modelVersion", modelVersion).toString();
   }
 }

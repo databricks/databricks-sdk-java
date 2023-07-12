@@ -2,39 +2,51 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class CreateAlert {
-  /** Name of the alert. */
+  /**
+   * Name of the alert.
+   */
   @JsonProperty("name")
   private String name;
-
-  /** Alert configuration options. */
+  
+  /**
+   * Alert configuration options.
+   */
   @JsonProperty("options")
   private AlertOptions options;
-
+  
   /**
-   * The identifier of the workspace folder containing the alert. The default is ther user's home
-   * folder.
+   * The identifier of the workspace folder containing the object.
    */
   @JsonProperty("parent")
   private String parent;
-
-  /** ID of the query evaluated by the alert. */
+  
+  /**
+   * Query ID.
+   */
   @JsonProperty("query_id")
   private String queryId;
-
+  
   /**
-   * Number of seconds after being triggered before the alert rearms itself and can be triggered
-   * again. If `null`, alert will never be triggered again.
+   * Number of seconds after being triggered before the alert rearms itself and
+   * can be triggered again. If `null`, alert will never be triggered again.
    */
   @JsonProperty("rearm")
   private Long rearm;
-
+  
   public CreateAlert setName(String name) {
     this.name = name;
     return this;
@@ -43,7 +55,7 @@ public class CreateAlert {
   public String getName() {
     return name;
   }
-
+  
   public CreateAlert setOptions(AlertOptions options) {
     this.options = options;
     return this;
@@ -52,7 +64,7 @@ public class CreateAlert {
   public AlertOptions getOptions() {
     return options;
   }
-
+  
   public CreateAlert setParent(String parent) {
     this.parent = parent;
     return this;
@@ -61,7 +73,7 @@ public class CreateAlert {
   public String getParent() {
     return parent;
   }
-
+  
   public CreateAlert setQueryId(String queryId) {
     this.queryId = queryId;
     return this;
@@ -70,7 +82,7 @@ public class CreateAlert {
   public String getQueryId() {
     return queryId;
   }
-
+  
   public CreateAlert setRearm(Long rearm) {
     this.rearm = rearm;
     return this;
@@ -79,6 +91,7 @@ public class CreateAlert {
   public Long getRearm() {
     return rearm;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -86,10 +99,11 @@ public class CreateAlert {
     if (o == null || getClass() != o.getClass()) return false;
     CreateAlert that = (CreateAlert) o;
     return Objects.equals(name, that.name)
-        && Objects.equals(options, that.options)
-        && Objects.equals(parent, that.parent)
-        && Objects.equals(queryId, that.queryId)
-        && Objects.equals(rearm, that.rearm);
+    && Objects.equals(options, that.options)
+    && Objects.equals(parent, that.parent)
+    && Objects.equals(queryId, that.queryId)
+    && Objects.equals(rearm, that.rearm)
+    ;
   }
 
   @Override
@@ -100,11 +114,10 @@ public class CreateAlert {
   @Override
   public String toString() {
     return new ToStringer(CreateAlert.class)
-        .add("name", name)
-        .add("options", options)
-        .add("parent", parent)
-        .add("queryId", queryId)
-        .add("rearm", rearm)
-        .toString();
+      .add("name", name)
+      .add("options", options)
+      .add("parent", parent)
+      .add("queryId", queryId)
+      .add("rearm", rearm).toString();
   }
 }

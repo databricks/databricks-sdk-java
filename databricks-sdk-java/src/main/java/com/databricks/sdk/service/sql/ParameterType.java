@@ -2,12 +2,24 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** Parameters can have several different types. */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Parameters can have several different types.
+ */
 @Generated
-public enum ParameterType {
+public enum ParameterType{
   datetime,
   number,
   text,
+  
 }

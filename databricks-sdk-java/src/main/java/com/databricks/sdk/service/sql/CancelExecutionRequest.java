@@ -2,16 +2,28 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
-/** Cancel statement execution */
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Cancel statement execution
+ */
 @Generated
 public class CancelExecutionRequest {
-  /** */
+  /**
+   
+   */
+  
   private String statementId;
-
+  
   public CancelExecutionRequest setStatementId(String statementId) {
     this.statementId = statementId;
     return this;
@@ -20,13 +32,15 @@ public class CancelExecutionRequest {
   public String getStatementId() {
     return statementId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CancelExecutionRequest that = (CancelExecutionRequest) o;
-    return Objects.equals(statementId, that.statementId);
+    return Objects.equals(statementId, that.statementId)
+    ;
   }
 
   @Override
@@ -36,6 +50,7 @@ public class CancelExecutionRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(CancelExecutionRequest.class).add("statementId", statementId).toString();
+    return new ToStringer(CancelExecutionRequest.class)
+      .add("statementId", statementId).toString();
   }
 }

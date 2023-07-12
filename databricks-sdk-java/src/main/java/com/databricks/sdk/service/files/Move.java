@@ -2,21 +2,34 @@
 
 package com.databricks.sdk.service.files;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class Move {
-  /** The destination path of the file or directory. The path should be the absolute DBFS path. */
+  /**
+   * The destination path of the file or directory. The path should be the
+   * absolute DBFS path.
+   */
   @JsonProperty("destination_path")
   private String destinationPath;
-
-  /** The source path of the file or directory. The path should be the absolute DBFS path. */
+  
+  /**
+   * The source path of the file or directory. The path should be the absolute
+   * DBFS path.
+   */
   @JsonProperty("source_path")
   private String sourcePath;
-
+  
   public Move setDestinationPath(String destinationPath) {
     this.destinationPath = destinationPath;
     return this;
@@ -25,7 +38,7 @@ public class Move {
   public String getDestinationPath() {
     return destinationPath;
   }
-
+  
   public Move setSourcePath(String sourcePath) {
     this.sourcePath = sourcePath;
     return this;
@@ -34,6 +47,7 @@ public class Move {
   public String getSourcePath() {
     return sourcePath;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -41,7 +55,8 @@ public class Move {
     if (o == null || getClass() != o.getClass()) return false;
     Move that = (Move) o;
     return Objects.equals(destinationPath, that.destinationPath)
-        && Objects.equals(sourcePath, that.sourcePath);
+    && Objects.equals(sourcePath, that.sourcePath)
+    ;
   }
 
   @Override
@@ -52,8 +67,7 @@ public class Move {
   @Override
   public String toString() {
     return new ToStringer(Move.class)
-        .add("destinationPath", destinationPath)
-        .add("sourcePath", sourcePath)
-        .toString();
+      .add("destinationPath", destinationPath)
+      .add("sourcePath", sourcePath).toString();
   }
 }

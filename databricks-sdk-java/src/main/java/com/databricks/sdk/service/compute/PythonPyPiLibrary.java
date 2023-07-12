@@ -2,26 +2,35 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class PythonPyPiLibrary {
   /**
-   * The name of the pypi package to install. An optional exact version specification is also
-   * supported. Examples: "simplejson" and "simplejson==3.8.0".
+   * The name of the pypi package to install. An optional exact version
+   * specification is also supported. Examples: "simplejson" and
+   * "simplejson==3.8.0".
    */
   @JsonProperty("package")
   private String packageValue;
-
+  
   /**
-   * The repository where the package can be found. If not specified, the default pip index is used.
+   * The repository where the package can be found. If not specified, the
+   * default pip index is used.
    */
   @JsonProperty("repo")
   private String repo;
-
+  
   public PythonPyPiLibrary setPackage(String packageValue) {
     this.packageValue = packageValue;
     return this;
@@ -30,7 +39,7 @@ public class PythonPyPiLibrary {
   public String getPackage() {
     return packageValue;
   }
-
+  
   public PythonPyPiLibrary setRepo(String repo) {
     this.repo = repo;
     return this;
@@ -39,13 +48,16 @@ public class PythonPyPiLibrary {
   public String getRepo() {
     return repo;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PythonPyPiLibrary that = (PythonPyPiLibrary) o;
-    return Objects.equals(packageValue, that.packageValue) && Objects.equals(repo, that.repo);
+    return Objects.equals(packageValue, that.packageValue)
+    && Objects.equals(repo, that.repo)
+    ;
   }
 
   @Override
@@ -56,8 +68,7 @@ public class PythonPyPiLibrary {
   @Override
   public String toString() {
     return new ToStringer(PythonPyPiLibrary.class)
-        .add("packageValue", packageValue)
-        .add("repo", repo)
-        .toString();
+      .add("packageValue", packageValue)
+      .add("repo", repo).toString();
   }
 }

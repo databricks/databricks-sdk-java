@@ -2,17 +2,26 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class Created {
-  /** */
+  /**
+   
+   */
   @JsonProperty("id")
   private String id;
-
+  
   public Created setId(String id) {
     this.id = id;
     return this;
@@ -21,13 +30,15 @@ public class Created {
   public String getId() {
     return id;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Created that = (Created) o;
-    return Objects.equals(id, that.id);
+    return Objects.equals(id, that.id)
+    ;
   }
 
   @Override
@@ -37,6 +48,7 @@ public class Created {
 
   @Override
   public String toString() {
-    return new ToStringer(Created.class).add("id", id).toString();
+    return new ToStringer(Created.class)
+      .add("id", id).toString();
   }
 }

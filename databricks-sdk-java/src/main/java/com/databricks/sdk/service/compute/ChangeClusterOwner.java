@@ -2,21 +2,32 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class ChangeClusterOwner {
-  /** <needs content added> */
+  /**
+   * <needs content added>
+   */
   @JsonProperty("cluster_id")
   private String clusterId;
-
-  /** New owner of the cluster_id after this RPC. */
+  
+  /**
+   * New owner of the cluster_id after this RPC.
+   */
   @JsonProperty("owner_username")
   private String ownerUsername;
-
+  
   public ChangeClusterOwner setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -25,7 +36,7 @@ public class ChangeClusterOwner {
   public String getClusterId() {
     return clusterId;
   }
-
+  
   public ChangeClusterOwner setOwnerUsername(String ownerUsername) {
     this.ownerUsername = ownerUsername;
     return this;
@@ -34,6 +45,7 @@ public class ChangeClusterOwner {
   public String getOwnerUsername() {
     return ownerUsername;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -41,7 +53,8 @@ public class ChangeClusterOwner {
     if (o == null || getClass() != o.getClass()) return false;
     ChangeClusterOwner that = (ChangeClusterOwner) o;
     return Objects.equals(clusterId, that.clusterId)
-        && Objects.equals(ownerUsername, that.ownerUsername);
+    && Objects.equals(ownerUsername, that.ownerUsername)
+    ;
   }
 
   @Override
@@ -52,8 +65,7 @@ public class ChangeClusterOwner {
   @Override
   public String toString() {
     return new ToStringer(ChangeClusterOwner.class)
-        .add("clusterId", clusterId)
-        .add("ownerUsername", ownerUsername)
-        .toString();
+      .add("clusterId", clusterId)
+      .add("ownerUsername", ownerUsername).toString();
   }
 }

@@ -2,26 +2,39 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class TerminationReason {
-  /** status code indicating why the cluster was terminated */
+  /**
+   * status code indicating why the cluster was terminated
+   */
   @JsonProperty("code")
   private TerminationReasonCode code;
-
-  /** list of parameters that provide additional information about why the cluster was terminated */
+  
+  /**
+   * list of parameters that provide additional information about why the
+   * cluster was terminated
+   */
   @JsonProperty("parameters")
-  private Map<String, String> parameters;
-
-  /** type of the termination */
+  private Map<String,String> parameters;
+  
+  /**
+   * type of the termination
+   */
   @JsonProperty("type")
   private TerminationReasonType typeValue;
-
+  
   public TerminationReason setCode(TerminationReasonCode code) {
     this.code = code;
     return this;
@@ -30,16 +43,16 @@ public class TerminationReason {
   public TerminationReasonCode getCode() {
     return code;
   }
-
-  public TerminationReason setParameters(Map<String, String> parameters) {
+  
+  public TerminationReason setParameters(Map<String,String> parameters) {
     this.parameters = parameters;
     return this;
   }
 
-  public Map<String, String> getParameters() {
+  public Map<String,String> getParameters() {
     return parameters;
   }
-
+  
   public TerminationReason setType(TerminationReasonType typeValue) {
     this.typeValue = typeValue;
     return this;
@@ -48,6 +61,7 @@ public class TerminationReason {
   public TerminationReasonType getType() {
     return typeValue;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -55,8 +69,9 @@ public class TerminationReason {
     if (o == null || getClass() != o.getClass()) return false;
     TerminationReason that = (TerminationReason) o;
     return Objects.equals(code, that.code)
-        && Objects.equals(parameters, that.parameters)
-        && Objects.equals(typeValue, that.typeValue);
+    && Objects.equals(parameters, that.parameters)
+    && Objects.equals(typeValue, that.typeValue)
+    ;
   }
 
   @Override
@@ -67,9 +82,8 @@ public class TerminationReason {
   @Override
   public String toString() {
     return new ToStringer(TerminationReason.class)
-        .add("code", code)
-        .add("parameters", parameters)
-        .add("typeValue", typeValue)
-        .toString();
+      .add("code", code)
+      .add("parameters", parameters)
+      .add("typeValue", typeValue).toString();
   }
 }

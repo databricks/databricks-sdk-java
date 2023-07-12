@@ -2,18 +2,26 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class EndpointTags {
-  /** */
+  /**
+   
+   */
   @JsonProperty("custom_tags")
   private Collection<EndpointTagPair> customTags;
-
+  
   public EndpointTags setCustomTags(Collection<EndpointTagPair> customTags) {
     this.customTags = customTags;
     return this;
@@ -22,13 +30,15 @@ public class EndpointTags {
   public Collection<EndpointTagPair> getCustomTags() {
     return customTags;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     EndpointTags that = (EndpointTags) o;
-    return Objects.equals(customTags, that.customTags);
+    return Objects.equals(customTags, that.customTags)
+    ;
   }
 
   @Override
@@ -38,6 +48,7 @@ public class EndpointTags {
 
   @Override
   public String toString() {
-    return new ToStringer(EndpointTags.class).add("customTags", customTags).toString();
+    return new ToStringer(EndpointTags.class)
+      .add("customTags", customTags).toString();
   }
 }

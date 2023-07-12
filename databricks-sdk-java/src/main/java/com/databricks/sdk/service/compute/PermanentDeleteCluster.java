@@ -2,17 +2,26 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class PermanentDeleteCluster {
-  /** The cluster to be deleted. */
+  /**
+   * The cluster to be deleted.
+   */
   @JsonProperty("cluster_id")
   private String clusterId;
-
+  
   public PermanentDeleteCluster setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -21,13 +30,15 @@ public class PermanentDeleteCluster {
   public String getClusterId() {
     return clusterId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PermanentDeleteCluster that = (PermanentDeleteCluster) o;
-    return Objects.equals(clusterId, that.clusterId);
+    return Objects.equals(clusterId, that.clusterId)
+    ;
   }
 
   @Override
@@ -37,6 +48,7 @@ public class PermanentDeleteCluster {
 
   @Override
   public String toString() {
-    return new ToStringer(PermanentDeleteCluster.class).add("clusterId", clusterId).toString();
+    return new ToStringer(PermanentDeleteCluster.class)
+      .add("clusterId", clusterId).toString();
   }
 }

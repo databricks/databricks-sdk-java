@@ -2,20 +2,27 @@
 
 package com.databricks.sdk.service.files;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class CreateResponse {
   /**
-   * Handle which should subsequently be passed into the AddBlock and Close calls when writing to a
-   * file through a stream.
+   * Handle which should subsequently be passed into the AddBlock and Close
+   * calls when writing to a file through a stream.
    */
   @JsonProperty("handle")
   private Long handle;
-
+  
   public CreateResponse setHandle(Long handle) {
     this.handle = handle;
     return this;
@@ -24,13 +31,15 @@ public class CreateResponse {
   public Long getHandle() {
     return handle;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateResponse that = (CreateResponse) o;
-    return Objects.equals(handle, that.handle);
+    return Objects.equals(handle, that.handle)
+    ;
   }
 
   @Override
@@ -40,6 +49,7 @@ public class CreateResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(CreateResponse.class).add("handle", handle).toString();
+    return new ToStringer(CreateResponse.class)
+      .add("handle", handle).toString();
   }
 }

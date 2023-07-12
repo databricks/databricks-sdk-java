@@ -2,18 +2,26 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class GetSparkVersionsResponse {
-  /** All the available Spark versions. */
+  /**
+   * All the available Spark versions.
+   */
   @JsonProperty("versions")
   private Collection<SparkVersion> versions;
-
+  
   public GetSparkVersionsResponse setVersions(Collection<SparkVersion> versions) {
     this.versions = versions;
     return this;
@@ -22,13 +30,15 @@ public class GetSparkVersionsResponse {
   public Collection<SparkVersion> getVersions() {
     return versions;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetSparkVersionsResponse that = (GetSparkVersionsResponse) o;
-    return Objects.equals(versions, that.versions);
+    return Objects.equals(versions, that.versions)
+    ;
   }
 
   @Override
@@ -38,6 +48,7 @@ public class GetSparkVersionsResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(GetSparkVersionsResponse.class).add("versions", versions).toString();
+    return new ToStringer(GetSparkVersionsResponse.class)
+      .add("versions", versions).toString();
   }
 }

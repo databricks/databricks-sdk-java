@@ -2,26 +2,40 @@
 
 package com.databricks.sdk.service.billing;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** Get all log delivery configurations */
+
+/**
+ * Get all log delivery configurations
+ */
 @Generated
 public class ListLogDeliveryRequest {
-  /** Filter by credential configuration ID. */
+  /**
+   * Filter by credential configuration ID.
+   */
   @QueryParam("credentials_id")
   private String credentialsId;
-
-  /** Filter by status `ENABLED` or `DISABLED`. */
+  
+  /**
+   * Filter by status `ENABLED` or `DISABLED`.
+   */
   @QueryParam("status")
   private LogDeliveryConfigStatus status;
-
-  /** Filter by storage configuration ID. */
+  
+  /**
+   * Filter by storage configuration ID.
+   */
   @QueryParam("storage_configuration_id")
   private String storageConfigurationId;
-
+  
   public ListLogDeliveryRequest setCredentialsId(String credentialsId) {
     this.credentialsId = credentialsId;
     return this;
@@ -30,7 +44,7 @@ public class ListLogDeliveryRequest {
   public String getCredentialsId() {
     return credentialsId;
   }
-
+  
   public ListLogDeliveryRequest setStatus(LogDeliveryConfigStatus status) {
     this.status = status;
     return this;
@@ -39,7 +53,7 @@ public class ListLogDeliveryRequest {
   public LogDeliveryConfigStatus getStatus() {
     return status;
   }
-
+  
   public ListLogDeliveryRequest setStorageConfigurationId(String storageConfigurationId) {
     this.storageConfigurationId = storageConfigurationId;
     return this;
@@ -48,6 +62,7 @@ public class ListLogDeliveryRequest {
   public String getStorageConfigurationId() {
     return storageConfigurationId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -55,8 +70,9 @@ public class ListLogDeliveryRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListLogDeliveryRequest that = (ListLogDeliveryRequest) o;
     return Objects.equals(credentialsId, that.credentialsId)
-        && Objects.equals(status, that.status)
-        && Objects.equals(storageConfigurationId, that.storageConfigurationId);
+    && Objects.equals(status, that.status)
+    && Objects.equals(storageConfigurationId, that.storageConfigurationId)
+    ;
   }
 
   @Override
@@ -67,9 +83,8 @@ public class ListLogDeliveryRequest {
   @Override
   public String toString() {
     return new ToStringer(ListLogDeliveryRequest.class)
-        .add("credentialsId", credentialsId)
-        .add("status", status)
-        .add("storageConfigurationId", storageConfigurationId)
-        .toString();
+      .add("credentialsId", credentialsId)
+      .add("status", status)
+      .add("storageConfigurationId", storageConfigurationId).toString();
   }
 }

@@ -2,18 +2,28 @@
 
 package com.databricks.sdk.service.ml;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** Get model */
+
+/**
+ * Get model
+ */
 @Generated
 public class GetModelRequest {
-  /** Registered model unique name identifier. */
+  /**
+   * Registered model unique name identifier.
+   */
   @QueryParam("name")
   private String name;
-
+  
   public GetModelRequest setName(String name) {
     this.name = name;
     return this;
@@ -22,13 +32,15 @@ public class GetModelRequest {
   public String getName() {
     return name;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetModelRequest that = (GetModelRequest) o;
-    return Objects.equals(name, that.name);
+    return Objects.equals(name, that.name)
+    ;
   }
 
   @Override
@@ -38,6 +50,7 @@ public class GetModelRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetModelRequest.class).add("name", name).toString();
+    return new ToStringer(GetModelRequest.class)
+      .add("name", name).toString();
   }
 }

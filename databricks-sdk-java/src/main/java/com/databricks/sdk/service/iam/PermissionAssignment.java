@@ -2,26 +2,38 @@
 
 package com.databricks.sdk.service.iam;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class PermissionAssignment {
-  /** Error response associated with a workspace permission assignment, if any. */
+  /**
+   * Error response associated with a workspace permission assignment, if any.
+   */
   @JsonProperty("error")
   private String error;
-
-  /** The permissions level of the principal. */
+  
+  /**
+   * The permissions level of the principal.
+   */
   @JsonProperty("permissions")
   private Collection<WorkspacePermission> permissions;
-
-  /** Information about the principal assigned to the workspace. */
+  
+  /**
+   * Information about the principal assigned to the workspace.
+   */
   @JsonProperty("principal")
   private PrincipalOutput principal;
-
+  
   public PermissionAssignment setError(String error) {
     this.error = error;
     return this;
@@ -30,7 +42,7 @@ public class PermissionAssignment {
   public String getError() {
     return error;
   }
-
+  
   public PermissionAssignment setPermissions(Collection<WorkspacePermission> permissions) {
     this.permissions = permissions;
     return this;
@@ -39,7 +51,7 @@ public class PermissionAssignment {
   public Collection<WorkspacePermission> getPermissions() {
     return permissions;
   }
-
+  
   public PermissionAssignment setPrincipal(PrincipalOutput principal) {
     this.principal = principal;
     return this;
@@ -48,6 +60,7 @@ public class PermissionAssignment {
   public PrincipalOutput getPrincipal() {
     return principal;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -55,8 +68,9 @@ public class PermissionAssignment {
     if (o == null || getClass() != o.getClass()) return false;
     PermissionAssignment that = (PermissionAssignment) o;
     return Objects.equals(error, that.error)
-        && Objects.equals(permissions, that.permissions)
-        && Objects.equals(principal, that.principal);
+    && Objects.equals(permissions, that.permissions)
+    && Objects.equals(principal, that.principal)
+    ;
   }
 
   @Override
@@ -67,9 +81,8 @@ public class PermissionAssignment {
   @Override
   public String toString() {
     return new ToStringer(PermissionAssignment.class)
-        .add("error", error)
-        .add("permissions", permissions)
-        .add("principal", principal)
-        .toString();
+      .add("error", error)
+      .add("permissions", permissions)
+      .add("principal", principal).toString();
   }
 }

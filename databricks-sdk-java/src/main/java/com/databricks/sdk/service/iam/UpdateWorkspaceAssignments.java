@@ -2,24 +2,38 @@
 
 package com.databricks.sdk.service.iam;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+
 @Generated
 public class UpdateWorkspaceAssignments {
-  /** Array of permissions assignments to update on the workspace. */
+  /**
+   * Array of permissions assignments to update on the workspace.
+   */
   @JsonProperty("permissions")
   private Collection<WorkspacePermission> permissions;
-
-  /** The ID of the user, service principal, or group. */
+  
+  /**
+   * The ID of the user, service principal, or group.
+   */
+  
   private Long principalId;
-
-  /** The workspace ID. */
+  
+  /**
+   * The workspace ID.
+   */
+  
   private Long workspaceId;
-
+  
   public UpdateWorkspaceAssignments setPermissions(Collection<WorkspacePermission> permissions) {
     this.permissions = permissions;
     return this;
@@ -28,7 +42,7 @@ public class UpdateWorkspaceAssignments {
   public Collection<WorkspacePermission> getPermissions() {
     return permissions;
   }
-
+  
   public UpdateWorkspaceAssignments setPrincipalId(Long principalId) {
     this.principalId = principalId;
     return this;
@@ -37,7 +51,7 @@ public class UpdateWorkspaceAssignments {
   public Long getPrincipalId() {
     return principalId;
   }
-
+  
   public UpdateWorkspaceAssignments setWorkspaceId(Long workspaceId) {
     this.workspaceId = workspaceId;
     return this;
@@ -46,6 +60,7 @@ public class UpdateWorkspaceAssignments {
   public Long getWorkspaceId() {
     return workspaceId;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -53,8 +68,9 @@ public class UpdateWorkspaceAssignments {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateWorkspaceAssignments that = (UpdateWorkspaceAssignments) o;
     return Objects.equals(permissions, that.permissions)
-        && Objects.equals(principalId, that.principalId)
-        && Objects.equals(workspaceId, that.workspaceId);
+    && Objects.equals(principalId, that.principalId)
+    && Objects.equals(workspaceId, that.workspaceId)
+    ;
   }
 
   @Override
@@ -65,9 +81,8 @@ public class UpdateWorkspaceAssignments {
   @Override
   public String toString() {
     return new ToStringer(UpdateWorkspaceAssignments.class)
-        .add("permissions", permissions)
-        .add("principalId", principalId)
-        .add("workspaceId", workspaceId)
-        .toString();
+      .add("permissions", permissions)
+      .add("principalId", principalId)
+      .add("workspaceId", workspaceId).toString();
   }
 }

@@ -2,21 +2,32 @@
 
 package com.databricks.sdk.service.jobs;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class SqlTaskSubscription {
-  /** The canonical identifier of the destination to receive email notification. */
+  /**
+   * The canonical identifier of the destination to receive email notification.
+   */
   @JsonProperty("destination_id")
   private String destinationId;
-
-  /** The user name to receive the subscription email. */
+  
+  /**
+   * The user name to receive the subscription email.
+   */
   @JsonProperty("user_name")
   private String userName;
-
+  
   public SqlTaskSubscription setDestinationId(String destinationId) {
     this.destinationId = destinationId;
     return this;
@@ -25,7 +36,7 @@ public class SqlTaskSubscription {
   public String getDestinationId() {
     return destinationId;
   }
-
+  
   public SqlTaskSubscription setUserName(String userName) {
     this.userName = userName;
     return this;
@@ -34,6 +45,7 @@ public class SqlTaskSubscription {
   public String getUserName() {
     return userName;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -41,7 +53,8 @@ public class SqlTaskSubscription {
     if (o == null || getClass() != o.getClass()) return false;
     SqlTaskSubscription that = (SqlTaskSubscription) o;
     return Objects.equals(destinationId, that.destinationId)
-        && Objects.equals(userName, that.userName);
+    && Objects.equals(userName, that.userName)
+    ;
   }
 
   @Override
@@ -52,8 +65,7 @@ public class SqlTaskSubscription {
   @Override
   public String toString() {
     return new ToStringer(SqlTaskSubscription.class)
-        .add("destinationId", destinationId)
-        .add("userName", userName)
-        .toString();
+      .add("destinationId", destinationId)
+      .add("userName", userName).toString();
   }
 }

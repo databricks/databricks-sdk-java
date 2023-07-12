@@ -2,36 +2,48 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.ToStringer;
+import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
 
 @Generated
 public class ExecuteStatementResponse {
-  /** The result manifest provides schema and metadata for the result set. */
+  /**
+   * The result manifest provides schema and metadata for the result set.
+   */
   @JsonProperty("manifest")
   private ResultManifest manifest;
-
+  
   /**
-   * Result data chunks are delivered in either the `chunk` field when using `INLINE` disposition,
-   * or in the `external_link` field when using `EXTERNAL_LINKS` disposition. Exactly one of these
-   * will be set.
+   * Result data chunks are delivered in either the `chunk` field when using
+   * `INLINE` disposition, or in the `external_link` field when using
+   * `EXTERNAL_LINKS` disposition. Exactly one of these will be set.
    */
   @JsonProperty("result")
   private ResultData result;
-
+  
   /**
-   * Statement ID is returned upon successfully submitting a SQL statement, and is a required
-   * reference for all subsequent calls.
+   * Statement ID is returned upon successfully submitting a SQL statement, and
+   * is a required reference for all subsequent calls.
    */
   @JsonProperty("statement_id")
   private String statementId;
-
-  /** Status response includes execution state and if relevant, error information. */
+  
+  /**
+   * Status response includes execution state and if relevant, error
+   * information.
+   */
   @JsonProperty("status")
   private StatementStatus status;
-
+  
   public ExecuteStatementResponse setManifest(ResultManifest manifest) {
     this.manifest = manifest;
     return this;
@@ -40,7 +52,7 @@ public class ExecuteStatementResponse {
   public ResultManifest getManifest() {
     return manifest;
   }
-
+  
   public ExecuteStatementResponse setResult(ResultData result) {
     this.result = result;
     return this;
@@ -49,7 +61,7 @@ public class ExecuteStatementResponse {
   public ResultData getResult() {
     return result;
   }
-
+  
   public ExecuteStatementResponse setStatementId(String statementId) {
     this.statementId = statementId;
     return this;
@@ -58,7 +70,7 @@ public class ExecuteStatementResponse {
   public String getStatementId() {
     return statementId;
   }
-
+  
   public ExecuteStatementResponse setStatus(StatementStatus status) {
     this.status = status;
     return this;
@@ -67,6 +79,7 @@ public class ExecuteStatementResponse {
   public StatementStatus getStatus() {
     return status;
   }
+  
 
   @Override
   public boolean equals(Object o) {
@@ -74,9 +87,10 @@ public class ExecuteStatementResponse {
     if (o == null || getClass() != o.getClass()) return false;
     ExecuteStatementResponse that = (ExecuteStatementResponse) o;
     return Objects.equals(manifest, that.manifest)
-        && Objects.equals(result, that.result)
-        && Objects.equals(statementId, that.statementId)
-        && Objects.equals(status, that.status);
+    && Objects.equals(result, that.result)
+    && Objects.equals(statementId, that.statementId)
+    && Objects.equals(status, that.status)
+    ;
   }
 
   @Override
@@ -87,10 +101,9 @@ public class ExecuteStatementResponse {
   @Override
   public String toString() {
     return new ToStringer(ExecuteStatementResponse.class)
-        .add("manifest", manifest)
-        .add("result", result)
-        .add("statementId", statementId)
-        .add("status", status)
-        .toString();
+      .add("manifest", manifest)
+      .add("result", result)
+      .add("statementId", statementId)
+      .add("status", status).toString();
   }
 }

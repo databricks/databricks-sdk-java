@@ -2,22 +2,34 @@
 
 package com.databricks.sdk.service.ml;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** Get a model version */
+
+/**
+ * Get a model version
+ */
 @Generated
 public class GetModelVersionRequest {
-  /** Name of the registered model */
+  /**
+   * Name of the registered model
+   */
   @QueryParam("name")
   private String name;
-
-  /** Model version number */
+  
+  /**
+   * Model version number
+   */
   @QueryParam("version")
   private String version;
-
+  
   public GetModelVersionRequest setName(String name) {
     this.name = name;
     return this;
@@ -26,7 +38,7 @@ public class GetModelVersionRequest {
   public String getName() {
     return name;
   }
-
+  
   public GetModelVersionRequest setVersion(String version) {
     this.version = version;
     return this;
@@ -35,13 +47,16 @@ public class GetModelVersionRequest {
   public String getVersion() {
     return version;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetModelVersionRequest that = (GetModelVersionRequest) o;
-    return Objects.equals(name, that.name) && Objects.equals(version, that.version);
+    return Objects.equals(name, that.name)
+    && Objects.equals(version, that.version)
+    ;
   }
 
   @Override
@@ -52,8 +67,7 @@ public class GetModelVersionRequest {
   @Override
   public String toString() {
     return new ToStringer(GetModelVersionRequest.class)
-        .add("name", name)
-        .add("version", version)
-        .toString();
+      .add("name", name)
+      .add("version", version).toString();
   }
 }

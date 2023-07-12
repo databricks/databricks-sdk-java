@@ -2,11 +2,22 @@
 
 package com.databricks.sdk.service.sql;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** Type of statement for this query */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * Type of statement for this query
+ */
 @Generated
-public enum QueryStatementType {
+public enum QueryStatementType{
   ALTER,
   ANALYZE,
   COPY,
@@ -29,4 +40,5 @@ public enum QueryStatementType {
   TRUNCATE,
   UPDATE,
   USE,
+  
 }

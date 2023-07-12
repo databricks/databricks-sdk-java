@@ -2,13 +2,25 @@
 
 package com.databricks.sdk.service.compute;
 
-import com.databricks.sdk.support.Generated;
+import java.util.Map;
 
-/** lowest-price | diversified | capacity-optimized */
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
+import com.databricks.sdk.support.ToStringer;
+
+
+/**
+ * lowest-price | diversified | capacity-optimized
+ */
 @Generated
-public enum FleetSpotOptionAllocationStrategy {
+public enum FleetSpotOptionAllocationStrategy{
   CAPACITY_OPTIMIZED,
   DIVERSIFIED,
   LOWEST_PRICE,
   PRIORITIZED,
+  
 }

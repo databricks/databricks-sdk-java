@@ -79,6 +79,8 @@ import com.databricks.sdk.service.settings.TokensAPI;
 import com.databricks.sdk.service.settings.TokensService;
 import com.databricks.sdk.service.settings.WorkspaceConfAPI;
 import com.databricks.sdk.service.settings.WorkspaceConfService;
+import com.databricks.sdk.service.sharing.CleanRoomsAPI;
+import com.databricks.sdk.service.sharing.CleanRoomsService;
 import com.databricks.sdk.service.sharing.ProvidersAPI;
 import com.databricks.sdk.service.sharing.ProvidersService;
 import com.databricks.sdk.service.sharing.RecipientActivationAPI;
@@ -122,6 +124,7 @@ public class WorkspaceClient {
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AlertsAPI alertsAPI;
   private CatalogsAPI catalogsAPI;
+  private CleanRoomsAPI cleanRoomsAPI;
   private ClusterPoliciesAPI clusterPoliciesAPI;
   private ClustersExt clustersAPI;
   private CommandExecutionAPI commandExecutionAPI;
@@ -184,6 +187,7 @@ public class WorkspaceClient {
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
+    cleanRoomsAPI = new CleanRoomsAPI(apiClient);
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
     clustersAPI = new ClustersExt(apiClient);
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
@@ -273,6 +277,18 @@ public class WorkspaceClient {
    */
   public CatalogsAPI catalogs() {
     return catalogsAPI;
+  }
+
+  /**
+   * A clean room is a secure, privacy-protecting environment where two or more parties can share
+   * sensitive enterprise data, including customer data, for measurements, insights, activation and
+   * other use cases.
+   *
+   * <p>To create clean rooms, you must be a metastore admin or a user with the
+   * **CREATE_CLEAN_ROOM** privilege.
+   */
+  public CleanRoomsAPI cleanRooms() {
+    return cleanRoomsAPI;
   }
 
   /**
@@ -762,14 +778,14 @@ public class WorkspaceClient {
   /**
    * The Serving Endpoints API allows you to create, update, and delete model serving endpoints.
    *
-   * <p>You can use a serving endpoint to serve models from the Databricks Model Registry. Endpoints
-   * expose the underlying models as scalable REST API endpoints using serverless compute. This
-   * means the endpoints and associated compute resources are fully managed by Databricks and will
-   * not appear in your cloud account. A serving endpoint can consist of one or more MLflow models
-   * from the Databricks Model Registry, called served models. A serving endpoint can have at most
-   * ten served models. You can configure traffic settings to define how requests should be routed
-   * to your served models behind an endpoint. Additionally, you can configure the scale of
-   * resources that should be applied to each served model.
+   * <p>You can use a serving endpoint to serve models from the Databricks Model Registry or from
+   * Unity Catalog. Endpoints expose the underlying models as scalable REST API endpoints using
+   * serverless compute. This means the endpoints and associated compute resources are fully managed
+   * by Databricks and will not appear in your cloud account. A serving endpoint can consist of one
+   * or more MLflow models from the Databricks Model Registry, called served models. A serving
+   * endpoint can have at most ten served models. You can configure traffic settings to define how
+   * requests should be routed to your served models behind an endpoint. Additionally, you can
+   * configure the scale of resources that should be applied to each served model.
    */
   public ServingEndpointsAPI servingEndpoints() {
     return servingEndpointsAPI;
@@ -1102,6 +1118,12 @@ public class WorkspaceClient {
   /** Replace CatalogsAPI implementation with mock */
   public WorkspaceClient withCatalogsImpl(CatalogsService catalogs) {
     catalogsAPI = new CatalogsAPI(catalogs);
+    return this;
+  }
+
+  /** Replace CleanRoomsAPI implementation with mock */
+  public WorkspaceClient withCleanRoomsImpl(CleanRoomsService cleanRooms) {
+    cleanRoomsAPI = new CleanRoomsAPI(cleanRooms);
     return this;
   }
 

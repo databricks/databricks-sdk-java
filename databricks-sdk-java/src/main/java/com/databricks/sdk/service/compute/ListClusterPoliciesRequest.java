@@ -2,28 +2,37 @@
 
 package com.databricks.sdk.service.compute;
 
+import java.util.Map;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
+import java.util.Objects;
+
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import java.util.Objects;
 
-/** Get a cluster policy */
+
+/**
+ * Get a cluster policy
+ */
 @Generated
 public class ListClusterPoliciesRequest {
   /**
-   * The cluster policy attribute to sort by. * `POLICY_CREATION_TIME` - Sort result list by policy
-   * creation time. * `POLICY_NAME` - Sort result list by policy name.
+   * The cluster policy attribute to sort by. * `POLICY_CREATION_TIME` - Sort
+   * result list by policy creation time. * `POLICY_NAME` - Sort result list by
+   * policy name.
    */
   @QueryParam("sort_column")
   private ListSortColumn sortColumn;
-
+  
   /**
-   * The order in which the policies get listed. * `DESC` - Sort result list in descending order. *
-   * `ASC` - Sort result list in ascending order.
+   * The order in which the policies get listed. * `DESC` - Sort result list in
+   * descending order. * `ASC` - Sort result list in ascending order.
    */
   @QueryParam("sort_order")
   private ListSortOrder sortOrder;
-
+  
   public ListClusterPoliciesRequest setSortColumn(ListSortColumn sortColumn) {
     this.sortColumn = sortColumn;
     return this;
@@ -32,7 +41,7 @@ public class ListClusterPoliciesRequest {
   public ListSortColumn getSortColumn() {
     return sortColumn;
   }
-
+  
   public ListClusterPoliciesRequest setSortOrder(ListSortOrder sortOrder) {
     this.sortOrder = sortOrder;
     return this;
@@ -41,13 +50,16 @@ public class ListClusterPoliciesRequest {
   public ListSortOrder getSortOrder() {
     return sortOrder;
   }
+  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListClusterPoliciesRequest that = (ListClusterPoliciesRequest) o;
-    return Objects.equals(sortColumn, that.sortColumn) && Objects.equals(sortOrder, that.sortOrder);
+    return Objects.equals(sortColumn, that.sortColumn)
+    && Objects.equals(sortOrder, that.sortOrder)
+    ;
   }
 
   @Override
@@ -58,8 +70,7 @@ public class ListClusterPoliciesRequest {
   @Override
   public String toString() {
     return new ToStringer(ListClusterPoliciesRequest.class)
-        .add("sortColumn", sortColumn)
-        .add("sortOrder", sortOrder)
-        .toString();
+      .add("sortColumn", sortColumn)
+      .add("sortOrder", sortOrder).toString();
   }
 }
