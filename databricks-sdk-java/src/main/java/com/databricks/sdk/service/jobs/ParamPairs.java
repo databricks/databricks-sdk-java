@@ -2,4 +2,4 @@
 
 package com.databricks.sdk.service.jobs;
 
-// type ParamPairs Map<String,String>
+// type ParamPairs Map<String,String>Content

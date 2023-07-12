@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Statement execution supports three result formats: `JSON_ARRAY` (default), `ARROW_STREAM`, and
@@ -43,7 +44,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum Format {
+  @JsonProperty("ARROW_STREAM")
   ARROW_STREAM,
+
+  @JsonProperty("CSV")
   CSV,
+
+  @JsonProperty("JSON_ARRAY")
   JSON_ARRAY,
 }

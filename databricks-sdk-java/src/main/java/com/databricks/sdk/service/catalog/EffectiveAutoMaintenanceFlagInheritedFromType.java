@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The type of the object from which the flag was inherited. If there was no inheritance, this field
@@ -10,6 +11,9 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum EffectiveAutoMaintenanceFlagInheritedFromType {
+  @JsonProperty("CATALOG")
   CATALOG,
+
+  @JsonProperty("SCHEMA")
   SCHEMA,
 }

@@ -3,4 +3,4 @@
 package com.databricks.sdk.service.catalog;
 
 /** A map of key-value properties attached to the securable. */
-// type SecurablePropertiesMap Map<String,String>
+// type SecurablePropertiesMap Map<String,String>Content

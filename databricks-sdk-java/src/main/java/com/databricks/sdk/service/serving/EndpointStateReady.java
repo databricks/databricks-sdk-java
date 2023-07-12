@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The state of an endpoint, indicating whether or not the endpoint is queryable. An endpoint is
@@ -11,6 +12,9 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum EndpointStateReady {
+  @JsonProperty("NOT_READY")
   NOT_READY,
+
+  @JsonProperty("READY")
   READY,
 }

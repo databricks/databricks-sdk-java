@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The state of the served model deployment. DEPLOYMENT_CREATING indicates that the served model is
@@ -17,9 +18,18 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum ServedModelStateDeployment {
+  @JsonProperty("DEPLOYMENT_ABORTED")
   DEPLOYMENT_ABORTED,
+
+  @JsonProperty("DEPLOYMENT_CREATING")
   DEPLOYMENT_CREATING,
+
+  @JsonProperty("DEPLOYMENT_FAILED")
   DEPLOYMENT_FAILED,
+
+  @JsonProperty("DEPLOYMENT_READY")
   DEPLOYMENT_READY,
+
+  @JsonProperty("DEPLOYMENT_RECOVERING")
   DEPLOYMENT_RECOVERING,
 }

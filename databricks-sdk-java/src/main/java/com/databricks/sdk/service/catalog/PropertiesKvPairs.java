@@ -3,4 +3,4 @@
 package com.databricks.sdk.service.catalog;
 
 /** An object containing map of key-value properties attached to the connection. */
-// type PropertiesKvPairs Map<String,String>
+// type PropertiesKvPairs Map<String,String>Content

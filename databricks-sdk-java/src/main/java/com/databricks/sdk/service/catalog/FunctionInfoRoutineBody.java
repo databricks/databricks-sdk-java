@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Function language. When **EXTERNAL** is used, the language of the routine function should be
@@ -12,6 +13,9 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum FunctionInfoRoutineBody {
+  @JsonProperty("EXTERNAL")
   EXTERNAL,
+
+  @JsonProperty("SQL")
   SQL,
 }

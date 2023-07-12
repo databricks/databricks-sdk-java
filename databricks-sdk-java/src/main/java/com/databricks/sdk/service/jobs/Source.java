@@ -3,9 +3,13 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Generated
 public enum Source {
+  @JsonProperty("GIT")
   GIT,
+
+  @JsonProperty("WORKSPACE")
   WORKSPACE,
 }

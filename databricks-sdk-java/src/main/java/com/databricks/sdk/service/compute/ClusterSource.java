@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Determines whether the cluster was created by a user through the UI, created by the Databricks
@@ -10,11 +11,24 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum ClusterSource {
+  @JsonProperty("API")
   API,
+
+  @JsonProperty("JOB")
   JOB,
+
+  @JsonProperty("MODELS")
   MODELS,
+
+  @JsonProperty("PIPELINE")
   PIPELINE,
+
+  @JsonProperty("PIPELINE_MAINTENANCE")
   PIPELINE_MAINTENANCE,
+
+  @JsonProperty("SQL")
   SQL,
+
+  @JsonProperty("UI")
   UI,
 }

@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * ON: Grants all users in all workspaces access to the Personal Compute default policy, allowing
@@ -13,6 +14,9 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum PersonalComputeMessageEnum {
+  @JsonProperty("DELEGATE")
   DELEGATE,
+
+  @JsonProperty("ON")
   ON,
 }

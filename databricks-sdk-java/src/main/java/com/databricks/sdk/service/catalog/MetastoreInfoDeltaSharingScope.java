@@ -3,10 +3,14 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /** The scope of Delta Sharing enabled for the metastore. */
 @Generated
 public enum MetastoreInfoDeltaSharingScope {
+  @JsonProperty("INTERNAL")
   INTERNAL,
+
+  @JsonProperty("INTERNAL_AND_EXTERNAL")
   INTERNAL_AND_EXTERNAL,
 }

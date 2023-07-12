@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * State of the alert. Possible values are: `unknown` (yet to be evaluated), `triggered` (evaluated
@@ -10,7 +11,12 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum AlertState {
+  @JsonProperty("ok")
   OK,
+
+  @JsonProperty("triggered")
   TRIGGERED,
+
+  @JsonProperty("unknown")
   UNKNOWN,
 }

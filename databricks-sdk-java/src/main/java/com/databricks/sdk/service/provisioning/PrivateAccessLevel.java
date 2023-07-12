@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The private access level controls which VPC endpoints can connect to the UI or API of any
@@ -13,6 +14,9 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum PrivateAccessLevel {
+  @JsonProperty("ACCOUNT")
   ACCOUNT,
+
+  @JsonProperty("ENDPOINT")
   ENDPOINT,
 }
