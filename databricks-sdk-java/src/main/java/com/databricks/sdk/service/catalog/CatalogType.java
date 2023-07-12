@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum CatalogType {
   DELTASHARING_CATALOG,
-
   MANAGED_CATALOG,
-
   SYSTEM_CATALOG,
 }

@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum InstancePoolState {
   ACTIVE,
-
   DELETED,
-
   STOPPED,
 }

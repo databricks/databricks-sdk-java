@@ -13,8 +13,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum AwsAvailability {
   ON_DEMAND,
-
   SPOT,
-
   SPOT_WITH_FALLBACK,
 }

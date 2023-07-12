@@ -12,6 +12,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum EndpointStateReady {
   NOT_READY,
-
   READY,
 }

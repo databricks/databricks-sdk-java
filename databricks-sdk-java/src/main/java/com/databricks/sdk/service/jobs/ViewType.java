@@ -8,6 +8,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ViewType {
   DASHBOARD, // Dashboard view item.
-
   NOTEBOOK, // Notebook view item.
 }

@@ -8,6 +8,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum MetastoreInfoDeltaSharingScope {
   INTERNAL,
-
   INTERNAL_AND_EXTERNAL,
 }

@@ -7,12 +7,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ExportFormat {
   DBC,
-
   HTML,
-
   JUPYTER,
-
   R_MARKDOWN,
-
   SOURCE,
 }

@@ -8,20 +8,12 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum DataSourceFormat {
   AVRO,
-
   CSV,
-
   DELTA,
-
   DELTASHARING,
-
   JSON,
-
   ORC,
-
   PARQUET,
-
   TEXT,
-
   UNITY_CATALOG,
 }

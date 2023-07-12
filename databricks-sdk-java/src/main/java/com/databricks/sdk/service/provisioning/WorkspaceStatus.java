@@ -11,14 +11,9 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum WorkspaceStatus {
   BANNED,
-
   CANCELLING,
-
   FAILED,
-
   NOT_PROVISIONED,
-
   PROVISIONING,
-
   RUNNING,
 }

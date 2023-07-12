@@ -16,6 +16,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum GkeConfigConnectivityType {
   PRIVATE_NODE_PUBLIC_MASTER,
-
   PUBLIC_NODE_PUBLIC_MASTER,
 }

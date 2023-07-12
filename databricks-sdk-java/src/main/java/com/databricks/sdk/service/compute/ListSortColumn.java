@@ -7,6 +7,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ListSortColumn {
   POLICY_CREATION_TIME,
-
   POLICY_NAME,
 }

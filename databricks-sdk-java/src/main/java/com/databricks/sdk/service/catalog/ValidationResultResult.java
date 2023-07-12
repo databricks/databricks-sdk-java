@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ValidationResultResult {
   FAIL,
-
   PASS,
-
   SKIP,
 }

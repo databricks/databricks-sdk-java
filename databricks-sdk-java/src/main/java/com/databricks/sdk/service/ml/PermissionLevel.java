@@ -11,12 +11,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum PermissionLevel {
   CAN_EDIT,
-
   CAN_MANAGE,
-
   CAN_MANAGE_PRODUCTION_VERSIONS,
-
   CAN_MANAGE_STAGING_VERSIONS,
-
   CAN_READ,
 }

@@ -8,9 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum Status {
   FAILED_REGISTRATION, // Request to register a new model version has failed.
-
   PENDING_REGISTRATION, // Request to register a new model version is pending as server performs
   // background tasks.
-
   READY, // Model version is ready for use.
 }

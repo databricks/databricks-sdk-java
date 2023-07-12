@@ -44,8 +44,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum Format {
   ARROW_STREAM,
-
   CSV,
-
   JSON_ARRAY,
 }

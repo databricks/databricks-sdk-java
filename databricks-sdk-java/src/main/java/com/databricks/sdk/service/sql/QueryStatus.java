@@ -8,12 +8,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum QueryStatus {
   CANCELED, // Query has been cancelled by the user.
-
   FAILED, // Query has failed.
-
   FINISHED, // Query has completed.
-
   QUEUED, // Query has been received and queued.
-
   RUNNING, // Query has started.
 }

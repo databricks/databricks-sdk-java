@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum SharedDataObjectUpdateAction {
   ADD,
-
   REMOVE,
-
   UPDATE,
 }

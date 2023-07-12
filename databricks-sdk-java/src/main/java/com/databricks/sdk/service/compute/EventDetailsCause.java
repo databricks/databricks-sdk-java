@@ -8,10 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum EventDetailsCause {
   AUTORECOVERY,
-
   AUTOSCALE,
-
   REPLACE_BAD_NODES,
-
   USER_REQUEST,
 }

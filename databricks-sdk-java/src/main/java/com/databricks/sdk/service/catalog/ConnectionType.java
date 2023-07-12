@@ -8,16 +8,10 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ConnectionType {
   DATABRICKS,
-
   MYSQL,
-
   POSTGRESQL,
-
   REDSHIFT,
-
   SNOWFLAKE,
-
   SQLDW,
-
   SQLSERVER,
 }

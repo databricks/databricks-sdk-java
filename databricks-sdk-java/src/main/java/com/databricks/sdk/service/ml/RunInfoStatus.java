@@ -8,12 +8,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum RunInfoStatus {
   FAILED,
-
   FINISHED,
-
   KILLED,
-
   RUNNING,
-
   SCHEDULED,
 }

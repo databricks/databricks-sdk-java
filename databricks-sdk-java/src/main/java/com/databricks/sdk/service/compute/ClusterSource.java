@@ -11,16 +11,10 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ClusterSource {
   API,
-
   JOB,
-
   MODELS,
-
   PIPELINE,
-
   PIPELINE_MAINTENANCE,
-
   SQL,
-
   UI,
 }

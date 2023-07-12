@@ -8,14 +8,9 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum State {
   DELETED,
-
   DELETING,
-
   RUNNING,
-
   STARTING,
-
   STOPPED,
-
   STOPPING,
 }

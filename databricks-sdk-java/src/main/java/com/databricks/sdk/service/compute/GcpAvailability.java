@@ -11,8 +11,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum GcpAvailability {
   ON_DEMAND_GCP,
-
   PREEMPTIBLE_GCP,
-
   PREEMPTIBLE_WITH_FALLBACK_GCP,
 }

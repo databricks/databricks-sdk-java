@@ -11,12 +11,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum SystemSchemaInfoState {
   AVAILABLE,
-
   DISABLE_INITIALIZED,
-
   ENABLE_COMPLETED,
-
   ENABLE_INITIALIZED,
-
   UNAVAILABLE,
 }

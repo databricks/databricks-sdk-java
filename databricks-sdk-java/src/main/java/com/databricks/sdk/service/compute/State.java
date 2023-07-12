@@ -8,18 +8,11 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum State {
   ERROR,
-
   PENDING,
-
   RESIZING,
-
   RESTARTING,
-
   RUNNING,
-
   TERMINATED,
-
   TERMINATING,
-
   UNKNOWN,
 }

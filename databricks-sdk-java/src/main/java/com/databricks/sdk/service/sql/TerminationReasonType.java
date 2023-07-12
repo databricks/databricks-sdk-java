@@ -8,10 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum TerminationReasonType {
   CLIENT_ERROR,
-
   CLOUD_FAILURE,
-
   SERVICE_FAULT,
-
   SUCCESS,
 }

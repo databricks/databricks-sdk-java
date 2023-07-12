@@ -8,6 +8,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum DataPlaneEventDetailsEventType {
   NODE_BLACKLISTED,
-
   NODE_EXCLUDED_DECOMMISSIONED,
 }

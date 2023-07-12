@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum GetWorkspaceWarehouseConfigResponseSecurityPolicy {
   DATA_ACCESS_CONTROL,
-
   NONE,
-
   PASSTHROUGH,
 }

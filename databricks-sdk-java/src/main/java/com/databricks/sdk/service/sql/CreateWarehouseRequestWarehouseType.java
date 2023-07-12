@@ -11,8 +11,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum CreateWarehouseRequestWarehouseType {
   CLASSIC,
-
   PRO,
-
   TYPE_UNSPECIFIED,
 }

@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum FunctionInfoSqlDataAccess {
   CONTAINS_SQL,
-
   NO_SQL,
-
   READS_SQL_DATA,
 }

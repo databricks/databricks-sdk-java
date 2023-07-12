@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ViewsToExport {
   ALL, // All views of the notebook.
-
   CODE, // Code view of the notebook.
-
   DASHBOARDS, // All dashboard views of the notebook.
 }

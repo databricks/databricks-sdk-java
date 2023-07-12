@@ -8,7 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ListType {
   ALLOW, // An allow list. Include this IP or range.
-
   BLOCK, // A block list. Exclude this IP or range. IP addresses in the block list are
   // excluded even if they are included in an allow list.
 

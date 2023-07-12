@@ -18,12 +18,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ServedModelStateDeployment {
   DEPLOYMENT_ABORTED,
-
   DEPLOYMENT_CREATING,
-
   DEPLOYMENT_FAILED,
-
   DEPLOYMENT_READY,
-
   DEPLOYMENT_RECOVERING,
 }

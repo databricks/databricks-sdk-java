@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum MaturityLevel {
   DEPRECATED,
-
   EVOLVING,
-
   STABLE,
 }

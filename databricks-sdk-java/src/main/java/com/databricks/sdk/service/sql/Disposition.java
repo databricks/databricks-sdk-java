@@ -29,6 +29,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum Disposition {
   EXTERNAL_LINKS,
-
   INLINE,
 }

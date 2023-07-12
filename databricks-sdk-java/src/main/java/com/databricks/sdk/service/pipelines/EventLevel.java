@@ -8,10 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum EventLevel {
   ERROR,
-
   INFO,
-
   METRICS,
-
   WARN,
 }

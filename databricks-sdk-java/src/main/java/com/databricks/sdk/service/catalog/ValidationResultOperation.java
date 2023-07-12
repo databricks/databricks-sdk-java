@@ -8,10 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ValidationResultOperation {
   DELETE,
-
   LIST,
-
   READ,
-
   WRITE,
 }

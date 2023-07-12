@@ -8,16 +8,10 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum LibraryFullStatusStatus {
   FAILED,
-
   INSTALLED,
-
   INSTALLING,
-
   PENDING,
-
   RESOLVING,
-
   SKIPPED,
-
   UNINSTALL_ON_RESTART,
 }

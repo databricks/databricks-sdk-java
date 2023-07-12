@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum SpotInstancePolicy {
   COST_OPTIMIZED,
-
   POLICY_UNSPECIFIED,
-
   RELIABILITY_OPTIMIZED,
 }

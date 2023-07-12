@@ -8,10 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum FleetOnDemandOptionAllocationStrategy {
   CAPACITY_OPTIMIZED,
-
   DIVERSIFIED,
-
   LOWEST_PRICE,
-
   PRIORITIZED,
 }

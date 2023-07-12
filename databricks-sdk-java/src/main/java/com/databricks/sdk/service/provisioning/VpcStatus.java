@@ -8,10 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum VpcStatus {
   BROKEN, // Broken.
-
   UNATTACHED, // Unattached.
-
   VALID, // Valid.
-
   WARNED, // Warned.
 }

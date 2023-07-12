@@ -8,6 +8,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum CommentActivityAction {
   DELETE_COMMENT, // Delete the comment
-
   EDIT_COMMENT, // Edit the comment
 }

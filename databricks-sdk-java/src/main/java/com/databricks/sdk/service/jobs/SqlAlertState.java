@@ -13,8 +13,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum SqlAlertState {
   OK,
-
   TRIGGERED,
-
   UNKNOWN,
 }

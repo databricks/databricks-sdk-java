@@ -13,12 +13,8 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ObjectType {
   DIRECTORY,
-
   FILE,
-
   LIBRARY,
-
   NOTEBOOK,
-
   REPO,
 }

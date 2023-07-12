@@ -1,7 +1,6 @@
 package com.databricks.sdk.mixin;
 
-import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.NotAvailableInRegion;
-import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.NotEnabledOnSubscription;
+import static com.databricks.sdk.service.compute.CloudProviderNodeStatus.*;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksError;
@@ -191,7 +190,7 @@ public class ClustersExt extends ClustersAPI {
       return false;
     }
     for (CloudProviderNodeStatus st : nt.getNodeInfo().getStatus()) {
-      if (st == NotAvailableInRegion || st == NotEnabledOnSubscription) {
+      if (st == NOTAVAILABLEINREGION || st == NOTENABLEDONSUBSCRIPTION) {
         return true;
       }
     }

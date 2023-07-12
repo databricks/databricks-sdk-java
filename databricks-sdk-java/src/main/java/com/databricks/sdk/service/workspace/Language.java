@@ -8,10 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum Language {
   PYTHON,
-
   R,
-
   SCALA,
-
   SQL,
 }

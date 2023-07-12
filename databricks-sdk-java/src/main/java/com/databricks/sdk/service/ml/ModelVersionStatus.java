@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ModelVersionStatus {
   FAILED_REGISTRATION,
-
   PENDING_REGISTRATION,
-
   READY,
 }

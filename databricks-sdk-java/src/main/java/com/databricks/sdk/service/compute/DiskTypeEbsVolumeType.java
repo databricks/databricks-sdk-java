@@ -7,6 +7,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum DiskTypeEbsVolumeType {
   GENERAL_PURPOSE_SSD,
-
   THROUGHPUT_OPTIMIZED_HDD,
 }

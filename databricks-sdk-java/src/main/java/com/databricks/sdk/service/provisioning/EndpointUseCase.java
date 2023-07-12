@@ -13,6 +13,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum EndpointUseCase {
   DATAPLANE_RELAY_ACCESS,
-
   WORKSPACE_ACCESS,
 }

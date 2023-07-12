@@ -7,8 +7,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum WorkspacePermission {
   ADMIN,
-
   UNKNOWN,
-
   USER,
 }

@@ -19,14 +19,9 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ImportFormat {
   AUTO,
-
   DBC,
-
   HTML,
-
   JUPYTER,
-
   R_MARKDOWN,
-
   SOURCE,
 }

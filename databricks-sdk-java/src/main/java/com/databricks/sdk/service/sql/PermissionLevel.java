@@ -8,8 +8,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum PermissionLevel {
   CAN_MANAGE, // Can manage the query
-
   CAN_RUN, // Can run the query
-
   CAN_VIEW, // Can view the query
 }

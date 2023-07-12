@@ -8,14 +8,9 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum PlansState {
   EMPTY,
-
   EXISTS,
-
   IGNORED_LARGE_PLANS_SIZE,
-
   IGNORED_SMALL_DURATION,
-
   IGNORED_SPARK_PLAN_TYPE,
-
   UNKNOWN,
 }

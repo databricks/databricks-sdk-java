@@ -10,8 +10,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum SearchExperimentsViewType {
   ACTIVE_ONLY,
-
   ALL,
-
   DELETED_ONLY,
 }

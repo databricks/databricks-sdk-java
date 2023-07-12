@@ -12,14 +12,9 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum PricingTier {
   COMMUNITY_EDITION,
-
   DEDICATED,
-
   ENTERPRISE,
-
   PREMIUM,
-
   STANDARD,
-
   UNKNOWN,
 }
