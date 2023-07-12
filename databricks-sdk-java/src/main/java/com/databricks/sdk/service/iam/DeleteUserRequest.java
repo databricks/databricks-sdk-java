@@ -2,28 +2,16 @@
 
 package com.databricks.sdk.service.iam;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-/**
- * Delete a user
- */
+/** Delete a user */
 @Generated
 public class DeleteUserRequest {
-  /**
-   * Unique ID for a user in the Databricks workspace.
-   */
-  
+  /** Unique ID for a user in the Databricks workspace. */
   private String id;
-  
+
   public DeleteUserRequest setId(String id) {
     this.id = id;
     return this;
@@ -32,15 +20,13 @@ public class DeleteUserRequest {
   public String getId() {
     return id;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteUserRequest that = (DeleteUserRequest) o;
-    return Objects.equals(id, that.id)
-    ;
+    return Objects.equals(id, that.id);
   }
 
   @Override
@@ -50,7 +36,6 @@ public class DeleteUserRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteUserRequest.class)
-      .add("id", id).toString();
+    return new ToStringer(DeleteUserRequest.class).add("id", id).toString();
   }
 }

@@ -2,26 +2,18 @@
 
 package com.databricks.sdk.service.iam;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class GetAssignableRolesForResourceResponse {
-  /**
-   
-   */
+  /** */
   @JsonProperty("roles")
   private Collection<String> roles;
-  
+
   public GetAssignableRolesForResourceResponse setRoles(Collection<String> roles) {
     this.roles = roles;
     return this;
@@ -30,15 +22,13 @@ public class GetAssignableRolesForResourceResponse {
   public Collection<String> getRoles() {
     return roles;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetAssignableRolesForResourceResponse that = (GetAssignableRolesForResourceResponse) o;
-    return Objects.equals(roles, that.roles)
-    ;
+    return Objects.equals(roles, that.roles);
   }
 
   @Override
@@ -49,6 +39,7 @@ public class GetAssignableRolesForResourceResponse {
   @Override
   public String toString() {
     return new ToStringer(GetAssignableRolesForResourceResponse.class)
-      .add("roles", roles).toString();
+        .add("roles", roles)
+        .toString();
   }
 }

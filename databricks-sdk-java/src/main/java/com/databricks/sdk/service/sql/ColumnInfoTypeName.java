@@ -2,22 +2,11 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
 
-
-/**
- * Name of type (INT, STRUCT, MAP, and so on)
- */
+/** Name of type (INT, STRUCT, MAP, and so on) */
 @Generated
-public enum ColumnInfoTypeName{
+public enum ColumnInfoTypeName {
   ARRAY,
   BINARY,
   BOOLEAN,
@@ -37,5 +26,4 @@ public enum ColumnInfoTypeName{
   STRUCT,
   TIMESTAMP,
   USER_DEFINED_TYPE,
-  
 }

@@ -2,32 +2,21 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class LogAnalyticsInfo {
-  /**
-   * <needs content added>
-   */
+  /** <needs content added> */
   @JsonProperty("log_analytics_primary_key")
   private String logAnalyticsPrimaryKey;
-  
-  /**
-   * <needs content added>
-   */
+
+  /** <needs content added> */
   @JsonProperty("log_analytics_workspace_id")
   private String logAnalyticsWorkspaceId;
-  
+
   public LogAnalyticsInfo setLogAnalyticsPrimaryKey(String logAnalyticsPrimaryKey) {
     this.logAnalyticsPrimaryKey = logAnalyticsPrimaryKey;
     return this;
@@ -36,7 +25,7 @@ public class LogAnalyticsInfo {
   public String getLogAnalyticsPrimaryKey() {
     return logAnalyticsPrimaryKey;
   }
-  
+
   public LogAnalyticsInfo setLogAnalyticsWorkspaceId(String logAnalyticsWorkspaceId) {
     this.logAnalyticsWorkspaceId = logAnalyticsWorkspaceId;
     return this;
@@ -45,7 +34,6 @@ public class LogAnalyticsInfo {
   public String getLogAnalyticsWorkspaceId() {
     return logAnalyticsWorkspaceId;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -53,8 +41,7 @@ public class LogAnalyticsInfo {
     if (o == null || getClass() != o.getClass()) return false;
     LogAnalyticsInfo that = (LogAnalyticsInfo) o;
     return Objects.equals(logAnalyticsPrimaryKey, that.logAnalyticsPrimaryKey)
-    && Objects.equals(logAnalyticsWorkspaceId, that.logAnalyticsWorkspaceId)
-    ;
+        && Objects.equals(logAnalyticsWorkspaceId, that.logAnalyticsWorkspaceId);
   }
 
   @Override
@@ -65,7 +52,8 @@ public class LogAnalyticsInfo {
   @Override
   public String toString() {
     return new ToStringer(LogAnalyticsInfo.class)
-      .add("logAnalyticsPrimaryKey", logAnalyticsPrimaryKey)
-      .add("logAnalyticsWorkspaceId", logAnalyticsWorkspaceId).toString();
+        .add("logAnalyticsPrimaryKey", logAnalyticsPrimaryKey)
+        .add("logAnalyticsWorkspaceId", logAnalyticsWorkspaceId)
+        .toString();
   }
 }

@@ -2,20 +2,9 @@
 
 package com.databricks.sdk.service.iam;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
 
 @Generated
-public enum PatchSchema{
-  urn:ietf:params:scim:api:messages:2.0:PatchOp,
-  
+public enum PatchSchema {
+  URN_IETF_PARAMS_SCIM_API_MESSAGES_PATCHOP,
 }

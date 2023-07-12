@@ -2,34 +2,19 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-/**
- * Get result chunk by index
- */
+/** Get result chunk by index */
 @Generated
 public class GetStatementResultChunkNRequest {
-  /**
-   
-   */
-  
+  /** */
   private Long chunkIndex;
-  
-  /**
-   
-   */
-  
+
+  /** */
   private String statementId;
-  
+
   public GetStatementResultChunkNRequest setChunkIndex(Long chunkIndex) {
     this.chunkIndex = chunkIndex;
     return this;
@@ -38,7 +23,7 @@ public class GetStatementResultChunkNRequest {
   public Long getChunkIndex() {
     return chunkIndex;
   }
-  
+
   public GetStatementResultChunkNRequest setStatementId(String statementId) {
     this.statementId = statementId;
     return this;
@@ -47,7 +32,6 @@ public class GetStatementResultChunkNRequest {
   public String getStatementId() {
     return statementId;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -55,8 +39,7 @@ public class GetStatementResultChunkNRequest {
     if (o == null || getClass() != o.getClass()) return false;
     GetStatementResultChunkNRequest that = (GetStatementResultChunkNRequest) o;
     return Objects.equals(chunkIndex, that.chunkIndex)
-    && Objects.equals(statementId, that.statementId)
-    ;
+        && Objects.equals(statementId, that.statementId);
   }
 
   @Override
@@ -67,7 +50,8 @@ public class GetStatementResultChunkNRequest {
   @Override
   public String toString() {
     return new ToStringer(GetStatementResultChunkNRequest.class)
-      .add("chunkIndex", chunkIndex)
-      .add("statementId", statementId).toString();
+        .add("chunkIndex", chunkIndex)
+        .add("statementId", statementId)
+        .toString();
   }
 }

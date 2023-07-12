@@ -2,38 +2,26 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class CreateModelRequest {
-  /**
-   * Optional description for registered model.
-   */
+  /** Optional description for registered model. */
   @JsonProperty("description")
   private String description;
-  
-  /**
-   * Register models under this name
-   */
+
+  /** Register models under this name */
   @JsonProperty("name")
   private String name;
-  
-  /**
-   * Additional metadata for registered model.
-   */
+
+  /** Additional metadata for registered model. */
   @JsonProperty("tags")
   private Collection<ModelTag> tags;
-  
+
   public CreateModelRequest setDescription(String description) {
     this.description = description;
     return this;
@@ -42,7 +30,7 @@ public class CreateModelRequest {
   public String getDescription() {
     return description;
   }
-  
+
   public CreateModelRequest setName(String name) {
     this.name = name;
     return this;
@@ -51,7 +39,7 @@ public class CreateModelRequest {
   public String getName() {
     return name;
   }
-  
+
   public CreateModelRequest setTags(Collection<ModelTag> tags) {
     this.tags = tags;
     return this;
@@ -60,7 +48,6 @@ public class CreateModelRequest {
   public Collection<ModelTag> getTags() {
     return tags;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -68,9 +55,8 @@ public class CreateModelRequest {
     if (o == null || getClass() != o.getClass()) return false;
     CreateModelRequest that = (CreateModelRequest) o;
     return Objects.equals(description, that.description)
-    && Objects.equals(name, that.name)
-    && Objects.equals(tags, that.tags)
-    ;
+        && Objects.equals(name, that.name)
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
@@ -81,8 +67,9 @@ public class CreateModelRequest {
   @Override
   public String toString() {
     return new ToStringer(CreateModelRequest.class)
-      .add("description", description)
-      .add("name", name)
-      .add("tags", tags).toString();
+        .add("description", description)
+        .add("name", name)
+        .add("tags", tags)
+        .toString();
   }
 }

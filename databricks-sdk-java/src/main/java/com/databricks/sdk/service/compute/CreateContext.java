@@ -2,32 +2,21 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class CreateContext {
-  /**
-   * Running cluster id
-   */
+  /** Running cluster id */
   @JsonProperty("clusterId")
   private String clusterId;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("language")
   private Language language;
-  
+
   public CreateContext setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -36,7 +25,7 @@ public class CreateContext {
   public String getClusterId() {
     return clusterId;
   }
-  
+
   public CreateContext setLanguage(Language language) {
     this.language = language;
     return this;
@@ -45,16 +34,13 @@ public class CreateContext {
   public Language getLanguage() {
     return language;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateContext that = (CreateContext) o;
-    return Objects.equals(clusterId, that.clusterId)
-    && Objects.equals(language, that.language)
-    ;
+    return Objects.equals(clusterId, that.clusterId) && Objects.equals(language, that.language);
   }
 
   @Override
@@ -65,7 +51,8 @@ public class CreateContext {
   @Override
   public String toString() {
     return new ToStringer(CreateContext.class)
-      .add("clusterId", clusterId)
-      .add("language", language).toString();
+        .add("clusterId", clusterId)
+        .add("language", language)
+        .toString();
   }
 }

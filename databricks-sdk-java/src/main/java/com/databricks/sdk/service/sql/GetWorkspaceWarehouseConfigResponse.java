@@ -2,81 +2,59 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class GetWorkspaceWarehouseConfigResponse {
-  /**
-   * Optional: Channel selection details
-   */
+  /** Optional: Channel selection details */
   @JsonProperty("channel")
   private Channel channel;
-  
-  /**
-   * Deprecated: Use sql_configuration_parameters
-   */
+
+  /** Deprecated: Use sql_configuration_parameters */
   @JsonProperty("config_param")
   private RepeatedEndpointConfPairs configParam;
-  
+
   /**
-   * Spark confs for external hive metastore configuration JSON serialized size
-   * must be less than <= 512K
+   * Spark confs for external hive metastore configuration JSON serialized size must be less than <=
+   * 512K
    */
   @JsonProperty("data_access_config")
   private Collection<EndpointConfPair> dataAccessConfig;
-  
+
   /**
-   * List of Warehouse Types allowed in this workspace (limits allowed value of
-   * the type field in CreateWarehouse and EditWarehouse). Note: Some types
-   * cannot be disabled, they don't need to be specified in
-   * SetWorkspaceWarehouseConfig. Note: Disabling a type may cause existing
-   * warehouses to be converted to another type. Used by frontend to save
-   * specific type availability in the warehouse create and edit form UI.
+   * List of Warehouse Types allowed in this workspace (limits allowed value of the type field in
+   * CreateWarehouse and EditWarehouse). Note: Some types cannot be disabled, they don't need to be
+   * specified in SetWorkspaceWarehouseConfig. Note: Disabling a type may cause existing warehouses
+   * to be converted to another type. Used by frontend to save specific type availability in the
+   * warehouse create and edit form UI.
    */
   @JsonProperty("enabled_warehouse_types")
   private Collection<WarehouseTypePair> enabledWarehouseTypes;
-  
-  /**
-   * Deprecated: Use sql_configuration_parameters
-   */
+
+  /** Deprecated: Use sql_configuration_parameters */
   @JsonProperty("global_param")
   private RepeatedEndpointConfPairs globalParam;
-  
-  /**
-   * GCP only: Google Service Account used to pass to cluster to access Google
-   * Cloud Storage
-   */
+
+  /** GCP only: Google Service Account used to pass to cluster to access Google Cloud Storage */
   @JsonProperty("google_service_account")
   private String googleServiceAccount;
-  
-  /**
-   * AWS Only: Instance profile used to pass IAM role to the cluster
-   */
+
+  /** AWS Only: Instance profile used to pass IAM role to the cluster */
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
-  
-  /**
-   * Security policy for warehouses
-   */
+
+  /** Security policy for warehouses */
   @JsonProperty("security_policy")
   private GetWorkspaceWarehouseConfigResponseSecurityPolicy securityPolicy;
-  
-  /**
-   * SQL configuration parameters
-   */
+
+  /** SQL configuration parameters */
   @JsonProperty("sql_configuration_parameters")
   private RepeatedEndpointConfPairs sqlConfigurationParameters;
-  
+
   public GetWorkspaceWarehouseConfigResponse setChannel(Channel channel) {
     this.channel = channel;
     return this;
@@ -85,7 +63,7 @@ public class GetWorkspaceWarehouseConfigResponse {
   public Channel getChannel() {
     return channel;
   }
-  
+
   public GetWorkspaceWarehouseConfigResponse setConfigParam(RepeatedEndpointConfPairs configParam) {
     this.configParam = configParam;
     return this;
@@ -94,8 +72,9 @@ public class GetWorkspaceWarehouseConfigResponse {
   public RepeatedEndpointConfPairs getConfigParam() {
     return configParam;
   }
-  
-  public GetWorkspaceWarehouseConfigResponse setDataAccessConfig(Collection<EndpointConfPair> dataAccessConfig) {
+
+  public GetWorkspaceWarehouseConfigResponse setDataAccessConfig(
+      Collection<EndpointConfPair> dataAccessConfig) {
     this.dataAccessConfig = dataAccessConfig;
     return this;
   }
@@ -103,8 +82,9 @@ public class GetWorkspaceWarehouseConfigResponse {
   public Collection<EndpointConfPair> getDataAccessConfig() {
     return dataAccessConfig;
   }
-  
-  public GetWorkspaceWarehouseConfigResponse setEnabledWarehouseTypes(Collection<WarehouseTypePair> enabledWarehouseTypes) {
+
+  public GetWorkspaceWarehouseConfigResponse setEnabledWarehouseTypes(
+      Collection<WarehouseTypePair> enabledWarehouseTypes) {
     this.enabledWarehouseTypes = enabledWarehouseTypes;
     return this;
   }
@@ -112,7 +92,7 @@ public class GetWorkspaceWarehouseConfigResponse {
   public Collection<WarehouseTypePair> getEnabledWarehouseTypes() {
     return enabledWarehouseTypes;
   }
-  
+
   public GetWorkspaceWarehouseConfigResponse setGlobalParam(RepeatedEndpointConfPairs globalParam) {
     this.globalParam = globalParam;
     return this;
@@ -121,7 +101,7 @@ public class GetWorkspaceWarehouseConfigResponse {
   public RepeatedEndpointConfPairs getGlobalParam() {
     return globalParam;
   }
-  
+
   public GetWorkspaceWarehouseConfigResponse setGoogleServiceAccount(String googleServiceAccount) {
     this.googleServiceAccount = googleServiceAccount;
     return this;
@@ -130,7 +110,7 @@ public class GetWorkspaceWarehouseConfigResponse {
   public String getGoogleServiceAccount() {
     return googleServiceAccount;
   }
-  
+
   public GetWorkspaceWarehouseConfigResponse setInstanceProfileArn(String instanceProfileArn) {
     this.instanceProfileArn = instanceProfileArn;
     return this;
@@ -139,8 +119,9 @@ public class GetWorkspaceWarehouseConfigResponse {
   public String getInstanceProfileArn() {
     return instanceProfileArn;
   }
-  
-  public GetWorkspaceWarehouseConfigResponse setSecurityPolicy(GetWorkspaceWarehouseConfigResponseSecurityPolicy securityPolicy) {
+
+  public GetWorkspaceWarehouseConfigResponse setSecurityPolicy(
+      GetWorkspaceWarehouseConfigResponseSecurityPolicy securityPolicy) {
     this.securityPolicy = securityPolicy;
     return this;
   }
@@ -148,8 +129,9 @@ public class GetWorkspaceWarehouseConfigResponse {
   public GetWorkspaceWarehouseConfigResponseSecurityPolicy getSecurityPolicy() {
     return securityPolicy;
   }
-  
-  public GetWorkspaceWarehouseConfigResponse setSqlConfigurationParameters(RepeatedEndpointConfPairs sqlConfigurationParameters) {
+
+  public GetWorkspaceWarehouseConfigResponse setSqlConfigurationParameters(
+      RepeatedEndpointConfPairs sqlConfigurationParameters) {
     this.sqlConfigurationParameters = sqlConfigurationParameters;
     return this;
   }
@@ -157,7 +139,6 @@ public class GetWorkspaceWarehouseConfigResponse {
   public RepeatedEndpointConfPairs getSqlConfigurationParameters() {
     return sqlConfigurationParameters;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -165,33 +146,42 @@ public class GetWorkspaceWarehouseConfigResponse {
     if (o == null || getClass() != o.getClass()) return false;
     GetWorkspaceWarehouseConfigResponse that = (GetWorkspaceWarehouseConfigResponse) o;
     return Objects.equals(channel, that.channel)
-    && Objects.equals(configParam, that.configParam)
-    && Objects.equals(dataAccessConfig, that.dataAccessConfig)
-    && Objects.equals(enabledWarehouseTypes, that.enabledWarehouseTypes)
-    && Objects.equals(globalParam, that.globalParam)
-    && Objects.equals(googleServiceAccount, that.googleServiceAccount)
-    && Objects.equals(instanceProfileArn, that.instanceProfileArn)
-    && Objects.equals(securityPolicy, that.securityPolicy)
-    && Objects.equals(sqlConfigurationParameters, that.sqlConfigurationParameters)
-    ;
+        && Objects.equals(configParam, that.configParam)
+        && Objects.equals(dataAccessConfig, that.dataAccessConfig)
+        && Objects.equals(enabledWarehouseTypes, that.enabledWarehouseTypes)
+        && Objects.equals(globalParam, that.globalParam)
+        && Objects.equals(googleServiceAccount, that.googleServiceAccount)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(securityPolicy, that.securityPolicy)
+        && Objects.equals(sqlConfigurationParameters, that.sqlConfigurationParameters);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(channel, configParam, dataAccessConfig, enabledWarehouseTypes, globalParam, googleServiceAccount, instanceProfileArn, securityPolicy, sqlConfigurationParameters);
+    return Objects.hash(
+        channel,
+        configParam,
+        dataAccessConfig,
+        enabledWarehouseTypes,
+        globalParam,
+        googleServiceAccount,
+        instanceProfileArn,
+        securityPolicy,
+        sqlConfigurationParameters);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetWorkspaceWarehouseConfigResponse.class)
-      .add("channel", channel)
-      .add("configParam", configParam)
-      .add("dataAccessConfig", dataAccessConfig)
-      .add("enabledWarehouseTypes", enabledWarehouseTypes)
-      .add("globalParam", globalParam)
-      .add("googleServiceAccount", googleServiceAccount)
-      .add("instanceProfileArn", instanceProfileArn)
-      .add("securityPolicy", securityPolicy)
-      .add("sqlConfigurationParameters", sqlConfigurationParameters).toString();
+        .add("channel", channel)
+        .add("configParam", configParam)
+        .add("dataAccessConfig", dataAccessConfig)
+        .add("enabledWarehouseTypes", enabledWarehouseTypes)
+        .add("globalParam", globalParam)
+        .add("googleServiceAccount", googleServiceAccount)
+        .add("instanceProfileArn", instanceProfileArn)
+        .add("securityPolicy", securityPolicy)
+        .add("sqlConfigurationParameters", sqlConfigurationParameters)
+        .toString();
   }
 }

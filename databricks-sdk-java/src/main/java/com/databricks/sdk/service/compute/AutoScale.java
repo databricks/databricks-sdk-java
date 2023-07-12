@@ -2,36 +2,27 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class AutoScale {
   /**
-   * The maximum number of workers to which the cluster can scale up when
-   * overloaded. Note that `max_workers` must be strictly greater than
-   * `min_workers`.
+   * The maximum number of workers to which the cluster can scale up when overloaded. Note that
+   * `max_workers` must be strictly greater than `min_workers`.
    */
   @JsonProperty("max_workers")
   private Long maxWorkers;
-  
+
   /**
-   * The minimum number of workers to which the cluster can scale down when
-   * underutilized. It is also the initial number of workers the cluster will
-   * have after creation.
+   * The minimum number of workers to which the cluster can scale down when underutilized. It is
+   * also the initial number of workers the cluster will have after creation.
    */
   @JsonProperty("min_workers")
   private Long minWorkers;
-  
+
   public AutoScale setMaxWorkers(Long maxWorkers) {
     this.maxWorkers = maxWorkers;
     return this;
@@ -40,7 +31,7 @@ public class AutoScale {
   public Long getMaxWorkers() {
     return maxWorkers;
   }
-  
+
   public AutoScale setMinWorkers(Long minWorkers) {
     this.minWorkers = minWorkers;
     return this;
@@ -49,7 +40,6 @@ public class AutoScale {
   public Long getMinWorkers() {
     return minWorkers;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -57,8 +47,7 @@ public class AutoScale {
     if (o == null || getClass() != o.getClass()) return false;
     AutoScale that = (AutoScale) o;
     return Objects.equals(maxWorkers, that.maxWorkers)
-    && Objects.equals(minWorkers, that.minWorkers)
-    ;
+        && Objects.equals(minWorkers, that.minWorkers);
   }
 
   @Override
@@ -69,7 +58,8 @@ public class AutoScale {
   @Override
   public String toString() {
     return new ToStringer(AutoScale.class)
-      .add("maxWorkers", maxWorkers)
-      .add("minWorkers", minWorkers).toString();
+        .add("maxWorkers", maxWorkers)
+        .add("minWorkers", minWorkers)
+        .toString();
   }
 }

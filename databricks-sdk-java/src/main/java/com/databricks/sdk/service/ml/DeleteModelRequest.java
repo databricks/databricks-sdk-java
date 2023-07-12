@@ -2,28 +2,18 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import java.util.Objects;
 
-
-/**
- * Delete a model
- */
+/** Delete a model */
 @Generated
 public class DeleteModelRequest {
-  /**
-   * Registered model unique name identifier.
-   */
+  /** Registered model unique name identifier. */
   @QueryParam("name")
   private String name;
-  
+
   public DeleteModelRequest setName(String name) {
     this.name = name;
     return this;
@@ -32,15 +22,13 @@ public class DeleteModelRequest {
   public String getName() {
     return name;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteModelRequest that = (DeleteModelRequest) o;
-    return Objects.equals(name, that.name)
-    ;
+    return Objects.equals(name, that.name);
   }
 
   @Override
@@ -50,7 +38,6 @@ public class DeleteModelRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteModelRequest.class)
-      .add("name", name).toString();
+    return new ToStringer(DeleteModelRequest.class).add("name", name).toString();
   }
 }

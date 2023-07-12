@@ -2,32 +2,22 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class ClusterLibraryStatuses {
-  /**
-   * Unique identifier for the cluster.
-   */
+  /** Unique identifier for the cluster. */
   @JsonProperty("cluster_id")
   private String clusterId;
-  
-  /**
-   * Status of all libraries on the cluster.
-   */
+
+  /** Status of all libraries on the cluster. */
   @JsonProperty("library_statuses")
   private Collection<LibraryFullStatus> libraryStatuses;
-  
+
   public ClusterLibraryStatuses setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -36,7 +26,7 @@ public class ClusterLibraryStatuses {
   public String getClusterId() {
     return clusterId;
   }
-  
+
   public ClusterLibraryStatuses setLibraryStatuses(Collection<LibraryFullStatus> libraryStatuses) {
     this.libraryStatuses = libraryStatuses;
     return this;
@@ -45,7 +35,6 @@ public class ClusterLibraryStatuses {
   public Collection<LibraryFullStatus> getLibraryStatuses() {
     return libraryStatuses;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -53,8 +42,7 @@ public class ClusterLibraryStatuses {
     if (o == null || getClass() != o.getClass()) return false;
     ClusterLibraryStatuses that = (ClusterLibraryStatuses) o;
     return Objects.equals(clusterId, that.clusterId)
-    && Objects.equals(libraryStatuses, that.libraryStatuses)
-    ;
+        && Objects.equals(libraryStatuses, that.libraryStatuses);
   }
 
   @Override
@@ -65,7 +53,8 @@ public class ClusterLibraryStatuses {
   @Override
   public String toString() {
     return new ToStringer(ClusterLibraryStatuses.class)
-      .add("clusterId", clusterId)
-      .add("libraryStatuses", libraryStatuses).toString();
+        .add("clusterId", clusterId)
+        .add("libraryStatuses", libraryStatuses)
+        .toString();
   }
 }

@@ -69,7 +69,7 @@ public class {{.PascalName}} {
 {{else if .Enum -}}
 @Generated
 public enum {{.PascalName}}{
-  {{range .Enum }}{{.Content}},{{.Comment "// " 80}}
+  {{range .Enum }}{{.ConstantName}},{{.Comment "// " 80}}
   {{end}}
 }
 {{- end}}

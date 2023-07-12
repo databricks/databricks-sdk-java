@@ -2,34 +2,19 @@
 
 package com.databricks.sdk.service.iam;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-/**
- * Delete permissions assignment
- */
+/** Delete permissions assignment */
 @Generated
 public class DeleteWorkspaceAssignmentRequest {
-  /**
-   * The ID of the user, service principal, or group.
-   */
-  
+  /** The ID of the user, service principal, or group. */
   private Long principalId;
-  
-  /**
-   * The workspace ID.
-   */
-  
+
+  /** The workspace ID. */
   private Long workspaceId;
-  
+
   public DeleteWorkspaceAssignmentRequest setPrincipalId(Long principalId) {
     this.principalId = principalId;
     return this;
@@ -38,7 +23,7 @@ public class DeleteWorkspaceAssignmentRequest {
   public Long getPrincipalId() {
     return principalId;
   }
-  
+
   public DeleteWorkspaceAssignmentRequest setWorkspaceId(Long workspaceId) {
     this.workspaceId = workspaceId;
     return this;
@@ -47,7 +32,6 @@ public class DeleteWorkspaceAssignmentRequest {
   public Long getWorkspaceId() {
     return workspaceId;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -55,8 +39,7 @@ public class DeleteWorkspaceAssignmentRequest {
     if (o == null || getClass() != o.getClass()) return false;
     DeleteWorkspaceAssignmentRequest that = (DeleteWorkspaceAssignmentRequest) o;
     return Objects.equals(principalId, that.principalId)
-    && Objects.equals(workspaceId, that.workspaceId)
-    ;
+        && Objects.equals(workspaceId, that.workspaceId);
   }
 
   @Override
@@ -67,7 +50,8 @@ public class DeleteWorkspaceAssignmentRequest {
   @Override
   public String toString() {
     return new ToStringer(DeleteWorkspaceAssignmentRequest.class)
-      .add("principalId", principalId)
-      .add("workspaceId", workspaceId).toString();
+        .add("principalId", principalId)
+        .add("workspaceId", workspaceId)
+        .toString();
   }
 }

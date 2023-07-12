@@ -2,40 +2,31 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class TriggerEvaluation {
   /**
-   * Human-readable description of the the trigger evaluation result. Explains
-   * why the trigger evaluation triggered or did not trigger a run, or failed.
+   * Human-readable description of the the trigger evaluation result. Explains why the trigger
+   * evaluation triggered or did not trigger a run, or failed.
    */
   @JsonProperty("description")
   private String description;
-  
+
   /**
-   * The ID of the run that was triggered by the trigger evaluation. Only
-   * returned if a run was triggered.
+   * The ID of the run that was triggered by the trigger evaluation. Only returned if a run was
+   * triggered.
    */
   @JsonProperty("run_id")
   private Long runId;
-  
-  /**
-   * Timestamp at which the trigger was evaluated.
-   */
+
+  /** Timestamp at which the trigger was evaluated. */
   @JsonProperty("timestamp")
   private Long timestamp;
-  
+
   public TriggerEvaluation setDescription(String description) {
     this.description = description;
     return this;
@@ -44,7 +35,7 @@ public class TriggerEvaluation {
   public String getDescription() {
     return description;
   }
-  
+
   public TriggerEvaluation setRunId(Long runId) {
     this.runId = runId;
     return this;
@@ -53,7 +44,7 @@ public class TriggerEvaluation {
   public Long getRunId() {
     return runId;
   }
-  
+
   public TriggerEvaluation setTimestamp(Long timestamp) {
     this.timestamp = timestamp;
     return this;
@@ -62,7 +53,6 @@ public class TriggerEvaluation {
   public Long getTimestamp() {
     return timestamp;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -70,9 +60,8 @@ public class TriggerEvaluation {
     if (o == null || getClass() != o.getClass()) return false;
     TriggerEvaluation that = (TriggerEvaluation) o;
     return Objects.equals(description, that.description)
-    && Objects.equals(runId, that.runId)
-    && Objects.equals(timestamp, that.timestamp)
-    ;
+        && Objects.equals(runId, that.runId)
+        && Objects.equals(timestamp, that.timestamp);
   }
 
   @Override
@@ -83,8 +72,9 @@ public class TriggerEvaluation {
   @Override
   public String toString() {
     return new ToStringer(TriggerEvaluation.class)
-      .add("description", description)
-      .add("runId", runId)
-      .add("timestamp", timestamp).toString();
+        .add("description", description)
+        .add("runId", runId)
+        .add("timestamp", timestamp)
+        .toString();
   }
 }

@@ -2,27 +2,20 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class ListAllClusterLibraryStatusesResponse {
-  /**
-   * A list of cluster statuses.
-   */
+  /** A list of cluster statuses. */
   @JsonProperty("statuses")
   private Collection<ClusterLibraryStatuses> statuses;
-  
-  public ListAllClusterLibraryStatusesResponse setStatuses(Collection<ClusterLibraryStatuses> statuses) {
+
+  public ListAllClusterLibraryStatusesResponse setStatuses(
+      Collection<ClusterLibraryStatuses> statuses) {
     this.statuses = statuses;
     return this;
   }
@@ -30,15 +23,13 @@ public class ListAllClusterLibraryStatusesResponse {
   public Collection<ClusterLibraryStatuses> getStatuses() {
     return statuses;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListAllClusterLibraryStatusesResponse that = (ListAllClusterLibraryStatusesResponse) o;
-    return Objects.equals(statuses, that.statuses)
-    ;
+    return Objects.equals(statuses, that.statuses);
   }
 
   @Override
@@ -49,6 +40,7 @@ public class ListAllClusterLibraryStatusesResponse {
   @Override
   public String toString() {
     return new ToStringer(ListAllClusterLibraryStatusesResponse.class)
-      .add("statuses", statuses).toString();
+        .add("statuses", statuses)
+        .toString();
   }
 }

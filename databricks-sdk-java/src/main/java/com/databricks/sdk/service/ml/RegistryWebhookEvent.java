@@ -2,20 +2,10 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
 
 @Generated
-public enum RegistryWebhookEvent{
+public enum RegistryWebhookEvent {
   COMMENT_CREATED,
   MODEL_VERSION_CREATED,
   MODEL_VERSION_TAG_SET,
@@ -28,5 +18,4 @@ public enum RegistryWebhookEvent{
   TRANSITION_REQUEST_TO_ARCHIVED_CREATED,
   TRANSITION_REQUEST_TO_PRODUCTION_CREATED,
   TRANSITION_REQUEST_TO_STAGING_CREATED,
-  
 }

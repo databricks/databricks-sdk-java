@@ -2,32 +2,22 @@
 
 package com.databricks.sdk.service.iam;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class GrantRule {
-  /**
-   * Principals this grant rule applies to.
-   */
+  /** Principals this grant rule applies to. */
   @JsonProperty("principals")
   private Collection<String> principals;
-  
-  /**
-   * Role that is assigned to the list of principals.
-   */
+
+  /** Role that is assigned to the list of principals. */
   @JsonProperty("role")
   private String role;
-  
+
   public GrantRule setPrincipals(Collection<String> principals) {
     this.principals = principals;
     return this;
@@ -36,7 +26,7 @@ public class GrantRule {
   public Collection<String> getPrincipals() {
     return principals;
   }
-  
+
   public GrantRule setRole(String role) {
     this.role = role;
     return this;
@@ -45,16 +35,13 @@ public class GrantRule {
   public String getRole() {
     return role;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GrantRule that = (GrantRule) o;
-    return Objects.equals(principals, that.principals)
-    && Objects.equals(role, that.role)
-    ;
+    return Objects.equals(principals, that.principals) && Objects.equals(role, that.role);
   }
 
   @Override
@@ -65,7 +52,8 @@ public class GrantRule {
   @Override
   public String toString() {
     return new ToStringer(GrantRule.class)
-      .add("principals", principals)
-      .add("role", role).toString();
+        .add("principals", principals)
+        .add("role", role)
+        .toString();
   }
 }

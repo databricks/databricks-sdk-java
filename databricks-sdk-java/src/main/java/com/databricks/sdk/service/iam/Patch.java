@@ -2,38 +2,25 @@
 
 package com.databricks.sdk.service.iam;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class Patch {
-  /**
-   * Type of patch operation.
-   */
+  /** Type of patch operation. */
   @JsonProperty("op")
   private PatchOp op;
-  
-  /**
-   * Selection of patch operation
-   */
+
+  /** Selection of patch operation */
   @JsonProperty("path")
   private String path;
-  
-  /**
-   * Value to modify
-   */
+
+  /** Value to modify */
   @JsonProperty("value")
   private Object value;
-  
+
   public Patch setOp(PatchOp op) {
     this.op = op;
     return this;
@@ -42,7 +29,7 @@ public class Patch {
   public PatchOp getOp() {
     return op;
   }
-  
+
   public Patch setPath(String path) {
     this.path = path;
     return this;
@@ -51,7 +38,7 @@ public class Patch {
   public String getPath() {
     return path;
   }
-  
+
   public Patch setValue(Object value) {
     this.value = value;
     return this;
@@ -60,7 +47,6 @@ public class Patch {
   public Object getValue() {
     return value;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -68,9 +54,8 @@ public class Patch {
     if (o == null || getClass() != o.getClass()) return false;
     Patch that = (Patch) o;
     return Objects.equals(op, that.op)
-    && Objects.equals(path, that.path)
-    && Objects.equals(value, that.value)
-    ;
+        && Objects.equals(path, that.path)
+        && Objects.equals(value, that.value);
   }
 
   @Override
@@ -81,8 +66,9 @@ public class Patch {
   @Override
   public String toString() {
     return new ToStringer(Patch.class)
-      .add("op", op)
-      .add("path", path)
-      .add("value", value).toString();
+        .add("op", op)
+        .add("path", path)
+        .add("value", value)
+        .toString();
   }
 }

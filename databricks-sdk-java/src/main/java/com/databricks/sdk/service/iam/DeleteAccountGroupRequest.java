@@ -2,28 +2,16 @@
 
 package com.databricks.sdk.service.iam;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-/**
- * Delete a group
- */
+/** Delete a group */
 @Generated
 public class DeleteAccountGroupRequest {
-  /**
-   * Unique ID for a group in the Databricks account.
-   */
-  
+  /** Unique ID for a group in the Databricks account. */
   private String id;
-  
+
   public DeleteAccountGroupRequest setId(String id) {
     this.id = id;
     return this;
@@ -32,15 +20,13 @@ public class DeleteAccountGroupRequest {
   public String getId() {
     return id;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteAccountGroupRequest that = (DeleteAccountGroupRequest) o;
-    return Objects.equals(id, that.id)
-    ;
+    return Objects.equals(id, that.id);
   }
 
   @Override
@@ -50,7 +36,6 @@ public class DeleteAccountGroupRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteAccountGroupRequest.class)
-      .add("id", id).toString();
+    return new ToStringer(DeleteAccountGroupRequest.class).add("id", id).toString();
   }
 }

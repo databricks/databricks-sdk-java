@@ -10,9 +10,9 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum ErrorType {
-  credentials,
-  networkAcl,
-  securityGroup,
-  subnet,
-  vpc,
+  CREDENTIALS,
+  NETWORKACL,
+  SECURITYGROUP,
+  SUBNET,
+  VPC,
 }

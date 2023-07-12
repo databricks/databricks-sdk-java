@@ -2,44 +2,36 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class CronSchedule {
-  /**
-   * Indicate whether this schedule is paused or not.
-   */
+  /** Indicate whether this schedule is paused or not. */
   @JsonProperty("pause_status")
   private PauseStatus pauseStatus;
-  
+
   /**
-   * A Cron expression using Quartz syntax that describes the schedule for a
-   * job. See [Cron Trigger] for details. This field is required."
-   * 
-   * [Cron Trigger]: http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
+   * A Cron expression using Quartz syntax that describes the schedule for a job. See [Cron Trigger]
+   * for details. This field is required."
+   *
+   * <p>[Cron Trigger]:
+   * http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
    */
   @JsonProperty("quartz_cron_expression")
   private String quartzCronExpression;
-  
+
   /**
-   * A Java timezone ID. The schedule for a job is resolved with respect to this
-   * timezone. See [Java TimeZone] for details. This field is required.
-   * 
-   * [Java TimeZone]: https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html
+   * A Java timezone ID. The schedule for a job is resolved with respect to this timezone. See [Java
+   * TimeZone] for details. This field is required.
+   *
+   * <p>[Java TimeZone]: https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html
    */
   @JsonProperty("timezone_id")
   private String timezoneId;
-  
+
   public CronSchedule setPauseStatus(PauseStatus pauseStatus) {
     this.pauseStatus = pauseStatus;
     return this;
@@ -48,7 +40,7 @@ public class CronSchedule {
   public PauseStatus getPauseStatus() {
     return pauseStatus;
   }
-  
+
   public CronSchedule setQuartzCronExpression(String quartzCronExpression) {
     this.quartzCronExpression = quartzCronExpression;
     return this;
@@ -57,7 +49,7 @@ public class CronSchedule {
   public String getQuartzCronExpression() {
     return quartzCronExpression;
   }
-  
+
   public CronSchedule setTimezoneId(String timezoneId) {
     this.timezoneId = timezoneId;
     return this;
@@ -66,7 +58,6 @@ public class CronSchedule {
   public String getTimezoneId() {
     return timezoneId;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -74,9 +65,8 @@ public class CronSchedule {
     if (o == null || getClass() != o.getClass()) return false;
     CronSchedule that = (CronSchedule) o;
     return Objects.equals(pauseStatus, that.pauseStatus)
-    && Objects.equals(quartzCronExpression, that.quartzCronExpression)
-    && Objects.equals(timezoneId, that.timezoneId)
-    ;
+        && Objects.equals(quartzCronExpression, that.quartzCronExpression)
+        && Objects.equals(timezoneId, that.timezoneId);
   }
 
   @Override
@@ -87,8 +77,9 @@ public class CronSchedule {
   @Override
   public String toString() {
     return new ToStringer(CronSchedule.class)
-      .add("pauseStatus", pauseStatus)
-      .add("quartzCronExpression", quartzCronExpression)
-      .add("timezoneId", timezoneId).toString();
+        .add("pauseStatus", pauseStatus)
+        .add("quartzCronExpression", quartzCronExpression)
+        .add("timezoneId", timezoneId)
+        .toString();
   }
 }

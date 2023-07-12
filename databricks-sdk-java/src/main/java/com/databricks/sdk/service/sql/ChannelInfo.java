@@ -2,34 +2,22 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-/**
- * Channel information for the SQL warehouse at the time of query execution
- */
+/** Channel information for the SQL warehouse at the time of query execution */
 @Generated
 public class ChannelInfo {
-  /**
-   * DBSQL Version the channel is mapped to
-   */
+  /** DBSQL Version the channel is mapped to */
   @JsonProperty("dbsql_version")
   private String dbsqlVersion;
-  
-  /**
-   * Name of the channel
-   */
+
+  /** Name of the channel */
   @JsonProperty("name")
   private ChannelName name;
-  
+
   public ChannelInfo setDbsqlVersion(String dbsqlVersion) {
     this.dbsqlVersion = dbsqlVersion;
     return this;
@@ -38,7 +26,7 @@ public class ChannelInfo {
   public String getDbsqlVersion() {
     return dbsqlVersion;
   }
-  
+
   public ChannelInfo setName(ChannelName name) {
     this.name = name;
     return this;
@@ -47,16 +35,13 @@ public class ChannelInfo {
   public ChannelName getName() {
     return name;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ChannelInfo that = (ChannelInfo) o;
-    return Objects.equals(dbsqlVersion, that.dbsqlVersion)
-    && Objects.equals(name, that.name)
-    ;
+    return Objects.equals(dbsqlVersion, that.dbsqlVersion) && Objects.equals(name, that.name);
   }
 
   @Override
@@ -67,7 +52,8 @@ public class ChannelInfo {
   @Override
   public String toString() {
     return new ToStringer(ChannelInfo.class)
-      .add("dbsqlVersion", dbsqlVersion)
-      .add("name", name).toString();
+        .add("dbsqlVersion", dbsqlVersion)
+        .add("name", name)
+        .toString();
   }
 }

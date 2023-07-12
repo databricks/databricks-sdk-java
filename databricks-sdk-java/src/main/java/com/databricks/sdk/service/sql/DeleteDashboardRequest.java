@@ -2,28 +2,16 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-/**
- * Remove a dashboard
- */
+/** Remove a dashboard */
 @Generated
 public class DeleteDashboardRequest {
-  /**
-   
-   */
-  
+  /** */
   private String dashboardId;
-  
+
   public DeleteDashboardRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;
     return this;
@@ -32,15 +20,13 @@ public class DeleteDashboardRequest {
   public String getDashboardId() {
     return dashboardId;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteDashboardRequest that = (DeleteDashboardRequest) o;
-    return Objects.equals(dashboardId, that.dashboardId)
-    ;
+    return Objects.equals(dashboardId, that.dashboardId);
   }
 
   @Override
@@ -50,7 +36,6 @@ public class DeleteDashboardRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteDashboardRequest.class)
-      .add("dashboardId", dashboardId).toString();
+    return new ToStringer(DeleteDashboardRequest.class).add("dashboardId", dashboardId).toString();
   }
 }

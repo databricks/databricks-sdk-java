@@ -2,38 +2,26 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class ListArtifactsResponse {
-  /**
-   * File location and metadata for artifacts.
-   */
+  /** File location and metadata for artifacts. */
   @JsonProperty("files")
   private Collection<FileInfo> files;
-  
-  /**
-   * Token that can be used to retrieve the next page of artifact results
-   */
+
+  /** Token that can be used to retrieve the next page of artifact results */
   @JsonProperty("next_page_token")
   private String nextPageToken;
-  
-  /**
-   * Root artifact directory for the run.
-   */
+
+  /** Root artifact directory for the run. */
   @JsonProperty("root_uri")
   private String rootUri;
-  
+
   public ListArtifactsResponse setFiles(Collection<FileInfo> files) {
     this.files = files;
     return this;
@@ -42,7 +30,7 @@ public class ListArtifactsResponse {
   public Collection<FileInfo> getFiles() {
     return files;
   }
-  
+
   public ListArtifactsResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
@@ -51,7 +39,7 @@ public class ListArtifactsResponse {
   public String getNextPageToken() {
     return nextPageToken;
   }
-  
+
   public ListArtifactsResponse setRootUri(String rootUri) {
     this.rootUri = rootUri;
     return this;
@@ -60,7 +48,6 @@ public class ListArtifactsResponse {
   public String getRootUri() {
     return rootUri;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -68,9 +55,8 @@ public class ListArtifactsResponse {
     if (o == null || getClass() != o.getClass()) return false;
     ListArtifactsResponse that = (ListArtifactsResponse) o;
     return Objects.equals(files, that.files)
-    && Objects.equals(nextPageToken, that.nextPageToken)
-    && Objects.equals(rootUri, that.rootUri)
-    ;
+        && Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(rootUri, that.rootUri);
   }
 
   @Override
@@ -81,8 +67,9 @@ public class ListArtifactsResponse {
   @Override
   public String toString() {
     return new ToStringer(ListArtifactsResponse.class)
-      .add("files", files)
-      .add("nextPageToken", nextPageToken)
-      .add("rootUri", rootUri).toString();
+        .add("files", files)
+        .add("nextPageToken", nextPageToken)
+        .add("rootUri", rootUri)
+        .toString();
   }
 }

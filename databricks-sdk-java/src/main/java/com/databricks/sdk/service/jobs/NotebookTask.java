@@ -2,72 +2,62 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
+import java.util.Objects;
 
 @Generated
 public class NotebookTask {
   /**
-   * Base parameters to be used for each run of this job. If the run is
-   * initiated by a call to :method:jobs/runNow with parameters specified, the
-   * two parameters maps are merged. If the same key is specified in
-   * `base_parameters` and in `run-now`, the value from `run-now` is used.
-   * 
-   * Use [Task parameter variables] to set parameters containing information
-   * about job runs.
-   * 
-   * If the notebook takes a parameter that is not specified in the job’s
-   * `base_parameters` or the `run-now` override parameters, the default value
-   * from the notebook is used.
-   * 
-   * Retrieve these parameters in a notebook using [dbutils.widgets.get].
-   * 
-   * [Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
-   * [dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-widgets
+   * Base parameters to be used for each run of this job. If the run is initiated by a call to
+   * :method:jobs/runNow with parameters specified, the two parameters maps are merged. If the same
+   * key is specified in `base_parameters` and in `run-now`, the value from `run-now` is used.
+   *
+   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   *
+   * <p>If the notebook takes a parameter that is not specified in the job’s `base_parameters` or
+   * the `run-now` override parameters, the default value from the notebook is used.
+   *
+   * <p>Retrieve these parameters in a notebook using [dbutils.widgets.get].
+   *
+   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * [dbutils.widgets.get]:
+   * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-widgets
    */
   @JsonProperty("base_parameters")
-  private Map<String,String> baseParameters;
-  
+  private Map<String, String> baseParameters;
+
   /**
-   * The path of the notebook to be run in the Databricks workspace or remote
-   * repository. For notebooks stored in the Databricks workspace, the path must
-   * be absolute and begin with a slash. For notebooks stored in a remote
-   * repository, the path must be relative. This field is required.
+   * The path of the notebook to be run in the Databricks workspace or remote repository. For
+   * notebooks stored in the Databricks workspace, the path must be absolute and begin with a slash.
+   * For notebooks stored in a remote repository, the path must be relative. This field is required.
    */
   @JsonProperty("notebook_path")
   private String notebookPath;
-  
+
   /**
-   * Optional location type of the notebook. When set to `WORKSPACE`, the
-   * notebook will be retrieved from the local <Databricks> workspace. When set
-   * to `GIT`, the notebook will be retrieved from a Git repository defined in
-   * `git_source`. If the value is empty, the task will use `GIT` if
+   * Optional location type of the notebook. When set to `WORKSPACE`, the notebook will be retrieved
+   * from the local <Databricks> workspace. When set to `GIT`, the notebook will be retrieved from a
+   * Git repository defined in `git_source`. If the value is empty, the task will use `GIT` if
    * `git_source` is defined and `WORKSPACE` otherwise.
-   * 
-   * * `WORKSPACE`: Notebook is located in <Databricks> workspace. * `GIT`:
-   * Notebook is located in cloud Git provider.
+   *
+   * <p>* `WORKSPACE`: Notebook is located in <Databricks> workspace. * `GIT`: Notebook is located
+   * in cloud Git provider.
    */
   @JsonProperty("source")
   private Source source;
-  
-  public NotebookTask setBaseParameters(Map<String,String> baseParameters) {
+
+  public NotebookTask setBaseParameters(Map<String, String> baseParameters) {
     this.baseParameters = baseParameters;
     return this;
   }
 
-  public Map<String,String> getBaseParameters() {
+  public Map<String, String> getBaseParameters() {
     return baseParameters;
   }
-  
+
   public NotebookTask setNotebookPath(String notebookPath) {
     this.notebookPath = notebookPath;
     return this;
@@ -76,7 +66,7 @@ public class NotebookTask {
   public String getNotebookPath() {
     return notebookPath;
   }
-  
+
   public NotebookTask setSource(Source source) {
     this.source = source;
     return this;
@@ -85,7 +75,6 @@ public class NotebookTask {
   public Source getSource() {
     return source;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -93,9 +82,8 @@ public class NotebookTask {
     if (o == null || getClass() != o.getClass()) return false;
     NotebookTask that = (NotebookTask) o;
     return Objects.equals(baseParameters, that.baseParameters)
-    && Objects.equals(notebookPath, that.notebookPath)
-    && Objects.equals(source, that.source)
-    ;
+        && Objects.equals(notebookPath, that.notebookPath)
+        && Objects.equals(source, that.source);
   }
 
   @Override
@@ -106,8 +94,9 @@ public class NotebookTask {
   @Override
   public String toString() {
     return new ToStringer(NotebookTask.class)
-      .add("baseParameters", baseParameters)
-      .add("notebookPath", notebookPath)
-      .add("source", source).toString();
+        .add("baseParameters", baseParameters)
+        .add("notebookPath", notebookPath)
+        .add("source", source)
+        .toString();
   }
 }

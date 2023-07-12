@@ -2,32 +2,22 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class SqlDashboardOutput {
-  /**
-   * The canonical identifier of the SQL warehouse.
-   */
+  /** The canonical identifier of the SQL warehouse. */
   @JsonProperty("warehouse_id")
   private String warehouseId;
-  
-  /**
-   * Widgets executed in the run. Only SQL query based widgets are listed.
-   */
+
+  /** Widgets executed in the run. Only SQL query based widgets are listed. */
   @JsonProperty("widgets")
   private Collection<SqlDashboardWidgetOutput> widgets;
-  
+
   public SqlDashboardOutput setWarehouseId(String warehouseId) {
     this.warehouseId = warehouseId;
     return this;
@@ -36,7 +26,7 @@ public class SqlDashboardOutput {
   public String getWarehouseId() {
     return warehouseId;
   }
-  
+
   public SqlDashboardOutput setWidgets(Collection<SqlDashboardWidgetOutput> widgets) {
     this.widgets = widgets;
     return this;
@@ -45,16 +35,13 @@ public class SqlDashboardOutput {
   public Collection<SqlDashboardWidgetOutput> getWidgets() {
     return widgets;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SqlDashboardOutput that = (SqlDashboardOutput) o;
-    return Objects.equals(warehouseId, that.warehouseId)
-    && Objects.equals(widgets, that.widgets)
-    ;
+    return Objects.equals(warehouseId, that.warehouseId) && Objects.equals(widgets, that.widgets);
   }
 
   @Override
@@ -65,7 +52,8 @@ public class SqlDashboardOutput {
   @Override
   public String toString() {
     return new ToStringer(SqlDashboardOutput.class)
-      .add("warehouseId", warehouseId)
-      .add("widgets", widgets).toString();
+        .add("warehouseId", warehouseId)
+        .add("widgets", widgets)
+        .toString();
   }
 }

@@ -2,34 +2,22 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import java.util.Objects;
 
-
-/**
- * List transition requests
- */
+/** List transition requests */
 @Generated
 public class ListTransitionRequestsRequest {
-  /**
-   * Name of the model.
-   */
+  /** Name of the model. */
   @QueryParam("name")
   private String name;
-  
-  /**
-   * Version of the model.
-   */
+
+  /** Version of the model. */
   @QueryParam("version")
   private String version;
-  
+
   public ListTransitionRequestsRequest setName(String name) {
     this.name = name;
     return this;
@@ -38,7 +26,7 @@ public class ListTransitionRequestsRequest {
   public String getName() {
     return name;
   }
-  
+
   public ListTransitionRequestsRequest setVersion(String version) {
     this.version = version;
     return this;
@@ -47,16 +35,13 @@ public class ListTransitionRequestsRequest {
   public String getVersion() {
     return version;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListTransitionRequestsRequest that = (ListTransitionRequestsRequest) o;
-    return Objects.equals(name, that.name)
-    && Objects.equals(version, that.version)
-    ;
+    return Objects.equals(name, that.name) && Objects.equals(version, that.version);
   }
 
   @Override
@@ -67,7 +52,8 @@ public class ListTransitionRequestsRequest {
   @Override
   public String toString() {
     return new ToStringer(ListTransitionRequestsRequest.class)
-      .add("name", name)
-      .add("version", version).toString();
+        .add("name", name)
+        .add("version", version)
+        .toString();
   }
 }

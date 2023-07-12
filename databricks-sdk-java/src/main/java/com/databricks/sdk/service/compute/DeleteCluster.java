@@ -2,26 +2,17 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class DeleteCluster {
-  /**
-   * The cluster to be terminated.
-   */
+  /** The cluster to be terminated. */
   @JsonProperty("cluster_id")
   private String clusterId;
-  
+
   public DeleteCluster setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -30,15 +21,13 @@ public class DeleteCluster {
   public String getClusterId() {
     return clusterId;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteCluster that = (DeleteCluster) o;
-    return Objects.equals(clusterId, that.clusterId)
-    ;
+    return Objects.equals(clusterId, that.clusterId);
   }
 
   @Override
@@ -48,7 +37,6 @@ public class DeleteCluster {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteCluster.class)
-      .add("clusterId", clusterId).toString();
+    return new ToStringer(DeleteCluster.class).add("clusterId", clusterId).toString();
   }
 }

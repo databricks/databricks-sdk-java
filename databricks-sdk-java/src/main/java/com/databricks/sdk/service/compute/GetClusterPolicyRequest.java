@@ -2,28 +2,18 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import java.util.Objects;
 
-
-/**
- * Get entity
- */
+/** Get entity */
 @Generated
 public class GetClusterPolicyRequest {
-  /**
-   * Canonical unique identifier for the cluster policy.
-   */
+  /** Canonical unique identifier for the cluster policy. */
   @QueryParam("policy_id")
   private String policyId;
-  
+
   public GetClusterPolicyRequest setPolicyId(String policyId) {
     this.policyId = policyId;
     return this;
@@ -32,15 +22,13 @@ public class GetClusterPolicyRequest {
   public String getPolicyId() {
     return policyId;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetClusterPolicyRequest that = (GetClusterPolicyRequest) o;
-    return Objects.equals(policyId, that.policyId)
-    ;
+    return Objects.equals(policyId, that.policyId);
   }
 
   @Override
@@ -50,7 +38,6 @@ public class GetClusterPolicyRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetClusterPolicyRequest.class)
-      .add("policyId", policyId).toString();
+    return new ToStringer(GetClusterPolicyRequest.class).add("policyId", policyId).toString();
   }
 }

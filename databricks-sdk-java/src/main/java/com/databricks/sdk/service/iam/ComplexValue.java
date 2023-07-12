@@ -2,50 +2,33 @@
 
 package com.databricks.sdk.service.iam;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class ComplexValue {
-  /**
-   
-   */
+  /** */
   @JsonProperty("display")
   private String display;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("primary")
   private Boolean primary;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("$ref")
   private String ref;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("type")
   private String typeValue;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("value")
   private String value;
-  
+
   public ComplexValue setDisplay(String display) {
     this.display = display;
     return this;
@@ -54,7 +37,7 @@ public class ComplexValue {
   public String getDisplay() {
     return display;
   }
-  
+
   public ComplexValue setPrimary(Boolean primary) {
     this.primary = primary;
     return this;
@@ -63,7 +46,7 @@ public class ComplexValue {
   public Boolean getPrimary() {
     return primary;
   }
-  
+
   public ComplexValue setRef(String ref) {
     this.ref = ref;
     return this;
@@ -72,7 +55,7 @@ public class ComplexValue {
   public String getRef() {
     return ref;
   }
-  
+
   public ComplexValue setType(String typeValue) {
     this.typeValue = typeValue;
     return this;
@@ -81,7 +64,7 @@ public class ComplexValue {
   public String getType() {
     return typeValue;
   }
-  
+
   public ComplexValue setValue(String value) {
     this.value = value;
     return this;
@@ -90,7 +73,6 @@ public class ComplexValue {
   public String getValue() {
     return value;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -98,11 +80,10 @@ public class ComplexValue {
     if (o == null || getClass() != o.getClass()) return false;
     ComplexValue that = (ComplexValue) o;
     return Objects.equals(display, that.display)
-    && Objects.equals(primary, that.primary)
-    && Objects.equals(ref, that.ref)
-    && Objects.equals(typeValue, that.typeValue)
-    && Objects.equals(value, that.value)
-    ;
+        && Objects.equals(primary, that.primary)
+        && Objects.equals(ref, that.ref)
+        && Objects.equals(typeValue, that.typeValue)
+        && Objects.equals(value, that.value);
   }
 
   @Override
@@ -113,10 +94,11 @@ public class ComplexValue {
   @Override
   public String toString() {
     return new ToStringer(ComplexValue.class)
-      .add("display", display)
-      .add("primary", primary)
-      .add("ref", ref)
-      .add("typeValue", typeValue)
-      .add("value", value).toString();
+        .add("display", display)
+        .add("primary", primary)
+        .add("ref", ref)
+        .add("typeValue", typeValue)
+        .add("value", value)
+        .toString();
   }
 }

@@ -2,26 +2,17 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class CreateRunResponse {
-  /**
-   * The newly created run.
-   */
+  /** The newly created run. */
   @JsonProperty("run")
   private Run run;
-  
+
   public CreateRunResponse setRun(Run run) {
     this.run = run;
     return this;
@@ -30,15 +21,13 @@ public class CreateRunResponse {
   public Run getRun() {
     return run;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateRunResponse that = (CreateRunResponse) o;
-    return Objects.equals(run, that.run)
-    ;
+    return Objects.equals(run, that.run);
   }
 
   @Override
@@ -48,7 +37,6 @@ public class CreateRunResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(CreateRunResponse.class)
-      .add("run", run).toString();
+    return new ToStringer(CreateRunResponse.class).add("run", run).toString();
   }
 }

@@ -2,22 +2,11 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
 
-
-/**
- * status code indicating why the cluster was terminated
- */
+/** status code indicating why the cluster was terminated */
 @Generated
-public enum TerminationReasonCode{
+public enum TerminationReasonCode {
   ABUSE_DETECTED,
   ATTACH_PROJECT_FAILURE,
   AWS_AUTHORIZATION_FAILURE,
@@ -65,8 +54,8 @@ public enum TerminationReasonCode{
   INVALID_SPARK_IMAGE,
   IP_EXHAUSTION_FAILURE,
   JOB_FINISHED,
-  K8S_AUTOSCALING_FAILURE,
-  K8S_DBR_CLUSTER_LAUNCH_TIMEOUT,
+  KS_AUTOSCALING_FAILURE,
+  KS_DBR_CLUSTER_LAUNCH_TIMEOUT,
   METASTORE_COMPONENT_UNHEALTHY,
   NEPHOS_RESOURCE_MANAGEMENT,
   NETWORK_CONFIGURATION_FAILURE,
@@ -97,5 +86,4 @@ public enum TerminationReasonCode{
   WORKER_SETUP_FAILURE,
   WORKSPACE_CANCELLED_ERROR,
   WORKSPACE_CONFIGURATION_ERROR,
-  
 }

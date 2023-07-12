@@ -6,8 +6,8 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum EnableSchemaName {
-  access,
-  billing,
-  lineage,
-  operational_data,
+  ACCESS,
+  BILLING,
+  LINEAGE,
+  OPERATIONAL_DATA,
 }

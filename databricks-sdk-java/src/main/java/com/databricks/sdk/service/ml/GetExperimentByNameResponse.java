@@ -2,26 +2,17 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class GetExperimentByNameResponse {
-  /**
-   * Experiment details.
-   */
+  /** Experiment details. */
   @JsonProperty("experiment")
   private Experiment experiment;
-  
+
   public GetExperimentByNameResponse setExperiment(Experiment experiment) {
     this.experiment = experiment;
     return this;
@@ -30,15 +21,13 @@ public class GetExperimentByNameResponse {
   public Experiment getExperiment() {
     return experiment;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetExperimentByNameResponse that = (GetExperimentByNameResponse) o;
-    return Objects.equals(experiment, that.experiment)
-    ;
+    return Objects.equals(experiment, that.experiment);
   }
 
   @Override
@@ -49,6 +38,7 @@ public class GetExperimentByNameResponse {
   @Override
   public String toString() {
     return new ToStringer(GetExperimentByNameResponse.class)
-      .add("experiment", experiment).toString();
+        .add("experiment", experiment)
+        .toString();
   }
 }

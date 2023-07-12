@@ -2,26 +2,18 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class ListPoliciesResponse {
-  /**
-   * List of policies.
-   */
+  /** List of policies. */
   @JsonProperty("policies")
   private Collection<Policy> policies;
-  
+
   public ListPoliciesResponse setPolicies(Collection<Policy> policies) {
     this.policies = policies;
     return this;
@@ -30,15 +22,13 @@ public class ListPoliciesResponse {
   public Collection<Policy> getPolicies() {
     return policies;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListPoliciesResponse that = (ListPoliciesResponse) o;
-    return Objects.equals(policies, that.policies)
-    ;
+    return Objects.equals(policies, that.policies);
   }
 
   @Override
@@ -48,7 +38,6 @@ public class ListPoliciesResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(ListPoliciesResponse.class)
-      .add("policies", policies).toString();
+    return new ToStringer(ListPoliciesResponse.class).add("policies", policies).toString();
   }
 }

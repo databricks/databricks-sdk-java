@@ -2,26 +2,18 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class ListTransitionRequestsResponse {
-  /**
-   * Array of open transition requests.
-   */
+  /** Array of open transition requests. */
   @JsonProperty("requests")
   private Collection<Activity> requests;
-  
+
   public ListTransitionRequestsResponse setRequests(Collection<Activity> requests) {
     this.requests = requests;
     return this;
@@ -30,15 +22,13 @@ public class ListTransitionRequestsResponse {
   public Collection<Activity> getRequests() {
     return requests;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListTransitionRequestsResponse that = (ListTransitionRequestsResponse) o;
-    return Objects.equals(requests, that.requests)
-    ;
+    return Objects.equals(requests, that.requests);
   }
 
   @Override
@@ -49,6 +39,7 @@ public class ListTransitionRequestsResponse {
   @Override
   public String toString() {
     return new ToStringer(ListTransitionRequestsResponse.class)
-      .add("requests", requests).toString();
+        .add("requests", requests)
+        .toString();
   }
 }

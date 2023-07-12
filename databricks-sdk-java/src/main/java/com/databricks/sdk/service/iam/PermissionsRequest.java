@@ -2,39 +2,26 @@
 
 package com.databricks.sdk.service.iam;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class PermissionsRequest {
-  /**
-   
-   */
+  /** */
   @JsonProperty("access_control_list")
   private Collection<AccessControlRequest> accessControlList;
-  
-  /**
-   
-   */
-  
+
+  /** */
   private String requestObjectId;
-  
-  /**
-   * <needs content>
-   */
-  
+
+  /** <needs content> */
   private String requestObjectType;
-  
-  public PermissionsRequest setAccessControlList(Collection<AccessControlRequest> accessControlList) {
+
+  public PermissionsRequest setAccessControlList(
+      Collection<AccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
@@ -42,7 +29,7 @@ public class PermissionsRequest {
   public Collection<AccessControlRequest> getAccessControlList() {
     return accessControlList;
   }
-  
+
   public PermissionsRequest setRequestObjectId(String requestObjectId) {
     this.requestObjectId = requestObjectId;
     return this;
@@ -51,7 +38,7 @@ public class PermissionsRequest {
   public String getRequestObjectId() {
     return requestObjectId;
   }
-  
+
   public PermissionsRequest setRequestObjectType(String requestObjectType) {
     this.requestObjectType = requestObjectType;
     return this;
@@ -60,7 +47,6 @@ public class PermissionsRequest {
   public String getRequestObjectType() {
     return requestObjectType;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -68,9 +54,8 @@ public class PermissionsRequest {
     if (o == null || getClass() != o.getClass()) return false;
     PermissionsRequest that = (PermissionsRequest) o;
     return Objects.equals(accessControlList, that.accessControlList)
-    && Objects.equals(requestObjectId, that.requestObjectId)
-    && Objects.equals(requestObjectType, that.requestObjectType)
-    ;
+        && Objects.equals(requestObjectId, that.requestObjectId)
+        && Objects.equals(requestObjectType, that.requestObjectType);
   }
 
   @Override
@@ -81,8 +66,9 @@ public class PermissionsRequest {
   @Override
   public String toString() {
     return new ToStringer(PermissionsRequest.class)
-      .add("accessControlList", accessControlList)
-      .add("requestObjectId", requestObjectId)
-      .add("requestObjectType", requestObjectType).toString();
+        .add("accessControlList", accessControlList)
+        .add("requestObjectId", requestObjectId)
+        .add("requestObjectType", requestObjectType)
+        .toString();
   }
 }

@@ -2,41 +2,35 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
 /**
- * Write-only setting, available only in Create/Update/Reset and Submit calls.
- * Specifies the user or service principal that the job runs as. If not
- * specified, the job runs as the user who created the job.
- * 
- * Only `user_name` or `service_principal_name` can be specified. If both are
- * specified, an error is thrown.
+ * Write-only setting, available only in Create/Update/Reset and Submit calls. Specifies the user or
+ * service principal that the job runs as. If not specified, the job runs as the user who created
+ * the job.
+ *
+ * <p>Only `user_name` or `service_principal_name` can be specified. If both are specified, an error
+ * is thrown.
  */
 @Generated
 public class JobRunAs {
   /**
-   * Application ID of an active service principal. Setting this field requires
-   * the `servicePrincipal/user` role.
+   * Application ID of an active service principal. Setting this field requires the
+   * `servicePrincipal/user` role.
    */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
-  
+
   /**
-   * The email of an active workspace user. Non-admin users can only set this
-   * field to their own email.
+   * The email of an active workspace user. Non-admin users can only set this field to their own
+   * email.
    */
   @JsonProperty("user_name")
   private String userName;
-  
+
   public JobRunAs setServicePrincipalName(String servicePrincipalName) {
     this.servicePrincipalName = servicePrincipalName;
     return this;
@@ -45,7 +39,7 @@ public class JobRunAs {
   public String getServicePrincipalName() {
     return servicePrincipalName;
   }
-  
+
   public JobRunAs setUserName(String userName) {
     this.userName = userName;
     return this;
@@ -54,7 +48,6 @@ public class JobRunAs {
   public String getUserName() {
     return userName;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -62,8 +55,7 @@ public class JobRunAs {
     if (o == null || getClass() != o.getClass()) return false;
     JobRunAs that = (JobRunAs) o;
     return Objects.equals(servicePrincipalName, that.servicePrincipalName)
-    && Objects.equals(userName, that.userName)
-    ;
+        && Objects.equals(userName, that.userName);
   }
 
   @Override
@@ -74,7 +66,8 @@ public class JobRunAs {
   @Override
   public String toString() {
     return new ToStringer(JobRunAs.class)
-      .add("servicePrincipalName", servicePrincipalName)
-      .add("userName", userName).toString();
+        .add("servicePrincipalName", servicePrincipalName)
+        .add("userName", userName)
+        .toString();
   }
 }

@@ -2,44 +2,29 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class InstancePoolStats {
-  /**
-   * Number of active instances in the pool that are NOT part of a cluster.
-   */
+  /** Number of active instances in the pool that are NOT part of a cluster. */
   @JsonProperty("idle_count")
   private Long idleCount;
-  
-  /**
-   * Number of pending instances in the pool that are NOT part of a cluster.
-   */
+
+  /** Number of pending instances in the pool that are NOT part of a cluster. */
   @JsonProperty("pending_idle_count")
   private Long pendingIdleCount;
-  
-  /**
-   * Number of pending instances in the pool that are part of a cluster.
-   */
+
+  /** Number of pending instances in the pool that are part of a cluster. */
   @JsonProperty("pending_used_count")
   private Long pendingUsedCount;
-  
-  /**
-   * Number of active instances in the pool that are part of a cluster.
-   */
+
+  /** Number of active instances in the pool that are part of a cluster. */
   @JsonProperty("used_count")
   private Long usedCount;
-  
+
   public InstancePoolStats setIdleCount(Long idleCount) {
     this.idleCount = idleCount;
     return this;
@@ -48,7 +33,7 @@ public class InstancePoolStats {
   public Long getIdleCount() {
     return idleCount;
   }
-  
+
   public InstancePoolStats setPendingIdleCount(Long pendingIdleCount) {
     this.pendingIdleCount = pendingIdleCount;
     return this;
@@ -57,7 +42,7 @@ public class InstancePoolStats {
   public Long getPendingIdleCount() {
     return pendingIdleCount;
   }
-  
+
   public InstancePoolStats setPendingUsedCount(Long pendingUsedCount) {
     this.pendingUsedCount = pendingUsedCount;
     return this;
@@ -66,7 +51,7 @@ public class InstancePoolStats {
   public Long getPendingUsedCount() {
     return pendingUsedCount;
   }
-  
+
   public InstancePoolStats setUsedCount(Long usedCount) {
     this.usedCount = usedCount;
     return this;
@@ -75,7 +60,6 @@ public class InstancePoolStats {
   public Long getUsedCount() {
     return usedCount;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -83,10 +67,9 @@ public class InstancePoolStats {
     if (o == null || getClass() != o.getClass()) return false;
     InstancePoolStats that = (InstancePoolStats) o;
     return Objects.equals(idleCount, that.idleCount)
-    && Objects.equals(pendingIdleCount, that.pendingIdleCount)
-    && Objects.equals(pendingUsedCount, that.pendingUsedCount)
-    && Objects.equals(usedCount, that.usedCount)
-    ;
+        && Objects.equals(pendingIdleCount, that.pendingIdleCount)
+        && Objects.equals(pendingUsedCount, that.pendingUsedCount)
+        && Objects.equals(usedCount, that.usedCount);
   }
 
   @Override
@@ -97,9 +80,10 @@ public class InstancePoolStats {
   @Override
   public String toString() {
     return new ToStringer(InstancePoolStats.class)
-      .add("idleCount", idleCount)
-      .add("pendingIdleCount", pendingIdleCount)
-      .add("pendingUsedCount", pendingUsedCount)
-      .add("usedCount", usedCount).toString();
+        .add("idleCount", idleCount)
+        .add("pendingIdleCount", pendingIdleCount)
+        .add("pendingUsedCount", pendingUsedCount)
+        .add("usedCount", usedCount)
+        .toString();
   }
 }

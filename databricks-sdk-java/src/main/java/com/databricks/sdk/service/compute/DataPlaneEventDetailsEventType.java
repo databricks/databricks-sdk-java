@@ -2,23 +2,11 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
 
-
-/**
- * <needs content added>
- */
+/** <needs content added> */
 @Generated
-public enum DataPlaneEventDetailsEventType{
+public enum DataPlaneEventDetailsEventType {
   NODE_BLACKLISTED,
   NODE_EXCLUDED_DECOMMISSIONED,
-  
 }

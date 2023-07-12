@@ -2,28 +2,16 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-/**
- * Retrieve a definition
- */
+/** Retrieve a definition */
 @Generated
 public class GetDashboardRequest {
-  /**
-   
-   */
-  
+  /** */
   private String dashboardId;
-  
+
   public GetDashboardRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;
     return this;
@@ -32,15 +20,13 @@ public class GetDashboardRequest {
   public String getDashboardId() {
     return dashboardId;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetDashboardRequest that = (GetDashboardRequest) o;
-    return Objects.equals(dashboardId, that.dashboardId)
-    ;
+    return Objects.equals(dashboardId, that.dashboardId);
   }
 
   @Override
@@ -50,7 +36,6 @@ public class GetDashboardRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetDashboardRequest.class)
-      .add("dashboardId", dashboardId).toString();
+    return new ToStringer(GetDashboardRequest.class).add("dashboardId", dashboardId).toString();
   }
 }

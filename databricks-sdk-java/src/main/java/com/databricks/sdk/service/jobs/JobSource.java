@@ -2,41 +2,28 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
 /**
- * The source of the job specification in the remote repository when the job is
- * source controlled.
+ * The source of the job specification in the remote repository when the job is source controlled.
  */
 @Generated
 public class JobSource {
-  /**
-   * This describes an enum
-   */
+  /** This describes an enum */
   @JsonProperty("dirty_state")
   private JobSourceDirtyState dirtyState;
-  
-  /**
-   * Name of the branch which the job is imported from.
-   */
+
+  /** Name of the branch which the job is imported from. */
   @JsonProperty("import_from_git_branch")
   private String importFromGitBranch;
-  
-  /**
-   * Path of the job YAML file that contains the job specification.
-   */
+
+  /** Path of the job YAML file that contains the job specification. */
   @JsonProperty("job_config_path")
   private String jobConfigPath;
-  
+
   public JobSource setDirtyState(JobSourceDirtyState dirtyState) {
     this.dirtyState = dirtyState;
     return this;
@@ -45,7 +32,7 @@ public class JobSource {
   public JobSourceDirtyState getDirtyState() {
     return dirtyState;
   }
-  
+
   public JobSource setImportFromGitBranch(String importFromGitBranch) {
     this.importFromGitBranch = importFromGitBranch;
     return this;
@@ -54,7 +41,7 @@ public class JobSource {
   public String getImportFromGitBranch() {
     return importFromGitBranch;
   }
-  
+
   public JobSource setJobConfigPath(String jobConfigPath) {
     this.jobConfigPath = jobConfigPath;
     return this;
@@ -63,7 +50,6 @@ public class JobSource {
   public String getJobConfigPath() {
     return jobConfigPath;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -71,9 +57,8 @@ public class JobSource {
     if (o == null || getClass() != o.getClass()) return false;
     JobSource that = (JobSource) o;
     return Objects.equals(dirtyState, that.dirtyState)
-    && Objects.equals(importFromGitBranch, that.importFromGitBranch)
-    && Objects.equals(jobConfigPath, that.jobConfigPath)
-    ;
+        && Objects.equals(importFromGitBranch, that.importFromGitBranch)
+        && Objects.equals(jobConfigPath, that.jobConfigPath);
   }
 
   @Override
@@ -84,8 +69,9 @@ public class JobSource {
   @Override
   public String toString() {
     return new ToStringer(JobSource.class)
-      .add("dirtyState", dirtyState)
-      .add("importFromGitBranch", importFromGitBranch)
-      .add("jobConfigPath", jobConfigPath).toString();
+        .add("dirtyState", dirtyState)
+        .add("importFromGitBranch", importFromGitBranch)
+        .add("jobConfigPath", jobConfigPath)
+        .toString();
   }
 }

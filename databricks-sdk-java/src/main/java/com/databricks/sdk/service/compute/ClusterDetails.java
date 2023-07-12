@@ -2,375 +2,323 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
-
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
 
 @Generated
 public class ClusterDetails {
   /**
-   * Parameters needed in order to automatically scale clusters up and down
-   * based on load. Note: autoscaling works best with DB runtime versions 3.0 or
-   * later.
+   * Parameters needed in order to automatically scale clusters up and down based on load. Note:
+   * autoscaling works best with DB runtime versions 3.0 or later.
    */
   @JsonProperty("autoscale")
   private AutoScale autoscale;
-  
+
   /**
-   * Automatically terminates the cluster after it is inactive for this time in
-   * minutes. If not set, this cluster will not be automatically terminated. If
-   * specified, the threshold must be between 10 and 10000 minutes. Users can
-   * also set this value to 0 to explicitly disable automatic termination.
+   * Automatically terminates the cluster after it is inactive for this time in minutes. If not set,
+   * this cluster will not be automatically terminated. If specified, the threshold must be between
+   * 10 and 10000 minutes. Users can also set this value to 0 to explicitly disable automatic
+   * termination.
    */
   @JsonProperty("autotermination_minutes")
   private Long autoterminationMinutes;
-  
+
   /**
-   * Attributes related to clusters running on Amazon Web Services. If not
-   * specified at cluster creation, a set of default values will be used.
+   * Attributes related to clusters running on Amazon Web Services. If not specified at cluster
+   * creation, a set of default values will be used.
    */
   @JsonProperty("aws_attributes")
   private AwsAttributes awsAttributes;
-  
+
   /**
-   * Attributes related to clusters running on Microsoft Azure. If not specified
-   * at cluster creation, a set of default values will be used.
+   * Attributes related to clusters running on Microsoft Azure. If not specified at cluster
+   * creation, a set of default values will be used.
    */
   @JsonProperty("azure_attributes")
   private AzureAttributes azureAttributes;
-  
+
   /**
-   * Number of CPU cores available for this cluster. Note that this can be
-   * fractional, e.g. 7.5 cores, since certain node types are configured to
-   * share cores between Spark nodes on the same instance.
+   * Number of CPU cores available for this cluster. Note that this can be fractional, e.g. 7.5
+   * cores, since certain node types are configured to share cores between Spark nodes on the same
+   * instance.
    */
   @JsonProperty("cluster_cores")
   private Float clusterCores;
-  
+
   /**
-   * Canonical identifier for the cluster. This id is retained during cluster
-   * restarts and resizes, while each new cluster has a globally unique id.
+   * Canonical identifier for the cluster. This id is retained during cluster restarts and resizes,
+   * while each new cluster has a globally unique id.
    */
   @JsonProperty("cluster_id")
   private String clusterId;
-  
+
   /**
-   * The configuration for delivering spark logs to a long-term storage
-   * destination. Two kinds of destinations (dbfs and s3) are supported. Only
-   * one destination can be specified for one cluster. If the conf is given, the
-   * logs will be delivered to the destination every `5 mins`. The destination
-   * of driver logs is `$destination/$clusterId/driver`, while the destination
-   * of executor logs is `$destination/$clusterId/executor`.
+   * The configuration for delivering spark logs to a long-term storage destination. Two kinds of
+   * destinations (dbfs and s3) are supported. Only one destination can be specified for one
+   * cluster. If the conf is given, the logs will be delivered to the destination every `5 mins`.
+   * The destination of driver logs is `$destination/$clusterId/driver`, while the destination of
+   * executor logs is `$destination/$clusterId/executor`.
    */
   @JsonProperty("cluster_log_conf")
   private ClusterLogConf clusterLogConf;
-  
-  /**
-   * Cluster log delivery status.
-   */
+
+  /** Cluster log delivery status. */
   @JsonProperty("cluster_log_status")
   private LogSyncStatus clusterLogStatus;
-  
-  /**
-   * Total amount of cluster memory, in megabytes
-   */
+
+  /** Total amount of cluster memory, in megabytes */
   @JsonProperty("cluster_memory_mb")
   private Long clusterMemoryMb;
-  
+
   /**
-   * Cluster name requested by the user. This doesn't have to be unique. If not
-   * specified at creation, the cluster name will be an empty string.
+   * Cluster name requested by the user. This doesn't have to be unique. If not specified at
+   * creation, the cluster name will be an empty string.
    */
   @JsonProperty("cluster_name")
   private String clusterName;
-  
+
   /**
-   * Determines whether the cluster was created by a user through the UI,
-   * created by the Databricks Jobs Scheduler, or through an API request. This
-   * is the same as cluster_creator, but read only.
+   * Determines whether the cluster was created by a user through the UI, created by the Databricks
+   * Jobs Scheduler, or through an API request. This is the same as cluster_creator, but read only.
    */
   @JsonProperty("cluster_source")
   private ClusterSource clusterSource;
-  
+
   /**
-   * Creator user name. The field won't be included in the response if the user
-   * has already been deleted.
+   * Creator user name. The field won't be included in the response if the user has already been
+   * deleted.
    */
   @JsonProperty("creator_user_name")
   private String creatorUserName;
-  
+
   /**
-   * Additional tags for cluster resources. Databricks will tag all cluster
-   * resources (e.g., AWS instances and EBS volumes) with these tags in addition
-   * to `default_tags`. Notes:
-   * 
-   * - Currently, Databricks allows at most 45 custom tags
-   * 
-   * - Clusters can only reuse cloud resources if the resources' tags are a
-   * subset of the cluster tags
+   * Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS
+   * instances and EBS volumes) with these tags in addition to `default_tags`. Notes:
+   *
+   * <p>- Currently, Databricks allows at most 45 custom tags
+   *
+   * <p>- Clusters can only reuse cloud resources if the resources' tags are a subset of the cluster
+   * tags
    */
   @JsonProperty("custom_tags")
-  private Map<String,String> customTags;
-  
-  /**
-   * This describes an enum
-   */
+  private Map<String, String> customTags;
+
+  /** This describes an enum */
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
-  
+
   /**
-   * Tags that are added by Databricks regardless of any `custom_tags`,
-   * including:
-   * 
-   * - Vendor: Databricks
-   * 
-   * - Creator: <username_of_creator>
-   * 
-   * - ClusterName: <name_of_cluster>
-   * 
-   * - ClusterId: <id_of_cluster>
-   * 
-   * - Name: <Databricks internal use>
+   * Tags that are added by Databricks regardless of any `custom_tags`, including:
+   *
+   * <p>- Vendor: Databricks
+   *
+   * <p>- Creator: <username_of_creator>
+   *
+   * <p>- ClusterName: <name_of_cluster>
+   *
+   * <p>- ClusterId: <id_of_cluster>
+   *
+   * <p>- Name: <Databricks internal use>
    */
   @JsonProperty("default_tags")
-  private Map<String,String> defaultTags;
-  
-  /**
-   
-   */
+  private Map<String, String> defaultTags;
+
+  /** */
   @JsonProperty("docker_image")
   private DockerImage dockerImage;
-  
+
   /**
-   * Node on which the Spark driver resides. The driver node contains the Spark
-   * master and the <Databricks> application that manages the per-notebook Spark
-   * REPLs.
+   * Node on which the Spark driver resides. The driver node contains the Spark master and the
+   * <Databricks> application that manages the per-notebook Spark REPLs.
    */
   @JsonProperty("driver")
   private SparkNode driver;
-  
+
   /**
-   * The optional ID of the instance pool for the driver of the cluster belongs.
-   * The pool cluster uses the instance pool with id (instance_pool_id) if the
-   * driver pool is not assigned.
+   * The optional ID of the instance pool for the driver of the cluster belongs. The pool cluster
+   * uses the instance pool with id (instance_pool_id) if the driver pool is not assigned.
    */
   @JsonProperty("driver_instance_pool_id")
   private String driverInstancePoolId;
-  
+
   /**
-   * The node type of the Spark driver. Note that this field is optional; if
-   * unset, the driver node type will be set as the same value as `node_type_id`
-   * defined above.
+   * The node type of the Spark driver. Note that this field is optional; if unset, the driver node
+   * type will be set as the same value as `node_type_id` defined above.
    */
   @JsonProperty("driver_node_type_id")
   private String driverNodeTypeId;
-  
+
   /**
-   * Autoscaling Local Storage: when enabled, this cluster will dynamically
-   * acquire additional disk space when its Spark workers are running low on
-   * disk space. This feature requires specific AWS permissions to function
-   * correctly - refer to the User Guide for more details.
+   * Autoscaling Local Storage: when enabled, this cluster will dynamically acquire additional disk
+   * space when its Spark workers are running low on disk space. This feature requires specific AWS
+   * permissions to function correctly - refer to the User Guide for more details.
    */
   @JsonProperty("enable_elastic_disk")
   private Boolean enableElasticDisk;
-  
-  /**
-   * Whether to enable LUKS on cluster VMs' local disks
-   */
+
+  /** Whether to enable LUKS on cluster VMs' local disks */
   @JsonProperty("enable_local_disk_encryption")
   private Boolean enableLocalDiskEncryption;
-  
-  /**
-   * Nodes on which the Spark executors reside.
-   */
+
+  /** Nodes on which the Spark executors reside. */
   @JsonProperty("executors")
   private Collection<SparkNode> executors;
-  
+
   /**
-   * Attributes related to clusters running on Google Cloud Platform. If not
-   * specified at cluster creation, a set of default values will be used.
+   * Attributes related to clusters running on Google Cloud Platform. If not specified at cluster
+   * creation, a set of default values will be used.
    */
   @JsonProperty("gcp_attributes")
   private GcpAttributes gcpAttributes;
-  
+
   /**
-   * The configuration for storing init scripts. Any number of destinations can
-   * be specified. The scripts are executed sequentially in the order provided.
-   * If `cluster_log_conf` is specified, init script logs are sent to
-   * `<destination>/<cluster-ID>/init_scripts`.
+   * The configuration for storing init scripts. Any number of destinations can be specified. The
+   * scripts are executed sequentially in the order provided. If `cluster_log_conf` is specified,
+   * init script logs are sent to `<destination>/<cluster-ID>/init_scripts`.
    */
   @JsonProperty("init_scripts")
   private Collection<InitScriptInfo> initScripts;
-  
-  /**
-   * The optional ID of the instance pool to which the cluster belongs.
-   */
+
+  /** The optional ID of the instance pool to which the cluster belongs. */
   @JsonProperty("instance_pool_id")
   private String instancePoolId;
-  
+
   /**
-   * Port on which Spark JDBC server is listening, in the driver nod. No service
-   * will be listeningon on this port in executor nodes.
+   * Port on which Spark JDBC server is listening, in the driver nod. No service will be listeningon
+   * on this port in executor nodes.
    */
   @JsonProperty("jdbc_port")
   private Long jdbcPort;
-  
-  /**
-   * the timestamp that the cluster was started/restarted
-   */
+
+  /** the timestamp that the cluster was started/restarted */
   @JsonProperty("last_restarted_time")
   private Long lastRestartedTime;
-  
-  /**
-   * Time when the cluster driver last lost its state (due to a restart or
-   * driver failure).
-   */
+
+  /** Time when the cluster driver last lost its state (due to a restart or driver failure). */
   @JsonProperty("last_state_loss_time")
   private Long lastStateLossTime;
-  
+
   /**
-   * This field encodes, through a single value, the resources available to each
-   * of the Spark nodes in this cluster. For example, the Spark nodes can be
-   * provisioned and optimized for memory or compute intensive workloads. A list
-   * of available node types can be retrieved by using the
+   * This field encodes, through a single value, the resources available to each of the Spark nodes
+   * in this cluster. For example, the Spark nodes can be provisioned and optimized for memory or
+   * compute intensive workloads. A list of available node types can be retrieved by using the
    * :method:clusters/listNodeTypes API call.
    */
   @JsonProperty("node_type_id")
   private String nodeTypeId;
-  
+
   /**
-   * Number of worker nodes that this cluster should have. A cluster has one
-   * Spark Driver and `num_workers` Executors for a total of `num_workers` + 1
-   * Spark nodes.
-   * 
-   * Note: When reading the properties of a cluster, this field reflects the
-   * desired number of workers rather than the actual current number of workers.
-   * For instance, if a cluster is resized from 5 to 10 workers, this field will
-   * immediately be updated to reflect the target size of 10 workers, whereas
-   * the workers listed in `spark_info` will gradually increase from 5 to 10 as
-   * the new nodes are provisioned.
+   * Number of worker nodes that this cluster should have. A cluster has one Spark Driver and
+   * `num_workers` Executors for a total of `num_workers` + 1 Spark nodes.
+   *
+   * <p>Note: When reading the properties of a cluster, this field reflects the desired number of
+   * workers rather than the actual current number of workers. For instance, if a cluster is resized
+   * from 5 to 10 workers, this field will immediately be updated to reflect the target size of 10
+   * workers, whereas the workers listed in `spark_info` will gradually increase from 5 to 10 as the
+   * new nodes are provisioned.
    */
   @JsonProperty("num_workers")
   private Long numWorkers;
-  
-  /**
-   * The ID of the cluster policy used to create the cluster if applicable.
-   */
+
+  /** The ID of the cluster policy used to create the cluster if applicable. */
   @JsonProperty("policy_id")
   private String policyId;
-  
+
   /**
-   * Decides which runtime engine to be use, e.g. Standard vs. Photon. If
-   * unspecified, the runtime engine is inferred from spark_version.
+   * Decides which runtime engine to be use, e.g. Standard vs. Photon. If unspecified, the runtime
+   * engine is inferred from spark_version.
    */
   @JsonProperty("runtime_engine")
   private RuntimeEngine runtimeEngine;
-  
-  /**
-   * Single user name if data_security_mode is `SINGLE_USER`
-   */
+
+  /** Single user name if data_security_mode is `SINGLE_USER` */
   @JsonProperty("single_user_name")
   private String singleUserName;
-  
+
   /**
-   * An object containing a set of optional, user-specified Spark configuration
-   * key-value pairs. Users can also pass in a string of extra JVM options to
-   * the driver and the executors via `spark.driver.extraJavaOptions` and
-   * `spark.executor.extraJavaOptions` respectively.
+   * An object containing a set of optional, user-specified Spark configuration key-value pairs.
+   * Users can also pass in a string of extra JVM options to the driver and the executors via
+   * `spark.driver.extraJavaOptions` and `spark.executor.extraJavaOptions` respectively.
    */
   @JsonProperty("spark_conf")
-  private Map<String,String> sparkConf;
-  
+  private Map<String, String> sparkConf;
+
   /**
-   * A canonical SparkContext identifier. This value *does* change when the
-   * Spark driver restarts. The pair `(cluster_id, spark_context_id)` is a
-   * globally unique identifier over all Spark contexts.
+   * A canonical SparkContext identifier. This value *does* change when the Spark driver restarts.
+   * The pair `(cluster_id, spark_context_id)` is a globally unique identifier over all Spark
+   * contexts.
    */
   @JsonProperty("spark_context_id")
   private Long sparkContextId;
-  
+
   /**
-   * An object containing a set of optional, user-specified environment variable
-   * key-value pairs. Please note that key-value pair of the form (X,Y) will be
-   * exported as is (i.e., `export X='Y'`) while launching the driver and
-   * workers.
-   * 
-   * In order to specify an additional set of `SPARK_DAEMON_JAVA_OPTS`, we
-   * recommend appending them to `$SPARK_DAEMON_JAVA_OPTS` as shown in the
-   * example below. This ensures that all default databricks managed
-   * environmental variables are included as well.
-   * 
-   * Example Spark environment variables: `{"SPARK_WORKER_MEMORY": "28000m",
-   * "SPARK_LOCAL_DIRS": "/local_disk0"}` or `{"SPARK_DAEMON_JAVA_OPTS":
-   * "$SPARK_DAEMON_JAVA_OPTS -Dspark.shuffle.service.enabled=true"}`
+   * An object containing a set of optional, user-specified environment variable key-value pairs.
+   * Please note that key-value pair of the form (X,Y) will be exported as is (i.e., `export X='Y'`)
+   * while launching the driver and workers.
+   *
+   * <p>In order to specify an additional set of `SPARK_DAEMON_JAVA_OPTS`, we recommend appending
+   * them to `$SPARK_DAEMON_JAVA_OPTS` as shown in the example below. This ensures that all default
+   * databricks managed environmental variables are included as well.
+   *
+   * <p>Example Spark environment variables: `{"SPARK_WORKER_MEMORY": "28000m", "SPARK_LOCAL_DIRS":
+   * "/local_disk0"}` or `{"SPARK_DAEMON_JAVA_OPTS": "$SPARK_DAEMON_JAVA_OPTS
+   * -Dspark.shuffle.service.enabled=true"}`
    */
   @JsonProperty("spark_env_vars")
-  private Map<String,String> sparkEnvVars;
-  
+  private Map<String, String> sparkEnvVars;
+
   /**
-   * The Spark version of the cluster, e.g. `3.3.x-scala2.11`. A list of
-   * available Spark versions can be retrieved by using the
-   * :method:clusters/sparkVersions API call.
+   * The Spark version of the cluster, e.g. `3.3.x-scala2.11`. A list of available Spark versions
+   * can be retrieved by using the :method:clusters/sparkVersions API call.
    */
   @JsonProperty("spark_version")
   private String sparkVersion;
-  
+
   /**
-   * SSH public key contents that will be added to each Spark node in this
-   * cluster. The corresponding private keys can be used to login with the user
-   * name `ubuntu` on port `2200`. Up to 10 keys can be specified.
+   * SSH public key contents that will be added to each Spark node in this cluster. The
+   * corresponding private keys can be used to login with the user name `ubuntu` on port `2200`. Up
+   * to 10 keys can be specified.
    */
   @JsonProperty("ssh_public_keys")
   private Collection<String> sshPublicKeys;
-  
+
   /**
-   * Time (in epoch milliseconds) when the cluster creation request was received
-   * (when the cluster entered a `PENDING` state).
+   * Time (in epoch milliseconds) when the cluster creation request was received (when the cluster
+   * entered a `PENDING` state).
    */
   @JsonProperty("start_time")
   private Long startTime;
-  
-  /**
-   * Current state of the cluster.
-   */
+
+  /** Current state of the cluster. */
   @JsonProperty("state")
   private State state;
-  
+
   /**
-   * A message associated with the most recent state transition (e.g., the
-   * reason why the cluster entered a `TERMINATED` state).
+   * A message associated with the most recent state transition (e.g., the reason why the cluster
+   * entered a `TERMINATED` state).
    */
   @JsonProperty("state_message")
   private String stateMessage;
-  
-  /**
-   * Time (in epoch milliseconds) when the cluster was terminated, if
-   * applicable.
-   */
+
+  /** Time (in epoch milliseconds) when the cluster was terminated, if applicable. */
   @JsonProperty("terminated_time")
   private Long terminatedTime;
-  
+
   /**
-   * Information about why the cluster was terminated. This field only appears
-   * when the cluster is in a `TERMINATING` or `TERMINATED` state.
+   * Information about why the cluster was terminated. This field only appears when the cluster is
+   * in a `TERMINATING` or `TERMINATED` state.
    */
   @JsonProperty("termination_reason")
   private TerminationReason terminationReason;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("workload_type")
   private WorkloadType workloadType;
-  
+
   public ClusterDetails setAutoscale(AutoScale autoscale) {
     this.autoscale = autoscale;
     return this;
@@ -379,7 +327,7 @@ public class ClusterDetails {
   public AutoScale getAutoscale() {
     return autoscale;
   }
-  
+
   public ClusterDetails setAutoterminationMinutes(Long autoterminationMinutes) {
     this.autoterminationMinutes = autoterminationMinutes;
     return this;
@@ -388,7 +336,7 @@ public class ClusterDetails {
   public Long getAutoterminationMinutes() {
     return autoterminationMinutes;
   }
-  
+
   public ClusterDetails setAwsAttributes(AwsAttributes awsAttributes) {
     this.awsAttributes = awsAttributes;
     return this;
@@ -397,7 +345,7 @@ public class ClusterDetails {
   public AwsAttributes getAwsAttributes() {
     return awsAttributes;
   }
-  
+
   public ClusterDetails setAzureAttributes(AzureAttributes azureAttributes) {
     this.azureAttributes = azureAttributes;
     return this;
@@ -406,7 +354,7 @@ public class ClusterDetails {
   public AzureAttributes getAzureAttributes() {
     return azureAttributes;
   }
-  
+
   public ClusterDetails setClusterCores(Float clusterCores) {
     this.clusterCores = clusterCores;
     return this;
@@ -415,7 +363,7 @@ public class ClusterDetails {
   public Float getClusterCores() {
     return clusterCores;
   }
-  
+
   public ClusterDetails setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -424,7 +372,7 @@ public class ClusterDetails {
   public String getClusterId() {
     return clusterId;
   }
-  
+
   public ClusterDetails setClusterLogConf(ClusterLogConf clusterLogConf) {
     this.clusterLogConf = clusterLogConf;
     return this;
@@ -433,7 +381,7 @@ public class ClusterDetails {
   public ClusterLogConf getClusterLogConf() {
     return clusterLogConf;
   }
-  
+
   public ClusterDetails setClusterLogStatus(LogSyncStatus clusterLogStatus) {
     this.clusterLogStatus = clusterLogStatus;
     return this;
@@ -442,7 +390,7 @@ public class ClusterDetails {
   public LogSyncStatus getClusterLogStatus() {
     return clusterLogStatus;
   }
-  
+
   public ClusterDetails setClusterMemoryMb(Long clusterMemoryMb) {
     this.clusterMemoryMb = clusterMemoryMb;
     return this;
@@ -451,7 +399,7 @@ public class ClusterDetails {
   public Long getClusterMemoryMb() {
     return clusterMemoryMb;
   }
-  
+
   public ClusterDetails setClusterName(String clusterName) {
     this.clusterName = clusterName;
     return this;
@@ -460,7 +408,7 @@ public class ClusterDetails {
   public String getClusterName() {
     return clusterName;
   }
-  
+
   public ClusterDetails setClusterSource(ClusterSource clusterSource) {
     this.clusterSource = clusterSource;
     return this;
@@ -469,7 +417,7 @@ public class ClusterDetails {
   public ClusterSource getClusterSource() {
     return clusterSource;
   }
-  
+
   public ClusterDetails setCreatorUserName(String creatorUserName) {
     this.creatorUserName = creatorUserName;
     return this;
@@ -478,16 +426,16 @@ public class ClusterDetails {
   public String getCreatorUserName() {
     return creatorUserName;
   }
-  
-  public ClusterDetails setCustomTags(Map<String,String> customTags) {
+
+  public ClusterDetails setCustomTags(Map<String, String> customTags) {
     this.customTags = customTags;
     return this;
   }
 
-  public Map<String,String> getCustomTags() {
+  public Map<String, String> getCustomTags() {
     return customTags;
   }
-  
+
   public ClusterDetails setDataSecurityMode(DataSecurityMode dataSecurityMode) {
     this.dataSecurityMode = dataSecurityMode;
     return this;
@@ -496,16 +444,16 @@ public class ClusterDetails {
   public DataSecurityMode getDataSecurityMode() {
     return dataSecurityMode;
   }
-  
-  public ClusterDetails setDefaultTags(Map<String,String> defaultTags) {
+
+  public ClusterDetails setDefaultTags(Map<String, String> defaultTags) {
     this.defaultTags = defaultTags;
     return this;
   }
 
-  public Map<String,String> getDefaultTags() {
+  public Map<String, String> getDefaultTags() {
     return defaultTags;
   }
-  
+
   public ClusterDetails setDockerImage(DockerImage dockerImage) {
     this.dockerImage = dockerImage;
     return this;
@@ -514,7 +462,7 @@ public class ClusterDetails {
   public DockerImage getDockerImage() {
     return dockerImage;
   }
-  
+
   public ClusterDetails setDriver(SparkNode driver) {
     this.driver = driver;
     return this;
@@ -523,7 +471,7 @@ public class ClusterDetails {
   public SparkNode getDriver() {
     return driver;
   }
-  
+
   public ClusterDetails setDriverInstancePoolId(String driverInstancePoolId) {
     this.driverInstancePoolId = driverInstancePoolId;
     return this;
@@ -532,7 +480,7 @@ public class ClusterDetails {
   public String getDriverInstancePoolId() {
     return driverInstancePoolId;
   }
-  
+
   public ClusterDetails setDriverNodeTypeId(String driverNodeTypeId) {
     this.driverNodeTypeId = driverNodeTypeId;
     return this;
@@ -541,7 +489,7 @@ public class ClusterDetails {
   public String getDriverNodeTypeId() {
     return driverNodeTypeId;
   }
-  
+
   public ClusterDetails setEnableElasticDisk(Boolean enableElasticDisk) {
     this.enableElasticDisk = enableElasticDisk;
     return this;
@@ -550,7 +498,7 @@ public class ClusterDetails {
   public Boolean getEnableElasticDisk() {
     return enableElasticDisk;
   }
-  
+
   public ClusterDetails setEnableLocalDiskEncryption(Boolean enableLocalDiskEncryption) {
     this.enableLocalDiskEncryption = enableLocalDiskEncryption;
     return this;
@@ -559,7 +507,7 @@ public class ClusterDetails {
   public Boolean getEnableLocalDiskEncryption() {
     return enableLocalDiskEncryption;
   }
-  
+
   public ClusterDetails setExecutors(Collection<SparkNode> executors) {
     this.executors = executors;
     return this;
@@ -568,7 +516,7 @@ public class ClusterDetails {
   public Collection<SparkNode> getExecutors() {
     return executors;
   }
-  
+
   public ClusterDetails setGcpAttributes(GcpAttributes gcpAttributes) {
     this.gcpAttributes = gcpAttributes;
     return this;
@@ -577,7 +525,7 @@ public class ClusterDetails {
   public GcpAttributes getGcpAttributes() {
     return gcpAttributes;
   }
-  
+
   public ClusterDetails setInitScripts(Collection<InitScriptInfo> initScripts) {
     this.initScripts = initScripts;
     return this;
@@ -586,7 +534,7 @@ public class ClusterDetails {
   public Collection<InitScriptInfo> getInitScripts() {
     return initScripts;
   }
-  
+
   public ClusterDetails setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;
     return this;
@@ -595,7 +543,7 @@ public class ClusterDetails {
   public String getInstancePoolId() {
     return instancePoolId;
   }
-  
+
   public ClusterDetails setJdbcPort(Long jdbcPort) {
     this.jdbcPort = jdbcPort;
     return this;
@@ -604,7 +552,7 @@ public class ClusterDetails {
   public Long getJdbcPort() {
     return jdbcPort;
   }
-  
+
   public ClusterDetails setLastRestartedTime(Long lastRestartedTime) {
     this.lastRestartedTime = lastRestartedTime;
     return this;
@@ -613,7 +561,7 @@ public class ClusterDetails {
   public Long getLastRestartedTime() {
     return lastRestartedTime;
   }
-  
+
   public ClusterDetails setLastStateLossTime(Long lastStateLossTime) {
     this.lastStateLossTime = lastStateLossTime;
     return this;
@@ -622,7 +570,7 @@ public class ClusterDetails {
   public Long getLastStateLossTime() {
     return lastStateLossTime;
   }
-  
+
   public ClusterDetails setNodeTypeId(String nodeTypeId) {
     this.nodeTypeId = nodeTypeId;
     return this;
@@ -631,7 +579,7 @@ public class ClusterDetails {
   public String getNodeTypeId() {
     return nodeTypeId;
   }
-  
+
   public ClusterDetails setNumWorkers(Long numWorkers) {
     this.numWorkers = numWorkers;
     return this;
@@ -640,7 +588,7 @@ public class ClusterDetails {
   public Long getNumWorkers() {
     return numWorkers;
   }
-  
+
   public ClusterDetails setPolicyId(String policyId) {
     this.policyId = policyId;
     return this;
@@ -649,7 +597,7 @@ public class ClusterDetails {
   public String getPolicyId() {
     return policyId;
   }
-  
+
   public ClusterDetails setRuntimeEngine(RuntimeEngine runtimeEngine) {
     this.runtimeEngine = runtimeEngine;
     return this;
@@ -658,7 +606,7 @@ public class ClusterDetails {
   public RuntimeEngine getRuntimeEngine() {
     return runtimeEngine;
   }
-  
+
   public ClusterDetails setSingleUserName(String singleUserName) {
     this.singleUserName = singleUserName;
     return this;
@@ -667,16 +615,16 @@ public class ClusterDetails {
   public String getSingleUserName() {
     return singleUserName;
   }
-  
-  public ClusterDetails setSparkConf(Map<String,String> sparkConf) {
+
+  public ClusterDetails setSparkConf(Map<String, String> sparkConf) {
     this.sparkConf = sparkConf;
     return this;
   }
 
-  public Map<String,String> getSparkConf() {
+  public Map<String, String> getSparkConf() {
     return sparkConf;
   }
-  
+
   public ClusterDetails setSparkContextId(Long sparkContextId) {
     this.sparkContextId = sparkContextId;
     return this;
@@ -685,16 +633,16 @@ public class ClusterDetails {
   public Long getSparkContextId() {
     return sparkContextId;
   }
-  
-  public ClusterDetails setSparkEnvVars(Map<String,String> sparkEnvVars) {
+
+  public ClusterDetails setSparkEnvVars(Map<String, String> sparkEnvVars) {
     this.sparkEnvVars = sparkEnvVars;
     return this;
   }
 
-  public Map<String,String> getSparkEnvVars() {
+  public Map<String, String> getSparkEnvVars() {
     return sparkEnvVars;
   }
-  
+
   public ClusterDetails setSparkVersion(String sparkVersion) {
     this.sparkVersion = sparkVersion;
     return this;
@@ -703,7 +651,7 @@ public class ClusterDetails {
   public String getSparkVersion() {
     return sparkVersion;
   }
-  
+
   public ClusterDetails setSshPublicKeys(Collection<String> sshPublicKeys) {
     this.sshPublicKeys = sshPublicKeys;
     return this;
@@ -712,7 +660,7 @@ public class ClusterDetails {
   public Collection<String> getSshPublicKeys() {
     return sshPublicKeys;
   }
-  
+
   public ClusterDetails setStartTime(Long startTime) {
     this.startTime = startTime;
     return this;
@@ -721,7 +669,7 @@ public class ClusterDetails {
   public Long getStartTime() {
     return startTime;
   }
-  
+
   public ClusterDetails setState(State state) {
     this.state = state;
     return this;
@@ -730,7 +678,7 @@ public class ClusterDetails {
   public State getState() {
     return state;
   }
-  
+
   public ClusterDetails setStateMessage(String stateMessage) {
     this.stateMessage = stateMessage;
     return this;
@@ -739,7 +687,7 @@ public class ClusterDetails {
   public String getStateMessage() {
     return stateMessage;
   }
-  
+
   public ClusterDetails setTerminatedTime(Long terminatedTime) {
     this.terminatedTime = terminatedTime;
     return this;
@@ -748,7 +696,7 @@ public class ClusterDetails {
   public Long getTerminatedTime() {
     return terminatedTime;
   }
-  
+
   public ClusterDetails setTerminationReason(TerminationReason terminationReason) {
     this.terminationReason = terminationReason;
     return this;
@@ -757,7 +705,7 @@ public class ClusterDetails {
   public TerminationReason getTerminationReason() {
     return terminationReason;
   }
-  
+
   public ClusterDetails setWorkloadType(WorkloadType workloadType) {
     this.workloadType = workloadType;
     return this;
@@ -766,7 +714,6 @@ public class ClusterDetails {
   public WorkloadType getWorkloadType() {
     return workloadType;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -774,103 +721,147 @@ public class ClusterDetails {
     if (o == null || getClass() != o.getClass()) return false;
     ClusterDetails that = (ClusterDetails) o;
     return Objects.equals(autoscale, that.autoscale)
-    && Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
-    && Objects.equals(awsAttributes, that.awsAttributes)
-    && Objects.equals(azureAttributes, that.azureAttributes)
-    && Objects.equals(clusterCores, that.clusterCores)
-    && Objects.equals(clusterId, that.clusterId)
-    && Objects.equals(clusterLogConf, that.clusterLogConf)
-    && Objects.equals(clusterLogStatus, that.clusterLogStatus)
-    && Objects.equals(clusterMemoryMb, that.clusterMemoryMb)
-    && Objects.equals(clusterName, that.clusterName)
-    && Objects.equals(clusterSource, that.clusterSource)
-    && Objects.equals(creatorUserName, that.creatorUserName)
-    && Objects.equals(customTags, that.customTags)
-    && Objects.equals(dataSecurityMode, that.dataSecurityMode)
-    && Objects.equals(defaultTags, that.defaultTags)
-    && Objects.equals(dockerImage, that.dockerImage)
-    && Objects.equals(driver, that.driver)
-    && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
-    && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
-    && Objects.equals(enableElasticDisk, that.enableElasticDisk)
-    && Objects.equals(enableLocalDiskEncryption, that.enableLocalDiskEncryption)
-    && Objects.equals(executors, that.executors)
-    && Objects.equals(gcpAttributes, that.gcpAttributes)
-    && Objects.equals(initScripts, that.initScripts)
-    && Objects.equals(instancePoolId, that.instancePoolId)
-    && Objects.equals(jdbcPort, that.jdbcPort)
-    && Objects.equals(lastRestartedTime, that.lastRestartedTime)
-    && Objects.equals(lastStateLossTime, that.lastStateLossTime)
-    && Objects.equals(nodeTypeId, that.nodeTypeId)
-    && Objects.equals(numWorkers, that.numWorkers)
-    && Objects.equals(policyId, that.policyId)
-    && Objects.equals(runtimeEngine, that.runtimeEngine)
-    && Objects.equals(singleUserName, that.singleUserName)
-    && Objects.equals(sparkConf, that.sparkConf)
-    && Objects.equals(sparkContextId, that.sparkContextId)
-    && Objects.equals(sparkEnvVars, that.sparkEnvVars)
-    && Objects.equals(sparkVersion, that.sparkVersion)
-    && Objects.equals(sshPublicKeys, that.sshPublicKeys)
-    && Objects.equals(startTime, that.startTime)
-    && Objects.equals(state, that.state)
-    && Objects.equals(stateMessage, that.stateMessage)
-    && Objects.equals(terminatedTime, that.terminatedTime)
-    && Objects.equals(terminationReason, that.terminationReason)
-    && Objects.equals(workloadType, that.workloadType)
-    ;
+        && Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
+        && Objects.equals(awsAttributes, that.awsAttributes)
+        && Objects.equals(azureAttributes, that.azureAttributes)
+        && Objects.equals(clusterCores, that.clusterCores)
+        && Objects.equals(clusterId, that.clusterId)
+        && Objects.equals(clusterLogConf, that.clusterLogConf)
+        && Objects.equals(clusterLogStatus, that.clusterLogStatus)
+        && Objects.equals(clusterMemoryMb, that.clusterMemoryMb)
+        && Objects.equals(clusterName, that.clusterName)
+        && Objects.equals(clusterSource, that.clusterSource)
+        && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(customTags, that.customTags)
+        && Objects.equals(dataSecurityMode, that.dataSecurityMode)
+        && Objects.equals(defaultTags, that.defaultTags)
+        && Objects.equals(dockerImage, that.dockerImage)
+        && Objects.equals(driver, that.driver)
+        && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
+        && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
+        && Objects.equals(enableElasticDisk, that.enableElasticDisk)
+        && Objects.equals(enableLocalDiskEncryption, that.enableLocalDiskEncryption)
+        && Objects.equals(executors, that.executors)
+        && Objects.equals(gcpAttributes, that.gcpAttributes)
+        && Objects.equals(initScripts, that.initScripts)
+        && Objects.equals(instancePoolId, that.instancePoolId)
+        && Objects.equals(jdbcPort, that.jdbcPort)
+        && Objects.equals(lastRestartedTime, that.lastRestartedTime)
+        && Objects.equals(lastStateLossTime, that.lastStateLossTime)
+        && Objects.equals(nodeTypeId, that.nodeTypeId)
+        && Objects.equals(numWorkers, that.numWorkers)
+        && Objects.equals(policyId, that.policyId)
+        && Objects.equals(runtimeEngine, that.runtimeEngine)
+        && Objects.equals(singleUserName, that.singleUserName)
+        && Objects.equals(sparkConf, that.sparkConf)
+        && Objects.equals(sparkContextId, that.sparkContextId)
+        && Objects.equals(sparkEnvVars, that.sparkEnvVars)
+        && Objects.equals(sparkVersion, that.sparkVersion)
+        && Objects.equals(sshPublicKeys, that.sshPublicKeys)
+        && Objects.equals(startTime, that.startTime)
+        && Objects.equals(state, that.state)
+        && Objects.equals(stateMessage, that.stateMessage)
+        && Objects.equals(terminatedTime, that.terminatedTime)
+        && Objects.equals(terminationReason, that.terminationReason)
+        && Objects.equals(workloadType, that.workloadType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(autoscale, autoterminationMinutes, awsAttributes, azureAttributes, clusterCores, clusterId, clusterLogConf, clusterLogStatus, clusterMemoryMb, clusterName, clusterSource, creatorUserName, customTags, dataSecurityMode, defaultTags, dockerImage, driver, driverInstancePoolId, driverNodeTypeId, enableElasticDisk, enableLocalDiskEncryption, executors, gcpAttributes, initScripts, instancePoolId, jdbcPort, lastRestartedTime, lastStateLossTime, nodeTypeId, numWorkers, policyId, runtimeEngine, singleUserName, sparkConf, sparkContextId, sparkEnvVars, sparkVersion, sshPublicKeys, startTime, state, stateMessage, terminatedTime, terminationReason, workloadType);
+    return Objects.hash(
+        autoscale,
+        autoterminationMinutes,
+        awsAttributes,
+        azureAttributes,
+        clusterCores,
+        clusterId,
+        clusterLogConf,
+        clusterLogStatus,
+        clusterMemoryMb,
+        clusterName,
+        clusterSource,
+        creatorUserName,
+        customTags,
+        dataSecurityMode,
+        defaultTags,
+        dockerImage,
+        driver,
+        driverInstancePoolId,
+        driverNodeTypeId,
+        enableElasticDisk,
+        enableLocalDiskEncryption,
+        executors,
+        gcpAttributes,
+        initScripts,
+        instancePoolId,
+        jdbcPort,
+        lastRestartedTime,
+        lastStateLossTime,
+        nodeTypeId,
+        numWorkers,
+        policyId,
+        runtimeEngine,
+        singleUserName,
+        sparkConf,
+        sparkContextId,
+        sparkEnvVars,
+        sparkVersion,
+        sshPublicKeys,
+        startTime,
+        state,
+        stateMessage,
+        terminatedTime,
+        terminationReason,
+        workloadType);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ClusterDetails.class)
-      .add("autoscale", autoscale)
-      .add("autoterminationMinutes", autoterminationMinutes)
-      .add("awsAttributes", awsAttributes)
-      .add("azureAttributes", azureAttributes)
-      .add("clusterCores", clusterCores)
-      .add("clusterId", clusterId)
-      .add("clusterLogConf", clusterLogConf)
-      .add("clusterLogStatus", clusterLogStatus)
-      .add("clusterMemoryMb", clusterMemoryMb)
-      .add("clusterName", clusterName)
-      .add("clusterSource", clusterSource)
-      .add("creatorUserName", creatorUserName)
-      .add("customTags", customTags)
-      .add("dataSecurityMode", dataSecurityMode)
-      .add("defaultTags", defaultTags)
-      .add("dockerImage", dockerImage)
-      .add("driver", driver)
-      .add("driverInstancePoolId", driverInstancePoolId)
-      .add("driverNodeTypeId", driverNodeTypeId)
-      .add("enableElasticDisk", enableElasticDisk)
-      .add("enableLocalDiskEncryption", enableLocalDiskEncryption)
-      .add("executors", executors)
-      .add("gcpAttributes", gcpAttributes)
-      .add("initScripts", initScripts)
-      .add("instancePoolId", instancePoolId)
-      .add("jdbcPort", jdbcPort)
-      .add("lastRestartedTime", lastRestartedTime)
-      .add("lastStateLossTime", lastStateLossTime)
-      .add("nodeTypeId", nodeTypeId)
-      .add("numWorkers", numWorkers)
-      .add("policyId", policyId)
-      .add("runtimeEngine", runtimeEngine)
-      .add("singleUserName", singleUserName)
-      .add("sparkConf", sparkConf)
-      .add("sparkContextId", sparkContextId)
-      .add("sparkEnvVars", sparkEnvVars)
-      .add("sparkVersion", sparkVersion)
-      .add("sshPublicKeys", sshPublicKeys)
-      .add("startTime", startTime)
-      .add("state", state)
-      .add("stateMessage", stateMessage)
-      .add("terminatedTime", terminatedTime)
-      .add("terminationReason", terminationReason)
-      .add("workloadType", workloadType).toString();
+        .add("autoscale", autoscale)
+        .add("autoterminationMinutes", autoterminationMinutes)
+        .add("awsAttributes", awsAttributes)
+        .add("azureAttributes", azureAttributes)
+        .add("clusterCores", clusterCores)
+        .add("clusterId", clusterId)
+        .add("clusterLogConf", clusterLogConf)
+        .add("clusterLogStatus", clusterLogStatus)
+        .add("clusterMemoryMb", clusterMemoryMb)
+        .add("clusterName", clusterName)
+        .add("clusterSource", clusterSource)
+        .add("creatorUserName", creatorUserName)
+        .add("customTags", customTags)
+        .add("dataSecurityMode", dataSecurityMode)
+        .add("defaultTags", defaultTags)
+        .add("dockerImage", dockerImage)
+        .add("driver", driver)
+        .add("driverInstancePoolId", driverInstancePoolId)
+        .add("driverNodeTypeId", driverNodeTypeId)
+        .add("enableElasticDisk", enableElasticDisk)
+        .add("enableLocalDiskEncryption", enableLocalDiskEncryption)
+        .add("executors", executors)
+        .add("gcpAttributes", gcpAttributes)
+        .add("initScripts", initScripts)
+        .add("instancePoolId", instancePoolId)
+        .add("jdbcPort", jdbcPort)
+        .add("lastRestartedTime", lastRestartedTime)
+        .add("lastStateLossTime", lastStateLossTime)
+        .add("nodeTypeId", nodeTypeId)
+        .add("numWorkers", numWorkers)
+        .add("policyId", policyId)
+        .add("runtimeEngine", runtimeEngine)
+        .add("singleUserName", singleUserName)
+        .add("sparkConf", sparkConf)
+        .add("sparkContextId", sparkContextId)
+        .add("sparkEnvVars", sparkEnvVars)
+        .add("sparkVersion", sparkVersion)
+        .add("sshPublicKeys", sshPublicKeys)
+        .add("startTime", startTime)
+        .add("state", state)
+        .add("stateMessage", stateMessage)
+        .add("terminatedTime", terminatedTime)
+        .add("terminationReason", terminationReason)
+        .add("workloadType", workloadType)
+        .toString();
   }
 }

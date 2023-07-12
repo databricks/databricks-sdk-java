@@ -2,20 +2,10 @@
 
 package com.databricks.sdk.service.sql;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
 
 @Generated
-public enum ServiceErrorCode{
+public enum ServiceErrorCode {
   ABORTED,
   ALREADY_EXISTS,
   BAD_REQUEST,
@@ -30,5 +20,4 @@ public enum ServiceErrorCode{
   UNAUTHENTICATED,
   UNKNOWN,
   WORKSPACE_TEMPORARILY_UNAVAILABLE,
-  
 }

@@ -2,26 +2,17 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class DeleteInstancePool {
-  /**
-   * The instance pool to be terminated.
-   */
+  /** The instance pool to be terminated. */
   @JsonProperty("instance_pool_id")
   private String instancePoolId;
-  
+
   public DeleteInstancePool setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;
     return this;
@@ -30,15 +21,13 @@ public class DeleteInstancePool {
   public String getInstancePoolId() {
     return instancePoolId;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteInstancePool that = (DeleteInstancePool) o;
-    return Objects.equals(instancePoolId, that.instancePoolId)
-    ;
+    return Objects.equals(instancePoolId, that.instancePoolId);
   }
 
   @Override
@@ -49,6 +38,7 @@ public class DeleteInstancePool {
   @Override
   public String toString() {
     return new ToStringer(DeleteInstancePool.class)
-      .add("instancePoolId", instancePoolId).toString();
+        .add("instancePoolId", instancePoolId)
+        .toString();
   }
 }

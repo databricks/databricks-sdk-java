@@ -2,22 +2,11 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
 
-
-/**
- * Current state of the cluster.
- */
+/** Current state of the cluster. */
 @Generated
-public enum State{
+public enum State {
   ERROR,
   PENDING,
   RESIZING,
@@ -26,5 +15,4 @@ public enum State{
   TERMINATED,
   TERMINATING,
   UNKNOWN,
-  
 }

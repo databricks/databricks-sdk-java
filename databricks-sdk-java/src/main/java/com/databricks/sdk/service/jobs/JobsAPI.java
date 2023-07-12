@@ -1,49 +1,35 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.jobs;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
+import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
+import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
-import java.util.function.Function;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.databricks.sdk.core.ApiClient;
-import com.databricks.sdk.core.DatabricksException;
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.Paginator;
-import com.databricks.sdk.support.Wait;
-
-
-import com.databricks.sdk.service.compute.ClusterSpec;
-import com.databricks.sdk.service.compute.ComputeSpec;
-import com.databricks.sdk.service.compute.Library;
-import com.databricks.sdk.service.iam.AccessControlRequest;
-
 /**
  * The Jobs API allows you to create, edit, and delete jobs.
- * 
- * You can use a Databricks job to run a data processing or data analysis task
- * in a Databricks cluster with scalable resources. Your job can consist of a
- * single task or can be a large, multi-task workflow with complex dependencies.
- * Databricks manages the task orchestration, cluster management, monitoring,
- * and error reporting for all of your jobs. You can run your jobs immediately
- * or periodically through an easy-to-use scheduling system. You can implement
- * job tasks using notebooks, JARS, Delta Live Tables pipelines, or Python,
- * Scala, Spark submit, and Java applications.
- * 
- * You should never hard code secrets or store them in plain text. Use the
- * [Secrets CLI] to manage secrets in the [Databricks CLI]. Use the [Secrets
- * utility] to reference secrets in notebooks and jobs.
- * 
- * [Databricks CLI]: https://docs.databricks.com/dev-tools/cli/index.html
- * [Secrets CLI]: https://docs.databricks.com/dev-tools/cli/secrets-cli.html
- * [Secrets utility]: https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
+ *
+ * <p>You can use a Databricks job to run a data processing or data analysis task in a Databricks
+ * cluster with scalable resources. Your job can consist of a single task or can be a large,
+ * multi-task workflow with complex dependencies. Databricks manages the task orchestration, cluster
+ * management, monitoring, and error reporting for all of your jobs. You can run your jobs
+ * immediately or periodically through an easy-to-use scheduling system. You can implement job tasks
+ * using notebooks, JARS, Delta Live Tables pipelines, or Python, Scala, Spark submit, and Java
+ * applications.
+ *
+ * <p>You should never hard code secrets or store them in plain text. Use the [Secrets CLI] to
+ * manage secrets in the [Databricks CLI]. Use the [Secrets utility] to reference secrets in
+ * notebooks and jobs.
+ *
+ * <p>[Databricks CLI]: https://docs.databricks.com/dev-tools/cli/index.html [Secrets CLI]:
+ * https://docs.databricks.com/dev-tools/cli/secrets-cli.html [Secrets utility]:
+ * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
  */
 @Generated
 public class JobsAPI {
@@ -60,339 +46,300 @@ public class JobsAPI {
   public JobsAPI(JobsService mock) {
     impl = mock;
   }
-  
-  public Run waitGetRunJobTerminatedOrSkipped(long runId)
-    throws TimeoutException {
+
+  public Run waitGetRunJobTerminatedOrSkipped(long runId) throws TimeoutException {
     return waitGetRunJobTerminatedOrSkipped(runId, Duration.ofMinutes(20), null);
   }
 
-  public Run waitGetRunJobTerminatedOrSkipped(long runId, 
-    Duration timeout,  Consumer<Run> callback) throws TimeoutException {
+  public Run waitGetRunJobTerminatedOrSkipped(long runId, Duration timeout, Consumer<Run> callback)
+      throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
-    java.util.List<RunLifeCycleState> targetStates = Arrays.asList(RunLifeCycleState.TERMINATED, RunLifeCycleState.SKIPPED);
-    java.util.List<RunLifeCycleState> failureStates = Arrays.asList(RunLifeCycleState.INTERNAL_ERROR);
+    java.util.List<RunLifeCycleState> targetStates =
+        Arrays.asList(RunLifeCycleState.TERMINATED, RunLifeCycleState.SKIPPED);
+    java.util.List<RunLifeCycleState> failureStates =
+        Arrays.asList(RunLifeCycleState.INTERNAL_ERROR);
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
-        Run poll = getRun(new GetRunRequest().setRunId(runId));
-        RunLifeCycleState status = poll.getState().getLifeCycleState();
-        statusMessage = String.format("current status: %s", status);
-        if (poll.getState() != null) {
-          statusMessage = poll.getState().getStateMessage();
-        }
-        if (targetStates.contains(status)) {
-            return poll;
-        }
-        if (callback != null) {
-            callback.accept(poll);
-        }if (failureStates.contains(status)) {
-            String msg = String.format("failed to reach TERMINATED or SKIPPED, got %s: %s", status, statusMessage);
-            throw new IllegalStateException(msg);
-        }
-        
-        String prefix = String.format("runId=%s", runId);
-        int sleep = attempt;
-        if (sleep > 10) {
-            // sleep 10s max per attempt
-            sleep = 10;
-        }
-        LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
-        try {
-            Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        attempt++;
+      Run poll = getRun(new GetRunRequest().setRunId(runId));
+      RunLifeCycleState status = poll.getState().getLifeCycleState();
+      statusMessage = String.format("current status: %s", status);
+      if (poll.getState() != null) {
+        statusMessage = poll.getState().getStateMessage();
+      }
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg =
+            String.format(
+                "failed to reach TERMINATED or SKIPPED, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("runId=%s", runId);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      attempt++;
     }
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
-  
 
-	
-	
   public void cancelAllRuns(long jobId) {
-    cancelAllRuns(new CancelAllRuns()
-      .setJobId(jobId));
+    cancelAllRuns(new CancelAllRuns().setJobId(jobId));
   }
-  
 
-	/**
+  /**
    * Cancel all runs of a job.
-   * 
-   * Cancels all active runs of a job. The runs are canceled asynchronously, so
-   * it doesn't prevent new runs from being started.
+   *
+   * <p>Cancels all active runs of a job. The runs are canceled asynchronously, so it doesn't
+   * prevent new runs from being started.
    */
   public void cancelAllRuns(CancelAllRuns request) {
     impl.cancelAllRuns(request);
   }
-  
-	
-  public Wait<Run,Void> cancelRun(long runId) {
-    return cancelRun(new CancelRun()
-      .setRunId(runId));
-  }
-  
 
-	/**
+  public Wait<Run, Void> cancelRun(long runId) {
+    return cancelRun(new CancelRun().setRunId(runId));
+  }
+
+  /**
    * Cancel a job run.
-   * 
-   * Cancels a job run. The run is canceled asynchronously, so it may still be
-   * running when this request completes.
+   *
+   * <p>Cancels a job run. The run is canceled asynchronously, so it may still be running when this
+   * request completes.
    */
-  public Wait<Run,Void> cancelRun(CancelRun request) {
+  public Wait<Run, Void> cancelRun(CancelRun request) {
     impl.cancelRun(request);
-    return new Wait<>((timeout, callback) -> waitGetRunJobTerminatedOrSkipped(request.getRunId(), timeout, callback));
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetRunJobTerminatedOrSkipped(request.getRunId(), timeout, callback));
   }
-  
-	
 
-	/**
+  /**
    * Create a new job.
-   * 
-   * Create a new job.
+   *
+   * <p>Create a new job.
    */
   public CreateResponse create(CreateJob request) {
     return impl.create(request);
   }
-  
-	
-  public void delete(long jobId) {
-    delete(new DeleteJob()
-      .setJobId(jobId));
-  }
-  
 
-	/**
+  public void delete(long jobId) {
+    delete(new DeleteJob().setJobId(jobId));
+  }
+
+  /**
    * Delete a job.
-   * 
-   * Deletes a job.
+   *
+   * <p>Deletes a job.
    */
   public void delete(DeleteJob request) {
     impl.delete(request);
   }
-  
-	
-  public void deleteRun(long runId) {
-    deleteRun(new DeleteRun()
-      .setRunId(runId));
-  }
-  
 
-	/**
+  public void deleteRun(long runId) {
+    deleteRun(new DeleteRun().setRunId(runId));
+  }
+
+  /**
    * Delete a job run.
-   * 
-   * Deletes a non-active run. Returns an error if the run is active.
+   *
+   * <p>Deletes a non-active run. Returns an error if the run is active.
    */
   public void deleteRun(DeleteRun request) {
     impl.deleteRun(request);
   }
-  
-	
-  public ExportRunOutput exportRun(long runId) {
-    return exportRun(new ExportRunRequest()
-      .setRunId(runId));
-  }
-  
 
-	/**
+  public ExportRunOutput exportRun(long runId) {
+    return exportRun(new ExportRunRequest().setRunId(runId));
+  }
+
+  /**
    * Export and retrieve a job run.
-   * 
-   * Export and retrieve the job run task.
+   *
+   * <p>Export and retrieve the job run task.
    */
   public ExportRunOutput exportRun(ExportRunRequest request) {
     return impl.exportRun(request);
   }
-  
-	
-  public Job get(long jobId) {
-    return get(new GetJobRequest()
-      .setJobId(jobId));
-  }
-  
 
-	/**
+  public Job get(long jobId) {
+    return get(new GetJobRequest().setJobId(jobId));
+  }
+
+  /**
    * Get a single job.
-   * 
-   * Retrieves the details for a single job.
+   *
+   * <p>Retrieves the details for a single job.
    */
   public Job get(GetJobRequest request) {
     return impl.get(request);
   }
-  
-	
-  public Run getRun(long runId) {
-    return getRun(new GetRunRequest()
-      .setRunId(runId));
-  }
-  
 
-	/**
+  public Run getRun(long runId) {
+    return getRun(new GetRunRequest().setRunId(runId));
+  }
+
+  /**
    * Get a single job run.
-   * 
-   * Retrieve the metadata of a run.
+   *
+   * <p>Retrieve the metadata of a run.
    */
   public Run getRun(GetRunRequest request) {
     return impl.getRun(request);
   }
-  
-	
-  public RunOutput getRunOutput(long runId) {
-    return getRunOutput(new GetRunOutputRequest()
-      .setRunId(runId));
-  }
-  
 
-	/**
+  public RunOutput getRunOutput(long runId) {
+    return getRunOutput(new GetRunOutputRequest().setRunId(runId));
+  }
+
+  /**
    * Get the output for a single run.
-   * 
-   * Retrieve the output and metadata of a single task run. When a notebook task
-   * returns a value through the `dbutils.notebook.exit()` call, you can use
-   * this endpoint to retrieve that value. Databricks restricts this API to
-   * returning the first 5 MB of the output. To return a larger result, you can
-   * store job results in a cloud storage service.
-   * 
-   * This endpoint validates that the __run_id__ parameter is valid and returns
-   * an HTTP status code 400 if the __run_id__ parameter is invalid. Runs are
-   * automatically removed after 60 days. If you to want to reference them
-   * beyond 60 days, you must save old run results before they expire.
+   *
+   * <p>Retrieve the output and metadata of a single task run. When a notebook task returns a value
+   * through the `dbutils.notebook.exit()` call, you can use this endpoint to retrieve that value.
+   * Databricks restricts this API to returning the first 5 MB of the output. To return a larger
+   * result, you can store job results in a cloud storage service.
+   *
+   * <p>This endpoint validates that the __run_id__ parameter is valid and returns an HTTP status
+   * code 400 if the __run_id__ parameter is invalid. Runs are automatically removed after 60 days.
+   * If you to want to reference them beyond 60 days, you must save old run results before they
+   * expire.
    */
   public RunOutput getRunOutput(GetRunOutputRequest request) {
     return impl.getRunOutput(request);
   }
-  
-	
 
-	/**
+  /**
    * List jobs.
-   * 
-   * Retrieves a list of jobs.
+   *
+   * <p>Retrieves a list of jobs.
    */
   public Iterable<BaseJob> list(ListJobsRequest request) {
-    return new Paginator<>(request, impl::list, ListJobsResponse::getJobs, response -> {
-      String token = response.getNextPageToken();
-      if (token == null) {
-        return null;
-      }
-      return request.setPageToken(token);
-    });
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListJobsResponse::getJobs,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
-  
-	
 
-	/**
+  /**
    * List job runs.
-   * 
-   * List runs in descending order by start time.
+   *
+   * <p>List runs in descending order by start time.
    */
   public Iterable<BaseRun> listRuns(ListRunsRequest request) {
-    return new Paginator<>(request, impl::listRuns, ListRunsResponse::getRuns, response -> {
-      String token = response.getNextPageToken();
-      if (token == null) {
-        return null;
-      }
-      return request.setPageToken(token);
-    });
+    return new Paginator<>(
+        request,
+        impl::listRuns,
+        ListRunsResponse::getRuns,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
-  
-	
-  public Wait<Run,RepairRunResponse> repairRun(long runId) {
-    return repairRun(new RepairRun()
-      .setRunId(runId));
-  }
-  
 
-	/**
+  public Wait<Run, RepairRunResponse> repairRun(long runId) {
+    return repairRun(new RepairRun().setRunId(runId));
+  }
+
+  /**
    * Repair a job run.
-   * 
-   * Re-run one or more tasks. Tasks are re-run as part of the original job run.
-   * They use the current job and task settings, and can be viewed in the
-   * history for the original job run.
+   *
+   * <p>Re-run one or more tasks. Tasks are re-run as part of the original job run. They use the
+   * current job and task settings, and can be viewed in the history for the original job run.
    */
-  public Wait<Run,RepairRunResponse> repairRun(RepairRun request) {
+  public Wait<Run, RepairRunResponse> repairRun(RepairRun request) {
     RepairRunResponse response = impl.repairRun(request);
-    return new Wait<>((timeout, callback) -> waitGetRunJobTerminatedOrSkipped(request.getRunId(), timeout, callback), response);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetRunJobTerminatedOrSkipped(request.getRunId(), timeout, callback),
+        response);
   }
-  
-	
-  public void reset(long jobId, JobSettings newSettings) {
-    reset(new ResetJob()
-      .setJobId(jobId)
-      .setNewSettings(newSettings));
-  }
-  
 
-	/**
+  public void reset(long jobId, JobSettings newSettings) {
+    reset(new ResetJob().setJobId(jobId).setNewSettings(newSettings));
+  }
+
+  /**
    * Overwrites all settings for a job.
-   * 
-   * Overwrites all the settings for a specific job. Use the Update endpoint to
-   * update job settings partially.
+   *
+   * <p>Overwrites all the settings for a specific job. Use the Update endpoint to update job
+   * settings partially.
    */
   public void reset(ResetJob request) {
     impl.reset(request);
   }
-  
-	
-  public Wait<Run,RunNowResponse> runNow(long jobId) {
-    return runNow(new RunNow()
-      .setJobId(jobId));
-  }
-  
 
-	/**
+  public Wait<Run, RunNowResponse> runNow(long jobId) {
+    return runNow(new RunNow().setJobId(jobId));
+  }
+
+  /**
    * Trigger a new job run.
-   * 
-   * Run a job and return the `run_id` of the triggered run.
+   *
+   * <p>Run a job and return the `run_id` of the triggered run.
    */
-  public Wait<Run,RunNowResponse> runNow(RunNow request) {
+  public Wait<Run, RunNowResponse> runNow(RunNow request) {
     RunNowResponse response = impl.runNow(request);
-    return new Wait<>((timeout, callback) -> waitGetRunJobTerminatedOrSkipped(response.getRunId(), timeout, callback), response);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetRunJobTerminatedOrSkipped(response.getRunId(), timeout, callback),
+        response);
   }
-  
-	
 
-	/**
+  /**
    * Create and trigger a one-time run.
-   * 
-   * Submit a one-time run. This endpoint allows you to submit a workload
-   * directly without creating a job. Runs submitted using this endpoint don’t
-   * display in the UI. Use the `jobs/runs/get` API to check the run state after
-   * the job is submitted.
+   *
+   * <p>Submit a one-time run. This endpoint allows you to submit a workload directly without
+   * creating a job. Runs submitted using this endpoint don’t display in the UI. Use the
+   * `jobs/runs/get` API to check the run state after the job is submitted.
    */
-  public Wait<Run,SubmitRunResponse> submit(SubmitRun request) {
+  public Wait<Run, SubmitRunResponse> submit(SubmitRun request) {
     SubmitRunResponse response = impl.submit(request);
-    return new Wait<>((timeout, callback) -> waitGetRunJobTerminatedOrSkipped(response.getRunId(), timeout, callback), response);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetRunJobTerminatedOrSkipped(response.getRunId(), timeout, callback),
+        response);
   }
-  
-	
-  public void update(long jobId) {
-    update(new UpdateJob()
-      .setJobId(jobId));
-  }
-  
 
-	/**
+  public void update(long jobId) {
+    update(new UpdateJob().setJobId(jobId));
+  }
+
+  /**
    * Partially update a job.
-   * 
-   * Add, update, or remove specific settings of an existing job. Use the
-   * ResetJob to overwrite all job settings.
+   *
+   * <p>Add, update, or remove specific settings of an existing job. Use the ResetJob to overwrite
+   * all job settings.
    */
   public void update(UpdateJob request) {
     impl.update(request);
   }
-  
+
   public JobsService impl() {
     return impl;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-

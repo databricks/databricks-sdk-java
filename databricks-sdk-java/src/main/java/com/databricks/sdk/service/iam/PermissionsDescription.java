@@ -2,32 +2,21 @@
 
 package com.databricks.sdk.service.iam;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class PermissionsDescription {
-  /**
-   
-   */
+  /** */
   @JsonProperty("description")
   private String description;
-  
-  /**
-   * Permission level
-   */
+
+  /** Permission level */
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
-  
+
   public PermissionsDescription setDescription(String description) {
     this.description = description;
     return this;
@@ -36,7 +25,7 @@ public class PermissionsDescription {
   public String getDescription() {
     return description;
   }
-  
+
   public PermissionsDescription setPermissionLevel(PermissionLevel permissionLevel) {
     this.permissionLevel = permissionLevel;
     return this;
@@ -45,7 +34,6 @@ public class PermissionsDescription {
   public PermissionLevel getPermissionLevel() {
     return permissionLevel;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -53,8 +41,7 @@ public class PermissionsDescription {
     if (o == null || getClass() != o.getClass()) return false;
     PermissionsDescription that = (PermissionsDescription) o;
     return Objects.equals(description, that.description)
-    && Objects.equals(permissionLevel, that.permissionLevel)
-    ;
+        && Objects.equals(permissionLevel, that.permissionLevel);
   }
 
   @Override
@@ -65,7 +52,8 @@ public class PermissionsDescription {
   @Override
   public String toString() {
     return new ToStringer(PermissionsDescription.class)
-      .add("description", description)
-      .add("permissionLevel", permissionLevel).toString();
+        .add("description", description)
+        .add("permissionLevel", permissionLevel)
+        .toString();
   }
 }

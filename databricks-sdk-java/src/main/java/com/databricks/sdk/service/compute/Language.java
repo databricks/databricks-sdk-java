@@ -2,22 +2,11 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
 
 @Generated
-public enum Language{
-  python,
-  scala,
-  sql,
-  
+public enum Language {
+  PYTHON,
+  SCALA,
+  SQL,
 }

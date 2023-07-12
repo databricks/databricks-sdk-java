@@ -2,38 +2,25 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class SqlOutput {
-  /**
-   * The output of a SQL alert task, if available.
-   */
+  /** The output of a SQL alert task, if available. */
   @JsonProperty("alert_output")
   private SqlAlertOutput alertOutput;
-  
-  /**
-   * The output of a SQL dashboard task, if available.
-   */
+
+  /** The output of a SQL dashboard task, if available. */
   @JsonProperty("dashboard_output")
   private SqlDashboardOutput dashboardOutput;
-  
-  /**
-   * The output of a SQL query task, if available.
-   */
+
+  /** The output of a SQL query task, if available. */
   @JsonProperty("query_output")
   private SqlQueryOutput queryOutput;
-  
+
   public SqlOutput setAlertOutput(SqlAlertOutput alertOutput) {
     this.alertOutput = alertOutput;
     return this;
@@ -42,7 +29,7 @@ public class SqlOutput {
   public SqlAlertOutput getAlertOutput() {
     return alertOutput;
   }
-  
+
   public SqlOutput setDashboardOutput(SqlDashboardOutput dashboardOutput) {
     this.dashboardOutput = dashboardOutput;
     return this;
@@ -51,7 +38,7 @@ public class SqlOutput {
   public SqlDashboardOutput getDashboardOutput() {
     return dashboardOutput;
   }
-  
+
   public SqlOutput setQueryOutput(SqlQueryOutput queryOutput) {
     this.queryOutput = queryOutput;
     return this;
@@ -60,7 +47,6 @@ public class SqlOutput {
   public SqlQueryOutput getQueryOutput() {
     return queryOutput;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -68,9 +54,8 @@ public class SqlOutput {
     if (o == null || getClass() != o.getClass()) return false;
     SqlOutput that = (SqlOutput) o;
     return Objects.equals(alertOutput, that.alertOutput)
-    && Objects.equals(dashboardOutput, that.dashboardOutput)
-    && Objects.equals(queryOutput, that.queryOutput)
-    ;
+        && Objects.equals(dashboardOutput, that.dashboardOutput)
+        && Objects.equals(queryOutput, that.queryOutput);
   }
 
   @Override
@@ -81,8 +66,9 @@ public class SqlOutput {
   @Override
   public String toString() {
     return new ToStringer(SqlOutput.class)
-      .add("alertOutput", alertOutput)
-      .add("dashboardOutput", dashboardOutput)
-      .add("queryOutput", queryOutput).toString();
+        .add("alertOutput", alertOutput)
+        .add("dashboardOutput", dashboardOutput)
+        .add("queryOutput", queryOutput)
+        .toString();
   }
 }

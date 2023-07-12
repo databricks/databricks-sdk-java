@@ -2,34 +2,24 @@
 
 package com.databricks.sdk.service.files;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class Delete {
-  /**
-   * The path of the file or directory to delete. The path should be the
-   * absolute DBFS path.
-   */
+  /** The path of the file or directory to delete. The path should be the absolute DBFS path. */
   @JsonProperty("path")
   private String path;
-  
+
   /**
-   * Whether or not to recursively delete the directory's contents. Deleting
-   * empty directories can be done without providing the recursive flag.
+   * Whether or not to recursively delete the directory's contents. Deleting empty directories can
+   * be done without providing the recursive flag.
    */
   @JsonProperty("recursive")
   private Boolean recursive;
-  
+
   public Delete setPath(String path) {
     this.path = path;
     return this;
@@ -38,7 +28,7 @@ public class Delete {
   public String getPath() {
     return path;
   }
-  
+
   public Delete setRecursive(Boolean recursive) {
     this.recursive = recursive;
     return this;
@@ -47,16 +37,13 @@ public class Delete {
   public Boolean getRecursive() {
     return recursive;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Delete that = (Delete) o;
-    return Objects.equals(path, that.path)
-    && Objects.equals(recursive, that.recursive)
-    ;
+    return Objects.equals(path, that.path) && Objects.equals(recursive, that.recursive);
   }
 
   @Override
@@ -66,8 +53,6 @@ public class Delete {
 
   @Override
   public String toString() {
-    return new ToStringer(Delete.class)
-      .add("path", path)
-      .add("recursive", recursive).toString();
+    return new ToStringer(Delete.class).add("path", path).add("recursive", recursive).toString();
   }
 }

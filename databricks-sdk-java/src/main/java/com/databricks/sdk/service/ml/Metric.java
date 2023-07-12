@@ -2,44 +2,29 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class Metric {
-  /**
-   * Key identifying this metric.
-   */
+  /** Key identifying this metric. */
   @JsonProperty("key")
   private String key;
-  
-  /**
-   * Step at which to log the metric.
-   */
+
+  /** Step at which to log the metric. */
   @JsonProperty("step")
   private Long step;
-  
-  /**
-   * The timestamp at which this metric was recorded.
-   */
+
+  /** The timestamp at which this metric was recorded. */
   @JsonProperty("timestamp")
   private Long timestamp;
-  
-  /**
-   * Value associated with this metric.
-   */
+
+  /** Value associated with this metric. */
   @JsonProperty("value")
   private Float value;
-  
+
   public Metric setKey(String key) {
     this.key = key;
     return this;
@@ -48,7 +33,7 @@ public class Metric {
   public String getKey() {
     return key;
   }
-  
+
   public Metric setStep(Long step) {
     this.step = step;
     return this;
@@ -57,7 +42,7 @@ public class Metric {
   public Long getStep() {
     return step;
   }
-  
+
   public Metric setTimestamp(Long timestamp) {
     this.timestamp = timestamp;
     return this;
@@ -66,7 +51,7 @@ public class Metric {
   public Long getTimestamp() {
     return timestamp;
   }
-  
+
   public Metric setValue(Float value) {
     this.value = value;
     return this;
@@ -75,7 +60,6 @@ public class Metric {
   public Float getValue() {
     return value;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -83,10 +67,9 @@ public class Metric {
     if (o == null || getClass() != o.getClass()) return false;
     Metric that = (Metric) o;
     return Objects.equals(key, that.key)
-    && Objects.equals(step, that.step)
-    && Objects.equals(timestamp, that.timestamp)
-    && Objects.equals(value, that.value)
-    ;
+        && Objects.equals(step, that.step)
+        && Objects.equals(timestamp, that.timestamp)
+        && Objects.equals(value, that.value);
   }
 
   @Override
@@ -97,9 +80,10 @@ public class Metric {
   @Override
   public String toString() {
     return new ToStringer(Metric.class)
-      .add("key", key)
-      .add("step", step)
-      .add("timestamp", timestamp)
-      .add("value", value).toString();
+        .add("key", key)
+        .add("step", step)
+        .add("timestamp", timestamp)
+        .add("value", value)
+        .toString();
   }
 }

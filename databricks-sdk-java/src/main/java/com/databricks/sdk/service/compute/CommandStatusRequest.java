@@ -2,40 +2,26 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import java.util.Objects;
 
-
-/**
- * Get command info
- */
+/** Get command info */
 @Generated
 public class CommandStatusRequest {
-  /**
-   
-   */
+  /** */
   @QueryParam("clusterId")
   private String clusterId;
-  
-  /**
-   
-   */
+
+  /** */
   @QueryParam("commandId")
   private String commandId;
-  
-  /**
-   
-   */
+
+  /** */
   @QueryParam("contextId")
   private String contextId;
-  
+
   public CommandStatusRequest setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -44,7 +30,7 @@ public class CommandStatusRequest {
   public String getClusterId() {
     return clusterId;
   }
-  
+
   public CommandStatusRequest setCommandId(String commandId) {
     this.commandId = commandId;
     return this;
@@ -53,7 +39,7 @@ public class CommandStatusRequest {
   public String getCommandId() {
     return commandId;
   }
-  
+
   public CommandStatusRequest setContextId(String contextId) {
     this.contextId = contextId;
     return this;
@@ -62,7 +48,6 @@ public class CommandStatusRequest {
   public String getContextId() {
     return contextId;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -70,9 +55,8 @@ public class CommandStatusRequest {
     if (o == null || getClass() != o.getClass()) return false;
     CommandStatusRequest that = (CommandStatusRequest) o;
     return Objects.equals(clusterId, that.clusterId)
-    && Objects.equals(commandId, that.commandId)
-    && Objects.equals(contextId, that.contextId)
-    ;
+        && Objects.equals(commandId, that.commandId)
+        && Objects.equals(contextId, that.contextId);
   }
 
   @Override
@@ -83,8 +67,9 @@ public class CommandStatusRequest {
   @Override
   public String toString() {
     return new ToStringer(CommandStatusRequest.class)
-      .add("clusterId", clusterId)
-      .add("commandId", commandId)
-      .add("contextId", contextId).toString();
+        .add("clusterId", clusterId)
+        .add("commandId", commandId)
+        .add("contextId", contextId)
+        .toString();
   }
 }

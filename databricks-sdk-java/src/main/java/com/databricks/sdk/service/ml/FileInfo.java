@@ -2,38 +2,25 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class FileInfo {
-  /**
-   * Size in bytes. Unset for directories.
-   */
+  /** Size in bytes. Unset for directories. */
   @JsonProperty("file_size")
   private Long fileSize;
-  
-  /**
-   * Whether the path is a directory.
-   */
+
+  /** Whether the path is a directory. */
   @JsonProperty("is_dir")
   private Boolean isDir;
-  
-  /**
-   * Path relative to the root artifact directory run.
-   */
+
+  /** Path relative to the root artifact directory run. */
   @JsonProperty("path")
   private String path;
-  
+
   public FileInfo setFileSize(Long fileSize) {
     this.fileSize = fileSize;
     return this;
@@ -42,7 +29,7 @@ public class FileInfo {
   public Long getFileSize() {
     return fileSize;
   }
-  
+
   public FileInfo setIsDir(Boolean isDir) {
     this.isDir = isDir;
     return this;
@@ -51,7 +38,7 @@ public class FileInfo {
   public Boolean getIsDir() {
     return isDir;
   }
-  
+
   public FileInfo setPath(String path) {
     this.path = path;
     return this;
@@ -60,7 +47,6 @@ public class FileInfo {
   public String getPath() {
     return path;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -68,9 +54,8 @@ public class FileInfo {
     if (o == null || getClass() != o.getClass()) return false;
     FileInfo that = (FileInfo) o;
     return Objects.equals(fileSize, that.fileSize)
-    && Objects.equals(isDir, that.isDir)
-    && Objects.equals(path, that.path)
-    ;
+        && Objects.equals(isDir, that.isDir)
+        && Objects.equals(path, that.path);
   }
 
   @Override
@@ -81,8 +66,9 @@ public class FileInfo {
   @Override
   public String toString() {
     return new ToStringer(FileInfo.class)
-      .add("fileSize", fileSize)
-      .add("isDir", isDir)
-      .add("path", path).toString();
+        .add("fileSize", fileSize)
+        .add("isDir", isDir)
+        .add("path", path)
+        .toString();
   }
 }

@@ -2,88 +2,68 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class UpdateRegistryWebhook {
-  /**
-   * User-specified description for the webhook.
-   */
+  /** User-specified description for the webhook. */
   @JsonProperty("description")
   private String description;
-  
+
   /**
-   * Events that can trigger a registry webhook: * `MODEL_VERSION_CREATED`: A
-   * new model version was created for the associated model.
-   * 
-   * * `MODEL_VERSION_TRANSITIONED_STAGE`: A model version’s stage was
-   * changed.
-   * 
-   * * `TRANSITION_REQUEST_CREATED`: A user requested a model version’s stage
-   * be transitioned.
-   * 
-   * * `COMMENT_CREATED`: A user wrote a comment on a registered model.
-   * 
-   * * `REGISTERED_MODEL_CREATED`: A new registered model was created. This
-   * event type can only be specified for a registry-wide webhook, which can be
-   * created by not specifying a model name in the create request.
-   * 
-   * * `MODEL_VERSION_TAG_SET`: A user set a tag on the model version.
-   * 
-   * * `MODEL_VERSION_TRANSITIONED_TO_STAGING`: A model version was transitioned
+   * Events that can trigger a registry webhook: * `MODEL_VERSION_CREATED`: A new model version was
+   * created for the associated model.
+   *
+   * <p>* `MODEL_VERSION_TRANSITIONED_STAGE`: A model version’s stage was changed.
+   *
+   * <p>* `TRANSITION_REQUEST_CREATED`: A user requested a model version’s stage be transitioned.
+   *
+   * <p>* `COMMENT_CREATED`: A user wrote a comment on a registered model.
+   *
+   * <p>* `REGISTERED_MODEL_CREATED`: A new registered model was created. This event type can only
+   * be specified for a registry-wide webhook, which can be created by not specifying a model name
+   * in the create request.
+   *
+   * <p>* `MODEL_VERSION_TAG_SET`: A user set a tag on the model version.
+   *
+   * <p>* `MODEL_VERSION_TRANSITIONED_TO_STAGING`: A model version was transitioned to staging.
+   *
+   * <p>* `MODEL_VERSION_TRANSITIONED_TO_PRODUCTION`: A model version was transitioned to
+   * production.
+   *
+   * <p>* `MODEL_VERSION_TRANSITIONED_TO_ARCHIVED`: A model version was archived.
+   *
+   * <p>* `TRANSITION_REQUEST_TO_STAGING_CREATED`: A user requested a model version be transitioned
    * to staging.
-   * 
-   * * `MODEL_VERSION_TRANSITIONED_TO_PRODUCTION`: A model version was
+   *
+   * <p>* `TRANSITION_REQUEST_TO_PRODUCTION_CREATED`: A user requested a model version be
    * transitioned to production.
-   * 
-   * * `MODEL_VERSION_TRANSITIONED_TO_ARCHIVED`: A model version was archived.
-   * 
-   * * `TRANSITION_REQUEST_TO_STAGING_CREATED`: A user requested a model version
-   * be transitioned to staging.
-   * 
-   * * `TRANSITION_REQUEST_TO_PRODUCTION_CREATED`: A user requested a model
-   * version be transitioned to production.
-   * 
-   * * `TRANSITION_REQUEST_TO_ARCHIVED_CREATED`: A user requested a model
-   * version be archived.
+   *
+   * <p>* `TRANSITION_REQUEST_TO_ARCHIVED_CREATED`: A user requested a model version be archived.
    */
   @JsonProperty("events")
   private Collection<RegistryWebhookEvent> events;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("http_url_spec")
   private HttpUrlSpec httpUrlSpec;
-  
-  /**
-   * Webhook ID
-   */
+
+  /** Webhook ID */
   @JsonProperty("id")
   private String id;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("job_spec")
   private JobSpec jobSpec;
-  
-  /**
-   * This describes an enum
-   */
+
+  /** This describes an enum */
   @JsonProperty("status")
   private RegistryWebhookStatus status;
-  
+
   public UpdateRegistryWebhook setDescription(String description) {
     this.description = description;
     return this;
@@ -92,7 +72,7 @@ public class UpdateRegistryWebhook {
   public String getDescription() {
     return description;
   }
-  
+
   public UpdateRegistryWebhook setEvents(Collection<RegistryWebhookEvent> events) {
     this.events = events;
     return this;
@@ -101,7 +81,7 @@ public class UpdateRegistryWebhook {
   public Collection<RegistryWebhookEvent> getEvents() {
     return events;
   }
-  
+
   public UpdateRegistryWebhook setHttpUrlSpec(HttpUrlSpec httpUrlSpec) {
     this.httpUrlSpec = httpUrlSpec;
     return this;
@@ -110,7 +90,7 @@ public class UpdateRegistryWebhook {
   public HttpUrlSpec getHttpUrlSpec() {
     return httpUrlSpec;
   }
-  
+
   public UpdateRegistryWebhook setId(String id) {
     this.id = id;
     return this;
@@ -119,7 +99,7 @@ public class UpdateRegistryWebhook {
   public String getId() {
     return id;
   }
-  
+
   public UpdateRegistryWebhook setJobSpec(JobSpec jobSpec) {
     this.jobSpec = jobSpec;
     return this;
@@ -128,7 +108,7 @@ public class UpdateRegistryWebhook {
   public JobSpec getJobSpec() {
     return jobSpec;
   }
-  
+
   public UpdateRegistryWebhook setStatus(RegistryWebhookStatus status) {
     this.status = status;
     return this;
@@ -137,7 +117,6 @@ public class UpdateRegistryWebhook {
   public RegistryWebhookStatus getStatus() {
     return status;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -145,12 +124,11 @@ public class UpdateRegistryWebhook {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateRegistryWebhook that = (UpdateRegistryWebhook) o;
     return Objects.equals(description, that.description)
-    && Objects.equals(events, that.events)
-    && Objects.equals(httpUrlSpec, that.httpUrlSpec)
-    && Objects.equals(id, that.id)
-    && Objects.equals(jobSpec, that.jobSpec)
-    && Objects.equals(status, that.status)
-    ;
+        && Objects.equals(events, that.events)
+        && Objects.equals(httpUrlSpec, that.httpUrlSpec)
+        && Objects.equals(id, that.id)
+        && Objects.equals(jobSpec, that.jobSpec)
+        && Objects.equals(status, that.status);
   }
 
   @Override
@@ -161,11 +139,12 @@ public class UpdateRegistryWebhook {
   @Override
   public String toString() {
     return new ToStringer(UpdateRegistryWebhook.class)
-      .add("description", description)
-      .add("events", events)
-      .add("httpUrlSpec", httpUrlSpec)
-      .add("id", id)
-      .add("jobSpec", jobSpec)
-      .add("status", status).toString();
+        .add("description", description)
+        .add("events", events)
+        .add("httpUrlSpec", httpUrlSpec)
+        .add("id", id)
+        .add("jobSpec", jobSpec)
+        .add("status", status)
+        .toString();
   }
 }

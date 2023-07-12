@@ -2,25 +2,12 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
 
-
-/**
- * Whether to display only active, only deleted, or all runs. Defaults to only
- * active runs.
- */
+/** Whether to display only active, only deleted, or all runs. Defaults to only active runs. */
 @Generated
-public enum SearchRunsRunViewType{
+public enum SearchRunsRunViewType {
   ACTIVE_ONLY,
   ALL,
   DELETED_ONLY,
-  
 }

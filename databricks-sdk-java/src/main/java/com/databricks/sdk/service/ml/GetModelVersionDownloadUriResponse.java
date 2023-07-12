@@ -2,26 +2,17 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class GetModelVersionDownloadUriResponse {
-  /**
-   * URI corresponding to where artifacts for this model version are stored.
-   */
+  /** URI corresponding to where artifacts for this model version are stored. */
   @JsonProperty("artifact_uri")
   private String artifactUri;
-  
+
   public GetModelVersionDownloadUriResponse setArtifactUri(String artifactUri) {
     this.artifactUri = artifactUri;
     return this;
@@ -30,15 +21,13 @@ public class GetModelVersionDownloadUriResponse {
   public String getArtifactUri() {
     return artifactUri;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetModelVersionDownloadUriResponse that = (GetModelVersionDownloadUriResponse) o;
-    return Objects.equals(artifactUri, that.artifactUri)
-    ;
+    return Objects.equals(artifactUri, that.artifactUri);
   }
 
   @Override
@@ -49,6 +38,7 @@ public class GetModelVersionDownloadUriResponse {
   @Override
   public String toString() {
     return new ToStringer(GetModelVersionDownloadUriResponse.class)
-      .add("artifactUri", artifactUri).toString();
+        .add("artifactUri", artifactUri)
+        .toString();
   }
 }

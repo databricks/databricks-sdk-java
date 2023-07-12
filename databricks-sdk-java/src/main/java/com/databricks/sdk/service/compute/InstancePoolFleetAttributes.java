@@ -2,39 +2,28 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class InstancePoolFleetAttributes {
-  /**
-   
-   */
+  /** */
   @JsonProperty("fleet_on_demand_option")
   private FleetOnDemandOption fleetOnDemandOption;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("fleet_spot_option")
   private FleetSpotOption fleetSpotOption;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("launch_template_overrides")
   private Collection<FleetLaunchTemplateOverride> launchTemplateOverrides;
-  
-  public InstancePoolFleetAttributes setFleetOnDemandOption(FleetOnDemandOption fleetOnDemandOption) {
+
+  public InstancePoolFleetAttributes setFleetOnDemandOption(
+      FleetOnDemandOption fleetOnDemandOption) {
     this.fleetOnDemandOption = fleetOnDemandOption;
     return this;
   }
@@ -42,7 +31,7 @@ public class InstancePoolFleetAttributes {
   public FleetOnDemandOption getFleetOnDemandOption() {
     return fleetOnDemandOption;
   }
-  
+
   public InstancePoolFleetAttributes setFleetSpotOption(FleetSpotOption fleetSpotOption) {
     this.fleetSpotOption = fleetSpotOption;
     return this;
@@ -51,8 +40,9 @@ public class InstancePoolFleetAttributes {
   public FleetSpotOption getFleetSpotOption() {
     return fleetSpotOption;
   }
-  
-  public InstancePoolFleetAttributes setLaunchTemplateOverrides(Collection<FleetLaunchTemplateOverride> launchTemplateOverrides) {
+
+  public InstancePoolFleetAttributes setLaunchTemplateOverrides(
+      Collection<FleetLaunchTemplateOverride> launchTemplateOverrides) {
     this.launchTemplateOverrides = launchTemplateOverrides;
     return this;
   }
@@ -60,7 +50,6 @@ public class InstancePoolFleetAttributes {
   public Collection<FleetLaunchTemplateOverride> getLaunchTemplateOverrides() {
     return launchTemplateOverrides;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -68,9 +57,8 @@ public class InstancePoolFleetAttributes {
     if (o == null || getClass() != o.getClass()) return false;
     InstancePoolFleetAttributes that = (InstancePoolFleetAttributes) o;
     return Objects.equals(fleetOnDemandOption, that.fleetOnDemandOption)
-    && Objects.equals(fleetSpotOption, that.fleetSpotOption)
-    && Objects.equals(launchTemplateOverrides, that.launchTemplateOverrides)
-    ;
+        && Objects.equals(fleetSpotOption, that.fleetSpotOption)
+        && Objects.equals(launchTemplateOverrides, that.launchTemplateOverrides);
   }
 
   @Override
@@ -81,8 +69,9 @@ public class InstancePoolFleetAttributes {
   @Override
   public String toString() {
     return new ToStringer(InstancePoolFleetAttributes.class)
-      .add("fleetOnDemandOption", fleetOnDemandOption)
-      .add("fleetSpotOption", fleetSpotOption)
-      .add("launchTemplateOverrides", launchTemplateOverrides).toString();
+        .add("fleetOnDemandOption", fleetOnDemandOption)
+        .add("fleetSpotOption", fleetSpotOption)
+        .add("launchTemplateOverrides", launchTemplateOverrides)
+        .toString();
   }
 }

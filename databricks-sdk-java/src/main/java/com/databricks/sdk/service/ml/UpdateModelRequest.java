@@ -2,32 +2,21 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class UpdateModelRequest {
-  /**
-   * If provided, updates the description for this `registered_model`.
-   */
+  /** If provided, updates the description for this `registered_model`. */
   @JsonProperty("description")
   private String description;
-  
-  /**
-   * Registered model unique name identifier.
-   */
+
+  /** Registered model unique name identifier. */
   @JsonProperty("name")
   private String name;
-  
+
   public UpdateModelRequest setDescription(String description) {
     this.description = description;
     return this;
@@ -36,7 +25,7 @@ public class UpdateModelRequest {
   public String getDescription() {
     return description;
   }
-  
+
   public UpdateModelRequest setName(String name) {
     this.name = name;
     return this;
@@ -45,16 +34,13 @@ public class UpdateModelRequest {
   public String getName() {
     return name;
   }
-  
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateModelRequest that = (UpdateModelRequest) o;
-    return Objects.equals(description, that.description)
-    && Objects.equals(name, that.name)
-    ;
+    return Objects.equals(description, that.description) && Objects.equals(name, that.name);
   }
 
   @Override
@@ -65,7 +51,8 @@ public class UpdateModelRequest {
   @Override
   public String toString() {
     return new ToStringer(UpdateModelRequest.class)
-      .add("description", description)
-      .add("name", name).toString();
+        .add("description", description)
+        .add("name", name)
+        .toString();
   }
 }

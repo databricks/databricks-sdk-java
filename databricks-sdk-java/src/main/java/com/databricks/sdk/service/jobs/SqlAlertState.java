@@ -2,28 +2,17 @@
 
 package com.databricks.sdk.service.jobs;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
 
 /**
  * The state of the SQL alert.
- * 
- * * UNKNOWN: alert yet to be evaluated * OK: alert evaluated and did not
- * fulfill trigger conditions * TRIGGERED: alert evaluated and fulfilled trigger
- * conditions
+ *
+ * <p>* UNKNOWN: alert yet to be evaluated * OK: alert evaluated and did not fulfill trigger
+ * conditions * TRIGGERED: alert evaluated and fulfilled trigger conditions
  */
 @Generated
-public enum SqlAlertState{
+public enum SqlAlertState {
   OK,
   TRIGGERED,
   UNKNOWN,
-  
 }

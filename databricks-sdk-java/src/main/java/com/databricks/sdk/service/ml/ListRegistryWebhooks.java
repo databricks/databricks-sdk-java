@@ -2,32 +2,22 @@
 
 package com.databricks.sdk.service.ml;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class ListRegistryWebhooks {
-  /**
-   * Token that can be used to retrieve the next page of artifact results
-   */
+  /** Token that can be used to retrieve the next page of artifact results */
   @JsonProperty("next_page_token")
   private String nextPageToken;
-  
-  /**
-   * Array of registry webhooks.
-   */
+
+  /** Array of registry webhooks. */
   @JsonProperty("webhooks")
   private Collection<RegistryWebhook> webhooks;
-  
+
   public ListRegistryWebhooks setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
@@ -36,7 +26,7 @@ public class ListRegistryWebhooks {
   public String getNextPageToken() {
     return nextPageToken;
   }
-  
+
   public ListRegistryWebhooks setWebhooks(Collection<RegistryWebhook> webhooks) {
     this.webhooks = webhooks;
     return this;
@@ -45,7 +35,6 @@ public class ListRegistryWebhooks {
   public Collection<RegistryWebhook> getWebhooks() {
     return webhooks;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -53,8 +42,7 @@ public class ListRegistryWebhooks {
     if (o == null || getClass() != o.getClass()) return false;
     ListRegistryWebhooks that = (ListRegistryWebhooks) o;
     return Objects.equals(nextPageToken, that.nextPageToken)
-    && Objects.equals(webhooks, that.webhooks)
-    ;
+        && Objects.equals(webhooks, that.webhooks);
   }
 
   @Override
@@ -65,7 +53,8 @@ public class ListRegistryWebhooks {
   @Override
   public String toString() {
     return new ToStringer(ListRegistryWebhooks.class)
-      .add("nextPageToken", nextPageToken)
-      .add("webhooks", webhooks).toString();
+        .add("nextPageToken", nextPageToken)
+        .add("webhooks", webhooks)
+        .toString();
   }
 }

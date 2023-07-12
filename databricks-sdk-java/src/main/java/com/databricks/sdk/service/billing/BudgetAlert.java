@@ -2,34 +2,26 @@
 
 package com.databricks.sdk.service.billing;
 
-import java.util.Map;
-
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
-import com.databricks.sdk.support.ToStringer;
-
-
-
 @Generated
 public class BudgetAlert {
   /**
-   * List of email addresses to be notified when budget percentage is exceeded
-   * in the given period.
+   * List of email addresses to be notified when budget percentage is exceeded in the given period.
    */
   @JsonProperty("email_notifications")
   private Collection<String> emailNotifications;
-  
+
   /**
-   * Percentage of the target amount used in the currect period that will
-   * trigger a notification.
+   * Percentage of the target amount used in the currect period that will trigger a notification.
    */
   @JsonProperty("min_percentage")
   private Long minPercentage;
-  
+
   public BudgetAlert setEmailNotifications(Collection<String> emailNotifications) {
     this.emailNotifications = emailNotifications;
     return this;
@@ -38,7 +30,7 @@ public class BudgetAlert {
   public Collection<String> getEmailNotifications() {
     return emailNotifications;
   }
-  
+
   public BudgetAlert setMinPercentage(Long minPercentage) {
     this.minPercentage = minPercentage;
     return this;
@@ -47,7 +39,6 @@ public class BudgetAlert {
   public Long getMinPercentage() {
     return minPercentage;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -55,8 +46,7 @@ public class BudgetAlert {
     if (o == null || getClass() != o.getClass()) return false;
     BudgetAlert that = (BudgetAlert) o;
     return Objects.equals(emailNotifications, that.emailNotifications)
-    && Objects.equals(minPercentage, that.minPercentage)
-    ;
+        && Objects.equals(minPercentage, that.minPercentage);
   }
 
   @Override
@@ -67,7 +57,8 @@ public class BudgetAlert {
   @Override
   public String toString() {
     return new ToStringer(BudgetAlert.class)
-      .add("emailNotifications", emailNotifications)
-      .add("minPercentage", minPercentage).toString();
+        .add("emailNotifications", emailNotifications)
+        .add("minPercentage", minPercentage)
+        .toString();
   }
 }

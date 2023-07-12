@@ -2,32 +2,21 @@
 
 package com.databricks.sdk.service.compute;
 
-import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Objects;
-
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 @Generated
 public class DiskType {
-  /**
-   
-   */
+  /** */
   @JsonProperty("azure_disk_volume_type")
   private DiskTypeAzureDiskVolumeType azureDiskVolumeType;
-  
-  /**
-   
-   */
+
+  /** */
   @JsonProperty("ebs_volume_type")
   private DiskTypeEbsVolumeType ebsVolumeType;
-  
+
   public DiskType setAzureDiskVolumeType(DiskTypeAzureDiskVolumeType azureDiskVolumeType) {
     this.azureDiskVolumeType = azureDiskVolumeType;
     return this;
@@ -36,7 +25,7 @@ public class DiskType {
   public DiskTypeAzureDiskVolumeType getAzureDiskVolumeType() {
     return azureDiskVolumeType;
   }
-  
+
   public DiskType setEbsVolumeType(DiskTypeEbsVolumeType ebsVolumeType) {
     this.ebsVolumeType = ebsVolumeType;
     return this;
@@ -45,7 +34,6 @@ public class DiskType {
   public DiskTypeEbsVolumeType getEbsVolumeType() {
     return ebsVolumeType;
   }
-  
 
   @Override
   public boolean equals(Object o) {
@@ -53,8 +41,7 @@ public class DiskType {
     if (o == null || getClass() != o.getClass()) return false;
     DiskType that = (DiskType) o;
     return Objects.equals(azureDiskVolumeType, that.azureDiskVolumeType)
-    && Objects.equals(ebsVolumeType, that.ebsVolumeType)
-    ;
+        && Objects.equals(ebsVolumeType, that.ebsVolumeType);
   }
 
   @Override
@@ -65,7 +52,8 @@ public class DiskType {
   @Override
   public String toString() {
     return new ToStringer(DiskType.class)
-      .add("azureDiskVolumeType", azureDiskVolumeType)
-      .add("ebsVolumeType", ebsVolumeType).toString();
+        .add("azureDiskVolumeType", azureDiskVolumeType)
+        .add("ebsVolumeType", ebsVolumeType)
+        .toString();
   }
 }
