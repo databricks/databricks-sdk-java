@@ -190,7 +190,7 @@ public class ClustersExt extends ClustersAPI {
       return false;
     }
     for (CloudProviderNodeStatus st : nt.getNodeInfo().getStatus()) {
-      if (st == NOTAVAILABLEINREGION || st == NOTENABLEDONSUBSCRIPTION) {
+      if (st == NOT_AVAILABLE_IN_REGION || st == NOT_ENABLED_ON_SUBSCRIPTION) {
         return true;
       }
     }

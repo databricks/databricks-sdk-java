@@ -8,26 +8,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated
 public enum GitProvider {
   @JsonProperty("awsCodeCommit")
-  AWSCODECOMMIT,
+  AWS_CODE_COMMIT,
 
   @JsonProperty("azureDevOpsServices")
-  AZUREDEVOPSSERVICES,
+  AZURE_DEV_OPS_SERVICES,
 
   @JsonProperty("bitbucketCloud")
-  BITBUCKETCLOUD,
+  BITBUCKET_CLOUD,
 
   @JsonProperty("bitbucketServer")
-  BITBUCKETSERVER,
+  BITBUCKET_SERVER,
 
   @JsonProperty("gitHub")
-  GITHUB,
+  GIT_HUB,
 
   @JsonProperty("gitHubEnterprise")
-  GITHUBENTERPRISE,
+  GIT_HUB_ENTERPRISE,
 
   @JsonProperty("gitLab")
-  GITLAB,
+  GIT_LAB,
 
   @JsonProperty("gitLabEnterpriseEdition")
-  GITLABENTERPRISEEDITION,
+  GIT_LAB_ENTERPRISE_EDITION,
 }

@@ -15,10 +15,10 @@ public enum ErrorType {
   CREDENTIALS,
 
   @JsonProperty("networkAcl")
-  NETWORKACL,
+  NETWORK_ACL,
 
   @JsonProperty("securityGroup")
-  SECURITYGROUP,
+  SECURITY_GROUP,
 
   @JsonProperty("subnet")
   SUBNET,

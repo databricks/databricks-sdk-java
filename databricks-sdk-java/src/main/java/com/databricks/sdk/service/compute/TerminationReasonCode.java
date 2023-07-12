@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /** status code indicating why the cluster was terminated */
 @Generated
@@ -55,12 +54,8 @@ public enum TerminationReasonCode {
   INVALID_SPARK_IMAGE,
   IP_EXHAUSTION_FAILURE,
   JOB_FINISHED,
-
-  @JsonProperty("K8S_AUTOSCALING_FAILURE")
-  KS_AUTOSCALING_FAILURE,
-
-  @JsonProperty("K8S_DBR_CLUSTER_LAUNCH_TIMEOUT")
-  KS_DBR_CLUSTER_LAUNCH_TIMEOUT,
+  K8S_AUTOSCALING_FAILURE,
+  K8S_DBR_CLUSTER_LAUNCH_TIMEOUT,
   METASTORE_COMPONENT_UNHEALTHY,
   NEPHOS_RESOURCE_MANAGEMENT,
   NETWORK_CONFIGURATION_FAILURE,

@@ -67,7 +67,7 @@ public class CommandExecutionAPI {
         callback.accept(poll);
       }
       if (failureStates.contains(status)) {
-        String msg = String.format("failed to reach Cancelled, got %s: %s", status, statusMessage);
+        String msg = String.format("failed to reach CANCELLED, got %s: %s", status, statusMessage);
         throw new IllegalStateException(msg);
       }
 
@@ -127,7 +127,7 @@ public class CommandExecutionAPI {
       }
       if (failureStates.contains(status)) {
         String msg =
-            String.format("failed to reach Finished or Error, got %s: %s", status, statusMessage);
+            String.format("failed to reach FINISHED or ERROR, got %s: %s", status, statusMessage);
         throw new IllegalStateException(msg);
       }
 
@@ -179,7 +179,7 @@ public class CommandExecutionAPI {
         callback.accept(poll);
       }
       if (failureStates.contains(status)) {
-        String msg = String.format("failed to reach Running, got %s: %s", status, statusMessage);
+        String msg = String.format("failed to reach RUNNING, got %s: %s", status, statusMessage);
         throw new IllegalStateException(msg);
       }
 

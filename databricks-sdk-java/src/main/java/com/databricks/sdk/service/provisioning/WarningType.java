@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated
 public enum WarningType {
   @JsonProperty("securityGroup")
-  SECURITYGROUP,
+  SECURITY_GROUP,
 
   @JsonProperty("subnet")
   SUBNET,

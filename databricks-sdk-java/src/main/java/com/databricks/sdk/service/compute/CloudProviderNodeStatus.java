@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated
 public enum CloudProviderNodeStatus {
   @JsonProperty("NotAvailableInRegion")
-  NOTAVAILABLEINREGION,
+  NOT_AVAILABLE_IN_REGION,
 
   @JsonProperty("NotEnabledOnSubscription")
-  NOTENABLEDONSUBSCRIPTION,
+  NOT_ENABLED_ON_SUBSCRIPTION,
 }
