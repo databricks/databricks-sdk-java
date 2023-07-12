@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The status of the workspace. For workspace creation, usually it is set to `PROVISIONING`
@@ -11,21 +10,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum WorkspaceStatus {
-  @JsonProperty("BANNED")
   BANNED,
 
-  @JsonProperty("CANCELLING")
   CANCELLING,
 
-  @JsonProperty("FAILED")
   FAILED,
 
-  @JsonProperty("NOT_PROVISIONED")
   NOT_PROVISIONED,
 
-  @JsonProperty("PROVISIONING")
   PROVISIONING,
 
-  @JsonProperty("RUNNING")
   RUNNING,
 }

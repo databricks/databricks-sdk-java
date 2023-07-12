@@ -70,7 +70,7 @@ public class {{.PascalName}} {
 @Generated
 public enum {{.PascalName}}{
   {{range .Enum -}}
-  @JsonProperty("{{.Content}}") {{.ConstantName}},{{.Comment "// " 80}}
+  {{ if not (eq .Content .ConstantName) }}@JsonProperty("{{.Content}}") {{end}}{{.ConstantName}},{{.Comment "// " 80}}
 
   {{ end }}
 }

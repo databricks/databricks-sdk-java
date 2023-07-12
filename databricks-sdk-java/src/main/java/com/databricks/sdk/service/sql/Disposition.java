@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The fetch disposition provides two modes of fetching results: `INLINE` and `EXTERNAL_LINKS`.
@@ -29,9 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum Disposition {
-  @JsonProperty("EXTERNAL_LINKS")
   EXTERNAL_LINKS,
 
-  @JsonProperty("INLINE")
   INLINE,
 }

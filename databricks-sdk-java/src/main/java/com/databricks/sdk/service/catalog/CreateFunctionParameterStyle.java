@@ -3,11 +3,9 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /** Function parameter style. **S** is the value for SQL. */
 @Generated
 public enum CreateFunctionParameterStyle {
-  @JsonProperty("S")
   S,
 }

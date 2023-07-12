@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Specifies the network connectivity types for the GKE nodes and the GKE master network.
@@ -16,9 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum GkeConfigConnectivityType {
-  @JsonProperty("PRIVATE_NODE_PUBLIC_MASTER")
   PRIVATE_NODE_PUBLIC_MASTER,
 
-  @JsonProperty("PUBLIC_NODE_PUBLIC_MASTER")
   PUBLIC_NODE_PUBLIC_MASTER,
 }

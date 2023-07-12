@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The state of the SQL alert.
@@ -13,12 +12,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum SqlAlertState {
-  @JsonProperty("OK")
   OK,
 
-  @JsonProperty("TRIGGERED")
   TRIGGERED,
 
-  @JsonProperty("UNKNOWN")
   UNKNOWN,
 }

@@ -3,13 +3,10 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Generated
 public enum VolumeType {
-  @JsonProperty("EXTERNAL")
   EXTERNAL,
 
-  @JsonProperty("MANAGED")
   MANAGED,
 }

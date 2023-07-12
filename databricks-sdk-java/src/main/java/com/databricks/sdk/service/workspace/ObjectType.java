@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The type of the object in workspace.
@@ -13,18 +12,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum ObjectType {
-  @JsonProperty("DIRECTORY")
   DIRECTORY,
 
-  @JsonProperty("FILE")
   FILE,
 
-  @JsonProperty("LIBRARY")
   LIBRARY,
 
-  @JsonProperty("NOTEBOOK")
   NOTEBOOK,
 
-  @JsonProperty("REPO")
   REPO,
 }

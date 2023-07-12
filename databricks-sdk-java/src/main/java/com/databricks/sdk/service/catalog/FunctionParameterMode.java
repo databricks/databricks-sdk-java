@@ -3,11 +3,9 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /** The mode of the function parameter. */
 @Generated
 public enum FunctionParameterMode {
-  @JsonProperty("IN")
   IN,
 }

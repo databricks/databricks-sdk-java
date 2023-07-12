@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * This field determines whether the instance pool will contain preemptible VMs, on-demand VMs, or
@@ -11,12 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum GcpAvailability {
-  @JsonProperty("ON_DEMAND_GCP")
   ON_DEMAND_GCP,
 
-  @JsonProperty("PREEMPTIBLE_GCP")
   PREEMPTIBLE_GCP,
 
-  @JsonProperty("PREEMPTIBLE_WITH_FALLBACK_GCP")
   PREEMPTIBLE_WITH_FALLBACK_GCP,
 }

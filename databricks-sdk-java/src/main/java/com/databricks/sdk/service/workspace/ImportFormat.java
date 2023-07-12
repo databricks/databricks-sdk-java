@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * This specifies the format of the file to be imported.
@@ -19,21 +18,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum ImportFormat {
-  @JsonProperty("AUTO")
   AUTO,
 
-  @JsonProperty("DBC")
   DBC,
 
-  @JsonProperty("HTML")
   HTML,
 
-  @JsonProperty("JUPYTER")
   JUPYTER,
 
-  @JsonProperty("R_MARKDOWN")
   R_MARKDOWN,
 
-  @JsonProperty("SOURCE")
   SOURCE,
 }

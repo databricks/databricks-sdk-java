@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The file type of log delivery.
@@ -19,9 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum OutputFormat {
-  @JsonProperty("CSV")
   CSV,
 
-  @JsonProperty("JSON")
   JSON,
 }

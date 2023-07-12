@@ -3,11 +3,9 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /** Function security type. */
 @Generated
 public enum CreateFunctionSecurityType {
-  @JsonProperty("DEFINER")
   DEFINER,
 }

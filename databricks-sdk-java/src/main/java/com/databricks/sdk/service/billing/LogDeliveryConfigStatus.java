@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Status of log delivery configuration. Set to `ENABLED` (enabled) or `DISABLED` (disabled).
@@ -13,9 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum LogDeliveryConfigStatus {
-  @JsonProperty("DISABLED")
   DISABLED,
 
-  @JsonProperty("ENABLED")
   ENABLED,
 }

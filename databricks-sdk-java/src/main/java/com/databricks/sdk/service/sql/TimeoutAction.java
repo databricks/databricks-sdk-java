@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * When in synchronous mode with `wait_timeout > 0s` it determines the action taken when the timeout
@@ -17,9 +16,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum TimeoutAction {
-  @JsonProperty("CANCEL")
   CANCEL,
 
-  @JsonProperty("CONTINUE")
   CONTINUE,
 }

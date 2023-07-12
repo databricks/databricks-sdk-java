@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * This enumeration represents the type of Databricks VPC [endpoint service] that was used when
@@ -13,9 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum EndpointUseCase {
-  @JsonProperty("DATAPLANE_RELAY_ACCESS")
   DATAPLANE_RELAY_ACCESS,
 
-  @JsonProperty("WORKSPACE_ACCESS")
   WORKSPACE_ACCESS,
 }

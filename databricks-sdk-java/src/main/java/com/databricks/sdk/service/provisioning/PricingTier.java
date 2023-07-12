@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The pricing tier of the workspace. For pricing tier information, see [AWS Pricing].
@@ -12,21 +11,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum PricingTier {
-  @JsonProperty("COMMUNITY_EDITION")
   COMMUNITY_EDITION,
 
-  @JsonProperty("DEDICATED")
   DEDICATED,
 
-  @JsonProperty("ENTERPRISE")
   ENTERPRISE,
 
-  @JsonProperty("PREMIUM")
   PREMIUM,
 
-  @JsonProperty("STANDARD")
   STANDARD,
 
-  @JsonProperty("UNKNOWN")
   UNKNOWN,
 }

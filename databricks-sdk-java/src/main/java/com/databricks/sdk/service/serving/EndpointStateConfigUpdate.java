@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The state of an endpoint's config update. This informs the user if the pending_config is in
@@ -13,12 +12,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum EndpointStateConfigUpdate {
-  @JsonProperty("IN_PROGRESS")
   IN_PROGRESS,
 
-  @JsonProperty("NOT_UPDATING")
   NOT_UPDATING,
 
-  @JsonProperty("UPDATE_FAILED")
   UPDATE_FAILED,
 }

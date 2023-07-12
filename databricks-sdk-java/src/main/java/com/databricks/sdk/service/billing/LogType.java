@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Log delivery type. Supported values are:
@@ -23,9 +22,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum LogType {
-  @JsonProperty("AUDIT_LOGS")
   AUDIT_LOGS,
 
-  @JsonProperty("BILLABLE_USAGE")
   BILLABLE_USAGE,
 }

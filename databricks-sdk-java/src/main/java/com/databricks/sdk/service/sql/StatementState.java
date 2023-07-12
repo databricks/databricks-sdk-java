@@ -3,7 +3,6 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Statement execution state: - `PENDING`: waiting for warehouse - `RUNNING`: running - `SUCCEEDED`:
@@ -14,21 +13,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @Generated
 public enum StatementState {
-  @JsonProperty("CANCELED")
   CANCELED,
 
-  @JsonProperty("CLOSED")
   CLOSED,
 
-  @JsonProperty("FAILED")
   FAILED,
 
-  @JsonProperty("PENDING")
   PENDING,
 
-  @JsonProperty("RUNNING")
   RUNNING,
 
-  @JsonProperty("SUCCEEDED")
   SUCCEEDED,
 }
