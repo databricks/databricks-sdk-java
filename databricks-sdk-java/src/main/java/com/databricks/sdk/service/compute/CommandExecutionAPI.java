@@ -44,8 +44,8 @@ public class CommandExecutionAPI {
       Consumer<CommandStatusResponse> callback)
       throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
-    java.util.List<CommandStatus> targetStates = Arrays.asList(CommandStatus.Cancelled);
-    java.util.List<CommandStatus> failureStates = Arrays.asList(CommandStatus.Error);
+    java.util.List<CommandStatus> targetStates = Arrays.asList(CommandStatus.CANCELLED);
+    java.util.List<CommandStatus> failureStates = Arrays.asList(CommandStatus.ERROR);
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
@@ -105,9 +105,9 @@ public class CommandExecutionAPI {
       throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
     java.util.List<CommandStatus> targetStates =
-        Arrays.asList(CommandStatus.Finished, CommandStatus.Error);
+        Arrays.asList(CommandStatus.FINISHED, CommandStatus.ERROR);
     java.util.List<CommandStatus> failureStates =
-        Arrays.asList(CommandStatus.Cancelled, CommandStatus.Cancelling);
+        Arrays.asList(CommandStatus.CANCELLED, CommandStatus.CANCELLING);
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
@@ -163,8 +163,8 @@ public class CommandExecutionAPI {
       Consumer<ContextStatusResponse> callback)
       throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
-    java.util.List<ContextStatus> targetStates = Arrays.asList(ContextStatus.Running);
-    java.util.List<ContextStatus> failureStates = Arrays.asList(ContextStatus.Error);
+    java.util.List<ContextStatus> targetStates = Arrays.asList(ContextStatus.RUNNING);
+    java.util.List<ContextStatus> failureStates = Arrays.asList(ContextStatus.ERROR);
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {

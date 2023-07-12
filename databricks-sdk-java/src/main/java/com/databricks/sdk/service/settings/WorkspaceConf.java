@@ -2,4 +2,4 @@
 
 package com.databricks.sdk.service.settings;
 
-// type WorkspaceConf Map<String,String>Content
+// type WorkspaceConf Map<String,String>

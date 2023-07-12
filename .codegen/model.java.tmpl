@@ -65,7 +65,7 @@ public class {{.PascalName}} {
   }
 }
 {{else if .ArrayValue}}// type {{.PascalName}} []{{template "type" .ArrayValue}}
-{{else if .MapValue}}// type {{.PascalName}} {{template "type" .}}Content
+{{else if .MapValue}}// type {{.PascalName}} {{template "type" .}}
 {{else if .Enum -}}
 @Generated
 public enum {{.PascalName}}{
