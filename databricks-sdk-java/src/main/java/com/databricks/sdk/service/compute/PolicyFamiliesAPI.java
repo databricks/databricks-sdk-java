@@ -38,10 +38,20 @@ public class PolicyFamiliesAPI {
     return get(new GetPolicyFamilyRequest().setPolicyFamilyId(policyFamilyId));
   }
 
+  /**
+   * Get policy family information.
+   *
+   * <p>Retrieve the information for an policy family based on its identifier.
+   */
   public PolicyFamily get(GetPolicyFamilyRequest request) {
     return impl.get(request);
   }
 
+  /**
+   * List policy families.
+   *
+   * <p>Retrieve a list of policy families. This API is paginated.
+   */
   public Iterable<PolicyFamily> list(ListPolicyFamiliesRequest request) {
     return new Paginator<>(
         request,

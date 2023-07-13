@@ -69,8 +69,10 @@ public class {{.PascalName}} {
 {{else if .Enum -}}
 @Generated
 public enum {{.PascalName}}{
-  {{range .Enum }}{{.Content}},{{.Comment "// " 80}}
-  {{end}}
+  {{range .Enum -}}
+  {{ if not (eq .Content .ConstantName) }}
+  @JsonProperty("{{.Content}}") {{end}}{{.ConstantName}},{{.Comment "// " 80}}
+  {{ end }}
 }
 {{- end}}
 

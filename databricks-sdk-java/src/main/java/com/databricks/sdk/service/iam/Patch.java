@@ -19,7 +19,7 @@ public class Patch {
 
   /** Value to modify */
   @JsonProperty("value")
-  private String value;
+  private Object value;
 
   public Patch setOp(PatchOp op) {
     this.op = op;
@@ -39,12 +39,12 @@ public class Patch {
     return path;
   }
 
-  public Patch setValue(String value) {
+  public Patch setValue(Object value) {
     this.value = value;
     return this;
   }
 
-  public String getValue() {
+  public Object getValue() {
     return value;
   }
 

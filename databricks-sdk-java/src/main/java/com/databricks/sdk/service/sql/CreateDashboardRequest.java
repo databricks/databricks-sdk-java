@@ -24,10 +24,7 @@ public class CreateDashboardRequest {
   @JsonProperty("name")
   private String name;
 
-  /**
-   * The identifier of the workspace folder containing the dashboard. The default is the user's home
-   * folder.
-   */
+  /** The identifier of the workspace folder containing the object. */
   @JsonProperty("parent")
   private String parent;
 

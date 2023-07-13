@@ -65,4 +65,14 @@ public interface TablesService {
    * <p>There is no guarantee of a specific ordering of the elements in the array.
    */
   ListTableSummariesResponse listSummaries(ListSummariesRequest listSummariesRequest);
+
+  /**
+   * Update a table owner.
+   *
+   * <p>Change the owner of the table. The caller must be the owner of the parent catalog, have the
+   * **USE_CATALOG** privilege on the parent catalog and be the owner of the parent schema, or be
+   * the owner of the table and have the **USE_CATALOG** privilege on the parent catalog and the
+   * **USE_SCHEMA** privilege on the parent schema.
+   */
+  void update(UpdateTableRequest updateTableRequest);
 }

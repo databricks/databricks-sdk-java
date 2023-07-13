@@ -3,11 +3,19 @@
 package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Generated
 public enum DeleteTransitionRequestStage {
-  Archived,
-  None,
-  Production,
-  Staging,
+  @JsonProperty("Archived")
+  ARCHIVED,
+
+  @JsonProperty("None")
+  NONE,
+
+  @JsonProperty("Production")
+  PRODUCTION,
+
+  @JsonProperty("Staging")
+  STAGING,
 }

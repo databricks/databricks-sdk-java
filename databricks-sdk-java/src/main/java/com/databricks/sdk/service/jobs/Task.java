@@ -122,6 +122,23 @@ public class Task {
   @JsonProperty("retry_on_timeout")
   private Boolean retryOnTimeout;
 
+  /**
+   * An optional value specifying the condition determining whether the task is run once its
+   * dependencies have been completed. When omitted, defaults to `ALL_SUCCESS`.
+   *
+   * <p>* `ALL_SUCCESS`: All dependencies have executed and succeeded * `AT_LEAST_ONE_SUCCESS`: At
+   * least one dependency has succeeded * `NONE_FAILED`: None of the dependencies have failed and at
+   * least one was executed * `ALL_DONE`: All dependencies completed and at least one was executed *
+   * `AT_LEAST_ONE_FAILED`: At least one dependency failed * `ALL_FAILED`: ALl dependencies have
+   * failed
+   */
+  @JsonProperty("run_if")
+  private RunIf runIf;
+
+  /** If run_job_task, indicates that this task must execute another job. */
+  @JsonProperty("run_job_task")
+  private RunJobTask runJobTask;
+
   /** If spark_jar_task, indicates that this task must run a JAR. */
   @JsonProperty("spark_jar_task")
   private SparkJarTask sparkJarTask;
@@ -309,6 +326,24 @@ public class Task {
     return retryOnTimeout;
   }
 
+  public Task setRunIf(RunIf runIf) {
+    this.runIf = runIf;
+    return this;
+  }
+
+  public RunIf getRunIf() {
+    return runIf;
+  }
+
+  public Task setRunJobTask(RunJobTask runJobTask) {
+    this.runJobTask = runJobTask;
+    return this;
+  }
+
+  public RunJobTask getRunJobTask() {
+    return runJobTask;
+  }
+
   public Task setSparkJarTask(SparkJarTask sparkJarTask) {
     this.sparkJarTask = sparkJarTask;
     return this;
@@ -385,6 +420,8 @@ public class Task {
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(retryOnTimeout, that.retryOnTimeout)
+        && Objects.equals(runIf, that.runIf)
+        && Objects.equals(runJobTask, that.runJobTask)
         && Objects.equals(sparkJarTask, that.sparkJarTask)
         && Objects.equals(sparkPythonTask, that.sparkPythonTask)
         && Objects.equals(sparkSubmitTask, that.sparkSubmitTask)
@@ -413,6 +450,8 @@ public class Task {
         pipelineTask,
         pythonWheelTask,
         retryOnTimeout,
+        runIf,
+        runJobTask,
         sparkJarTask,
         sparkPythonTask,
         sparkSubmitTask,
@@ -441,6 +480,8 @@ public class Task {
         .add("pipelineTask", pipelineTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("retryOnTimeout", retryOnTimeout)
+        .add("runIf", runIf)
+        .add("runJobTask", runJobTask)
         .add("sparkJarTask", sparkJarTask)
         .add("sparkPythonTask", sparkPythonTask)
         .add("sparkSubmitTask", sparkSubmitTask)

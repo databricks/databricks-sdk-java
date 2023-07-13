@@ -11,7 +11,7 @@ import java.util.Objects;
 @Generated
 public class SparkJarTask {
   /**
-   * Deprecated since 04/2016\\. Provide a `jar` through the `libraries` field instead. For an
+   * Deprecated since 04/2016. Provide a `jar` through the `libraries` field instead. For an
    * example, see :method:jobs/create.
    */
   @JsonProperty("jar_uri")

@@ -36,4 +36,10 @@ class TablesImpl implements TablesService {
     String path = "/api/2.1/unity-catalog/table-summaries";
     return apiClient.GET(path, request, ListTableSummariesResponse.class);
   }
+
+  @Override
+  public void update(UpdateTableRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/tables/%s", request.getFullName());
+    apiClient.PATCH(path, request, Void.class);
+  }
 }

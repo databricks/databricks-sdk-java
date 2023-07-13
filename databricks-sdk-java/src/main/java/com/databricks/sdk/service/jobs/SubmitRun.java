@@ -15,6 +15,13 @@ public class SubmitRun {
   private Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList;
 
   /**
+   * An optional set of email addresses notified when the run begins or completes. The default
+   * behavior is to not send any emails.
+   */
+  @JsonProperty("email_notifications")
+  private JobEmailNotifications emailNotifications;
+
+  /**
    * An optional specification for a remote repository containing the notebooks used by this job's
    * notebook tasks.
    */
@@ -76,6 +83,15 @@ public class SubmitRun {
 
   public Collection<com.databricks.sdk.service.iam.AccessControlRequest> getAccessControlList() {
     return accessControlList;
+  }
+
+  public SubmitRun setEmailNotifications(JobEmailNotifications emailNotifications) {
+    this.emailNotifications = emailNotifications;
+    return this;
+  }
+
+  public JobEmailNotifications getEmailNotifications() {
+    return emailNotifications;
   }
 
   public SubmitRun setGitSource(GitSource gitSource) {
@@ -147,6 +163,7 @@ public class SubmitRun {
     if (o == null || getClass() != o.getClass()) return false;
     SubmitRun that = (SubmitRun) o;
     return Objects.equals(accessControlList, that.accessControlList)
+        && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(idempotencyToken, that.idempotencyToken)
         && Objects.equals(notificationSettings, that.notificationSettings)
@@ -160,6 +177,7 @@ public class SubmitRun {
   public int hashCode() {
     return Objects.hash(
         accessControlList,
+        emailNotifications,
         gitSource,
         idempotencyToken,
         notificationSettings,
@@ -173,6 +191,7 @@ public class SubmitRun {
   public String toString() {
     return new ToStringer(SubmitRun.class)
         .add("accessControlList", accessControlList)
+        .add("emailNotifications", emailNotifications)
         .add("gitSource", gitSource)
         .add("idempotencyToken", idempotencyToken)
         .add("notificationSettings", notificationSettings)

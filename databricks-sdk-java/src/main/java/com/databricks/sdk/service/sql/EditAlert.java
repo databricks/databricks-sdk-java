@@ -20,7 +20,7 @@ public class EditAlert {
   @JsonProperty("options")
   private AlertOptions options;
 
-  /** ID of the query evaluated by the alert. */
+  /** Query ID. */
   @JsonProperty("query_id")
   private String queryId;
 

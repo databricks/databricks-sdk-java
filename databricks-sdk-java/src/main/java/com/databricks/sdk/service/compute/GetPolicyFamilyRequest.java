@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
+/** Get policy family information */
 @Generated
 public class GetPolicyFamilyRequest {
   /** */

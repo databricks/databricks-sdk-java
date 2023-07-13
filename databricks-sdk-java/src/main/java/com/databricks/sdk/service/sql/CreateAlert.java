@@ -17,14 +17,11 @@ public class CreateAlert {
   @JsonProperty("options")
   private AlertOptions options;
 
-  /**
-   * The identifier of the workspace folder containing the alert. The default is ther user's home
-   * folder.
-   */
+  /** The identifier of the workspace folder containing the object. */
   @JsonProperty("parent")
   private String parent;
 
-  /** ID of the query evaluated by the alert. */
+  /** Query ID. */
   @JsonProperty("query_id")
   private String queryId;
 

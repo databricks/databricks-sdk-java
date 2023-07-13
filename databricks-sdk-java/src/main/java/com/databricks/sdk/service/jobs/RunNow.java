@@ -52,6 +52,10 @@ public class RunNow {
   @JsonProperty("job_id")
   private Long jobId;
 
+  /** Job-level parameters used in the run */
+  @JsonProperty("job_parameters")
+  private Collection<Map<String, String>> jobParameters;
+
   /**
    * A map from keys to values for jobs with notebook task, for example `\"notebook_params\":
    * {\"name\": \"john doe\", \"age\": \"35\"}`. The map is passed to the notebook and is accessible
@@ -166,6 +170,15 @@ public class RunNow {
     return jobId;
   }
 
+  public RunNow setJobParameters(Collection<Map<String, String>> jobParameters) {
+    this.jobParameters = jobParameters;
+    return this;
+  }
+
+  public Collection<Map<String, String>> getJobParameters() {
+    return jobParameters;
+  }
+
   public RunNow setNotebookParams(Map<String, String> notebookParams) {
     this.notebookParams = notebookParams;
     return this;
@@ -229,6 +242,7 @@ public class RunNow {
         && Objects.equals(idempotencyToken, that.idempotencyToken)
         && Objects.equals(jarParams, that.jarParams)
         && Objects.equals(jobId, that.jobId)
+        && Objects.equals(jobParameters, that.jobParameters)
         && Objects.equals(notebookParams, that.notebookParams)
         && Objects.equals(pipelineParams, that.pipelineParams)
         && Objects.equals(pythonNamedParams, that.pythonNamedParams)
@@ -244,6 +258,7 @@ public class RunNow {
         idempotencyToken,
         jarParams,
         jobId,
+        jobParameters,
         notebookParams,
         pipelineParams,
         pythonNamedParams,
@@ -259,6 +274,7 @@ public class RunNow {
         .add("idempotencyToken", idempotencyToken)
         .add("jarParams", jarParams)
         .add("jobId", jobId)
+        .add("jobParameters", jobParameters)
         .add("notebookParams", notebookParams)
         .add("pipelineParams", pipelineParams)
         .add("pythonNamedParams", pythonNamedParams)

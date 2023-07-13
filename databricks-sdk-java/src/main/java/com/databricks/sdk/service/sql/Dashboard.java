@@ -59,10 +59,7 @@ public class Dashboard {
   @JsonProperty("options")
   private DashboardOptions options;
 
-  /**
-   * The identifier of the parent folder containing the dashboard. Available for dashboards in
-   * workspace.
-   */
+  /** The identifier of the workspace folder containing the object. */
   @JsonProperty("parent")
   private String parent;
 

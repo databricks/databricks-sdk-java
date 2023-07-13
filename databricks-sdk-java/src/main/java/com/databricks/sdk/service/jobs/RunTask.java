@@ -121,9 +121,25 @@ public class RunTask {
   @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
 
+  /** Parameter values including resolved references */
+  @JsonProperty("resolved_values")
+  private ResolvedValues resolvedValues;
+
   /** The ID of the task run. */
   @JsonProperty("run_id")
   private Long runId;
+
+  /**
+   * An optional value indicating the condition that determines whether the task should be run once
+   * its dependencies have been completed. When omitted, defaults to `ALL_SUCCESS`. See
+   * :method:jobs/create for a list of possible values.
+   */
+  @JsonProperty("run_if")
+  private RunIf runIf;
+
+  /** If run_job_task, indicates that this task must execute another job. */
+  @JsonProperty("run_job_task")
+  private RunJobTask runJobTask;
 
   /**
    * The time in milliseconds it took to set up the cluster. For runs that run on new clusters this
@@ -162,7 +178,7 @@ public class RunTask {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The result and lifecycle states of the run. */
+  /** The current state of the run. */
   @JsonProperty("state")
   private RunState state;
 
@@ -318,6 +334,15 @@ public class RunTask {
     return pythonWheelTask;
   }
 
+  public RunTask setResolvedValues(ResolvedValues resolvedValues) {
+    this.resolvedValues = resolvedValues;
+    return this;
+  }
+
+  public ResolvedValues getResolvedValues() {
+    return resolvedValues;
+  }
+
   public RunTask setRunId(Long runId) {
     this.runId = runId;
     return this;
@@ -325,6 +350,24 @@ public class RunTask {
 
   public Long getRunId() {
     return runId;
+  }
+
+  public RunTask setRunIf(RunIf runIf) {
+    this.runIf = runIf;
+    return this;
+  }
+
+  public RunIf getRunIf() {
+    return runIf;
+  }
+
+  public RunTask setRunJobTask(RunJobTask runJobTask) {
+    this.runJobTask = runJobTask;
+    return this;
+  }
+
+  public RunJobTask getRunJobTask() {
+    return runJobTask;
   }
 
   public RunTask setSetupDuration(Long setupDuration) {
@@ -420,7 +463,10 @@ public class RunTask {
         && Objects.equals(notebookTask, that.notebookTask)
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
+        && Objects.equals(resolvedValues, that.resolvedValues)
         && Objects.equals(runId, that.runId)
+        && Objects.equals(runIf, that.runIf)
+        && Objects.equals(runJobTask, that.runJobTask)
         && Objects.equals(setupDuration, that.setupDuration)
         && Objects.equals(sparkJarTask, that.sparkJarTask)
         && Objects.equals(sparkPythonTask, that.sparkPythonTask)
@@ -450,7 +496,10 @@ public class RunTask {
         notebookTask,
         pipelineTask,
         pythonWheelTask,
+        resolvedValues,
         runId,
+        runIf,
+        runJobTask,
         setupDuration,
         sparkJarTask,
         sparkPythonTask,
@@ -480,7 +529,10 @@ public class RunTask {
         .add("notebookTask", notebookTask)
         .add("pipelineTask", pipelineTask)
         .add("pythonWheelTask", pythonWheelTask)
+        .add("resolvedValues", resolvedValues)
         .add("runId", runId)
+        .add("runIf", runIf)
+        .add("runJobTask", runJobTask)
         .add("setupDuration", setupDuration)
         .add("sparkJarTask", sparkJarTask)
         .add("sparkPythonTask", sparkPythonTask)

@@ -24,7 +24,7 @@ public class RepairHistoryItem {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The result and lifecycle state of the run. */
+  /** The current state of the run. */
   @JsonProperty("state")
   private RunState state;
 

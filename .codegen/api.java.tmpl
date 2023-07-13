@@ -49,8 +49,8 @@ public class {{.PascalName}}API {
   public {{.Poll.Response.PascalName}} {{.CamelName}}({{range .Binding}}{{template "type" .PollField.Entity}} {{.PollField.CamelName}}, {{end}}
     Duration timeout,  Consumer<{{.Poll.Response.PascalName}}> callback) throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
-    java.util.List<{{.Status.Entity.PascalName}}> targetStates = Arrays.asList({{range $i,$x := .Success}}{{if $i}}, {{end}}{{.Entity.PascalName}}.{{.Content}}{{end}});{{if .Failure}}
-    java.util.List<{{.Status.Entity.PascalName}}> failureStates = Arrays.asList({{range $i,$x := .Failure}}{{if $i}}, {{end}}{{.Entity.PascalName}}.{{.Content}}{{end}});{{end}}
+    java.util.List<{{.Status.Entity.PascalName}}> targetStates = Arrays.asList({{range $i,$x := .Success}}{{if $i}}, {{end}}{{.Entity.PascalName}}.{{.ConstantName}}{{end}});{{if .Failure}}
+    java.util.List<{{.Status.Entity.PascalName}}> failureStates = Arrays.asList({{range $i,$x := .Failure}}{{if $i}}, {{end}}{{.Entity.PascalName}}.{{.ConstantName}}{{end}});{{end}}
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
@@ -73,7 +73,7 @@ public class {{.PascalName}}API {
             callback.accept(poll);
         }{{if .Failure -}}
         if (failureStates.contains(status)) {
-            String msg = String.format("failed to reach {{range $i, $e := .Success}}{{if $i}} or {{end}}{{$e.Content}}{{end}}, got %s: %s", status, statusMessage);
+            String msg = String.format("failed to reach {{range $i, $e := .Success}}{{if $i}} or {{end}}{{$e.ConstantName}}{{end}}, got %s: %s", status, statusMessage);
             throw new IllegalStateException(msg);
         }
         {{end}}
@@ -154,7 +154,7 @@ public class {{.PascalName}}API {
       offset += response.get{{.Pagination.Results.PascalName}}().size();
       return request.set{{.Pagination.Offset.PascalName}}(offset);
       {{- end}}
-    }){{if .Pagination.NeedsOffsetDedupe -}}.withDedupe({{.Pagination.Entity.PascalName}}::get{{.Pagination.Entity.IdentifierField.PascalName}}){{end}};
+    }){{if .NeedsOffsetDedupe -}}.withDedupe({{.Pagination.Entity.PascalName}}::get{{.IdentifierField.PascalName}}){{end}};
   {{- else -}}
     return impl.{{template "java-name" .}}({{if .Request}}request{{end}}){{with .Pagination.Results}}.get{{.PascalName}}(){{end}};
   {{- end -}}

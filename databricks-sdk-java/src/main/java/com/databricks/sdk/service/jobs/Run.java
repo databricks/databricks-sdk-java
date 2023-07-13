@@ -87,6 +87,10 @@ public class Run {
   @JsonProperty("job_id")
   private Long jobId;
 
+  /** Job-level parameters used in the run */
+  @JsonProperty("job_parameters")
+  private Collection<JobParameter> jobParameters;
+
   /** A unique identifier for this job run. This is set to the same value as `run_id`. */
   @JsonProperty("number_in_job")
   private Long numberInJob;
@@ -148,7 +152,7 @@ public class Run {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The result and lifecycle states of the run. */
+  /** The current state of the run. */
   @JsonProperty("state")
   private RunState state;
 
@@ -162,6 +166,10 @@ public class Run {
   /** This describes an enum */
   @JsonProperty("trigger")
   private TriggerType trigger;
+
+  /** */
+  @JsonProperty("trigger_info")
+  private TriggerInfo triggerInfo;
 
   public Run setAttemptNumber(Long attemptNumber) {
     this.attemptNumber = attemptNumber;
@@ -260,6 +268,15 @@ public class Run {
 
   public Long getJobId() {
     return jobId;
+  }
+
+  public Run setJobParameters(Collection<JobParameter> jobParameters) {
+    this.jobParameters = jobParameters;
+    return this;
+  }
+
+  public Collection<JobParameter> getJobParameters() {
+    return jobParameters;
   }
 
   public Run setNumberInJob(Long numberInJob) {
@@ -397,6 +414,15 @@ public class Run {
     return trigger;
   }
 
+  public Run setTriggerInfo(TriggerInfo triggerInfo) {
+    this.triggerInfo = triggerInfo;
+    return this;
+  }
+
+  public TriggerInfo getTriggerInfo() {
+    return triggerInfo;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -413,6 +439,7 @@ public class Run {
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(jobClusters, that.jobClusters)
         && Objects.equals(jobId, that.jobId)
+        && Objects.equals(jobParameters, that.jobParameters)
         && Objects.equals(numberInJob, that.numberInJob)
         && Objects.equals(originalAttemptRunId, that.originalAttemptRunId)
         && Objects.equals(overridingParameters, that.overridingParameters)
@@ -427,7 +454,8 @@ public class Run {
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
         && Objects.equals(tasks, that.tasks)
-        && Objects.equals(trigger, that.trigger);
+        && Objects.equals(trigger, that.trigger)
+        && Objects.equals(triggerInfo, that.triggerInfo);
   }
 
   @Override
@@ -444,6 +472,7 @@ public class Run {
         gitSource,
         jobClusters,
         jobId,
+        jobParameters,
         numberInJob,
         originalAttemptRunId,
         overridingParameters,
@@ -458,7 +487,8 @@ public class Run {
         startTime,
         state,
         tasks,
-        trigger);
+        trigger,
+        triggerInfo);
   }
 
   @Override
@@ -475,6 +505,7 @@ public class Run {
         .add("gitSource", gitSource)
         .add("jobClusters", jobClusters)
         .add("jobId", jobId)
+        .add("jobParameters", jobParameters)
         .add("numberInJob", numberInJob)
         .add("originalAttemptRunId", originalAttemptRunId)
         .add("overridingParameters", overridingParameters)
@@ -490,6 +521,7 @@ public class Run {
         .add("state", state)
         .add("tasks", tasks)
         .add("trigger", trigger)
+        .add("triggerInfo", triggerInfo)
         .toString();
   }
 }

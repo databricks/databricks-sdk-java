@@ -13,8 +13,8 @@ public class FileArrivalTriggerConfiguration {
    * If set, the trigger starts a run only after the specified amount of time passed since the last
    * time the trigger fired. The minimum allowed value is 60 seconds
    */
-  @JsonProperty("min_time_between_trigger_seconds")
-  private Long minTimeBetweenTriggerSeconds;
+  @JsonProperty("min_time_between_triggers_seconds")
+  private Long minTimeBetweenTriggersSeconds;
 
   /**
    * URL to be monitored for file arrivals. The path must point to the root or a subpath of the
@@ -31,14 +31,14 @@ public class FileArrivalTriggerConfiguration {
   @JsonProperty("wait_after_last_change_seconds")
   private Long waitAfterLastChangeSeconds;
 
-  public FileArrivalTriggerConfiguration setMinTimeBetweenTriggerSeconds(
-      Long minTimeBetweenTriggerSeconds) {
-    this.minTimeBetweenTriggerSeconds = minTimeBetweenTriggerSeconds;
+  public FileArrivalTriggerConfiguration setMinTimeBetweenTriggersSeconds(
+      Long minTimeBetweenTriggersSeconds) {
+    this.minTimeBetweenTriggersSeconds = minTimeBetweenTriggersSeconds;
     return this;
   }
 
-  public Long getMinTimeBetweenTriggerSeconds() {
-    return minTimeBetweenTriggerSeconds;
+  public Long getMinTimeBetweenTriggersSeconds() {
+    return minTimeBetweenTriggersSeconds;
   }
 
   public FileArrivalTriggerConfiguration setUrl(String url) {
@@ -65,20 +65,20 @@ public class FileArrivalTriggerConfiguration {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     FileArrivalTriggerConfiguration that = (FileArrivalTriggerConfiguration) o;
-    return Objects.equals(minTimeBetweenTriggerSeconds, that.minTimeBetweenTriggerSeconds)
+    return Objects.equals(minTimeBetweenTriggersSeconds, that.minTimeBetweenTriggersSeconds)
         && Objects.equals(url, that.url)
         && Objects.equals(waitAfterLastChangeSeconds, that.waitAfterLastChangeSeconds);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(minTimeBetweenTriggerSeconds, url, waitAfterLastChangeSeconds);
+    return Objects.hash(minTimeBetweenTriggersSeconds, url, waitAfterLastChangeSeconds);
   }
 
   @Override
   public String toString() {
     return new ToStringer(FileArrivalTriggerConfiguration.class)
-        .add("minTimeBetweenTriggerSeconds", minTimeBetweenTriggerSeconds)
+        .add("minTimeBetweenTriggersSeconds", minTimeBetweenTriggersSeconds)
         .add("url", url)
         .add("waitAfterLastChangeSeconds", waitAfterLastChangeSeconds)
         .toString();

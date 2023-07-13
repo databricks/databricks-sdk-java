@@ -3,9 +3,13 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Generated
 public enum ListSortOrder {
-  ascending,
-  descending,
+  @JsonProperty("ascending")
+  ASCENDING,
+
+  @JsonProperty("descending")
+  DESCENDING,
 }

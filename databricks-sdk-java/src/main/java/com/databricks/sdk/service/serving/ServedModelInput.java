@@ -5,6 +5,7 @@ package com.databricks.sdk.service.serving;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -16,13 +17,17 @@ public class ServedModelInput {
    * "{{secrets/my_scope/my_key}}", "DATABRICKS_TOKEN": "{{secrets/my_scope2/my_key2}}"}`
    */
   @JsonProperty("environment_vars")
-  private Object environmentVars;
+  private Map<String, String> environmentVars;
 
-  /** The name of the model in Databricks Model Registry to be served. */
+  /**
+   * The name of the model in Databricks Model Registry to be served or if the model resides in
+   * Unity Catalog, the full name of model, in the form of
+   * __catalog_name__.__schema_name__.__model_name__.
+   */
   @JsonProperty("model_name")
   private String modelName;
 
-  /** The version of the model in Databricks Model Registry to be served. */
+  /** The version of the model in Databricks Model Registry or Unity Catalog to be served. */
   @JsonProperty("model_version")
   private String modelVersion;
 
@@ -49,12 +54,12 @@ public class ServedModelInput {
   @JsonProperty("workload_size")
   private String workloadSize;
 
-  public ServedModelInput setEnvironmentVars(Object environmentVars) {
+  public ServedModelInput setEnvironmentVars(Map<String, String> environmentVars) {
     this.environmentVars = environmentVars;
     return this;
   }
 
-  public Object getEnvironmentVars() {
+  public Map<String, String> getEnvironmentVars() {
     return environmentVars;
   }
 

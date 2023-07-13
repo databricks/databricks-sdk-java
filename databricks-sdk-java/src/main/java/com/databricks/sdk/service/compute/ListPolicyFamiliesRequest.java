@@ -7,6 +7,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
+/** List policy families */
 @Generated
 public class ListPolicyFamiliesRequest {
   /** The max number of policy families to return. */

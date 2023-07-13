@@ -15,7 +15,7 @@ public class ListJobsRequest {
   private Boolean expandTasks;
 
   /**
-   * The number of jobs to return. This value must be greater than 0 and less or equal to 25. The
+   * The number of jobs to return. This value must be greater than 0 and less or equal to 100. The
    * default value is 20.
    */
   @QueryParam("limit")

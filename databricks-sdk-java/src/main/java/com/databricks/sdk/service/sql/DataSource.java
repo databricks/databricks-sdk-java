@@ -10,10 +10,7 @@ import java.util.Objects;
 /** A JSON object representing a DBSQL data source / SQL warehouse. */
 @Generated
 public class DataSource {
-  /**
-   * The unique identifier for this data source / SQL warehouse. Can be used when creating /
-   * modifying queries and dashboards.
-   */
+  /** Data source ID. */
   @JsonProperty("id")
   private String id;
 

@@ -7,17 +7,20 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The result and lifecycle state of the run. */
+/** The current state of the run. */
 @Generated
 public class RunState {
   /**
-   * A description of a run’s current location in the run lifecycle. This field is always available
-   * in the response.
+   * A value indicating the run's current lifecycle state. This field is always available in the
+   * response.
    */
   @JsonProperty("life_cycle_state")
   private RunLifeCycleState lifeCycleState;
 
-  /** This describes an enum */
+  /**
+   * A value indicating the run's result. This field is only available for terminal lifecycle
+   * states.
+   */
   @JsonProperty("result_state")
   private RunResultState resultState;
 
@@ -29,7 +32,8 @@ public class RunState {
   private String stateMessage;
 
   /**
-   * Whether a run was canceled manually by a user or by the scheduler because the run timed out.
+   * A value indicating whether a run was canceled manually by a user or by the scheduler because
+   * the run timed out.
    */
   @JsonProperty("user_cancelled_or_timedout")
   private Boolean userCancelledOrTimedout;

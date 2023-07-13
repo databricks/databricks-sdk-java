@@ -18,10 +18,7 @@ public class Query {
   @JsonProperty("created_at")
   private String createdAt;
 
-  /**
-   * Data Source ID. The UUID that uniquely identifies this data source / SQL warehouse across the
-   * API.
-   */
+  /** Data source ID. */
   @JsonProperty("data_source_id")
   private String dataSourceId;
 
@@ -31,7 +28,7 @@ public class Query {
   @JsonProperty("description")
   private String description;
 
-  /** */
+  /** Query ID. */
   @JsonProperty("id")
   private String id;
 
@@ -88,9 +85,7 @@ public class Query {
   @JsonProperty("options")
   private QueryOptions options;
 
-  /**
-   * The identifier of the parent folder containing the query. Available for queries in workspace.
-   */
+  /** The identifier of the workspace folder containing the object. */
   @JsonProperty("parent")
   private String parent;
 

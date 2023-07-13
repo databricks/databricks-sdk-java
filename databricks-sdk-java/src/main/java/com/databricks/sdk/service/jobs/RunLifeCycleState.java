@@ -12,10 +12,10 @@ public enum RunLifeCycleState {
   // network failure over a long period. If a run on a new cluster ends in the
   // `INTERNAL_ERROR` state, the Jobs service terminates the cluster as soon as
   // possible. This state is terminal.
-  PENDING, // The run has been triggered. If there is not already an active run of the same
-  // job, the cluster and execution context are being prepared. If there is
-  // already an active run of the same job, the run immediately transitions into
-  // the `SKIPPED` state without preparing any resources.
+  PENDING, // The run has been triggered. If there is not an active run of the same job,
+  // the cluster and execution context are being prepared. If there is already an
+  // active run of the same job, the run immediately transitions into the
+  // `SKIPPED` state without preparing any resources.
   RUNNING, // The task of this run is being executed.
   SKIPPED, // This run was aborted because a previous run of the same job was already
   // active. This state is terminal.

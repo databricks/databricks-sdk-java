@@ -3,10 +3,16 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Generated
 public enum ContextStatus {
-  Error,
-  Pending,
-  Running,
+  @JsonProperty("Error")
+  ERROR,
+
+  @JsonProperty("Pending")
+  PENDING,
+
+  @JsonProperty("Running")
+  RUNNING,
 }

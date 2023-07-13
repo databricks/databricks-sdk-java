@@ -3,10 +3,16 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Generated
 public enum Language {
-  python,
-  scala,
-  sql,
+  @JsonProperty("python")
+  PYTHON,
+
+  @JsonProperty("scala")
+  SCALA,
+
+  @JsonProperty("sql")
+  SQL,
 }

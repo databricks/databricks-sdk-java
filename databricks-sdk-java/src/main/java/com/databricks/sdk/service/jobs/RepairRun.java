@@ -90,11 +90,18 @@ public class RepairRun {
   private Collection<String> pythonParams;
 
   /**
-   * If true, repair all failed tasks. Only one of rerun_tasks or rerun_all_failed_tasks can be
+   * If true, repair all failed tasks. Only one of `rerun_tasks` or `rerun_all_failed_tasks` can be
    * used.
    */
   @JsonProperty("rerun_all_failed_tasks")
   private Boolean rerunAllFailedTasks;
+
+  /**
+   * If true, repair all tasks that depend on the tasks in `rerun_tasks`, even if they were
+   * previously successful. Can be also used in combination with `rerun_all_failed_tasks`.
+   */
+  @JsonProperty("rerun_dependent_tasks")
+  private Boolean rerunDependentTasks;
 
   /** The task keys of the task runs to repair. */
   @JsonProperty("rerun_tasks")
@@ -203,6 +210,15 @@ public class RepairRun {
     return rerunAllFailedTasks;
   }
 
+  public RepairRun setRerunDependentTasks(Boolean rerunDependentTasks) {
+    this.rerunDependentTasks = rerunDependentTasks;
+    return this;
+  }
+
+  public Boolean getRerunDependentTasks() {
+    return rerunDependentTasks;
+  }
+
   public RepairRun setRerunTasks(Collection<String> rerunTasks) {
     this.rerunTasks = rerunTasks;
     return this;
@@ -252,6 +268,7 @@ public class RepairRun {
         && Objects.equals(pythonNamedParams, that.pythonNamedParams)
         && Objects.equals(pythonParams, that.pythonParams)
         && Objects.equals(rerunAllFailedTasks, that.rerunAllFailedTasks)
+        && Objects.equals(rerunDependentTasks, that.rerunDependentTasks)
         && Objects.equals(rerunTasks, that.rerunTasks)
         && Objects.equals(runId, that.runId)
         && Objects.equals(sparkSubmitParams, that.sparkSubmitParams)
@@ -269,6 +286,7 @@ public class RepairRun {
         pythonNamedParams,
         pythonParams,
         rerunAllFailedTasks,
+        rerunDependentTasks,
         rerunTasks,
         runId,
         sparkSubmitParams,
@@ -286,6 +304,7 @@ public class RepairRun {
         .add("pythonNamedParams", pythonNamedParams)
         .add("pythonParams", pythonParams)
         .add("rerunAllFailedTasks", rerunAllFailedTasks)
+        .add("rerunDependentTasks", rerunDependentTasks)
         .add("rerunTasks", rerunTasks)
         .add("runId", runId)
         .add("sparkSubmitParams", sparkSubmitParams)

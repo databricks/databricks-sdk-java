@@ -20,8 +20,17 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface PolicyFamiliesService {
-
+  /**
+   * Get policy family information.
+   *
+   * <p>Retrieve the information for an policy family based on its identifier.
+   */
   PolicyFamily get(GetPolicyFamilyRequest getPolicyFamilyRequest);
 
+  /**
+   * List policy families.
+   *
+   * <p>Retrieve a list of policy families. This API is paginated.
+   */
   ListPolicyFamiliesResponse list(ListPolicyFamiliesRequest listPolicyFamiliesRequest);
 }

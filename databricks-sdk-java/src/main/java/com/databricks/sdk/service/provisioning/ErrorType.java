@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The AWS resource associated with this error: credentials, VPC, subnet, security group, or network
@@ -10,9 +11,18 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum ErrorType {
-  credentials,
-  networkAcl,
-  securityGroup,
-  subnet,
-  vpc,
+  @JsonProperty("credentials")
+  CREDENTIALS,
+
+  @JsonProperty("networkAcl")
+  NETWORK_ACL,
+
+  @JsonProperty("securityGroup")
+  SECURITY_GROUP,
+
+  @JsonProperty("subnet")
+  SUBNET,
+
+  @JsonProperty("vpc")
+  VPC,
 }

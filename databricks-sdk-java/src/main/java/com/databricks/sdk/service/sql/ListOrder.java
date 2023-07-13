@@ -3,9 +3,13 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Generated
 public enum ListOrder {
-  created_at,
-  name,
+  @JsonProperty("created_at")
+  CREATED_AT,
+
+  @JsonProperty("name")
+  NAME,
 }

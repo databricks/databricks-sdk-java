@@ -56,6 +56,12 @@ public class GitSource {
   @JsonProperty("git_url")
   private String gitUrl;
 
+  /**
+   * The source of the job specification in the remote repository when the job is source controlled.
+   */
+  @JsonProperty("job_source")
+  private JobSource jobSource;
+
   public GitSource setGitBranch(String gitBranch) {
     this.gitBranch = gitBranch;
     return this;
@@ -110,6 +116,15 @@ public class GitSource {
     return gitUrl;
   }
 
+  public GitSource setJobSource(JobSource jobSource) {
+    this.jobSource = jobSource;
+    return this;
+  }
+
+  public JobSource getJobSource() {
+    return jobSource;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -120,12 +135,13 @@ public class GitSource {
         && Objects.equals(gitProvider, that.gitProvider)
         && Objects.equals(gitSnapshot, that.gitSnapshot)
         && Objects.equals(gitTag, that.gitTag)
-        && Objects.equals(gitUrl, that.gitUrl);
+        && Objects.equals(gitUrl, that.gitUrl)
+        && Objects.equals(jobSource, that.jobSource);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(gitBranch, gitCommit, gitProvider, gitSnapshot, gitTag, gitUrl);
+    return Objects.hash(gitBranch, gitCommit, gitProvider, gitSnapshot, gitTag, gitUrl, jobSource);
   }
 
   @Override
@@ -137,6 +153,7 @@ public class GitSource {
         .add("gitSnapshot", gitSnapshot)
         .add("gitTag", gitTag)
         .add("gitUrl", gitUrl)
+        .add("jobSource", jobSource)
         .toString();
   }
 }

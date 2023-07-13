@@ -44,7 +44,7 @@ public class AlertOptions {
 
   /** Value used to compare in alert evaluation. */
   @JsonProperty("value")
-  private String value;
+  private Object value;
 
   public AlertOptions setColumn(String column) {
     this.column = column;
@@ -91,12 +91,12 @@ public class AlertOptions {
     return op;
   }
 
-  public AlertOptions setValue(String value) {
+  public AlertOptions setValue(Object value) {
     this.value = value;
     return this;
   }
 
-  public String getValue() {
+  public Object getValue() {
     return value;
   }
 

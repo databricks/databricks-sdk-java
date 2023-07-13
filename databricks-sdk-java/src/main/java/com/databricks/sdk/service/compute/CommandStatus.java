@@ -3,13 +3,25 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Generated
 public enum CommandStatus {
-  Cancelled,
-  Cancelling,
-  Error,
-  Finished,
-  Queued,
-  Running,
+  @JsonProperty("Cancelled")
+  CANCELLED,
+
+  @JsonProperty("Cancelling")
+  CANCELLING,
+
+  @JsonProperty("Error")
+  ERROR,
+
+  @JsonProperty("Finished")
+  FINISHED,
+
+  @JsonProperty("Queued")
+  QUEUED,
+
+  @JsonProperty("Running")
+  RUNNING,
 }

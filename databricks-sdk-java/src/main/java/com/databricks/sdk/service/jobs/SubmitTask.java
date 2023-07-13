@@ -27,6 +27,13 @@ public class SubmitTask {
   private Collection<TaskDependency> dependsOn;
 
   /**
+   * An optional set of email addresses notified when the task run begins or completes. The default
+   * behavior is to not send any emails.
+   */
+  @JsonProperty("email_notifications")
+  private JobEmailNotifications emailNotifications;
+
+  /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs of this task.
    * When running tasks on an existing cluster, you may need to manually restart the cluster if it
    * stops responding. We suggest running jobs on new clusters for greater reliability.
@@ -51,6 +58,13 @@ public class SubmitTask {
    */
   @JsonProperty("notebook_task")
   private NotebookTask notebookTask;
+
+  /**
+   * Optional notification settings that are used when sending email notifications for this task
+   * run.
+   */
+  @JsonProperty("notification_settings")
+  private TaskNotificationSettings notificationSettings;
 
   /** If pipeline_task, indicates that this task must execute a Pipeline. */
   @JsonProperty("pipeline_task")
@@ -112,6 +126,15 @@ public class SubmitTask {
     return dependsOn;
   }
 
+  public SubmitTask setEmailNotifications(JobEmailNotifications emailNotifications) {
+    this.emailNotifications = emailNotifications;
+    return this;
+  }
+
+  public JobEmailNotifications getEmailNotifications() {
+    return emailNotifications;
+  }
+
   public SubmitTask setExistingClusterId(String existingClusterId) {
     this.existingClusterId = existingClusterId;
     return this;
@@ -146,6 +169,15 @@ public class SubmitTask {
 
   public NotebookTask getNotebookTask() {
     return notebookTask;
+  }
+
+  public SubmitTask setNotificationSettings(TaskNotificationSettings notificationSettings) {
+    this.notificationSettings = notificationSettings;
+    return this;
+  }
+
+  public TaskNotificationSettings getNotificationSettings() {
+    return notificationSettings;
   }
 
   public SubmitTask setPipelineTask(PipelineTask pipelineTask) {
@@ -227,10 +259,12 @@ public class SubmitTask {
     SubmitTask that = (SubmitTask) o;
     return Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dependsOn, that.dependsOn)
+        && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(newCluster, that.newCluster)
         && Objects.equals(notebookTask, that.notebookTask)
+        && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(sparkJarTask, that.sparkJarTask)
@@ -246,10 +280,12 @@ public class SubmitTask {
     return Objects.hash(
         conditionTask,
         dependsOn,
+        emailNotifications,
         existingClusterId,
         libraries,
         newCluster,
         notebookTask,
+        notificationSettings,
         pipelineTask,
         pythonWheelTask,
         sparkJarTask,
@@ -265,10 +301,12 @@ public class SubmitTask {
     return new ToStringer(SubmitTask.class)
         .add("conditionTask", conditionTask)
         .add("dependsOn", dependsOn)
+        .add("emailNotifications", emailNotifications)
         .add("existingClusterId", existingClusterId)
         .add("libraries", libraries)
         .add("newCluster", newCluster)
         .add("notebookTask", notebookTask)
+        .add("notificationSettings", notificationSettings)
         .add("pipelineTask", pipelineTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("sparkJarTask", sparkJarTask)

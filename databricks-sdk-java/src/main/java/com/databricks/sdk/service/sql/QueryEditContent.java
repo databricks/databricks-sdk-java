@@ -9,18 +9,17 @@ import java.util.Objects;
 
 @Generated
 public class QueryEditContent {
-  /** The ID of the data source / SQL warehouse where this query will run. */
+  /** Data source ID. */
   @JsonProperty("data_source_id")
   private String dataSourceId;
 
   /**
-   * General description that can convey additional information about this query such as usage
-   * notes.
+   * General description that conveys additional information about this query such as usage notes.
    */
   @JsonProperty("description")
   private String description;
 
-  /** The name or title of this query to display in list views. */
+  /** The title of this query that appears in list views, widget headings, and on the query page. */
   @JsonProperty("name")
   private String name;
 
@@ -32,7 +31,7 @@ public class QueryEditContent {
   @JsonProperty("options")
   private Object options;
 
-  /** The text of the query. */
+  /** The text of the query to be run. */
   @JsonProperty("query")
   private String query;
 

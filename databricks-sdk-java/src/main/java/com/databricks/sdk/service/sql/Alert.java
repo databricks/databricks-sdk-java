@@ -13,7 +13,7 @@ public class Alert {
   @JsonProperty("created_at")
   private String createdAt;
 
-  /** ID of the alert. */
+  /** Alert ID. */
   @JsonProperty("id")
   private String id;
 
@@ -29,15 +29,13 @@ public class Alert {
   @JsonProperty("options")
   private AlertOptions options;
 
-  /**
-   * The identifier of the parent folder containing the alert. Available for alerts in workspace.
-   */
+  /** The identifier of the workspace folder containing the object. */
   @JsonProperty("parent")
   private String parent;
 
   /** */
   @JsonProperty("query")
-  private Query query;
+  private AlertQuery query;
 
   /**
    * Number of seconds after being triggered before the alert rearms itself and can be triggered
@@ -116,12 +114,12 @@ public class Alert {
     return parent;
   }
 
-  public Alert setQuery(Query query) {
+  public Alert setQuery(AlertQuery query) {
     this.query = query;
     return this;
   }
 
-  public Query getQuery() {
+  public AlertQuery getQuery() {
     return query;
   }
 

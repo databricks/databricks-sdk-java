@@ -58,6 +58,10 @@ public class RunOutput {
   @JsonProperty("notebook_output")
   private NotebookOutput notebookOutput;
 
+  /** The output of a run job task, if available */
+  @JsonProperty("run_job_output")
+  private RunJobOutput runJobOutput;
+
   /** The output of a SQL task, if available. */
   @JsonProperty("sql_output")
   private SqlOutput sqlOutput;
@@ -134,6 +138,15 @@ public class RunOutput {
     return notebookOutput;
   }
 
+  public RunOutput setRunJobOutput(RunJobOutput runJobOutput) {
+    this.runJobOutput = runJobOutput;
+    return this;
+  }
+
+  public RunJobOutput getRunJobOutput() {
+    return runJobOutput;
+  }
+
   public RunOutput setSqlOutput(SqlOutput sqlOutput) {
     this.sqlOutput = sqlOutput;
     return this;
@@ -156,6 +169,7 @@ public class RunOutput {
         && Objects.equals(logsTruncated, that.logsTruncated)
         && Objects.equals(metadata, that.metadata)
         && Objects.equals(notebookOutput, that.notebookOutput)
+        && Objects.equals(runJobOutput, that.runJobOutput)
         && Objects.equals(sqlOutput, that.sqlOutput);
   }
 
@@ -170,6 +184,7 @@ public class RunOutput {
         logsTruncated,
         metadata,
         notebookOutput,
+        runJobOutput,
         sqlOutput);
   }
 
@@ -184,6 +199,7 @@ public class RunOutput {
         .add("logsTruncated", logsTruncated)
         .add("metadata", metadata)
         .add("notebookOutput", notebookOutput)
+        .add("runJobOutput", runJobOutput)
         .add("sqlOutput", sqlOutput)
         .toString();
   }

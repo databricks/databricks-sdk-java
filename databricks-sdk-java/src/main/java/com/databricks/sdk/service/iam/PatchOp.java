@@ -3,11 +3,17 @@
 package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /** Type of patch operation. */
 @Generated
 public enum PatchOp {
-  add,
-  remove,
-  replace,
+  @JsonProperty("add")
+  ADD,
+
+  @JsonProperty("remove")
+  REMOVE,
+
+  @JsonProperty("replace")
+  REPLACE,
 }

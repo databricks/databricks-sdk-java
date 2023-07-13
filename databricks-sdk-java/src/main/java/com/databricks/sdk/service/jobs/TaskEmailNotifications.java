@@ -13,8 +13,8 @@ public class TaskEmailNotifications {
   /**
    * A list of email addresses to be notified when a run unsuccessfully completes. A run is
    * considered to have completed unsuccessfully if it ends with an `INTERNAL_ERROR`
-   * `life_cycle_state` or a `SKIPPED`, `FAILED`, or `TIMED_OUT` result_state. If this is not
-   * specified on job creation, reset, or update the list is empty, and notifications are not sent.
+   * `life_cycle_state` or a `FAILED`, or `TIMED_OUT` result_state. If this is not specified on job
+   * creation, reset, or update the list is empty, and notifications are not sent.
    */
   @JsonProperty("on_failure")
   private Collection<String> onFailure;
@@ -29,8 +29,8 @@ public class TaskEmailNotifications {
   /**
    * A list of email addresses to be notified when a run successfully completes. A run is considered
    * to have completed successfully if it ends with a `TERMINATED` `life_cycle_state` and a
-   * `SUCCESSFUL` result_state. If not specified on job creation, reset, or update, the list is
-   * empty, and notifications are not sent.
+   * `SUCCESS` result_state. If not specified on job creation, reset, or update, the list is empty,
+   * and notifications are not sent.
    */
   @JsonProperty("on_success")
   private Collection<String> onSuccess;

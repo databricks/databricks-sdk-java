@@ -31,6 +31,13 @@ public class SharedDataObject {
   private String dataObjectType;
 
   /**
+   * Whether to enable or disable sharing of data history. If not specified, the default is
+   * **DISABLED**.
+   */
+  @JsonProperty("history_data_sharing_status")
+  private SharedDataObjectHistoryDataSharingStatus historyDataSharingStatus;
+
+  /**
    * A fully qualified name that uniquely identifies a data object.
    *
    * For example, a table's fully qualified name is in the format of
@@ -112,6 +119,16 @@ public class SharedDataObject {
     return dataObjectType;
   }
 
+  public SharedDataObject setHistoryDataSharingStatus(
+      SharedDataObjectHistoryDataSharingStatus historyDataSharingStatus) {
+    this.historyDataSharingStatus = historyDataSharingStatus;
+    return this;
+  }
+
+  public SharedDataObjectHistoryDataSharingStatus getHistoryDataSharingStatus() {
+    return historyDataSharingStatus;
+  }
+
   public SharedDataObject setName(String name) {
     this.name = name;
     return this;
@@ -167,6 +184,7 @@ public class SharedDataObject {
         && Objects.equals(cdfEnabled, that.cdfEnabled)
         && Objects.equals(comment, that.comment)
         && Objects.equals(dataObjectType, that.dataObjectType)
+        && Objects.equals(historyDataSharingStatus, that.historyDataSharingStatus)
         && Objects.equals(name, that.name)
         && Objects.equals(partitions, that.partitions)
         && Objects.equals(sharedAs, that.sharedAs)
@@ -182,6 +200,7 @@ public class SharedDataObject {
         cdfEnabled,
         comment,
         dataObjectType,
+        historyDataSharingStatus,
         name,
         partitions,
         sharedAs,
@@ -197,6 +216,7 @@ public class SharedDataObject {
         .add("cdfEnabled", cdfEnabled)
         .add("comment", comment)
         .add("dataObjectType", dataObjectType)
+        .add("historyDataSharingStatus", historyDataSharingStatus)
         .add("name", name)
         .add("partitions", partitions)
         .add("sharedAs", sharedAs)

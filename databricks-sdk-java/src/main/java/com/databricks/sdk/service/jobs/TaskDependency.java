@@ -16,7 +16,7 @@ public class TaskDependency {
   @JsonProperty("outcome")
   private String outcome;
 
-  /** The name of task that this task depends on. */
+  /** The name of the task this task depends on. */
   @JsonProperty("task_key")
   private String taskKey;
 

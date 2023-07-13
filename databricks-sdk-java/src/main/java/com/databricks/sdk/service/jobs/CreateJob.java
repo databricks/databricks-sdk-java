@@ -85,6 +85,10 @@ public class CreateJob {
   @JsonProperty("notification_settings")
   private JobNotificationSettings notificationSettings;
 
+  /** Job-level parameter definitions */
+  @JsonProperty("parameters")
+  private Collection<JobParameterDefinition> parameters;
+
   /**
    * Write-only setting, available only in Create/Update/Reset and Submit calls. Specifies the user
    * or service principal that the job runs as. If not specified, the job runs as the user who
@@ -228,6 +232,15 @@ public class CreateJob {
     return notificationSettings;
   }
 
+  public CreateJob setParameters(Collection<JobParameterDefinition> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Collection<JobParameterDefinition> getParameters() {
+    return parameters;
+  }
+
   public CreateJob setRunAs(JobRunAs runAs) {
     this.runAs = runAs;
     return this;
@@ -306,6 +319,7 @@ public class CreateJob {
         && Objects.equals(maxConcurrentRuns, that.maxConcurrentRuns)
         && Objects.equals(name, that.name)
         && Objects.equals(notificationSettings, that.notificationSettings)
+        && Objects.equals(parameters, that.parameters)
         && Objects.equals(runAs, that.runAs)
         && Objects.equals(schedule, that.schedule)
         && Objects.equals(tags, that.tags)
@@ -328,6 +342,7 @@ public class CreateJob {
         maxConcurrentRuns,
         name,
         notificationSettings,
+        parameters,
         runAs,
         schedule,
         tags,
@@ -350,6 +365,7 @@ public class CreateJob {
         .add("maxConcurrentRuns", maxConcurrentRuns)
         .add("name", name)
         .add("notificationSettings", notificationSettings)
+        .add("parameters", parameters)
         .add("runAs", runAs)
         .add("schedule", schedule)
         .add("tags", tags)

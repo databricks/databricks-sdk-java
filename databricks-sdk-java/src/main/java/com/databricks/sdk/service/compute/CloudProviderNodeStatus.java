@@ -3,9 +3,13 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Generated
 public enum CloudProviderNodeStatus {
-  NotAvailableInRegion,
-  NotEnabledOnSubscription,
+  @JsonProperty("NotAvailableInRegion")
+  NOT_AVAILABLE_IN_REGION,
+
+  @JsonProperty("NotEnabledOnSubscription")
+  NOT_ENABLED_ON_SUBSCRIPTION,
 }
