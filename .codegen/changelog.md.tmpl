@@ -1,0 +1,56 @@
+# Version changelog
+
+## {{.Version}}
+
+{{range .Changes -}}
+ * {{.}}.
+{{end}}{{- if .ApiChanges}}
+API Changes:
+{{range .ApiChanges}}
+ * {{.Action}} {{template "what" .}}{{if .Extra}} {{.Extra}}{{with .Other}} {{template "what" .}}{{end}}{{end}}.
+{{- end}}
+
+OpenAPI SHA: {{.Sha}}, Date: {{.Changed}}
+{{- end}}
+{{if .DependencyUpdates}}
+Dependency updates:
+{{range .DependencyUpdates}}
+ * {{.}}.
+{{- end -}}
+{{end}}
+
+## {{.PrevVersion}}
+
+{{- define "what" -}}
+    {{if eq .X "package" -}}
+        `com.databricks.sdk.service.{{.Package.Name}}` package
+    {{- else if eq .X "service" -}}
+        {{template "service" .Service}}
+    {{- else if eq .X "method" -}}
+        `{{.Method.CamelName}}()` method for {{template "service" .Method.Service}}
+    {{- else if eq .X "entity" -}}
+        {{template "entity" .Entity}} class
+    {{- else if eq .X "field" -}}
+        `{{.Field.CamelName}}` field for {{template "entity" .Field.Of}}
+    {{- end}}
+{{- end -}}
+
+{{- define "service" -}}
+    `{{if .IsAccounts}}accountClient{{else}}workspaceClient{{end}}.{{.CamelName}}()` service
+{{- end -}}
+
+{{- define "entity" -}}
+    {{- if not . }}any /* ERROR */
+	{{- else if .IsEmpty}}`Object`
+	{{- else if .PascalName}}`com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}`
+	{{- else if .IsAny}}`Object`
+	{{- else if .IsString}}`String`
+	{{- else if .IsBool}}`Boolean`
+	{{- else if .IsInt64}}`Integer`
+	{{- else if .IsFloat64}}`Float`
+	{{- else if .IsInt}}`Integer`
+	{{- else if .ArrayValue }}List<{{template "entity" .ArrayValue}}>
+	{{- else if .MapValue }}Map<String,{{template "entity" .MapValue}}>
+	{{- else}}`com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}`
+	{{- end -}}
+{{- end -}}
