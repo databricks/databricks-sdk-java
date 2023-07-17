@@ -36,7 +36,7 @@ Dependency updates:
 {{- end -}}
 
 {{- define "service" -}}
-    `{{if .IsAccounts}}accountClient{{else}}workspaceClient{{end}}.{{.CamelName}}()` service
+    `{{if .IsAccounts}}accountClient{{else}}workspaceClient{{end}}.{{(.TrimPrefix "account").CamelName}}()` service
 {{- end -}}
 
 {{- define "entity" -}}
