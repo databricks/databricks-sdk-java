@@ -15,13 +15,13 @@ public class CliTokenSourceTest {
   }
 
   @Test
-  public void testParseExpiryTruncate() {
+  public void testParseExpiryWithTruncate() {
     LocalDateTime parsedDateTime = CliTokenSource.parseExpiry("2023-07-17T09:02:22.33061221Z");
     assertEquals(LocalDateTime.of(2023, 7, 17, 9, 2, 22, 330612210), parsedDateTime);
   }
 
   @Test
-  public void testParseExpiryWithLessNanoSecondDigits() {
+  public void testParseExpiryWithTruncateAndLessNanoSecondDigits() {
     LocalDateTime parsedDateTime = CliTokenSource.parseExpiry("2023-07-17T09:02:22.330612Z");
     assertEquals(LocalDateTime.of(2023, 7, 17, 9, 2, 22, 330612000), parsedDateTime);
   }
