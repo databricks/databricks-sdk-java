@@ -11,5 +11,14 @@
   "batch": {
     ".codegen/workspace.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/WorkspaceClient.java",
     ".codegen/account.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/AccountClient.java"
+  },
+  "version": {
+    "pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n  <version>$VERSION</version>",
+    "databricks-sdk-java/pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n    <version>$VERSION</version>",
+    "databricks-sdk-java/src/main/java/com/databricks/sdk/core/UserAgent.java": "private static final String version = \"$VERSION\";"
+  },
+  "toolchain": {
+    "require": ["mvn", "java"],
+    "post_generate": ["mvn --errors clean test"]
   }
 }
