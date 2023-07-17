@@ -37,10 +37,13 @@ public class CliTokenSource extends RefreshableTokenSource implements OSUtils {
     this.getAllEnv = getAllEnv;
   }
 
-  private static LocalDateTime parseExpiry(String expiry) {
+  static LocalDateTime parseExpiry(String expiry) {
     List<String> datePatterns =
         Arrays.asList(
-            "yyyy-MM-dd HH:mm:ss.SSSSSS", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX");
+            "yyyy-MM-dd HH:mm:ss.SSSSSS",
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX",
+            "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'");
     DateTimeParseException lastException = null;
     for (String pattern : datePatterns) {
       try {
