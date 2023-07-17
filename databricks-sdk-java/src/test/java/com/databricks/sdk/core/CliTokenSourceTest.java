@@ -29,7 +29,7 @@ public class CliTokenSourceTest {
   @Test
   public void testParseExpiryWithMoreThanNineNanoSecondDigits() {
     try {
-      LocalDateTime parsedDateTime = CliTokenSource.parseExpiry("2023-07-17T09:02:22.33061221987Z");
+      CliTokenSource.parseExpiry("2023-07-17T09:02:22.33061221987Z");
     } catch (DateTimeParseException e) {
       assert (e.getMessage().contains("could not be parsed"));
     }
