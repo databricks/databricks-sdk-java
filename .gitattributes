@@ -555,6 +555,10 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobSettings.ja
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobSource.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobSourceDirtyState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobsAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobsHealthMetric.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobsHealthOperator.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobsHealthRule.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobsHealthRules.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/JobsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ListJobsRequest.java linguist-generated=true
@@ -634,6 +638,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ViewType.java 
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/ViewsToExport.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/Webhook.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/WebhookNotifications.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/jobs/WebhookNotificationsOnDurationWarningThresholdExceededItem.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/Activity.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ActivityAction.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/ml/ActivityId.java linguist-generated=true

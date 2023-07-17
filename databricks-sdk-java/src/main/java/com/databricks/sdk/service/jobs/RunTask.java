@@ -59,7 +59,7 @@ public class RunTask {
   @JsonProperty("depends_on")
   private Collection<TaskDependency> dependsOn;
 
-  /** An optional description for this task. The maximum length is 4096 bytes. */
+  /** An optional description for this task. */
   @JsonProperty("description")
   private String description;
 
@@ -185,7 +185,7 @@ public class RunTask {
   /**
    * A unique name for the task. This field is used to refer to this task from other tasks. This
    * field is required and must be unique within its parent job. On Update or Reset, this field is
-   * used to reference the tasks to be updated or reset. The maximum length is 100 characters.
+   * used to reference the tasks to be updated or reset.
    */
   @JsonProperty("task_key")
   private String taskKey;

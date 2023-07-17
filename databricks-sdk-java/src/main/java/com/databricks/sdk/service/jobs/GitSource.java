@@ -16,15 +16,13 @@ public class GitSource {
   /**
    * Name of the branch to be checked out and used by this job. This field cannot be specified in
    * conjunction with git_tag or git_commit.
-   *
-   * <p>The maximum length is 255 characters.
    */
   @JsonProperty("git_branch")
   private String gitBranch;
 
   /**
    * Commit to be checked out and used by this job. This field cannot be specified in conjunction
-   * with git_branch or git_tag. The maximum length is 64 characters.
+   * with git_branch or git_tag.
    */
   @JsonProperty("git_commit")
   private String gitCommit;
@@ -46,13 +44,11 @@ public class GitSource {
   /**
    * Name of the tag to be checked out and used by this job. This field cannot be specified in
    * conjunction with git_branch or git_commit.
-   *
-   * <p>The maximum length is 255 characters.
    */
   @JsonProperty("git_tag")
   private String gitTag;
 
-  /** URL of the repository to be cloned by this job. The maximum length is 300 characters. */
+  /** URL of the repository to be cloned by this job. */
   @JsonProperty("git_url")
   private String gitUrl;
 

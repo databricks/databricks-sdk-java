@@ -28,6 +28,10 @@ public class SubmitRun {
   @JsonProperty("git_source")
   private GitSource gitSource;
 
+  /** An optional set of health rules that can be defined for this job. */
+  @JsonProperty("health")
+  private JobsHealthRules health;
+
   /**
    * An optional token that can be used to guarantee the idempotency of job run requests. If a run
    * with the provided token already exists, the request does not create a new run but returns the
@@ -103,6 +107,15 @@ public class SubmitRun {
     return gitSource;
   }
 
+  public SubmitRun setHealth(JobsHealthRules health) {
+    this.health = health;
+    return this;
+  }
+
+  public JobsHealthRules getHealth() {
+    return health;
+  }
+
   public SubmitRun setIdempotencyToken(String idempotencyToken) {
     this.idempotencyToken = idempotencyToken;
     return this;
@@ -165,6 +178,7 @@ public class SubmitRun {
     return Objects.equals(accessControlList, that.accessControlList)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(health, that.health)
         && Objects.equals(idempotencyToken, that.idempotencyToken)
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(runName, that.runName)
@@ -179,6 +193,7 @@ public class SubmitRun {
         accessControlList,
         emailNotifications,
         gitSource,
+        health,
         idempotencyToken,
         notificationSettings,
         runName,
@@ -193,6 +208,7 @@ public class SubmitRun {
         .add("accessControlList", accessControlList)
         .add("emailNotifications", emailNotifications)
         .add("gitSource", gitSource)
+        .add("health", health)
         .add("idempotencyToken", idempotencyToken)
         .add("notificationSettings", notificationSettings)
         .add("runName", runName)
