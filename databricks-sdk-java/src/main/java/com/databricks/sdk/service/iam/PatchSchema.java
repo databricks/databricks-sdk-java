@@ -8,5 +8,5 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Generated
 public enum PatchSchema {
   @JsonProperty("urn:ietf:params:scim:api:messages:2.0:PatchOp")
-  URN_IETF_PARAMS_SCIM_API_MESSAGES20_PATCH_OP,
+  URN_IETF_PARAMS_SCIM_API_MESSAGES_2_0_PATCH_OP,
 }
