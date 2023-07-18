@@ -16,7 +16,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
     return DATABRICKS_CLI;
   }
 
-  private CliTokenSource getBricksCliTokenSource(DatabricksConfig config) {
+  private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
     String cliPath = config.getDatabricksCliPath();
     if (cliPath == null) {
       cliPath = "databricks";
@@ -38,7 +38,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
     }
 
     try {
-      CliTokenSource tokenSource = getBricksCliTokenSource(config);
+      CliTokenSource tokenSource = getDatabricksCliTokenSource(config);
       tokenSource.getToken(); // We need this for checking if databricks CLI is installed.
       return () -> {
         Token token = tokenSource.getToken();
