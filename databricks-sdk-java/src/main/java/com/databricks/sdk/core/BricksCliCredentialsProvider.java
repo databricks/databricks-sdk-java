@@ -9,11 +9,11 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
 
   private static final Logger LOG = LoggerFactory.getLogger(BricksCliCredentialsProvider.class);
 
-  public static final String BRICKS_CLI = "databricks-cli";
+  public static final String DATABRICKS_CLI = "databricks-cli";
 
   @Override
   public String authType() {
-    return BRICKS_CLI;
+    return DATABRICKS_CLI;
   }
 
   private CliTokenSource getBricksCliTokenSource(DatabricksConfig config) {
