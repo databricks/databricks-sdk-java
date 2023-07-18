@@ -26,10 +26,10 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     if (cliPath == null) {
       cliPath = "databricks";
     }
-    // If the path is unqualified, look it up in PATH.
-    if (!cliPath.contains("/")) {
-      cliPath = findExecutable(cliPath);
-    }
+//    // If the path is unqualified, look it up in PATH.
+//    if (!cliPath.contains("/")) {
+//      cliPath = findExecutable(cliPath);
+//    }
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
     if (config.isAccountClient()) {
