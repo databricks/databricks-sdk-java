@@ -1,6 +1,12 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.oauth.Token;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +27,10 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     if (cliPath == null) {
       cliPath = "databricks";
     }
+    // If the path is unqualified, look it up in PATH.
+    if (!cliPath.contains("/")) {
+      cliPath = findExecutable(cliPath);
+    }
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
     if (config.isAccountClient()) {
@@ -28,6 +38,28 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       cmd.add(config.getAccountId());
     }
     return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config::getAllEnv);
+  }
+
+  private static String findExecutable(String name) {
+    String pathVal = System.getenv("PATH");
+    StringTokenizer stringTokenizer = new StringTokenizer(pathVal, File.pathSeparator);
+    while (stringTokenizer.hasMoreTokens()) {
+      Path path = Paths.get(stringTokenizer.nextToken(), name).toAbsolutePath().normalize();
+      if (!Files.isRegularFile(path)) {
+        continue;
+      }
+      long size;
+      try {
+        size = Files.size(path);
+      } catch (IOException e) {
+        throw new DatabricksException("Error while calculating size of databricks cli: " + e.getMessage());
+      }
+      if (size < 1024 * 1024) {
+        throw new DatabricksException("Databricks CLI version <0.100.0 detected");
+      }
+      return path.toString();
+    }
+    throw new DatabricksException("Most likely the Databricks CLI is not installed");
   }
 
   @Override

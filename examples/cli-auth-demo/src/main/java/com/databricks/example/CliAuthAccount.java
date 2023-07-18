@@ -17,7 +17,7 @@ public class CliAuthAccount {
     private static DatabricksConfig getConfig() {
         // Change to "azure-cli" if you want to authenticate through azure cli
         // Please authenticate using cli before using them in SDK.
-        // Example: $ bricks auth login --host <host> --account-id <accountId>
+        // Example: $ databricks auth login --host <host> --account-id <accountId>
         String authType = "databricks-cli";
         String profile = "";
         return new DatabricksConfig()
