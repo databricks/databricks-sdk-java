@@ -150,7 +150,7 @@ public interface ExperimentsService {
    *
    * <p>The following limits also apply to metric, param, and tag keys and values:
    *
-   * <p>* Metric keyes, param keys, and tag keys can be up to 250 characters in length * Parameter
+   * <p>* Metric keys, param keys, and tag keys can be up to 250 characters in length * Parameter
    * and tag values can be up to 250 characters in length
    */
   void logBatch(LogBatch logBatch);

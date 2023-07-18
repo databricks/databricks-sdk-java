@@ -41,6 +41,10 @@ public class SubmitTask {
   @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
+  /** An optional set of health rules that can be defined for this job. */
+  @JsonProperty("health")
+  private JobsHealthRules health;
+
   /**
    * An optional list of libraries to be installed on the cluster that executes the task. The
    * default value is an empty list.
@@ -96,7 +100,7 @@ public class SubmitTask {
   /**
    * A unique name for the task. This field is used to refer to this task from other tasks. This
    * field is required and must be unique within its parent job. On Update or Reset, this field is
-   * used to reference the tasks to be updated or reset. The maximum length is 100 characters.
+   * used to reference the tasks to be updated or reset.
    */
   @JsonProperty("task_key")
   private String taskKey;
@@ -142,6 +146,15 @@ public class SubmitTask {
 
   public String getExistingClusterId() {
     return existingClusterId;
+  }
+
+  public SubmitTask setHealth(JobsHealthRules health) {
+    this.health = health;
+    return this;
+  }
+
+  public JobsHealthRules getHealth() {
+    return health;
   }
 
   public SubmitTask setLibraries(Collection<com.databricks.sdk.service.compute.Library> libraries) {
@@ -261,6 +274,7 @@ public class SubmitTask {
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(health, that.health)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(newCluster, that.newCluster)
         && Objects.equals(notebookTask, that.notebookTask)
@@ -282,6 +296,7 @@ public class SubmitTask {
         dependsOn,
         emailNotifications,
         existingClusterId,
+        health,
         libraries,
         newCluster,
         notebookTask,
@@ -303,6 +318,7 @@ public class SubmitTask {
         .add("dependsOn", dependsOn)
         .add("emailNotifications", emailNotifications)
         .add("existingClusterId", existingClusterId)
+        .add("health", health)
         .add("libraries", libraries)
         .add("newCluster", newCluster)
         .add("notebookTask", notebookTask)

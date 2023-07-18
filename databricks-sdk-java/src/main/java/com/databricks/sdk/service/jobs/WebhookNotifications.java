@@ -11,6 +11,15 @@ import java.util.Objects;
 @Generated
 public class WebhookNotifications {
   /**
+   * An optional list of system notification IDs to call when the duration of a run exceeds the
+   * threshold specified for the `RUN_DURATION_SECONDS` metric in the `health` field. A maximum of 3
+   * destinations can be specified for the `on_duration_warning_threshold_exceeded` property.
+   */
+  @JsonProperty("on_duration_warning_threshold_exceeded")
+  private Collection<WebhookNotificationsOnDurationWarningThresholdExceededItem>
+      onDurationWarningThresholdExceeded;
+
+  /**
    * An optional list of system notification IDs to call when the run fails. A maximum of 3
    * destinations can be specified for the `on_failure` property.
    */
@@ -30,6 +39,18 @@ public class WebhookNotifications {
    */
   @JsonProperty("on_success")
   private Collection<Webhook> onSuccess;
+
+  public WebhookNotifications setOnDurationWarningThresholdExceeded(
+      Collection<WebhookNotificationsOnDurationWarningThresholdExceededItem>
+          onDurationWarningThresholdExceeded) {
+    this.onDurationWarningThresholdExceeded = onDurationWarningThresholdExceeded;
+    return this;
+  }
+
+  public Collection<WebhookNotificationsOnDurationWarningThresholdExceededItem>
+      getOnDurationWarningThresholdExceeded() {
+    return onDurationWarningThresholdExceeded;
+  }
 
   public WebhookNotifications setOnFailure(Collection<Webhook> onFailure) {
     this.onFailure = onFailure;
@@ -63,19 +84,22 @@ public class WebhookNotifications {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     WebhookNotifications that = (WebhookNotifications) o;
-    return Objects.equals(onFailure, that.onFailure)
+    return Objects.equals(
+            onDurationWarningThresholdExceeded, that.onDurationWarningThresholdExceeded)
+        && Objects.equals(onFailure, that.onFailure)
         && Objects.equals(onStart, that.onStart)
         && Objects.equals(onSuccess, that.onSuccess);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(onFailure, onStart, onSuccess);
+    return Objects.hash(onDurationWarningThresholdExceeded, onFailure, onStart, onSuccess);
   }
 
   @Override
   public String toString() {
     return new ToStringer(WebhookNotifications.class)
+        .add("onDurationWarningThresholdExceeded", onDurationWarningThresholdExceeded)
         .add("onFailure", onFailure)
         .add("onStart", onStart)
         .add("onSuccess", onSuccess)

@@ -15,6 +15,15 @@ public class JobEmailNotifications {
   private Boolean noAlertForSkippedRuns;
 
   /**
+   * A list of email addresses to be notified when the duration of a run exceeds the threshold
+   * specified for the `RUN_DURATION_SECONDS` metric in the `health` field. If no rule for the
+   * `RUN_DURATION_SECONDS` metric is specified in the `health` field for the job, notifications are
+   * not sent.
+   */
+  @JsonProperty("on_duration_warning_threshold_exceeded")
+  private Collection<String> onDurationWarningThresholdExceeded;
+
+  /**
    * A list of email addresses to be notified when a run unsuccessfully completes. A run is
    * considered to have completed unsuccessfully if it ends with an `INTERNAL_ERROR`
    * `life_cycle_state` or a `FAILED`, or `TIMED_OUT` result_state. If this is not specified on job
@@ -46,6 +55,16 @@ public class JobEmailNotifications {
 
   public Boolean getNoAlertForSkippedRuns() {
     return noAlertForSkippedRuns;
+  }
+
+  public JobEmailNotifications setOnDurationWarningThresholdExceeded(
+      Collection<String> onDurationWarningThresholdExceeded) {
+    this.onDurationWarningThresholdExceeded = onDurationWarningThresholdExceeded;
+    return this;
+  }
+
+  public Collection<String> getOnDurationWarningThresholdExceeded() {
+    return onDurationWarningThresholdExceeded;
   }
 
   public JobEmailNotifications setOnFailure(Collection<String> onFailure) {
@@ -81,6 +100,8 @@ public class JobEmailNotifications {
     if (o == null || getClass() != o.getClass()) return false;
     JobEmailNotifications that = (JobEmailNotifications) o;
     return Objects.equals(noAlertForSkippedRuns, that.noAlertForSkippedRuns)
+        && Objects.equals(
+            onDurationWarningThresholdExceeded, that.onDurationWarningThresholdExceeded)
         && Objects.equals(onFailure, that.onFailure)
         && Objects.equals(onStart, that.onStart)
         && Objects.equals(onSuccess, that.onSuccess);
@@ -88,13 +109,15 @@ public class JobEmailNotifications {
 
   @Override
   public int hashCode() {
-    return Objects.hash(noAlertForSkippedRuns, onFailure, onStart, onSuccess);
+    return Objects.hash(
+        noAlertForSkippedRuns, onDurationWarningThresholdExceeded, onFailure, onStart, onSuccess);
   }
 
   @Override
   public String toString() {
     return new ToStringer(JobEmailNotifications.class)
         .add("noAlertForSkippedRuns", noAlertForSkippedRuns)
+        .add("onDurationWarningThresholdExceeded", onDurationWarningThresholdExceeded)
         .add("onFailure", onFailure)
         .add("onStart", onStart)
         .add("onSuccess", onSuccess)

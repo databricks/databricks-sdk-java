@@ -7,7 +7,7 @@ import com.databricks.sdk.support.Generated;
 /** This describes an enum */
 @Generated
 public enum RunIf {
-  ALL_DONE, // All dependencies completed and at least one was executed
+  ALL_DONE, // All dependencies have been completed
   ALL_FAILED, // ALl dependencies have failed
   ALL_SUCCESS, // All dependencies have executed and succeeded
   AT_LEAST_ONE_FAILED, // At least one dependency failed

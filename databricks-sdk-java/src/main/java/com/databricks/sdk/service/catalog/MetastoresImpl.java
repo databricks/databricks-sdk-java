@@ -39,6 +39,13 @@ class MetastoresImpl implements MetastoresService {
   }
 
   @Override
+  public UpdatePredictiveOptimizationResponse enableOptimization(
+      UpdatePredictiveOptimization request) {
+    String path = "/api/2.0/predictive-optimization/service";
+    return apiClient.PATCH(path, request, UpdatePredictiveOptimizationResponse.class);
+  }
+
+  @Override
   public MetastoreInfo get(GetMetastoreRequest request) {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
     return apiClient.GET(path, request, MetastoreInfo.class);
@@ -48,12 +55,6 @@ class MetastoresImpl implements MetastoresService {
   public ListMetastoresResponse list() {
     String path = "/api/2.1/unity-catalog/metastores";
     return apiClient.GET(path, ListMetastoresResponse.class);
-  }
-
-  @Override
-  public UpdateAutoMaintenanceResponse maintenance(UpdateAutoMaintenance request) {
-    String path = "/api/2.0/auto-maintenance/service";
-    return apiClient.PATCH(path, request, UpdateAutoMaintenanceResponse.class);
   }
 
   @Override

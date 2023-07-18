@@ -40,7 +40,7 @@ public class Task {
   @JsonProperty("depends_on")
   private Collection<TaskDependency> dependsOn;
 
-  /** An optional description for this task. The maximum length is 4096 bytes. */
+  /** An optional description for this task. */
   @JsonProperty("description")
   private String description;
 
@@ -58,6 +58,10 @@ public class Task {
    */
   @JsonProperty("existing_cluster_id")
   private String existingClusterId;
+
+  /** An optional set of health rules that can be defined for this job. */
+  @JsonProperty("health")
+  private JobsHealthRules health;
 
   /**
    * If job_cluster_key, this task is executed reusing the cluster specified in
@@ -128,7 +132,7 @@ public class Task {
    *
    * <p>* `ALL_SUCCESS`: All dependencies have executed and succeeded * `AT_LEAST_ONE_SUCCESS`: At
    * least one dependency has succeeded * `NONE_FAILED`: None of the dependencies have failed and at
-   * least one was executed * `ALL_DONE`: All dependencies completed and at least one was executed *
+   * least one was executed * `ALL_DONE`: All dependencies have been completed *
    * `AT_LEAST_ONE_FAILED`: At least one dependency failed * `ALL_FAILED`: ALl dependencies have
    * failed
    */
@@ -161,7 +165,7 @@ public class Task {
   /**
    * A unique name for the task. This field is used to refer to this task from other tasks. This
    * field is required and must be unique within its parent job. On Update or Reset, this field is
-   * used to reference the tasks to be updated or reset. The maximum length is 100 characters.
+   * used to reference the tasks to be updated or reset.
    */
   @JsonProperty("task_key")
   private String taskKey;
@@ -234,6 +238,15 @@ public class Task {
 
   public String getExistingClusterId() {
     return existingClusterId;
+  }
+
+  public Task setHealth(JobsHealthRules health) {
+    this.health = health;
+    return this;
+  }
+
+  public JobsHealthRules getHealth() {
+    return health;
   }
 
   public Task setJobClusterKey(String jobClusterKey) {
@@ -410,6 +423,7 @@ public class Task {
         && Objects.equals(description, that.description)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(health, that.health)
         && Objects.equals(jobClusterKey, that.jobClusterKey)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(maxRetries, that.maxRetries)
@@ -440,6 +454,7 @@ public class Task {
         description,
         emailNotifications,
         existingClusterId,
+        health,
         jobClusterKey,
         libraries,
         maxRetries,
@@ -470,6 +485,7 @@ public class Task {
         .add("description", description)
         .add("emailNotifications", emailNotifications)
         .add("existingClusterId", existingClusterId)
+        .add("health", health)
         .add("jobClusterKey", jobClusterKey)
         .add("libraries", libraries)
         .add("maxRetries", maxRetries)
