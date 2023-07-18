@@ -39,7 +39,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
 
     try {
       CliTokenSource tokenSource = getBricksCliTokenSource(config);
-      tokenSource.getToken(); // We need this for checking if Databricks CLI is installed.
+      tokenSource.getToken(); // We need this for checking if databricks CLI is installed.
       return () -> {
         Token token = tokenSource.getToken();
         Map<String, String> headers = new HashMap<>();
@@ -49,7 +49,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
       if (stderr.contains("not found")) {
-        LOG.info("Most likely Databricks CLI is not installed");
+        LOG.info("Most likely databricks CLI is not installed");
         return null;
       }
       if (stderr.contains("databricks OAuth is not")) {
