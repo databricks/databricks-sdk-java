@@ -7,7 +7,7 @@ import com.databricks.sdk.service.compute.ListClustersRequest;
 
 /**
  Example for authenticating with Databricks Workspace through CLI.
- The authentication type can be set to either "bricks-cli" or "azure-cli".
+ The authentication type can be set to either "databricks-cli" or "azure-cli".
  For details on authenticating via bricks cli, please see: <a href="https://docs.databricks.com/dev-tools/cli/auth-commands.html">...</a>
  */
 public class CliAuthWorkspace {
@@ -19,7 +19,7 @@ public class CliAuthWorkspace {
         // Change to "azure-cli" if you want to authenticate through azure cli
         // Please authenticate using cli before using them in SDK.
         // Example: $ bricks auth login --host <host>
-        String authType = "bricks-cli";
+        String authType = "databricks-cli";
         String profile = "";
         return new DatabricksConfig()
                 .setAuthType(authType)

@@ -9,7 +9,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
 
   private static final Logger LOG = LoggerFactory.getLogger(BricksCliCredentialsProvider.class);
 
-  public static final String BRICKS_CLI = "bricks-cli";
+  public static final String BRICKS_CLI = "databricks-cli";
 
   @Override
   public String authType() {
@@ -19,7 +19,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
   private CliTokenSource getBricksCliTokenSource(DatabricksConfig config) {
     String cliPath = config.getBricksCliPath();
     if (cliPath == null) {
-      cliPath = "bricks";
+      cliPath = "databricks";
     }
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
@@ -39,7 +39,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
 
     try {
       CliTokenSource tokenSource = getBricksCliTokenSource(config);
-      tokenSource.getToken(); // We need this for checking if bricks CLI is installed.
+      tokenSource.getToken(); // We need this for checking if Databricks CLI is installed.
       return () -> {
         Token token = tokenSource.getToken();
         Map<String, String> headers = new HashMap<>();
@@ -49,7 +49,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
       if (stderr.contains("not found")) {
-        LOG.info("Most likely Bricks CLI is not installed");
+        LOG.info("Most likely Databricks CLI is not installed");
         return null;
       }
       if (stderr.contains("databricks OAuth is not")) {
