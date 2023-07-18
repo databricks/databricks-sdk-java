@@ -5,9 +5,9 @@ import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BricksCliCredentialsProvider implements CredentialsProvider {
+public class DatabricksCliCredentialsProvider implements CredentialsProvider {
 
-  private static final Logger LOG = LoggerFactory.getLogger(BricksCliCredentialsProvider.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DatabricksCliCredentialsProvider.class);
 
   public static final String DATABRICKS_CLI = "databricks-cli";
 
