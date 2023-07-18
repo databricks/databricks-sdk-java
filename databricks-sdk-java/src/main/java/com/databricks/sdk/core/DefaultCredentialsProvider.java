@@ -28,7 +28,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             new AzureServicePrincipalCredentialsProvider(),
             new AzureCliCredentialsProvider(),
             new ExternalBrowserCredentialsProvider(),
-            new BricksCliCredentialsProvider());
+            new DatabricksCliCredentialsProvider());
   }
 
   @Override
