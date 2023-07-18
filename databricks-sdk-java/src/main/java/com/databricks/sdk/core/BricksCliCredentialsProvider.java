@@ -17,7 +17,7 @@ public class BricksCliCredentialsProvider implements CredentialsProvider {
   }
 
   private CliTokenSource getBricksCliTokenSource(DatabricksConfig config) {
-    String cliPath = config.getBricksCliPath();
+    String cliPath = config.getDatabricksCliPath();
     if (cliPath == null) {
       cliPath = "databricks";
     }

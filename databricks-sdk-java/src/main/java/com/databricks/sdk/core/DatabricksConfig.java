@@ -106,8 +106,8 @@ public class DatabricksConfig {
       auth = "azure")
   private String azureLoginAppId;
 
-  @ConfigAttribute(value = "bricks_cli_path", env = "BRICKS_CLI_PATH")
-  private String bricksCliPath;
+  @ConfigAttribute(value = "databricks_cli_path", env = "DATABRICKS_CLI_PATH")
+  private String databricksCliPath;
 
   /**
    * When multiple auth attributes are available in the environment, use the auth type specified by
@@ -228,12 +228,12 @@ public class DatabricksConfig {
     return this;
   }
 
-  public String getBricksCliPath() {
-    return this.bricksCliPath;
+  public String getDatabricksCliPath() {
+    return this.databricksCliPath;
   }
 
-  public DatabricksConfig setBricksCliPath(String bricksCliPath) {
-    this.bricksCliPath = bricksCliPath;
+  public DatabricksConfig setDatabricksCliPath(String databricksCliPath) {
+    this.databricksCliPath = databricksCliPath;
     return this;
   }
 
