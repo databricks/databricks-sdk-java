@@ -1,7 +1,6 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.oauth.Token;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -52,7 +51,8 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       try {
         size = Files.size(path);
       } catch (IOException e) {
-        throw new DatabricksException("Error while calculating size of databricks cli: " + e.getMessage());
+        throw new DatabricksException(
+            "Error while calculating size of databricks cli: " + e.getMessage());
       }
       if (size < 1024 * 1024) {
         throw new DatabricksException("Databricks CLI version <0.100.0 detected");
