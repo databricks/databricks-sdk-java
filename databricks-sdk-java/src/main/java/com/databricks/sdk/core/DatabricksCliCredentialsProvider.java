@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,8 +51,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       try {
         size = Files.size(path);
       } catch (IOException e) {
-        LOG.warn(
-            "Unable to get size of databricks cli: " + e.getMessage());
+        LOG.warn("Unable to get size of databricks cli: " + e.getMessage());
         return null;
       }
       if (size < 1024 * 1024) {
