@@ -89,6 +89,22 @@ public class MetastoresAPI {
     impl.delete(request);
   }
 
+  public UpdatePredictiveOptimizationResponse enableOptimization(
+      String metastoreId, boolean enable) {
+    return enableOptimization(
+        new UpdatePredictiveOptimization().setMetastoreId(metastoreId).setEnable(enable));
+  }
+
+  /**
+   * Toggle predictive optimization on the metastore.
+   *
+   * <p>Enables or disables predictive optimization on the metastore.
+   */
+  public UpdatePredictiveOptimizationResponse enableOptimization(
+      UpdatePredictiveOptimization request) {
+    return impl.enableOptimization(request);
+  }
+
   public MetastoreInfo get(String id) {
     return get(new GetMetastoreRequest().setId(id));
   }
@@ -112,19 +128,6 @@ public class MetastoresAPI {
    */
   public Iterable<MetastoreInfo> list() {
     return impl.list().getMetastores();
-  }
-
-  public UpdateAutoMaintenanceResponse maintenance(String metastoreId, boolean enable) {
-    return maintenance(new UpdateAutoMaintenance().setMetastoreId(metastoreId).setEnable(enable));
-  }
-
-  /**
-   * Enables or disables auto maintenance on the metastore.
-   *
-   * <p>Enables or disables auto maintenance on the metastore.
-   */
-  public UpdateAutoMaintenanceResponse maintenance(UpdateAutoMaintenance request) {
-    return impl.maintenance(request);
   }
 
   /**

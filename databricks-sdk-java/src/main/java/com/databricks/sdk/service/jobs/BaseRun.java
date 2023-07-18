@@ -114,7 +114,7 @@ public class BaseRun {
   @JsonProperty("run_id")
   private Long runId;
 
-  /** An optional name for the run. The maximum allowed length is 4096 bytes in UTF-8 encoding. */
+  /** An optional name for the run. The maximum length is 4096 bytes in UTF-8 encoding. */
   @JsonProperty("run_name")
   private String runName;
 

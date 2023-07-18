@@ -43,6 +43,10 @@ public class JobSettings {
   @JsonProperty("git_source")
   private GitSource gitSource;
 
+  /** An optional set of health rules that can be defined for this job. */
+  @JsonProperty("health")
+  private JobsHealthRules health;
+
   /**
    * A list of job cluster specifications that can be shared and reused by tasks of this job.
    * Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in
@@ -70,7 +74,7 @@ public class JobSettings {
   @JsonProperty("max_concurrent_runs")
   private Long maxConcurrentRuns;
 
-  /** An optional name for the job. */
+  /** An optional name for the job. The maximum length is 4096 bytes in UTF-8 encoding. */
   @JsonProperty("name")
   private String name;
 
@@ -180,6 +184,15 @@ public class JobSettings {
 
   public GitSource getGitSource() {
     return gitSource;
+  }
+
+  public JobSettings setHealth(JobsHealthRules health) {
+    this.health = health;
+    return this;
+  }
+
+  public JobsHealthRules getHealth() {
+    return health;
   }
 
   public JobSettings setJobClusters(Collection<JobCluster> jobClusters) {
@@ -300,6 +313,7 @@ public class JobSettings {
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(format, that.format)
         && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(health, that.health)
         && Objects.equals(jobClusters, that.jobClusters)
         && Objects.equals(maxConcurrentRuns, that.maxConcurrentRuns)
         && Objects.equals(name, that.name)
@@ -322,6 +336,7 @@ public class JobSettings {
         emailNotifications,
         format,
         gitSource,
+        health,
         jobClusters,
         maxConcurrentRuns,
         name,
@@ -344,6 +359,7 @@ public class JobSettings {
         .add("emailNotifications", emailNotifications)
         .add("format", format)
         .add("gitSource", gitSource)
+        .add("health", health)
         .add("jobClusters", jobClusters)
         .add("maxConcurrentRuns", maxConcurrentRuns)
         .add("name", name)
