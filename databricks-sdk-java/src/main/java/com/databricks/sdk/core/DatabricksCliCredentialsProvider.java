@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+
+import jdk.internal.net.http.common.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,10 +28,10 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     if (cliPath == null) {
       cliPath = "databricks";
     }
-//    // If the path is unqualified, look it up in PATH.
-//    if (!cliPath.contains("/")) {
-//      cliPath = findExecutable(cliPath);
-//    }
+    // If the path is unqualified, look it up in PATH.
+    if (!cliPath.contains("/")) {
+      cliPath = findExecutable(cliPath);
+    }
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
     if (config.isAccountClient()) {
@@ -51,15 +53,18 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       try {
         size = Files.size(path);
       } catch (IOException e) {
-        throw new DatabricksException(
-            "Error while calculating size of databricks cli: " + e.getMessage());
+        LOG.warn(
+            "Unable to get size of databricks cli: " + e.getMessage());
+        return null;
       }
       if (size < 1024 * 1024) {
-        throw new DatabricksException("Databricks CLI version <0.100.0 detected");
+        LOG.info("Databricks CLI version <0.100.0 detected");
+        return null;
       }
       return path.toString();
     }
-    throw new DatabricksException("Most likely the Databricks CLI is not installed");
+    LOG.warn("Most likely the databricks CLI is not installed");
+    return null;
   }
 
   @Override
@@ -81,7 +86,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
     } catch (DatabricksException e) {
       String stderr = e.getMessage();
       if (stderr.contains("not found")) {
-        LOG.info("Most likely databricks CLI is not installed");
+        LOG.warn("Most likely databricks CLI is not installed");
         return null;
       }
       if (stderr.contains("databricks OAuth is not")) {
