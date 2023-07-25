@@ -13,7 +13,7 @@ public class FormRequest extends Request {
   }
 
   static Map<String, List<String>> wrapValuesInList(Map<String, String> map) {
-    Map<String, List<String>> m = new HashMap<>();
+    Map<String, List<String>> m = new LinkedHashMap<>();
     for (Map.Entry<String, String> entry : map.entrySet()) {
       m.put(entry.getKey(), Collections.singletonList(entry.getValue()));
     }
