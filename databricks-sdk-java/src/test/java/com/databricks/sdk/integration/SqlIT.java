@@ -10,16 +10,28 @@ import com.databricks.sdk.service.sql.TimeRange;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.util.Arrays;
+
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
 public class SqlIT {
   @Test
-  void listQueryHistory(WorkspaceClient w) {
+  void listQueryHistoryTimeRange(WorkspaceClient w) {
     TimeRange timeRange =
         new TimeRange().setStartTimeMs(1690243200000L).setEndTimeMs(1690329600000L);
     ListQueryHistoryRequest request =
         new ListQueryHistoryRequest()
             .setFilterBy(new QueryFilter().setQueryStartTimeRange(timeRange));
+    Iterable<QueryInfo> queries = w.queryHistory().list(request);
+    for (QueryInfo query : queries) {
+      System.out.println(query);
+    }
+  }
+  @Test
+  void listQueryHistoryUserIds(WorkspaceClient w) {
+    ListQueryHistoryRequest request =
+        new ListQueryHistoryRequest()
+            .setFilterBy(new QueryFilter().setUserIds(Arrays.asList(123L, 456L)));
     Iterable<QueryInfo> queries = w.queryHistory().list(request);
     for (QueryInfo query : queries) {
       System.out.println(query);

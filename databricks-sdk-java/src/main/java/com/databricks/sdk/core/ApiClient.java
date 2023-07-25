@@ -89,8 +89,8 @@ public class ApiClient {
     if (entity == null) {
       return in;
     }
-    for (Map.Entry<String, Object> e : HeaderSerializer.serialize(entity).entrySet()) {
-      in.withQueryParam(e.getKey(), e.getValue().toString());
+    for (GrpcTranscodingQueryParamsSerializer.HeaderEntry e : GrpcTranscodingQueryParamsSerializer.serialize(entity)) {
+      in.withQueryParam(e.getKey(), e.getValue());
     }
     return in;
   }

@@ -5,8 +5,46 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.reflect.Field;
 import java.util.*;
 
-public class HeaderSerializer {
-  public static Map<String, Object> serialize(Object o) {
+/**
+ * Serializes an object into a list of query parameter entries compatible with gRPC-transcoding.
+ *
+ * <p>The Databricks REST API uses gRPC transcoding to expose gRPC services as REST APIs. This
+ * serializer is used to serialize objects into a map of query parameter entries that can be used to invoke a
+ * gRPC service via REST.
+ *
+ * <p>See <a
+ * href="https://cloud.google.com/endpoints/docs/grpc-service-config/reference/rpc/google.api#google.api.HttpRule">the
+ * documentation for gRPC transcoding</a> for more details.
+ */
+public class GrpcTranscodingQueryParamsSerializer {
+  public static class HeaderEntry {
+    private final String key;
+    private final String value;
+    public HeaderEntry(String key, String value) {
+      this.key = key;
+      this.value = value;
+    }
+
+    public String getKey() {
+      return key;
+    }
+
+    public String getValue() {
+      return value;
+    }
+  }
+  /**
+   * Serializes an object into a map of query parameter values compatible with gRPC-transcoding.
+   * <p>
+   * This method respects the QueryParam and JsonProperty annotations on the object's fields when serializing the
+   * field name. If both annotations are present, the value of the QueryParam annotation is used.
+   * <p>
+   * The returned object does not contain any top-level fields that are not annotated with QueryParam. All nested fields
+   * are included, even if they are not annotated with QueryParam.
+   * @param o The object to serialize.
+   * @return A list of query parameter entries compatible with gRPC-transcoding.
+   */
+  public static List<HeaderEntry> serialize(Object o) {
     Map<String, Object> flattened = flattenObject(o);
     for (Field f : o.getClass().getDeclaredFields()) {
       QueryParam queryParam = f.getAnnotation(QueryParam.class);
@@ -15,7 +53,19 @@ public class HeaderSerializer {
       }
     }
 
-    return flattened;
+    List<HeaderEntry> result = new ArrayList<>();
+    for (Map.Entry<String, Object> entry : flattened.entrySet()) {
+      String key = entry.getKey();
+      Object value = entry.getValue();
+      if (value instanceof Collection) {
+        for (Object v : (Collection<Object>) value) {
+          result.add(new HeaderEntry(key, v.toString()));
+        }
+      } else {
+        result.add(new HeaderEntry(key, value.toString()));
+      }
+    }
+    return result;
   }
 
   private static final List<Class<?>> primitiveTypes =

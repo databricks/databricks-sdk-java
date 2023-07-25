@@ -16,7 +16,7 @@ public class Request {
   private final String method;
   private String url;
   private final Map<String, String> headers = new HashMap<>();
-  private final Map<String, String> query = new TreeMap<>();
+  private final Map<String, List<String>> query = new TreeMap<>();
   private final String body;
 
   public Request(String method, String url) {
@@ -40,7 +40,12 @@ public class Request {
   }
 
   public Request withQueryParam(String key, String value) {
-    query.put(key, value);
+    List<String> values = query.get(key);
+    if (values == null) {
+      values = new ArrayList<>();
+    }
+    values.add(value);
+    query.put(key, values);
     return this;
   }
 
@@ -49,13 +54,15 @@ public class Request {
     return this;
   }
 
-  protected static String mapToQuery(Map<String, String> in) {
+  protected static String mapToQuery(Map<String, List<String>> in) {
     StringJoiner joiner = new StringJoiner("&");
-    for (Map.Entry<String, String> entry : in.entrySet()) {
+    for (Map.Entry<String, List<String>> entry : in.entrySet()) {
       try {
         String encodedKey = URLEncoder.encode(entry.getKey(), StandardCharsets.UTF_8.name());
-        String encodedValue = URLEncoder.encode(entry.getValue(), StandardCharsets.UTF_8.name());
-        joiner.add(encodedKey + "=" + encodedValue);
+        for (String value : entry.getValue()) {
+          String encodedValue = URLEncoder.encode(value, StandardCharsets.UTF_8.name());
+          joiner.add(encodedKey + "=" + encodedValue);
+        }
       } catch (UnsupportedEncodingException e) {
         throw new DatabricksException("Unable to encode query parameter: " + e.getMessage(), e);
       }
@@ -116,7 +123,7 @@ public class Request {
     return headers;
   }
 
-  public Map<String, String> getQuery() {
+  public Map<String, List<String>> getQuery() {
     return query;
   }
 
