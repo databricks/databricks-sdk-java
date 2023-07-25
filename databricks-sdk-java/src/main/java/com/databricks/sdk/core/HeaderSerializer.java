@@ -3,10 +3,7 @@ package com.databricks.sdk.core;
 import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class HeaderSerializer {
   public static Map<String, Object> serialize(Object o) {
@@ -42,8 +39,11 @@ public class HeaderSerializer {
           String.class);
 
   private static String getFieldName(Field f) {
+    QueryParam queryParam = f.getAnnotation(QueryParam.class);
     JsonProperty jsonProperty = f.getAnnotation(JsonProperty.class);
-    if (jsonProperty != null) {
+    if (queryParam != null) {
+      return queryParam.value();
+    } else if (jsonProperty != null) {
       return jsonProperty.value();
     } else {
       return f.getName();
@@ -51,7 +51,8 @@ public class HeaderSerializer {
   }
 
   private static Map<String, Object> flattenObject(Object o) {
-    Map<String, Object> result = new HashMap<>();
+    // LinkedHashMap ensures consistent ordering of fields.
+    Map<String, Object> result = new LinkedHashMap<>();
     Field[] fields = o.getClass().getDeclaredFields();
     for (Field f : fields) {
       f.setAccessible(true);

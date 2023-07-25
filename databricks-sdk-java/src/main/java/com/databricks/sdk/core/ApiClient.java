@@ -89,15 +89,10 @@ public class ApiClient {
     if (entity == null) {
       return in;
     }
-    try {
-      // deterministic query string: in the order of class fields
-      for (Map.Entry<String, Object> e : HeaderSerializer.serialize(entity).entrySet()) {
-        in.withQueryParam(e.getKey(), mapper.writeValueAsString(e.getValue()));
-      }
-      return in;
-    } catch (JsonProcessingException e) {
-      throw new DatabricksException("Cannot create query string: " + e.getMessage(), e);
+    for (Map.Entry<String, Object> e : HeaderSerializer.serialize(entity).entrySet()) {
+      in.withQueryParam(e.getKey(), e.getValue().toString());
     }
+    return in;
   }
 
   public <I, O> Collection<O> getCollection(String path, I in, Class<O> element) {
