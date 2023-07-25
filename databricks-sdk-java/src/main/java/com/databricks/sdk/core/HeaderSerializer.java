@@ -2,7 +2,6 @@ package com.databricks.sdk.core;
 
 import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,25 +21,25 @@ public class HeaderSerializer {
     return flattened;
   }
 
-  private static final List<Class<?>> primitiveTypes = Arrays.asList(
-      boolean.class,
-      Boolean.class,
-      byte.class,
-      Byte.class,
-      char.class,
-      Character.class,
-      short.class,
-      Short.class,
-      int.class,
-      Integer.class,
-      long.class,
-      Long.class,
-      float.class,
-      Float.class,
-      double.class,
-      Double.class,
-      String.class
-  );
+  private static final List<Class<?>> primitiveTypes =
+      Arrays.asList(
+          boolean.class,
+          Boolean.class,
+          byte.class,
+          Byte.class,
+          char.class,
+          Character.class,
+          short.class,
+          Short.class,
+          int.class,
+          Integer.class,
+          long.class,
+          Long.class,
+          float.class,
+          Float.class,
+          double.class,
+          Double.class,
+          String.class);
 
   private static String getFieldName(Field f) {
     JsonProperty jsonProperty = f.getAnnotation(JsonProperty.class);

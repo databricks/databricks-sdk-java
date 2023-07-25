@@ -15,11 +15,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class SqlIT {
   @Test
   void listQueryHistory(WorkspaceClient w) {
-    TimeRange timeRange = new TimeRange()
-        .setStartTimeMs(1690243200000L)
-        .setEndTimeMs(1690329600000L);
-    ListQueryHistoryRequest request = new ListQueryHistoryRequest()
-        .setFilterBy(new QueryFilter().setQueryStartTimeRange(timeRange));
+    TimeRange timeRange =
+        new TimeRange().setStartTimeMs(1690243200000L).setEndTimeMs(1690329600000L);
+    ListQueryHistoryRequest request =
+        new ListQueryHistoryRequest()
+            .setFilterBy(new QueryFilter().setQueryStartTimeRange(timeRange));
     Iterable<QueryInfo> queries = w.queryHistory().list(request);
     for (QueryInfo query : queries) {
       System.out.println(query);
