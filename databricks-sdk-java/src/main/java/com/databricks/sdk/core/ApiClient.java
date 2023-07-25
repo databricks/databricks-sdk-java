@@ -89,7 +89,8 @@ public class ApiClient {
     if (entity == null) {
       return in;
     }
-    for (GrpcTranscodingQueryParamsSerializer.HeaderEntry e : GrpcTranscodingQueryParamsSerializer.serialize(entity)) {
+    for (GrpcTranscodingQueryParamsSerializer.HeaderEntry e :
+        GrpcTranscodingQueryParamsSerializer.serialize(entity)) {
       in.withQueryParam(e.getKey(), e.getValue());
     }
     return in;

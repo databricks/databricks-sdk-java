@@ -7,10 +7,9 @@ import com.databricks.sdk.service.sql.ListQueryHistoryRequest;
 import com.databricks.sdk.service.sql.QueryFilter;
 import com.databricks.sdk.service.sql.QueryInfo;
 import com.databricks.sdk.service.sql.TimeRange;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import java.util.Arrays;
 
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
@@ -27,6 +26,7 @@ public class SqlIT {
       System.out.println(query);
     }
   }
+
   @Test
   void listQueryHistoryUserIds(WorkspaceClient w) {
     ListQueryHistoryRequest request =

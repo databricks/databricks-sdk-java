@@ -9,8 +9,8 @@ import java.util.*;
  * Serializes an object into a list of query parameter entries compatible with gRPC-transcoding.
  *
  * <p>The Databricks REST API uses gRPC transcoding to expose gRPC services as REST APIs. This
- * serializer is used to serialize objects into a map of query parameter entries that can be used to invoke a
- * gRPC service via REST.
+ * serializer is used to serialize objects into a map of query parameter entries that can be used to
+ * invoke a gRPC service via REST.
  *
  * <p>See <a
  * href="https://cloud.google.com/endpoints/docs/grpc-service-config/reference/rpc/google.api#google.api.HttpRule">the
@@ -20,6 +20,7 @@ public class GrpcTranscodingQueryParamsSerializer {
   public static class HeaderEntry {
     private final String key;
     private final String value;
+
     public HeaderEntry(String key, String value) {
       this.key = key;
       this.value = value;
@@ -35,12 +36,14 @@ public class GrpcTranscodingQueryParamsSerializer {
   }
   /**
    * Serializes an object into a map of query parameter values compatible with gRPC-transcoding.
-   * <p>
-   * This method respects the QueryParam and JsonProperty annotations on the object's fields when serializing the
-   * field name. If both annotations are present, the value of the QueryParam annotation is used.
-   * <p>
-   * The returned object does not contain any top-level fields that are not annotated with QueryParam. All nested fields
-   * are included, even if they are not annotated with QueryParam.
+   *
+   * <p>This method respects the QueryParam and JsonProperty annotations on the object's fields when
+   * serializing the field name. If both annotations are present, the value of the QueryParam
+   * annotation is used.
+   *
+   * <p>The returned object does not contain any top-level fields that are not annotated with
+   * QueryParam. All nested fields are included, even if they are not annotated with QueryParam.
+   *
    * @param o The object to serialize.
    * @return A list of query parameter entries compatible with gRPC-transcoding.
    */
