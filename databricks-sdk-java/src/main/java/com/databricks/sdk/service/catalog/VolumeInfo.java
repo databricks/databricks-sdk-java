@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class VolumeInfo {
+  /** The AWS access point to use when accesing s3 for this external location. */
+  @JsonProperty("access_point")
+  private String accessPoint;
+
   /** The name of the catalog where the schema and the volume are */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -24,6 +28,10 @@ public class VolumeInfo {
   /** The identifier of the user who created the volume */
   @JsonProperty("created_by")
   private String createdBy;
+
+  /** Encryption options that apply to clients connecting to cloud storage. */
+  @JsonProperty("encryption_details")
+  private EncryptionDetails encryptionDetails;
 
   /** The three-level (fully qualified) name of the volume */
   @JsonProperty("full_name")
@@ -65,6 +73,15 @@ public class VolumeInfo {
   @JsonProperty("volume_type")
   private VolumeType volumeType;
 
+  public VolumeInfo setAccessPoint(String accessPoint) {
+    this.accessPoint = accessPoint;
+    return this;
+  }
+
+  public String getAccessPoint() {
+    return accessPoint;
+  }
+
   public VolumeInfo setCatalogName(String catalogName) {
     this.catalogName = catalogName;
     return this;
@@ -99,6 +116,15 @@ public class VolumeInfo {
 
   public String getCreatedBy() {
     return createdBy;
+  }
+
+  public VolumeInfo setEncryptionDetails(EncryptionDetails encryptionDetails) {
+    this.encryptionDetails = encryptionDetails;
+    return this;
+  }
+
+  public EncryptionDetails getEncryptionDetails() {
+    return encryptionDetails;
   }
 
   public VolumeInfo setFullName(String fullName) {
@@ -196,10 +222,12 @@ public class VolumeInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     VolumeInfo that = (VolumeInfo) o;
-    return Objects.equals(catalogName, that.catalogName)
+    return Objects.equals(accessPoint, that.accessPoint)
+        && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -215,10 +243,12 @@ public class VolumeInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        accessPoint,
         catalogName,
         comment,
         createdAt,
         createdBy,
+        encryptionDetails,
         fullName,
         metastoreId,
         name,
@@ -234,10 +264,12 @@ public class VolumeInfo {
   @Override
   public String toString() {
     return new ToStringer(VolumeInfo.class)
+        .add("accessPoint", accessPoint)
         .add("catalogName", catalogName)
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
+        .add("encryptionDetails", encryptionDetails)
         .add("fullName", fullName)
         .add("metastoreId", metastoreId)
         .add("name", name)

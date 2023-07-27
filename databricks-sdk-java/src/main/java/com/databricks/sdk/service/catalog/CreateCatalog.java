@@ -14,6 +14,10 @@ public class CreateCatalog {
   @JsonProperty("comment")
   private String comment;
 
+  /** The name of the connection to an external data source. */
+  @JsonProperty("connection_name")
+  private String connectionName;
+
   /** Name of catalog. */
   @JsonProperty("name")
   private String name;
@@ -46,6 +50,15 @@ public class CreateCatalog {
 
   public String getComment() {
     return comment;
+  }
+
+  public CreateCatalog setConnectionName(String connectionName) {
+    this.connectionName = connectionName;
+    return this;
+  }
+
+  public String getConnectionName() {
+    return connectionName;
   }
 
   public CreateCatalog setName(String name) {
@@ -99,6 +112,7 @@ public class CreateCatalog {
     if (o == null || getClass() != o.getClass()) return false;
     CreateCatalog that = (CreateCatalog) o;
     return Objects.equals(comment, that.comment)
+        && Objects.equals(connectionName, that.connectionName)
         && Objects.equals(name, that.name)
         && Objects.equals(properties, that.properties)
         && Objects.equals(providerName, that.providerName)
@@ -108,13 +122,15 @@ public class CreateCatalog {
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, name, properties, providerName, shareName, storageRoot);
+    return Objects.hash(
+        comment, connectionName, name, properties, providerName, shareName, storageRoot);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateCatalog.class)
         .add("comment", comment)
+        .add("connectionName", connectionName)
         .add("name", name)
         .add("properties", properties)
         .add("providerName", providerName)

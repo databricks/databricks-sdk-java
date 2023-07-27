@@ -1,5 +1,37 @@
 # Version changelog
 
+## 0.3.0
+
+* Handle nested query parameters in ApiClient.withQuery ([#125](https://github.com/databricks/databricks-sdk-java/pull/125)). This fixes issues with filters when listing query history.
+
+API Changes:
+
+ * Changed `create()` method for `accountClient.metastoreAssignments()` service to no longer return `com.databricks.sdk.service.catalog.CreateMetastoreAssignmentsResponseItemList` class.
+ * Added `connectionName` field for `com.databricks.sdk.service.catalog.CreateCatalog`.
+ * Added `accessPoint` field for `com.databricks.sdk.service.catalog.CreateExternalLocation`.
+ * Added `encryptionDetails` field for `com.databricks.sdk.service.catalog.CreateExternalLocation`.
+ * Removed `com.databricks.sdk.service.catalog.CreateMetastoreAssignmentsResponseItem` class.
+ * Added `accessPoint` field for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+ * Added `encryptionDetails` field for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+ * Added `accessPoint` field for `com.databricks.sdk.service.catalog.TableInfo`.
+ * Added `encryptionDetails` field for `com.databricks.sdk.service.catalog.TableInfo`.
+ * Added `accessPoint` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+ * Added `encryptionDetails` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+ * Added `accessPoint` field for `com.databricks.sdk.service.catalog.VolumeInfo`.
+ * Added `encryptionDetails` field for `com.databricks.sdk.service.catalog.VolumeInfo`.
+ * Added `com.databricks.sdk.service.catalog.EncryptionDetails` class.
+ * Added `com.databricks.sdk.service.catalog.SseEncryptionDetails` class.
+ * Added `com.databricks.sdk.service.catalog.SseEncryptionDetailsAlgorithm` class.
+ * Added `accountClient.networkPolicy()` service.
+ * Added `com.databricks.sdk.service.settings.AccountNetworkPolicyMessage` class.
+ * Added `com.databricks.sdk.service.settings.DeleteAccountNetworkPolicyRequest` class.
+ * Added `com.databricks.sdk.service.settings.DeleteAccountNetworkPolicyResponse` class.
+ * Added `com.databricks.sdk.service.settings.ReadAccountNetworkPolicyRequest` class.
+ * Added `com.databricks.sdk.service.settings.UpdateAccountNetworkPolicyRequest` class.
+
+OpenAPI SHA: fbdd0fa3e83fed2c798a58d376529bdb1285b915, Date: 2023-07-26
+
+
 ## 0.2.0
 
 * Synchronize auth permutation tests with Go SDK ([#108](https://github.com/databricks/databricks-sdk-java/pull/108)).

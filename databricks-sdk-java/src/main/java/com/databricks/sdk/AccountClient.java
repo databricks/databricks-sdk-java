@@ -51,6 +51,8 @@ import com.databricks.sdk.service.provisioning.WorkspacesAPI;
 import com.databricks.sdk.service.provisioning.WorkspacesService;
 import com.databricks.sdk.service.settings.AccountIpAccessListsAPI;
 import com.databricks.sdk.service.settings.AccountIpAccessListsService;
+import com.databricks.sdk.service.settings.AccountNetworkPolicyAPI;
+import com.databricks.sdk.service.settings.AccountNetworkPolicyService;
 import com.databricks.sdk.service.settings.AccountSettingsAPI;
 import com.databricks.sdk.service.settings.AccountSettingsService;
 import com.databricks.sdk.support.Generated;
@@ -72,6 +74,7 @@ public class AccountClient {
   private LogDeliveryAPI logDeliveryAPI;
   private AccountMetastoreAssignmentsAPI metastoreAssignmentsAPI;
   private AccountMetastoresAPI metastoresAPI;
+  private AccountNetworkPolicyAPI networkPolicyAPI;
   private NetworksAPI networksAPI;
   private OAuthEnrollmentAPI oAuthEnrollmentAPI;
   private PrivateAccessAPI privateAccessAPI;
@@ -105,6 +108,7 @@ public class AccountClient {
     logDeliveryAPI = new LogDeliveryAPI(apiClient);
     metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(apiClient);
     metastoresAPI = new AccountMetastoresAPI(apiClient);
+    networkPolicyAPI = new AccountNetworkPolicyAPI(apiClient);
     networksAPI = new NetworksAPI(apiClient);
     oAuthEnrollmentAPI = new OAuthEnrollmentAPI(apiClient);
     privateAccessAPI = new PrivateAccessAPI(apiClient);
@@ -303,6 +307,19 @@ public class AccountClient {
    */
   public AccountMetastoresAPI metastores() {
     return metastoresAPI;
+  }
+
+  /**
+   * Network policy is a set of rules that defines what can be accessed from your Databricks
+   * network. E.g.: You can choose to block your SQL UDF to access internet from your Databricks
+   * serverless clusters.
+   *
+   * <p>There is only one instance of this setting per account. Since this setting has a default
+   * value, this setting is present on all accounts even though it's never set on a given account.
+   * Deletion reverts the value of the setting back to the default value.
+   */
+  public AccountNetworkPolicyAPI networkPolicy() {
+    return networkPolicyAPI;
   }
 
   /**
@@ -508,6 +525,12 @@ public class AccountClient {
   /** Override AccountMetastoresAPI with mock */
   public AccountClient withMetastoresImpl(AccountMetastoresService accountMetastores) {
     metastoresAPI = new AccountMetastoresAPI(accountMetastores);
+    return this;
+  }
+
+  /** Override AccountNetworkPolicyAPI with mock */
+  public AccountClient withNetworkPolicyImpl(AccountNetworkPolicyService accountNetworkPolicy) {
+    networkPolicyAPI = new AccountNetworkPolicyAPI(accountNetworkPolicy);
     return this;
   }
 

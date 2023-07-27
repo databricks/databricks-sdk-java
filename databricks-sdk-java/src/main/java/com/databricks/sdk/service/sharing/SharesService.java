@@ -4,7 +4,10 @@ package com.databricks.sdk.service.sharing;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Databricks Shares REST API
+ * A share is a container instantiated with :method:shares/create. Once created you can iteratively
+ * register a collection of existing data assets defined within the metastore using
+ * :method:shares/update. You can register data assets under their original name, qualified by their
+ * original schema, or provide alternate exposed names.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

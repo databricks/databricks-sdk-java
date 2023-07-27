@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class CreateExternalLocation {
+  /** The AWS access point to use when accesing s3 for this external location. */
+  @JsonProperty("access_point")
+  private String accessPoint;
+
   /** User-provided free-form text description. */
   @JsonProperty("comment")
   private String comment;
@@ -16,6 +20,10 @@ public class CreateExternalLocation {
   /** Name of the storage credential used with this location. */
   @JsonProperty("credential_name")
   private String credentialName;
+
+  /** Encryption options that apply to clients connecting to cloud storage. */
+  @JsonProperty("encryption_details")
+  private EncryptionDetails encryptionDetails;
 
   /** Name of the external location. */
   @JsonProperty("name")
@@ -33,6 +41,15 @@ public class CreateExternalLocation {
   @JsonProperty("url")
   private String url;
 
+  public CreateExternalLocation setAccessPoint(String accessPoint) {
+    this.accessPoint = accessPoint;
+    return this;
+  }
+
+  public String getAccessPoint() {
+    return accessPoint;
+  }
+
   public CreateExternalLocation setComment(String comment) {
     this.comment = comment;
     return this;
@@ -49,6 +66,15 @@ public class CreateExternalLocation {
 
   public String getCredentialName() {
     return credentialName;
+  }
+
+  public CreateExternalLocation setEncryptionDetails(EncryptionDetails encryptionDetails) {
+    this.encryptionDetails = encryptionDetails;
+    return this;
+  }
+
+  public EncryptionDetails getEncryptionDetails() {
+    return encryptionDetails;
   }
 
   public CreateExternalLocation setName(String name) {
@@ -92,8 +118,10 @@ public class CreateExternalLocation {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateExternalLocation that = (CreateExternalLocation) o;
-    return Objects.equals(comment, that.comment)
+    return Objects.equals(accessPoint, that.accessPoint)
+        && Objects.equals(comment, that.comment)
         && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(name, that.name)
         && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(skipValidation, that.skipValidation)
@@ -102,14 +130,24 @@ public class CreateExternalLocation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, credentialName, name, readOnly, skipValidation, url);
+    return Objects.hash(
+        accessPoint,
+        comment,
+        credentialName,
+        encryptionDetails,
+        name,
+        readOnly,
+        skipValidation,
+        url);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateExternalLocation.class)
+        .add("accessPoint", accessPoint)
         .add("comment", comment)
         .add("credentialName", credentialName)
+        .add("encryptionDetails", encryptionDetails)
         .add("name", name)
         .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)

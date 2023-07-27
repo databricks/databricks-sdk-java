@@ -4,7 +4,8 @@ package com.databricks.sdk.service.sharing;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Databricks Providers REST API
+ * A data provider is an object representing the organization in the real world who shares the data.
+ * A provider contains shares which further contain the shared data.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

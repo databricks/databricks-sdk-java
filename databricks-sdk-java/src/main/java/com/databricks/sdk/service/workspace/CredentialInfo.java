@@ -15,7 +15,7 @@ public class CredentialInfo {
 
   /**
    * Git provider. This field is case-insensitive. The available Git providers are gitHub,
-   * bitbucketCloud, gitLab, azureDevOpsServices, gitHubEnterprise, bitbucketServer,
+   * gitHubOAuth, bitbucketCloud, gitLab, azureDevOpsServices, gitHubEnterprise, bitbucketServer,
    * gitLabEnterpriseEdition and awsCodeCommit.
    */
   @JsonProperty("git_provider")

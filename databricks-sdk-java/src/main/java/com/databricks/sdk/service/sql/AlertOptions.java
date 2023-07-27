@@ -42,7 +42,10 @@ public class AlertOptions {
   @JsonProperty("op")
   private String op;
 
-  /** Value used to compare in alert evaluation. */
+  /**
+   * Value used to compare in alert evaluation. Supported types include strings (eg. 'foobar'),
+   * floats (eg. 123.4), and booleans (true).
+   */
   @JsonProperty("value")
   private Object value;
 

@@ -6,7 +6,22 @@ import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Databricks Recipients REST API */
+/**
+ * A recipient is an object you create using :method:recipients/create to represent an organization
+ * which you want to allow access shares. The way how sharing works differs depending on whether or
+ * not your recipient has access to a Databricks workspace that is enabled for Unity Catalog:
+ *
+ * <p>- For recipients with access to a Databricks workspace that is enabled for Unity Catalog, you
+ * can create a recipient object along with a unique sharing identifier you get from the recipient.
+ * The sharing identifier is the key identifier that enables the secure connection. This sharing
+ * mode is called **Databricks-to-Databricks sharing**.
+ *
+ * <p>- For recipients without access to a Databricks workspace that is enabled for Unity Catalog,
+ * when you create a recipient object, Databricks generates an activation link you can send to the
+ * recipient. The recipient follows the activation link to download the credential file, and then
+ * uses the credential file to establish a secure connection to receive the shared data. This
+ * sharing mode is called **open sharing**.
+ */
 @Generated
 public class RecipientsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(RecipientsAPI.class);

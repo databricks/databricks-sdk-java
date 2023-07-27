@@ -15,13 +15,12 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public Collection<CreateMetastoreAssignmentsResponseItem> create(
-      AccountsCreateMetastoreAssignment request) {
+  public void create(AccountsCreateMetastoreAssignment request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
-    return apiClient.getCollection(path, null, CreateMetastoreAssignmentsResponseItem.class);
+    apiClient.POST(path, request, Void.class);
   }
 
   @Override
