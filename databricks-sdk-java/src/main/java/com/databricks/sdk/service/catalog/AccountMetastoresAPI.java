@@ -29,8 +29,7 @@ public class AccountMetastoresAPI {
   /**
    * Create metastore.
    *
-   * <p>Creates a Unity Catalog metastore. Please add a header
-   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
+   * <p>Creates a Unity Catalog metastore.
    */
   public AccountsMetastoreInfo create(AccountsCreateMetastore request) {
     return impl.create(request);
@@ -43,8 +42,7 @@ public class AccountMetastoresAPI {
   /**
    * Delete a metastore.
    *
-   * <p>Deletes a Unity Catalog metastore for an account, both specified by ID. Please add a header
-   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
+   * <p>Deletes a Unity Catalog metastore for an account, both specified by ID.
    */
   public void delete(DeleteAccountMetastoreRequest request) {
     impl.delete(request);
@@ -57,8 +55,7 @@ public class AccountMetastoresAPI {
   /**
    * Get a metastore.
    *
-   * <p>Gets a Unity Catalog metastore from an account, both specified by ID. Please add a header
-   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
+   * <p>Gets a Unity Catalog metastore from an account, both specified by ID.
    */
   public AccountsMetastoreInfo get(GetAccountMetastoreRequest request) {
     return impl.get(request);
@@ -67,8 +64,7 @@ public class AccountMetastoresAPI {
   /**
    * Get all metastores associated with an account.
    *
-   * <p>Gets all Unity Catalog metastores associated with an account specified by ID. Please add a
-   * header X-Databricks-Account-Console-API-Version: 2.0 to access this API.
+   * <p>Gets all Unity Catalog metastores associated with an account specified by ID.
    */
   public ListMetastoresResponse list() {
     return impl.list();
@@ -81,8 +77,7 @@ public class AccountMetastoresAPI {
   /**
    * Update a metastore.
    *
-   * <p>Updates an existing Unity Catalog metastore. Please add a header
-   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
+   * <p>Updates an existing Unity Catalog metastore.
    */
   public AccountsMetastoreInfo update(AccountsUpdateMetastore request) {
     return impl.update(request);

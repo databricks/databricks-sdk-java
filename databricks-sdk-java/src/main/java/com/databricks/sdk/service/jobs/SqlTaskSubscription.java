@@ -9,11 +9,19 @@ import java.util.Objects;
 
 @Generated
 public class SqlTaskSubscription {
-  /** The canonical identifier of the destination to receive email notification. */
+  /**
+   * The canonical identifier of the destination to receive email notification. This parameter is
+   * mutually exclusive with user_name. You cannot set both destination_id and user_name for
+   * subscription notifications.
+   */
   @JsonProperty("destination_id")
   private String destinationId;
 
-  /** The user name to receive the subscription email. */
+  /**
+   * The user name to receive the subscription email. This parameter is mutually exclusive with
+   * destination_id. You cannot set both destination_id and user_name for subscription
+   * notifications.
+   */
   @JsonProperty("user_name")
   private String userName;
 

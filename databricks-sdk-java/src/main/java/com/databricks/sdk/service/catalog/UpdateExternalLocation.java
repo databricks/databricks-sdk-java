@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class UpdateExternalLocation {
+  /** The AWS access point to use when accesing s3 for this external location. */
+  @JsonProperty("access_point")
+  private String accessPoint;
+
   /** User-provided free-form text description. */
   @JsonProperty("comment")
   private String comment;
@@ -16,6 +20,10 @@ public class UpdateExternalLocation {
   /** Name of the storage credential used with this location. */
   @JsonProperty("credential_name")
   private String credentialName;
+
+  /** Encryption options that apply to clients connecting to cloud storage. */
+  @JsonProperty("encryption_details")
+  private EncryptionDetails encryptionDetails;
 
   /** Force update even if changing url invalidates dependent external tables or mounts. */
   @JsonProperty("force")
@@ -37,6 +45,15 @@ public class UpdateExternalLocation {
   @JsonProperty("url")
   private String url;
 
+  public UpdateExternalLocation setAccessPoint(String accessPoint) {
+    this.accessPoint = accessPoint;
+    return this;
+  }
+
+  public String getAccessPoint() {
+    return accessPoint;
+  }
+
   public UpdateExternalLocation setComment(String comment) {
     this.comment = comment;
     return this;
@@ -53,6 +70,15 @@ public class UpdateExternalLocation {
 
   public String getCredentialName() {
     return credentialName;
+  }
+
+  public UpdateExternalLocation setEncryptionDetails(EncryptionDetails encryptionDetails) {
+    this.encryptionDetails = encryptionDetails;
+    return this;
+  }
+
+  public EncryptionDetails getEncryptionDetails() {
+    return encryptionDetails;
   }
 
   public UpdateExternalLocation setForce(Boolean force) {
@@ -105,8 +131,10 @@ public class UpdateExternalLocation {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateExternalLocation that = (UpdateExternalLocation) o;
-    return Objects.equals(comment, that.comment)
+    return Objects.equals(accessPoint, that.accessPoint)
+        && Objects.equals(comment, that.comment)
         && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(force, that.force)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
@@ -116,14 +144,17 @@ public class UpdateExternalLocation {
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, credentialName, force, name, owner, readOnly, url);
+    return Objects.hash(
+        accessPoint, comment, credentialName, encryptionDetails, force, name, owner, readOnly, url);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateExternalLocation.class)
+        .add("accessPoint", accessPoint)
         .add("comment", comment)
         .add("credentialName", credentialName)
+        .add("encryptionDetails", encryptionDetails)
         .add("force", force)
         .add("name", name)
         .add("owner", owner)

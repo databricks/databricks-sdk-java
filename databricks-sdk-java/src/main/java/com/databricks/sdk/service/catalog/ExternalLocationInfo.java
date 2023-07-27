@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class ExternalLocationInfo {
+  /** The AWS access point to use when accesing s3 for this external location. */
+  @JsonProperty("access_point")
+  private String accessPoint;
+
   /** User-provided free-form text description. */
   @JsonProperty("comment")
   private String comment;
@@ -28,6 +32,10 @@ public class ExternalLocationInfo {
   /** Name of the storage credential used with this location. */
   @JsonProperty("credential_name")
   private String credentialName;
+
+  /** Encryption options that apply to clients connecting to cloud storage. */
+  @JsonProperty("encryption_details")
+  private EncryptionDetails encryptionDetails;
 
   /** Unique identifier of metastore hosting the external location. */
   @JsonProperty("metastore_id")
@@ -56,6 +64,15 @@ public class ExternalLocationInfo {
   /** Path URL of the external location. */
   @JsonProperty("url")
   private String url;
+
+  public ExternalLocationInfo setAccessPoint(String accessPoint) {
+    this.accessPoint = accessPoint;
+    return this;
+  }
+
+  public String getAccessPoint() {
+    return accessPoint;
+  }
 
   public ExternalLocationInfo setComment(String comment) {
     this.comment = comment;
@@ -100,6 +117,15 @@ public class ExternalLocationInfo {
 
   public String getCredentialName() {
     return credentialName;
+  }
+
+  public ExternalLocationInfo setEncryptionDetails(EncryptionDetails encryptionDetails) {
+    this.encryptionDetails = encryptionDetails;
+    return this;
+  }
+
+  public EncryptionDetails getEncryptionDetails() {
+    return encryptionDetails;
   }
 
   public ExternalLocationInfo setMetastoreId(String metastoreId) {
@@ -170,11 +196,13 @@ public class ExternalLocationInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ExternalLocationInfo that = (ExternalLocationInfo) o;
-    return Objects.equals(comment, that.comment)
+    return Objects.equals(accessPoint, that.accessPoint)
+        && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(credentialId, that.credentialId)
         && Objects.equals(credentialName, that.credentialName)
+        && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
@@ -187,11 +215,13 @@ public class ExternalLocationInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        accessPoint,
         comment,
         createdAt,
         createdBy,
         credentialId,
         credentialName,
+        encryptionDetails,
         metastoreId,
         name,
         owner,
@@ -204,11 +234,13 @@ public class ExternalLocationInfo {
   @Override
   public String toString() {
     return new ToStringer(ExternalLocationInfo.class)
+        .add("accessPoint", accessPoint)
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
         .add("credentialId", credentialId)
         .add("credentialName", credentialName)
+        .add("encryptionDetails", encryptionDetails)
         .add("metastoreId", metastoreId)
         .add("name", name)
         .add("owner", owner)

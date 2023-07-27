@@ -16,17 +16,14 @@ public interface AccountMetastoreAssignmentsService {
   /**
    * Assigns a workspace to a metastore.
    *
-   * <p>Creates an assignment to a metastore for a workspace Please add a header
-   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
+   * <p>Creates an assignment to a metastore for a workspace
    */
-  Collection<CreateMetastoreAssignmentsResponseItem> create(
-      AccountsCreateMetastoreAssignment accountsCreateMetastoreAssignment);
+  void create(AccountsCreateMetastoreAssignment accountsCreateMetastoreAssignment);
 
   /**
    * Delete a metastore assignment.
    *
    * <p>Deletes a metastore assignment to a workspace, leaving the workspace with no metastore.
-   * Please add a header X-Databricks-Account-Console-API-Version: 2.0 to access this API.
    */
   void delete(DeleteAccountMetastoreAssignmentRequest deleteAccountMetastoreAssignmentRequest);
 
@@ -35,8 +32,7 @@ public interface AccountMetastoreAssignmentsService {
    *
    * <p>Gets the metastore assignment, if any, for the workspace specified by ID. If the workspace
    * is assigned a metastore, the mappig will be returned. If no metastore is assigned to the
-   * workspace, the assignment will not be found and a 404 returned. Please add a header
-   * X-Databricks-Account-Console-API-Version: 2.0 to access this API.
+   * workspace, the assignment will not be found and a 404 returned.
    */
   AccountsMetastoreAssignment get(
       GetAccountMetastoreAssignmentRequest getAccountMetastoreAssignmentRequest);
@@ -45,7 +41,6 @@ public interface AccountMetastoreAssignmentsService {
    * Get all workspaces assigned to a metastore.
    *
    * <p>Gets a list of all Databricks workspace IDs that have been assigned to given metastore.
-   * Please add a header X-Databricks-Account-Console-API-Version: 2.0 to access this API
    */
   Collection<MetastoreAssignment> list(
       ListAccountMetastoreAssignmentsRequest listAccountMetastoreAssignmentsRequest);
@@ -54,8 +49,7 @@ public interface AccountMetastoreAssignmentsService {
    * Updates a metastore assignment to a workspaces.
    *
    * <p>Updates an assignment to a metastore for a workspace. Currently, only the default catalog
-   * may be updated. Please add a header X-Databricks-Account-Console-API-Version: 2.0 to access
-   * this API.
+   * may be updated.
    */
   void update(AccountsUpdateMetastoreAssignment accountsUpdateMetastoreAssignment);
 }

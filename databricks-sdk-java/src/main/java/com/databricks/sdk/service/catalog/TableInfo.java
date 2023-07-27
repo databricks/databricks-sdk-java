@@ -11,6 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class TableInfo {
+  /** The AWS access point to use when accesing s3 for this external location. */
+  @JsonProperty("access_point")
+  private String accessPoint;
+
   /** Name of parent catalog. */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -57,6 +61,10 @@ public class TableInfo {
   /** Whether auto maintenance should be enabled for this object and objects under it. */
   @JsonProperty("enable_auto_maintenance")
   private EnableAutoMaintenance enableAutoMaintenance;
+
+  /** Encryption options that apply to clients connecting to cloud storage. */
+  @JsonProperty("encryption_details")
+  private EncryptionDetails encryptionDetails;
 
   /** Full name of table, in form of __catalog_name__.__schema_name__.__table_name__ */
   @JsonProperty("full_name")
@@ -136,6 +144,15 @@ public class TableInfo {
    */
   @JsonProperty("view_dependencies")
   private Collection<Dependency> viewDependencies;
+
+  public TableInfo setAccessPoint(String accessPoint) {
+    this.accessPoint = accessPoint;
+    return this;
+  }
+
+  public String getAccessPoint() {
+    return accessPoint;
+  }
 
   public TableInfo setCatalogName(String catalogName) {
     this.catalogName = catalogName;
@@ -236,6 +253,15 @@ public class TableInfo {
 
   public EnableAutoMaintenance getEnableAutoMaintenance() {
     return enableAutoMaintenance;
+  }
+
+  public TableInfo setEncryptionDetails(EncryptionDetails encryptionDetails) {
+    this.encryptionDetails = encryptionDetails;
+    return this;
+  }
+
+  public EncryptionDetails getEncryptionDetails() {
+    return encryptionDetails;
   }
 
   public TableInfo setFullName(String fullName) {
@@ -396,7 +422,8 @@ public class TableInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TableInfo that = (TableInfo) o;
-    return Objects.equals(catalogName, that.catalogName)
+    return Objects.equals(accessPoint, that.accessPoint)
+        && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(columns, that.columns)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
@@ -407,6 +434,7 @@ public class TableInfo {
         && Objects.equals(deltaRuntimePropertiesKvpairs, that.deltaRuntimePropertiesKvpairs)
         && Objects.equals(effectiveAutoMaintenanceFlag, that.effectiveAutoMaintenanceFlag)
         && Objects.equals(enableAutoMaintenance, that.enableAutoMaintenance)
+        && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -429,6 +457,7 @@ public class TableInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        accessPoint,
         catalogName,
         columns,
         comment,
@@ -440,6 +469,7 @@ public class TableInfo {
         deltaRuntimePropertiesKvpairs,
         effectiveAutoMaintenanceFlag,
         enableAutoMaintenance,
+        encryptionDetails,
         fullName,
         metastoreId,
         name,
@@ -462,6 +492,7 @@ public class TableInfo {
   @Override
   public String toString() {
     return new ToStringer(TableInfo.class)
+        .add("accessPoint", accessPoint)
         .add("catalogName", catalogName)
         .add("columns", columns)
         .add("comment", comment)
@@ -473,6 +504,7 @@ public class TableInfo {
         .add("deltaRuntimePropertiesKvpairs", deltaRuntimePropertiesKvpairs)
         .add("effectiveAutoMaintenanceFlag", effectiveAutoMaintenanceFlag)
         .add("enableAutoMaintenance", enableAutoMaintenance)
+        .add("encryptionDetails", encryptionDetails)
         .add("fullName", fullName)
         .add("metastoreId", metastoreId)
         .add("name", name)
