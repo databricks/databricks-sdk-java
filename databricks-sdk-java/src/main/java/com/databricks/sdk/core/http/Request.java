@@ -40,12 +40,8 @@ public class Request {
   }
 
   public Request withQueryParam(String key, String value) {
-    List<String> values = query.get(key);
-    if (values == null) {
-      values = new ArrayList<>();
-    }
+    List<String> values = query.computeIfAbsent(key, k -> new ArrayList<>());
     values.add(value);
-    query.put(key, values);
     return this;
   }
 
