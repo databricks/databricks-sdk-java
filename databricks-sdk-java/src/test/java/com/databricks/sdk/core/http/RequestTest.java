@@ -35,7 +35,11 @@ class RequestTest {
   // Test that multiple values for the same query parameter are appropriately encoded.
   @Test
   void requestUriWithQueryWithMultipleValues() {
-    URI uri = new Request("GET", "/foo").withQueryParam("foo", "bar").withQueryParam("foo", "baz").getUri();
+    URI uri =
+        new Request("GET", "/foo")
+            .withQueryParam("foo", "bar")
+            .withQueryParam("foo", "baz")
+            .getUri();
     assertEquals("/foo?foo=bar&foo=baz", uri.toString());
   }
 }
