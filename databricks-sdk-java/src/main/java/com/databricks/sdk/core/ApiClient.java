@@ -6,7 +6,6 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.RealTimer;
 import com.databricks.sdk.core.utils.Timer;
-import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -14,7 +13,6 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Random;
@@ -91,25 +89,11 @@ public class ApiClient {
     if (entity == null) {
       return in;
     }
-    try {
-      // deterministic query string: in the order of class fields
-      for (Field field : entity.getClass().getDeclaredFields()) {
-        QueryParam param = field.getAnnotation(QueryParam.class);
-        if (param == null) {
-          continue;
-        }
-        field.setAccessible(true);
-        Object value = field.get(entity);
-        field.setAccessible(false);
-        if (value == null) {
-          continue;
-        }
-        in.withQueryParam(param.value(), value.toString());
-      }
-      return in;
-    } catch (IllegalAccessException e) {
-      throw new DatabricksException("Cannot create query string: " + e.getMessage(), e);
+    for (GrpcTranscodingQueryParamsSerializer.HeaderEntry e :
+        GrpcTranscodingQueryParamsSerializer.serialize(entity)) {
+      in.withQueryParam(e.getKey(), e.getValue());
     }
+    return in;
   }
 
   public <I, O> Collection<O> getCollection(String path, I in, Class<O> element) {

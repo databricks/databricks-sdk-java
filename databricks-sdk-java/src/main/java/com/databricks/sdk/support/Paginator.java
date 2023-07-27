@@ -71,6 +71,9 @@ public class Paginator<RQ, RS, T> implements Iterable<T> {
     return new Iterator<T>() {
       @Override
       public boolean hasNext() {
+        if (currentPage == null) {
+          return false;
+        }
         if (currentPage.hasNext()) {
           return true;
         }

@@ -1,6 +1,6 @@
 package com.databricks.sdk.core.http;
 
-import java.util.Map;
+import java.util.*;
 
 public class FormRequest extends Request {
   public FormRequest(String url, Map<String, String> form) {
@@ -8,7 +8,15 @@ public class FormRequest extends Request {
   }
 
   public FormRequest(String method, String url, Map<String, String> form) {
-    super(method, url, mapToQuery(form));
+    super(method, url, mapToQuery(wrapValuesInList(form)));
     withHeader("Content-Type", "application/x-www-form-urlencoded");
+  }
+
+  static Map<String, List<String>> wrapValuesInList(Map<String, String> map) {
+    Map<String, List<String>> m = new LinkedHashMap<>();
+    for (Map.Entry<String, String> entry : map.entrySet()) {
+      m.put(entry.getKey(), Collections.singletonList(entry.getValue()));
+    }
+    return m;
   }
 }
