@@ -36,35 +36,11 @@ public class DbfsExt extends DbfsAPI {
    * @return an InputStream that reads from the given file in DBFS
    */
   public InputStream open(String path) {
-    return new InputStream() {
-      private long offset = 0;
-      private byte[] buffer = new byte[0];
-      private int bufferOffset = 0;
+    return open(path, 1024 * 1024L);
+  }
 
-      @Override
-      public int read() {
-        if (bufferOffset >= buffer.length) {
-          // Buffer is exhausted, refill it.
-          ReadDbfsRequest request =
-              new ReadDbfsRequest().setPath(path).setOffset(offset).setLength(1024 * 1024L);
-          ReadResponse response = DbfsExt.this.read(request);
-          buffer = Base64.getDecoder().decode(response.getData());
-          bufferOffset = 0;
-          offset += buffer.length;
-        }
-
-        if (bufferOffset >= buffer.length) {
-          // Buffer is still exhausted, we're at EOF.
-          return -1;
-        }
-
-        byte b = buffer[bufferOffset++];
-        if (b == -1) {
-          return 255;
-        }
-        return b;
-      }
-    };
+  public InputStream open(String path, long bufferSize) {
+    return new DbfsInputStream(this, path, bufferSize);
   }
 
   /**
@@ -134,42 +110,10 @@ public class DbfsExt extends DbfsAPI {
    * @param path the path to the file to read
    * @return an OutputStream that writes to the given file in DBFS
    */
-  public OutputStream getOutputStream(String path) {
-    CreateResponse createResponse = this.create(new Create().setPath(path).setOverwrite(true));
+  public OutputStream getOutputStream(String path, boolean overwrite, int bufferSize) {
+    CreateResponse createResponse = this.create(new Create().setPath(path).setOverwrite(overwrite));
     long handle = createResponse.getHandle();
-    return new OutputStream() {
-      private final byte[] buffer = new byte[1024 * 1024];
-      private int bufferOffset = 0;
-
-      @Override
-      public void write(int b) {
-        buffer[bufferOffset++] = (byte) b;
-
-        if (bufferOffset >= buffer.length) {
-          // Buffer is full, flush it.
-          flush();
-        }
-      }
-
-      @Override
-      public void flush() {
-        if (bufferOffset > 0) {
-          // Flush the remaining bytes in the buffer.
-          byte[] remainingBytes = Arrays.copyOfRange(buffer, 0, bufferOffset);
-          DbfsExt.this.addBlock(
-              new AddBlock()
-                  .setHandle(handle)
-                  .setData(Base64.getEncoder().encodeToString(remainingBytes)));
-          bufferOffset = 0;
-        }
-      }
-
-      @Override
-      public void close() {
-        flush();
-        DbfsExt.this.close(new Close().setHandle(handle));
-      }
-    };
+    return new DbfsOutputStream(this, handle, bufferSize);
   }
 
   /**
@@ -183,8 +127,8 @@ public class DbfsExt extends DbfsAPI {
    * @return the path to the file in DBFS
    * @throws IOException if an I/O error occurs
    */
-  public Path write(Path path, byte[] bytes) throws IOException {
-    try (OutputStream out = getOutputStream(path.toString())) {
+  public Path write(Path path, byte[] bytes, boolean overwrite) throws IOException {
+    try (OutputStream out = getOutputStream(path.toString(), overwrite, 1024 * 1024)) {
       out.write(bytes);
     }
     return path;

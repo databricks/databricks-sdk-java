@@ -33,7 +33,7 @@ public class DbfsExtTest {
     Mockito.doNothing().when(mockDbfsService).close(any(Close.class));
 
     String testPath =
-        mockedDbfsExt.write(Paths.get(filePath), data.getBytes(StandardCharsets.UTF_8)).toString();
+        mockedDbfsExt.write(Paths.get(filePath), data.getBytes(StandardCharsets.UTF_8), true).toString();
 
     // Returned path should match the original
     assertEquals(filePath, testPath);
