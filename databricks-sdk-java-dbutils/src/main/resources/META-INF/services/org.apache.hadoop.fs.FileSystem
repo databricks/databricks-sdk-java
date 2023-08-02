@@ -1,1 +1,1 @@
-com.databricks.sdk.dbutils.RemoteDatabricksFileSystem
+com.databricks.sdk.dbfs.RemoteDbfsRootFileSystemComponent

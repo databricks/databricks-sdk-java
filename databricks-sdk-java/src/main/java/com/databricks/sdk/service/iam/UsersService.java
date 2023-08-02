@@ -44,6 +44,21 @@ public interface UsersService {
   User get(GetUserRequest getUserRequest);
 
   /**
+   * Get password permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetPasswordPermissionLevelsResponse getPasswordPermissionLevels();
+
+  /**
+   * Get password permissions.
+   *
+   * <p>Gets the permissions of all passwords. Passwords can inherit permissions from their root
+   * object.
+   */
+  PasswordPermissions getPasswordPermissions();
+
+  /**
    * List users.
    *
    * <p>Gets details for all the users associated with a Databricks workspace.
@@ -59,9 +74,25 @@ public interface UsersService {
   void patch(PartialUpdate partialUpdate);
 
   /**
+   * Set password permissions.
+   *
+   * <p>Sets permissions on all passwords. Passwords can inherit permissions from their root object.
+   */
+  PasswordPermissions setPasswordPermissions(PasswordPermissionsRequest passwordPermissionsRequest);
+
+  /**
    * Replace a user.
    *
    * <p>Replaces a user's information with the data supplied in request.
    */
   void update(User user);
+
+  /**
+   * Update password permissions.
+   *
+   * <p>Updates the permissions on all passwords. Passwords can inherit permissions from their root
+   * object.
+   */
+  PasswordPermissions updatePasswordPermissions(
+      PasswordPermissionsRequest passwordPermissionsRequest);
 }

@@ -2,7 +2,6 @@ package com.databricks.sdk.mixin;
 
 import com.databricks.sdk.service.files.ReadDbfsRequest;
 import com.databricks.sdk.service.files.ReadResponse;
-
 import java.io.InputStream;
 import java.util.Base64;
 

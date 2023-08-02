@@ -2,7 +2,6 @@ package com.databricks.sdk.mixin;
 
 import com.databricks.sdk.service.files.AddBlock;
 import com.databricks.sdk.service.files.Close;
-
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Base64;

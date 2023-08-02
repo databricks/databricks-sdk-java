@@ -125,6 +125,42 @@ public class WorkspaceAPI {
     impl.mkdirs(request);
   }
 
+  public GetWorkspaceObjectPermissionLevelsResponse permissionLevels(
+      String workspaceObjectType, String workspaceObjectId) {
+    return permissionLevels(
+        new GetWorkspaceObjectPermissionLevelsRequest()
+            .setWorkspaceObjectType(workspaceObjectType)
+            .setWorkspaceObjectId(workspaceObjectId));
+  }
+
+  /**
+   * Get workspace object permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetWorkspaceObjectPermissionLevelsResponse permissionLevels(
+      GetWorkspaceObjectPermissionLevelsRequest request) {
+    return impl.permissionLevels(request);
+  }
+
+  public WorkspaceObjectPermissions workspaceObjectId(
+      String workspaceObjectType, String workspaceObjectId) {
+    return workspaceObjectId(
+        new WorkspaceObjectPermissionsRequest()
+            .setWorkspaceObjectType(workspaceObjectType)
+            .setWorkspaceObjectId(workspaceObjectId));
+  }
+
+  /**
+   * Update workspace object permissions.
+   *
+   * <p>Updates the permissions on a workspace object. Workspace objects can inherit permissions
+   * from their parent objects or root object.
+   */
+  public WorkspaceObjectPermissions workspaceObjectId(WorkspaceObjectPermissionsRequest request) {
+    return impl.workspaceObjectId(request);
+  }
+
   public WorkspaceService impl() {
     return impl;
   }

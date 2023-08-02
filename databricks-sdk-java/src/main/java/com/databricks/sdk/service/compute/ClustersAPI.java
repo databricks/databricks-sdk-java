@@ -153,6 +153,20 @@ public class ClustersAPI {
     impl.changeOwner(request);
   }
 
+  public ClusterPermissions clusterId(String clusterId) {
+    return clusterId(new ClusterPermissionsRequest().setClusterId(clusterId));
+  }
+
+  /**
+   * Update cluster permissions.
+   *
+   * <p>Updates the permissions on a cluster. Clusters can inherit permissions from their root
+   * object.
+   */
+  public ClusterPermissions clusterId(ClusterPermissionsRequest request) {
+    return impl.clusterId(request);
+  }
+
   public Wait<ClusterDetails, CreateClusterResponse> create(String sparkVersion) {
     return create(new CreateCluster().setSparkVersion(sparkVersion));
   }
@@ -303,6 +317,20 @@ public class ClustersAPI {
    */
   public void permanentDelete(PermanentDeleteCluster request) {
     impl.permanentDelete(request);
+  }
+
+  public GetClusterPermissionLevelsResponse permissionLevels(String clusterId) {
+    return permissionLevels(new GetClusterPermissionLevelsRequest().setClusterId(clusterId));
+  }
+
+  /**
+   * Get cluster permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetClusterPermissionLevelsResponse permissionLevels(
+      GetClusterPermissionLevelsRequest request) {
+    return impl.permissionLevels(request);
   }
 
   public void pin(String clusterId) {

@@ -71,6 +71,25 @@ public class UsersAPI {
   }
 
   /**
+   * Get password permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetPasswordPermissionLevelsResponse getPasswordPermissionLevels() {
+    return impl.getPasswordPermissionLevels();
+  }
+
+  /**
+   * Get password permissions.
+   *
+   * <p>Gets the permissions of all passwords. Passwords can inherit permissions from their root
+   * object.
+   */
+  public PasswordPermissions getPasswordPermissions() {
+    return impl.getPasswordPermissions();
+  }
+
+  /**
    * List users.
    *
    * <p>Gets details for all the users associated with a Databricks workspace.
@@ -93,6 +112,15 @@ public class UsersAPI {
     impl.patch(request);
   }
 
+  /**
+   * Set password permissions.
+   *
+   * <p>Sets permissions on all passwords. Passwords can inherit permissions from their root object.
+   */
+  public PasswordPermissions setPasswordPermissions(PasswordPermissionsRequest request) {
+    return impl.setPasswordPermissions(request);
+  }
+
   public void update(String id) {
     update(new User().setId(id));
   }
@@ -104,6 +132,16 @@ public class UsersAPI {
    */
   public void update(User request) {
     impl.update(request);
+  }
+
+  /**
+   * Update password permissions.
+   *
+   * <p>Updates the permissions on all passwords. Passwords can inherit permissions from their root
+   * object.
+   */
+  public PasswordPermissions updatePasswordPermissions(PasswordPermissionsRequest request) {
+    return impl.updatePasswordPermissions(request);
   }
 
   public UsersService impl() {

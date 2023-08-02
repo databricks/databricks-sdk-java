@@ -44,6 +44,21 @@ public class ClusterPoliciesAPI {
     impl = mock;
   }
 
+  public ClusterPolicyPermissions clusterPolicyId(String clusterPolicyId) {
+    return clusterPolicyId(
+        new GetClusterPolicyPermissionsRequest().setClusterPolicyId(clusterPolicyId));
+  }
+
+  /**
+   * Get cluster policy permissions.
+   *
+   * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
+   * their root object.
+   */
+  public ClusterPolicyPermissions clusterPolicyId(GetClusterPolicyPermissionsRequest request) {
+    return impl.clusterPolicyId(request);
+  }
+
   public CreatePolicyResponse create(String name) {
     return create(new CreatePolicy().setName(name));
   }
@@ -105,6 +120,21 @@ public class ClusterPoliciesAPI {
    */
   public Iterable<Policy> list(ListClusterPoliciesRequest request) {
     return impl.list(request).getPolicies();
+  }
+
+  public GetClusterPolicyPermissionLevelsResponse permissionLevels(String clusterPolicyId) {
+    return permissionLevels(
+        new GetClusterPolicyPermissionLevelsRequest().setClusterPolicyId(clusterPolicyId));
+  }
+
+  /**
+   * Get cluster policy permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetClusterPolicyPermissionLevelsResponse permissionLevels(
+      GetClusterPolicyPermissionLevelsRequest request) {
+    return impl.permissionLevels(request);
   }
 
   public ClusterPoliciesService impl() {

@@ -75,4 +75,21 @@ public interface WorkspaceService {
    * parent directories.
    */
   void mkdirs(Mkdirs mkdirs);
+
+  /**
+   * Get workspace object permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetWorkspaceObjectPermissionLevelsResponse permissionLevels(
+      GetWorkspaceObjectPermissionLevelsRequest getWorkspaceObjectPermissionLevelsRequest);
+
+  /**
+   * Update workspace object permissions.
+   *
+   * <p>Updates the permissions on a workspace object. Workspace objects can inherit permissions
+   * from their parent objects or root object.
+   */
+  WorkspaceObjectPermissions workspaceObjectId(
+      WorkspaceObjectPermissionsRequest workspaceObjectPermissionsRequest);
 }

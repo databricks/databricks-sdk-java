@@ -41,6 +41,14 @@ public interface ClustersService {
   void changeOwner(ChangeClusterOwner changeClusterOwner);
 
   /**
+   * Update cluster permissions.
+   *
+   * <p>Updates the permissions on a cluster. Clusters can inherit permissions from their root
+   * object.
+   */
+  ClusterPermissions clusterId(ClusterPermissionsRequest clusterPermissionsRequest);
+
+  /**
    * Create new cluster.
    *
    * <p>Creates a new Spark cluster. This method will acquire new instances from the cloud provider
@@ -136,6 +144,14 @@ public interface ClustersService {
    * API users can no longer perform any action on permanently deleted clusters.
    */
   void permanentDelete(PermanentDeleteCluster permanentDeleteCluster);
+
+  /**
+   * Get cluster permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetClusterPermissionLevelsResponse permissionLevels(
+      GetClusterPermissionLevelsRequest getClusterPermissionLevelsRequest);
 
   /**
    * Pin cluster.

@@ -48,4 +48,23 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/mkdirs";
     apiClient.POST(path, request, Void.class);
   }
+
+  @Override
+  public GetWorkspaceObjectPermissionLevelsResponse permissionLevels(
+      GetWorkspaceObjectPermissionLevelsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/%s/%s/permissionLevels",
+            request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
+    return apiClient.GET(path, request, GetWorkspaceObjectPermissionLevelsResponse.class);
+  }
+
+  @Override
+  public WorkspaceObjectPermissions workspaceObjectId(WorkspaceObjectPermissionsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/%s/%s",
+            request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
+    return apiClient.PATCH(path, request, WorkspaceObjectPermissions.class);
+  }
 }

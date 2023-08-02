@@ -1,31 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>com.databricks</groupId>
-        <artifactId>databricks-sdk-parent</artifactId>
-        <version>0.3.0</version>
-    </parent>
-
-    <artifactId>databricks-sdk-java-dbutils</artifactId>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.databricks</groupId>
+    <artifactId>databricks-sdk-parent</artifactId>
+    <version>0.3.0</version>
+  </parent>
+  <artifactId>databricks-sdk-java-dbutils</artifactId>
+  <properties>
+    <junit-bom.version>5.9.3</junit-bom.version>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-client-api</artifactId>
-            <version>3.3.4</version>
-        </dependency>
-        <dependency>
-            <groupId>com.databricks</groupId>
-            <artifactId>databricks-sdk-java</artifactId>
-            <version>0.3.0</version>
-        </dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit-bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-client-api</artifactId>
+      <version>3.3.4</version>
+    </dependency>
+    <dependency>
+      <groupId>com.databricks</groupId>
+      <artifactId>databricks-sdk-java</artifactId>
+      <version>0.3.0</version>
+    </dependency>
+
+    <!-- Test Dependencies-->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.databricks</groupId>
+      <artifactId>databricks-sdk-java-testutils</artifactId>
+      <version>0.3.0</version>
+      <scope>test</scope>
+    </dependency>
+    <!-- Customers need to provide this dependency at runtime. -->
+    <dependency>
+      <groupId>org.apache.hadoop</groupId>
+      <artifactId>hadoop-client-runtime</artifactId>
+      <version>3.3.4</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>

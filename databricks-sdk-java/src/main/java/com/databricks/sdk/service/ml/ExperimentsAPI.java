@@ -133,6 +133,36 @@ public class ExperimentsAPI {
     return impl.getExperiment(request);
   }
 
+  public GetExperimentPermissionLevelsResponse getExperimentPermissionLevels(String experimentId) {
+    return getExperimentPermissionLevels(
+        new GetExperimentPermissionLevelsRequest().setExperimentId(experimentId));
+  }
+
+  /**
+   * Get experiment permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetExperimentPermissionLevelsResponse getExperimentPermissionLevels(
+      GetExperimentPermissionLevelsRequest request) {
+    return impl.getExperimentPermissionLevels(request);
+  }
+
+  public ExperimentPermissions getExperimentPermissions(String experimentId) {
+    return getExperimentPermissions(
+        new GetExperimentPermissionsRequest().setExperimentId(experimentId));
+  }
+
+  /**
+   * Get experiment permissions.
+   *
+   * <p>Gets the permissions of an experiment. Experiments can inherit permissions from their root
+   * object.
+   */
+  public ExperimentPermissions getExperimentPermissions(GetExperimentPermissionsRequest request) {
+    return impl.getExperimentPermissions(request);
+  }
+
   public GetMetricHistoryResponse getHistory(String metricKey) {
     return getHistory(new GetHistoryRequest().setMetricKey(metricKey));
   }
@@ -365,6 +395,21 @@ public class ExperimentsAPI {
         });
   }
 
+  public ExperimentPermissions setExperimentPermissions(String experimentId) {
+    return setExperimentPermissions(
+        new ExperimentPermissionsRequest().setExperimentId(experimentId));
+  }
+
+  /**
+   * Set experiment permissions.
+   *
+   * <p>Sets permissions on an experiment. Experiments can inherit permissions from their root
+   * object.
+   */
+  public ExperimentPermissions setExperimentPermissions(ExperimentPermissionsRequest request) {
+    return impl.setExperimentPermissions(request);
+  }
+
   public void setExperimentTag(String experimentId, String key, String value) {
     setExperimentTag(
         new SetExperimentTag().setExperimentId(experimentId).setKey(key).setValue(value));
@@ -404,6 +449,21 @@ public class ExperimentsAPI {
    */
   public void updateExperiment(UpdateExperiment request) {
     impl.updateExperiment(request);
+  }
+
+  public ExperimentPermissions updateExperimentPermissions(String experimentId) {
+    return updateExperimentPermissions(
+        new ExperimentPermissionsRequest().setExperimentId(experimentId));
+  }
+
+  /**
+   * Update experiment permissions.
+   *
+   * <p>Updates the permissions on an experiment. Experiments can inherit permissions from their
+   * root object.
+   */
+  public ExperimentPermissions updateExperimentPermissions(ExperimentPermissionsRequest request) {
+    return impl.updateExperimentPermissions(request);
   }
 
   /**

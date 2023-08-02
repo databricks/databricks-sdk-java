@@ -32,6 +32,15 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ClusterPoliciesService {
   /**
+   * Get cluster policy permissions.
+   *
+   * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
+   * their root object.
+   */
+  ClusterPolicyPermissions clusterPolicyId(
+      GetClusterPolicyPermissionsRequest getClusterPolicyPermissionsRequest);
+
+  /**
    * Create a new policy.
    *
    * <p>Creates a new policy with prescribed settings.
@@ -67,4 +76,12 @@ public interface ClusterPoliciesService {
    * <p>Returns a list of policies accessible by the requesting user.
    */
   ListPoliciesResponse list(ListClusterPoliciesRequest listClusterPoliciesRequest);
+
+  /**
+   * Get cluster policy permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetClusterPolicyPermissionLevelsResponse permissionLevels(
+      GetClusterPolicyPermissionLevelsRequest getClusterPolicyPermissionLevelsRequest);
 }

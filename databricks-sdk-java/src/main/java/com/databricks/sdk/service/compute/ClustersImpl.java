@@ -20,6 +20,12 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
+  public ClusterPermissions clusterId(ClusterPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
+    return apiClient.PATCH(path, request, ClusterPermissions.class);
+  }
+
+  @Override
   public CreateClusterResponse create(CreateCluster request) {
     String path = "/api/2.0/clusters/create";
     return apiClient.POST(path, request, CreateClusterResponse.class);
@@ -71,6 +77,14 @@ class ClustersImpl implements ClustersService {
   public void permanentDelete(PermanentDeleteCluster request) {
     String path = "/api/2.0/clusters/permanent-delete";
     apiClient.POST(path, request, Void.class);
+  }
+
+  @Override
+  public GetClusterPermissionLevelsResponse permissionLevels(
+      GetClusterPermissionLevelsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/clusters/%s/permissionLevels", request.getClusterId());
+    return apiClient.GET(path, request, GetClusterPermissionLevelsResponse.class);
   }
 
   @Override
