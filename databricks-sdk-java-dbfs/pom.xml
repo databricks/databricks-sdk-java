@@ -7,7 +7,7 @@
     <artifactId>databricks-sdk-parent</artifactId>
     <version>0.3.0</version>
   </parent>
-  <artifactId>databricks-sdk-java-dbutils</artifactId>
+  <artifactId>databricks-sdk-java-dbfs</artifactId>
   <properties>
     <junit-bom.version>5.9.3</junit-bom.version>
     <maven.compiler.source>8</maven.compiler.source>
@@ -36,7 +36,6 @@
       <artifactId>databricks-sdk-java</artifactId>
       <version>0.3.0</version>
     </dependency>
-
     <!-- Test Dependencies-->
     <dependency>
       <groupId>org.junit.jupiter</groupId>

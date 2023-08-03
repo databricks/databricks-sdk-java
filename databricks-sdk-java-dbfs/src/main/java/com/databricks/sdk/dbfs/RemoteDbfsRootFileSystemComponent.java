@@ -24,7 +24,8 @@ public class RemoteDbfsRootFileSystemComponent implements DatabricksFileSystemCo
   private static final FsPermission PERMISSION =
       new FsPermission(FsAction.READ_WRITE, FsAction.READ_WRITE, FsAction.READ_WRITE);
 
-  public RemoteDbfsRootFileSystemComponent(WorkspaceClient w, FileSystem.Statistics statistics, PathResolver pathResolver) {
+  public RemoteDbfsRootFileSystemComponent(
+      WorkspaceClient w, FileSystem.Statistics statistics, PathResolver pathResolver) {
     this.w = w;
     this.statistics = statistics;
     this.pathResolver = pathResolver;
@@ -61,7 +62,9 @@ public class RemoteDbfsRootFileSystemComponent implements DatabricksFileSystemCo
     }
     // Ignore the replication and block size, as DBFS does not support them.
     // TODO: Add support for progressable
-    OutputStream out = w.dbfs().getOutputStream(pathResolver.getAbsolutePath(path).toString(), overwrite, bufferSize);
+    OutputStream out =
+        w.dbfs()
+            .getOutputStream(pathResolver.getAbsolutePath(path).toString(), overwrite, bufferSize);
     return new FSDataOutputStream(out, statistics);
   }
 
@@ -71,13 +74,20 @@ public class RemoteDbfsRootFileSystemComponent implements DatabricksFileSystemCo
   }
 
   public boolean rename(Path source, Path target) throws IOException {
-    w.dbfs().move(pathResolver.getAbsolutePath(source).toString(), pathResolver.getAbsolutePath(target).toString());
+    w.dbfs()
+        .move(
+            pathResolver.getAbsolutePath(source).toString(),
+            pathResolver.getAbsolutePath(target).toString());
     // What to return here?
     return true;
   }
 
   public boolean delete(Path path, boolean recursive) throws IOException {
-    w.dbfs().delete(new Delete().setPath(pathResolver.getAbsolutePath(path).toString()).setRecursive(recursive));
+    w.dbfs()
+        .delete(
+            new Delete()
+                .setPath(pathResolver.getAbsolutePath(path).toString())
+                .setRecursive(recursive));
     // What to return here?
     return true;
   }

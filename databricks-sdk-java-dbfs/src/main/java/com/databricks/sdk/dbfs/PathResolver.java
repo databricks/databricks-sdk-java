@@ -1,9 +1,8 @@
 package com.databricks.sdk.dbfs;
 
 import com.databricks.sdk.service.files.FileInfo;
-import org.apache.hadoop.fs.Path;
-
 import java.io.IOException;
+import org.apache.hadoop.fs.Path;
 
 public interface PathResolver {
   Path getAbsolutePath(Path path) throws IOException;

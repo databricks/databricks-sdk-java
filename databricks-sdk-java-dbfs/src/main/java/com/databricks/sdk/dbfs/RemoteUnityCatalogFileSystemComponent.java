@@ -1,13 +1,12 @@
 package com.databricks.sdk.dbfs;
 
 import com.databricks.sdk.WorkspaceClient;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.fs.permission.FsAction;
 import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.hadoop.util.Progressable;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class RemoteUnityCatalogFileSystemComponent implements DatabricksFileSystemComponent {
 
@@ -18,7 +17,8 @@ public class RemoteUnityCatalogFileSystemComponent implements DatabricksFileSyst
   private static final FsPermission PERMISSION =
       new FsPermission(FsAction.READ_WRITE, FsAction.READ_WRITE, FsAction.READ_WRITE);
 
-  public RemoteUnityCatalogFileSystemComponent(WorkspaceClient w, FileSystem.Statistics statistics, PathResolver pathResolver) {
+  public RemoteUnityCatalogFileSystemComponent(
+      WorkspaceClient w, FileSystem.Statistics statistics, PathResolver pathResolver) {
     this.w = w;
     this.statistics = statistics;
     this.pathResolver = pathResolver;
@@ -35,7 +35,15 @@ public class RemoteUnityCatalogFileSystemComponent implements DatabricksFileSyst
   }
 
   @Override
-  public FSDataOutputStream create(Path path, FsPermission fsPermission, boolean b, int i, short i1, long l, Progressable progressable) throws IOException {
+  public FSDataOutputStream create(
+      Path path,
+      FsPermission fsPermission,
+      boolean b,
+      int i,
+      short i1,
+      long l,
+      Progressable progressable)
+      throws IOException {
     return null;
   }
 

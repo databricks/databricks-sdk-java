@@ -3,25 +3,27 @@ package com.databricks.sdk.dbfs;
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.service.files.FileInfo;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URI;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.fs.permission.FsAction;
 import org.apache.hadoop.fs.permission.FsPermission;
 import org.apache.hadoop.util.Progressable;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URI;
-
 public class RemoteDatabricksFileSystem extends FileSystem implements PathResolver {
   @FunctionalInterface
   interface PathMatcher {
     boolean matches(Path path) throws IOException;
   }
+
   static class DatabricksFileSystemComponentMapping {
     private final DatabricksFileSystemComponent component;
     private final PathMatcher matcher;
-    DatabricksFileSystemComponentMapping(DatabricksFileSystemComponent component, PathMatcher matcher) {
+
+    DatabricksFileSystemComponentMapping(
+        DatabricksFileSystemComponent component, PathMatcher matcher) {
       this.component = component;
       this.matcher = matcher;
     }
@@ -29,14 +31,19 @@ public class RemoteDatabricksFileSystem extends FileSystem implements PathResolv
     PathMatcher getMatcher() {
       return matcher;
     }
+
     DatabricksFileSystemComponent getComponent() {
       return component;
     }
   }
+
   static class DatabricksFileSystemComponentResolver {
     private final DatabricksFileSystemComponent fallbackComponent;
     private final DatabricksFileSystemComponentMapping[] components;
-    DatabricksFileSystemComponentResolver(DatabricksFileSystemComponent fallbackComponent, DatabricksFileSystemComponentMapping... components) {
+
+    DatabricksFileSystemComponentResolver(
+        DatabricksFileSystemComponent fallbackComponent,
+        DatabricksFileSystemComponentMapping... components) {
       this.fallbackComponent = fallbackComponent;
       this.components = components;
     }
@@ -50,6 +57,7 @@ public class RemoteDatabricksFileSystem extends FileSystem implements PathResolv
       return fallbackComponent;
     }
   }
+
   private WorkspaceClient w;
   private volatile Path workingDirectory;
 
@@ -65,13 +73,12 @@ public class RemoteDatabricksFileSystem extends FileSystem implements PathResolv
     w = new WorkspaceClient();
     Statistics statistics = new Statistics(SCHEME);
     workingDirectory = getHomeDirectory();
-    resolver = new DatabricksFileSystemComponentResolver(
-        new RemoteDbfsRootFileSystemComponent(w, statistics, this),
-        new DatabricksFileSystemComponentMapping(
-            new RemoteUnityCatalogFileSystemComponent(w, statistics, this),
-            path -> path.toString().startsWith("dbfs:/Volumes")
-        )
-    );
+    resolver =
+        new DatabricksFileSystemComponentResolver(
+            new RemoteDbfsRootFileSystemComponent(w, statistics, this),
+            new DatabricksFileSystemComponentMapping(
+                new RemoteUnityCatalogFileSystemComponent(w, statistics, this),
+                path -> path.toString().startsWith("dbfs:/Volumes")));
     super.initialize(name, conf);
   }
 
@@ -130,7 +137,8 @@ public class RemoteDatabricksFileSystem extends FileSystem implements PathResolv
     String sourceComponentName = component.getComponentName();
     String targetComponentName = getFileSystemComponent(target).getComponentName();
     if (!sourceComponentName.equals(targetComponentName)) {
-      throw new IOException("Cannot rename file from " + sourceComponentName + " to " + targetComponentName);
+      throw new IOException(
+          "Cannot rename file from " + sourceComponentName + " to " + targetComponentName);
     }
     return component.rename(source, target);
   }

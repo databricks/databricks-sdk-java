@@ -1,17 +1,15 @@
 package com.databricks.sdk.dbfs;
 
+import com.databricks.sdk.framework.EnvContext;
+import com.databricks.sdk.framework.EnvTest;
 import java.io.IOException;
 import java.net.URI;
-
-import com.databricks.sdk.integration.framework.EnvContext;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.LocatedFileStatus;
 import org.apache.hadoop.fs.RemoteIterator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import com.databricks.sdk.integration.framework.EnvTest;
 
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
