@@ -35,7 +35,7 @@ public class DbfsIT {
     Path path = Paths.get(fileName);
 
     // Write the file to DBFS.
-    workspace.dbfs().write(path, fileContents, true);
+    workspace.dbfs().write(path, fileContents);
 
     try {
       // Read the file back from DBFS.
@@ -67,7 +67,7 @@ public class DbfsIT {
 
     // Write the file to DBFS.
 
-    workspace.dbfs().write(path, file.toString().getBytes(StandardCharsets.UTF_8), true);
+    workspace.dbfs().write(path, file.toString().getBytes(StandardCharsets.UTF_8));
 
     try {
       // Read the file back from DBFS.
@@ -94,13 +94,13 @@ public class DbfsIT {
     workspace.dbfs().mkdirs(directoryName);
     try {
       // Create a random set of files and directories within the directory.
-      workspace.dbfs().write(Paths.get(directoryName, "file1"), new byte[0], true);
-      workspace.dbfs().write(Paths.get(directoryName, "file2"), new byte[0], true);
+      workspace.dbfs().write(Paths.get(directoryName, "file1"), new byte[0]);
+      workspace.dbfs().write(Paths.get(directoryName, "file2"), new byte[0]);
       workspace.dbfs().mkdirs(Paths.get(directoryName, "dir1").toString());
-      workspace.dbfs().write(Paths.get(directoryName, "dir1", "file3"), new byte[0], true);
-      workspace.dbfs().write(Paths.get(directoryName, "dir1", "file4"), new byte[0], true);
+      workspace.dbfs().write(Paths.get(directoryName, "dir1", "file3"), new byte[0]);
+      workspace.dbfs().write(Paths.get(directoryName, "dir1", "file4"), new byte[0]);
       workspace.dbfs().mkdirs(Paths.get(directoryName, "dir2").toString());
-      workspace.dbfs().write(Paths.get(directoryName, "dir2", "file5"), new byte[0], true);
+      workspace.dbfs().write(Paths.get(directoryName, "dir2", "file5"), new byte[0]);
 
       // List the contents of the directory recursively.
       String[] expectedContents =
