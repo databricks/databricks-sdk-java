@@ -33,9 +33,7 @@
   </developers>
   <modules>
     <module>databricks-sdk-java</module>
-    <module>databricks-sdk-java-dbutils</module>
-      <module>test</module>
-      <module>databricks-sdk-java-testutils</module>
+    <module>databricks-sdk-java-dbfs</module>
   </modules>
   <scm>
     <connection>scm:git:https://github.com/databricks/databricks-sdk-java.git</connection>

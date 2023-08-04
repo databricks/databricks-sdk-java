@@ -12,7 +12,9 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Random;
@@ -260,7 +262,7 @@ public class ApiClient {
       in.getHeaders()
           .forEach((header, value) -> sb.append(String.format("\n * %s: %s", header, value)));
     }
-    String requestBody = in.getBody();
+    String requestBody = in.getDebugBody();
     if (requestBody != null && !requestBody.isEmpty()) {
       for (String line : bodyLogger.redactedDump(requestBody).split("\n")) {
         sb.append("\n> ");
@@ -284,7 +286,13 @@ public class ApiClient {
     return mapper.readValue(body, target);
   }
 
-  private String serialize(Object body) throws JsonProcessingException {
-    return mapper.writeValueAsString(body);
+  private InputStream serialize(Object body) throws JsonProcessingException {
+    if (body == null) {
+      return null;
+    }
+    if (body instanceof InputStream) {
+      return (InputStream) body;
+    }
+    return new ByteArrayInputStream(mapper.writeValueAsBytes(body));
   }
 }

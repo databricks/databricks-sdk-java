@@ -38,10 +38,20 @@ class InstancePoolsImpl implements InstancePoolsService {
   }
 
   @Override
-  public InstancePoolPermissions instancePoolId(InstancePoolPermissionsRequest request) {
+  public GetInstancePoolPermissionLevelsResponse getInstancePoolPermissionLevels(
+      GetInstancePoolPermissionLevelsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/instance-pools/%s/permissionLevels", request.getInstancePoolId());
+    return apiClient.GET(path, request, GetInstancePoolPermissionLevelsResponse.class);
+  }
+
+  @Override
+  public InstancePoolPermissions getInstancePoolPermissions(
+      GetInstancePoolPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
-    return apiClient.PATCH(path, request, InstancePoolPermissions.class);
+    return apiClient.GET(path, request, InstancePoolPermissions.class);
   }
 
   @Override
@@ -51,11 +61,18 @@ class InstancePoolsImpl implements InstancePoolsService {
   }
 
   @Override
-  public GetInstancePoolPermissionLevelsResponse permissionLevels(
-      GetInstancePoolPermissionLevelsRequest request) {
+  public InstancePoolPermissions setInstancePoolPermissions(
+      InstancePoolPermissionsRequest request) {
     String path =
-        String.format(
-            "/api/2.0/permissions/instance-pools/%s/permissionLevels", request.getInstancePoolId());
-    return apiClient.GET(path, request, GetInstancePoolPermissionLevelsResponse.class);
+        String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
+    return apiClient.PUT(path, request, InstancePoolPermissions.class);
+  }
+
+  @Override
+  public InstancePoolPermissions updateInstancePoolPermissions(
+      InstancePoolPermissionsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
+    return apiClient.PATCH(path, request, InstancePoolPermissions.class);
   }
 }

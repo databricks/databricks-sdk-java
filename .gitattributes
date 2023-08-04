@@ -447,7 +447,13 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DbfsAPI.java 
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DbfsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DbfsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/Delete.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DeleteFileRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DownloadFileRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DownloadFileResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FileInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FilesAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FilesImpl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FilesService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/GetStatusRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/ListDbfsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/ListStatusResponse.java linguist-generated=true
@@ -456,6 +462,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/Move.java lin
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/Put.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/ReadDbfsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/ReadResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/UploadFileRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/AccessControlRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/AccessControlResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/AccountAccessControlAPI.java linguist-generated=true

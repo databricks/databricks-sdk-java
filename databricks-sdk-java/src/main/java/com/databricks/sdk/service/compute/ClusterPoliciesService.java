@@ -32,15 +32,6 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ClusterPoliciesService {
   /**
-   * Get cluster policy permissions.
-   *
-   * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
-   * their root object.
-   */
-  ClusterPolicyPermissions clusterPolicyId(
-      GetClusterPolicyPermissionsRequest getClusterPolicyPermissionsRequest);
-
-  /**
    * Create a new policy.
    *
    * <p>Creates a new policy with prescribed settings.
@@ -71,6 +62,23 @@ public interface ClusterPoliciesService {
   Policy get(GetClusterPolicyRequest getClusterPolicyRequest);
 
   /**
+   * Get cluster policy permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetClusterPolicyPermissionLevelsResponse getClusterPolicyPermissionLevels(
+      GetClusterPolicyPermissionLevelsRequest getClusterPolicyPermissionLevelsRequest);
+
+  /**
+   * Get cluster policy permissions.
+   *
+   * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
+   * their root object.
+   */
+  ClusterPolicyPermissions getClusterPolicyPermissions(
+      GetClusterPolicyPermissionsRequest getClusterPolicyPermissionsRequest);
+
+  /**
    * Get a cluster policy.
    *
    * <p>Returns a list of policies accessible by the requesting user.
@@ -78,10 +86,20 @@ public interface ClusterPoliciesService {
   ListPoliciesResponse list(ListClusterPoliciesRequest listClusterPoliciesRequest);
 
   /**
-   * Get cluster policy permission levels.
+   * Set cluster policy permissions.
    *
-   * <p>Gets the permission levels that a user can have on an object.
+   * <p>Sets permissions on a cluster policy. Cluster policies can inherit permissions from their
+   * root object.
    */
-  GetClusterPolicyPermissionLevelsResponse permissionLevels(
-      GetClusterPolicyPermissionLevelsRequest getClusterPolicyPermissionLevelsRequest);
+  ClusterPolicyPermissions setClusterPolicyPermissions(
+      ClusterPolicyPermissionsRequest clusterPolicyPermissionsRequest);
+
+  /**
+   * Update cluster policy permissions.
+   *
+   * <p>Updates the permissions on a cluster policy. Cluster policies can inherit permissions from
+   * their root object.
+   */
+  ClusterPolicyPermissions updateClusterPolicyPermissions(
+      ClusterPolicyPermissionsRequest clusterPolicyPermissionsRequest);
 }

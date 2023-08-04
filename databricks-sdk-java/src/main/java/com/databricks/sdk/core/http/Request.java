@@ -1,6 +1,8 @@
 package com.databricks.sdk.core.http;
 
 import com.databricks.sdk.core.DatabricksException;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -17,16 +19,26 @@ public class Request {
   private String url;
   private final Map<String, String> headers = new HashMap<>();
   private final Map<String, List<String>> query = new TreeMap<>();
-  private final String body;
+  private final InputStream body;
+  private final String debugBody;
 
   public Request(String method, String url) {
-    this(method, url, null);
+    this(method, url, (String) null);
   }
 
   public Request(String method, String url, String body) {
     this.method = method;
     this.url = url;
+    this.body =
+        body != null ? new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8)) : null;
+    this.debugBody = body;
+  }
+
+  public Request(String method, String url, InputStream body) {
+    this.method = method;
+    this.url = url;
     this.body = body;
+    this.debugBody = "<InputStream>";
   }
 
   public Request withHeaders(Map<String, String> headers) {
@@ -123,8 +135,12 @@ public class Request {
     return query;
   }
 
-  public String getBody() {
+  public InputStream getBody() {
     return body;
+  }
+
+  public String getDebugBody() {
+    return debugBody;
   }
 
   @Override

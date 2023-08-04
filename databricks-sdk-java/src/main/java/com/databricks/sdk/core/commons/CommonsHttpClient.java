@@ -5,7 +5,6 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +16,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
-import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -89,12 +88,8 @@ public class CommonsHttpClient implements HttpClient {
     }
   }
 
-  private HttpRequestBase withEntity(HttpEntityEnclosingRequestBase request, String body) {
-    try {
-      request.setEntity(new StringEntity(body));
-      return request;
-    } catch (UnsupportedEncodingException e) {
-      throw new IllegalArgumentException(e);
-    }
+  private HttpRequestBase withEntity(HttpEntityEnclosingRequestBase request, InputStream body) {
+    request.setEntity(new InputStreamEntity(body));
+    return request;
   }
 }

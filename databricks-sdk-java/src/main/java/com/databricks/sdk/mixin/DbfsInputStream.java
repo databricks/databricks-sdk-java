@@ -21,7 +21,7 @@ public class DbfsInputStream extends InputStream {
 
   @Override
   public int read() {
-    if (bufferOffset >= buffer.length) {
+    if (buffer == null || bufferOffset >= buffer.length) {
       // Buffer is exhausted, refill it.
       ReadDbfsRequest request =
           new ReadDbfsRequest().setPath(path).setOffset(offset).setLength(bufferSize);

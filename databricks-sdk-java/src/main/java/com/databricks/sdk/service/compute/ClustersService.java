@@ -41,14 +41,6 @@ public interface ClustersService {
   void changeOwner(ChangeClusterOwner changeClusterOwner);
 
   /**
-   * Update cluster permissions.
-   *
-   * <p>Updates the permissions on a cluster. Clusters can inherit permissions from their root
-   * object.
-   */
-  ClusterPermissions clusterId(ClusterPermissionsRequest clusterPermissionsRequest);
-
-  /**
    * Create new cluster.
    *
    * <p>Creates a new Spark cluster. This method will acquire new instances from the cloud provider
@@ -105,6 +97,22 @@ public interface ClustersService {
   ClusterDetails get(GetClusterRequest getClusterRequest);
 
   /**
+   * Get cluster permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetClusterPermissionLevelsResponse getClusterPermissionLevels(
+      GetClusterPermissionLevelsRequest getClusterPermissionLevelsRequest);
+
+  /**
+   * Get cluster permissions.
+   *
+   * <p>Gets the permissions of a cluster. Clusters can inherit permissions from their root object.
+   */
+  ClusterPermissions getClusterPermissions(
+      GetClusterPermissionsRequest getClusterPermissionsRequest);
+
+  /**
    * List all clusters.
    *
    * <p>Return information about all pinned clusters, active clusters, up to 200 of the most
@@ -146,14 +154,6 @@ public interface ClustersService {
   void permanentDelete(PermanentDeleteCluster permanentDeleteCluster);
 
   /**
-   * Get cluster permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
-  GetClusterPermissionLevelsResponse permissionLevels(
-      GetClusterPermissionLevelsRequest getClusterPermissionLevelsRequest);
-
-  /**
    * Pin cluster.
    *
    * <p>Pinning a cluster ensures that the cluster will always be returned by the ListClusters API.
@@ -177,6 +177,13 @@ public interface ClustersService {
    * `RUNNING` state, nothing will happen.
    */
   void restart(RestartCluster restartCluster);
+
+  /**
+   * Set cluster permissions.
+   *
+   * <p>Sets permissions on a cluster. Clusters can inherit permissions from their root object.
+   */
+  ClusterPermissions setClusterPermissions(ClusterPermissionsRequest clusterPermissionsRequest);
 
   /**
    * List available Spark versions.
@@ -207,4 +214,12 @@ public interface ClustersService {
    * workspace admins.
    */
   void unpin(UnpinCluster unpinCluster);
+
+  /**
+   * Update cluster permissions.
+   *
+   * <p>Updates the permissions on a cluster. Clusters can inherit permissions from their root
+   * object.
+   */
+  ClusterPermissions updateClusterPermissions(ClusterPermissionsRequest clusterPermissionsRequest);
 }

@@ -48,6 +48,23 @@ public interface WorkspaceService {
   ObjectInfo getStatus(GetStatusRequest getStatusRequest);
 
   /**
+   * Get workspace object permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetWorkspaceObjectPermissionLevelsResponse getWorkspaceObjectPermissionLevels(
+      GetWorkspaceObjectPermissionLevelsRequest getWorkspaceObjectPermissionLevelsRequest);
+
+  /**
+   * Get workspace object permissions.
+   *
+   * <p>Gets the permissions of a workspace object. Workspace objects can inherit permissions from
+   * their parent objects or root object.
+   */
+  WorkspaceObjectPermissions getWorkspaceObjectPermissions(
+      GetWorkspaceObjectPermissionsRequest getWorkspaceObjectPermissionsRequest);
+
+  /**
    * Import a workspace object.
    *
    * <p>Imports a workspace object (for example, a notebook or file) or the contents of an entire
@@ -77,12 +94,13 @@ public interface WorkspaceService {
   void mkdirs(Mkdirs mkdirs);
 
   /**
-   * Get workspace object permission levels.
+   * Set workspace object permissions.
    *
-   * <p>Gets the permission levels that a user can have on an object.
+   * <p>Sets permissions on a workspace object. Workspace objects can inherit permissions from their
+   * parent objects or root object.
    */
-  GetWorkspaceObjectPermissionLevelsResponse permissionLevels(
-      GetWorkspaceObjectPermissionLevelsRequest getWorkspaceObjectPermissionLevelsRequest);
+  WorkspaceObjectPermissions setWorkspaceObjectPermissions(
+      WorkspaceObjectPermissionsRequest workspaceObjectPermissionsRequest);
 
   /**
    * Update workspace object permissions.
@@ -90,6 +108,6 @@ public interface WorkspaceService {
    * <p>Updates the permissions on a workspace object. Workspace objects can inherit permissions
    * from their parent objects or root object.
    */
-  WorkspaceObjectPermissions workspaceObjectId(
+  WorkspaceObjectPermissions updateWorkspaceObjectPermissions(
       WorkspaceObjectPermissionsRequest workspaceObjectPermissionsRequest);
 }

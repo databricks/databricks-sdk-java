@@ -20,12 +20,6 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public ClusterPermissions clusterId(ClusterPermissionsRequest request) {
-    String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
-    return apiClient.PATCH(path, request, ClusterPermissions.class);
-  }
-
-  @Override
   public CreateClusterResponse create(CreateCluster request) {
     String path = "/api/2.0/clusters/create";
     return apiClient.POST(path, request, CreateClusterResponse.class);
@@ -56,6 +50,20 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
+  public GetClusterPermissionLevelsResponse getClusterPermissionLevels(
+      GetClusterPermissionLevelsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/clusters/%s/permissionLevels", request.getClusterId());
+    return apiClient.GET(path, request, GetClusterPermissionLevelsResponse.class);
+  }
+
+  @Override
+  public ClusterPermissions getClusterPermissions(GetClusterPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
+    return apiClient.GET(path, request, ClusterPermissions.class);
+  }
+
+  @Override
   public ListClustersResponse list(ListClustersRequest request) {
     String path = "/api/2.0/clusters/list";
     return apiClient.GET(path, request, ListClustersResponse.class);
@@ -80,14 +88,6 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public GetClusterPermissionLevelsResponse permissionLevels(
-      GetClusterPermissionLevelsRequest request) {
-    String path =
-        String.format("/api/2.0/permissions/clusters/%s/permissionLevels", request.getClusterId());
-    return apiClient.GET(path, request, GetClusterPermissionLevelsResponse.class);
-  }
-
-  @Override
   public void pin(PinCluster request) {
     String path = "/api/2.0/clusters/pin";
     apiClient.POST(path, request, Void.class);
@@ -106,6 +106,12 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
+  public ClusterPermissions setClusterPermissions(ClusterPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
+    return apiClient.PUT(path, request, ClusterPermissions.class);
+  }
+
+  @Override
   public GetSparkVersionsResponse sparkVersions() {
     String path = "/api/2.0/clusters/spark-versions";
     return apiClient.GET(path, GetSparkVersionsResponse.class);
@@ -121,5 +127,11 @@ class ClustersImpl implements ClustersService {
   public void unpin(UnpinCluster request) {
     String path = "/api/2.0/clusters/unpin";
     apiClient.POST(path, request, Void.class);
+  }
+
+  @Override
+  public ClusterPermissions updateClusterPermissions(ClusterPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
+    return apiClient.PATCH(path, request, ClusterPermissions.class);
   }
 }

@@ -27,6 +27,10 @@ public class ServedModelOutput {
   @JsonProperty("environment_vars")
   private Map<String, String> environmentVars;
 
+  /** ARN of the instance profile that the served model will use to access AWS resources. */
+  @JsonProperty("instance_profile_arn")
+  private String instanceProfileArn;
+
   /**
    * The name of the model in Databricks Model Registry or the full name of the model in Unity
    * Catalog.
@@ -86,6 +90,15 @@ public class ServedModelOutput {
 
   public Map<String, String> getEnvironmentVars() {
     return environmentVars;
+  }
+
+  public ServedModelOutput setInstanceProfileArn(String instanceProfileArn) {
+    this.instanceProfileArn = instanceProfileArn;
+    return this;
+  }
+
+  public String getInstanceProfileArn() {
+    return instanceProfileArn;
   }
 
   public ServedModelOutput setModelName(String modelName) {
@@ -150,6 +163,7 @@ public class ServedModelOutput {
     return Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
         && Objects.equals(environmentVars, that.environmentVars)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
         && Objects.equals(modelName, that.modelName)
         && Objects.equals(modelVersion, that.modelVersion)
         && Objects.equals(name, that.name)
@@ -164,6 +178,7 @@ public class ServedModelOutput {
         creationTimestamp,
         creator,
         environmentVars,
+        instanceProfileArn,
         modelName,
         modelVersion,
         name,
@@ -178,6 +193,7 @@ public class ServedModelOutput {
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)
         .add("environmentVars", environmentVars)
+        .add("instanceProfileArn", instanceProfileArn)
         .add("modelName", modelName)
         .add("modelVersion", modelVersion)
         .add("name", name)

@@ -32,6 +32,26 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
+  public GetWorkspaceObjectPermissionLevelsResponse getWorkspaceObjectPermissionLevels(
+      GetWorkspaceObjectPermissionLevelsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/%s/%s/permissionLevels",
+            request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
+    return apiClient.GET(path, request, GetWorkspaceObjectPermissionLevelsResponse.class);
+  }
+
+  @Override
+  public WorkspaceObjectPermissions getWorkspaceObjectPermissions(
+      GetWorkspaceObjectPermissionsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/%s/%s",
+            request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
+    return apiClient.GET(path, request, WorkspaceObjectPermissions.class);
+  }
+
+  @Override
   public void importContent(Import request) {
     String path = "/api/2.0/workspace/import";
     apiClient.POST(path, request, Void.class);
@@ -50,17 +70,18 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
-  public GetWorkspaceObjectPermissionLevelsResponse permissionLevels(
-      GetWorkspaceObjectPermissionLevelsRequest request) {
+  public WorkspaceObjectPermissions setWorkspaceObjectPermissions(
+      WorkspaceObjectPermissionsRequest request) {
     String path =
         String.format(
-            "/api/2.0/permissions/%s/%s/permissionLevels",
+            "/api/2.0/permissions/%s/%s",
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
-    return apiClient.GET(path, request, GetWorkspaceObjectPermissionLevelsResponse.class);
+    return apiClient.PUT(path, request, WorkspaceObjectPermissions.class);
   }
 
   @Override
-  public WorkspaceObjectPermissions workspaceObjectId(WorkspaceObjectPermissionsRequest request) {
+  public WorkspaceObjectPermissions updateWorkspaceObjectPermissions(
+      WorkspaceObjectPermissionsRequest request) {
     String path =
         String.format(
             "/api/2.0/permissions/%s/%s",
