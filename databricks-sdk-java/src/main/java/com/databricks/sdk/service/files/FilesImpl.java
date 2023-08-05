@@ -27,6 +27,12 @@ class FilesImpl implements FilesService {
   }
 
   @Override
+  public FileInfo getStatus(GetStatusRequest request) {
+    String path = "/api/2.0/fs/get-status";
+    return apiClient.GET(path, request, FileInfo.class);
+  }
+
+  @Override
   public void uploadFile(UploadFileRequest request) {
     String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
     apiClient.PUT(path, request.getBody(), Void.class);

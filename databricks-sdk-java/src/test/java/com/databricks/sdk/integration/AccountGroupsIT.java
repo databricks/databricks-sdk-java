@@ -1,9 +1,9 @@
 package com.databricks.sdk.integration;
 
 import com.databricks.sdk.AccountClient;
-import com.databricks.sdk.integration.framework.CollectionUtils;
-import com.databricks.sdk.integration.framework.EnvContext;
-import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.framework.CollectionUtils;
+import com.databricks.sdk.framework.EnvContext;
+import com.databricks.sdk.framework.EnvTest;
 import com.databricks.sdk.service.iam.Group;
 import com.databricks.sdk.service.iam.ListAccountGroupsRequest;
 import org.junit.jupiter.api.Test;

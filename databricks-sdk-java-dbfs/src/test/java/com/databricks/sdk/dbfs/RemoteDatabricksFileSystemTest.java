@@ -1,29 +1,53 @@
 package com.databricks.sdk.dbfs;
 
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.framework.EnvContext;
 import com.databricks.sdk.framework.EnvTest;
 import java.io.IOException;
-import java.net.URI;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.FileSystem;
-import org.apache.hadoop.fs.LocatedFileStatus;
-import org.apache.hadoop.fs.RemoteIterator;
+
+import org.apache.hadoop.fs.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-@EnvContext("workspace")
+@EnvContext("ucws")
 @ExtendWith(EnvTest.class)
 public class RemoteDatabricksFileSystemTest {
   @Test
-  public void testListDbfsRoot() throws IOException {
-    Configuration c = new Configuration();
-    c.set("fs.dbfs.impl", "com.databricks.sdk.dbfs.RemoteDatabricksFileSystem");
-    FileSystem fs = FileSystem.get(URI.create("dbfs:/"), c);
-    RemoteIterator<LocatedFileStatus> files =
-        fs.listFiles(new org.apache.hadoop.fs.Path("/"), false);
-    while (files.hasNext()) {
-      LocatedFileStatus file = files.next();
-      System.out.println(file.getPath());
+  public void testListDbfsRoot(WorkspaceClient w) throws IOException {
+    //    Configuration c = new Configuration();
+    //    c.set("fs.dbfs.impl", "com.databricks.sdk.dbfs.RemoteDatabricksFileSystem");
+    //    FileSystem fs = FileSystem.get(URI.create("dbfs:/"), c);
+    try (FileSystem fs = new RemoteDatabricksFileSystem(w)) {
+      RemoteIterator<LocatedFileStatus> files =
+          fs.listFiles(new org.apache.hadoop.fs.Path("/Volumes/main/schema/volume/"), true);
+      while (files.hasNext()) {
+        LocatedFileStatus file = files.next();
+        System.out.println(file.getPath());
+      }
+    }
+  }
+
+  @Test
+  public void testFileInUnityCatalog(WorkspaceClient w) throws IOException {
+    //    Configuration c = new Configuration();
+    //    c.set("fs.dbfs.impl", "com.databricks.sdk.dbfs.RemoteDatabricksFileSystem");
+    //    FileSystem fs = FileSystem.get(URI.create("dbfs:/"), c);
+    String basePath = "/Volumes/main/miles/miles-volume/";
+    try (FileSystem fs = new RemoteDatabricksFileSystem(w)) {
+      Path path = new Path(basePath + "test.txt");
+      try (FSDataOutputStream out = fs.create(path)) {
+        out.writeBytes("Hello World!");
+      }
+
+      try (FSDataInputStream in = fs.open(path)) {
+        byte[] buffer = new byte[1024];
+        int bytesRead = in.read(buffer);
+        String retrieved = new String(buffer, 0, bytesRead);
+        Assertions.assertEquals("Hello World!", retrieved);
+      }
+
+      Assertions.assertTrue(fs.delete(path, false));
     }
   }
 }

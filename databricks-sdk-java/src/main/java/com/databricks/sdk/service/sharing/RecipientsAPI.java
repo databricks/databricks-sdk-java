@@ -93,7 +93,7 @@ public class RecipientsAPI {
     return impl.list(request).getRecipients();
   }
 
-  public RecipientInfo rotateToken(long existingTokenExpireInSeconds, String name) {
+  public RecipientInfo rotateToken(Long existingTokenExpireInSeconds, String name) {
     return rotateToken(
         new RotateRecipientToken()
             .setExistingTokenExpireInSeconds(existingTokenExpireInSeconds)

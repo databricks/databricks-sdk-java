@@ -50,6 +50,19 @@ public class FilesAPI {
     return impl.downloadFile(request);
   }
 
+  public FileInfo getStatus(String path) {
+    return getStatus(new GetStatusRequest().setPath(path));
+  }
+
+  /**
+   * Get the status of a file or directory.
+   *
+   * <p>Returns the status of a file or directory.
+   */
+  public FileInfo getStatus(GetStatusRequest request) {
+    return impl.getStatus(request);
+  }
+
   public void uploadFile(String filePath) {
     uploadFile(new UploadFileRequest().setFilePath(filePath));
   }

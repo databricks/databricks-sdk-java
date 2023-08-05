@@ -3,10 +3,10 @@ package com.databricks.sdk.integration;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.WorkspaceClient;
-import com.databricks.sdk.integration.framework.CollectionUtils;
-import com.databricks.sdk.integration.framework.EnvContext;
-import com.databricks.sdk.integration.framework.EnvOrSkip;
-import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.framework.CollectionUtils;
+import com.databricks.sdk.framework.EnvContext;
+import com.databricks.sdk.framework.EnvOrSkip;
+import com.databricks.sdk.framework.EnvTest;
 import com.databricks.sdk.mixin.NodeTypeSelector;
 import com.databricks.sdk.mixin.SparkVersionSelector;
 import com.databricks.sdk.service.compute.ClusterEvent;

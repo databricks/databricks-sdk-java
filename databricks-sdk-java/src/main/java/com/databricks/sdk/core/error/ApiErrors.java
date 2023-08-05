@@ -71,7 +71,7 @@ public class ApiErrors {
       errorBody.setErrorCode(errorCode.replaceAll(" ", "_").toUpperCase());
     }
 
-    Matcher messageMatcher = HTML_ERROR_REGEX.matcher(response.getBody());
+    Matcher messageMatcher = HTML_ERROR_REGEX.matcher(response.getDebugBody());
     if (messageMatcher.find()) {
       errorBody.setMessage(messageMatcher.group(1).replaceAll("^[ .]+|[ .]+$", ""));
     } else {

@@ -38,7 +38,7 @@ public class Request {
     this.method = method;
     this.url = url;
     this.body = body;
-    this.debugBody = "<InputStream>";
+    this.debugBody = "\"<InputStream>\"";
   }
 
   public Request withHeaders(Map<String, String> headers) {

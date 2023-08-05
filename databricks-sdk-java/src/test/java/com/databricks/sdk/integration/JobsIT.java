@@ -1,9 +1,9 @@
 package com.databricks.sdk.integration;
 
 import com.databricks.sdk.WorkspaceClient;
-import com.databricks.sdk.integration.framework.CollectionUtils;
-import com.databricks.sdk.integration.framework.EnvContext;
-import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.framework.CollectionUtils;
+import com.databricks.sdk.framework.EnvContext;
+import com.databricks.sdk.framework.EnvTest;
 import com.databricks.sdk.service.jobs.BaseJob;
 import com.databricks.sdk.service.jobs.ListJobsRequest;
 import org.junit.jupiter.api.Test;

@@ -23,7 +23,7 @@ public class AccountMetastoreAssignmentsAPI {
     impl = mock;
   }
 
-  public void create(long workspaceId, String metastoreId) {
+  public void create(Long workspaceId, String metastoreId) {
     create(
         new AccountsCreateMetastoreAssignment()
             .setWorkspaceId(workspaceId)
@@ -39,7 +39,7 @@ public class AccountMetastoreAssignmentsAPI {
     impl.create(request);
   }
 
-  public void delete(long workspaceId, String metastoreId) {
+  public void delete(Long workspaceId, String metastoreId) {
     delete(
         new DeleteAccountMetastoreAssignmentRequest()
             .setWorkspaceId(workspaceId)
@@ -55,7 +55,7 @@ public class AccountMetastoreAssignmentsAPI {
     impl.delete(request);
   }
 
-  public AccountsMetastoreAssignment get(long workspaceId) {
+  public AccountsMetastoreAssignment get(Long workspaceId) {
     return get(new GetAccountMetastoreAssignmentRequest().setWorkspaceId(workspaceId));
   }
 
@@ -83,7 +83,7 @@ public class AccountMetastoreAssignmentsAPI {
     return impl.list(request);
   }
 
-  public void update(long workspaceId, String metastoreId) {
+  public void update(Long workspaceId, String metastoreId) {
     update(
         new AccountsUpdateMetastoreAssignment()
             .setWorkspaceId(workspaceId)

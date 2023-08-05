@@ -111,7 +111,7 @@ public class IpAccessListsAPI {
       String label,
       ListType listType,
       Collection<String> ipAddresses,
-      boolean enabled,
+      Boolean enabled,
       String ipAccessListId) {
     replace(
         new ReplaceIpAccessList()
@@ -144,7 +144,7 @@ public class IpAccessListsAPI {
       String label,
       ListType listType,
       Collection<String> ipAddresses,
-      boolean enabled,
+      Boolean enabled,
       String ipAccessListId) {
     update(
         new UpdateIpAccessList()

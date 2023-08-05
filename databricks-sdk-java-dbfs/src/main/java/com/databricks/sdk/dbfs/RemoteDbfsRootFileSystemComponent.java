@@ -38,7 +38,8 @@ public class RemoteDbfsRootFileSystemComponent implements DatabricksFileSystemCo
 
   public FSDataInputStream open(Path path, int bufferSize) throws IOException {
     InputStream in = w.dbfs().open(pathResolver.getAbsolutePath(path).toString(), bufferSize);
-    return new FSDataInputStream(in);
+    WrappedInputStream win = new WrappedInputStream(in);
+    return new FSDataInputStream(win);
   }
 
   public FSDataOutputStream create(
@@ -93,22 +94,18 @@ public class RemoteDbfsRootFileSystemComponent implements DatabricksFileSystemCo
   }
 
   public FileStatus[] listStatus(Path path) throws FileNotFoundException, IOException {
-    Iterable<FileInfo> files = w.dbfs().list(pathResolver.getAbsolutePath(path).toString());
+    String pathStr = pathResolver.getAbsolutePath(path).toString();
+    // SC-138918: DBFS errors when listing /Volume
+    if (pathStr.equals("/Volume")) {
+      return new FileStatus[0];
+    }
+    Iterable<FileInfo> files = w.dbfs().list(pathStr);
     List<FileStatus> res = new ArrayList<>();
+    if (files == null) {
+      return new FileStatus[0];
+    }
     for (FileInfo file : files) {
-      Path filePath = pathResolver.getAbsolutePath(file);
-      res.add(
-          new FileStatus(
-              file.getFileSize(),
-              file.getIsDir(),
-              1,
-              0,
-              file.getModificationTime(),
-              0,
-              PERMISSION,
-              "",
-              "",
-              filePath));
+      res.add(pathResolver.fromFileInfo(file));
     }
     return res.toArray(new FileStatus[0]);
   }
@@ -120,27 +117,7 @@ public class RemoteDbfsRootFileSystemComponent implements DatabricksFileSystemCo
   }
 
   public FileStatus getFileStatus(Path path) throws IOException {
-    // Try listing. If there are no results, the file does not exist.
-    Iterable<FileInfo> files = w.dbfs().list(pathResolver.getAbsolutePath(path).toString());
-    FileInfo first = null;
-    for (FileInfo file : files) {
-      if (first == null) {
-        first = file;
-      } else {
-        // If there is more than one file, it is a directory.
-        return new FileStatus(0, true, 1, 0, 0, 0, PERMISSION, "", "", path);
-      }
-    }
-    if (first == null) {
-      throw new FileNotFoundException("File not found: " + path);
-    }
-    if (pathResolver.getAbsolutePath(first).equals(path)) {
-      // If the path matches exactly, it is a file.
-      return new FileStatus(
-          first.getFileSize(), false, 1, 0, first.getModificationTime(), 0, null, "", "", path);
-    } else {
-      // Otherwise, it is a directory.
-      return new FileStatus(0, true, 1, 0, 0, 0, PERMISSION, "", "", path);
-    }
+    FileInfo fileInfo = w.dbfs().getStatus(pathResolver.getAbsolutePath(path).toString());
+    return new FileStatus(0, true, 1, 0, 0, 0, PERMISSION, "", "", path);
   }
 }

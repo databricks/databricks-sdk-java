@@ -1,4 +1,4 @@
-package com.databricks.sdk.integration.framework;
+package com.databricks.sdk.framework;
 
 import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.fail;

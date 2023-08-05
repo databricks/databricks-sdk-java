@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.databricks.sdk.WorkspaceClient;
-import com.databricks.sdk.integration.framework.EnvContext;
-import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.framework.EnvContext;
+import com.databricks.sdk.framework.EnvTest;
 import com.databricks.sdk.service.files.Delete;
 import com.databricks.sdk.service.files.FileInfo;
 import java.io.IOException;

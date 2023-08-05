@@ -47,11 +47,11 @@ public class JobsAPI {
     impl = mock;
   }
 
-  public Run waitGetRunJobTerminatedOrSkipped(long runId) throws TimeoutException {
+  public Run waitGetRunJobTerminatedOrSkipped(Long runId) throws TimeoutException {
     return waitGetRunJobTerminatedOrSkipped(runId, Duration.ofMinutes(20), null);
   }
 
-  public Run waitGetRunJobTerminatedOrSkipped(long runId, Duration timeout, Consumer<Run> callback)
+  public Run waitGetRunJobTerminatedOrSkipped(Long runId, Duration timeout, Consumer<Run> callback)
       throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
     java.util.List<RunLifeCycleState> targetStates =
@@ -97,7 +97,7 @@ public class JobsAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public void cancelAllRuns(long jobId) {
+  public void cancelAllRuns(Long jobId) {
     cancelAllRuns(new CancelAllRuns().setJobId(jobId));
   }
 
@@ -111,7 +111,7 @@ public class JobsAPI {
     impl.cancelAllRuns(request);
   }
 
-  public Wait<Run, Void> cancelRun(long runId) {
+  public Wait<Run, Void> cancelRun(Long runId) {
     return cancelRun(new CancelRun().setRunId(runId));
   }
 
@@ -137,7 +137,7 @@ public class JobsAPI {
     return impl.create(request);
   }
 
-  public void delete(long jobId) {
+  public void delete(Long jobId) {
     delete(new DeleteJob().setJobId(jobId));
   }
 
@@ -150,7 +150,7 @@ public class JobsAPI {
     impl.delete(request);
   }
 
-  public void deleteRun(long runId) {
+  public void deleteRun(Long runId) {
     deleteRun(new DeleteRun().setRunId(runId));
   }
 
@@ -163,7 +163,7 @@ public class JobsAPI {
     impl.deleteRun(request);
   }
 
-  public ExportRunOutput exportRun(long runId) {
+  public ExportRunOutput exportRun(Long runId) {
     return exportRun(new ExportRunRequest().setRunId(runId));
   }
 
@@ -176,7 +176,7 @@ public class JobsAPI {
     return impl.exportRun(request);
   }
 
-  public Job get(long jobId) {
+  public Job get(Long jobId) {
     return get(new GetJobRequest().setJobId(jobId));
   }
 
@@ -216,7 +216,7 @@ public class JobsAPI {
     return impl.getJobPermissions(request);
   }
 
-  public Run getRun(long runId) {
+  public Run getRun(Long runId) {
     return getRun(new GetRunRequest().setRunId(runId));
   }
 
@@ -229,7 +229,7 @@ public class JobsAPI {
     return impl.getRun(request);
   }
 
-  public RunOutput getRunOutput(long runId) {
+  public RunOutput getRunOutput(Long runId) {
     return getRunOutput(new GetRunOutputRequest().setRunId(runId));
   }
 
@@ -288,7 +288,7 @@ public class JobsAPI {
         });
   }
 
-  public Wait<Run, RepairRunResponse> repairRun(long runId) {
+  public Wait<Run, RepairRunResponse> repairRun(Long runId) {
     return repairRun(new RepairRun().setRunId(runId));
   }
 
@@ -306,7 +306,7 @@ public class JobsAPI {
         response);
   }
 
-  public void reset(long jobId, JobSettings newSettings) {
+  public void reset(Long jobId, JobSettings newSettings) {
     reset(new ResetJob().setJobId(jobId).setNewSettings(newSettings));
   }
 
@@ -320,7 +320,7 @@ public class JobsAPI {
     impl.reset(request);
   }
 
-  public Wait<Run, RunNowResponse> runNow(long jobId) {
+  public Wait<Run, RunNowResponse> runNow(Long jobId) {
     return runNow(new RunNow().setJobId(jobId));
   }
 
@@ -365,7 +365,7 @@ public class JobsAPI {
         response);
   }
 
-  public void update(long jobId) {
+  public void update(Long jobId) {
     update(new UpdateJob().setJobId(jobId));
   }
 

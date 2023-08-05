@@ -5,7 +5,7 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +16,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -61,13 +62,15 @@ public class CommonsHttpClient implements HttpClient {
                   Collectors.groupingBy(
                       NameValuePair::getName,
                       Collectors.mapping(NameValuePair::getValue, Collectors.toList())));
-      String body = null;
-      if (entity != null) {
-        try (InputStream inputStream = entity.getContent()) {
-          body = IOUtils.toString(inputStream, Charset.defaultCharset());
-        }
+      if (entity == null) {
+        return new Response(
+            in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, (String) null);
       }
-      return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
+      try (InputStream body = entity.getContent()) {
+        String bodyStr = IOUtils.toString(body, StandardCharsets.UTF_8);
+        return new Response(
+            in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, bodyStr);
+      }
     }
   }
 

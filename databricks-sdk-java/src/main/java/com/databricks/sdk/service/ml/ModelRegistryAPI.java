@@ -29,7 +29,7 @@ public class ModelRegistryAPI {
   }
 
   public ApproveTransitionRequestResponse approveTransitionRequest(
-      String name, String version, Stage stage, boolean archiveExistingVersions) {
+      String name, String version, Stage stage, Boolean archiveExistingVersions) {
     return approveTransitionRequest(
         new ApproveTransitionRequest()
             .setName(name)
@@ -491,7 +491,7 @@ public class ModelRegistryAPI {
   }
 
   public TransitionStageResponse transitionStage(
-      String name, String version, Stage stage, boolean archiveExistingVersions) {
+      String name, String version, Stage stage, Boolean archiveExistingVersions) {
     return transitionStage(
         new TransitionModelVersionStageDatabricks()
             .setName(name)

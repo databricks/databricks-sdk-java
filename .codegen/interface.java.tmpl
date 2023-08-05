@@ -24,3 +24,21 @@ public interface {{.PascalName}}Service {
   {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} {{.Request.CamelName}}{{if .IsNameReserved}}Content{{end}}{{end}});
   {{end}}
 }
+{{- define "type" -}}
+  {{- if not . }}Object /* ERROR */
+  {{- else if .IsEmpty}}Object
+  {{- else if .IsAny}}Object
+  {{- else if .IsString}}String
+  {{- else if .IsBool}}Boolean
+  {{- else if .IsInt64}}Long
+  {{- else if .IsFloat64}}Float
+  {{- else if .IsInt}}Long
+  {{- else if .IsByteArray -}}InputStream
+  {{- else if .ArrayValue }}Collection<{{template "type" .ArrayValue}}>
+  {{- else if .MapValue }}Map<String,{{template "type" .MapValue}}>
+  {{- else if .IsObject }}{{.PascalName}}
+  {{- else if .IsExternal }}com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}
+  {{- else if .Enum }}{{.PascalName}}
+  {{- else}}Object /* MISSING TYPE */
+  {{- end -}}
+{{- end -}}

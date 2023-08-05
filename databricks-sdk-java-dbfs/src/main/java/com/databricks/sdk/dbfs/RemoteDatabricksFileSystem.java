@@ -6,6 +6,7 @@ import com.databricks.sdk.service.files.FileInfo;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
+import org.apache.hadoop.classification.VisibleForTesting;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.fs.permission.FsAction;
@@ -67,10 +68,19 @@ public class RemoteDatabricksFileSystem extends FileSystem implements PathResolv
 
   private DatabricksFileSystemComponentResolver resolver;
 
+  @VisibleForTesting
+  public RemoteDatabricksFileSystem(WorkspaceClient w) throws IOException {
+    // For testing only
+    this.w = w;
+    Configuration c = new Configuration();
+    this.setConf(c);
+    initialize(URI.create(SCHEME + ":/"), c);
+  }
+
   @Override
   public void initialize(URI name, Configuration conf) throws IOException {
     // TODO: Add support for passing in custom configuration (e.g. "databricks.dbfs.KEY")
-    w = new WorkspaceClient();
+    w = w == null ? new WorkspaceClient() : w;
     Statistics statistics = new Statistics(SCHEME);
     workingDirectory = getHomeDirectory();
     resolver =
@@ -78,12 +88,12 @@ public class RemoteDatabricksFileSystem extends FileSystem implements PathResolv
             new RemoteDbfsRootFileSystemComponent(w, statistics, this),
             new DatabricksFileSystemComponentMapping(
                 new RemoteUnityCatalogFileSystemComponent(w, statistics, this),
-                path -> path.toString().startsWith("dbfs:/Volumes")));
+                path -> path.toString().startsWith("/Volumes")));
     super.initialize(name, conf);
   }
 
   private DatabricksFileSystemComponent getFileSystemComponent(Path path) throws IOException {
-    return resolver.resolve(path);
+    return resolver.resolve(getAbsolutePath(path));
   }
 
   @Override
@@ -172,39 +182,34 @@ public class RemoteDatabricksFileSystem extends FileSystem implements PathResolv
 
   @Override
   public FileStatus getFileStatus(Path path) throws IOException {
-    // Try listing. If there are no results, the file does not exist.
-    Iterable<FileInfo> files = w.dbfs().list(getAbsolutePath(path).toString());
-    FileInfo first = null;
-    for (FileInfo file : files) {
-      if (first == null) {
-        first = file;
-      } else {
-        // If there is more than one file, it is a directory.
-        return new FileStatus(0, true, 1, 0, 0, 0, PERMISSION, "", "", path);
-      }
-    }
-    if (first == null) {
-      throw new FileNotFoundException("File not found: " + path);
-    }
-    if (getAbsolutePath(first).equals(path)) {
-      // If the path matches exactly, it is a file.
-      return new FileStatus(
-          first.getFileSize(), false, 1, 0, first.getModificationTime(), 0, null, "", "", path);
-    } else {
-      // Otherwise, it is a directory.
-      return new FileStatus(0, true, 1, 0, 0, 0, PERMISSION, "", "", path);
-    }
+    return getFileSystemComponent(path).getFileStatus(path);
   }
 
   public Path getAbsolutePath(Path path) {
+    // Note: we explicitly strip the scheme from the prefix.
     if (path.isAbsolute()) {
-      return path;
+      return new Path(path.toUri().getPath());
     } else {
       return new Path(getWorkingDirectory(), path);
     }
   }
 
   public Path getAbsolutePath(FileInfo fileInfo) {
-    return new Path(getUri().getScheme(), getUri().getAuthority(), fileInfo.getPath());
+    return new Path(fileInfo.getPath());
+  }
+
+  public FileStatus fromFileInfo(FileInfo file) {
+    Path filePath = getAbsolutePath(file);
+    return new FileStatus(
+        file.getFileSize(),
+        file.getIsDir(),
+        1,
+        0,
+        file.getModificationTime(),
+        0,
+        PERMISSION,
+        "",
+        "",
+        filePath);
   }
 }

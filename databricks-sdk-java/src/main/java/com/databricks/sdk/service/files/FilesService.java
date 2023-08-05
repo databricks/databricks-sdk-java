@@ -28,6 +28,13 @@ public interface FilesService {
   InputStream downloadFile(DownloadFileRequest downloadFileRequest);
 
   /**
+   * Get the status of a file or directory.
+   *
+   * <p>Returns the status of a file or directory.
+   */
+  FileInfo getStatus(GetStatusRequest getStatusRequest);
+
+  /**
    * Upload a file.
    *
    * <p>Uploads a file of up to 2 GiB.

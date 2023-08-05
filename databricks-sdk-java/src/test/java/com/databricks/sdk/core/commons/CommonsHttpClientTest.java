@@ -16,7 +16,7 @@ class CommonsHttpClientTest {
       HttpClient httpClient = new CommonsHttpClient(30);
       Request in = new Request("GET", fixtures.getUrl() + "/foo").withQueryParam("x", "y");
       Response out = httpClient.execute(in);
-      assertEquals("bar", out.getBody().trim());
+      assertEquals("bar", out.getDebugBody().trim());
     }
   }
 }

@@ -37,7 +37,7 @@ public class ServicePrincipalSecretsAPI {
     impl = mock;
   }
 
-  public CreateServicePrincipalSecretResponse create(long servicePrincipalId) {
+  public CreateServicePrincipalSecretResponse create(Long servicePrincipalId) {
     return create(
         new CreateServicePrincipalSecretRequest().setServicePrincipalId(servicePrincipalId));
   }
@@ -51,7 +51,7 @@ public class ServicePrincipalSecretsAPI {
     return impl.create(request);
   }
 
-  public void delete(long servicePrincipalId, String secretId) {
+  public void delete(Long servicePrincipalId, String secretId) {
     delete(
         new DeleteServicePrincipalSecretRequest()
             .setServicePrincipalId(servicePrincipalId)
@@ -67,7 +67,7 @@ public class ServicePrincipalSecretsAPI {
     impl.delete(request);
   }
 
-  public Iterable<SecretInfo> list(long servicePrincipalId) {
+  public Iterable<SecretInfo> list(Long servicePrincipalId) {
     return list(new ListServicePrincipalSecretsRequest().setServicePrincipalId(servicePrincipalId));
   }
 

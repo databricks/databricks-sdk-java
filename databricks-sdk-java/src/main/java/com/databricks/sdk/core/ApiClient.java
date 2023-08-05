@@ -271,18 +271,24 @@ public class ApiClient {
     }
     sb.append("\n< ");
     sb.append(out.toString());
-    for (String line : bodyLogger.redactedDump(out.getBody()).split("\n")) {
+    for (String line : bodyLogger.redactedDump(out.getDebugBody()).split("\n")) {
       sb.append("\n< ");
       sb.append(line);
     }
     return sb.toString();
   }
 
-  public <T> T deserialize(String body, Class<T> target) throws IOException {
+  public <T> T deserialize(InputStream body, Class<T> target) throws IOException {
+    if (target == InputStream.class) {
+      return (T) body;
+    }
     return mapper.readValue(body, target);
   }
 
-  public <T> T deserialize(String body, JavaType target) throws IOException {
+  public <T> T deserialize(InputStream body, JavaType target) throws IOException {
+    if (target.equals(mapper.getTypeFactory().constructType(InputStream.class))) {
+      return (T) body;
+    }
     return mapper.readValue(body, target);
   }
 

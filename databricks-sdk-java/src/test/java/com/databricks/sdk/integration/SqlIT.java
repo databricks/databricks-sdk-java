@@ -1,8 +1,8 @@
 package com.databricks.sdk.integration;
 
 import com.databricks.sdk.WorkspaceClient;
-import com.databricks.sdk.integration.framework.EnvContext;
-import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.framework.EnvContext;
+import com.databricks.sdk.framework.EnvTest;
 import com.databricks.sdk.service.sql.ListQueryHistoryRequest;
 import com.databricks.sdk.service.sql.QueryFilter;
 import com.databricks.sdk.service.sql.QueryInfo;
