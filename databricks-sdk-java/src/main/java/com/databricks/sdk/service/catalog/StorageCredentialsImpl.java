@@ -28,13 +28,13 @@ class StorageCredentialsImpl implements StorageCredentialsService {
   @Override
   public StorageCredentialInfo get(GetStorageCredentialRequest request) {
     String path = String.format("/api/2.1/unity-catalog/storage-credentials/%s", request.getName());
-    return apiClient.GET(path, request, StorageCredentialInfo.class);
+    return apiClient.GET(path, request, StorageCredentialInfo.class, "application/json");
   }
 
   @Override
   public ListStorageCredentialsResponse list() {
     String path = "/api/2.1/unity-catalog/storage-credentials";
-    return apiClient.GET(path, ListStorageCredentialsResponse.class);
+    return apiClient.GET(path, ListStorageCredentialsResponse.class, "application/json");
   }
 
   @Override

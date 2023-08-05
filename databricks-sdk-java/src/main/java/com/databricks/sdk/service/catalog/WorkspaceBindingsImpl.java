@@ -17,7 +17,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
   public CurrentWorkspaceBindings get(GetWorkspaceBindingRequest request) {
     String path =
         String.format("/api/2.1/unity-catalog/workspace-bindings/catalogs/%s", request.getName());
-    return apiClient.GET(path, request, CurrentWorkspaceBindings.class);
+    return apiClient.GET(path, request, CurrentWorkspaceBindings.class, "application/json");
   }
 
   @Override

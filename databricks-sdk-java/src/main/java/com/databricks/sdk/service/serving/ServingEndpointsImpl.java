@@ -19,7 +19,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format(
             "/api/2.0/serving-endpoints/%s/served-models/%s/build-logs",
             request.getName(), request.getServedModelName());
-    return apiClient.GET(path, request, BuildLogsResponse.class);
+    return apiClient.GET(path, request, BuildLogsResponse.class, "application/json");
   }
 
   @Override
@@ -43,7 +43,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   @Override
   public ServingEndpointDetailed get(GetServingEndpointRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
-    return apiClient.GET(path, request, ServingEndpointDetailed.class);
+    return apiClient.GET(path, request, ServingEndpointDetailed.class, "application/json");
   }
 
   @Override
@@ -53,7 +53,8 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format(
             "/api/2.0/permissions/serving-endpoints/%s/permissionLevels",
             request.getServingEndpointId());
-    return apiClient.GET(path, request, GetServingEndpointPermissionLevelsResponse.class);
+    return apiClient.GET(
+        path, request, GetServingEndpointPermissionLevelsResponse.class, "application/json");
   }
 
   @Override
@@ -61,13 +62,13 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       GetServingEndpointPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
-    return apiClient.GET(path, request, ServingEndpointPermissions.class);
+    return apiClient.GET(path, request, ServingEndpointPermissions.class, "application/json");
   }
 
   @Override
   public ListEndpointsResponse list() {
     String path = "/api/2.0/serving-endpoints";
-    return apiClient.GET(path, ListEndpointsResponse.class);
+    return apiClient.GET(path, ListEndpointsResponse.class, "application/json");
   }
 
   @Override
@@ -76,7 +77,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format(
             "/api/2.0/serving-endpoints/%s/served-models/%s/logs",
             request.getName(), request.getServedModelName());
-    return apiClient.GET(path, request, ServerLogsResponse.class);
+    return apiClient.GET(path, request, ServerLogsResponse.class, "application/json");
   }
 
   @Override

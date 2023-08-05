@@ -12,6 +12,7 @@ public class DbfsInputStream extends InputStream {
   private long offset = 0;
   private byte[] buffer;
   private int bufferOffset = 0;
+  private boolean done = false;
 
   public DbfsInputStream(DbfsExt dbfs, String path, long bufferSize) {
     this.dbfs = dbfs;
@@ -21,7 +22,7 @@ public class DbfsInputStream extends InputStream {
 
   @Override
   public int read() {
-    if (buffer == null || bufferOffset >= buffer.length) {
+    if (buffer == null || (bufferOffset >= buffer.length && !done)) {
       // Buffer is exhausted, refill it.
       ReadDbfsRequest request =
           new ReadDbfsRequest().setPath(path).setOffset(offset).setLength(bufferSize);
@@ -29,6 +30,7 @@ public class DbfsInputStream extends InputStream {
       buffer = Base64.getDecoder().decode(response.getData());
       bufferOffset = 0;
       offset += buffer.length;
+      done = buffer.length < bufferSize;
     }
 
     if (bufferOffset >= buffer.length) {

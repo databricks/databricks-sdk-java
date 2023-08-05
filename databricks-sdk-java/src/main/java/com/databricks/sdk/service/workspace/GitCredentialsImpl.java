@@ -28,13 +28,13 @@ class GitCredentialsImpl implements GitCredentialsService {
   @Override
   public CredentialInfo get(GetGitCredentialRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-    return apiClient.GET(path, request, CredentialInfo.class);
+    return apiClient.GET(path, request, CredentialInfo.class, "application/json");
   }
 
   @Override
   public GetCredentialsResponse list() {
     String path = "/api/2.0/git-credentials";
-    return apiClient.GET(path, GetCredentialsResponse.class);
+    return apiClient.GET(path, GetCredentialsResponse.class, "application/json");
   }
 
   @Override

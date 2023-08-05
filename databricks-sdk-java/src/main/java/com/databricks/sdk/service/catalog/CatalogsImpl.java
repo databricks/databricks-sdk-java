@@ -28,13 +28,13 @@ class CatalogsImpl implements CatalogsService {
   @Override
   public CatalogInfo get(GetCatalogRequest request) {
     String path = String.format("/api/2.1/unity-catalog/catalogs/%s", request.getName());
-    return apiClient.GET(path, request, CatalogInfo.class);
+    return apiClient.GET(path, request, CatalogInfo.class, "application/json");
   }
 
   @Override
   public ListCatalogsResponse list() {
     String path = "/api/2.1/unity-catalog/catalogs";
-    return apiClient.GET(path, ListCatalogsResponse.class);
+    return apiClient.GET(path, ListCatalogsResponse.class, "application/json");
   }
 
   @Override

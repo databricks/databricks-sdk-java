@@ -22,13 +22,13 @@ class WorkspaceImpl implements WorkspaceService {
   @Override
   public ExportResponse export(ExportRequest request) {
     String path = "/api/2.0/workspace/export";
-    return apiClient.GET(path, request, ExportResponse.class);
+    return apiClient.GET(path, request, ExportResponse.class, "application/json");
   }
 
   @Override
   public ObjectInfo getStatus(GetStatusRequest request) {
     String path = "/api/2.0/workspace/get-status";
-    return apiClient.GET(path, request, ObjectInfo.class);
+    return apiClient.GET(path, request, ObjectInfo.class, "application/json");
   }
 
   @Override
@@ -38,7 +38,8 @@ class WorkspaceImpl implements WorkspaceService {
         String.format(
             "/api/2.0/permissions/%s/%s/permissionLevels",
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
-    return apiClient.GET(path, request, GetWorkspaceObjectPermissionLevelsResponse.class);
+    return apiClient.GET(
+        path, request, GetWorkspaceObjectPermissionLevelsResponse.class, "application/json");
   }
 
   @Override
@@ -48,7 +49,7 @@ class WorkspaceImpl implements WorkspaceService {
         String.format(
             "/api/2.0/permissions/%s/%s",
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
-    return apiClient.GET(path, request, WorkspaceObjectPermissions.class);
+    return apiClient.GET(path, request, WorkspaceObjectPermissions.class, "application/json");
   }
 
   @Override
@@ -60,7 +61,7 @@ class WorkspaceImpl implements WorkspaceService {
   @Override
   public ListResponse list(ListWorkspaceRequest request) {
     String path = "/api/2.0/workspace/list";
-    return apiClient.GET(path, request, ListResponse.class);
+    return apiClient.GET(path, request, ListResponse.class, "application/json");
   }
 
   @Override

@@ -16,6 +16,6 @@ class CurrentUserImpl implements CurrentUserService {
   @Override
   public User me() {
     String path = "/api/2.0/preview/scim/v2/Me";
-    return apiClient.GET(path, User.class);
+    return apiClient.GET(path, User.class, "application/json");
   }
 }

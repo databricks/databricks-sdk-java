@@ -28,13 +28,13 @@ class IpAccessListsImpl implements IpAccessListsService {
   @Override
   public FetchIpAccessListResponse get(GetIpAccessListRequest request) {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
-    return apiClient.GET(path, request, FetchIpAccessListResponse.class);
+    return apiClient.GET(path, request, FetchIpAccessListResponse.class, "application/json");
   }
 
   @Override
   public GetIpAccessListResponse list() {
     String path = "/api/2.0/ip-access-lists";
-    return apiClient.GET(path, GetIpAccessListResponse.class);
+    return apiClient.GET(path, GetIpAccessListResponse.class, "application/json");
   }
 
   @Override

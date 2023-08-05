@@ -28,13 +28,13 @@ class GroupsImpl implements GroupsService {
   @Override
   public Group get(GetGroupRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
-    return apiClient.GET(path, request, Group.class);
+    return apiClient.GET(path, request, Group.class, "application/json");
   }
 
   @Override
   public ListGroupsResponse list(ListGroupsRequest request) {
     String path = "/api/2.0/preview/scim/v2/Groups";
-    return apiClient.GET(path, request, ListGroupsResponse.class);
+    return apiClient.GET(path, request, ListGroupsResponse.class, "application/json");
   }
 
   @Override

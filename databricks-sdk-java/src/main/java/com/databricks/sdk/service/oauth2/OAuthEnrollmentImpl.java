@@ -24,6 +24,6 @@ class OAuthEnrollmentImpl implements OAuthEnrollmentService {
   public OAuthEnrollmentStatus get() {
     String path =
         String.format("/api/2.0/accounts/%s/oauth2/enrollment", apiClient.configuredAccountID());
-    return apiClient.GET(path, OAuthEnrollmentStatus.class);
+    return apiClient.GET(path, OAuthEnrollmentStatus.class, "application/json");
   }
 }

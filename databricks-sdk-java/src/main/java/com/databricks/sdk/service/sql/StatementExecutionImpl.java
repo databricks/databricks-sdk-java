@@ -28,7 +28,7 @@ class StatementExecutionImpl implements StatementExecutionService {
   @Override
   public GetStatementResponse getStatement(GetStatementRequest request) {
     String path = String.format("/api/2.0/sql/statements/%s", request.getStatementId());
-    return apiClient.GET(path, request, GetStatementResponse.class);
+    return apiClient.GET(path, request, GetStatementResponse.class, "application/json");
   }
 
   @Override
@@ -37,6 +37,6 @@ class StatementExecutionImpl implements StatementExecutionService {
         String.format(
             "/api/2.0/sql/statements/%s/result/chunks/%s",
             request.getStatementId(), request.getChunkIndex());
-    return apiClient.GET(path, request, ResultData.class);
+    return apiClient.GET(path, request, ResultData.class, "application/json");
   }
 }

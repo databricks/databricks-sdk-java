@@ -29,7 +29,7 @@ class AlertsImpl implements AlertsService {
   @Override
   public Alert get(GetAlertRequest request) {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
-    return apiClient.GET(path, request, Alert.class);
+    return apiClient.GET(path, request, Alert.class, "application/json");
   }
 
   @Override

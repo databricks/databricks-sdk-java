@@ -37,7 +37,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.GET(path, request, StorageCredentialInfo.class);
+    return apiClient.GET(path, request, StorageCredentialInfo.class, "application/json");
   }
 
   @Override
@@ -46,7 +46,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.GET(path, request, ListStorageCredentialsResponse.class);
+    return apiClient.GET(path, request, ListStorageCredentialsResponse.class, "application/json");
   }
 
   @Override

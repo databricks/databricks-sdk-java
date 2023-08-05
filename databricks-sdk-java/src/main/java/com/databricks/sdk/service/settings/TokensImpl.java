@@ -28,6 +28,6 @@ class TokensImpl implements TokensService {
   @Override
   public ListTokensResponse list() {
     String path = "/api/2.0/token/list";
-    return apiClient.GET(path, ListTokensResponse.class);
+    return apiClient.GET(path, ListTokensResponse.class, "application/json");
   }
 }

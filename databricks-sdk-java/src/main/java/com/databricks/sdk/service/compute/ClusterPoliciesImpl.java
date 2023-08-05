@@ -34,7 +34,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
   @Override
   public Policy get(GetClusterPolicyRequest request) {
     String path = "/api/2.0/policies/clusters/get";
-    return apiClient.GET(path, request, Policy.class);
+    return apiClient.GET(path, request, Policy.class, "application/json");
   }
 
   @Override
@@ -44,7 +44,8 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
         String.format(
             "/api/2.0/permissions/cluster-policies/%s/permissionLevels",
             request.getClusterPolicyId());
-    return apiClient.GET(path, request, GetClusterPolicyPermissionLevelsResponse.class);
+    return apiClient.GET(
+        path, request, GetClusterPolicyPermissionLevelsResponse.class, "application/json");
   }
 
   @Override
@@ -52,13 +53,13 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
       GetClusterPolicyPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/cluster-policies/%s", request.getClusterPolicyId());
-    return apiClient.GET(path, request, ClusterPolicyPermissions.class);
+    return apiClient.GET(path, request, ClusterPolicyPermissions.class, "application/json");
   }
 
   @Override
   public ListPoliciesResponse list(ListClusterPoliciesRequest request) {
     String path = "/api/2.0/policies/clusters/list";
-    return apiClient.GET(path, request, ListPoliciesResponse.class);
+    return apiClient.GET(path, request, ListPoliciesResponse.class, "application/json");
   }
 
   @Override

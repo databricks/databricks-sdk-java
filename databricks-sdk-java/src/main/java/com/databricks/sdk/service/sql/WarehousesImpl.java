@@ -34,7 +34,7 @@ class WarehousesImpl implements WarehousesService {
   @Override
   public GetWarehouseResponse get(GetWarehouseRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
-    return apiClient.GET(path, request, GetWarehouseResponse.class);
+    return apiClient.GET(path, request, GetWarehouseResponse.class, "application/json");
   }
 
   @Override
@@ -43,25 +43,26 @@ class WarehousesImpl implements WarehousesService {
     String path =
         String.format(
             "/api/2.0/permissions/warehouses/%s/permissionLevels", request.getWarehouseId());
-    return apiClient.GET(path, request, GetWarehousePermissionLevelsResponse.class);
+    return apiClient.GET(
+        path, request, GetWarehousePermissionLevelsResponse.class, "application/json");
   }
 
   @Override
   public WarehousePermissions getWarehousePermissions(GetWarehousePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
-    return apiClient.GET(path, request, WarehousePermissions.class);
+    return apiClient.GET(path, request, WarehousePermissions.class, "application/json");
   }
 
   @Override
   public GetWorkspaceWarehouseConfigResponse getWorkspaceWarehouseConfig() {
     String path = "/api/2.0/sql/config/warehouses";
-    return apiClient.GET(path, GetWorkspaceWarehouseConfigResponse.class);
+    return apiClient.GET(path, GetWorkspaceWarehouseConfigResponse.class, "application/json");
   }
 
   @Override
   public ListWarehousesResponse list(ListWarehousesRequest request) {
     String path = "/api/2.0/sql/warehouses";
-    return apiClient.GET(path, request, ListWarehousesResponse.class);
+    return apiClient.GET(path, request, ListWarehousesResponse.class, "application/json");
   }
 
   @Override

@@ -28,19 +28,19 @@ class ProvidersImpl implements ProvidersService {
   @Override
   public ProviderInfo get(GetProviderRequest request) {
     String path = String.format("/api/2.1/unity-catalog/providers/%s", request.getName());
-    return apiClient.GET(path, request, ProviderInfo.class);
+    return apiClient.GET(path, request, ProviderInfo.class, "application/json");
   }
 
   @Override
   public ListProvidersResponse list(ListProvidersRequest request) {
     String path = "/api/2.1/unity-catalog/providers";
-    return apiClient.GET(path, request, ListProvidersResponse.class);
+    return apiClient.GET(path, request, ListProvidersResponse.class, "application/json");
   }
 
   @Override
   public ListProviderSharesResponse listShares(ListSharesRequest request) {
     String path = String.format("/api/2.1/unity-catalog/providers/%s/shares", request.getName());
-    return apiClient.GET(path, request, ListProviderSharesResponse.class);
+    return apiClient.GET(path, request, ListProviderSharesResponse.class, "application/json");
   }
 
   @Override

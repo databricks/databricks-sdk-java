@@ -28,13 +28,13 @@ class DashboardsImpl implements DashboardsService {
   @Override
   public Dashboard get(GetDashboardRequest request) {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
-    return apiClient.GET(path, request, Dashboard.class);
+    return apiClient.GET(path, request, Dashboard.class, "application/json");
   }
 
   @Override
   public ListResponse list(ListDashboardsRequest request) {
     String path = "/api/2.0/preview/sql/dashboards";
-    return apiClient.GET(path, request, ListResponse.class);
+    return apiClient.GET(path, request, ListResponse.class, "application/json");
   }
 
   @Override

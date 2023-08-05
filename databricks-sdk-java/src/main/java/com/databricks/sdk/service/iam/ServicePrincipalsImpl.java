@@ -28,13 +28,13 @@ class ServicePrincipalsImpl implements ServicePrincipalsService {
   @Override
   public ServicePrincipal get(GetServicePrincipalRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
-    return apiClient.GET(path, request, ServicePrincipal.class);
+    return apiClient.GET(path, request, ServicePrincipal.class, "application/json");
   }
 
   @Override
   public ListServicePrincipalResponse list(ListServicePrincipalsRequest request) {
     String path = "/api/2.0/preview/scim/v2/ServicePrincipals";
-    return apiClient.GET(path, request, ListServicePrincipalResponse.class);
+    return apiClient.GET(path, request, ListServicePrincipalResponse.class, "application/json");
   }
 
   @Override

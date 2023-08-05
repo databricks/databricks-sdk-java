@@ -28,7 +28,7 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/permissionassignments/permissions",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    return apiClient.GET(path, request, WorkspacePermissions.class);
+    return apiClient.GET(path, request, WorkspacePermissions.class, "application/json");
   }
 
   @Override
@@ -37,7 +37,7 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/permissionassignments",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    return apiClient.GET(path, request, PermissionAssignments.class);
+    return apiClient.GET(path, request, PermissionAssignments.class, "application/json");
   }
 
   @Override

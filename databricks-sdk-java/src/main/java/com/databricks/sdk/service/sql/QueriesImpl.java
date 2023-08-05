@@ -28,13 +28,13 @@ class QueriesImpl implements QueriesService {
   @Override
   public Query get(GetQueryRequest request) {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
-    return apiClient.GET(path, request, Query.class);
+    return apiClient.GET(path, request, Query.class, "application/json");
   }
 
   @Override
   public QueryList list(ListQueriesRequest request) {
     String path = "/api/2.0/preview/sql/queries";
-    return apiClient.GET(path, request, QueryList.class);
+    return apiClient.GET(path, request, QueryList.class, "application/json");
   }
 
   @Override

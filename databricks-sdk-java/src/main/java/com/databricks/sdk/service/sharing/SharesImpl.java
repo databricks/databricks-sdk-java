@@ -28,20 +28,24 @@ class SharesImpl implements SharesService {
   @Override
   public ShareInfo get(GetShareRequest request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
-    return apiClient.GET(path, request, ShareInfo.class);
+    return apiClient.GET(path, request, ShareInfo.class, "application/json");
   }
 
   @Override
   public ListSharesResponse list() {
     String path = "/api/2.1/unity-catalog/shares";
-    return apiClient.GET(path, ListSharesResponse.class);
+    return apiClient.GET(path, ListSharesResponse.class, "application/json");
   }
 
   @Override
   public com.databricks.sdk.service.catalog.PermissionsList sharePermissions(
       SharePermissionsRequest request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
-    return apiClient.GET(path, request, com.databricks.sdk.service.catalog.PermissionsList.class);
+    return apiClient.GET(
+        path,
+        request,
+        com.databricks.sdk.service.catalog.PermissionsList.class,
+        "application/json");
   }
 
   @Override

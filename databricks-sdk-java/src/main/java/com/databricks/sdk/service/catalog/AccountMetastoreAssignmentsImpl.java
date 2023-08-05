@@ -38,7 +38,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastore",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    return apiClient.GET(path, request, AccountsMetastoreAssignment.class);
+    return apiClient.GET(path, request, AccountsMetastoreAssignment.class, "application/json");
   }
 
   @Override

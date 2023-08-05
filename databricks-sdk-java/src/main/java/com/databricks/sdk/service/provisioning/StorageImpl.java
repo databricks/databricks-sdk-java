@@ -37,7 +37,7 @@ class StorageImpl implements StorageService {
         String.format(
             "/api/2.0/accounts/%s/storage-configurations/%s",
             apiClient.configuredAccountID(), request.getStorageConfigurationId());
-    return apiClient.GET(path, request, StorageConfiguration.class);
+    return apiClient.GET(path, request, StorageConfiguration.class, "application/json");
   }
 
   @Override

@@ -37,7 +37,7 @@ class EncryptionKeysImpl implements EncryptionKeysService {
         String.format(
             "/api/2.0/accounts/%s/customer-managed-keys/%s",
             apiClient.configuredAccountID(), request.getCustomerManagedKeyId());
-    return apiClient.GET(path, request, CustomerManagedKey.class);
+    return apiClient.GET(path, request, CustomerManagedKey.class, "application/json");
   }
 
   @Override

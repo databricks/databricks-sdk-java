@@ -35,7 +35,7 @@ class NetworksImpl implements NetworksService {
         String.format(
             "/api/2.0/accounts/%s/networks/%s",
             apiClient.configuredAccountID(), request.getNetworkId());
-    return apiClient.GET(path, request, Network.class);
+    return apiClient.GET(path, request, Network.class, "application/json");
   }
 
   @Override

@@ -34,13 +34,13 @@ class AccountMetastoresImpl implements AccountMetastoresService {
         String.format(
             "/api/2.0/accounts/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.GET(path, request, AccountsMetastoreInfo.class);
+    return apiClient.GET(path, request, AccountsMetastoreInfo.class, "application/json");
   }
 
   @Override
   public ListMetastoresResponse list() {
     String path = String.format("/api/2.0/accounts/%s/metastores", apiClient.configuredAccountID());
-    return apiClient.GET(path, ListMetastoresResponse.class);
+    return apiClient.GET(path, ListMetastoresResponse.class, "application/json");
   }
 
   @Override

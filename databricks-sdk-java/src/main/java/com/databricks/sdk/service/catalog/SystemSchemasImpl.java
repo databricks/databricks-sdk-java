@@ -36,6 +36,6 @@ class SystemSchemasImpl implements SystemSchemasService {
     String path =
         String.format(
             "/api/2.1/unity-catalog/metastores/%s/systemschemas", request.getMetastoreId());
-    return apiClient.GET(path, request, ListSystemSchemasResponse.class);
+    return apiClient.GET(path, request, ListSystemSchemasResponse.class, "application/json");
   }
 }

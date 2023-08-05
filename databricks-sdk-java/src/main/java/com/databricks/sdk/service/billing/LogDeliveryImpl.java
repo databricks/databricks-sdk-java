@@ -26,14 +26,14 @@ class LogDeliveryImpl implements LogDeliveryService {
         String.format(
             "/api/2.0/accounts/%s/log-delivery/%s",
             apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
-    return apiClient.GET(path, request, WrappedLogDeliveryConfiguration.class);
+    return apiClient.GET(path, request, WrappedLogDeliveryConfiguration.class, "application/json");
   }
 
   @Override
   public WrappedLogDeliveryConfigurations list(ListLogDeliveryRequest request) {
     String path =
         String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
-    return apiClient.GET(path, request, WrappedLogDeliveryConfigurations.class);
+    return apiClient.GET(path, request, WrappedLogDeliveryConfigurations.class, "application/json");
   }
 
   @Override

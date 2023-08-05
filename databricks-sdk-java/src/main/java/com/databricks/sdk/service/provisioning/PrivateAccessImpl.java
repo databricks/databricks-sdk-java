@@ -37,7 +37,7 @@ class PrivateAccessImpl implements PrivateAccessService {
         String.format(
             "/api/2.0/accounts/%s/private-access-settings/%s",
             apiClient.configuredAccountID(), request.getPrivateAccessSettingsId());
-    return apiClient.GET(path, request, PrivateAccessSettings.class);
+    return apiClient.GET(path, request, PrivateAccessSettings.class, "application/json");
   }
 
   @Override

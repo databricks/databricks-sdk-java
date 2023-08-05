@@ -101,20 +101,21 @@ class ModelRegistryImpl implements ModelRegistryService {
   @Override
   public GetModelResponse getModel(GetModelRequest request) {
     String path = "/api/2.0/mlflow/databricks/registered-models/get";
-    return apiClient.GET(path, request, GetModelResponse.class);
+    return apiClient.GET(path, request, GetModelResponse.class, "application/json");
   }
 
   @Override
   public GetModelVersionResponse getModelVersion(GetModelVersionRequest request) {
     String path = "/api/2.0/mlflow/model-versions/get";
-    return apiClient.GET(path, request, GetModelVersionResponse.class);
+    return apiClient.GET(path, request, GetModelVersionResponse.class, "application/json");
   }
 
   @Override
   public GetModelVersionDownloadUriResponse getModelVersionDownloadUri(
       GetModelVersionDownloadUriRequest request) {
     String path = "/api/2.0/mlflow/model-versions/get-download-uri";
-    return apiClient.GET(path, request, GetModelVersionDownloadUriResponse.class);
+    return apiClient.GET(
+        path, request, GetModelVersionDownloadUriResponse.class, "application/json");
   }
 
   @Override
@@ -124,7 +125,8 @@ class ModelRegistryImpl implements ModelRegistryService {
         String.format(
             "/api/2.0/permissions/registered-models/%s/permissionLevels",
             request.getRegisteredModelId());
-    return apiClient.GET(path, request, GetRegisteredModelPermissionLevelsResponse.class);
+    return apiClient.GET(
+        path, request, GetRegisteredModelPermissionLevelsResponse.class, "application/json");
   }
 
   @Override
@@ -132,26 +134,26 @@ class ModelRegistryImpl implements ModelRegistryService {
       GetRegisteredModelPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
-    return apiClient.GET(path, request, RegisteredModelPermissions.class);
+    return apiClient.GET(path, request, RegisteredModelPermissions.class, "application/json");
   }
 
   @Override
   public ListModelsResponse listModels(ListModelsRequest request) {
     String path = "/api/2.0/mlflow/registered-models/list";
-    return apiClient.GET(path, request, ListModelsResponse.class);
+    return apiClient.GET(path, request, ListModelsResponse.class, "application/json");
   }
 
   @Override
   public ListTransitionRequestsResponse listTransitionRequests(
       ListTransitionRequestsRequest request) {
     String path = "/api/2.0/mlflow/transition-requests/list";
-    return apiClient.GET(path, request, ListTransitionRequestsResponse.class);
+    return apiClient.GET(path, request, ListTransitionRequestsResponse.class, "application/json");
   }
 
   @Override
   public ListRegistryWebhooks listWebhooks(ListWebhooksRequest request) {
     String path = "/api/2.0/mlflow/registry-webhooks/list";
-    return apiClient.GET(path, request, ListRegistryWebhooks.class);
+    return apiClient.GET(path, request, ListRegistryWebhooks.class, "application/json");
   }
 
   @Override
@@ -169,13 +171,13 @@ class ModelRegistryImpl implements ModelRegistryService {
   @Override
   public SearchModelVersionsResponse searchModelVersions(SearchModelVersionsRequest request) {
     String path = "/api/2.0/mlflow/model-versions/search";
-    return apiClient.GET(path, request, SearchModelVersionsResponse.class);
+    return apiClient.GET(path, request, SearchModelVersionsResponse.class, "application/json");
   }
 
   @Override
   public SearchModelsResponse searchModels(SearchModelsRequest request) {
     String path = "/api/2.0/mlflow/registered-models/search";
-    return apiClient.GET(path, request, SearchModelsResponse.class);
+    return apiClient.GET(path, request, SearchModelsResponse.class, "application/json");
   }
 
   @Override

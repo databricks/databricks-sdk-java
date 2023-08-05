@@ -30,7 +30,7 @@ class AccountNetworkPolicyImpl implements AccountNetworkPolicyService {
         String.format(
             "/api/2.0/accounts/%s/settings/types/network_policy/names/default",
             apiClient.configuredAccountID());
-    return apiClient.GET(path, request, AccountNetworkPolicyMessage.class);
+    return apiClient.GET(path, request, AccountNetworkPolicyMessage.class, "application/json");
   }
 
   @Override

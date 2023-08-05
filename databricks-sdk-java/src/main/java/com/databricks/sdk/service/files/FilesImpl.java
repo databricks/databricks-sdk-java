@@ -23,13 +23,13 @@ class FilesImpl implements FilesService {
   @Override
   public InputStream downloadFile(DownloadFileRequest request) {
     String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
-    return apiClient.GET(path, request, InputStream.class);
+    return apiClient.GET(path, request, InputStream.class, "application/octet-stream");
   }
 
   @Override
   public FileInfo getStatus(GetStatusRequest request) {
     String path = "/api/2.0/fs/get-status";
-    return apiClient.GET(path, request, FileInfo.class);
+    return apiClient.GET(path, request, FileInfo.class, "application/json");
   }
 
   @Override

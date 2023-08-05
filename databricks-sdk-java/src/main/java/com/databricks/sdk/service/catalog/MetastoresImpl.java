@@ -29,7 +29,7 @@ class MetastoresImpl implements MetastoresService {
   @Override
   public MetastoreAssignment current() {
     String path = "/api/2.1/unity-catalog/current-metastore-assignment";
-    return apiClient.GET(path, MetastoreAssignment.class);
+    return apiClient.GET(path, MetastoreAssignment.class, "application/json");
   }
 
   @Override
@@ -48,19 +48,19 @@ class MetastoresImpl implements MetastoresService {
   @Override
   public MetastoreInfo get(GetMetastoreRequest request) {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
-    return apiClient.GET(path, request, MetastoreInfo.class);
+    return apiClient.GET(path, request, MetastoreInfo.class, "application/json");
   }
 
   @Override
   public ListMetastoresResponse list() {
     String path = "/api/2.1/unity-catalog/metastores";
-    return apiClient.GET(path, ListMetastoresResponse.class);
+    return apiClient.GET(path, ListMetastoresResponse.class, "application/json");
   }
 
   @Override
   public GetMetastoreSummaryResponse summary() {
     String path = "/api/2.1/unity-catalog/metastore_summary";
-    return apiClient.GET(path, GetMetastoreSummaryResponse.class);
+    return apiClient.GET(path, GetMetastoreSummaryResponse.class, "application/json");
   }
 
   @Override

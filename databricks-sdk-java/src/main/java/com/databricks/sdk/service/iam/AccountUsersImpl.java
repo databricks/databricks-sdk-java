@@ -35,14 +35,14 @@ class AccountUsersImpl implements AccountUsersService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Users/%s",
             apiClient.configuredAccountID(), request.getId());
-    return apiClient.GET(path, request, User.class);
+    return apiClient.GET(path, request, User.class, "application/json");
   }
 
   @Override
   public ListUsersResponse list(ListAccountUsersRequest request) {
     String path =
         String.format("/api/2.0/accounts/%s/scim/v2/Users", apiClient.configuredAccountID());
-    return apiClient.GET(path, request, ListUsersResponse.class);
+    return apiClient.GET(path, request, ListUsersResponse.class, "application/json");
   }
 
   @Override

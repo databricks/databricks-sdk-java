@@ -35,14 +35,14 @@ class AccountGroupsImpl implements AccountGroupsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
-    return apiClient.GET(path, request, Group.class);
+    return apiClient.GET(path, request, Group.class, "application/json");
   }
 
   @Override
   public ListGroupsResponse list(ListAccountGroupsRequest request) {
     String path =
         String.format("/api/2.0/accounts/%s/scim/v2/Groups", apiClient.configuredAccountID());
-    return apiClient.GET(path, request, ListGroupsResponse.class);
+    return apiClient.GET(path, request, ListGroupsResponse.class, "application/json");
   }
 
   @Override

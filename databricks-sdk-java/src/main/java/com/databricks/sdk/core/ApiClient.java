@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Random;
@@ -26,6 +27,24 @@ import org.slf4j.LoggerFactory;
  * guessing
  */
 public class ApiClient {
+  static class SerializedRequest {
+    private final InputStream body;
+    private final String debugBody;
+
+    public SerializedRequest(InputStream body, String debugBody) {
+      this.body = body;
+      this.debugBody = debugBody;
+    }
+
+    public InputStream getBody() {
+      return body;
+    }
+
+    public String getDebugBody() {
+      return debugBody;
+    }
+  }
+
   private static final Logger LOG = LoggerFactory.getLogger(ApiClient.class);
 
   private final int maxAttempts;
@@ -122,6 +141,10 @@ public class ApiClient {
     return GET(path, null, target);
   }
 
+  public <O> O GET(String path, Class<O> target, String accept) {
+    return GET(path, null, target, accept);
+  }
+
   public <I, O> O GET(String path, I in, Class<O> target) {
     try {
       return execute(withQuery(new Request("GET", path), in), target);
@@ -130,9 +153,20 @@ public class ApiClient {
     }
   }
 
+  public <I, O> O GET(String path, I in, Class<O> target, String accept) {
+    try {
+      Request r = new Request("GET", path);
+      r.setAccept(accept);
+      return execute(withQuery(r, in), target);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
   public <I, O> O POST(String path, I in, Class<O> target) {
     try {
-      return execute(new Request("POST", path, serialize(in)), target);
+      SerializedRequest sr = serialize(in);
+      return execute(new Request("POST", path, sr.getBody(), sr.getDebugBody()), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -140,7 +174,8 @@ public class ApiClient {
 
   public <I, O> O PUT(String path, I in, Class<O> target) {
     try {
-      return execute(new Request("PUT", path, serialize(in)), target);
+      SerializedRequest sr = serialize(in);
+      return execute(new Request("PUT", path, sr.getBody(), sr.getDebugBody()), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -148,7 +183,8 @@ public class ApiClient {
 
   public <I, O> O PATCH(String path, I in, Class<O> target) {
     try {
-      return execute(new Request("PATCH", path, serialize(in)), target);
+      SerializedRequest sr = serialize(in);
+      return execute(new Request("PATCH", path, sr.getBody(), sr.getDebugBody()), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -179,7 +215,7 @@ public class ApiClient {
 
   private Response getResponse(Request in) {
     in.withUrl(config.getHost() + in.getUrl());
-    in.withHeader("Accept", "application/json");
+    in.withHeader("Accept", in.getAccept());
     return executeInner(in);
   }
 
@@ -292,13 +328,15 @@ public class ApiClient {
     return mapper.readValue(body, target);
   }
 
-  private InputStream serialize(Object body) throws JsonProcessingException {
+  private SerializedRequest serialize(Object body) throws JsonProcessingException {
     if (body == null) {
       return null;
     }
     if (body instanceof InputStream) {
-      return (InputStream) body;
+      return new SerializedRequest((InputStream) body, "<InputStream>");
     }
-    return new ByteArrayInputStream(mapper.writeValueAsBytes(body));
+    String bodyStr = mapper.writeValueAsString(body);
+    return new SerializedRequest(
+        new ByteArrayInputStream(bodyStr.getBytes(StandardCharsets.UTF_8)), bodyStr);
   }
 }

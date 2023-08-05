@@ -28,13 +28,14 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
   @Override
   public GlobalInitScriptDetailsWithContent get(GetGlobalInitScriptRequest request) {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
-    return apiClient.GET(path, request, GlobalInitScriptDetailsWithContent.class);
+    return apiClient.GET(
+        path, request, GlobalInitScriptDetailsWithContent.class, "application/json");
   }
 
   @Override
   public ListGlobalInitScriptsResponse list() {
     String path = "/api/2.0/global-init-scripts";
-    return apiClient.GET(path, ListGlobalInitScriptsResponse.class);
+    return apiClient.GET(path, ListGlobalInitScriptsResponse.class, "application/json");
   }
 
   @Override

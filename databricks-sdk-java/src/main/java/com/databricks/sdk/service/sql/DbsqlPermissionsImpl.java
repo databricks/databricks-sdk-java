@@ -19,7 +19,7 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
         String.format(
             "/api/2.0/preview/sql/permissions/%s/%s",
             request.getObjectType(), request.getObjectId());
-    return apiClient.GET(path, request, GetResponse.class);
+    return apiClient.GET(path, request, GetResponse.class, "application/json");
   }
 
   @Override

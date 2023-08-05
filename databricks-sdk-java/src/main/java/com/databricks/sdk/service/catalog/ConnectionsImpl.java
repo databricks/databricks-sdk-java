@@ -28,13 +28,13 @@ class ConnectionsImpl implements ConnectionsService {
   @Override
   public ConnectionInfo get(GetConnectionRequest request) {
     String path = String.format("/api/2.1/unity-catalog/connections/%s", request.getNameArg());
-    return apiClient.GET(path, request, ConnectionInfo.class);
+    return apiClient.GET(path, request, ConnectionInfo.class, "application/json");
   }
 
   @Override
   public ListConnectionsResponse list() {
     String path = "/api/2.1/unity-catalog/connections";
-    return apiClient.GET(path, ListConnectionsResponse.class);
+    return apiClient.GET(path, ListConnectionsResponse.class, "application/json");
   }
 
   @Override

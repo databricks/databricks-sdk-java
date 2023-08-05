@@ -34,13 +34,13 @@ class BudgetsImpl implements BudgetsService {
         String.format(
             "/api/2.0/accounts/%s/budget/%s",
             apiClient.configuredAccountID(), request.getBudgetId());
-    return apiClient.GET(path, request, WrappedBudgetWithStatus.class);
+    return apiClient.GET(path, request, WrappedBudgetWithStatus.class, "application/json");
   }
 
   @Override
   public BudgetList list() {
     String path = String.format("/api/2.0/accounts/%s/budget", apiClient.configuredAccountID());
-    return apiClient.GET(path, BudgetList.class);
+    return apiClient.GET(path, BudgetList.class, "application/json");
   }
 
   @Override

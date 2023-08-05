@@ -20,7 +20,8 @@ class AccountAccessControlImpl implements AccountAccessControlService {
         String.format(
             "/api/2.0/preview/accounts/%s/access-control/assignable-roles",
             apiClient.configuredAccountID());
-    return apiClient.GET(path, request, GetAssignableRolesForResourceResponse.class);
+    return apiClient.GET(
+        path, request, GetAssignableRolesForResourceResponse.class, "application/json");
   }
 
   @Override
@@ -29,7 +30,7 @@ class AccountAccessControlImpl implements AccountAccessControlService {
         String.format(
             "/api/2.0/preview/accounts/%s/access-control/rule-sets",
             apiClient.configuredAccountID());
-    return apiClient.GET(path, request, RuleSetResponse.class);
+    return apiClient.GET(path, request, RuleSetResponse.class, "application/json");
   }
 
   @Override

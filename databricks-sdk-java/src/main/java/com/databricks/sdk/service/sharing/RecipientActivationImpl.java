@@ -27,6 +27,6 @@ class RecipientActivationImpl implements RecipientActivationService {
     String path =
         String.format(
             "/api/2.1/unity-catalog/public/data_sharing_activation/%s", request.getActivationUrl());
-    return apiClient.GET(path, request, RetrieveTokenResponse.class);
+    return apiClient.GET(path, request, RetrieveTokenResponse.class, "application/json");
   }
 }

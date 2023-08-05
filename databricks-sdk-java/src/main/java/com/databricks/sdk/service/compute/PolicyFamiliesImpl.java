@@ -16,12 +16,12 @@ class PolicyFamiliesImpl implements PolicyFamiliesService {
   @Override
   public PolicyFamily get(GetPolicyFamilyRequest request) {
     String path = String.format("/api/2.0/policy-families/%s", request.getPolicyFamilyId());
-    return apiClient.GET(path, request, PolicyFamily.class);
+    return apiClient.GET(path, request, PolicyFamily.class, "application/json");
   }
 
   @Override
   public ListPolicyFamiliesResponse list(ListPolicyFamiliesRequest request) {
     String path = "/api/2.0/policy-families";
-    return apiClient.GET(path, request, ListPolicyFamiliesResponse.class);
+    return apiClient.GET(path, request, ListPolicyFamiliesResponse.class, "application/json");
   }
 }

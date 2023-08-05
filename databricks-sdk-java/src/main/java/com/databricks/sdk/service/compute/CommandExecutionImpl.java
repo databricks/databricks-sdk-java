@@ -22,13 +22,13 @@ class CommandExecutionImpl implements CommandExecutionService {
   @Override
   public CommandStatusResponse commandStatus(CommandStatusRequest request) {
     String path = "/api/1.2/commands/status";
-    return apiClient.GET(path, request, CommandStatusResponse.class);
+    return apiClient.GET(path, request, CommandStatusResponse.class, "application/json");
   }
 
   @Override
   public ContextStatusResponse contextStatus(ContextStatusRequest request) {
     String path = "/api/1.2/contexts/status";
-    return apiClient.GET(path, request, ContextStatusResponse.class);
+    return apiClient.GET(path, request, ContextStatusResponse.class, "application/json");
   }
 
   @Override

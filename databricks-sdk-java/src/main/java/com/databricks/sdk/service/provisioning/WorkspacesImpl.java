@@ -35,7 +35,7 @@ class WorkspacesImpl implements WorkspacesService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    return apiClient.GET(path, request, Workspace.class);
+    return apiClient.GET(path, request, Workspace.class, "application/json");
   }
 
   @Override

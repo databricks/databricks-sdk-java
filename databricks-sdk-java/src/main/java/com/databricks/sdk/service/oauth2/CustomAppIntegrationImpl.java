@@ -36,7 +36,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
-    return apiClient.GET(path, request, GetCustomAppIntegrationOutput.class);
+    return apiClient.GET(path, request, GetCustomAppIntegrationOutput.class, "application/json");
   }
 
   @Override
@@ -44,7 +44,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations", apiClient.configuredAccountID());
-    return apiClient.GET(path, GetCustomAppIntegrationsOutput.class);
+    return apiClient.GET(path, GetCustomAppIntegrationsOutput.class, "application/json");
   }
 
   @Override

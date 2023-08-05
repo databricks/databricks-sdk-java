@@ -16,6 +16,6 @@ class QueryHistoryImpl implements QueryHistoryService {
   @Override
   public ListQueriesResponse list(ListQueryHistoryRequest request) {
     String path = "/api/2.0/sql/history/queries";
-    return apiClient.GET(path, request, ListQueriesResponse.class);
+    return apiClient.GET(path, request, ListQueriesResponse.class, "application/json");
   }
 }

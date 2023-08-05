@@ -36,7 +36,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
-    return apiClient.GET(path, request, ServicePrincipal.class);
+    return apiClient.GET(path, request, ServicePrincipal.class, "application/json");
   }
 
   @Override
@@ -44,7 +44,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals", apiClient.configuredAccountID());
-    return apiClient.GET(path, request, ListServicePrincipalResponse.class);
+    return apiClient.GET(path, request, ListServicePrincipalResponse.class, "application/json");
   }
 
   @Override

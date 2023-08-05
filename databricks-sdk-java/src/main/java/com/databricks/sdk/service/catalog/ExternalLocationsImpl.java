@@ -28,13 +28,13 @@ class ExternalLocationsImpl implements ExternalLocationsService {
   @Override
   public ExternalLocationInfo get(GetExternalLocationRequest request) {
     String path = String.format("/api/2.1/unity-catalog/external-locations/%s", request.getName());
-    return apiClient.GET(path, request, ExternalLocationInfo.class);
+    return apiClient.GET(path, request, ExternalLocationInfo.class, "application/json");
   }
 
   @Override
   public ListExternalLocationsResponse list() {
     String path = "/api/2.1/unity-catalog/external-locations";
-    return apiClient.GET(path, ListExternalLocationsResponse.class);
+    return apiClient.GET(path, ListExternalLocationsResponse.class, "application/json");
   }
 
   @Override

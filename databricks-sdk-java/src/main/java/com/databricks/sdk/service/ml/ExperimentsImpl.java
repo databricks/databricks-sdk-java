@@ -46,13 +46,13 @@ class ExperimentsImpl implements ExperimentsService {
   @Override
   public GetExperimentByNameResponse getByName(GetByNameRequest request) {
     String path = "/api/2.0/mlflow/experiments/get-by-name";
-    return apiClient.GET(path, request, GetExperimentByNameResponse.class);
+    return apiClient.GET(path, request, GetExperimentByNameResponse.class, "application/json");
   }
 
   @Override
   public Experiment getExperiment(GetExperimentRequest request) {
     String path = "/api/2.0/mlflow/experiments/get";
-    return apiClient.GET(path, request, Experiment.class);
+    return apiClient.GET(path, request, Experiment.class, "application/json");
   }
 
   @Override
@@ -61,37 +61,38 @@ class ExperimentsImpl implements ExperimentsService {
     String path =
         String.format(
             "/api/2.0/permissions/experiments/%s/permissionLevels", request.getExperimentId());
-    return apiClient.GET(path, request, GetExperimentPermissionLevelsResponse.class);
+    return apiClient.GET(
+        path, request, GetExperimentPermissionLevelsResponse.class, "application/json");
   }
 
   @Override
   public ExperimentPermissions getExperimentPermissions(GetExperimentPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
-    return apiClient.GET(path, request, ExperimentPermissions.class);
+    return apiClient.GET(path, request, ExperimentPermissions.class, "application/json");
   }
 
   @Override
   public GetMetricHistoryResponse getHistory(GetHistoryRequest request) {
     String path = "/api/2.0/mlflow/metrics/get-history";
-    return apiClient.GET(path, request, GetMetricHistoryResponse.class);
+    return apiClient.GET(path, request, GetMetricHistoryResponse.class, "application/json");
   }
 
   @Override
   public GetRunResponse getRun(GetRunRequest request) {
     String path = "/api/2.0/mlflow/runs/get";
-    return apiClient.GET(path, request, GetRunResponse.class);
+    return apiClient.GET(path, request, GetRunResponse.class, "application/json");
   }
 
   @Override
   public ListArtifactsResponse listArtifacts(ListArtifactsRequest request) {
     String path = "/api/2.0/mlflow/artifacts/list";
-    return apiClient.GET(path, request, ListArtifactsResponse.class);
+    return apiClient.GET(path, request, ListArtifactsResponse.class, "application/json");
   }
 
   @Override
   public ListExperimentsResponse listExperiments(ListExperimentsRequest request) {
     String path = "/api/2.0/mlflow/experiments/list";
-    return apiClient.GET(path, request, ListExperimentsResponse.class);
+    return apiClient.GET(path, request, ListExperimentsResponse.class, "application/json");
   }
 
   @Override

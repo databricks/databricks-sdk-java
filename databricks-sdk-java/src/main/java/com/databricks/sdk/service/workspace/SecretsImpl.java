@@ -40,25 +40,25 @@ class SecretsImpl implements SecretsService {
   @Override
   public AclItem getAcl(GetAclRequest request) {
     String path = "/api/2.0/secrets/acls/get";
-    return apiClient.GET(path, request, AclItem.class);
+    return apiClient.GET(path, request, AclItem.class, "application/json");
   }
 
   @Override
   public ListAclsResponse listAcls(ListAclsRequest request) {
     String path = "/api/2.0/secrets/acls/list";
-    return apiClient.GET(path, request, ListAclsResponse.class);
+    return apiClient.GET(path, request, ListAclsResponse.class, "application/json");
   }
 
   @Override
   public ListScopesResponse listScopes() {
     String path = "/api/2.0/secrets/scopes/list";
-    return apiClient.GET(path, ListScopesResponse.class);
+    return apiClient.GET(path, ListScopesResponse.class, "application/json");
   }
 
   @Override
   public ListSecretsResponse listSecrets(ListSecretsRequest request) {
     String path = "/api/2.0/secrets/list";
-    return apiClient.GET(path, request, ListSecretsResponse.class);
+    return apiClient.GET(path, request, ListSecretsResponse.class, "application/json");
   }
 
   @Override

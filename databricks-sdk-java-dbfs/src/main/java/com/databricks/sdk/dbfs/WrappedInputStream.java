@@ -1,13 +1,13 @@
 package com.databricks.sdk.dbfs;
 
-import org.apache.hadoop.fs.FSInputStream;
-
 import java.io.IOException;
 import java.io.InputStream;
+import org.apache.hadoop.fs.FSInputStream;
 
 public class WrappedInputStream extends FSInputStream {
   private final InputStream in;
   private int position = 0;
+
   public WrappedInputStream(InputStream in) {
     this.in = in;
   }

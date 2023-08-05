@@ -28,13 +28,13 @@ class FunctionsImpl implements FunctionsService {
   @Override
   public FunctionInfo get(GetFunctionRequest request) {
     String path = String.format("/api/2.1/unity-catalog/functions/%s", request.getName());
-    return apiClient.GET(path, request, FunctionInfo.class);
+    return apiClient.GET(path, request, FunctionInfo.class, "application/json");
   }
 
   @Override
   public ListFunctionsResponse list(ListFunctionsRequest request) {
     String path = "/api/2.1/unity-catalog/functions";
-    return apiClient.GET(path, request, ListFunctionsResponse.class);
+    return apiClient.GET(path, request, ListFunctionsResponse.class, "application/json");
   }
 
   @Override

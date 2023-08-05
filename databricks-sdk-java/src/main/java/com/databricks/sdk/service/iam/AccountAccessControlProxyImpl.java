@@ -17,13 +17,14 @@ class AccountAccessControlProxyImpl implements AccountAccessControlProxyService 
   public GetAssignableRolesForResourceResponse getAssignableRolesForResource(
       GetAssignableRolesForResourceRequest request) {
     String path = "/api/2.0/preview/accounts/access-control/assignable-roles";
-    return apiClient.GET(path, request, GetAssignableRolesForResourceResponse.class);
+    return apiClient.GET(
+        path, request, GetAssignableRolesForResourceResponse.class, "application/json");
   }
 
   @Override
   public RuleSetResponse getRuleSet(GetRuleSetRequest request) {
     String path = "/api/2.0/preview/accounts/access-control/rule-sets";
-    return apiClient.GET(path, request, RuleSetResponse.class);
+    return apiClient.GET(path, request, RuleSetResponse.class, "application/json");
   }
 
   @Override

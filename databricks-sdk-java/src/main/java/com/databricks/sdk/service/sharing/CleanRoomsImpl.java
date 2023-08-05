@@ -28,13 +28,13 @@ class CleanRoomsImpl implements CleanRoomsService {
   @Override
   public CleanRoomInfo get(GetCleanRoomRequest request) {
     String path = String.format("/api/2.1/unity-catalog/clean-rooms/%s", request.getNameArg());
-    return apiClient.GET(path, request, CleanRoomInfo.class);
+    return apiClient.GET(path, request, CleanRoomInfo.class, "application/json");
   }
 
   @Override
   public ListCleanRoomsResponse list() {
     String path = "/api/2.1/unity-catalog/clean-rooms";
-    return apiClient.GET(path, ListCleanRoomsResponse.class);
+    return apiClient.GET(path, ListCleanRoomsResponse.class, "application/json");
   }
 
   @Override

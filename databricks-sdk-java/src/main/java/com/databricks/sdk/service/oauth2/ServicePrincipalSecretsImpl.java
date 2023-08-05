@@ -39,6 +39,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
         String.format(
             "/api/2.0/accounts/%s/servicePrincipals/%s/credentials/secrets",
             apiClient.configuredAccountID(), request.getServicePrincipalId());
-    return apiClient.GET(path, request, ListServicePrincipalSecretsResponse.class);
+    return apiClient.GET(
+        path, request, ListServicePrincipalSecretsResponse.class, "application/json");
   }
 }

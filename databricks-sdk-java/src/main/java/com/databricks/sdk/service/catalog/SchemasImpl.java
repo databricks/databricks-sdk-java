@@ -28,13 +28,13 @@ class SchemasImpl implements SchemasService {
   @Override
   public SchemaInfo get(GetSchemaRequest request) {
     String path = String.format("/api/2.1/unity-catalog/schemas/%s", request.getFullName());
-    return apiClient.GET(path, request, SchemaInfo.class);
+    return apiClient.GET(path, request, SchemaInfo.class, "application/json");
   }
 
   @Override
   public ListSchemasResponse list(ListSchemasRequest request) {
     String path = "/api/2.1/unity-catalog/schemas";
-    return apiClient.GET(path, request, ListSchemasResponse.class);
+    return apiClient.GET(path, request, ListSchemasResponse.class, "application/json");
   }
 
   @Override

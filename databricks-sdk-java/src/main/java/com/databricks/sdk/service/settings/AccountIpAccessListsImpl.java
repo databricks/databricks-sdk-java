@@ -36,7 +36,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
-    return apiClient.GET(path, request, GetIpAccessListResponse.class);
+    return apiClient.GET(path, request, GetIpAccessListResponse.class, "application/json");
   }
 
   @Override
@@ -44,7 +44,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     String path =
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
-    return apiClient.GET(path, GetIpAccessListsResponse.class);
+    return apiClient.GET(path, GetIpAccessListsResponse.class, "application/json");
   }
 
   @Override

@@ -28,13 +28,13 @@ class VolumesImpl implements VolumesService {
   @Override
   public ListVolumesResponseContent list(ListVolumesRequest request) {
     String path = "/api/2.1/unity-catalog/volumes";
-    return apiClient.GET(path, request, ListVolumesResponseContent.class);
+    return apiClient.GET(path, request, ListVolumesResponseContent.class, "application/json");
   }
 
   @Override
   public VolumeInfo read(ReadVolumeRequest request) {
     String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getFullNameArg());
-    return apiClient.GET(path, request, VolumeInfo.class);
+    return apiClient.GET(path, request, VolumeInfo.class, "application/json");
   }
 
   @Override

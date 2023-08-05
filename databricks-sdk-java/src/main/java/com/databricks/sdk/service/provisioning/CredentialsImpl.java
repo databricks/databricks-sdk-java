@@ -36,7 +36,7 @@ class CredentialsImpl implements CredentialsService {
         String.format(
             "/api/2.0/accounts/%s/credentials/%s",
             apiClient.configuredAccountID(), request.getCredentialsId());
-    return apiClient.GET(path, request, Credential.class);
+    return apiClient.GET(path, request, Credential.class, "application/json");
   }
 
   @Override

@@ -28,13 +28,13 @@ class RecipientsImpl implements RecipientsService {
   @Override
   public RecipientInfo get(GetRecipientRequest request) {
     String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
-    return apiClient.GET(path, request, RecipientInfo.class);
+    return apiClient.GET(path, request, RecipientInfo.class, "application/json");
   }
 
   @Override
   public ListRecipientsResponse list(ListRecipientsRequest request) {
     String path = "/api/2.1/unity-catalog/recipients";
-    return apiClient.GET(path, request, ListRecipientsResponse.class);
+    return apiClient.GET(path, request, ListRecipientsResponse.class, "application/json");
   }
 
   @Override
@@ -48,7 +48,8 @@ class RecipientsImpl implements RecipientsService {
   public GetRecipientSharePermissionsResponse sharePermissions(SharePermissionsRequest request) {
     String path =
         String.format("/api/2.1/unity-catalog/recipients/%s/share-permissions", request.getName());
-    return apiClient.GET(path, request, GetRecipientSharePermissionsResponse.class);
+    return apiClient.GET(
+        path, request, GetRecipientSharePermissionsResponse.class, "application/json");
   }
 
   @Override

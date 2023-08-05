@@ -46,7 +46,7 @@ class ClustersImpl implements ClustersService {
   @Override
   public ClusterDetails get(GetClusterRequest request) {
     String path = "/api/2.0/clusters/get";
-    return apiClient.GET(path, request, ClusterDetails.class);
+    return apiClient.GET(path, request, ClusterDetails.class, "application/json");
   }
 
   @Override
@@ -54,31 +54,32 @@ class ClustersImpl implements ClustersService {
       GetClusterPermissionLevelsRequest request) {
     String path =
         String.format("/api/2.0/permissions/clusters/%s/permissionLevels", request.getClusterId());
-    return apiClient.GET(path, request, GetClusterPermissionLevelsResponse.class);
+    return apiClient.GET(
+        path, request, GetClusterPermissionLevelsResponse.class, "application/json");
   }
 
   @Override
   public ClusterPermissions getClusterPermissions(GetClusterPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
-    return apiClient.GET(path, request, ClusterPermissions.class);
+    return apiClient.GET(path, request, ClusterPermissions.class, "application/json");
   }
 
   @Override
   public ListClustersResponse list(ListClustersRequest request) {
     String path = "/api/2.0/clusters/list";
-    return apiClient.GET(path, request, ListClustersResponse.class);
+    return apiClient.GET(path, request, ListClustersResponse.class, "application/json");
   }
 
   @Override
   public ListNodeTypesResponse listNodeTypes() {
     String path = "/api/2.0/clusters/list-node-types";
-    return apiClient.GET(path, ListNodeTypesResponse.class);
+    return apiClient.GET(path, ListNodeTypesResponse.class, "application/json");
   }
 
   @Override
   public ListAvailableZonesResponse listZones() {
     String path = "/api/2.0/clusters/list-zones";
-    return apiClient.GET(path, ListAvailableZonesResponse.class);
+    return apiClient.GET(path, ListAvailableZonesResponse.class, "application/json");
   }
 
   @Override
@@ -114,7 +115,7 @@ class ClustersImpl implements ClustersService {
   @Override
   public GetSparkVersionsResponse sparkVersions() {
     String path = "/api/2.0/clusters/spark-versions";
-    return apiClient.GET(path, GetSparkVersionsResponse.class);
+    return apiClient.GET(path, GetSparkVersionsResponse.class, "application/json");
   }
 
   @Override

@@ -19,7 +19,7 @@ class GrantsImpl implements GrantsService {
         String.format(
             "/api/2.1/unity-catalog/permissions/%s/%s",
             request.getSecurableType(), request.getFullName());
-    return apiClient.GET(path, request, PermissionsList.class);
+    return apiClient.GET(path, request, PermissionsList.class, "application/json");
   }
 
   @Override
@@ -28,7 +28,7 @@ class GrantsImpl implements GrantsService {
         String.format(
             "/api/2.1/unity-catalog/effective-permissions/%s/%s",
             request.getSecurableType(), request.getFullName());
-    return apiClient.GET(path, request, EffectivePermissionsList.class);
+    return apiClient.GET(path, request, EffectivePermissionsList.class, "application/json");
   }
 
   @Override

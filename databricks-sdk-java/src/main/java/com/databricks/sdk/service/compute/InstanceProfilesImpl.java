@@ -28,7 +28,7 @@ class InstanceProfilesImpl implements InstanceProfilesService {
   @Override
   public ListInstanceProfilesResponse list() {
     String path = "/api/2.0/instance-profiles/list";
-    return apiClient.GET(path, ListInstanceProfilesResponse.class);
+    return apiClient.GET(path, ListInstanceProfilesResponse.class, "application/json");
   }
 
   @Override

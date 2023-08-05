@@ -28,7 +28,7 @@ class PipelinesImpl implements PipelinesService {
   @Override
   public GetPipelineResponse get(GetPipelineRequest request) {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
-    return apiClient.GET(path, request, GetPipelineResponse.class);
+    return apiClient.GET(path, request, GetPipelineResponse.class, "application/json");
   }
 
   @Override
@@ -37,13 +37,14 @@ class PipelinesImpl implements PipelinesService {
     String path =
         String.format(
             "/api/2.0/permissions/pipelines/%s/permissionLevels", request.getPipelineId());
-    return apiClient.GET(path, request, GetPipelinePermissionLevelsResponse.class);
+    return apiClient.GET(
+        path, request, GetPipelinePermissionLevelsResponse.class, "application/json");
   }
 
   @Override
   public PipelinePermissions getPipelinePermissions(GetPipelinePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
-    return apiClient.GET(path, request, PipelinePermissions.class);
+    return apiClient.GET(path, request, PipelinePermissions.class, "application/json");
   }
 
   @Override
@@ -51,25 +52,25 @@ class PipelinesImpl implements PipelinesService {
     String path =
         String.format(
             "/api/2.0/pipelines/%s/updates/%s", request.getPipelineId(), request.getUpdateId());
-    return apiClient.GET(path, request, GetUpdateResponse.class);
+    return apiClient.GET(path, request, GetUpdateResponse.class, "application/json");
   }
 
   @Override
   public ListPipelineEventsResponse listPipelineEvents(ListPipelineEventsRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/events", request.getPipelineId());
-    return apiClient.GET(path, request, ListPipelineEventsResponse.class);
+    return apiClient.GET(path, request, ListPipelineEventsResponse.class, "application/json");
   }
 
   @Override
   public ListPipelinesResponse listPipelines(ListPipelinesRequest request) {
     String path = "/api/2.0/pipelines";
-    return apiClient.GET(path, request, ListPipelinesResponse.class);
+    return apiClient.GET(path, request, ListPipelinesResponse.class, "application/json");
   }
 
   @Override
   public ListUpdatesResponse listUpdates(ListUpdatesRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/updates", request.getPipelineId());
-    return apiClient.GET(path, request, ListUpdatesResponse.class);
+    return apiClient.GET(path, request, ListUpdatesResponse.class, "application/json");
   }
 
   @Override

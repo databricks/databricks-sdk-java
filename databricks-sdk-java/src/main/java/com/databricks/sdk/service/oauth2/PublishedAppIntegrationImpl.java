@@ -37,7 +37,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
         String.format(
             "/api/2.0/accounts/%s/oauth2/published-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
-    return apiClient.GET(path, request, GetPublishedAppIntegrationOutput.class);
+    return apiClient.GET(path, request, GetPublishedAppIntegrationOutput.class, "application/json");
   }
 
   @Override
@@ -46,7 +46,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
         String.format(
             "/api/2.0/accounts/%s/oauth2/published-app-integrations",
             apiClient.configuredAccountID());
-    return apiClient.GET(path, GetPublishedAppIntegrationsOutput.class);
+    return apiClient.GET(path, GetPublishedAppIntegrationsOutput.class, "application/json");
   }
 
   @Override

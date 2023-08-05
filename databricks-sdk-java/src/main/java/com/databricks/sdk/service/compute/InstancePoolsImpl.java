@@ -34,7 +34,7 @@ class InstancePoolsImpl implements InstancePoolsService {
   @Override
   public GetInstancePool get(GetInstancePoolRequest request) {
     String path = "/api/2.0/instance-pools/get";
-    return apiClient.GET(path, request, GetInstancePool.class);
+    return apiClient.GET(path, request, GetInstancePool.class, "application/json");
   }
 
   @Override
@@ -43,7 +43,8 @@ class InstancePoolsImpl implements InstancePoolsService {
     String path =
         String.format(
             "/api/2.0/permissions/instance-pools/%s/permissionLevels", request.getInstancePoolId());
-    return apiClient.GET(path, request, GetInstancePoolPermissionLevelsResponse.class);
+    return apiClient.GET(
+        path, request, GetInstancePoolPermissionLevelsResponse.class, "application/json");
   }
 
   @Override
@@ -51,13 +52,13 @@ class InstancePoolsImpl implements InstancePoolsService {
       GetInstancePoolPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
-    return apiClient.GET(path, request, InstancePoolPermissions.class);
+    return apiClient.GET(path, request, InstancePoolPermissions.class, "application/json");
   }
 
   @Override
   public ListInstancePools list() {
     String path = "/api/2.0/instance-pools/list";
-    return apiClient.GET(path, ListInstancePools.class);
+    return apiClient.GET(path, ListInstancePools.class, "application/json");
   }
 
   @Override

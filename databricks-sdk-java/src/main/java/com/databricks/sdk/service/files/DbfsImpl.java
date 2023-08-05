@@ -40,13 +40,13 @@ class DbfsImpl implements DbfsService {
   @Override
   public FileInfo getStatus(GetStatusRequest request) {
     String path = "/api/2.0/dbfs/get-status";
-    return apiClient.GET(path, request, FileInfo.class);
+    return apiClient.GET(path, request, FileInfo.class, "application/json");
   }
 
   @Override
   public ListStatusResponse list(ListDbfsRequest request) {
     String path = "/api/2.0/dbfs/list";
-    return apiClient.GET(path, request, ListStatusResponse.class);
+    return apiClient.GET(path, request, ListStatusResponse.class, "application/json");
   }
 
   @Override
@@ -70,6 +70,6 @@ class DbfsImpl implements DbfsService {
   @Override
   public ReadResponse read(ReadDbfsRequest request) {
     String path = "/api/2.0/dbfs/read";
-    return apiClient.GET(path, request, ReadResponse.class);
+    return apiClient.GET(path, request, ReadResponse.class, "application/json");
   }
 }

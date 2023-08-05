@@ -30,7 +30,7 @@ class AccountSettingsImpl implements AccountSettingsService {
         String.format(
             "/api/2.0/accounts/%s/settings/types/dcp_acct_enable/names/default",
             apiClient.configuredAccountID());
-    return apiClient.GET(path, request, PersonalComputeSetting.class);
+    return apiClient.GET(path, request, PersonalComputeSetting.class, "application/json");
   }
 
   @Override

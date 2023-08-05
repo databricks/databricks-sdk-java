@@ -28,7 +28,7 @@ class ReposImpl implements ReposService {
   @Override
   public RepoInfo get(GetRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
-    return apiClient.GET(path, request, RepoInfo.class);
+    return apiClient.GET(path, request, RepoInfo.class, "application/json");
   }
 
   @Override
@@ -36,19 +36,19 @@ class ReposImpl implements ReposService {
       GetRepoPermissionLevelsRequest request) {
     String path =
         String.format("/api/2.0/permissions/repos/%s/permissionLevels", request.getRepoId());
-    return apiClient.GET(path, request, GetRepoPermissionLevelsResponse.class);
+    return apiClient.GET(path, request, GetRepoPermissionLevelsResponse.class, "application/json");
   }
 
   @Override
   public RepoPermissions getRepoPermissions(GetRepoPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
-    return apiClient.GET(path, request, RepoPermissions.class);
+    return apiClient.GET(path, request, RepoPermissions.class, "application/json");
   }
 
   @Override
   public ListReposResponse list(ListReposRequest request) {
     String path = "/api/2.0/repos";
-    return apiClient.GET(path, request, ListReposResponse.class);
+    return apiClient.GET(path, request, ListReposResponse.class, "application/json");
   }
 
   @Override

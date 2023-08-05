@@ -22,6 +22,16 @@ public class Request {
   private final InputStream body;
   private final String debugBody;
 
+  private String accept;
+
+  public String getAccept() {
+    return accept;
+  }
+
+  public void setAccept(String accept) {
+    this.accept = accept;
+  }
+
   public Request(String method, String url) {
     this(method, url, (String) null);
   }
@@ -32,13 +42,15 @@ public class Request {
     this.body =
         body != null ? new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8)) : null;
     this.debugBody = body;
+    this.accept = "application/json";
   }
 
-  public Request(String method, String url, InputStream body) {
+  public Request(String method, String url, InputStream body, String debugBody) {
     this.method = method;
     this.url = url;
     this.body = body;
-    this.debugBody = "\"<InputStream>\"";
+    this.debugBody = debugBody;
+    this.accept = "application/json";
   }
 
   public Request withHeaders(Map<String, String> headers) {

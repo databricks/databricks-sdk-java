@@ -16,13 +16,13 @@ class LibrariesImpl implements LibrariesService {
   @Override
   public ListAllClusterLibraryStatusesResponse allClusterStatuses() {
     String path = "/api/2.0/libraries/all-cluster-statuses";
-    return apiClient.GET(path, ListAllClusterLibraryStatusesResponse.class);
+    return apiClient.GET(path, ListAllClusterLibraryStatusesResponse.class, "application/json");
   }
 
   @Override
   public ClusterLibraryStatuses clusterStatus(ClusterStatusRequest request) {
     String path = "/api/2.0/libraries/cluster-status";
-    return apiClient.GET(path, request, ClusterLibraryStatuses.class);
+    return apiClient.GET(path, request, ClusterLibraryStatuses.class, "application/json");
   }
 
   @Override

@@ -19,7 +19,7 @@ class PermissionsImpl implements PermissionsService {
         String.format(
             "/api/2.0/permissions/%s/%s",
             request.getRequestObjectType(), request.getRequestObjectId());
-    return apiClient.GET(path, request, ObjectPermissions.class);
+    return apiClient.GET(path, request, ObjectPermissions.class, "application/json");
   }
 
   @Override
@@ -28,7 +28,7 @@ class PermissionsImpl implements PermissionsService {
         String.format(
             "/api/2.0/permissions/%s/%s/permissionLevels",
             request.getRequestObjectType(), request.getRequestObjectId());
-    return apiClient.GET(path, request, GetPermissionLevelsResponse.class);
+    return apiClient.GET(path, request, GetPermissionLevelsResponse.class, "application/json");
   }
 
   @Override
