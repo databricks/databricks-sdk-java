@@ -34,6 +34,9 @@ public class RemoteDatabricksFileSystemTest {
         out.writeBytes("Hello World!");
       }
 
+      FileStatus status = fs.getFileStatus(path);
+      Assertions.assertEquals(12, status.getLen());
+
       try (FSDataInputStream in = fs.open(path)) {
         byte[] buffer = new byte[1024];
         int bytesRead = in.read(buffer);
