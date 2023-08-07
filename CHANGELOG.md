@@ -1,5 +1,223 @@
 # Version changelog
 
+## 0.4.0
+
+To simplify documentation and management of object permissions, this release features a major reorganization of how permissions APIs are structured in the SDK. Rather than using a single `Permissions.Get()` API for all services, each service supporting permissions has its own permissions APIs. Follow these steps to migrate to the current SDK:
+
+ * Change `w.permissions().get()` and `w.permissions().getByRequestOgjectIdAndRequestObjectType()` to `w.<Service>.get<Service>Permissions()`
+ * Change `w.permissions().getPermissionLevels()` to `w.<Service>.getServicePermissionLevels()`
+ * Change `w.permissions().set()` to `w.<Service>.set<Service>Permissions()`
+ * Change `w.permissions().update()` to `w.<Service>.update<Service>Permissions()`
+
+
+API Changes:
+
+ * Added `getClusterPolicyPermissionLevels()` method for `workspaceClient.clusterPolicies()` service.
+ * Added `getClusterPolicyPermissions()` method for `workspaceClient.clusterPolicies()` service.
+ * Added `setClusterPolicyPermissions()` method for `workspaceClient.clusterPolicies()` service.
+ * Added `updateClusterPolicyPermissions()` method for `workspaceClient.clusterPolicies()` service.
+ * Added `getClusterPermissionLevels()` method for `workspaceClient.clusters()` service.
+ * Added `getClusterPermissions()` method for `workspaceClient.clusters()` service.
+ * Added `setClusterPermissions()` method for `workspaceClient.clusters()` service.
+ * Added `updateClusterPermissions()` method for `workspaceClient.clusters()` service.
+ * Added `getInstancePoolPermissionLevels()` method for `workspaceClient.instancePools()` service.
+ * Added `getInstancePoolPermissions()` method for `workspaceClient.instancePools()` service.
+ * Added `setInstancePoolPermissions()` method for `workspaceClient.instancePools()` service.
+ * Added `updateInstancePoolPermissions()` method for `workspaceClient.instancePools()` service.
+ * Added `com.databricks.sdk.service.compute.ClusterAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.compute.ClusterAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPermission` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPermissionLevel` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPermissions` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPolicyAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPolicyAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPolicyPermission` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPolicyPermissionLevel` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPolicyPermissions` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPolicyPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.compute.ClusterPolicyPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.compute.GetClusterPermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.compute.GetClusterPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.compute.GetClusterPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.compute.GetClusterPolicyPermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.compute.GetClusterPolicyPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.compute.GetClusterPolicyPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.compute.GetInstancePoolPermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.compute.GetInstancePoolPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.compute.GetInstancePoolPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.compute.InstancePoolAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.compute.InstancePoolAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.compute.InstancePoolPermission` class.
+ * Added `com.databricks.sdk.service.compute.InstancePoolPermissionLevel` class.
+ * Added `com.databricks.sdk.service.compute.InstancePoolPermissions` class.
+ * Added `com.databricks.sdk.service.compute.InstancePoolPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.compute.InstancePoolPermissionsRequest` class.
+ * Changed `set()` method for `workspaceClient.permissions()` service to start returning `com.databricks.sdk.service.iam.ObjectPermissions` class.
+ * Changed `update()` method for `workspaceClient.permissions()` service to start returning `com.databricks.sdk.service.iam.ObjectPermissions` class.
+ * Added `getPasswordPermissionLevels()` method for `workspaceClient.users()` service.
+ * Added `getPasswordPermissions()` method for `workspaceClient.users()` service.
+ * Added `setPasswordPermissions()` method for `workspaceClient.users()` service.
+ * Added `updatePasswordPermissions()` method for `workspaceClient.users()` service.
+ * Added `displayName` field for `com.databricks.sdk.service.iam.AccessControlResponse`.
+ * Changed `roles` field for `com.databricks.sdk.service.iam.GetAssignableRolesForResourceResponse` to `com.databricks.sdk.service.iam.RoleList` class.
+ * Added `com.databricks.sdk.service.iam.GetPasswordPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.iam.PasswordAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.iam.PasswordAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.iam.PasswordPermission` class.
+ * Added `com.databricks.sdk.service.iam.PasswordPermissionLevel` class.
+ * Added `com.databricks.sdk.service.iam.PasswordPermissions` class.
+ * Added `com.databricks.sdk.service.iam.PasswordPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.iam.PasswordPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.iam.Role` class.
+ * Added `getJobPermissionLevels()` method for `workspaceClient.jobs()` service.
+ * Added `getJobPermissions()` method for `workspaceClient.jobs()` service.
+ * Added `setJobPermissions()` method for `workspaceClient.jobs()` service.
+ * Added `updateJobPermissions()` method for `workspaceClient.jobs()` service.
+ * Added `com.databricks.sdk.service.jobs.GetJobPermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.jobs.GetJobPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.jobs.GetJobPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.jobs.JobAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.jobs.JobAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.jobs.JobPermission` class.
+ * Added `com.databricks.sdk.service.jobs.JobPermissionLevel` class.
+ * Added `com.databricks.sdk.service.jobs.JobPermissions` class.
+ * Added `com.databricks.sdk.service.jobs.JobPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.jobs.JobPermissionsRequest` class.
+ * Added `getExperimentPermissionLevels()` method for `workspaceClient.experiments()` service.
+ * Added `getExperimentPermissions()` method for `workspaceClient.experiments()` service.
+ * Added `setExperimentPermissions()` method for `workspaceClient.experiments()` service.
+ * Added `updateExperimentPermissions()` method for `workspaceClient.experiments()` service.
+ * Added `getRegisteredModelPermissionLevels()` method for `workspaceClient.modelRegistry()` service.
+ * Added `getRegisteredModelPermissions()` method for `workspaceClient.modelRegistry()` service.
+ * Added `setRegisteredModelPermissions()` method for `workspaceClient.modelRegistry()` service.
+ * Added `updateRegisteredModelPermissions()` method for `workspaceClient.modelRegistry()` service.
+ * Added `com.databricks.sdk.service.ml.ExperimentAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.ml.ExperimentAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.ml.ExperimentPermission` class.
+ * Added `com.databricks.sdk.service.ml.ExperimentPermissionLevel` class.
+ * Added `com.databricks.sdk.service.ml.ExperimentPermissions` class.
+ * Added `com.databricks.sdk.service.ml.ExperimentPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.ml.ExperimentPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.ml.GetExperimentPermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.ml.GetExperimentPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.ml.GetExperimentPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.ml.GetRegisteredModelPermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.ml.GetRegisteredModelPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.ml.GetRegisteredModelPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.ml.RegisteredModelAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.ml.RegisteredModelAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.ml.RegisteredModelPermission` class.
+ * Added `com.databricks.sdk.service.ml.RegisteredModelPermissionLevel` class.
+ * Added `com.databricks.sdk.service.ml.RegisteredModelPermissions` class.
+ * Added `com.databricks.sdk.service.ml.RegisteredModelPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.ml.RegisteredModelPermissionsRequest` class.
+ * Added `scopes` field for `com.databricks.sdk.service.oauth2.CreateCustomAppIntegration`.
+ * Added `getPipelinePermissionLevels()` method for `workspaceClient.pipelines()` service.
+ * Added `getPipelinePermissions()` method for `workspaceClient.pipelines()` service.
+ * Added `setPipelinePermissions()` method for `workspaceClient.pipelines()` service.
+ * Added `updatePipelinePermissions()` method for `workspaceClient.pipelines()` service.
+ * Added `com.databricks.sdk.service.pipelines.GetPipelinePermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.pipelines.GetPipelinePermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.pipelines.GetPipelinePermissionsRequest` class.
+ * Added `com.databricks.sdk.service.pipelines.PipelineAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.pipelines.PipelineAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.pipelines.PipelinePermission` class.
+ * Added `com.databricks.sdk.service.pipelines.PipelinePermissionLevel` class.
+ * Added `com.databricks.sdk.service.pipelines.PipelinePermissions` class.
+ * Added `com.databricks.sdk.service.pipelines.PipelinePermissionsDescription` class.
+ * Added `com.databricks.sdk.service.pipelines.PipelinePermissionsRequest` class.
+ * Added `gcpManagedNetworkConfig` field for `com.databricks.sdk.service.provisioning.CreateWorkspaceRequest`.
+ * Added `gkeConfig` field for `com.databricks.sdk.service.provisioning.CreateWorkspaceRequest`.
+ * Added `getServingEndpointPermissionLevels()` method for `workspaceClient.servingEndpoints()` service.
+ * Added `getServingEndpointPermissions()` method for `workspaceClient.servingEndpoints()` service.
+ * Added `setServingEndpointPermissions()` method for `workspaceClient.servingEndpoints()` service.
+ * Added `updateServingEndpointPermissions()` method for `workspaceClient.servingEndpoints()` service.
+ * Added `instanceProfileArn` field for `com.databricks.sdk.service.serving.ServedModelInput`.
+ * Added `instanceProfileArn` field for `com.databricks.sdk.service.serving.ServedModelOutput`.
+ * Added `com.databricks.sdk.service.serving.GetServingEndpointPermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.serving.GetServingEndpointPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.serving.GetServingEndpointPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.serving.ServingEndpointAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.serving.ServingEndpointAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.serving.ServingEndpointPermission` class.
+ * Added `com.databricks.sdk.service.serving.ServingEndpointPermissionLevel` class.
+ * Added `com.databricks.sdk.service.serving.ServingEndpointPermissions` class.
+ * Added `com.databricks.sdk.service.serving.ServingEndpointPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.serving.ServingEndpointPermissionsRequest` class.
+ * Added `getTokenPermissionLevels()` method for `workspaceClient.tokenManagement()` service.
+ * Added `getTokenPermissions()` method for `workspaceClient.tokenManagement()` service.
+ * Added `setTokenPermissions()` method for `workspaceClient.tokenManagement()` service.
+ * Added `updateTokenPermissions()` method for `workspaceClient.tokenManagement()` service.
+ * Added `com.databricks.sdk.service.settings.GetTokenPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.settings.TokenAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.settings.TokenAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.settings.TokenPermission` class.
+ * Added `com.databricks.sdk.service.settings.TokenPermissionLevel` class.
+ * Added `com.databricks.sdk.service.settings.TokenPermissions` class.
+ * Added `com.databricks.sdk.service.settings.TokenPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.settings.TokenPermissionsRequest` class.
+ * Added `getWarehousePermissionLevels()` method for `workspaceClient.warehouses()` service.
+ * Added `getWarehousePermissions()` method for `workspaceClient.warehouses()` service.
+ * Added `setWarehousePermissions()` method for `workspaceClient.warehouses()` service.
+ * Added `updateWarehousePermissions()` method for `workspaceClient.warehouses()` service.
+ * Added `canSubscribeToLiveQuery` field for `com.databricks.sdk.service.sql.QueryInfo`.
+ * Removed `queuedOverloadTimeMs` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Removed `queuedProvisioningTimeMs` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Removed `totalFilesCount` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Removed `totalPartitionsCount` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Added `metadataTimeMs` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Added `overloadingQueueStartTimestamp` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Added `planningPhases` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Added `planningTimeMs` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Added `provisioningQueueStartTimestamp` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Added `prunedBytes` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Added `prunedFilesCount` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Added `queryCompilationStartTimestamp` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Added `queryExecutionTimeMs` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Added `com.databricks.sdk.service.sql.GetWarehousePermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.sql.GetWarehousePermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.sql.GetWarehousePermissionsRequest` class.
+ * Added `com.databricks.sdk.service.sql.WarehouseAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.sql.WarehouseAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.sql.WarehousePermission` class.
+ * Added `com.databricks.sdk.service.sql.WarehousePermissionLevel` class.
+ * Added `com.databricks.sdk.service.sql.WarehousePermissions` class.
+ * Added `com.databricks.sdk.service.sql.WarehousePermissionsDescription` class.
+ * Added `com.databricks.sdk.service.sql.WarehousePermissionsRequest` class.
+ * Added `getRepoPermissionLevels()` method for `workspaceClient.repos()` service.
+ * Added `getRepoPermissions()` method for `workspaceClient.repos()` service.
+ * Added `setRepoPermissions()` method for `workspaceClient.repos()` service.
+ * Added `updateRepoPermissions()` method for `workspaceClient.repos()` service.
+ * Added `getWorkspaceObjectPermissionLevels()` method for `workspaceClient.workspace()` service.
+ * Added `getWorkspaceObjectPermissions()` method for `workspaceClient.workspace()` service.
+ * Added `setWorkspaceObjectPermissions()` method for `workspaceClient.workspace()` service.
+ * Added `updateWorkspaceObjectPermissions()` method for `workspaceClient.workspace()` service.
+ * Added `com.databricks.sdk.service.workspace.GetRepoPermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.workspace.GetRepoPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.workspace.GetRepoPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.workspace.GetWorkspaceObjectPermissionLevelsRequest` class.
+ * Added `com.databricks.sdk.service.workspace.GetWorkspaceObjectPermissionLevelsResponse` class.
+ * Added `com.databricks.sdk.service.workspace.GetWorkspaceObjectPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.workspace.RepoAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.workspace.RepoAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.workspace.RepoPermission` class.
+ * Added `com.databricks.sdk.service.workspace.RepoPermissionLevel` class.
+ * Added `com.databricks.sdk.service.workspace.RepoPermissions` class.
+ * Added `com.databricks.sdk.service.workspace.RepoPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.workspace.RepoPermissionsRequest` class.
+ * Added `com.databricks.sdk.service.workspace.WorkspaceObjectAccessControlRequest` class.
+ * Added `com.databricks.sdk.service.workspace.WorkspaceObjectAccessControlResponse` class.
+ * Added `com.databricks.sdk.service.workspace.WorkspaceObjectPermission` class.
+ * Added `com.databricks.sdk.service.workspace.WorkspaceObjectPermissionLevel` class.
+ * Added `com.databricks.sdk.service.workspace.WorkspaceObjectPermissions` class.
+ * Added `com.databricks.sdk.service.workspace.WorkspaceObjectPermissionsDescription` class.
+ * Added `com.databricks.sdk.service.workspace.WorkspaceObjectPermissionsRequest` class.
+
+OpenAPI SHA: 386b65ecdc825b9c3ed4aa7ca88e2e5baf9d87df, Date: 2023-08-07
+
+
 ## 0.3.0
 
 * Handled nested query parameters in ApiClient.withQuery ([#125](https://github.com/databricks/databricks-sdk-java/pull/125)). This fixes issues with filters when listing query history.
