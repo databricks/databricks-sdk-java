@@ -32,8 +32,32 @@ class TokenManagementImpl implements TokenManagementService {
   }
 
   @Override
+  public GetTokenPermissionLevelsResponse getTokenPermissionLevels() {
+    String path = "/api/2.0/permissions/authorization/tokens/permissionLevels";
+    return apiClient.GET(path, GetTokenPermissionLevelsResponse.class);
+  }
+
+  @Override
+  public TokenPermissions getTokenPermissions() {
+    String path = "/api/2.0/permissions/authorization/tokens";
+    return apiClient.GET(path, TokenPermissions.class);
+  }
+
+  @Override
   public ListTokensResponse list(ListTokenManagementRequest request) {
     String path = "/api/2.0/token-management/tokens";
     return apiClient.GET(path, request, ListTokensResponse.class);
+  }
+
+  @Override
+  public TokenPermissions setTokenPermissions(TokenPermissionsRequest request) {
+    String path = "/api/2.0/permissions/authorization/tokens";
+    return apiClient.PUT(path, request, TokenPermissions.class);
+  }
+
+  @Override
+  public TokenPermissions updateTokenPermissions(TokenPermissionsRequest request) {
+    String path = "/api/2.0/permissions/authorization/tokens";
+    return apiClient.PATCH(path, request, TokenPermissions.class);
   }
 }

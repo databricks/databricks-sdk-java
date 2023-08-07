@@ -12,14 +12,14 @@ import java.util.Objects;
 public class GetAssignableRolesForResourceResponse {
   /** */
   @JsonProperty("roles")
-  private Collection<String> roles;
+  private Collection<Role> roles;
 
-  public GetAssignableRolesForResourceResponse setRoles(Collection<String> roles) {
+  public GetAssignableRolesForResourceResponse setRoles(Collection<Role> roles) {
     this.roles = roles;
     return this;
   }
 
-  public Collection<String> getRoles() {
+  public Collection<Role> getRoles() {
     return roles;
   }
 

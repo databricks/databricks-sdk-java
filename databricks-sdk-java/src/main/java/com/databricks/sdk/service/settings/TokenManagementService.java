@@ -35,9 +35,38 @@ public interface TokenManagementService {
   TokenInfo get(GetTokenManagementRequest getTokenManagementRequest);
 
   /**
+   * Get token permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetTokenPermissionLevelsResponse getTokenPermissionLevels();
+
+  /**
+   * Get token permissions.
+   *
+   * <p>Gets the permissions of all tokens. Tokens can inherit permissions from their root object.
+   */
+  TokenPermissions getTokenPermissions();
+
+  /**
    * List all tokens.
    *
    * <p>Lists all tokens associated with the specified workspace or user.
    */
   ListTokensResponse list(ListTokenManagementRequest listTokenManagementRequest);
+
+  /**
+   * Set token permissions.
+   *
+   * <p>Sets permissions on all tokens. Tokens can inherit permissions from their root object.
+   */
+  TokenPermissions setTokenPermissions(TokenPermissionsRequest tokenPermissionsRequest);
+
+  /**
+   * Update token permissions.
+   *
+   * <p>Updates the permissions on all tokens. Tokens can inherit permissions from their root
+   * object.
+   */
+  TokenPermissions updateTokenPermissions(TokenPermissionsRequest tokenPermissionsRequest);
 }

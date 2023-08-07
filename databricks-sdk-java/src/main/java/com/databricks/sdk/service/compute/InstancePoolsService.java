@@ -56,9 +56,44 @@ public interface InstancePoolsService {
   GetInstancePool get(GetInstancePoolRequest getInstancePoolRequest);
 
   /**
+   * Get instance pool permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetInstancePoolPermissionLevelsResponse getInstancePoolPermissionLevels(
+      GetInstancePoolPermissionLevelsRequest getInstancePoolPermissionLevelsRequest);
+
+  /**
+   * Get instance pool permissions.
+   *
+   * <p>Gets the permissions of an instance pool. Instance pools can inherit permissions from their
+   * root object.
+   */
+  InstancePoolPermissions getInstancePoolPermissions(
+      GetInstancePoolPermissionsRequest getInstancePoolPermissionsRequest);
+
+  /**
    * List instance pool info.
    *
    * <p>Gets a list of instance pools with their statistics.
    */
   ListInstancePools list();
+
+  /**
+   * Set instance pool permissions.
+   *
+   * <p>Sets permissions on an instance pool. Instance pools can inherit permissions from their root
+   * object.
+   */
+  InstancePoolPermissions setInstancePoolPermissions(
+      InstancePoolPermissionsRequest instancePoolPermissionsRequest);
+
+  /**
+   * Update instance pool permissions.
+   *
+   * <p>Updates the permissions on an instance pool. Instance pools can inherit permissions from
+   * their root object.
+   */
+  InstancePoolPermissions updateInstancePoolPermissions(
+      InstancePoolPermissionsRequest instancePoolPermissionsRequest);
 }

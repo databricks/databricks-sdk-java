@@ -252,6 +252,34 @@ public class ClustersAPI {
     return impl.get(request);
   }
 
+  public GetClusterPermissionLevelsResponse getClusterPermissionLevels(String clusterId) {
+    return getClusterPermissionLevels(
+        new GetClusterPermissionLevelsRequest().setClusterId(clusterId));
+  }
+
+  /**
+   * Get cluster permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetClusterPermissionLevelsResponse getClusterPermissionLevels(
+      GetClusterPermissionLevelsRequest request) {
+    return impl.getClusterPermissionLevels(request);
+  }
+
+  public ClusterPermissions getClusterPermissions(String clusterId) {
+    return getClusterPermissions(new GetClusterPermissionsRequest().setClusterId(clusterId));
+  }
+
+  /**
+   * Get cluster permissions.
+   *
+   * <p>Gets the permissions of a cluster. Clusters can inherit permissions from their root object.
+   */
+  public ClusterPermissions getClusterPermissions(GetClusterPermissionsRequest request) {
+    return impl.getClusterPermissions(request);
+  }
+
   /**
    * List all clusters.
    *
@@ -352,6 +380,19 @@ public class ClustersAPI {
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
+  public ClusterPermissions setClusterPermissions(String clusterId) {
+    return setClusterPermissions(new ClusterPermissionsRequest().setClusterId(clusterId));
+  }
+
+  /**
+   * Set cluster permissions.
+   *
+   * <p>Sets permissions on a cluster. Clusters can inherit permissions from their root object.
+   */
+  public ClusterPermissions setClusterPermissions(ClusterPermissionsRequest request) {
+    return impl.setClusterPermissions(request);
+  }
+
   /**
    * List available Spark versions.
    *
@@ -396,6 +437,20 @@ public class ClustersAPI {
    */
   public void unpin(UnpinCluster request) {
     impl.unpin(request);
+  }
+
+  public ClusterPermissions updateClusterPermissions(String clusterId) {
+    return updateClusterPermissions(new ClusterPermissionsRequest().setClusterId(clusterId));
+  }
+
+  /**
+   * Update cluster permissions.
+   *
+   * <p>Updates the permissions on a cluster. Clusters can inherit permissions from their root
+   * object.
+   */
+  public ClusterPermissions updateClusterPermissions(ClusterPermissionsRequest request) {
+    return impl.updateClusterPermissions(request);
   }
 
   public ClustersService impl() {

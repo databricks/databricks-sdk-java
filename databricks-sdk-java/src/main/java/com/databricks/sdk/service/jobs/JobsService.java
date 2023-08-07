@@ -80,6 +80,21 @@ public interface JobsService {
   Job get(GetJobRequest getJobRequest);
 
   /**
+   * Get job permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetJobPermissionLevelsResponse getJobPermissionLevels(
+      GetJobPermissionLevelsRequest getJobPermissionLevelsRequest);
+
+  /**
+   * Get job permissions.
+   *
+   * <p>Gets the permissions of a job. Jobs can inherit permissions from their root object.
+   */
+  JobPermissions getJobPermissions(GetJobPermissionsRequest getJobPermissionsRequest);
+
+  /**
    * Get a single job run.
    *
    * <p>Retrieve the metadata of a run.
@@ -139,6 +154,13 @@ public interface JobsService {
   RunNowResponse runNow(RunNow runNow);
 
   /**
+   * Set job permissions.
+   *
+   * <p>Sets permissions on a job. Jobs can inherit permissions from their root object.
+   */
+  JobPermissions setJobPermissions(JobPermissionsRequest jobPermissionsRequest);
+
+  /**
    * Create and trigger a one-time run.
    *
    * <p>Submit a one-time run. This endpoint allows you to submit a workload directly without
@@ -154,4 +176,11 @@ public interface JobsService {
    * all job settings.
    */
   void update(UpdateJob updateJob);
+
+  /**
+   * Update job permissions.
+   *
+   * <p>Updates the permissions on a job. Jobs can inherit permissions from their root object.
+   */
+  JobPermissions updateJobPermissions(JobPermissionsRequest jobPermissionsRequest);
 }

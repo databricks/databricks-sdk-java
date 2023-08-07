@@ -118,6 +118,24 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
+  public GetRegisteredModelPermissionLevelsResponse getRegisteredModelPermissionLevels(
+      GetRegisteredModelPermissionLevelsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/registered-models/%s/permissionLevels",
+            request.getRegisteredModelId());
+    return apiClient.GET(path, request, GetRegisteredModelPermissionLevelsResponse.class);
+  }
+
+  @Override
+  public RegisteredModelPermissions getRegisteredModelPermissions(
+      GetRegisteredModelPermissionsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
+    return apiClient.GET(path, request, RegisteredModelPermissions.class);
+  }
+
+  @Override
   public ListModelsResponse listModels(ListModelsRequest request) {
     String path = "/api/2.0/mlflow/registered-models/list";
     return apiClient.GET(path, request, ListModelsResponse.class);
@@ -173,6 +191,14 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
+  public RegisteredModelPermissions setRegisteredModelPermissions(
+      RegisteredModelPermissionsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
+    return apiClient.PUT(path, request, RegisteredModelPermissions.class);
+  }
+
+  @Override
   public TestRegistryWebhookResponse testRegistryWebhook(TestRegistryWebhookRequest request) {
     String path = "/api/2.0/mlflow/registry-webhooks/test";
     return apiClient.POST(path, request, TestRegistryWebhookResponse.class);
@@ -200,6 +226,14 @@ class ModelRegistryImpl implements ModelRegistryService {
   public void updateModelVersion(UpdateModelVersionRequest request) {
     String path = "/api/2.0/mlflow/model-versions/update";
     apiClient.PATCH(path, request, Void.class);
+  }
+
+  @Override
+  public RegisteredModelPermissions updateRegisteredModelPermissions(
+      RegisteredModelPermissionsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
+    return apiClient.PATCH(path, request, RegisteredModelPermissions.class);
   }
 
   @Override

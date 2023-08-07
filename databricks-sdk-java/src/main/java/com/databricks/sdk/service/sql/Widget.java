@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Widget {
   /** The unique ID for this widget. */
   @JsonProperty("id")
-  private Long id;
+  private String id;
 
   /** */
   @JsonProperty("options")
@@ -30,12 +30,12 @@ public class Widget {
   @JsonProperty("width")
   private Long width;
 
-  public Widget setId(Long id) {
+  public Widget setId(String id) {
     this.id = id;
     return this;
   }
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
