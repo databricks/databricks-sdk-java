@@ -47,6 +47,24 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
+  public GetServingEndpointPermissionLevelsResponse getServingEndpointPermissionLevels(
+      GetServingEndpointPermissionLevelsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/serving-endpoints/%s/permissionLevels",
+            request.getServingEndpointId());
+    return apiClient.GET(path, request, GetServingEndpointPermissionLevelsResponse.class);
+  }
+
+  @Override
+  public ServingEndpointPermissions getServingEndpointPermissions(
+      GetServingEndpointPermissionsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
+    return apiClient.GET(path, request, ServingEndpointPermissions.class);
+  }
+
+  @Override
   public ListEndpointsResponse list() {
     String path = "/api/2.0/serving-endpoints";
     return apiClient.GET(path, ListEndpointsResponse.class);
@@ -68,8 +86,24 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
+  public ServingEndpointPermissions setServingEndpointPermissions(
+      ServingEndpointPermissionsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
+    return apiClient.PUT(path, request, ServingEndpointPermissions.class);
+  }
+
+  @Override
   public ServingEndpointDetailed updateConfig(EndpointCoreConfigInput request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/config", request.getName());
     return apiClient.PUT(path, request, ServingEndpointDetailed.class);
+  }
+
+  @Override
+  public ServingEndpointPermissions updateServingEndpointPermissions(
+      ServingEndpointPermissionsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
+    return apiClient.PATCH(path, request, ServingEndpointPermissions.class);
   }
 }

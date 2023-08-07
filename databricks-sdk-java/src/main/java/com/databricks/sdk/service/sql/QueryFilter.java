@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
@@ -13,18 +14,22 @@ import java.util.Objects;
 public class QueryFilter {
   /** */
   @JsonProperty("query_start_time_range")
+  @QueryParam("query_start_time_range")
   private TimeRange queryStartTimeRange;
 
   /** */
   @JsonProperty("statuses")
+  @QueryParam("statuses")
   private Collection<QueryStatus> statuses;
 
   /** A list of user IDs who ran the queries. */
   @JsonProperty("user_ids")
+  @QueryParam("user_ids")
   private Collection<Long> userIds;
 
   /** A list of warehouse IDs. */
   @JsonProperty("warehouse_ids")
+  @QueryParam("warehouse_ids")
   private Collection<String> warehouseIds;
 
   public QueryFilter setQueryStartTimeRange(TimeRange queryStartTimeRange) {

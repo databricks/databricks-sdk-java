@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get permission levels */
+/** Get object permission levels */
 @Generated
 public class GetPermissionLevelsRequest {
   /** <needs content> */

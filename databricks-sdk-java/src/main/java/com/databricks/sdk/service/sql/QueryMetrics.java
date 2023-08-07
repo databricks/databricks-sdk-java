@@ -5,6 +5,7 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 /** Metrics about query execution. */
@@ -18,9 +19,20 @@ public class QueryMetrics {
   @JsonProperty("execution_time_ms")
   private Long executionTimeMs;
 
+  /** Reserved for internal use. */
+  @JsonProperty("metadata_time_ms")
+  private Long metadataTimeMs;
+
   /** Total amount of data sent over the network between executor nodes during shuffle, in bytes. */
   @JsonProperty("network_sent_bytes")
   private Long networkSentBytes;
+
+  /**
+   * Timestamp of when the query was enqueued waiting while the warehouse was at max load. This
+   * field is optional and will not appear if the query skipped the overloading queue.
+   */
+  @JsonProperty("overloading_queue_start_timestamp")
+  private Long overloadingQueueStartTimestamp;
 
   /**
    * Total execution time for all individual Photon query engine tasks in the query, in
@@ -29,18 +41,37 @@ public class QueryMetrics {
   @JsonProperty("photon_total_time_ms")
   private Long photonTotalTimeMs;
 
-  /**
-   * Time spent waiting to execute the query because the SQL warehouse is already running the
-   * maximum number of concurrent queries, in milliseconds.
-   */
-  @JsonProperty("queued_overload_time_ms")
-  private Long queuedOverloadTimeMs;
+  /** Reserved for internal use. */
+  @JsonProperty("planning_phases")
+  private Collection<Object> planningPhases;
+
+  /** Reserved for internal use. */
+  @JsonProperty("planning_time_ms")
+  private Long planningTimeMs;
 
   /**
-   * Time waiting for compute resources to be provisioned for the SQL warehouse, in milliseconds.
+   * Timestamp of when the query was enqueued waiting for a cluster to be provisioned for the
+   * warehouse. This field is optional and will not appear if the query skipped the provisioning
+   * queue.
    */
-  @JsonProperty("queued_provisioning_time_ms")
-  private Long queuedProvisioningTimeMs;
+  @JsonProperty("provisioning_queue_start_timestamp")
+  private Long provisioningQueueStartTimestamp;
+
+  /** Total number of bytes in all tables not read due to pruning */
+  @JsonProperty("pruned_bytes")
+  private Long prunedBytes;
+
+  /** Total number of files from all tables not read due to pruning */
+  @JsonProperty("pruned_files_count")
+  private Long prunedFilesCount;
+
+  /** Timestamp of when the underlying compute started compilation of the query. */
+  @JsonProperty("query_compilation_start_timestamp")
+  private Long queryCompilationStartTimestamp;
+
+  /** Reserved for internal use. */
+  @JsonProperty("query_execution_time_ms")
+  private Long queryExecutionTimeMs;
 
   /** Total size of data read by the query, in bytes. */
   @JsonProperty("read_bytes")
@@ -86,14 +117,6 @@ public class QueryMetrics {
   @JsonProperty("task_total_time_ms")
   private Long taskTotalTimeMs;
 
-  /** Number of files that would have been read without pruning. */
-  @JsonProperty("total_files_count")
-  private Long totalFilesCount;
-
-  /** Number of partitions that would have been read without pruning. */
-  @JsonProperty("total_partitions_count")
-  private Long totalPartitionsCount;
-
   /** Total execution time of the query from the client’s point of view, in milliseconds. */
   @JsonProperty("total_time_ms")
   private Long totalTimeMs;
@@ -120,6 +143,15 @@ public class QueryMetrics {
     return executionTimeMs;
   }
 
+  public QueryMetrics setMetadataTimeMs(Long metadataTimeMs) {
+    this.metadataTimeMs = metadataTimeMs;
+    return this;
+  }
+
+  public Long getMetadataTimeMs() {
+    return metadataTimeMs;
+  }
+
   public QueryMetrics setNetworkSentBytes(Long networkSentBytes) {
     this.networkSentBytes = networkSentBytes;
     return this;
@@ -127,6 +159,15 @@ public class QueryMetrics {
 
   public Long getNetworkSentBytes() {
     return networkSentBytes;
+  }
+
+  public QueryMetrics setOverloadingQueueStartTimestamp(Long overloadingQueueStartTimestamp) {
+    this.overloadingQueueStartTimestamp = overloadingQueueStartTimestamp;
+    return this;
+  }
+
+  public Long getOverloadingQueueStartTimestamp() {
+    return overloadingQueueStartTimestamp;
   }
 
   public QueryMetrics setPhotonTotalTimeMs(Long photonTotalTimeMs) {
@@ -138,22 +179,67 @@ public class QueryMetrics {
     return photonTotalTimeMs;
   }
 
-  public QueryMetrics setQueuedOverloadTimeMs(Long queuedOverloadTimeMs) {
-    this.queuedOverloadTimeMs = queuedOverloadTimeMs;
+  public QueryMetrics setPlanningPhases(Collection<Object> planningPhases) {
+    this.planningPhases = planningPhases;
     return this;
   }
 
-  public Long getQueuedOverloadTimeMs() {
-    return queuedOverloadTimeMs;
+  public Collection<Object> getPlanningPhases() {
+    return planningPhases;
   }
 
-  public QueryMetrics setQueuedProvisioningTimeMs(Long queuedProvisioningTimeMs) {
-    this.queuedProvisioningTimeMs = queuedProvisioningTimeMs;
+  public QueryMetrics setPlanningTimeMs(Long planningTimeMs) {
+    this.planningTimeMs = planningTimeMs;
     return this;
   }
 
-  public Long getQueuedProvisioningTimeMs() {
-    return queuedProvisioningTimeMs;
+  public Long getPlanningTimeMs() {
+    return planningTimeMs;
+  }
+
+  public QueryMetrics setProvisioningQueueStartTimestamp(Long provisioningQueueStartTimestamp) {
+    this.provisioningQueueStartTimestamp = provisioningQueueStartTimestamp;
+    return this;
+  }
+
+  public Long getProvisioningQueueStartTimestamp() {
+    return provisioningQueueStartTimestamp;
+  }
+
+  public QueryMetrics setPrunedBytes(Long prunedBytes) {
+    this.prunedBytes = prunedBytes;
+    return this;
+  }
+
+  public Long getPrunedBytes() {
+    return prunedBytes;
+  }
+
+  public QueryMetrics setPrunedFilesCount(Long prunedFilesCount) {
+    this.prunedFilesCount = prunedFilesCount;
+    return this;
+  }
+
+  public Long getPrunedFilesCount() {
+    return prunedFilesCount;
+  }
+
+  public QueryMetrics setQueryCompilationStartTimestamp(Long queryCompilationStartTimestamp) {
+    this.queryCompilationStartTimestamp = queryCompilationStartTimestamp;
+    return this;
+  }
+
+  public Long getQueryCompilationStartTimestamp() {
+    return queryCompilationStartTimestamp;
+  }
+
+  public QueryMetrics setQueryExecutionTimeMs(Long queryExecutionTimeMs) {
+    this.queryExecutionTimeMs = queryExecutionTimeMs;
+    return this;
+  }
+
+  public Long getQueryExecutionTimeMs() {
+    return queryExecutionTimeMs;
   }
 
   public QueryMetrics setReadBytes(Long readBytes) {
@@ -255,24 +341,6 @@ public class QueryMetrics {
     return taskTotalTimeMs;
   }
 
-  public QueryMetrics setTotalFilesCount(Long totalFilesCount) {
-    this.totalFilesCount = totalFilesCount;
-    return this;
-  }
-
-  public Long getTotalFilesCount() {
-    return totalFilesCount;
-  }
-
-  public QueryMetrics setTotalPartitionsCount(Long totalPartitionsCount) {
-    this.totalPartitionsCount = totalPartitionsCount;
-    return this;
-  }
-
-  public Long getTotalPartitionsCount() {
-    return totalPartitionsCount;
-  }
-
   public QueryMetrics setTotalTimeMs(Long totalTimeMs) {
     this.totalTimeMs = totalTimeMs;
     return this;
@@ -298,10 +366,17 @@ public class QueryMetrics {
     QueryMetrics that = (QueryMetrics) o;
     return Objects.equals(compilationTimeMs, that.compilationTimeMs)
         && Objects.equals(executionTimeMs, that.executionTimeMs)
+        && Objects.equals(metadataTimeMs, that.metadataTimeMs)
         && Objects.equals(networkSentBytes, that.networkSentBytes)
+        && Objects.equals(overloadingQueueStartTimestamp, that.overloadingQueueStartTimestamp)
         && Objects.equals(photonTotalTimeMs, that.photonTotalTimeMs)
-        && Objects.equals(queuedOverloadTimeMs, that.queuedOverloadTimeMs)
-        && Objects.equals(queuedProvisioningTimeMs, that.queuedProvisioningTimeMs)
+        && Objects.equals(planningPhases, that.planningPhases)
+        && Objects.equals(planningTimeMs, that.planningTimeMs)
+        && Objects.equals(provisioningQueueStartTimestamp, that.provisioningQueueStartTimestamp)
+        && Objects.equals(prunedBytes, that.prunedBytes)
+        && Objects.equals(prunedFilesCount, that.prunedFilesCount)
+        && Objects.equals(queryCompilationStartTimestamp, that.queryCompilationStartTimestamp)
+        && Objects.equals(queryExecutionTimeMs, that.queryExecutionTimeMs)
         && Objects.equals(readBytes, that.readBytes)
         && Objects.equals(readCacheBytes, that.readCacheBytes)
         && Objects.equals(readFilesCount, that.readFilesCount)
@@ -313,8 +388,6 @@ public class QueryMetrics {
         && Objects.equals(rowsReadCount, that.rowsReadCount)
         && Objects.equals(spillToDiskBytes, that.spillToDiskBytes)
         && Objects.equals(taskTotalTimeMs, that.taskTotalTimeMs)
-        && Objects.equals(totalFilesCount, that.totalFilesCount)
-        && Objects.equals(totalPartitionsCount, that.totalPartitionsCount)
         && Objects.equals(totalTimeMs, that.totalTimeMs)
         && Objects.equals(writeRemoteBytes, that.writeRemoteBytes);
   }
@@ -324,10 +397,17 @@ public class QueryMetrics {
     return Objects.hash(
         compilationTimeMs,
         executionTimeMs,
+        metadataTimeMs,
         networkSentBytes,
+        overloadingQueueStartTimestamp,
         photonTotalTimeMs,
-        queuedOverloadTimeMs,
-        queuedProvisioningTimeMs,
+        planningPhases,
+        planningTimeMs,
+        provisioningQueueStartTimestamp,
+        prunedBytes,
+        prunedFilesCount,
+        queryCompilationStartTimestamp,
+        queryExecutionTimeMs,
         readBytes,
         readCacheBytes,
         readFilesCount,
@@ -339,8 +419,6 @@ public class QueryMetrics {
         rowsReadCount,
         spillToDiskBytes,
         taskTotalTimeMs,
-        totalFilesCount,
-        totalPartitionsCount,
         totalTimeMs,
         writeRemoteBytes);
   }
@@ -350,10 +428,17 @@ public class QueryMetrics {
     return new ToStringer(QueryMetrics.class)
         .add("compilationTimeMs", compilationTimeMs)
         .add("executionTimeMs", executionTimeMs)
+        .add("metadataTimeMs", metadataTimeMs)
         .add("networkSentBytes", networkSentBytes)
+        .add("overloadingQueueStartTimestamp", overloadingQueueStartTimestamp)
         .add("photonTotalTimeMs", photonTotalTimeMs)
-        .add("queuedOverloadTimeMs", queuedOverloadTimeMs)
-        .add("queuedProvisioningTimeMs", queuedProvisioningTimeMs)
+        .add("planningPhases", planningPhases)
+        .add("planningTimeMs", planningTimeMs)
+        .add("provisioningQueueStartTimestamp", provisioningQueueStartTimestamp)
+        .add("prunedBytes", prunedBytes)
+        .add("prunedFilesCount", prunedFilesCount)
+        .add("queryCompilationStartTimestamp", queryCompilationStartTimestamp)
+        .add("queryExecutionTimeMs", queryExecutionTimeMs)
         .add("readBytes", readBytes)
         .add("readCacheBytes", readCacheBytes)
         .add("readFilesCount", readFilesCount)
@@ -365,8 +450,6 @@ public class QueryMetrics {
         .add("rowsReadCount", rowsReadCount)
         .add("spillToDiskBytes", spillToDiskBytes)
         .add("taskTotalTimeMs", taskTotalTimeMs)
-        .add("totalFilesCount", totalFilesCount)
-        .add("totalPartitionsCount", totalPartitionsCount)
         .add("totalTimeMs", totalTimeMs)
         .add("writeRemoteBytes", writeRemoteBytes)
         .toString();

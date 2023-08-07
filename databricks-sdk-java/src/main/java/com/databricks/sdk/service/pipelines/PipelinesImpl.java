@@ -32,6 +32,21 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
+  public GetPipelinePermissionLevelsResponse getPipelinePermissionLevels(
+      GetPipelinePermissionLevelsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/pipelines/%s/permissionLevels", request.getPipelineId());
+    return apiClient.GET(path, request, GetPipelinePermissionLevelsResponse.class);
+  }
+
+  @Override
+  public PipelinePermissions getPipelinePermissions(GetPipelinePermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
+    return apiClient.GET(path, request, PipelinePermissions.class);
+  }
+
+  @Override
   public GetUpdateResponse getUpdate(GetUpdateRequest request) {
     String path =
         String.format(
@@ -64,6 +79,12 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
+  public PipelinePermissions setPipelinePermissions(PipelinePermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
+    return apiClient.PUT(path, request, PipelinePermissions.class);
+  }
+
+  @Override
   public StartUpdateResponse startUpdate(StartUpdate request) {
     String path = String.format("/api/2.0/pipelines/%s/updates", request.getPipelineId());
     return apiClient.POST(path, request, StartUpdateResponse.class);
@@ -79,5 +100,11 @@ class PipelinesImpl implements PipelinesService {
   public void update(EditPipeline request) {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     apiClient.PUT(path, request, Void.class);
+  }
+
+  @Override
+  public PipelinePermissions updatePipelinePermissions(PipelinePermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
+    return apiClient.PATCH(path, request, PipelinePermissions.class);
   }
 }

@@ -22,6 +22,13 @@ public class CreateCustomAppIntegration {
   @JsonProperty("redirect_urls")
   private Collection<String> redirectUrls;
 
+  /**
+   * OAuth scopes granted to the application. Supported scopes: all-apis, sql, offline_access,
+   * openid, profile, email.
+   */
+  @JsonProperty("scopes")
+  private Collection<String> scopes;
+
   /** Token access policy */
   @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
@@ -53,6 +60,15 @@ public class CreateCustomAppIntegration {
     return redirectUrls;
   }
 
+  public CreateCustomAppIntegration setScopes(Collection<String> scopes) {
+    this.scopes = scopes;
+    return this;
+  }
+
+  public Collection<String> getScopes() {
+    return scopes;
+  }
+
   public CreateCustomAppIntegration setTokenAccessPolicy(TokenAccessPolicy tokenAccessPolicy) {
     this.tokenAccessPolicy = tokenAccessPolicy;
     return this;
@@ -70,12 +86,13 @@ public class CreateCustomAppIntegration {
     return Objects.equals(confidential, that.confidential)
         && Objects.equals(name, that.name)
         && Objects.equals(redirectUrls, that.redirectUrls)
+        && Objects.equals(scopes, that.scopes)
         && Objects.equals(tokenAccessPolicy, that.tokenAccessPolicy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(confidential, name, redirectUrls, tokenAccessPolicy);
+    return Objects.hash(confidential, name, redirectUrls, scopes, tokenAccessPolicy);
   }
 
   @Override
@@ -84,6 +101,7 @@ public class CreateCustomAppIntegration {
         .add("confidential", confidential)
         .add("name", name)
         .add("redirectUrls", redirectUrls)
+        .add("scopes", scopes)
         .add("tokenAccessPolicy", tokenAccessPolicy)
         .toString();
   }

@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -11,10 +12,12 @@ import java.util.Objects;
 public class TimeRange {
   /** Limit results to queries that started before this time. */
   @JsonProperty("end_time_ms")
+  @QueryParam("end_time_ms")
   private Long endTimeMs;
 
   /** Limit results to queries that started after this time. */
   @JsonProperty("start_time_ms")
+  @QueryParam("start_time_ms")
   private Long startTimeMs;
 
   public TimeRange setEndTimeMs(Long endTimeMs) {

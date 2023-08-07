@@ -163,6 +163,35 @@ public class PipelinesAPI {
     return impl.get(request);
   }
 
+  public GetPipelinePermissionLevelsResponse getPipelinePermissionLevels(String pipelineId) {
+    return getPipelinePermissionLevels(
+        new GetPipelinePermissionLevelsRequest().setPipelineId(pipelineId));
+  }
+
+  /**
+   * Get pipeline permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetPipelinePermissionLevelsResponse getPipelinePermissionLevels(
+      GetPipelinePermissionLevelsRequest request) {
+    return impl.getPipelinePermissionLevels(request);
+  }
+
+  public PipelinePermissions getPipelinePermissions(String pipelineId) {
+    return getPipelinePermissions(new GetPipelinePermissionsRequest().setPipelineId(pipelineId));
+  }
+
+  /**
+   * Get pipeline permissions.
+   *
+   * <p>Gets the permissions of a pipeline. Pipelines can inherit permissions from their root
+   * object.
+   */
+  public PipelinePermissions getPipelinePermissions(GetPipelinePermissionsRequest request) {
+    return impl.getPipelinePermissions(request);
+  }
+
   public GetUpdateResponse getUpdate(String pipelineId, String updateId) {
     return getUpdate(new GetUpdateRequest().setPipelineId(pipelineId).setUpdateId(updateId));
   }
@@ -246,6 +275,19 @@ public class PipelinesAPI {
         (timeout, callback) -> waitGetPipelineRunning(request.getPipelineId(), timeout, callback));
   }
 
+  public PipelinePermissions setPipelinePermissions(String pipelineId) {
+    return setPipelinePermissions(new PipelinePermissionsRequest().setPipelineId(pipelineId));
+  }
+
+  /**
+   * Set pipeline permissions.
+   *
+   * <p>Sets permissions on a pipeline. Pipelines can inherit permissions from their root object.
+   */
+  public PipelinePermissions setPipelinePermissions(PipelinePermissionsRequest request) {
+    return impl.setPipelinePermissions(request);
+  }
+
   public StartUpdateResponse startUpdate(String pipelineId) {
     return startUpdate(new StartUpdate().setPipelineId(pipelineId));
   }
@@ -285,6 +327,20 @@ public class PipelinesAPI {
    */
   public void update(EditPipeline request) {
     impl.update(request);
+  }
+
+  public PipelinePermissions updatePipelinePermissions(String pipelineId) {
+    return updatePipelinePermissions(new PipelinePermissionsRequest().setPipelineId(pipelineId));
+  }
+
+  /**
+   * Update pipeline permissions.
+   *
+   * <p>Updates the permissions on a pipeline. Pipelines can inherit permissions from their root
+   * object.
+   */
+  public PipelinePermissions updatePipelinePermissions(PipelinePermissionsRequest request) {
+    return impl.updatePipelinePermissions(request);
   }
 
   public PipelinesService impl() {

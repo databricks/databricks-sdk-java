@@ -43,6 +43,23 @@ public interface PipelinesService {
   GetPipelineResponse get(GetPipelineRequest getPipelineRequest);
 
   /**
+   * Get pipeline permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetPipelinePermissionLevelsResponse getPipelinePermissionLevels(
+      GetPipelinePermissionLevelsRequest getPipelinePermissionLevelsRequest);
+
+  /**
+   * Get pipeline permissions.
+   *
+   * <p>Gets the permissions of a pipeline. Pipelines can inherit permissions from their root
+   * object.
+   */
+  PipelinePermissions getPipelinePermissions(
+      GetPipelinePermissionsRequest getPipelinePermissionsRequest);
+
+  /**
    * Get a pipeline update.
    *
    * <p>Gets an update from an active pipeline.
@@ -79,6 +96,13 @@ public interface PipelinesService {
   void reset(ResetRequest resetRequest);
 
   /**
+   * Set pipeline permissions.
+   *
+   * <p>Sets permissions on a pipeline. Pipelines can inherit permissions from their root object.
+   */
+  PipelinePermissions setPipelinePermissions(PipelinePermissionsRequest pipelinePermissionsRequest);
+
+  /**
    * Queue a pipeline update.
    *
    * <p>Starts or queues a pipeline update.
@@ -98,4 +122,13 @@ public interface PipelinesService {
    * <p>Updates a pipeline with the supplied configuration.
    */
   void update(EditPipeline editPipeline);
+
+  /**
+   * Update pipeline permissions.
+   *
+   * <p>Updates the permissions on a pipeline. Pipelines can inherit permissions from their root
+   * object.
+   */
+  PipelinePermissions updatePipelinePermissions(
+      PipelinePermissionsRequest pipelinePermissionsRequest);
 }

@@ -32,20 +32,20 @@ class PermissionsImpl implements PermissionsService {
   }
 
   @Override
-  public void set(PermissionsRequest request) {
+  public ObjectPermissions set(PermissionsRequest request) {
     String path =
         String.format(
             "/api/2.0/permissions/%s/%s",
             request.getRequestObjectType(), request.getRequestObjectId());
-    apiClient.PUT(path, request, Void.class);
+    return apiClient.PUT(path, request, ObjectPermissions.class);
   }
 
   @Override
-  public void update(PermissionsRequest request) {
+  public ObjectPermissions update(PermissionsRequest request) {
     String path =
         String.format(
             "/api/2.0/permissions/%s/%s",
             request.getRequestObjectType(), request.getRequestObjectId());
-    apiClient.PATCH(path, request, Void.class);
+    return apiClient.PATCH(path, request, ObjectPermissions.class);
   }
 }

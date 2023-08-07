@@ -98,6 +98,38 @@ public class ClusterPoliciesAPI {
     return impl.get(request);
   }
 
+  public GetClusterPolicyPermissionLevelsResponse getClusterPolicyPermissionLevels(
+      String clusterPolicyId) {
+    return getClusterPolicyPermissionLevels(
+        new GetClusterPolicyPermissionLevelsRequest().setClusterPolicyId(clusterPolicyId));
+  }
+
+  /**
+   * Get cluster policy permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetClusterPolicyPermissionLevelsResponse getClusterPolicyPermissionLevels(
+      GetClusterPolicyPermissionLevelsRequest request) {
+    return impl.getClusterPolicyPermissionLevels(request);
+  }
+
+  public ClusterPolicyPermissions getClusterPolicyPermissions(String clusterPolicyId) {
+    return getClusterPolicyPermissions(
+        new GetClusterPolicyPermissionsRequest().setClusterPolicyId(clusterPolicyId));
+  }
+
+  /**
+   * Get cluster policy permissions.
+   *
+   * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
+   * their root object.
+   */
+  public ClusterPolicyPermissions getClusterPolicyPermissions(
+      GetClusterPolicyPermissionsRequest request) {
+    return impl.getClusterPolicyPermissions(request);
+  }
+
   /**
    * Get a cluster policy.
    *
@@ -105,6 +137,38 @@ public class ClusterPoliciesAPI {
    */
   public Iterable<Policy> list(ListClusterPoliciesRequest request) {
     return impl.list(request).getPolicies();
+  }
+
+  public ClusterPolicyPermissions setClusterPolicyPermissions(String clusterPolicyId) {
+    return setClusterPolicyPermissions(
+        new ClusterPolicyPermissionsRequest().setClusterPolicyId(clusterPolicyId));
+  }
+
+  /**
+   * Set cluster policy permissions.
+   *
+   * <p>Sets permissions on a cluster policy. Cluster policies can inherit permissions from their
+   * root object.
+   */
+  public ClusterPolicyPermissions setClusterPolicyPermissions(
+      ClusterPolicyPermissionsRequest request) {
+    return impl.setClusterPolicyPermissions(request);
+  }
+
+  public ClusterPolicyPermissions updateClusterPolicyPermissions(String clusterPolicyId) {
+    return updateClusterPolicyPermissions(
+        new ClusterPolicyPermissionsRequest().setClusterPolicyId(clusterPolicyId));
+  }
+
+  /**
+   * Update cluster policy permissions.
+   *
+   * <p>Updates the permissions on a cluster policy. Cluster policies can inherit permissions from
+   * their root object.
+   */
+  public ClusterPolicyPermissions updateClusterPolicyPermissions(
+      ClusterPolicyPermissionsRequest request) {
+    return impl.updateClusterPolicyPermissions(request);
   }
 
   public ClusterPoliciesService impl() {

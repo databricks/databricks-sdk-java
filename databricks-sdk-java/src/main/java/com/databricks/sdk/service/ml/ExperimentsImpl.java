@@ -56,6 +56,21 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public GetExperimentPermissionLevelsResponse getExperimentPermissionLevels(
+      GetExperimentPermissionLevelsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/experiments/%s/permissionLevels", request.getExperimentId());
+    return apiClient.GET(path, request, GetExperimentPermissionLevelsResponse.class);
+  }
+
+  @Override
+  public ExperimentPermissions getExperimentPermissions(GetExperimentPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
+    return apiClient.GET(path, request, ExperimentPermissions.class);
+  }
+
+  @Override
   public GetMetricHistoryResponse getHistory(GetHistoryRequest request) {
     String path = "/api/2.0/mlflow/metrics/get-history";
     return apiClient.GET(path, request, GetMetricHistoryResponse.class);
@@ -134,6 +149,12 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public ExperimentPermissions setExperimentPermissions(ExperimentPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
+    return apiClient.PUT(path, request, ExperimentPermissions.class);
+  }
+
+  @Override
   public void setExperimentTag(SetExperimentTag request) {
     String path = "/api/2.0/mlflow/experiments/set-experiment-tag";
     apiClient.POST(path, request, Void.class);
@@ -149,6 +170,12 @@ class ExperimentsImpl implements ExperimentsService {
   public void updateExperiment(UpdateExperiment request) {
     String path = "/api/2.0/mlflow/experiments/update";
     apiClient.POST(path, request, Void.class);
+  }
+
+  @Override
+  public ExperimentPermissions updateExperimentPermissions(ExperimentPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
+    return apiClient.PATCH(path, request, ExperimentPermissions.class);
   }
 
   @Override

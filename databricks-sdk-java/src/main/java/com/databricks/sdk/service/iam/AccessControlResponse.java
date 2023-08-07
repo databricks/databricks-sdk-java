@@ -14,11 +14,15 @@ public class AccessControlResponse {
   @JsonProperty("all_permissions")
   private Collection<Permission> allPermissions;
 
+  /** Display name of the user or service principal. */
+  @JsonProperty("display_name")
+  private String displayName;
+
   /** name of the group */
   @JsonProperty("group_name")
   private String groupName;
 
-  /** name of the service principal */
+  /** Name of the service principal. */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
@@ -33,6 +37,15 @@ public class AccessControlResponse {
 
   public Collection<Permission> getAllPermissions() {
     return allPermissions;
+  }
+
+  public AccessControlResponse setDisplayName(String displayName) {
+    this.displayName = displayName;
+    return this;
+  }
+
+  public String getDisplayName() {
+    return displayName;
   }
 
   public AccessControlResponse setGroupName(String groupName) {
@@ -68,6 +81,7 @@ public class AccessControlResponse {
     if (o == null || getClass() != o.getClass()) return false;
     AccessControlResponse that = (AccessControlResponse) o;
     return Objects.equals(allPermissions, that.allPermissions)
+        && Objects.equals(displayName, that.displayName)
         && Objects.equals(groupName, that.groupName)
         && Objects.equals(servicePrincipalName, that.servicePrincipalName)
         && Objects.equals(userName, that.userName);
@@ -75,13 +89,14 @@ public class AccessControlResponse {
 
   @Override
   public int hashCode() {
-    return Objects.hash(allPermissions, groupName, servicePrincipalName, userName);
+    return Objects.hash(allPermissions, displayName, groupName, servicePrincipalName, userName);
   }
 
   @Override
   public String toString() {
     return new ToStringer(AccessControlResponse.class)
         .add("allPermissions", allPermissions)
+        .add("displayName", displayName)
         .add("groupName", groupName)
         .add("servicePrincipalName", servicePrincipalName)
         .add("userName", userName)

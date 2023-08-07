@@ -32,6 +32,18 @@ class UsersImpl implements UsersService {
   }
 
   @Override
+  public GetPasswordPermissionLevelsResponse getPasswordPermissionLevels() {
+    String path = "/api/2.0/permissions/authorization/passwords/permissionLevels";
+    return apiClient.GET(path, GetPasswordPermissionLevelsResponse.class);
+  }
+
+  @Override
+  public PasswordPermissions getPasswordPermissions() {
+    String path = "/api/2.0/permissions/authorization/passwords";
+    return apiClient.GET(path, PasswordPermissions.class);
+  }
+
+  @Override
   public ListUsersResponse list(ListUsersRequest request) {
     String path = "/api/2.0/preview/scim/v2/Users";
     return apiClient.GET(path, request, ListUsersResponse.class);
@@ -44,8 +56,20 @@ class UsersImpl implements UsersService {
   }
 
   @Override
+  public PasswordPermissions setPasswordPermissions(PasswordPermissionsRequest request) {
+    String path = "/api/2.0/permissions/authorization/passwords";
+    return apiClient.PUT(path, request, PasswordPermissions.class);
+  }
+
+  @Override
   public void update(User request) {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
     apiClient.PUT(path, request, Void.class);
+  }
+
+  @Override
+  public PasswordPermissions updatePasswordPermissions(PasswordPermissionsRequest request) {
+    String path = "/api/2.0/permissions/authorization/passwords";
+    return apiClient.PATCH(path, request, PasswordPermissions.class);
   }
 }
