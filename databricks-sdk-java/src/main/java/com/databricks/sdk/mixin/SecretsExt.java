@@ -19,12 +19,45 @@ public class SecretsExt {
         this.api = new SecretsAPI(new ApiClient());
     }
 
+    // TODO: Change the below to input / output of API call or if we decide to go forward with command execution api
+    class Query {
+        private final String scope;
+        private final String key;
+
+        public Query(String scope, String key) {
+            this.scope = scope;
+            this.key = key;
+        }
+
+        public String getKey() {
+            return this.key;
+        }
+
+        public String getScope() {
+            return this.scope;
+        }
+    }
+
+    class RawResponse {
+        private final String value;
+
+        public RawResponse(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+    }
+
+
     /**
      * Gets the bytes representation of a secret value for the specified scope and key.
      */
     public byte[] getBytes(String scope, String key) {
         Query query = new Query(scope, key);
-        RawResponse raw = this.api.getSecretBytes("/api/2.0/secrets/get", query); // If REST works, else use command execution apis
+        // RawResponse raw = this.api.getSecretBytes("/api/2.0/secrets/get", query); // If REST works, else use command execution apis
+        RawResponse raw = new RawResponse("placeholder");
         return Base64.getDecoder().decode(raw.getValue());
     }
 
@@ -62,36 +95,3 @@ public class SecretsExt {
         return secretScopeList;
     }
 }
-
-// TODO: Change the below to input / output of API call or if we decide to go forward with command execution api
-
-class Query {
-    private final String scope;
-    private final String key;
-
-    public Query(String scope, String key) {
-        this.scope = scope;
-        this.key = key;
-    }
-
-    public String getKey() {
-        return this.key;
-    }
-
-    public String getScope() {
-        return this.scope;
-    }
-}
-
-class RawResponse {
-    private final String value;
-
-    public RawResponse(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return this.value;
-    }
-}
-
