@@ -50,6 +50,23 @@ public interface ServingEndpointsService {
    */
   ServingEndpointDetailed get(GetServingEndpointRequest getServingEndpointRequest);
 
+  /**
+   * Get serving endpoint permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetServingEndpointPermissionLevelsResponse getServingEndpointPermissionLevels(
+      GetServingEndpointPermissionLevelsRequest getServingEndpointPermissionLevelsRequest);
+
+  /**
+   * Get serving endpoint permissions.
+   *
+   * <p>Gets the permissions of a serving endpoint. Serving endpoints can inherit permissions from
+   * their root object.
+   */
+  ServingEndpointPermissions getServingEndpointPermissions(
+      GetServingEndpointPermissionsRequest getServingEndpointPermissionsRequest);
+
   /** Retrieve all serving endpoints. */
   ListEndpointsResponse list();
 
@@ -64,6 +81,15 @@ public interface ServingEndpointsService {
   QueryEndpointResponse query(QueryRequest queryRequest);
 
   /**
+   * Set serving endpoint permissions.
+   *
+   * <p>Sets permissions on a serving endpoint. Serving endpoints can inherit permissions from their
+   * root object.
+   */
+  ServingEndpointPermissions setServingEndpointPermissions(
+      ServingEndpointPermissionsRequest servingEndpointPermissionsRequest);
+
+  /**
    * Update a serving endpoint with a new config.
    *
    * <p>Updates any combination of the serving endpoint's served models, the compute configuration
@@ -71,4 +97,13 @@ public interface ServingEndpointsService {
    * update in progress can not be updated until the current update completes or fails.
    */
   ServingEndpointDetailed updateConfig(EndpointCoreConfigInput endpointCoreConfigInput);
+
+  /**
+   * Update serving endpoint permissions.
+   *
+   * <p>Updates the permissions on a serving endpoint. Serving endpoints can inherit permissions
+   * from their root object.
+   */
+  ServingEndpointPermissions updateServingEndpointPermissions(
+      ServingEndpointPermissionsRequest servingEndpointPermissionsRequest);
 }

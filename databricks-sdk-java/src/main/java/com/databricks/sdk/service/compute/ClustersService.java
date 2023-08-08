@@ -97,6 +97,22 @@ public interface ClustersService {
   ClusterDetails get(GetClusterRequest getClusterRequest);
 
   /**
+   * Get cluster permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetClusterPermissionLevelsResponse getClusterPermissionLevels(
+      GetClusterPermissionLevelsRequest getClusterPermissionLevelsRequest);
+
+  /**
+   * Get cluster permissions.
+   *
+   * <p>Gets the permissions of a cluster. Clusters can inherit permissions from their root object.
+   */
+  ClusterPermissions getClusterPermissions(
+      GetClusterPermissionsRequest getClusterPermissionsRequest);
+
+  /**
    * List all clusters.
    *
    * <p>Return information about all pinned clusters, active clusters, up to 200 of the most
@@ -163,6 +179,13 @@ public interface ClustersService {
   void restart(RestartCluster restartCluster);
 
   /**
+   * Set cluster permissions.
+   *
+   * <p>Sets permissions on a cluster. Clusters can inherit permissions from their root object.
+   */
+  ClusterPermissions setClusterPermissions(ClusterPermissionsRequest clusterPermissionsRequest);
+
+  /**
    * List available Spark versions.
    *
    * <p>Returns the list of available Spark versions. These versions can be used to launch a
@@ -191,4 +214,12 @@ public interface ClustersService {
    * workspace admins.
    */
   void unpin(UnpinCluster unpinCluster);
+
+  /**
+   * Update cluster permissions.
+   *
+   * <p>Updates the permissions on a cluster. Clusters can inherit permissions from their root
+   * object.
+   */
+  ClusterPermissions updateClusterPermissions(ClusterPermissionsRequest clusterPermissionsRequest);
 }

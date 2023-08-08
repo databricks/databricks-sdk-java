@@ -38,6 +38,21 @@ class WarehousesImpl implements WarehousesService {
   }
 
   @Override
+  public GetWarehousePermissionLevelsResponse getWarehousePermissionLevels(
+      GetWarehousePermissionLevelsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/permissions/warehouses/%s/permissionLevels", request.getWarehouseId());
+    return apiClient.GET(path, request, GetWarehousePermissionLevelsResponse.class);
+  }
+
+  @Override
+  public WarehousePermissions getWarehousePermissions(GetWarehousePermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
+    return apiClient.GET(path, request, WarehousePermissions.class);
+  }
+
+  @Override
   public GetWorkspaceWarehouseConfigResponse getWorkspaceWarehouseConfig() {
     String path = "/api/2.0/sql/config/warehouses";
     return apiClient.GET(path, GetWorkspaceWarehouseConfigResponse.class);
@@ -47,6 +62,12 @@ class WarehousesImpl implements WarehousesService {
   public ListWarehousesResponse list(ListWarehousesRequest request) {
     String path = "/api/2.0/sql/warehouses";
     return apiClient.GET(path, request, ListWarehousesResponse.class);
+  }
+
+  @Override
+  public WarehousePermissions setWarehousePermissions(WarehousePermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
+    return apiClient.PUT(path, request, WarehousePermissions.class);
   }
 
   @Override
@@ -65,5 +86,11 @@ class WarehousesImpl implements WarehousesService {
   public void stop(StopRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
     apiClient.POST(path, request, Void.class);
+  }
+
+  @Override
+  public WarehousePermissions updateWarehousePermissions(WarehousePermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
+    return apiClient.PATCH(path, request, WarehousePermissions.class);
   }
 }

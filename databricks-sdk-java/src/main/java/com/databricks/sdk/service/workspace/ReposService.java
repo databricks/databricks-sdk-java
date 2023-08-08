@@ -45,6 +45,21 @@ public interface ReposService {
   RepoInfo get(GetRepoRequest getRepoRequest);
 
   /**
+   * Get repo permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetRepoPermissionLevelsResponse getRepoPermissionLevels(
+      GetRepoPermissionLevelsRequest getRepoPermissionLevelsRequest);
+
+  /**
+   * Get repo permissions.
+   *
+   * <p>Gets the permissions of a repo. Repos can inherit permissions from their root object.
+   */
+  RepoPermissions getRepoPermissions(GetRepoPermissionsRequest getRepoPermissionsRequest);
+
+  /**
    * Get repos.
    *
    * <p>Returns repos that the calling user has Manage permissions on. Results are paginated with
@@ -53,10 +68,24 @@ public interface ReposService {
   ListReposResponse list(ListReposRequest listReposRequest);
 
   /**
+   * Set repo permissions.
+   *
+   * <p>Sets permissions on a repo. Repos can inherit permissions from their root object.
+   */
+  RepoPermissions setRepoPermissions(RepoPermissionsRequest repoPermissionsRequest);
+
+  /**
    * Update a repo.
    *
    * <p>Updates the repo to a different branch or tag, or updates the repo to the latest commit on
    * the same branch.
    */
   void update(UpdateRepo updateRepo);
+
+  /**
+   * Update repo permissions.
+   *
+   * <p>Updates the permissions on a repo. Repos can inherit permissions from their root object.
+   */
+  RepoPermissions updateRepoPermissions(RepoPermissionsRequest repoPermissionsRequest);
 }

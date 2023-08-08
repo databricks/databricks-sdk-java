@@ -56,6 +56,20 @@ class JobsImpl implements JobsService {
   }
 
   @Override
+  public GetJobPermissionLevelsResponse getJobPermissionLevels(
+      GetJobPermissionLevelsRequest request) {
+    String path =
+        String.format("/api/2.0/permissions/jobs/%s/permissionLevels", request.getJobId());
+    return apiClient.GET(path, request, GetJobPermissionLevelsResponse.class);
+  }
+
+  @Override
+  public JobPermissions getJobPermissions(GetJobPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/jobs/%s", request.getJobId());
+    return apiClient.GET(path, request, JobPermissions.class);
+  }
+
+  @Override
   public Run getRun(GetRunRequest request) {
     String path = "/api/2.1/jobs/runs/get";
     return apiClient.GET(path, request, Run.class);
@@ -98,6 +112,12 @@ class JobsImpl implements JobsService {
   }
 
   @Override
+  public JobPermissions setJobPermissions(JobPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/jobs/%s", request.getJobId());
+    return apiClient.PUT(path, request, JobPermissions.class);
+  }
+
+  @Override
   public SubmitRunResponse submit(SubmitRun request) {
     String path = "/api/2.1/jobs/runs/submit";
     return apiClient.POST(path, request, SubmitRunResponse.class);
@@ -107,5 +127,11 @@ class JobsImpl implements JobsService {
   public void update(UpdateJob request) {
     String path = "/api/2.1/jobs/update";
     apiClient.POST(path, request, Void.class);
+  }
+
+  @Override
+  public JobPermissions updateJobPermissions(JobPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/jobs/%s", request.getJobId());
+    return apiClient.PATCH(path, request, JobPermissions.class);
   }
 }

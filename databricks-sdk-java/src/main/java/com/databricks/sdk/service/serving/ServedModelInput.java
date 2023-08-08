@@ -19,6 +19,10 @@ public class ServedModelInput {
   @JsonProperty("environment_vars")
   private Map<String, String> environmentVars;
 
+  /** ARN of the instance profile that the served model will use to access AWS resources. */
+  @JsonProperty("instance_profile_arn")
+  private String instanceProfileArn;
+
   /**
    * The name of the model in Databricks Model Registry to be served or if the model resides in
    * Unity Catalog, the full name of model, in the form of
@@ -61,6 +65,15 @@ public class ServedModelInput {
 
   public Map<String, String> getEnvironmentVars() {
     return environmentVars;
+  }
+
+  public ServedModelInput setInstanceProfileArn(String instanceProfileArn) {
+    this.instanceProfileArn = instanceProfileArn;
+    return this;
+  }
+
+  public String getInstanceProfileArn() {
+    return instanceProfileArn;
   }
 
   public ServedModelInput setModelName(String modelName) {
@@ -114,6 +127,7 @@ public class ServedModelInput {
     if (o == null || getClass() != o.getClass()) return false;
     ServedModelInput that = (ServedModelInput) o;
     return Objects.equals(environmentVars, that.environmentVars)
+        && Objects.equals(instanceProfileArn, that.instanceProfileArn)
         && Objects.equals(modelName, that.modelName)
         && Objects.equals(modelVersion, that.modelVersion)
         && Objects.equals(name, that.name)
@@ -124,13 +138,20 @@ public class ServedModelInput {
   @Override
   public int hashCode() {
     return Objects.hash(
-        environmentVars, modelName, modelVersion, name, scaleToZeroEnabled, workloadSize);
+        environmentVars,
+        instanceProfileArn,
+        modelName,
+        modelVersion,
+        name,
+        scaleToZeroEnabled,
+        workloadSize);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ServedModelInput.class)
         .add("environmentVars", environmentVars)
+        .add("instanceProfileArn", instanceProfileArn)
         .add("modelName", modelName)
         .add("modelVersion", modelVersion)
         .add("name", name)

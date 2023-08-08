@@ -149,6 +149,23 @@ public interface ModelRegistryService {
       GetModelVersionDownloadUriRequest getModelVersionDownloadUriRequest);
 
   /**
+   * Get registered model permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetRegisteredModelPermissionLevelsResponse getRegisteredModelPermissionLevels(
+      GetRegisteredModelPermissionLevelsRequest getRegisteredModelPermissionLevelsRequest);
+
+  /**
+   * Get registered model permissions.
+   *
+   * <p>Gets the permissions of a registered model. Registered models can inherit permissions from
+   * their root object.
+   */
+  RegisteredModelPermissions getRegisteredModelPermissions(
+      GetRegisteredModelPermissionsRequest getRegisteredModelPermissionsRequest);
+
+  /**
    * List models.
    *
    * <p>Lists all available registered models, up to the limit specified in __max_results__.
@@ -217,6 +234,15 @@ public interface ModelRegistryService {
   void setModelVersionTag(SetModelVersionTagRequest setModelVersionTagRequest);
 
   /**
+   * Set registered model permissions.
+   *
+   * <p>Sets permissions on a registered model. Registered models can inherit permissions from their
+   * root object.
+   */
+  RegisteredModelPermissions setRegisteredModelPermissions(
+      RegisteredModelPermissionsRequest registeredModelPermissionsRequest);
+
+  /**
    * Test a webhook.
    *
    * <p>**NOTE:** This endpoint is in Public Preview.
@@ -258,6 +284,15 @@ public interface ModelRegistryService {
    * <p>Updates the model version.
    */
   void updateModelVersion(UpdateModelVersionRequest updateModelVersionRequest);
+
+  /**
+   * Update registered model permissions.
+   *
+   * <p>Updates the permissions on a registered model. Registered models can inherit permissions
+   * from their root object.
+   */
+  RegisteredModelPermissions updateRegisteredModelPermissions(
+      RegisteredModelPermissionsRequest registeredModelPermissionsRequest);
 
   /**
    * Update a webhook.

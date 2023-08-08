@@ -82,6 +82,23 @@ public interface ExperimentsService {
   Experiment getExperiment(GetExperimentRequest getExperimentRequest);
 
   /**
+   * Get experiment permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetExperimentPermissionLevelsResponse getExperimentPermissionLevels(
+      GetExperimentPermissionLevelsRequest getExperimentPermissionLevelsRequest);
+
+  /**
+   * Get experiment permissions.
+   *
+   * <p>Gets the permissions of an experiment. Experiments can inherit permissions from their root
+   * object.
+   */
+  ExperimentPermissions getExperimentPermissions(
+      GetExperimentPermissionsRequest getExperimentPermissionsRequest);
+
+  /**
    * Get history of a given metric within a run.
    *
    * <p>Gets a list of all values for the specified metric for a given run.
@@ -224,6 +241,15 @@ public interface ExperimentsService {
   SearchRunsResponse searchRuns(SearchRuns searchRuns);
 
   /**
+   * Set experiment permissions.
+   *
+   * <p>Sets permissions on an experiment. Experiments can inherit permissions from their root
+   * object.
+   */
+  ExperimentPermissions setExperimentPermissions(
+      ExperimentPermissionsRequest experimentPermissionsRequest);
+
+  /**
    * Set a tag.
    *
    * <p>Sets a tag on an experiment. Experiment tags are metadata that can be updated.
@@ -244,6 +270,15 @@ public interface ExperimentsService {
    * <p>Updates experiment metadata.
    */
   void updateExperiment(UpdateExperiment updateExperiment);
+
+  /**
+   * Update experiment permissions.
+   *
+   * <p>Updates the permissions on an experiment. Experiments can inherit permissions from their
+   * root object.
+   */
+  ExperimentPermissions updateExperimentPermissions(
+      ExperimentPermissionsRequest experimentPermissionsRequest);
 
   /**
    * Update a run.

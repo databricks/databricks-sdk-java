@@ -76,6 +76,33 @@ public class ReposAPI {
     return impl.get(request);
   }
 
+  public GetRepoPermissionLevelsResponse getRepoPermissionLevels(String repoId) {
+    return getRepoPermissionLevels(new GetRepoPermissionLevelsRequest().setRepoId(repoId));
+  }
+
+  /**
+   * Get repo permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetRepoPermissionLevelsResponse getRepoPermissionLevels(
+      GetRepoPermissionLevelsRequest request) {
+    return impl.getRepoPermissionLevels(request);
+  }
+
+  public RepoPermissions getRepoPermissions(String repoId) {
+    return getRepoPermissions(new GetRepoPermissionsRequest().setRepoId(repoId));
+  }
+
+  /**
+   * Get repo permissions.
+   *
+   * <p>Gets the permissions of a repo. Repos can inherit permissions from their root object.
+   */
+  public RepoPermissions getRepoPermissions(GetRepoPermissionsRequest request) {
+    return impl.getRepoPermissions(request);
+  }
+
   /**
    * Get repos.
    *
@@ -96,6 +123,19 @@ public class ReposAPI {
         });
   }
 
+  public RepoPermissions setRepoPermissions(String repoId) {
+    return setRepoPermissions(new RepoPermissionsRequest().setRepoId(repoId));
+  }
+
+  /**
+   * Set repo permissions.
+   *
+   * <p>Sets permissions on a repo. Repos can inherit permissions from their root object.
+   */
+  public RepoPermissions setRepoPermissions(RepoPermissionsRequest request) {
+    return impl.setRepoPermissions(request);
+  }
+
   public void update(long repoId) {
     update(new UpdateRepo().setRepoId(repoId));
   }
@@ -108,6 +148,19 @@ public class ReposAPI {
    */
   public void update(UpdateRepo request) {
     impl.update(request);
+  }
+
+  public RepoPermissions updateRepoPermissions(String repoId) {
+    return updateRepoPermissions(new RepoPermissionsRequest().setRepoId(repoId));
+  }
+
+  /**
+   * Update repo permissions.
+   *
+   * <p>Updates the permissions on a repo. Repos can inherit permissions from their root object.
+   */
+  public RepoPermissions updateRepoPermissions(RepoPermissionsRequest request) {
+    return impl.updateRepoPermissions(request);
   }
 
   public ReposService impl() {

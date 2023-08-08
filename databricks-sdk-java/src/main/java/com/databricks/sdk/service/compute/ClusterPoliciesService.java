@@ -62,9 +62,44 @@ public interface ClusterPoliciesService {
   Policy get(GetClusterPolicyRequest getClusterPolicyRequest);
 
   /**
+   * Get cluster policy permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  GetClusterPolicyPermissionLevelsResponse getClusterPolicyPermissionLevels(
+      GetClusterPolicyPermissionLevelsRequest getClusterPolicyPermissionLevelsRequest);
+
+  /**
+   * Get cluster policy permissions.
+   *
+   * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
+   * their root object.
+   */
+  ClusterPolicyPermissions getClusterPolicyPermissions(
+      GetClusterPolicyPermissionsRequest getClusterPolicyPermissionsRequest);
+
+  /**
    * Get a cluster policy.
    *
    * <p>Returns a list of policies accessible by the requesting user.
    */
   ListPoliciesResponse list(ListClusterPoliciesRequest listClusterPoliciesRequest);
+
+  /**
+   * Set cluster policy permissions.
+   *
+   * <p>Sets permissions on a cluster policy. Cluster policies can inherit permissions from their
+   * root object.
+   */
+  ClusterPolicyPermissions setClusterPolicyPermissions(
+      ClusterPolicyPermissionsRequest clusterPolicyPermissionsRequest);
+
+  /**
+   * Update cluster policy permissions.
+   *
+   * <p>Updates the permissions on a cluster policy. Cluster policies can inherit permissions from
+   * their root object.
+   */
+  ClusterPolicyPermissions updateClusterPolicyPermissions(
+      ClusterPolicyPermissionsRequest clusterPolicyPermissionsRequest);
 }

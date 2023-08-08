@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class QueryInfo {
+  /** Reserved for internal use. */
+  @JsonProperty("canSubscribeToLiveQuery")
+  private Boolean canSubscribeToLiveQuery;
+
   /** Channel information for the SQL warehouse at the time of query execution */
   @JsonProperty("channel_used")
   private ChannelInfo channelUsed;
@@ -96,6 +100,15 @@ public class QueryInfo {
   /** Warehouse ID. */
   @JsonProperty("warehouse_id")
   private String warehouseId;
+
+  public QueryInfo setCanSubscribeToLiveQuery(Boolean canSubscribeToLiveQuery) {
+    this.canSubscribeToLiveQuery = canSubscribeToLiveQuery;
+    return this;
+  }
+
+  public Boolean getCanSubscribeToLiveQuery() {
+    return canSubscribeToLiveQuery;
+  }
 
   public QueryInfo setChannelUsed(ChannelInfo channelUsed) {
     this.channelUsed = channelUsed;
@@ -300,7 +313,8 @@ public class QueryInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     QueryInfo that = (QueryInfo) o;
-    return Objects.equals(channelUsed, that.channelUsed)
+    return Objects.equals(canSubscribeToLiveQuery, that.canSubscribeToLiveQuery)
+        && Objects.equals(channelUsed, that.channelUsed)
         && Objects.equals(duration, that.duration)
         && Objects.equals(endpointId, that.endpointId)
         && Objects.equals(errorMessage, that.errorMessage)
@@ -327,6 +341,7 @@ public class QueryInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        canSubscribeToLiveQuery,
         channelUsed,
         duration,
         endpointId,
@@ -354,6 +369,7 @@ public class QueryInfo {
   @Override
   public String toString() {
     return new ToStringer(QueryInfo.class)
+        .add("canSubscribeToLiveQuery", canSubscribeToLiveQuery)
         .add("channelUsed", channelUsed)
         .add("duration", duration)
         .add("endpointId", endpointId)

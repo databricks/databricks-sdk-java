@@ -34,8 +34,9 @@ public class Task {
 
   /**
    * An optional array of objects specifying the dependency graph of the task. All tasks specified
-   * in this field must complete successfully before executing this task. The key is `task_key`, and
-   * the value is the name assigned to the dependent task.
+   * in this field must complete before executing this task. The task will run only if the `run_if`
+   * condition is true. The key is `task_key`, and the value is the name assigned to the dependent
+   * task.
    */
   @JsonProperty("depends_on")
   private Collection<TaskDependency> dependsOn;

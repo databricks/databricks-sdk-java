@@ -189,6 +189,33 @@ public class JobsAPI {
     return impl.get(request);
   }
 
+  public GetJobPermissionLevelsResponse getJobPermissionLevels(String jobId) {
+    return getJobPermissionLevels(new GetJobPermissionLevelsRequest().setJobId(jobId));
+  }
+
+  /**
+   * Get job permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetJobPermissionLevelsResponse getJobPermissionLevels(
+      GetJobPermissionLevelsRequest request) {
+    return impl.getJobPermissionLevels(request);
+  }
+
+  public JobPermissions getJobPermissions(String jobId) {
+    return getJobPermissions(new GetJobPermissionsRequest().setJobId(jobId));
+  }
+
+  /**
+   * Get job permissions.
+   *
+   * <p>Gets the permissions of a job. Jobs can inherit permissions from their root object.
+   */
+  public JobPermissions getJobPermissions(GetJobPermissionsRequest request) {
+    return impl.getJobPermissions(request);
+  }
+
   public Run getRun(long runId) {
     return getRun(new GetRunRequest().setRunId(runId));
   }
@@ -310,6 +337,19 @@ public class JobsAPI {
         response);
   }
 
+  public JobPermissions setJobPermissions(String jobId) {
+    return setJobPermissions(new JobPermissionsRequest().setJobId(jobId));
+  }
+
+  /**
+   * Set job permissions.
+   *
+   * <p>Sets permissions on a job. Jobs can inherit permissions from their root object.
+   */
+  public JobPermissions setJobPermissions(JobPermissionsRequest request) {
+    return impl.setJobPermissions(request);
+  }
+
   /**
    * Create and trigger a one-time run.
    *
@@ -337,6 +377,19 @@ public class JobsAPI {
    */
   public void update(UpdateJob request) {
     impl.update(request);
+  }
+
+  public JobPermissions updateJobPermissions(String jobId) {
+    return updateJobPermissions(new JobPermissionsRequest().setJobId(jobId));
+  }
+
+  /**
+   * Update job permissions.
+   *
+   * <p>Updates the permissions on a job. Jobs can inherit permissions from their root object.
+   */
+  public JobPermissions updateJobPermissions(JobPermissionsRequest request) {
+    return impl.updateJobPermissions(request);
   }
 
   public JobsService impl() {
