@@ -22,8 +22,15 @@ public class SubmitRun {
   private JobEmailNotifications emailNotifications;
 
   /**
-   * An optional specification for a remote repository containing the notebooks used by this job's
-   * notebook tasks.
+   * An optional specification for a remote Git repository containing the source code used by tasks.
+   * Version-controlled source code is supported by notebook, dbt, Python script, and SQL File
+   * tasks.
+   *
+   * <p>If `git_source` is set, these tasks retrieve the file from the remote repository by default.
+   * However, this behavior can be overridden by setting `source` to `WORKSPACE` on the task.
+   *
+   * <p>Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
+   * tasks are used, `git_source` must be defined on the job.
    */
   @JsonProperty("git_source")
   private GitSource gitSource;

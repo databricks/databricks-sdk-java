@@ -1,5 +1,38 @@
 # Version changelog
 
+## 0.5.0
+
+
+API Changes:
+
+ * Changed `create()` method for `accountClient.storageCredentials()` service to return `com.databricks.sdk.service.catalog.AccountsStorageCredentialInfo` class.
+ * Changed `get()` method for `accountClient.storageCredentials()` service to return `com.databricks.sdk.service.catalog.AccountsStorageCredentialInfo` class.
+ * Changed `update()` method for `accountClient.storageCredentials()` service to return `com.databricks.sdk.service.catalog.AccountsStorageCredentialInfo` class.
+ * Changed `create()` method for `workspaceClient.connections()` service with new required argument order.
+ * Changed `update()` method for `workspaceClient.connections()` service with new required argument order.
+ * Added `provisioningState` field for `com.databricks.sdk.service.catalog.ConnectionInfo`.
+ * Added `securableKind` field for `com.databricks.sdk.service.catalog.ConnectionInfo`.
+ * Added `securableType` field for `com.databricks.sdk.service.catalog.ConnectionInfo`.
+ * Changed `algorithm` field for `com.databricks.sdk.service.catalog.SseEncryptionDetails` to no longer be required.
+ * Added `com.databricks.sdk.service.catalog.AccountsStorageCredentialInfo` class.
+ * Added `com.databricks.sdk.service.catalog.ConnectionInfoSecurableKind` class.
+ * Added `com.databricks.sdk.service.catalog.ProvisioningState` class.
+ * Added `dataSecurityMode` field for `com.databricks.sdk.service.compute.CreateCluster`.
+ * Added `dockerImage` field for `com.databricks.sdk.service.compute.CreateCluster`.
+ * Added `singleUserName` field for `com.databricks.sdk.service.compute.CreateCluster`.
+
+Bug fixes:
+
+ * Renamed `optionsKvpairs` field to `options` for `com.databricks.sdk.service.catalog.ConnectionInfo`.
+ * Renamed `propertiesKvpairs` field to `properties` for `com.databricks.sdk.service.catalog.ConnectionInfo`.
+ * Renamed `optionsKvpairs` field to `options` for `com.databricks.sdk.service.catalog.CreateConnection`.
+ * Renamed `propertiesKvpairs` field to `properties` for `com.databricks.sdk.service.catalog.CreateConnection`.
+ * Renamed `optionsKvpairs` field to `options` for `com.databricks.sdk.service.catalog.UpdateConnection`.
+ * Renamed `schema` field to `schemas` for `com.databricks.sdk.service.iam.PartialUpdate`.
+
+OpenAPI SHA: 1e3533f94335f0e6c5d9262bc1fea95b3ddcb0e1, Date: 2023-08-11
+
+
 ## 0.4.0
 
 To simplify documentation and management of object permissions, this release features a major reorganization of how permissions APIs are structured in the SDK. Rather than using a single `Permissions.Get()` API for all services, each service supporting permissions has its own permissions APIs. Follow these steps to migrate to the current SDK:

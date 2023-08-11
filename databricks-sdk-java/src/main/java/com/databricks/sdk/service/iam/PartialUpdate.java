@@ -18,8 +18,8 @@ public class PartialUpdate {
   private Collection<Patch> operations;
 
   /** The schema of the patch request. Must be ["urn:ietf:params:scim:api:messages:2.0:PatchOp"]. */
-  @JsonProperty("schema")
-  private Collection<PatchSchema> schema;
+  @JsonProperty("schemas")
+  private Collection<PatchSchema> schemas;
 
   public PartialUpdate setId(String id) {
     this.id = id;
@@ -39,13 +39,13 @@ public class PartialUpdate {
     return operations;
   }
 
-  public PartialUpdate setSchema(Collection<PatchSchema> schema) {
-    this.schema = schema;
+  public PartialUpdate setSchemas(Collection<PatchSchema> schemas) {
+    this.schemas = schemas;
     return this;
   }
 
-  public Collection<PatchSchema> getSchema() {
-    return schema;
+  public Collection<PatchSchema> getSchemas() {
+    return schemas;
   }
 
   @Override
@@ -55,12 +55,12 @@ public class PartialUpdate {
     PartialUpdate that = (PartialUpdate) o;
     return Objects.equals(id, that.id)
         && Objects.equals(operations, that.operations)
-        && Objects.equals(schema, that.schema);
+        && Objects.equals(schemas, that.schemas);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, operations, schema);
+    return Objects.hash(id, operations, schemas);
   }
 
   @Override
@@ -68,7 +68,7 @@ public class PartialUpdate {
     return new ToStringer(PartialUpdate.class)
         .add("id", id)
         .add("operations", operations)
-        .add("schema", schema)
+        .add("schemas", schemas)
         .toString();
   }
 }
