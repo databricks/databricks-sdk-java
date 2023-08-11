@@ -18,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class ClustersExt extends ClustersAPI {
   private static final Logger LOG = LoggerFactory.getLogger(ClustersExt.class);
+  private static final String INVALID_STATE = "INVALID_STATE";
 
   public ClustersExt(ApiClient apiClient) {
     super(apiClient);
@@ -217,9 +218,11 @@ public class ClustersExt extends ClustersAPI {
         // running, reconfiguring
         LOG.debug("Cluster is {}: {}", info.getState(), info.getStateMessage());
         return;
-      } catch (IllegalStateException e) {
-        LOG.debug("Cluster reached illegal state. Retrying startup", e);
       } catch (DatabricksError e) {
+        if (e.getErrorCode().equals(INVALID_STATE)) {
+          LOG.debug("Cluster was started by other process: {} Retrying.", e.getMessage());
+          continue;
+        }
         LOG.debug("Received {} error code", e.getErrorCode());
         throw e;
       }
