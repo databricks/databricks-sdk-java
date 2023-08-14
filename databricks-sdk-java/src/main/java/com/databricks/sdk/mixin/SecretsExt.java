@@ -1,15 +1,13 @@
 package com.databricks.sdk.mixin;
 
 import com.databricks.sdk.core.ApiClient;
-import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.workspace.*;
-
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
 /** Remote equivalent of secrets util. */
-public class SecretsExt extends SecretsAPI{
+public class SecretsExt extends SecretsAPI {
 
   public SecretsExt(ApiClient apiClient) {
     super(apiClient);
