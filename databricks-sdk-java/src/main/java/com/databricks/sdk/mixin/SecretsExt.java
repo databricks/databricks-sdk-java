@@ -28,27 +28,4 @@ public class SecretsExt extends SecretsAPI {
     byte[] val = this.getBytes(scope, key);
     return new String(val);
   }
-
-  /**
-   * Lists the metadata for secrets within the specified scope. Transform from SDK dataclass to
-   * equivalent Java class.
-   */
-  public List<SecretMetadata> list(String scope) {
-    Iterable<SecretMetadata> secretMetadatas = this.listSecrets(scope);
-    List<SecretMetadata> secretMetadataList = new ArrayList<>();
-    for (SecretMetadata s : secretMetadatas) {
-      secretMetadataList.add(s);
-    }
-    return secretMetadataList;
-  }
-
-  /** Lists the available scopes. Transform from SDK dataclass to equivalent Java class. */
-  public List<SecretScope> listScopes() {
-    Iterable<SecretScope> secretScopes = super.listScopes();
-    List<SecretScope> secretScopeList = new ArrayList<>();
-    for (SecretScope s : secretScopes) {
-      secretScopeList.add(s);
-    }
-    return secretScopeList;
-  }
 }

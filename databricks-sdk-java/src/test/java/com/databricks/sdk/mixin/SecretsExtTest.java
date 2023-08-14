@@ -70,10 +70,10 @@ public class SecretsExtTest {
         .when(mockedSecretsService)
         .listSecrets(new ListSecretsRequest().setScope("xyz"));
 
-    List<SecretMetadata> secretMetadataList = mockedSecretExt.list("abc");
+    Iterable<SecretMetadata> secretMetadataList = mockedSecretExt.listSecrets("abc");
     assertEquals(abcScopeList, secretMetadataList);
 
-    secretMetadataList = mockedSecretExt.list("xyz");
+    secretMetadataList = mockedSecretExt.listSecrets("xyz");
     assertEquals(xyzScopeList, secretMetadataList);
   }
 
@@ -90,7 +90,7 @@ public class SecretsExtTest {
         .when(mockedSecretsService)
         .listScopes();
 
-    List<SecretScope> response = mockedSecretExt.listScopes();
+    Iterable<SecretScope> response = mockedSecretExt.listScopes();
     assertEquals(secretScopes, response);
   }
 }
