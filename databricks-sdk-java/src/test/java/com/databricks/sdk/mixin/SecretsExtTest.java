@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.databricks.sdk.service.workspace.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Base64;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -30,8 +32,8 @@ public class SecretsExtTest {
         .when(mockedSecretsService)
         .getSecret(new GetSecretRequest().setScope("abc").setKey("xyz"));
 
-    byte[] res = mockedSecretExt.getBytes("abc", "xyz");
-    assertEquals("testValueBase64Decoded", new String(res, StandardCharsets.UTF_8));
+    byte[] response = mockedSecretExt.getBytes("abc", "xyz");
+    assertEquals("testValueBase64Decoded", new String(response, StandardCharsets.UTF_8));
   }
 
   @Test
@@ -45,7 +47,50 @@ public class SecretsExtTest {
         .when(mockedSecretsService)
         .getSecret(new GetSecretRequest().setScope("abc").setKey("xyz"));
 
-    String res = mockedSecretExt.get("abc", "xyz");
-    assertEquals("testValueBase64Decoded", res);
+    String response = mockedSecretExt.get("abc", "xyz");
+    assertEquals("testValueBase64Decoded", response);
+  }
+
+  @Test
+  void listTest() {
+    SecretsExt mockedSecretExt = new SecretsExt(mockedSecretsService);
+
+    List<SecretMetadata> abcScopeList = new ArrayList<>();
+    abcScopeList.add(new SecretMetadata().setKey("a"));
+    abcScopeList.add(new SecretMetadata().setKey("b"));
+
+    List<SecretMetadata> xyzScopeList = new ArrayList<>();
+    abcScopeList.add(new SecretMetadata().setKey("x"));
+    abcScopeList.add(new SecretMetadata().setKey("y"));
+
+    Mockito.doReturn(new ListSecretsResponse().setSecrets(abcScopeList))
+        .when(mockedSecretsService)
+        .listSecrets(new ListSecretsRequest().setScope("abc"));
+    Mockito.doReturn(new ListSecretsResponse().setSecrets(xyzScopeList))
+        .when(mockedSecretsService)
+        .listSecrets(new ListSecretsRequest().setScope("xyz"));
+
+    List<SecretMetadata> secretMetadataList = mockedSecretExt.list("abc");
+    assertEquals(abcScopeList, secretMetadataList);
+
+    secretMetadataList = mockedSecretExt.list("xyz");
+    assertEquals(xyzScopeList, secretMetadataList);
+  }
+
+  @Test
+  void listScopesTest() {
+    SecretsExt mockedSecretExt = new SecretsExt(mockedSecretsService);
+
+    List<SecretScope> secretScopes = new ArrayList<>();
+    secretScopes.add(new SecretScope().setName("a"));
+    secretScopes.add(new SecretScope().setName("b"));
+    secretScopes.add(new SecretScope().setName("c"));
+
+    Mockito.doReturn(new ListScopesResponse().setScopes(secretScopes))
+        .when(mockedSecretsService)
+        .listScopes();
+
+    List<SecretScope> response = mockedSecretExt.listScopes();
+    assertEquals(secretScopes, response);
   }
 }

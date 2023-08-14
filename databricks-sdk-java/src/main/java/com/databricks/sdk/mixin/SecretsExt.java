@@ -44,7 +44,7 @@ public class SecretsExt extends SecretsAPI {
 
   /** Lists the available scopes. Transform from SDK dataclass to equivalent Java class. */
   public List<SecretScope> listScopes() {
-    Iterable<SecretScope> secretScopes = this.listScopes();
+    Iterable<SecretScope> secretScopes = super.listScopes();
     List<SecretScope> secretScopeList = new ArrayList<>();
     for (SecretScope s : secretScopes) {
       secretScopeList.add(s);
