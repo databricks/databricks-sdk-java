@@ -33,24 +33,24 @@ public class SecretsIT {
 //    <   "message" : "This operation is not allowed outside databricks notebooks."
 //    < }
 //    =================   Uncomment once enabled ==================
-    @Test
-    void createAndGetSecretsTest() {
-        SecretsExt secretsExt = new SecretsExt(new ApiClient());
-        int randomSuffix = (int) (Math.random() * 1000);
-        String scope = "testScope-" + randomSuffix;
-        String key = "testKey-" + randomSuffix;
-        String value = "testValue-" + randomSuffix;
-
-        try {
-            secretsExt.createScope(scope);
-            secretsExt.putSecret(new PutSecret().setScope(scope).setKey(key).setStringValue(value));
-            String responseValue = secretsExt.get(scope, key);
-            assertEquals(value, responseValue);
-        } finally {
-            secretsExt.deleteSecret(scope, key);
-            secretsExt.deleteScope(scope);
-        }
-    }
+//    @Test
+//    void createAndGetSecretsTest() {
+//        SecretsExt secretsExt = new SecretsExt(new ApiClient());
+//        int randomSuffix = (int) (Math.random() * 1000);
+//        String scope = "testScope-" + randomSuffix;
+//        String key = "testKey-" + randomSuffix;
+//        String value = "testValue-" + randomSuffix;
+//
+//        try {
+//            secretsExt.createScope(scope);
+//            secretsExt.putSecret(new PutSecret().setScope(scope).setKey(key).setStringValue(value));
+//            String responseValue = secretsExt.get(scope, key);
+//            assertEquals(value, responseValue);
+//        } finally {
+//            secretsExt.deleteSecret(scope, key);
+//            secretsExt.deleteScope(scope);
+//        }
+//    }
 
     @Test
     void createAndListScopesTest() {
