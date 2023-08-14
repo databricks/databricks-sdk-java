@@ -3,6 +3,8 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of AccountStorageCredentials */
 @Generated
@@ -19,7 +21,11 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.POST(path, request, AccountsStorageCredentialInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, AccountsStorageCredentialInfo.class, headers);
   }
 
   @Override
@@ -28,7 +34,10 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -37,7 +46,10 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.GET(path, request, AccountsStorageCredentialInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, AccountsStorageCredentialInfo.class, headers);
   }
 
   @Override
@@ -46,7 +58,10 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.GET(path, request, ListStorageCredentialsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ListStorageCredentialsResponse.class, headers);
   }
 
   @Override
@@ -55,6 +70,10 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.PUT(path, request, AccountsStorageCredentialInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PUT(path, request, AccountsStorageCredentialInfo.class, headers);
   }
 }

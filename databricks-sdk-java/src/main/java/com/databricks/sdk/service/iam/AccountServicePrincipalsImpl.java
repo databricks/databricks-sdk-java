@@ -3,6 +3,8 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of AccountServicePrincipals */
 @Generated
@@ -18,7 +20,11 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals", apiClient.configuredAccountID());
-    return apiClient.POST(path, request, ServicePrincipal.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, ServicePrincipal.class, headers);
   }
 
   @Override
@@ -27,7 +33,9 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -36,7 +44,10 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
-    return apiClient.GET(path, request, ServicePrincipal.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ServicePrincipal.class, headers);
   }
 
   @Override
@@ -44,7 +55,10 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     String path =
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals", apiClient.configuredAccountID());
-    return apiClient.GET(path, request, ListServicePrincipalResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ListServicePrincipalResponse.class, headers);
   }
 
   @Override
@@ -53,7 +67,11 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 
   @Override
@@ -62,6 +80,10 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
-    apiClient.PUT(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.PUT(path, request, Void.class, headers);
   }
 }

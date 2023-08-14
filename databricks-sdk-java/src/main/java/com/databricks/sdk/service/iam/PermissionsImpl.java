@@ -3,6 +3,8 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Permissions */
 @Generated
@@ -19,7 +21,10 @@ class PermissionsImpl implements PermissionsService {
         String.format(
             "/api/2.0/permissions/%s/%s",
             request.getRequestObjectType(), request.getRequestObjectId());
-    return apiClient.GET(path, request, ObjectPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ObjectPermissions.class, headers);
   }
 
   @Override
@@ -28,7 +33,10 @@ class PermissionsImpl implements PermissionsService {
         String.format(
             "/api/2.0/permissions/%s/%s/permissionLevels",
             request.getRequestObjectType(), request.getRequestObjectId());
-    return apiClient.GET(path, request, GetPermissionLevelsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, GetPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -37,7 +45,11 @@ class PermissionsImpl implements PermissionsService {
         String.format(
             "/api/2.0/permissions/%s/%s",
             request.getRequestObjectType(), request.getRequestObjectId());
-    return apiClient.PUT(path, request, ObjectPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PUT(path, request, ObjectPermissions.class, headers);
   }
 
   @Override
@@ -46,6 +58,10 @@ class PermissionsImpl implements PermissionsService {
         String.format(
             "/api/2.0/permissions/%s/%s",
             request.getRequestObjectType(), request.getRequestObjectId());
-    return apiClient.PATCH(path, request, ObjectPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PATCH(path, request, ObjectPermissions.class, headers);
   }
 }

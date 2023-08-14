@@ -3,6 +3,8 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Catalogs */
 @Generated
@@ -16,30 +18,47 @@ class CatalogsImpl implements CatalogsService {
   @Override
   public CatalogInfo create(CreateCatalog request) {
     String path = "/api/2.1/unity-catalog/catalogs";
-    return apiClient.POST(path, request, CatalogInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, CatalogInfo.class, headers);
   }
 
   @Override
   public void delete(DeleteCatalogRequest request) {
     String path = String.format("/api/2.1/unity-catalog/catalogs/%s", request.getName());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
   public CatalogInfo get(GetCatalogRequest request) {
     String path = String.format("/api/2.1/unity-catalog/catalogs/%s", request.getName());
-    return apiClient.GET(path, request, CatalogInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, CatalogInfo.class, headers);
   }
 
   @Override
   public ListCatalogsResponse list() {
     String path = "/api/2.1/unity-catalog/catalogs";
-    return apiClient.GET(path, ListCatalogsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, ListCatalogsResponse.class, headers);
   }
 
   @Override
   public CatalogInfo update(UpdateCatalog request) {
     String path = String.format("/api/2.1/unity-catalog/catalogs/%s", request.getName());
-    return apiClient.PATCH(path, request, CatalogInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PATCH(path, request, CatalogInfo.class, headers);
   }
 }

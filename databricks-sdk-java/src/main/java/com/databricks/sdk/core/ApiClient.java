@@ -13,9 +13,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,30 +83,46 @@ public class ApiClient {
     return mapper;
   }
 
-  private <I> Request withQuery(Request in, I entity) {
+  private <I> void setQuery(Request in, I entity) {
     if (entity == null) {
-      return in;
+      return;
     }
     for (GrpcTranscodingQueryParamsSerializer.HeaderEntry e :
         GrpcTranscodingQueryParamsSerializer.serialize(entity)) {
       in.withQueryParam(e.getKey(), e.getValue());
     }
-    return in;
   }
 
-  public <I, O> Collection<O> getCollection(String path, I in, Class<O> element) {
+  private <I> void setHeaders(Request in, Map<String, String> headers) {
+    if (headers == null) {
+      return;
+    }
+    for (Map.Entry<String, String> e : headers.entrySet()) {
+      in.withHeader(e.getKey(), e.getValue());
+    }
+  }
+
+  public <I, O> Collection<O> getCollection(
+      String path, I in, Class<O> element, Map<String, String> headers) {
     return withJavaType(
-        path, in, mapper.getTypeFactory().constructCollectionType(Collection.class, element));
+        path,
+        in,
+        mapper.getTypeFactory().constructCollectionType(Collection.class, element),
+        headers);
   }
 
-  public <I> Map<String, String> getStringMap(String path, I in) {
+  public <I> Map<String, String> getStringMap(String path, I in, Map<String, String> headers) {
     return withJavaType(
-        path, in, mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class));
+        path,
+        in,
+        mapper.getTypeFactory().constructMapType(Map.class, String.class, String.class),
+        headers);
   }
 
-  protected <I, O> O withJavaType(String path, I in, JavaType javaType) {
+  protected <I, O> O withJavaType(
+      String path, I in, JavaType javaType, Map<String, String> headers) {
     try {
-      Request request = withQuery(new Request("GET", path), in);
+      Request request = prepareRequest("GET", path, in, headers);
       Response response = getResponse(request);
       return deserialize(response.getBody(), javaType);
     } catch (IOException e) {
@@ -116,48 +130,56 @@ public class ApiClient {
     }
   }
 
-  public <O> O GET(String path, Class<O> target) {
-    return GET(path, null, target);
+  public <O> O GET(String path, Class<O> target, Map<String, String> headers) {
+    return GET(path, null, target, headers);
   }
 
-  public <I, O> O GET(String path, I in, Class<O> target) {
+  public <I, O> O GET(String path, I in, Class<O> target, Map<String, String> headers) {
     try {
-      return execute(withQuery(new Request("GET", path), in), target);
+      return execute(prepareRequest("GET", path, in, headers), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
-  public <I, O> O POST(String path, I in, Class<O> target) {
+  public <I, O> O POST(String path, I in, Class<O> target, Map<String, String> headers) {
     try {
-      return execute(new Request("POST", path, serialize(in)), target);
+      return execute(prepareRequest("POST", path, in, headers), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
-  public <I, O> O PUT(String path, I in, Class<O> target) {
+  public <I, O> O PUT(String path, I in, Class<O> target, Map<String, String> headers) {
     try {
-      return execute(new Request("PUT", path, serialize(in)), target);
+      return execute(prepareRequest("PUT", path, in, headers), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
-  public <I, O> O PATCH(String path, I in, Class<O> target) {
+  public <I, O> O PATCH(String path, I in, Class<O> target, Map<String, String> headers) {
     try {
-      return execute(new Request("PATCH", path, serialize(in)), target);
+      return execute(prepareRequest("PATCH", path, in, headers), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
   }
 
-  public <I, O> O DELETE(String path, I in, Class<O> target) {
+  public <I, O> O DELETE(String path, I in, Class<O> target, Map<String, String> headers) {
     try {
-      return execute(withQuery(new Request("DELETE", path), in), target);
+      return execute(prepareRequest("DELETE", path, in, headers), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
+  }
+
+  private <I> Request prepareRequest(
+      String method, String path, I in, Map<String, String> headers) {
+    Request req = new Request(method, path);
+    setQuery(req, in);
+    setHeaders(req, headers);
+    return req;
   }
 
   /**

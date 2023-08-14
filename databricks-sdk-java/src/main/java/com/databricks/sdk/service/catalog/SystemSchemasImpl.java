@@ -3,6 +3,8 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of SystemSchemas */
 @Generated
@@ -19,7 +21,10 @@ class SystemSchemasImpl implements SystemSchemasService {
         String.format(
             "/api/2.1/unity-catalog/metastores/%s/systemschemas/%s",
             request.getMetastoreId(), request.getSchemaName());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -28,7 +33,10 @@ class SystemSchemasImpl implements SystemSchemasService {
         String.format(
             "/api/2.1/unity-catalog/metastores/%s/systemschemas/%s",
             request.getMetastoreId(), request.getSchemaName());
-    apiClient.PUT(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    apiClient.PUT(path, request, Void.class, headers);
   }
 
   @Override
@@ -36,6 +44,9 @@ class SystemSchemasImpl implements SystemSchemasService {
     String path =
         String.format(
             "/api/2.1/unity-catalog/metastores/%s/systemschemas", request.getMetastoreId());
-    return apiClient.GET(path, request, ListSystemSchemasResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ListSystemSchemasResponse.class, headers);
   }
 }

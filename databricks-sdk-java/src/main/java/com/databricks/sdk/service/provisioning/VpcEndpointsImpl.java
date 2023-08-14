@@ -4,6 +4,8 @@ package com.databricks.sdk.service.provisioning;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of VpcEndpoints */
 @Generated
@@ -18,7 +20,11 @@ class VpcEndpointsImpl implements VpcEndpointsService {
   public VpcEndpoint create(CreateVpcEndpointRequest request) {
     String path =
         String.format("/api/2.0/accounts/%s/vpc-endpoints", apiClient.configuredAccountID());
-    return apiClient.POST(path, request, VpcEndpoint.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, VpcEndpoint.class, headers);
   }
 
   @Override
@@ -27,7 +33,10 @@ class VpcEndpointsImpl implements VpcEndpointsService {
         String.format(
             "/api/2.0/accounts/%s/vpc-endpoints/%s",
             apiClient.configuredAccountID(), request.getVpcEndpointId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -36,13 +45,19 @@ class VpcEndpointsImpl implements VpcEndpointsService {
         String.format(
             "/api/2.0/accounts/%s/vpc-endpoints/%s",
             apiClient.configuredAccountID(), request.getVpcEndpointId());
-    return apiClient.GET(path, request, VpcEndpoint.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, VpcEndpoint.class, headers);
   }
 
   @Override
   public Collection<VpcEndpoint> list() {
     String path =
         String.format("/api/2.0/accounts/%s/vpc-endpoints", apiClient.configuredAccountID());
-    return apiClient.getCollection(path, null, VpcEndpoint.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.getCollection(path, null, VpcEndpoint.class, headers);
   }
 }

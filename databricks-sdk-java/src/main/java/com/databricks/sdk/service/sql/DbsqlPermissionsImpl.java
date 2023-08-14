@@ -3,6 +3,8 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of DbsqlPermissions */
 @Generated
@@ -19,7 +21,10 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
         String.format(
             "/api/2.0/preview/sql/permissions/%s/%s",
             request.getObjectType(), request.getObjectId());
-    return apiClient.GET(path, request, GetResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, GetResponse.class, headers);
   }
 
   @Override
@@ -28,7 +33,11 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
         String.format(
             "/api/2.0/preview/sql/permissions/%s/%s",
             request.getObjectType(), request.getObjectId());
-    return apiClient.POST(path, request, SetResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, SetResponse.class, headers);
   }
 
   @Override
@@ -37,6 +46,10 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
         String.format(
             "/api/2.0/preview/sql/permissions/%s/%s/transfer",
             request.getObjectType(), request.getObjectId());
-    return apiClient.POST(path, request, Success.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, Success.class, headers);
   }
 }

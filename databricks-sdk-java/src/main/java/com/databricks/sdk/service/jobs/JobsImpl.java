@@ -3,6 +3,8 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Jobs */
 @Generated
@@ -16,43 +18,69 @@ class JobsImpl implements JobsService {
   @Override
   public void cancelAllRuns(CancelAllRuns request) {
     String path = "/api/2.1/jobs/runs/cancel-all";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void cancelRun(CancelRun request) {
     String path = "/api/2.1/jobs/runs/cancel";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public CreateResponse create(CreateJob request) {
     String path = "/api/2.1/jobs/create";
-    return apiClient.POST(path, request, CreateResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, CreateResponse.class, headers);
   }
 
   @Override
   public void delete(DeleteJob request) {
     String path = "/api/2.1/jobs/delete";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void deleteRun(DeleteRun request) {
     String path = "/api/2.1/jobs/runs/delete";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public ExportRunOutput exportRun(ExportRunRequest request) {
     String path = "/api/2.1/jobs/runs/export";
-    return apiClient.GET(path, request, ExportRunOutput.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ExportRunOutput.class, headers);
   }
 
   @Override
   public Job get(GetJobRequest request) {
     String path = "/api/2.1/jobs/get";
-    return apiClient.GET(path, request, Job.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, Job.class, headers);
   }
 
   @Override
@@ -60,78 +88,124 @@ class JobsImpl implements JobsService {
       GetJobPermissionLevelsRequest request) {
     String path =
         String.format("/api/2.0/permissions/jobs/%s/permissionLevels", request.getJobId());
-    return apiClient.GET(path, request, GetJobPermissionLevelsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, GetJobPermissionLevelsResponse.class, headers);
   }
 
   @Override
   public JobPermissions getJobPermissions(GetJobPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/jobs/%s", request.getJobId());
-    return apiClient.GET(path, request, JobPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, JobPermissions.class, headers);
   }
 
   @Override
   public Run getRun(GetRunRequest request) {
     String path = "/api/2.1/jobs/runs/get";
-    return apiClient.GET(path, request, Run.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, Run.class, headers);
   }
 
   @Override
   public RunOutput getRunOutput(GetRunOutputRequest request) {
     String path = "/api/2.1/jobs/runs/get-output";
-    return apiClient.GET(path, request, RunOutput.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, RunOutput.class, headers);
   }
 
   @Override
   public ListJobsResponse list(ListJobsRequest request) {
     String path = "/api/2.1/jobs/list";
-    return apiClient.GET(path, request, ListJobsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ListJobsResponse.class, headers);
   }
 
   @Override
   public ListRunsResponse listRuns(ListRunsRequest request) {
     String path = "/api/2.1/jobs/runs/list";
-    return apiClient.GET(path, request, ListRunsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ListRunsResponse.class, headers);
   }
 
   @Override
   public RepairRunResponse repairRun(RepairRun request) {
     String path = "/api/2.1/jobs/runs/repair";
-    return apiClient.POST(path, request, RepairRunResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, RepairRunResponse.class, headers);
   }
 
   @Override
   public void reset(ResetJob request) {
     String path = "/api/2.1/jobs/reset";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public RunNowResponse runNow(RunNow request) {
     String path = "/api/2.1/jobs/run-now";
-    return apiClient.POST(path, request, RunNowResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, RunNowResponse.class, headers);
   }
 
   @Override
   public JobPermissions setJobPermissions(JobPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/jobs/%s", request.getJobId());
-    return apiClient.PUT(path, request, JobPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PUT(path, request, JobPermissions.class, headers);
   }
 
   @Override
   public SubmitRunResponse submit(SubmitRun request) {
     String path = "/api/2.1/jobs/runs/submit";
-    return apiClient.POST(path, request, SubmitRunResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, SubmitRunResponse.class, headers);
   }
 
   @Override
   public void update(UpdateJob request) {
     String path = "/api/2.1/jobs/update";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public JobPermissions updateJobPermissions(JobPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/jobs/%s", request.getJobId());
-    return apiClient.PATCH(path, request, JobPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PATCH(path, request, JobPermissions.class, headers);
   }
 }

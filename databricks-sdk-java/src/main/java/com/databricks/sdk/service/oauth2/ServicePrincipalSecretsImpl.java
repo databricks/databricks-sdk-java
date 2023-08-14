@@ -3,6 +3,8 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of ServicePrincipalSecrets */
 @Generated
@@ -19,7 +21,10 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
         String.format(
             "/api/2.0/accounts/%s/servicePrincipals/%s/credentials/secrets",
             apiClient.configuredAccountID(), request.getServicePrincipalId());
-    return apiClient.POST(path, request, CreateServicePrincipalSecretResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.POST(path, request, CreateServicePrincipalSecretResponse.class, headers);
   }
 
   @Override
@@ -30,7 +35,9 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             apiClient.configuredAccountID(),
             request.getServicePrincipalId(),
             request.getSecretId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -39,6 +46,9 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
         String.format(
             "/api/2.0/accounts/%s/servicePrincipals/%s/credentials/secrets",
             apiClient.configuredAccountID(), request.getServicePrincipalId());
-    return apiClient.GET(path, request, ListServicePrincipalSecretsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ListServicePrincipalSecretsResponse.class, headers);
   }
 }

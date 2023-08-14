@@ -3,6 +3,8 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of RecipientActivation */
 @Generated
@@ -19,7 +21,10 @@ class RecipientActivationImpl implements RecipientActivationService {
         String.format(
             "/api/2.1/unity-catalog/public/data_sharing_activation_info/%s",
             request.getActivationUrl());
-    apiClient.GET(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    apiClient.GET(path, request, Void.class, headers);
   }
 
   @Override
@@ -27,6 +32,9 @@ class RecipientActivationImpl implements RecipientActivationService {
     String path =
         String.format(
             "/api/2.1/unity-catalog/public/data_sharing_activation/%s", request.getActivationUrl());
-    return apiClient.GET(path, request, RetrieveTokenResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, RetrieveTokenResponse.class, headers);
   }
 }

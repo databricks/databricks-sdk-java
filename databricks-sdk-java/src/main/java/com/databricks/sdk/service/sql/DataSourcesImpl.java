@@ -4,6 +4,8 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of DataSources */
 @Generated
@@ -17,6 +19,9 @@ class DataSourcesImpl implements DataSourcesService {
   @Override
   public Collection<DataSource> list() {
     String path = "/api/2.0/preview/sql/data_sources";
-    return apiClient.getCollection(path, null, DataSource.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.getCollection(path, null, DataSource.class, headers);
   }
 }

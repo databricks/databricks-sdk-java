@@ -3,6 +3,8 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Clusters */
 @Generated
@@ -16,37 +18,60 @@ class ClustersImpl implements ClustersService {
   @Override
   public void changeOwner(ChangeClusterOwner request) {
     String path = "/api/2.0/clusters/change-owner";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public CreateClusterResponse create(CreateCluster request) {
     String path = "/api/2.0/clusters/create";
-    return apiClient.POST(path, request, CreateClusterResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, CreateClusterResponse.class, headers);
   }
 
   @Override
   public void delete(DeleteCluster request) {
     String path = "/api/2.0/clusters/delete";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void edit(EditCluster request) {
     String path = "/api/2.0/clusters/edit";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public GetEventsResponse events(GetEvents request) {
     String path = "/api/2.0/clusters/events";
-    return apiClient.POST(path, request, GetEventsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, GetEventsResponse.class, headers);
   }
 
   @Override
   public ClusterDetails get(GetClusterRequest request) {
     String path = "/api/2.0/clusters/get";
-    return apiClient.GET(path, request, ClusterDetails.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ClusterDetails.class, headers);
   }
 
   @Override
@@ -54,84 +79,134 @@ class ClustersImpl implements ClustersService {
       GetClusterPermissionLevelsRequest request) {
     String path =
         String.format("/api/2.0/permissions/clusters/%s/permissionLevels", request.getClusterId());
-    return apiClient.GET(path, request, GetClusterPermissionLevelsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, GetClusterPermissionLevelsResponse.class, headers);
   }
 
   @Override
   public ClusterPermissions getClusterPermissions(GetClusterPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
-    return apiClient.GET(path, request, ClusterPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ClusterPermissions.class, headers);
   }
 
   @Override
   public ListClustersResponse list(ListClustersRequest request) {
     String path = "/api/2.0/clusters/list";
-    return apiClient.GET(path, request, ListClustersResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ListClustersResponse.class, headers);
   }
 
   @Override
   public ListNodeTypesResponse listNodeTypes() {
     String path = "/api/2.0/clusters/list-node-types";
-    return apiClient.GET(path, ListNodeTypesResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, ListNodeTypesResponse.class, headers);
   }
 
   @Override
   public ListAvailableZonesResponse listZones() {
     String path = "/api/2.0/clusters/list-zones";
-    return apiClient.GET(path, ListAvailableZonesResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, ListAvailableZonesResponse.class, headers);
   }
 
   @Override
   public void permanentDelete(PermanentDeleteCluster request) {
     String path = "/api/2.0/clusters/permanent-delete";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void pin(PinCluster request) {
     String path = "/api/2.0/clusters/pin";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void resize(ResizeCluster request) {
     String path = "/api/2.0/clusters/resize";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void restart(RestartCluster request) {
     String path = "/api/2.0/clusters/restart";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public ClusterPermissions setClusterPermissions(ClusterPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
-    return apiClient.PUT(path, request, ClusterPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PUT(path, request, ClusterPermissions.class, headers);
   }
 
   @Override
   public GetSparkVersionsResponse sparkVersions() {
     String path = "/api/2.0/clusters/spark-versions";
-    return apiClient.GET(path, GetSparkVersionsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, GetSparkVersionsResponse.class, headers);
   }
 
   @Override
   public void start(StartCluster request) {
     String path = "/api/2.0/clusters/start";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void unpin(UnpinCluster request) {
     String path = "/api/2.0/clusters/unpin";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public ClusterPermissions updateClusterPermissions(ClusterPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
-    return apiClient.PATCH(path, request, ClusterPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PATCH(path, request, ClusterPermissions.class, headers);
   }
 }

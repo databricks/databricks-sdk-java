@@ -3,6 +3,8 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Users */
 @Generated
@@ -16,60 +18,94 @@ class UsersImpl implements UsersService {
   @Override
   public User create(User request) {
     String path = "/api/2.0/preview/scim/v2/Users";
-    return apiClient.POST(path, request, User.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, User.class, headers);
   }
 
   @Override
   public void delete(DeleteUserRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
   public User get(GetUserRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
-    return apiClient.GET(path, request, User.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, User.class, headers);
   }
 
   @Override
   public GetPasswordPermissionLevelsResponse getPasswordPermissionLevels() {
     String path = "/api/2.0/permissions/authorization/passwords/permissionLevels";
-    return apiClient.GET(path, GetPasswordPermissionLevelsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, GetPasswordPermissionLevelsResponse.class, headers);
   }
 
   @Override
   public PasswordPermissions getPasswordPermissions() {
     String path = "/api/2.0/permissions/authorization/passwords";
-    return apiClient.GET(path, PasswordPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, PasswordPermissions.class, headers);
   }
 
   @Override
   public ListUsersResponse list(ListUsersRequest request) {
     String path = "/api/2.0/preview/scim/v2/Users";
-    return apiClient.GET(path, request, ListUsersResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, ListUsersResponse.class, headers);
   }
 
   @Override
   public void patch(PartialUpdate request) {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 
   @Override
   public PasswordPermissions setPasswordPermissions(PasswordPermissionsRequest request) {
     String path = "/api/2.0/permissions/authorization/passwords";
-    return apiClient.PUT(path, request, PasswordPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PUT(path, request, PasswordPermissions.class, headers);
   }
 
   @Override
   public void update(User request) {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
-    apiClient.PUT(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    apiClient.PUT(path, request, Void.class, headers);
   }
 
   @Override
   public PasswordPermissions updatePasswordPermissions(PasswordPermissionsRequest request) {
     String path = "/api/2.0/permissions/authorization/passwords";
-    return apiClient.PATCH(path, request, PasswordPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PATCH(path, request, PasswordPermissions.class, headers);
   }
 }
