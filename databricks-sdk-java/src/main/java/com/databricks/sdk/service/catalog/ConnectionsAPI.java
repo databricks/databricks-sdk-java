@@ -35,12 +35,9 @@ public class ConnectionsAPI {
   }
 
   public ConnectionInfo create(
-      String name, ConnectionType connectionType, Map<String, String> optionsKvpairs) {
+      String name, ConnectionType connectionType, Map<String, String> options) {
     return create(
-        new CreateConnection()
-            .setName(name)
-            .setConnectionType(connectionType)
-            .setOptionsKvpairs(optionsKvpairs));
+        new CreateConnection().setName(name).setConnectionType(connectionType).setOptions(options));
   }
 
   /**
@@ -90,9 +87,8 @@ public class ConnectionsAPI {
     return impl.list().getConnections();
   }
 
-  public ConnectionInfo update(String name, Map<String, String> optionsKvpairs, String nameArg) {
-    return update(
-        new UpdateConnection().setName(name).setOptionsKvpairs(optionsKvpairs).setNameArg(nameArg));
+  public ConnectionInfo update(String name, Map<String, String> options, String nameArg) {
+    return update(new UpdateConnection().setName(name).setOptions(options).setNameArg(nameArg));
   }
 
   /**

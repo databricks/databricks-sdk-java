@@ -14,12 +14,12 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   }
 
   @Override
-  public StorageCredentialInfo create(AccountsCreateStorageCredential request) {
+  public AccountsStorageCredentialInfo create(AccountsCreateStorageCredential request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.POST(path, request, StorageCredentialInfo.class);
+    return apiClient.POST(path, request, AccountsStorageCredentialInfo.class);
   }
 
   @Override
@@ -32,12 +32,12 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   }
 
   @Override
-  public StorageCredentialInfo get(GetAccountStorageCredentialRequest request) {
+  public AccountsStorageCredentialInfo get(GetAccountStorageCredentialRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.GET(path, request, StorageCredentialInfo.class);
+    return apiClient.GET(path, request, AccountsStorageCredentialInfo.class);
   }
 
   @Override
@@ -50,11 +50,11 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   }
 
   @Override
-  public StorageCredentialInfo update(AccountsUpdateStorageCredential request) {
+  public AccountsStorageCredentialInfo update(AccountsUpdateStorageCredential request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
             apiClient.configuredAccountID(), request.getMetastoreId());
-    return apiClient.PUT(path, request, StorageCredentialInfo.class);
+    return apiClient.PUT(path, request, AccountsStorageCredentialInfo.class);
   }
 }
