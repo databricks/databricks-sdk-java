@@ -81,6 +81,14 @@ public class CreateCluster {
   @JsonProperty("custom_tags")
   private Map<String, String> customTags;
 
+  /** This describes an enum */
+  @JsonProperty("data_security_mode")
+  private DataSecurityMode dataSecurityMode;
+
+  /** */
+  @JsonProperty("docker_image")
+  private DockerImage dockerImage;
+
   /**
    * The optional ID of the instance pool for the driver of the cluster belongs. The pool cluster
    * uses the instance pool with id (instance_pool_id) if the driver pool is not assigned.
@@ -158,6 +166,10 @@ public class CreateCluster {
    */
   @JsonProperty("runtime_engine")
   private RuntimeEngine runtimeEngine;
+
+  /** Single user name if data_security_mode is `SINGLE_USER` */
+  @JsonProperty("single_user_name")
+  private String singleUserName;
 
   /**
    * An object containing a set of optional, user-specified Spark configuration key-value pairs.
@@ -283,6 +295,24 @@ public class CreateCluster {
     return customTags;
   }
 
+  public CreateCluster setDataSecurityMode(DataSecurityMode dataSecurityMode) {
+    this.dataSecurityMode = dataSecurityMode;
+    return this;
+  }
+
+  public DataSecurityMode getDataSecurityMode() {
+    return dataSecurityMode;
+  }
+
+  public CreateCluster setDockerImage(DockerImage dockerImage) {
+    this.dockerImage = dockerImage;
+    return this;
+  }
+
+  public DockerImage getDockerImage() {
+    return dockerImage;
+  }
+
   public CreateCluster setDriverInstancePoolId(String driverInstancePoolId) {
     this.driverInstancePoolId = driverInstancePoolId;
     return this;
@@ -382,6 +412,15 @@ public class CreateCluster {
     return runtimeEngine;
   }
 
+  public CreateCluster setSingleUserName(String singleUserName) {
+    this.singleUserName = singleUserName;
+    return this;
+  }
+
+  public String getSingleUserName() {
+    return singleUserName;
+  }
+
   public CreateCluster setSparkConf(Map<String, String> sparkConf) {
     this.sparkConf = sparkConf;
     return this;
@@ -441,6 +480,8 @@ public class CreateCluster {
         && Objects.equals(clusterName, that.clusterName)
         && Objects.equals(clusterSource, that.clusterSource)
         && Objects.equals(customTags, that.customTags)
+        && Objects.equals(dataSecurityMode, that.dataSecurityMode)
+        && Objects.equals(dockerImage, that.dockerImage)
         && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
         && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
         && Objects.equals(enableElasticDisk, that.enableElasticDisk)
@@ -452,6 +493,7 @@ public class CreateCluster {
         && Objects.equals(numWorkers, that.numWorkers)
         && Objects.equals(policyId, that.policyId)
         && Objects.equals(runtimeEngine, that.runtimeEngine)
+        && Objects.equals(singleUserName, that.singleUserName)
         && Objects.equals(sparkConf, that.sparkConf)
         && Objects.equals(sparkEnvVars, that.sparkEnvVars)
         && Objects.equals(sparkVersion, that.sparkVersion)
@@ -471,6 +513,8 @@ public class CreateCluster {
         clusterName,
         clusterSource,
         customTags,
+        dataSecurityMode,
+        dockerImage,
         driverInstancePoolId,
         driverNodeTypeId,
         enableElasticDisk,
@@ -482,6 +526,7 @@ public class CreateCluster {
         numWorkers,
         policyId,
         runtimeEngine,
+        singleUserName,
         sparkConf,
         sparkEnvVars,
         sparkVersion,
@@ -501,6 +546,8 @@ public class CreateCluster {
         .add("clusterName", clusterName)
         .add("clusterSource", clusterSource)
         .add("customTags", customTags)
+        .add("dataSecurityMode", dataSecurityMode)
+        .add("dockerImage", dockerImage)
         .add("driverInstancePoolId", driverInstancePoolId)
         .add("driverNodeTypeId", driverNodeTypeId)
         .add("enableElasticDisk", enableElasticDisk)
@@ -512,6 +559,7 @@ public class CreateCluster {
         .add("numWorkers", numWorkers)
         .add("policyId", policyId)
         .add("runtimeEngine", runtimeEngine)
+        .add("singleUserName", singleUserName)
         .add("sparkConf", sparkConf)
         .add("sparkEnvVars", sparkEnvVars)
         .add("sparkVersion", sparkVersion)

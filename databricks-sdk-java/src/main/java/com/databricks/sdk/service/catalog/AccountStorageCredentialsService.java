@@ -23,7 +23,8 @@ public interface AccountStorageCredentialsService {
    * <p>The caller must be a metastore admin and have the **CREATE_STORAGE_CREDENTIAL** privilege on
    * the metastore.
    */
-  StorageCredentialInfo create(AccountsCreateStorageCredential accountsCreateStorageCredential);
+  AccountsStorageCredentialInfo create(
+      AccountsCreateStorageCredential accountsCreateStorageCredential);
 
   /**
    * Delete a storage credential.
@@ -39,7 +40,8 @@ public interface AccountStorageCredentialsService {
    * <p>Gets a storage credential from the metastore. The caller must be a metastore admin, the
    * owner of the storage credential, or have a level of privilege on the storage credential.
    */
-  StorageCredentialInfo get(GetAccountStorageCredentialRequest getAccountStorageCredentialRequest);
+  AccountsStorageCredentialInfo get(
+      GetAccountStorageCredentialRequest getAccountStorageCredentialRequest);
 
   /**
    * Get all storage credentials assigned to a metastore.
@@ -55,5 +57,6 @@ public interface AccountStorageCredentialsService {
    * <p>Updates a storage credential on the metastore. The caller must be the owner of the storage
    * credential. If the caller is a metastore admin, only the __owner__ credential can be changed.
    */
-  StorageCredentialInfo update(AccountsUpdateStorageCredential accountsUpdateStorageCredential);
+  AccountsStorageCredentialInfo update(
+      AccountsUpdateStorageCredential accountsUpdateStorageCredential);
 }

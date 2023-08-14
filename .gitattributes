@@ -48,6 +48,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountsCre
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountsCreateStorageCredential.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountsMetastoreAssignment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountsMetastoreInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountsStorageCredentialInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountsUpdateMetastore.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountsUpdateMetastoreAssignment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/AccountsUpdateStorageCredential.java linguist-generated=true
@@ -63,6 +64,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ColumnInfo.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ColumnMask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ColumnTypeName.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionInfoSecurableKind.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionsImpl.java linguist-generated=true
@@ -180,6 +182,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrimaryKeyC
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/Privilege.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrivilegeAssignment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PropertiesKvPairs.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ProvisioningState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ReadVolumeRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SchemaInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SchemasAPI.java linguist-generated=true
