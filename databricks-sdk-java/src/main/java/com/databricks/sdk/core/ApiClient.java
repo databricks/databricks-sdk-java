@@ -177,8 +177,12 @@ public class ApiClient {
     }
   }
 
+  private boolean hasBody(String method) {
+    return !method.equals("GET") && !method.equals("DELETE") && !method.equals("HEAD");
+  }
+
   private <I> Request prepareBaseRequest(String method, String path, I in) throws IOException {
-    if (in == null) {
+    if (in == null || !hasBody(method)) {
       return new Request(method, path);
     } else if (InputStream.class.isAssignableFrom(in.getClass())) {
       InputStream body = (InputStream) in;
