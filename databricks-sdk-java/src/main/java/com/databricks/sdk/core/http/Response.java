@@ -50,7 +50,8 @@ public class Response {
         200,
         "OK",
         Collections.emptyMap(),
-        new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8)));
+        new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8)),
+        body);
   }
 
   private Response(
