@@ -23,16 +23,16 @@ public class CreateConnection {
   private String name;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("options")
-  private Map<String, String> options;
+  @JsonProperty("options_kvpairs")
+  private Map<String, String> optionsKvpairs;
 
   /** Username of current owner of the connection. */
   @JsonProperty("owner")
   private String owner;
 
   /** An object containing map of key-value properties attached to the connection. */
-  @JsonProperty("properties")
-  private Map<String, String> properties;
+  @JsonProperty("properties_kvpairs")
+  private Map<String, String> propertiesKvpairs;
 
   /** If the connection is read only. */
   @JsonProperty("read_only")
@@ -65,13 +65,13 @@ public class CreateConnection {
     return name;
   }
 
-  public CreateConnection setOptions(Map<String, String> options) {
-    this.options = options;
+  public CreateConnection setOptionsKvpairs(Map<String, String> optionsKvpairs) {
+    this.optionsKvpairs = optionsKvpairs;
     return this;
   }
 
-  public Map<String, String> getOptions() {
-    return options;
+  public Map<String, String> getOptionsKvpairs() {
+    return optionsKvpairs;
   }
 
   public CreateConnection setOwner(String owner) {
@@ -83,13 +83,13 @@ public class CreateConnection {
     return owner;
   }
 
-  public CreateConnection setProperties(Map<String, String> properties) {
-    this.properties = properties;
+  public CreateConnection setPropertiesKvpairs(Map<String, String> propertiesKvpairs) {
+    this.propertiesKvpairs = propertiesKvpairs;
     return this;
   }
 
-  public Map<String, String> getProperties() {
-    return properties;
+  public Map<String, String> getPropertiesKvpairs() {
+    return propertiesKvpairs;
   }
 
   public CreateConnection setReadOnly(Boolean readOnly) {
@@ -109,15 +109,16 @@ public class CreateConnection {
     return Objects.equals(comment, that.comment)
         && Objects.equals(connectionType, that.connectionType)
         && Objects.equals(name, that.name)
-        && Objects.equals(options, that.options)
+        && Objects.equals(optionsKvpairs, that.optionsKvpairs)
         && Objects.equals(owner, that.owner)
-        && Objects.equals(properties, that.properties)
+        && Objects.equals(propertiesKvpairs, that.propertiesKvpairs)
         && Objects.equals(readOnly, that.readOnly);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, connectionType, name, options, owner, properties, readOnly);
+    return Objects.hash(
+        comment, connectionType, name, optionsKvpairs, owner, propertiesKvpairs, readOnly);
   }
 
   @Override
@@ -126,9 +127,9 @@ public class CreateConnection {
         .add("comment", comment)
         .add("connectionType", connectionType)
         .add("name", name)
-        .add("options", options)
+        .add("optionsKvpairs", optionsKvpairs)
         .add("owner", owner)
-        .add("properties", properties)
+        .add("propertiesKvpairs", propertiesKvpairs)
         .add("readOnly", readOnly)
         .toString();
   }

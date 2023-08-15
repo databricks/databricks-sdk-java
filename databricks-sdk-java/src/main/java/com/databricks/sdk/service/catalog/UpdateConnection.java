@@ -18,8 +18,8 @@ public class UpdateConnection {
   private String nameArg;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("options")
-  private Map<String, String> options;
+  @JsonProperty("options_kvpairs")
+  private Map<String, String> optionsKvpairs;
 
   public UpdateConnection setName(String name) {
     this.name = name;
@@ -39,13 +39,13 @@ public class UpdateConnection {
     return nameArg;
   }
 
-  public UpdateConnection setOptions(Map<String, String> options) {
-    this.options = options;
+  public UpdateConnection setOptionsKvpairs(Map<String, String> optionsKvpairs) {
+    this.optionsKvpairs = optionsKvpairs;
     return this;
   }
 
-  public Map<String, String> getOptions() {
-    return options;
+  public Map<String, String> getOptionsKvpairs() {
+    return optionsKvpairs;
   }
 
   @Override
@@ -55,12 +55,12 @@ public class UpdateConnection {
     UpdateConnection that = (UpdateConnection) o;
     return Objects.equals(name, that.name)
         && Objects.equals(nameArg, that.nameArg)
-        && Objects.equals(options, that.options);
+        && Objects.equals(optionsKvpairs, that.optionsKvpairs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, nameArg, options);
+    return Objects.hash(name, nameArg, optionsKvpairs);
   }
 
   @Override
@@ -68,7 +68,7 @@ public class UpdateConnection {
     return new ToStringer(UpdateConnection.class)
         .add("name", name)
         .add("nameArg", nameArg)
-        .add("options", options)
+        .add("optionsKvpairs", optionsKvpairs)
         .toString();
   }
 }

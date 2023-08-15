@@ -47,32 +47,20 @@ public class ConnectionInfo {
   private String name;
 
   /** A map of key-value properties attached to the securable. */
-  @JsonProperty("options")
-  private Map<String, String> options;
+  @JsonProperty("options_kvpairs")
+  private Map<String, String> optionsKvpairs;
 
   /** Username of current owner of the connection. */
   @JsonProperty("owner")
   private String owner;
 
   /** An object containing map of key-value properties attached to the connection. */
-  @JsonProperty("properties")
-  private Map<String, String> properties;
-
-  /** Status of an asynchronously provisioned resource. */
-  @JsonProperty("provisioning_state")
-  private ProvisioningState provisioningState;
+  @JsonProperty("properties_kvpairs")
+  private Map<String, String> propertiesKvpairs;
 
   /** If the connection is read only. */
   @JsonProperty("read_only")
   private Boolean readOnly;
-
-  /** Kind of connection securable. */
-  @JsonProperty("securable_kind")
-  private ConnectionInfoSecurableKind securableKind;
-
-  /** */
-  @JsonProperty("securable_type")
-  private String securableType;
 
   /** Time at which this connection was updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
@@ -82,7 +70,7 @@ public class ConnectionInfo {
   @JsonProperty("updated_by")
   private String updatedBy;
 
-  /** URL of the remote data source, extracted from options. */
+  /** URL of the remote data source, extracted from options_kvpairs. */
   @JsonProperty("url")
   private String url;
 
@@ -167,13 +155,13 @@ public class ConnectionInfo {
     return name;
   }
 
-  public ConnectionInfo setOptions(Map<String, String> options) {
-    this.options = options;
+  public ConnectionInfo setOptionsKvpairs(Map<String, String> optionsKvpairs) {
+    this.optionsKvpairs = optionsKvpairs;
     return this;
   }
 
-  public Map<String, String> getOptions() {
-    return options;
+  public Map<String, String> getOptionsKvpairs() {
+    return optionsKvpairs;
   }
 
   public ConnectionInfo setOwner(String owner) {
@@ -185,22 +173,13 @@ public class ConnectionInfo {
     return owner;
   }
 
-  public ConnectionInfo setProperties(Map<String, String> properties) {
-    this.properties = properties;
+  public ConnectionInfo setPropertiesKvpairs(Map<String, String> propertiesKvpairs) {
+    this.propertiesKvpairs = propertiesKvpairs;
     return this;
   }
 
-  public Map<String, String> getProperties() {
-    return properties;
-  }
-
-  public ConnectionInfo setProvisioningState(ProvisioningState provisioningState) {
-    this.provisioningState = provisioningState;
-    return this;
-  }
-
-  public ProvisioningState getProvisioningState() {
-    return provisioningState;
+  public Map<String, String> getPropertiesKvpairs() {
+    return propertiesKvpairs;
   }
 
   public ConnectionInfo setReadOnly(Boolean readOnly) {
@@ -210,24 +189,6 @@ public class ConnectionInfo {
 
   public Boolean getReadOnly() {
     return readOnly;
-  }
-
-  public ConnectionInfo setSecurableKind(ConnectionInfoSecurableKind securableKind) {
-    this.securableKind = securableKind;
-    return this;
-  }
-
-  public ConnectionInfoSecurableKind getSecurableKind() {
-    return securableKind;
-  }
-
-  public ConnectionInfo setSecurableType(String securableType) {
-    this.securableType = securableType;
-    return this;
-  }
-
-  public String getSecurableType() {
-    return securableType;
   }
 
   public ConnectionInfo setUpdatedAt(Long updatedAt) {
@@ -271,13 +232,10 @@ public class ConnectionInfo {
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
-        && Objects.equals(options, that.options)
+        && Objects.equals(optionsKvpairs, that.optionsKvpairs)
         && Objects.equals(owner, that.owner)
-        && Objects.equals(properties, that.properties)
-        && Objects.equals(provisioningState, that.provisioningState)
+        && Objects.equals(propertiesKvpairs, that.propertiesKvpairs)
         && Objects.equals(readOnly, that.readOnly)
-        && Objects.equals(securableKind, that.securableKind)
-        && Objects.equals(securableType, that.securableType)
         && Objects.equals(updatedAt, that.updatedAt)
         && Objects.equals(updatedBy, that.updatedBy)
         && Objects.equals(url, that.url);
@@ -295,13 +253,10 @@ public class ConnectionInfo {
         fullName,
         metastoreId,
         name,
-        options,
+        optionsKvpairs,
         owner,
-        properties,
-        provisioningState,
+        propertiesKvpairs,
         readOnly,
-        securableKind,
-        securableType,
         updatedAt,
         updatedBy,
         url);
@@ -319,13 +274,10 @@ public class ConnectionInfo {
         .add("fullName", fullName)
         .add("metastoreId", metastoreId)
         .add("name", name)
-        .add("options", options)
+        .add("optionsKvpairs", optionsKvpairs)
         .add("owner", owner)
-        .add("properties", properties)
-        .add("provisioningState", provisioningState)
+        .add("propertiesKvpairs", propertiesKvpairs)
         .add("readOnly", readOnly)
-        .add("securableKind", securableKind)
-        .add("securableType", securableType)
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .add("url", url)

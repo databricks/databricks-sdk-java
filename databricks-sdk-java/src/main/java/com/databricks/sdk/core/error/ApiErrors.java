@@ -1,11 +1,17 @@
 package com.databricks.sdk.core.error;
 
 import com.databricks.sdk.core.DatabricksError;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /** Helper methods for inspecting the response and errors thrown during API requests. */
 public class ApiErrors {
@@ -71,15 +77,24 @@ public class ApiErrors {
       errorBody.setErrorCode(errorCode.replaceAll(" ", "_").toUpperCase());
     }
 
-    Matcher messageMatcher = HTML_ERROR_REGEX.matcher(response.getBody());
+    String body = convert(response.getBody());
+    Matcher messageMatcher = HTML_ERROR_REGEX.matcher(body);
     if (messageMatcher.find()) {
       errorBody.setMessage(messageMatcher.group(1).replaceAll("^[ .]+|[ .]+$", ""));
     } else {
       errorBody.setMessage(
           String.format(
-              "Response from server (%s) %s: %s",
-              response.getStatus(), response.getBody(), err.getMessage()));
+              "Response from server (%s) %s: %s", response.getStatus(), body, err.getMessage()));
     }
     return errorBody;
+  }
+
+  private static String convert(InputStream in) {
+    try (BufferedReader br =
+        new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
+      return br.lines().collect(Collectors.joining(System.lineSeparator()));
+    } catch (IOException e) {
+      throw new DatabricksException("Failed to read error response body", e);
+    }
   }
 }

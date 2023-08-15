@@ -12,7 +12,10 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -174,9 +177,23 @@ public class ApiClient {
     }
   }
 
-  private <I> Request prepareRequest(
-      String method, String path, I in, Map<String, String> headers) {
-    Request req = new Request(method, path);
+  private <I> Request prepareBaseRequest(String method, String path, I in) throws IOException {
+    if (in == null) {
+      return new Request(method, path);
+    } else if (InputStream.class.isAssignableFrom(in.getClass())) {
+      InputStream body = (InputStream) in;
+      String debugBody = "<InputStream>";
+      return new Request(method, path, body, debugBody);
+    } else {
+      String debugBody = serialize(in);
+      InputStream body = new ByteArrayInputStream(debugBody.getBytes(StandardCharsets.UTF_8));
+      return new Request(method, path, body, debugBody);
+    }
+  }
+
+  private <I> Request prepareRequest(String method, String path, I in, Map<String, String> headers)
+      throws IOException {
+    Request req = prepareBaseRequest(method, path, in);
     setQuery(req, in);
     setHeaders(req, headers);
     return req;
@@ -282,7 +299,7 @@ public class ApiClient {
       in.getHeaders()
           .forEach((header, value) -> sb.append(String.format("\n * %s: %s", header, value)));
     }
-    String requestBody = in.getBody();
+    String requestBody = in.getDebugBody();
     if (requestBody != null && !requestBody.isEmpty()) {
       for (String line : bodyLogger.redactedDump(requestBody).split("\n")) {
         sb.append("\n> ");
@@ -291,18 +308,24 @@ public class ApiClient {
     }
     sb.append("\n< ");
     sb.append(out.toString());
-    for (String line : bodyLogger.redactedDump(out.getBody()).split("\n")) {
+    for (String line : bodyLogger.redactedDump(out.getDebugBody()).split("\n")) {
       sb.append("\n< ");
       sb.append(line);
     }
     return sb.toString();
   }
 
-  public <T> T deserialize(String body, Class<T> target) throws IOException {
+  public <T> T deserialize(InputStream body, Class<T> target) throws IOException {
+    if (target == InputStream.class) {
+      return (T) body;
+    }
     return mapper.readValue(body, target);
   }
 
-  public <T> T deserialize(String body, JavaType target) throws IOException {
+  public <T> T deserialize(InputStream body, JavaType target) throws IOException {
+    if (target == mapper.constructType(InputStream.class)) {
+      return (T) body;
+    }
     return mapper.readValue(body, target);
   }
 

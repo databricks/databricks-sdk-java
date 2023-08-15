@@ -64,7 +64,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ColumnInfo.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ColumnMask.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ColumnTypeName.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionInfo.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionInfoSecurableKind.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ConnectionsImpl.java linguist-generated=true
@@ -182,7 +181,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrimaryKeyC
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/Privilege.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrivilegeAssignment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PropertiesKvPairs.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ProvisioningState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ReadVolumeRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SchemaInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SchemasAPI.java linguist-generated=true
@@ -450,7 +448,12 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DbfsAPI.java 
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DbfsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DbfsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/Delete.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DeleteFileRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/DownloadFileRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FileInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FilesAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FilesImpl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FilesService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/GetStatusRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/ListDbfsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/ListStatusResponse.java linguist-generated=true
@@ -459,6 +462,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/Move.java lin
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/Put.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/ReadDbfsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/ReadResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/UploadFileRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/AccessControlRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/AccessControlResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/iam/AccountAccessControlAPI.java linguist-generated=true
