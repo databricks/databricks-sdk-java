@@ -7,6 +7,9 @@ import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
+import com.databricks.sdk.mixin.SecretsExt;
+import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
+import com.databricks.sdk.service.catalog.ArtifactAllowlistsService;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
 import com.databricks.sdk.service.catalog.CatalogsService;
 import com.databricks.sdk.service.catalog.ConnectionsAPI;
@@ -109,7 +112,6 @@ import com.databricks.sdk.service.workspace.GitCredentialsAPI;
 import com.databricks.sdk.service.workspace.GitCredentialsService;
 import com.databricks.sdk.service.workspace.ReposAPI;
 import com.databricks.sdk.service.workspace.ReposService;
-import com.databricks.sdk.service.workspace.SecretsAPI;
 import com.databricks.sdk.service.workspace.SecretsService;
 import com.databricks.sdk.service.workspace.WorkspaceAPI;
 import com.databricks.sdk.service.workspace.WorkspaceService;
@@ -123,6 +125,7 @@ public class WorkspaceClient {
 
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AlertsAPI alertsAPI;
+  private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
   private CleanRoomsAPI cleanRoomsAPI;
   private ClusterPoliciesAPI clusterPoliciesAPI;
@@ -158,7 +161,7 @@ public class WorkspaceClient {
   private RecipientsAPI recipientsAPI;
   private ReposAPI reposAPI;
   private SchemasAPI schemasAPI;
-  private SecretsAPI secretsAPI;
+  private SecretsExt secretsAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
   private ServingEndpointsAPI servingEndpointsAPI;
   private SharesAPI sharesAPI;
@@ -186,6 +189,7 @@ public class WorkspaceClient {
 
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
+    artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     cleanRoomsAPI = new CleanRoomsAPI(apiClient);
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
@@ -221,7 +225,7 @@ public class WorkspaceClient {
     recipientsAPI = new RecipientsAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
-    secretsAPI = new SecretsAPI(apiClient);
+    secretsAPI = new SecretsExt(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
@@ -264,6 +268,14 @@ public class WorkspaceClient {
    */
   public AlertsAPI alerts() {
     return alertsAPI;
+  }
+
+  /**
+   * In Databricks Runtime 13.3 and above, you can add libraries and init scripts to the `allowlist`
+   * in UC so that users can leverage these artifacts on compute configured with shared access mode.
+   */
+  public ArtifactAllowlistsAPI artifactAllowlists() {
+    return artifactAllowlistsAPI;
   }
 
   /**
@@ -831,7 +843,7 @@ public class WorkspaceClient {
    * While Databricks makes an effort to redact secret values that might be displayed in notebooks,
    * it is not possible to prevent such users from reading secrets.
    */
-  public SecretsAPI secrets() {
+  public SecretsExt secrets() {
     return secretsAPI;
   }
 
@@ -1191,6 +1203,12 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace ArtifactAllowlistsAPI implementation with mock */
+  public WorkspaceClient withArtifactAllowlistsImpl(ArtifactAllowlistsService artifactAllowlists) {
+    artifactAllowlistsAPI = new ArtifactAllowlistsAPI(artifactAllowlists);
+    return this;
+  }
+
   /** Replace CatalogsAPI implementation with mock */
   public WorkspaceClient withCatalogsImpl(CatalogsService catalogs) {
     catalogsAPI = new CatalogsAPI(catalogs);
@@ -1404,7 +1422,7 @@ public class WorkspaceClient {
 
   /** Replace SecretsAPI implementation with mock */
   public WorkspaceClient withSecretsImpl(SecretsService secrets) {
-    secretsAPI = new SecretsAPI(secrets);
+    secretsAPI = new SecretsExt(secrets);
     return this;
   }
 

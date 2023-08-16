@@ -7,7 +7,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get secret details for specified scope and key */
+/** Get a secret */
 @Generated
 public class GetSecretRequest {
   /** The key to fetch secret for. */

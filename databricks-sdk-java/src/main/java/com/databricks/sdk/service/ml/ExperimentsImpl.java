@@ -38,6 +38,12 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public DeleteRunsResponse deleteRuns(DeleteRuns request) {
+    String path = "/api/2.0/mlflow/databricks/runs/delete-runs";
+    return apiClient.POST(path, request, DeleteRunsResponse.class);
+  }
+
+  @Override
   public void deleteTag(DeleteTag request) {
     String path = "/api/2.0/mlflow/runs/delete-tag";
     apiClient.POST(path, request, Void.class);
@@ -134,6 +140,12 @@ class ExperimentsImpl implements ExperimentsService {
   public void restoreRun(RestoreRun request) {
     String path = "/api/2.0/mlflow/runs/restore";
     apiClient.POST(path, request, Void.class);
+  }
+
+  @Override
+  public RestoreRunsResponse restoreRuns(RestoreRuns request) {
+    String path = "/api/2.0/mlflow/databricks/runs/restore-runs";
+    return apiClient.POST(path, request, RestoreRunsResponse.class);
   }
 
   @Override

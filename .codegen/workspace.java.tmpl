@@ -10,6 +10,7 @@ import com.databricks.sdk.core.DatabricksConfig;
        defined in an outer scope (https://github.com/golang/go/issues/17454). */ -}}
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
+import com.databricks.sdk.mixin.SecretsExt;
 {{range .Services}}{{if not .IsAccounts}}
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}API;
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;
@@ -17,7 +18,7 @@ import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;
 import com.databricks.sdk.support.Generated;
 
 {{- define "api" -}}
-  {{- $mixins := dict "ClustersAPI" "ClustersExt" "DbfsAPI" "DbfsExt" -}}
+  {{- $mixins := dict "ClustersAPI" "ClustersExt" "DbfsAPI" "DbfsExt" "SecretsAPI" "SecretsExt" -}}
   {{- $genApi := concat .PascalName "API" -}}
   {{- getOrDefault $mixins $genApi $genApi -}}
 {{- end -}}

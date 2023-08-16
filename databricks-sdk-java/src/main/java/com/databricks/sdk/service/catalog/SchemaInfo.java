@@ -31,12 +31,12 @@ public class SchemaInfo {
   private String createdBy;
 
   /** */
-  @JsonProperty("effective_auto_maintenance_flag")
-  private EffectiveAutoMaintenanceFlag effectiveAutoMaintenanceFlag;
+  @JsonProperty("effective_predictive_optimization_flag")
+  private EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag;
 
-  /** Whether auto maintenance should be enabled for this object and objects under it. */
-  @JsonProperty("enable_auto_maintenance")
-  private EnableAutoMaintenance enableAutoMaintenance;
+  /** Whether predictive optimization should be enabled for this object and objects under it. */
+  @JsonProperty("enable_predictive_optimization")
+  private EnablePredictiveOptimization enablePredictiveOptimization;
 
   /** Full name of schema, in form of __catalog_name__.__schema_name__. */
   @JsonProperty("full_name")
@@ -119,23 +119,24 @@ public class SchemaInfo {
     return createdBy;
   }
 
-  public SchemaInfo setEffectiveAutoMaintenanceFlag(
-      EffectiveAutoMaintenanceFlag effectiveAutoMaintenanceFlag) {
-    this.effectiveAutoMaintenanceFlag = effectiveAutoMaintenanceFlag;
+  public SchemaInfo setEffectivePredictiveOptimizationFlag(
+      EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag) {
+    this.effectivePredictiveOptimizationFlag = effectivePredictiveOptimizationFlag;
     return this;
   }
 
-  public EffectiveAutoMaintenanceFlag getEffectiveAutoMaintenanceFlag() {
-    return effectiveAutoMaintenanceFlag;
+  public EffectivePredictiveOptimizationFlag getEffectivePredictiveOptimizationFlag() {
+    return effectivePredictiveOptimizationFlag;
   }
 
-  public SchemaInfo setEnableAutoMaintenance(EnableAutoMaintenance enableAutoMaintenance) {
-    this.enableAutoMaintenance = enableAutoMaintenance;
+  public SchemaInfo setEnablePredictiveOptimization(
+      EnablePredictiveOptimization enablePredictiveOptimization) {
+    this.enablePredictiveOptimization = enablePredictiveOptimization;
     return this;
   }
 
-  public EnableAutoMaintenance getEnableAutoMaintenance() {
-    return enableAutoMaintenance;
+  public EnablePredictiveOptimization getEnablePredictiveOptimization() {
+    return enablePredictiveOptimization;
   }
 
   public SchemaInfo setFullName(String fullName) {
@@ -229,8 +230,9 @@ public class SchemaInfo {
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
-        && Objects.equals(effectiveAutoMaintenanceFlag, that.effectiveAutoMaintenanceFlag)
-        && Objects.equals(enableAutoMaintenance, that.enableAutoMaintenance)
+        && Objects.equals(
+            effectivePredictiveOptimizationFlag, that.effectivePredictiveOptimizationFlag)
+        && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -250,8 +252,8 @@ public class SchemaInfo {
         comment,
         createdAt,
         createdBy,
-        effectiveAutoMaintenanceFlag,
-        enableAutoMaintenance,
+        effectivePredictiveOptimizationFlag,
+        enablePredictiveOptimization,
         fullName,
         metastoreId,
         name,
@@ -271,8 +273,8 @@ public class SchemaInfo {
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
-        .add("effectiveAutoMaintenanceFlag", effectiveAutoMaintenanceFlag)
-        .add("enableAutoMaintenance", enableAutoMaintenance)
+        .add("effectivePredictiveOptimizationFlag", effectivePredictiveOptimizationFlag)
+        .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("fullName", fullName)
         .add("metastoreId", metastoreId)
         .add("name", name)

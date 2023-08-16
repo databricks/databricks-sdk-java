@@ -119,7 +119,7 @@ public class SecretsAPI {
   }
 
   /**
-   * Get secret details for specified scope and key.
+   * Get a secret.
    *
    * <p>Gets the bytes representation of a secret value for the specified scope and key.
    *
