@@ -54,6 +54,14 @@ public interface ExperimentsService {
   void deleteRun(DeleteRun deleteRun);
 
   /**
+   * Delete runs by creation time.
+   *
+   * <p>Bulk delete runs in an experiment that were created prior to or at the specified timestamp.
+   * Deletes at most max_runs per request.
+   */
+  DeleteRunsResponse deleteRuns(DeleteRuns deleteRuns);
+
+  /**
    * Delete a tag.
    *
    * <p>Deletes a tag on a run. Tags are run metadata that can be updated during a run and after a
@@ -223,6 +231,14 @@ public interface ExperimentsService {
    * <p>Restores a deleted run.
    */
   void restoreRun(RestoreRun restoreRun);
+
+  /**
+   * Restore runs by deletion time.
+   *
+   * <p>Bulk restore runs in an experiment that were deleted no earlier than the specified
+   * timestamp. Restores at most max_runs per request.
+   */
+  RestoreRunsResponse restoreRuns(RestoreRuns restoreRuns);
 
   /**
    * Search experiments.

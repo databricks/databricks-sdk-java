@@ -56,6 +56,12 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
+  public DeleteRunsResponse deleteRuns(DeleteRuns request) {
+    String path = "/api/2.0/mlflow/databricks/runs/delete-runs";
+    return apiClient.POST(path, request, DeleteRunsResponse.class);
+  }
+
+  @Override
   public void deleteTag(DeleteTag request) {
     String path = "/api/2.0/mlflow/runs/delete-tag";
     Map<String, String> headers = new HashMap<>();
@@ -208,6 +214,12 @@ class ExperimentsImpl implements ExperimentsService {
     headers.put("Content-Type", "application/json");
 
     apiClient.POST(path, request, Void.class, headers);
+  }
+
+  @Override
+  public RestoreRunsResponse restoreRuns(RestoreRuns request) {
+    String path = "/api/2.0/mlflow/databricks/runs/restore-runs";
+    return apiClient.POST(path, request, RestoreRunsResponse.class);
   }
 
   @Override

@@ -55,12 +55,12 @@ public class TableInfo {
   private DeltaRuntimePropertiesKvPairs deltaRuntimePropertiesKvpairs;
 
   /** */
-  @JsonProperty("effective_auto_maintenance_flag")
-  private EffectiveAutoMaintenanceFlag effectiveAutoMaintenanceFlag;
+  @JsonProperty("effective_predictive_optimization_flag")
+  private EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag;
 
-  /** Whether auto maintenance should be enabled for this object and objects under it. */
-  @JsonProperty("enable_auto_maintenance")
-  private EnableAutoMaintenance enableAutoMaintenance;
+  /** Whether predictive optimization should be enabled for this object and objects under it. */
+  @JsonProperty("enable_predictive_optimization")
+  private EnablePredictiveOptimization enablePredictiveOptimization;
 
   /** Encryption options that apply to clients connecting to cloud storage. */
   @JsonProperty("encryption_details")
@@ -236,23 +236,24 @@ public class TableInfo {
     return deltaRuntimePropertiesKvpairs;
   }
 
-  public TableInfo setEffectiveAutoMaintenanceFlag(
-      EffectiveAutoMaintenanceFlag effectiveAutoMaintenanceFlag) {
-    this.effectiveAutoMaintenanceFlag = effectiveAutoMaintenanceFlag;
+  public TableInfo setEffectivePredictiveOptimizationFlag(
+      EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag) {
+    this.effectivePredictiveOptimizationFlag = effectivePredictiveOptimizationFlag;
     return this;
   }
 
-  public EffectiveAutoMaintenanceFlag getEffectiveAutoMaintenanceFlag() {
-    return effectiveAutoMaintenanceFlag;
+  public EffectivePredictiveOptimizationFlag getEffectivePredictiveOptimizationFlag() {
+    return effectivePredictiveOptimizationFlag;
   }
 
-  public TableInfo setEnableAutoMaintenance(EnableAutoMaintenance enableAutoMaintenance) {
-    this.enableAutoMaintenance = enableAutoMaintenance;
+  public TableInfo setEnablePredictiveOptimization(
+      EnablePredictiveOptimization enablePredictiveOptimization) {
+    this.enablePredictiveOptimization = enablePredictiveOptimization;
     return this;
   }
 
-  public EnableAutoMaintenance getEnableAutoMaintenance() {
-    return enableAutoMaintenance;
+  public EnablePredictiveOptimization getEnablePredictiveOptimization() {
+    return enablePredictiveOptimization;
   }
 
   public TableInfo setEncryptionDetails(EncryptionDetails encryptionDetails) {
@@ -432,8 +433,9 @@ public class TableInfo {
         && Objects.equals(dataSourceFormat, that.dataSourceFormat)
         && Objects.equals(deletedAt, that.deletedAt)
         && Objects.equals(deltaRuntimePropertiesKvpairs, that.deltaRuntimePropertiesKvpairs)
-        && Objects.equals(effectiveAutoMaintenanceFlag, that.effectiveAutoMaintenanceFlag)
-        && Objects.equals(enableAutoMaintenance, that.enableAutoMaintenance)
+        && Objects.equals(
+            effectivePredictiveOptimizationFlag, that.effectivePredictiveOptimizationFlag)
+        && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(metastoreId, that.metastoreId)
@@ -467,8 +469,8 @@ public class TableInfo {
         dataSourceFormat,
         deletedAt,
         deltaRuntimePropertiesKvpairs,
-        effectiveAutoMaintenanceFlag,
-        enableAutoMaintenance,
+        effectivePredictiveOptimizationFlag,
+        enablePredictiveOptimization,
         encryptionDetails,
         fullName,
         metastoreId,
@@ -502,8 +504,8 @@ public class TableInfo {
         .add("dataSourceFormat", dataSourceFormat)
         .add("deletedAt", deletedAt)
         .add("deltaRuntimePropertiesKvpairs", deltaRuntimePropertiesKvpairs)
-        .add("effectiveAutoMaintenanceFlag", effectiveAutoMaintenanceFlag)
-        .add("enableAutoMaintenance", enableAutoMaintenance)
+        .add("effectivePredictiveOptimizationFlag", effectivePredictiveOptimizationFlag)
+        .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("encryptionDetails", encryptionDetails)
         .add("fullName", fullName)
         .add("metastoreId", metastoreId)
