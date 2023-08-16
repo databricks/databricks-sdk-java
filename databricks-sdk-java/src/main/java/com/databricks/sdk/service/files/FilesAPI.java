@@ -3,6 +3,7 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.io.InputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,8 +40,8 @@ public class FilesAPI {
     impl.deleteFile(request);
   }
 
-  public void downloadFile(String filePath) {
-    downloadFile(new DownloadFileRequest().setFilePath(filePath));
+  public InputStream downloadFile(String filePath) {
+    return downloadFile(new DownloadFileRequest().setFilePath(filePath));
   }
 
   /**
@@ -48,8 +49,8 @@ public class FilesAPI {
    *
    * <p>Downloads a file of up to 2 GiB.
    */
-  public void downloadFile(DownloadFileRequest request) {
-    impl.downloadFile(request);
+  public InputStream downloadFile(DownloadFileRequest request) {
+    return impl.downloadFile(request);
   }
 
   public FileInfo getStatus(String path) {

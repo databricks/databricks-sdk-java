@@ -3,6 +3,7 @@ package com.databricks.sdk.service.{{.Package.Name}};
 
 import java.util.Collection;
 import java.util.Map;
+import java.io.InputStream;
 
 import com.databricks.sdk.support.Generated;
 
@@ -33,6 +34,7 @@ public interface {{.PascalName}}Service {
   {{- else if .IsInt}}long
   {{- else if .ArrayValue }}Collection<{{template "type" .ArrayValue}}>
   {{- else if .MapValue }}Map<String,{{template "type" .MapValue}}>
+  {{- else if .IsByteStream}}InputStream
   {{- else if .IsObject }}{{.PascalName}}
   {{- else if .IsExternal }}com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}
   {{- else if .Enum }}{{.PascalName}}
