@@ -31,12 +31,12 @@ public class CatalogInfo {
   private String createdBy;
 
   /** */
-  @JsonProperty("effective_auto_maintenance_flag")
-  private EffectiveAutoMaintenanceFlag effectiveAutoMaintenanceFlag;
+  @JsonProperty("effective_predictive_optimization_flag")
+  private EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag;
 
-  /** Whether auto maintenance should be enabled for this object and objects under it. */
-  @JsonProperty("enable_auto_maintenance")
-  private EnableAutoMaintenance enableAutoMaintenance;
+  /** Whether predictive optimization should be enabled for this object and objects under it. */
+  @JsonProperty("enable_predictive_optimization")
+  private EnablePredictiveOptimization enablePredictiveOptimization;
 
   /**
    * Whether the current securable is accessible from all workspaces or a specific set of
@@ -139,23 +139,24 @@ public class CatalogInfo {
     return createdBy;
   }
 
-  public CatalogInfo setEffectiveAutoMaintenanceFlag(
-      EffectiveAutoMaintenanceFlag effectiveAutoMaintenanceFlag) {
-    this.effectiveAutoMaintenanceFlag = effectiveAutoMaintenanceFlag;
+  public CatalogInfo setEffectivePredictiveOptimizationFlag(
+      EffectivePredictiveOptimizationFlag effectivePredictiveOptimizationFlag) {
+    this.effectivePredictiveOptimizationFlag = effectivePredictiveOptimizationFlag;
     return this;
   }
 
-  public EffectiveAutoMaintenanceFlag getEffectiveAutoMaintenanceFlag() {
-    return effectiveAutoMaintenanceFlag;
+  public EffectivePredictiveOptimizationFlag getEffectivePredictiveOptimizationFlag() {
+    return effectivePredictiveOptimizationFlag;
   }
 
-  public CatalogInfo setEnableAutoMaintenance(EnableAutoMaintenance enableAutoMaintenance) {
-    this.enableAutoMaintenance = enableAutoMaintenance;
+  public CatalogInfo setEnablePredictiveOptimization(
+      EnablePredictiveOptimization enablePredictiveOptimization) {
+    this.enablePredictiveOptimization = enablePredictiveOptimization;
     return this;
   }
 
-  public EnableAutoMaintenance getEnableAutoMaintenance() {
-    return enableAutoMaintenance;
+  public EnablePredictiveOptimization getEnablePredictiveOptimization() {
+    return enablePredictiveOptimization;
   }
 
   public CatalogInfo setIsolationMode(IsolationMode isolationMode) {
@@ -276,8 +277,9 @@ public class CatalogInfo {
         && Objects.equals(connectionName, that.connectionName)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
-        && Objects.equals(effectiveAutoMaintenanceFlag, that.effectiveAutoMaintenanceFlag)
-        && Objects.equals(enableAutoMaintenance, that.enableAutoMaintenance)
+        && Objects.equals(
+            effectivePredictiveOptimizationFlag, that.effectivePredictiveOptimizationFlag)
+        && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -300,8 +302,8 @@ public class CatalogInfo {
         connectionName,
         createdAt,
         createdBy,
-        effectiveAutoMaintenanceFlag,
-        enableAutoMaintenance,
+        effectivePredictiveOptimizationFlag,
+        enablePredictiveOptimization,
         isolationMode,
         metastoreId,
         name,
@@ -324,8 +326,8 @@ public class CatalogInfo {
         .add("connectionName", connectionName)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
-        .add("effectiveAutoMaintenanceFlag", effectiveAutoMaintenanceFlag)
-        .add("enableAutoMaintenance", enableAutoMaintenance)
+        .add("effectivePredictiveOptimizationFlag", effectivePredictiveOptimizationFlag)
+        .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("isolationMode", isolationMode)
         .add("metastoreId", metastoreId)
         .add("name", name)

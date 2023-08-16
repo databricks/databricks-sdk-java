@@ -65,6 +65,15 @@ class SecretsImpl implements SecretsService {
   }
 
   @Override
+  public GetSecretResponse getSecret(GetSecretRequest request) {
+    String path = "/api/2.0/secrets/get";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, GetSecretResponse.class, headers);
+  }
+
+  @Override
   public ListAclsResponse listAcls(ListAclsRequest request) {
     String path = "/api/2.0/secrets/acls/list";
     Map<String, String> headers = new HashMap<>();
