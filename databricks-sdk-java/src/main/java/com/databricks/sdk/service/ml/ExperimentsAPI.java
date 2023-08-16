@@ -87,6 +87,21 @@ public class ExperimentsAPI {
     impl.deleteRun(request);
   }
 
+  public DeleteRunsResponse deleteRuns(String experimentId, long maxTimestampMillis) {
+    return deleteRuns(
+        new DeleteRuns().setExperimentId(experimentId).setMaxTimestampMillis(maxTimestampMillis));
+  }
+
+  /**
+   * Delete runs by creation time.
+   *
+   * <p>Bulk delete runs in an experiment that were created prior to or at the specified timestamp.
+   * Deletes at most max_runs per request.
+   */
+  public DeleteRunsResponse deleteRuns(DeleteRuns request) {
+    return impl.deleteRuns(request);
+  }
+
   public void deleteTag(String runId, String key) {
     deleteTag(new DeleteTag().setRunId(runId).setKey(key));
   }
@@ -353,6 +368,21 @@ public class ExperimentsAPI {
    */
   public void restoreRun(RestoreRun request) {
     impl.restoreRun(request);
+  }
+
+  public RestoreRunsResponse restoreRuns(String experimentId, long minTimestampMillis) {
+    return restoreRuns(
+        new RestoreRuns().setExperimentId(experimentId).setMinTimestampMillis(minTimestampMillis));
+  }
+
+  /**
+   * Restore runs by deletion time.
+   *
+   * <p>Bulk restore runs in an experiment that were deleted no earlier than the specified
+   * timestamp. Restores at most max_runs per request.
+   */
+  public RestoreRunsResponse restoreRuns(RestoreRuns request) {
+    return impl.restoreRuns(request);
   }
 
   /**
