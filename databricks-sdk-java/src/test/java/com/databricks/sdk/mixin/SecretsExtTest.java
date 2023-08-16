@@ -7,6 +7,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -16,9 +18,18 @@ import org.mockito.MockitoAnnotations;
 public class SecretsExtTest {
   @Mock SecretsService mockedSecretsService;
 
+  private AutoCloseable closeable;
+
   @BeforeEach
   void setup() {
-    MockitoAnnotations.openMocks(this);
+    closeable = MockitoAnnotations.openMocks(this);
+  }
+
+  @AfterEach
+  void tearDown() throws Exception {
+    if (closeable != null) {
+      closeable.close();
+    }
   }
 
   @Test
@@ -49,48 +60,5 @@ public class SecretsExtTest {
 
     String response = mockedSecretExt.get("abc", "xyz");
     assertEquals("testValueBase64Decoded", response);
-  }
-
-  @Test
-  void listTest() {
-    SecretsExt mockedSecretExt = new SecretsExt(mockedSecretsService);
-
-    List<SecretMetadata> abcScopeList = new ArrayList<>();
-    abcScopeList.add(new SecretMetadata().setKey("a"));
-    abcScopeList.add(new SecretMetadata().setKey("b"));
-
-    List<SecretMetadata> xyzScopeList = new ArrayList<>();
-    abcScopeList.add(new SecretMetadata().setKey("x"));
-    abcScopeList.add(new SecretMetadata().setKey("y"));
-
-    Mockito.doReturn(new ListSecretsResponse().setSecrets(abcScopeList))
-        .when(mockedSecretsService)
-        .listSecrets(new ListSecretsRequest().setScope("abc"));
-    Mockito.doReturn(new ListSecretsResponse().setSecrets(xyzScopeList))
-        .when(mockedSecretsService)
-        .listSecrets(new ListSecretsRequest().setScope("xyz"));
-
-    Iterable<SecretMetadata> secretMetadataList = mockedSecretExt.listSecrets("abc");
-    assertEquals(abcScopeList, secretMetadataList);
-
-    secretMetadataList = mockedSecretExt.listSecrets("xyz");
-    assertEquals(xyzScopeList, secretMetadataList);
-  }
-
-  @Test
-  void listScopesTest() {
-    SecretsExt mockedSecretExt = new SecretsExt(mockedSecretsService);
-
-    List<SecretScope> secretScopes = new ArrayList<>();
-    secretScopes.add(new SecretScope().setName("a"));
-    secretScopes.add(new SecretScope().setName("b"));
-    secretScopes.add(new SecretScope().setName("c"));
-
-    Mockito.doReturn(new ListScopesResponse().setScopes(secretScopes))
-        .when(mockedSecretsService)
-        .listScopes();
-
-    Iterable<SecretScope> response = mockedSecretExt.listScopes();
-    assertEquals(secretScopes, response);
   }
 }

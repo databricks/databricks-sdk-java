@@ -1378,6 +1378,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/GetRepoPe
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/GetRepoPermissionLevelsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/GetRepoPermissionsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/GetRepoRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/GetSecretRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/GetSecretResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/GetStatusRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/GetWorkspaceObjectPermissionLevelsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/workspace/GetWorkspaceObjectPermissionLevelsResponse.java linguist-generated=true
