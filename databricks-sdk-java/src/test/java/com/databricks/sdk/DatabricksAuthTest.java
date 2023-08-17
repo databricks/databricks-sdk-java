@@ -11,18 +11,13 @@ import com.databricks.sdk.core.utils.GitHubUtils;
 import com.databricks.sdk.core.utils.TestOSUtils;
 import java.io.File;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
+
 import org.junit.jupiter.api.Test;
 
-public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResolving {
-
-  private static String prefixPath;
+public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
 
   public DatabricksAuthTest() {
     setPermissionOnTestAz();
-    prefixPath = System.getProperty("user.dir") + getTestDir();
   }
 
   @Test
@@ -209,7 +204,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
   @Test
   public void testTestConfigConfigFileSkipDefaultProfileIfHostSpecified() {
     // Set environment variables
-    StaticEnv env = new StaticEnv().with("HOME", resource("/testdata"));
+    StaticEnv env = new StaticEnv().with("HOME", TestOSUtils.resource("/testdata"));
     raises(
         "default auth: cannot configure default credentials. Config: host=https://x",
         () -> {
@@ -222,7 +217,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
   @Test
   public void testTestConfigConfigFileWithEmptyDefaultProfileSelectDefault() {
     // Set environment variables
-    StaticEnv env = new StaticEnv().with("HOME", resource("/testdata/empty_default"));
+    StaticEnv env = new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/empty_default"));
     raises(
         "default auth: cannot configure default credentials",
         () -> {
@@ -238,7 +233,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
     StaticEnv env =
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "abc")
-            .with("HOME", resource("/testdata/empty_default"));
+            .with("HOME", TestOSUtils.resource("/testdata/empty_default"));
     DatabricksConfig config = new DatabricksConfig();
     resolveConfig(config, env);
     config.authenticate();
@@ -250,7 +245,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
   @Test
   public void testTestConfigPatFromDatabricksCfg() {
     // Set environment variables
-    StaticEnv env = new StaticEnv().with("HOME", resource("/testdata"));
+    StaticEnv env = new StaticEnv().with("HOME", TestOSUtils.resource("/testdata"));
     DatabricksConfig config = new DatabricksConfig();
     resolveConfig(config, env);
     config.authenticate();
@@ -265,7 +260,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
     StaticEnv env =
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "pat.with.dot")
-            .with("HOME", resource("/testdata"));
+            .with("HOME", TestOSUtils.resource("/testdata"));
     DatabricksConfig config = new DatabricksConfig();
     resolveConfig(config, env);
     config.authenticate();
@@ -280,7 +275,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
     StaticEnv env =
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "nohost")
-            .with("HOME", resource("/testdata"));
+            .with("HOME", TestOSUtils.resource("/testdata"));
     raises(
         "default auth: cannot configure default credentials. Config: token=***, profile=nohost. Env: DATABRICKS_CONFIG_PROFILE",
         () -> {
@@ -297,7 +292,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "nohost")
             .with("DATABRICKS_TOKEN", "x")
-            .with("HOME", resource("/testdata"));
+            .with("HOME", TestOSUtils.resource("/testdata"));
     raises(
         "default auth: cannot configure default credentials. Config: token=***, profile=nohost. Env: DATABRICKS_TOKEN, DATABRICKS_CONFIG_PROFILE",
         () -> {
@@ -314,7 +309,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "nohost")
             .with("DATABRICKS_USERNAME", "x")
-            .with("HOME", resource("/testdata"));
+            .with("HOME", TestOSUtils.resource("/testdata"));
     raises(
         "validate: more than one authorization method configured: basic and pat. Config: token=***, username=x, profile=nohost. Env: DATABRICKS_USERNAME, DATABRICKS_CONFIG_PROFILE",
         () -> {
@@ -341,7 +336,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
   public void testTestConfigAzureCliHost() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", "testdata:/bin");
+        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/azure")).with("PATH", "testdata:/bin");
     DatabricksConfig config =
         new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
     resolveConfig(config, env);
@@ -358,7 +353,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
     StaticEnv env =
         new StaticEnv()
             .with("FAIL", "yes")
-            .with("HOME", resource("/testdata/azure"))
+            .with("HOME", TestOSUtils.resource("/testdata/azure"))
             .with("PATH", "testdata:/bin");
     raises(
         "default auth: azure-cli: cannot get access token: This is just a failing script.\n. Config: azure_workspace_resource_id=/sub/rg/ws",
@@ -374,7 +369,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
   public void testTestConfigAzureCliHostAzNotInstalled() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", "whatever");
+        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/azure")).with("PATH", "whatever");
     raises(
         "default auth: cannot configure default credentials. Config: azure_workspace_resource_id=/sub/rg/ws",
         () -> {
@@ -389,7 +384,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
   public void testTestConfigAzureCliHostPatConflictWithConfigFilePresentWithoutDefaultProfile() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", resource("/testdata/azure")).with("PATH", "testdata:/bin");
+        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/azure")).with("PATH", "testdata:/bin");
     raises(
         "validate: more than one authorization method configured: azure and pat. Config: token=***, azure_workspace_resource_id=/sub/rg/ws",
         () -> {
@@ -404,7 +399,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
   public void testTestConfigAzureCliHostAndResourceId() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", resource("/testdata")).with("PATH", "testdata:/bin");
+        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata")).with("PATH", "testdata:/bin");
     DatabricksConfig config =
         new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
     resolveConfig(config, env);
@@ -421,7 +416,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
     StaticEnv env =
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "justhost")
-            .with("HOME", resource("/testdata/azure"))
+            .with("HOME", TestOSUtils.resource("/testdata/azure"))
             .with("PATH", "testdata:/bin");
     DatabricksConfig config =
         new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
@@ -439,7 +434,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
     StaticEnv env =
         new StaticEnv()
             .with("DATABRICKS_USERNAME", "x")
-            .with("HOME", resource("/testdata/azure"))
+            .with("HOME", TestOSUtils.resource("/testdata/azure"))
             .with("PATH", "testdata:/bin");
     raises(
         "validate: more than one authorization method configured: azure and basic. Config: host=x, username=x, azure_workspace_resource_id=/sub/rg/ws. Env: DATABRICKS_USERNAME",
@@ -457,7 +452,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
     StaticEnv env =
         new StaticEnv()
             .with("DATABRICKS_CONFIG_PROFILE", "DEFAULT")
-            .with("HOME", resource("/testdata/corrupt"));
+            .with("HOME", TestOSUtils.resource("/testdata/corrupt"));
     raises(
         "resolve: testdata/corrupt/.databrickscfg has no DEFAULT profile configured. Config: profile=DEFAULT. Env: DATABRICKS_CONFIG_PROFILE",
         () -> {
@@ -484,31 +479,6 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
     assertEquals("https://x", config.getHost());
   }
 
-  private String resource(String file) {
-    URL resource = getClass().getResource(file);
-    if (resource == null) {
-      fail("Asset not found: " + file);
-    }
-    return resource.getFile();
-  }
-
-  static class StaticEnv implements Supplier<Map<String, String>> {
-    private final Map<String, String> env = new HashMap<>();
-
-    public StaticEnv with(String key, String value) {
-      if (key.equals("PATH")) {
-        value = prefixPath + value;
-      }
-      env.put(key, value);
-      return this;
-    }
-
-    @Override
-    public Map<String, String> get() {
-      return env;
-    }
-  }
-
   private void raises(String contains, Runnable cb) {
     boolean raised = false;
     try {
@@ -521,7 +491,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
               File.separator,
               "/"); // We would need to do this upstream also for making paths compatible with
       // windows
-      message = message.replace(prefixPath, "");
+      message = message.replace(StaticEnv.getPrefixPath(), "");
       if (!message.contains(contains)) {
         fail(String.format("Expected exception to contain '%s'", contains), e);
       }

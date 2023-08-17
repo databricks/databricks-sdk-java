@@ -92,4 +92,17 @@ public interface AzureUtils {
       throw new DatabricksException("Unable to fetch workspace URL: " + e.getMessage(), e);
     }
   }
+
+  default Map<String, String> addWorkspaceResourceId(DatabricksConfig config, Map<String, String> headers) {
+    if (config.getAzureWorkspaceResourceId() != null) {
+      headers.put(
+          "X-Databricks-Azure-Workspace-Resource-Id", config.getAzureWorkspaceResourceId());
+    }
+    return headers;
+  }
+
+  default Map<String, String> addSpManagementToken(RefreshableTokenSource tokenSource, Map<String, String> headers) {
+    headers.put("X-Databricks-Azure-SP-Management-Token", tokenSource.getToken().getAccessToken());
+    return headers;
+  }
 }
