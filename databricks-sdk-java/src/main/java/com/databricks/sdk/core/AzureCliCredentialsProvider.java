@@ -43,6 +43,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
       try {
         mgmtTokenSource.getToken();
       } catch (Exception e) {
+        LOG.debug("Not including service management token in headers", e);
         mgmtTokenSource = null;
       }
       CliTokenSource finalMgmtTokenSource = mgmtTokenSource;
