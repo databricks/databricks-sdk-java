@@ -1,7 +1,6 @@
 package com.databricks.sdk;
 
 import com.databricks.sdk.core.utils.TestOSUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;

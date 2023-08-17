@@ -10,8 +10,6 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.utils.GitHubUtils;
 import com.databricks.sdk.core.utils.TestOSUtils;
 import java.io.File;
-import java.net.URL;
-
 import org.junit.jupiter.api.Test;
 
 public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
@@ -336,7 +334,9 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
   public void testTestConfigAzureCliHost() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/azure")).with("PATH", "testdata:/bin");
+        new StaticEnv()
+            .with("HOME", TestOSUtils.resource("/testdata/azure"))
+            .with("PATH", "testdata:/bin");
     DatabricksConfig config =
         new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
     resolveConfig(config, env);
@@ -369,7 +369,9 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
   public void testTestConfigAzureCliHostAzNotInstalled() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/azure")).with("PATH", "whatever");
+        new StaticEnv()
+            .with("HOME", TestOSUtils.resource("/testdata/azure"))
+            .with("PATH", "whatever");
     raises(
         "default auth: cannot configure default credentials. Config: azure_workspace_resource_id=/sub/rg/ws",
         () -> {
@@ -384,7 +386,9 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
   public void testTestConfigAzureCliHostPatConflictWithConfigFilePresentWithoutDefaultProfile() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/azure")).with("PATH", "testdata:/bin");
+        new StaticEnv()
+            .with("HOME", TestOSUtils.resource("/testdata/azure"))
+            .with("PATH", "testdata:/bin");
     raises(
         "validate: more than one authorization method configured: azure and pat. Config: token=***, azure_workspace_resource_id=/sub/rg/ws",
         () -> {
@@ -399,7 +403,9 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
   public void testTestConfigAzureCliHostAndResourceId() {
     // Set environment variables
     StaticEnv env =
-        new StaticEnv().with("HOME", TestOSUtils.resource("/testdata")).with("PATH", "testdata:/bin");
+        new StaticEnv()
+            .with("HOME", TestOSUtils.resource("/testdata"))
+            .with("PATH", "testdata:/bin");
     DatabricksConfig config =
         new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
     resolveConfig(config, env);
