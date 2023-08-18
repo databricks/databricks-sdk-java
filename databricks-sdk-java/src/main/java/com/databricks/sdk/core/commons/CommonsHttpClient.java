@@ -103,8 +103,9 @@ public class CommonsHttpClient implements HttpClient {
 
     try (InputStream inputStream = entity.getContent()) {
       String body = IOUtils.toString(inputStream, Charset.defaultCharset());
-      response.close();
       return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
+    } finally {
+      response.close();
     }
   }
 

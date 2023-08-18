@@ -3,6 +3,7 @@ package com.databricks.sdk.core;
 import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.*;
 
 /**
@@ -116,7 +117,7 @@ public class GrpcTranscodingQueryParamsSerializer {
           continue;
         }
         // check if object is a primitive type or a collection of some kind
-        if (primitiveTypes.contains(f.getType()) || Iterable.class.isAssignableFrom(f.getType())) {
+        if (primitiveTypes.contains(f.getType()) || Iterable.class.isAssignableFrom(f.getType()) || f.getType().isEnum()) {
           result.put(name, value);
         } else {
           // recursively flatten the object
