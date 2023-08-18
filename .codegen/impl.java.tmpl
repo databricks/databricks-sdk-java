@@ -52,10 +52,10 @@ apiClient.{{.Verb}}(path
 {{- end }}
 
 {{ define "headers" -}}
-  Map<String, String> headers = new HashMap<>();
-  {{- range $key, $value := .FixedRequestHeaders }}
-  headers.put("{{$key}}", "{{$value}}");
-  {{- end -}}
+    Map<String, String> headers = new HashMap<>();
+    {{- range $key, $value := .FixedRequestHeaders }}
+    headers.put("{{$key}}", "{{$value}}");
+    {{- end -}}
 {{- end }}
 
 {{ define "request-param" -}}
