@@ -36,7 +36,6 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             request.getServicePrincipalId(),
             request.getSecretId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

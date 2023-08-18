@@ -19,7 +19,6 @@ class StatementExecutionImpl implements StatementExecutionService {
   public void cancelExecution(CancelExecutionRequest request) {
     String path = String.format("/api/2.0/sql/statements/%s/cancel", request.getStatementId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.POST(path, request, Void.class, headers);
   }
 

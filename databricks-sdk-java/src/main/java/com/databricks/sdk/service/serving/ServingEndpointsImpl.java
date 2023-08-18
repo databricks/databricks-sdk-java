@@ -50,7 +50,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   public void exportMetrics(ExportMetricsRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/metrics", request.getName());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.GET(path, request, Void.class, headers);
   }
 

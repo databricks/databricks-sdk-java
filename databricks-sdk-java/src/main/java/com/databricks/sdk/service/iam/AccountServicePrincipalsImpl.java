@@ -34,7 +34,6 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

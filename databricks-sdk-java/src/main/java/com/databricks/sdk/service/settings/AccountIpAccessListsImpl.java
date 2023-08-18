@@ -34,7 +34,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
             "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

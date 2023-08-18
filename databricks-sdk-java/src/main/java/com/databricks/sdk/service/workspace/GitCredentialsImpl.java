@@ -29,7 +29,6 @@ class GitCredentialsImpl implements GitCredentialsService {
   public void delete(DeleteGitCredentialRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

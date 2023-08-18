@@ -29,7 +29,6 @@ class ServicePrincipalsImpl implements ServicePrincipalsService {
   public void delete(DeleteServicePrincipalRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

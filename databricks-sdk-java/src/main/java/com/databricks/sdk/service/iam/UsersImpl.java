@@ -29,7 +29,6 @@ class UsersImpl implements UsersService {
   public void delete(DeleteUserRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

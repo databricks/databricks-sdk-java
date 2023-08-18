@@ -29,7 +29,6 @@ class TokenManagementImpl implements TokenManagementService {
   public void delete(DeleteTokenManagementRequest request) {
     String path = String.format("/api/2.0/token-management/tokens/%s", request.getTokenId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

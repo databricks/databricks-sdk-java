@@ -33,7 +33,6 @@ class AccountUsersImpl implements AccountUsersService {
             "/api/2.0/accounts/%s/scim/v2/Users/%s",
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

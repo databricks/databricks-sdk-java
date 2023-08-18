@@ -29,7 +29,6 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
   public void delete(DeleteGlobalInitScriptRequest request) {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

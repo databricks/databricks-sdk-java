@@ -29,7 +29,6 @@ class ReposImpl implements ReposService {
   public void delete(DeleteRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

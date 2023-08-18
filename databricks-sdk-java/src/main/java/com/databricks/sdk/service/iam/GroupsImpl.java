@@ -29,7 +29,6 @@ class GroupsImpl implements GroupsService {
   public void delete(DeleteGroupRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

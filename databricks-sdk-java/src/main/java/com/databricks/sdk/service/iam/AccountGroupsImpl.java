@@ -33,7 +33,6 @@ class AccountGroupsImpl implements AccountGroupsService {
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
