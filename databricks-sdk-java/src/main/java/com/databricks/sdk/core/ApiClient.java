@@ -83,7 +83,7 @@ public class ApiClient {
     return mapper;
   }
 
-  private <I> void setQuery(Request in, I entity) {
+  private static <I> void setQuery(Request in, I entity) {
     if (entity == null) {
       return;
     }
@@ -93,7 +93,7 @@ public class ApiClient {
     }
   }
 
-  private <I> void setHeaders(Request in, Map<String, String> headers) {
+  private static <I> void setHeaders(Request in, Map<String, String> headers) {
     if (headers == null) {
       return;
     }
