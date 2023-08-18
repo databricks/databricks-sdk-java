@@ -58,7 +58,11 @@ class ExperimentsImpl implements ExperimentsService {
   @Override
   public DeleteRunsResponse deleteRuns(DeleteRuns request) {
     String path = "/api/2.0/mlflow/databricks/runs/delete-runs";
-    return apiClient.POST(path, request, DeleteRunsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, DeleteRunsResponse.class, headers);
   }
 
   @Override
@@ -219,7 +223,11 @@ class ExperimentsImpl implements ExperimentsService {
   @Override
   public RestoreRunsResponse restoreRuns(RestoreRuns request) {
     String path = "/api/2.0/mlflow/databricks/runs/restore-runs";
-    return apiClient.POST(path, request, RestoreRunsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.POST(path, request, RestoreRunsResponse.class, headers);
   }
 
   @Override

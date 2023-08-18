@@ -3,6 +3,8 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of SecurableTags */
 @Generated
@@ -19,7 +21,10 @@ class SecurableTagsImpl implements SecurableTagsService {
         String.format(
             "/api/2.1/unity-catalog/securable-tags/%s/%s",
             request.getSecurableType(), request.getFullName());
-    return apiClient.GET(path, request, TagSecurableAssignmentsList.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, TagSecurableAssignmentsList.class, headers);
   }
 
   @Override
@@ -28,6 +33,10 @@ class SecurableTagsImpl implements SecurableTagsService {
         String.format(
             "/api/2.1/unity-catalog/securable-tags/%s/%s",
             request.getSecurableType(), request.getFullName());
-    return apiClient.PATCH(path, request, TagSecurableAssignmentsList.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PATCH(path, request, TagSecurableAssignmentsList.class, headers);
   }
 }

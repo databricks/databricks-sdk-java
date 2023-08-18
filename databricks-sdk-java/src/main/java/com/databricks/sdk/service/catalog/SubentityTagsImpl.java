@@ -3,6 +3,8 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of SubentityTags */
 @Generated
@@ -19,7 +21,10 @@ class SubentityTagsImpl implements SubentityTagsService {
         String.format(
             "/api/2.1/unity-catalog/subentity-tags/%s/%s/%s",
             request.getSecurableType(), request.getFullName(), request.getSubentityName());
-    return apiClient.GET(path, request, TagSubentityAssignmentsList.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+
+    return apiClient.GET(path, request, TagSubentityAssignmentsList.class, headers);
   }
 
   @Override
@@ -28,6 +33,10 @@ class SubentityTagsImpl implements SubentityTagsService {
         String.format(
             "/api/2.1/unity-catalog/subentity-tags/%s/%s/%s",
             request.getSecurableType(), request.getFullName(), request.getSubentityName());
-    return apiClient.PATCH(path, request, TagSubentityAssignmentsList.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+
+    return apiClient.PATCH(path, request, TagSubentityAssignmentsList.class, headers);
   }
 }
