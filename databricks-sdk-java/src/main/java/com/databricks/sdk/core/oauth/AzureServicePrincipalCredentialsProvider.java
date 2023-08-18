@@ -34,11 +34,8 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
     return () -> {
       Map<String, String> headers = new HashMap<>();
       headers.put("Authorization", "Bearer " + inner.getToken().getAccessToken());
-      headers.put("X-Databricks-Azure-SP-Management-Token", cloud.getToken().getAccessToken());
-      if (config.getAzureWorkspaceResourceId() != null) {
-        headers.put(
-            "X-Databricks-Azure-Workspace-Resource-Id", config.getAzureWorkspaceResourceId());
-      }
+      addWorkspaceResourceId(config, headers);
+      addSpManagementToken(cloud, headers);
       return headers;
     };
   }

@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * GitHubUtils is an interface that provides utility methods for working with GitHub actions and
  * testing on various operating systems.
  */
-public interface GitHubUtils extends TestOSUtils {
+public interface GitHubUtils {
 
   Logger LOG = LoggerFactory.getLogger(GitHubUtils.class);
 
