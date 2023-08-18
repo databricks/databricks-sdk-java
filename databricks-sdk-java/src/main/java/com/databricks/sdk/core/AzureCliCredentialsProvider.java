@@ -37,12 +37,24 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
       ensureHostPresent(config, mapper);
       String resource = config.getEffectiveAzureLoginAppId();
       CliTokenSource tokenSource = tokenSourceFor(config, resource);
+      CliTokenSource mgmtTokenSource =
+          tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
       tokenSource.getToken(); // We need this for checking if Azure CLI is installed.
+      try {
+        mgmtTokenSource.getToken();
+      } catch (Exception e) {
+        LOG.debug("Not including service management token in headers", e);
+        mgmtTokenSource = null;
+      }
+      CliTokenSource finalMgmtTokenSource = mgmtTokenSource;
       return () -> {
         Token token = tokenSource.getToken();
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
-        return headers;
+        if (finalMgmtTokenSource != null) {
+          addSpManagementToken(finalMgmtTokenSource, headers);
+        }
+        return addWorkspaceResourceId(config, headers);
       };
     } catch (DatabricksException e) {
       String stderr = e.getMessage();

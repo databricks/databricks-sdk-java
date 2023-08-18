@@ -16,13 +16,10 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 
-public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResolving {
-
-    private static String prefixPath;
+public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
 
     public DatabricksAuthTest() {
       setPermissionOnTestAz();
-      prefixPath = System.getProperty("user.dir") + getTestDir();
     }
 
     {{range .}}
@@ -30,7 +27,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
     public void test{{.PascalName}}() {
         {{with .Env}}// Set environment variables
         StaticEnv env = new StaticEnv(){{range $k,$v := .}}
-          .with("{{$k}}", {{if eq $k "HOME"}}resource("/{{$v}}"){{else}}"{{$v}}"{{end}}){{end}};{{end}}
+          .with("{{$k}}", {{if eq $k "HOME"}}TestOSUtils.resource("/{{$v}}"){{else}}"{{$v}}"{{end}}){{end}};{{end}}
         {{- with .AssertError}}
         raises("{{.}}", () -> { {{end}}
           DatabricksConfig config = new DatabricksConfig(){{range .Fields}}
@@ -46,31 +43,6 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
     }
     {{end}}
 
-    private String resource(String file) {
-      URL resource = getClass().getResource(file);
-      if (resource == null) {
-        fail("Asset not found: " + file);
-      }
-      return resource.getFile();
-    }
-
-    static class StaticEnv implements Supplier<Map<String, String>> {
-      private final Map<String, String> env = new HashMap<>();
-
-      public StaticEnv with(String key, String value) {
-        if (key.equals("PATH")) {
-          value = prefixPath + value;
-        }
-        env.put(key, value);
-        return this;
-      }
-
-      @Override
-      public Map<String, String> get() {
-        return env;
-      }
-    }
-
     private void raises(String contains, Runnable cb) {
       boolean raised = false;
       try {
@@ -83,7 +55,7 @@ public class DatabricksAuthTest implements TestOSUtils, GitHubUtils, ConfigResol
                 File.separator,
                 "/"); // We would need to do this upstream also for making paths compatible with
         // windows
-        message = message.replace(prefixPath, "");
+        message = message.replace(StaticEnv.getPrefixPath(), "");
         if (!message.contains(contains)) {
           fail(String.format("Expected exception to contain '%s'", contains), e);
         }

@@ -1,5 +1,63 @@
 # Version changelog
 
+## 0.6.0
+
+* Added support for `dbutils.secrets` ([#132](https://github.com/databricks/databricks-sdk-java/pull/132)).
+* Added retry in `w.clusters().ensureClusterIsRunning(id)` when cluster is simultaneously started by two different processes ([#134](https://github.com/databricks/databricks-sdk-java/pull/134)).
+* Set necessary headers when authenticating via Azure CLI ([#136](https://github.com/databricks/databricks-sdk-java/pull/136)).
+
+New Services:
+
+ * Added `workspaceClient.artifactAllowlists()` service.
+ * Added `workspaceClient.securableTags()` service.
+ * Added `workspaceClient.subentityTags()` service.
+ * Added `com.databricks.sdk.service.catalog.ArtifactAllowlistInfo` class.
+ * Added `com.databricks.sdk.service.catalog.ArtifactMatcher` class.
+ * Added `com.databricks.sdk.service.catalog.ArtifactType` class.
+ * Added `com.databricks.sdk.service.catalog.GetArtifactAllowlistRequest` class.
+ * Added `com.databricks.sdk.service.catalog.ListSecurableTagsRequest` class.
+ * Added `com.databricks.sdk.service.catalog.ListSecurableType` class.
+ * Added `com.databricks.sdk.service.catalog.ListSubentityTagsRequest` class.
+ * Added `com.databricks.sdk.service.catalog.MatchType` class.
+ * Added `com.databricks.sdk.service.catalog.SetArtifactAllowlist` class.
+ * Added `com.databricks.sdk.service.catalog.TagChanges` class.
+ * Added `com.databricks.sdk.service.catalog.TagKeyValuePair` class.
+ * Added `com.databricks.sdk.service.catalog.TagSecurable` class.
+ * Added `com.databricks.sdk.service.catalog.TagSecurableAssignment` class.
+ * Added `com.databricks.sdk.service.catalog.TagSecurableAssignmentsList` class.
+ * Added `com.databricks.sdk.service.catalog.TagSubentity` class.
+ * Added `com.databricks.sdk.service.catalog.TagSubentityAssignmentsList` class.
+ * Added `com.databricks.sdk.service.catalog.TagsSubentityAssignment` class.
+ * Added `com.databricks.sdk.service.catalog.UpdateSecurableType` class.
+ * Added `com.databricks.sdk.service.catalog.UpdateTags` class.
+
+New APIs:
+
+ * Added `deleteRuns()` method for `workspaceClient.experiments()` service.
+ * Added `restoreRuns()` method for `workspaceClient.experiments()` service.
+ * Added `com.databricks.sdk.service.ml.DeleteRuns` class.
+ * Added `com.databricks.sdk.service.ml.DeleteRunsResponse` class.
+ * Added `com.databricks.sdk.service.ml.RestoreRuns` class.
+ * Added `com.databricks.sdk.service.ml.RestoreRunsResponse` class.
+ * Added `getSecret()` method for `workspaceClient.secrets()` service.
+ * Added `com.databricks.sdk.service.workspace.GetSecretRequest` class.
+ * Added `com.databricks.sdk.service.workspace.GetSecretResponse` class.
+
+API Renames:
+
+ * Renamed `effectiveAutoMaintenanceFlag` field to `effectivePredictiveOptimizationFlag` field for `com.databricks.sdk.service.catalog.CatalogInfo`.
+ * Renamed `enableAutoMaintenance` field to `enablePredictiveOptimization` field for `com.databricks.sdk.service.catalog.CatalogInfo`.
+ * Renamed `com.databricks.sdk.service.catalog.EffectiveAutoMaintenanceFlag` class to `com.databricks.sdk.service.catalog.EffectivePredictiveOptimizationFlag` class.
+ * Renamed `com.databricks.sdk.service.catalog.EffectiveAutoMaintenanceFlagInheritedFromType` class to `com.databricks.sdk.service.catalog.EffectivePredictiveOptimizationFlagInheritedFromType`.
+ * Renamed `com.databricks.sdk.service.catalog.EnableAutoMaintenance` class to `com.databricks.sdk.service.catalog.EnablePredictiveOptimization`.
+ * Renamed `effectiveAutoMaintenanceFlag` field to `effectivePredictiveOptimizationFlag` field for `com.databricks.sdk.service.catalog.SchemaInfo`.
+ * Renamed `enableAutoMaintenance` field to `enablePredictiveOptimization` field for `com.databricks.sdk.service.catalog.SchemaInfo`.
+ * Renamed `effectiveAutoMaintenanceFlag` field to `effectivePredictiveOptimizationFlag` field for `com.databricks.sdk.service.catalog.TableInfo`.
+ * Renamed `enableAutoMaintenance` field to `enablePredictiveOptimization` field for `com.databricks.sdk.service.catalog.TableInfo`.
+
+OpenAPI SHA: beff621d7b3e1d59244e2e34fc53a496f310e130, Date: 2023-08-17
+
+
 ## 0.5.0
 
 
