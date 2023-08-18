@@ -5,7 +5,6 @@ package com.databricks.sdk.service.files;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.InputStream;
 import java.util.Objects;
 
@@ -13,7 +12,6 @@ import java.util.Objects;
 @Generated
 public class UploadFileRequest {
   /** */
-  @JsonProperty("contents")
   private InputStream contents;
 
   /** The absolute path of the file or directory in DBFS. */

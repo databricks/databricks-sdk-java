@@ -66,8 +66,8 @@ public class FilesAPI {
     return impl.getStatus(request);
   }
 
-  public void uploadFile(String filePath) {
-    uploadFile(new UploadFileRequest().setFilePath(filePath));
+  public void uploadFile(InputStream contents, String filePath) {
+    uploadFile(new UploadFileRequest().setContents(contents).setFilePath(filePath));
   }
 
   /**
