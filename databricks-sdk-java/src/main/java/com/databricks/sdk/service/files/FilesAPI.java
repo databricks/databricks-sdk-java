@@ -40,7 +40,7 @@ public class FilesAPI {
     impl.deleteFile(request);
   }
 
-  public InputStream downloadFile(String filePath) {
+  public DownloadFileResponse downloadFile(String filePath) {
     return downloadFile(new DownloadFileRequest().setFilePath(filePath));
   }
 
@@ -49,7 +49,7 @@ public class FilesAPI {
    *
    * <p>Downloads a file of up to 2 GiB.
    */
-  public InputStream downloadFile(DownloadFileRequest request) {
+  public DownloadFileResponse downloadFile(DownloadFileRequest request) {
     return impl.downloadFile(request);
   }
 
@@ -66,8 +66,8 @@ public class FilesAPI {
     return impl.getStatus(request);
   }
 
-  public void uploadFile(InputStream contents, String filePath) {
-    uploadFile(new UploadFileRequest().setContents(contents).setFilePath(filePath));
+  public void uploadFile(String filePath, InputStream contents) {
+    uploadFile(new UploadFileRequest().setFilePath(filePath).setContents(contents));
   }
 
   /**

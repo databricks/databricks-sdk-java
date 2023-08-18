@@ -66,5 +66,4 @@ public class SecretsIT {
       assertTrue(foundScope);
     }
   }
-
 }

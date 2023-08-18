@@ -22,7 +22,6 @@ class AlertsImpl implements AlertsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, Alert.class, headers);
   }
 
@@ -31,7 +30,6 @@ class AlertsImpl implements AlertsService {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -40,7 +38,6 @@ class AlertsImpl implements AlertsService {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, Alert.class, headers);
   }
 
@@ -49,7 +46,6 @@ class AlertsImpl implements AlertsService {
     String path = "/api/2.0/preview/sql/alerts";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.getCollection(path, null, Alert.class, headers);
   }
 
@@ -59,7 +55,6 @@ class AlertsImpl implements AlertsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PUT(path, request, Void.class, headers);
   }
 }

@@ -22,7 +22,6 @@ class AccountUsersImpl implements AccountUsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, User.class, headers);
   }
 
@@ -33,7 +32,6 @@ class AccountUsersImpl implements AccountUsersService {
             "/api/2.0/accounts/%s/scim/v2/Users/%s",
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -45,7 +43,6 @@ class AccountUsersImpl implements AccountUsersService {
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, User.class, headers);
   }
 
@@ -55,7 +52,6 @@ class AccountUsersImpl implements AccountUsersService {
         String.format("/api/2.0/accounts/%s/scim/v2/Users", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListUsersResponse.class, headers);
   }
 
@@ -68,7 +64,6 @@ class AccountUsersImpl implements AccountUsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 
@@ -81,7 +76,6 @@ class AccountUsersImpl implements AccountUsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PUT(path, request, Void.class, headers);
   }
 }

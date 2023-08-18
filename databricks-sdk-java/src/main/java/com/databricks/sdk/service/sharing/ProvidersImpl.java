@@ -21,7 +21,6 @@ class ProvidersImpl implements ProvidersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, ProviderInfo.class, headers);
   }
 
@@ -30,7 +29,6 @@ class ProvidersImpl implements ProvidersService {
     String path = String.format("/api/2.1/unity-catalog/providers/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -39,7 +37,6 @@ class ProvidersImpl implements ProvidersService {
     String path = String.format("/api/2.1/unity-catalog/providers/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ProviderInfo.class, headers);
   }
 
@@ -48,7 +45,6 @@ class ProvidersImpl implements ProvidersService {
     String path = "/api/2.1/unity-catalog/providers";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListProvidersResponse.class, headers);
   }
 
@@ -57,7 +53,6 @@ class ProvidersImpl implements ProvidersService {
     String path = String.format("/api/2.1/unity-catalog/providers/%s/shares", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListProviderSharesResponse.class, headers);
   }
 
@@ -67,7 +62,6 @@ class ProvidersImpl implements ProvidersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, ProviderInfo.class, headers);
   }
 }

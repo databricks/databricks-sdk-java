@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
-import java.io.InputStream;
 
 /**
  * The Files API allows you to read, write, and delete files and directories in Unity Catalog
@@ -26,7 +25,7 @@ public interface FilesService {
    *
    * <p>Downloads a file of up to 2 GiB.
    */
-  InputStream downloadFile(DownloadFileRequest downloadFileRequest);
+  DownloadFileResponse downloadFile(DownloadFileRequest downloadFileRequest);
 
   /**
    * Get the status of a file or directory.

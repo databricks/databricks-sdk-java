@@ -21,7 +21,6 @@ class BudgetsImpl implements BudgetsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, WrappedBudgetWithStatus.class, headers);
   }
 
@@ -33,7 +32,6 @@ class BudgetsImpl implements BudgetsService {
             apiClient.configuredAccountID(), request.getBudgetId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -45,7 +43,6 @@ class BudgetsImpl implements BudgetsService {
             apiClient.configuredAccountID(), request.getBudgetId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, WrappedBudgetWithStatus.class, headers);
   }
 
@@ -54,7 +51,6 @@ class BudgetsImpl implements BudgetsService {
     String path = String.format("/api/2.0/accounts/%s/budget", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, BudgetList.class, headers);
   }
 
@@ -67,7 +63,6 @@ class BudgetsImpl implements BudgetsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 }

@@ -21,7 +21,6 @@ class CatalogsImpl implements CatalogsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CatalogInfo.class, headers);
   }
 
@@ -30,7 +29,6 @@ class CatalogsImpl implements CatalogsService {
     String path = String.format("/api/2.1/unity-catalog/catalogs/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -39,7 +37,6 @@ class CatalogsImpl implements CatalogsService {
     String path = String.format("/api/2.1/unity-catalog/catalogs/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, CatalogInfo.class, headers);
   }
 
@@ -48,7 +45,6 @@ class CatalogsImpl implements CatalogsService {
     String path = "/api/2.1/unity-catalog/catalogs";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, ListCatalogsResponse.class, headers);
   }
 
@@ -58,7 +54,6 @@ class CatalogsImpl implements CatalogsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, CatalogInfo.class, headers);
   }
 }

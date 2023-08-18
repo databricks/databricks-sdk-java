@@ -21,7 +21,6 @@ class UsersImpl implements UsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, User.class, headers);
   }
 
@@ -29,7 +28,6 @@ class UsersImpl implements UsersService {
   public void delete(DeleteUserRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -38,7 +36,6 @@ class UsersImpl implements UsersService {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, User.class, headers);
   }
 
@@ -47,7 +44,6 @@ class UsersImpl implements UsersService {
     String path = "/api/2.0/permissions/authorization/passwords/permissionLevels";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, GetPasswordPermissionLevelsResponse.class, headers);
   }
 
@@ -56,7 +52,6 @@ class UsersImpl implements UsersService {
     String path = "/api/2.0/permissions/authorization/passwords";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, PasswordPermissions.class, headers);
   }
 
@@ -65,7 +60,6 @@ class UsersImpl implements UsersService {
     String path = "/api/2.0/preview/scim/v2/Users";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListUsersResponse.class, headers);
   }
 
@@ -75,7 +69,6 @@ class UsersImpl implements UsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 
@@ -85,7 +78,6 @@ class UsersImpl implements UsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PUT(path, request, PasswordPermissions.class, headers);
   }
 
@@ -95,7 +87,6 @@ class UsersImpl implements UsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PUT(path, request, Void.class, headers);
   }
 
@@ -105,7 +96,6 @@ class UsersImpl implements UsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, PasswordPermissions.class, headers);
   }
 }

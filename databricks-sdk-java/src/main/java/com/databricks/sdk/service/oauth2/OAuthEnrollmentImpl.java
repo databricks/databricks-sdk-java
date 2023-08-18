@@ -21,7 +21,6 @@ class OAuthEnrollmentImpl implements OAuthEnrollmentService {
         String.format("/api/2.0/accounts/%s/oauth2/enrollment", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -31,7 +30,6 @@ class OAuthEnrollmentImpl implements OAuthEnrollmentService {
         String.format("/api/2.0/accounts/%s/oauth2/enrollment", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, OAuthEnrollmentStatus.class, headers);
   }
 }

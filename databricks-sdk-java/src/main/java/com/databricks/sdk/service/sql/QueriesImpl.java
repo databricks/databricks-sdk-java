@@ -21,7 +21,6 @@ class QueriesImpl implements QueriesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, Query.class, headers);
   }
 
@@ -30,7 +29,6 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -39,7 +37,6 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, Query.class, headers);
   }
 
@@ -48,7 +45,6 @@ class QueriesImpl implements QueriesService {
     String path = "/api/2.0/preview/sql/queries";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, QueryList.class, headers);
   }
 
@@ -57,7 +53,6 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/preview/sql/queries/trash/%s", request.getQueryId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -67,7 +62,6 @@ class QueriesImpl implements QueriesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, Query.class, headers);
   }
 }

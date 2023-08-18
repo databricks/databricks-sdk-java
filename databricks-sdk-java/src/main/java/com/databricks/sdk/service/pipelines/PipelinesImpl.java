@@ -21,7 +21,6 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreatePipelineResponse.class, headers);
   }
 
@@ -30,7 +29,6 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -39,7 +37,6 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetPipelineResponse.class, headers);
   }
 
@@ -51,7 +48,6 @@ class PipelinesImpl implements PipelinesService {
             "/api/2.0/permissions/pipelines/%s/permissionLevels", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetPipelinePermissionLevelsResponse.class, headers);
   }
 
@@ -60,7 +56,6 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, PipelinePermissions.class, headers);
   }
 
@@ -71,7 +66,6 @@ class PipelinesImpl implements PipelinesService {
             "/api/2.0/pipelines/%s/updates/%s", request.getPipelineId(), request.getUpdateId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetUpdateResponse.class, headers);
   }
 
@@ -80,7 +74,6 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/events", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListPipelineEventsResponse.class, headers);
   }
 
@@ -89,7 +82,6 @@ class PipelinesImpl implements PipelinesService {
     String path = "/api/2.0/pipelines";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListPipelinesResponse.class, headers);
   }
 
@@ -98,7 +90,6 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/updates", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListUpdatesResponse.class, headers);
   }
 
@@ -107,7 +98,6 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/reset", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -117,7 +107,6 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PUT(path, request, PipelinePermissions.class, headers);
   }
 
@@ -127,7 +116,6 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, StartUpdateResponse.class, headers);
   }
 
@@ -136,7 +124,6 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/stop", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -146,7 +133,6 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PUT(path, request, Void.class, headers);
   }
 
@@ -156,7 +142,6 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, PipelinePermissions.class, headers);
   }
 }

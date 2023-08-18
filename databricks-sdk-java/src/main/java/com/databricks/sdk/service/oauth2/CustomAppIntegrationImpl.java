@@ -23,7 +23,6 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateCustomAppIntegrationOutput.class, headers);
   }
 
@@ -35,7 +34,6 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -47,7 +45,6 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetCustomAppIntegrationOutput.class, headers);
   }
 
@@ -58,7 +55,6 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, GetCustomAppIntegrationsOutput.class, headers);
   }
 
@@ -71,7 +67,6 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 }

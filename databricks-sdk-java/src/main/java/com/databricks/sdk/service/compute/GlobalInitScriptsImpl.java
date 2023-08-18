@@ -21,7 +21,6 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateResponse.class, headers);
   }
 
@@ -29,7 +28,6 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
   public void delete(DeleteGlobalInitScriptRequest request) {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -38,7 +36,6 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GlobalInitScriptDetailsWithContent.class, headers);
   }
 
@@ -47,7 +44,6 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
     String path = "/api/2.0/global-init-scripts";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, ListGlobalInitScriptsResponse.class, headers);
   }
 
@@ -56,7 +52,6 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 }

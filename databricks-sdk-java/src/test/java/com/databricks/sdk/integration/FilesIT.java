@@ -9,7 +9,6 @@ import com.databricks.sdk.service.files.UploadFileRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,16 +23,20 @@ public class FilesIT {
   void writeFileAndReadFile(WorkspaceClient workspace) throws IOException {
     String schemaName = NameUtils.uniqueName("filesit");
     String volumeName = NameUtils.uniqueName("filesit");
-    try (ResourceWithCleanup r = ResourceWithCleanup.makeSchema(workspace.schemas(), "main", schemaName)) {
-      try (ResourceWithCleanup r1 = ResourceWithCleanup.makeVolume(workspace.volumes(), "main", schemaName, volumeName)) {
+    try (ResourceWithCleanup r =
+        ResourceWithCleanup.makeSchema(workspace.schemas(), "main", schemaName)) {
+      try (ResourceWithCleanup r1 =
+          ResourceWithCleanup.makeVolume(workspace.volumes(), "main", schemaName, volumeName)) {
         writeFileAndReadFileInner(workspace, schemaName, volumeName);
       }
     }
   }
 
-  private void writeFileAndReadFileInner(WorkspaceClient workspace, String schemaName, String volumeName) throws IOException {
+  private void writeFileAndReadFileInner(
+      WorkspaceClient workspace, String schemaName, String volumeName) throws IOException {
     // Generate a random file name and random contents of 10 KiB.
-    String fileName = NameUtils.uniqueName("/Volumes/main/" + schemaName + "/" + volumeName + "/test");
+    String fileName =
+        NameUtils.uniqueName("/Volumes/main/" + schemaName + "/" + volumeName + "/test");
     byte[] fileContents = new byte[1024 * 10];
     for (int i = 0; i < fileContents.length; i++) {
       fileContents[i] = (byte) (i & 0xFF);
@@ -46,7 +49,7 @@ public class FilesIT {
         .uploadFile(new UploadFileRequest().setFilePath(fileName).setContents(inputStream));
 
     // Read the file back from DBFS.
-    try (InputStream readContents = workspace.files().downloadFile(fileName)) {
+    try (InputStream readContents = workspace.files().downloadFile(fileName).getContents()) {
       byte[] result = new byte[fileContents.length];
       int bytesRead = readContents.read(result);
       Assertions.assertEquals(bytesRead, fileContents.length);

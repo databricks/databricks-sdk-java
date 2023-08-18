@@ -21,7 +21,6 @@ class AccountAccessControlProxyImpl implements AccountAccessControlProxyService 
     String path = "/api/2.0/preview/accounts/access-control/assignable-roles";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetAssignableRolesForResourceResponse.class, headers);
   }
 
@@ -30,7 +29,6 @@ class AccountAccessControlProxyImpl implements AccountAccessControlProxyService 
     String path = "/api/2.0/preview/accounts/access-control/rule-sets";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, RuleSetResponse.class, headers);
   }
 
@@ -40,7 +38,6 @@ class AccountAccessControlProxyImpl implements AccountAccessControlProxyService 
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PUT(path, request, RuleSetResponse.class, headers);
   }
 }

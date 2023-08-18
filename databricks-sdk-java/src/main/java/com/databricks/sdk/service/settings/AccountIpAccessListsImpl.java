@@ -23,7 +23,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateIpAccessListResponse.class, headers);
   }
 
@@ -34,7 +33,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
             "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -46,7 +44,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
             apiClient.configuredAccountID(), request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetIpAccessListResponse.class, headers);
   }
 
@@ -57,7 +54,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
             "/api/2.0/preview/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, GetIpAccessListsResponse.class, headers);
   }
 
@@ -70,7 +66,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PUT(path, request, Void.class, headers);
   }
 
@@ -83,7 +78,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 }

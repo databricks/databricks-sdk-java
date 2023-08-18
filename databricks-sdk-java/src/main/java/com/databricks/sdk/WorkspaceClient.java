@@ -24,12 +24,8 @@ import com.databricks.sdk.service.catalog.MetastoresAPI;
 import com.databricks.sdk.service.catalog.MetastoresService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
-import com.databricks.sdk.service.catalog.SecurableTagsAPI;
-import com.databricks.sdk.service.catalog.SecurableTagsService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
 import com.databricks.sdk.service.catalog.StorageCredentialsService;
-import com.databricks.sdk.service.catalog.SubentityTagsAPI;
-import com.databricks.sdk.service.catalog.SubentityTagsService;
 import com.databricks.sdk.service.catalog.SystemSchemasAPI;
 import com.databricks.sdk.service.catalog.SystemSchemasService;
 import com.databricks.sdk.service.catalog.TableConstraintsAPI;
@@ -169,13 +165,11 @@ public class WorkspaceClient {
   private ReposAPI reposAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
-  private SecurableTagsAPI securableTagsAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
   private ServingEndpointsAPI servingEndpointsAPI;
   private SharesAPI sharesAPI;
   private StatementExecutionAPI statementExecutionAPI;
   private StorageCredentialsAPI storageCredentialsAPI;
-  private SubentityTagsAPI subentityTagsAPI;
   private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
@@ -236,13 +230,11 @@ public class WorkspaceClient {
     reposAPI = new ReposAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
-    securableTagsAPI = new SecurableTagsAPI(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
-    subentityTagsAPI = new SubentityTagsAPI(apiClient);
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
@@ -868,15 +860,6 @@ public class WorkspaceClient {
   }
 
   /**
-   * Tags are attributes containing keys and values that can be applied to different entities in
-   * Unity Catalog. Tags are useful for organizing and categorizing different entities within a
-   * metastore. SecurableTags are attached to Unity Catalog securable entities.
-   */
-  public SecurableTagsAPI securableTags() {
-    return securableTagsAPI;
-  }
-
-  /**
    * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
    * platforms. Databricks recommends creating service principals to run production jobs or modify
    * production data. If all processes that act on production data run with service principals,
@@ -1098,15 +1081,6 @@ public class WorkspaceClient {
    */
   public StorageCredentialsAPI storageCredentials() {
     return storageCredentialsAPI;
-  }
-
-  /**
-   * Tags are attributes containing keys and values that can be applied to different entities in
-   * Unity Catalog. Tags are useful for organizing and categorizing different entities within a
-   * metastore. SubentityTags are attached to Unity Catalog subentities.
-   */
-  public SubentityTagsAPI subentityTags() {
-    return subentityTagsAPI;
   }
 
   /**
@@ -1470,12 +1444,6 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace SecurableTagsAPI implementation with mock */
-  public WorkspaceClient withSecurableTagsImpl(SecurableTagsService securableTags) {
-    securableTagsAPI = new SecurableTagsAPI(securableTags);
-    return this;
-  }
-
   /** Replace ServicePrincipalsAPI implementation with mock */
   public WorkspaceClient withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
     servicePrincipalsAPI = new ServicePrincipalsAPI(servicePrincipals);
@@ -1503,12 +1471,6 @@ public class WorkspaceClient {
   /** Replace StorageCredentialsAPI implementation with mock */
   public WorkspaceClient withStorageCredentialsImpl(StorageCredentialsService storageCredentials) {
     storageCredentialsAPI = new StorageCredentialsAPI(storageCredentials);
-    return this;
-  }
-
-  /** Replace SubentityTagsAPI implementation with mock */
-  public WorkspaceClient withSubentityTagsImpl(SubentityTagsService subentityTags) {
-    subentityTagsAPI = new SubentityTagsAPI(subentityTags);
     return this;
   }
 

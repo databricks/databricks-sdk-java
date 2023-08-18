@@ -21,7 +21,6 @@ class WarehousesImpl implements WarehousesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateWarehouseResponse.class, headers);
   }
 
@@ -30,7 +29,6 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -40,7 +38,6 @@ class WarehousesImpl implements WarehousesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -49,7 +46,6 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetWarehouseResponse.class, headers);
   }
 
@@ -61,7 +57,6 @@ class WarehousesImpl implements WarehousesService {
             "/api/2.0/permissions/warehouses/%s/permissionLevels", request.getWarehouseId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetWarehousePermissionLevelsResponse.class, headers);
   }
 
@@ -70,7 +65,6 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, WarehousePermissions.class, headers);
   }
 
@@ -79,7 +73,6 @@ class WarehousesImpl implements WarehousesService {
     String path = "/api/2.0/sql/config/warehouses";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, GetWorkspaceWarehouseConfigResponse.class, headers);
   }
 
@@ -88,7 +81,6 @@ class WarehousesImpl implements WarehousesService {
     String path = "/api/2.0/sql/warehouses";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListWarehousesResponse.class, headers);
   }
 
@@ -98,7 +90,6 @@ class WarehousesImpl implements WarehousesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PUT(path, request, WarehousePermissions.class, headers);
   }
 
@@ -108,7 +99,6 @@ class WarehousesImpl implements WarehousesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PUT(path, request, Void.class, headers);
   }
 
@@ -117,7 +107,6 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s/start", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -126,7 +115,6 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -136,7 +124,6 @@ class WarehousesImpl implements WarehousesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, WarehousePermissions.class, headers);
   }
 }

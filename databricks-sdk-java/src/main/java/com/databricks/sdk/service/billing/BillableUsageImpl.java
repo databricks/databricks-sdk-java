@@ -20,7 +20,6 @@ class BillableUsageImpl implements BillableUsageService {
     String path =
         String.format("/api/2.0/accounts/%s/usage/download", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
-
     apiClient.GET(path, request, Void.class, headers);
   }
 }

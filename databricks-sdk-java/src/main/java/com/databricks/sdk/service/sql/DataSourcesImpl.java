@@ -21,7 +21,6 @@ class DataSourcesImpl implements DataSourcesService {
     String path = "/api/2.0/preview/sql/data_sources";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.getCollection(path, null, DataSource.class, headers);
   }
 }
