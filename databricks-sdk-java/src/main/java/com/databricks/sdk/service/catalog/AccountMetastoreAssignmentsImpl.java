@@ -25,7 +25,6 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -37,7 +36,6 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -49,7 +47,6 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, AccountsMetastoreAssignment.class, headers);
   }
 
@@ -61,7 +58,6 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.getCollection(path, null, MetastoreAssignment.class, headers);
   }
 
@@ -74,7 +70,6 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PUT(path, request, Void.class, headers);
   }
 }

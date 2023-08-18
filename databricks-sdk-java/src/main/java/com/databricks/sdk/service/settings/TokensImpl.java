@@ -21,7 +21,6 @@ class TokensImpl implements TokensService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateTokenResponse.class, headers);
   }
 
@@ -31,7 +30,6 @@ class TokensImpl implements TokensService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -40,7 +38,6 @@ class TokensImpl implements TokensService {
     String path = "/api/2.0/token/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, ListTokensResponse.class, headers);
   }
 }

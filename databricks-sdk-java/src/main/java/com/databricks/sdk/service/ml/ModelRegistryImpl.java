@@ -22,7 +22,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, ApproveTransitionRequestResponse.class, headers);
   }
 
@@ -32,7 +31,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateCommentResponse.class, headers);
   }
 
@@ -42,7 +40,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateModelResponse.class, headers);
   }
 
@@ -52,7 +49,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateModelVersionResponse.class, headers);
   }
 
@@ -62,7 +58,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateTransitionRequestResponse.class, headers);
   }
 
@@ -72,7 +67,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateWebhookResponse.class, headers);
   }
 
@@ -81,7 +75,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/comments/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -90,7 +83,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -99,7 +91,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/delete-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -108,7 +99,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -117,7 +107,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/delete-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -126,7 +115,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/transition-requests/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -135,7 +123,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registry-webhooks/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -145,7 +132,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, GetLatestVersionsResponse.class, headers);
   }
 
@@ -154,7 +140,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/databricks/registered-models/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetModelResponse.class, headers);
   }
 
@@ -163,7 +148,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetModelVersionResponse.class, headers);
   }
 
@@ -173,7 +157,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/get-download-uri";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetModelVersionDownloadUriResponse.class, headers);
   }
 
@@ -186,7 +169,6 @@ class ModelRegistryImpl implements ModelRegistryService {
             request.getRegisteredModelId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetRegisteredModelPermissionLevelsResponse.class, headers);
   }
 
@@ -197,7 +179,6 @@ class ModelRegistryImpl implements ModelRegistryService {
         String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, RegisteredModelPermissions.class, headers);
   }
 
@@ -206,7 +187,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListModelsResponse.class, headers);
   }
 
@@ -216,7 +196,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/transition-requests/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListTransitionRequestsResponse.class, headers);
   }
 
@@ -225,7 +204,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registry-webhooks/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListRegistryWebhooks.class, headers);
   }
 
@@ -235,7 +213,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, RejectTransitionRequestResponse.class, headers);
   }
 
@@ -245,7 +222,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, RenameModelResponse.class, headers);
   }
 
@@ -254,7 +230,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/search";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, SearchModelVersionsResponse.class, headers);
   }
 
@@ -263,7 +238,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/search";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, SearchModelsResponse.class, headers);
   }
 
@@ -273,7 +247,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -283,7 +256,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -295,7 +267,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PUT(path, request, RegisteredModelPermissions.class, headers);
   }
 
@@ -305,7 +276,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, TestRegistryWebhookResponse.class, headers);
   }
 
@@ -315,7 +285,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, TransitionStageResponse.class, headers);
   }
 
@@ -325,7 +294,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, UpdateCommentResponse.class, headers);
   }
 
@@ -335,7 +303,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 
@@ -345,7 +312,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 
@@ -357,7 +323,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, RegisteredModelPermissions.class, headers);
   }
 
@@ -367,7 +332,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 }

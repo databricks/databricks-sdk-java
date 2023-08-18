@@ -24,7 +24,6 @@ class EncryptionKeysImpl implements EncryptionKeysService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CustomerManagedKey.class, headers);
   }
 
@@ -36,7 +35,6 @@ class EncryptionKeysImpl implements EncryptionKeysService {
             apiClient.configuredAccountID(), request.getCustomerManagedKeyId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -48,7 +46,6 @@ class EncryptionKeysImpl implements EncryptionKeysService {
             apiClient.configuredAccountID(), request.getCustomerManagedKeyId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, CustomerManagedKey.class, headers);
   }
 
@@ -59,7 +56,6 @@ class EncryptionKeysImpl implements EncryptionKeysService {
             "/api/2.0/accounts/%s/customer-managed-keys", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.getCollection(path, null, CustomerManagedKey.class, headers);
   }
 }

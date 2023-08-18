@@ -23,7 +23,6 @@ class SecurableTagsImpl implements SecurableTagsService {
             request.getSecurableType(), request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, TagSecurableAssignmentsList.class, headers);
   }
 
@@ -36,7 +35,6 @@ class SecurableTagsImpl implements SecurableTagsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, TagSecurableAssignmentsList.class, headers);
   }
 }

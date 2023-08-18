@@ -23,7 +23,6 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.POST(path, request, CreateServicePrincipalSecretResponse.class, headers);
   }
 
@@ -47,7 +46,6 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListServicePrincipalSecretsResponse.class, headers);
   }
 }

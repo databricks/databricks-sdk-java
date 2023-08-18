@@ -21,7 +21,6 @@ class ConnectionsImpl implements ConnectionsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, ConnectionInfo.class, headers);
   }
 
@@ -30,7 +29,6 @@ class ConnectionsImpl implements ConnectionsService {
     String path = String.format("/api/2.1/unity-catalog/connections/%s", request.getNameArg());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -39,7 +37,6 @@ class ConnectionsImpl implements ConnectionsService {
     String path = String.format("/api/2.1/unity-catalog/connections/%s", request.getNameArg());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ConnectionInfo.class, headers);
   }
 
@@ -48,7 +45,6 @@ class ConnectionsImpl implements ConnectionsService {
     String path = "/api/2.1/unity-catalog/connections";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, ListConnectionsResponse.class, headers);
   }
 
@@ -58,7 +54,6 @@ class ConnectionsImpl implements ConnectionsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, ConnectionInfo.class, headers);
   }
 }

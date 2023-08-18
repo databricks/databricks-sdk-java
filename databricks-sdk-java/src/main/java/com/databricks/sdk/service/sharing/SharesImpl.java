@@ -21,7 +21,6 @@ class SharesImpl implements SharesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, ShareInfo.class, headers);
   }
 
@@ -30,7 +29,6 @@ class SharesImpl implements SharesService {
     String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -39,7 +37,6 @@ class SharesImpl implements SharesService {
     String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ShareInfo.class, headers);
   }
 
@@ -48,7 +45,6 @@ class SharesImpl implements SharesService {
     String path = "/api/2.1/unity-catalog/shares";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, ListSharesResponse.class, headers);
   }
 
@@ -58,7 +54,6 @@ class SharesImpl implements SharesService {
     String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(
         path, request, com.databricks.sdk.service.catalog.PermissionsList.class, headers);
   }
@@ -69,7 +64,6 @@ class SharesImpl implements SharesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, ShareInfo.class, headers);
   }
 
@@ -79,7 +73,6 @@ class SharesImpl implements SharesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 }

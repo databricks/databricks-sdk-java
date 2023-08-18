@@ -28,7 +28,6 @@ class StatementExecutionImpl implements StatementExecutionService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, ExecuteStatementResponse.class, headers);
   }
 
@@ -37,7 +36,6 @@ class StatementExecutionImpl implements StatementExecutionService {
     String path = String.format("/api/2.0/sql/statements/%s", request.getStatementId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetStatementResponse.class, headers);
   }
 
@@ -49,7 +47,6 @@ class StatementExecutionImpl implements StatementExecutionService {
             request.getStatementId(), request.getChunkIndex());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ResultData.class, headers);
   }
 }

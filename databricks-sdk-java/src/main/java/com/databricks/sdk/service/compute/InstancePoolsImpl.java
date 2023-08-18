@@ -21,7 +21,6 @@ class InstancePoolsImpl implements InstancePoolsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateInstancePoolResponse.class, headers);
   }
 
@@ -31,7 +30,6 @@ class InstancePoolsImpl implements InstancePoolsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -41,7 +39,6 @@ class InstancePoolsImpl implements InstancePoolsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -50,7 +47,6 @@ class InstancePoolsImpl implements InstancePoolsService {
     String path = "/api/2.0/instance-pools/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetInstancePool.class, headers);
   }
 
@@ -62,7 +58,6 @@ class InstancePoolsImpl implements InstancePoolsService {
             "/api/2.0/permissions/instance-pools/%s/permissionLevels", request.getInstancePoolId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetInstancePoolPermissionLevelsResponse.class, headers);
   }
 
@@ -73,7 +68,6 @@ class InstancePoolsImpl implements InstancePoolsService {
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, InstancePoolPermissions.class, headers);
   }
 
@@ -82,7 +76,6 @@ class InstancePoolsImpl implements InstancePoolsService {
     String path = "/api/2.0/instance-pools/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, ListInstancePools.class, headers);
   }
 
@@ -94,7 +87,6 @@ class InstancePoolsImpl implements InstancePoolsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PUT(path, request, InstancePoolPermissions.class, headers);
   }
 
@@ -106,7 +98,6 @@ class InstancePoolsImpl implements InstancePoolsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, InstancePoolPermissions.class, headers);
   }
 }

@@ -21,7 +21,6 @@ class CommandExecutionImpl implements CommandExecutionService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -30,7 +29,6 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/commands/status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, CommandStatusResponse.class, headers);
   }
 
@@ -39,7 +37,6 @@ class CommandExecutionImpl implements CommandExecutionService {
     String path = "/api/1.2/contexts/status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ContextStatusResponse.class, headers);
   }
 
@@ -49,7 +46,6 @@ class CommandExecutionImpl implements CommandExecutionService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, Created.class, headers);
   }
 
@@ -59,7 +55,6 @@ class CommandExecutionImpl implements CommandExecutionService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -69,7 +64,6 @@ class CommandExecutionImpl implements CommandExecutionService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, Created.class, headers);
   }
 }

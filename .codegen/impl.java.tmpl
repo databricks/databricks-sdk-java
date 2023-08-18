@@ -46,7 +46,7 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
 
 {{ define "headers" -}}
     Map<String, String> headers = new HashMap<>();
-    {{- range $key, $value := .FixedRequestHeaders -}}
+    {{- range $key, $value := .FixedRequestHeaders }}
     headers.put("{{$key}}", "{{$value}}");
-    {{ end -}}
+    {{- end -}}
 {{- end }}

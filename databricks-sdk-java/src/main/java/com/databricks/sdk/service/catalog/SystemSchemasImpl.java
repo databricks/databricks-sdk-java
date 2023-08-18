@@ -23,7 +23,6 @@ class SystemSchemasImpl implements SystemSchemasService {
             request.getMetastoreId(), request.getSchemaName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -35,7 +34,6 @@ class SystemSchemasImpl implements SystemSchemasService {
             request.getMetastoreId(), request.getSchemaName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.PUT(path, request, Void.class, headers);
   }
 
@@ -46,7 +44,6 @@ class SystemSchemasImpl implements SystemSchemasService {
             "/api/2.1/unity-catalog/metastores/%s/systemschemas", request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListSystemSchemasResponse.class, headers);
   }
 }

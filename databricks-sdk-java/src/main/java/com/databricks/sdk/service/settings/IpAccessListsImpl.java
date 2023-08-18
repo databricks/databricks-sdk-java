@@ -21,7 +21,6 @@ class IpAccessListsImpl implements IpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateIpAccessListResponse.class, headers);
   }
 
@@ -37,7 +36,6 @@ class IpAccessListsImpl implements IpAccessListsService {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, FetchIpAccessListResponse.class, headers);
   }
 
@@ -46,7 +44,6 @@ class IpAccessListsImpl implements IpAccessListsService {
     String path = "/api/2.0/ip-access-lists";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, GetIpAccessListResponse.class, headers);
   }
 
@@ -56,7 +53,6 @@ class IpAccessListsImpl implements IpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PUT(path, request, Void.class, headers);
   }
 
@@ -66,7 +62,6 @@ class IpAccessListsImpl implements IpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 }

@@ -21,7 +21,6 @@ class DashboardsImpl implements DashboardsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, Dashboard.class, headers);
   }
 
@@ -30,7 +29,6 @@ class DashboardsImpl implements DashboardsService {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -39,7 +37,6 @@ class DashboardsImpl implements DashboardsService {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, Dashboard.class, headers);
   }
 
@@ -48,7 +45,6 @@ class DashboardsImpl implements DashboardsService {
     String path = "/api/2.0/preview/sql/dashboards";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListResponse.class, headers);
   }
 
@@ -58,7 +54,6 @@ class DashboardsImpl implements DashboardsService {
         String.format("/api/2.0/preview/sql/dashboards/trash/%s", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 }

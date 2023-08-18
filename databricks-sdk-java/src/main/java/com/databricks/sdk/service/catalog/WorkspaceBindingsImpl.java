@@ -21,7 +21,6 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
         String.format("/api/2.1/unity-catalog/workspace-bindings/catalogs/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, CurrentWorkspaceBindings.class, headers);
   }
 
@@ -32,7 +31,6 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, CurrentWorkspaceBindings.class, headers);
   }
 }

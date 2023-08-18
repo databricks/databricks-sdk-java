@@ -23,7 +23,6 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, ServicePrincipal.class, headers);
   }
 
@@ -45,7 +44,6 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ServicePrincipal.class, headers);
   }
 
@@ -56,7 +54,6 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListServicePrincipalResponse.class, headers);
   }
 
@@ -69,7 +66,6 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 
@@ -82,7 +78,6 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PUT(path, request, Void.class, headers);
   }
 }

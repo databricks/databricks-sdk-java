@@ -21,7 +21,6 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -31,7 +30,6 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -41,7 +39,6 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateResponse.class, headers);
   }
 
@@ -51,7 +48,6 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -60,7 +56,6 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/get-status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, FileInfo.class, headers);
   }
 
@@ -69,7 +64,6 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListStatusResponse.class, headers);
   }
 
@@ -79,7 +73,6 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -89,7 +82,6 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -99,7 +91,6 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -108,7 +99,6 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/read";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ReadResponse.class, headers);
   }
 }

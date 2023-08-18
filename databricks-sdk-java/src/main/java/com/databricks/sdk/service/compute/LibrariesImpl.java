@@ -20,7 +20,6 @@ class LibrariesImpl implements LibrariesService {
     String path = "/api/2.0/libraries/all-cluster-statuses";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, ListAllClusterLibraryStatusesResponse.class, headers);
   }
 
@@ -29,7 +28,6 @@ class LibrariesImpl implements LibrariesService {
     String path = "/api/2.0/libraries/cluster-status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ClusterLibraryStatuses.class, headers);
   }
 
@@ -39,7 +37,6 @@ class LibrariesImpl implements LibrariesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -49,7 +46,6 @@ class LibrariesImpl implements LibrariesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 }

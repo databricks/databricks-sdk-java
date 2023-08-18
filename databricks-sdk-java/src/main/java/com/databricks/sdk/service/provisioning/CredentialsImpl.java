@@ -23,7 +23,6 @@ class CredentialsImpl implements CredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, Credential.class, headers);
   }
 
@@ -35,7 +34,6 @@ class CredentialsImpl implements CredentialsService {
             apiClient.configuredAccountID(), request.getCredentialsId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -47,7 +45,6 @@ class CredentialsImpl implements CredentialsService {
             apiClient.configuredAccountID(), request.getCredentialsId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, Credential.class, headers);
   }
 
@@ -57,7 +54,6 @@ class CredentialsImpl implements CredentialsService {
         String.format("/api/2.0/accounts/%s/credentials", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.getCollection(path, null, Credential.class, headers);
   }
 }

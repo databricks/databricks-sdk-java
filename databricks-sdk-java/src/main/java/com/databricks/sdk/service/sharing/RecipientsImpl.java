@@ -21,7 +21,6 @@ class RecipientsImpl implements RecipientsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, RecipientInfo.class, headers);
   }
 
@@ -30,7 +29,6 @@ class RecipientsImpl implements RecipientsService {
     String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -39,7 +37,6 @@ class RecipientsImpl implements RecipientsService {
     String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, RecipientInfo.class, headers);
   }
 
@@ -48,7 +45,6 @@ class RecipientsImpl implements RecipientsService {
     String path = "/api/2.1/unity-catalog/recipients";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListRecipientsResponse.class, headers);
   }
 
@@ -59,7 +55,6 @@ class RecipientsImpl implements RecipientsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, RecipientInfo.class, headers);
   }
 
@@ -69,7 +64,6 @@ class RecipientsImpl implements RecipientsService {
         String.format("/api/2.1/unity-catalog/recipients/%s/share-permissions", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetRecipientSharePermissionsResponse.class, headers);
   }
 
@@ -79,7 +73,6 @@ class RecipientsImpl implements RecipientsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 }

@@ -21,7 +21,6 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -31,7 +30,6 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -41,7 +39,6 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -51,7 +48,6 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -60,7 +56,6 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, AclItem.class, headers);
   }
 
@@ -69,7 +64,6 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetSecretResponse.class, headers);
   }
 
@@ -78,7 +72,6 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListAclsResponse.class, headers);
   }
 
@@ -87,7 +80,6 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/scopes/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, ListScopesResponse.class, headers);
   }
 
@@ -96,7 +88,6 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListSecretsResponse.class, headers);
   }
 
@@ -106,7 +97,6 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -116,7 +106,6 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 }

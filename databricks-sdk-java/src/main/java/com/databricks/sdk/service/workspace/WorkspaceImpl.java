@@ -21,7 +21,6 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -30,7 +29,6 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/export";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ExportResponse.class, headers);
   }
 
@@ -39,7 +37,6 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/get-status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ObjectInfo.class, headers);
   }
 
@@ -52,7 +49,6 @@ class WorkspaceImpl implements WorkspaceService {
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetWorkspaceObjectPermissionLevelsResponse.class, headers);
   }
 
@@ -65,7 +61,6 @@ class WorkspaceImpl implements WorkspaceService {
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, WorkspaceObjectPermissions.class, headers);
   }
 
@@ -75,7 +70,6 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -84,7 +78,6 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListResponse.class, headers);
   }
 
@@ -94,7 +87,6 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.POST(path, request, Void.class, headers);
   }
 
@@ -108,7 +100,6 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PUT(path, request, WorkspaceObjectPermissions.class, headers);
   }
 
@@ -122,7 +113,6 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, WorkspaceObjectPermissions.class, headers);
   }
 }

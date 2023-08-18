@@ -23,7 +23,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
             request.getName(), request.getServedModelName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, BuildLogsResponse.class, headers);
   }
 
@@ -33,7 +32,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, ServingEndpointDetailed.class, headers);
   }
 
@@ -42,7 +40,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
@@ -58,7 +55,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ServingEndpointDetailed.class, headers);
   }
 
@@ -71,7 +67,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
             request.getServingEndpointId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetServingEndpointPermissionLevelsResponse.class, headers);
   }
 
@@ -82,7 +77,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ServingEndpointPermissions.class, headers);
   }
 
@@ -91,7 +85,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = "/api/2.0/serving-endpoints";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, ListEndpointsResponse.class, headers);
   }
 
@@ -103,7 +96,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
             request.getName(), request.getServedModelName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ServerLogsResponse.class, headers);
   }
 
@@ -112,7 +104,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/serving-endpoints/%s/invocations", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.POST(path, request, QueryEndpointResponse.class, headers);
   }
 
@@ -124,7 +115,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PUT(path, request, ServingEndpointPermissions.class, headers);
   }
 
@@ -134,7 +124,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PUT(path, request, ServingEndpointDetailed.class, headers);
   }
 
@@ -146,7 +135,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, ServingEndpointPermissions.class, headers);
   }
 }

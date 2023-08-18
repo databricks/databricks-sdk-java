@@ -21,7 +21,6 @@ class GitCredentialsImpl implements GitCredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, CreateCredentialsResponse.class, headers);
   }
 
@@ -37,7 +36,6 @@ class GitCredentialsImpl implements GitCredentialsService {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, CredentialInfo.class, headers);
   }
 
@@ -46,7 +44,6 @@ class GitCredentialsImpl implements GitCredentialsService {
     String path = "/api/2.0/git-credentials";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, GetCredentialsResponse.class, headers);
   }
 
@@ -56,7 +53,6 @@ class GitCredentialsImpl implements GitCredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 }

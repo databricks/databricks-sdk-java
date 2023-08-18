@@ -21,7 +21,6 @@ class ReposImpl implements ReposService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.POST(path, request, RepoInfo.class, headers);
   }
 
@@ -37,7 +36,6 @@ class ReposImpl implements ReposService {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, RepoInfo.class, headers);
   }
 
@@ -48,7 +46,6 @@ class ReposImpl implements ReposService {
         String.format("/api/2.0/permissions/repos/%s/permissionLevels", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, GetRepoPermissionLevelsResponse.class, headers);
   }
 
@@ -57,7 +54,6 @@ class ReposImpl implements ReposService {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, RepoPermissions.class, headers);
   }
 
@@ -66,7 +62,6 @@ class ReposImpl implements ReposService {
     String path = "/api/2.0/repos";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, ListReposResponse.class, headers);
   }
 
@@ -76,7 +71,6 @@ class ReposImpl implements ReposService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PUT(path, request, RepoPermissions.class, headers);
   }
 
@@ -86,7 +80,6 @@ class ReposImpl implements ReposService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     apiClient.PATCH(path, request, Void.class, headers);
   }
 
@@ -96,7 +89,6 @@ class ReposImpl implements ReposService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, RepoPermissions.class, headers);
   }
 }

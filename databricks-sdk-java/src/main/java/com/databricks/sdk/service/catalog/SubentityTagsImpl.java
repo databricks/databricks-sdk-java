@@ -23,7 +23,6 @@ class SubentityTagsImpl implements SubentityTagsService {
             request.getSecurableType(), request.getFullName(), request.getSubentityName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, TagSubentityAssignmentsList.class, headers);
   }
 
@@ -36,7 +35,6 @@ class SubentityTagsImpl implements SubentityTagsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, TagSubentityAssignmentsList.class, headers);
   }
 }

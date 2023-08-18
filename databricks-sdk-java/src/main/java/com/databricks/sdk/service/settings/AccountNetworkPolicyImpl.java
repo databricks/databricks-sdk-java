@@ -24,7 +24,6 @@ class AccountNetworkPolicyImpl implements AccountNetworkPolicyService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.DELETE(path, request, DeleteAccountNetworkPolicyResponse.class, headers);
   }
 
@@ -37,7 +36,6 @@ class AccountNetworkPolicyImpl implements AccountNetworkPolicyService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-
     return apiClient.GET(path, request, AccountNetworkPolicyMessage.class, headers);
   }
 
@@ -51,7 +49,6 @@ class AccountNetworkPolicyImpl implements AccountNetworkPolicyService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-
     return apiClient.PATCH(path, request, AccountNetworkPolicyMessage.class, headers);
   }
 }
