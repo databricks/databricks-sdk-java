@@ -24,8 +24,12 @@ import com.databricks.sdk.service.catalog.MetastoresAPI;
 import com.databricks.sdk.service.catalog.MetastoresService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
+import com.databricks.sdk.service.catalog.SecurableTagsAPI;
+import com.databricks.sdk.service.catalog.SecurableTagsService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
 import com.databricks.sdk.service.catalog.StorageCredentialsService;
+import com.databricks.sdk.service.catalog.SubentityTagsAPI;
+import com.databricks.sdk.service.catalog.SubentityTagsService;
 import com.databricks.sdk.service.catalog.SystemSchemasAPI;
 import com.databricks.sdk.service.catalog.SystemSchemasService;
 import com.databricks.sdk.service.catalog.TableConstraintsAPI;
@@ -52,8 +56,6 @@ import com.databricks.sdk.service.compute.LibrariesService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
 import com.databricks.sdk.service.files.DbfsService;
-import com.databricks.sdk.service.files.FilesAPI;
-import com.databricks.sdk.service.files.FilesService;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyAPI;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyService;
 import com.databricks.sdk.service.iam.CurrentUserAPI;
@@ -141,7 +143,6 @@ public class WorkspaceClient {
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private ExperimentsAPI experimentsAPI;
   private ExternalLocationsAPI externalLocationsAPI;
-  private FilesAPI filesAPI;
   private FunctionsAPI functionsAPI;
   private GitCredentialsAPI gitCredentialsAPI;
   private GlobalInitScriptsAPI globalInitScriptsAPI;
@@ -165,11 +166,13 @@ public class WorkspaceClient {
   private ReposAPI reposAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
+  private SecurableTagsAPI securableTagsAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
   private ServingEndpointsAPI servingEndpointsAPI;
   private SharesAPI sharesAPI;
   private StatementExecutionAPI statementExecutionAPI;
   private StorageCredentialsAPI storageCredentialsAPI;
+  private SubentityTagsAPI subentityTagsAPI;
   private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
@@ -206,7 +209,6 @@ public class WorkspaceClient {
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
-    filesAPI = new FilesAPI(apiClient);
     functionsAPI = new FunctionsAPI(apiClient);
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
@@ -230,11 +232,13 @@ public class WorkspaceClient {
     reposAPI = new ReposAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
+    securableTagsAPI = new SecurableTagsAPI(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
+    subentityTagsAPI = new SubentityTagsAPI(apiClient);
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
@@ -469,14 +473,6 @@ public class WorkspaceClient {
    */
   public ExternalLocationsAPI externalLocations() {
     return externalLocationsAPI;
-  }
-
-  /**
-   * The Files API allows you to read, write, and delete files and directories in Unity Catalog
-   * volumes.
-   */
-  public FilesAPI files() {
-    return filesAPI;
   }
 
   /**
@@ -860,6 +856,15 @@ public class WorkspaceClient {
   }
 
   /**
+   * Tags are attributes containing keys and values that can be applied to different entities in
+   * Unity Catalog. Tags are useful for organizing and categorizing different entities within a
+   * metastore. SecurableTags are attached to Unity Catalog securable entities.
+   */
+  public SecurableTagsAPI securableTags() {
+    return securableTagsAPI;
+  }
+
+  /**
    * Identities for use with jobs, automated tools, and systems such as scripts, apps, and CI/CD
    * platforms. Databricks recommends creating service principals to run production jobs or modify
    * production data. If all processes that act on production data run with service principals,
@@ -1084,6 +1089,15 @@ public class WorkspaceClient {
   }
 
   /**
+   * Tags are attributes containing keys and values that can be applied to different entities in
+   * Unity Catalog. Tags are useful for organizing and categorizing different entities within a
+   * metastore. SubentityTags are attached to Unity Catalog subentities.
+   */
+  public SubentityTagsAPI subentityTags() {
+    return subentityTagsAPI;
+  }
+
+  /**
    * A system schema is a schema that lives within the system catalog. A system schema may contain
    * information about customer usage of Unity Catalog such as audit-logs, billing-logs, lineage
    * information, etc.
@@ -1299,12 +1313,6 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace FilesAPI implementation with mock */
-  public WorkspaceClient withFilesImpl(FilesService files) {
-    filesAPI = new FilesAPI(files);
-    return this;
-  }
-
   /** Replace FunctionsAPI implementation with mock */
   public WorkspaceClient withFunctionsImpl(FunctionsService functions) {
     functionsAPI = new FunctionsAPI(functions);
@@ -1444,6 +1452,12 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace SecurableTagsAPI implementation with mock */
+  public WorkspaceClient withSecurableTagsImpl(SecurableTagsService securableTags) {
+    securableTagsAPI = new SecurableTagsAPI(securableTags);
+    return this;
+  }
+
   /** Replace ServicePrincipalsAPI implementation with mock */
   public WorkspaceClient withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
     servicePrincipalsAPI = new ServicePrincipalsAPI(servicePrincipals);
@@ -1471,6 +1485,12 @@ public class WorkspaceClient {
   /** Replace StorageCredentialsAPI implementation with mock */
   public WorkspaceClient withStorageCredentialsImpl(StorageCredentialsService storageCredentials) {
     storageCredentialsAPI = new StorageCredentialsAPI(storageCredentials);
+    return this;
+  }
+
+  /** Replace SubentityTagsAPI implementation with mock */
+  public WorkspaceClient withSubentityTagsImpl(SubentityTagsService subentityTags) {
+    subentityTagsAPI = new SubentityTagsAPI(subentityTags);
     return this;
   }
 
