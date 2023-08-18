@@ -83,9 +83,7 @@ public class CommonsHttpClient implements HttpClient {
     // The error is then thrown as an exception in ApiClient.
     boolean streamResponse =
         in.getHeaders().containsKey("Accept")
-            && !APPLICATION_JSON.getMimeType().equals(in.getHeaders().get("Accept"))
-            && hs.containsKey("Content-Type")
-            && !APPLICATION_JSON.getMimeType().equals(hs.get("Content-Type").get(0));
+            && !APPLICATION_JSON.getMimeType().equals(in.getHeaders().get("Accept"));
     if (streamResponse) {
       CustomCloseInputStream inputStream =
           new CustomCloseInputStream(

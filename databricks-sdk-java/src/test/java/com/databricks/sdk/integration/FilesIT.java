@@ -25,7 +25,7 @@ public class FilesIT {
     String schemaName = NameUtils.uniqueName("filesit");
     String volumeName = NameUtils.uniqueName("filesit");
     try (ResourceWithCleanup r = ResourceWithCleanup.makeSchema(workspace.schemas(), "main", schemaName)) {
-      try (ResourceWithCleanup r1 = ResourceWithCleanup.makeVolume(workspace.volumes(), "main", volumeName, schemaName)) {
+      try (ResourceWithCleanup r1 = ResourceWithCleanup.makeVolume(workspace.volumes(), "main", schemaName, volumeName)) {
         writeFileAndReadFileInner(workspace, schemaName, volumeName);
       }
     }
@@ -36,7 +36,7 @@ public class FilesIT {
     String fileName = NameUtils.uniqueName("/Volumes/main/" + schemaName + "/" + volumeName + "/test");
     byte[] fileContents = new byte[1024 * 10];
     for (int i = 0; i < fileContents.length; i++) {
-      fileContents[i] = (byte) (i % 256);
+      fileContents[i] = (byte) (i & 0xFF);
     }
     ByteArrayInputStream inputStream = new ByteArrayInputStream(fileContents);
 
@@ -45,9 +45,8 @@ public class FilesIT {
         .files()
         .uploadFile(new UploadFileRequest().setFilePath(fileName).setContents(inputStream));
 
-    try {
-      // Read the file back from DBFS.
-      InputStream readContents = workspace.files().downloadFile(fileName);
+    // Read the file back from DBFS.
+    try (InputStream readContents = workspace.files().downloadFile(fileName)) {
       byte[] result = new byte[fileContents.length];
       int bytesRead = readContents.read(result);
       Assertions.assertEquals(bytesRead, fileContents.length);

@@ -220,7 +220,6 @@ public class ApiClient {
 
   private Response getResponse(Request in) {
     in.withUrl(config.getHost() + in.getUrl());
-    in.withHeader("Accept", "application/json");
     return executeInner(in);
   }
 

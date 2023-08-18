@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class CustomCloseInputStream extends InputStream {
-  private InputStream inputStream;
-  private Runnable cleanup;
+  private final InputStream inputStream;
+  private final Runnable cleanup;
 
   public CustomCloseInputStream(InputStream inputStream, Runnable cleanup) {
     this.inputStream = inputStream;
+    this.cleanup = cleanup;
   }
 
   @Override
