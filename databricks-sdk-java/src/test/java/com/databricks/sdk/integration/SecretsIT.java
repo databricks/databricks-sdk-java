@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
+import com.databricks.sdk.integration.framework.ResourceWithCleanup;
 import com.databricks.sdk.mixin.SecretsExt;
-import com.databricks.sdk.service.workspace.PutSecret;
 import com.databricks.sdk.service.workspace.SecretMetadata;
 import com.databricks.sdk.service.workspace.SecretScope;
 import org.junit.jupiter.api.Test;
@@ -23,10 +23,10 @@ public class SecretsIT {
     String key = "testKey-" + randomSuffix;
     String value = "testValue-" + randomSuffix;
 
-    try (SecretsTestResource ignored = SecretsTestResource.makeScope(secretsExt, scope)) {
+    try (ResourceWithCleanup ignored = ResourceWithCleanup.makeScope(secretsExt, scope)) {
 
-      try (SecretsTestResource ignored1 =
-          SecretsTestResource.makeSecret(secretsExt, scope, key, value)) {
+      try (ResourceWithCleanup ignored1 =
+          ResourceWithCleanup.makeSecret(secretsExt, scope, key, value)) {
 
         Iterable<SecretMetadata> response = secretsExt.listSecrets(scope);
         boolean foundSecret = false;
@@ -52,7 +52,7 @@ public class SecretsIT {
     int randomSuffix = (int) (Math.random() * 1000);
     String scope = "testScope-" + randomSuffix;
 
-    try (SecretsTestResource ignored = SecretsTestResource.makeScope(secretsExt, scope)) {
+    try (ResourceWithCleanup ignored = ResourceWithCleanup.makeScope(secretsExt, scope)) {
 
       Iterable<SecretScope> response = secretsExt.listScopes();
       boolean foundScope = false;
@@ -67,27 +67,4 @@ public class SecretsIT {
     }
   }
 
-  private static class SecretsTestResource implements AutoCloseable {
-    private final Runnable cleanup;
-
-    private SecretsTestResource(Runnable cleanup) {
-      this.cleanup = cleanup;
-    }
-
-    public static SecretsTestResource makeSecret(
-        SecretsExt secretsExt, String scope, String key, String value) {
-      secretsExt.putSecret(new PutSecret().setScope(scope).setKey(key).setStringValue(value));
-      return new SecretsTestResource(() -> secretsExt.deleteSecret(scope, key));
-    }
-
-    public static SecretsTestResource makeScope(SecretsExt secretsExt, String scope) {
-      secretsExt.createScope(scope);
-      return new SecretsTestResource(() -> secretsExt.deleteScope(scope));
-    }
-
-    @Override
-    public void close() {
-      cleanup.run();
-    }
-  }
 }
