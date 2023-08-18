@@ -156,6 +156,8 @@ public class Request {
 
   @Override
   public int hashCode() {
+    // Note: this is not safe for production, as debugBody will be the same for different requests using InputStream.
+    // It is currently only used in tests.
     return Objects.hash(method, url, query, debugBody);
   }
 

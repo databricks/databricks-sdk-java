@@ -78,12 +78,14 @@ public class CommonsHttpClient implements HttpClient {
     // InputStreams, leaving the caller to decide how to read and parse the response. The caller
     // is responsible for closing the InputStream to release the HTTP Connection.
     //
-    // If the API call fails, the server will respond with an application/json response, which
-    // the client reads fully and closes, even if the request Accept header is not application/json.
-    // The error is then thrown as an exception in ApiClient.
+    // The client only streams responses when the caller has explicitly requested a non-JSON
+    // response and the server has responded with a non-JSON Content-Type. The Databricks API
+    // error response is either JSON or HTML and is safe to read fully into memory.
     boolean streamResponse =
         in.getHeaders().containsKey("Accept")
-            && !APPLICATION_JSON.getMimeType().equals(in.getHeaders().get("Accept"));
+            && !APPLICATION_JSON.getMimeType().equals(in.getHeaders().get("Accept"))
+            && hs.containsKey("Content-Type")
+            && !APPLICATION_JSON.getMimeType().equals(hs.get("Content-Type").get(0));
     if (streamResponse) {
       CustomCloseInputStream inputStream =
           new CustomCloseInputStream(

@@ -49,10 +49,7 @@ class BodyLogger {
       return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
     } catch (JsonProcessingException e) {
       // Unable to unmarshal means the body isn't JSON
-      if (body.length() > maxBytes) {
-        return body.substring(0, maxBytes - 3) + "...";
-      }
-      return body;
+      return onlyNBytes(body, maxBytes);
     }
   }
 
