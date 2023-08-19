@@ -17,11 +17,11 @@ import java.util.*;
  * documentation for gRPC transcoding</a> for more details.
  */
 public class GrpcTranscodingQueryParamsSerializer {
-  public static class HeaderEntry {
+  public static class QueryParamPair {
     private final String key;
     private final String value;
 
-    public HeaderEntry(String key, String value) {
+    public QueryParamPair(String key, String value) {
       this.key = key;
       this.value = value;
     }
@@ -47,25 +47,19 @@ public class GrpcTranscodingQueryParamsSerializer {
    * @param o The object to serialize.
    * @return A list of query parameter entries compatible with gRPC-transcoding.
    */
-  public static List<HeaderEntry> serialize(Object o) {
+  public static List<QueryParamPair> serialize(Object o) {
     Map<String, Object> flattened = flattenObject(o, true);
-    for (Field f : o.getClass().getDeclaredFields()) {
-      QueryParam queryParam = f.getAnnotation(QueryParam.class);
-      if (queryParam == null) {
-        flattened.remove(getFieldName(f));
-      }
-    }
 
-    List<HeaderEntry> result = new ArrayList<>();
+    List<QueryParamPair> result = new ArrayList<>();
     for (Map.Entry<String, Object> entry : flattened.entrySet()) {
       String key = entry.getKey();
       Object value = entry.getValue();
       if (value instanceof Collection) {
         for (Object v : (Collection<Object>) value) {
-          result.add(new HeaderEntry(key, v.toString()));
+          result.add(new QueryParamPair(key, v.toString()));
         }
       } else {
-        result.add(new HeaderEntry(key, value.toString()));
+        result.add(new QueryParamPair(key, value.toString()));
       }
     }
     return result;
