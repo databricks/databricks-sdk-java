@@ -48,7 +48,7 @@ public class GrpcTranscodingQueryParamsSerializer {
    * @return A list of query parameter entries compatible with gRPC-transcoding.
    */
   public static List<HeaderEntry> serialize(Object o) {
-    Map<String, Object> flattened = flattenObject(o);
+    Map<String, Object> flattened = flattenObject(o, true);
     for (Field f : o.getClass().getDeclaredFields()) {
       QueryParam queryParam = f.getAnnotation(QueryParam.class);
       if (queryParam == null) {
@@ -103,11 +103,14 @@ public class GrpcTranscodingQueryParamsSerializer {
     }
   }
 
-  private static Map<String, Object> flattenObject(Object o) {
+  private static Map<String, Object> flattenObject(Object o, Boolean onlyAnnotatedFields) {
     // LinkedHashMap ensures consistent ordering of fields.
     Map<String, Object> result = new LinkedHashMap<>();
     Field[] fields = o.getClass().getDeclaredFields();
     for (Field f : fields) {
+      if (onlyAnnotatedFields && f.getAnnotation(QueryParam.class) == null) {
+        continue;
+      }
       f.setAccessible(true);
       try {
         String name = getFieldName(f);
@@ -121,7 +124,7 @@ public class GrpcTranscodingQueryParamsSerializer {
           result.put(name, value);
         } else {
           // recursively flatten the object
-          Map<String, Object> flattened = flattenObject(value);
+          Map<String, Object> flattened = flattenObject(value, false);
           for (Map.Entry<String, Object> entry : flattened.entrySet()) {
             result.put(name + "." + entry.getKey(), entry.getValue());
           }
