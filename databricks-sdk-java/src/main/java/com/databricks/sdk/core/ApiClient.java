@@ -174,8 +174,8 @@ public class ApiClient {
     }
   }
 
-  private <I> Request prepareRequest(
-      String method, String path, I in, Map<String, String> headers) throws JsonProcessingException {
+  private <I> Request prepareRequest(String method, String path, I in, Map<String, String> headers)
+      throws JsonProcessingException {
     Request req = new Request(method, path, serialize(in));
     setQuery(req, in);
     setHeaders(req, headers);
@@ -306,6 +306,9 @@ public class ApiClient {
   }
 
   private String serialize(Object body) throws JsonProcessingException {
+    if (body == null) {
+      return null;
+    }
     return mapper.writeValueAsString(body);
   }
 }
