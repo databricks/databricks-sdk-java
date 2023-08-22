@@ -3,6 +3,8 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of WorkspaceAssignment */
 @Generated
@@ -19,7 +21,9 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/permissionassignments/principals/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -28,7 +32,9 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/permissionassignments/permissions",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    return apiClient.GET(path, request, WorkspacePermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, WorkspacePermissions.class, headers);
   }
 
   @Override
@@ -37,7 +43,9 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/permissionassignments",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    return apiClient.GET(path, request, PermissionAssignments.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, PermissionAssignments.class, headers);
   }
 
   @Override
@@ -46,6 +54,9 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/permissionassignments/principals/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
-    apiClient.PUT(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PUT(path, request, Void.class, headers);
   }
 }

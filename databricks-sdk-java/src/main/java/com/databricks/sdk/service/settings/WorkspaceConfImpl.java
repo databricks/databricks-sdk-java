@@ -3,6 +3,7 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
 import java.util.Map;
 
 /** Package-local implementation of WorkspaceConf */
@@ -17,12 +18,16 @@ class WorkspaceConfImpl implements WorkspaceConfService {
   @Override
   public Map<String, String> getStatus(GetStatusRequest request) {
     String path = "/api/2.0/workspace-conf";
-    return apiClient.getStringMap(path, request);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.getStringMap(path, request, headers);
   }
 
   @Override
   public void setStatus(Map<String, String> request) {
     String path = "/api/2.0/workspace-conf";
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Content-Type", "application/json");
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 }

@@ -61,7 +61,7 @@ public class ApiClientTest {
       Class<? extends T> clazz,
       T expectedResponse) {
     ApiClient client = getApiClient(request, responses);
-    T response = client.GET(request.getUri().getPath(), clazz);
+    T response = client.GET(request.getUri().getPath(), clazz, Collections.emptyMap());
     assertEquals(response, expectedResponse);
   }
 
@@ -70,7 +70,8 @@ public class ApiClientTest {
     ApiClient client = getApiClient(request, responses);
     DatabricksException exception =
         assertThrows(
-            DatabricksException.class, () -> client.GET(request.getUri().getPath(), clazz));
+            DatabricksException.class,
+            () -> client.GET(request.getUri().getPath(), clazz, Collections.emptyMap()));
     assertEquals(exception.getMessage(), expectedMessage);
   }
 

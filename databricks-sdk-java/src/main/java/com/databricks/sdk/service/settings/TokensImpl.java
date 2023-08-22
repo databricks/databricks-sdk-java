@@ -3,6 +3,8 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Tokens */
 @Generated
@@ -16,18 +18,26 @@ class TokensImpl implements TokensService {
   @Override
   public CreateTokenResponse create(CreateTokenRequest request) {
     String path = "/api/2.0/token/create";
-    return apiClient.POST(path, request, CreateTokenResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, CreateTokenResponse.class, headers);
   }
 
   @Override
   public void delete(RevokeTokenRequest request) {
     String path = "/api/2.0/token/delete";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public ListTokensResponse list() {
     String path = "/api/2.0/token/list";
-    return apiClient.GET(path, ListTokensResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, ListTokensResponse.class, headers);
   }
 }

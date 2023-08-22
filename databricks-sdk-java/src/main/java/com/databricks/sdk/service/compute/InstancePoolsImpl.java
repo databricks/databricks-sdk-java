@@ -3,6 +3,8 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of InstancePools */
 @Generated
@@ -16,25 +18,36 @@ class InstancePoolsImpl implements InstancePoolsService {
   @Override
   public CreateInstancePoolResponse create(CreateInstancePool request) {
     String path = "/api/2.0/instance-pools/create";
-    return apiClient.POST(path, request, CreateInstancePoolResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, CreateInstancePoolResponse.class, headers);
   }
 
   @Override
   public void delete(DeleteInstancePool request) {
     String path = "/api/2.0/instance-pools/delete";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void edit(EditInstancePool request) {
     String path = "/api/2.0/instance-pools/edit";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public GetInstancePool get(GetInstancePoolRequest request) {
     String path = "/api/2.0/instance-pools/get";
-    return apiClient.GET(path, request, GetInstancePool.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, GetInstancePool.class, headers);
   }
 
   @Override
@@ -43,7 +56,9 @@ class InstancePoolsImpl implements InstancePoolsService {
     String path =
         String.format(
             "/api/2.0/permissions/instance-pools/%s/permissionLevels", request.getInstancePoolId());
-    return apiClient.GET(path, request, GetInstancePoolPermissionLevelsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, GetInstancePoolPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -51,13 +66,17 @@ class InstancePoolsImpl implements InstancePoolsService {
       GetInstancePoolPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
-    return apiClient.GET(path, request, InstancePoolPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, InstancePoolPermissions.class, headers);
   }
 
   @Override
   public ListInstancePools list() {
     String path = "/api/2.0/instance-pools/list";
-    return apiClient.GET(path, ListInstancePools.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, ListInstancePools.class, headers);
   }
 
   @Override
@@ -65,7 +84,10 @@ class InstancePoolsImpl implements InstancePoolsService {
       InstancePoolPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
-    return apiClient.PUT(path, request, InstancePoolPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PUT(path, request, InstancePoolPermissions.class, headers);
   }
 
   @Override
@@ -73,6 +95,9 @@ class InstancePoolsImpl implements InstancePoolsService {
       InstancePoolPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
-    return apiClient.PATCH(path, request, InstancePoolPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, InstancePoolPermissions.class, headers);
   }
 }

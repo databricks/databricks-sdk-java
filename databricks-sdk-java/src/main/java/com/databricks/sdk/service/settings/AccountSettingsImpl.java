@@ -3,6 +3,8 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of AccountSettings */
 @Generated
@@ -20,7 +22,9 @@ class AccountSettingsImpl implements AccountSettingsService {
         String.format(
             "/api/2.0/accounts/%s/settings/types/dcp_acct_enable/names/default",
             apiClient.configuredAccountID());
-    return apiClient.DELETE(path, request, DeletePersonalComputeSettingResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.DELETE(path, request, DeletePersonalComputeSettingResponse.class, headers);
   }
 
   @Override
@@ -30,7 +34,9 @@ class AccountSettingsImpl implements AccountSettingsService {
         String.format(
             "/api/2.0/accounts/%s/settings/types/dcp_acct_enable/names/default",
             apiClient.configuredAccountID());
-    return apiClient.GET(path, request, PersonalComputeSetting.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, PersonalComputeSetting.class, headers);
   }
 
   @Override
@@ -40,6 +46,9 @@ class AccountSettingsImpl implements AccountSettingsService {
         String.format(
             "/api/2.0/accounts/%s/settings/types/dcp_acct_enable/names/default",
             apiClient.configuredAccountID());
-    return apiClient.PATCH(path, request, PersonalComputeSetting.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, PersonalComputeSetting.class, headers);
   }
 }

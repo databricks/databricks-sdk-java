@@ -3,6 +3,8 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of GitCredentials */
 @Generated
@@ -16,30 +18,41 @@ class GitCredentialsImpl implements GitCredentialsService {
   @Override
   public CreateCredentialsResponse create(CreateCredentials request) {
     String path = "/api/2.0/git-credentials";
-    return apiClient.POST(path, request, CreateCredentialsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, CreateCredentialsResponse.class, headers);
   }
 
   @Override
   public void delete(DeleteGitCredentialRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
   public CredentialInfo get(GetGitCredentialRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-    return apiClient.GET(path, request, CredentialInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, CredentialInfo.class, headers);
   }
 
   @Override
   public GetCredentialsResponse list() {
     String path = "/api/2.0/git-credentials";
-    return apiClient.GET(path, GetCredentialsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, GetCredentialsResponse.class, headers);
   }
 
   @Override
   public void update(UpdateCredentials request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 }

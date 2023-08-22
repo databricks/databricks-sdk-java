@@ -3,6 +3,8 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Volumes */
 @Generated
@@ -16,30 +18,41 @@ class VolumesImpl implements VolumesService {
   @Override
   public VolumeInfo create(CreateVolumeRequestContent request) {
     String path = "/api/2.1/unity-catalog/volumes";
-    return apiClient.POST(path, request, VolumeInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, VolumeInfo.class, headers);
   }
 
   @Override
   public void delete(DeleteVolumeRequest request) {
     String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getFullNameArg());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
   public ListVolumesResponseContent list(ListVolumesRequest request) {
     String path = "/api/2.1/unity-catalog/volumes";
-    return apiClient.GET(path, request, ListVolumesResponseContent.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ListVolumesResponseContent.class, headers);
   }
 
   @Override
   public VolumeInfo read(ReadVolumeRequest request) {
     String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getFullNameArg());
-    return apiClient.GET(path, request, VolumeInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, VolumeInfo.class, headers);
   }
 
   @Override
   public VolumeInfo update(UpdateVolumeRequestContent request) {
     String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getFullNameArg());
-    return apiClient.PATCH(path, request, VolumeInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, VolumeInfo.class, headers);
   }
 }

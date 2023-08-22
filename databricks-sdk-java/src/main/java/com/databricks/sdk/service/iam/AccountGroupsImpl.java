@@ -3,6 +3,8 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of AccountGroups */
 @Generated
@@ -17,7 +19,10 @@ class AccountGroupsImpl implements AccountGroupsService {
   public Group create(Group request) {
     String path =
         String.format("/api/2.0/accounts/%s/scim/v2/Groups", apiClient.configuredAccountID());
-    return apiClient.POST(path, request, Group.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, Group.class, headers);
   }
 
   @Override
@@ -26,7 +31,8 @@ class AccountGroupsImpl implements AccountGroupsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -35,14 +41,18 @@ class AccountGroupsImpl implements AccountGroupsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
-    return apiClient.GET(path, request, Group.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, Group.class, headers);
   }
 
   @Override
   public ListGroupsResponse list(ListAccountGroupsRequest request) {
     String path =
         String.format("/api/2.0/accounts/%s/scim/v2/Groups", apiClient.configuredAccountID());
-    return apiClient.GET(path, request, ListGroupsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ListGroupsResponse.class, headers);
   }
 
   @Override
@@ -51,7 +61,10 @@ class AccountGroupsImpl implements AccountGroupsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 
   @Override
@@ -60,6 +73,9 @@ class AccountGroupsImpl implements AccountGroupsService {
         String.format(
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
-    apiClient.PUT(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PUT(path, request, Void.class, headers);
   }
 }

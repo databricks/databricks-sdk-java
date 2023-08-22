@@ -4,6 +4,8 @@ package com.databricks.sdk.service.provisioning;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Workspaces */
 @Generated
@@ -17,7 +19,10 @@ class WorkspacesImpl implements WorkspacesService {
   @Override
   public Workspace create(CreateWorkspaceRequest request) {
     String path = String.format("/api/2.0/accounts/%s/workspaces", apiClient.configuredAccountID());
-    return apiClient.POST(path, request, Workspace.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, Workspace.class, headers);
   }
 
   @Override
@@ -26,7 +31,9 @@ class WorkspacesImpl implements WorkspacesService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -35,13 +42,17 @@ class WorkspacesImpl implements WorkspacesService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    return apiClient.GET(path, request, Workspace.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, Workspace.class, headers);
   }
 
   @Override
   public Collection<Workspace> list() {
     String path = String.format("/api/2.0/accounts/%s/workspaces", apiClient.configuredAccountID());
-    return apiClient.getCollection(path, null, Workspace.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.getCollection(path, null, Workspace.class, headers);
   }
 
   @Override
@@ -50,6 +61,9 @@ class WorkspacesImpl implements WorkspacesService {
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 }

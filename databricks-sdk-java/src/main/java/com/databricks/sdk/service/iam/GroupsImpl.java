@@ -3,6 +3,8 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Groups */
 @Generated
@@ -16,36 +18,50 @@ class GroupsImpl implements GroupsService {
   @Override
   public Group create(Group request) {
     String path = "/api/2.0/preview/scim/v2/Groups";
-    return apiClient.POST(path, request, Group.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, Group.class, headers);
   }
 
   @Override
   public void delete(DeleteGroupRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
   public Group get(GetGroupRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
-    return apiClient.GET(path, request, Group.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, Group.class, headers);
   }
 
   @Override
   public ListGroupsResponse list(ListGroupsRequest request) {
     String path = "/api/2.0/preview/scim/v2/Groups";
-    return apiClient.GET(path, request, ListGroupsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ListGroupsResponse.class, headers);
   }
 
   @Override
   public void patch(PartialUpdate request) {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 
   @Override
   public void update(Group request) {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
-    apiClient.PUT(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PUT(path, request, Void.class, headers);
   }
 }

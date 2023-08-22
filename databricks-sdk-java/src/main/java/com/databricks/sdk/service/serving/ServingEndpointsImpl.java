@@ -3,6 +3,8 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of ServingEndpoints */
 @Generated
@@ -19,31 +21,41 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format(
             "/api/2.0/serving-endpoints/%s/served-models/%s/build-logs",
             request.getName(), request.getServedModelName());
-    return apiClient.GET(path, request, BuildLogsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, BuildLogsResponse.class, headers);
   }
 
   @Override
   public ServingEndpointDetailed create(CreateServingEndpoint request) {
     String path = "/api/2.0/serving-endpoints";
-    return apiClient.POST(path, request, ServingEndpointDetailed.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, ServingEndpointDetailed.class, headers);
   }
 
   @Override
   public void delete(DeleteServingEndpointRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
   public void exportMetrics(ExportMetricsRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/metrics", request.getName());
-    apiClient.GET(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    apiClient.GET(path, request, Void.class, headers);
   }
 
   @Override
   public ServingEndpointDetailed get(GetServingEndpointRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
-    return apiClient.GET(path, request, ServingEndpointDetailed.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ServingEndpointDetailed.class, headers);
   }
 
   @Override
@@ -53,7 +65,9 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format(
             "/api/2.0/permissions/serving-endpoints/%s/permissionLevels",
             request.getServingEndpointId());
-    return apiClient.GET(path, request, GetServingEndpointPermissionLevelsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, GetServingEndpointPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -61,13 +75,17 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       GetServingEndpointPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
-    return apiClient.GET(path, request, ServingEndpointPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ServingEndpointPermissions.class, headers);
   }
 
   @Override
   public ListEndpointsResponse list() {
     String path = "/api/2.0/serving-endpoints";
-    return apiClient.GET(path, ListEndpointsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, ListEndpointsResponse.class, headers);
   }
 
   @Override
@@ -76,13 +94,17 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format(
             "/api/2.0/serving-endpoints/%s/served-models/%s/logs",
             request.getName(), request.getServedModelName());
-    return apiClient.GET(path, request, ServerLogsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ServerLogsResponse.class, headers);
   }
 
   @Override
   public QueryEndpointResponse query(QueryRequest request) {
     String path = String.format("/serving-endpoints/%s/invocations", request.getName());
-    return apiClient.POST(path, request, QueryEndpointResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.POST(path, request, QueryEndpointResponse.class, headers);
   }
 
   @Override
@@ -90,13 +112,19 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       ServingEndpointPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
-    return apiClient.PUT(path, request, ServingEndpointPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PUT(path, request, ServingEndpointPermissions.class, headers);
   }
 
   @Override
   public ServingEndpointDetailed updateConfig(EndpointCoreConfigInput request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/config", request.getName());
-    return apiClient.PUT(path, request, ServingEndpointDetailed.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PUT(path, request, ServingEndpointDetailed.class, headers);
   }
 
   @Override
@@ -104,6 +132,9 @@ class ServingEndpointsImpl implements ServingEndpointsService {
       ServingEndpointPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
-    return apiClient.PATCH(path, request, ServingEndpointPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, ServingEndpointPermissions.class, headers);
   }
 }

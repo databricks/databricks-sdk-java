@@ -3,6 +3,8 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Shares */
 @Generated
@@ -16,43 +18,61 @@ class SharesImpl implements SharesService {
   @Override
   public ShareInfo create(CreateShare request) {
     String path = "/api/2.1/unity-catalog/shares";
-    return apiClient.POST(path, request, ShareInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, ShareInfo.class, headers);
   }
 
   @Override
   public void delete(DeleteShareRequest request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
   public ShareInfo get(GetShareRequest request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
-    return apiClient.GET(path, request, ShareInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ShareInfo.class, headers);
   }
 
   @Override
   public ListSharesResponse list() {
     String path = "/api/2.1/unity-catalog/shares";
-    return apiClient.GET(path, ListSharesResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, ListSharesResponse.class, headers);
   }
 
   @Override
   public com.databricks.sdk.service.catalog.PermissionsList sharePermissions(
       SharePermissionsRequest request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
-    return apiClient.GET(path, request, com.databricks.sdk.service.catalog.PermissionsList.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(
+        path, request, com.databricks.sdk.service.catalog.PermissionsList.class, headers);
   }
 
   @Override
   public ShareInfo update(UpdateShare request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
-    return apiClient.PATCH(path, request, ShareInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, ShareInfo.class, headers);
   }
 
   @Override
   public void updatePermissions(UpdateSharePermissions request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 }

@@ -3,6 +3,8 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Budgets */
 @Generated
@@ -16,7 +18,10 @@ class BudgetsImpl implements BudgetsService {
   @Override
   public WrappedBudgetWithStatus create(WrappedBudget request) {
     String path = String.format("/api/2.0/accounts/%s/budget", apiClient.configuredAccountID());
-    return apiClient.POST(path, request, WrappedBudgetWithStatus.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, WrappedBudgetWithStatus.class, headers);
   }
 
   @Override
@@ -25,7 +30,9 @@ class BudgetsImpl implements BudgetsService {
         String.format(
             "/api/2.0/accounts/%s/budget/%s",
             apiClient.configuredAccountID(), request.getBudgetId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -34,13 +41,17 @@ class BudgetsImpl implements BudgetsService {
         String.format(
             "/api/2.0/accounts/%s/budget/%s",
             apiClient.configuredAccountID(), request.getBudgetId());
-    return apiClient.GET(path, request, WrappedBudgetWithStatus.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, WrappedBudgetWithStatus.class, headers);
   }
 
   @Override
   public BudgetList list() {
     String path = String.format("/api/2.0/accounts/%s/budget", apiClient.configuredAccountID());
-    return apiClient.GET(path, BudgetList.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, BudgetList.class, headers);
   }
 
   @Override
@@ -49,6 +60,9 @@ class BudgetsImpl implements BudgetsService {
         String.format(
             "/api/2.0/accounts/%s/budget/%s",
             apiClient.configuredAccountID(), request.getBudgetId());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 }

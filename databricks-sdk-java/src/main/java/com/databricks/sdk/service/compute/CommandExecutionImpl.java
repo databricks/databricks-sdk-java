@@ -3,6 +3,8 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of CommandExecution */
 @Generated
@@ -16,36 +18,52 @@ class CommandExecutionImpl implements CommandExecutionService {
   @Override
   public void cancel(CancelCommand request) {
     String path = "/api/1.2/commands/cancel";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public CommandStatusResponse commandStatus(CommandStatusRequest request) {
     String path = "/api/1.2/commands/status";
-    return apiClient.GET(path, request, CommandStatusResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, CommandStatusResponse.class, headers);
   }
 
   @Override
   public ContextStatusResponse contextStatus(ContextStatusRequest request) {
     String path = "/api/1.2/contexts/status";
-    return apiClient.GET(path, request, ContextStatusResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ContextStatusResponse.class, headers);
   }
 
   @Override
   public Created create(CreateContext request) {
     String path = "/api/1.2/contexts/create";
-    return apiClient.POST(path, request, Created.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, Created.class, headers);
   }
 
   @Override
   public void destroy(DestroyContext request) {
     String path = "/api/1.2/contexts/destroy";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public Created execute(Command request) {
     String path = "/api/1.2/commands/execute";
-    return apiClient.POST(path, request, Created.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, Created.class, headers);
   }
 }

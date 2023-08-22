@@ -3,6 +3,8 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of AccountAccessControl */
 @Generated
@@ -20,7 +22,9 @@ class AccountAccessControlImpl implements AccountAccessControlService {
         String.format(
             "/api/2.0/preview/accounts/%s/access-control/assignable-roles",
             apiClient.configuredAccountID());
-    return apiClient.GET(path, request, GetAssignableRolesForResourceResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, GetAssignableRolesForResourceResponse.class, headers);
   }
 
   @Override
@@ -29,7 +33,9 @@ class AccountAccessControlImpl implements AccountAccessControlService {
         String.format(
             "/api/2.0/preview/accounts/%s/access-control/rule-sets",
             apiClient.configuredAccountID());
-    return apiClient.GET(path, request, RuleSetResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, RuleSetResponse.class, headers);
   }
 
   @Override
@@ -38,6 +44,9 @@ class AccountAccessControlImpl implements AccountAccessControlService {
         String.format(
             "/api/2.0/preview/accounts/%s/access-control/rule-sets",
             apiClient.configuredAccountID());
-    return apiClient.PUT(path, request, RuleSetResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PUT(path, request, RuleSetResponse.class, headers);
   }
 }

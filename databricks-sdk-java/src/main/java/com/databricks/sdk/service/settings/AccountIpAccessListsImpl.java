@@ -3,6 +3,8 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of AccountIpAccessLists */
 @Generated
@@ -18,7 +20,10 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     String path =
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
-    return apiClient.POST(path, request, CreateIpAccessListResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, CreateIpAccessListResponse.class, headers);
   }
 
   @Override
@@ -27,7 +32,8 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -36,7 +42,9 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
-    return apiClient.GET(path, request, GetIpAccessListResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, GetIpAccessListResponse.class, headers);
   }
 
   @Override
@@ -44,7 +52,9 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     String path =
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
-    return apiClient.GET(path, GetIpAccessListsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, GetIpAccessListsResponse.class, headers);
   }
 
   @Override
@@ -53,7 +63,10 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
-    apiClient.PUT(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PUT(path, request, Void.class, headers);
   }
 
   @Override
@@ -62,6 +75,9 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format(
             "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 }

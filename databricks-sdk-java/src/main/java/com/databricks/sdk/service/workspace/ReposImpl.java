@@ -3,6 +3,8 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Repos */
 @Generated
@@ -16,19 +18,25 @@ class ReposImpl implements ReposService {
   @Override
   public RepoInfo create(CreateRepo request) {
     String path = "/api/2.0/repos";
-    return apiClient.POST(path, request, RepoInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, RepoInfo.class, headers);
   }
 
   @Override
   public void delete(DeleteRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
-    apiClient.DELETE(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
   public RepoInfo get(GetRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
-    return apiClient.GET(path, request, RepoInfo.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, RepoInfo.class, headers);
   }
 
   @Override
@@ -36,36 +44,51 @@ class ReposImpl implements ReposService {
       GetRepoPermissionLevelsRequest request) {
     String path =
         String.format("/api/2.0/permissions/repos/%s/permissionLevels", request.getRepoId());
-    return apiClient.GET(path, request, GetRepoPermissionLevelsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, GetRepoPermissionLevelsResponse.class, headers);
   }
 
   @Override
   public RepoPermissions getRepoPermissions(GetRepoPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
-    return apiClient.GET(path, request, RepoPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, RepoPermissions.class, headers);
   }
 
   @Override
   public ListReposResponse list(ListReposRequest request) {
     String path = "/api/2.0/repos";
-    return apiClient.GET(path, request, ListReposResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ListReposResponse.class, headers);
   }
 
   @Override
   public RepoPermissions setRepoPermissions(RepoPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
-    return apiClient.PUT(path, request, RepoPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PUT(path, request, RepoPermissions.class, headers);
   }
 
   @Override
   public void update(UpdateRepo request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 
   @Override
   public RepoPermissions updateRepoPermissions(RepoPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
-    return apiClient.PATCH(path, request, RepoPermissions.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, RepoPermissions.class, headers);
   }
 }

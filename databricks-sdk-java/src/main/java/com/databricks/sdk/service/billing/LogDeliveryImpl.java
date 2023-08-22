@@ -3,6 +3,8 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of LogDelivery */
 @Generated
@@ -17,7 +19,10 @@ class LogDeliveryImpl implements LogDeliveryService {
   public WrappedLogDeliveryConfiguration create(WrappedCreateLogDeliveryConfiguration request) {
     String path =
         String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
-    return apiClient.POST(path, request, WrappedLogDeliveryConfiguration.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, WrappedLogDeliveryConfiguration.class, headers);
   }
 
   @Override
@@ -26,14 +31,18 @@ class LogDeliveryImpl implements LogDeliveryService {
         String.format(
             "/api/2.0/accounts/%s/log-delivery/%s",
             apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
-    return apiClient.GET(path, request, WrappedLogDeliveryConfiguration.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, WrappedLogDeliveryConfiguration.class, headers);
   }
 
   @Override
   public WrappedLogDeliveryConfigurations list(ListLogDeliveryRequest request) {
     String path =
         String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
-    return apiClient.GET(path, request, WrappedLogDeliveryConfigurations.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, WrappedLogDeliveryConfigurations.class, headers);
   }
 
   @Override
@@ -42,6 +51,9 @@ class LogDeliveryImpl implements LogDeliveryService {
         String.format(
             "/api/2.0/accounts/%s/log-delivery/%s",
             apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
-    apiClient.PATCH(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.PATCH(path, request, Void.class, headers);
   }
 }

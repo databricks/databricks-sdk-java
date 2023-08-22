@@ -3,6 +3,8 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of BillableUsage */
 @Generated
@@ -17,6 +19,7 @@ class BillableUsageImpl implements BillableUsageService {
   public void download(DownloadRequest request) {
     String path =
         String.format("/api/2.0/accounts/%s/usage/download", apiClient.configuredAccountID());
-    apiClient.GET(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    apiClient.GET(path, request, Void.class, headers);
   }
 }

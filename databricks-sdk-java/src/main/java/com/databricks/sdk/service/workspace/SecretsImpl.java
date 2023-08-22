@@ -3,6 +3,8 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.HashMap;
+import java.util.Map;
 
 /** Package-local implementation of Secrets */
 @Generated
@@ -16,66 +18,94 @@ class SecretsImpl implements SecretsService {
   @Override
   public void createScope(CreateScope request) {
     String path = "/api/2.0/secrets/scopes/create";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void deleteAcl(DeleteAcl request) {
     String path = "/api/2.0/secrets/acls/delete";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void deleteScope(DeleteScope request) {
     String path = "/api/2.0/secrets/scopes/delete";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void deleteSecret(DeleteSecret request) {
     String path = "/api/2.0/secrets/delete";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public AclItem getAcl(GetAclRequest request) {
     String path = "/api/2.0/secrets/acls/get";
-    return apiClient.GET(path, request, AclItem.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, AclItem.class, headers);
   }
 
   @Override
   public GetSecretResponse getSecret(GetSecretRequest request) {
     String path = "/api/2.0/secrets/get";
-    return apiClient.GET(path, request, GetSecretResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, GetSecretResponse.class, headers);
   }
 
   @Override
   public ListAclsResponse listAcls(ListAclsRequest request) {
     String path = "/api/2.0/secrets/acls/list";
-    return apiClient.GET(path, request, ListAclsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ListAclsResponse.class, headers);
   }
 
   @Override
   public ListScopesResponse listScopes() {
     String path = "/api/2.0/secrets/scopes/list";
-    return apiClient.GET(path, ListScopesResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, ListScopesResponse.class, headers);
   }
 
   @Override
   public ListSecretsResponse listSecrets(ListSecretsRequest request) {
     String path = "/api/2.0/secrets/list";
-    return apiClient.GET(path, request, ListSecretsResponse.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ListSecretsResponse.class, headers);
   }
 
   @Override
   public void putAcl(PutAcl request) {
     String path = "/api/2.0/secrets/acls/put";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 
   @Override
   public void putSecret(PutSecret request) {
     String path = "/api/2.0/secrets/put";
-    apiClient.POST(path, request, Void.class);
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, Void.class, headers);
   }
 }
