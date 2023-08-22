@@ -178,7 +178,8 @@ public class ApiClient {
     return !method.equals("GET") && !method.equals("DELETE") && !method.equals("HEAD");
   }
 
-  private <I> Request prepareBaseRequest(String method, String path, I in) throws JsonProcessingException {
+  private <I> Request prepareBaseRequest(String method, String path, I in)
+      throws JsonProcessingException {
     if (in == null || !hasBody(method)) {
       return new Request(method, path);
     } else {
