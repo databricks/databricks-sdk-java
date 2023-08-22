@@ -175,8 +175,8 @@ public class ApiClient {
   }
 
   private <I> Request prepareRequest(
-      String method, String path, I in, Map<String, String> headers) {
-    Request req = new Request(method, path);
+      String method, String path, I in, Map<String, String> headers) throws JsonProcessingException {
+    Request req = new Request(method, path, serialize(in));
     setQuery(req, in);
     setHeaders(req, headers);
     return req;
