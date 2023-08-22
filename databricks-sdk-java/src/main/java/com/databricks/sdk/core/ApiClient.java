@@ -174,9 +174,22 @@ public class ApiClient {
     }
   }
 
+  private boolean hasBody(String method) {
+    return !method.equals("GET") && !method.equals("DELETE") && !method.equals("HEAD");
+  }
+
+  private <I> Request prepareBaseRequest(String method, String path, I in) throws JsonProcessingException {
+    if (in == null || !hasBody(method)) {
+      return new Request(method, path);
+    } else {
+      String body = serialize(in);
+      return new Request(method, path, body);
+    }
+  }
+
   private <I> Request prepareRequest(String method, String path, I in, Map<String, String> headers)
       throws JsonProcessingException {
-    Request req = new Request(method, path, serialize(in));
+    Request req = prepareBaseRequest(method, path, in);
     setQuery(req, in);
     setHeaders(req, headers);
     return req;
