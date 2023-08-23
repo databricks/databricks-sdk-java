@@ -91,20 +91,4 @@ public class ApiErrors {
     }
     return errorBody;
   }
-
-  private static String convert(InputStream in) {
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    while (true) {
-      try {
-        int data = in.read();
-        if (data == -1) {
-          break;
-        }
-        out.write(data);
-      } catch (IOException e) {
-        throw new DatabricksException("failed to read response body", e);
-      }
-    }
-    return new String(out.toByteArray(), StandardCharsets.UTF_8);
-  }
 }
