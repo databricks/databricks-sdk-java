@@ -28,7 +28,7 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
     String path = {{if .PathParts -}}
       String.format("{{range  .PathParts}}{{.Prefix}}{{if or .Field .IsAccountId}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{ else if .IsAccountId }}, apiClient.configuredAccountID(){{end}}{{ end }})
     {{- else}}"{{.Path}}"{{end}};
-    {{ template "headers" . -}}
+    {{ template "headers" . }}
     {{ if not .Response -}}
     {{ template "api-call" . }}
     {{- else if .Response.ArrayValue -}} return apiClient.getCollection(path, null, {{template "type" .Response.ArrayValue}}.class, headers);
@@ -51,13 +51,13 @@ apiClient.{{.Verb}}(path
   , headers);
 {{- end }}
 
+{{ define "request-param" -}}
+  request{{ if .RequestBodyField }}.get{{.RequestBodyField.PascalName}}(){{end}}
+{{- end }}
+
 {{ define "headers" -}}
     Map<String, String> headers = new HashMap<>();
     {{- range $key, $value := .FixedRequestHeaders }}
     headers.put("{{$key}}", "{{$value}}");
     {{- end -}}
-{{- end }}
-
-{{ define "request-param" -}}
-  request{{ if .RequestBodyField }}.get{{.RequestBodyField.PascalName}}(){{end}}
 {{- end }}
