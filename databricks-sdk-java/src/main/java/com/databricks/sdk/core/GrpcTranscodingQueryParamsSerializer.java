@@ -114,7 +114,9 @@ public class GrpcTranscodingQueryParamsSerializer {
         }
         // check if object is a primitive type, a collection of some kind, or an enum
         Class<?> type = f.getType();
-        if (primitiveTypes.contains(type) || Iterable.class.isAssignableFrom(type) || type.isEnum()) {
+        if (primitiveTypes.contains(type)
+            || Iterable.class.isAssignableFrom(type)
+            || type.isEnum()) {
           result.put(name, value);
         } else {
           // recursively flatten the object
