@@ -91,7 +91,7 @@ public class ApiClientTest {
 
   private SuccessfulResponse getTooManyRequestsResponse(Request req) {
     return new SuccessfulResponse(
-        new Response(req, 429, "Too Many Requests", Collections.emptyMap(), null));
+        new Response(req, 429, "Too Many Requests", Collections.emptyMap(), (String) null));
   }
 
   private SuccessfulResponse getTransientError(Request req, int statusCode, ApiErrorBody body)

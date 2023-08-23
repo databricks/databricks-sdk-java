@@ -1,11 +1,14 @@
 package com.databricks.sdk.core.error;
 
 import com.databricks.sdk.core.DatabricksError;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.io.IOUtils;
 
 /** Helper methods for inspecting the response and errors thrown during API requests. */
 public class ApiErrors {
@@ -55,13 +58,20 @@ public class ApiErrors {
    */
   private static ApiErrorBody parseApiError(Response response) {
     try {
-      return MAPPER.readValue(response.getBody(), ApiErrorBody.class);
+      // Read the body now, so we can try to parse as JSON and then fallback to old error handling
+      // logic.
+      String body = IOUtils.toString(response.getBody(), StandardCharsets.UTF_8);
+      try {
+        return MAPPER.readValue(body, ApiErrorBody.class);
+      } catch (IOException e) {
+        return parseUnknownError(response, body, e);
+      }
     } catch (IOException e) {
-      return parseUnknownError(response, e);
+      throw new DatabricksException("Unable to read response body", e);
     }
   }
 
-  private static ApiErrorBody parseUnknownError(Response response, IOException err) {
+  private static ApiErrorBody parseUnknownError(Response response, String body, IOException err) {
     ApiErrorBody errorBody = new ApiErrorBody();
     String[] statusParts = response.getStatus().split(" ", 2);
     if (statusParts.length < 2) {
@@ -71,14 +81,13 @@ public class ApiErrors {
       errorBody.setErrorCode(errorCode.replaceAll(" ", "_").toUpperCase());
     }
 
-    Matcher messageMatcher = HTML_ERROR_REGEX.matcher(response.getBody());
+    Matcher messageMatcher = HTML_ERROR_REGEX.matcher(body);
     if (messageMatcher.find()) {
       errorBody.setMessage(messageMatcher.group(1).replaceAll("^[ .]+|[ .]+$", ""));
     } else {
       errorBody.setMessage(
           String.format(
-              "Response from server (%s) %s: %s",
-              response.getStatus(), response.getBody(), err.getMessage()));
+              "Response from server (%s) %s: %s", response.getStatus(), body, err.getMessage()));
     }
     return errorBody;
   }

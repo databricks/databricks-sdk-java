@@ -48,8 +48,8 @@ class BodyLogger {
       Object result = recursiveMarshal(rootNode, maxBytes);
       return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(result);
     } catch (JsonProcessingException e) {
-      // Unable to unmarshal means the body isn't JSON (or something else)
-      return String.format("[unable to marshal: %s]", e.getMessage());
+      // Unable to unmarshal means the body isn't JSON
+      return onlyNBytes(body, maxBytes);
     }
   }
 

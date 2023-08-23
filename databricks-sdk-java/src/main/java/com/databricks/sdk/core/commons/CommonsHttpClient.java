@@ -1,12 +1,15 @@
 package com.databricks.sdk.core.commons;
 
+import static org.apache.http.entity.ContentType.APPLICATION_JSON;
+
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.utils.CustomCloseInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +20,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
-import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -53,22 +56,56 @@ public class CommonsHttpClient implements HttpClient {
   public Response execute(Request in) throws IOException {
     HttpUriRequest request = transformRequest(in);
     in.getHeaders().forEach(request::setHeader);
-    try (CloseableHttpResponse response = hc.execute(request)) {
-      HttpEntity entity = response.getEntity();
-      StatusLine statusLine = response.getStatusLine();
-      Map<String, List<String>> hs =
-          Arrays.stream(response.getAllHeaders())
-              .collect(
-                  Collectors.groupingBy(
-                      NameValuePair::getName,
-                      Collectors.mapping(NameValuePair::getValue, Collectors.toList())));
-      String body = null;
-      if (entity != null) {
-        try (InputStream inputStream = entity.getContent()) {
-          body = IOUtils.toString(inputStream, Charset.defaultCharset());
-        }
-      }
+    CloseableHttpResponse response = hc.execute(request);
+    return computeResponse(in, response);
+  }
+
+  private Response computeResponse(Request in, CloseableHttpResponse response) throws IOException {
+    HttpEntity entity = response.getEntity();
+    StatusLine statusLine = response.getStatusLine();
+    Map<String, List<String>> hs =
+        Arrays.stream(response.getAllHeaders())
+            .collect(
+                Collectors.groupingBy(
+                    NameValuePair::getName,
+                    Collectors.mapping(NameValuePair::getValue, Collectors.toList())));
+    if (entity == null) {
+      response.close();
+      return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs);
+    }
+
+    // The Databricks SDK is currently designed to treat all non-application/json responses as
+    // InputStreams, leaving the caller to decide how to read and parse the response. The caller
+    // is responsible for closing the InputStream to release the HTTP Connection.
+    //
+    // The client only streams responses when the caller has explicitly requested a non-JSON
+    // response and the server has responded with a non-JSON Content-Type. The Databricks API
+    // error response is either JSON or HTML and is safe to read fully into memory.
+    boolean streamResponse =
+        in.getHeaders().containsKey("Accept")
+            && !APPLICATION_JSON.getMimeType().equals(in.getHeaders().get("Accept"))
+            && hs.containsKey("Content-Type")
+            && !APPLICATION_JSON.getMimeType().equals(hs.get("Content-Type").get(0));
+    if (streamResponse) {
+      CustomCloseInputStream inputStream =
+          new CustomCloseInputStream(
+              entity.getContent(),
+              () -> {
+                try {
+                  response.close();
+                } catch (Exception e) {
+                  throw new DatabricksException("Unable to close connection", e);
+                }
+              });
+      return new Response(
+          in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, inputStream);
+    }
+
+    try (InputStream inputStream = entity.getContent()) {
+      String body = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
       return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
+    } finally {
+      response.close();
     }
   }
 
@@ -89,12 +126,8 @@ public class CommonsHttpClient implements HttpClient {
     }
   }
 
-  private HttpRequestBase withEntity(HttpEntityEnclosingRequestBase request, String body) {
-    try {
-      request.setEntity(new StringEntity(body));
-      return request;
-    } catch (UnsupportedEncodingException e) {
-      throw new IllegalArgumentException(e);
-    }
+  private HttpRequestBase withEntity(HttpEntityEnclosingRequestBase request, InputStream body) {
+    request.setEntity(new InputStreamEntity(body));
+    return request;
   }
 }
