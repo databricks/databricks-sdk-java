@@ -5,6 +5,7 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -105,6 +106,38 @@ public class ExecuteStatementRequest {
   private TimeoutAction onWaitTimeout;
 
   /**
+   * A list of parameters to pass into a SQL statement containing parameter markers. A parameter
+   * consists of a name, a value, and optionally a type. To represent a NULL value, the `value`
+   * field may be omitted. If the `type` field is omitted, the value is interpreted as a string.
+   *
+   * <p>If the type is given, parameters will be checked for type correctness according to the given
+   * type. A value is correct if the provided string can be converted to the requested type using
+   * the `cast` function. The exact semantics are described in the section [`cast` function] of the
+   * SQL language reference.
+   *
+   * <p>For example, the following statement contains two parameters, `my_id` and `my_date`:
+   *
+   * <p>SELECT * FROM my_table WHERE name = :my_name AND date = :my_date
+   *
+   * <p>The parameters can be passed in the request body as follows:
+   *
+   * <p>{ ..., "statement": "SELECT * FROM my_table WHERE name = :my_name AND date = :my_date",
+   * "parameters": [ { "name": "my_name", "value": "the name" }, { "name": "my_date", "value":
+   * "2020-01-01", "type": "DATE" } ] }
+   *
+   * <p>Currently, positional parameters denoted by a `?` marker are not supported by the SQL
+   * Statement Execution API.
+   *
+   * <p>Also see the section [Parameter markers] of the SQL language reference.
+   *
+   * <p>[Parameter markers]:
+   * https://docs.databricks.com/sql/language-manual/sql-ref-parameter-marker.html [`cast`
+   * function]: https://docs.databricks.com/sql/language-manual/functions/cast.html
+   */
+  @JsonProperty("parameters")
+  private Collection<StatementParameterListItem> parameters;
+
+  /**
    * Sets default schema for statement execution, similar to [`USE SCHEMA`] in SQL.
    *
    * <p>[`USE SCHEMA`]:
@@ -177,6 +210,15 @@ public class ExecuteStatementRequest {
     return onWaitTimeout;
   }
 
+  public ExecuteStatementRequest setParameters(Collection<StatementParameterListItem> parameters) {
+    this.parameters = parameters;
+    return this;
+  }
+
+  public Collection<StatementParameterListItem> getParameters() {
+    return parameters;
+  }
+
   public ExecuteStatementRequest setSchema(String schema) {
     this.schema = schema;
     return this;
@@ -223,6 +265,7 @@ public class ExecuteStatementRequest {
         && Objects.equals(disposition, that.disposition)
         && Objects.equals(format, that.format)
         && Objects.equals(onWaitTimeout, that.onWaitTimeout)
+        && Objects.equals(parameters, that.parameters)
         && Objects.equals(schema, that.schema)
         && Objects.equals(statement, that.statement)
         && Objects.equals(waitTimeout, that.waitTimeout)
@@ -237,6 +280,7 @@ public class ExecuteStatementRequest {
         disposition,
         format,
         onWaitTimeout,
+        parameters,
         schema,
         statement,
         waitTimeout,
@@ -251,6 +295,7 @@ public class ExecuteStatementRequest {
         .add("disposition", disposition)
         .add("format", format)
         .add("onWaitTimeout", onWaitTimeout)
+        .add("parameters", parameters)
         .add("schema", schema)
         .add("statement", statement)
         .add("waitTimeout", waitTimeout)

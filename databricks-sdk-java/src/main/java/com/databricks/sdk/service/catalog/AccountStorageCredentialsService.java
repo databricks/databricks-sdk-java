@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
+import java.util.Collection;
 
 /**
  * These APIs manage storage credentials for a particular metastore.
@@ -48,7 +49,7 @@ public interface AccountStorageCredentialsService {
    *
    * <p>Gets a list of all storage credentials that have been assigned to given metastore.
    */
-  ListStorageCredentialsResponse list(
+  Collection<StorageCredentialInfo> list(
       ListAccountStorageCredentialsRequest listAccountStorageCredentialsRequest);
 
   /**

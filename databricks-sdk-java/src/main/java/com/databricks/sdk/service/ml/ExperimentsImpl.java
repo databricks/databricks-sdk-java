@@ -70,19 +70,19 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public GetExperimentByNameResponse getByName(GetByNameRequest request) {
+  public GetExperimentResponse getByName(GetByNameRequest request) {
     String path = "/api/2.0/mlflow/experiments/get-by-name";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetExperimentByNameResponse.class, headers);
+    return apiClient.GET(path, request, GetExperimentResponse.class, headers);
   }
 
   @Override
-  public Experiment getExperiment(GetExperimentRequest request) {
+  public GetExperimentResponse getExperiment(GetExperimentRequest request) {
     String path = "/api/2.0/mlflow/experiments/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, Experiment.class, headers);
+    return apiClient.GET(path, request, GetExperimentResponse.class, headers);
   }
 
   @Override

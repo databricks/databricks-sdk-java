@@ -70,7 +70,7 @@ public class AccountStorageCredentialsAPI {
     return impl.get(request);
   }
 
-  public ListStorageCredentialsResponse list(String metastoreId) {
+  public Iterable<StorageCredentialInfo> list(String metastoreId) {
     return list(new ListAccountStorageCredentialsRequest().setMetastoreId(metastoreId));
   }
 
@@ -79,7 +79,7 @@ public class AccountStorageCredentialsAPI {
    *
    * <p>Gets a list of all storage credentials that have been assigned to given metastore.
    */
-  public ListStorageCredentialsResponse list(ListAccountStorageCredentialsRequest request) {
+  public Iterable<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
     return impl.list(request);
   }
 

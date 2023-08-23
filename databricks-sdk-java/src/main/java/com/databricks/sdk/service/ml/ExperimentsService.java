@@ -80,14 +80,14 @@ public interface ExperimentsService {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no experiment with the specified name exists.
    */
-  GetExperimentByNameResponse getByName(GetByNameRequest getByNameRequest);
+  GetExperimentResponse getByName(GetByNameRequest getByNameRequest);
 
   /**
    * Get an experiment.
    *
    * <p>Gets metadata for an experiment. This method works on deleted experiments.
    */
-  Experiment getExperiment(GetExperimentRequest getExperimentRequest);
+  GetExperimentResponse getExperiment(GetExperimentRequest getExperimentRequest);
 
   /**
    * Get experiment permission levels.

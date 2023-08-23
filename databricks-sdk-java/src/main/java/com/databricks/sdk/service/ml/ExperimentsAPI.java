@@ -116,7 +116,7 @@ public class ExperimentsAPI {
     impl.deleteTag(request);
   }
 
-  public GetExperimentByNameResponse getByName(String experimentName) {
+  public GetExperimentResponse getByName(String experimentName) {
     return getByName(new GetByNameRequest().setExperimentName(experimentName));
   }
 
@@ -131,11 +131,11 @@ public class ExperimentsAPI {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no experiment with the specified name exists.
    */
-  public GetExperimentByNameResponse getByName(GetByNameRequest request) {
+  public GetExperimentResponse getByName(GetByNameRequest request) {
     return impl.getByName(request);
   }
 
-  public Experiment getExperiment(String experimentId) {
+  public GetExperimentResponse getExperiment(String experimentId) {
     return getExperiment(new GetExperimentRequest().setExperimentId(experimentId));
   }
 
@@ -144,7 +144,7 @@ public class ExperimentsAPI {
    *
    * <p>Gets metadata for an experiment. This method works on deleted experiments.
    */
-  public Experiment getExperiment(GetExperimentRequest request) {
+  public GetExperimentResponse getExperiment(GetExperimentRequest request) {
     return impl.getExperiment(request);
   }
 
@@ -178,7 +178,7 @@ public class ExperimentsAPI {
     return impl.getExperimentPermissions(request);
   }
 
-  public GetMetricHistoryResponse getHistory(String metricKey) {
+  public Iterable<Metric> getHistory(String metricKey) {
     return getHistory(new GetHistoryRequest().setMetricKey(metricKey));
   }
 
@@ -187,8 +187,18 @@ public class ExperimentsAPI {
    *
    * <p>Gets a list of all values for the specified metric for a given run.
    */
-  public GetMetricHistoryResponse getHistory(GetHistoryRequest request) {
-    return impl.getHistory(request);
+  public Iterable<Metric> getHistory(GetHistoryRequest request) {
+    return new Paginator<>(
+        request,
+        impl::getHistory,
+        GetMetricHistoryResponse::getMetrics,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public GetRunResponse getRun(String runId) {

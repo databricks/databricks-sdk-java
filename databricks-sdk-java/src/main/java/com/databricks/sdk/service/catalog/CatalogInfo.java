@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class CatalogInfo {
+  /** Indicate whether or not the catalog info contains only browsable metadata. */
+  @JsonProperty("browse_only")
+  private Boolean browseOnly;
+
   /** The type of the catalog. */
   @JsonProperty("catalog_type")
   private CatalogType catalogType;
@@ -37,6 +41,10 @@ public class CatalogInfo {
   /** Whether predictive optimization should be enabled for this object and objects under it. */
   @JsonProperty("enable_predictive_optimization")
   private EnablePredictiveOptimization enablePredictiveOptimization;
+
+  /** The full name of the catalog. Corresponds with the name field. */
+  @JsonProperty("full_name")
+  private String fullName;
 
   /**
    * Whether the current securable is accessible from all workspaces or a specific set of
@@ -74,6 +82,18 @@ public class CatalogInfo {
   @JsonProperty("provider_name")
   private String providerName;
 
+  /** Status of an asynchronously provisioned resource. */
+  @JsonProperty("provisioning_info")
+  private ProvisioningInfo provisioningInfo;
+
+  /** Kind of catalog securable. */
+  @JsonProperty("securable_kind")
+  private CatalogInfoSecurableKind securableKind;
+
+  /** */
+  @JsonProperty("securable_type")
+  private String securableType;
+
   /** The name of the share under the share provider. */
   @JsonProperty("share_name")
   private String shareName;
@@ -93,6 +113,15 @@ public class CatalogInfo {
   /** Username of user who last modified catalog. */
   @JsonProperty("updated_by")
   private String updatedBy;
+
+  public CatalogInfo setBrowseOnly(Boolean browseOnly) {
+    this.browseOnly = browseOnly;
+    return this;
+  }
+
+  public Boolean getBrowseOnly() {
+    return browseOnly;
+  }
 
   public CatalogInfo setCatalogType(CatalogType catalogType) {
     this.catalogType = catalogType;
@@ -159,6 +188,15 @@ public class CatalogInfo {
     return enablePredictiveOptimization;
   }
 
+  public CatalogInfo setFullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
+
   public CatalogInfo setIsolationMode(IsolationMode isolationMode) {
     this.isolationMode = isolationMode;
     return this;
@@ -222,6 +260,33 @@ public class CatalogInfo {
     return providerName;
   }
 
+  public CatalogInfo setProvisioningInfo(ProvisioningInfo provisioningInfo) {
+    this.provisioningInfo = provisioningInfo;
+    return this;
+  }
+
+  public ProvisioningInfo getProvisioningInfo() {
+    return provisioningInfo;
+  }
+
+  public CatalogInfo setSecurableKind(CatalogInfoSecurableKind securableKind) {
+    this.securableKind = securableKind;
+    return this;
+  }
+
+  public CatalogInfoSecurableKind getSecurableKind() {
+    return securableKind;
+  }
+
+  public CatalogInfo setSecurableType(String securableType) {
+    this.securableType = securableType;
+    return this;
+  }
+
+  public String getSecurableType() {
+    return securableType;
+  }
+
   public CatalogInfo setShareName(String shareName) {
     this.shareName = shareName;
     return this;
@@ -272,7 +337,8 @@ public class CatalogInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CatalogInfo that = (CatalogInfo) o;
-    return Objects.equals(catalogType, that.catalogType)
+    return Objects.equals(browseOnly, that.browseOnly)
+        && Objects.equals(catalogType, that.catalogType)
         && Objects.equals(comment, that.comment)
         && Objects.equals(connectionName, that.connectionName)
         && Objects.equals(createdAt, that.createdAt)
@@ -280,6 +346,7 @@ public class CatalogInfo {
         && Objects.equals(
             effectivePredictiveOptimizationFlag, that.effectivePredictiveOptimizationFlag)
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
+        && Objects.equals(fullName, that.fullName)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -287,6 +354,9 @@ public class CatalogInfo {
         && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties)
         && Objects.equals(providerName, that.providerName)
+        && Objects.equals(provisioningInfo, that.provisioningInfo)
+        && Objects.equals(securableKind, that.securableKind)
+        && Objects.equals(securableType, that.securableType)
         && Objects.equals(shareName, that.shareName)
         && Objects.equals(storageLocation, that.storageLocation)
         && Objects.equals(storageRoot, that.storageRoot)
@@ -297,6 +367,7 @@ public class CatalogInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        browseOnly,
         catalogType,
         comment,
         connectionName,
@@ -304,6 +375,7 @@ public class CatalogInfo {
         createdBy,
         effectivePredictiveOptimizationFlag,
         enablePredictiveOptimization,
+        fullName,
         isolationMode,
         metastoreId,
         name,
@@ -311,6 +383,9 @@ public class CatalogInfo {
         owner,
         properties,
         providerName,
+        provisioningInfo,
+        securableKind,
+        securableType,
         shareName,
         storageLocation,
         storageRoot,
@@ -321,6 +396,7 @@ public class CatalogInfo {
   @Override
   public String toString() {
     return new ToStringer(CatalogInfo.class)
+        .add("browseOnly", browseOnly)
         .add("catalogType", catalogType)
         .add("comment", comment)
         .add("connectionName", connectionName)
@@ -328,6 +404,7 @@ public class CatalogInfo {
         .add("createdBy", createdBy)
         .add("effectivePredictiveOptimizationFlag", effectivePredictiveOptimizationFlag)
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
+        .add("fullName", fullName)
         .add("isolationMode", isolationMode)
         .add("metastoreId", metastoreId)
         .add("name", name)
@@ -335,6 +412,9 @@ public class CatalogInfo {
         .add("owner", owner)
         .add("properties", properties)
         .add("providerName", providerName)
+        .add("provisioningInfo", provisioningInfo)
+        .add("securableKind", securableKind)
+        .add("securableType", securableType)
         .add("shareName", shareName)
         .add("storageLocation", storageLocation)
         .add("storageRoot", storageRoot)

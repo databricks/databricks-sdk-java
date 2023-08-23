@@ -7,6 +7,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum Privilege {
   ALL_PRIVILEGES,
+  APPLY_TAG,
   CREATE,
   CREATE_CATALOG,
   CREATE_CONNECTION,
@@ -16,6 +17,7 @@ public enum Privilege {
   CREATE_FUNCTION,
   CREATE_MANAGED_STORAGE,
   CREATE_MATERIALIZED_VIEW,
+  CREATE_MODEL,
   CREATE_PROVIDER,
   CREATE_RECIPIENT,
   CREATE_SCHEMA,

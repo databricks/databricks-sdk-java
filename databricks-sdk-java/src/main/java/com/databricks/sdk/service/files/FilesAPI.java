@@ -27,8 +27,8 @@ public class FilesAPI {
     impl = mock;
   }
 
-  public void deleteFile(String filePath) {
-    deleteFile(new DeleteFileRequest().setFilePath(filePath));
+  public void delete(String filePath) {
+    delete(new DeleteFileRequest().setFilePath(filePath));
   }
 
   /**
@@ -36,12 +36,12 @@ public class FilesAPI {
    *
    * <p>Deletes a file or directory.
    */
-  public void deleteFile(DeleteFileRequest request) {
-    impl.deleteFile(request);
+  public void delete(DeleteFileRequest request) {
+    impl.delete(request);
   }
 
-  public DownloadFileResponse downloadFile(String filePath) {
-    return downloadFile(new DownloadFileRequest().setFilePath(filePath));
+  public DownloadResponse download(String filePath) {
+    return download(new DownloadRequest().setFilePath(filePath));
   }
 
   /**
@@ -49,12 +49,12 @@ public class FilesAPI {
    *
    * <p>Downloads a file of up to 2 GiB.
    */
-  public DownloadFileResponse downloadFile(DownloadFileRequest request) {
-    return impl.downloadFile(request);
+  public DownloadResponse download(DownloadRequest request) {
+    return impl.download(request);
   }
 
-  public FileInfo getStatus(String path) {
-    return getStatus(new GetStatusRequest().setPath(path));
+  public FileInfo getStatusInternal(String path) {
+    return getStatusInternal(new GetStatusInternalRequest().setPath(path));
   }
 
   /**
@@ -62,12 +62,12 @@ public class FilesAPI {
    *
    * <p>Returns the status of a file or directory.
    */
-  public FileInfo getStatus(GetStatusRequest request) {
-    return impl.getStatus(request);
+  public FileInfo getStatusInternal(GetStatusInternalRequest request) {
+    return impl.getStatusInternal(request);
   }
 
-  public void uploadFile(String filePath, InputStream contents) {
-    uploadFile(new UploadFileRequest().setFilePath(filePath).setContents(contents));
+  public void upload(String filePath, InputStream contents) {
+    upload(new UploadRequest().setFilePath(filePath).setContents(contents));
   }
 
   /**
@@ -75,8 +75,8 @@ public class FilesAPI {
    *
    * <p>Uploads a file of up to 2 GiB.
    */
-  public void uploadFile(UploadFileRequest request) {
-    impl.uploadFile(request);
+  public void upload(UploadRequest request) {
+    impl.upload(request);
   }
 
   public FilesService impl() {

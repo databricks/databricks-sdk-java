@@ -18,26 +18,26 @@ public interface FilesService {
    *
    * <p>Deletes a file or directory.
    */
-  void deleteFile(DeleteFileRequest deleteFileRequest);
+  void delete(DeleteFileRequest deleteFileRequest);
 
   /**
    * Download a file.
    *
    * <p>Downloads a file of up to 2 GiB.
    */
-  DownloadFileResponse downloadFile(DownloadFileRequest downloadFileRequest);
+  DownloadResponse download(DownloadRequest downloadRequest);
 
   /**
    * Get the status of a file or directory.
    *
    * <p>Returns the status of a file or directory.
    */
-  FileInfo getStatus(GetStatusRequest getStatusRequest);
+  FileInfo getStatusInternal(GetStatusInternalRequest getStatusInternalRequest);
 
   /**
    * Upload a file.
    *
    * <p>Uploads a file of up to 2 GiB.
    */
-  void uploadFile(UploadFileRequest uploadFileRequest);
+  void upload(UploadRequest uploadRequest);
 }

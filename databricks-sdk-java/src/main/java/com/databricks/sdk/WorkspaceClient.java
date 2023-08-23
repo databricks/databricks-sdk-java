@@ -22,6 +22,10 @@ import com.databricks.sdk.service.catalog.GrantsAPI;
 import com.databricks.sdk.service.catalog.GrantsService;
 import com.databricks.sdk.service.catalog.MetastoresAPI;
 import com.databricks.sdk.service.catalog.MetastoresService;
+import com.databricks.sdk.service.catalog.ModelVersionsAPI;
+import com.databricks.sdk.service.catalog.ModelVersionsService;
+import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
+import com.databricks.sdk.service.catalog.RegisteredModelsService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
@@ -154,6 +158,7 @@ public class WorkspaceClient {
   private LibrariesAPI librariesAPI;
   private MetastoresAPI metastoresAPI;
   private ModelRegistryAPI modelRegistryAPI;
+  private ModelVersionsAPI modelVersionsAPI;
   private PermissionsAPI permissionsAPI;
   private PipelinesAPI pipelinesAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
@@ -162,6 +167,7 @@ public class WorkspaceClient {
   private QueryHistoryAPI queryHistoryAPI;
   private RecipientActivationAPI recipientActivationAPI;
   private RecipientsAPI recipientsAPI;
+  private RegisteredModelsAPI registeredModelsAPI;
   private ReposAPI reposAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
@@ -219,6 +225,7 @@ public class WorkspaceClient {
     librariesAPI = new LibrariesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
+    modelVersionsAPI = new ModelVersionsAPI(apiClient);
     permissionsAPI = new PermissionsAPI(apiClient);
     pipelinesAPI = new PipelinesAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
@@ -227,6 +234,7 @@ public class WorkspaceClient {
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
     recipientsAPI = new RecipientsAPI(apiClient);
+    registeredModelsAPI = new RegisteredModelsAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
@@ -677,6 +685,19 @@ public class WorkspaceClient {
   }
 
   /**
+   * Databricks provides a hosted version of MLflow Model Registry in Unity Catalog. Models in Unity
+   * Catalog provide centralized access control, auditing, lineage, and discovery of ML models
+   * across Databricks workspaces.
+   *
+   * <p>This API reference documents the REST endpoints for managing model versions in Unity
+   * Catalog. For more details, see the [registered models API
+   * docs](/api/workspace/registeredmodels).
+   */
+  public ModelVersionsAPI modelVersions() {
+    return modelVersionsAPI;
+  }
+
+  /**
    * Permissions API are used to create read, write, edit, update and manage access for various
    * users on different objects and endpoints.
    *
@@ -816,6 +837,36 @@ public class WorkspaceClient {
    */
   public RecipientsAPI recipients() {
     return recipientsAPI;
+  }
+
+  /**
+   * Databricks provides a hosted version of MLflow Model Registry in Unity Catalog. Models in Unity
+   * Catalog provide centralized access control, auditing, lineage, and discovery of ML models
+   * across Databricks workspaces.
+   *
+   * <p>An MLflow registered model resides in the third layer of Unity Catalog’s three-level
+   * namespace. Registered models contain model versions, which correspond to actual ML models
+   * (MLflow models). Creating new model versions currently requires use of the MLflow Python
+   * client. Once model versions are created, you can load them for batch inference using MLflow
+   * Python client APIs, or deploy them for real-time serving using Databricks Model Serving.
+   *
+   * <p>All operations on registered models and model versions require USE_CATALOG permissions on
+   * the enclosing catalog and USE_SCHEMA permissions on the enclosing schema. In addition, the
+   * following additional privileges are required for various operations:
+   *
+   * <p>* To create a registered model, users must additionally have the CREATE_MODEL permission on
+   * the target schema. * To view registered model or model version metadata, model version data
+   * files, or invoke a model version, users must additionally have the EXECUTE permission on the
+   * registered model * To update registered model or model version tags, users must additionally
+   * have APPLY TAG permissions on the registered model * To update other registered model or model
+   * version metadata (comments, aliases) create a new model version, or update permissions on the
+   * registered model, users must be owners of the registered model.
+   *
+   * <p>Note: The securable type for models is "FUNCTION". When using REST APIs (e.g. tagging,
+   * grants) that specify a securable type, use "FUNCTION" as the securable type.
+   */
+  public RegisteredModelsAPI registeredModels() {
+    return registeredModelsAPI;
   }
 
   /**
@@ -1377,6 +1428,12 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace ModelVersionsAPI implementation with mock */
+  public WorkspaceClient withModelVersionsImpl(ModelVersionsService modelVersions) {
+    modelVersionsAPI = new ModelVersionsAPI(modelVersions);
+    return this;
+  }
+
   /** Replace PermissionsAPI implementation with mock */
   public WorkspaceClient withPermissionsImpl(PermissionsService permissions) {
     permissionsAPI = new PermissionsAPI(permissions);
@@ -1423,6 +1480,12 @@ public class WorkspaceClient {
   /** Replace RecipientsAPI implementation with mock */
   public WorkspaceClient withRecipientsImpl(RecipientsService recipients) {
     recipientsAPI = new RecipientsAPI(recipients);
+    return this;
+  }
+
+  /** Replace RegisteredModelsAPI implementation with mock */
+  public WorkspaceClient withRegisteredModelsImpl(RegisteredModelsService registeredModels) {
+    registeredModelsAPI = new RegisteredModelsAPI(registeredModels);
     return this;
   }
 

@@ -5,7 +5,6 @@ import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.integration.framework.NameUtils;
 import com.databricks.sdk.integration.framework.ResourceWithCleanup;
-import com.databricks.sdk.service.files.UploadFileRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,12 +43,10 @@ public class FilesIT {
     ByteArrayInputStream inputStream = new ByteArrayInputStream(fileContents);
 
     // Write the file to DBFS.
-    workspace
-        .files()
-        .uploadFile(new UploadFileRequest().setFilePath(fileName).setContents(inputStream));
+    workspace.files().upload(fileName, inputStream);
 
     // Read the file back from DBFS.
-    try (InputStream readContents = workspace.files().downloadFile(fileName).getContents()) {
+    try (InputStream readContents = workspace.files().download(fileName).getContents()) {
       byte[] result = new byte[fileContents.length];
       int bytesRead = readContents.read(result);
       Assertions.assertEquals(bytesRead, fileContents.length);
@@ -57,7 +54,7 @@ public class FilesIT {
       // Assert that the contents of the file are the same as what was written out.
       Assertions.assertArrayEquals(fileContents, result);
     } finally {
-      workspace.files().deleteFile(fileName);
+      workspace.files().delete(fileName);
     }
   }
 }

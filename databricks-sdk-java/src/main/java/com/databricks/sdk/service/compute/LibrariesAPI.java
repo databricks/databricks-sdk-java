@@ -55,7 +55,7 @@ public class LibrariesAPI {
     return impl.allClusterStatuses();
   }
 
-  public ClusterLibraryStatuses clusterStatus(String clusterId) {
+  public Iterable<LibraryFullStatus> clusterStatus(String clusterId) {
     return clusterStatus(new ClusterStatusRequest().setClusterId(clusterId));
   }
 
@@ -76,8 +76,8 @@ public class LibrariesAPI {
    * <p>3. Libraries that were previously requested on this cluster or on all clusters, but now
    * marked for removal. Within this group there is no order guarantee.
    */
-  public ClusterLibraryStatuses clusterStatus(ClusterStatusRequest request) {
-    return impl.clusterStatus(request);
+  public Iterable<LibraryFullStatus> clusterStatus(ClusterStatusRequest request) {
+    return impl.clusterStatus(request).getLibraryStatuses();
   }
 
   public void install(String clusterId, Collection<Library> libraries) {

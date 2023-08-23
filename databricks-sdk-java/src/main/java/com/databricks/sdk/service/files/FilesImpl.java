@@ -17,23 +17,23 @@ class FilesImpl implements FilesService {
   }
 
   @Override
-  public void deleteFile(DeleteFileRequest request) {
+  public void delete(DeleteFileRequest request) {
     String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
-  public DownloadFileResponse downloadFile(DownloadFileRequest request) {
+  public DownloadResponse download(DownloadRequest request) {
     String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/octet-stream");
     InputStream response = apiClient.GET(path, request, InputStream.class, headers);
-    return new DownloadFileResponse().setContents(response);
+    return new DownloadResponse().setContents(response);
   }
 
   @Override
-  public FileInfo getStatus(GetStatusRequest request) {
+  public FileInfo getStatusInternal(GetStatusInternalRequest request) {
     String path = "/api/2.0/fs/get-status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -41,7 +41,7 @@ class FilesImpl implements FilesService {
   }
 
   @Override
-  public void uploadFile(UploadFileRequest request) {
+  public void upload(UploadRequest request) {
     String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/octet-stream");

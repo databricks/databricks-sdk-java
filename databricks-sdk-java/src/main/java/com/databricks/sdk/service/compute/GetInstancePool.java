@@ -78,10 +78,6 @@ public class GetInstancePool {
   @JsonProperty("idle_instance_autotermination_minutes")
   private Long idleInstanceAutoterminationMinutes;
 
-  /** The fleet related setting to power the instance pool. */
-  @JsonProperty("instance_pool_fleet_attributes")
-  private InstancePoolFleetAttributes instancePoolFleetAttributes;
-
   /** Canonical unique identifier for the pool. */
   @JsonProperty("instance_pool_id")
   private String instancePoolId;
@@ -211,16 +207,6 @@ public class GetInstancePool {
     return idleInstanceAutoterminationMinutes;
   }
 
-  public GetInstancePool setInstancePoolFleetAttributes(
-      InstancePoolFleetAttributes instancePoolFleetAttributes) {
-    this.instancePoolFleetAttributes = instancePoolFleetAttributes;
-    return this;
-  }
-
-  public InstancePoolFleetAttributes getInstancePoolFleetAttributes() {
-    return instancePoolFleetAttributes;
-  }
-
   public GetInstancePool setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;
     return this;
@@ -325,7 +311,6 @@ public class GetInstancePool {
         && Objects.equals(gcpAttributes, that.gcpAttributes)
         && Objects.equals(
             idleInstanceAutoterminationMinutes, that.idleInstanceAutoterminationMinutes)
-        && Objects.equals(instancePoolFleetAttributes, that.instancePoolFleetAttributes)
         && Objects.equals(instancePoolId, that.instancePoolId)
         && Objects.equals(instancePoolName, that.instancePoolName)
         && Objects.equals(maxCapacity, that.maxCapacity)
@@ -349,7 +334,6 @@ public class GetInstancePool {
         enableElasticDisk,
         gcpAttributes,
         idleInstanceAutoterminationMinutes,
-        instancePoolFleetAttributes,
         instancePoolId,
         instancePoolName,
         maxCapacity,
@@ -373,7 +357,6 @@ public class GetInstancePool {
         .add("enableElasticDisk", enableElasticDisk)
         .add("gcpAttributes", gcpAttributes)
         .add("idleInstanceAutoterminationMinutes", idleInstanceAutoterminationMinutes)
-        .add("instancePoolFleetAttributes", instancePoolFleetAttributes)
         .add("instancePoolId", instancePoolId)
         .add("instancePoolName", instancePoolName)
         .add("maxCapacity", maxCapacity)

@@ -64,10 +64,6 @@ public class CreateInstancePool {
   @JsonProperty("idle_instance_autotermination_minutes")
   private Long idleInstanceAutoterminationMinutes;
 
-  /** The fleet related setting to power the instance pool. */
-  @JsonProperty("instance_pool_fleet_attributes")
-  private InstancePoolFleetAttributes instancePoolFleetAttributes;
-
   /**
    * Pool name requested by the user. Pool name must be unique. Length must be between 1 and 100
    * characters.
@@ -172,16 +168,6 @@ public class CreateInstancePool {
     return idleInstanceAutoterminationMinutes;
   }
 
-  public CreateInstancePool setInstancePoolFleetAttributes(
-      InstancePoolFleetAttributes instancePoolFleetAttributes) {
-    this.instancePoolFleetAttributes = instancePoolFleetAttributes;
-    return this;
-  }
-
-  public InstancePoolFleetAttributes getInstancePoolFleetAttributes() {
-    return instancePoolFleetAttributes;
-  }
-
   public CreateInstancePool setInstancePoolName(String instancePoolName) {
     this.instancePoolName = instancePoolName;
     return this;
@@ -250,7 +236,6 @@ public class CreateInstancePool {
         && Objects.equals(gcpAttributes, that.gcpAttributes)
         && Objects.equals(
             idleInstanceAutoterminationMinutes, that.idleInstanceAutoterminationMinutes)
-        && Objects.equals(instancePoolFleetAttributes, that.instancePoolFleetAttributes)
         && Objects.equals(instancePoolName, that.instancePoolName)
         && Objects.equals(maxCapacity, that.maxCapacity)
         && Objects.equals(minIdleInstances, that.minIdleInstances)
@@ -269,7 +254,6 @@ public class CreateInstancePool {
         enableElasticDisk,
         gcpAttributes,
         idleInstanceAutoterminationMinutes,
-        instancePoolFleetAttributes,
         instancePoolName,
         maxCapacity,
         minIdleInstances,
@@ -288,7 +272,6 @@ public class CreateInstancePool {
         .add("enableElasticDisk", enableElasticDisk)
         .add("gcpAttributes", gcpAttributes)
         .add("idleInstanceAutoterminationMinutes", idleInstanceAutoterminationMinutes)
-        .add("instancePoolFleetAttributes", instancePoolFleetAttributes)
         .add("instancePoolName", instancePoolName)
         .add("maxCapacity", maxCapacity)
         .add("minIdleInstances", minIdleInstances)
