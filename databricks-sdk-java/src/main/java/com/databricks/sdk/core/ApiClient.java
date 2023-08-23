@@ -181,7 +181,8 @@ public class ApiClient {
     return !method.equals("GET") && !method.equals("DELETE") && !method.equals("HEAD");
   }
 
-  private <I> Request prepareBaseRequest(String method, String path, I in) throws IOException {
+  private <I> Request prepareBaseRequest(String method, String path, I in)
+      throws JsonProcessingException {
     if (in == null || !hasBody(method)) {
       return new Request(method, path);
     } else if (InputStream.class.isAssignableFrom(in.getClass())) {
@@ -196,7 +197,7 @@ public class ApiClient {
   }
 
   private <I> Request prepareRequest(String method, String path, I in, Map<String, String> headers)
-      throws IOException {
+      throws JsonProcessingException {
     Request req = prepareBaseRequest(method, path, in);
     setQuery(req, in);
     setHeaders(req, headers);
@@ -333,6 +334,9 @@ public class ApiClient {
   }
 
   private String serialize(Object body) throws JsonProcessingException {
+    if (body == null) {
+      return null;
+    }
     return mapper.writeValueAsString(body);
   }
 }

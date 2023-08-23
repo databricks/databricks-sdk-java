@@ -9,7 +9,7 @@ import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.CustomCloseInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +102,7 @@ public class CommonsHttpClient implements HttpClient {
     }
 
     try (InputStream inputStream = entity.getContent()) {
-      String body = IOUtils.toString(inputStream, Charset.defaultCharset());
+      String body = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
       return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
     } finally {
       response.close();

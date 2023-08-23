@@ -35,7 +35,7 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
     {{- else if .Response.MapValue -}} return apiClient.getStringMap(path, {{ template "request-param" .}}, headers);
     {{- else if .IsResponseByteStream -}}
     InputStream response = {{ template "api-call" . }}
-    return new {{ .Response.PascalName }}().setContents(response);
+    return new {{ .Response.PascalName }}().set{{.ResponseBodyField.PascalName}}(response);
     {{- else }}return {{ template "api-call" . }}
     {{- end}}
   }
@@ -51,13 +51,13 @@ apiClient.{{.Verb}}(path
   , headers);
 {{- end }}
 
+{{ define "request-param" -}}
+  request{{ if .RequestBodyField }}.get{{.RequestBodyField.PascalName}}(){{end}}
+{{- end }}
+
 {{ define "headers" -}}
     Map<String, String> headers = new HashMap<>();
     {{- range $key, $value := .FixedRequestHeaders }}
     headers.put("{{$key}}", "{{$value}}");
     {{- end -}}
-{{- end }}
-
-{{ define "request-param" -}}
-  request{{ if .RequestBodyField }}.get{{.RequestBodyField.PascalName}}(){{end}}
 {{- end }}
