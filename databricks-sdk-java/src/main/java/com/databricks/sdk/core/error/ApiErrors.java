@@ -4,6 +4,8 @@ import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.IOUtils;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
@@ -57,13 +59,19 @@ public class ApiErrors {
    */
   private static ApiErrorBody parseApiError(Response response) {
     try {
-      return MAPPER.readValue(response.getBody(), ApiErrorBody.class);
+      // Read the body now, so we can try to parse as JSON and then fallback to old error handling logic.
+      String body = IOUtils.toString(response.getBody(), StandardCharsets.UTF_8);
+      try {
+        return MAPPER.readValue(body, ApiErrorBody.class);
+      } catch (IOException e) {
+        return parseUnknownError(response, body, e);
+      }
     } catch (IOException e) {
-      return parseUnknownError(response, e);
+      throw new DatabricksException("Unable to read response body", e);
     }
   }
 
-  private static ApiErrorBody parseUnknownError(Response response, IOException err) {
+  private static ApiErrorBody parseUnknownError(Response response, String body, IOException err) {
     ApiErrorBody errorBody = new ApiErrorBody();
     String[] statusParts = response.getStatus().split(" ", 2);
     if (statusParts.length < 2) {
@@ -73,7 +81,6 @@ public class ApiErrors {
       errorBody.setErrorCode(errorCode.replaceAll(" ", "_").toUpperCase());
     }
 
-    String body = convert(response.getBody());
     Matcher messageMatcher = HTML_ERROR_REGEX.matcher(body);
     if (messageMatcher.find()) {
       errorBody.setMessage(messageMatcher.group(1).replaceAll("^[ .]+|[ .]+$", ""));
@@ -83,21 +90,5 @@ public class ApiErrors {
               "Response from server (%s) %s: %s", response.getStatus(), body, err.getMessage()));
     }
     return errorBody;
-  }
-
-  private static String convert(InputStream in) {
-    ByteArrayOutputStream out = new ByteArrayOutputStream();
-    while (true) {
-      try {
-        int data = in.read();
-        if (data == -1) {
-          break;
-        }
-        out.write(data);
-      } catch (IOException e) {
-        throw new DatabricksException("failed to read response body", e);
-      }
-    }
-    return new String(out.toByteArray(), StandardCharsets.UTF_8);
   }
 }
