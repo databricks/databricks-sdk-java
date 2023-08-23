@@ -4,12 +4,11 @@ import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.IOUtils;
-
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.apache.commons.io.IOUtils;
 
 /** Helper methods for inspecting the response and errors thrown during API requests. */
 public class ApiErrors {
@@ -59,7 +58,8 @@ public class ApiErrors {
    */
   private static ApiErrorBody parseApiError(Response response) {
     try {
-      // Read the body now, so we can try to parse as JSON and then fallback to old error handling logic.
+      // Read the body now, so we can try to parse as JSON and then fallback to old error handling
+      // logic.
       String body = IOUtils.toString(response.getBody(), StandardCharsets.UTF_8);
       try {
         return MAPPER.readValue(body, ApiErrorBody.class);
