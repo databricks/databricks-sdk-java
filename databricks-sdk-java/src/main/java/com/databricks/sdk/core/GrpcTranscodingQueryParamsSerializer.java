@@ -17,11 +17,11 @@ import java.util.*;
  * documentation for gRPC transcoding</a> for more details.
  */
 public class GrpcTranscodingQueryParamsSerializer {
-  public static class HeaderEntry {
+  public static class QueryParamPair {
     private final String key;
     private final String value;
 
-    public HeaderEntry(String key, String value) {
+    public QueryParamPair(String key, String value) {
       this.key = key;
       this.value = value;
     }
@@ -47,25 +47,19 @@ public class GrpcTranscodingQueryParamsSerializer {
    * @param o The object to serialize.
    * @return A list of query parameter entries compatible with gRPC-transcoding.
    */
-  public static List<HeaderEntry> serialize(Object o) {
-    Map<String, Object> flattened = flattenObject(o);
-    for (Field f : o.getClass().getDeclaredFields()) {
-      QueryParam queryParam = f.getAnnotation(QueryParam.class);
-      if (queryParam == null) {
-        flattened.remove(getFieldName(f));
-      }
-    }
+  public static List<QueryParamPair> serialize(Object o) {
+    Map<String, Object> flattened = flattenObject(o, true);
 
-    List<HeaderEntry> result = new ArrayList<>();
+    List<QueryParamPair> result = new ArrayList<>();
     for (Map.Entry<String, Object> entry : flattened.entrySet()) {
       String key = entry.getKey();
       Object value = entry.getValue();
       if (value instanceof Collection) {
         for (Object v : (Collection<Object>) value) {
-          result.add(new HeaderEntry(key, v.toString()));
+          result.add(new QueryParamPair(key, v.toString()));
         }
       } else {
-        result.add(new HeaderEntry(key, value.toString()));
+        result.add(new QueryParamPair(key, value.toString()));
       }
     }
     return result;
@@ -103,11 +97,14 @@ public class GrpcTranscodingQueryParamsSerializer {
     }
   }
 
-  private static Map<String, Object> flattenObject(Object o) {
+  private static Map<String, Object> flattenObject(Object o, Boolean onlyAnnotatedFields) {
     // LinkedHashMap ensures consistent ordering of fields.
     Map<String, Object> result = new LinkedHashMap<>();
     Field[] fields = o.getClass().getDeclaredFields();
     for (Field f : fields) {
+      if (onlyAnnotatedFields && f.getAnnotation(QueryParam.class) == null) {
+        continue;
+      }
       f.setAccessible(true);
       try {
         String name = getFieldName(f);
@@ -115,12 +112,15 @@ public class GrpcTranscodingQueryParamsSerializer {
         if (value == null) {
           continue;
         }
-        // check if object is a primitive type or a collection of some kind
-        if (primitiveTypes.contains(f.getType()) || Iterable.class.isAssignableFrom(f.getType())) {
+        // check if object is a primitive type, a collection of some kind, or an enum
+        Class<?> type = f.getType();
+        if (primitiveTypes.contains(type)
+            || Iterable.class.isAssignableFrom(type)
+            || type.isEnum()) {
           result.put(name, value);
         } else {
           // recursively flatten the object
-          Map<String, Object> flattened = flattenObject(value);
+          Map<String, Object> flattened = flattenObject(value, false);
           for (Map.Entry<String, Object> entry : flattened.entrySet()) {
             result.put(name + "." + entry.getKey(), entry.getValue());
           }
