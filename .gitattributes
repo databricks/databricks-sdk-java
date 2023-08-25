@@ -485,7 +485,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FileInfo.java
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FilesAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FilesImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/FilesService.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/GetStatusInternalRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/GetStatusRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/ListDbfsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/ListStatusResponse.java linguist-generated=true

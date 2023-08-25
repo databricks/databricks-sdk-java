@@ -28,11 +28,11 @@ public interface FilesService {
   DownloadResponse download(DownloadRequest downloadRequest);
 
   /**
-   * Get the status of a file or directory.
+   * Get file or directory status.
    *
    * <p>Returns the status of a file or directory.
    */
-  FileInfo getStatusInternal(GetStatusInternalRequest getStatusInternalRequest);
+  FileInfo getStatus(GetStatusRequest getStatusRequest);
 
   /**
    * Upload a file.

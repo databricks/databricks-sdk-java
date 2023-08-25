@@ -53,17 +53,17 @@ public class FilesAPI {
     return impl.download(request);
   }
 
-  public FileInfo getStatusInternal(String path) {
-    return getStatusInternal(new GetStatusInternalRequest().setPath(path));
+  public FileInfo getStatus(String path) {
+    return getStatus(new GetStatusRequest().setPath(path));
   }
 
   /**
-   * Get the status of a file or directory.
+   * Get file or directory status.
    *
    * <p>Returns the status of a file or directory.
    */
-  public FileInfo getStatusInternal(GetStatusInternalRequest request) {
-    return impl.getStatusInternal(request);
+  public FileInfo getStatus(GetStatusRequest request) {
+    return impl.getStatus(request);
   }
 
   public void upload(String filePath, InputStream contents) {

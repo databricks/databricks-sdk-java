@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class FileInfo {
-  /** The length of the file in bytes or zero if the path is a directory. */
+  /** The length of the file in bytes. This field is omitted for directories. */
   @JsonProperty("file_size")
   private Long fileSize;
 
@@ -17,11 +17,11 @@ public class FileInfo {
   @JsonProperty("is_dir")
   private Boolean isDir;
 
-  /** Last modification time of given file/dir in milliseconds since Epoch. */
+  /** Last modification time of given file in milliseconds since epoch. */
   @JsonProperty("modification_time")
   private Long modificationTime;
 
-  /** The path of the file or directory. */
+  /** The absolute path of the file or directory. */
   @JsonProperty("path")
   private String path;
 

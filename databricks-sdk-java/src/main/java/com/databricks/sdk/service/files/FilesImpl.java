@@ -33,7 +33,7 @@ class FilesImpl implements FilesService {
   }
 
   @Override
-  public FileInfo getStatusInternal(GetStatusInternalRequest request) {
+  public FileInfo getStatus(GetStatusRequest request) {
     String path = "/api/2.0/fs/get-status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

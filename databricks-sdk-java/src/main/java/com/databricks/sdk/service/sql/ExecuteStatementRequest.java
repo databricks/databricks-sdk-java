@@ -138,6 +138,13 @@ public class ExecuteStatementRequest {
   private Collection<StatementParameterListItem> parameters;
 
   /**
+   * Applies the given row limit to the statement's result set with identical semantics as the SQL
+   * `LIMIT` clause.
+   */
+  @JsonProperty("row_limit")
+  private Long rowLimit;
+
+  /**
    * Sets default schema for statement execution, similar to [`USE SCHEMA`] in SQL.
    *
    * <p>[`USE SCHEMA`]:
@@ -219,6 +226,15 @@ public class ExecuteStatementRequest {
     return parameters;
   }
 
+  public ExecuteStatementRequest setRowLimit(Long rowLimit) {
+    this.rowLimit = rowLimit;
+    return this;
+  }
+
+  public Long getRowLimit() {
+    return rowLimit;
+  }
+
   public ExecuteStatementRequest setSchema(String schema) {
     this.schema = schema;
     return this;
@@ -266,6 +282,7 @@ public class ExecuteStatementRequest {
         && Objects.equals(format, that.format)
         && Objects.equals(onWaitTimeout, that.onWaitTimeout)
         && Objects.equals(parameters, that.parameters)
+        && Objects.equals(rowLimit, that.rowLimit)
         && Objects.equals(schema, that.schema)
         && Objects.equals(statement, that.statement)
         && Objects.equals(waitTimeout, that.waitTimeout)
@@ -281,6 +298,7 @@ public class ExecuteStatementRequest {
         format,
         onWaitTimeout,
         parameters,
+        rowLimit,
         schema,
         statement,
         waitTimeout,
@@ -296,6 +314,7 @@ public class ExecuteStatementRequest {
         .add("format", format)
         .add("onWaitTimeout", onWaitTimeout)
         .add("parameters", parameters)
+        .add("rowLimit", rowLimit)
         .add("schema", schema)
         .add("statement", statement)
         .add("waitTimeout", waitTimeout)

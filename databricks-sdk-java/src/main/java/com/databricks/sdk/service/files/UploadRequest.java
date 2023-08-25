@@ -17,7 +17,7 @@ public class UploadRequest {
   /** The absolute path of the file or directory in DBFS. */
   private String filePath;
 
-  /** The flag that specifies whether to overwrite existing file/files. */
+  /** If true, an existing file will be overwritten. */
   @QueryParam("overwrite")
   private Boolean overwrite;
 
