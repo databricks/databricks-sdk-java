@@ -5,6 +5,7 @@ package com.databricks.sdk.service.provisioning;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -32,6 +33,14 @@ public class Workspace {
   /** ID of the workspace's credential configuration object. */
   @JsonProperty("credentials_id")
   private String credentialsId;
+
+  /**
+   * The custom tags key-value pairing that is attached to this workspace. The key-value pair is a
+   * string of utf-8 characters. The value can be an empty string, with maximum length of 255
+   * characters. The key can be of maximum length of 127 characters, and cannot be empty.
+   */
+  @JsonProperty("custom_tags")
+  private Map<String, String> customTags;
 
   /**
    * The deployment name defines part of the subdomain for the workspace. The workspace URL for web
@@ -191,6 +200,15 @@ public class Workspace {
     return credentialsId;
   }
 
+  public Workspace setCustomTags(Map<String, String> customTags) {
+    this.customTags = customTags;
+    return this;
+  }
+
+  public Map<String, String> getCustomTags() {
+    return customTags;
+  }
+
   public Workspace setDeploymentName(String deploymentName) {
     this.deploymentName = deploymentName;
     return this;
@@ -329,6 +347,7 @@ public class Workspace {
         && Objects.equals(cloudResourceContainer, that.cloudResourceContainer)
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(customTags, that.customTags)
         && Objects.equals(deploymentName, that.deploymentName)
         && Objects.equals(gcpManagedNetworkConfig, that.gcpManagedNetworkConfig)
         && Objects.equals(gkeConfig, that.gkeConfig)
@@ -355,6 +374,7 @@ public class Workspace {
         cloudResourceContainer,
         creationTime,
         credentialsId,
+        customTags,
         deploymentName,
         gcpManagedNetworkConfig,
         gkeConfig,
@@ -380,6 +400,7 @@ public class Workspace {
         .add("cloudResourceContainer", cloudResourceContainer)
         .add("creationTime", creationTime)
         .add("credentialsId", credentialsId)
+        .add("customTags", customTags)
         .add("deploymentName", deploymentName)
         .add("gcpManagedNetworkConfig", gcpManagedNetworkConfig)
         .add("gkeConfig", gkeConfig)

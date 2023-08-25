@@ -998,6 +998,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/Creden
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CredentialsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CredentialsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CredentialsService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CustomTags.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CustomerFacingGcpCloudResourceContainer.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CustomerManagedKey.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/DeleteCredentialRequest.java linguist-generated=true

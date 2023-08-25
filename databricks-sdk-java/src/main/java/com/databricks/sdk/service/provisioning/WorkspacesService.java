@@ -97,7 +97,8 @@ public interface WorkspacesService {
    * workspace storage. - Private access settings ID to add PrivateLink support. You can add or
    * update the private access settings ID to upgrade a workspace to add support for front-end,
    * back-end, or both types of connectivity. You cannot remove (downgrade) any existing front-end
-   * or back-end PrivateLink support on a workspace.
+   * or back-end PrivateLink support on a workspace. - Custom tags. Given you provide an empty
+   * custom tags, the update would not be applied.
    *
    * <p>After calling the `PATCH` operation to update the workspace configuration, make repeated
    * `GET` requests with the workspace ID and check the workspace status. The workspace is
@@ -130,7 +131,8 @@ public interface WorkspacesService {
    * settings ID to add PrivateLink support. You can add or update the private access settings ID to
    * upgrade a workspace to add support for front-end, back-end, or both types of connectivity. You
    * cannot remove (downgrade) any existing front-end or back-end PrivateLink support on a
-   * workspace.
+   * workspace. - Custom tags. Given you provide an empty custom tags, the update would not be
+   * applied.
    *
    * <p>**Important**: To update a running workspace, your workspace must have no running compute
    * resources that run in your workspace's VPC in the Classic data plane. For example, stop all
