@@ -84,8 +84,7 @@ public class CommonsHttpClient implements HttpClient {
     boolean streamResponse =
         in.getHeaders().containsKey("Accept")
             && !APPLICATION_JSON.getMimeType().equals(in.getHeaders().get("Accept"))
-            && hs.containsKey("Content-Type")
-            && !APPLICATION_JSON.getMimeType().equals(hs.get("Content-Type").get(0));
+            && !APPLICATION_JSON.getMimeType().equals(response.getFirstHeader("Content-Type").getValue());
     if (streamResponse) {
       CustomCloseInputStream inputStream =
           new CustomCloseInputStream(
