@@ -1,7 +1,6 @@
 package com.databricks.sdk.integration.framework;
 
 import static java.lang.String.format;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
@@ -24,6 +23,7 @@ import java.lang.reflect.Parameter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariables;
@@ -32,20 +32,45 @@ import org.junit.platform.commons.util.Preconditions;
 
 public class EnvTest
     implements Extension, ParameterResolver, ExecutionCondition, ConfigResolving, GitHubUtils {
-  static {
-    UserAgent.withProduct("integration-tests", "0.0.1");
-  }
 
   private static final String ENV_STORE_KEY = "env";
 
-  @Override
-  public boolean supportsParameter(
-      ParameterContext parameterContext, ExtensionContext extensionContext)
-      throws ParameterResolutionException {
-    Parameter parameter = parameterContext.getParameter();
-    return parameter.getType() == WorkspaceClient.class
-        || parameter.getType() == AccountClient.class
-        || parameter.isAnnotationPresent(EnvOrSkip.class);
+  private static final Map<String, Function<Map<String, String>, ConditionEvaluationResult>> TEST_EXECUTION_RULES_BY_ENV;
+
+  private static final ObjectMapper MAPPER;
+
+  static {
+    UserAgent.withProduct("integration-tests", "0.0.1");
+    TEST_EXECUTION_RULES_BY_ENV = new HashMap<>();
+    TEST_EXECUTION_RULES_BY_ENV.put("workspace", (env) -> {
+      if (env.containsKey("DATABRICKS_ACCOUNT_ID")) {
+        return disabled("Skipping workspace-level test in account environment");
+      }
+      return enabled("okay to run");
+    });
+    TEST_EXECUTION_RULES_BY_ENV.put("ucws", (env) -> {
+      if (env.containsKey("DATABRICKS_ACCOUNT_ID")) {
+        return disabled("Skipping workspace-level test in account environment");
+      } else if (!env.containsKey("TEST_METASTORE_ID")) {
+        return disabled("Skipping Unity Catalog workspace-level test in non-Unity Catalog environment");
+      }
+      return enabled("okay to run");
+    });
+    TEST_EXECUTION_RULES_BY_ENV.put("account", (env) -> {
+      if (!env.containsKey("DATABRICKS_ACCOUNT_ID")) {
+        return disabled("Skipping account-level test in workspace environment");
+      }
+      return enabled("okay to run");
+    });
+    TEST_EXECUTION_RULES_BY_ENV.put("ucacct", (env) -> {
+      if (!env.containsKey("DATABRICKS_ACCOUNT_ID")) {
+        return disabled("Skipping account-level test in workspace environment");
+      } else if (!env.containsKey("TEST_METASTORE_ID")) {
+        return disabled("Skipping Unity Catalog account-level test in non-Unity Catalog environment");
+      }
+      return enabled("okay to run");
+    });
+    MAPPER = makeObjectMapper();
   }
 
   @Override
@@ -58,7 +83,25 @@ public class EnvTest
     if (!env.containsKey("CLOUD_ENV")) {
       return ConditionEvaluationResult.disabled("No CLOUD_ENV");
     }
-    ConditionEvaluationResult enabled = ConditionEvaluationResult.enabled("okay to run");
+
+    // Ensure that the test is only run if the environment (either the process environment or the environment loaded
+    // from debug-env.json) matches the environment specified in the @EnvContext annotation.
+    Optional<String> contextOpt = getEnvContext(context);
+    if (!contextOpt.isPresent()) {
+      return ConditionEvaluationResult.disabled("Context must be specified for integration tests");
+    }
+    String contextStr = contextOpt.get();
+    if (!TEST_EXECUTION_RULES_BY_ENV.containsKey(contextStr)) {
+      return ConditionEvaluationResult.disabled("Unknown context: " + contextStr);
+    }
+    ConditionEvaluationResult envBasedResult = TEST_EXECUTION_RULES_BY_ENV.get(contextStr).apply(env);
+    if (envBasedResult.isDisabled()) {
+      return envBasedResult;
+    }
+
+    // If a test uses a WorkspaceClient or AccountClient, ensure that the test is only run in the appropriate
+    // environment. If a test depends on an environment variable, ensure that the test is only run if the environment
+    // variable is set.
     Optional<List<Parameter>> methodParams =
         context
             .getElement()
@@ -90,7 +133,17 @@ public class EnvTest
     if (envVariableCondition.isDisabled()) {
       return envVariableCondition;
     }
-    return enabled;
+    return ConditionEvaluationResult.enabled("okay to run");
+  }
+
+  @Override
+  public boolean supportsParameter(
+      ParameterContext parameterContext, ExtensionContext extensionContext)
+      throws ParameterResolutionException {
+    Parameter parameter = parameterContext.getParameter();
+    return parameter.getType() == WorkspaceClient.class
+        || parameter.getType() == AccountClient.class
+        || parameter.isAnnotationPresent(EnvOrSkip.class);
   }
 
   @Override
@@ -100,7 +153,7 @@ public class EnvTest
     Parameter parameter = parameterContext.getParameter();
     Optional<EnvGetter> envGetter = makeEnvResolver(extensionContext);
     if (!envGetter.isPresent()) {
-      return fail("Cannot resolve DatabricksConfig");
+      throw new ParameterResolutionException("Cannot resolve DatabricksConfig");
     }
     Map<String, String> env = envGetter.get().get();
     DatabricksConfig config = new DatabricksConfig();
@@ -113,11 +166,34 @@ public class EnvTest
       EnvOrSkip envOrSkip = parameter.getAnnotation(EnvOrSkip.class);
       boolean envValue = env.containsKey(envOrSkip.value());
       if (!envValue) {
-        return fail("No env: " + envOrSkip.value());
+        throw new ParameterResolutionException("No env: " + envOrSkip.value());
       }
       return env.get(envOrSkip.value());
     }
-    return fail("Cannot resolve " + parameter.getName());
+    throw new ParameterResolutionException("Cannot resolve " + parameter.getName());
+  }
+
+  /**
+   * Retrieves the value of the EnvContext annotation on the given context or its parent contexts. For
+   * ClassExtensionContexts, the annotation is retrieved from the class. For MethodExtensionContexts, the
+   * annotation is retrieved from the method, falling back to the class.
+   *
+   * @param context the context to search
+   * @return the value of the EnvContext annotation on the given context or its parent contexts
+   */
+  private Optional<String> getEnvContext(ExtensionContext context) {
+    if (context == null) {
+      return Optional.empty();
+    }
+    Optional<String> res = context
+        .getElement()
+        .map(it -> it.getAnnotation(EnvContext.class))
+        .map(EnvContext::value);
+    if (res.isPresent()) {
+      return res;
+    } else {
+      return getEnvContext(context.getParent().orElse(null));
+    }
   }
 
   private Optional<EnvGetter> makeEnvResolver(ExtensionContext context) {
@@ -127,14 +203,10 @@ public class EnvTest
       // Environment is already present in the parent context store
       return Optional.of(env);
     }
-    return context
-        .getElement()
-        .map(it -> it.getAnnotation(EnvContext.class))
-        .map(EnvContext::value)
-        .map(
-            contextName ->
-                store.getOrComputeIfAbsent(
-                    ENV_STORE_KEY, x -> makeEnvResolver(contextName), EnvGetter.class));
+    return getEnvContext(context).map(
+        contextName ->
+            store.getOrComputeIfAbsent(
+                ENV_STORE_KEY, x -> makeEnvResolver(contextName), EnvGetter.class));
   }
 
   private EnvGetter makeEnvResolver(String contextName) {
@@ -144,8 +216,7 @@ public class EnvTest
     String debugEnvFile =
         String.format("%s/.databricks/debug-env.json", System.getProperty("user.home"));
     try (InputStream in = Files.newInputStream(Paths.get(debugEnvFile))) {
-      ObjectMapper objectMapper = makeObjectMapper();
-      Map<String, Map<String, String>> all = objectMapper.readValue(in, new DebugEnv());
+      Map<String, Map<String, String>> all = MAPPER.readValue(in, new DebugEnv());
       Map<String, String> found = all.get(contextName);
       if (found == null) {
         return System::getenv;
@@ -223,7 +294,7 @@ public class EnvTest
             name, actual, regex));
   }
 
-  private ObjectMapper makeObjectMapper() {
+  private static ObjectMapper makeObjectMapper() {
     ObjectMapper mapper = new ObjectMapper();
     mapper
         .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
