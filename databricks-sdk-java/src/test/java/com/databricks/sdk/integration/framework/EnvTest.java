@@ -35,41 +35,52 @@ public class EnvTest
 
   private static final String ENV_STORE_KEY = "env";
 
-  private static final Map<String, Function<Map<String, String>, ConditionEvaluationResult>> TEST_EXECUTION_RULES_BY_ENV;
+  private static final Map<String, Function<Map<String, String>, ConditionEvaluationResult>>
+      TEST_EXECUTION_RULES_BY_ENV;
 
   private static final ObjectMapper MAPPER;
 
   static {
     UserAgent.withProduct("integration-tests", "0.0.1");
     TEST_EXECUTION_RULES_BY_ENV = new HashMap<>();
-    TEST_EXECUTION_RULES_BY_ENV.put("workspace", (env) -> {
-      if (env.containsKey("DATABRICKS_ACCOUNT_ID")) {
-        return disabled("Skipping workspace-level test in account environment");
-      }
-      return enabled("okay to run");
-    });
-    TEST_EXECUTION_RULES_BY_ENV.put("ucws", (env) -> {
-      if (env.containsKey("DATABRICKS_ACCOUNT_ID")) {
-        return disabled("Skipping workspace-level test in account environment");
-      } else if (!env.containsKey("TEST_METASTORE_ID")) {
-        return disabled("Skipping Unity Catalog workspace-level test in non-Unity Catalog environment");
-      }
-      return enabled("okay to run");
-    });
-    TEST_EXECUTION_RULES_BY_ENV.put("account", (env) -> {
-      if (!env.containsKey("DATABRICKS_ACCOUNT_ID")) {
-        return disabled("Skipping account-level test in workspace environment");
-      }
-      return enabled("okay to run");
-    });
-    TEST_EXECUTION_RULES_BY_ENV.put("ucacct", (env) -> {
-      if (!env.containsKey("DATABRICKS_ACCOUNT_ID")) {
-        return disabled("Skipping account-level test in workspace environment");
-      } else if (!env.containsKey("TEST_METASTORE_ID")) {
-        return disabled("Skipping Unity Catalog account-level test in non-Unity Catalog environment");
-      }
-      return enabled("okay to run");
-    });
+    TEST_EXECUTION_RULES_BY_ENV.put(
+        "workspace",
+        (env) -> {
+          if (env.containsKey("DATABRICKS_ACCOUNT_ID")) {
+            return disabled("Skipping workspace-level test in account environment");
+          }
+          return enabled("okay to run");
+        });
+    TEST_EXECUTION_RULES_BY_ENV.put(
+        "ucws",
+        (env) -> {
+          if (env.containsKey("DATABRICKS_ACCOUNT_ID")) {
+            return disabled("Skipping workspace-level test in account environment");
+          } else if (!env.containsKey("TEST_METASTORE_ID")) {
+            return disabled(
+                "Skipping Unity Catalog workspace-level test in non-Unity Catalog environment");
+          }
+          return enabled("okay to run");
+        });
+    TEST_EXECUTION_RULES_BY_ENV.put(
+        "account",
+        (env) -> {
+          if (!env.containsKey("DATABRICKS_ACCOUNT_ID")) {
+            return disabled("Skipping account-level test in workspace environment");
+          }
+          return enabled("okay to run");
+        });
+    TEST_EXECUTION_RULES_BY_ENV.put(
+        "ucacct",
+        (env) -> {
+          if (!env.containsKey("DATABRICKS_ACCOUNT_ID")) {
+            return disabled("Skipping account-level test in workspace environment");
+          } else if (!env.containsKey("TEST_METASTORE_ID")) {
+            return disabled(
+                "Skipping Unity Catalog account-level test in non-Unity Catalog environment");
+          }
+          return enabled("okay to run");
+        });
     MAPPER = makeObjectMapper();
   }
 
@@ -84,7 +95,8 @@ public class EnvTest
       return ConditionEvaluationResult.disabled("No CLOUD_ENV");
     }
 
-    // Ensure that the test is only run if the environment (either the process environment or the environment loaded
+    // Ensure that the test is only run if the environment (either the process environment or the
+    // environment loaded
     // from debug-env.json) matches the environment specified in the @EnvContext annotation.
     Optional<String> contextOpt = getEnvContext(context);
     if (!contextOpt.isPresent()) {
@@ -94,13 +106,16 @@ public class EnvTest
     if (!TEST_EXECUTION_RULES_BY_ENV.containsKey(contextStr)) {
       return ConditionEvaluationResult.disabled("Unknown context: " + contextStr);
     }
-    ConditionEvaluationResult envBasedResult = TEST_EXECUTION_RULES_BY_ENV.get(contextStr).apply(env);
+    ConditionEvaluationResult envBasedResult =
+        TEST_EXECUTION_RULES_BY_ENV.get(contextStr).apply(env);
     if (envBasedResult.isDisabled()) {
       return envBasedResult;
     }
 
-    // If a test uses a WorkspaceClient or AccountClient, ensure that the test is only run in the appropriate
-    // environment. If a test depends on an environment variable, ensure that the test is only run if the environment
+    // If a test uses a WorkspaceClient or AccountClient, ensure that the test is only run in the
+    // appropriate
+    // environment. If a test depends on an environment variable, ensure that the test is only run
+    // if the environment
     // variable is set.
     Optional<List<Parameter>> methodParams =
         context
@@ -174,9 +189,10 @@ public class EnvTest
   }
 
   /**
-   * Retrieves the value of the EnvContext annotation on the given context or its parent contexts. For
-   * ClassExtensionContexts, the annotation is retrieved from the class. For MethodExtensionContexts, the
-   * annotation is retrieved from the method, falling back to the class.
+   * Retrieves the value of the EnvContext annotation on the given context or its parent contexts.
+   * For ClassExtensionContexts, the annotation is retrieved from the class. For
+   * MethodExtensionContexts, the annotation is retrieved from the method, falling back to the
+   * class.
    *
    * @param context the context to search
    * @return the value of the EnvContext annotation on the given context or its parent contexts
@@ -185,10 +201,8 @@ public class EnvTest
     if (context == null) {
       return Optional.empty();
     }
-    Optional<String> res = context
-        .getElement()
-        .map(it -> it.getAnnotation(EnvContext.class))
-        .map(EnvContext::value);
+    Optional<String> res =
+        context.getElement().map(it -> it.getAnnotation(EnvContext.class)).map(EnvContext::value);
     if (res.isPresent()) {
       return res;
     } else {
@@ -203,10 +217,11 @@ public class EnvTest
       // Environment is already present in the parent context store
       return Optional.of(env);
     }
-    return getEnvContext(context).map(
-        contextName ->
-            store.getOrComputeIfAbsent(
-                ENV_STORE_KEY, x -> makeEnvResolver(contextName), EnvGetter.class));
+    return getEnvContext(context)
+        .map(
+            contextName ->
+                store.getOrComputeIfAbsent(
+                    ENV_STORE_KEY, x -> makeEnvResolver(contextName), EnvGetter.class));
   }
 
   private EnvGetter makeEnvResolver(String contextName) {
