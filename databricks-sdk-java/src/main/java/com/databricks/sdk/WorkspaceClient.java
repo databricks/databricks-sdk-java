@@ -22,14 +22,14 @@ import com.databricks.sdk.service.catalog.GrantsAPI;
 import com.databricks.sdk.service.catalog.GrantsService;
 import com.databricks.sdk.service.catalog.MetastoresAPI;
 import com.databricks.sdk.service.catalog.MetastoresService;
+import com.databricks.sdk.service.catalog.ModelVersionsAPI;
+import com.databricks.sdk.service.catalog.ModelVersionsService;
+import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
+import com.databricks.sdk.service.catalog.RegisteredModelsService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
-import com.databricks.sdk.service.catalog.SecurableTagsAPI;
-import com.databricks.sdk.service.catalog.SecurableTagsService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
 import com.databricks.sdk.service.catalog.StorageCredentialsService;
-import com.databricks.sdk.service.catalog.SubentityTagsAPI;
-import com.databricks.sdk.service.catalog.SubentityTagsService;
 import com.databricks.sdk.service.catalog.SystemSchemasAPI;
 import com.databricks.sdk.service.catalog.SystemSchemasService;
 import com.databricks.sdk.service.catalog.TableConstraintsAPI;
@@ -56,6 +56,8 @@ import com.databricks.sdk.service.compute.LibrariesService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
 import com.databricks.sdk.service.files.DbfsService;
+import com.databricks.sdk.service.files.FilesAPI;
+import com.databricks.sdk.service.files.FilesService;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyAPI;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyService;
 import com.databricks.sdk.service.iam.CurrentUserAPI;
@@ -143,6 +145,7 @@ public class WorkspaceClient {
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private ExperimentsAPI experimentsAPI;
   private ExternalLocationsAPI externalLocationsAPI;
+  private FilesAPI filesAPI;
   private FunctionsAPI functionsAPI;
   private GitCredentialsAPI gitCredentialsAPI;
   private GlobalInitScriptsAPI globalInitScriptsAPI;
@@ -155,6 +158,7 @@ public class WorkspaceClient {
   private LibrariesAPI librariesAPI;
   private MetastoresAPI metastoresAPI;
   private ModelRegistryAPI modelRegistryAPI;
+  private ModelVersionsAPI modelVersionsAPI;
   private PermissionsAPI permissionsAPI;
   private PipelinesAPI pipelinesAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
@@ -163,16 +167,15 @@ public class WorkspaceClient {
   private QueryHistoryAPI queryHistoryAPI;
   private RecipientActivationAPI recipientActivationAPI;
   private RecipientsAPI recipientsAPI;
+  private RegisteredModelsAPI registeredModelsAPI;
   private ReposAPI reposAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
-  private SecurableTagsAPI securableTagsAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
   private ServingEndpointsAPI servingEndpointsAPI;
   private SharesAPI sharesAPI;
   private StatementExecutionAPI statementExecutionAPI;
   private StorageCredentialsAPI storageCredentialsAPI;
-  private SubentityTagsAPI subentityTagsAPI;
   private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
@@ -209,6 +212,7 @@ public class WorkspaceClient {
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
+    filesAPI = new FilesAPI(apiClient);
     functionsAPI = new FunctionsAPI(apiClient);
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
@@ -221,6 +225,7 @@ public class WorkspaceClient {
     librariesAPI = new LibrariesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
+    modelVersionsAPI = new ModelVersionsAPI(apiClient);
     permissionsAPI = new PermissionsAPI(apiClient);
     pipelinesAPI = new PipelinesAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
@@ -229,16 +234,15 @@ public class WorkspaceClient {
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
     recipientsAPI = new RecipientsAPI(apiClient);
+    registeredModelsAPI = new RegisteredModelsAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
-    securableTagsAPI = new SecurableTagsAPI(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
-    subentityTagsAPI = new SubentityTagsAPI(apiClient);
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
@@ -476,6 +480,14 @@ public class WorkspaceClient {
   }
 
   /**
+   * The Files API allows you to read, write, and delete files and directories in Unity Catalog
+   * volumes.
+   */
+  public FilesAPI files() {
+    return filesAPI;
+  }
+
+  /**
    * Functions implement User-Defined Functions (UDFs) in Unity Catalog.
    *
    * <p>The function implementation can be any SQL expression or Query, and it can be invoked
@@ -673,6 +685,19 @@ public class WorkspaceClient {
   }
 
   /**
+   * Databricks provides a hosted version of MLflow Model Registry in Unity Catalog. Models in Unity
+   * Catalog provide centralized access control, auditing, lineage, and discovery of ML models
+   * across Databricks workspaces.
+   *
+   * <p>This API reference documents the REST endpoints for managing model versions in Unity
+   * Catalog. For more details, see the [registered models API
+   * docs](/api/workspace/registeredmodels).
+   */
+  public ModelVersionsAPI modelVersions() {
+    return modelVersionsAPI;
+  }
+
+  /**
    * Permissions API are used to create read, write, edit, update and manage access for various
    * users on different objects and endpoints.
    *
@@ -815,6 +840,36 @@ public class WorkspaceClient {
   }
 
   /**
+   * Databricks provides a hosted version of MLflow Model Registry in Unity Catalog. Models in Unity
+   * Catalog provide centralized access control, auditing, lineage, and discovery of ML models
+   * across Databricks workspaces.
+   *
+   * <p>An MLflow registered model resides in the third layer of Unity Catalog’s three-level
+   * namespace. Registered models contain model versions, which correspond to actual ML models
+   * (MLflow models). Creating new model versions currently requires use of the MLflow Python
+   * client. Once model versions are created, you can load them for batch inference using MLflow
+   * Python client APIs, or deploy them for real-time serving using Databricks Model Serving.
+   *
+   * <p>All operations on registered models and model versions require USE_CATALOG permissions on
+   * the enclosing catalog and USE_SCHEMA permissions on the enclosing schema. In addition, the
+   * following additional privileges are required for various operations:
+   *
+   * <p>* To create a registered model, users must additionally have the CREATE_MODEL permission on
+   * the target schema. * To view registered model or model version metadata, model version data
+   * files, or invoke a model version, users must additionally have the EXECUTE permission on the
+   * registered model * To update registered model or model version tags, users must additionally
+   * have APPLY TAG permissions on the registered model * To update other registered model or model
+   * version metadata (comments, aliases) create a new model version, or update permissions on the
+   * registered model, users must be owners of the registered model.
+   *
+   * <p>Note: The securable type for models is "FUNCTION". When using REST APIs (e.g. tagging,
+   * grants) that specify a securable type, use "FUNCTION" as the securable type.
+   */
+  public RegisteredModelsAPI registeredModels() {
+    return registeredModelsAPI;
+  }
+
+  /**
    * The Repos API allows users to manage their git repos. Users can use the API to access all repos
    * that they have manage permissions on.
    *
@@ -853,15 +908,6 @@ public class WorkspaceClient {
    */
   public SecretsExt secrets() {
     return secretsAPI;
-  }
-
-  /**
-   * Tags are attributes containing keys and values that can be applied to different entities in
-   * Unity Catalog. Tags are useful for organizing and categorizing different entities within a
-   * metastore. SecurableTags are attached to Unity Catalog securable entities.
-   */
-  public SecurableTagsAPI securableTags() {
-    return securableTagsAPI;
   }
 
   /**
@@ -1089,15 +1135,6 @@ public class WorkspaceClient {
   }
 
   /**
-   * Tags are attributes containing keys and values that can be applied to different entities in
-   * Unity Catalog. Tags are useful for organizing and categorizing different entities within a
-   * metastore. SubentityTags are attached to Unity Catalog subentities.
-   */
-  public SubentityTagsAPI subentityTags() {
-    return subentityTagsAPI;
-  }
-
-  /**
    * A system schema is a schema that lives within the system catalog. A system schema may contain
    * information about customer usage of Unity Catalog such as audit-logs, billing-logs, lineage
    * information, etc.
@@ -1313,6 +1350,12 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace FilesAPI implementation with mock */
+  public WorkspaceClient withFilesImpl(FilesService files) {
+    filesAPI = new FilesAPI(files);
+    return this;
+  }
+
   /** Replace FunctionsAPI implementation with mock */
   public WorkspaceClient withFunctionsImpl(FunctionsService functions) {
     functionsAPI = new FunctionsAPI(functions);
@@ -1385,6 +1428,12 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace ModelVersionsAPI implementation with mock */
+  public WorkspaceClient withModelVersionsImpl(ModelVersionsService modelVersions) {
+    modelVersionsAPI = new ModelVersionsAPI(modelVersions);
+    return this;
+  }
+
   /** Replace PermissionsAPI implementation with mock */
   public WorkspaceClient withPermissionsImpl(PermissionsService permissions) {
     permissionsAPI = new PermissionsAPI(permissions);
@@ -1434,6 +1483,12 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace RegisteredModelsAPI implementation with mock */
+  public WorkspaceClient withRegisteredModelsImpl(RegisteredModelsService registeredModels) {
+    registeredModelsAPI = new RegisteredModelsAPI(registeredModels);
+    return this;
+  }
+
   /** Replace ReposAPI implementation with mock */
   public WorkspaceClient withReposImpl(ReposService repos) {
     reposAPI = new ReposAPI(repos);
@@ -1449,12 +1504,6 @@ public class WorkspaceClient {
   /** Replace SecretsAPI implementation with mock */
   public WorkspaceClient withSecretsImpl(SecretsService secrets) {
     secretsAPI = new SecretsExt(secrets);
-    return this;
-  }
-
-  /** Replace SecurableTagsAPI implementation with mock */
-  public WorkspaceClient withSecurableTagsImpl(SecurableTagsService securableTags) {
-    securableTagsAPI = new SecurableTagsAPI(securableTags);
     return this;
   }
 
@@ -1485,12 +1534,6 @@ public class WorkspaceClient {
   /** Replace StorageCredentialsAPI implementation with mock */
   public WorkspaceClient withStorageCredentialsImpl(StorageCredentialsService storageCredentials) {
     storageCredentialsAPI = new StorageCredentialsAPI(storageCredentials);
-    return this;
-  }
-
-  /** Replace SubentityTagsAPI implementation with mock */
-  public WorkspaceClient withSubentityTagsImpl(SubentityTagsService subentityTags) {
-    subentityTagsAPI = new SubentityTagsAPI(subentityTags);
     return this;
   }
 

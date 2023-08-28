@@ -66,8 +66,8 @@ public class AccountMetastoresAPI {
    *
    * <p>Gets all Unity Catalog metastores associated with an account specified by ID.
    */
-  public ListMetastoresResponse list() {
-    return impl.list();
+  public Iterable<MetastoreInfo> list() {
+    return impl.list().getMetastores();
   }
 
   public AccountsMetastoreInfo update(String metastoreId) {

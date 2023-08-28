@@ -5,6 +5,7 @@ package com.databricks.sdk.service.provisioning;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -22,6 +23,14 @@ public class UpdateWorkspaceRequest {
    */
   @JsonProperty("credentials_id")
   private String credentialsId;
+
+  /**
+   * The custom tags key-value pairing that is attached to this workspace. The key-value pair is a
+   * string of utf-8 characters. The value can be an empty string, with maximum length of 255
+   * characters. The key can be of maximum length of 127 characters, and cannot be empty.
+   */
+  @JsonProperty("custom_tags")
+  private Map<String, String> customTags;
 
   /**
    * The ID of the workspace's managed services encryption key configuration object. This parameter
@@ -71,6 +80,15 @@ public class UpdateWorkspaceRequest {
 
   public String getCredentialsId() {
     return credentialsId;
+  }
+
+  public UpdateWorkspaceRequest setCustomTags(Map<String, String> customTags) {
+    this.customTags = customTags;
+    return this;
+  }
+
+  public Map<String, String> getCustomTags() {
+    return customTags;
   }
 
   public UpdateWorkspaceRequest setManagedServicesCustomerManagedKeyId(
@@ -126,6 +144,7 @@ public class UpdateWorkspaceRequest {
     UpdateWorkspaceRequest that = (UpdateWorkspaceRequest) o;
     return Objects.equals(awsRegion, that.awsRegion)
         && Objects.equals(credentialsId, that.credentialsId)
+        && Objects.equals(customTags, that.customTags)
         && Objects.equals(
             managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
         && Objects.equals(networkId, that.networkId)
@@ -139,6 +158,7 @@ public class UpdateWorkspaceRequest {
     return Objects.hash(
         awsRegion,
         credentialsId,
+        customTags,
         managedServicesCustomerManagedKeyId,
         networkId,
         storageConfigurationId,
@@ -151,6 +171,7 @@ public class UpdateWorkspaceRequest {
     return new ToStringer(UpdateWorkspaceRequest.class)
         .add("awsRegion", awsRegion)
         .add("credentialsId", credentialsId)
+        .add("customTags", customTags)
         .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
         .add("networkId", networkId)
         .add("storageConfigurationId", storageConfigurationId)

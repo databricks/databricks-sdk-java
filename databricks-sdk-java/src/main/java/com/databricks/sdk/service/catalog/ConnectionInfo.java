@@ -59,8 +59,8 @@ public class ConnectionInfo {
   private Map<String, String> properties;
 
   /** Status of an asynchronously provisioned resource. */
-  @JsonProperty("provisioning_state")
-  private ProvisioningState provisioningState;
+  @JsonProperty("provisioning_info")
+  private ProvisioningInfo provisioningInfo;
 
   /** If the connection is read only. */
   @JsonProperty("read_only")
@@ -194,13 +194,13 @@ public class ConnectionInfo {
     return properties;
   }
 
-  public ConnectionInfo setProvisioningState(ProvisioningState provisioningState) {
-    this.provisioningState = provisioningState;
+  public ConnectionInfo setProvisioningInfo(ProvisioningInfo provisioningInfo) {
+    this.provisioningInfo = provisioningInfo;
     return this;
   }
 
-  public ProvisioningState getProvisioningState() {
-    return provisioningState;
+  public ProvisioningInfo getProvisioningInfo() {
+    return provisioningInfo;
   }
 
   public ConnectionInfo setReadOnly(Boolean readOnly) {
@@ -274,7 +274,7 @@ public class ConnectionInfo {
         && Objects.equals(options, that.options)
         && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties)
-        && Objects.equals(provisioningState, that.provisioningState)
+        && Objects.equals(provisioningInfo, that.provisioningInfo)
         && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(securableKind, that.securableKind)
         && Objects.equals(securableType, that.securableType)
@@ -298,7 +298,7 @@ public class ConnectionInfo {
         options,
         owner,
         properties,
-        provisioningState,
+        provisioningInfo,
         readOnly,
         securableKind,
         securableType,
@@ -322,7 +322,7 @@ public class ConnectionInfo {
         .add("options", options)
         .add("owner", owner)
         .add("properties", properties)
-        .add("provisioningState", provisioningState)
+        .add("provisioningInfo", provisioningInfo)
         .add("readOnly", readOnly)
         .add("securableKind", securableKind)
         .add("securableType", securableType)

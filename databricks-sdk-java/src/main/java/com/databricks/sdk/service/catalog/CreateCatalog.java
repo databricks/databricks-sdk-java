@@ -23,6 +23,10 @@ public class CreateCatalog {
   private String name;
 
   /** A map of key-value properties attached to the securable. */
+  @JsonProperty("options")
+  private Map<String, String> options;
+
+  /** A map of key-value properties attached to the securable. */
   @JsonProperty("properties")
   private Map<String, String> properties;
 
@@ -70,6 +74,15 @@ public class CreateCatalog {
     return name;
   }
 
+  public CreateCatalog setOptions(Map<String, String> options) {
+    this.options = options;
+    return this;
+  }
+
+  public Map<String, String> getOptions() {
+    return options;
+  }
+
   public CreateCatalog setProperties(Map<String, String> properties) {
     this.properties = properties;
     return this;
@@ -114,6 +127,7 @@ public class CreateCatalog {
     return Objects.equals(comment, that.comment)
         && Objects.equals(connectionName, that.connectionName)
         && Objects.equals(name, that.name)
+        && Objects.equals(options, that.options)
         && Objects.equals(properties, that.properties)
         && Objects.equals(providerName, that.providerName)
         && Objects.equals(shareName, that.shareName)
@@ -123,7 +137,7 @@ public class CreateCatalog {
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, connectionName, name, properties, providerName, shareName, storageRoot);
+        comment, connectionName, name, options, properties, providerName, shareName, storageRoot);
   }
 
   @Override
@@ -132,6 +146,7 @@ public class CreateCatalog {
         .add("comment", comment)
         .add("connectionName", connectionName)
         .add("name", name)
+        .add("options", options)
         .add("properties", properties)
         .add("providerName", providerName)
         .add("shareName", shareName)
