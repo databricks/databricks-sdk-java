@@ -35,7 +35,7 @@ public class FilesIT {
       WorkspaceClient workspace, String schemaName, String volumeName) throws IOException {
     // Generate a random file name and random contents of 10 KiB.
     String fileName =
-        NameUtils.uniqueName("Volumes/main/" + schemaName + "/" + volumeName + "/test");
+        NameUtils.uniqueName("/Volumes/main/" + schemaName + "/" + volumeName + "/test");
     byte[] fileContents = new byte[1024 * 10];
     for (int i = 0; i < fileContents.length; i++) {
       fileContents[i] = (byte) (i & 0xFF);
