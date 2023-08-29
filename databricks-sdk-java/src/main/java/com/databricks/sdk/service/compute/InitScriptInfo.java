@@ -26,6 +26,13 @@ public class InitScriptInfo {
   private S3StorageInfo s3;
 
   /**
+   * destination needs to be provided. e.g. `{ "volumes" : { "destination" : "/Volumes/my-init.sh" }
+   * }`
+   */
+  @JsonProperty("volumes")
+  private VolumesStorageInfo volumes;
+
+  /**
    * destination needs to be provided. e.g. `{ "workspace" : { "destination" :
    * "/Users/user1@databricks.com/my-init.sh" } }`
    */
@@ -50,6 +57,15 @@ public class InitScriptInfo {
     return s3;
   }
 
+  public InitScriptInfo setVolumes(VolumesStorageInfo volumes) {
+    this.volumes = volumes;
+    return this;
+  }
+
+  public VolumesStorageInfo getVolumes() {
+    return volumes;
+  }
+
   public InitScriptInfo setWorkspace(WorkspaceStorageInfo workspace) {
     this.workspace = workspace;
     return this;
@@ -66,12 +82,13 @@ public class InitScriptInfo {
     InitScriptInfo that = (InitScriptInfo) o;
     return Objects.equals(dbfs, that.dbfs)
         && Objects.equals(s3, that.s3)
+        && Objects.equals(volumes, that.volumes)
         && Objects.equals(workspace, that.workspace);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dbfs, s3, workspace);
+    return Objects.hash(dbfs, s3, volumes, workspace);
   }
 
   @Override
@@ -79,6 +96,7 @@ public class InitScriptInfo {
     return new ToStringer(InitScriptInfo.class)
         .add("dbfs", dbfs)
         .add("s3", s3)
+        .add("volumes", volumes)
         .add("workspace", workspace)
         .toString();
   }

@@ -1,5 +1,78 @@
 # Version changelog
 
+## 0.7.0
+
+* Added support for propagating Request Headers through API Client ([#135](https://github.com/databricks/databricks-sdk-java/pull/135)).
+* Added support for InputStream for streaming request and response bodies ([#138](https://github.com/databricks/databricks-sdk-java/pull/138)).
+* Fixed query param serialization for requests with enums ([#140](https://github.com/databricks/databricks-sdk-java/pull/140)).
+
+Breaking API Changes:
+ * Changed `list()` method for `accountClient.storageCredentials()` service to return `com.databricks.sdk.service.catalog.StorageCredentialInfoList` class.
+ * Removed `workspaceClient.securableTags()` service and all related classes.
+ * Removed `workspaceClient.subentityTags()` service and all related classes.
+ * Renamed `provisioningState` field for `com.databricks.sdk.service.catalog.ConnectionInfo` to `provisioningInfo`.
+ * Removed `instancePoolFleetAttributes` field for `com.databricks.sdk.service.compute.CreateInstancePool`.
+ * Removed `instancePoolFleetAttributes` field for `com.databricks.sdk.service.compute.EditInstancePool`.
+ * Removed `com.databricks.sdk.service.compute.FleetLaunchTemplateOverride` class.
+ * Removed `com.databricks.sdk.service.compute.FleetOnDemandOption` class.
+ * Removed `com.databricks.sdk.service.compute.FleetOnDemandOptionAllocationStrategy` class.
+ * Removed `com.databricks.sdk.service.compute.FleetSpotOption` class.
+ * Removed `com.databricks.sdk.service.compute.FleetSpotOptionAllocationStrategy` class.
+ * Removed `instancePoolFleetAttributes` field for `com.databricks.sdk.service.compute.GetInstancePool`.
+ * Removed `instancePoolFleetAttributes` field for `com.databricks.sdk.service.compute.InstancePoolAndStats`.
+ * Removed `com.databricks.sdk.service.compute.InstancePoolFleetAttributes` class.
+ * Changed `getByName()` method for `workspaceClient.experiments()` service to return `com.databricks.sdk.service.ml.GetExperimentResponse` class.
+ * Changed `getExperiment()` method for `workspaceClient.experiments()` service to return `com.databricks.sdk.service.ml.GetExperimentResponse` class.
+ * Renamed `com.databricks.sdk.service.ml.GetExperimentByNameResponse` class to `com.databricks.sdk.service.ml.GetExperimentResponse`.
+
+API Changes:
+
+ * Added `workspaceClient.modelVersions()` service.
+ * Added `workspaceClient.registeredModels()` service.
+ * Added `browseOnly` field for `com.databricks.sdk.service.catalog.CatalogInfo`.
+ * Added `fullName` field for `com.databricks.sdk.service.catalog.CatalogInfo`.
+ * Added `provisioningInfo` field for `com.databricks.sdk.service.catalog.CatalogInfo`.
+ * Added `securableKind` field for `com.databricks.sdk.service.catalog.CatalogInfo`.
+ * Added `securableType` field for `com.databricks.sdk.service.catalog.CatalogInfo`.
+ * Added `options` field for `com.databricks.sdk.service.catalog.CreateCatalog`.
+ * Added `options` field for `com.databricks.sdk.service.catalog.UpdateCatalog`.
+ * Added `com.databricks.sdk.service.catalog.CatalogInfoSecurableKind` class.
+ * Added `com.databricks.sdk.service.catalog.CreateRegisteredModelRequest` class.
+ * Added `com.databricks.sdk.service.catalog.DeleteAliasRequest` class.
+ * Added `com.databricks.sdk.service.catalog.DeleteModelVersionRequest` class.
+ * Added `com.databricks.sdk.service.catalog.DeleteRegisteredModelRequest` class.
+ * Added `com.databricks.sdk.service.catalog.GetByAliasRequest` class.
+ * Added `com.databricks.sdk.service.catalog.GetModelVersionRequest` class.
+ * Added `com.databricks.sdk.service.catalog.GetRegisteredModelRequest` class.
+ * Added `com.databricks.sdk.service.catalog.ListModelVersionsRequest` class.
+ * Added `com.databricks.sdk.service.catalog.ListModelVersionsResponse` class.
+ * Added `com.databricks.sdk.service.catalog.ListRegisteredModelsRequest` class.
+ * Added `com.databricks.sdk.service.catalog.ListRegisteredModelsResponse` class.
+ * Added `com.databricks.sdk.service.catalog.ModelVersionInfo` class.
+ * Added `com.databricks.sdk.service.catalog.ModelVersionInfoStatus` class.
+ * Added `com.databricks.sdk.service.catalog.ProvisioningInfo` class.
+ * Added `com.databricks.sdk.service.catalog.ProvisioningInfoState` class.
+ * Added `com.databricks.sdk.service.catalog.RegisteredModelAlias` class.
+ * Added `com.databricks.sdk.service.catalog.RegisteredModelInfo` class.
+ * Added `com.databricks.sdk.service.catalog.SetRegisteredModelAliasRequest` class.
+ * Added `com.databricks.sdk.service.catalog.UpdateModelVersionRequest` class.
+ * Added `com.databricks.sdk.service.catalog.UpdateRegisteredModelRequest` class.
+ * Added `volumes` field for `com.databricks.sdk.service.compute.InitScriptInfo`.
+ * Added `com.databricks.sdk.service.compute.VolumesStorageInfo` class.
+ * Added `workspaceClient.files()` service.
+ * Added `com.databricks.sdk.service.files.DeleteFileRequest` class.
+ * Added `com.databricks.sdk.service.files.DownloadRequest` class.
+ * Added `com.databricks.sdk.service.files.DownloadResponse` class.
+ * Added `com.databricks.sdk.service.files.UploadRequest` class.
+ * Added `customTags` field for `com.databricks.sdk.service.provisioning.CreateWorkspaceRequest`.
+ * Added `customTags` field for `com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest`.
+ * Added `customTags` field for `com.databricks.sdk.service.provisioning.Workspace`.
+ * Added `com.databricks.sdk.service.provisioning.CustomTags` class.
+ * Added `parameters` field for `com.databricks.sdk.service.sql.ExecuteStatementRequest`.
+ * Added `rowLimit` field for `com.databricks.sdk.service.sql.ExecuteStatementRequest`.
+ * Added `com.databricks.sdk.service.sql.StatementParameterListItem` class.
+
+OpenAPI SHA: 5d0ccbb790d341eae8e85321a685a9e9e2d5bf24, Date: 2023-08-29
 ## 0.6.0
 
 * Added support for `dbutils.secrets` ([#132](https://github.com/databricks/databricks-sdk-java/pull/132)).
