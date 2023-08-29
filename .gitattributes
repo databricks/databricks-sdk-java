@@ -208,6 +208,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/Privilege.j
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PrivilegeAssignment.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/PropertiesKvPairs.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ProvisioningInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ProvisioningInfoState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ReadVolumeRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/RegisteredModelAlias.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/RegisteredModelInfo.java linguist-generated=true
@@ -468,6 +469,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/Termination
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/TerminationReasonType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UninstallLibraries.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UnpinCluster.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/VolumesStorageInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/WorkloadType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/WorkspaceStorageInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/files/AddBlock.java linguist-generated=true
