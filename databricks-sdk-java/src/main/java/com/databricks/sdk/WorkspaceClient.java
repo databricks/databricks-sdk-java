@@ -212,6 +212,7 @@ public class WorkspaceClient {
     dbsqlPermissionsAPI = new DbsqlPermissionsAPI(apiClient);
     experimentsAPI = new ExperimentsAPI(apiClient);
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
+    filesAPI = new FilesAPI(apiClient);
     functionsAPI = new FunctionsAPI(apiClient);
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
