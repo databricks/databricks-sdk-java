@@ -262,6 +262,12 @@ public class WorkspaceClient {
     config = null;
   }
 
+  /** Constructor for mocks */
+  public WorkspaceClient(boolean mock, ApiClient apiClient) {
+    this.apiClient = apiClient;
+    this.config = null;
+  }
+
   /**
    * These APIs manage access rules on resources in an account. Currently, only grant rules are
    * supported. A grant rule specifies a role assigned to a set of principals. A list of rules
