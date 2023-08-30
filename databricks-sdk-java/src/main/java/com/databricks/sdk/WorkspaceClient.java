@@ -56,6 +56,8 @@ import com.databricks.sdk.service.compute.LibrariesService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
 import com.databricks.sdk.service.files.DbfsService;
+import com.databricks.sdk.service.files.FilesAPI;
+import com.databricks.sdk.service.files.FilesService;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyAPI;
 import com.databricks.sdk.service.iam.AccountAccessControlProxyService;
 import com.databricks.sdk.service.iam.CurrentUserAPI;
@@ -143,6 +145,7 @@ public class WorkspaceClient {
   private DbsqlPermissionsAPI dbsqlPermissionsAPI;
   private ExperimentsAPI experimentsAPI;
   private ExternalLocationsAPI externalLocationsAPI;
+  private FilesAPI filesAPI;
   private FunctionsAPI functionsAPI;
   private GitCredentialsAPI gitCredentialsAPI;
   private GlobalInitScriptsAPI globalInitScriptsAPI;
@@ -478,6 +481,14 @@ public class WorkspaceClient {
    */
   public ExternalLocationsAPI externalLocations() {
     return externalLocationsAPI;
+  }
+
+  /**
+   * The Files API allows you to read, write, and delete files and directories in Unity Catalog
+   * volumes.
+   */
+  public FilesAPI files() {
+    return filesAPI;
   }
 
   /**
@@ -1340,6 +1351,12 @@ public class WorkspaceClient {
   /** Replace ExternalLocationsAPI implementation with mock */
   public WorkspaceClient withExternalLocationsImpl(ExternalLocationsService externalLocations) {
     externalLocationsAPI = new ExternalLocationsAPI(externalLocations);
+    return this;
+  }
+
+  /** Replace FilesAPI implementation with mock */
+  public WorkspaceClient withFilesImpl(FilesService files) {
+    filesAPI = new FilesAPI(files);
     return this;
   }
 
