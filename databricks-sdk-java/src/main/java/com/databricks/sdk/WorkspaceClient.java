@@ -261,7 +261,7 @@ public class WorkspaceClient {
     this(mock, null /* apiClient */);
   }
 
-  /** Constructor for mocks */
+  /** Constructor for mocks. */
   public WorkspaceClient(boolean mock, ApiClient apiClient) {
     this.apiClient = apiClient;
     this.config = null;
