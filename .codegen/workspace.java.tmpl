@@ -49,6 +49,12 @@ public class WorkspaceClient {
     apiClient = null;
     config = null;
   }
+
+  /** Constructor for mocks */
+  public WorkspaceClient(boolean mock, ApiClient apiClient) {
+    this.apiClient = apiClient;
+    this.config = null;
+  }
   {{range .Services}}{{if not .IsAccounts}}
   {{if .Description}}/**
    {{.Comment "   * " 80}}
