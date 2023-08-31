@@ -33,22 +33,31 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
     Optional<String> subscription = getSubscription(config);
     if (subscription.isPresent()) {
       try {
-        // This will fail if the service principal has access to the workspace, but not to the subscription itself.
+        // This will fail if the service principal has access to the workspace, but not to the
+        // subscription itself.
         // In such case, we fall back to not using the subscription.
-        innerToken = tokenSourceFor(config, config.getEffectiveAzureLoginAppId(), subscription.get());
-        cloudToken = tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint(), subscription.get());
+        innerToken =
+            tokenSourceFor(config, config.getEffectiveAzureLoginAppId(), subscription.get());
+        cloudToken =
+            tokenSourceFor(
+                config,
+                config.getAzureEnvironment().getServiceManagementEndpoint(),
+                subscription.get());
         innerToken.getToken();
         cloudToken.getToken();
       } catch (DatabricksException e) {
         LOG.warn("Failed to get token for subscription. Using resource only token.");
         innerToken = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
-        cloudToken = tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
+        cloudToken =
+            tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
       }
     } else {
-      LOG.warn("azure_workspace_resource_id field not provided. " +
-              "It is recommended to specify this field in the Databricks configuration to avoid authentication errors.");
+      LOG.warn(
+          "azure_workspace_resource_id field not provided. "
+              + "It is recommended to specify this field in the Databricks configuration to avoid authentication errors.");
       innerToken = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
-      cloudToken = tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
+      cloudToken =
+          tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
     }
 
     RefreshableTokenSource inner = innerToken;

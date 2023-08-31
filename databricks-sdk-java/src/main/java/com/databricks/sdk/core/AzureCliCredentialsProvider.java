@@ -29,11 +29,20 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
   }
 
   @Override
-  public CliTokenSource tokenSourceFor(DatabricksConfig config, String resource, String subscription) {
+  public CliTokenSource tokenSourceFor(
+      DatabricksConfig config, String resource, String subscription) {
     List<String> cmd =
-            new ArrayList<>(
-                    Arrays.asList(
-                            "az", "account", "get-access-token", "--subscription", subscription, "--resource", resource, "--output", "json"));
+        new ArrayList<>(
+            Arrays.asList(
+                "az",
+                "account",
+                "get-access-token",
+                "--subscription",
+                subscription,
+                "--resource",
+                resource,
+                "--output",
+                "json"));
     return new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config::getAllEnv);
   }
 
@@ -52,24 +61,29 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
 
       if (subscription.isPresent()) {
         try {
-          // This will fail if the user has access to the workspace, but not to the subscription itself.
+          // This will fail if the user has access to the workspace, but not to the subscription
+          // itself.
           // In such case, we fall back to not using the subscription.
           tokenSource = tokenSourceFor(config, resource, subscription.get());
           tokenSource.getToken();
           mgmtTokenSource =
-                    tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint(), subscription.get());
+              tokenSourceFor(
+                  config,
+                  config.getAzureEnvironment().getServiceManagementEndpoint(),
+                  subscription.get());
         } catch (DatabricksException e) {
           LOG.warn("Failed to get token for subscription. Using resource only token.");
           tokenSource = tokenSourceFor(config, resource);
           mgmtTokenSource =
-                    tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
+              tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
         }
       } else {
-        LOG.warn("azure_workspace_resource_id field not provided. " +
-                "It is recommended to specify this field in the Databricks configuration to avoid authentication errors.");
+        LOG.warn(
+            "azure_workspace_resource_id field not provided. "
+                + "It is recommended to specify this field in the Databricks configuration to avoid authentication errors.");
         tokenSource = tokenSourceFor(config, resource);
         mgmtTokenSource =
-                  tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
+            tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
       }
 
       tokenSource.getToken(); // We need this for checking if Azure CLI is installed
@@ -101,5 +115,3 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
     }
   }
 }
-
-

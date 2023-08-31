@@ -1,6 +1,5 @@
 package com.databricks.sdk.core.utils;
 
-import com.databricks.sdk.core.AzureCliCredentialsProvider;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.Request;
@@ -12,14 +11,13 @@ import com.databricks.sdk.core.oauth.Token;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.io.IOException;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.util.*;
-
 public interface AzureUtils {
-  static final Logger LOG = LoggerFactory.getLogger(AzureUtils.class);
+  Logger LOG = LoggerFactory.getLogger(AzureUtils.class);
 
   /**
    * Creates a RefreshableTokenSource for the specified Azure resource.
@@ -39,24 +37,26 @@ public interface AzureUtils {
     return tokenSourceFor(config, endpointParams);
   }
 
-  default RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource, String subscription) {
+  default RefreshableTokenSource tokenSourceFor(
+      DatabricksConfig config, String resource, String subscription) {
     Map<String, String> endpointParams = new HashMap<>();
     endpointParams.put("resource", resource);
     endpointParams.put("subscription", subscription);
     return tokenSourceFor(config, endpointParams);
   }
 
-  default RefreshableTokenSource tokenSourceFor(DatabricksConfig config, Map<String, String> endpointParams) {
+  default RefreshableTokenSource tokenSourceFor(
+      DatabricksConfig config, Map<String, String> endpointParams) {
     String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
     String tokenUrl = aadEndpoint + config.getAzureTenantId() + "/oauth2/token";
     return new ClientCredentials.Builder()
-            .withHttpClient(config.getHttpClient())
-            .withClientId(config.getAzureClientId())
-            .withClientSecret(config.getAzureClientSecret())
-            .withTokenUrl(tokenUrl)
-            .withEndpointParameters(endpointParams)
-            .withAuthParameterPosition(AuthParameterPosition.BODY)
-            .build();
+        .withHttpClient(config.getHttpClient())
+        .withClientId(config.getAzureClientId())
+        .withClientSecret(config.getAzureClientSecret())
+        .withTokenUrl(tokenUrl)
+        .withEndpointParameters(endpointParams)
+        .withAuthParameterPosition(AuthParameterPosition.BODY)
+        .build();
   }
 
   default Optional<String> getSubscription(DatabricksConfig config) {
@@ -70,9 +70,7 @@ public interface AzureUtils {
       return Optional.empty();
     }
     return Optional.of(components[2]);
-
   }
-
 
   default String getWorkspaceFromJsonResponse(ObjectNode jsonResponse) throws IOException {
     JsonNode properties = jsonResponse.get("properties");
