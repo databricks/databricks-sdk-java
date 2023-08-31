@@ -12,12 +12,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
-import java.util.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.HashMap;
+import java.util.Map;
 
 public interface AzureUtils {
-  Logger LOG = LoggerFactory.getLogger(AzureUtils.class);
 
   /**
    * Creates a RefreshableTokenSource for the specified Azure resource.
@@ -32,23 +30,10 @@ public interface AzureUtils {
    *     Azure resource.
    */
   default RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
-    Map<String, String> endpointParams = new HashMap<>();
-    endpointParams.put("resource", resource);
-    return tokenSourceFor(config, endpointParams);
-  }
-
-  default RefreshableTokenSource tokenSourceFor(
-      DatabricksConfig config, String resource, String subscription) {
-    Map<String, String> endpointParams = new HashMap<>();
-    endpointParams.put("resource", resource);
-    endpointParams.put("subscription", subscription);
-    return tokenSourceFor(config, endpointParams);
-  }
-
-  default RefreshableTokenSource tokenSourceFor(
-      DatabricksConfig config, Map<String, String> endpointParams) {
     String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
     String tokenUrl = aadEndpoint + config.getAzureTenantId() + "/oauth2/token";
+    Map<String, String> endpointParams = new HashMap<>();
+    endpointParams.put("resource", resource);
     return new ClientCredentials.Builder()
         .withHttpClient(config.getHttpClient())
         .withClientId(config.getAzureClientId())
@@ -57,19 +42,6 @@ public interface AzureUtils {
         .withEndpointParameters(endpointParams)
         .withAuthParameterPosition(AuthParameterPosition.BODY)
         .build();
-  }
-
-  default Optional<String> getSubscription(DatabricksConfig config) {
-    String resourceId = config.getAzureWorkspaceResourceId();
-    if (resourceId == null || resourceId.equals("")) {
-      return Optional.empty();
-    }
-    String[] components = resourceId.split("/");
-    if (components.length < 3) {
-      LOG.warn("Invalid azure workspace resource ID");
-      return Optional.empty();
-    }
-    return Optional.of(components[2]);
   }
 
   default String getWorkspaceFromJsonResponse(ObjectNode jsonResponse) throws IOException {
@@ -97,7 +69,7 @@ public interface AzureUtils {
     }
 
     String armEndpoint = config.getAzureEnvironment().getResourceManagerEndpoint();
-    Token token = tokenSourceFor(config, "resource", armEndpoint).getToken();
+    Token token = tokenSourceFor(config, armEndpoint).getToken();
     String requestUrl =
         armEndpoint + config.getAzureWorkspaceResourceId() + "?api-version=2018-04-01";
     Request req = new Request("GET", requestUrl);
