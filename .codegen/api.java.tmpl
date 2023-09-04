@@ -102,7 +102,7 @@ public class {{.PascalName}}API {
     {{if $i}}, {{end}}{{template "type" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}}
   {{- end}}) {
     {{if or .Response .Wait -}}return {{end}}{{template "java-name" .}}(new {{.Request.PascalName}}(){{range .Request.RequiredFields}}
-      .set{{.PascalName}}({{.CamelName}}){{end}});
+      .set{{.PascalName}}({{.CamelName}}{{if .IsNameReserved}}Value{{end}}){{end}});
   }
   {{end}}
 

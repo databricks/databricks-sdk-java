@@ -30,7 +30,7 @@ public class QueryVisualizationsAPI {
     return create(
         new CreateQueryVisualizationRequest()
             .setQueryId(queryId)
-            .setType(type)
+            .setType(typeValue)
             .setOptions(options));
   }
 
