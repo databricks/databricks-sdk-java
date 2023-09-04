@@ -41,7 +41,7 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
-  public GetPipelinePermissionLevelsResponse getPipelinePermissionLevels(
+  public GetPipelinePermissionLevelsResponse getPermissionLevels(
       GetPipelinePermissionLevelsRequest request) {
     String path =
         String.format(
@@ -52,7 +52,7 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
-  public PipelinePermissions getPipelinePermissions(GetPipelinePermissionsRequest request) {
+  public PipelinePermissions getPermissions(GetPipelinePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -102,7 +102,7 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
-  public PipelinePermissions setPipelinePermissions(PipelinePermissionsRequest request) {
+  public PipelinePermissions setPermissions(PipelinePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -137,7 +137,7 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
-  public PipelinePermissions updatePipelinePermissions(PipelinePermissionsRequest request) {
+  public PipelinePermissions updatePermissions(PipelinePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

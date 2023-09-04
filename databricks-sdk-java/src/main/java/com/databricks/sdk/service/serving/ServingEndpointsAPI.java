@@ -153,9 +153,8 @@ public class ServingEndpointsAPI {
     return impl.get(request);
   }
 
-  public GetServingEndpointPermissionLevelsResponse getServingEndpointPermissionLevels(
-      String servingEndpointId) {
-    return getServingEndpointPermissionLevels(
+  public GetServingEndpointPermissionLevelsResponse getPermissionLevels(String servingEndpointId) {
+    return getPermissionLevels(
         new GetServingEndpointPermissionLevelsRequest().setServingEndpointId(servingEndpointId));
   }
 
@@ -164,13 +163,13 @@ public class ServingEndpointsAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetServingEndpointPermissionLevelsResponse getServingEndpointPermissionLevels(
+  public GetServingEndpointPermissionLevelsResponse getPermissionLevels(
       GetServingEndpointPermissionLevelsRequest request) {
-    return impl.getServingEndpointPermissionLevels(request);
+    return impl.getPermissionLevels(request);
   }
 
-  public ServingEndpointPermissions getServingEndpointPermissions(String servingEndpointId) {
-    return getServingEndpointPermissions(
+  public ServingEndpointPermissions getPermissions(String servingEndpointId) {
+    return getPermissions(
         new GetServingEndpointPermissionsRequest().setServingEndpointId(servingEndpointId));
   }
 
@@ -180,9 +179,8 @@ public class ServingEndpointsAPI {
    * <p>Gets the permissions of a serving endpoint. Serving endpoints can inherit permissions from
    * their root object.
    */
-  public ServingEndpointPermissions getServingEndpointPermissions(
-      GetServingEndpointPermissionsRequest request) {
-    return impl.getServingEndpointPermissions(request);
+  public ServingEndpointPermissions getPermissions(GetServingEndpointPermissionsRequest request) {
+    return impl.getPermissions(request);
   }
 
   /** Retrieve all serving endpoints. */
@@ -212,8 +210,8 @@ public class ServingEndpointsAPI {
     return impl.query(request);
   }
 
-  public ServingEndpointPermissions setServingEndpointPermissions(String servingEndpointId) {
-    return setServingEndpointPermissions(
+  public ServingEndpointPermissions setPermissions(String servingEndpointId) {
+    return setPermissions(
         new ServingEndpointPermissionsRequest().setServingEndpointId(servingEndpointId));
   }
 
@@ -223,9 +221,8 @@ public class ServingEndpointsAPI {
    * <p>Sets permissions on a serving endpoint. Serving endpoints can inherit permissions from their
    * root object.
    */
-  public ServingEndpointPermissions setServingEndpointPermissions(
-      ServingEndpointPermissionsRequest request) {
-    return impl.setServingEndpointPermissions(request);
+  public ServingEndpointPermissions setPermissions(ServingEndpointPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
   public Wait<ServingEndpointDetailed, ServingEndpointDetailed> updateConfig(
@@ -249,8 +246,8 @@ public class ServingEndpointsAPI {
         response);
   }
 
-  public ServingEndpointPermissions updateServingEndpointPermissions(String servingEndpointId) {
-    return updateServingEndpointPermissions(
+  public ServingEndpointPermissions updatePermissions(String servingEndpointId) {
+    return updatePermissions(
         new ServingEndpointPermissionsRequest().setServingEndpointId(servingEndpointId));
   }
 
@@ -260,9 +257,8 @@ public class ServingEndpointsAPI {
    * <p>Updates the permissions on a serving endpoint. Serving endpoints can inherit permissions
    * from their root object.
    */
-  public ServingEndpointPermissions updateServingEndpointPermissions(
-      ServingEndpointPermissionsRequest request) {
-    return impl.updateServingEndpointPermissions(request);
+  public ServingEndpointPermissions updatePermissions(ServingEndpointPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public ServingEndpointsService impl() {

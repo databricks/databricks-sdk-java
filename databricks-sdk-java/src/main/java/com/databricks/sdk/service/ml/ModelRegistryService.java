@@ -153,7 +153,7 @@ public interface ModelRegistryService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetRegisteredModelPermissionLevelsResponse getRegisteredModelPermissionLevels(
+  GetRegisteredModelPermissionLevelsResponse getPermissionLevels(
       GetRegisteredModelPermissionLevelsRequest getRegisteredModelPermissionLevelsRequest);
 
   /**
@@ -162,7 +162,7 @@ public interface ModelRegistryService {
    * <p>Gets the permissions of a registered model. Registered models can inherit permissions from
    * their root object.
    */
-  RegisteredModelPermissions getRegisteredModelPermissions(
+  RegisteredModelPermissions getPermissions(
       GetRegisteredModelPermissionsRequest getRegisteredModelPermissionsRequest);
 
   /**
@@ -239,7 +239,7 @@ public interface ModelRegistryService {
    * <p>Sets permissions on a registered model. Registered models can inherit permissions from their
    * root object.
    */
-  RegisteredModelPermissions setRegisteredModelPermissions(
+  RegisteredModelPermissions setPermissions(
       RegisteredModelPermissionsRequest registeredModelPermissionsRequest);
 
   /**
@@ -291,7 +291,7 @@ public interface ModelRegistryService {
    * <p>Updates the permissions on a registered model. Registered models can inherit permissions
    * from their root object.
    */
-  RegisteredModelPermissions updateRegisteredModelPermissions(
+  RegisteredModelPermissions updatePermissions(
       RegisteredModelPermissionsRequest registeredModelPermissionsRequest);
 
   /**

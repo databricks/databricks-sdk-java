@@ -96,6 +96,13 @@ public class NodeType {
   @JsonProperty("support_port_forwarding")
   private Boolean supportPortForwarding;
 
+  /**
+   * Indicates if this node type can be used for an instance pool or cluster with elastic disk
+   * enabled. This is true for most node types.
+   */
+  @JsonProperty("supports_elastic_disk")
+  private Boolean supportsElasticDisk;
+
   public NodeType setCategory(String category) {
     this.category = category;
     return this;
@@ -276,6 +283,15 @@ public class NodeType {
     return supportPortForwarding;
   }
 
+  public NodeType setSupportsElasticDisk(Boolean supportsElasticDisk) {
+    this.supportsElasticDisk = supportsElasticDisk;
+    return this;
+  }
+
+  public Boolean getSupportsElasticDisk() {
+    return supportsElasticDisk;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -300,7 +316,8 @@ public class NodeType {
         && Objects.equals(photonWorkerCapable, that.photonWorkerCapable)
         && Objects.equals(supportClusterTags, that.supportClusterTags)
         && Objects.equals(supportEbsVolumes, that.supportEbsVolumes)
-        && Objects.equals(supportPortForwarding, that.supportPortForwarding);
+        && Objects.equals(supportPortForwarding, that.supportPortForwarding)
+        && Objects.equals(supportsElasticDisk, that.supportsElasticDisk);
   }
 
   @Override
@@ -325,7 +342,8 @@ public class NodeType {
         photonWorkerCapable,
         supportClusterTags,
         supportEbsVolumes,
-        supportPortForwarding);
+        supportPortForwarding,
+        supportsElasticDisk);
   }
 
   @Override
@@ -351,6 +369,7 @@ public class NodeType {
         .add("supportClusterTags", supportClusterTags)
         .add("supportEbsVolumes", supportEbsVolumes)
         .add("supportPortForwarding", supportPortForwarding)
+        .add("supportsElasticDisk", supportsElasticDisk)
         .toString();
   }
 }

@@ -252,9 +252,8 @@ public class ClustersAPI {
     return impl.get(request);
   }
 
-  public GetClusterPermissionLevelsResponse getClusterPermissionLevels(String clusterId) {
-    return getClusterPermissionLevels(
-        new GetClusterPermissionLevelsRequest().setClusterId(clusterId));
+  public GetClusterPermissionLevelsResponse getPermissionLevels(String clusterId) {
+    return getPermissionLevels(new GetClusterPermissionLevelsRequest().setClusterId(clusterId));
   }
 
   /**
@@ -262,13 +261,13 @@ public class ClustersAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetClusterPermissionLevelsResponse getClusterPermissionLevels(
+  public GetClusterPermissionLevelsResponse getPermissionLevels(
       GetClusterPermissionLevelsRequest request) {
-    return impl.getClusterPermissionLevels(request);
+    return impl.getPermissionLevels(request);
   }
 
-  public ClusterPermissions getClusterPermissions(String clusterId) {
-    return getClusterPermissions(new GetClusterPermissionsRequest().setClusterId(clusterId));
+  public ClusterPermissions getPermissions(String clusterId) {
+    return getPermissions(new GetClusterPermissionsRequest().setClusterId(clusterId));
   }
 
   /**
@@ -276,8 +275,8 @@ public class ClustersAPI {
    *
    * <p>Gets the permissions of a cluster. Clusters can inherit permissions from their root object.
    */
-  public ClusterPermissions getClusterPermissions(GetClusterPermissionsRequest request) {
-    return impl.getClusterPermissions(request);
+  public ClusterPermissions getPermissions(GetClusterPermissionsRequest request) {
+    return impl.getPermissions(request);
   }
 
   /**
@@ -380,8 +379,8 @@ public class ClustersAPI {
         (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
-  public ClusterPermissions setClusterPermissions(String clusterId) {
-    return setClusterPermissions(new ClusterPermissionsRequest().setClusterId(clusterId));
+  public ClusterPermissions setPermissions(String clusterId) {
+    return setPermissions(new ClusterPermissionsRequest().setClusterId(clusterId));
   }
 
   /**
@@ -389,8 +388,8 @@ public class ClustersAPI {
    *
    * <p>Sets permissions on a cluster. Clusters can inherit permissions from their root object.
    */
-  public ClusterPermissions setClusterPermissions(ClusterPermissionsRequest request) {
-    return impl.setClusterPermissions(request);
+  public ClusterPermissions setPermissions(ClusterPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
   /**
@@ -439,8 +438,8 @@ public class ClustersAPI {
     impl.unpin(request);
   }
 
-  public ClusterPermissions updateClusterPermissions(String clusterId) {
-    return updateClusterPermissions(new ClusterPermissionsRequest().setClusterId(clusterId));
+  public ClusterPermissions updatePermissions(String clusterId) {
+    return updatePermissions(new ClusterPermissionsRequest().setClusterId(clusterId));
   }
 
   /**
@@ -449,8 +448,8 @@ public class ClustersAPI {
    * <p>Updates the permissions on a cluster. Clusters can inherit permissions from their root
    * object.
    */
-  public ClusterPermissions updateClusterPermissions(ClusterPermissionsRequest request) {
-    return impl.updateClusterPermissions(request);
+  public ClusterPermissions updatePermissions(ClusterPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public ClustersService impl() {

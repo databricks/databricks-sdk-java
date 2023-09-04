@@ -84,7 +84,7 @@ public interface JobsService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetJobPermissionLevelsResponse getJobPermissionLevels(
+  GetJobPermissionLevelsResponse getPermissionLevels(
       GetJobPermissionLevelsRequest getJobPermissionLevelsRequest);
 
   /**
@@ -92,7 +92,7 @@ public interface JobsService {
    *
    * <p>Gets the permissions of a job. Jobs can inherit permissions from their root object.
    */
-  JobPermissions getJobPermissions(GetJobPermissionsRequest getJobPermissionsRequest);
+  JobPermissions getPermissions(GetJobPermissionsRequest getJobPermissionsRequest);
 
   /**
    * Get a single job run.
@@ -158,7 +158,7 @@ public interface JobsService {
    *
    * <p>Sets permissions on a job. Jobs can inherit permissions from their root object.
    */
-  JobPermissions setJobPermissions(JobPermissionsRequest jobPermissionsRequest);
+  JobPermissions setPermissions(JobPermissionsRequest jobPermissionsRequest);
 
   /**
    * Create and trigger a one-time run.
@@ -182,5 +182,5 @@ public interface JobsService {
    *
    * <p>Updates the permissions on a job. Jobs can inherit permissions from their root object.
    */
-  JobPermissions updateJobPermissions(JobPermissionsRequest jobPermissionsRequest);
+  JobPermissions updatePermissions(JobPermissionsRequest jobPermissionsRequest);
 }

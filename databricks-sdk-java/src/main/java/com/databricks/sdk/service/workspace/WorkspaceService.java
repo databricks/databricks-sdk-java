@@ -40,19 +40,11 @@ public interface WorkspaceService {
   ExportResponse export(ExportRequest exportRequest);
 
   /**
-   * Get status.
-   *
-   * <p>Gets the status of an object or a directory. If `path` does not exist, this call returns an
-   * error `RESOURCE_DOES_NOT_EXIST`.
-   */
-  ObjectInfo getStatus(GetStatusRequest getStatusRequest);
-
-  /**
    * Get workspace object permission levels.
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetWorkspaceObjectPermissionLevelsResponse getWorkspaceObjectPermissionLevels(
+  GetWorkspaceObjectPermissionLevelsResponse getPermissionLevels(
       GetWorkspaceObjectPermissionLevelsRequest getWorkspaceObjectPermissionLevelsRequest);
 
   /**
@@ -61,8 +53,16 @@ public interface WorkspaceService {
    * <p>Gets the permissions of a workspace object. Workspace objects can inherit permissions from
    * their parent objects or root object.
    */
-  WorkspaceObjectPermissions getWorkspaceObjectPermissions(
+  WorkspaceObjectPermissions getPermissions(
       GetWorkspaceObjectPermissionsRequest getWorkspaceObjectPermissionsRequest);
+
+  /**
+   * Get status.
+   *
+   * <p>Gets the status of an object or a directory. If `path` does not exist, this call returns an
+   * error `RESOURCE_DOES_NOT_EXIST`.
+   */
+  ObjectInfo getStatus(GetStatusRequest getStatusRequest);
 
   /**
    * Import a workspace object.
@@ -99,7 +99,7 @@ public interface WorkspaceService {
    * <p>Sets permissions on a workspace object. Workspace objects can inherit permissions from their
    * parent objects or root object.
    */
-  WorkspaceObjectPermissions setWorkspaceObjectPermissions(
+  WorkspaceObjectPermissions setPermissions(
       WorkspaceObjectPermissionsRequest workspaceObjectPermissionsRequest);
 
   /**
@@ -108,6 +108,6 @@ public interface WorkspaceService {
    * <p>Updates the permissions on a workspace object. Workspace objects can inherit permissions
    * from their parent objects or root object.
    */
-  WorkspaceObjectPermissions updateWorkspaceObjectPermissions(
+  WorkspaceObjectPermissions updatePermissions(
       WorkspaceObjectPermissionsRequest workspaceObjectPermissionsRequest);
 }

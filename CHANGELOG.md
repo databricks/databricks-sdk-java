@@ -1,5 +1,39 @@
 # Version changelog
 
+## 0.8.0
+
+* Adding mock constructor method for WorkspaceClient to support mocked ApiClient ([#144](https://github.com/databricks/databricks-sdk-java/pull/144)).
+
+API Changes:
+
+* Renamed permissions APIs to no longer include the service name, for example:
+  * `getJobPermissionLevels` -> `getPermissionLevels`
+  * `getJobPermissions` -> `getPermissions`
+  * `setJobPermissions` -> `setPermissions`
+  * `updateJobPermissions` -> `updatePermissions`
+* Changed `create()` method for `workspaceClient.volumes()` service with new required argument order.
+* Added `supportsElasticDisk` field for `com.databricks.sdk.service.compute.NodeType`.
+* Changed `create()` method for `workspaceClient.dashboards()` service with new required argument order.
+* Added `workspaceClient.dashboardWidgets()` service.
+* Added `workspaceClient.queryVisualizations()` service.
+* Changed `name` field for `com.databricks.sdk.service.sql.CreateDashboardRequest` to be required.
+* Added `dashboardFiltersEnabled` field for `com.databricks.sdk.service.sql.CreateDashboardRequest`.
+* Added `runAsRole` field for `com.databricks.sdk.service.sql.CreateDashboardRequest`.
+* Added `runAsRole` field for `com.databricks.sdk.service.sql.Query`.
+* Added `runAsRole` field for `com.databricks.sdk.service.sql.QueryPostContent`.
+* Removed `dashboardId` field for `com.databricks.sdk.service.sql.WidgetOptions`.
+* Changed `position` field for `com.databricks.sdk.service.sql.WidgetOptions` to `com.databricks.sdk.service.sql.WidgetPosition` class.
+* Removed `text` field for `com.databricks.sdk.service.sql.WidgetOptions`.
+* Added `description` field for `com.databricks.sdk.service.sql.WidgetOptions`.
+* Added `title` field for `com.databricks.sdk.service.sql.WidgetOptions`.
+* Added `com.databricks.sdk.service.sql.CreateQueryVisualizationRequest` class.
+* Added `com.databricks.sdk.service.sql.CreateWidget` class.
+* Added `com.databricks.sdk.service.sql.DeleteDashboardWidgetRequest` class.
+* Added `com.databricks.sdk.service.sql.DeleteQueryVisualizationRequest` class.
+* Added `com.databricks.sdk.service.sql.RunAsRole` class.
+* Added `com.databricks.sdk.service.sql.WidgetPosition` class.
+
+OpenAPI SHA: 09a7fa63d9ae243e5407941f200960ca14d48b07, Date: 2023-09-04
 ## 0.7.0
 
 * Added support for propagating Request Headers through API Client ([#135](https://github.com/databricks/databricks-sdk-java/pull/135)).

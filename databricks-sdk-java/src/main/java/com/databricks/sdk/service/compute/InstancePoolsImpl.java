@@ -51,7 +51,7 @@ class InstancePoolsImpl implements InstancePoolsService {
   }
 
   @Override
-  public GetInstancePoolPermissionLevelsResponse getInstancePoolPermissionLevels(
+  public GetInstancePoolPermissionLevelsResponse getPermissionLevels(
       GetInstancePoolPermissionLevelsRequest request) {
     String path =
         String.format(
@@ -62,8 +62,7 @@ class InstancePoolsImpl implements InstancePoolsService {
   }
 
   @Override
-  public InstancePoolPermissions getInstancePoolPermissions(
-      GetInstancePoolPermissionsRequest request) {
+  public InstancePoolPermissions getPermissions(GetInstancePoolPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
     Map<String, String> headers = new HashMap<>();
@@ -80,8 +79,7 @@ class InstancePoolsImpl implements InstancePoolsService {
   }
 
   @Override
-  public InstancePoolPermissions setInstancePoolPermissions(
-      InstancePoolPermissionsRequest request) {
+  public InstancePoolPermissions setPermissions(InstancePoolPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
     Map<String, String> headers = new HashMap<>();
@@ -91,8 +89,7 @@ class InstancePoolsImpl implements InstancePoolsService {
   }
 
   @Override
-  public InstancePoolPermissions updateInstancePoolPermissions(
-      InstancePoolPermissionsRequest request) {
+  public InstancePoolPermissions updatePermissions(InstancePoolPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/instance-pools/%s", request.getInstancePoolId());
     Map<String, String> headers = new HashMap<>();

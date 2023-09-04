@@ -40,7 +40,7 @@ class UsersImpl implements UsersService {
   }
 
   @Override
-  public GetPasswordPermissionLevelsResponse getPasswordPermissionLevels() {
+  public GetPasswordPermissionLevelsResponse getPermissionLevels() {
     String path = "/api/2.0/permissions/authorization/passwords/permissionLevels";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -48,7 +48,7 @@ class UsersImpl implements UsersService {
   }
 
   @Override
-  public PasswordPermissions getPasswordPermissions() {
+  public PasswordPermissions getPermissions() {
     String path = "/api/2.0/permissions/authorization/passwords";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -73,7 +73,7 @@ class UsersImpl implements UsersService {
   }
 
   @Override
-  public PasswordPermissions setPasswordPermissions(PasswordPermissionsRequest request) {
+  public PasswordPermissions setPermissions(PasswordPermissionsRequest request) {
     String path = "/api/2.0/permissions/authorization/passwords";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -91,7 +91,7 @@ class UsersImpl implements UsersService {
   }
 
   @Override
-  public PasswordPermissions updatePasswordPermissions(PasswordPermissionsRequest request) {
+  public PasswordPermissions updatePermissions(PasswordPermissionsRequest request) {
     String path = "/api/2.0/permissions/authorization/passwords";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

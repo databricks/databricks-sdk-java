@@ -77,8 +77,7 @@ class JobsImpl implements JobsService {
   }
 
   @Override
-  public GetJobPermissionLevelsResponse getJobPermissionLevels(
-      GetJobPermissionLevelsRequest request) {
+  public GetJobPermissionLevelsResponse getPermissionLevels(GetJobPermissionLevelsRequest request) {
     String path =
         String.format("/api/2.0/permissions/jobs/%s/permissionLevels", request.getJobId());
     Map<String, String> headers = new HashMap<>();
@@ -87,7 +86,7 @@ class JobsImpl implements JobsService {
   }
 
   @Override
-  public JobPermissions getJobPermissions(GetJobPermissionsRequest request) {
+  public JobPermissions getPermissions(GetJobPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/jobs/%s", request.getJobId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -154,7 +153,7 @@ class JobsImpl implements JobsService {
   }
 
   @Override
-  public JobPermissions setJobPermissions(JobPermissionsRequest request) {
+  public JobPermissions setPermissions(JobPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/jobs/%s", request.getJobId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -181,7 +180,7 @@ class JobsImpl implements JobsService {
   }
 
   @Override
-  public JobPermissions updateJobPermissions(JobPermissionsRequest request) {
+  public JobPermissions updatePermissions(JobPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/jobs/%s", request.getJobId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

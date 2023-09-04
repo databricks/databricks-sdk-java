@@ -11,6 +11,10 @@ import java.util.Objects;
 /** Create a dashboard object */
 @Generated
 public class CreateDashboardRequest {
+  /** Indicates whether the dashboard filters are enabled */
+  @JsonProperty("dashboard_filters_enabled")
+  private Boolean dashboardFiltersEnabled;
+
   /**
    * Indicates whether this query object should appear in the current user's favorites list. The
    * application uses this flag to determine whether or not the "favorite star " should selected.
@@ -28,9 +32,22 @@ public class CreateDashboardRequest {
   @JsonProperty("parent")
   private String parent;
 
+  /** Run as role */
+  @JsonProperty("run_as_role")
+  private RunAsRole runAsRole;
+
   /** */
   @JsonProperty("tags")
   private Collection<String> tags;
+
+  public CreateDashboardRequest setDashboardFiltersEnabled(Boolean dashboardFiltersEnabled) {
+    this.dashboardFiltersEnabled = dashboardFiltersEnabled;
+    return this;
+  }
+
+  public Boolean getDashboardFiltersEnabled() {
+    return dashboardFiltersEnabled;
+  }
 
   public CreateDashboardRequest setIsFavorite(Boolean isFavorite) {
     this.isFavorite = isFavorite;
@@ -59,6 +76,15 @@ public class CreateDashboardRequest {
     return parent;
   }
 
+  public CreateDashboardRequest setRunAsRole(RunAsRole runAsRole) {
+    this.runAsRole = runAsRole;
+    return this;
+  }
+
+  public RunAsRole getRunAsRole() {
+    return runAsRole;
+  }
+
   public CreateDashboardRequest setTags(Collection<String> tags) {
     this.tags = tags;
     return this;
@@ -73,23 +99,27 @@ public class CreateDashboardRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateDashboardRequest that = (CreateDashboardRequest) o;
-    return Objects.equals(isFavorite, that.isFavorite)
+    return Objects.equals(dashboardFiltersEnabled, that.dashboardFiltersEnabled)
+        && Objects.equals(isFavorite, that.isFavorite)
         && Objects.equals(name, that.name)
         && Objects.equals(parent, that.parent)
+        && Objects.equals(runAsRole, that.runAsRole)
         && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(isFavorite, name, parent, tags);
+    return Objects.hash(dashboardFiltersEnabled, isFavorite, name, parent, runAsRole, tags);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateDashboardRequest.class)
+        .add("dashboardFiltersEnabled", dashboardFiltersEnabled)
         .add("isFavorite", isFavorite)
         .add("name", name)
         .add("parent", parent)
+        .add("runAsRole", runAsRole)
         .add("tags", tags)
         .toString();
   }

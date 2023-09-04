@@ -39,14 +39,14 @@ public interface TokenManagementService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetTokenPermissionLevelsResponse getTokenPermissionLevels();
+  GetTokenPermissionLevelsResponse getPermissionLevels();
 
   /**
    * Get token permissions.
    *
    * <p>Gets the permissions of all tokens. Tokens can inherit permissions from their root object.
    */
-  TokenPermissions getTokenPermissions();
+  TokenPermissions getPermissions();
 
   /**
    * List all tokens.
@@ -60,7 +60,7 @@ public interface TokenManagementService {
    *
    * <p>Sets permissions on all tokens. Tokens can inherit permissions from their root object.
    */
-  TokenPermissions setTokenPermissions(TokenPermissionsRequest tokenPermissionsRequest);
+  TokenPermissions setPermissions(TokenPermissionsRequest tokenPermissionsRequest);
 
   /**
    * Update token permissions.
@@ -68,5 +68,5 @@ public interface TokenManagementService {
    * <p>Updates the permissions on all tokens. Tokens can inherit permissions from their root
    * object.
    */
-  TokenPermissions updateTokenPermissions(TokenPermissionsRequest tokenPermissionsRequest);
+  TokenPermissions updatePermissions(TokenPermissionsRequest tokenPermissionsRequest);
 }

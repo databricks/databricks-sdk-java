@@ -39,6 +39,10 @@ public class QueryPostContent {
   @JsonProperty("query")
   private String query;
 
+  /** Run as role */
+  @JsonProperty("run_as_role")
+  private RunAsRole runAsRole;
+
   public QueryPostContent setDataSourceId(String dataSourceId) {
     this.dataSourceId = dataSourceId;
     return this;
@@ -93,6 +97,15 @@ public class QueryPostContent {
     return query;
   }
 
+  public QueryPostContent setRunAsRole(RunAsRole runAsRole) {
+    this.runAsRole = runAsRole;
+    return this;
+  }
+
+  public RunAsRole getRunAsRole() {
+    return runAsRole;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -103,12 +116,13 @@ public class QueryPostContent {
         && Objects.equals(name, that.name)
         && Objects.equals(options, that.options)
         && Objects.equals(parent, that.parent)
-        && Objects.equals(query, that.query);
+        && Objects.equals(query, that.query)
+        && Objects.equals(runAsRole, that.runAsRole);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dataSourceId, description, name, options, parent, query);
+    return Objects.hash(dataSourceId, description, name, options, parent, query, runAsRole);
   }
 
   @Override
@@ -120,6 +134,7 @@ public class QueryPostContent {
         .add("options", options)
         .add("parent", parent)
         .add("query", query)
+        .add("runAsRole", runAsRole)
         .toString();
   }
 }

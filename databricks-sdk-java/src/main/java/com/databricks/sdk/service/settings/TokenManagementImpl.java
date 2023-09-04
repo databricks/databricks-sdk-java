@@ -40,7 +40,7 @@ class TokenManagementImpl implements TokenManagementService {
   }
 
   @Override
-  public GetTokenPermissionLevelsResponse getTokenPermissionLevels() {
+  public GetTokenPermissionLevelsResponse getPermissionLevels() {
     String path = "/api/2.0/permissions/authorization/tokens/permissionLevels";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -48,7 +48,7 @@ class TokenManagementImpl implements TokenManagementService {
   }
 
   @Override
-  public TokenPermissions getTokenPermissions() {
+  public TokenPermissions getPermissions() {
     String path = "/api/2.0/permissions/authorization/tokens";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -64,7 +64,7 @@ class TokenManagementImpl implements TokenManagementService {
   }
 
   @Override
-  public TokenPermissions setTokenPermissions(TokenPermissionsRequest request) {
+  public TokenPermissions setPermissions(TokenPermissionsRequest request) {
     String path = "/api/2.0/permissions/authorization/tokens";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -73,7 +73,7 @@ class TokenManagementImpl implements TokenManagementService {
   }
 
   @Override
-  public TokenPermissions updateTokenPermissions(TokenPermissionsRequest request) {
+  public TokenPermissions updatePermissions(TokenPermissionsRequest request) {
     String path = "/api/2.0/permissions/authorization/tokens";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

@@ -276,9 +276,8 @@ public class ModelRegistryAPI {
     return impl.getModelVersionDownloadUri(request);
   }
 
-  public GetRegisteredModelPermissionLevelsResponse getRegisteredModelPermissionLevels(
-      String registeredModelId) {
-    return getRegisteredModelPermissionLevels(
+  public GetRegisteredModelPermissionLevelsResponse getPermissionLevels(String registeredModelId) {
+    return getPermissionLevels(
         new GetRegisteredModelPermissionLevelsRequest().setRegisteredModelId(registeredModelId));
   }
 
@@ -287,13 +286,13 @@ public class ModelRegistryAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetRegisteredModelPermissionLevelsResponse getRegisteredModelPermissionLevels(
+  public GetRegisteredModelPermissionLevelsResponse getPermissionLevels(
       GetRegisteredModelPermissionLevelsRequest request) {
-    return impl.getRegisteredModelPermissionLevels(request);
+    return impl.getPermissionLevels(request);
   }
 
-  public RegisteredModelPermissions getRegisteredModelPermissions(String registeredModelId) {
-    return getRegisteredModelPermissions(
+  public RegisteredModelPermissions getPermissions(String registeredModelId) {
+    return getPermissions(
         new GetRegisteredModelPermissionsRequest().setRegisteredModelId(registeredModelId));
   }
 
@@ -303,9 +302,8 @@ public class ModelRegistryAPI {
    * <p>Gets the permissions of a registered model. Registered models can inherit permissions from
    * their root object.
    */
-  public RegisteredModelPermissions getRegisteredModelPermissions(
-      GetRegisteredModelPermissionsRequest request) {
-    return impl.getRegisteredModelPermissions(request);
+  public RegisteredModelPermissions getPermissions(GetRegisteredModelPermissionsRequest request) {
+    return impl.getPermissions(request);
   }
 
   /**
@@ -459,8 +457,8 @@ public class ModelRegistryAPI {
     impl.setModelVersionTag(request);
   }
 
-  public RegisteredModelPermissions setRegisteredModelPermissions(String registeredModelId) {
-    return setRegisteredModelPermissions(
+  public RegisteredModelPermissions setPermissions(String registeredModelId) {
+    return setPermissions(
         new RegisteredModelPermissionsRequest().setRegisteredModelId(registeredModelId));
   }
 
@@ -470,9 +468,8 @@ public class ModelRegistryAPI {
    * <p>Sets permissions on a registered model. Registered models can inherit permissions from their
    * root object.
    */
-  public RegisteredModelPermissions setRegisteredModelPermissions(
-      RegisteredModelPermissionsRequest request) {
-    return impl.setRegisteredModelPermissions(request);
+  public RegisteredModelPermissions setPermissions(RegisteredModelPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
   public TestRegistryWebhookResponse testRegistryWebhook(String id) {
@@ -552,8 +549,8 @@ public class ModelRegistryAPI {
     impl.updateModelVersion(request);
   }
 
-  public RegisteredModelPermissions updateRegisteredModelPermissions(String registeredModelId) {
-    return updateRegisteredModelPermissions(
+  public RegisteredModelPermissions updatePermissions(String registeredModelId) {
+    return updatePermissions(
         new RegisteredModelPermissionsRequest().setRegisteredModelId(registeredModelId));
   }
 
@@ -563,9 +560,8 @@ public class ModelRegistryAPI {
    * <p>Updates the permissions on a registered model. Registered models can inherit permissions
    * from their root object.
    */
-  public RegisteredModelPermissions updateRegisteredModelPermissions(
-      RegisteredModelPermissionsRequest request) {
-    return impl.updateRegisteredModelPermissions(request);
+  public RegisteredModelPermissions updatePermissions(RegisteredModelPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public void updateWebhook(String id) {
