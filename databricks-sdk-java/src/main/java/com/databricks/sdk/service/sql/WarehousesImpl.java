@@ -50,7 +50,7 @@ class WarehousesImpl implements WarehousesService {
   }
 
   @Override
-  public GetWarehousePermissionLevelsResponse getWarehousePermissionLevels(
+  public GetWarehousePermissionLevelsResponse getPermissionLevels(
       GetWarehousePermissionLevelsRequest request) {
     String path =
         String.format(
@@ -61,7 +61,7 @@ class WarehousesImpl implements WarehousesService {
   }
 
   @Override
-  public WarehousePermissions getWarehousePermissions(GetWarehousePermissionsRequest request) {
+  public WarehousePermissions getPermissions(GetWarehousePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -85,7 +85,7 @@ class WarehousesImpl implements WarehousesService {
   }
 
   @Override
-  public WarehousePermissions setWarehousePermissions(WarehousePermissionsRequest request) {
+  public WarehousePermissions setPermissions(WarehousePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -119,7 +119,7 @@ class WarehousesImpl implements WarehousesService {
   }
 
   @Override
-  public WarehousePermissions updateWarehousePermissions(WarehousePermissionsRequest request) {
+  public WarehousePermissions updatePermissions(WarehousePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

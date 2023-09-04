@@ -59,7 +59,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
-  public GetServingEndpointPermissionLevelsResponse getServingEndpointPermissionLevels(
+  public GetServingEndpointPermissionLevelsResponse getPermissionLevels(
       GetServingEndpointPermissionLevelsRequest request) {
     String path =
         String.format(
@@ -71,8 +71,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
-  public ServingEndpointPermissions getServingEndpointPermissions(
-      GetServingEndpointPermissionsRequest request) {
+  public ServingEndpointPermissions getPermissions(GetServingEndpointPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
     Map<String, String> headers = new HashMap<>();
@@ -108,8 +107,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
-  public ServingEndpointPermissions setServingEndpointPermissions(
-      ServingEndpointPermissionsRequest request) {
+  public ServingEndpointPermissions setPermissions(ServingEndpointPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
     Map<String, String> headers = new HashMap<>();
@@ -128,8 +126,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
-  public ServingEndpointPermissions updateServingEndpointPermissions(
-      ServingEndpointPermissionsRequest request) {
+  public ServingEndpointPermissions updatePermissions(ServingEndpointPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
     Map<String, String> headers = new HashMap<>();

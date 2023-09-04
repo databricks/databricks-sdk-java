@@ -161,7 +161,7 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
-  public GetRegisteredModelPermissionLevelsResponse getRegisteredModelPermissionLevels(
+  public GetRegisteredModelPermissionLevelsResponse getPermissionLevels(
       GetRegisteredModelPermissionLevelsRequest request) {
     String path =
         String.format(
@@ -173,8 +173,7 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
-  public RegisteredModelPermissions getRegisteredModelPermissions(
-      GetRegisteredModelPermissionsRequest request) {
+  public RegisteredModelPermissions getPermissions(GetRegisteredModelPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
     Map<String, String> headers = new HashMap<>();
@@ -260,8 +259,7 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
-  public RegisteredModelPermissions setRegisteredModelPermissions(
-      RegisteredModelPermissionsRequest request) {
+  public RegisteredModelPermissions setPermissions(RegisteredModelPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
     Map<String, String> headers = new HashMap<>();
@@ -316,8 +314,7 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
-  public RegisteredModelPermissions updateRegisteredModelPermissions(
-      RegisteredModelPermissionsRequest request) {
+  public RegisteredModelPermissions updatePermissions(RegisteredModelPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
     Map<String, String> headers = new HashMap<>();

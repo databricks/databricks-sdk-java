@@ -30,6 +30,10 @@ public class DashboardsAPI {
     impl = mock;
   }
 
+  public Dashboard create(String name) {
+    return create(new CreateDashboardRequest().setName(name));
+  }
+
   /** Create a dashboard object. */
   public Dashboard create(CreateDashboardRequest request) {
     return impl.create(request);

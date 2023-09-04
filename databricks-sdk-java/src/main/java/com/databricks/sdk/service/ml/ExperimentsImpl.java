@@ -86,7 +86,15 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public GetExperimentPermissionLevelsResponse getExperimentPermissionLevels(
+  public GetMetricHistoryResponse getHistory(GetHistoryRequest request) {
+    String path = "/api/2.0/mlflow/metrics/get-history";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, GetMetricHistoryResponse.class, headers);
+  }
+
+  @Override
+  public GetExperimentPermissionLevelsResponse getPermissionLevels(
       GetExperimentPermissionLevelsRequest request) {
     String path =
         String.format(
@@ -97,19 +105,11 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public ExperimentPermissions getExperimentPermissions(GetExperimentPermissionsRequest request) {
+  public ExperimentPermissions getPermissions(GetExperimentPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, ExperimentPermissions.class, headers);
-  }
-
-  @Override
-  public GetMetricHistoryResponse getHistory(GetHistoryRequest request) {
-    String path = "/api/2.0/mlflow/metrics/get-history";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetMetricHistoryResponse.class, headers);
   }
 
   @Override
@@ -227,21 +227,21 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public ExperimentPermissions setExperimentPermissions(ExperimentPermissionsRequest request) {
-    String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, ExperimentPermissions.class, headers);
-  }
-
-  @Override
   public void setExperimentTag(SetExperimentTag request) {
     String path = "/api/2.0/mlflow/experiments/set-experiment-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
     apiClient.POST(path, request, Void.class, headers);
+  }
+
+  @Override
+  public ExperimentPermissions setPermissions(ExperimentPermissionsRequest request) {
+    String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PUT(path, request, ExperimentPermissions.class, headers);
   }
 
   @Override
@@ -263,7 +263,7 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public ExperimentPermissions updateExperimentPermissions(ExperimentPermissionsRequest request) {
+  public ExperimentPermissions updatePermissions(ExperimentPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

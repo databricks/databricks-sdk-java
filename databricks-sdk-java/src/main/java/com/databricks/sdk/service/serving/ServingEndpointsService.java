@@ -55,7 +55,7 @@ public interface ServingEndpointsService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetServingEndpointPermissionLevelsResponse getServingEndpointPermissionLevels(
+  GetServingEndpointPermissionLevelsResponse getPermissionLevels(
       GetServingEndpointPermissionLevelsRequest getServingEndpointPermissionLevelsRequest);
 
   /**
@@ -64,7 +64,7 @@ public interface ServingEndpointsService {
    * <p>Gets the permissions of a serving endpoint. Serving endpoints can inherit permissions from
    * their root object.
    */
-  ServingEndpointPermissions getServingEndpointPermissions(
+  ServingEndpointPermissions getPermissions(
       GetServingEndpointPermissionsRequest getServingEndpointPermissionsRequest);
 
   /** Retrieve all serving endpoints. */
@@ -86,7 +86,7 @@ public interface ServingEndpointsService {
    * <p>Sets permissions on a serving endpoint. Serving endpoints can inherit permissions from their
    * root object.
    */
-  ServingEndpointPermissions setServingEndpointPermissions(
+  ServingEndpointPermissions setPermissions(
       ServingEndpointPermissionsRequest servingEndpointPermissionsRequest);
 
   /**
@@ -104,6 +104,6 @@ public interface ServingEndpointsService {
    * <p>Updates the permissions on a serving endpoint. Serving endpoints can inherit permissions
    * from their root object.
    */
-  ServingEndpointPermissions updateServingEndpointPermissions(
+  ServingEndpointPermissions updatePermissions(
       ServingEndpointPermissionsRequest servingEndpointPermissionsRequest);
 }

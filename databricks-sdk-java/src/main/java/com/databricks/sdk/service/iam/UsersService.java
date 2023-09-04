@@ -48,7 +48,7 @@ public interface UsersService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetPasswordPermissionLevelsResponse getPasswordPermissionLevels();
+  GetPasswordPermissionLevelsResponse getPermissionLevels();
 
   /**
    * Get password permissions.
@@ -56,7 +56,7 @@ public interface UsersService {
    * <p>Gets the permissions of all passwords. Passwords can inherit permissions from their root
    * object.
    */
-  PasswordPermissions getPasswordPermissions();
+  PasswordPermissions getPermissions();
 
   /**
    * List users.
@@ -78,7 +78,7 @@ public interface UsersService {
    *
    * <p>Sets permissions on all passwords. Passwords can inherit permissions from their root object.
    */
-  PasswordPermissions setPasswordPermissions(PasswordPermissionsRequest passwordPermissionsRequest);
+  PasswordPermissions setPermissions(PasswordPermissionsRequest passwordPermissionsRequest);
 
   /**
    * Replace a user.
@@ -93,6 +93,5 @@ public interface UsersService {
    * <p>Updates the permissions on all passwords. Passwords can inherit permissions from their root
    * object.
    */
-  PasswordPermissions updatePasswordPermissions(
-      PasswordPermissionsRequest passwordPermissionsRequest);
+  PasswordPermissions updatePermissions(PasswordPermissionsRequest passwordPermissionsRequest);
 }

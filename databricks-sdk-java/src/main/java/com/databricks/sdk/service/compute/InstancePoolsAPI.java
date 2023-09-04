@@ -97,9 +97,8 @@ public class InstancePoolsAPI {
     return impl.get(request);
   }
 
-  public GetInstancePoolPermissionLevelsResponse getInstancePoolPermissionLevels(
-      String instancePoolId) {
-    return getInstancePoolPermissionLevels(
+  public GetInstancePoolPermissionLevelsResponse getPermissionLevels(String instancePoolId) {
+    return getPermissionLevels(
         new GetInstancePoolPermissionLevelsRequest().setInstancePoolId(instancePoolId));
   }
 
@@ -108,13 +107,13 @@ public class InstancePoolsAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetInstancePoolPermissionLevelsResponse getInstancePoolPermissionLevels(
+  public GetInstancePoolPermissionLevelsResponse getPermissionLevels(
       GetInstancePoolPermissionLevelsRequest request) {
-    return impl.getInstancePoolPermissionLevels(request);
+    return impl.getPermissionLevels(request);
   }
 
-  public InstancePoolPermissions getInstancePoolPermissions(String instancePoolId) {
-    return getInstancePoolPermissions(
+  public InstancePoolPermissions getPermissions(String instancePoolId) {
+    return getPermissions(
         new GetInstancePoolPermissionsRequest().setInstancePoolId(instancePoolId));
   }
 
@@ -124,9 +123,8 @@ public class InstancePoolsAPI {
    * <p>Gets the permissions of an instance pool. Instance pools can inherit permissions from their
    * root object.
    */
-  public InstancePoolPermissions getInstancePoolPermissions(
-      GetInstancePoolPermissionsRequest request) {
-    return impl.getInstancePoolPermissions(request);
+  public InstancePoolPermissions getPermissions(GetInstancePoolPermissionsRequest request) {
+    return impl.getPermissions(request);
   }
 
   /**
@@ -138,9 +136,8 @@ public class InstancePoolsAPI {
     return impl.list().getInstancePools();
   }
 
-  public InstancePoolPermissions setInstancePoolPermissions(String instancePoolId) {
-    return setInstancePoolPermissions(
-        new InstancePoolPermissionsRequest().setInstancePoolId(instancePoolId));
+  public InstancePoolPermissions setPermissions(String instancePoolId) {
+    return setPermissions(new InstancePoolPermissionsRequest().setInstancePoolId(instancePoolId));
   }
 
   /**
@@ -149,13 +146,12 @@ public class InstancePoolsAPI {
    * <p>Sets permissions on an instance pool. Instance pools can inherit permissions from their root
    * object.
    */
-  public InstancePoolPermissions setInstancePoolPermissions(
-      InstancePoolPermissionsRequest request) {
-    return impl.setInstancePoolPermissions(request);
+  public InstancePoolPermissions setPermissions(InstancePoolPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
-  public InstancePoolPermissions updateInstancePoolPermissions(String instancePoolId) {
-    return updateInstancePoolPermissions(
+  public InstancePoolPermissions updatePermissions(String instancePoolId) {
+    return updatePermissions(
         new InstancePoolPermissionsRequest().setInstancePoolId(instancePoolId));
   }
 
@@ -165,9 +161,8 @@ public class InstancePoolsAPI {
    * <p>Updates the permissions on an instance pool. Instance pools can inherit permissions from
    * their root object.
    */
-  public InstancePoolPermissions updateInstancePoolPermissions(
-      InstancePoolPermissionsRequest request) {
-    return impl.updateInstancePoolPermissions(request);
+  public InstancePoolPermissions updatePermissions(InstancePoolPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public InstancePoolsService impl() {

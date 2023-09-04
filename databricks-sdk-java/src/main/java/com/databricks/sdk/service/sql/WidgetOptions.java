@@ -13,9 +13,9 @@ public class WidgetOptions {
   @JsonProperty("created_at")
   private String createdAt;
 
-  /** The dashboard ID to which this widget belongs. Each widget can belong to one dashboard. */
-  @JsonProperty("dashboard_id")
-  private String dashboardId;
+  /** Custom description of the widget */
+  @JsonProperty("description")
+  private String description;
 
   /** Whether this widget is hidden on the dashboard. */
   @JsonProperty("isHidden")
@@ -33,14 +33,11 @@ public class WidgetOptions {
    * unsupported.
    */
   @JsonProperty("position")
-  private Object position;
+  private WidgetPosition position;
 
-  /**
-   * If this is a textbox widget, the application displays this text. This field is ignored if the
-   * widget contains a visualization in the `visualization` field.
-   */
-  @JsonProperty("text")
-  private String text;
+  /** Custom title of the widget */
+  @JsonProperty("title")
+  private String title;
 
   /** Timestamp of the last time this object was updated. */
   @JsonProperty("updated_at")
@@ -55,13 +52,13 @@ public class WidgetOptions {
     return createdAt;
   }
 
-  public WidgetOptions setDashboardId(String dashboardId) {
-    this.dashboardId = dashboardId;
+  public WidgetOptions setDescription(String description) {
+    this.description = description;
     return this;
   }
 
-  public String getDashboardId() {
-    return dashboardId;
+  public String getDescription() {
+    return description;
   }
 
   public WidgetOptions setIsHidden(Boolean isHidden) {
@@ -82,22 +79,22 @@ public class WidgetOptions {
     return parameterMappings;
   }
 
-  public WidgetOptions setPosition(Object position) {
+  public WidgetOptions setPosition(WidgetPosition position) {
     this.position = position;
     return this;
   }
 
-  public Object getPosition() {
+  public WidgetPosition getPosition() {
     return position;
   }
 
-  public WidgetOptions setText(String text) {
-    this.text = text;
+  public WidgetOptions setTitle(String title) {
+    this.title = title;
     return this;
   }
 
-  public String getText() {
-    return text;
+  public String getTitle() {
+    return title;
   }
 
   public WidgetOptions setUpdatedAt(String updatedAt) {
@@ -115,29 +112,29 @@ public class WidgetOptions {
     if (o == null || getClass() != o.getClass()) return false;
     WidgetOptions that = (WidgetOptions) o;
     return Objects.equals(createdAt, that.createdAt)
-        && Objects.equals(dashboardId, that.dashboardId)
+        && Objects.equals(description, that.description)
         && Objects.equals(isHidden, that.isHidden)
         && Objects.equals(parameterMappings, that.parameterMappings)
         && Objects.equals(position, that.position)
-        && Objects.equals(text, that.text)
+        && Objects.equals(title, that.title)
         && Objects.equals(updatedAt, that.updatedAt);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        createdAt, dashboardId, isHidden, parameterMappings, position, text, updatedAt);
+        createdAt, description, isHidden, parameterMappings, position, title, updatedAt);
   }
 
   @Override
   public String toString() {
     return new ToStringer(WidgetOptions.class)
         .add("createdAt", createdAt)
-        .add("dashboardId", dashboardId)
+        .add("description", description)
         .add("isHidden", isHidden)
         .add("parameterMappings", parameterMappings)
         .add("position", position)
-        .add("text", text)
+        .add("title", title)
         .add("updatedAt", updatedAt)
         .toString();
   }

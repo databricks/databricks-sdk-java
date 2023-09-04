@@ -32,12 +32,12 @@ public class VolumesAPI {
   }
 
   public VolumeInfo create(
-      String catalogName, String name, String schemaName, VolumeType volumeType) {
+      String catalogName, String schemaName, String name, VolumeType volumeType) {
     return create(
         new CreateVolumeRequestContent()
             .setCatalogName(catalogName)
-            .setName(name)
             .setSchemaName(schemaName)
+            .setName(name)
             .setVolumeType(volumeType));
   }
 

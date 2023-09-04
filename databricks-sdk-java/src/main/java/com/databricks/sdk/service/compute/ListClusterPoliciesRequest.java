@@ -7,7 +7,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get a cluster policy */
+/** List cluster policies */
 @Generated
 public class ListClusterPoliciesRequest {
   /**

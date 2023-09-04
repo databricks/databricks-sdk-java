@@ -101,7 +101,7 @@ public interface ClustersService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetClusterPermissionLevelsResponse getClusterPermissionLevels(
+  GetClusterPermissionLevelsResponse getPermissionLevels(
       GetClusterPermissionLevelsRequest getClusterPermissionLevelsRequest);
 
   /**
@@ -109,8 +109,7 @@ public interface ClustersService {
    *
    * <p>Gets the permissions of a cluster. Clusters can inherit permissions from their root object.
    */
-  ClusterPermissions getClusterPermissions(
-      GetClusterPermissionsRequest getClusterPermissionsRequest);
+  ClusterPermissions getPermissions(GetClusterPermissionsRequest getClusterPermissionsRequest);
 
   /**
    * List all clusters.
@@ -183,7 +182,7 @@ public interface ClustersService {
    *
    * <p>Sets permissions on a cluster. Clusters can inherit permissions from their root object.
    */
-  ClusterPermissions setClusterPermissions(ClusterPermissionsRequest clusterPermissionsRequest);
+  ClusterPermissions setPermissions(ClusterPermissionsRequest clusterPermissionsRequest);
 
   /**
    * List available Spark versions.
@@ -221,5 +220,5 @@ public interface ClustersService {
    * <p>Updates the permissions on a cluster. Clusters can inherit permissions from their root
    * object.
    */
-  ClusterPermissions updateClusterPermissions(ClusterPermissionsRequest clusterPermissionsRequest);
+  ClusterPermissions updatePermissions(ClusterPermissionsRequest clusterPermissionsRequest);
 }

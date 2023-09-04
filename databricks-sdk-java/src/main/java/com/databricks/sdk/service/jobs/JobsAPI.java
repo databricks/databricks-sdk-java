@@ -189,8 +189,8 @@ public class JobsAPI {
     return impl.get(request);
   }
 
-  public GetJobPermissionLevelsResponse getJobPermissionLevels(String jobId) {
-    return getJobPermissionLevels(new GetJobPermissionLevelsRequest().setJobId(jobId));
+  public GetJobPermissionLevelsResponse getPermissionLevels(String jobId) {
+    return getPermissionLevels(new GetJobPermissionLevelsRequest().setJobId(jobId));
   }
 
   /**
@@ -198,13 +198,12 @@ public class JobsAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetJobPermissionLevelsResponse getJobPermissionLevels(
-      GetJobPermissionLevelsRequest request) {
-    return impl.getJobPermissionLevels(request);
+  public GetJobPermissionLevelsResponse getPermissionLevels(GetJobPermissionLevelsRequest request) {
+    return impl.getPermissionLevels(request);
   }
 
-  public JobPermissions getJobPermissions(String jobId) {
-    return getJobPermissions(new GetJobPermissionsRequest().setJobId(jobId));
+  public JobPermissions getPermissions(String jobId) {
+    return getPermissions(new GetJobPermissionsRequest().setJobId(jobId));
   }
 
   /**
@@ -212,8 +211,8 @@ public class JobsAPI {
    *
    * <p>Gets the permissions of a job. Jobs can inherit permissions from their root object.
    */
-  public JobPermissions getJobPermissions(GetJobPermissionsRequest request) {
-    return impl.getJobPermissions(request);
+  public JobPermissions getPermissions(GetJobPermissionsRequest request) {
+    return impl.getPermissions(request);
   }
 
   public Run getRun(long runId) {
@@ -337,8 +336,8 @@ public class JobsAPI {
         response);
   }
 
-  public JobPermissions setJobPermissions(String jobId) {
-    return setJobPermissions(new JobPermissionsRequest().setJobId(jobId));
+  public JobPermissions setPermissions(String jobId) {
+    return setPermissions(new JobPermissionsRequest().setJobId(jobId));
   }
 
   /**
@@ -346,8 +345,8 @@ public class JobsAPI {
    *
    * <p>Sets permissions on a job. Jobs can inherit permissions from their root object.
    */
-  public JobPermissions setJobPermissions(JobPermissionsRequest request) {
-    return impl.setJobPermissions(request);
+  public JobPermissions setPermissions(JobPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
   /**
@@ -379,8 +378,8 @@ public class JobsAPI {
     impl.update(request);
   }
 
-  public JobPermissions updateJobPermissions(String jobId) {
-    return updateJobPermissions(new JobPermissionsRequest().setJobId(jobId));
+  public JobPermissions updatePermissions(String jobId) {
+    return updatePermissions(new JobPermissionsRequest().setJobId(jobId));
   }
 
   /**
@@ -388,8 +387,8 @@ public class JobsAPI {
    *
    * <p>Updates the permissions on a job. Jobs can inherit permissions from their root object.
    */
-  public JobPermissions updateJobPermissions(JobPermissionsRequest request) {
-    return impl.updateJobPermissions(request);
+  public JobPermissions updatePermissions(JobPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public JobsService impl() {

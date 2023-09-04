@@ -174,8 +174,8 @@ public class WarehousesAPI {
     return impl.get(request);
   }
 
-  public GetWarehousePermissionLevelsResponse getWarehousePermissionLevels(String warehouseId) {
-    return getWarehousePermissionLevels(
+  public GetWarehousePermissionLevelsResponse getPermissionLevels(String warehouseId) {
+    return getPermissionLevels(
         new GetWarehousePermissionLevelsRequest().setWarehouseId(warehouseId));
   }
 
@@ -184,14 +184,13 @@ public class WarehousesAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetWarehousePermissionLevelsResponse getWarehousePermissionLevels(
+  public GetWarehousePermissionLevelsResponse getPermissionLevels(
       GetWarehousePermissionLevelsRequest request) {
-    return impl.getWarehousePermissionLevels(request);
+    return impl.getPermissionLevels(request);
   }
 
-  public WarehousePermissions getWarehousePermissions(String warehouseId) {
-    return getWarehousePermissions(
-        new GetWarehousePermissionsRequest().setWarehouseId(warehouseId));
+  public WarehousePermissions getPermissions(String warehouseId) {
+    return getPermissions(new GetWarehousePermissionsRequest().setWarehouseId(warehouseId));
   }
 
   /**
@@ -200,8 +199,8 @@ public class WarehousesAPI {
    * <p>Gets the permissions of a SQL warehouse. SQL warehouses can inherit permissions from their
    * root object.
    */
-  public WarehousePermissions getWarehousePermissions(GetWarehousePermissionsRequest request) {
-    return impl.getWarehousePermissions(request);
+  public WarehousePermissions getPermissions(GetWarehousePermissionsRequest request) {
+    return impl.getPermissions(request);
   }
 
   /**
@@ -222,8 +221,8 @@ public class WarehousesAPI {
     return impl.list(request).getWarehouses();
   }
 
-  public WarehousePermissions setWarehousePermissions(String warehouseId) {
-    return setWarehousePermissions(new WarehousePermissionsRequest().setWarehouseId(warehouseId));
+  public WarehousePermissions setPermissions(String warehouseId) {
+    return setPermissions(new WarehousePermissionsRequest().setWarehouseId(warehouseId));
   }
 
   /**
@@ -232,8 +231,8 @@ public class WarehousesAPI {
    * <p>Sets permissions on a SQL warehouse. SQL warehouses can inherit permissions from their root
    * object.
    */
-  public WarehousePermissions setWarehousePermissions(WarehousePermissionsRequest request) {
-    return impl.setWarehousePermissions(request);
+  public WarehousePermissions setPermissions(WarehousePermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
   /**
@@ -275,9 +274,8 @@ public class WarehousesAPI {
         (timeout, callback) -> waitGetWarehouseStopped(request.getId(), timeout, callback));
   }
 
-  public WarehousePermissions updateWarehousePermissions(String warehouseId) {
-    return updateWarehousePermissions(
-        new WarehousePermissionsRequest().setWarehouseId(warehouseId));
+  public WarehousePermissions updatePermissions(String warehouseId) {
+    return updatePermissions(new WarehousePermissionsRequest().setWarehouseId(warehouseId));
   }
 
   /**
@@ -286,8 +284,8 @@ public class WarehousesAPI {
    * <p>Updates the permissions on a SQL warehouse. SQL warehouses can inherit permissions from
    * their root object.
    */
-  public WarehousePermissions updateWarehousePermissions(WarehousePermissionsRequest request) {
-    return impl.updateWarehousePermissions(request);
+  public WarehousePermissions updatePermissions(WarehousePermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public WarehousesService impl() {

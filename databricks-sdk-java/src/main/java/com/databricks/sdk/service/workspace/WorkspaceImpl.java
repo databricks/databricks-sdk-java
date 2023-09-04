@@ -33,15 +33,7 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
-  public ObjectInfo getStatus(GetStatusRequest request) {
-    String path = "/api/2.0/workspace/get-status";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ObjectInfo.class, headers);
-  }
-
-  @Override
-  public GetWorkspaceObjectPermissionLevelsResponse getWorkspaceObjectPermissionLevels(
+  public GetWorkspaceObjectPermissionLevelsResponse getPermissionLevels(
       GetWorkspaceObjectPermissionLevelsRequest request) {
     String path =
         String.format(
@@ -53,8 +45,7 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
-  public WorkspaceObjectPermissions getWorkspaceObjectPermissions(
-      GetWorkspaceObjectPermissionsRequest request) {
+  public WorkspaceObjectPermissions getPermissions(GetWorkspaceObjectPermissionsRequest request) {
     String path =
         String.format(
             "/api/2.0/permissions/%s/%s",
@@ -62,6 +53,14 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, WorkspaceObjectPermissions.class, headers);
+  }
+
+  @Override
+  public ObjectInfo getStatus(GetStatusRequest request) {
+    String path = "/api/2.0/workspace/get-status";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ObjectInfo.class, headers);
   }
 
   @Override
@@ -91,8 +90,7 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
-  public WorkspaceObjectPermissions setWorkspaceObjectPermissions(
-      WorkspaceObjectPermissionsRequest request) {
+  public WorkspaceObjectPermissions setPermissions(WorkspaceObjectPermissionsRequest request) {
     String path =
         String.format(
             "/api/2.0/permissions/%s/%s",
@@ -104,8 +102,7 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
-  public WorkspaceObjectPermissions updateWorkspaceObjectPermissions(
-      WorkspaceObjectPermissionsRequest request) {
+  public WorkspaceObjectPermissions updatePermissions(WorkspaceObjectPermissionsRequest request) {
     String path =
         String.format(
             "/api/2.0/permissions/%s/%s",

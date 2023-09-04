@@ -100,6 +100,8 @@ import com.databricks.sdk.service.sharing.SharesAPI;
 import com.databricks.sdk.service.sharing.SharesService;
 import com.databricks.sdk.service.sql.AlertsAPI;
 import com.databricks.sdk.service.sql.AlertsService;
+import com.databricks.sdk.service.sql.DashboardWidgetsAPI;
+import com.databricks.sdk.service.sql.DashboardWidgetsService;
 import com.databricks.sdk.service.sql.DashboardsAPI;
 import com.databricks.sdk.service.sql.DashboardsService;
 import com.databricks.sdk.service.sql.DataSourcesAPI;
@@ -110,6 +112,8 @@ import com.databricks.sdk.service.sql.QueriesAPI;
 import com.databricks.sdk.service.sql.QueriesService;
 import com.databricks.sdk.service.sql.QueryHistoryAPI;
 import com.databricks.sdk.service.sql.QueryHistoryService;
+import com.databricks.sdk.service.sql.QueryVisualizationsAPI;
+import com.databricks.sdk.service.sql.QueryVisualizationsService;
 import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.sql.WarehousesAPI;
@@ -139,6 +143,7 @@ public class WorkspaceClient {
   private CommandExecutionAPI commandExecutionAPI;
   private ConnectionsAPI connectionsAPI;
   private CurrentUserAPI currentUserAPI;
+  private DashboardWidgetsAPI dashboardWidgetsAPI;
   private DashboardsAPI dashboardsAPI;
   private DataSourcesAPI dataSourcesAPI;
   private DbfsExt dbfsAPI;
@@ -165,6 +170,7 @@ public class WorkspaceClient {
   private ProvidersAPI providersAPI;
   private QueriesAPI queriesAPI;
   private QueryHistoryAPI queryHistoryAPI;
+  private QueryVisualizationsAPI queryVisualizationsAPI;
   private RecipientActivationAPI recipientActivationAPI;
   private RecipientsAPI recipientsAPI;
   private RegisteredModelsAPI registeredModelsAPI;
@@ -206,6 +212,7 @@ public class WorkspaceClient {
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
     connectionsAPI = new ConnectionsAPI(apiClient);
     currentUserAPI = new CurrentUserAPI(apiClient);
+    dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
@@ -232,6 +239,7 @@ public class WorkspaceClient {
     providersAPI = new ProvidersAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
+    queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
     recipientsAPI = new RecipientsAPI(apiClient);
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
@@ -401,6 +409,14 @@ public class WorkspaceClient {
    */
   public CurrentUserAPI currentUser() {
     return currentUserAPI;
+  }
+
+  /**
+   * This is an evolving API that facilitates the addition and removal of widgets from existing
+   * dashboards within the Databricks Workspace. Data structures may change over time.
+   */
+  public DashboardWidgetsAPI dashboardWidgets() {
+    return dashboardWidgetsAPI;
   }
 
   /**
@@ -807,6 +823,14 @@ public class WorkspaceClient {
   /** Access the history of queries through SQL warehouses. */
   public QueryHistoryAPI queryHistory() {
     return queryHistoryAPI;
+  }
+
+  /**
+   * This is an evolving API that facilitates the addition and removal of vizualisations from
+   * existing queries within the Databricks Workspace. Data structures may change over time.
+   */
+  public QueryVisualizationsAPI queryVisualizations() {
+    return queryVisualizationsAPI;
   }
 
   /**
@@ -1319,6 +1343,12 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace DashboardWidgetsAPI implementation with mock */
+  public WorkspaceClient withDashboardWidgetsImpl(DashboardWidgetsService dashboardWidgets) {
+    dashboardWidgetsAPI = new DashboardWidgetsAPI(dashboardWidgets);
+    return this;
+  }
+
   /** Replace DashboardsAPI implementation with mock */
   public WorkspaceClient withDashboardsImpl(DashboardsService dashboards) {
     dashboardsAPI = new DashboardsAPI(dashboards);
@@ -1472,6 +1502,13 @@ public class WorkspaceClient {
   /** Replace QueryHistoryAPI implementation with mock */
   public WorkspaceClient withQueryHistoryImpl(QueryHistoryService queryHistory) {
     queryHistoryAPI = new QueryHistoryAPI(queryHistory);
+    return this;
+  }
+
+  /** Replace QueryVisualizationsAPI implementation with mock */
+  public WorkspaceClient withQueryVisualizationsImpl(
+      QueryVisualizationsService queryVisualizations) {
+    queryVisualizationsAPI = new QueryVisualizationsAPI(queryVisualizations);
     return this;
   }
 

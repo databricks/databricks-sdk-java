@@ -55,7 +55,7 @@ public interface ClusterPoliciesService {
   void edit(EditPolicy editPolicy);
 
   /**
-   * Get entity.
+   * Get a cluster policy.
    *
    * <p>Get a cluster policy entity. Creation and editing is available to admins only.
    */
@@ -66,7 +66,7 @@ public interface ClusterPoliciesService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetClusterPolicyPermissionLevelsResponse getClusterPolicyPermissionLevels(
+  GetClusterPolicyPermissionLevelsResponse getPermissionLevels(
       GetClusterPolicyPermissionLevelsRequest getClusterPolicyPermissionLevelsRequest);
 
   /**
@@ -75,11 +75,11 @@ public interface ClusterPoliciesService {
    * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
    * their root object.
    */
-  ClusterPolicyPermissions getClusterPolicyPermissions(
+  ClusterPolicyPermissions getPermissions(
       GetClusterPolicyPermissionsRequest getClusterPolicyPermissionsRequest);
 
   /**
-   * Get a cluster policy.
+   * List cluster policies.
    *
    * <p>Returns a list of policies accessible by the requesting user.
    */
@@ -91,7 +91,7 @@ public interface ClusterPoliciesService {
    * <p>Sets permissions on a cluster policy. Cluster policies can inherit permissions from their
    * root object.
    */
-  ClusterPolicyPermissions setClusterPolicyPermissions(
+  ClusterPolicyPermissions setPermissions(
       ClusterPolicyPermissionsRequest clusterPolicyPermissionsRequest);
 
   /**
@@ -100,6 +100,6 @@ public interface ClusterPoliciesService {
    * <p>Updates the permissions on a cluster policy. Cluster policies can inherit permissions from
    * their root object.
    */
-  ClusterPolicyPermissions updateClusterPolicyPermissions(
+  ClusterPolicyPermissions updatePermissions(
       ClusterPolicyPermissionsRequest clusterPolicyPermissionsRequest);
 }

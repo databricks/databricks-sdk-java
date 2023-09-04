@@ -47,7 +47,7 @@ public interface WarehousesService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetWarehousePermissionLevelsResponse getWarehousePermissionLevels(
+  GetWarehousePermissionLevelsResponse getPermissionLevels(
       GetWarehousePermissionLevelsRequest getWarehousePermissionLevelsRequest);
 
   /**
@@ -56,7 +56,7 @@ public interface WarehousesService {
    * <p>Gets the permissions of a SQL warehouse. SQL warehouses can inherit permissions from their
    * root object.
    */
-  WarehousePermissions getWarehousePermissions(
+  WarehousePermissions getPermissions(
       GetWarehousePermissionsRequest getWarehousePermissionsRequest);
 
   /**
@@ -79,8 +79,7 @@ public interface WarehousesService {
    * <p>Sets permissions on a SQL warehouse. SQL warehouses can inherit permissions from their root
    * object.
    */
-  WarehousePermissions setWarehousePermissions(
-      WarehousePermissionsRequest warehousePermissionsRequest);
+  WarehousePermissions setPermissions(WarehousePermissionsRequest warehousePermissionsRequest);
 
   /**
    * Set the workspace configuration.
@@ -110,6 +109,5 @@ public interface WarehousesService {
    * <p>Updates the permissions on a SQL warehouse. SQL warehouses can inherit permissions from
    * their root object.
    */
-  WarehousePermissions updateWarehousePermissions(
-      WarehousePermissionsRequest warehousePermissionsRequest);
+  WarehousePermissions updatePermissions(WarehousePermissionsRequest warehousePermissionsRequest);
 }

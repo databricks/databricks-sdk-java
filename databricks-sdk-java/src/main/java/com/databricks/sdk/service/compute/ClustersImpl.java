@@ -69,7 +69,7 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public GetClusterPermissionLevelsResponse getClusterPermissionLevels(
+  public GetClusterPermissionLevelsResponse getPermissionLevels(
       GetClusterPermissionLevelsRequest request) {
     String path =
         String.format("/api/2.0/permissions/clusters/%s/permissionLevels", request.getClusterId());
@@ -79,7 +79,7 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public ClusterPermissions getClusterPermissions(GetClusterPermissionsRequest request) {
+  public ClusterPermissions getPermissions(GetClusterPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -147,7 +147,7 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public ClusterPermissions setClusterPermissions(ClusterPermissionsRequest request) {
+  public ClusterPermissions setPermissions(ClusterPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -182,7 +182,7 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public ClusterPermissions updateClusterPermissions(ClusterPermissionsRequest request) {
+  public ClusterPermissions updatePermissions(ClusterPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

@@ -51,7 +51,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
   }
 
   @Override
-  public GetClusterPolicyPermissionLevelsResponse getClusterPolicyPermissionLevels(
+  public GetClusterPolicyPermissionLevelsResponse getPermissionLevels(
       GetClusterPolicyPermissionLevelsRequest request) {
     String path =
         String.format(
@@ -63,8 +63,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
   }
 
   @Override
-  public ClusterPolicyPermissions getClusterPolicyPermissions(
-      GetClusterPolicyPermissionsRequest request) {
+  public ClusterPolicyPermissions getPermissions(GetClusterPolicyPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/cluster-policies/%s", request.getClusterPolicyId());
     Map<String, String> headers = new HashMap<>();
@@ -81,8 +80,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
   }
 
   @Override
-  public ClusterPolicyPermissions setClusterPolicyPermissions(
-      ClusterPolicyPermissionsRequest request) {
+  public ClusterPolicyPermissions setPermissions(ClusterPolicyPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/cluster-policies/%s", request.getClusterPolicyId());
     Map<String, String> headers = new HashMap<>();
@@ -92,8 +90,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
   }
 
   @Override
-  public ClusterPolicyPermissions updateClusterPolicyPermissions(
-      ClusterPolicyPermissionsRequest request) {
+  public ClusterPolicyPermissions updatePermissions(ClusterPolicyPermissionsRequest request) {
     String path =
         String.format("/api/2.0/permissions/cluster-policies/%s", request.getClusterPolicyId());
     Map<String, String> headers = new HashMap<>();
