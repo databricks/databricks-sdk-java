@@ -32,7 +32,7 @@ public class ResourceWithCleanup implements AutoCloseable {
 
   public static ResourceWithCleanup makeVolume(
       VolumesAPI volumesAPI, String catalogName, String schemaName, String volumeName) {
-    volumesAPI.create(catalogName, volumeName, schemaName, VolumeType.MANAGED);
+    volumesAPI.create(catalogName, schemaName, volumeName, VolumeType.MANAGED);
     return new ResourceWithCleanup(
         () -> volumesAPI.delete(catalogName + "." + schemaName + "." + volumeName));
   }
