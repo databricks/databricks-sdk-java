@@ -2,8 +2,8 @@
 
 ## 0.8.1
 
-* Fix Files API integration test ([#150](https://github.com/databricks/databricks-sdk-java/pull/150)).
-* [DECO-2483] Handle Azure authentication when WorkspaceResourceID is provided ([#145](https://github.com/databricks/databricks-sdk-java/pull/145)).
+* Added support for Azure authentication when WorkspaceResourceID is provided ([#145](https://github.com/databricks/databricks-sdk-java/pull/145)).
+* Fixed Files API integration test ([#150](https://github.com/databricks/databricks-sdk-java/pull/150)).
 
 
 
