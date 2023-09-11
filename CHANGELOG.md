@@ -6,7 +6,6 @@
 * Fixed Files API integration test ([#150](https://github.com/databricks/databricks-sdk-java/pull/150)).
 
 
-
 ## 0.8.0
 
 * Adding mock constructor method for WorkspaceClient to support mocked ApiClient ([#144](https://github.com/databricks/databricks-sdk-java/pull/144)).
