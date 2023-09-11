@@ -1,5 +1,12 @@
 # Version changelog
 
+## 0.8.1
+
+* Fix Files API integration test ([#150](https://github.com/databricks/databricks-sdk-java/pull/150)).
+* [DECO-2483] Handle Azure authentication when WorkspaceResourceID is provided ([#145](https://github.com/databricks/databricks-sdk-java/pull/145)).
+
+
+
 ## 0.8.0
 
 * Adding mock constructor method for WorkspaceClient to support mocked ApiClient ([#144](https://github.com/databricks/databricks-sdk-java/pull/144)).
