@@ -2,6 +2,7 @@ package com.databricks.sdk.core.error;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
 /**
  * The union of all JSON error responses from the Databricks APIs, not including HTML responses.
@@ -20,6 +21,7 @@ public class ApiErrorBody {
   private String scimStatus;
   private String scimType;
   private String api12Error;
+  private List<ErrorDetail> errorDetails;
 
   public ApiErrorBody() {}
 
@@ -29,13 +31,23 @@ public class ApiErrorBody {
       @JsonProperty("detail") String scimDetail,
       @JsonProperty("status") String scimStatus,
       @JsonProperty("scimType") String scimType,
-      @JsonProperty("error") String api12Error) {
+      @JsonProperty("error") String api12Error,
+      @JsonProperty("details") List<ErrorDetail> errorDetails) {
     this.errorCode = errorCode;
     this.message = message;
     this.scimDetail = scimDetail;
     this.scimStatus = scimStatus;
     this.scimType = scimType;
     this.api12Error = api12Error;
+    this.errorDetails = errorDetails;
+  }
+
+  public List<ErrorDetail> getErrorDetails() {
+    return errorDetails;
+  }
+
+  public void setErrorDetails(List<ErrorDetail> errorDetails) {
+    this.errorDetails = errorDetails;
   }
 
   public String getErrorCode() {

@@ -1,9 +1,11 @@
 package com.databricks.sdk.core;
 
+import static com.databricks.sdk.core.DatabricksError.ERROR_INFO_TYPE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.databricks.sdk.core.error.ApiErrorBody;
+import com.databricks.sdk.core.error.ErrorDetail;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.FakeTimer;
@@ -67,12 +69,16 @@ public class ApiClientTest {
 
   private void runFailingApiClientTest(
       Request request, List<ResponseProvider> responses, Class<?> clazz, String expectedMessage) {
-    ApiClient client = getApiClient(request, responses);
-    DatabricksException exception =
-        assertThrows(
-            DatabricksException.class,
-            () -> client.GET(request.getUri().getPath(), clazz, Collections.emptyMap()));
+    DatabricksException exception = runFailingApiClientTest(request, responses, clazz);
     assertEquals(exception.getMessage(), expectedMessage);
+  }
+
+  private DatabricksException runFailingApiClientTest(
+      Request request, List<ResponseProvider> responses, Class<?> clazz) {
+    ApiClient client = getApiClient(request, responses);
+    return assertThrows(
+        DatabricksException.class,
+        () -> client.GET(request.getUri().getPath(), clazz, Collections.emptyMap()));
   }
 
   private Request getBasicRequest() {
@@ -173,10 +179,47 @@ public class ApiClientTest {
                     null,
                     null,
                     null,
-                    "Workspace 123 does not have any associated worker environments")),
+                    "Workspace 123 does not have any associated worker environments",
+                    null)),
             getSuccessResponse(req)),
         MyEndpointResponse.class,
         new MyEndpointResponse().setKey("value"));
+  }
+
+  @Test
+  void errorDetails() throws JsonProcessingException {
+    Request req = getBasicRequest();
+
+    Map<String, String> metadata = new HashMap<>();
+    metadata.put("etag", "value");
+    ErrorDetail errorDetails = new ErrorDetail(ERROR_INFO_TYPE, "reason", "domain", metadata);
+    ErrorDetail unrelatedDetails =
+        new ErrorDetail("unrelated", "wrong", "wrongDomain", new HashMap<>());
+
+    DatabricksException error =
+        runFailingApiClientTest(
+            req,
+            Arrays.asList(
+                getTransientError(
+                    req,
+                    401,
+                    new ApiErrorBody(
+                        "ERROR",
+                        null,
+                        null,
+                        null,
+                        null,
+                        null,
+                        Arrays.asList(errorDetails, unrelatedDetails))),
+                getSuccessResponse(req)),
+            MyEndpointResponse.class);
+    List<ErrorDetail> responseErrors = DatabricksError.getErrorInfo(error);
+    assertEquals(responseErrors.size(), 1);
+    ErrorDetail responseError = responseErrors.get(0);
+    assertEquals(errorDetails.getType(), responseError.getType());
+    assertEquals(errorDetails.getReason(), responseError.getReason());
+    assertEquals(errorDetails.getMetadata(), responseError.getMetadata());
+    assertEquals(errorDetails.getDomain(), responseError.getDomain());
   }
 
   @Test
@@ -193,6 +236,7 @@ public class ApiClientTest {
                 new ApiErrorBody(
                     "ERROR",
                     "Workspace 123 does not have any associated worker environments",
+                    null,
                     null,
                     null,
                     null,
