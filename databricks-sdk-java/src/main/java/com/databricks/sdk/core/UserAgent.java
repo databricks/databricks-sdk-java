@@ -10,11 +10,6 @@ public class UserAgent {
 
   private static final Map<String, String> otherInfo = new HashMap<>();
 
-  // TODO: check if reading from
-  // /META-INF/maven/com.databricks/databrics-sdk-java/pom.properties
-  // or getClass().getPackage().getImplementationVersion() is enough.
-  private static final String version = "0.8.1";
-
   public static void withProduct(String product, String productVersion) {
     UserAgent.product = product;
     UserAgent.productVersion = productVersion;
@@ -49,6 +44,6 @@ public class UserAgent {
             .collect(Collectors.joining());
     return String.format(
         "%s/%s databricks-sdk-java/%s jvm/%s os/%s%s",
-        product, productVersion, version, jvmVersion(), osName(), otherInfo);
+        product, productVersion, Version.sdkVersion(), jvmVersion(), osName(), otherInfo);
   }
 }
