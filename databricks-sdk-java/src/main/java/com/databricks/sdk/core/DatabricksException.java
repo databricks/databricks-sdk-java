@@ -19,6 +19,6 @@ public class DatabricksException extends RuntimeException {
     if (!(this instanceof DatabricksError)) {
       return Collections.emptyList();
     }
-    return ((DatabricksError) this).getErrorsOfType(ERROR_INFO_TYPE);
+    return ((DatabricksError) this).getDetailsByType(ERROR_INFO_TYPE);
   }
 }

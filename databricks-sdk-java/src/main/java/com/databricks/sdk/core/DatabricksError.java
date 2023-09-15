@@ -117,7 +117,7 @@ public class DatabricksError extends DatabricksException {
     return false;
   }
 
-  List<ErrorDetail> getErrorsOfType(String type) {
+  List<ErrorDetail> getDetailsByType(String type) {
     return this.details.stream().filter(e -> e.getType().equals(type)).collect(Collectors.toList());
   }
 
