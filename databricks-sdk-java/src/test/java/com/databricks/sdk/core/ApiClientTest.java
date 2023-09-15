@@ -1,6 +1,5 @@
 package com.databricks.sdk.core;
 
-import static com.databricks.sdk.core.DatabricksError.ERROR_INFO_TYPE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -69,15 +68,16 @@ public class ApiClientTest {
 
   private void runFailingApiClientTest(
       Request request, List<ResponseProvider> responses, Class<?> clazz, String expectedMessage) {
-    DatabricksException exception = runFailingApiClientTest(request, responses, clazz);
+    DatabricksException exception =
+        runFailingApiClientTest(request, responses, clazz, DatabricksException.class);
     assertEquals(exception.getMessage(), expectedMessage);
   }
 
-  private DatabricksException runFailingApiClientTest(
-      Request request, List<ResponseProvider> responses, Class<?> clazz) {
+  private <T extends Throwable> T runFailingApiClientTest(
+      Request request, List<ResponseProvider> responses, Class<?> clazz, Class<T> exceptionClass) {
     ApiClient client = getApiClient(request, responses);
     return assertThrows(
-        DatabricksException.class,
+        exceptionClass,
         () -> client.GET(request.getUri().getPath(), clazz, Collections.emptyMap()));
   }
 
@@ -192,11 +192,12 @@ public class ApiClientTest {
 
     Map<String, String> metadata = new HashMap<>();
     metadata.put("etag", "value");
-    ErrorDetail errorDetails = new ErrorDetail(ERROR_INFO_TYPE, "reason", "domain", metadata);
+    ErrorDetail errorDetails =
+        new ErrorDetail("type.googleapis.com/google.rpc.ErrorInfo", "reason", "domain", metadata);
     ErrorDetail unrelatedDetails =
         new ErrorDetail("unrelated", "wrong", "wrongDomain", new HashMap<>());
 
-    DatabricksException error =
+    DatabricksError error =
         runFailingApiClientTest(
             req,
             Arrays.asList(
@@ -212,7 +213,8 @@ public class ApiClientTest {
                         null,
                         Arrays.asList(errorDetails, unrelatedDetails))),
                 getSuccessResponse(req)),
-            MyEndpointResponse.class);
+            MyEndpointResponse.class,
+            DatabricksError.class);
     List<ErrorDetail> responseErrors = error.getErrorInfo();
     assertEquals(responseErrors.size(), 1);
     ErrorDetail responseError = responseErrors.get(0);

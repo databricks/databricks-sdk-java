@@ -33,28 +33,12 @@ public class ErrorDetail {
     return type;
   }
 
-  public void setType(String type) {
-    this.type = type;
-  }
-
   public String getReason() {
     return reason;
   }
 
-  public void setReason(String reason) {
-    this.reason = reason;
-  }
-
-  public void setDomain(String domain) {
-    this.domain = domain;
-  }
-
   public Map<String, String> getMetadata() {
     return metadata;
-  }
-
-  public void setMetadata(Map<String, String> metadata) {
-    this.metadata = metadata;
   }
 
   public String getDomain() {

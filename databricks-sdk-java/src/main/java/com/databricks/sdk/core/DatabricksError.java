@@ -20,8 +20,7 @@ import org.slf4j.LoggerFactory;
  * unrecoverable way and this exception should be thrown, potentially wrapped in another exception.
  */
 public class DatabricksError extends DatabricksException {
-
-  static final String ERROR_INFO_TYPE = "type.googleapis.com/google.rpc.ErrorInfo";
+  private static final String ERROR_INFO_TYPE = "type.googleapis.com/google.rpc.ErrorInfo";
   private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
 
   /** Errors returned by Databricks services which are known to be retriable. */
@@ -80,6 +79,10 @@ public class DatabricksError extends DatabricksException {
     this.cause = cause;
     this.statusCode = statusCode;
     this.details = details == null ? Collections.emptyList() : details;
+  }
+
+  public List<ErrorDetail> getErrorInfo() {
+    return this.getDetailsByType(ERROR_INFO_TYPE);
   }
 
   public String getErrorCode() {
