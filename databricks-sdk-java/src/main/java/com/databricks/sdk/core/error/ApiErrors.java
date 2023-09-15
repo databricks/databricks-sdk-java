@@ -6,6 +6,7 @@ import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.IOUtils;
@@ -47,8 +48,14 @@ public class ApiErrors {
       errorBody.setMessage(message.trim());
       errorBody.setErrorCode("SCIM_" + errorBody.getScimStatus());
     }
+    if (errorBody.getErrorDetails() == null) {
+      errorBody.setErrorDetails(Collections.emptyList());
+    }
     return new DatabricksError(
-        errorBody.getErrorCode(), errorBody.getMessage(), response.getStatusCode());
+        errorBody.getErrorCode(),
+        errorBody.getMessage(),
+        response.getStatusCode(),
+        errorBody.getErrorDetails());
   }
 
   /**

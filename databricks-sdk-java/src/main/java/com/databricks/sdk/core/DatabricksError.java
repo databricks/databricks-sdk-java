@@ -1,10 +1,13 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.error.ErrorDetail;
 import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +20,7 @@ import org.slf4j.LoggerFactory;
  * unrecoverable way and this exception should be thrown, potentially wrapped in another exception.
  */
 public class DatabricksError extends DatabricksException {
+  private static final String ERROR_INFO_TYPE = "type.googleapis.com/google.rpc.ErrorInfo";
   private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
 
   /** Errors returned by Databricks services which are known to be retriable. */
@@ -40,28 +44,45 @@ public class DatabricksError extends DatabricksException {
   private final String errorCode;
   private final int statusCode;
 
+  private final List<ErrorDetail> details;
+
   public DatabricksError(int statusCode) {
-    this("", "OK", statusCode, null);
+    this("", "OK", statusCode, null, Collections.emptyList());
   }
 
   public DatabricksError(String errorCode, String message) {
-    this(errorCode, message, 400, null);
+    this(errorCode, message, 400, null, Collections.emptyList());
   }
 
   public DatabricksError(String errorCode, String message, int statusCode) {
-    this(errorCode, message, statusCode, null);
+    this(errorCode, message, statusCode, null, Collections.emptyList());
   }
 
   public DatabricksError(String errorCode, int statusCode, Throwable cause) {
-    this(errorCode, cause.getMessage(), statusCode, cause);
+    this(errorCode, cause.getMessage(), statusCode, cause, Collections.emptyList());
   }
 
-  private DatabricksError(String errorCode, String message, int statusCode, Throwable cause) {
+  public DatabricksError(
+      String errorCode, String message, int statusCode, List<ErrorDetail> details) {
+    this(errorCode, message, statusCode, null, details);
+  }
+
+  private DatabricksError(
+      String errorCode,
+      String message,
+      int statusCode,
+      Throwable cause,
+      List<ErrorDetail> details) {
     super(message, cause);
     this.errorCode = errorCode;
     this.message = message;
     this.cause = cause;
     this.statusCode = statusCode;
+    this.details = details == null ? Collections.emptyList() : details;
+  }
+
+  public List<ErrorDetail> getErrorInfo() {
+    return this.getDetailsByType(ERROR_INFO_TYPE);
   }
 
   public String getErrorCode() {
@@ -97,6 +118,10 @@ public class DatabricksError extends DatabricksException {
       }
     }
     return false;
+  }
+
+  List<ErrorDetail> getDetailsByType(String type) {
+    return this.details.stream().filter(e -> e.getType().equals(type)).collect(Collectors.toList());
   }
 
   private static boolean isCausedBy(Throwable throwable, Class<? extends Throwable> clazz) {
