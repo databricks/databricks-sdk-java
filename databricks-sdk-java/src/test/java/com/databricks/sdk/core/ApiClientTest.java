@@ -213,7 +213,7 @@ public class ApiClientTest {
                         Arrays.asList(errorDetails, unrelatedDetails))),
                 getSuccessResponse(req)),
             MyEndpointResponse.class);
-    List<ErrorDetail> responseErrors = DatabricksError.getErrorInfo(error);
+    List<ErrorDetail> responseErrors = error.getErrorInfo();
     assertEquals(responseErrors.size(), 1);
     ErrorDetail responseError = responseErrors.get(0);
     assertEquals(errorDetails.getType(), responseError.getType());

@@ -117,12 +117,8 @@ public class DatabricksError extends DatabricksException {
     return false;
   }
 
-  private List<ErrorDetail> getErrorsOfType(String type) {
+  List<ErrorDetail> getErrorsOfType(String type) {
     return this.details.stream().filter(e -> e.getType().equals(type)).collect(Collectors.toList());
-  }
-
-  public List<ErrorDetail> getErrorInfo() {
-    return this.getErrorsOfType(ERROR_INFO_TYPE);
   }
 
   private static boolean isCausedBy(Throwable throwable, Class<? extends Throwable> clazz) {
@@ -133,12 +129,5 @@ public class DatabricksError extends DatabricksException {
       return true;
     }
     return isCausedBy(throwable.getCause(), clazz);
-  }
-
-  public static List<ErrorDetail> getErrorInfo(Throwable throwable) {
-    if (!(throwable instanceof DatabricksError)) {
-      return Collections.emptyList();
-    }
-    return ((DatabricksError) throwable).getErrorInfo();
   }
 }
