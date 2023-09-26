@@ -1,7 +1,7 @@
 package com.databricks.sdk.core.http;
 
 import com.databricks.sdk.core.DatabricksException;
-import java.io.ByteArrayInputStream;
+
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -19,26 +19,49 @@ public class Request {
   private String url;
   private final Map<String, String> headers = new HashMap<>();
   private final Map<String, List<String>> query = new TreeMap<>();
-  private final InputStream body;
-  private final String debugBody;
+  /**
+   * The body of the request for requests with streaming bodies. At most one of {@link #bodyStream}
+   * and {@link #bodyString} can be non-null.
+   */
+  private final InputStream bodyStream;
+  /**
+   * The body of the request for requests with string bodies. At most one of {@link #bodyStream}
+   * and {@link #bodyString} can be non-null.
+   */
+  private final String bodyString;
+  /**
+   * Whether the body of the request is a streaming body. At most one of {@link #isBodyStreaming} and
+   * {@link #isBodyString} can be true.
+   */
+  private final boolean isBodyStreaming;
+  /**
+   * Whether the body of the request is a string body. At most one of {@link #isBodyStreaming} and
+   * {@link #isBodyString} can be true.
+   */
+  private final boolean isBodyString;
 
   public Request(String method, String url) {
-    this(method, url, (String) null);
+    this(method, url, null, null);
   }
 
-  public Request(String method, String url, String body) {
-    this.method = method;
-    this.url = url;
-    this.body =
-        body != null ? new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8)) : null;
-    this.debugBody = body;
+  public Request(String method, String url, String bodyString) {
+    this(method, url, null, bodyString);
   }
 
-  public Request(String method, String url, InputStream body, String debugBody) {
+  public Request(String method, String url, InputStream bodyStream) {
+    this(method, url, bodyStream, null);
+  }
+
+  private Request(String method, String url, InputStream bodyStream, String bodyString) {
+    if (bodyStream != null && bodyString != null) {
+      throw new IllegalArgumentException("At most one of bodyStream and bodyString can be non-null");
+    }
     this.method = method;
     this.url = url;
-    this.body = body;
-    this.debugBody = debugBody;
+    this.bodyStream = bodyStream;
+    this.bodyString = bodyString;
+    this.isBodyStreaming = bodyStream != null;
+    this.isBodyString = bodyString != null;
   }
 
   public Request withHeaders(Map<String, String> headers) {
@@ -135,12 +158,20 @@ public class Request {
     return query;
   }
 
-  public InputStream getBody() {
-    return body;
+  public InputStream getBodyStream() {
+    return bodyStream;
   }
 
-  public String getDebugBody() {
-    return debugBody;
+  public String getBodyString() {
+    return bodyString;
+  }
+
+  public boolean isBodyStreaming() {
+    return isBodyStreaming;
+  }
+
+  public boolean isBodyString() {
+    return isBodyString;
   }
 
   @Override
@@ -151,7 +182,7 @@ public class Request {
     return method.equals(request.method)
         && url.equals(request.url)
         && Objects.equals(query, request.query)
-        && Objects.equals(body, request.body);
+        && Objects.equals(bodyStream, request.bodyStream);
   }
 
   @Override
@@ -159,7 +190,7 @@ public class Request {
     // Note: this is not safe for production, as debugBody will be the same for different requests
     // using InputStream.
     // It is currently only used in tests.
-    return Objects.hash(method, url, query, debugBody);
+    return Objects.hash(method, url, query, bodyString);
   }
 
   @Override

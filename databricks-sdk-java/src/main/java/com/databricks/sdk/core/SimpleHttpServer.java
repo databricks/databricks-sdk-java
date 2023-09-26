@@ -39,6 +39,7 @@ class SimpleHttpServer implements Runnable {
 
   public void accept() throws IOException {
     Socket clientSocket = server.accept();
+    clientSocket.setSoTimeout(1000);
     BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
     PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
     handler.accept(in, out);

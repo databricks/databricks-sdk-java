@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import com.databricks.sdk.mixin.ClustersExt;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -21,11 +23,15 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CommonsHttpClient implements HttpClient {
+  private static final Logger LOG = LoggerFactory.getLogger(ClustersExt.class);
   private final PoolingHttpClientConnectionManager connectionManager =
       new PoolingHttpClientConnectionManager();
   private final CloseableHttpClient hc;
@@ -117,18 +123,24 @@ public class CommonsHttpClient implements HttpClient {
       case Request.DELETE:
         return new HttpDelete(in.getUri());
       case Request.POST:
-        return withEntity(new HttpPost(in.getUri()), in.getBody());
+        return withEntity(new HttpPost(in.getUri()), in);
       case Request.PUT:
-        return withEntity(new HttpPut(in.getUri()), in.getBody());
+        return withEntity(new HttpPut(in.getUri()), in);
       case Request.PATCH:
-        return withEntity(new HttpPatch(in.getUri()), in.getBody());
+        return withEntity(new HttpPatch(in.getUri()), in);
       default:
         throw new IllegalArgumentException("Unknown method: " + in.getMethod());
     }
   }
 
-  private HttpRequestBase withEntity(HttpEntityEnclosingRequestBase request, InputStream body) {
-    request.setEntity(new InputStreamEntity(body));
+  private HttpRequestBase withEntity(HttpEntityEnclosingRequestBase request, Request in) {
+    if (in.isBodyString()) {
+      request.setEntity(new StringEntity(in.getBodyString(), StandardCharsets.UTF_8));
+    } else if (in.isBodyStreaming()) {
+      request.setEntity(new InputStreamEntity(in.getBodyStream()));
+    } else {
+      LOG.warn("withEntity called with a request with no body, so no request entity will be set. URI: {}", in.getUri());
+    }
     return request;
   }
 }
