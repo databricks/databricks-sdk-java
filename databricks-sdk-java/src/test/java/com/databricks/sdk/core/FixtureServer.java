@@ -1,130 +1,200 @@
 package com.databricks.sdk.core;
 
+import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+import org.apache.commons.io.IOUtils;
+import org.opentest4j.AssertionFailedError;
+
 import static org.junit.jupiter.api.Assertions.fail;
 
-import java.io.BufferedReader;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
+import java.io.*;
+import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class FixtureServer implements Closeable {
-  class FixtureMapping {
-    private final String expectedRequest;
+  public interface Validation {
+    void validate(HttpExchange exchange) throws IOException;
+  }
+
+  public static class FixtureMapping {
+    public static class Builder {
+      private ArrayList<Validation> validations = new ArrayList<>();
+      private String response;
+
+      public Builder validateMethod(String method) {
+        this.validations.add((exchange) -> {
+          if (!exchange.getRequestMethod().equals(method)) {
+            fail("Expected method " + method + " but got " + exchange.getRequestMethod());
+          }
+        });
+        return this;
+      }
+
+      public Builder validatePath(String path) {
+        this.validations.add((exchange) -> {
+          if (!exchange.getRequestURI().toString().equals(path)) {
+            fail("Expected path " + path + " but got " + exchange.getRequestURI().getPath());
+          }
+        });
+        return this;
+      }
+
+      public Builder validateHeadersPresent(Map<String, List<String>> headers) {
+        this.validations.add((exchange) -> {
+          for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
+            String key = entry.getKey();
+            List<String> values = entry.getValue();
+            for (String value : values) {
+              List<String> actualValues = exchange.getRequestHeaders().get(key);
+              if (actualValues == null) {
+                fail("Expected header " + key + " with value " + value + " but got no header with that key");
+              }
+              if (!actualValues.contains(value)) {
+                fail("Expected header " + key + " with value " + value + " but got " + exchange.getRequestHeaders().get(key));
+              }
+            }
+          }
+        });
+        return this;
+      }
+
+      public Builder validateHeadersAbsent(List<String> headers) {
+        this.validations.add((exchange) -> {
+          for (String header : headers) {
+            if (exchange.getRequestHeaders().containsKey(header)) {
+              fail("Expected header " + header + " to be absent but it was present");
+            }
+          }
+        });
+        return this;
+      }
+
+      public Builder validateBody(String body) {
+        this.validations.add((exchange) -> {
+          String bodyString = IOUtils.toString(exchange.getRequestBody(), StandardCharsets.UTF_8);
+          if (!bodyString.equals(body)) {
+            fail("Expected body " + body + " but got " + bodyString);
+          }
+        });
+        return this;
+      }
+
+      public Builder withResponse(String response) {
+        this.response = response;
+        return this;
+      }
+
+      public FixtureMapping build() {
+        Validation validation = (exchange) -> {
+          for (Validation v : validations) {
+            v.validate(exchange);
+          }
+        };
+        return new FixtureMapping(validation, response);
+      }
+    }
+    private final Validation validation;
     private final String response;
 
-    FixtureMapping(String expectedRequest, String response) {
-      this.expectedRequest = expectedRequest;
+    FixtureMapping(Validation validation, String response) {
+      this.validation = validation;
       this.response = response;
     }
 
-    public String getExpectedRequest() {
-      return expectedRequest;
+    Validation getValidation() {
+      return validation;
     }
 
-    public String getResponse() {
+    String getResponse() {
       return response;
     }
   }
-  private final SimpleHttpServer server;
+  private final HttpServer server;
   private final List<FixtureMapping> fixtures = new ArrayList<>();
 
   public FixtureServer() throws IOException {
-    server = new SimpleHttpServer(this::handler);
-    try {
-      server.start();
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
+    HttpHandler handler = new CallbackResponseHandler();
+    server = HttpServer.create(new InetSocketAddress("localhost", 0), 0);
+    server.createContext("/", handler);
+    server.start();
   }
 
-  private void handler(BufferedReader in, PrintWriter out) {
-    try {
-      handlerInner(in, out);
-    } catch (Exception e) {
-      respondInternalServerError(out, e.getMessage());
-    }
-  }
-
-  private void handlerInner(BufferedReader in, PrintWriter out) throws IOException {
-    if (fixtures.isEmpty()) {
-      respondInternalServerError(out, "No fixtures defined");
-      return;
-    }
-
-    FixtureMapping response = fixtures.remove(0);
-    int expectedBytes = response.getExpectedRequest().length();
-    StringBuilder content = new StringBuilder();
-    int bytesRead = 0;
-    try {
-      for (; bytesRead <  expectedBytes; bytesRead++) {
-        int charRead = in.read();
-        if (charRead == -1) {
-          failDuringRead(out, "Unexpected EOF", response.getExpectedRequest(), content.toString());
-          return;
-        }
-        content.append((char) charRead);
+  class CallbackResponseHandler implements HttpHandler {
+    @Override
+    public void handle(HttpExchange exchange) throws IOException {
+      try {
+        handlerInner(exchange);
+      } catch (Exception e) {
+        respondInternalServerError(exchange, e.getMessage());
       }
-    } catch (SocketTimeoutException e) {
-      failDuringRead(out, "Read timed out", response.getExpectedRequest(), content.toString());
-      return;
     }
 
-    String contentString = content.toString();
-    if (!contentString.equals(response.getExpectedRequest())) {
-      respondBadRequest(out, "Expected: " + response.getExpectedRequest() + ", got: " + contentString);
-      return;
+    private void handlerInner(HttpExchange exchange) throws IOException {
+      if (fixtures.isEmpty()) {
+        respondInternalServerError(exchange, "No fixtures defined");
+        return;
+      }
+
+      FixtureMapping response = fixtures.remove(0);
+
+      try {
+        response.getValidation().validate(exchange);
+      } catch (AssertionFailedError e) {
+        respondBadRequest(exchange, e.getMessage());
+        return;
+      }
+
+      respondSuccess(exchange, response.getResponse());
     }
 
-    respondSuccess(out, response.getResponse());
+
+    private void respond(HttpExchange exchange, int statusCode, String body) throws IOException {
+      Headers headers = exchange.getResponseHeaders();
+      headers.add("Connection", "close");
+      headers.add("Content-Type", "text/plain");
+      exchange.sendResponseHeaders(statusCode, body.length());
+      exchange.getResponseBody().write(body.getBytes());
+      exchange.close();
+    }
+
+    private void respondBadRequest(HttpExchange exchange, String body) throws IOException {
+      respond(exchange, 400, body);
+    }
+
+    private void respondInternalServerError(HttpExchange exchange, String body) throws IOException {
+      respond(exchange, 500, body);
+    }
+
+    private void respondSuccess(HttpExchange exchange, String body) throws IOException {
+      respond(exchange, 200, body);
+    }
   }
 
-  private void failDuringRead(PrintWriter out, String message, String expectedRequest, String content) {
-    int expectedBytes = expectedRequest.length();
-    int bytesRead = content.length();
-    respondBadRequest(out, message + ". Requested bytes: " + expectedBytes + ", read: " + bytesRead + ", expected request: " + expectedRequest + ", content:\n" + content);
+  public FixtureServer with(String method, String path, String response) {
+    FixtureMapping fixture = new FixtureMapping.Builder()
+      .validateMethod(method)
+      .validatePath(path)
+      .withResponse(response)
+      .build();
+    return with(fixture);
   }
 
-  private void respondBadRequest(PrintWriter out, String body) {
-    out.println("HTTP/1.1 400 Bad Request");
-    out.println("Connection: close");
-    out.println("Content-Type: text/plain");
-    out.println();
-    out.println(body);
-  }
-
-  private void respondInternalServerError(PrintWriter out, String body) {
-    out.println("HTTP/1.1 500 Internal Server Error");
-    out.println("Connection: close");
-    out.println("Content-Type: text/plain");
-    out.println();
-    out.println(body);
-  }
-
-  private void respondSuccess(PrintWriter out, String body) {
-    out.println("HTTP/1.1 200 OK");
-    out.println("Connection: close");
-    out.println("Content-Type: text/plain");
-    out.println();
-    out.println(body);
-  }
-
-  public FixtureServer with(String expectedRequest, String response) {
-    fixtures.add(new FixtureMapping(expectedRequest, response));
+  public FixtureServer with(FixtureMapping fixture) {
+    fixtures.add(fixture);
     return this;
   }
 
   @Override
-  public void close() throws IOException {
-    server.stop();
+  public void close() {
+    server.stop(0);
   }
 
   public String getUrl() {
-    return server.getUrl();
+    return "http://" + server.getAddress().getHostName() + ":" + server.getAddress().getPort();
   }
 }
