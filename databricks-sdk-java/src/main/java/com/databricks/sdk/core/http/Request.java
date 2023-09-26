@@ -1,7 +1,6 @@
 package com.databricks.sdk.core.http;
 
 import com.databricks.sdk.core.DatabricksException;
-
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -25,13 +24,13 @@ public class Request {
    */
   private final InputStream bodyStream;
   /**
-   * The body of the request for requests with string bodies. At most one of {@link #bodyStream}
-   * and {@link #bodyString} can be non-null.
+   * The body of the request for requests with string bodies. At most one of {@link #bodyStream} and
+   * {@link #bodyString} can be non-null.
    */
   private final String bodyString;
   /**
-   * Whether the body of the request is a streaming body. At most one of {@link #isBodyStreaming} and
-   * {@link #isBodyString} can be true.
+   * Whether the body of the request is a streaming body. At most one of {@link #isBodyStreaming}
+   * and {@link #isBodyString} can be true.
    */
   private final boolean isBodyStreaming;
   /**
@@ -54,7 +53,8 @@ public class Request {
 
   private Request(String method, String url, InputStream bodyStream, String bodyString) {
     if (bodyStream != null && bodyString != null) {
-      throw new IllegalArgumentException("At most one of bodyStream and bodyString can be non-null");
+      throw new IllegalArgumentException(
+          "At most one of bodyStream and bodyString can be non-null");
     }
     this.method = method;
     this.url = url;

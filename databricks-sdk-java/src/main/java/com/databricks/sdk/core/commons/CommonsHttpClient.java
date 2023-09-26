@@ -7,6 +7,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.CustomCloseInputStream;
+import com.databricks.sdk.mixin.ClustersExt;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -14,8 +15,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import com.databricks.sdk.mixin.ClustersExt;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -139,7 +138,9 @@ public class CommonsHttpClient implements HttpClient {
     } else if (in.isBodyStreaming()) {
       request.setEntity(new InputStreamEntity(in.getBodyStream()));
     } else {
-      LOG.warn("withEntity called with a request with no body, so no request entity will be set. URI: {}", in.getUri());
+      LOG.warn(
+          "withEntity called with a request with no body, so no request entity will be set. URI: {}",
+          in.getUri());
     }
     return request;
   }

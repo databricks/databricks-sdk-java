@@ -22,7 +22,8 @@ public class ExternalBrowserCredentialsProviderTest {
   void clientAndConsentTest() throws IOException {
     try (FixtureServer fixtures = new FixtureServer()) {
       fixtures.with(
-          "GET", "/oidc/.well-known/oauth-authorization-server",
+          "GET",
+          "/oidc/.well-known/oauth-authorization-server",
           "{\"token_endpoint\": \"tokenEndPointFromServer\"}");
       DatabricksConfig config =
           new DatabricksConfig()

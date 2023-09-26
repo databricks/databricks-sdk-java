@@ -1,20 +1,19 @@
 package com.databricks.sdk.core;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-import org.apache.commons.io.IOUtils;
-import org.opentest4j.AssertionFailedError;
-
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.io.IOUtils;
+import org.opentest4j.AssertionFailedError;
 
 public class FixtureServer implements Closeable {
   public interface Validation {
@@ -27,60 +26,77 @@ public class FixtureServer implements Closeable {
       private String response;
 
       public Builder validateMethod(String method) {
-        this.validations.add((exchange) -> {
-          if (!exchange.getRequestMethod().equals(method)) {
-            fail("Expected method " + method + " but got " + exchange.getRequestMethod());
-          }
-        });
+        this.validations.add(
+            (exchange) -> {
+              if (!exchange.getRequestMethod().equals(method)) {
+                fail("Expected method " + method + " but got " + exchange.getRequestMethod());
+              }
+            });
         return this;
       }
 
       public Builder validatePath(String path) {
-        this.validations.add((exchange) -> {
-          if (!exchange.getRequestURI().toString().equals(path)) {
-            fail("Expected path " + path + " but got " + exchange.getRequestURI().getPath());
-          }
-        });
+        this.validations.add(
+            (exchange) -> {
+              if (!exchange.getRequestURI().toString().equals(path)) {
+                fail("Expected path " + path + " but got " + exchange.getRequestURI().getPath());
+              }
+            });
         return this;
       }
 
       public Builder validateHeadersPresent(Map<String, List<String>> headers) {
-        this.validations.add((exchange) -> {
-          for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
-            String key = entry.getKey();
-            List<String> values = entry.getValue();
-            for (String value : values) {
-              List<String> actualValues = exchange.getRequestHeaders().get(key);
-              if (actualValues == null) {
-                fail("Expected header " + key + " with value " + value + " but got no header with that key");
+        this.validations.add(
+            (exchange) -> {
+              for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
+                String key = entry.getKey();
+                List<String> values = entry.getValue();
+                for (String value : values) {
+                  List<String> actualValues = exchange.getRequestHeaders().get(key);
+                  if (actualValues == null) {
+                    fail(
+                        "Expected header "
+                            + key
+                            + " with value "
+                            + value
+                            + " but got no header with that key");
+                  }
+                  if (!actualValues.contains(value)) {
+                    fail(
+                        "Expected header "
+                            + key
+                            + " with value "
+                            + value
+                            + " but got "
+                            + exchange.getRequestHeaders().get(key));
+                  }
+                }
               }
-              if (!actualValues.contains(value)) {
-                fail("Expected header " + key + " with value " + value + " but got " + exchange.getRequestHeaders().get(key));
-              }
-            }
-          }
-        });
+            });
         return this;
       }
 
       public Builder validateHeadersAbsent(List<String> headers) {
-        this.validations.add((exchange) -> {
-          for (String header : headers) {
-            if (exchange.getRequestHeaders().containsKey(header)) {
-              fail("Expected header " + header + " to be absent but it was present");
-            }
-          }
-        });
+        this.validations.add(
+            (exchange) -> {
+              for (String header : headers) {
+                if (exchange.getRequestHeaders().containsKey(header)) {
+                  fail("Expected header " + header + " to be absent but it was present");
+                }
+              }
+            });
         return this;
       }
 
       public Builder validateBody(String body) {
-        this.validations.add((exchange) -> {
-          String bodyString = IOUtils.toString(exchange.getRequestBody(), StandardCharsets.UTF_8);
-          if (!bodyString.equals(body)) {
-            fail("Expected body " + body + " but got " + bodyString);
-          }
-        });
+        this.validations.add(
+            (exchange) -> {
+              String bodyString =
+                  IOUtils.toString(exchange.getRequestBody(), StandardCharsets.UTF_8);
+              if (!bodyString.equals(body)) {
+                fail("Expected body " + body + " but got " + bodyString);
+              }
+            });
         return this;
       }
 
@@ -90,14 +106,16 @@ public class FixtureServer implements Closeable {
       }
 
       public FixtureMapping build() {
-        Validation validation = (exchange) -> {
-          for (Validation v : validations) {
-            v.validate(exchange);
-          }
-        };
+        Validation validation =
+            (exchange) -> {
+              for (Validation v : validations) {
+                v.validate(exchange);
+              }
+            };
         return new FixtureMapping(validation, response);
       }
     }
+
     private final Validation validation;
     private final String response;
 
@@ -114,6 +132,7 @@ public class FixtureServer implements Closeable {
       return response;
     }
   }
+
   private final HttpServer server;
   private final List<FixtureMapping> fixtures = new ArrayList<>();
 
@@ -152,7 +171,6 @@ public class FixtureServer implements Closeable {
       respondSuccess(exchange, response.getResponse());
     }
 
-
     private void respond(HttpExchange exchange, int statusCode, String body) throws IOException {
       Headers headers = exchange.getResponseHeaders();
       headers.add("Connection", "close");
@@ -176,11 +194,12 @@ public class FixtureServer implements Closeable {
   }
 
   public FixtureServer with(String method, String path, String response) {
-    FixtureMapping fixture = new FixtureMapping.Builder()
-      .validateMethod(method)
-      .validatePath(path)
-      .withResponse(response)
-      .build();
+    FixtureMapping fixture =
+        new FixtureMapping.Builder()
+            .validateMethod(method)
+            .validatePath(path)
+            .withResponse(response)
+            .build();
     return with(fixture);
   }
 
