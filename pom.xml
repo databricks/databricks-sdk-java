@@ -13,7 +13,7 @@
   <url>https://github.com/databricks/databricks-sdk-java</url>
   <licenses>
     <license>
-      <name>Databricks License</name>
+      <name>Apache License, Version 2.0</name>
       <url>https://github.com/databricks/databricks-sdk-java/blob/main/LICENSE</url>
     </license>
   </licenses>
