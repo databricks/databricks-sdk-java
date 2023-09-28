@@ -30,7 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CommonsHttpClient implements HttpClient {
-  private static final Logger LOG = LoggerFactory.getLogger(ClustersExt.class);
+  private static final Logger LOG = LoggerFactory.getLogger(CommonsHttpClient.class);
   private final PoolingHttpClientConnectionManager connectionManager =
       new PoolingHttpClientConnectionManager();
   private final CloseableHttpClient hc;

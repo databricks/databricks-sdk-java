@@ -137,13 +137,13 @@ public class FixtureServer implements Closeable {
   private final List<FixtureMapping> fixtures = new ArrayList<>();
 
   public FixtureServer() throws IOException {
-    HttpHandler handler = new CallbackResponseHandler();
+    HttpHandler handler = new FixtureHandler();
     server = HttpServer.create(new InetSocketAddress("localhost", 0), 0);
     server.createContext("/", handler);
     server.start();
   }
 
-  class CallbackResponseHandler implements HttpHandler {
+  class FixtureHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
       try {
