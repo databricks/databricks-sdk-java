@@ -7,7 +7,6 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.CustomCloseInputStream;
-import com.databricks.sdk.mixin.ClustersExt;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
