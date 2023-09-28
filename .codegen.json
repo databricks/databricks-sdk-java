@@ -15,7 +15,7 @@
   "version": {
     "pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n  <version>$VERSION</version>",
     "databricks-sdk-java/pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n    <version>$VERSION</version>",
-    "databricks-sdk-java/src/main/java/com/databricks/sdk/core/UserAgent.java": "private static final String version = \"$VERSION\";"
+    "databricks-sdk-java/src/main/java/com/databricks/sdk/core/Version.java": "private static final String version = \"$VERSION\";"
   },
   "toolchain": {
     "require": ["mvn", "java"],
