@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
+import java.util.Collection;
 
 /**
  * The Serving Endpoints API allows you to create, update, and delete model serving endpoints.
@@ -77,8 +78,15 @@ public interface ServingEndpointsService {
    */
   ServerLogsResponse logs(LogsRequest logsRequest);
 
+  /**
+   * Patch the tags of a serving endpoint.
+   *
+   * <p>Used to batch add and delete tags from a serving endpoint with a single API call.
+   */
+  Collection<EndpointTag> patch(PatchServingEndpointTags patchServingEndpointTags);
+
   /** Query a serving endpoint with provided model input. */
-  QueryEndpointResponse query(QueryRequest queryRequest);
+  QueryEndpointResponse query(QueryEndpointInput queryEndpointInput);
 
   /**
    * Set serving endpoint permissions.

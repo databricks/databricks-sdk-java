@@ -14,7 +14,17 @@ public class ModelVersionDatabricks {
   @JsonProperty("creation_timestamp")
   private Long creationTimestamp;
 
-  /** This describes an enum */
+  /**
+   * Stage of the model version. Valid values are:
+   *
+   * <p>* `None`: The initial stage of a model version.
+   *
+   * <p>* `Staging`: Staging or pre-production stage.
+   *
+   * <p>* `Production`: Production stage.
+   *
+   * <p>* `Archived`: Archived stage.
+   */
   @JsonProperty("current_stage")
   private Stage currentStage;
 
@@ -56,7 +66,14 @@ public class ModelVersionDatabricks {
   @JsonProperty("source")
   private String source;
 
-  /** This describes an enum */
+  /**
+   * The status of the model version. Valid values are: * `PENDING_REGISTRATION`: Request to
+   * register a new model version is pending as server performs background tasks.
+   *
+   * <p>* `FAILED_REGISTRATION`: Request to register a new model version has failed.
+   *
+   * <p>* `READY`: Model version is ready for use.
+   */
   @JsonProperty("status")
   private Status status;
 

@@ -4,7 +4,10 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 
-/** This describes an enum */
+/**
+ * * `CODE`: Code view of the notebook. * `DASHBOARDS`: All dashboard views of the notebook. *
+ * `ALL`: All views of the notebook.
+ */
 @Generated
 public enum ViewsToExport {
   ALL, // All views of the notebook.

@@ -36,11 +36,11 @@ public class RunNow {
   private String idempotencyToken;
 
   /**
-   * A list of parameters for jobs with Spark JAR tasks, for example `\"jar_params\": [\"john doe\",
-   * \"35\"]`. The parameters are used to invoke the main function of the main class specified in
-   * the Spark JAR task. If not specified upon `run-now`, it defaults to an empty list. jar_params
+   * A list of parameters for jobs with Spark JAR tasks, for example `"jar_params": ["john doe",
+   * "35"]`. The parameters are used to invoke the main function of the main class specified in the
+   * Spark JAR task. If not specified upon `run-now`, it defaults to an empty list. jar_params
    * cannot be specified in conjunction with notebook_params. The JSON representation of this field
-   * (for example `{\"jar_params\":[\"john doe\",\"35\"]}`) cannot exceed 10,000 bytes.
+   * (for example `{"jar_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
    * <p>Use [Task parameter variables](/jobs.html"#parameter-variables") to set parameters
    * containing information about job runs.
@@ -52,14 +52,14 @@ public class RunNow {
   @JsonProperty("job_id")
   private Long jobId;
 
-  /** Job-level parameters used in the run */
+  /** Job-level parameters used in the run. for example `"param": "overriding_val"` */
   @JsonProperty("job_parameters")
-  private Collection<Map<String, String>> jobParameters;
+  private Map<String, String> jobParameters;
 
   /**
-   * A map from keys to values for jobs with notebook task, for example `\"notebook_params\":
-   * {\"name\": \"john doe\", \"age\": \"35\"}`. The map is passed to the notebook and is accessible
-   * through the [dbutils.widgets.get] function.
+   * A map from keys to values for jobs with notebook task, for example `"notebook_params": {"name":
+   * "john doe", "age": "35"}`. The map is passed to the notebook and is accessible through the
+   * [dbutils.widgets.get] function.
    *
    * <p>If not specified upon `run-now`, the triggered run uses the job’s base parameters.
    *
@@ -67,8 +67,8 @@ public class RunNow {
    *
    * <p>Use [Task parameter variables] to set parameters containing information about job runs.
    *
-   * <p>The JSON representation of this field (for example `{\"notebook_params\":{\"name\":\"john
-   * doe\",\"age\":\"35\"}}`) cannot exceed 10,000 bytes.
+   * <p>The JSON representation of this field (for example `{"notebook_params":{"name":"john
+   * doe","age":"35"}}`) cannot exceed 10,000 bytes.
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    * [dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html
@@ -88,11 +88,10 @@ public class RunNow {
   private Map<String, String> pythonNamedParams;
 
   /**
-   * A list of parameters for jobs with Python tasks, for example `\"python_params\": [\"john doe\",
-   * \"35\"]`. The parameters are passed to Python file as command-line parameters. If specified
-   * upon `run-now`, it would overwrite the parameters specified in job setting. The JSON
-   * representation of this field (for example `{\"python_params\":[\"john doe\",\"35\"]}`) cannot
-   * exceed 10,000 bytes.
+   * A list of parameters for jobs with Python tasks, for example `"python_params": ["john doe",
+   * "35"]`. The parameters are passed to Python file as command-line parameters. If specified upon
+   * `run-now`, it would overwrite the parameters specified in job setting. The JSON representation
+   * of this field (for example `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
    * <p>Use [Task parameter variables] to set parameters containing information about job runs.
    *
@@ -107,12 +106,16 @@ public class RunNow {
   @JsonProperty("python_params")
   private Collection<String> pythonParams;
 
+  /** The queue settings of the run. */
+  @JsonProperty("queue")
+  private QueueSettings queue;
+
   /**
-   * A list of parameters for jobs with spark submit task, for example `\"spark_submit_params\":
-   * [\"--class\", \"org.apache.spark.examples.SparkPi\"]`. The parameters are passed to
-   * spark-submit script as command-line parameters. If specified upon `run-now`, it would overwrite
-   * the parameters specified in job setting. The JSON representation of this field (for example
-   * `{\"python_params\":[\"john doe\",\"35\"]}`) cannot exceed 10,000 bytes.
+   * A list of parameters for jobs with spark submit task, for example `"spark_submit_params":
+   * ["--class", "org.apache.spark.examples.SparkPi"]`. The parameters are passed to spark-submit
+   * script as command-line parameters. If specified upon `run-now`, it would overwrite the
+   * parameters specified in job setting. The JSON representation of this field (for example
+   * `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
    * <p>Use [Task parameter variables] to set parameters containing information about job runs
    *
@@ -170,12 +173,12 @@ public class RunNow {
     return jobId;
   }
 
-  public RunNow setJobParameters(Collection<Map<String, String>> jobParameters) {
+  public RunNow setJobParameters(Map<String, String> jobParameters) {
     this.jobParameters = jobParameters;
     return this;
   }
 
-  public Collection<Map<String, String>> getJobParameters() {
+  public Map<String, String> getJobParameters() {
     return jobParameters;
   }
 
@@ -215,6 +218,15 @@ public class RunNow {
     return pythonParams;
   }
 
+  public RunNow setQueue(QueueSettings queue) {
+    this.queue = queue;
+    return this;
+  }
+
+  public QueueSettings getQueue() {
+    return queue;
+  }
+
   public RunNow setSparkSubmitParams(Collection<String> sparkSubmitParams) {
     this.sparkSubmitParams = sparkSubmitParams;
     return this;
@@ -247,6 +259,7 @@ public class RunNow {
         && Objects.equals(pipelineParams, that.pipelineParams)
         && Objects.equals(pythonNamedParams, that.pythonNamedParams)
         && Objects.equals(pythonParams, that.pythonParams)
+        && Objects.equals(queue, that.queue)
         && Objects.equals(sparkSubmitParams, that.sparkSubmitParams)
         && Objects.equals(sqlParams, that.sqlParams);
   }
@@ -263,6 +276,7 @@ public class RunNow {
         pipelineParams,
         pythonNamedParams,
         pythonParams,
+        queue,
         sparkSubmitParams,
         sqlParams);
   }
@@ -279,6 +293,7 @@ public class RunNow {
         .add("pipelineParams", pipelineParams)
         .add("pythonNamedParams", pythonNamedParams)
         .add("pythonParams", pythonParams)
+        .add("queue", queue)
         .add("sparkSubmitParams", sparkSubmitParams)
         .add("sqlParams", sqlParams)
         .toString();

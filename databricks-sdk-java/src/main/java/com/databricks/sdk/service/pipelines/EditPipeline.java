@@ -73,6 +73,10 @@ public class EditPipeline {
   @JsonProperty("name")
   private String name;
 
+  /** List of notification settings for this pipeline. */
+  @JsonProperty("notifications")
+  private Collection<Notifications> notifications;
+
   /** Whether Photon is enabled for this pipeline. */
   @JsonProperty("photon")
   private Boolean photon;
@@ -218,6 +222,15 @@ public class EditPipeline {
     return name;
   }
 
+  public EditPipeline setNotifications(Collection<Notifications> notifications) {
+    this.notifications = notifications;
+    return this;
+  }
+
+  public Collection<Notifications> getNotifications() {
+    return notifications;
+  }
+
   public EditPipeline setPhoton(Boolean photon) {
     this.photon = photon;
     return this;
@@ -290,6 +303,7 @@ public class EditPipeline {
         && Objects.equals(id, that.id)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(name, that.name)
+        && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(serverless, that.serverless)
@@ -314,6 +328,7 @@ public class EditPipeline {
         id,
         libraries,
         name,
+        notifications,
         photon,
         pipelineId,
         serverless,
@@ -338,6 +353,7 @@ public class EditPipeline {
         .add("id", id)
         .add("libraries", libraries)
         .add("name", name)
+        .add("notifications", notifications)
         .add("photon", photon)
         .add("pipelineId", pipelineId)
         .add("serverless", serverless)

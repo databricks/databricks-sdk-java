@@ -14,6 +14,10 @@ public class ListCleanRoomsResponse {
   @JsonProperty("clean_rooms")
   private Collection<CleanRoomInfo> cleanRooms;
 
+  /** Token to retrieve the next page of results. Absent if there are no more pages. */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
   public ListCleanRoomsResponse setCleanRooms(Collection<CleanRoomInfo> cleanRooms) {
     this.cleanRooms = cleanRooms;
     return this;
@@ -23,21 +27,34 @@ public class ListCleanRoomsResponse {
     return cleanRooms;
   }
 
+  public ListCleanRoomsResponse setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListCleanRoomsResponse that = (ListCleanRoomsResponse) o;
-    return Objects.equals(cleanRooms, that.cleanRooms);
+    return Objects.equals(cleanRooms, that.cleanRooms)
+        && Objects.equals(nextPageToken, that.nextPageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cleanRooms);
+    return Objects.hash(cleanRooms, nextPageToken);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListCleanRoomsResponse.class).add("cleanRooms", cleanRooms).toString();
+    return new ToStringer(ListCleanRoomsResponse.class)
+        .add("cleanRooms", cleanRooms)
+        .add("nextPageToken", nextPageToken)
+        .toString();
   }
 }

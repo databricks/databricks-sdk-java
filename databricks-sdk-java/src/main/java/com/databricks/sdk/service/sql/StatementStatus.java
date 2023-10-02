@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Status response includes execution state and if relevant, error information. */
+/** The status response includes execution state and if relevant, error information. */
 @Generated
 public class StatementStatus {
   /** */

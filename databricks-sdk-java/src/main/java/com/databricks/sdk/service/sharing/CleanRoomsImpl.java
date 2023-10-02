@@ -41,11 +41,11 @@ class CleanRoomsImpl implements CleanRoomsService {
   }
 
   @Override
-  public ListCleanRoomsResponse list() {
+  public ListCleanRoomsResponse list(ListCleanRoomsRequest request) {
     String path = "/api/2.1/unity-catalog/clean-rooms";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListCleanRoomsResponse.class, headers);
+    return apiClient.GET(path, request, ListCleanRoomsResponse.class, headers);
   }
 
   @Override

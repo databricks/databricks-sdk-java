@@ -64,6 +64,10 @@ public class SubmitRun {
   @JsonProperty("notification_settings")
   private JobNotificationSettings notificationSettings;
 
+  /** The queue settings of the one-time run. */
+  @JsonProperty("queue")
+  private QueueSettings queue;
+
   /** An optional name for the run. The default value is `Untitled`. */
   @JsonProperty("run_name")
   private String runName;
@@ -141,6 +145,15 @@ public class SubmitRun {
     return notificationSettings;
   }
 
+  public SubmitRun setQueue(QueueSettings queue) {
+    this.queue = queue;
+    return this;
+  }
+
+  public QueueSettings getQueue() {
+    return queue;
+  }
+
   public SubmitRun setRunName(String runName) {
     this.runName = runName;
     return this;
@@ -188,6 +201,7 @@ public class SubmitRun {
         && Objects.equals(health, that.health)
         && Objects.equals(idempotencyToken, that.idempotencyToken)
         && Objects.equals(notificationSettings, that.notificationSettings)
+        && Objects.equals(queue, that.queue)
         && Objects.equals(runName, that.runName)
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
@@ -203,6 +217,7 @@ public class SubmitRun {
         health,
         idempotencyToken,
         notificationSettings,
+        queue,
         runName,
         tasks,
         timeoutSeconds,
@@ -218,6 +233,7 @@ public class SubmitRun {
         .add("health", health)
         .add("idempotencyToken", idempotencyToken)
         .add("notificationSettings", notificationSettings)
+        .add("queue", queue)
         .add("runName", runName)
         .add("tasks", tasks)
         .add("timeoutSeconds", timeoutSeconds)

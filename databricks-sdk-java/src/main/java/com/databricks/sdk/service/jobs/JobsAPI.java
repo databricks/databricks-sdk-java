@@ -47,11 +47,11 @@ public class JobsAPI {
     impl = mock;
   }
 
-  public Run waitGetRunJobTerminatedOrSkipped(long runId) throws TimeoutException {
+  public Run waitGetRunJobTerminatedOrSkipped(Long runId) throws TimeoutException {
     return waitGetRunJobTerminatedOrSkipped(runId, Duration.ofMinutes(20), null);
   }
 
-  public Run waitGetRunJobTerminatedOrSkipped(long runId, Duration timeout, Consumer<Run> callback)
+  public Run waitGetRunJobTerminatedOrSkipped(Long runId, Duration timeout, Consumer<Run> callback)
       throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
     java.util.List<RunLifeCycleState> targetStates =
@@ -97,10 +97,6 @@ public class JobsAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public void cancelAllRuns(long jobId) {
-    cancelAllRuns(new CancelAllRuns().setJobId(jobId));
-  }
-
   /**
    * Cancel all runs of a job.
    *
@@ -116,10 +112,10 @@ public class JobsAPI {
   }
 
   /**
-   * Cancel a job run.
+   * Cancel a run.
    *
-   * <p>Cancels a job run. The run is canceled asynchronously, so it may still be running when this
-   * request completes.
+   * <p>Cancels a job run or a task run. The run is canceled asynchronously, so it may still be
+   * running when this request completes.
    */
   public Wait<Run, Void> cancelRun(CancelRun request) {
     impl.cancelRun(request);

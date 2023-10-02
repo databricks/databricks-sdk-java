@@ -31,6 +31,8 @@ import com.databricks.sdk.service.oauth2.CustomAppIntegrationAPI;
 import com.databricks.sdk.service.oauth2.CustomAppIntegrationService;
 import com.databricks.sdk.service.oauth2.OAuthEnrollmentAPI;
 import com.databricks.sdk.service.oauth2.OAuthEnrollmentService;
+import com.databricks.sdk.service.oauth2.OAuthPublishedAppsAPI;
+import com.databricks.sdk.service.oauth2.OAuthPublishedAppsService;
 import com.databricks.sdk.service.oauth2.PublishedAppIntegrationAPI;
 import com.databricks.sdk.service.oauth2.PublishedAppIntegrationService;
 import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsAPI;
@@ -77,6 +79,7 @@ public class AccountClient {
   private AccountNetworkPolicyAPI networkPolicyAPI;
   private NetworksAPI networksAPI;
   private OAuthEnrollmentAPI oAuthEnrollmentAPI;
+  private OAuthPublishedAppsAPI oAuthPublishedAppsAPI;
   private PrivateAccessAPI privateAccessAPI;
   private PublishedAppIntegrationAPI publishedAppIntegrationAPI;
   private ServicePrincipalSecretsAPI servicePrincipalSecretsAPI;
@@ -111,6 +114,7 @@ public class AccountClient {
     networkPolicyAPI = new AccountNetworkPolicyAPI(apiClient);
     networksAPI = new NetworksAPI(apiClient);
     oAuthEnrollmentAPI = new OAuthEnrollmentAPI(apiClient);
+    oAuthPublishedAppsAPI = new OAuthPublishedAppsAPI(apiClient);
     privateAccessAPI = new PrivateAccessAPI(apiClient);
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(apiClient);
     servicePrincipalSecretsAPI = new ServicePrincipalSecretsAPI(apiClient);
@@ -168,9 +172,6 @@ public class AccountClient {
   /**
    * These APIs enable administrators to manage custom oauth app integrations, which is required for
    * adding/using Custom OAuth App Integration like Tableau Cloud for Databricks in AWS cloud.
-   *
-   * <p>**Note:** You can only add/use the OAuth custom application integrations when OAuth
-   * enrollment status is enabled. For more details see :method:OAuthEnrollment/create
    */
   public CustomAppIntegrationAPI customAppIntegration() {
     return customAppIntegrationAPI;
@@ -340,6 +341,15 @@ public class AccountClient {
     return oAuthEnrollmentAPI;
   }
 
+  /**
+   * These APIs enable administrators to view all the available published OAuth applications in
+   * Databricks. Administrators can add the published OAuth applications to their account through
+   * the OAuth Published App Integration APIs.
+   */
+  public OAuthPublishedAppsAPI oAuthPublishedApps() {
+    return oAuthPublishedAppsAPI;
+  }
+
   /** These APIs manage private access settings for this account. */
   public PrivateAccessAPI privateAccess() {
     return privateAccessAPI;
@@ -347,11 +357,8 @@ public class AccountClient {
 
   /**
    * These APIs enable administrators to manage published oauth app integrations, which is required
-   * for adding/using Published OAuth App Integration like Tableau Cloud for Databricks in AWS
+   * for adding/using Published OAuth App Integration like Tableau Desktop for Databricks in AWS
    * cloud.
-   *
-   * <p>**Note:** You can only add/use the OAuth published application integrations when OAuth
-   * enrollment status is enabled. For more details see :method:OAuthEnrollment/create
    */
   public PublishedAppIntegrationAPI publishedAppIntegration() {
     return publishedAppIntegrationAPI;
@@ -542,6 +549,12 @@ public class AccountClient {
   /** Override OAuthEnrollmentAPI with mock */
   public AccountClient withOAuthEnrollmentImpl(OAuthEnrollmentService oAuthEnrollment) {
     oAuthEnrollmentAPI = new OAuthEnrollmentAPI(oAuthEnrollment);
+    return this;
+  }
+
+  /** Override OAuthPublishedAppsAPI with mock */
+  public AccountClient withOAuthPublishedAppsImpl(OAuthPublishedAppsService oAuthPublishedApps) {
+    oAuthPublishedAppsAPI = new OAuthPublishedAppsAPI(oAuthPublishedApps);
     return this;
   }
 

@@ -48,7 +48,7 @@ public interface CleanRoomsService {
    * admin or the owner of the clean room. There is no guarantee of a specific ordering of the
    * elements in the array.
    */
-  ListCleanRoomsResponse list();
+  ListCleanRoomsResponse list(ListCleanRoomsRequest listCleanRoomsRequest);
 
   /**
    * Update a clean room.

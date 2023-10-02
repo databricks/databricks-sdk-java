@@ -3,6 +3,7 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,10 +100,20 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
-  public QueryEndpointResponse query(QueryRequest request) {
+  public Collection<EndpointTag> patch(PatchServingEndpointTags request) {
+    String path = String.format("/api/2.0/serving-endpoints/%s/tags", request.getName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.getCollection(path, null, EndpointTag.class, headers);
+  }
+
+  @Override
+  public QueryEndpointResponse query(QueryEndpointInput request) {
     String path = String.format("/serving-endpoints/%s/invocations", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
     return apiClient.POST(path, request, QueryEndpointResponse.class, headers);
   }
 

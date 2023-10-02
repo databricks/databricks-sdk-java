@@ -70,7 +70,7 @@ public class NodeType {
    * nodes on that machine.
    */
   @JsonProperty("num_cores")
-  private Float numCores;
+  private Double numCores;
 
   /** */
   @JsonProperty("num_gpus")
@@ -220,12 +220,12 @@ public class NodeType {
     return nodeTypeId;
   }
 
-  public NodeType setNumCores(Float numCores) {
+  public NodeType setNumCores(Double numCores) {
     this.numCores = numCores;
     return this;
   }
 
-  public Float getNumCores() {
+  public Double getNumCores() {
     return numCores;
   }
 
