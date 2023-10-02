@@ -40,7 +40,7 @@ public class AzureAttributes {
    * basis of availability. Further, the value should > 0 or -1.
    */
   @JsonProperty("spot_bid_max_price")
-  private Float spotBidMaxPrice;
+  private Double spotBidMaxPrice;
 
   public AzureAttributes setAvailability(AzureAvailability availability) {
     this.availability = availability;
@@ -69,12 +69,12 @@ public class AzureAttributes {
     return logAnalyticsInfo;
   }
 
-  public AzureAttributes setSpotBidMaxPrice(Float spotBidMaxPrice) {
+  public AzureAttributes setSpotBidMaxPrice(Double spotBidMaxPrice) {
     this.spotBidMaxPrice = spotBidMaxPrice;
     return this;
   }
 
-  public Float getSpotBidMaxPrice() {
+  public Double getSpotBidMaxPrice() {
     return spotBidMaxPrice;
   }
 

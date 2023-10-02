@@ -1,5 +1,8 @@
 {
   "formatter": "mvn spotless:apply",
+  "template_libraries": [
+    ".codegen/lib.tmpl"
+  ],
   "types": {
     ".codegen/model.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}.java"
   },
@@ -19,6 +22,7 @@
   },
   "toolchain": {
     "require": ["mvn", "java"],
+    "setup": ["rm -r databricks-sdk-java/src/main/java/com/databricks/sdk/service"],
     "post_generate": ["mvn --errors clean test"]
   }
 }

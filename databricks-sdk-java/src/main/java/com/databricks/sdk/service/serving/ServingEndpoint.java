@@ -5,6 +5,7 @@ package com.databricks.sdk.service.serving;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -39,6 +40,10 @@ public class ServingEndpoint {
   /** Information corresponding to the state of the serving endpoint. */
   @JsonProperty("state")
   private EndpointState state;
+
+  /** Tags attached to the serving endpoint. */
+  @JsonProperty("tags")
+  private Collection<EndpointTag> tags;
 
   public ServingEndpoint setConfig(EndpointCoreConfigSummary config) {
     this.config = config;
@@ -103,6 +108,15 @@ public class ServingEndpoint {
     return state;
   }
 
+  public ServingEndpoint setTags(Collection<EndpointTag> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Collection<EndpointTag> getTags() {
+    return tags;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -114,12 +128,14 @@ public class ServingEndpoint {
         && Objects.equals(id, that.id)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(name, that.name)
-        && Objects.equals(state, that.state);
+        && Objects.equals(state, that.state)
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(config, creationTimestamp, creator, id, lastUpdatedTimestamp, name, state);
+    return Objects.hash(
+        config, creationTimestamp, creator, id, lastUpdatedTimestamp, name, state, tags);
   }
 
   @Override
@@ -132,6 +148,7 @@ public class ServingEndpoint {
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
         .add("name", name)
         .add("state", state)
+        .add("tags", tags)
         .toString();
   }
 }

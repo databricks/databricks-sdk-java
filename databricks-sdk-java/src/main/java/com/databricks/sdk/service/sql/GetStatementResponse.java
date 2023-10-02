@@ -14,21 +14,23 @@ public class GetStatementResponse {
   private ResultManifest manifest;
 
   /**
-   * Result data chunks are delivered in either the `chunk` field when using `INLINE` disposition,
-   * or in the `external_link` field when using `EXTERNAL_LINKS` disposition. Exactly one of these
-   * will be set.
+   * Contains the result data of a single chunk when using `INLINE` disposition. When using
+   * `EXTERNAL_LINKS` disposition, the array `external_links` is used instead to provide presigned
+   * URLs to the result data in cloud storage. Exactly one of these alternatives is used. (While the
+   * `external_links` array prepares the API to return multiple links in a single response.
+   * Currently only a single link is returned.)
    */
   @JsonProperty("result")
   private ResultData result;
 
   /**
-   * Statement ID is returned upon successfully submitting a SQL statement, and is a required
+   * The statement ID is returned upon successfully submitting a SQL statement, and is a required
    * reference for all subsequent calls.
    */
   @JsonProperty("statement_id")
   private String statementId;
 
-  /** Status response includes execution state and if relevant, error information. */
+  /** The status response includes execution state and if relevant, error information. */
   @JsonProperty("status")
   private StatementStatus status;
 

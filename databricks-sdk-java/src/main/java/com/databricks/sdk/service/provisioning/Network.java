@@ -61,7 +61,10 @@ public class Network {
   @JsonProperty("vpc_id")
   private String vpcId;
 
-  /** This describes an enum */
+  /**
+   * The status of this network configuration object in terms of its use in a workspace: *
+   * `UNATTACHED`: Unattached. * `VALID`: Valid. * `BROKEN`: Broken. * `WARNED`: Warned.
+   */
   @JsonProperty("vpc_status")
   private VpcStatus vpcStatus;
 

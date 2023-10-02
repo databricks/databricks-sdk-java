@@ -9,31 +9,37 @@ import java.util.Objects;
 
 @Generated
 public class ColumnInfo {
-  /** Name of Column. */
+  /** The name of the column. */
   @JsonProperty("name")
   private String name;
 
-  /** Ordinal position of column (starting at position 0). */
+  /** The ordinal position of the column (starting at position 0). */
   @JsonProperty("position")
   private Long position;
 
-  /** Format of interval type. */
+  /** The format of the interval type. */
   @JsonProperty("type_interval_type")
   private String typeIntervalType;
 
-  /** Name of type (INT, STRUCT, MAP, and so on) */
+  /**
+   * The name of the base data type. This doesn't include details for complex types such as STRUCT,
+   * MAP or ARRAY.
+   */
   @JsonProperty("type_name")
   private ColumnInfoTypeName typeName;
 
-  /** Digits of precision. */
+  /** Specifies the number of digits in a number. This applies to the DECIMAL type. */
   @JsonProperty("type_precision")
   private Long typePrecision;
 
-  /** Digits to right of decimal. */
+  /**
+   * Specifies the number of digits to the right of the decimal point in a number. This applies to
+   * the DECIMAL type.
+   */
   @JsonProperty("type_scale")
   private Long typeScale;
 
-  /** Full data type spec, SQL/catalogString text. */
+  /** The full SQL type specification. */
   @JsonProperty("type_text")
   private String typeText;
 

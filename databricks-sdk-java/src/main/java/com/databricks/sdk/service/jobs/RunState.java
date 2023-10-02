@@ -17,6 +17,10 @@ public class RunState {
   @JsonProperty("life_cycle_state")
   private RunLifeCycleState lifeCycleState;
 
+  /** The reason indicating why the run was queued. */
+  @JsonProperty("queue_reason")
+  private String queueReason;
+
   /**
    * A value indicating the run's result. This field is only available for terminal lifecycle
    * states.
@@ -45,6 +49,15 @@ public class RunState {
 
   public RunLifeCycleState getLifeCycleState() {
     return lifeCycleState;
+  }
+
+  public RunState setQueueReason(String queueReason) {
+    this.queueReason = queueReason;
+    return this;
+  }
+
+  public String getQueueReason() {
+    return queueReason;
   }
 
   public RunState setResultState(RunResultState resultState) {
@@ -80,6 +93,7 @@ public class RunState {
     if (o == null || getClass() != o.getClass()) return false;
     RunState that = (RunState) o;
     return Objects.equals(lifeCycleState, that.lifeCycleState)
+        && Objects.equals(queueReason, that.queueReason)
         && Objects.equals(resultState, that.resultState)
         && Objects.equals(stateMessage, that.stateMessage)
         && Objects.equals(userCancelledOrTimedout, that.userCancelledOrTimedout);
@@ -87,13 +101,15 @@ public class RunState {
 
   @Override
   public int hashCode() {
-    return Objects.hash(lifeCycleState, resultState, stateMessage, userCancelledOrTimedout);
+    return Objects.hash(
+        lifeCycleState, queueReason, resultState, stateMessage, userCancelledOrTimedout);
   }
 
   @Override
   public String toString() {
     return new ToStringer(RunState.class)
         .add("lifeCycleState", lifeCycleState)
+        .add("queueReason", queueReason)
         .add("resultState", resultState)
         .add("stateMessage", stateMessage)
         .add("userCancelledOrTimedout", userCancelledOrTimedout)

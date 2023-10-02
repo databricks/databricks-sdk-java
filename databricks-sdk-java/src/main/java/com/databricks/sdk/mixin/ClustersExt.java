@@ -165,7 +165,7 @@ public class ClustersExt extends ClustersAPI {
   private final Comparator<NodeType> nodeSortingComparator =
       (item1, item2) ->
           Comparator.comparing(NodeType::getIsDeprecated, Comparator.nullsLast(Boolean::compare))
-              .thenComparing(NodeType::getNumCores, Comparator.nullsLast(Float::compare))
+              .thenComparing(NodeType::getNumCores, Comparator.nullsLast(Double::compare))
               .thenComparing(NodeType::getMemoryMb, Comparator.nullsLast(Long::compare))
               .thenComparing(
                   instanceTypeComparator(NodeInstanceType::getLocalDisks),

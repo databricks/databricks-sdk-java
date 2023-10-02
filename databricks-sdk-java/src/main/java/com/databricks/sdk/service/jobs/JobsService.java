@@ -37,10 +37,10 @@ public interface JobsService {
   void cancelAllRuns(CancelAllRuns cancelAllRuns);
 
   /**
-   * Cancel a job run.
+   * Cancel a run.
    *
-   * <p>Cancels a job run. The run is canceled asynchronously, so it may still be running when this
-   * request completes.
+   * <p>Cancels a job run or a task run. The run is canceled asynchronously, so it may still be
+   * running when this request completes.
    */
   void cancelRun(CancelRun cancelRun);
 

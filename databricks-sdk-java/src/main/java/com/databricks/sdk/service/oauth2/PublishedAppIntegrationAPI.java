@@ -8,10 +8,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * These APIs enable administrators to manage published oauth app integrations, which is required
- * for adding/using Published OAuth App Integration like Tableau Cloud for Databricks in AWS cloud.
- *
- * <p>**Note:** You can only add/use the OAuth published application integrations when OAuth
- * enrollment status is enabled. For more details see :method:OAuthEnrollment/create
+ * for adding/using Published OAuth App Integration like Tableau Desktop for Databricks in AWS
+ * cloud.
  */
 @Generated
 public class PublishedAppIntegrationAPI {

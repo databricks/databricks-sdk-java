@@ -13,5 +13,4 @@ import com.databricks.sdk.support.Generated;
 public enum InstancePoolAzureAttributesAvailability {
   ON_DEMAND_AZURE,
   SPOT_AZURE,
-  SPOT_WITH_FALLBACK_AZURE,
 }

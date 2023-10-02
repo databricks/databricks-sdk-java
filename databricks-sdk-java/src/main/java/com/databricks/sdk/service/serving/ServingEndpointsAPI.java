@@ -201,12 +201,25 @@ public class ServingEndpointsAPI {
     return impl.logs(request);
   }
 
+  public Iterable<EndpointTag> patch(String name) {
+    return patch(new PatchServingEndpointTags().setName(name));
+  }
+
+  /**
+   * Patch the tags of a serving endpoint.
+   *
+   * <p>Used to batch add and delete tags from a serving endpoint with a single API call.
+   */
+  public Iterable<EndpointTag> patch(PatchServingEndpointTags request) {
+    return impl.patch(request);
+  }
+
   public QueryEndpointResponse query(String name) {
-    return query(new QueryRequest().setName(name));
+    return query(new QueryEndpointInput().setName(name));
   }
 
   /** Query a serving endpoint with provided model input. */
-  public QueryEndpointResponse query(QueryRequest request) {
+  public QueryEndpointResponse query(QueryEndpointInput request) {
     return impl.query(request);
   }
 

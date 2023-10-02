@@ -4,7 +4,10 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 
-/** This describes an enum */
+/**
+ * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_MANAGE`: Can manage the
+ * query
+ */
 @Generated
 public enum PermissionLevel {
   CAN_MANAGE, // Can manage the query

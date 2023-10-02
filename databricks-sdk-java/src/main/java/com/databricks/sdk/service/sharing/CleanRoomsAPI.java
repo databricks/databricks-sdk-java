@@ -3,6 +3,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,8 +80,18 @@ public class CleanRoomsAPI {
    * admin or the owner of the clean room. There is no guarantee of a specific ordering of the
    * elements in the array.
    */
-  public Iterable<CleanRoomInfo> list() {
-    return impl.list().getCleanRooms();
+  public Iterable<CleanRoomInfo> list(ListCleanRoomsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListCleanRoomsResponse::getCleanRooms,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public CleanRoomInfo update(String nameArg) {

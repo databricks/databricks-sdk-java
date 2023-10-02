@@ -4,7 +4,10 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 
-/** Name of type (INT, STRUCT, MAP, and so on) */
+/**
+ * The name of the base data type. This doesn't include details for complex types such as STRUCT,
+ * MAP or ARRAY.
+ */
 @Generated
 public enum ColumnInfoTypeName {
   ARRAY,

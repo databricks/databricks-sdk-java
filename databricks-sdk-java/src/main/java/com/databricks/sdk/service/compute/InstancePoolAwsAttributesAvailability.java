@@ -13,5 +13,4 @@ import com.databricks.sdk.support.Generated;
 public enum InstancePoolAwsAttributesAvailability {
   ON_DEMAND,
   SPOT,
-  SPOT_WITH_FALLBACK,
 }

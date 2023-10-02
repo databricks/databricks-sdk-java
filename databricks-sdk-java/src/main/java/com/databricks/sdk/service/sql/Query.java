@@ -89,7 +89,10 @@ public class Query {
   @JsonProperty("parent")
   private String parent;
 
-  /** This describes an enum */
+  /**
+   * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_MANAGE`: Can manage the
+   * query
+   */
   @JsonProperty("permission_tier")
   private PermissionLevel permissionTier;
 

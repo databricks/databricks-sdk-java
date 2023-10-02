@@ -13,7 +13,7 @@ public class ServiceError {
   @JsonProperty("error_code")
   private ServiceErrorCode errorCode;
 
-  /** Brief summary of error condition. */
+  /** A brief summary of the error condition. */
   @JsonProperty("message")
   private String message;
 

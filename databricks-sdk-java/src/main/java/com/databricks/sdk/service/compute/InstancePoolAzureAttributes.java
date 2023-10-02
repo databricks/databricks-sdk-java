@@ -22,7 +22,7 @@ public class InstancePoolAzureAttributes {
    * CommonConf.defaultSpotBidMaxPrice.
    */
   @JsonProperty("spot_bid_max_price")
-  private Float spotBidMaxPrice;
+  private Double spotBidMaxPrice;
 
   public InstancePoolAzureAttributes setAvailability(
       InstancePoolAzureAttributesAvailability availability) {
@@ -34,12 +34,12 @@ public class InstancePoolAzureAttributes {
     return availability;
   }
 
-  public InstancePoolAzureAttributes setSpotBidMaxPrice(Float spotBidMaxPrice) {
+  public InstancePoolAzureAttributes setSpotBidMaxPrice(Double spotBidMaxPrice) {
     this.spotBidMaxPrice = spotBidMaxPrice;
     return this;
   }
 
-  public Float getSpotBidMaxPrice() {
+  public Double getSpotBidMaxPrice() {
     return spotBidMaxPrice;
   }
 

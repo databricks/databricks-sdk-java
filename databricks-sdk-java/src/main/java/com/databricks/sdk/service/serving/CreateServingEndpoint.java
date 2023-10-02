@@ -5,6 +5,7 @@ package com.databricks.sdk.service.serving;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -19,6 +20,10 @@ public class CreateServingEndpoint {
    */
   @JsonProperty("name")
   private String name;
+
+  /** Tags to be attached to the serving endpoint and automatically propagated to billing logs. */
+  @JsonProperty("tags")
+  private Collection<EndpointTag> tags;
 
   public CreateServingEndpoint setConfig(EndpointCoreConfigInput config) {
     this.config = config;
@@ -38,17 +43,28 @@ public class CreateServingEndpoint {
     return name;
   }
 
+  public CreateServingEndpoint setTags(Collection<EndpointTag> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Collection<EndpointTag> getTags() {
+    return tags;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateServingEndpoint that = (CreateServingEndpoint) o;
-    return Objects.equals(config, that.config) && Objects.equals(name, that.name);
+    return Objects.equals(config, that.config)
+        && Objects.equals(name, that.name)
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(config, name);
+    return Objects.hash(config, name, tags);
   }
 
   @Override
@@ -56,6 +72,7 @@ public class CreateServingEndpoint {
     return new ToStringer(CreateServingEndpoint.class)
         .add("config", config)
         .add("name", name)
+        .add("tags", tags)
         .toString();
   }
 }

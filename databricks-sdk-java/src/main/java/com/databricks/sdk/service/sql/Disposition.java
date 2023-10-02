@@ -9,10 +9,10 @@ import com.databricks.sdk.support.Generated;
  *
  * <p>Statements executed with `INLINE` disposition will return result data inline, in `JSON_ARRAY`
  * format, in a series of chunks. If a given statement produces a result set with a size larger than
- * 16 MiB, that statement execution is aborted, and no result set will be available.
+ * 25 MiB, that statement execution is aborted, and no result set will be available.
  *
  * <p>**NOTE** Byte limits are computed based upon internal representations of the result set data,
- * and may not match the sizes visible in JSON responses.
+ * and might not match the sizes visible in JSON responses.
  *
  * <p>Statements executed with `EXTERNAL_LINKS` disposition will return result data as external
  * links: URLs that point to cloud storage internal to the workspace. Using `EXTERNAL_LINKS`

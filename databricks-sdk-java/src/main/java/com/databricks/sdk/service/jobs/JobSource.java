@@ -12,7 +12,16 @@ import java.util.Objects;
  */
 @Generated
 public class JobSource {
-  /** This describes an enum */
+  /**
+   * Dirty state indicates the job is not fully synced with the job specification in the remote
+   * repository.
+   *
+   * <p>Possible values are: * `NOT_SYNCED`: The job is not yet synced with the remote job
+   * specification. Import the remote job specification from UI to make the job fully synced. *
+   * `DISCONNECTED`: The job is temporary disconnected from the remote job specification and is
+   * allowed for live edit. Import the remote job specification again from UI to make the job fully
+   * synced.
+   */
   @JsonProperty("dirty_state")
   private JobSourceDirtyState dirtyState;
 

@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,13 +34,15 @@ public class ArtifactAllowlistsAPI {
   /**
    * Get an artifact allowlist.
    *
-   * <p>Get the artifact allowlist of a certain artifact type. The caller must be a metastore admin.
+   * <p>Get the artifact allowlist of a certain artifact type. The caller must be a metastore admin
+   * or have the **MANAGE ALLOWLIST** privilege on the metastore.
    */
   public ArtifactAllowlistInfo get(GetArtifactAllowlistRequest request) {
     return impl.get(request);
   }
 
-  public ArtifactAllowlistInfo update(ArtifactMatcher artifactMatchers, ArtifactType artifactType) {
+  public ArtifactAllowlistInfo update(
+      Collection<ArtifactMatcher> artifactMatchers, ArtifactType artifactType) {
     return update(
         new SetArtifactAllowlist()
             .setArtifactMatchers(artifactMatchers)
@@ -50,7 +53,8 @@ public class ArtifactAllowlistsAPI {
    * Set an artifact allowlist.
    *
    * <p>Set the artifact allowlist of a certain artifact type. The whole artifact allowlist is
-   * replaced with the new allowlist. The caller must be a metastore admin.
+   * replaced with the new allowlist. The caller must be a metastore admin or have the **MANAGE
+   * ALLOWLIST** privilege on the metastore.
    */
   public ArtifactAllowlistInfo update(SetArtifactAllowlist request) {
     return impl.update(request);

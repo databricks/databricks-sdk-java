@@ -60,6 +60,10 @@ public class PipelineSpec {
   @JsonProperty("name")
   private String name;
 
+  /** List of notification settings for this pipeline. */
+  @JsonProperty("notifications")
+  private Collection<Notifications> notifications;
+
   /** Whether Photon is enabled for this pipeline. */
   @JsonProperty("photon")
   private Boolean photon;
@@ -183,6 +187,15 @@ public class PipelineSpec {
     return name;
   }
 
+  public PipelineSpec setNotifications(Collection<Notifications> notifications) {
+    this.notifications = notifications;
+    return this;
+  }
+
+  public Collection<Notifications> getNotifications() {
+    return notifications;
+  }
+
   public PipelineSpec setPhoton(Boolean photon) {
     this.photon = photon;
     return this;
@@ -244,6 +257,7 @@ public class PipelineSpec {
         && Objects.equals(id, that.id)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(name, that.name)
+        && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
@@ -265,6 +279,7 @@ public class PipelineSpec {
         id,
         libraries,
         name,
+        notifications,
         photon,
         serverless,
         storage,
@@ -286,6 +301,7 @@ public class PipelineSpec {
         .add("id", id)
         .add("libraries", libraries)
         .add("name", name)
+        .add("notifications", notifications)
         .add("photon", photon)
         .add("serverless", serverless)
         .add("storage", storage)

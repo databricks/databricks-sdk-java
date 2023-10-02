@@ -25,10 +25,6 @@ public class UpdateCatalog {
   @JsonProperty("name")
   private String name;
 
-  /** A map of key-value properties attached to the securable. */
-  @JsonProperty("options")
-  private Map<String, String> options;
-
   /** Username of current owner of catalog. */
   @JsonProperty("owner")
   private String owner;
@@ -64,15 +60,6 @@ public class UpdateCatalog {
     return name;
   }
 
-  public UpdateCatalog setOptions(Map<String, String> options) {
-    this.options = options;
-    return this;
-  }
-
-  public Map<String, String> getOptions() {
-    return options;
-  }
-
   public UpdateCatalog setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -99,14 +86,13 @@ public class UpdateCatalog {
     return Objects.equals(comment, that.comment)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
-        && Objects.equals(options, that.options)
         && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, isolationMode, name, options, owner, properties);
+    return Objects.hash(comment, isolationMode, name, owner, properties);
   }
 
   @Override
@@ -115,7 +101,6 @@ public class UpdateCatalog {
         .add("comment", comment)
         .add("isolationMode", isolationMode)
         .add("name", name)
-        .add("options", options)
         .add("owner", owner)
         .add("properties", properties)
         .toString();

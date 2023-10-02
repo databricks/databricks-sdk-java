@@ -12,7 +12,7 @@ import java.util.Objects;
 public class ListRunsRequest {
   /**
    * If active_only is `true`, only active runs are included in the results; otherwise, lists both
-   * active and completed runs. An active run is a run in the `PENDING`, `RUNNING`, or
+   * active and completed runs. An active run is a run in the `QUEUED`, `PENDING`, `RUNNING`, or
    * `TERMINATING`. This field cannot be `true` when completed_only is `true`.
    */
   @QueryParam("active_only")

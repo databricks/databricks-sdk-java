@@ -18,10 +18,11 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum ImportFormat {
-  AUTO,
-  DBC,
-  HTML,
-  JUPYTER,
-  R_MARKDOWN,
-  SOURCE,
+  AUTO, // The item is imported depending on an analysis of the item's extension and
+  DBC, // The notebook is imported in <Databricks> archive format. Required for
+  // directories.
+  HTML, // The notebook is imported as an HTML file.
+  JUPYTER, // The notebook is imported as a Jupyter/IPython Notebook file.
+  R_MARKDOWN, // The notebook is imported from R Markdown format.
+  SOURCE, // The notebook is imported as source code.
 }

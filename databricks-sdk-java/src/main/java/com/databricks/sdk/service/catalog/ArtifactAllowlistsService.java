@@ -16,7 +16,8 @@ public interface ArtifactAllowlistsService {
   /**
    * Get an artifact allowlist.
    *
-   * <p>Get the artifact allowlist of a certain artifact type. The caller must be a metastore admin.
+   * <p>Get the artifact allowlist of a certain artifact type. The caller must be a metastore admin
+   * or have the **MANAGE ALLOWLIST** privilege on the metastore.
    */
   ArtifactAllowlistInfo get(GetArtifactAllowlistRequest getArtifactAllowlistRequest);
 
@@ -24,7 +25,8 @@ public interface ArtifactAllowlistsService {
    * Set an artifact allowlist.
    *
    * <p>Set the artifact allowlist of a certain artifact type. The whole artifact allowlist is
-   * replaced with the new allowlist. The caller must be a metastore admin.
+   * replaced with the new allowlist. The caller must be a metastore admin or have the **MANAGE
+   * ALLOWLIST** privilege on the metastore.
    */
   ArtifactAllowlistInfo update(SetArtifactAllowlist setArtifactAllowlist);
 }

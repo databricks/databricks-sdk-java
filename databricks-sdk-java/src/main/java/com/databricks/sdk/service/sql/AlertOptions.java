@@ -31,6 +31,10 @@ public class AlertOptions {
   @JsonProperty("custom_subject")
   private String customSubject;
 
+  /** State that alert evaluates to when query result is empty. */
+  @JsonProperty("empty_result_state")
+  private AlertOptionsEmptyResultState emptyResultState;
+
   /**
    * Whether or not the alert is muted. If an alert is muted, it will not notify users and
    * notification destinations when triggered.
@@ -76,6 +80,15 @@ public class AlertOptions {
     return customSubject;
   }
 
+  public AlertOptions setEmptyResultState(AlertOptionsEmptyResultState emptyResultState) {
+    this.emptyResultState = emptyResultState;
+    return this;
+  }
+
+  public AlertOptionsEmptyResultState getEmptyResultState() {
+    return emptyResultState;
+  }
+
   public AlertOptions setMuted(Boolean muted) {
     this.muted = muted;
     return this;
@@ -111,6 +124,7 @@ public class AlertOptions {
     return Objects.equals(column, that.column)
         && Objects.equals(customBody, that.customBody)
         && Objects.equals(customSubject, that.customSubject)
+        && Objects.equals(emptyResultState, that.emptyResultState)
         && Objects.equals(muted, that.muted)
         && Objects.equals(op, that.op)
         && Objects.equals(value, that.value);
@@ -118,7 +132,7 @@ public class AlertOptions {
 
   @Override
   public int hashCode() {
-    return Objects.hash(column, customBody, customSubject, muted, op, value);
+    return Objects.hash(column, customBody, customSubject, emptyResultState, muted, op, value);
   }
 
   @Override
@@ -127,6 +141,7 @@ public class AlertOptions {
         .add("column", column)
         .add("customBody", customBody)
         .add("customSubject", customSubject)
+        .add("emptyResultState", emptyResultState)
         .add("muted", muted)
         .add("op", op)
         .add("value", value)

@@ -128,6 +128,10 @@ public class RunTask {
   @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
 
+  /** The time in milliseconds that the run has spent in the queue. */
+  @JsonProperty("queue_duration")
+  private Long queueDuration;
+
   /** Parameter values including resolved references */
   @JsonProperty("resolved_values")
   private ResolvedValues resolvedValues;
@@ -167,8 +171,21 @@ public class RunTask {
   private SparkPythonTask sparkPythonTask;
 
   /**
-   * If spark_submit_task, indicates that this task must be launched by the spark submit script.
-   * This task can run only on new clusters
+   * If `spark_submit_task`, indicates that this task must be launched by the spark submit script.
+   * This task can run only on new clusters.
+   *
+   * <p>In the `new_cluster` specification, `libraries` and `spark_conf` are not supported. Instead,
+   * use `--jars` and `--py-files` to add Java and Python libraries and `--conf` to set the Spark
+   * configurations.
+   *
+   * <p>`master`, `deploy-mode`, and `executor-cores` are automatically configured by Databricks;
+   * you _cannot_ specify them in parameters.
+   *
+   * <p>By default, the Spark submit job uses all available memory (excluding reserved memory for
+   * Databricks services). You can set `--driver-memory`, and `--executor-memory` to a smaller value
+   * to leave some room for off-heap usage.
+   *
+   * <p>The `--jars`, `--py-files`, `--files` arguments support DBFS and S3 paths.
    */
   @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
@@ -341,6 +358,15 @@ public class RunTask {
     return pythonWheelTask;
   }
 
+  public RunTask setQueueDuration(Long queueDuration) {
+    this.queueDuration = queueDuration;
+    return this;
+  }
+
+  public Long getQueueDuration() {
+    return queueDuration;
+  }
+
   public RunTask setResolvedValues(ResolvedValues resolvedValues) {
     this.resolvedValues = resolvedValues;
     return this;
@@ -470,6 +496,7 @@ public class RunTask {
         && Objects.equals(notebookTask, that.notebookTask)
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
+        && Objects.equals(queueDuration, that.queueDuration)
         && Objects.equals(resolvedValues, that.resolvedValues)
         && Objects.equals(runId, that.runId)
         && Objects.equals(runIf, that.runIf)
@@ -503,6 +530,7 @@ public class RunTask {
         notebookTask,
         pipelineTask,
         pythonWheelTask,
+        queueDuration,
         resolvedValues,
         runId,
         runIf,
@@ -536,6 +564,7 @@ public class RunTask {
         .add("notebookTask", notebookTask)
         .add("pipelineTask", pipelineTask)
         .add("pythonWheelTask", pythonWheelTask)
+        .add("queueDuration", queueDuration)
         .add("resolvedValues", resolvedValues)
         .add("runId", runId)
         .add("runIf", runIf)

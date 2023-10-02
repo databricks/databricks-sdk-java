@@ -30,7 +30,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
   public void delete(DeleteServicePrincipalSecretRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts/%s/servicePrincipals/%s/credentials/secrets/%s,",
+            "/api/2.0/accounts/%s/servicePrincipals/%s/credentials/secrets/%s",
             apiClient.configuredAccountID(),
             request.getServicePrincipalId(),
             request.getSecretId());

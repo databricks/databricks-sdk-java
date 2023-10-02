@@ -12,38 +12,24 @@ import java.util.Objects;
  * within a manifest, and when fetching individual chunk data or links.
  */
 @Generated
-public class ChunkInfo {
-  /** Number of bytes in the result chunk. */
+public class BaseChunkInfo {
+  /** The number of bytes in the result chunk. */
   @JsonProperty("byte_count")
   private Long byteCount;
 
-  /** Position within the sequence of result set chunks. */
+  /** The position within the sequence of result set chunks. */
   @JsonProperty("chunk_index")
   private Long chunkIndex;
 
-  /**
-   * When fetching, gives `chunk_index` for the _next_ chunk; if absent, indicates there are no more
-   * chunks.
-   */
-  @JsonProperty("next_chunk_index")
-  private Long nextChunkIndex;
-
-  /**
-   * When fetching, gives `internal_link` for the _next_ chunk; if absent, indicates there are no
-   * more chunks.
-   */
-  @JsonProperty("next_chunk_internal_link")
-  private String nextChunkInternalLink;
-
-  /** Number of rows within the result chunk. */
+  /** The number of rows within the result chunk. */
   @JsonProperty("row_count")
   private Long rowCount;
 
-  /** Starting row offset within the result set. */
+  /** The starting row offset within the result set. */
   @JsonProperty("row_offset")
   private Long rowOffset;
 
-  public ChunkInfo setByteCount(Long byteCount) {
+  public BaseChunkInfo setByteCount(Long byteCount) {
     this.byteCount = byteCount;
     return this;
   }
@@ -52,7 +38,7 @@ public class ChunkInfo {
     return byteCount;
   }
 
-  public ChunkInfo setChunkIndex(Long chunkIndex) {
+  public BaseChunkInfo setChunkIndex(Long chunkIndex) {
     this.chunkIndex = chunkIndex;
     return this;
   }
@@ -61,25 +47,7 @@ public class ChunkInfo {
     return chunkIndex;
   }
 
-  public ChunkInfo setNextChunkIndex(Long nextChunkIndex) {
-    this.nextChunkIndex = nextChunkIndex;
-    return this;
-  }
-
-  public Long getNextChunkIndex() {
-    return nextChunkIndex;
-  }
-
-  public ChunkInfo setNextChunkInternalLink(String nextChunkInternalLink) {
-    this.nextChunkInternalLink = nextChunkInternalLink;
-    return this;
-  }
-
-  public String getNextChunkInternalLink() {
-    return nextChunkInternalLink;
-  }
-
-  public ChunkInfo setRowCount(Long rowCount) {
+  public BaseChunkInfo setRowCount(Long rowCount) {
     this.rowCount = rowCount;
     return this;
   }
@@ -88,7 +56,7 @@ public class ChunkInfo {
     return rowCount;
   }
 
-  public ChunkInfo setRowOffset(Long rowOffset) {
+  public BaseChunkInfo setRowOffset(Long rowOffset) {
     this.rowOffset = rowOffset;
     return this;
   }
@@ -101,28 +69,23 @@ public class ChunkInfo {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ChunkInfo that = (ChunkInfo) o;
+    BaseChunkInfo that = (BaseChunkInfo) o;
     return Objects.equals(byteCount, that.byteCount)
         && Objects.equals(chunkIndex, that.chunkIndex)
-        && Objects.equals(nextChunkIndex, that.nextChunkIndex)
-        && Objects.equals(nextChunkInternalLink, that.nextChunkInternalLink)
         && Objects.equals(rowCount, that.rowCount)
         && Objects.equals(rowOffset, that.rowOffset);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        byteCount, chunkIndex, nextChunkIndex, nextChunkInternalLink, rowCount, rowOffset);
+    return Objects.hash(byteCount, chunkIndex, rowCount, rowOffset);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ChunkInfo.class)
+    return new ToStringer(BaseChunkInfo.class)
         .add("byteCount", byteCount)
         .add("chunkIndex", chunkIndex)
-        .add("nextChunkIndex", nextChunkIndex)
-        .add("nextChunkInternalLink", nextChunkInternalLink)
         .add("rowCount", rowCount)
         .add("rowOffset", rowOffset)
         .toString();

@@ -96,6 +96,10 @@ public class JobSettings {
   @JsonProperty("parameters")
   private Collection<JobParameterDefinition> parameters;
 
+  /** The queue settings of the job. */
+  @JsonProperty("queue")
+  private QueueSettings queue;
+
   /**
    * Write-only setting, available only in Create/Update/Reset and Submit calls. Specifies the user
    * or service principal that the job runs as. If not specified, the job runs as the user who
@@ -247,6 +251,15 @@ public class JobSettings {
     return parameters;
   }
 
+  public JobSettings setQueue(QueueSettings queue) {
+    this.queue = queue;
+    return this;
+  }
+
+  public QueueSettings getQueue() {
+    return queue;
+  }
+
   public JobSettings setRunAs(JobRunAs runAs) {
     this.runAs = runAs;
     return this;
@@ -326,6 +339,7 @@ public class JobSettings {
         && Objects.equals(name, that.name)
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(parameters, that.parameters)
+        && Objects.equals(queue, that.queue)
         && Objects.equals(runAs, that.runAs)
         && Objects.equals(schedule, that.schedule)
         && Objects.equals(tags, that.tags)
@@ -349,6 +363,7 @@ public class JobSettings {
         name,
         notificationSettings,
         parameters,
+        queue,
         runAs,
         schedule,
         tags,
@@ -372,6 +387,7 @@ public class JobSettings {
         .add("name", name)
         .add("notificationSettings", notificationSettings)
         .add("parameters", parameters)
+        .add("queue", queue)
         .add("runAs", runAs)
         .add("schedule", schedule)
         .add("tags", tags)
