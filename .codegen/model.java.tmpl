@@ -65,8 +65,6 @@ public class {{.PascalName}} {
     {{- end}}.toString();
   }
 }
-{{else if .ArrayValue}}// type {{.PascalName}} []{{template "type" .ArrayValue}}
-{{else if .MapValue}}// type {{.PascalName}} {{template "type" .}}
 {{else if .Enum -}}
 @Generated
 public enum {{.PascalName}}{
@@ -75,5 +73,9 @@ public enum {{.PascalName}}{
   @JsonProperty("{{.Content}}") {{end}}{{.ConstantName}},{{.Comment "// " 80}}
   {{ end }}
 }
+{{ else }}
+Any types that have no fields (i.e. primitives or array types) or are not enums are not represented by distinct Java
+types in the Java SDK.
+{{skipThisFile}}
 {{- end}}
 
