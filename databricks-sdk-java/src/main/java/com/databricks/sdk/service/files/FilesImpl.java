@@ -18,14 +18,14 @@ class FilesImpl implements FilesService {
 
   @Override
   public void delete(DeleteFileRequest request) {
-    String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
+    String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
   public DownloadResponse download(DownloadRequest request) {
-    String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
+    String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/octet-stream");
     InputStream response = apiClient.GET(path, request, InputStream.class, headers);
@@ -42,7 +42,7 @@ class FilesImpl implements FilesService {
 
   @Override
   public void upload(UploadRequest request) {
-    String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
+    String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/octet-stream");
     apiClient.PUT(path, request.getContents(), Void.class, headers);
