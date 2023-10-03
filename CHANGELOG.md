@@ -1,5 +1,84 @@
 # Version changelog
 
+## 0.9.0
+
+* Add additional error metadata to API errors ([#153](https://github.com/databricks/databricks-sdk-java/pull/153)).
+* Bugfix: Chunk streaming request bodies only ([#157](https://github.com/databricks/databricks-sdk-java/pull/157)).
+* Relicense the Java SDK using the Apache 2.0 license ([#158](https://github.com/databricks/databricks-sdk-java/pull/158)).
+
+Breaking API Changes:
+
+ * Changed `list()` method for `accountClient.metastoreAssignments()` service to return `com.databricks.sdk.service.catalog.ListAccountMetastoreAssignmentsResponse` class.
+ * Changed `artifactMatchers` field for `com.databricks.sdk.service.catalog.ArtifactAllowlistInfo` to `com.databricks.sdk.service.catalog.ArtifactMatcherList` class.
+ * Removed `owner` field for `com.databricks.sdk.service.catalog.CreateConnection`. Use instead the `owner` field of `UpdateConnection`.
+ * Changed `artifactMatchers` field for `com.databricks.sdk.service.catalog.SetArtifactAllowlist` to `com.databricks.sdk.service.catalog.ArtifactMatcherList` class.
+ * Removed `options` field for `com.databricks.sdk.service.catalog.UpdateCatalog`.
+ * Changed `cancelAllRuns()` method for `workspaceClient.jobs()` service with new required argument order.
+ * Changed `jobId` field for `com.databricks.sdk.service.jobs.CancelAllRuns` to no longer be required.
+ * Changed `jobParameters` field for `com.databricks.sdk.service.jobs.RunNow` to `com.databricks.sdk.service.jobs.ParamPairs` class.
+ * Changed `query()` method for `workspaceClient.servingEndpoints()` service. New request type is `com.databricks.sdk.service.serving.QueryEndpointInput` class.
+ * Removed `com.databricks.sdk.service.serving.QueryRequest` class.
+ * Changed `list()` method for `workspaceClient.cleanRooms()` service to require request of `com.databricks.sdk.service.sharing.ListCleanRoomsRequest` class.
+ * Changed `executeStatement()` method for `workspaceClient.statementExecution()` service with new required argument order.
+ * Renamed `com.databricks.sdk.service.sql.ChunkInfo` class to `BaseChunkInfo`.
+ * Changed `onWaitTimeout` field for `com.databricks.sdk.service.sql.ExecuteStatementRequest` to `com.databricks.sdk.service.sql.ExecuteStatementRequestOnWaitTimeout` class.
+ * Changed `statement` field for `com.databricks.sdk.service.sql.ExecuteStatementRequest` to be required.
+ * Changed `warehouseId` field for `com.databricks.sdk.service.sql.ExecuteStatementRequest` to be required.
+ * Changed `chunks` field for `com.databricks.sdk.service.sql.ResultManifest` to `com.databricks.sdk.service.sql.BaseChunkInfoList` class.
+ * Renamed `com.databricks.sdk.service.sql.TimeoutAction` class to `ExecuteStatementRequestOnWaitTimeout`.
+
+API Changes:
+
+ * Added `com.databricks.sdk.service.catalog.ListAccountMetastoreAssignmentsResponse` class.
+ * Added `com.databricks.sdk.service.catalog.WorkspaceId` class.
+ * Added `allQueuedRuns` field for `com.databricks.sdk.service.jobs.CancelAllRuns`.
+ * Added `queue` field for `com.databricks.sdk.service.jobs.CreateJob`.
+ * Added `queue` field for `com.databricks.sdk.service.jobs.JobSettings`.
+ * Added `jobParameters` field for `com.databricks.sdk.service.jobs.RepairRun`.
+ * Added `queue` field for `com.databricks.sdk.service.jobs.RunNow`.
+ * Added `jobParameters` field for `com.databricks.sdk.service.jobs.RunParameters`.
+ * Added `queueReason` field for `com.databricks.sdk.service.jobs.RunState`.
+ * Added `queueDuration` field for `com.databricks.sdk.service.jobs.RunTask`.
+ * Added `queue` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+ * Added `com.databricks.sdk.service.jobs.QueueSettings` class.
+ * Added `accountClient.oAuthPublishedApps()` service.
+ * Added `com.databricks.sdk.service.oauth2.GetPublishedAppsOutput` class.
+ * Added `com.databricks.sdk.service.oauth2.ListOAuthPublishedAppsRequest` class.
+ * Added `com.databricks.sdk.service.oauth2.PublishedAppOutput` class.
+ * Added `notifications` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+ * Added `notifications` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+ * Added `notifications` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+ * Added `com.databricks.sdk.service.pipelines.Notifications` class.
+ * Added `patch()` method for `workspaceClient.servingEndpoints()` service.
+ * Added `tags` field for `com.databricks.sdk.service.serving.CreateServingEndpoint`.
+ * Added `tags` field for `com.databricks.sdk.service.serving.ServingEndpoint`.
+ * Added `tags` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+ * Added `com.databricks.sdk.service.serving.DataframeSplitInput` class.
+ * Added `com.databricks.sdk.service.serving.EndpointTag` class.
+ * Added `com.databricks.sdk.service.serving.PatchServingEndpointTags` class.
+ * Added `com.databricks.sdk.service.serving.QueryEndpointInput` class.
+ * Added `workspaceClient.credentialsManager()` service.
+ * Added `workspaceClient.settings()` service.
+ * Added `com.databricks.sdk.service.settings.DefaultNamespaceSetting` class.
+ * Added `com.databricks.sdk.service.settings.DeleteDefaultWorkspaceNamespaceRequest` class.
+ * Added `com.databricks.sdk.service.settings.DeleteDefaultWorkspaceNamespaceResponse` class.
+ * Added `com.databricks.sdk.service.settings.ExchangeToken` class.
+ * Added `com.databricks.sdk.service.settings.ExchangeTokenRequest` class.
+ * Added `com.databricks.sdk.service.settings.ExchangeTokenResponse` class.
+ * Added `com.databricks.sdk.service.settings.PartitionId` class.
+ * Added `com.databricks.sdk.service.settings.ReadDefaultWorkspaceNamespaceRequest` class.
+ * Added `com.databricks.sdk.service.settings.StringMessage` class.
+ * Added `com.databricks.sdk.service.settings.TokenType` class.
+ * Added `com.databricks.sdk.service.settings.UpdateDefaultWorkspaceNamespaceRequest` class.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.sharing.ListCleanRoomsResponse`.
+ * Added `com.databricks.sdk.service.sharing.ListCleanRoomsRequest` class.
+ * Added `emptyResultState` field for `com.databricks.sdk.service.sql.AlertOptions`.
+ * Added `truncated` field for `com.databricks.sdk.service.sql.ResultManifest`.
+ * Added `com.databricks.sdk.service.sql.AlertOptionsEmptyResultState` class.
+
+OpenAPI SHA: bcbf6e851e3d82fd910940910dd31c10c059746c, Date: 2023-10-02
+
+
 ## 0.8.1
 
 * Added support for Azure authentication when WorkspaceResourceID is provided ([#145](https://github.com/databricks/databricks-sdk-java/pull/145)).
