@@ -292,9 +292,10 @@ public class PipelinesAPI {
   }
 
   /**
-   * Queue a pipeline update.
+   * Start a pipeline.
    *
-   * <p>Starts or queues a pipeline update.
+   * <p>Starts a new update for the pipeline. If there is already an active update for the pipeline,
+   * the request will fail and the active update will remain running.
    */
   public StartUpdateResponse startUpdate(StartUpdate request) {
     return impl.startUpdate(request);
@@ -307,7 +308,8 @@ public class PipelinesAPI {
   /**
    * Stop a pipeline.
    *
-   * <p>Stops a pipeline.
+   * <p>Stops the pipeline by canceling the active update. If there is no active update for the
+   * pipeline, this request is a no-op.
    */
   public Wait<GetPipelineResponse, Void> stop(StopRequest request) {
     impl.stop(request);

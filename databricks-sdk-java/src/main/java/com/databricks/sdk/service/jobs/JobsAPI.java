@@ -306,10 +306,10 @@ public class JobsAPI {
   }
 
   /**
-   * Overwrites all settings for a job.
+   * Overwrite all settings for a job.
    *
-   * <p>Overwrites all the settings for a specific job. Use the Update endpoint to update job
-   * settings partially.
+   * <p>Overwrite all settings for the given job. Use the Update endpoint to update job settings
+   * partially.
    */
   public void reset(ResetJob request) {
     impl.reset(request);

@@ -25,6 +25,17 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
   }
 
   @Override
+  public WorkspaceBindingsResponse getBindings(GetBindingsRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/unity-catalog/bindings/%s/%s",
+            request.getSecurableType(), request.getSecurableName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, WorkspaceBindingsResponse.class, headers);
+  }
+
+  @Override
   public CurrentWorkspaceBindings update(UpdateWorkspaceBindings request) {
     String path =
         String.format("/api/2.1/unity-catalog/workspace-bindings/catalogs/%s", request.getName());
@@ -32,5 +43,17 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
     return apiClient.PATCH(path, request, CurrentWorkspaceBindings.class, headers);
+  }
+
+  @Override
+  public WorkspaceBindingsResponse updateBindings(UpdateWorkspaceBindingsParameters request) {
+    String path =
+        String.format(
+            "/api/2.1/unity-catalog/bindings/%s/%s",
+            request.getSecurableType(), request.getSecurableName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, WorkspaceBindingsResponse.class, headers);
   }
 }

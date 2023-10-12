@@ -42,8 +42,11 @@ public class AccountStorageCredentialsAPI {
     return impl.create(request);
   }
 
-  public void delete(String metastoreId, String name) {
-    delete(new DeleteAccountStorageCredentialRequest().setMetastoreId(metastoreId).setName(name));
+  public void delete(String metastoreId, String storageCredentialName) {
+    delete(
+        new DeleteAccountStorageCredentialRequest()
+            .setMetastoreId(metastoreId)
+            .setStorageCredentialName(storageCredentialName));
   }
 
   /**
@@ -56,8 +59,11 @@ public class AccountStorageCredentialsAPI {
     impl.delete(request);
   }
 
-  public AccountsStorageCredentialInfo get(String metastoreId, String name) {
-    return get(new GetAccountStorageCredentialRequest().setMetastoreId(metastoreId).setName(name));
+  public AccountsStorageCredentialInfo get(String metastoreId, String storageCredentialName) {
+    return get(
+        new GetAccountStorageCredentialRequest()
+            .setMetastoreId(metastoreId)
+            .setStorageCredentialName(storageCredentialName));
   }
 
   /**
@@ -83,8 +89,11 @@ public class AccountStorageCredentialsAPI {
     return impl.list(request);
   }
 
-  public AccountsStorageCredentialInfo update(String metastoreId, String name) {
-    return update(new AccountsUpdateStorageCredential().setMetastoreId(metastoreId).setName(name));
+  public AccountsStorageCredentialInfo update(String metastoreId, String storageCredentialName) {
+    return update(
+        new AccountsUpdateStorageCredential()
+            .setMetastoreId(metastoreId)
+            .setStorageCredentialName(storageCredentialName));
   }
 
   /**

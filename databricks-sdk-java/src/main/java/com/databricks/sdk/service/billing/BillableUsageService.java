@@ -28,5 +28,5 @@ public interface BillableUsageService {
    * <p>[CSV file schema]:
    * https://docs.databricks.com/administration-guide/account-settings/usage-analysis.html#schema
    */
-  void download(DownloadRequest downloadRequest);
+  DownloadResponse download(DownloadRequest downloadRequest);
 }

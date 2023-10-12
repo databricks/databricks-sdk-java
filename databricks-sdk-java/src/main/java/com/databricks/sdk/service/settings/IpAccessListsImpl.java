@@ -40,11 +40,11 @@ class IpAccessListsImpl implements IpAccessListsService {
   }
 
   @Override
-  public GetIpAccessListResponse list() {
+  public ListIpAccessListResponse list() {
     String path = "/api/2.0/ip-access-lists";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, GetIpAccessListResponse.class, headers);
+    return apiClient.GET(path, ListIpAccessListResponse.class, headers);
   }
 
   @Override

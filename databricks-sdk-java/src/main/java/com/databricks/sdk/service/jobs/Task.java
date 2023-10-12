@@ -81,8 +81,8 @@ public class Task {
   /**
    * An optional maximum number of times to retry an unsuccessful run. A run is considered to be
    * unsuccessful if it completes with the `FAILED` result_state or `INTERNAL_ERROR`
-   * `life_cycle_state`. The value -1 means to retry indefinitely and the value 0 means to never
-   * retry. The default behavior is to never retry.
+   * `life_cycle_state`. The value `-1` means to retry indefinitely and the value `0` means to never
+   * retry.
    */
   @JsonProperty("max_retries")
   private Long maxRetries;
@@ -107,7 +107,7 @@ public class Task {
 
   /**
    * Optional notification settings that are used when sending notifications to each of the
-   * `email_notifications` for this task.
+   * `email_notifications` and `webhook_notifications` for this task.
    */
   @JsonProperty("notification_settings")
   private TaskNotificationSettings notificationSettings;
@@ -120,16 +120,13 @@ public class Task {
   @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
 
-  /**
-   * An optional policy to specify whether to retry a task when it times out. The default behavior
-   * is to not retry on timeout.
-   */
+  /** An optional policy to specify whether to retry a task when it times out. */
   @JsonProperty("retry_on_timeout")
   private Boolean retryOnTimeout;
 
   /**
    * An optional value specifying the condition determining whether the task is run once its
-   * dependencies have been completed. When omitted, defaults to `ALL_SUCCESS`.
+   * dependencies have been completed.
    *
    * <p>* `ALL_SUCCESS`: All dependencies have executed and succeeded * `AT_LEAST_ONE_SUCCESS`: At
    * least one dependency has succeeded * `NONE_FAILED`: None of the dependencies have failed and at
@@ -184,12 +181,16 @@ public class Task {
   @JsonProperty("task_key")
   private String taskKey;
 
-  /**
-   * An optional timeout applied to each run of this job task. The default behavior is to have no
-   * timeout.
-   */
+  /** An optional timeout applied to each run of this job task. A value of `0` means no timeout. */
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
+
+  /**
+   * A collection of system notification IDs to notify when runs of this task begin or complete. The
+   * default behavior is to not send any system notifications.
+   */
+  @JsonProperty("webhook_notifications")
+  private WebhookNotifications webhookNotifications;
 
   public Task setComputeKey(String computeKey) {
     this.computeKey = computeKey;
@@ -425,6 +426,15 @@ public class Task {
     return timeoutSeconds;
   }
 
+  public Task setWebhookNotifications(WebhookNotifications webhookNotifications) {
+    this.webhookNotifications = webhookNotifications;
+    return this;
+  }
+
+  public WebhookNotifications getWebhookNotifications() {
+    return webhookNotifications;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -455,7 +465,8 @@ public class Task {
         && Objects.equals(sparkSubmitTask, that.sparkSubmitTask)
         && Objects.equals(sqlTask, that.sqlTask)
         && Objects.equals(taskKey, that.taskKey)
-        && Objects.equals(timeoutSeconds, that.timeoutSeconds);
+        && Objects.equals(timeoutSeconds, that.timeoutSeconds)
+        && Objects.equals(webhookNotifications, that.webhookNotifications);
   }
 
   @Override
@@ -486,7 +497,8 @@ public class Task {
         sparkSubmitTask,
         sqlTask,
         taskKey,
-        timeoutSeconds);
+        timeoutSeconds,
+        webhookNotifications);
   }
 
   @Override
@@ -518,6 +530,7 @@ public class Task {
         .add("sqlTask", sqlTask)
         .add("taskKey", taskKey)
         .add("timeoutSeconds", timeoutSeconds)
+        .add("webhookNotifications", webhookNotifications)
         .toString();
   }
 }

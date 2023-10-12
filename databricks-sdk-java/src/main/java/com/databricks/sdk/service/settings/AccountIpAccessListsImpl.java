@@ -18,8 +18,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
   @Override
   public CreateIpAccessListResponse create(CreateIpAccessList request) {
     String path =
-        String.format(
-            "/api/2.0/preview/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
+        String.format("/api/2.0/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -30,7 +29,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
   public void delete(DeleteAccountIpAccessListRequest request) {
     String path =
         String.format(
-            "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
+            "/api/2.0/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     apiClient.DELETE(path, request, Void.class, headers);
@@ -40,7 +39,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
   public GetIpAccessListResponse get(GetAccountIpAccessListRequest request) {
     String path =
         String.format(
-            "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
+            "/api/2.0/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -50,8 +49,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
   @Override
   public GetIpAccessListsResponse list() {
     String path =
-        String.format(
-            "/api/2.0/preview/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
+        String.format("/api/2.0/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, GetIpAccessListsResponse.class, headers);
@@ -61,7 +59,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
   public void replace(ReplaceIpAccessList request) {
     String path =
         String.format(
-            "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
+            "/api/2.0/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -73,7 +71,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
   public void update(UpdateIpAccessList request) {
     String path =
         String.format(
-            "/api/2.0/preview/accounts/%s/ip-access-lists/%s",
+            "/api/2.0/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

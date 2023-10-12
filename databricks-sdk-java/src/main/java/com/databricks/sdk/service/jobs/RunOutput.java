@@ -9,10 +9,6 @@ import java.util.Objects;
 
 @Generated
 public class RunOutput {
-  /** The output of a condition task, if available. */
-  @JsonProperty("condition_task")
-  private Object conditionTask;
-
   /** The output of a dbt task, if available. */
   @JsonProperty("dbt_output")
   private DbtOutput dbtOutput;
@@ -65,15 +61,6 @@ public class RunOutput {
   /** The output of a SQL task, if available. */
   @JsonProperty("sql_output")
   private SqlOutput sqlOutput;
-
-  public RunOutput setConditionTask(Object conditionTask) {
-    this.conditionTask = conditionTask;
-    return this;
-  }
-
-  public Object getConditionTask() {
-    return conditionTask;
-  }
 
   public RunOutput setDbtOutput(DbtOutput dbtOutput) {
     this.dbtOutput = dbtOutput;
@@ -161,8 +148,7 @@ public class RunOutput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     RunOutput that = (RunOutput) o;
-    return Objects.equals(conditionTask, that.conditionTask)
-        && Objects.equals(dbtOutput, that.dbtOutput)
+    return Objects.equals(dbtOutput, that.dbtOutput)
         && Objects.equals(error, that.error)
         && Objects.equals(errorTrace, that.errorTrace)
         && Objects.equals(logs, that.logs)
@@ -176,7 +162,6 @@ public class RunOutput {
   @Override
   public int hashCode() {
     return Objects.hash(
-        conditionTask,
         dbtOutput,
         error,
         errorTrace,
@@ -191,7 +176,6 @@ public class RunOutput {
   @Override
   public String toString() {
     return new ToStringer(RunOutput.class)
-        .add("conditionTask", conditionTask)
         .add("dbtOutput", dbtOutput)
         .add("error", error)
         .add("errorTrace", errorTrace)

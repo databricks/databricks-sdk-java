@@ -5,22 +5,21 @@ package com.databricks.sdk.service.settings;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class GetIpAccessListResponse {
   /** */
-  @JsonProperty("ip_access_lists")
-  private Collection<IpAccessListInfo> ipAccessLists;
+  @JsonProperty("ip_access_list")
+  private IpAccessListInfo ipAccessList;
 
-  public GetIpAccessListResponse setIpAccessLists(Collection<IpAccessListInfo> ipAccessLists) {
-    this.ipAccessLists = ipAccessLists;
+  public GetIpAccessListResponse setIpAccessList(IpAccessListInfo ipAccessList) {
+    this.ipAccessList = ipAccessList;
     return this;
   }
 
-  public Collection<IpAccessListInfo> getIpAccessLists() {
-    return ipAccessLists;
+  public IpAccessListInfo getIpAccessList() {
+    return ipAccessList;
   }
 
   @Override
@@ -28,18 +27,18 @@ public class GetIpAccessListResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetIpAccessListResponse that = (GetIpAccessListResponse) o;
-    return Objects.equals(ipAccessLists, that.ipAccessLists);
+    return Objects.equals(ipAccessList, that.ipAccessList);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(ipAccessLists);
+    return Objects.hash(ipAccessList);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetIpAccessListResponse.class)
-        .add("ipAccessLists", ipAccessLists)
+        .add("ipAccessList", ipAccessList)
         .toString();
   }
 }

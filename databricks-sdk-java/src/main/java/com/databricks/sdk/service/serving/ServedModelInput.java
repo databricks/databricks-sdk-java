@@ -58,6 +58,15 @@ public class ServedModelInput {
   @JsonProperty("workload_size")
   private String workloadSize;
 
+  /**
+   * The workload type of the served model. The workload type selects which type of compute to use
+   * in the endpoint. The default value for this parameter is "CPU". For deep learning workloads,
+   * GPU acceleration is available by selecting workload types like GPU_SMALL and others. See
+   * documentation for all options.
+   */
+  @JsonProperty("workload_type")
+  private String workloadType;
+
   public ServedModelInput setEnvironmentVars(Map<String, String> environmentVars) {
     this.environmentVars = environmentVars;
     return this;
@@ -121,6 +130,15 @@ public class ServedModelInput {
     return workloadSize;
   }
 
+  public ServedModelInput setWorkloadType(String workloadType) {
+    this.workloadType = workloadType;
+    return this;
+  }
+
+  public String getWorkloadType() {
+    return workloadType;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -132,7 +150,8 @@ public class ServedModelInput {
         && Objects.equals(modelVersion, that.modelVersion)
         && Objects.equals(name, that.name)
         && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
-        && Objects.equals(workloadSize, that.workloadSize);
+        && Objects.equals(workloadSize, that.workloadSize)
+        && Objects.equals(workloadType, that.workloadType);
   }
 
   @Override
@@ -144,7 +163,8 @@ public class ServedModelInput {
         modelVersion,
         name,
         scaleToZeroEnabled,
-        workloadSize);
+        workloadSize,
+        workloadType);
   }
 
   @Override
@@ -157,6 +177,7 @@ public class ServedModelInput {
         .add("name", name)
         .add("scaleToZeroEnabled", scaleToZeroEnabled)
         .add("workloadSize", workloadSize)
+        .add("workloadType", workloadType)
         .toString();
   }
 }

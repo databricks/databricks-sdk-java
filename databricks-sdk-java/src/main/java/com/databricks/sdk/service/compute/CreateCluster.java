@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Generated
 public class CreateCluster {
-  /** Note: This field won't be true for webapp requests. Only API users will check this field. */
+  /** */
   @JsonProperty("apply_policy_default_values")
   private Boolean applyPolicyDefaultValues;
 

@@ -69,7 +69,7 @@ public interface IpAccessListsService {
    *
    * <p>Gets all IP access lists for the specified workspace.
    */
-  GetIpAccessListResponse list();
+  ListIpAccessListResponse list();
 
   /**
    * Replace access list.
