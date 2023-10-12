@@ -64,8 +64,8 @@ public class SubmitTask {
   private NotebookTask notebookTask;
 
   /**
-   * Optional notification settings that are used when sending email notifications for this task
-   * run.
+   * Optional notification settings that are used when sending notifications to each of the
+   * `email_notifications` and `webhook_notifications` for this task run.
    */
   @JsonProperty("notification_settings")
   private TaskNotificationSettings notificationSettings;
@@ -118,10 +118,7 @@ public class SubmitTask {
   @JsonProperty("task_key")
   private String taskKey;
 
-  /**
-   * An optional timeout applied to each run of this job task. The default behavior is to have no
-   * timeout.
-   */
+  /** An optional timeout applied to each run of this job task. A value of `0` means no timeout. */
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 

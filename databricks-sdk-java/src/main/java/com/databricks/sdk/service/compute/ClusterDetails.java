@@ -294,6 +294,15 @@ public class ClusterDetails {
   private String sparkVersion;
 
   /**
+   * `spec` contains a snapshot of the field values that were used to create or edit this cluster.
+   * The contents of `spec` can be used in the body of a create cluster request. This field might
+   * not be populated for older clusters. Note: not included in the response of the ListClusters
+   * API.
+   */
+  @JsonProperty("spec")
+  private CreateCluster spec;
+
+  /**
    * SSH public key contents that will be added to each Spark node in this cluster. The
    * corresponding private keys can be used to login with the user name `ubuntu` on port `2200`. Up
    * to 10 keys can be specified.
@@ -667,6 +676,15 @@ public class ClusterDetails {
     return sparkVersion;
   }
 
+  public ClusterDetails setSpec(CreateCluster spec) {
+    this.spec = spec;
+    return this;
+  }
+
+  public CreateCluster getSpec() {
+    return spec;
+  }
+
   public ClusterDetails setSshPublicKeys(Collection<String> sshPublicKeys) {
     this.sshPublicKeys = sshPublicKeys;
     return this;
@@ -772,6 +790,7 @@ public class ClusterDetails {
         && Objects.equals(sparkContextId, that.sparkContextId)
         && Objects.equals(sparkEnvVars, that.sparkEnvVars)
         && Objects.equals(sparkVersion, that.sparkVersion)
+        && Objects.equals(spec, that.spec)
         && Objects.equals(sshPublicKeys, that.sshPublicKeys)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
@@ -821,6 +840,7 @@ public class ClusterDetails {
         sparkContextId,
         sparkEnvVars,
         sparkVersion,
+        spec,
         sshPublicKeys,
         startTime,
         state,
@@ -870,6 +890,7 @@ public class ClusterDetails {
         .add("sparkContextId", sparkContextId)
         .add("sparkEnvVars", sparkEnvVars)
         .add("sparkVersion", sparkVersion)
+        .add("spec", spec)
         .add("sshPublicKeys", sshPublicKeys)
         .add("startTime", startTime)
         .add("state", state)

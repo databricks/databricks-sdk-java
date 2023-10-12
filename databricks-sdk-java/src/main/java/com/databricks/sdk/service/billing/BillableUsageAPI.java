@@ -26,8 +26,8 @@ public class BillableUsageAPI {
     impl = mock;
   }
 
-  public void download(String startMonth, String endMonth) {
-    download(new DownloadRequest().setStartMonth(startMonth).setEndMonth(endMonth));
+  public DownloadResponse download(String startMonth, String endMonth) {
+    return download(new DownloadRequest().setStartMonth(startMonth).setEndMonth(endMonth));
   }
 
   /**
@@ -45,8 +45,8 @@ public class BillableUsageAPI {
    * <p>[CSV file schema]:
    * https://docs.databricks.com/administration-guide/account-settings/usage-analysis.html#schema
    */
-  public void download(DownloadRequest request) {
-    impl.download(request);
+  public DownloadResponse download(DownloadRequest request) {
+    return impl.download(request);
   }
 
   public BillableUsageService impl() {

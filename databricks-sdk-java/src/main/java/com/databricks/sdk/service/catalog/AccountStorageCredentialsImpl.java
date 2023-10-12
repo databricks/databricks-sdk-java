@@ -32,8 +32,10 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   public void delete(DeleteAccountStorageCredentialRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
-            apiClient.configuredAccountID(), request.getMetastoreId());
+            "/api/2.0/accounts/%s/metastores/%s/storage-credentials/%s",
+            apiClient.configuredAccountID(),
+            request.getMetastoreId(),
+            request.getStorageCredentialName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     apiClient.DELETE(path, request, Void.class, headers);
@@ -43,8 +45,10 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   public AccountsStorageCredentialInfo get(GetAccountStorageCredentialRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
-            apiClient.configuredAccountID(), request.getMetastoreId());
+            "/api/2.0/accounts/%s/metastores/%s/storage-credentials/%s",
+            apiClient.configuredAccountID(),
+            request.getMetastoreId(),
+            request.getStorageCredentialName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, AccountsStorageCredentialInfo.class, headers);
@@ -65,8 +69,10 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   public AccountsStorageCredentialInfo update(AccountsUpdateStorageCredential request) {
     String path =
         String.format(
-            "/api/2.0/accounts/%s/metastores/%s/storage-credentials/",
-            apiClient.configuredAccountID(), request.getMetastoreId());
+            "/api/2.0/accounts/%s/metastores/%s/storage-credentials/%s",
+            apiClient.configuredAccountID(),
+            request.getMetastoreId(),
+            request.getStorageCredentialName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");

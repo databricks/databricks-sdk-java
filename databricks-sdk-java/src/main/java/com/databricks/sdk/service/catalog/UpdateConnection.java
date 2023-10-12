@@ -21,6 +21,10 @@ public class UpdateConnection {
   @JsonProperty("options")
   private Map<String, String> options;
 
+  /** Username of current owner of the connection. */
+  @JsonProperty("owner")
+  private String owner;
+
   public UpdateConnection setName(String name) {
     this.name = name;
     return this;
@@ -48,6 +52,15 @@ public class UpdateConnection {
     return options;
   }
 
+  public UpdateConnection setOwner(String owner) {
+    this.owner = owner;
+    return this;
+  }
+
+  public String getOwner() {
+    return owner;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -55,12 +68,13 @@ public class UpdateConnection {
     UpdateConnection that = (UpdateConnection) o;
     return Objects.equals(name, that.name)
         && Objects.equals(nameArg, that.nameArg)
-        && Objects.equals(options, that.options);
+        && Objects.equals(options, that.options)
+        && Objects.equals(owner, that.owner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, nameArg, options);
+    return Objects.hash(name, nameArg, options, owner);
   }
 
   @Override
@@ -69,6 +83,7 @@ public class UpdateConnection {
         .add("name", name)
         .add("nameArg", nameArg)
         .add("options", options)
+        .add("owner", owner)
         .toString();
   }
 }

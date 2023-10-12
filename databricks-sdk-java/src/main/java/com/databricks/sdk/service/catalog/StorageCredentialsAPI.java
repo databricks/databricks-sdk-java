@@ -42,14 +42,7 @@ public class StorageCredentialsAPI {
   /**
    * Create a storage credential.
    *
-   * <p>Creates a new storage credential. The request object is specific to the cloud:
-   *
-   * <p>* **AwsIamRole** for AWS credentials. * **AzureServicePrincipal** for Azure credentials. *
-   * **AzureManagedIdentity** for Azure managed credentials. * **DatabricksGcpServiceAccount** for
-   * GCP managed credentials.
-   *
-   * <p>The caller must be a metastore admin and have the **CREATE_STORAGE_CREDENTIAL** privilege on
-   * the metastore.
+   * <p>Creates a new storage credential.
    */
   public StorageCredentialInfo create(CreateStorageCredential request) {
     return impl.create(request);
@@ -102,9 +95,7 @@ public class StorageCredentialsAPI {
   /**
    * Update a credential.
    *
-   * <p>Updates a storage credential on the metastore. The caller must be the owner of the storage
-   * credential or a metastore admin. If the caller is a metastore admin, only the __owner__
-   * credential can be changed.
+   * <p>Updates a storage credential on the metastore.
    */
   public StorageCredentialInfo update(UpdateStorageCredential request) {
     return impl.update(request);

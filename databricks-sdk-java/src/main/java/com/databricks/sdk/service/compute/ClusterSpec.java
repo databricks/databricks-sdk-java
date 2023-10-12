@@ -11,6 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class ClusterSpec {
+  /** */
+  @JsonProperty("apply_policy_default_values")
+  private Boolean applyPolicyDefaultValues;
+
   /**
    * Parameters needed in order to automatically scale clusters up and down based on load. Note:
    * autoscaling works best with DB runtime versions 3.0 or later.
@@ -224,6 +228,15 @@ public class ClusterSpec {
   /** */
   @JsonProperty("workload_type")
   private WorkloadType workloadType;
+
+  public ClusterSpec setApplyPolicyDefaultValues(Boolean applyPolicyDefaultValues) {
+    this.applyPolicyDefaultValues = applyPolicyDefaultValues;
+    return this;
+  }
+
+  public Boolean getApplyPolicyDefaultValues() {
+    return applyPolicyDefaultValues;
+  }
 
   public ClusterSpec setAutoscale(AutoScale autoscale) {
     this.autoscale = autoscale;
@@ -473,7 +486,8 @@ public class ClusterSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ClusterSpec that = (ClusterSpec) o;
-    return Objects.equals(autoscale, that.autoscale)
+    return Objects.equals(applyPolicyDefaultValues, that.applyPolicyDefaultValues)
+        && Objects.equals(autoscale, that.autoscale)
         && Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
         && Objects.equals(awsAttributes, that.awsAttributes)
         && Objects.equals(azureAttributes, that.azureAttributes)
@@ -505,6 +519,7 @@ public class ClusterSpec {
   @Override
   public int hashCode() {
     return Objects.hash(
+        applyPolicyDefaultValues,
         autoscale,
         autoterminationMinutes,
         awsAttributes,
@@ -537,6 +552,7 @@ public class ClusterSpec {
   @Override
   public String toString() {
     return new ToStringer(ClusterSpec.class)
+        .add("applyPolicyDefaultValues", applyPolicyDefaultValues)
         .add("autoscale", autoscale)
         .add("autoterminationMinutes", autoterminationMinutes)
         .add("awsAttributes", awsAttributes)

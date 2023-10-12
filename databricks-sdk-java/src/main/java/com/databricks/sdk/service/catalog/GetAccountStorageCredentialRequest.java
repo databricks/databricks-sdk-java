@@ -13,7 +13,7 @@ public class GetAccountStorageCredentialRequest {
   private String metastoreId;
 
   /** Name of the storage credential. */
-  private String name;
+  private String storageCredentialName;
 
   public GetAccountStorageCredentialRequest setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
@@ -24,13 +24,13 @@ public class GetAccountStorageCredentialRequest {
     return metastoreId;
   }
 
-  public GetAccountStorageCredentialRequest setName(String name) {
-    this.name = name;
+  public GetAccountStorageCredentialRequest setStorageCredentialName(String storageCredentialName) {
+    this.storageCredentialName = storageCredentialName;
     return this;
   }
 
-  public String getName() {
-    return name;
+  public String getStorageCredentialName() {
+    return storageCredentialName;
   }
 
   @Override
@@ -38,19 +38,20 @@ public class GetAccountStorageCredentialRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetAccountStorageCredentialRequest that = (GetAccountStorageCredentialRequest) o;
-    return Objects.equals(metastoreId, that.metastoreId) && Objects.equals(name, that.name);
+    return Objects.equals(metastoreId, that.metastoreId)
+        && Objects.equals(storageCredentialName, that.storageCredentialName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(metastoreId, name);
+    return Objects.hash(metastoreId, storageCredentialName);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetAccountStorageCredentialRequest.class)
         .add("metastoreId", metastoreId)
-        .add("name", name)
+        .add("storageCredentialName", storageCredentialName)
         .toString();
   }
 }
