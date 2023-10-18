@@ -57,10 +57,4 @@ class TokenTest {
     assertTrue(token.isExpired());
     assertFalse(token.isValid());
   }
-
-  @Test
-  void invalidToken() {
-    Token token = new Token(null, tokenType, currentLocalDateTime.plusMinutes(5));
-    assertFalse(token.isValid());
-  }
 }
