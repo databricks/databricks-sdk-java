@@ -41,7 +41,9 @@ public class Token {
     if (expiry == null) {
       return false;
     }
-    LocalDateTime potentiallyExpired = expiry.minus(10, ChronoUnit.SECONDS);
+    // Azure Databricks rejects tokens that expire in 30 seconds or less,
+    // so we refresh the token 40 seconds before it expires.
+    LocalDateTime potentiallyExpired = expiry.minus(40, ChronoUnit.SECONDS);
     LocalDateTime now = LocalDateTime.now();
     return potentiallyExpired.isBefore(now);
   }
