@@ -30,7 +30,7 @@ public class Token {
     this(accessToken, tokenType, null, expiry, null);
   }
 
-  /** Constructor for non-refreshable tokens (e.g. M2M). with ClockSupplier */
+  /** Constructor for non-refreshable tokens (e.g. M2M) with ClockSupplier */
   public Token(
       String accessToken, String tokenType, LocalDateTime expiry, ClockSupplier clockSupplier) {
     this(accessToken, tokenType, null, expiry, clockSupplier);
@@ -41,7 +41,7 @@ public class Token {
     this(accessToken, tokenType, refreshToken, expiry, null);
   }
 
-  /** Constructor for refreshable tokens. with ClockSupplier */
+  /** Constructor for refreshable tokens with ClockSupplier. */
   public Token(
       String accessToken,
       String tokenType,
