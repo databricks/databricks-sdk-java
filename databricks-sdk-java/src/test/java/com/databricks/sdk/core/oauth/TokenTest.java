@@ -2,8 +2,10 @@ package com.databricks.sdk.core.oauth;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.databricks.sdk.core.utils.FakeClockSupplier;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import org.junit.jupiter.api.BeforeEach;
+import java.time.ZoneId;
 import org.junit.jupiter.api.Test;
 
 class TokenTest {
@@ -11,16 +13,20 @@ class TokenTest {
   private static final String accessToken = "testAccessToken";
   private static final String refreshToken = "testRefreshToken";
   private static final String tokenType = "testTokenType";
-  private LocalDateTime currentLocalDateTime;
+  private final LocalDateTime currentLocalDateTime;
+  private final FakeClockSupplier fakeClockSupplier;
 
-  @BeforeEach
-  void init() {
-    currentLocalDateTime = LocalDateTime.now();
+  TokenTest() {
+    Instant instant = Instant.parse("2023-10-18T12:00:00.00Z");
+    ZoneId zoneId = ZoneId.of("UTC");
+    fakeClockSupplier = new FakeClockSupplier(instant, zoneId);
+    currentLocalDateTime = LocalDateTime.now(fakeClockSupplier.getClock());
   }
 
   @Test
   void createNonRefreshableToken() {
-    Token token = new Token(accessToken, tokenType, currentLocalDateTime.plusMinutes(5));
+    Token token =
+        new Token(accessToken, tokenType, currentLocalDateTime.plusMinutes(5), fakeClockSupplier);
     assertEquals(accessToken, token.getAccessToken());
     assertEquals(tokenType, token.getTokenType());
     assertNull(token.getRefreshToken());
@@ -30,7 +36,12 @@ class TokenTest {
   @Test
   void createRefreshableToken() {
     Token token =
-        new Token(accessToken, tokenType, refreshToken, currentLocalDateTime.plusMinutes(5));
+        new Token(
+            accessToken,
+            tokenType,
+            refreshToken,
+            currentLocalDateTime.plusMinutes(5),
+            fakeClockSupplier);
     assertEquals(accessToken, token.getAccessToken());
     assertEquals(tokenType, token.getTokenType());
     assertEquals(refreshToken, token.getRefreshToken());
@@ -39,21 +50,24 @@ class TokenTest {
 
   @Test
   void tokenExpiryMoreThan40Seconds() {
-    Token token = new Token(accessToken, tokenType, currentLocalDateTime.plusSeconds(50));
+    Token token =
+        new Token(accessToken, tokenType, currentLocalDateTime.plusSeconds(50), fakeClockSupplier);
     assertFalse(token.isExpired());
     assertTrue(token.isValid());
   }
 
   @Test
   void tokenExpiryLessThan40Seconds() {
-    Token token = new Token(accessToken, tokenType, currentLocalDateTime.plusSeconds(30));
+    Token token =
+        new Token(accessToken, tokenType, currentLocalDateTime.plusSeconds(30), fakeClockSupplier);
     assertTrue(token.isExpired());
     assertFalse(token.isValid());
   }
 
   @Test
   void expiredToken() {
-    Token token = new Token(accessToken, tokenType, currentLocalDateTime.minusSeconds(10));
+    Token token =
+        new Token(accessToken, tokenType, currentLocalDateTime.minusSeconds(10), fakeClockSupplier);
     assertTrue(token.isExpired());
     assertFalse(token.isValid());
   }
