@@ -4,7 +4,7 @@ import com.databricks.sdk.core.error.ApiErrors;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
-import com.databricks.sdk.core.utils.RealTimer;
+import com.databricks.sdk.core.utils.SystemTimer;
 import com.databricks.sdk.core.utils.Timer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,7 +46,7 @@ public class ApiClient {
   }
 
   public ApiClient(DatabricksConfig config) {
-    this(config, new RealTimer());
+    this(config, new SystemTimer());
   }
 
   public ApiClient(DatabricksConfig config, Timer timer) {

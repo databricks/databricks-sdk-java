@@ -1,7 +1,7 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.utils.ClockSupplier;
-import com.databricks.sdk.core.utils.RealClockSupplier;
+import com.databricks.sdk.core.utils.SystemClockSupplier;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -27,7 +27,7 @@ public class Token {
 
   /** Constructor for non-refreshable tokens (e.g. M2M). */
   public Token(String accessToken, String tokenType, LocalDateTime expiry) {
-    this(accessToken, tokenType, null, expiry, null);
+    this(accessToken, tokenType, null, expiry, new SystemClockSupplier());
   }
 
   /** Constructor for non-refreshable tokens (e.g. M2M) with ClockSupplier */
@@ -38,7 +38,7 @@ public class Token {
 
   /** Constructor for refreshable tokens. */
   public Token(String accessToken, String tokenType, String refreshToken, LocalDateTime expiry) {
-    this(accessToken, tokenType, refreshToken, expiry, null);
+    this(accessToken, tokenType, refreshToken, expiry, new SystemClockSupplier());
   }
 
   /** Constructor for refreshable tokens with ClockSupplier. */
@@ -51,13 +51,12 @@ public class Token {
     Objects.requireNonNull(accessToken, "accessToken must be defined");
     Objects.requireNonNull(tokenType, "tokenType must be defined");
     Objects.requireNonNull(expiry, "expiry must be defined");
+    Objects.requireNonNull(clockSupplier, "clockSupplier must be defined");
     this.accessToken = accessToken;
     this.tokenType = tokenType;
     this.refreshToken = refreshToken;
     this.expiry = expiry;
-    if (clockSupplier == null) {
-      this.clockSupplier = new RealClockSupplier();
-    } else this.clockSupplier = clockSupplier;
+    this.clockSupplier = clockSupplier;
   }
 
   public boolean isExpired() {

@@ -1,6 +1,6 @@
 package com.databricks.sdk.core.utils;
 
-public class RealTimer implements Timer {
+public class SystemTimer implements Timer {
   @Override
   public void wait(int milliseconds) throws InterruptedException {
     Thread.sleep(milliseconds);
