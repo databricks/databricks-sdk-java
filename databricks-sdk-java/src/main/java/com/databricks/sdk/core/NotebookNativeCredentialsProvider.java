@@ -10,6 +10,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A CredentialsProvider that uses the API token from the command context to authenticate.
+ * <p>
+ * The token and hostname are read from the command context, which can be retrieved through the dbutils API. As the Java
+ * SDK does not depend on DBUtils directly, reflection is used to retrieve the token. This token should be available
+ * wherever the DBUtils API is accessible (i.e. in the Spark driver).
+ */
 public class NotebookNativeCredentialsProvider implements CredentialsProvider {
   private static final Logger LOG = LoggerFactory.getLogger(NotebookNativeCredentialsProvider.class);
   private static final ObjectMapper MAPPER = new ObjectMapper();
@@ -27,7 +34,7 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
 
     // DBUtils is not available in the Java SDK, so we have to use reflection to get the token.
     // First, we get the context by calling getContext on the notebook field of dbutils, then we get the apiKey and
-    // apiUrl fields from the context.
+    // apiUrl fields from the context. If this is successful, we set the host on the config.
     try {
       Object dbutils = getDbUtils();
       Object notebook = getField(dbutils, "notebook");
@@ -49,11 +56,13 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
         return headers;
       };
     } catch (Exception e) {
+      LOG.debug("Failed to get token from dbutils", e);
       return null;
     }
   }
 
-  public static Object getDbUtils() {
+  /** Load the dbutils object initialized by DBR. */
+  private static Object getDbUtils() {
     try {
       Class<?> dbutilsHolderClass = Class.forName("com.databricks.dbutils_v1.DBUtilsHolder$");
       Object dbutilsHolder = dbutilsHolderClass.getDeclaredField("MODULE$").get(null);
@@ -64,7 +73,8 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
     }
   }
 
-  public static <T> T getField(Object o, String fieldName) {
+  /** Reflectively get a field by name from an object. */
+  private static <T> T getField(Object o, String fieldName) {
     Field f;
     try {
       f = o.getClass().getDeclaredField(fieldName);
@@ -84,21 +94,22 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
     }
   }
 
-  public static class TokenAndUrl {
+  private static class TokenAndUrl {
     public final String token;
     public final String url;
 
-    public TokenAndUrl(String token, String url) {
+    TokenAndUrl(String token, String url) {
       this.token = token;
       this.url = url;
     }
   }
 
-  public static class CommandContext {
+  private static class CommandContext {
     public Map<String, String> attributes;
   }
 
-  public static TokenAndUrl getTokenAndUrl(Object notebook) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, JsonProcessingException {
+  /** Fetch the current command context, and read the API token and URL from it. */
+  private static TokenAndUrl getTokenAndUrl(Object notebook) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, JsonProcessingException {
     Object testCommandContext = notebook.getClass().getDeclaredMethod("getContext").invoke(notebook);
     String json = (String) testCommandContext.getClass().getDeclaredMethod("safeToJson").invoke(testCommandContext);
     CommandContext deserialized = MAPPER.readValue(json, CommandContext.class);
