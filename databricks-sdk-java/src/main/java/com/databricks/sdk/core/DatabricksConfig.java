@@ -463,7 +463,7 @@ public class DatabricksConfig {
     if (host == null) {
       return false;
     }
-    return host.contains(".azuredatabricks.");
+    return host.contains(".azuredatabricks.") || host.contains("databricks.azure.cn") || host.contains(".databricks.azure.us");
   }
 
   public synchronized void authenticate(HttpMessage request) {
