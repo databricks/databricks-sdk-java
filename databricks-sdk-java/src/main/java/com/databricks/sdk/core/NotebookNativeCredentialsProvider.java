@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 public class NotebookNativeCredentialsProvider implements CredentialsProvider {
   private static final Logger LOG =
       LoggerFactory.getLogger(NotebookNativeCredentialsProvider.class);
-  private static final ObjectMapper MAPPER = new ObjectMapper();
 
   @Override
   public String authType() {
@@ -30,15 +29,20 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     if (System.getenv("DATABRICKS_RUNTIME_VERSION") == null) {
+      LOG.debug("DBR not detected, skipping runtime auth");
       return null;
     }
 
     // DBUtils is not available in the Java SDK, so we have to use reflection to get the token.
     // First, we get the context by calling getContext on the notebook field of dbutils, then we get
-    // the apiKey and
-    // apiUrl fields from the context. If this is successful, we set the host on the config.
+    // the apiKey and apiUrl fields from the context. If this is successful, we set the host on the
+    // config.
     try {
       Object dbutils = getDbUtils();
+      if (dbutils == null) {
+        LOG.debug("DBUtils is not available, skipping runtime auth");
+        return null;
+      }
       Object notebook = getField(dbutils, "notebook");
       TokenAndUrl testTokenAndUrl = getTokenAndUrl(notebook);
       if (testTokenAndUrl.url == null) {
@@ -48,20 +52,12 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
 
       return () -> {
         Map<String, String> headers = new HashMap<>();
-        TokenAndUrl tokenAndUrl;
-        try {
-          tokenAndUrl = getTokenAndUrl(notebook);
-        } catch (IllegalAccessException
-            | NoSuchMethodException
-            | InvocationTargetException
-            | JsonProcessingException e) {
-          throw new RuntimeException(e);
-        }
+        TokenAndUrl tokenAndUrl = getTokenAndUrl(notebook);
         headers.put("Authorization", String.format("Bearer %s", tokenAndUrl.token));
         return headers;
       };
     } catch (Exception e) {
-      LOG.debug("Failed to get token from dbutils", e);
+      LOG.debug("cannot configure runtime auth", e);
       return null;
     }
   }
@@ -74,7 +70,7 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
       InheritableThreadLocal<Object> dbutils = getField(dbutilsHolder, "dbutils0");
       return dbutils.get();
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      throw new DatabricksException("failed getting DBUtils", e);
     }
   }
 
@@ -84,14 +80,14 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
     try {
       f = o.getClass().getDeclaredField(fieldName);
     } catch (NoSuchFieldException e) {
-      throw new RuntimeException(e);
+      throw new DatabricksException("field " + fieldName + " does not exist", e);
     }
     boolean accessible = f.isAccessible();
     try {
       f.setAccessible(true);
       return (T) f.get(o);
     } catch (IllegalAccessException e) {
-      throw new RuntimeException(e);
+      throw new DatabricksException("failed getting field " + fieldName, e);
     } finally {
       if (!accessible) {
         f.setAccessible(false);
@@ -109,25 +105,18 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
     }
   }
 
-  private static class CommandContext {
-    public Map<String, String> attributes;
-  }
-
   /** Fetch the current command context, and read the API token and URL from it. */
-  private static TokenAndUrl getTokenAndUrl(Object notebook)
-      throws NoSuchMethodException, InvocationTargetException, IllegalAccessException,
-          JsonProcessingException {
-    Object testCommandContext =
-        notebook.getClass().getDeclaredMethod("getContext").invoke(notebook);
-    String json =
-        (String)
-            testCommandContext
-                .getClass()
-                .getDeclaredMethod("safeToJson")
-                .invoke(testCommandContext);
-    CommandContext deserialized = MAPPER.readValue(json, CommandContext.class);
-    String token = deserialized.attributes.get("api_token");
-    String host = deserialized.attributes.get("api_url");
-    return new TokenAndUrl(token, host);
+  private static TokenAndUrl getTokenAndUrl(Object notebook) {
+    try {
+      Object testCommandContext =
+          notebook.getClass().getDeclaredMethod("getContext").invoke(notebook);
+      Object tokenOpt = getField(testCommandContext, "apiToken");
+      Object hostOpt = getField(testCommandContext, "apiUrl");
+      String token = (String) tokenOpt.getClass().getDeclaredMethod("get").invoke(tokenOpt);
+      String host = (String) hostOpt.getClass().getDeclaredMethod("get").invoke(hostOpt);
+      return new TokenAndUrl(token, host);
+    } catch (Exception e) {
+      throw new DatabricksException("failed to get token and URL from command context", e);
+    }
   }
 }
