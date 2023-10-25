@@ -31,4 +31,10 @@ public class DatabricksConfigTest {
     assertTrue(
         new DatabricksConfig().setHost("https://adb-1234567890.0.databricks.azure.cn/").isAzure());
   }
+
+  @Test
+  public void testIsAzureUsGov() {
+    assertTrue(
+        new DatabricksConfig().setHost("https://adb-1234567890.0.databricks.azure.us/").isAzure());
+  }
 }
