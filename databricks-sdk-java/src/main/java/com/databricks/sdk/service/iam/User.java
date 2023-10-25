@@ -42,9 +42,13 @@ public class User {
   @JsonProperty("name")
   private Name name;
 
-  /** */
+  /** Corresponds to AWS instance profile/arn role. */
   @JsonProperty("roles")
   private Collection<ComplexValue> roles;
+
+  /** The schema of the user. */
+  @JsonProperty("schemas")
+  private Collection<UserSchema> schemas;
 
   /** Email address of the Databricks user. */
   @JsonProperty("userName")
@@ -131,6 +135,15 @@ public class User {
     return roles;
   }
 
+  public User setSchemas(Collection<UserSchema> schemas) {
+    this.schemas = schemas;
+    return this;
+  }
+
+  public Collection<UserSchema> getSchemas() {
+    return schemas;
+  }
+
   public User setUserName(String userName) {
     this.userName = userName;
     return this;
@@ -154,13 +167,24 @@ public class User {
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
         && Objects.equals(roles, that.roles)
+        && Objects.equals(schemas, that.schemas)
         && Objects.equals(userName, that.userName);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        active, displayName, emails, entitlements, externalId, groups, id, name, roles, userName);
+        active,
+        displayName,
+        emails,
+        entitlements,
+        externalId,
+        groups,
+        id,
+        name,
+        roles,
+        schemas,
+        userName);
   }
 
   @Override
@@ -175,6 +199,7 @@ public class User {
         .add("id", id)
         .add("name", name)
         .add("roles", roles)
+        .add("schemas", schemas)
         .add("userName", userName)
         .toString();
   }

@@ -35,7 +35,7 @@ public class ListRunsRequest {
 
   /**
    * The number of runs to return. This value must be greater than 0 and less than 25. The default
-   * value is 25. If a request specifies a limit of 0, the service instead uses the maximum limit.
+   * value is 20. If a request specifies a limit of 0, the service instead uses the maximum limit.
    */
   @QueryParam("limit")
   private Long limit;

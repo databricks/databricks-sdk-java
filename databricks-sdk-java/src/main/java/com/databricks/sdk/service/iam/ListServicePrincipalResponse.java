@@ -18,6 +18,10 @@ public class ListServicePrincipalResponse {
   @JsonProperty("Resources")
   private Collection<ServicePrincipal> resources;
 
+  /** The schema of the List response. */
+  @JsonProperty("schemas")
+  private Collection<ListResponseSchema> schemas;
+
   /** Starting index of all the results that matched the request filters. First item is number 1. */
   @JsonProperty("startIndex")
   private Long startIndex;
@@ -42,6 +46,15 @@ public class ListServicePrincipalResponse {
 
   public Collection<ServicePrincipal> getResources() {
     return resources;
+  }
+
+  public ListServicePrincipalResponse setSchemas(Collection<ListResponseSchema> schemas) {
+    this.schemas = schemas;
+    return this;
+  }
+
+  public Collection<ListResponseSchema> getSchemas() {
+    return schemas;
   }
 
   public ListServicePrincipalResponse setStartIndex(Long startIndex) {
@@ -69,13 +82,14 @@ public class ListServicePrincipalResponse {
     ListServicePrincipalResponse that = (ListServicePrincipalResponse) o;
     return Objects.equals(itemsPerPage, that.itemsPerPage)
         && Objects.equals(resources, that.resources)
+        && Objects.equals(schemas, that.schemas)
         && Objects.equals(startIndex, that.startIndex)
         && Objects.equals(totalResults, that.totalResults);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(itemsPerPage, resources, startIndex, totalResults);
+    return Objects.hash(itemsPerPage, resources, schemas, startIndex, totalResults);
   }
 
   @Override
@@ -83,6 +97,7 @@ public class ListServicePrincipalResponse {
     return new ToStringer(ListServicePrincipalResponse.class)
         .add("itemsPerPage", itemsPerPage)
         .add("resources", resources)
+        .add("schemas", schemas)
         .add("startIndex", startIndex)
         .add("totalResults", totalResults)
         .toString();

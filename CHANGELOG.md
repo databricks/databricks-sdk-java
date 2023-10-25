@@ -1,5 +1,28 @@
 # Version changelog
 
+## 0.11.0
+
+* Adjust token expiry window to 40 seconds because of Azure ([#170](https://github.com/databricks/databricks-sdk-java/pull/170)).
+* Use same logic as Go SDK for DatabricksConfig.isAzure() ([#174](https://github.com/databricks/databricks-sdk-java/pull/174)).
+
+API Changes:
+
+ * Added `attributes`, `count`, `excludedAttributes`, `filter`, `sortBy`, `sortOrder`, and `startIndex` fields for `com.databricks.sdk.service.iam.GetAccountUserRequest` and `com.databricks.sdk.service.iam.GetUserRequest`.
+ * Added `schemas` field for `com.databricks.sdk.service.iam.Group`, `com.databricks.sdk.service.iam.ListGroupsResponse`, `com.databricks.sdk.service.iam.ListServicePrincipalResponse`, `com.databricks.sdk.service.iam.ListUsersResponse`, `com.databricks.sdk.service.iam.ServicePrincipal`, and `com.databricks.sdk.service.iam.User`.
+ * Added `com.databricks.sdk.service.iam.GetSortOrder`, `com.databricks.sdk.service.iam.GroupSchema`, `com.databricks.sdk.service.iam.ListResponseSchema`, `com.databricks.sdk.service.iam.ServicePrincipalSchema`, and `com.databricks.sdk.service.iam.UserSchema` class.
+ * Added `webhookNotifications` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+ * Added `workspaceClient.apps()` service and related classes.
+ * Added `accountClient.networkPolicy()` service and related classes.
+
+OpenAPI SHA: 5903bb39137fd76ac384b2044e425f9c56840e00, Date: 2023-10-23
+
+Dependency updates:
+
+ * Bump org.junit:junit-bom from 5.9.3 to 5.10.0 ([#124](https://github.com/databricks/databricks-sdk-java/pull/124)).
+ * Bump org.slf4j:slf4j-api from 2.0.7 to 2.0.9 ([#146](https://github.com/databricks/databricks-sdk-java/pull/146)).
+ * Bump org.slf4j:slf4j-reload4j from 2.0.7 to 2.0.9 ([#147](https://github.com/databricks/databricks-sdk-java/pull/147)).
+ * Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.5.0 to 3.6.0 ([#156](https://github.com/databricks/databricks-sdk-java/pull/156)).
+
 ## 0.10.0
 
 * Don't fail codegen if the tree was already removed ([#164](https://github.com/databricks/databricks-sdk-java/pull/164)).
