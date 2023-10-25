@@ -25,4 +25,10 @@ public class DatabricksConfigTest {
     assertFalse(
         new DatabricksConfig().setHost("https://westeurope.azuredatabricks.net").isAccountClient());
   }
+
+  @Test
+  public void testIsAzureMooncake() {
+    assertTrue(
+        new DatabricksConfig().setHost("https://adb-1234567890.0.databricks.azure.cn/").isAzure());
+  }
 }
