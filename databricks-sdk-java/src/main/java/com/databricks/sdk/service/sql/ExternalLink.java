@@ -43,7 +43,7 @@ public class ExternalLink {
   /**
    * When fetching, provides a link to fetch the _next_ chunk. If absent, indicates there are no
    * more chunks. This link is an absolute `path` to be joined with your `$DATABRICKS_HOST`, and
-   * should be treated as an opague link. This is an alternative to using `next_chunk_index`.
+   * should be treated as an opaque link. This is an alternative to using `next_chunk_index`.
    */
   @JsonProperty("next_chunk_internal_link")
   private String nextChunkInternalLink;

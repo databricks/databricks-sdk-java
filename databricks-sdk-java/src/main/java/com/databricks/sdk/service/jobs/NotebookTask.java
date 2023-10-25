@@ -22,6 +22,8 @@ public class NotebookTask {
    *
    * <p>Retrieve these parameters in a notebook using [dbutils.widgets.get].
    *
+   * <p>The JSON representation of this field cannot exceed 1MB.
+   *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    * [dbutils.widgets.get]:
    * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-widgets

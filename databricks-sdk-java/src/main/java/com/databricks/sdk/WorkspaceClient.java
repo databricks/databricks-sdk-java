@@ -78,6 +78,8 @@ import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
+import com.databricks.sdk.service.serving.AppsAPI;
+import com.databricks.sdk.service.serving.AppsService;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsService;
 import com.databricks.sdk.service.settings.CredentialsManagerAPI;
@@ -139,6 +141,7 @@ public class WorkspaceClient {
 
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AlertsAPI alertsAPI;
+  private AppsAPI appsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
   private CleanRoomsAPI cleanRoomsAPI;
@@ -210,6 +213,7 @@ public class WorkspaceClient {
 
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
+    appsAPI = new AppsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     cleanRoomsAPI = new CleanRoomsAPI(apiClient);
@@ -301,6 +305,14 @@ public class WorkspaceClient {
    */
   public AlertsAPI alerts() {
     return alertsAPI;
+  }
+
+  /**
+   * Lakehouse Apps run directly on a customer’s Databricks instance, integrate with their data, use
+   * and extend Databricks services, and enable users to interact through single sign-on.
+   */
+  public AppsAPI apps() {
+    return appsAPI;
   }
 
   /**
@@ -714,8 +726,13 @@ public class WorkspaceClient {
   }
 
   /**
-   * MLflow Model Registry is a centralized model repository and a UI and set of APIs that enable
-   * you to manage the full lifecycle of MLflow Models.
+   * Note: This API reference documents APIs for the Workspace Model Registry. Databricks recommends
+   * using [Models in Unity Catalog](/api/workspace/registeredmodels) instead. Models in Unity
+   * Catalog provides centralized model governance, cross-workspace access, lineage, and deployment.
+   * Workspace Model Registry will be deprecated in the future.
+   *
+   * <p>The Workspace Model Registry is a centralized model repository and a UI and set of APIs that
+   * enable you to manage the full lifecycle of MLflow Models.
    */
   public ModelRegistryAPI modelRegistry() {
     return modelRegistryAPI;
@@ -1249,6 +1266,12 @@ public class WorkspaceClient {
   /** Replace AlertsAPI implementation with mock */
   public WorkspaceClient withAlertsImpl(AlertsService alerts) {
     alertsAPI = new AlertsAPI(alerts);
+    return this;
+  }
+
+  /** Replace AppsAPI implementation with mock */
+  public WorkspaceClient withAppsImpl(AppsService apps) {
+    appsAPI = new AppsAPI(apps);
     return this;
   }
 
