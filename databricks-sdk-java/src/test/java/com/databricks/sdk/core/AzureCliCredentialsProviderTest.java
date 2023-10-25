@@ -86,7 +86,7 @@ class AzureCliCredentialsProviderTest {
   void testGetTokenWithoutWorkspaceResourceID() {
     AzureCliCredentialsProvider provider = getAzureCliCredentialsProvider(mockTokenSource());
     DatabricksConfig config =
-        new DatabricksConfig().setHost(".azuredatabricks.").setCredentialsProvider(provider);
+        new DatabricksConfig().setHost(".azuredatabricks.net").setCredentialsProvider(provider);
 
     ArgumentCaptor<List<String>> argument = ArgumentCaptor.forClass(List.class);
 

@@ -44,7 +44,7 @@ class AzureServicePrincipalCredentialsProviderTest {
         getAzureServicePrincipalCredentialsProvider(mockTokenSource());
     DatabricksConfig config =
         new DatabricksConfig()
-            .setHost(".azuredatabricks.")
+            .setHost(".azuredatabricks.net")
             .setCredentialsProvider(provider)
             .setAzureClientId("clientID")
             .setAzureClientSecret("clientSecret")
