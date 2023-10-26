@@ -7,6 +7,7 @@ import java.net.SocketTimeoutException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +60,7 @@ public class DatabricksError extends DatabricksException {
   }
 
   public DatabricksError(String errorCode, int statusCode, Throwable cause) {
-    this(errorCode, cause.getMessage(), statusCode, cause, Collections.emptyList());
+    this(errorCode, cause.getMessage() != null ? cause.getMessage() : "(no message)", statusCode, cause, Collections.emptyList());
   }
 
   public DatabricksError(
@@ -74,6 +75,7 @@ public class DatabricksError extends DatabricksException {
       Throwable cause,
       List<ErrorDetail> details) {
     super(message, cause);
+    Objects.requireNonNull(message);
     this.errorCode = errorCode;
     this.message = message;
     this.cause = cause;
