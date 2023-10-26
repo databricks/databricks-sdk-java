@@ -33,10 +33,8 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
     try {
       // DBUtils is not available in the Java SDK, so we have to use reflection to get the token.
       // First, we get the context by calling getContext on the notebook field of dbutils, then we
-      // get
-      // the apiKey and apiUrl fields from the context. If this is successful, we set the host on
-      // the
-      // config.
+      // get the apiKey and apiUrl fields from the context. If this is successful, we set the host
+      // on the config.
       Object dbutils = getDbUtils();
       if (dbutils == null) {
         LOG.debug("DBUtils is not available, skipping runtime auth");
