@@ -60,12 +60,7 @@ public class DatabricksError extends DatabricksException {
   }
 
   public DatabricksError(String errorCode, int statusCode, Throwable cause) {
-    this(
-        errorCode,
-        cause.getMessage() != null ? cause.getMessage() : "(no message)",
-        statusCode,
-        cause,
-        Collections.emptyList());
+    this(errorCode, cause.getMessage(), statusCode, cause, Collections.emptyList());
   }
 
   public DatabricksError(
@@ -113,7 +108,7 @@ public class DatabricksError extends DatabricksException {
       return true;
     }
     for (String substring : TRANSIENT_ERROR_STRING_MATCHES) {
-      if (message.contains(substring)) {
+      if (message != null && message.contains(substring)) {
         LOG.debug("Attempting retry because of {}", substring);
         return true;
       }
