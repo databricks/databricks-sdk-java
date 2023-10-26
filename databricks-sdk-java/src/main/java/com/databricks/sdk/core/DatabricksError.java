@@ -106,7 +106,7 @@ public class DatabricksError extends DatabricksException {
       return true;
     }
     for (String substring : TRANSIENT_ERROR_STRING_MATCHES) {
-      if (message.contains(substring)) {
+      if (message != null && message.contains(substring)) {
         LOG.debug("Attempting retry because of {}", substring);
         return true;
       }
