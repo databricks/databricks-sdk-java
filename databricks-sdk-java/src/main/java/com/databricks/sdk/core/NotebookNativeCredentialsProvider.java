@@ -7,8 +7,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.crypto.Data;
-
 /**
  * A CredentialsProvider that uses the API token from the command context to authenticate.
  *
@@ -35,8 +33,10 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
 
     try {
       // DBUtils is not available in the Java SDK, so we have to use reflection to get the token.
-      // First, we get the context by calling getContext on the notebook field of dbutils, then we get
-      // the apiKey and apiUrl fields from the context. If this is successful, we set the host on the
+      // First, we get the context by calling getContext on the notebook field of dbutils, then we
+      // get
+      // the apiKey and apiUrl fields from the context. If this is successful, we set the host on
+      // the
       // config.
       Object dbutils = getDbUtils();
       if (dbutils == null) {
