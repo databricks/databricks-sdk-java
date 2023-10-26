@@ -1,13 +1,13 @@
 package com.databricks.sdk.core;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.xml.crypto.Data;
 
 /**
  * A CredentialsProvider that uses the API token from the command context to authenticate.
@@ -33,11 +33,11 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
       return null;
     }
 
-    // DBUtils is not available in the Java SDK, so we have to use reflection to get the token.
-    // First, we get the context by calling getContext on the notebook field of dbutils, then we get
-    // the apiKey and apiUrl fields from the context. If this is successful, we set the host on the
-    // config.
     try {
+      // DBUtils is not available in the Java SDK, so we have to use reflection to get the token.
+      // First, we get the context by calling getContext on the notebook field of dbutils, then we get
+      // the apiKey and apiUrl fields from the context. If this is successful, we set the host on the
+      // config.
       Object dbutils = getDbUtils();
       if (dbutils == null) {
         LOG.debug("DBUtils is not available, skipping runtime auth");
@@ -56,8 +56,8 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
         headers.put("Authorization", String.format("Bearer %s", tokenAndUrl.token));
         return headers;
       };
-    } catch (Exception e) {
-      LOG.debug("cannot configure runtime auth", e);
+    } catch (DatabricksException e) {
+      LOG.debug("Failed to get token from command context, skipping runtime auth", e);
       return null;
     }
   }
@@ -69,7 +69,7 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
       Object dbutilsHolder = dbutilsHolderClass.getDeclaredField("MODULE$").get(null);
       InheritableThreadLocal<Object> dbutils = getField(dbutilsHolder, "dbutils0");
       return dbutils.get();
-    } catch (Exception e) {
+    } catch (ClassNotFoundException | IllegalAccessException | NoSuchFieldException e) {
       throw new DatabricksException("failed getting DBUtils", e);
     }
   }
@@ -115,7 +115,7 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
       String token = (String) tokenOpt.getClass().getDeclaredMethod("get").invoke(tokenOpt);
       String host = (String) hostOpt.getClass().getDeclaredMethod("get").invoke(hostOpt);
       return new TokenAndUrl(token, host);
-    } catch (Exception e) {
+    } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
       throw new DatabricksException("failed to get token and URL from command context", e);
     }
   }
