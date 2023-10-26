@@ -3,7 +3,6 @@ package com.databricks.sdk.core;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -110,12 +109,17 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
     try {
       Object testCommandContext =
           notebook.getClass().getDeclaredMethod("getContext").invoke(notebook);
-      Object tokenOpt = testCommandContext.getClass().getDeclaredMethod( "apiToken").invoke(testCommandContext);
+      Object tokenOpt =
+          testCommandContext.getClass().getDeclaredMethod("apiToken").invoke(testCommandContext);
       String token = (String) tokenOpt.getClass().getDeclaredMethod("get").invoke(tokenOpt);
-      Object hostOpt = testCommandContext.getClass().getDeclaredMethod( "apiUrl").invoke(testCommandContext);
+      Object hostOpt =
+          testCommandContext.getClass().getDeclaredMethod("apiUrl").invoke(testCommandContext);
       String host = (String) hostOpt.getClass().getDeclaredMethod("get").invoke(hostOpt);
       return new TokenAndUrl(token, host);
-    } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | NoSuchElementException e) {
+    } catch (InvocationTargetException
+        | NoSuchMethodException
+        | IllegalAccessException
+        | NoSuchElementException e) {
       throw new DatabricksException("failed to get token and URL from command context", e);
     }
   }

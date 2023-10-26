@@ -60,7 +60,12 @@ public class DatabricksError extends DatabricksException {
   }
 
   public DatabricksError(String errorCode, int statusCode, Throwable cause) {
-    this(errorCode, cause.getMessage() != null ? cause.getMessage() : "(no message)", statusCode, cause, Collections.emptyList());
+    this(
+        errorCode,
+        cause.getMessage() != null ? cause.getMessage() : "(no message)",
+        statusCode,
+        cause,
+        Collections.emptyList());
   }
 
   public DatabricksError(
