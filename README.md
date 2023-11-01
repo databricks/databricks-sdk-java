@@ -1,6 +1,6 @@
 # Databricks SDK for Java
 
-**Stability**: [Experimental](https://docs.databricks.com/release-notes/release-types.html)
+**Stability**: [Beta](https://docs.databricks.com/release-notes/release-types.html)
 
 The Databricks SDK for Java includes functionality to accelerate development with Java for the Databricks Lakehouse. It covers all public [Databricks REST API](https://docs.databricks.com/dev-tools/api/index.html) operations. The SDK's internal HTTP client is robust and handles failures on different levels by performing intelligent retries.
 
@@ -319,7 +319,7 @@ Databricks SDK for Java exposes the `OAuthClient.initiateConsent()` helper to ac
 
 ### SSO for local scripts on development machines
 
-For applications, that do run on developer workstations, Databricks SDK for Java provides `auth_type='external-browser'` utility, that opens up a browser for a user to go through SSO flow. See [the CLI app example project](examples/cli-oauth-u2m-demo/src/main/java/com/databricks/sdk/App.java) for a demo of using this authentication method. Azure support is still in the early experimental stage.
+For applications, that do run on developer workstations, Databricks SDK for Java provides `auth_type='external-browser'` utility, that opens up a browser for a user to go through SSO flow. See [the CLI app example project](examples/cli-oauth-u2m-demo/src/main/java/com/databricks/sdk/App.java) for a demo of using this authentication method.
 
 ### Creating custom OAuth applications
 
@@ -353,14 +353,5 @@ This will enable logging at the debug level and above. Developers can adjust the
 
 Overall, the logging capabilities provided by the Databricks SDK for Java can be a powerful tool for monitoring and troubleshooting your Databricks Java projects. Developers can use the various logging methods and configuration options provided by the SDK to customize the logging output to their specific needs.
 
-## Interface stability
-
-During the [Experimental](https://docs.databricks.com/release-notes/release-types.html) period, Databricks is actively working on stabilizing the Databricks SDK for Java's interfaces. API clients for all services are generated from specification files that are synchronized from the main platform. You are highly encouraged to pin the exact dependency version and read the [changelog](https://github.com/databricks/databricks-sdk-java/blob/main/CHANGELOG.md) where Databricks documents the changes. Databricks may have minor [documented](https://github.com/databricks/databricks-sdk-java/blob/main/CHANGELOG.md) backward-incompatible changes, such as renaming the methods or some type names to bring more consistency.
-
 ## Disclaimer
-- The product is in preview and not intended to be used in production;
-- The product may change or may never be released;
-- While we will not charge separately for this product right now, we may charge for it in the future. You will still incur charges for DBUs.
-- There's no formal support or SLAs for the preview - so please reach out to your account or other contact with any questions or feedback; and
-- We may terminate the preview or your access at any time.
-
+Databricks is actively working on stabilizing the Databricks SDK for Java's interfaces. API clients for all services are generated from specification files that are synchronized from the main platform. You are highly encouraged to pin the exact dependency version and read the [changelog](https://github.com/databricks/databricks-sdk-java/blob/main/CHANGELOG.md) where Databricks documents the changes. Databricks may have minor [documented](https://github.com/databricks/databricks-sdk-java/blob/main/CHANGELOG.md) backward-incompatible changes, such as renaming the methods or some type names to bring more consistency.
