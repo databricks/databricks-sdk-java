@@ -1,4 +1,4 @@
-# Databricks SDK for Java
+ # Databricks SDK for Java
 
 **Stability**: [Beta](https://docs.databricks.com/release-notes/release-types.html)
 
