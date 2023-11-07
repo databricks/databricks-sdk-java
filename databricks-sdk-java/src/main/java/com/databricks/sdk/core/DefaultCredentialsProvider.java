@@ -60,6 +60,6 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
     throw new DatabricksException(
         "cannot configure default credentials, please check "
             + authFlowUrl
-            + " to configure credentials for your preferred authentication method.");
+            + " to configure credentials for your preferred authentication method");
   }
 }
