@@ -55,7 +55,11 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             String.format("%s: %s", provider.authType(), e.getMessage()), e);
       }
     }
-    String authFlowUrl = "https://docs.databricks.com/en/dev-tools/auth.html#databricks-client-unified-authentication";
-    throw new DatabricksException("cannot configure default credentials, please check " + authFlowUrl + " to configure credentials for your preferred authentication method.");
+    String authFlowUrl =
+        "https://docs.databricks.com/en/dev-tools/auth.html#databricks-client-unified-authentication";
+    throw new DatabricksException(
+        "cannot configure default credentials, please check "
+            + authFlowUrl
+            + " to configure credentials for your preferred authentication method.");
   }
 }
