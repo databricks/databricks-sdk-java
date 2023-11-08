@@ -34,7 +34,10 @@ public interface MetastoresService {
   /**
    * Create a metastore.
    *
-   * <p>Creates a new metastore based on a provided name and storage root path.
+   * <p>Creates a new metastore based on a provided name and optional storage root path. By default
+   * (if the __owner__ field is not set), the owner of the new metastore is the user calling the
+   * __createMetastore__ API. If the __owner__ field is set to the empty string (**""**), the
+   * ownership is assigned to the System User instead.
    */
   MetastoreInfo create(CreateMetastore createMetastore);
 
@@ -95,7 +98,9 @@ public interface MetastoresService {
   /**
    * Update a metastore.
    *
-   * <p>Updates information for a specific metastore. The caller must be a metastore admin.
+   * <p>Updates information for a specific metastore. The caller must be a metastore admin. If the
+   * __owner__ field is set to the empty string (**""**), the ownership is updated to the System
+   * User.
    */
   MetastoreInfo update(UpdateMetastore updateMetastore);
 

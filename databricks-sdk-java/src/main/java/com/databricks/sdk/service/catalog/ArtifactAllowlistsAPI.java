@@ -42,11 +42,11 @@ public class ArtifactAllowlistsAPI {
   }
 
   public ArtifactAllowlistInfo update(
-      Collection<ArtifactMatcher> artifactMatchers, ArtifactType artifactType) {
+      ArtifactType artifactType, Collection<ArtifactMatcher> artifactMatchers) {
     return update(
         new SetArtifactAllowlist()
-            .setArtifactMatchers(artifactMatchers)
-            .setArtifactType(artifactType));
+            .setArtifactType(artifactType)
+            .setArtifactMatchers(artifactMatchers));
   }
 
   /**

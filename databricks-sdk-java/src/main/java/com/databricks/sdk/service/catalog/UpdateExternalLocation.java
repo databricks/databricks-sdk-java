@@ -41,6 +41,10 @@ public class UpdateExternalLocation {
   @JsonProperty("read_only")
   private Boolean readOnly;
 
+  /** Skips validation of the storage credential associated with the external location. */
+  @JsonProperty("skip_validation")
+  private Boolean skipValidation;
+
   /** Path URL of the external location. */
   @JsonProperty("url")
   private String url;
@@ -117,6 +121,15 @@ public class UpdateExternalLocation {
     return readOnly;
   }
 
+  public UpdateExternalLocation setSkipValidation(Boolean skipValidation) {
+    this.skipValidation = skipValidation;
+    return this;
+  }
+
+  public Boolean getSkipValidation() {
+    return skipValidation;
+  }
+
   public UpdateExternalLocation setUrl(String url) {
     this.url = url;
     return this;
@@ -139,13 +152,23 @@ public class UpdateExternalLocation {
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
         && Objects.equals(readOnly, that.readOnly)
+        && Objects.equals(skipValidation, that.skipValidation)
         && Objects.equals(url, that.url);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        accessPoint, comment, credentialName, encryptionDetails, force, name, owner, readOnly, url);
+        accessPoint,
+        comment,
+        credentialName,
+        encryptionDetails,
+        force,
+        name,
+        owner,
+        readOnly,
+        skipValidation,
+        url);
   }
 
   @Override
@@ -159,6 +182,7 @@ public class UpdateExternalLocation {
         .add("name", name)
         .add("owner", owner)
         .add("readOnly", readOnly)
+        .add("skipValidation", skipValidation)
         .add("url", url)
         .toString();
   }

@@ -143,7 +143,7 @@ public class TableInfo {
    * dependencies are provided and recorded.
    */
   @JsonProperty("view_dependencies")
-  private Collection<Dependency> viewDependencies;
+  private DependencyList viewDependencies;
 
   public TableInfo setAccessPoint(String accessPoint) {
     this.accessPoint = accessPoint;
@@ -409,12 +409,12 @@ public class TableInfo {
     return viewDefinition;
   }
 
-  public TableInfo setViewDependencies(Collection<Dependency> viewDependencies) {
+  public TableInfo setViewDependencies(DependencyList viewDependencies) {
     this.viewDependencies = viewDependencies;
     return this;
   }
 
-  public Collection<Dependency> getViewDependencies() {
+  public DependencyList getViewDependencies() {
     return viewDependencies;
   }
 

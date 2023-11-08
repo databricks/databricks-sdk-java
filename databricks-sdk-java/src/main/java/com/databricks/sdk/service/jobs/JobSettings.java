@@ -27,6 +27,15 @@ public class JobSettings {
   private JobDeployment deployment;
 
   /**
+   * Edit mode of the job.
+   *
+   * <p>* `UI_LOCKED`: The job is in a locked UI state and cannot be modified. * `EDITABLE`: The job
+   * is in an editable state and can be modified.
+   */
+  @JsonProperty("edit_mode")
+  private JobSettingsEditMode editMode;
+
+  /**
    * An optional set of email addresses that is notified when runs of this job begin or complete as
    * well as when this job is deleted.
    */
@@ -145,15 +154,6 @@ public class JobSettings {
   @JsonProperty("trigger")
   private TriggerSettings trigger;
 
-  /**
-   * State of the job in UI.
-   *
-   * <p>* `LOCKED`: The job is in a locked state and cannot be modified. * `EDITABLE`: The job is in
-   * an editable state and can be modified.
-   */
-  @JsonProperty("ui_state")
-  private JobSettingsUiState uiState;
-
   /** A collection of system notification IDs to notify when runs of this job begin or complete. */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
@@ -183,6 +183,15 @@ public class JobSettings {
 
   public JobDeployment getDeployment() {
     return deployment;
+  }
+
+  public JobSettings setEditMode(JobSettingsEditMode editMode) {
+    this.editMode = editMode;
+    return this;
+  }
+
+  public JobSettingsEditMode getEditMode() {
+    return editMode;
   }
 
   public JobSettings setEmailNotifications(JobEmailNotifications emailNotifications) {
@@ -329,15 +338,6 @@ public class JobSettings {
     return trigger;
   }
 
-  public JobSettings setUiState(JobSettingsUiState uiState) {
-    this.uiState = uiState;
-    return this;
-  }
-
-  public JobSettingsUiState getUiState() {
-    return uiState;
-  }
-
   public JobSettings setWebhookNotifications(WebhookNotifications webhookNotifications) {
     this.webhookNotifications = webhookNotifications;
     return this;
@@ -355,6 +355,7 @@ public class JobSettings {
     return Objects.equals(compute, that.compute)
         && Objects.equals(continuous, that.continuous)
         && Objects.equals(deployment, that.deployment)
+        && Objects.equals(editMode, that.editMode)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(format, that.format)
         && Objects.equals(gitSource, that.gitSource)
@@ -371,7 +372,6 @@ public class JobSettings {
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
         && Objects.equals(trigger, that.trigger)
-        && Objects.equals(uiState, that.uiState)
         && Objects.equals(webhookNotifications, that.webhookNotifications);
   }
 
@@ -381,6 +381,7 @@ public class JobSettings {
         compute,
         continuous,
         deployment,
+        editMode,
         emailNotifications,
         format,
         gitSource,
@@ -397,7 +398,6 @@ public class JobSettings {
         tasks,
         timeoutSeconds,
         trigger,
-        uiState,
         webhookNotifications);
   }
 
@@ -407,6 +407,7 @@ public class JobSettings {
         .add("compute", compute)
         .add("continuous", continuous)
         .add("deployment", deployment)
+        .add("editMode", editMode)
         .add("emailNotifications", emailNotifications)
         .add("format", format)
         .add("gitSource", gitSource)
@@ -423,7 +424,6 @@ public class JobSettings {
         .add("tasks", tasks)
         .add("timeoutSeconds", timeoutSeconds)
         .add("trigger", trigger)
-        .add("uiState", uiState)
         .add("webhookNotifications", webhookNotifications)
         .toString();
   }

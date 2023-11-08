@@ -239,8 +239,8 @@ public class ServingEndpointsAPI {
   }
 
   public Wait<ServingEndpointDetailed, ServingEndpointDetailed> updateConfig(
-      Collection<ServedModelInput> servedModels, String name) {
-    return updateConfig(new EndpointCoreConfigInput().setServedModels(servedModels).setName(name));
+      String name, Collection<ServedModelInput> servedModels) {
+    return updateConfig(new EndpointCoreConfigInput().setName(name).setServedModels(servedModels));
   }
 
   /**

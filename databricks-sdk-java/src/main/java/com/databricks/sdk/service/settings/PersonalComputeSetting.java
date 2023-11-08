@@ -25,8 +25,9 @@ public class PersonalComputeSetting {
   private PersonalComputeMessage personalCompute;
 
   /**
-   * Name of the corresponding setting. Needs to be 'default' if there is only one setting instance
-   * per account.
+   * Name of the corresponding setting. This field is populated in the response, but it will not be
+   * respected even if it's set in the request body. The setting name in the path parameter will be
+   * respected instead.
    */
   @JsonProperty("setting_name")
   private String settingName;

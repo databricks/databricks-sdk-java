@@ -93,11 +93,11 @@ public class RecipientsAPI {
     return impl.list(request).getRecipients();
   }
 
-  public RecipientInfo rotateToken(long existingTokenExpireInSeconds, String name) {
+  public RecipientInfo rotateToken(String name, long existingTokenExpireInSeconds) {
     return rotateToken(
         new RotateRecipientToken()
-            .setExistingTokenExpireInSeconds(existingTokenExpireInSeconds)
-            .setName(name));
+            .setName(name)
+            .setExistingTokenExpireInSeconds(existingTokenExpireInSeconds));
   }
 
   /**

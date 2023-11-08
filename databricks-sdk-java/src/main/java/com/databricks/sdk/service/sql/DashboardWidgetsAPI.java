@@ -45,13 +45,13 @@ public class DashboardWidgetsAPI {
     impl.delete(request);
   }
 
-  public Widget update(String dashboardId, WidgetOptions options, long width, String id) {
+  public Widget update(String id, String dashboardId, WidgetOptions options, long width) {
     return update(
         new CreateWidget()
+            .setId(id)
             .setDashboardId(dashboardId)
             .setOptions(options)
-            .setWidth(width)
-            .setId(id));
+            .setWidth(width));
   }
 
   /** Update existing widget. */

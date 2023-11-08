@@ -72,12 +72,12 @@ public class WorkspaceAssignmentAPI {
   }
 
   public void update(
-      Collection<WorkspacePermission> permissions, long workspaceId, long principalId) {
+      long workspaceId, long principalId, Collection<WorkspacePermission> permissions) {
     update(
         new UpdateWorkspaceAssignments()
-            .setPermissions(permissions)
             .setWorkspaceId(workspaceId)
-            .setPrincipalId(principalId));
+            .setPrincipalId(principalId)
+            .setPermissions(permissions));
   }
 
   /**

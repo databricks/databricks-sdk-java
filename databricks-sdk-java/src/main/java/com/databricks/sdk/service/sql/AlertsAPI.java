@@ -79,9 +79,9 @@ public class AlertsAPI {
     return impl.list();
   }
 
-  public void update(String name, AlertOptions options, String queryId, String alertId) {
+  public void update(String alertId, String name, AlertOptions options, String queryId) {
     update(
-        new EditAlert().setName(name).setOptions(options).setQueryId(queryId).setAlertId(alertId));
+        new EditAlert().setAlertId(alertId).setName(name).setOptions(options).setQueryId(queryId));
   }
 
   /**
