@@ -81,9 +81,9 @@ public class GlobalInitScriptsAPI {
     return impl.list().getScripts();
   }
 
-  public void update(String name, String script, String scriptId) {
+  public void update(String scriptId, String name, String script) {
     update(
-        new GlobalInitScriptUpdateRequest().setName(name).setScript(script).setScriptId(scriptId));
+        new GlobalInitScriptUpdateRequest().setScriptId(scriptId).setName(name).setScript(script));
   }
 
   /**

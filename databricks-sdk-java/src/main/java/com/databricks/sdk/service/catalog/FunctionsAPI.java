@@ -3,7 +3,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,41 +30,8 @@ public class FunctionsAPI {
     impl = mock;
   }
 
-  public FunctionInfo create(
-      String name,
-      String catalogName,
-      String schemaName,
-      Collection<FunctionParameterInfo> inputParams,
-      ColumnTypeName dataType,
-      String fullDataType,
-      Collection<FunctionParameterInfo> returnParams,
-      CreateFunctionRoutineBody routineBody,
-      String routineDefinition,
-      Collection<Dependency> routineDependencies,
-      CreateFunctionParameterStyle parameterStyle,
-      boolean isDeterministic,
-      CreateFunctionSqlDataAccess sqlDataAccess,
-      boolean isNullCall,
-      CreateFunctionSecurityType securityType,
-      String specificName) {
-    return create(
-        new CreateFunction()
-            .setName(name)
-            .setCatalogName(catalogName)
-            .setSchemaName(schemaName)
-            .setInputParams(inputParams)
-            .setDataType(dataType)
-            .setFullDataType(fullDataType)
-            .setReturnParams(returnParams)
-            .setRoutineBody(routineBody)
-            .setRoutineDefinition(routineDefinition)
-            .setRoutineDependencies(routineDependencies)
-            .setParameterStyle(parameterStyle)
-            .setIsDeterministic(isDeterministic)
-            .setSqlDataAccess(sqlDataAccess)
-            .setIsNullCall(isNullCall)
-            .setSecurityType(securityType)
-            .setSpecificName(specificName));
+  public FunctionInfo create(CreateFunction functionInfo) {
+    return create(new CreateFunctionRequest().setFunctionInfo(functionInfo));
   }
 
   /**
@@ -77,7 +43,7 @@ public class FunctionsAPI {
    * **USE_CATALOG** on the function's parent catalog - **USE_SCHEMA** and **CREATE_FUNCTION** on
    * the function's parent schema
    */
-  public FunctionInfo create(CreateFunction request) {
+  public FunctionInfo create(CreateFunctionRequest request) {
     return impl.create(request);
   }
 

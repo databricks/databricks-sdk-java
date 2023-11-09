@@ -27,6 +27,16 @@ public class InstancePoolGcpAttributes {
   @JsonProperty("local_ssd_count")
   private Long localSsdCount;
 
+  /**
+   * Identifier for the availability zone/datacenter in which the cluster resides. This string will
+   * be of a form like "us-west1-a". The provided availability zone must be in the same region as
+   * the Databricks workspace. For example, "us-west1-a" is not a valid zone id if the Databricks
+   * workspace resides in the "us-east1" region. This is an optional field at instance pool
+   * creation, and if not specified, a default zone will be used.
+   */
+  @JsonProperty("zone_id")
+  private String zoneId;
+
   public InstancePoolGcpAttributes setGcpAvailability(GcpAvailability gcpAvailability) {
     this.gcpAvailability = gcpAvailability;
     return this;
@@ -45,18 +55,28 @@ public class InstancePoolGcpAttributes {
     return localSsdCount;
   }
 
+  public InstancePoolGcpAttributes setZoneId(String zoneId) {
+    this.zoneId = zoneId;
+    return this;
+  }
+
+  public String getZoneId() {
+    return zoneId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     InstancePoolGcpAttributes that = (InstancePoolGcpAttributes) o;
     return Objects.equals(gcpAvailability, that.gcpAvailability)
-        && Objects.equals(localSsdCount, that.localSsdCount);
+        && Objects.equals(localSsdCount, that.localSsdCount)
+        && Objects.equals(zoneId, that.zoneId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(gcpAvailability, localSsdCount);
+    return Objects.hash(gcpAvailability, localSsdCount, zoneId);
   }
 
   @Override
@@ -64,6 +84,7 @@ public class InstancePoolGcpAttributes {
     return new ToStringer(InstancePoolGcpAttributes.class)
         .add("gcpAvailability", gcpAvailability)
         .add("localSsdCount", localSsdCount)
+        .add("zoneId", zoneId)
         .toString();
   }
 }

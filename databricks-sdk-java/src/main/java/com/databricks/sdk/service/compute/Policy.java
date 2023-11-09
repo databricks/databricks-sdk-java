@@ -5,6 +5,7 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -34,6 +35,10 @@ public class Policy {
    */
   @JsonProperty("is_default")
   private Boolean isDefault;
+
+  /** A list of libraries to be installed on the next cluster restart that uses this policy. */
+  @JsonProperty("libraries")
+  private Collection<Library> libraries;
 
   /**
    * Max number of clusters per user that can be active using this policy. If not present, there is
@@ -112,6 +117,15 @@ public class Policy {
     return isDefault;
   }
 
+  public Policy setLibraries(Collection<Library> libraries) {
+    this.libraries = libraries;
+    return this;
+  }
+
+  public Collection<Library> getLibraries() {
+    return libraries;
+  }
+
   public Policy setMaxClustersPerUser(Long maxClustersPerUser) {
     this.maxClustersPerUser = maxClustersPerUser;
     return this;
@@ -167,6 +181,7 @@ public class Policy {
         && Objects.equals(definition, that.definition)
         && Objects.equals(description, that.description)
         && Objects.equals(isDefault, that.isDefault)
+        && Objects.equals(libraries, that.libraries)
         && Objects.equals(maxClustersPerUser, that.maxClustersPerUser)
         && Objects.equals(name, that.name)
         && Objects.equals(policyFamilyDefinitionOverrides, that.policyFamilyDefinitionOverrides)
@@ -182,6 +197,7 @@ public class Policy {
         definition,
         description,
         isDefault,
+        libraries,
         maxClustersPerUser,
         name,
         policyFamilyDefinitionOverrides,
@@ -197,6 +213,7 @@ public class Policy {
         .add("definition", definition)
         .add("description", description)
         .add("isDefault", isDefault)
+        .add("libraries", libraries)
         .add("maxClustersPerUser", maxClustersPerUser)
         .add("name", name)
         .add("policyFamilyDefinitionOverrides", policyFamilyDefinitionOverrides)

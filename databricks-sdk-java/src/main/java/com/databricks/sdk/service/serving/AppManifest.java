@@ -36,7 +36,7 @@ public class AppManifest {
 
   /** The manifest format version. Must be set to 1. */
   @JsonProperty("version")
-  private Long version;
+  private Object version;
 
   public AppManifest setDependencies(Collection<Object> dependencies) {
     this.dependencies = dependencies;
@@ -92,12 +92,12 @@ public class AppManifest {
     return services;
   }
 
-  public AppManifest setVersion(Long version) {
+  public AppManifest setVersion(Object version) {
     this.version = version;
     return this;
   }
 
-  public Long getVersion() {
+  public Object getVersion() {
     return version;
   }
 

@@ -29,8 +29,6 @@ import com.databricks.sdk.service.iam.WorkspaceAssignmentAPI;
 import com.databricks.sdk.service.iam.WorkspaceAssignmentService;
 import com.databricks.sdk.service.oauth2.CustomAppIntegrationAPI;
 import com.databricks.sdk.service.oauth2.CustomAppIntegrationService;
-import com.databricks.sdk.service.oauth2.OAuthEnrollmentAPI;
-import com.databricks.sdk.service.oauth2.OAuthEnrollmentService;
 import com.databricks.sdk.service.oauth2.OAuthPublishedAppsAPI;
 import com.databricks.sdk.service.oauth2.OAuthPublishedAppsService;
 import com.databricks.sdk.service.oauth2.PublishedAppIntegrationAPI;
@@ -57,6 +55,8 @@ import com.databricks.sdk.service.settings.AccountNetworkPolicyAPI;
 import com.databricks.sdk.service.settings.AccountNetworkPolicyService;
 import com.databricks.sdk.service.settings.AccountSettingsAPI;
 import com.databricks.sdk.service.settings.AccountSettingsService;
+import com.databricks.sdk.service.settings.NetworkConnectivityAPI;
+import com.databricks.sdk.service.settings.NetworkConnectivityService;
 import com.databricks.sdk.support.Generated;
 
 /** Entry point for accessing Databricks account-level APIs */
@@ -76,9 +76,9 @@ public class AccountClient {
   private LogDeliveryAPI logDeliveryAPI;
   private AccountMetastoreAssignmentsAPI metastoreAssignmentsAPI;
   private AccountMetastoresAPI metastoresAPI;
+  private NetworkConnectivityAPI networkConnectivityAPI;
   private AccountNetworkPolicyAPI networkPolicyAPI;
   private NetworksAPI networksAPI;
-  private OAuthEnrollmentAPI oAuthEnrollmentAPI;
   private OAuthPublishedAppsAPI oAuthPublishedAppsAPI;
   private PrivateAccessAPI privateAccessAPI;
   private PublishedAppIntegrationAPI publishedAppIntegrationAPI;
@@ -111,9 +111,9 @@ public class AccountClient {
     logDeliveryAPI = new LogDeliveryAPI(apiClient);
     metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(apiClient);
     metastoresAPI = new AccountMetastoresAPI(apiClient);
+    networkConnectivityAPI = new NetworkConnectivityAPI(apiClient);
     networkPolicyAPI = new AccountNetworkPolicyAPI(apiClient);
     networksAPI = new NetworksAPI(apiClient);
-    oAuthEnrollmentAPI = new OAuthEnrollmentAPI(apiClient);
     oAuthPublishedAppsAPI = new OAuthPublishedAppsAPI(apiClient);
     privateAccessAPI = new PrivateAccessAPI(apiClient);
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(apiClient);
@@ -310,6 +310,21 @@ public class AccountClient {
   }
 
   /**
+   * These APIs provide configurations for the network connectivity of your workspaces for
+   * serverless compute resources. This API provides stable subnets for your workspace so that you
+   * can configure your firewalls on your Azure Storage accounts to allow access from Databricks.
+   * You can also use the API to provision private endpoints for Databricks to privately connect
+   * serverless compute resources to your Azure resources using Azure Private Link. See [configure
+   * serverless secure connectivity].
+   *
+   * <p>[configure serverless secure connectivity]:
+   * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security
+   */
+  public NetworkConnectivityAPI networkConnectivity() {
+    return networkConnectivityAPI;
+  }
+
+  /**
    * Network policy is a set of rules that defines what can be accessed from your Databricks
    * network. E.g.: You can choose to block your SQL UDF to access internet from your Databricks
    * serverless clusters.
@@ -328,17 +343,6 @@ public class AccountClient {
    */
   public NetworksAPI networks() {
     return networksAPI;
-  }
-
-  /**
-   * These APIs enable administrators to enroll OAuth for their accounts, which is required for
-   * adding/using any OAuth published/custom application integration.
-   *
-   * <p>**Note:** Your account must be on the E2 version to use these APIs, this is because OAuth is
-   * only supported on the E2 version.
-   */
-  public OAuthEnrollmentAPI oAuthEnrollment() {
-    return oAuthEnrollmentAPI;
   }
 
   /**
@@ -534,6 +538,12 @@ public class AccountClient {
     return this;
   }
 
+  /** Override NetworkConnectivityAPI with mock */
+  public AccountClient withNetworkConnectivityImpl(NetworkConnectivityService networkConnectivity) {
+    networkConnectivityAPI = new NetworkConnectivityAPI(networkConnectivity);
+    return this;
+  }
+
   /** Override AccountNetworkPolicyAPI with mock */
   public AccountClient withNetworkPolicyImpl(AccountNetworkPolicyService accountNetworkPolicy) {
     networkPolicyAPI = new AccountNetworkPolicyAPI(accountNetworkPolicy);
@@ -543,12 +553,6 @@ public class AccountClient {
   /** Override NetworksAPI with mock */
   public AccountClient withNetworksImpl(NetworksService networks) {
     networksAPI = new NetworksAPI(networks);
-    return this;
-  }
-
-  /** Override OAuthEnrollmentAPI with mock */
-  public AccountClient withOAuthEnrollmentImpl(OAuthEnrollmentService oAuthEnrollment) {
-    oAuthEnrollmentAPI = new OAuthEnrollmentAPI(oAuthEnrollment);
     return this;
   }
 

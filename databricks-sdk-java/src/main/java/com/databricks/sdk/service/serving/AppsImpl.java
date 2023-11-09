@@ -25,18 +25,42 @@ class AppsImpl implements AppsService {
   }
 
   @Override
-  public void delete(DeleteAppRequest request) {
+  public DeleteAppResponse deleteApp(DeleteAppRequest request) {
     String path = String.format("/api/2.0/preview/apps/instances/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteAppResponse.class, headers);
   }
 
   @Override
-  public void get(GetAppRequest request) {
+  public GetAppResponse getApp(GetAppRequest request) {
     String path = String.format("/api/2.0/preview/apps/instances/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.GET(path, request, Void.class, headers);
+    return apiClient.GET(path, request, GetAppResponse.class, headers);
+  }
+
+  @Override
+  public DeploymentStatus getAppDeploymentStatus(GetAppDeploymentStatusRequest request) {
+    String path = String.format("/api/2.0/preview/apps/deployments/%s", request.getDeploymentId());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, DeploymentStatus.class, headers);
+  }
+
+  @Override
+  public ListAppsResponse getApps() {
+    String path = "/api/2.0/preview/apps/instances";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, ListAppsResponse.class, headers);
+  }
+
+  @Override
+  public ListAppEventsResponse getEvents(GetEventsRequest request) {
+    String path = String.format("/api/2.0/preview/apps/%s/events", request.getName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ListAppEventsResponse.class, headers);
   }
 }

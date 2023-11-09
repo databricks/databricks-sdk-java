@@ -131,11 +131,11 @@ public class LogDeliveryAPI {
     return impl.list(request).getLogDeliveryConfigurations();
   }
 
-  public void patchStatus(LogDeliveryConfigStatus status, String logDeliveryConfigurationId) {
+  public void patchStatus(String logDeliveryConfigurationId, LogDeliveryConfigStatus status) {
     patchStatus(
         new UpdateLogDeliveryConfigurationStatusRequest()
-            .setStatus(status)
-            .setLogDeliveryConfigurationId(logDeliveryConfigurationId));
+            .setLogDeliveryConfigurationId(logDeliveryConfigurationId)
+            .setStatus(status));
   }
 
   /**

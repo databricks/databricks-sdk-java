@@ -39,8 +39,8 @@ public class AppsAPI {
     return impl.create(request);
   }
 
-  public void delete(String name) {
-    delete(new DeleteAppRequest().setName(name));
+  public DeleteAppResponse deleteApp(String name) {
+    return deleteApp(new DeleteAppRequest().setName(name));
   }
 
   /**
@@ -48,12 +48,12 @@ public class AppsAPI {
    *
    * <p>Delete an application definition
    */
-  public void delete(DeleteAppRequest request) {
-    impl.delete(request);
+  public DeleteAppResponse deleteApp(DeleteAppRequest request) {
+    return impl.deleteApp(request);
   }
 
-  public void get(String name) {
-    get(new GetAppRequest().setName(name));
+  public GetAppResponse getApp(String name) {
+    return getApp(new GetAppRequest().setName(name));
   }
 
   /**
@@ -61,8 +61,44 @@ public class AppsAPI {
    *
    * <p>Get an application definition
    */
-  public void get(GetAppRequest request) {
-    impl.get(request);
+  public GetAppResponse getApp(GetAppRequest request) {
+    return impl.getApp(request);
+  }
+
+  public DeploymentStatus getAppDeploymentStatus(String deploymentId) {
+    return getAppDeploymentStatus(
+        new GetAppDeploymentStatusRequest().setDeploymentId(deploymentId));
+  }
+
+  /**
+   * Get deployment status for an application.
+   *
+   * <p>Get deployment status for an application
+   */
+  public DeploymentStatus getAppDeploymentStatus(GetAppDeploymentStatusRequest request) {
+    return impl.getAppDeploymentStatus(request);
+  }
+
+  /**
+   * List all applications.
+   *
+   * <p>List all available applications
+   */
+  public ListAppsResponse getApps() {
+    return impl.getApps();
+  }
+
+  public ListAppEventsResponse getEvents(String name) {
+    return getEvents(new GetEventsRequest().setName(name));
+  }
+
+  /**
+   * Get deployment events for an application.
+   *
+   * <p>Get deployment events for an application
+   */
+  public ListAppEventsResponse getEvents(GetEventsRequest request) {
+    return impl.getEvents(request);
   }
 
   public AppsService impl() {

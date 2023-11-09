@@ -26,7 +26,7 @@ public interface FunctionsService {
    * **USE_CATALOG** on the function's parent catalog - **USE_SCHEMA** and **CREATE_FUNCTION** on
    * the function's parent schema
    */
-  FunctionInfo create(CreateFunction createFunction);
+  FunctionInfo create(CreateFunctionRequest createFunctionRequest);
 
   /**
    * Delete a function.

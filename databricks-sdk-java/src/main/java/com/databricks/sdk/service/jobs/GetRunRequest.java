@@ -14,6 +14,10 @@ public class GetRunRequest {
   @QueryParam("include_history")
   private Boolean includeHistory;
 
+  /** Whether to include resolved parameter values in the response. */
+  @QueryParam("include_resolved_values")
+  private Boolean includeResolvedValues;
+
   /**
    * The canonical identifier of the run for which to retrieve the metadata. This field is required.
    */
@@ -27,6 +31,15 @@ public class GetRunRequest {
 
   public Boolean getIncludeHistory() {
     return includeHistory;
+  }
+
+  public GetRunRequest setIncludeResolvedValues(Boolean includeResolvedValues) {
+    this.includeResolvedValues = includeResolvedValues;
+    return this;
+  }
+
+  public Boolean getIncludeResolvedValues() {
+    return includeResolvedValues;
   }
 
   public GetRunRequest setRunId(Long runId) {
@@ -43,18 +56,21 @@ public class GetRunRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetRunRequest that = (GetRunRequest) o;
-    return Objects.equals(includeHistory, that.includeHistory) && Objects.equals(runId, that.runId);
+    return Objects.equals(includeHistory, that.includeHistory)
+        && Objects.equals(includeResolvedValues, that.includeResolvedValues)
+        && Objects.equals(runId, that.runId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(includeHistory, runId);
+    return Objects.hash(includeHistory, includeResolvedValues, runId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetRunRequest.class)
         .add("includeHistory", includeHistory)
+        .add("includeResolvedValues", includeResolvedValues)
         .add("runId", runId)
         .toString();
   }

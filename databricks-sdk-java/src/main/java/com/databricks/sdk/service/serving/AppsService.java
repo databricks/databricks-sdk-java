@@ -25,12 +25,34 @@ public interface AppsService {
    *
    * <p>Delete an application definition
    */
-  void delete(DeleteAppRequest deleteAppRequest);
+  DeleteAppResponse deleteApp(DeleteAppRequest deleteAppRequest);
 
   /**
    * Get definition for an application.
    *
    * <p>Get an application definition
    */
-  void get(GetAppRequest getAppRequest);
+  GetAppResponse getApp(GetAppRequest getAppRequest);
+
+  /**
+   * Get deployment status for an application.
+   *
+   * <p>Get deployment status for an application
+   */
+  DeploymentStatus getAppDeploymentStatus(
+      GetAppDeploymentStatusRequest getAppDeploymentStatusRequest);
+
+  /**
+   * List all applications.
+   *
+   * <p>List all available applications
+   */
+  ListAppsResponse getApps();
+
+  /**
+   * Get deployment events for an application.
+   *
+   * <p>Get deployment events for an application
+   */
+  ListAppEventsResponse getEvents(GetEventsRequest getEventsRequest);
 }
