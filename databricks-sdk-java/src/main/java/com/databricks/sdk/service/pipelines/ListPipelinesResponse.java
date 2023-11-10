@@ -14,6 +14,9 @@ public class ListPipelinesResponse {
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
+  @JsonProperty("prev_page_token")
+  private String prevPageToken;
+
   /** The list of events matching the request criteria. */
   @JsonProperty("statuses")
   private Collection<PipelineStateInfo> statuses;
@@ -25,6 +28,15 @@ public class ListPipelinesResponse {
 
   public String getNextPageToken() {
     return nextPageToken;
+  }
+
+  public ListPipelinesResponse setPrevPageToken(String prevPageToken) {
+    this.prevPageToken = prevPageToken;
+    return this;
+  }
+
+  public String getPrevPageToken() {
+    return prevPageToken;
   }
 
   public ListPipelinesResponse setStatuses(Collection<PipelineStateInfo> statuses) {
@@ -42,6 +54,7 @@ public class ListPipelinesResponse {
     if (o == null || getClass() != o.getClass()) return false;
     ListPipelinesResponse that = (ListPipelinesResponse) o;
     return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(prevPageToken, that.prevPageToken)
         && Objects.equals(statuses, that.statuses);
   }
 
@@ -54,6 +67,7 @@ public class ListPipelinesResponse {
   public String toString() {
     return new ToStringer(ListPipelinesResponse.class)
         .add("nextPageToken", nextPageToken)
+        .add("prevPageToken", prevPageToken)
         .add("statuses", statuses)
         .toString();
   }
