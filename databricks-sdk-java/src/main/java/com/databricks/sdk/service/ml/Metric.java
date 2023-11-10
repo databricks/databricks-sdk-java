@@ -23,7 +23,7 @@ public class Metric {
 
   /** Value associated with this metric. */
   @JsonProperty("value")
-  private Float value;
+  private Double value;
 
   public Metric setKey(String key) {
     this.key = key;
@@ -52,12 +52,12 @@ public class Metric {
     return timestamp;
   }
 
-  public Metric setValue(Float value) {
+  public Metric setValue(Double value) {
     this.value = value;
     return this;
   }
 
-  public Float getValue() {
+  public Double getValue() {
     return value;
   }
 

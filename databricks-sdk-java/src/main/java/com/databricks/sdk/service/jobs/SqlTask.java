@@ -38,8 +38,9 @@ public class SqlTask {
   private SqlTaskQuery query;
 
   /**
-   * The canonical identifier of the SQL warehouse. Only serverless and pro SQL warehouses are
-   * supported.
+   * The canonical identifier of the SQL warehouse. Recommended to use with serverless or pro SQL
+   * warehouses. Classic SQL warehouses are only supported for SQL alert, dashboard and query tasks
+   * and are limited to scheduled single-task jobs.
    */
   @JsonProperty("warehouse_id")
   private String warehouseId;

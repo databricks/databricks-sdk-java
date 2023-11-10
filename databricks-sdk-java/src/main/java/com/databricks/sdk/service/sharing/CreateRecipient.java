@@ -23,7 +23,7 @@ public class CreateRecipient {
    * __cloud__:__region__:__metastore-uuid__.
    */
   @JsonProperty("data_recipient_global_metastore_id")
-  private Object dataRecipientGlobalMetastoreId;
+  private String dataRecipientGlobalMetastoreId;
 
   /** IP Access List */
   @JsonProperty("ip_access_list")
@@ -66,12 +66,12 @@ public class CreateRecipient {
     return comment;
   }
 
-  public CreateRecipient setDataRecipientGlobalMetastoreId(Object dataRecipientGlobalMetastoreId) {
+  public CreateRecipient setDataRecipientGlobalMetastoreId(String dataRecipientGlobalMetastoreId) {
     this.dataRecipientGlobalMetastoreId = dataRecipientGlobalMetastoreId;
     return this;
   }
 
-  public Object getDataRecipientGlobalMetastoreId() {
+  public String getDataRecipientGlobalMetastoreId() {
     return dataRecipientGlobalMetastoreId;
   }
 

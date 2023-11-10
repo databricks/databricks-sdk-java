@@ -43,4 +43,7 @@ public enum SecurableType {
 
   @JsonProperty("table")
   TABLE,
+
+  @JsonProperty("volume")
+  VOLUME,
 }

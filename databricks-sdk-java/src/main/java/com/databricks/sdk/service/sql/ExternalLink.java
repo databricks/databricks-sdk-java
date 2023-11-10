@@ -9,47 +9,50 @@ import java.util.Objects;
 
 @Generated
 public class ExternalLink {
-  /** Number of bytes in the result chunk. */
+  /** The number of bytes in the result chunk. */
   @JsonProperty("byte_count")
   private Long byteCount;
 
-  /** Position within the sequence of result set chunks. */
+  /** The position within the sequence of result set chunks. */
   @JsonProperty("chunk_index")
   private Long chunkIndex;
 
   /**
-   * Indicates date-time that the given external link will expire and become invalid, after which
-   * point a new `external_link` must be requested.
+   * Indicates the date-time that the given external link will expire and becomes invalid, after
+   * which point a new `external_link` must be requested.
    */
   @JsonProperty("expiration")
   private String expiration;
 
   /**
-   * Pre-signed URL pointing to a chunk of result data, hosted by an external service, with a short
-   * expiration time (< 1 hour).
+   * A presigned URL pointing to a chunk of result data, hosted by an external service, with a short
+   * expiration time (<= 15 minutes). As this URL contains a temporary credential, it should be
+   * considered sensitive and the client should expose this URL in a log.
    */
   @JsonProperty("external_link")
   private String externalLink;
 
   /**
-   * When fetching, gives `chunk_index` for the _next_ chunk; if absent, indicates there are no more
-   * chunks.
+   * When fetching, provides the `chunk_index` for the _next_ chunk. If absent, indicates there are
+   * no more chunks. The next chunk can be fetched with a
+   * :method:statementexecution/getStatementResultChunkN request.
    */
   @JsonProperty("next_chunk_index")
   private Long nextChunkIndex;
 
   /**
-   * When fetching, gives `internal_link` for the _next_ chunk; if absent, indicates there are no
-   * more chunks.
+   * When fetching, provides a link to fetch the _next_ chunk. If absent, indicates there are no
+   * more chunks. This link is an absolute `path` to be joined with your `$DATABRICKS_HOST`, and
+   * should be treated as an opaque link. This is an alternative to using `next_chunk_index`.
    */
   @JsonProperty("next_chunk_internal_link")
   private String nextChunkInternalLink;
 
-  /** Number of rows within the result chunk. */
+  /** The number of rows within the result chunk. */
   @JsonProperty("row_count")
   private Long rowCount;
 
-  /** Starting row offset within the result set. */
+  /** The starting row offset within the result set. */
   @JsonProperty("row_offset")
   private Long rowOffset;
 

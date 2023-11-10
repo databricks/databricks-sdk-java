@@ -64,8 +64,8 @@ public class SubmitTask {
   private NotebookTask notebookTask;
 
   /**
-   * Optional notification settings that are used when sending email notifications for this task
-   * run.
+   * Optional notification settings that are used when sending notifications to each of the
+   * `email_notifications` and `webhook_notifications` for this task run.
    */
   @JsonProperty("notification_settings")
   private TaskNotificationSettings notificationSettings;
@@ -87,8 +87,21 @@ public class SubmitTask {
   private SparkPythonTask sparkPythonTask;
 
   /**
-   * If spark_submit_task, indicates that this task must be launched by the spark submit script.
+   * If `spark_submit_task`, indicates that this task must be launched by the spark submit script.
    * This task can run only on new clusters.
+   *
+   * <p>In the `new_cluster` specification, `libraries` and `spark_conf` are not supported. Instead,
+   * use `--jars` and `--py-files` to add Java and Python libraries and `--conf` to set the Spark
+   * configurations.
+   *
+   * <p>`master`, `deploy-mode`, and `executor-cores` are automatically configured by Databricks;
+   * you _cannot_ specify them in parameters.
+   *
+   * <p>By default, the Spark submit job uses all available memory (excluding reserved memory for
+   * Databricks services). You can set `--driver-memory`, and `--executor-memory` to a smaller value
+   * to leave some room for off-heap usage.
+   *
+   * <p>The `--jars`, `--py-files`, `--files` arguments support DBFS and S3 paths.
    */
   @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
@@ -105,12 +118,17 @@ public class SubmitTask {
   @JsonProperty("task_key")
   private String taskKey;
 
-  /**
-   * An optional timeout applied to each run of this job task. The default behavior is to have no
-   * timeout.
-   */
+  /** An optional timeout applied to each run of this job task. A value of `0` means no timeout. */
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
+
+  /**
+   * A collection of system notification IDs to notify when the run begins or completes. The default
+   * behavior is to not send any system notifications. Task webhooks respect the task notification
+   * settings.
+   */
+  @JsonProperty("webhook_notifications")
+  private WebhookNotifications webhookNotifications;
 
   public SubmitTask setConditionTask(ConditionTask conditionTask) {
     this.conditionTask = conditionTask;
@@ -265,6 +283,15 @@ public class SubmitTask {
     return timeoutSeconds;
   }
 
+  public SubmitTask setWebhookNotifications(WebhookNotifications webhookNotifications) {
+    this.webhookNotifications = webhookNotifications;
+    return this;
+  }
+
+  public WebhookNotifications getWebhookNotifications() {
+    return webhookNotifications;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -286,7 +313,8 @@ public class SubmitTask {
         && Objects.equals(sparkSubmitTask, that.sparkSubmitTask)
         && Objects.equals(sqlTask, that.sqlTask)
         && Objects.equals(taskKey, that.taskKey)
-        && Objects.equals(timeoutSeconds, that.timeoutSeconds);
+        && Objects.equals(timeoutSeconds, that.timeoutSeconds)
+        && Objects.equals(webhookNotifications, that.webhookNotifications);
   }
 
   @Override
@@ -308,7 +336,8 @@ public class SubmitTask {
         sparkSubmitTask,
         sqlTask,
         taskKey,
-        timeoutSeconds);
+        timeoutSeconds,
+        webhookNotifications);
   }
 
   @Override
@@ -331,6 +360,7 @@ public class SubmitTask {
         .add("sqlTask", sqlTask)
         .add("taskKey", taskKey)
         .add("timeoutSeconds", timeoutSeconds)
+        .add("webhookNotifications", webhookNotifications)
         .toString();
   }
 }

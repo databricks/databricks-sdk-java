@@ -25,4 +25,28 @@ public class DatabricksConfigTest {
     assertFalse(
         new DatabricksConfig().setHost("https://westeurope.azuredatabricks.net").isAccountClient());
   }
+
+  @Test
+  public void testIsAzureForAwsHost() {
+    assertFalse(
+        new DatabricksConfig().setHost("https://my-workspace.cloud.databricks.com/").isAzure());
+  }
+
+  @Test
+  public void testIsAzurePublic() {
+    assertTrue(
+        new DatabricksConfig().setHost("https://adb-1234567890.0.azuredatabricks.net/").isAzure());
+  }
+
+  @Test
+  public void testIsAzureMooncake() {
+    assertTrue(
+        new DatabricksConfig().setHost("https://adb-1234567890.0.databricks.azure.cn/").isAzure());
+  }
+
+  @Test
+  public void testIsAzureUsGov() {
+    assertTrue(
+        new DatabricksConfig().setHost("https://adb-1234567890.0.databricks.azure.us/").isAzure());
+  }
 }

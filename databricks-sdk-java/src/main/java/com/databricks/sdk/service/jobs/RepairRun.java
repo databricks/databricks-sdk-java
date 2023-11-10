@@ -19,17 +19,21 @@ public class RepairRun {
   private Collection<String> dbtCommands;
 
   /**
-   * A list of parameters for jobs with Spark JAR tasks, for example `\"jar_params\": [\"john doe\",
-   * \"35\"]`. The parameters are used to invoke the main function of the main class specified in
-   * the Spark JAR task. If not specified upon `run-now`, it defaults to an empty list. jar_params
+   * A list of parameters for jobs with Spark JAR tasks, for example `"jar_params": ["john doe",
+   * "35"]`. The parameters are used to invoke the main function of the main class specified in the
+   * Spark JAR task. If not specified upon `run-now`, it defaults to an empty list. jar_params
    * cannot be specified in conjunction with notebook_params. The JSON representation of this field
-   * (for example `{\"jar_params\":[\"john doe\",\"35\"]}`) cannot exceed 10,000 bytes.
+   * (for example `{"jar_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
    * <p>Use [Task parameter variables](/jobs.html"#parameter-variables") to set parameters
    * containing information about job runs.
    */
   @JsonProperty("jar_params")
   private Collection<String> jarParams;
+
+  /** Job-level parameters used in the run. for example `"param": "overriding_val"` */
+  @JsonProperty("job_parameters")
+  private Map<String, String> jobParameters;
 
   /**
    * The ID of the latest repair. This parameter is not required when repairing a run for the first
@@ -39,9 +43,9 @@ public class RepairRun {
   private Long latestRepairId;
 
   /**
-   * A map from keys to values for jobs with notebook task, for example `\"notebook_params\":
-   * {\"name\": \"john doe\", \"age\": \"35\"}`. The map is passed to the notebook and is accessible
-   * through the [dbutils.widgets.get] function.
+   * A map from keys to values for jobs with notebook task, for example `"notebook_params": {"name":
+   * "john doe", "age": "35"}`. The map is passed to the notebook and is accessible through the
+   * [dbutils.widgets.get] function.
    *
    * <p>If not specified upon `run-now`, the triggered run uses the job’s base parameters.
    *
@@ -49,8 +53,8 @@ public class RepairRun {
    *
    * <p>Use [Task parameter variables] to set parameters containing information about job runs.
    *
-   * <p>The JSON representation of this field (for example `{\"notebook_params\":{\"name\":\"john
-   * doe\",\"age\":\"35\"}}`) cannot exceed 10,000 bytes.
+   * <p>The JSON representation of this field (for example `{"notebook_params":{"name":"john
+   * doe","age":"35"}}`) cannot exceed 10,000 bytes.
    *
    * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    * [dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html
@@ -70,11 +74,10 @@ public class RepairRun {
   private Map<String, String> pythonNamedParams;
 
   /**
-   * A list of parameters for jobs with Python tasks, for example `\"python_params\": [\"john doe\",
-   * \"35\"]`. The parameters are passed to Python file as command-line parameters. If specified
-   * upon `run-now`, it would overwrite the parameters specified in job setting. The JSON
-   * representation of this field (for example `{\"python_params\":[\"john doe\",\"35\"]}`) cannot
-   * exceed 10,000 bytes.
+   * A list of parameters for jobs with Python tasks, for example `"python_params": ["john doe",
+   * "35"]`. The parameters are passed to Python file as command-line parameters. If specified upon
+   * `run-now`, it would overwrite the parameters specified in job setting. The JSON representation
+   * of this field (for example `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
    * <p>Use [Task parameter variables] to set parameters containing information about job runs.
    *
@@ -112,11 +115,11 @@ public class RepairRun {
   private Long runId;
 
   /**
-   * A list of parameters for jobs with spark submit task, for example `\"spark_submit_params\":
-   * [\"--class\", \"org.apache.spark.examples.SparkPi\"]`. The parameters are passed to
-   * spark-submit script as command-line parameters. If specified upon `run-now`, it would overwrite
-   * the parameters specified in job setting. The JSON representation of this field (for example
-   * `{\"python_params\":[\"john doe\",\"35\"]}`) cannot exceed 10,000 bytes.
+   * A list of parameters for jobs with spark submit task, for example `"spark_submit_params":
+   * ["--class", "org.apache.spark.examples.SparkPi"]`. The parameters are passed to spark-submit
+   * script as command-line parameters. If specified upon `run-now`, it would overwrite the
+   * parameters specified in job setting. The JSON representation of this field (for example
+   * `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
    * <p>Use [Task parameter variables] to set parameters containing information about job runs
    *
@@ -154,6 +157,15 @@ public class RepairRun {
 
   public Collection<String> getJarParams() {
     return jarParams;
+  }
+
+  public RepairRun setJobParameters(Map<String, String> jobParameters) {
+    this.jobParameters = jobParameters;
+    return this;
+  }
+
+  public Map<String, String> getJobParameters() {
+    return jobParameters;
   }
 
   public RepairRun setLatestRepairId(Long latestRepairId) {
@@ -262,6 +274,7 @@ public class RepairRun {
     RepairRun that = (RepairRun) o;
     return Objects.equals(dbtCommands, that.dbtCommands)
         && Objects.equals(jarParams, that.jarParams)
+        && Objects.equals(jobParameters, that.jobParameters)
         && Objects.equals(latestRepairId, that.latestRepairId)
         && Objects.equals(notebookParams, that.notebookParams)
         && Objects.equals(pipelineParams, that.pipelineParams)
@@ -280,6 +293,7 @@ public class RepairRun {
     return Objects.hash(
         dbtCommands,
         jarParams,
+        jobParameters,
         latestRepairId,
         notebookParams,
         pipelineParams,
@@ -298,6 +312,7 @@ public class RepairRun {
     return new ToStringer(RepairRun.class)
         .add("dbtCommands", dbtCommands)
         .add("jarParams", jarParams)
+        .add("jobParameters", jobParameters)
         .add("latestRepairId", latestRepairId)
         .add("notebookParams", notebookParams)
         .add("pipelineParams", pipelineParams)

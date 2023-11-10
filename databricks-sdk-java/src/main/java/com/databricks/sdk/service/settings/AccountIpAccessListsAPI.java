@@ -108,18 +108,18 @@ public class AccountIpAccessListsAPI {
   }
 
   public void replace(
+      String ipAccessListId,
       String label,
       ListType listType,
       Collection<String> ipAddresses,
-      boolean enabled,
-      String ipAccessListId) {
+      boolean enabled) {
     replace(
         new ReplaceIpAccessList()
+            .setIpAccessListId(ipAccessListId)
             .setLabel(label)
             .setListType(listType)
             .setIpAddresses(ipAddresses)
-            .setEnabled(enabled)
-            .setIpAccessListId(ipAccessListId));
+            .setEnabled(enabled));
   }
 
   /**
@@ -140,18 +140,18 @@ public class AccountIpAccessListsAPI {
   }
 
   public void update(
+      String ipAccessListId,
       String label,
       ListType listType,
       Collection<String> ipAddresses,
-      boolean enabled,
-      String ipAccessListId) {
+      boolean enabled) {
     update(
         new UpdateIpAccessList()
+            .setIpAccessListId(ipAccessListId)
             .setLabel(label)
             .setListType(listType)
             .setIpAddresses(ipAddresses)
-            .setEnabled(enabled)
-            .setIpAccessListId(ipAccessListId));
+            .setEnabled(enabled));
   }
 
   /**

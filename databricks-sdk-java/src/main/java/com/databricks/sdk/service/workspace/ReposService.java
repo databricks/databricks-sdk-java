@@ -49,7 +49,7 @@ public interface ReposService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetRepoPermissionLevelsResponse getRepoPermissionLevels(
+  GetRepoPermissionLevelsResponse getPermissionLevels(
       GetRepoPermissionLevelsRequest getRepoPermissionLevelsRequest);
 
   /**
@@ -57,7 +57,7 @@ public interface ReposService {
    *
    * <p>Gets the permissions of a repo. Repos can inherit permissions from their root object.
    */
-  RepoPermissions getRepoPermissions(GetRepoPermissionsRequest getRepoPermissionsRequest);
+  RepoPermissions getPermissions(GetRepoPermissionsRequest getRepoPermissionsRequest);
 
   /**
    * Get repos.
@@ -72,7 +72,7 @@ public interface ReposService {
    *
    * <p>Sets permissions on a repo. Repos can inherit permissions from their root object.
    */
-  RepoPermissions setRepoPermissions(RepoPermissionsRequest repoPermissionsRequest);
+  RepoPermissions setPermissions(RepoPermissionsRequest repoPermissionsRequest);
 
   /**
    * Update a repo.
@@ -87,5 +87,5 @@ public interface ReposService {
    *
    * <p>Updates the permissions on a repo. Repos can inherit permissions from their root object.
    */
-  RepoPermissions updateRepoPermissions(RepoPermissionsRequest repoPermissionsRequest);
+  RepoPermissions updatePermissions(RepoPermissionsRequest repoPermissionsRequest);
 }

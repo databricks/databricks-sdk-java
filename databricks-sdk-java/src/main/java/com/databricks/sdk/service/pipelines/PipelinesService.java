@@ -47,7 +47,7 @@ public interface PipelinesService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetPipelinePermissionLevelsResponse getPipelinePermissionLevels(
+  GetPipelinePermissionLevelsResponse getPermissionLevels(
       GetPipelinePermissionLevelsRequest getPipelinePermissionLevelsRequest);
 
   /**
@@ -56,8 +56,7 @@ public interface PipelinesService {
    * <p>Gets the permissions of a pipeline. Pipelines can inherit permissions from their root
    * object.
    */
-  PipelinePermissions getPipelinePermissions(
-      GetPipelinePermissionsRequest getPipelinePermissionsRequest);
+  PipelinePermissions getPermissions(GetPipelinePermissionsRequest getPipelinePermissionsRequest);
 
   /**
    * Get a pipeline update.
@@ -100,19 +99,21 @@ public interface PipelinesService {
    *
    * <p>Sets permissions on a pipeline. Pipelines can inherit permissions from their root object.
    */
-  PipelinePermissions setPipelinePermissions(PipelinePermissionsRequest pipelinePermissionsRequest);
+  PipelinePermissions setPermissions(PipelinePermissionsRequest pipelinePermissionsRequest);
 
   /**
-   * Queue a pipeline update.
+   * Start a pipeline.
    *
-   * <p>Starts or queues a pipeline update.
+   * <p>Starts a new update for the pipeline. If there is already an active update for the pipeline,
+   * the request will fail and the active update will remain running.
    */
   StartUpdateResponse startUpdate(StartUpdate startUpdate);
 
   /**
    * Stop a pipeline.
    *
-   * <p>Stops a pipeline.
+   * <p>Stops the pipeline by canceling the active update. If there is no active update for the
+   * pipeline, this request is a no-op.
    */
   void stop(StopRequest stopRequest);
 
@@ -129,6 +130,5 @@ public interface PipelinesService {
    * <p>Updates the permissions on a pipeline. Pipelines can inherit permissions from their root
    * object.
    */
-  PipelinePermissions updatePipelinePermissions(
-      PipelinePermissionsRequest pipelinePermissionsRequest);
+  PipelinePermissions updatePermissions(PipelinePermissionsRequest pipelinePermissionsRequest);
 }

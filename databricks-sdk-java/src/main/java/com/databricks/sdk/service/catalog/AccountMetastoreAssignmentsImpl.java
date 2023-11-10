@@ -3,7 +3,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,14 +50,15 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public Collection<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
+  public ListAccountMetastoreAssignmentsResponse list(
+      ListAccountMetastoreAssignmentsRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/workspaces",
             apiClient.configuredAccountID(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.getCollection(path, null, MetastoreAssignment.class, headers);
+    return apiClient.GET(path, request, ListAccountMetastoreAssignmentsResponse.class, headers);
   }
 
   @Override

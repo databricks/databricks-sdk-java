@@ -5,6 +5,7 @@ package com.databricks.sdk.service.serving;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -47,6 +48,10 @@ public class ServingEndpointDetailed {
   /** Information corresponding to the state of the serving endpoint. */
   @JsonProperty("state")
   private EndpointState state;
+
+  /** Tags attached to the serving endpoint. */
+  @JsonProperty("tags")
+  private Collection<EndpointTag> tags;
 
   public ServingEndpointDetailed setConfig(EndpointCoreConfigOutput config) {
     this.config = config;
@@ -130,6 +135,15 @@ public class ServingEndpointDetailed {
     return state;
   }
 
+  public ServingEndpointDetailed setTags(Collection<EndpointTag> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Collection<EndpointTag> getTags() {
+    return tags;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -143,7 +157,8 @@ public class ServingEndpointDetailed {
         && Objects.equals(name, that.name)
         && Objects.equals(pendingConfig, that.pendingConfig)
         && Objects.equals(permissionLevel, that.permissionLevel)
-        && Objects.equals(state, that.state);
+        && Objects.equals(state, that.state)
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
@@ -157,7 +172,8 @@ public class ServingEndpointDetailed {
         name,
         pendingConfig,
         permissionLevel,
-        state);
+        state,
+        tags);
   }
 
   @Override
@@ -172,6 +188,7 @@ public class ServingEndpointDetailed {
         .add("pendingConfig", pendingConfig)
         .add("permissionLevel", permissionLevel)
         .add("state", state)
+        .add("tags", tags)
         .toString();
   }
 }

@@ -34,7 +34,7 @@ public class LogMetric {
 
   /** Double value of the metric being logged. */
   @JsonProperty("value")
-  private Float value;
+  private Double value;
 
   public LogMetric setKey(String key) {
     this.key = key;
@@ -81,12 +81,12 @@ public class LogMetric {
     return timestamp;
   }
 
-  public LogMetric setValue(Float value) {
+  public LogMetric setValue(Double value) {
     this.value = value;
     return this;
   }
 
-  public Float getValue() {
+  public Double getValue() {
     return value;
   }
 

@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.databricks</groupId>
   <artifactId>databricks-sdk-parent</artifactId>
-  <version>0.7.0</version>
+  <version>0.11.0</version>
   <packaging>pom</packaging>
   <name>Databricks SDK for Java</name>
   <description>The Databricks SDK for Java includes functionality to accelerate development with Java for
@@ -13,7 +13,7 @@
   <url>https://github.com/databricks/databricks-sdk-java</url>
   <licenses>
     <license>
-      <name>Databricks License</name>
+      <name>Apache License, Version 2.0</name>
       <url>https://github.com/databricks/databricks-sdk-java/blob/main/LICENSE</url>
     </license>
   </licenses>
@@ -203,7 +203,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.5.0</version>
+            <version>3.6.0</version>
             <configuration>
               <doclint>none</doclint>
             </configuration>

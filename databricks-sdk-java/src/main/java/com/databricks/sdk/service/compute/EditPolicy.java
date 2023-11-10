@@ -5,6 +5,7 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -16,6 +17,10 @@ public class EditPolicy {
   /** Additional human-readable description of the cluster policy. */
   @JsonProperty("description")
   private String description;
+
+  /** A list of libraries to be installed on the next cluster restart that uses this policy. */
+  @JsonProperty("libraries")
+  private Collection<Library> libraries;
 
   /**
    * Max number of clusters per user that can be active using this policy. If not present, there is
@@ -73,6 +78,15 @@ public class EditPolicy {
     return description;
   }
 
+  public EditPolicy setLibraries(Collection<Library> libraries) {
+    this.libraries = libraries;
+    return this;
+  }
+
+  public Collection<Library> getLibraries() {
+    return libraries;
+  }
+
   public EditPolicy setMaxClustersPerUser(Long maxClustersPerUser) {
     this.maxClustersPerUser = maxClustersPerUser;
     return this;
@@ -125,6 +139,7 @@ public class EditPolicy {
     EditPolicy that = (EditPolicy) o;
     return Objects.equals(definition, that.definition)
         && Objects.equals(description, that.description)
+        && Objects.equals(libraries, that.libraries)
         && Objects.equals(maxClustersPerUser, that.maxClustersPerUser)
         && Objects.equals(name, that.name)
         && Objects.equals(policyFamilyDefinitionOverrides, that.policyFamilyDefinitionOverrides)
@@ -137,6 +152,7 @@ public class EditPolicy {
     return Objects.hash(
         definition,
         description,
+        libraries,
         maxClustersPerUser,
         name,
         policyFamilyDefinitionOverrides,
@@ -149,6 +165,7 @@ public class EditPolicy {
     return new ToStringer(EditPolicy.class)
         .add("definition", definition)
         .add("description", description)
+        .add("libraries", libraries)
         .add("maxClustersPerUser", maxClustersPerUser)
         .add("name", name)
         .add("policyFamilyDefinitionOverrides", policyFamilyDefinitionOverrides)

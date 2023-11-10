@@ -26,10 +26,6 @@ public class CreateConnection {
   @JsonProperty("options")
   private Map<String, String> options;
 
-  /** Username of current owner of the connection. */
-  @JsonProperty("owner")
-  private String owner;
-
   /** An object containing map of key-value properties attached to the connection. */
   @JsonProperty("properties")
   private Map<String, String> properties;
@@ -74,15 +70,6 @@ public class CreateConnection {
     return options;
   }
 
-  public CreateConnection setOwner(String owner) {
-    this.owner = owner;
-    return this;
-  }
-
-  public String getOwner() {
-    return owner;
-  }
-
   public CreateConnection setProperties(Map<String, String> properties) {
     this.properties = properties;
     return this;
@@ -110,14 +97,13 @@ public class CreateConnection {
         && Objects.equals(connectionType, that.connectionType)
         && Objects.equals(name, that.name)
         && Objects.equals(options, that.options)
-        && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties)
         && Objects.equals(readOnly, that.readOnly);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, connectionType, name, options, owner, properties, readOnly);
+    return Objects.hash(comment, connectionType, name, options, properties, readOnly);
   }
 
   @Override
@@ -127,7 +113,6 @@ public class CreateConnection {
         .add("connectionType", connectionType)
         .add("name", name)
         .add("options", options)
-        .add("owner", owner)
         .add("properties", properties)
         .add("readOnly", readOnly)
         .toString();

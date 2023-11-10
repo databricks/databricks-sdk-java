@@ -76,8 +76,8 @@ public class ReposAPI {
     return impl.get(request);
   }
 
-  public GetRepoPermissionLevelsResponse getRepoPermissionLevels(String repoId) {
-    return getRepoPermissionLevels(new GetRepoPermissionLevelsRequest().setRepoId(repoId));
+  public GetRepoPermissionLevelsResponse getPermissionLevels(String repoId) {
+    return getPermissionLevels(new GetRepoPermissionLevelsRequest().setRepoId(repoId));
   }
 
   /**
@@ -85,13 +85,13 @@ public class ReposAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetRepoPermissionLevelsResponse getRepoPermissionLevels(
+  public GetRepoPermissionLevelsResponse getPermissionLevels(
       GetRepoPermissionLevelsRequest request) {
-    return impl.getRepoPermissionLevels(request);
+    return impl.getPermissionLevels(request);
   }
 
-  public RepoPermissions getRepoPermissions(String repoId) {
-    return getRepoPermissions(new GetRepoPermissionsRequest().setRepoId(repoId));
+  public RepoPermissions getPermissions(String repoId) {
+    return getPermissions(new GetRepoPermissionsRequest().setRepoId(repoId));
   }
 
   /**
@@ -99,8 +99,8 @@ public class ReposAPI {
    *
    * <p>Gets the permissions of a repo. Repos can inherit permissions from their root object.
    */
-  public RepoPermissions getRepoPermissions(GetRepoPermissionsRequest request) {
-    return impl.getRepoPermissions(request);
+  public RepoPermissions getPermissions(GetRepoPermissionsRequest request) {
+    return impl.getPermissions(request);
   }
 
   /**
@@ -123,8 +123,8 @@ public class ReposAPI {
         });
   }
 
-  public RepoPermissions setRepoPermissions(String repoId) {
-    return setRepoPermissions(new RepoPermissionsRequest().setRepoId(repoId));
+  public RepoPermissions setPermissions(String repoId) {
+    return setPermissions(new RepoPermissionsRequest().setRepoId(repoId));
   }
 
   /**
@@ -132,8 +132,8 @@ public class ReposAPI {
    *
    * <p>Sets permissions on a repo. Repos can inherit permissions from their root object.
    */
-  public RepoPermissions setRepoPermissions(RepoPermissionsRequest request) {
-    return impl.setRepoPermissions(request);
+  public RepoPermissions setPermissions(RepoPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
   public void update(long repoId) {
@@ -150,8 +150,8 @@ public class ReposAPI {
     impl.update(request);
   }
 
-  public RepoPermissions updateRepoPermissions(String repoId) {
-    return updateRepoPermissions(new RepoPermissionsRequest().setRepoId(repoId));
+  public RepoPermissions updatePermissions(String repoId) {
+    return updatePermissions(new RepoPermissionsRequest().setRepoId(repoId));
   }
 
   /**
@@ -159,8 +159,8 @@ public class ReposAPI {
    *
    * <p>Updates the permissions on a repo. Repos can inherit permissions from their root object.
    */
-  public RepoPermissions updateRepoPermissions(RepoPermissionsRequest request) {
-    return impl.updateRepoPermissions(request);
+  public RepoPermissions updatePermissions(RepoPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public ReposService impl() {

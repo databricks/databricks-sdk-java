@@ -40,6 +40,13 @@ public class UpdateWorkspaceRequest {
   private String managedServicesCustomerManagedKeyId;
 
   /**
+   * The ID of the network connectivity configuration object, which is the parent resource of this
+   * private endpoint rule object.
+   */
+  @JsonProperty("network_connectivity_config_id")
+  private String networkConnectivityConfigId;
+
+  /**
    * The ID of the workspace's network configuration object. Used only if you already use a
    * customer-managed VPC. For failed workspaces only, you can switch from a Databricks-managed VPC
    * to a customer-managed VPC by updating the workspace to add a network configuration ID.
@@ -101,6 +108,15 @@ public class UpdateWorkspaceRequest {
     return managedServicesCustomerManagedKeyId;
   }
 
+  public UpdateWorkspaceRequest setNetworkConnectivityConfigId(String networkConnectivityConfigId) {
+    this.networkConnectivityConfigId = networkConnectivityConfigId;
+    return this;
+  }
+
+  public String getNetworkConnectivityConfigId() {
+    return networkConnectivityConfigId;
+  }
+
   public UpdateWorkspaceRequest setNetworkId(String networkId) {
     this.networkId = networkId;
     return this;
@@ -147,6 +163,7 @@ public class UpdateWorkspaceRequest {
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(
             managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
+        && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
         && Objects.equals(networkId, that.networkId)
         && Objects.equals(storageConfigurationId, that.storageConfigurationId)
         && Objects.equals(storageCustomerManagedKeyId, that.storageCustomerManagedKeyId)
@@ -160,6 +177,7 @@ public class UpdateWorkspaceRequest {
         credentialsId,
         customTags,
         managedServicesCustomerManagedKeyId,
+        networkConnectivityConfigId,
         networkId,
         storageConfigurationId,
         storageCustomerManagedKeyId,
@@ -173,6 +191,7 @@ public class UpdateWorkspaceRequest {
         .add("credentialsId", credentialsId)
         .add("customTags", customTags)
         .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
+        .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("networkId", networkId)
         .add("storageConfigurationId", storageConfigurationId)
         .add("storageCustomerManagedKeyId", storageCustomerManagedKeyId)

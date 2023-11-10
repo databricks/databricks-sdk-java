@@ -13,7 +13,10 @@ public class AccessControl {
   @JsonProperty("group_name")
   private String groupName;
 
-  /** This describes an enum */
+  /**
+   * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_MANAGE`: Can manage the
+   * query
+   */
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 

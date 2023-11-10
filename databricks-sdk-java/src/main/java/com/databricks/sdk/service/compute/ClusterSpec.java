@@ -11,6 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class ClusterSpec {
+  /** */
+  @JsonProperty("apply_policy_default_values")
+  private Boolean applyPolicyDefaultValues;
+
   /**
    * Parameters needed in order to automatically scale clusters up and down based on load. Note:
    * autoscaling works best with DB runtime versions 3.0 or later.
@@ -77,7 +81,22 @@ public class ClusterSpec {
   @JsonProperty("custom_tags")
   private Map<String, String> customTags;
 
-  /** This describes an enum */
+  /**
+   * Data security mode decides what data governance model to use when accessing data from a
+   * cluster.
+   *
+   * <p>* `NONE`: No security isolation for multiple users sharing the cluster. Data governance
+   * features are not available in this mode. * `SINGLE_USER`: A secure cluster that can only be
+   * exclusively used by a single user specified in `single_user_name`. Most programming languages,
+   * cluster features and data governance features are available in this mode. * `USER_ISOLATION`: A
+   * secure cluster that can be shared by multiple users. Cluster users are fully isolated so that
+   * they cannot see each other's data and credentials. Most data governance features are supported
+   * in this mode. But programming languages and cluster features might be limited. *
+   * `LEGACY_TABLE_ACL`: This mode is for users migrating from legacy Table ACL clusters. *
+   * `LEGACY_PASSTHROUGH`: This mode is for users migrating from legacy Passthrough on high
+   * concurrency clusters. * `LEGACY_SINGLE_USER`: This mode is for users migrating from legacy
+   * Passthrough on standard clusters.
+   */
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
 
@@ -209,6 +228,15 @@ public class ClusterSpec {
   /** */
   @JsonProperty("workload_type")
   private WorkloadType workloadType;
+
+  public ClusterSpec setApplyPolicyDefaultValues(Boolean applyPolicyDefaultValues) {
+    this.applyPolicyDefaultValues = applyPolicyDefaultValues;
+    return this;
+  }
+
+  public Boolean getApplyPolicyDefaultValues() {
+    return applyPolicyDefaultValues;
+  }
 
   public ClusterSpec setAutoscale(AutoScale autoscale) {
     this.autoscale = autoscale;
@@ -458,7 +486,8 @@ public class ClusterSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ClusterSpec that = (ClusterSpec) o;
-    return Objects.equals(autoscale, that.autoscale)
+    return Objects.equals(applyPolicyDefaultValues, that.applyPolicyDefaultValues)
+        && Objects.equals(autoscale, that.autoscale)
         && Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
         && Objects.equals(awsAttributes, that.awsAttributes)
         && Objects.equals(azureAttributes, that.azureAttributes)
@@ -490,6 +519,7 @@ public class ClusterSpec {
   @Override
   public int hashCode() {
     return Objects.hash(
+        applyPolicyDefaultValues,
         autoscale,
         autoterminationMinutes,
         awsAttributes,
@@ -522,6 +552,7 @@ public class ClusterSpec {
   @Override
   public String toString() {
     return new ToStringer(ClusterSpec.class)
+        .add("applyPolicyDefaultValues", applyPolicyDefaultValues)
         .add("autoscale", autoscale)
         .add("autoterminationMinutes", autoterminationMinutes)
         .add("awsAttributes", awsAttributes)

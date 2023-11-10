@@ -36,12 +36,12 @@ public class WorkspacesAPI {
     impl = mock;
   }
 
-  public Workspace waitGetWorkspaceRunning(long workspaceId) throws TimeoutException {
+  public Workspace waitGetWorkspaceRunning(Long workspaceId) throws TimeoutException {
     return waitGetWorkspaceRunning(workspaceId, Duration.ofMinutes(20), null);
   }
 
   public Workspace waitGetWorkspaceRunning(
-      long workspaceId, Duration timeout, Consumer<Workspace> callback) throws TimeoutException {
+      Long workspaceId, Duration timeout, Consumer<Workspace> callback) throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
     java.util.List<WorkspaceStatus> targetStates = Arrays.asList(WorkspaceStatus.RUNNING);
     java.util.List<WorkspaceStatus> failureStates =

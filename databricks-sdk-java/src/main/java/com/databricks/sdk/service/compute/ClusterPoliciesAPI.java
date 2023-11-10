@@ -7,26 +7,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Cluster policy limits the ability to configure clusters based on a set of rules. The policy rules
- * limit the attributes or attribute values available for cluster creation. Cluster policies have
- * ACLs that limit their use to specific users and groups.
+ * You can use cluster policies to control users' ability to configure clusters based on a set of
+ * rules. These rules specify which attributes or attribute values can be used during cluster
+ * creation. Cluster policies have ACLs that limit their use to specific users and groups.
  *
- * <p>Cluster policies let you limit users to create clusters with prescribed settings, simplify the
- * user interface and enable more users to create their own clusters (by fixing and hiding some
- * values), control cost by limiting per cluster maximum cost (by setting limits on attributes whose
- * values contribute to hourly price).
+ * <p>With cluster policies, you can: - Auto-install cluster libraries on the next restart by
+ * listing them in the policy's "libraries" field. - Limit users to creating clusters with the
+ * prescribed settings. - Simplify the user interface, enabling more users to create clusters, by
+ * fixing and hiding some fields. - Manage costs by setting limits on attributes that impact the
+ * hourly rate.
  *
  * <p>Cluster policy permissions limit which policies a user can select in the Policy drop-down when
- * the user creates a cluster: - A user who has cluster create permission can select the
- * Unrestricted policy and create fully-configurable clusters. - A user who has both cluster create
- * permission and access to cluster policies can select the Unrestricted policy and policies they
- * have access to. - A user that has access to only cluster policies, can select the policies they
- * have access to.
+ * the user creates a cluster: - A user who has unrestricted cluster create permission can select
+ * the Unrestricted policy and create fully-configurable clusters. - A user who has both
+ * unrestricted cluster create permission and access to cluster policies can select the Unrestricted
+ * policy and policies they have access to. - A user that has access to only cluster policies, can
+ * select the policies they have access to.
  *
- * <p>If no policies have been created in the workspace, the Policy drop-down does not display.
- *
- * <p>Only admin users can create, edit, and delete policies. Admin users also have access to all
- * policies.
+ * <p>If no policies exist in the workspace, the Policy drop-down doesn't appear. Only admin users
+ * can create, edit, and delete policies. Admin users also have access to all policies.
  */
 @Generated
 public class ClusterPoliciesAPI {
@@ -90,7 +89,7 @@ public class ClusterPoliciesAPI {
   }
 
   /**
-   * Get entity.
+   * Get a cluster policy.
    *
    * <p>Get a cluster policy entity. Creation and editing is available to admins only.
    */
@@ -98,9 +97,8 @@ public class ClusterPoliciesAPI {
     return impl.get(request);
   }
 
-  public GetClusterPolicyPermissionLevelsResponse getClusterPolicyPermissionLevels(
-      String clusterPolicyId) {
-    return getClusterPolicyPermissionLevels(
+  public GetClusterPolicyPermissionLevelsResponse getPermissionLevels(String clusterPolicyId) {
+    return getPermissionLevels(
         new GetClusterPolicyPermissionLevelsRequest().setClusterPolicyId(clusterPolicyId));
   }
 
@@ -109,13 +107,13 @@ public class ClusterPoliciesAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetClusterPolicyPermissionLevelsResponse getClusterPolicyPermissionLevels(
+  public GetClusterPolicyPermissionLevelsResponse getPermissionLevels(
       GetClusterPolicyPermissionLevelsRequest request) {
-    return impl.getClusterPolicyPermissionLevels(request);
+    return impl.getPermissionLevels(request);
   }
 
-  public ClusterPolicyPermissions getClusterPolicyPermissions(String clusterPolicyId) {
-    return getClusterPolicyPermissions(
+  public ClusterPolicyPermissions getPermissions(String clusterPolicyId) {
+    return getPermissions(
         new GetClusterPolicyPermissionsRequest().setClusterPolicyId(clusterPolicyId));
   }
 
@@ -125,13 +123,12 @@ public class ClusterPoliciesAPI {
    * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
    * their root object.
    */
-  public ClusterPolicyPermissions getClusterPolicyPermissions(
-      GetClusterPolicyPermissionsRequest request) {
-    return impl.getClusterPolicyPermissions(request);
+  public ClusterPolicyPermissions getPermissions(GetClusterPolicyPermissionsRequest request) {
+    return impl.getPermissions(request);
   }
 
   /**
-   * Get a cluster policy.
+   * List cluster policies.
    *
    * <p>Returns a list of policies accessible by the requesting user.
    */
@@ -139,8 +136,8 @@ public class ClusterPoliciesAPI {
     return impl.list(request).getPolicies();
   }
 
-  public ClusterPolicyPermissions setClusterPolicyPermissions(String clusterPolicyId) {
-    return setClusterPolicyPermissions(
+  public ClusterPolicyPermissions setPermissions(String clusterPolicyId) {
+    return setPermissions(
         new ClusterPolicyPermissionsRequest().setClusterPolicyId(clusterPolicyId));
   }
 
@@ -150,13 +147,12 @@ public class ClusterPoliciesAPI {
    * <p>Sets permissions on a cluster policy. Cluster policies can inherit permissions from their
    * root object.
    */
-  public ClusterPolicyPermissions setClusterPolicyPermissions(
-      ClusterPolicyPermissionsRequest request) {
-    return impl.setClusterPolicyPermissions(request);
+  public ClusterPolicyPermissions setPermissions(ClusterPolicyPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
-  public ClusterPolicyPermissions updateClusterPolicyPermissions(String clusterPolicyId) {
-    return updateClusterPolicyPermissions(
+  public ClusterPolicyPermissions updatePermissions(String clusterPolicyId) {
+    return updatePermissions(
         new ClusterPolicyPermissionsRequest().setClusterPolicyId(clusterPolicyId));
   }
 
@@ -166,9 +162,8 @@ public class ClusterPoliciesAPI {
    * <p>Updates the permissions on a cluster policy. Cluster policies can inherit permissions from
    * their root object.
    */
-  public ClusterPolicyPermissions updateClusterPolicyPermissions(
-      ClusterPolicyPermissionsRequest request) {
-    return impl.updateClusterPolicyPermissions(request);
+  public ClusterPolicyPermissions updatePermissions(ClusterPolicyPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public ClusterPoliciesService impl() {

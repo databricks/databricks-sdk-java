@@ -40,7 +40,7 @@ class ReposImpl implements ReposService {
   }
 
   @Override
-  public GetRepoPermissionLevelsResponse getRepoPermissionLevels(
+  public GetRepoPermissionLevelsResponse getPermissionLevels(
       GetRepoPermissionLevelsRequest request) {
     String path =
         String.format("/api/2.0/permissions/repos/%s/permissionLevels", request.getRepoId());
@@ -50,7 +50,7 @@ class ReposImpl implements ReposService {
   }
 
   @Override
-  public RepoPermissions getRepoPermissions(GetRepoPermissionsRequest request) {
+  public RepoPermissions getPermissions(GetRepoPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -66,7 +66,7 @@ class ReposImpl implements ReposService {
   }
 
   @Override
-  public RepoPermissions setRepoPermissions(RepoPermissionsRequest request) {
+  public RepoPermissions setPermissions(RepoPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -84,7 +84,7 @@ class ReposImpl implements ReposService {
   }
 
   @Override
-  public RepoPermissions updateRepoPermissions(RepoPermissionsRequest request) {
+  public RepoPermissions updatePermissions(RepoPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

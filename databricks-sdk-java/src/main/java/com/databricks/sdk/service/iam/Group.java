@@ -14,7 +14,13 @@ public class Group {
   @JsonProperty("displayName")
   private String displayName;
 
-  /** */
+  /**
+   * Entitlements assigned to the group. See [assigning entitlements] for a full list of supported
+   * values.
+   *
+   * <p>[assigning entitlements]:
+   * https://docs.databricks.com/administration-guide/users-groups/index.html#assigning-entitlements
+   */
   @JsonProperty("entitlements")
   private Collection<ComplexValue> entitlements;
 
@@ -38,9 +44,13 @@ public class Group {
   @JsonProperty("meta")
   private ResourceMeta meta;
 
-  /** */
+  /** Corresponds to AWS instance profile/arn role. */
   @JsonProperty("roles")
   private Collection<ComplexValue> roles;
+
+  /** The schema of the group. */
+  @JsonProperty("schemas")
+  private Collection<GroupSchema> schemas;
 
   public Group setDisplayName(String displayName) {
     this.displayName = displayName;
@@ -114,6 +124,15 @@ public class Group {
     return roles;
   }
 
+  public Group setSchemas(Collection<GroupSchema> schemas) {
+    this.schemas = schemas;
+    return this;
+  }
+
+  public Collection<GroupSchema> getSchemas() {
+    return schemas;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -126,12 +145,14 @@ public class Group {
         && Objects.equals(id, that.id)
         && Objects.equals(members, that.members)
         && Objects.equals(meta, that.meta)
-        && Objects.equals(roles, that.roles);
+        && Objects.equals(roles, that.roles)
+        && Objects.equals(schemas, that.schemas);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(displayName, entitlements, externalId, groups, id, members, meta, roles);
+    return Objects.hash(
+        displayName, entitlements, externalId, groups, id, members, meta, roles, schemas);
   }
 
   @Override
@@ -145,6 +166,7 @@ public class Group {
         .add("members", members)
         .add("meta", meta)
         .add("roles", roles)
+        .add("schemas", schemas)
         .toString();
   }
 }

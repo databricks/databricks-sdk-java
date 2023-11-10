@@ -7,9 +7,6 @@ import com.databricks.sdk.support.Generated;
  * These APIs enable administrators to manage custom oauth app integrations, which is required for
  * adding/using Custom OAuth App Integration like Tableau Cloud for Databricks in AWS cloud.
  *
- * <p>**Note:** You can only add/use the OAuth custom application integrations when OAuth enrollment
- * status is enabled. For more details see :method:OAuthEnrollment/create
- *
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.

@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
+import java.util.Collection;
 
 /**
  * The Serving Endpoints API allows you to create, update, and delete model serving endpoints.
@@ -55,7 +56,7 @@ public interface ServingEndpointsService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetServingEndpointPermissionLevelsResponse getServingEndpointPermissionLevels(
+  GetServingEndpointPermissionLevelsResponse getPermissionLevels(
       GetServingEndpointPermissionLevelsRequest getServingEndpointPermissionLevelsRequest);
 
   /**
@@ -64,7 +65,7 @@ public interface ServingEndpointsService {
    * <p>Gets the permissions of a serving endpoint. Serving endpoints can inherit permissions from
    * their root object.
    */
-  ServingEndpointPermissions getServingEndpointPermissions(
+  ServingEndpointPermissions getPermissions(
       GetServingEndpointPermissionsRequest getServingEndpointPermissionsRequest);
 
   /** Retrieve all serving endpoints. */
@@ -77,8 +78,15 @@ public interface ServingEndpointsService {
    */
   ServerLogsResponse logs(LogsRequest logsRequest);
 
+  /**
+   * Patch the tags of a serving endpoint.
+   *
+   * <p>Used to batch add and delete tags from a serving endpoint with a single API call.
+   */
+  Collection<EndpointTag> patch(PatchServingEndpointTags patchServingEndpointTags);
+
   /** Query a serving endpoint with provided model input. */
-  QueryEndpointResponse query(QueryRequest queryRequest);
+  QueryEndpointResponse query(QueryEndpointInput queryEndpointInput);
 
   /**
    * Set serving endpoint permissions.
@@ -86,7 +94,7 @@ public interface ServingEndpointsService {
    * <p>Sets permissions on a serving endpoint. Serving endpoints can inherit permissions from their
    * root object.
    */
-  ServingEndpointPermissions setServingEndpointPermissions(
+  ServingEndpointPermissions setPermissions(
       ServingEndpointPermissionsRequest servingEndpointPermissionsRequest);
 
   /**
@@ -104,6 +112,6 @@ public interface ServingEndpointsService {
    * <p>Updates the permissions on a serving endpoint. Serving endpoints can inherit permissions
    * from their root object.
    */
-  ServingEndpointPermissions updateServingEndpointPermissions(
+  ServingEndpointPermissions updatePermissions(
       ServingEndpointPermissionsRequest servingEndpointPermissionsRequest);
 }

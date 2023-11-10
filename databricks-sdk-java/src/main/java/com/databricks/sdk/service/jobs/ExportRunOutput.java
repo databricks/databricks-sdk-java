@@ -10,7 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class ExportRunOutput {
-  /** The exported content in HTML format (one for every view item). */
+  /**
+   * The exported content in HTML format (one for every view item). To extract the HTML notebook
+   * from the JSON response, download and run this [Python script].
+   *
+   * <p>[Python script]: https://docs.databricks.com/en/_static/examples/extract.py
+   */
   @JsonProperty("views")
   private Collection<ViewItem> views;
 

@@ -4,8 +4,13 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 
 /**
- * MLflow Model Registry is a centralized model repository and a UI and set of APIs that enable you
- * to manage the full lifecycle of MLflow Models.
+ * Note: This API reference documents APIs for the Workspace Model Registry. Databricks recommends
+ * using [Models in Unity Catalog](/api/workspace/registeredmodels) instead. Models in Unity Catalog
+ * provides centralized model governance, cross-workspace access, lineage, and deployment. Workspace
+ * Model Registry will be deprecated in the future.
+ *
+ * <p>The Workspace Model Registry is a centralized model repository and a UI and set of APIs that
+ * enable you to manage the full lifecycle of MLflow Models.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -153,7 +158,7 @@ public interface ModelRegistryService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetRegisteredModelPermissionLevelsResponse getRegisteredModelPermissionLevels(
+  GetRegisteredModelPermissionLevelsResponse getPermissionLevels(
       GetRegisteredModelPermissionLevelsRequest getRegisteredModelPermissionLevelsRequest);
 
   /**
@@ -162,7 +167,7 @@ public interface ModelRegistryService {
    * <p>Gets the permissions of a registered model. Registered models can inherit permissions from
    * their root object.
    */
-  RegisteredModelPermissions getRegisteredModelPermissions(
+  RegisteredModelPermissions getPermissions(
       GetRegisteredModelPermissionsRequest getRegisteredModelPermissionsRequest);
 
   /**
@@ -239,7 +244,7 @@ public interface ModelRegistryService {
    * <p>Sets permissions on a registered model. Registered models can inherit permissions from their
    * root object.
    */
-  RegisteredModelPermissions setRegisteredModelPermissions(
+  RegisteredModelPermissions setPermissions(
       RegisteredModelPermissionsRequest registeredModelPermissionsRequest);
 
   /**
@@ -291,7 +296,7 @@ public interface ModelRegistryService {
    * <p>Updates the permissions on a registered model. Registered models can inherit permissions
    * from their root object.
    */
-  RegisteredModelPermissions updateRegisteredModelPermissions(
+  RegisteredModelPermissions updatePermissions(
       RegisteredModelPermissionsRequest registeredModelPermissionsRequest);
 
   /**

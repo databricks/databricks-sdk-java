@@ -19,19 +19,18 @@ import org.slf4j.LoggerFactory;
  *
  * <p>1. **Create storage**: In AWS, [create a new AWS S3 bucket] with a specific bucket policy.
  * Using Databricks APIs, call the Account API to create a [storage configuration
- * object](#operation/create-storage-config) that uses the bucket name. 2. **Create credentials**:
- * In AWS, create the appropriate AWS IAM role. For full details, including the required IAM role
- * policies and trust relationship, see [Billable usage log delivery]. Using Databricks APIs, call
- * the Account API to create a [credential configuration
- * object](#operation/create-credential-config) that uses the IAM role's ARN. 3. **Create log
- * delivery configuration**: Using Databricks APIs, call the Account API to [create a log delivery
- * configuration](#operation/create-log-delivery-config) that uses the credential and storage
- * configuration objects from previous steps. You can specify if the logs should include all events
- * of that log type in your account (_Account level_ delivery) or only events for a specific set of
- * workspaces (_workspace level_ delivery). Account level log delivery applies to all current and
- * future workspaces plus account level logs, while workspace level log delivery solely delivers
- * logs related to the specified workspaces. You can create multiple types of delivery
- * configurations per account.
+ * object](:method:Storage/Create) that uses the bucket name. 2. **Create credentials**: In AWS,
+ * create the appropriate AWS IAM role. For full details, including the required IAM role policies
+ * and trust relationship, see [Billable usage log delivery]. Using Databricks APIs, call the
+ * Account API to create a [credential configuration object](:method:Credentials/Create) that uses
+ * the IAM role"s ARN. 3. **Create log delivery configuration**: Using Databricks APIs, call the
+ * Account API to [create a log delivery configuration](:method:LogDelivery/Create) that uses the
+ * credential and storage configuration objects from previous steps. You can specify if the logs
+ * should include all events of that log type in your account (_Account level_ delivery) or only
+ * events for a specific set of workspaces (_workspace level_ delivery). Account level log delivery
+ * applies to all current and future workspaces plus account level logs, while workspace level log
+ * delivery solely delivers logs related to the specified workspaces. You can create multiple types
+ * of delivery configurations per account.
  *
  * <p>For billable usage delivery: * For more information about billable usage logs, see [Billable
  * usage log delivery]. For the CSV schema, see the [Usage page]. * The delivery location is
@@ -83,9 +82,8 @@ public class LogDeliveryAPI {
    *
    * <p>Creates a new Databricks log delivery configuration to enable delivery of the specified type
    * of logs to your storage location. This requires that you already created a [credential
-   * object](#operation/create-credential-config) (which encapsulates a cross-account service IAM
-   * role) and a [storage configuration object](#operation/create-storage-config) (which
-   * encapsulates an S3 bucket).
+   * object](:method:Credentials/Create) (which encapsulates a cross-account service IAM role) and a
+   * [storage configuration object](:method:Storage/Create) (which encapsulates an S3 bucket).
    *
    * <p>For full details, including the required IAM role policies and bucket policies, see [Deliver
    * and access billable usage logs] or [Configure audit logging].
@@ -99,7 +97,7 @@ public class LogDeliveryAPI {
    * configurations per log type.
    *
    * <p>You cannot delete a log delivery configuration, but you can disable it (see [Enable or
-   * disable log delivery configuration](#operation/patch-log-delivery-config-status)).
+   * disable log delivery configuration](:method:LogDelivery/PatchStatus)).
    *
    * <p>[Configure audit logging]:
    * https://docs.databricks.com/administration-guide/account-settings/audit-logs.html [Deliver and
@@ -133,11 +131,11 @@ public class LogDeliveryAPI {
     return impl.list(request).getLogDeliveryConfigurations();
   }
 
-  public void patchStatus(LogDeliveryConfigStatus status, String logDeliveryConfigurationId) {
+  public void patchStatus(String logDeliveryConfigurationId, LogDeliveryConfigStatus status) {
     patchStatus(
         new UpdateLogDeliveryConfigurationStatusRequest()
-            .setStatus(status)
-            .setLogDeliveryConfigurationId(logDeliveryConfigurationId));
+            .setLogDeliveryConfigurationId(logDeliveryConfigurationId)
+            .setStatus(status));
   }
 
   /**
@@ -146,7 +144,7 @@ public class LogDeliveryAPI {
    * <p>Enables or disables a log delivery configuration. Deletion of delivery configurations is not
    * supported, so disable log delivery configurations that are no longer needed. Note that you
    * can't re-enable a delivery configuration if this would violate the delivery configuration
-   * limits described under [Create log delivery](#operation/create-log-delivery-config).
+   * limits described under [Create log delivery](:method:LogDelivery/Create).
    */
   public void patchStatus(UpdateLogDeliveryConfigurationStatusRequest request) {
     impl.patchStatus(request);

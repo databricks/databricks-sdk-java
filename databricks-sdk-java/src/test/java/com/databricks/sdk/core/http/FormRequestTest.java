@@ -14,7 +14,7 @@ class FormRequestTest {
     data.put("new", "foo");
     FormRequest request = new FormRequest("/foo", data);
     assertEquals("POST", request.getMethod());
-    assertEquals("foo=bar&new=foo", request.getDebugBody());
+    assertEquals("foo=bar&new=foo", request.getBodyString());
     assertEquals("application/x-www-form-urlencoded", request.getHeaders().get("Content-Type"));
   }
 }

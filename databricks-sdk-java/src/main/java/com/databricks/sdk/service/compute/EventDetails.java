@@ -54,6 +54,10 @@ public class EventDetails {
   @JsonProperty("free_space")
   private Long freeSpace;
 
+  /** List of global and cluster init scripts associated with this cluster event. */
+  @JsonProperty("init_scripts")
+  private InitScriptEventDetails initScripts;
+
   /** Instance Id where the event originated from */
   @JsonProperty("instance_id")
   private String instanceId;
@@ -187,6 +191,15 @@ public class EventDetails {
     return freeSpace;
   }
 
+  public EventDetails setInitScripts(InitScriptEventDetails initScripts) {
+    this.initScripts = initScripts;
+    return this;
+  }
+
+  public InitScriptEventDetails getInitScripts() {
+    return initScripts;
+  }
+
   public EventDetails setInstanceId(String instanceId) {
     this.instanceId = instanceId;
     return this;
@@ -284,6 +297,7 @@ public class EventDetails {
         && Objects.equals(
             enableTerminationForNodeBlocklisted, that.enableTerminationForNodeBlocklisted)
         && Objects.equals(freeSpace, that.freeSpace)
+        && Objects.equals(initScripts, that.initScripts)
         && Objects.equals(instanceId, that.instanceId)
         && Objects.equals(jobRunName, that.jobRunName)
         && Objects.equals(previousAttributes, that.previousAttributes)
@@ -308,6 +322,7 @@ public class EventDetails {
         driverStateMessage,
         enableTerminationForNodeBlocklisted,
         freeSpace,
+        initScripts,
         instanceId,
         jobRunName,
         previousAttributes,
@@ -332,6 +347,7 @@ public class EventDetails {
         .add("driverStateMessage", driverStateMessage)
         .add("enableTerminationForNodeBlocklisted", enableTerminationForNodeBlocklisted)
         .add("freeSpace", freeSpace)
+        .add("initScripts", initScripts)
         .add("instanceId", instanceId)
         .add("jobRunName", jobRunName)
         .add("previousAttributes", previousAttributes)

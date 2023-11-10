@@ -26,9 +26,22 @@ public class CreateJob {
   @JsonProperty("continuous")
   private Continuous continuous;
 
+  /** Deployment information for jobs managed by external sources. */
+  @JsonProperty("deployment")
+  private JobDeployment deployment;
+
+  /**
+   * Edit mode of the job.
+   *
+   * <p>* `UI_LOCKED`: The job is in a locked UI state and cannot be modified. * `EDITABLE`: The job
+   * is in an editable state and can be modified.
+   */
+  @JsonProperty("edit_mode")
+  private CreateJobEditMode editMode;
+
   /**
    * An optional set of email addresses that is notified when runs of this job begin or complete as
-   * well as when this job is deleted. The default behavior is to not send any emails.
+   * well as when this job is deleted.
    */
   @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
@@ -79,8 +92,7 @@ public class CreateJob {
    * active runs. However, from then on, new runs are skipped unless there are fewer than 3 active
    * runs.
    *
-   * <p>This value cannot exceed 1000\. Setting this value to 0 causes all new runs to be skipped.
-   * The default behavior is to allow only 1 concurrent run.
+   * <p>This value cannot exceed 1000\. Setting this value to `0` causes all new runs to be skipped.
    */
   @JsonProperty("max_concurrent_runs")
   private Long maxConcurrentRuns;
@@ -99,6 +111,10 @@ public class CreateJob {
   /** Job-level parameter definitions */
   @JsonProperty("parameters")
   private Collection<JobParameterDefinition> parameters;
+
+  /** The queue settings of the job. */
+  @JsonProperty("queue")
+  private QueueSettings queue;
 
   /**
    * Write-only setting, available only in Create/Update/Reset and Submit calls. Specifies the user
@@ -130,10 +146,7 @@ public class CreateJob {
   @JsonProperty("tasks")
   private Collection<Task> tasks;
 
-  /**
-   * An optional timeout applied to each run of this job. The default behavior is to have no
-   * timeout.
-   */
+  /** An optional timeout applied to each run of this job. A value of `0` means no timeout. */
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
@@ -145,10 +158,7 @@ public class CreateJob {
   @JsonProperty("trigger")
   private TriggerSettings trigger;
 
-  /**
-   * A collection of system notification IDs to notify when the run begins or completes. The default
-   * behavior is to not send any system notifications.
-   */
+  /** A collection of system notification IDs to notify when runs of this job begin or complete. */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
@@ -178,6 +188,24 @@ public class CreateJob {
 
   public Continuous getContinuous() {
     return continuous;
+  }
+
+  public CreateJob setDeployment(JobDeployment deployment) {
+    this.deployment = deployment;
+    return this;
+  }
+
+  public JobDeployment getDeployment() {
+    return deployment;
+  }
+
+  public CreateJob setEditMode(CreateJobEditMode editMode) {
+    this.editMode = editMode;
+    return this;
+  }
+
+  public CreateJobEditMode getEditMode() {
+    return editMode;
   }
 
   public CreateJob setEmailNotifications(JobEmailNotifications emailNotifications) {
@@ -261,6 +289,15 @@ public class CreateJob {
     return parameters;
   }
 
+  public CreateJob setQueue(QueueSettings queue) {
+    this.queue = queue;
+    return this;
+  }
+
+  public QueueSettings getQueue() {
+    return queue;
+  }
+
   public CreateJob setRunAs(JobRunAs runAs) {
     this.runAs = runAs;
     return this;
@@ -332,6 +369,8 @@ public class CreateJob {
     return Objects.equals(accessControlList, that.accessControlList)
         && Objects.equals(compute, that.compute)
         && Objects.equals(continuous, that.continuous)
+        && Objects.equals(deployment, that.deployment)
+        && Objects.equals(editMode, that.editMode)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(format, that.format)
         && Objects.equals(gitSource, that.gitSource)
@@ -341,6 +380,7 @@ public class CreateJob {
         && Objects.equals(name, that.name)
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(parameters, that.parameters)
+        && Objects.equals(queue, that.queue)
         && Objects.equals(runAs, that.runAs)
         && Objects.equals(schedule, that.schedule)
         && Objects.equals(tags, that.tags)
@@ -356,6 +396,8 @@ public class CreateJob {
         accessControlList,
         compute,
         continuous,
+        deployment,
+        editMode,
         emailNotifications,
         format,
         gitSource,
@@ -365,6 +407,7 @@ public class CreateJob {
         name,
         notificationSettings,
         parameters,
+        queue,
         runAs,
         schedule,
         tags,
@@ -380,6 +423,8 @@ public class CreateJob {
         .add("accessControlList", accessControlList)
         .add("compute", compute)
         .add("continuous", continuous)
+        .add("deployment", deployment)
+        .add("editMode", editMode)
         .add("emailNotifications", emailNotifications)
         .add("format", format)
         .add("gitSource", gitSource)
@@ -389,6 +434,7 @@ public class CreateJob {
         .add("name", name)
         .add("notificationSettings", notificationSettings)
         .add("parameters", parameters)
+        .add("queue", queue)
         .add("runAs", runAs)
         .add("schedule", schedule)
         .add("tags", tags)

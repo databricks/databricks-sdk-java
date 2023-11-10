@@ -74,7 +74,7 @@ public class DatabricksConfig {
       sensitive = true)
   private String googleCredentials;
 
-  /** Azure Resource Manager ID for Azure Databricks workspace, which is exhanged for a Host */
+  /** Azure Resource Manager ID for Azure Databricks workspace, which is exchanged for a Host */
   @ConfigAttribute(
       value = "azure_workspace_resource_id",
       env = "DATABRICKS_AZURE_RESOURCE_ID",
@@ -463,7 +463,9 @@ public class DatabricksConfig {
     if (host == null) {
       return false;
     }
-    return host.contains(".azuredatabricks.");
+    return host.contains(".azuredatabricks.net")
+        || host.contains("databricks.azure.cn")
+        || host.contains(".databricks.azure.us");
   }
 
   public synchronized void authenticate(HttpMessage request) {

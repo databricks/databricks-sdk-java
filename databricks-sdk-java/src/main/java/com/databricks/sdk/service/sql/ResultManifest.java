@@ -13,70 +13,41 @@ import java.util.Objects;
 public class ResultManifest {
   /** Array of result set chunk metadata. */
   @JsonProperty("chunks")
-  private Collection<ChunkInfo> chunks;
+  private Collection<BaseChunkInfo> chunks;
 
-  /**
-   * Statement execution supports three result formats: `JSON_ARRAY` (default), `ARROW_STREAM`, and
-   * `CSV`.
-   *
-   * <p>When specifying `format=JSON_ARRAY`, result data will be formatted as an array of arrays of
-   * values, where each value is either the *string representation* of a value, or `null`. For
-   * example, the output of `SELECT concat('id-', id) AS strCol, id AS intCol, null AS nullCol FROM
-   * range(3)` would look like this:
-   *
-   * <p>``` [ [ "id-1", "1", null ], [ "id-2", "2", null ], [ "id-3", "3", null ], ] ```
-   *
-   * <p>`JSON_ARRAY` is supported with `INLINE` and `EXTERNAL_LINKS` dispositions.
-   *
-   * <p>`INLINE` `JSON_ARRAY` data can be found at the path `StatementResponse.result.data_array`.
-   *
-   * <p>For `EXTERNAL_LINKS` `JSON_ARRAY` results, each URL points to a file in cloud storage that
-   * contains compact JSON with no indentation or extra whitespace.
-   *
-   * <p>When specifying `format=ARROW_STREAM`, each chunk in the result will be formatted as Apache
-   * Arrow Stream. See the [Apache Arrow streaming format].
-   *
-   * <p>IMPORTANT: The format `ARROW_STREAM` is supported only with `EXTERNAL_LINKS` disposition.
-   *
-   * <p>When specifying `format=CSV`, each chunk in the result will be a CSV according to [RFC 4180]
-   * standard. All the columns values will have *string representation* similar to the `JSON_ARRAY`
-   * format, and `null` values will be encoded as “null”. Only the first chunk in the result would
-   * contain a header row with column names. For example, the output of `SELECT concat('id-', id) AS
-   * strCol, id AS intCol, null as nullCol FROM range(3)` would look like this:
-   *
-   * <p>``` strCol,intCol,nullCol id-1,1,null id-2,2,null id-3,3,null ```
-   *
-   * <p>IMPORTANT: The format `CSV` is supported only with `EXTERNAL_LINKS` disposition.
-   *
-   * <p>[Apache Arrow streaming format]:
-   * https://arrow.apache.org/docs/format/Columnar.html#ipc-streaming-format [RFC 4180]:
-   * https://www.rfc-editor.org/rfc/rfc4180
-   */
+  /** */
   @JsonProperty("format")
   private Format format;
 
-  /** Schema is an ordered list of column descriptions. */
+  /** The schema is an ordered list of column descriptions. */
   @JsonProperty("schema")
   private ResultSchema schema;
 
-  /** Total number of bytes in the result set. */
+  /**
+   * The total number of bytes in the result set. This field is not available when using `INLINE`
+   * disposition.
+   */
   @JsonProperty("total_byte_count")
   private Long totalByteCount;
 
-  /** Total number of chunks that the result set has been divided into. */
+  /** The total number of chunks that the result set has been divided into. */
   @JsonProperty("total_chunk_count")
   private Long totalChunkCount;
 
-  /** Total number of rows in the result set. */
+  /** The total number of rows in the result set. */
   @JsonProperty("total_row_count")
   private Long totalRowCount;
 
-  public ResultManifest setChunks(Collection<ChunkInfo> chunks) {
+  /** Indicates whether the result is truncated due to `row_limit` or `byte_limit`. */
+  @JsonProperty("truncated")
+  private Boolean truncated;
+
+  public ResultManifest setChunks(Collection<BaseChunkInfo> chunks) {
     this.chunks = chunks;
     return this;
   }
 
-  public Collection<ChunkInfo> getChunks() {
+  public Collection<BaseChunkInfo> getChunks() {
     return chunks;
   }
 
@@ -125,6 +96,15 @@ public class ResultManifest {
     return totalRowCount;
   }
 
+  public ResultManifest setTruncated(Boolean truncated) {
+    this.truncated = truncated;
+    return this;
+  }
+
+  public Boolean getTruncated() {
+    return truncated;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -135,12 +115,14 @@ public class ResultManifest {
         && Objects.equals(schema, that.schema)
         && Objects.equals(totalByteCount, that.totalByteCount)
         && Objects.equals(totalChunkCount, that.totalChunkCount)
-        && Objects.equals(totalRowCount, that.totalRowCount);
+        && Objects.equals(totalRowCount, that.totalRowCount)
+        && Objects.equals(truncated, that.truncated);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(chunks, format, schema, totalByteCount, totalChunkCount, totalRowCount);
+    return Objects.hash(
+        chunks, format, schema, totalByteCount, totalChunkCount, totalRowCount, truncated);
   }
 
   @Override
@@ -152,6 +134,7 @@ public class ResultManifest {
         .add("totalByteCount", totalByteCount)
         .add("totalChunkCount", totalChunkCount)
         .add("totalRowCount", totalRowCount)
+        .add("truncated", truncated)
         .toString();
   }
 }

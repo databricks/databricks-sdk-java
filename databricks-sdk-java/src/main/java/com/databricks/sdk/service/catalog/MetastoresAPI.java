@@ -35,12 +35,12 @@ public class MetastoresAPI {
     impl = mock;
   }
 
-  public void assign(String metastoreId, String defaultCatalogName, long workspaceId) {
+  public void assign(long workspaceId, String metastoreId, String defaultCatalogName) {
     assign(
         new CreateMetastoreAssignment()
+            .setWorkspaceId(workspaceId)
             .setMetastoreId(metastoreId)
-            .setDefaultCatalogName(defaultCatalogName)
-            .setWorkspaceId(workspaceId));
+            .setDefaultCatalogName(defaultCatalogName));
   }
 
   /**
@@ -54,14 +54,17 @@ public class MetastoresAPI {
     impl.assign(request);
   }
 
-  public MetastoreInfo create(String name, String storageRoot) {
-    return create(new CreateMetastore().setName(name).setStorageRoot(storageRoot));
+  public MetastoreInfo create(String name) {
+    return create(new CreateMetastore().setName(name));
   }
 
   /**
    * Create a metastore.
    *
-   * <p>Creates a new metastore based on a provided name and storage root path.
+   * <p>Creates a new metastore based on a provided name and optional storage root path. By default
+   * (if the __owner__ field is not set), the owner of the new metastore is the user calling the
+   * __createMetastore__ API. If the __owner__ field is set to the empty string (**""**), the
+   * ownership is assigned to the System User instead.
    */
   public MetastoreInfo create(CreateMetastore request) {
     return impl.create(request);
@@ -160,7 +163,9 @@ public class MetastoresAPI {
   /**
    * Update a metastore.
    *
-   * <p>Updates information for a specific metastore. The caller must be a metastore admin.
+   * <p>Updates information for a specific metastore. The caller must be a metastore admin. If the
+   * __owner__ field is set to the empty string (**""**), the ownership is updated to the System
+   * User.
    */
   public MetastoreInfo update(UpdateMetastore request) {
     return impl.update(request);

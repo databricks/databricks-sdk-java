@@ -5,8 +5,6 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
-import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -51,9 +49,9 @@ public class FunctionInfo {
   @JsonProperty("function_id")
   private String functionId;
 
-  /** The array of __FunctionParameterInfo__ definitions of the function's parameters. */
+  /** */
   @JsonProperty("input_params")
-  private Collection<FunctionParameterInfo> inputParams;
+  private FunctionParameterInfos inputParams;
 
   /** Whether the function is deterministic. */
   @JsonProperty("is_deterministic")
@@ -79,13 +77,13 @@ public class FunctionInfo {
   @JsonProperty("parameter_style")
   private FunctionInfoParameterStyle parameterStyle;
 
-  /** A map of key-value properties attached to the securable. */
+  /** JSON-serialized key-value pair map, encoded (escaped) as a string. */
   @JsonProperty("properties")
-  private Map<String, String> properties;
+  private String properties;
 
   /** Table function return parameters. */
   @JsonProperty("return_params")
-  private Collection<FunctionParameterInfo> returnParams;
+  private FunctionParameterInfos returnParams;
 
   /**
    * Function language. When **EXTERNAL** is used, the language of the routine function should be
@@ -102,7 +100,7 @@ public class FunctionInfo {
 
   /** Function dependencies. */
   @JsonProperty("routine_dependencies")
-  private Collection<Dependency> routineDependencies;
+  private DependencyList routineDependencies;
 
   /** Name of parent schema relative to its parent catalog. */
   @JsonProperty("schema_name")
@@ -222,12 +220,12 @@ public class FunctionInfo {
     return functionId;
   }
 
-  public FunctionInfo setInputParams(Collection<FunctionParameterInfo> inputParams) {
+  public FunctionInfo setInputParams(FunctionParameterInfos inputParams) {
     this.inputParams = inputParams;
     return this;
   }
 
-  public Collection<FunctionParameterInfo> getInputParams() {
+  public FunctionParameterInfos getInputParams() {
     return inputParams;
   }
 
@@ -285,21 +283,21 @@ public class FunctionInfo {
     return parameterStyle;
   }
 
-  public FunctionInfo setProperties(Map<String, String> properties) {
+  public FunctionInfo setProperties(String properties) {
     this.properties = properties;
     return this;
   }
 
-  public Map<String, String> getProperties() {
+  public String getProperties() {
     return properties;
   }
 
-  public FunctionInfo setReturnParams(Collection<FunctionParameterInfo> returnParams) {
+  public FunctionInfo setReturnParams(FunctionParameterInfos returnParams) {
     this.returnParams = returnParams;
     return this;
   }
 
-  public Collection<FunctionParameterInfo> getReturnParams() {
+  public FunctionParameterInfos getReturnParams() {
     return returnParams;
   }
 
@@ -321,12 +319,12 @@ public class FunctionInfo {
     return routineDefinition;
   }
 
-  public FunctionInfo setRoutineDependencies(Collection<Dependency> routineDependencies) {
+  public FunctionInfo setRoutineDependencies(DependencyList routineDependencies) {
     this.routineDependencies = routineDependencies;
     return this;
   }
 
-  public Collection<Dependency> getRoutineDependencies() {
+  public DependencyList getRoutineDependencies() {
     return routineDependencies;
   }
 

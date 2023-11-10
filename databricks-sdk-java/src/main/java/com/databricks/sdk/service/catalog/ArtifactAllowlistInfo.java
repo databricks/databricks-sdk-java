@@ -5,13 +5,14 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class ArtifactAllowlistInfo {
-  /** */
+  /** A list of allowed artifact match patterns. */
   @JsonProperty("artifact_matchers")
-  private ArtifactMatcher artifactMatchers;
+  private Collection<ArtifactMatcher> artifactMatchers;
 
   /** Time at which this artifact allowlist was set, in epoch milliseconds. */
   @JsonProperty("created_at")
@@ -25,12 +26,12 @@ public class ArtifactAllowlistInfo {
   @JsonProperty("metastore_id")
   private String metastoreId;
 
-  public ArtifactAllowlistInfo setArtifactMatchers(ArtifactMatcher artifactMatchers) {
+  public ArtifactAllowlistInfo setArtifactMatchers(Collection<ArtifactMatcher> artifactMatchers) {
     this.artifactMatchers = artifactMatchers;
     return this;
   }
 
-  public ArtifactMatcher getArtifactMatchers() {
+  public Collection<ArtifactMatcher> getArtifactMatchers() {
     return artifactMatchers;
   }
 

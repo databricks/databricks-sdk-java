@@ -29,8 +29,8 @@ import com.databricks.sdk.service.iam.WorkspaceAssignmentAPI;
 import com.databricks.sdk.service.iam.WorkspaceAssignmentService;
 import com.databricks.sdk.service.oauth2.CustomAppIntegrationAPI;
 import com.databricks.sdk.service.oauth2.CustomAppIntegrationService;
-import com.databricks.sdk.service.oauth2.OAuthEnrollmentAPI;
-import com.databricks.sdk.service.oauth2.OAuthEnrollmentService;
+import com.databricks.sdk.service.oauth2.OAuthPublishedAppsAPI;
+import com.databricks.sdk.service.oauth2.OAuthPublishedAppsService;
 import com.databricks.sdk.service.oauth2.PublishedAppIntegrationAPI;
 import com.databricks.sdk.service.oauth2.PublishedAppIntegrationService;
 import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsAPI;
@@ -55,6 +55,8 @@ import com.databricks.sdk.service.settings.AccountNetworkPolicyAPI;
 import com.databricks.sdk.service.settings.AccountNetworkPolicyService;
 import com.databricks.sdk.service.settings.AccountSettingsAPI;
 import com.databricks.sdk.service.settings.AccountSettingsService;
+import com.databricks.sdk.service.settings.NetworkConnectivityAPI;
+import com.databricks.sdk.service.settings.NetworkConnectivityService;
 import com.databricks.sdk.support.Generated;
 
 /** Entry point for accessing Databricks account-level APIs */
@@ -74,9 +76,10 @@ public class AccountClient {
   private LogDeliveryAPI logDeliveryAPI;
   private AccountMetastoreAssignmentsAPI metastoreAssignmentsAPI;
   private AccountMetastoresAPI metastoresAPI;
+  private NetworkConnectivityAPI networkConnectivityAPI;
   private AccountNetworkPolicyAPI networkPolicyAPI;
   private NetworksAPI networksAPI;
-  private OAuthEnrollmentAPI oAuthEnrollmentAPI;
+  private OAuthPublishedAppsAPI oAuthPublishedAppsAPI;
   private PrivateAccessAPI privateAccessAPI;
   private PublishedAppIntegrationAPI publishedAppIntegrationAPI;
   private ServicePrincipalSecretsAPI servicePrincipalSecretsAPI;
@@ -108,9 +111,10 @@ public class AccountClient {
     logDeliveryAPI = new LogDeliveryAPI(apiClient);
     metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(apiClient);
     metastoresAPI = new AccountMetastoresAPI(apiClient);
+    networkConnectivityAPI = new NetworkConnectivityAPI(apiClient);
     networkPolicyAPI = new AccountNetworkPolicyAPI(apiClient);
     networksAPI = new NetworksAPI(apiClient);
-    oAuthEnrollmentAPI = new OAuthEnrollmentAPI(apiClient);
+    oAuthPublishedAppsAPI = new OAuthPublishedAppsAPI(apiClient);
     privateAccessAPI = new PrivateAccessAPI(apiClient);
     publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(apiClient);
     servicePrincipalSecretsAPI = new ServicePrincipalSecretsAPI(apiClient);
@@ -168,9 +172,6 @@ public class AccountClient {
   /**
    * These APIs enable administrators to manage custom oauth app integrations, which is required for
    * adding/using Custom OAuth App Integration like Tableau Cloud for Databricks in AWS cloud.
-   *
-   * <p>**Note:** You can only add/use the OAuth custom application integrations when OAuth
-   * enrollment status is enabled. For more details see :method:OAuthEnrollment/create
    */
   public CustomAppIntegrationAPI customAppIntegration() {
     return customAppIntegrationAPI;
@@ -248,19 +249,18 @@ public class AccountClient {
    *
    * <p>1. **Create storage**: In AWS, [create a new AWS S3 bucket] with a specific bucket policy.
    * Using Databricks APIs, call the Account API to create a [storage configuration
-   * object](#operation/create-storage-config) that uses the bucket name. 2. **Create credentials**:
-   * In AWS, create the appropriate AWS IAM role. For full details, including the required IAM role
-   * policies and trust relationship, see [Billable usage log delivery]. Using Databricks APIs, call
-   * the Account API to create a [credential configuration
-   * object](#operation/create-credential-config) that uses the IAM role's ARN. 3. **Create log
-   * delivery configuration**: Using Databricks APIs, call the Account API to [create a log delivery
-   * configuration](#operation/create-log-delivery-config) that uses the credential and storage
-   * configuration objects from previous steps. You can specify if the logs should include all
-   * events of that log type in your account (_Account level_ delivery) or only events for a
-   * specific set of workspaces (_workspace level_ delivery). Account level log delivery applies to
-   * all current and future workspaces plus account level logs, while workspace level log delivery
-   * solely delivers logs related to the specified workspaces. You can create multiple types of
-   * delivery configurations per account.
+   * object](:method:Storage/Create) that uses the bucket name. 2. **Create credentials**: In AWS,
+   * create the appropriate AWS IAM role. For full details, including the required IAM role policies
+   * and trust relationship, see [Billable usage log delivery]. Using Databricks APIs, call the
+   * Account API to create a [credential configuration object](:method:Credentials/Create) that uses
+   * the IAM role"s ARN. 3. **Create log delivery configuration**: Using Databricks APIs, call the
+   * Account API to [create a log delivery configuration](:method:LogDelivery/Create) that uses the
+   * credential and storage configuration objects from previous steps. You can specify if the logs
+   * should include all events of that log type in your account (_Account level_ delivery) or only
+   * events for a specific set of workspaces (_workspace level_ delivery). Account level log
+   * delivery applies to all current and future workspaces plus account level logs, while workspace
+   * level log delivery solely delivers logs related to the specified workspaces. You can create
+   * multiple types of delivery configurations per account.
    *
    * <p>For billable usage delivery: * For more information about billable usage logs, see [Billable
    * usage log delivery]. For the CSV schema, see the [Usage page]. * The delivery location is
@@ -310,6 +310,21 @@ public class AccountClient {
   }
 
   /**
+   * These APIs provide configurations for the network connectivity of your workspaces for
+   * serverless compute resources. This API provides stable subnets for your workspace so that you
+   * can configure your firewalls on your Azure Storage accounts to allow access from Databricks.
+   * You can also use the API to provision private endpoints for Databricks to privately connect
+   * serverless compute resources to your Azure resources using Azure Private Link. See [configure
+   * serverless secure connectivity].
+   *
+   * <p>[configure serverless secure connectivity]:
+   * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security
+   */
+  public NetworkConnectivityAPI networkConnectivity() {
+    return networkConnectivityAPI;
+  }
+
+  /**
    * Network policy is a set of rules that defines what can be accessed from your Databricks
    * network. E.g.: You can choose to block your SQL UDF to access internet from your Databricks
    * serverless clusters.
@@ -331,14 +346,12 @@ public class AccountClient {
   }
 
   /**
-   * These APIs enable administrators to enroll OAuth for their accounts, which is required for
-   * adding/using any OAuth published/custom application integration.
-   *
-   * <p>**Note:** Your account must be on the E2 version to use these APIs, this is because OAuth is
-   * only supported on the E2 version.
+   * These APIs enable administrators to view all the available published OAuth applications in
+   * Databricks. Administrators can add the published OAuth applications to their account through
+   * the OAuth Published App Integration APIs.
    */
-  public OAuthEnrollmentAPI oAuthEnrollment() {
-    return oAuthEnrollmentAPI;
+  public OAuthPublishedAppsAPI oAuthPublishedApps() {
+    return oAuthPublishedAppsAPI;
   }
 
   /** These APIs manage private access settings for this account. */
@@ -348,11 +361,8 @@ public class AccountClient {
 
   /**
    * These APIs enable administrators to manage published oauth app integrations, which is required
-   * for adding/using Published OAuth App Integration like Tableau Cloud for Databricks in AWS
+   * for adding/using Published OAuth App Integration like Tableau Desktop for Databricks in AWS
    * cloud.
-   *
-   * <p>**Note:** You can only add/use the OAuth published application integrations when OAuth
-   * enrollment status is enabled. For more details see :method:OAuthEnrollment/create
    */
   public PublishedAppIntegrationAPI publishedAppIntegration() {
     return publishedAppIntegrationAPI;
@@ -528,6 +538,12 @@ public class AccountClient {
     return this;
   }
 
+  /** Override NetworkConnectivityAPI with mock */
+  public AccountClient withNetworkConnectivityImpl(NetworkConnectivityService networkConnectivity) {
+    networkConnectivityAPI = new NetworkConnectivityAPI(networkConnectivity);
+    return this;
+  }
+
   /** Override AccountNetworkPolicyAPI with mock */
   public AccountClient withNetworkPolicyImpl(AccountNetworkPolicyService accountNetworkPolicy) {
     networkPolicyAPI = new AccountNetworkPolicyAPI(accountNetworkPolicy);
@@ -540,9 +556,9 @@ public class AccountClient {
     return this;
   }
 
-  /** Override OAuthEnrollmentAPI with mock */
-  public AccountClient withOAuthEnrollmentImpl(OAuthEnrollmentService oAuthEnrollment) {
-    oAuthEnrollmentAPI = new OAuthEnrollmentAPI(oAuthEnrollment);
+  /** Override OAuthPublishedAppsAPI with mock */
+  public AccountClient withOAuthPublishedAppsImpl(OAuthPublishedAppsService oAuthPublishedApps) {
+    oAuthPublishedAppsAPI = new OAuthPublishedAppsAPI(oAuthPublishedApps);
     return this;
   }
 

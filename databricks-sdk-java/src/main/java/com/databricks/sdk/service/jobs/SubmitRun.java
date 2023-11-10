@@ -14,10 +14,7 @@ public class SubmitRun {
   @JsonProperty("access_control_list")
   private Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList;
 
-  /**
-   * An optional set of email addresses notified when the run begins or completes. The default
-   * behavior is to not send any emails.
-   */
+  /** An optional set of email addresses notified when the run begins or completes. */
   @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
 
@@ -59,10 +56,14 @@ public class SubmitRun {
 
   /**
    * Optional notification settings that are used when sending notifications to each of the
-   * `webhook_notifications` for this run.
+   * `email_notifications` and `webhook_notifications` for this run.
    */
   @JsonProperty("notification_settings")
   private JobNotificationSettings notificationSettings;
+
+  /** The queue settings of the one-time run. */
+  @JsonProperty("queue")
+  private QueueSettings queue;
 
   /** An optional name for the run. The default value is `Untitled`. */
   @JsonProperty("run_name")
@@ -72,17 +73,11 @@ public class SubmitRun {
   @JsonProperty("tasks")
   private Collection<SubmitTask> tasks;
 
-  /**
-   * An optional timeout applied to each run of this job. The default behavior is to have no
-   * timeout.
-   */
+  /** An optional timeout applied to each run of this job. A value of `0` means no timeout. */
   @JsonProperty("timeout_seconds")
   private Long timeoutSeconds;
 
-  /**
-   * A collection of system notification IDs to notify when the run begins or completes. The default
-   * behavior is to not send any system notifications.
-   */
+  /** A collection of system notification IDs to notify when the run begins or completes. */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
@@ -141,6 +136,15 @@ public class SubmitRun {
     return notificationSettings;
   }
 
+  public SubmitRun setQueue(QueueSettings queue) {
+    this.queue = queue;
+    return this;
+  }
+
+  public QueueSettings getQueue() {
+    return queue;
+  }
+
   public SubmitRun setRunName(String runName) {
     this.runName = runName;
     return this;
@@ -188,6 +192,7 @@ public class SubmitRun {
         && Objects.equals(health, that.health)
         && Objects.equals(idempotencyToken, that.idempotencyToken)
         && Objects.equals(notificationSettings, that.notificationSettings)
+        && Objects.equals(queue, that.queue)
         && Objects.equals(runName, that.runName)
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
@@ -203,6 +208,7 @@ public class SubmitRun {
         health,
         idempotencyToken,
         notificationSettings,
+        queue,
         runName,
         tasks,
         timeoutSeconds,
@@ -218,6 +224,7 @@ public class SubmitRun {
         .add("health", health)
         .add("idempotencyToken", idempotencyToken)
         .add("notificationSettings", notificationSettings)
+        .add("queue", queue)
         .add("runName", runName)
         .add("tasks", tasks)
         .add("timeoutSeconds", timeoutSeconds)

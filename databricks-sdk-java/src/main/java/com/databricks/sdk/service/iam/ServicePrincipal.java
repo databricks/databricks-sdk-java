@@ -22,7 +22,13 @@ public class ServicePrincipal {
   @JsonProperty("displayName")
   private String displayName;
 
-  /** */
+  /**
+   * Entitlements assigned to the service principal. See [assigning entitlements] for a full list of
+   * supported values.
+   *
+   * <p>[assigning entitlements]:
+   * https://docs.databricks.com/administration-guide/users-groups/index.html#assigning-entitlements
+   */
   @JsonProperty("entitlements")
   private Collection<ComplexValue> entitlements;
 
@@ -38,9 +44,13 @@ public class ServicePrincipal {
   @JsonProperty("id")
   private String id;
 
-  /** */
+  /** Corresponds to AWS instance profile/arn role. */
   @JsonProperty("roles")
   private Collection<ComplexValue> roles;
+
+  /** The schema of the List response. */
+  @JsonProperty("schemas")
+  private Collection<ServicePrincipalSchema> schemas;
 
   public ServicePrincipal setActive(Boolean active) {
     this.active = active;
@@ -114,6 +124,15 @@ public class ServicePrincipal {
     return roles;
   }
 
+  public ServicePrincipal setSchemas(Collection<ServicePrincipalSchema> schemas) {
+    this.schemas = schemas;
+    return this;
+  }
+
+  public Collection<ServicePrincipalSchema> getSchemas() {
+    return schemas;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -126,13 +145,14 @@ public class ServicePrincipal {
         && Objects.equals(externalId, that.externalId)
         && Objects.equals(groups, that.groups)
         && Objects.equals(id, that.id)
-        && Objects.equals(roles, that.roles);
+        && Objects.equals(roles, that.roles)
+        && Objects.equals(schemas, that.schemas);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        active, applicationId, displayName, entitlements, externalId, groups, id, roles);
+        active, applicationId, displayName, entitlements, externalId, groups, id, roles, schemas);
   }
 
   @Override
@@ -146,6 +166,7 @@ public class ServicePrincipal {
         .add("groups", groups)
         .add("id", id)
         .add("roles", roles)
+        .add("schemas", schemas)
         .toString();
   }
 }

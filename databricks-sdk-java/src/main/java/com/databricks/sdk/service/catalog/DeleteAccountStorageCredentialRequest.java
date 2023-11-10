@@ -18,7 +18,7 @@ public class DeleteAccountStorageCredentialRequest {
   private String metastoreId;
 
   /** Name of the storage credential. */
-  private String name;
+  private String storageCredentialName;
 
   public DeleteAccountStorageCredentialRequest setForce(Boolean force) {
     this.force = force;
@@ -38,13 +38,14 @@ public class DeleteAccountStorageCredentialRequest {
     return metastoreId;
   }
 
-  public DeleteAccountStorageCredentialRequest setName(String name) {
-    this.name = name;
+  public DeleteAccountStorageCredentialRequest setStorageCredentialName(
+      String storageCredentialName) {
+    this.storageCredentialName = storageCredentialName;
     return this;
   }
 
-  public String getName() {
-    return name;
+  public String getStorageCredentialName() {
+    return storageCredentialName;
   }
 
   @Override
@@ -54,12 +55,12 @@ public class DeleteAccountStorageCredentialRequest {
     DeleteAccountStorageCredentialRequest that = (DeleteAccountStorageCredentialRequest) o;
     return Objects.equals(force, that.force)
         && Objects.equals(metastoreId, that.metastoreId)
-        && Objects.equals(name, that.name);
+        && Objects.equals(storageCredentialName, that.storageCredentialName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(force, metastoreId, name);
+    return Objects.hash(force, metastoreId, storageCredentialName);
   }
 
   @Override
@@ -67,7 +68,7 @@ public class DeleteAccountStorageCredentialRequest {
     return new ToStringer(DeleteAccountStorageCredentialRequest.class)
         .add("force", force)
         .add("metastoreId", metastoreId)
-        .add("name", name)
+        .add("storageCredentialName", storageCredentialName)
         .toString();
   }
 }

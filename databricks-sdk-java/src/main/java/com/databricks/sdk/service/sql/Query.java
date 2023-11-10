@@ -89,7 +89,10 @@ public class Query {
   @JsonProperty("parent")
   private String parent;
 
-  /** This describes an enum */
+  /**
+   * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_MANAGE`: Can manage the
+   * query
+   */
   @JsonProperty("permission_tier")
   private PermissionLevel permissionTier;
 
@@ -100,6 +103,10 @@ public class Query {
   /** A SHA-256 hash of the query text along with the authenticated user ID. */
   @JsonProperty("query_hash")
   private String queryHash;
+
+  /** Run as role */
+  @JsonProperty("run_as_role")
+  private RunAsRole runAsRole;
 
   /** */
   @JsonProperty("tags")
@@ -283,6 +290,15 @@ public class Query {
     return queryHash;
   }
 
+  public Query setRunAsRole(RunAsRole runAsRole) {
+    this.runAsRole = runAsRole;
+    return this;
+  }
+
+  public RunAsRole getRunAsRole() {
+    return runAsRole;
+  }
+
   public Query setTags(Collection<String> tags) {
     this.tags = tags;
     return this;
@@ -351,6 +367,7 @@ public class Query {
         && Objects.equals(permissionTier, that.permissionTier)
         && Objects.equals(query, that.query)
         && Objects.equals(queryHash, that.queryHash)
+        && Objects.equals(runAsRole, that.runAsRole)
         && Objects.equals(tags, that.tags)
         && Objects.equals(updatedAt, that.updatedAt)
         && Objects.equals(user, that.user)
@@ -379,6 +396,7 @@ public class Query {
         permissionTier,
         query,
         queryHash,
+        runAsRole,
         tags,
         updatedAt,
         user,
@@ -407,6 +425,7 @@ public class Query {
         .add("permissionTier", permissionTier)
         .add("query", query)
         .add("queryHash", queryHash)
+        .add("runAsRole", runAsRole)
         .add("tags", tags)
         .add("updatedAt", updatedAt)
         .add("user", user)

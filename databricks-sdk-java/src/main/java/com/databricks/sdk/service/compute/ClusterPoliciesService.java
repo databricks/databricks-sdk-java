@@ -4,26 +4,25 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Cluster policy limits the ability to configure clusters based on a set of rules. The policy rules
- * limit the attributes or attribute values available for cluster creation. Cluster policies have
- * ACLs that limit their use to specific users and groups.
+ * You can use cluster policies to control users' ability to configure clusters based on a set of
+ * rules. These rules specify which attributes or attribute values can be used during cluster
+ * creation. Cluster policies have ACLs that limit their use to specific users and groups.
  *
- * <p>Cluster policies let you limit users to create clusters with prescribed settings, simplify the
- * user interface and enable more users to create their own clusters (by fixing and hiding some
- * values), control cost by limiting per cluster maximum cost (by setting limits on attributes whose
- * values contribute to hourly price).
+ * <p>With cluster policies, you can: - Auto-install cluster libraries on the next restart by
+ * listing them in the policy's "libraries" field. - Limit users to creating clusters with the
+ * prescribed settings. - Simplify the user interface, enabling more users to create clusters, by
+ * fixing and hiding some fields. - Manage costs by setting limits on attributes that impact the
+ * hourly rate.
  *
  * <p>Cluster policy permissions limit which policies a user can select in the Policy drop-down when
- * the user creates a cluster: - A user who has cluster create permission can select the
- * Unrestricted policy and create fully-configurable clusters. - A user who has both cluster create
- * permission and access to cluster policies can select the Unrestricted policy and policies they
- * have access to. - A user that has access to only cluster policies, can select the policies they
- * have access to.
+ * the user creates a cluster: - A user who has unrestricted cluster create permission can select
+ * the Unrestricted policy and create fully-configurable clusters. - A user who has both
+ * unrestricted cluster create permission and access to cluster policies can select the Unrestricted
+ * policy and policies they have access to. - A user that has access to only cluster policies, can
+ * select the policies they have access to.
  *
- * <p>If no policies have been created in the workspace, the Policy drop-down does not display.
- *
- * <p>Only admin users can create, edit, and delete policies. Admin users also have access to all
- * policies.
+ * <p>If no policies exist in the workspace, the Policy drop-down doesn't appear. Only admin users
+ * can create, edit, and delete policies. Admin users also have access to all policies.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -55,7 +54,7 @@ public interface ClusterPoliciesService {
   void edit(EditPolicy editPolicy);
 
   /**
-   * Get entity.
+   * Get a cluster policy.
    *
    * <p>Get a cluster policy entity. Creation and editing is available to admins only.
    */
@@ -66,7 +65,7 @@ public interface ClusterPoliciesService {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  GetClusterPolicyPermissionLevelsResponse getClusterPolicyPermissionLevels(
+  GetClusterPolicyPermissionLevelsResponse getPermissionLevels(
       GetClusterPolicyPermissionLevelsRequest getClusterPolicyPermissionLevelsRequest);
 
   /**
@@ -75,11 +74,11 @@ public interface ClusterPoliciesService {
    * <p>Gets the permissions of a cluster policy. Cluster policies can inherit permissions from
    * their root object.
    */
-  ClusterPolicyPermissions getClusterPolicyPermissions(
+  ClusterPolicyPermissions getPermissions(
       GetClusterPolicyPermissionsRequest getClusterPolicyPermissionsRequest);
 
   /**
-   * Get a cluster policy.
+   * List cluster policies.
    *
    * <p>Returns a list of policies accessible by the requesting user.
    */
@@ -91,7 +90,7 @@ public interface ClusterPoliciesService {
    * <p>Sets permissions on a cluster policy. Cluster policies can inherit permissions from their
    * root object.
    */
-  ClusterPolicyPermissions setClusterPolicyPermissions(
+  ClusterPolicyPermissions setPermissions(
       ClusterPolicyPermissionsRequest clusterPolicyPermissionsRequest);
 
   /**
@@ -100,6 +99,6 @@ public interface ClusterPoliciesService {
    * <p>Updates the permissions on a cluster policy. Cluster policies can inherit permissions from
    * their root object.
    */
-  ClusterPolicyPermissions updateClusterPolicyPermissions(
+  ClusterPolicyPermissions updatePermissions(
       ClusterPolicyPermissionsRequest clusterPolicyPermissionsRequest);
 }

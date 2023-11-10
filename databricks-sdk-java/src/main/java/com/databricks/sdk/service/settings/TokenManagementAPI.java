@@ -73,8 +73,8 @@ public class TokenManagementAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetTokenPermissionLevelsResponse getTokenPermissionLevels() {
-    return impl.getTokenPermissionLevels();
+  public GetTokenPermissionLevelsResponse getPermissionLevels() {
+    return impl.getPermissionLevels();
   }
 
   /**
@@ -82,8 +82,8 @@ public class TokenManagementAPI {
    *
    * <p>Gets the permissions of all tokens. Tokens can inherit permissions from their root object.
    */
-  public TokenPermissions getTokenPermissions() {
-    return impl.getTokenPermissions();
+  public TokenPermissions getPermissions() {
+    return impl.getPermissions();
   }
 
   /**
@@ -100,8 +100,8 @@ public class TokenManagementAPI {
    *
    * <p>Sets permissions on all tokens. Tokens can inherit permissions from their root object.
    */
-  public TokenPermissions setTokenPermissions(TokenPermissionsRequest request) {
-    return impl.setTokenPermissions(request);
+  public TokenPermissions setPermissions(TokenPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
   /**
@@ -110,8 +110,8 @@ public class TokenManagementAPI {
    * <p>Updates the permissions on all tokens. Tokens can inherit permissions from their root
    * object.
    */
-  public TokenPermissions updateTokenPermissions(TokenPermissionsRequest request) {
-    return impl.updateTokenPermissions(request);
+  public TokenPermissions updatePermissions(TokenPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public TokenManagementService impl() {

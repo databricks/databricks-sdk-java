@@ -4,7 +4,16 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 
-/** This describes an enum */
+/**
+ * A value indicating the run's result. The possible values are: * `SUCCESS`: The task completed
+ * successfully. * `FAILED`: The task completed with an error. * `TIMEDOUT`: The run was stopped
+ * after reaching the timeout. * `CANCELED`: The run was canceled at user request. *
+ * `MAXIMUM_CONCURRENT_RUNS_REACHED`: The run was skipped because the maximum concurrent runs were
+ * reached. * `EXCLUDED`: The run was skipped because the necessary conditions were not met. *
+ * `SUCCESS_WITH_FAILURES`: The job run completed successfully with some failures; leaf tasks were
+ * successful. * `UPSTREAM_FAILED`: The run was skipped because of an upstream failure. *
+ * `UPSTREAM_CANCELED`: The run was skipped because an upstream task was canceled.
+ */
 @Generated
 public enum RunResultState {
   CANCELED, // The run was canceled at user request.

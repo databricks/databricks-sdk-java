@@ -76,8 +76,8 @@ public class BudgetsAPI {
     return impl.list().getBudgets();
   }
 
-  public void update(Budget budget, String budgetId) {
-    update(new WrappedBudget().setBudget(budget).setBudgetId(budgetId));
+  public void update(String budgetId, Budget budget) {
+    update(new WrappedBudget().setBudgetId(budgetId).setBudget(budget));
   }
 
   /**

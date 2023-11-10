@@ -64,6 +64,42 @@ public class WorkspaceAPI {
     return impl.export(request);
   }
 
+  public GetWorkspaceObjectPermissionLevelsResponse getPermissionLevels(
+      String workspaceObjectType, String workspaceObjectId) {
+    return getPermissionLevels(
+        new GetWorkspaceObjectPermissionLevelsRequest()
+            .setWorkspaceObjectType(workspaceObjectType)
+            .setWorkspaceObjectId(workspaceObjectId));
+  }
+
+  /**
+   * Get workspace object permission levels.
+   *
+   * <p>Gets the permission levels that a user can have on an object.
+   */
+  public GetWorkspaceObjectPermissionLevelsResponse getPermissionLevels(
+      GetWorkspaceObjectPermissionLevelsRequest request) {
+    return impl.getPermissionLevels(request);
+  }
+
+  public WorkspaceObjectPermissions getPermissions(
+      String workspaceObjectType, String workspaceObjectId) {
+    return getPermissions(
+        new GetWorkspaceObjectPermissionsRequest()
+            .setWorkspaceObjectType(workspaceObjectType)
+            .setWorkspaceObjectId(workspaceObjectId));
+  }
+
+  /**
+   * Get workspace object permissions.
+   *
+   * <p>Gets the permissions of a workspace object. Workspace objects can inherit permissions from
+   * their parent objects or root object.
+   */
+  public WorkspaceObjectPermissions getPermissions(GetWorkspaceObjectPermissionsRequest request) {
+    return impl.getPermissions(request);
+  }
+
   public ObjectInfo getStatus(String path) {
     return getStatus(new GetStatusRequest().setPath(path));
   }
@@ -78,43 +114,6 @@ public class WorkspaceAPI {
     return impl.getStatus(request);
   }
 
-  public GetWorkspaceObjectPermissionLevelsResponse getWorkspaceObjectPermissionLevels(
-      String workspaceObjectType, String workspaceObjectId) {
-    return getWorkspaceObjectPermissionLevels(
-        new GetWorkspaceObjectPermissionLevelsRequest()
-            .setWorkspaceObjectType(workspaceObjectType)
-            .setWorkspaceObjectId(workspaceObjectId));
-  }
-
-  /**
-   * Get workspace object permission levels.
-   *
-   * <p>Gets the permission levels that a user can have on an object.
-   */
-  public GetWorkspaceObjectPermissionLevelsResponse getWorkspaceObjectPermissionLevels(
-      GetWorkspaceObjectPermissionLevelsRequest request) {
-    return impl.getWorkspaceObjectPermissionLevels(request);
-  }
-
-  public WorkspaceObjectPermissions getWorkspaceObjectPermissions(
-      String workspaceObjectType, String workspaceObjectId) {
-    return getWorkspaceObjectPermissions(
-        new GetWorkspaceObjectPermissionsRequest()
-            .setWorkspaceObjectType(workspaceObjectType)
-            .setWorkspaceObjectId(workspaceObjectId));
-  }
-
-  /**
-   * Get workspace object permissions.
-   *
-   * <p>Gets the permissions of a workspace object. Workspace objects can inherit permissions from
-   * their parent objects or root object.
-   */
-  public WorkspaceObjectPermissions getWorkspaceObjectPermissions(
-      GetWorkspaceObjectPermissionsRequest request) {
-    return impl.getWorkspaceObjectPermissions(request);
-  }
-
   public void importContent(String path) {
     importContent(new Import().setPath(path));
   }
@@ -124,7 +123,9 @@ public class WorkspaceAPI {
    *
    * <p>Imports a workspace object (for example, a notebook or file) or the contents of an entire
    * directory. If `path` already exists and `overwrite` is set to `false`, this call returns an
-   * error `RESOURCE_ALREADY_EXISTS`. One can only use `DBC` format to import a directory.
+   * error `RESOURCE_ALREADY_EXISTS`. To import a directory, you can use either the `DBC` format or
+   * the `SOURCE` format with the `language` field unset. To import a single file as `SOURCE`, you
+   * must set the `language` field.
    */
   public void importContent(Import request) {
     impl.importContent(request);
@@ -162,9 +163,9 @@ public class WorkspaceAPI {
     impl.mkdirs(request);
   }
 
-  public WorkspaceObjectPermissions setWorkspaceObjectPermissions(
+  public WorkspaceObjectPermissions setPermissions(
       String workspaceObjectType, String workspaceObjectId) {
-    return setWorkspaceObjectPermissions(
+    return setPermissions(
         new WorkspaceObjectPermissionsRequest()
             .setWorkspaceObjectType(workspaceObjectType)
             .setWorkspaceObjectId(workspaceObjectId));
@@ -176,14 +177,13 @@ public class WorkspaceAPI {
    * <p>Sets permissions on a workspace object. Workspace objects can inherit permissions from their
    * parent objects or root object.
    */
-  public WorkspaceObjectPermissions setWorkspaceObjectPermissions(
-      WorkspaceObjectPermissionsRequest request) {
-    return impl.setWorkspaceObjectPermissions(request);
+  public WorkspaceObjectPermissions setPermissions(WorkspaceObjectPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
-  public WorkspaceObjectPermissions updateWorkspaceObjectPermissions(
+  public WorkspaceObjectPermissions updatePermissions(
       String workspaceObjectType, String workspaceObjectId) {
-    return updateWorkspaceObjectPermissions(
+    return updatePermissions(
         new WorkspaceObjectPermissionsRequest()
             .setWorkspaceObjectType(workspaceObjectType)
             .setWorkspaceObjectId(workspaceObjectId));
@@ -195,9 +195,8 @@ public class WorkspaceAPI {
    * <p>Updates the permissions on a workspace object. Workspace objects can inherit permissions
    * from their parent objects or root object.
    */
-  public WorkspaceObjectPermissions updateWorkspaceObjectPermissions(
-      WorkspaceObjectPermissionsRequest request) {
-    return impl.updateWorkspaceObjectPermissions(request);
+  public WorkspaceObjectPermissions updatePermissions(WorkspaceObjectPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public WorkspaceService impl() {

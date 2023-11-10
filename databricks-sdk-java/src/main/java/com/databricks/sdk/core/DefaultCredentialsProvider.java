@@ -28,7 +28,8 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             new AzureServicePrincipalCredentialsProvider(),
             new AzureCliCredentialsProvider(),
             new ExternalBrowserCredentialsProvider(),
-            new DatabricksCliCredentialsProvider());
+            new DatabricksCliCredentialsProvider(),
+            new NotebookNativeCredentialsProvider());
   }
 
   @Override
@@ -43,6 +44,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
         continue;
       }
       try {
+        LOG.info("Trying {} auth", provider.authType());
         HeaderFactory headerFactory = provider.configure(config);
         if (headerFactory == null) {
           continue;

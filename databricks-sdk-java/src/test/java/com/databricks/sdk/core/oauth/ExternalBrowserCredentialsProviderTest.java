@@ -20,10 +20,14 @@ import org.mockito.Mockito;
 public class ExternalBrowserCredentialsProviderTest {
   @Test
   void clientAndConsentTest() throws IOException {
+    FixtureServer.FixtureMapping fixture =
+        new FixtureServer.FixtureMapping.Builder()
+            .validateMethod("GET")
+            .validatePath("/oidc/.well-known/oauth-authorization-server")
+            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}")
+            .build();
     try (FixtureServer fixtures = new FixtureServer()) {
-      fixtures.with(
-          "GET /oidc/.well-known/oauth-authorization-server",
-          "{\"token_endpoint\": \"tokenEndPointFromServer\"}");
+      fixtures.with(fixture).with(fixture);
       DatabricksConfig config =
           new DatabricksConfig()
               .setAuthType("external-browser")

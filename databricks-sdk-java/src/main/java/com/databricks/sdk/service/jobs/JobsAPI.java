@@ -47,11 +47,11 @@ public class JobsAPI {
     impl = mock;
   }
 
-  public Run waitGetRunJobTerminatedOrSkipped(long runId) throws TimeoutException {
+  public Run waitGetRunJobTerminatedOrSkipped(Long runId) throws TimeoutException {
     return waitGetRunJobTerminatedOrSkipped(runId, Duration.ofMinutes(20), null);
   }
 
-  public Run waitGetRunJobTerminatedOrSkipped(long runId, Duration timeout, Consumer<Run> callback)
+  public Run waitGetRunJobTerminatedOrSkipped(Long runId, Duration timeout, Consumer<Run> callback)
       throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
     java.util.List<RunLifeCycleState> targetStates =
@@ -97,10 +97,6 @@ public class JobsAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public void cancelAllRuns(long jobId) {
-    cancelAllRuns(new CancelAllRuns().setJobId(jobId));
-  }
-
   /**
    * Cancel all runs of a job.
    *
@@ -116,10 +112,10 @@ public class JobsAPI {
   }
 
   /**
-   * Cancel a job run.
+   * Cancel a run.
    *
-   * <p>Cancels a job run. The run is canceled asynchronously, so it may still be running when this
-   * request completes.
+   * <p>Cancels a job run or a task run. The run is canceled asynchronously, so it may still be
+   * running when this request completes.
    */
   public Wait<Run, Void> cancelRun(CancelRun request) {
     impl.cancelRun(request);
@@ -189,8 +185,8 @@ public class JobsAPI {
     return impl.get(request);
   }
 
-  public GetJobPermissionLevelsResponse getJobPermissionLevels(String jobId) {
-    return getJobPermissionLevels(new GetJobPermissionLevelsRequest().setJobId(jobId));
+  public GetJobPermissionLevelsResponse getPermissionLevels(String jobId) {
+    return getPermissionLevels(new GetJobPermissionLevelsRequest().setJobId(jobId));
   }
 
   /**
@@ -198,13 +194,12 @@ public class JobsAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetJobPermissionLevelsResponse getJobPermissionLevels(
-      GetJobPermissionLevelsRequest request) {
-    return impl.getJobPermissionLevels(request);
+  public GetJobPermissionLevelsResponse getPermissionLevels(GetJobPermissionLevelsRequest request) {
+    return impl.getPermissionLevels(request);
   }
 
-  public JobPermissions getJobPermissions(String jobId) {
-    return getJobPermissions(new GetJobPermissionsRequest().setJobId(jobId));
+  public JobPermissions getPermissions(String jobId) {
+    return getPermissions(new GetJobPermissionsRequest().setJobId(jobId));
   }
 
   /**
@@ -212,8 +207,8 @@ public class JobsAPI {
    *
    * <p>Gets the permissions of a job. Jobs can inherit permissions from their root object.
    */
-  public JobPermissions getJobPermissions(GetJobPermissionsRequest request) {
-    return impl.getJobPermissions(request);
+  public JobPermissions getPermissions(GetJobPermissionsRequest request) {
+    return impl.getPermissions(request);
   }
 
   public Run getRun(long runId) {
@@ -311,10 +306,10 @@ public class JobsAPI {
   }
 
   /**
-   * Overwrites all settings for a job.
+   * Overwrite all settings for a job.
    *
-   * <p>Overwrites all the settings for a specific job. Use the Update endpoint to update job
-   * settings partially.
+   * <p>Overwrite all settings for the given job. Use the Update endpoint to update job settings
+   * partially.
    */
   public void reset(ResetJob request) {
     impl.reset(request);
@@ -337,8 +332,8 @@ public class JobsAPI {
         response);
   }
 
-  public JobPermissions setJobPermissions(String jobId) {
-    return setJobPermissions(new JobPermissionsRequest().setJobId(jobId));
+  public JobPermissions setPermissions(String jobId) {
+    return setPermissions(new JobPermissionsRequest().setJobId(jobId));
   }
 
   /**
@@ -346,8 +341,8 @@ public class JobsAPI {
    *
    * <p>Sets permissions on a job. Jobs can inherit permissions from their root object.
    */
-  public JobPermissions setJobPermissions(JobPermissionsRequest request) {
-    return impl.setJobPermissions(request);
+  public JobPermissions setPermissions(JobPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
   /**
@@ -379,8 +374,8 @@ public class JobsAPI {
     impl.update(request);
   }
 
-  public JobPermissions updateJobPermissions(String jobId) {
-    return updateJobPermissions(new JobPermissionsRequest().setJobId(jobId));
+  public JobPermissions updatePermissions(String jobId) {
+    return updatePermissions(new JobPermissionsRequest().setJobId(jobId));
   }
 
   /**
@@ -388,8 +383,8 @@ public class JobsAPI {
    *
    * <p>Updates the permissions on a job. Jobs can inherit permissions from their root object.
    */
-  public JobPermissions updateJobPermissions(JobPermissionsRequest request) {
-    return impl.updateJobPermissions(request);
+  public JobPermissions updatePermissions(JobPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public JobsService impl() {

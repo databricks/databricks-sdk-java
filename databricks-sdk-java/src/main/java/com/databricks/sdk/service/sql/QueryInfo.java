@@ -85,7 +85,11 @@ public class QueryInfo {
   @JsonProperty("statement_type")
   private QueryStatementType statementType;
 
-  /** This describes an enum */
+  /**
+   * Query status with one the following values: * `QUEUED`: Query has been received and queued. *
+   * `RUNNING`: Query has started. * `CANCELED`: Query has been cancelled by the user. * `FAILED`:
+   * Query has failed. * `FINISHED`: Query has completed.
+   */
   @JsonProperty("status")
   private QueryStatus status;
 

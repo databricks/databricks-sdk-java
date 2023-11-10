@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 
 /**
  * These APIs manage metastore assignments to a workspace.
@@ -42,7 +41,7 @@ public interface AccountMetastoreAssignmentsService {
    *
    * <p>Gets a list of all Databricks workspace IDs that have been assigned to given metastore.
    */
-  Collection<MetastoreAssignment> list(
+  ListAccountMetastoreAssignmentsResponse list(
       ListAccountMetastoreAssignmentsRequest listAccountMetastoreAssignmentsRequest);
 
   /**

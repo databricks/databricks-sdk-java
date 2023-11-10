@@ -24,7 +24,45 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
         new ArrayList<>(
             Arrays.asList(
                 "az", "account", "get-access-token", "--resource", resource, "--output", "json"));
-    return new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config::getAllEnv);
+    Optional<String> subscription = getSubscription(config);
+    if (subscription.isPresent()) {
+      // This will fail if the user has access to the workspace, but not to the subscription
+      // itself.
+      // In such case, we fall back to not using the subscription.
+      List<String> extendedCmd = new ArrayList<>(cmd);
+      extendedCmd.addAll(Arrays.asList("--subscription", subscription.get()));
+      try {
+        return getToken(config, extendedCmd);
+      } catch (DatabricksException ex) {
+        LOG.warn("Failed to get token for subscription. Using resource only token.");
+      }
+    } else {
+      LOG.warn(
+          "azure_workspace_resource_id field not provided. "
+              + "It is recommended to specify this field in the Databricks configuration to avoid authentication errors.");
+    }
+
+    return getToken(config, cmd);
+  }
+
+  protected CliTokenSource getToken(DatabricksConfig config, List<String> cmd) {
+    CliTokenSource token =
+        new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config::getAllEnv);
+    token.getToken(); // We need this to check if the CLI is installed and to validate the config.
+    return token;
+  }
+
+  private Optional<String> getSubscription(DatabricksConfig config) {
+    String resourceId = config.getAzureWorkspaceResourceId();
+    if (resourceId == null || resourceId.equals("")) {
+      return Optional.empty();
+    }
+    String[] components = resourceId.split("/");
+    if (components.length < 3) {
+      LOG.warn("Invalid azure workspace resource ID");
+      return Optional.empty();
+    }
+    return Optional.of(components[2]);
   }
 
   @Override
@@ -37,11 +75,10 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
       ensureHostPresent(config, mapper);
       String resource = config.getEffectiveAzureLoginAppId();
       CliTokenSource tokenSource = tokenSourceFor(config, resource);
-      CliTokenSource mgmtTokenSource =
-          tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
-      tokenSource.getToken(); // We need this for checking if Azure CLI is installed.
+      CliTokenSource mgmtTokenSource;
       try {
-        mgmtTokenSource.getToken();
+        mgmtTokenSource =
+            tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
       } catch (Exception e) {
         LOG.debug("Not including service management token in headers", e);
         mgmtTokenSource = null;

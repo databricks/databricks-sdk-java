@@ -14,7 +14,14 @@ public class User {
   @JsonProperty("active")
   private Boolean active;
 
-  /** String that represents a concatenation of given and family names. For example `John Smith`. */
+  /**
+   * String that represents a concatenation of given and family names. For example `John Smith`.
+   * This field cannot be updated through the Workspace SCIM APIs when [identity federation is
+   * enabled]. Use Account SCIM APIs to update `displayName`.
+   *
+   * <p>[identity federation is enabled]:
+   * https://docs.databricks.com/administration-guide/users-groups/best-practices.html#enable-identity-federation
+   */
   @JsonProperty("displayName")
   private String displayName;
 
@@ -22,11 +29,17 @@ public class User {
   @JsonProperty("emails")
   private Collection<ComplexValue> emails;
 
-  /** */
+  /**
+   * Entitlements assigned to the user. See [assigning entitlements] for a full list of supported
+   * values.
+   *
+   * <p>[assigning entitlements]:
+   * https://docs.databricks.com/administration-guide/users-groups/index.html#assigning-entitlements
+   */
   @JsonProperty("entitlements")
   private Collection<ComplexValue> entitlements;
 
-  /** */
+  /** External ID is not currently supported. It is reserved for future use. */
   @JsonProperty("externalId")
   private String externalId;
 
@@ -34,7 +47,10 @@ public class User {
   @JsonProperty("groups")
   private Collection<ComplexValue> groups;
 
-  /** Databricks user ID. */
+  /**
+   * Databricks user ID. This is automatically set by Databricks. Any value provided by the client
+   * will be ignored.
+   */
   @JsonProperty("id")
   private String id;
 
@@ -42,9 +58,13 @@ public class User {
   @JsonProperty("name")
   private Name name;
 
-  /** */
+  /** Corresponds to AWS instance profile/arn role. */
   @JsonProperty("roles")
   private Collection<ComplexValue> roles;
+
+  /** The schema of the user. */
+  @JsonProperty("schemas")
+  private Collection<UserSchema> schemas;
 
   /** Email address of the Databricks user. */
   @JsonProperty("userName")
@@ -131,6 +151,15 @@ public class User {
     return roles;
   }
 
+  public User setSchemas(Collection<UserSchema> schemas) {
+    this.schemas = schemas;
+    return this;
+  }
+
+  public Collection<UserSchema> getSchemas() {
+    return schemas;
+  }
+
   public User setUserName(String userName) {
     this.userName = userName;
     return this;
@@ -154,13 +183,24 @@ public class User {
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
         && Objects.equals(roles, that.roles)
+        && Objects.equals(schemas, that.schemas)
         && Objects.equals(userName, that.userName);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        active, displayName, emails, entitlements, externalId, groups, id, name, roles, userName);
+        active,
+        displayName,
+        emails,
+        entitlements,
+        externalId,
+        groups,
+        id,
+        name,
+        roles,
+        schemas,
+        userName);
   }
 
   @Override
@@ -175,6 +215,7 @@ public class User {
         .add("id", id)
         .add("name", name)
         .add("roles", roles)
+        .add("schemas", schemas)
         .add("userName", userName)
         .toString();
   }

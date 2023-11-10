@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Schema is an ordered list of column descriptions. */
+/** The schema is an ordered list of column descriptions. */
 @Generated
 public class ResultSchema {
   /** */

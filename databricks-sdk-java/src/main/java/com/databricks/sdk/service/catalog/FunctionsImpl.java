@@ -16,7 +16,7 @@ class FunctionsImpl implements FunctionsService {
   }
 
   @Override
-  public FunctionInfo create(CreateFunction request) {
+  public FunctionInfo create(CreateFunctionRequest request) {
     String path = "/api/2.1/unity-catalog/functions";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

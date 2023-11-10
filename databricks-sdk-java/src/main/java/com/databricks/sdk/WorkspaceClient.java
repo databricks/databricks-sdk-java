@@ -78,10 +78,16 @@ import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
+import com.databricks.sdk.service.serving.AppsAPI;
+import com.databricks.sdk.service.serving.AppsService;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsService;
+import com.databricks.sdk.service.settings.CredentialsManagerAPI;
+import com.databricks.sdk.service.settings.CredentialsManagerService;
 import com.databricks.sdk.service.settings.IpAccessListsAPI;
 import com.databricks.sdk.service.settings.IpAccessListsService;
+import com.databricks.sdk.service.settings.SettingsAPI;
+import com.databricks.sdk.service.settings.SettingsService;
 import com.databricks.sdk.service.settings.TokenManagementAPI;
 import com.databricks.sdk.service.settings.TokenManagementService;
 import com.databricks.sdk.service.settings.TokensAPI;
@@ -100,6 +106,8 @@ import com.databricks.sdk.service.sharing.SharesAPI;
 import com.databricks.sdk.service.sharing.SharesService;
 import com.databricks.sdk.service.sql.AlertsAPI;
 import com.databricks.sdk.service.sql.AlertsService;
+import com.databricks.sdk.service.sql.DashboardWidgetsAPI;
+import com.databricks.sdk.service.sql.DashboardWidgetsService;
 import com.databricks.sdk.service.sql.DashboardsAPI;
 import com.databricks.sdk.service.sql.DashboardsService;
 import com.databricks.sdk.service.sql.DataSourcesAPI;
@@ -110,6 +118,8 @@ import com.databricks.sdk.service.sql.QueriesAPI;
 import com.databricks.sdk.service.sql.QueriesService;
 import com.databricks.sdk.service.sql.QueryHistoryAPI;
 import com.databricks.sdk.service.sql.QueryHistoryService;
+import com.databricks.sdk.service.sql.QueryVisualizationsAPI;
+import com.databricks.sdk.service.sql.QueryVisualizationsService;
 import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.sql.WarehousesAPI;
@@ -131,6 +141,7 @@ public class WorkspaceClient {
 
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AlertsAPI alertsAPI;
+  private AppsAPI appsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
   private CleanRoomsAPI cleanRoomsAPI;
@@ -138,7 +149,9 @@ public class WorkspaceClient {
   private ClustersExt clustersAPI;
   private CommandExecutionAPI commandExecutionAPI;
   private ConnectionsAPI connectionsAPI;
+  private CredentialsManagerAPI credentialsManagerAPI;
   private CurrentUserAPI currentUserAPI;
+  private DashboardWidgetsAPI dashboardWidgetsAPI;
   private DashboardsAPI dashboardsAPI;
   private DataSourcesAPI dataSourcesAPI;
   private DbfsExt dbfsAPI;
@@ -165,6 +178,7 @@ public class WorkspaceClient {
   private ProvidersAPI providersAPI;
   private QueriesAPI queriesAPI;
   private QueryHistoryAPI queryHistoryAPI;
+  private QueryVisualizationsAPI queryVisualizationsAPI;
   private RecipientActivationAPI recipientActivationAPI;
   private RecipientsAPI recipientsAPI;
   private RegisteredModelsAPI registeredModelsAPI;
@@ -173,6 +187,7 @@ public class WorkspaceClient {
   private SecretsExt secretsAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
   private ServingEndpointsAPI servingEndpointsAPI;
+  private SettingsAPI settingsAPI;
   private SharesAPI sharesAPI;
   private StatementExecutionAPI statementExecutionAPI;
   private StorageCredentialsAPI storageCredentialsAPI;
@@ -198,6 +213,7 @@ public class WorkspaceClient {
 
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
+    appsAPI = new AppsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
     cleanRoomsAPI = new CleanRoomsAPI(apiClient);
@@ -205,7 +221,9 @@ public class WorkspaceClient {
     clustersAPI = new ClustersExt(apiClient);
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
     connectionsAPI = new ConnectionsAPI(apiClient);
+    credentialsManagerAPI = new CredentialsManagerAPI(apiClient);
     currentUserAPI = new CurrentUserAPI(apiClient);
+    dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
     dashboardsAPI = new DashboardsAPI(apiClient);
     dataSourcesAPI = new DataSourcesAPI(apiClient);
     dbfsAPI = new DbfsExt(apiClient);
@@ -232,6 +250,7 @@ public class WorkspaceClient {
     providersAPI = new ProvidersAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
+    queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
     recipientsAPI = new RecipientsAPI(apiClient);
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
@@ -240,6 +259,7 @@ public class WorkspaceClient {
     secretsAPI = new SecretsExt(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
     servingEndpointsAPI = new ServingEndpointsAPI(apiClient);
+    settingsAPI = new SettingsAPI(apiClient);
     sharesAPI = new SharesAPI(apiClient);
     statementExecutionAPI = new StatementExecutionAPI(apiClient);
     storageCredentialsAPI = new StorageCredentialsAPI(apiClient);
@@ -288,6 +308,14 @@ public class WorkspaceClient {
   }
 
   /**
+   * Lakehouse Apps run directly on a customer’s Databricks instance, integrate with their data, use
+   * and extend Databricks services, and enable users to interact through single sign-on.
+   */
+  public AppsAPI apps() {
+    return appsAPI;
+  }
+
+  /**
    * In Databricks Runtime 13.3 and above, you can add libraries and init scripts to the `allowlist`
    * in UC so that users can leverage these artifacts on compute configured with shared access mode.
    */
@@ -321,26 +349,25 @@ public class WorkspaceClient {
   }
 
   /**
-   * Cluster policy limits the ability to configure clusters based on a set of rules. The policy
-   * rules limit the attributes or attribute values available for cluster creation. Cluster policies
-   * have ACLs that limit their use to specific users and groups.
+   * You can use cluster policies to control users' ability to configure clusters based on a set of
+   * rules. These rules specify which attributes or attribute values can be used during cluster
+   * creation. Cluster policies have ACLs that limit their use to specific users and groups.
    *
-   * <p>Cluster policies let you limit users to create clusters with prescribed settings, simplify
-   * the user interface and enable more users to create their own clusters (by fixing and hiding
-   * some values), control cost by limiting per cluster maximum cost (by setting limits on
-   * attributes whose values contribute to hourly price).
+   * <p>With cluster policies, you can: - Auto-install cluster libraries on the next restart by
+   * listing them in the policy's "libraries" field. - Limit users to creating clusters with the
+   * prescribed settings. - Simplify the user interface, enabling more users to create clusters, by
+   * fixing and hiding some fields. - Manage costs by setting limits on attributes that impact the
+   * hourly rate.
    *
    * <p>Cluster policy permissions limit which policies a user can select in the Policy drop-down
-   * when the user creates a cluster: - A user who has cluster create permission can select the
-   * Unrestricted policy and create fully-configurable clusters. - A user who has both cluster
-   * create permission and access to cluster policies can select the Unrestricted policy and
-   * policies they have access to. - A user that has access to only cluster policies, can select the
-   * policies they have access to.
+   * when the user creates a cluster: - A user who has unrestricted cluster create permission can
+   * select the Unrestricted policy and create fully-configurable clusters. - A user who has both
+   * unrestricted cluster create permission and access to cluster policies can select the
+   * Unrestricted policy and policies they have access to. - A user that has access to only cluster
+   * policies, can select the policies they have access to.
    *
-   * <p>If no policies have been created in the workspace, the Policy drop-down does not display.
-   *
-   * <p>Only admin users can create, edit, and delete policies. Admin users also have access to all
-   * policies.
+   * <p>If no policies exist in the workspace, the Policy drop-down doesn't appear. Only admin users
+   * can create, edit, and delete policies. Admin users also have access to all policies.
    */
   public ClusterPoliciesAPI clusterPolicies() {
     return clusterPoliciesAPI;
@@ -397,10 +424,26 @@ public class WorkspaceClient {
   }
 
   /**
+   * Credentials manager interacts with with Identity Providers to to perform token exchanges using
+   * stored credentials and refresh tokens.
+   */
+  public CredentialsManagerAPI credentialsManager() {
+    return credentialsManagerAPI;
+  }
+
+  /**
    * This API allows retrieving information about currently authenticated user or service principal.
    */
   public CurrentUserAPI currentUser() {
     return currentUserAPI;
+  }
+
+  /**
+   * This is an evolving API that facilitates the addition and removal of widgets from existing
+   * dashboards within the Databricks Workspace. Data structures may change over time.
+   */
+  public DashboardWidgetsAPI dashboardWidgets() {
+    return dashboardWidgetsAPI;
   }
 
   /**
@@ -682,8 +725,13 @@ public class WorkspaceClient {
   }
 
   /**
-   * MLflow Model Registry is a centralized model repository and a UI and set of APIs that enable
-   * you to manage the full lifecycle of MLflow Models.
+   * Note: This API reference documents APIs for the Workspace Model Registry. Databricks recommends
+   * using [Models in Unity Catalog](/api/workspace/registeredmodels) instead. Models in Unity
+   * Catalog provides centralized model governance, cross-workspace access, lineage, and deployment.
+   * Workspace Model Registry will be deprecated in the future.
+   *
+   * <p>The Workspace Model Registry is a centralized model repository and a UI and set of APIs that
+   * enable you to manage the full lifecycle of MLflow Models.
    */
   public ModelRegistryAPI modelRegistry() {
     return modelRegistryAPI;
@@ -807,6 +855,14 @@ public class WorkspaceClient {
   /** Access the history of queries through SQL warehouses. */
   public QueryHistoryAPI queryHistory() {
     return queryHistoryAPI;
+  }
+
+  /**
+   * This is an evolving API that facilitates the addition and removal of vizualisations from
+   * existing queries within the Databricks Workspace. Data structures may change over time.
+   */
+  public QueryVisualizationsAPI queryVisualizations() {
+    return queryVisualizationsAPI;
   }
 
   /**
@@ -942,6 +998,11 @@ public class WorkspaceClient {
     return servingEndpointsAPI;
   }
 
+  /** // TODO(yuyuan.tang) to add the description for the setting */
+  public SettingsAPI settings() {
+    return settingsAPI;
+  }
+
   /**
    * A share is a container instantiated with :method:shares/create. Once created you can
    * iteratively register a collection of existing data assets defined within the metastore using
@@ -953,169 +1014,94 @@ public class WorkspaceClient {
   }
 
   /**
-   * The SQL Statement Execution API manages the execution of arbitrary SQL statements and the
-   * fetching of result data.
-   *
-   * <p>**Release status**
-   *
-   * <p>This feature is in [Public Preview].
+   * The Databricks SQL Statement Execution API can be used to execute SQL statements on a SQL
+   * warehouse and fetch the result.
    *
    * <p>**Getting started**
    *
-   * <p>We suggest beginning with the [SQL Statement Execution API tutorial].
+   * <p>We suggest beginning with the [Databricks SQL Statement Execution API tutorial].
    *
    * <p>**Overview of statement execution and result fetching**
    *
    * <p>Statement execution begins by issuing a :method:statementexecution/executeStatement request
    * with a valid SQL statement and warehouse ID, along with optional parameters such as the data
-   * catalog and output format.
+   * catalog and output format. If no other parameters are specified, the server will wait for up to
+   * 10s before returning a response. If the statement has completed within this timespan, the
+   * response will include the result data as a JSON array and metadata. Otherwise, if no result is
+   * available after the 10s timeout expired, the response will provide the statement ID that can be
+   * used to poll for results by using a :method:statementexecution/getStatement request.
    *
-   * <p>When submitting the statement, the call can behave synchronously or asynchronously, based on
-   * the `wait_timeout` setting. When set between 5-50 seconds (default: 10) the call behaves
-   * synchronously and waits for results up to the specified timeout; when set to `0s`, the call is
-   * asynchronous and responds immediately with a statement ID that can be used to poll for status
-   * or fetch the results in a separate call.
+   * <p>You can specify whether the call should behave synchronously, asynchronously or start
+   * synchronously with a fallback to asynchronous execution. This is controlled with the
+   * `wait_timeout` and `on_wait_timeout` settings. If `wait_timeout` is set between 5-50 seconds
+   * (default: 10s), the call waits for results up to the specified timeout; when set to `0s`, the
+   * call is asynchronous and responds immediately with a statement ID. The `on_wait_timeout`
+   * setting specifies what should happen when the timeout is reached while the statement execution
+   * has not yet finished. This can be set to either `CONTINUE`, to fallback to asynchronous mode,
+   * or it can be set to `CANCEL`, which cancels the statement.
    *
-   * <p>**Call mode: synchronous**
+   * <p>In summary: - Synchronous mode - `wait_timeout=30s` and `on_wait_timeout=CANCEL` - The call
+   * waits up to 30 seconds; if the statement execution finishes within this time, the result data
+   * is returned directly in the response. If the execution takes longer than 30 seconds, the
+   * execution is canceled and the call returns with a `CANCELED` state. - Asynchronous mode -
+   * `wait_timeout=0s` (`on_wait_timeout` is ignored) - The call doesn't wait for the statement to
+   * finish but returns directly with a statement ID. The status of the statement execution can be
+   * polled by issuing :method:statementexecution/getStatement with the statement ID. Once the
+   * execution has succeeded, this call also returns the result and metadata in the response. -
+   * Hybrid mode (default) - `wait_timeout=10s` and `on_wait_timeout=CONTINUE` - The call waits for
+   * up to 10 seconds; if the statement execution finishes within this time, the result data is
+   * returned directly in the response. If the execution takes longer than 10 seconds, a statement
+   * ID is returned. The statement ID can be used to fetch status and results in the same way as in
+   * the asynchronous mode.
    *
-   * <p>In synchronous mode, when statement execution completes within the `wait timeout`, the
-   * result data is returned directly in the response. This response will contain `statement_id`,
-   * `status`, `manifest`, and `result` fields. The `status` field confirms success whereas the
-   * `manifest` field contains the result data column schema and metadata about the result set. The
-   * `result` field contains the first chunk of result data according to the specified
-   * `disposition`, and links to fetch any remaining chunks.
+   * <p>Depending on the size, the result can be split into multiple chunks. If the statement
+   * execution is successful, the statement response contains a manifest and the first chunk of the
+   * result. The manifest contains schema information and provides metadata for each chunk in the
+   * result. Result chunks can be retrieved by index with
+   * :method:statementexecution/getStatementResultChunkN which may be called in any order and in
+   * parallel. For sequential fetching, each chunk, apart from the last, also contains a
+   * `next_chunk_index` and `next_chunk_internal_link` that point to the next chunk.
    *
-   * <p>If the execution does not complete before `wait_timeout`, the setting `on_wait_timeout`
-   * determines how the system responds.
-   *
-   * <p>By default, `on_wait_timeout=CONTINUE`, and after reaching `wait_timeout`, a response is
-   * returned and statement execution continues asynchronously. The response will contain only
-   * `statement_id` and `status` fields, and the caller must now follow the flow described for
-   * asynchronous call mode to poll and fetch the result.
-   *
-   * <p>Alternatively, `on_wait_timeout` can also be set to `CANCEL`; in this case if the timeout is
-   * reached before execution completes, the underlying statement execution is canceled, and a
-   * `CANCELED` status is returned in the response.
-   *
-   * <p>**Call mode: asynchronous**
-   *
-   * <p>In asynchronous mode, or after a timed-out synchronous request continues, a `statement_id`
-   * and `status` will be returned. In this case polling :method:statementexecution/getStatement
-   * calls are required to fetch the result and metadata.
-   *
-   * <p>Next, a caller must poll until execution completes (`SUCCEEDED`, `FAILED`, etc.) by issuing
-   * :method:statementexecution/getStatement requests for the given `statement_id`.
-   *
-   * <p>When execution has succeeded, the response will contain `status`, `manifest`, and `result`
-   * fields. These fields and the structure are identical to those in the response to a successful
-   * synchronous submission. The `result` field will contain the first chunk of result data, either
-   * `INLINE` or as `EXTERNAL_LINKS` depending on `disposition`. Additional chunks of result data
-   * can be fetched by checking for the presence of the `next_chunk_internal_link` field, and
-   * iteratively `GET` those paths until that field is unset: `GET
-   * https://$DATABRICKS_HOST/{next_chunk_internal_link}`.
+   * <p>A statement can be canceled with :method:statementexecution/cancelExecution.
    *
    * <p>**Fetching result data: format and disposition**
    *
-   * <p>To specify the result data format, set the `format` field to `JSON_ARRAY` (JSON),
-   * `ARROW_STREAM` ([Apache Arrow Columnar]), or `CSV`.
+   * <p>To specify the format of the result data, use the `format` field, which can be set to one of
+   * the following options: `JSON_ARRAY` (JSON), `ARROW_STREAM` ([Apache Arrow Columnar]), or `CSV`.
    *
-   * <p>You can also configure how to fetch the result data in two different modes by setting the
-   * `disposition` field to `INLINE` or `EXTERNAL_LINKS`.
+   * <p>There are two ways to receive statement results, controlled by the `disposition` setting,
+   * which can be either `INLINE` or `EXTERNAL_LINKS`:
    *
-   * <p>The `INLINE` disposition can only be used with the `JSON_ARRAY` format and allows results up
-   * to 16 MiB. When a statement executed with `INLINE` disposition exceeds this limit, the
-   * execution is aborted, and no result can be fetched.
+   * <p>- `INLINE`: In this mode, the result data is directly included in the response. It's best
+   * suited for smaller results. This mode can only be used with the `JSON_ARRAY` format.
    *
-   * <p>The `EXTERNAL_LINKS` disposition allows fetching large result sets in `JSON_ARRAY`,
-   * `ARROW_STREAM` and `CSV` formats, and with higher throughput.
+   * <p>- `EXTERNAL_LINKS`: In this mode, the response provides links that can be used to download
+   * the result data in chunks separately. This approach is ideal for larger results and offers
+   * higher throughput. This mode can be used with all the formats: `JSON_ARRAY`, `ARROW_STREAM`,
+   * and `CSV`.
    *
-   * <p>The API uses defaults of `format=JSON_ARRAY` and `disposition=INLINE`. Databricks recommends
-   * that you explicit setting the format and the disposition for all production use cases.
-   *
-   * <p>**Statement response: statement_id, status, manifest, and result**
-   *
-   * <p>The base call :method:statementexecution/getStatement returns a single response combining
-   * `statement_id`, `status`, a result `manifest`, and a `result` data chunk or link, depending on
-   * the `disposition`. The `manifest` contains the result schema definition and the result summary
-   * metadata. When using `disposition=EXTERNAL_LINKS`, it also contains a full listing of all
-   * chunks and their summary metadata.
-   *
-   * <p>**Use case: small result sets with INLINE + JSON_ARRAY**
-   *
-   * <p>For flows that generate small and predictable result sets (<= 16 MiB), `INLINE` downloads of
-   * `JSON_ARRAY` result data are typically the simplest way to execute and fetch result data.
-   *
-   * <p>When the result set with `disposition=INLINE` is larger, the result can be transferred in
-   * chunks. After receiving the initial chunk with :method:statementexecution/executeStatement or
-   * :method:statementexecution/getStatement subsequent calls are required to iteratively fetch each
-   * chunk. Each result response contains a link to the next chunk, when there are additional chunks
-   * to fetch; it can be found in the field `.next_chunk_internal_link`. This link is an absolute
-   * `path` to be joined with your `$DATABRICKS_HOST`, and of the form
-   * `/api/2.0/sql/statements/{statement_id}/result/chunks/{chunk_index}`. The next chunk can be
-   * fetched by issuing a :method:statementexecution/getStatementResultChunkN request.
-   *
-   * <p>When using this mode, each chunk may be fetched once, and in order. A chunk without a field
-   * `next_chunk_internal_link` indicates the last chunk was reached and all chunks have been
-   * fetched from the result set.
-   *
-   * <p>**Use case: large result sets with EXTERNAL_LINKS + ARROW_STREAM**
-   *
-   * <p>Using `EXTERNAL_LINKS` to fetch result data in Arrow format allows you to fetch large result
-   * sets efficiently. The primary difference from using `INLINE` disposition is that fetched result
-   * chunks contain resolved `external_links` URLs, which can be fetched with standard HTTP.
-   *
-   * <p>**Presigned URLs**
-   *
-   * <p>External links point to data stored within your workspace's internal DBFS, in the form of a
-   * presigned URL. The URLs are valid for only a short period, <= 15 minutes. Alongside each
-   * `external_link` is an expiration field indicating the time at which the URL is no longer valid.
-   * In `EXTERNAL_LINKS` mode, chunks can be resolved and fetched multiple times and in parallel.
-   *
-   * <p>----
-   *
-   * <p>### **Warning: We recommend you protect the URLs in the EXTERNAL_LINKS.**
-   *
-   * <p>When using the EXTERNAL_LINKS disposition, a short-lived pre-signed URL is generated, which
-   * the client can use to download the result chunk directly from cloud storage. As the short-lived
-   * credential is embedded in a pre-signed URL, this URL should be protected.
-   *
-   * <p>Since pre-signed URLs are generated with embedded temporary credentials, you need to remove
-   * the authorization header from the fetch requests.
-   *
-   * <p>----
-   *
-   * <p>Similar to `INLINE` mode, callers can iterate through the result set, by using the
-   * `next_chunk_internal_link` field. Each internal link response will contain an external link to
-   * the raw chunk data, and additionally contain the `next_chunk_internal_link` if there are more
-   * chunks.
-   *
-   * <p>Unlike `INLINE` mode, when using `EXTERNAL_LINKS`, chunks may be fetched out of order, and
-   * in parallel to achieve higher throughput.
+   * <p>By default, the API uses `format=JSON_ARRAY` and `disposition=INLINE`.
    *
    * <p>**Limits and limitations**
    *
-   * <p>Note: All byte limits are calculated based on internal storage metrics and will not match
-   * byte counts of actual payloads.
+   * <p>Note: The byte limit for INLINE disposition is based on internal storage metrics and will
+   * not exactly match the byte count of the actual payload.
    *
-   * <p>- Statements with `disposition=INLINE` are limited to 16 MiB and will abort when this limit
-   * is exceeded. - Statements with `disposition=EXTERNAL_LINKS` are limited to 100 GiB. - The
-   * maximum query text size is 16 MiB. - Cancelation may silently fail. A successful response from
-   * a cancel request indicates that the cancel request was successfully received and sent to the
-   * processing engine. However, for example, an outstanding statement may complete execution during
-   * signal delivery, with the cancel signal arriving too late to be meaningful. Polling for status
+   * <p>- Statements with `disposition=INLINE` are limited to 25 MiB and will fail when this limit
+   * is exceeded. - Statements with `disposition=EXTERNAL_LINKS` are limited to 100 GiB. Result sets
+   * larger than this limit will be truncated. Truncation is indicated by the `truncated` field in
+   * the result manifest. - The maximum query text size is 16 MiB. - Cancelation might silently
+   * fail. A successful response from a cancel request indicates that the cancel request was
+   * successfully received and sent to the processing engine. However, an outstanding statement
+   * might have already completed execution when the cancel request arrives. Polling for status
    * until a terminal state is reached is a reliable way to determine the final state. - Wait
-   * timeouts are approximate, occur server-side, and cannot account for caller delays, network
-   * latency from caller to service, and similarly. - After a statement has been submitted and a
-   * statement_id is returned, that statement's status and result will automatically close after
-   * either of 2 conditions: - The last result chunk is fetched (or resolved to an external link). -
-   * One hour passes with no calls to get the status or fetch the result. Best practice: in
-   * asynchronous clients, poll for status regularly (and with backoff) to keep the statement open
-   * and alive. - After fetching the last result chunk (including chunk_index=0) the statement is
-   * automatically closed.
+   * timeouts are approximate, occur server-side, and cannot account for things such as caller
+   * delays and network latency from caller to service. - The system will auto-close a statement
+   * after one hour if the client stops polling and thus you must poll at least once an hour. - The
+   * results are only available for one hour after success; polling does not extend this.
    *
-   * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Public Preview]:
-   * https://docs.databricks.com/release-notes/release-types.html [SQL Statement Execution API
-   * tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
+   * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Databricks SQL Statement
+   * Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
    */
   public StatementExecutionAPI statementExecution() {
     return statementExecutionAPI;
@@ -1242,12 +1228,23 @@ public class WorkspaceClient {
   }
 
   /**
-   * A catalog in Databricks can be configured as __OPEN__ or __ISOLATED__. An __OPEN__ catalog can
-   * be accessed from any workspace, while an __ISOLATED__ catalog can only be access from a
-   * configured list of workspaces.
+   * A securable in Databricks can be configured as __OPEN__ or __ISOLATED__. An __OPEN__ securable
+   * can be accessed from any workspace, while an __ISOLATED__ securable can only be accessed from a
+   * configured list of workspaces. This API allows you to configure (bind) securables to
+   * workspaces.
    *
-   * <p>A catalog's workspace bindings can be configured by a metastore admin or the owner of the
-   * catalog.
+   * <p>NOTE: The __isolation_mode__ is configured for the securable itself (using its Update
+   * method) and the workspace bindings are only consulted when the securable's __isolation_mode__
+   * is set to __ISOLATED__.
+   *
+   * <p>A securable's workspace bindings can be configured by a metastore admin or the owner of the
+   * securable.
+   *
+   * <p>The original path (/api/2.1/unity-catalog/workspace-bindings/catalogs/{name}) is deprecated.
+   * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name})
+   * which introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
+   *
+   * <p>Securables that support binding: - catalog
    */
   public WorkspaceBindingsAPI workspaceBindings() {
     return workspaceBindingsAPI;
@@ -1268,6 +1265,12 @@ public class WorkspaceClient {
   /** Replace AlertsAPI implementation with mock */
   public WorkspaceClient withAlertsImpl(AlertsService alerts) {
     alertsAPI = new AlertsAPI(alerts);
+    return this;
+  }
+
+  /** Replace AppsAPI implementation with mock */
+  public WorkspaceClient withAppsImpl(AppsService apps) {
+    appsAPI = new AppsAPI(apps);
     return this;
   }
 
@@ -1313,9 +1316,21 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace CredentialsManagerAPI implementation with mock */
+  public WorkspaceClient withCredentialsManagerImpl(CredentialsManagerService credentialsManager) {
+    credentialsManagerAPI = new CredentialsManagerAPI(credentialsManager);
+    return this;
+  }
+
   /** Replace CurrentUserAPI implementation with mock */
   public WorkspaceClient withCurrentUserImpl(CurrentUserService currentUser) {
     currentUserAPI = new CurrentUserAPI(currentUser);
+    return this;
+  }
+
+  /** Replace DashboardWidgetsAPI implementation with mock */
+  public WorkspaceClient withDashboardWidgetsImpl(DashboardWidgetsService dashboardWidgets) {
+    dashboardWidgetsAPI = new DashboardWidgetsAPI(dashboardWidgets);
     return this;
   }
 
@@ -1475,6 +1490,13 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace QueryVisualizationsAPI implementation with mock */
+  public WorkspaceClient withQueryVisualizationsImpl(
+      QueryVisualizationsService queryVisualizations) {
+    queryVisualizationsAPI = new QueryVisualizationsAPI(queryVisualizations);
+    return this;
+  }
+
   /** Replace RecipientActivationAPI implementation with mock */
   public WorkspaceClient withRecipientActivationImpl(
       RecipientActivationService recipientActivation) {
@@ -1521,6 +1543,12 @@ public class WorkspaceClient {
   /** Replace ServingEndpointsAPI implementation with mock */
   public WorkspaceClient withServingEndpointsImpl(ServingEndpointsService servingEndpoints) {
     servingEndpointsAPI = new ServingEndpointsAPI(servingEndpoints);
+    return this;
+  }
+
+  /** Replace SettingsAPI implementation with mock */
+  public WorkspaceClient withSettingsImpl(SettingsService settings) {
+    settingsAPI = new SettingsAPI(settings);
     return this;
   }
 

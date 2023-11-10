@@ -47,7 +47,7 @@ public class ClusterDetails {
    * instance.
    */
   @JsonProperty("cluster_cores")
-  private Float clusterCores;
+  private Double clusterCores;
 
   /**
    * Canonical identifier for the cluster. This id is retained during cluster restarts and resizes,
@@ -107,7 +107,22 @@ public class ClusterDetails {
   @JsonProperty("custom_tags")
   private Map<String, String> customTags;
 
-  /** This describes an enum */
+  /**
+   * Data security mode decides what data governance model to use when accessing data from a
+   * cluster.
+   *
+   * <p>* `NONE`: No security isolation for multiple users sharing the cluster. Data governance
+   * features are not available in this mode. * `SINGLE_USER`: A secure cluster that can only be
+   * exclusively used by a single user specified in `single_user_name`. Most programming languages,
+   * cluster features and data governance features are available in this mode. * `USER_ISOLATION`: A
+   * secure cluster that can be shared by multiple users. Cluster users are fully isolated so that
+   * they cannot see each other's data and credentials. Most data governance features are supported
+   * in this mode. But programming languages and cluster features might be limited. *
+   * `LEGACY_TABLE_ACL`: This mode is for users migrating from legacy Table ACL clusters. *
+   * `LEGACY_PASSTHROUGH`: This mode is for users migrating from legacy Passthrough on high
+   * concurrency clusters. * `LEGACY_SINGLE_USER`: This mode is for users migrating from legacy
+   * Passthrough on standard clusters.
+   */
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
 
@@ -279,6 +294,15 @@ public class ClusterDetails {
   private String sparkVersion;
 
   /**
+   * `spec` contains a snapshot of the field values that were used to create or edit this cluster.
+   * The contents of `spec` can be used in the body of a create cluster request. This field might
+   * not be populated for older clusters. Note: not included in the response of the ListClusters
+   * API.
+   */
+  @JsonProperty("spec")
+  private CreateCluster spec;
+
+  /**
    * SSH public key contents that will be added to each Spark node in this cluster. The
    * corresponding private keys can be used to login with the user name `ubuntu` on port `2200`. Up
    * to 10 keys can be specified.
@@ -355,12 +379,12 @@ public class ClusterDetails {
     return azureAttributes;
   }
 
-  public ClusterDetails setClusterCores(Float clusterCores) {
+  public ClusterDetails setClusterCores(Double clusterCores) {
     this.clusterCores = clusterCores;
     return this;
   }
 
-  public Float getClusterCores() {
+  public Double getClusterCores() {
     return clusterCores;
   }
 
@@ -652,6 +676,15 @@ public class ClusterDetails {
     return sparkVersion;
   }
 
+  public ClusterDetails setSpec(CreateCluster spec) {
+    this.spec = spec;
+    return this;
+  }
+
+  public CreateCluster getSpec() {
+    return spec;
+  }
+
   public ClusterDetails setSshPublicKeys(Collection<String> sshPublicKeys) {
     this.sshPublicKeys = sshPublicKeys;
     return this;
@@ -757,6 +790,7 @@ public class ClusterDetails {
         && Objects.equals(sparkContextId, that.sparkContextId)
         && Objects.equals(sparkEnvVars, that.sparkEnvVars)
         && Objects.equals(sparkVersion, that.sparkVersion)
+        && Objects.equals(spec, that.spec)
         && Objects.equals(sshPublicKeys, that.sshPublicKeys)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
@@ -806,6 +840,7 @@ public class ClusterDetails {
         sparkContextId,
         sparkEnvVars,
         sparkVersion,
+        spec,
         sshPublicKeys,
         startTime,
         state,
@@ -855,6 +890,7 @@ public class ClusterDetails {
         .add("sparkContextId", sparkContextId)
         .add("sparkEnvVars", sparkEnvVars)
         .add("sparkVersion", sparkVersion)
+        .add("spec", spec)
         .add("sshPublicKeys", sshPublicKeys)
         .add("startTime", startTime)
         .add("state", state)

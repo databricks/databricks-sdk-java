@@ -70,7 +70,7 @@ public class AccountMetastoreAssignmentsAPI {
     return impl.get(request);
   }
 
-  public Iterable<MetastoreAssignment> list(String metastoreId) {
+  public Iterable<Long> list(String metastoreId) {
     return list(new ListAccountMetastoreAssignmentsRequest().setMetastoreId(metastoreId));
   }
 
@@ -79,8 +79,8 @@ public class AccountMetastoreAssignmentsAPI {
    *
    * <p>Gets a list of all Databricks workspace IDs that have been assigned to given metastore.
    */
-  public Iterable<MetastoreAssignment> list(ListAccountMetastoreAssignmentsRequest request) {
-    return impl.list(request);
+  public Iterable<Long> list(ListAccountMetastoreAssignmentsRequest request) {
+    return impl.list(request).getWorkspaceIds();
   }
 
   public void update(long workspaceId, String metastoreId) {

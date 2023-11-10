@@ -17,7 +17,7 @@ public class AccountsUpdateStorageCredential {
   private String metastoreId;
 
   /** Name of the storage credential. */
-  private String name;
+  private String storageCredentialName;
 
   public AccountsUpdateStorageCredential setCredentialInfo(UpdateStorageCredential credentialInfo) {
     this.credentialInfo = credentialInfo;
@@ -37,13 +37,13 @@ public class AccountsUpdateStorageCredential {
     return metastoreId;
   }
 
-  public AccountsUpdateStorageCredential setName(String name) {
-    this.name = name;
+  public AccountsUpdateStorageCredential setStorageCredentialName(String storageCredentialName) {
+    this.storageCredentialName = storageCredentialName;
     return this;
   }
 
-  public String getName() {
-    return name;
+  public String getStorageCredentialName() {
+    return storageCredentialName;
   }
 
   @Override
@@ -53,12 +53,12 @@ public class AccountsUpdateStorageCredential {
     AccountsUpdateStorageCredential that = (AccountsUpdateStorageCredential) o;
     return Objects.equals(credentialInfo, that.credentialInfo)
         && Objects.equals(metastoreId, that.metastoreId)
-        && Objects.equals(name, that.name);
+        && Objects.equals(storageCredentialName, that.storageCredentialName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(credentialInfo, metastoreId, name);
+    return Objects.hash(credentialInfo, metastoreId, storageCredentialName);
   }
 
   @Override
@@ -66,7 +66,7 @@ public class AccountsUpdateStorageCredential {
     return new ToStringer(AccountsUpdateStorageCredential.class)
         .add("credentialInfo", credentialInfo)
         .add("metastoreId", metastoreId)
-        .add("name", name)
+        .add("storageCredentialName", storageCredentialName)
         .toString();
   }
 }

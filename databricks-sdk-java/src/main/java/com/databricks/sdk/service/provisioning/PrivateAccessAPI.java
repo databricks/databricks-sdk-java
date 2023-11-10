@@ -101,12 +101,12 @@ public class PrivateAccessAPI {
   }
 
   public void replace(
-      String privateAccessSettingsName, String region, String privateAccessSettingsId) {
+      String privateAccessSettingsId, String privateAccessSettingsName, String region) {
     replace(
         new UpsertPrivateAccessSettingsRequest()
+            .setPrivateAccessSettingsId(privateAccessSettingsId)
             .setPrivateAccessSettingsName(privateAccessSettingsName)
-            .setRegion(region)
-            .setPrivateAccessSettingsId(privateAccessSettingsId));
+            .setRegion(region));
   }
 
   /**

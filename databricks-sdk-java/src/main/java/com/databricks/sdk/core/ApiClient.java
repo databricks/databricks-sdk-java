@@ -4,7 +4,7 @@ import com.databricks.sdk.core.error.ApiErrors;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
-import com.databricks.sdk.core.utils.RealTimer;
+import com.databricks.sdk.core.utils.SystemTimer;
 import com.databricks.sdk.core.utils.Timer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,10 +12,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +46,7 @@ public class ApiClient {
   }
 
   public ApiClient(DatabricksConfig config) {
-    this(config, new RealTimer());
+    this(config, new SystemTimer());
   }
 
   public ApiClient(DatabricksConfig config, Timer timer) {
@@ -187,12 +185,10 @@ public class ApiClient {
       return new Request(method, path);
     } else if (InputStream.class.isAssignableFrom(in.getClass())) {
       InputStream body = (InputStream) in;
-      String debugBody = "<InputStream>";
-      return new Request(method, path, body, debugBody);
+      return new Request(method, path, body);
     } else {
-      String debugBody = serialize(in);
-      InputStream body = new ByteArrayInputStream(debugBody.getBytes(StandardCharsets.UTF_8));
-      return new Request(method, path, body, debugBody);
+      String body = serialize(in);
+      return new Request(method, path, body);
     }
   }
 
@@ -303,11 +299,15 @@ public class ApiClient {
       in.getHeaders()
           .forEach((header, value) -> sb.append(String.format("\n * %s: %s", header, value)));
     }
-    String requestBody = in.getDebugBody();
-    if (requestBody != null && !requestBody.isEmpty()) {
-      for (String line : bodyLogger.redactedDump(requestBody).split("\n")) {
-        sb.append("\n> ");
-        sb.append(line);
+    if (in.isBodyStreaming()) {
+      sb.append("\n> (streamed body)");
+    } else {
+      String requestBody = in.getBodyString();
+      if (requestBody != null && !requestBody.isEmpty()) {
+        for (String line : bodyLogger.redactedDump(requestBody).split("\n")) {
+          sb.append("\n> ");
+          sb.append(line);
+        }
       }
     }
     sb.append("\n< ");

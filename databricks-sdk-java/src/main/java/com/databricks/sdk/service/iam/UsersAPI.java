@@ -75,8 +75,8 @@ public class UsersAPI {
    *
    * <p>Gets the permission levels that a user can have on an object.
    */
-  public GetPasswordPermissionLevelsResponse getPasswordPermissionLevels() {
-    return impl.getPasswordPermissionLevels();
+  public GetPasswordPermissionLevelsResponse getPermissionLevels() {
+    return impl.getPermissionLevels();
   }
 
   /**
@@ -85,8 +85,8 @@ public class UsersAPI {
    * <p>Gets the permissions of all passwords. Passwords can inherit permissions from their root
    * object.
    */
-  public PasswordPermissions getPasswordPermissions() {
-    return impl.getPasswordPermissions();
+  public PasswordPermissions getPermissions() {
+    return impl.getPermissions();
   }
 
   /**
@@ -117,8 +117,8 @@ public class UsersAPI {
    *
    * <p>Sets permissions on all passwords. Passwords can inherit permissions from their root object.
    */
-  public PasswordPermissions setPasswordPermissions(PasswordPermissionsRequest request) {
-    return impl.setPasswordPermissions(request);
+  public PasswordPermissions setPermissions(PasswordPermissionsRequest request) {
+    return impl.setPermissions(request);
   }
 
   public void update(String id) {
@@ -140,8 +140,8 @@ public class UsersAPI {
    * <p>Updates the permissions on all passwords. Passwords can inherit permissions from their root
    * object.
    */
-  public PasswordPermissions updatePasswordPermissions(PasswordPermissionsRequest request) {
-    return impl.updatePasswordPermissions(request);
+  public PasswordPermissions updatePermissions(PasswordPermissionsRequest request) {
+    return impl.updatePermissions(request);
   }
 
   public UsersService impl() {

@@ -17,6 +17,13 @@ public class InitScriptInfo {
   private DbfsStorageInfo dbfs;
 
   /**
+   * destination needs to be provided. e.g. `{ "file" : { "destination" : "file:/my/local/file.sh" }
+   * }`
+   */
+  @JsonProperty("file")
+  private LocalFileInfo file;
+
+  /**
    * destination and either the region or endpoint need to be provided. e.g. `{ "s3": {
    * "destination" : "s3://cluster_log_bucket/prefix", "region" : "us-west-2" } }` Cluster iam role
    * is used to access s3, please make sure the cluster iam role in `instance_profile_arn` has
@@ -46,6 +53,15 @@ public class InitScriptInfo {
 
   public DbfsStorageInfo getDbfs() {
     return dbfs;
+  }
+
+  public InitScriptInfo setFile(LocalFileInfo file) {
+    this.file = file;
+    return this;
+  }
+
+  public LocalFileInfo getFile() {
+    return file;
   }
 
   public InitScriptInfo setS3(S3StorageInfo s3) {
@@ -81,6 +97,7 @@ public class InitScriptInfo {
     if (o == null || getClass() != o.getClass()) return false;
     InitScriptInfo that = (InitScriptInfo) o;
     return Objects.equals(dbfs, that.dbfs)
+        && Objects.equals(file, that.file)
         && Objects.equals(s3, that.s3)
         && Objects.equals(volumes, that.volumes)
         && Objects.equals(workspace, that.workspace);
@@ -88,13 +105,14 @@ public class InitScriptInfo {
 
   @Override
   public int hashCode() {
-    return Objects.hash(dbfs, s3, volumes, workspace);
+    return Objects.hash(dbfs, file, s3, volumes, workspace);
   }
 
   @Override
   public String toString() {
     return new ToStringer(InitScriptInfo.class)
         .add("dbfs", dbfs)
+        .add("file", file)
         .add("s3", s3)
         .add("volumes", volumes)
         .add("workspace", workspace)
