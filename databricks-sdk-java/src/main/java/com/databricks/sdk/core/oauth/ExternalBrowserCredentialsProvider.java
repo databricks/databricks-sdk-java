@@ -1,9 +1,9 @@
 package com.databricks.sdk.core.oauth;
 
-import com.databricks.sdk.core.CredentialsProvider;
-import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.DatabricksException;
-import com.databricks.sdk.core.HeaderFactory;
+import com.databricks.sdk.core.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 /**
@@ -12,6 +12,8 @@ import java.io.IOException;
  */
 public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
+  private static final Logger LOG = LoggerFactory.getLogger(ExternalBrowserCredentialsProvider.class);
+
   @Override
   public String authType() {
     return "external-browser";
@@ -19,6 +21,7 @@ public class ExternalBrowserCredentialsProvider implements CredentialsProvider {
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
+    LOG.info("browser " + config.toString());
     if (config.getHost() == null || config.getAuthType() != "external-browser") {
       return null;
     }
