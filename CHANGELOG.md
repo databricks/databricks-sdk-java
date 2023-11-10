@@ -25,19 +25,19 @@ API Changes:
  * Added `file` field for `com.databricks.sdk.service.compute.InitScriptInfo`.
  * Added `zoneId` field for `com.databricks.sdk.service.compute.InstancePoolGcpAttributes`.
  * Added `libraries` field for `com.databricks.sdk.service.compute.Policy`.
- * Removed `uiState` field for `com.databricks.sdk.service.jobs.CreateJob`.
  * Added `editMode` field for `com.databricks.sdk.service.jobs.CreateJob`.
  * Added `includeResolvedValues` field for `com.databricks.sdk.service.jobs.GetRunRequest`.
- * Removed `uiState` field for `com.databricks.sdk.service.jobs.JobSettings`.
  * Added `editMode` field for `com.databricks.sdk.service.jobs.JobSettings`.
- * Removed `accountClient.oAuthEnrollment()` service.
  * Added `networkConnectivityConfigId` field for `com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest`.
- * Removed `delete()` and `get()` method for `workspaceClient.apps()` service.
- * Added `deleteApp()`, `getApp()`, `getAppDeploymentStatus()`, `getApps()` and `getEvents()` method for `workspaceClient.apps()` service.
  * Added `containerLogs` and `extraInfo` field for `com.databricks.sdk.service.serving.DeploymentStatus`.
+ * Added `deleteApp()`, `getApp()`, `getAppDeploymentStatus()`, `getApps()` and `getEvents()` method for `workspaceClient.apps()` service.
  * Added `accountClient.networkConnectivity()` service. 
- * Removed the following classes: `com.databricks.sdk.service.jobs.CreateJobUiState`, `com.databricks.sdk.service.jobs.JobSettingsUiState`, `com.databricks.sdk.service.oauth2.CreateOAuthEnrollment` and `com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus`.
  * Added the following classses: `com.databricks.sdk.service.compute.LocalFileInfo`, `com.databricks.sdk.service.compute.InitScriptInfoAndExecutionDetails`, `com.databricks.sdk.service.compute.InitScriptEventDetails`, `com.databricks.sdk.service.compute.InitScriptExecutionDetails`, `com.databricks.sdk.service.compute.InitScriptExecutionDetailsStatus`, `com.databricks.sdk.service.jobs.JobSettingsEditMode`, `com.databricks.sdk.service.jobs.CreateJobEditMode`, `com.databricks.sdk.service.catalog.CreateFunctionRequest`, `com.databricks.sdk.service.catalog.DependencyList`, `com.databricks.sdk.service.catalog.FunctionParameterInfos`, `com.databricks.sdk.service.serving.AppEvents`, `com.databricks.sdk.service.serving.AppServiceStatus`, `com.databricks.sdk.service.serving.DeleteAppResponse`, `com.databricks.sdk.service.serving.GetAppDeploymentStatusRequest`, `com.databricks.sdk.service.serving.GetAppResponse`, `com.databricks.sdk.service.serving.GetEventsRequest`, `com.databricks.sdk.service.serving.ListAppEventsResponse`, `com.databricks.sdk.service.serving.ListAppsResponse`, `com.databricks.sdk.service.settings.CreateNetworkConnectivityConfigRequest`, `com.databricks.sdk.service.settings.CreatePrivateEndpointRuleRequest`, `com.databricks.sdk.service.settings.CreatePrivateEndpointRuleRequestGroupId`, `com.databricks.sdk.service.settings.DeleteNetworkConnectivityConfigurationRequest`, `com.databricks.sdk.service.settings.DeletePrivateEndpointRuleRequest`, `com.databricks.sdk.service.settings.GetNetworkConnectivityConfigurationRequest`, `com.databricks.sdk.service.settings.GetPrivateEndpointRuleRequest`, `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRule`, `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleConnectionState`, `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleGroupId`, `com.databricks.sdk.service.settings.NccAzureServiceEndpointRule`, `com.databricks.sdk.service.settings.NccEgressConfig`, `com.databricks.sdk.service.settings.NccEgressDefaultRules`, `com.databricks.sdk.service.settings.NccEgressTargetRules` and `com.databricks.sdk.service.settings.NetworkConnectivityConfiguration`.
+ * Removed `uiState` field for `com.databricks.sdk.service.jobs.CreateJob`.
+ * Removed `uiState` field for `com.databricks.sdk.service.jobs.JobSettings`.
+ * Removed `delete()` and `get()` method for `workspaceClient.apps()` service.
+ * Removed `accountClient.oAuthEnrollment()` service.
+ * Removed the following classes: `com.databricks.sdk.service.jobs.CreateJobUiState`, `com.databricks.sdk.service.jobs.JobSettingsUiState`, `com.databricks.sdk.service.oauth2.CreateOAuthEnrollment` and `com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus`.
 
 OpenAPI SHA: e7b127cb07af8dd4d8c61c7cc045c8910cdbb02a, Date: 2023-11-08
 
