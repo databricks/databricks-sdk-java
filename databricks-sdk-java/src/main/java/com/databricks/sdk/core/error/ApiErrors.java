@@ -21,6 +21,8 @@ public class ApiErrors {
     if (error != null) {
       // If the endpoint did not respond to the request, interpret the exception.
       return new DatabricksError("IO_ERROR", 523, error);
+    } else if (out.getStatusCode() == 429) {
+      return new DatabricksError("TOO_MANY_REQUESTS", "Current request has to be retried", 429);
     } else if (out.getStatusCode() >= 400) {
       return readErrorFromResponse(out);
     } else {
