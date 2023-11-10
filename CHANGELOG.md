@@ -2,10 +2,10 @@
 
 ## 0.12.0
 
-* Implement notebook-native auth for the Java SDK ([#171](https://github.com/databricks/databricks-sdk-java/pull/171)).
-* Added regression question to github issue template ([#176](https://github.com/databricks/databricks-sdk-java/pull/176)).
-* Mark Java SDK as Beta ([#177](https://github.com/databricks/databricks-sdk-java/pull/177)).
-* Update SDK to latest OpenAPI Spec ([#181](https://github.com/databricks/databricks-sdk-java/pull/181)).
+* Implemented notebook-native auth for the Java SDK ([#171](https://github.com/databricks/databricks-sdk-java/pull/171)).
+* Addeded regression question to github issue template ([#176](https://github.com/databricks/databricks-sdk-java/pull/176)).
+* Marked Java SDK as Beta ([#177](https://github.com/databricks/databricks-sdk-java/pull/177)).
+* Updated SDK to latest OpenAPI Spec ([#181](https://github.com/databricks/databricks-sdk-java/pull/181)).
 
 API Changes:
 
@@ -19,66 +19,25 @@ API Changes:
  * Changed `properties` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `String` class.
  * Changed `returnParams` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
  * Added `skipValidation` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
- * Added `com.databricks.sdk.service.catalog.CreateFunctionRequest` class.
- * Added `com.databricks.sdk.service.catalog.DependencyList` class.
- * Added `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
  * Added `libraries` field for `com.databricks.sdk.service.compute.CreatePolicy`.
  * Added `libraries` field for `com.databricks.sdk.service.compute.EditPolicy`.
  * Added `initScripts` field for `com.databricks.sdk.service.compute.EventDetails`.
  * Added `file` field for `com.databricks.sdk.service.compute.InitScriptInfo`.
  * Added `zoneId` field for `com.databricks.sdk.service.compute.InstancePoolGcpAttributes`.
  * Added `libraries` field for `com.databricks.sdk.service.compute.Policy`.
- * Added `com.databricks.sdk.service.compute.InitScriptEventDetails` class.
- * Added `com.databricks.sdk.service.compute.InitScriptExecutionDetails` class.
- * Added `com.databricks.sdk.service.compute.InitScriptExecutionDetailsStatus` class.
- * Added `com.databricks.sdk.service.compute.InitScriptInfoAndExecutionDetails` class.
- * Added `com.databricks.sdk.service.compute.LocalFileInfo` class.
  * Removed `uiState` field for `com.databricks.sdk.service.jobs.CreateJob`.
  * Added `editMode` field for `com.databricks.sdk.service.jobs.CreateJob`.
- * Removed `com.databricks.sdk.service.jobs.CreateJobUiState` class.
  * Added `includeResolvedValues` field for `com.databricks.sdk.service.jobs.GetRunRequest`.
  * Removed `uiState` field for `com.databricks.sdk.service.jobs.JobSettings`.
  * Added `editMode` field for `com.databricks.sdk.service.jobs.JobSettings`.
- * Removed `com.databricks.sdk.service.jobs.JobSettingsUiState` class.
- * Added `com.databricks.sdk.service.jobs.CreateJobEditMode` class.
- * Added `com.databricks.sdk.service.jobs.JobSettingsEditMode` class.
  * Removed `accountClient.oAuthEnrollment()` service.
- * Removed `com.databricks.sdk.service.oauth2.CreateOAuthEnrollment` class.
- * Removed `com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus` class.
  * Added `networkConnectivityConfigId` field for `com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest`.
- * Removed `delete()` method for `workspaceClient.apps()` service.
- * Removed `get()` method for `workspaceClient.apps()` service.
- * Added `deleteApp()` method for `workspaceClient.apps()` service.
- * Added `getApp()` method for `workspaceClient.apps()` service.
- * Added `getAppDeploymentStatus()` method for `workspaceClient.apps()` service.
- * Added `getApps()` method for `workspaceClient.apps()` service.
- * Added `getEvents()` method for `workspaceClient.apps()` service.
- * Added `containerLogs` field for `com.databricks.sdk.service.serving.DeploymentStatus`.
- * Added `extraInfo` field for `com.databricks.sdk.service.serving.DeploymentStatus`.
- * Added `com.databricks.sdk.service.serving.AppEvents` class.
- * Added `com.databricks.sdk.service.serving.AppServiceStatus` class.
- * Added `com.databricks.sdk.service.serving.DeleteAppResponse` class.
- * Added `com.databricks.sdk.service.serving.GetAppDeploymentStatusRequest` class.
- * Added `com.databricks.sdk.service.serving.GetAppResponse` class.
- * Added `com.databricks.sdk.service.serving.GetEventsRequest` class.
- * Added `com.databricks.sdk.service.serving.ListAppEventsResponse` class.
- * Added `com.databricks.sdk.service.serving.ListAppsResponse` class.
- * Added `accountClient.networkConnectivity()` service.
- * Added `com.databricks.sdk.service.settings.CreateNetworkConnectivityConfigRequest` class.
- * Added `com.databricks.sdk.service.settings.CreatePrivateEndpointRuleRequest` class.
- * Added `com.databricks.sdk.service.settings.CreatePrivateEndpointRuleRequestGroupId` class.
- * Added `com.databricks.sdk.service.settings.DeleteNetworkConnectivityConfigurationRequest` class.
- * Added `com.databricks.sdk.service.settings.DeletePrivateEndpointRuleRequest` class.
- * Added `com.databricks.sdk.service.settings.GetNetworkConnectivityConfigurationRequest` class.
- * Added `com.databricks.sdk.service.settings.GetPrivateEndpointRuleRequest` class.
- * Added `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRule` class.
- * Added `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleConnectionState` class.
- * Added `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleGroupId` class.
- * Added `com.databricks.sdk.service.settings.NccAzureServiceEndpointRule` class.
- * Added `com.databricks.sdk.service.settings.NccEgressConfig` class.
- * Added `com.databricks.sdk.service.settings.NccEgressDefaultRules` class.
- * Added `com.databricks.sdk.service.settings.NccEgressTargetRules` class.
- * Added `com.databricks.sdk.service.settings.NetworkConnectivityConfiguration` class.
+ * Removed `delete()` and `get()` method for `workspaceClient.apps()` service.
+ * Added `deleteApp()`, `getApp()`, `getAppDeploymentStatus()`, `getApps()` and `getEvents()` method for `workspaceClient.apps()` service.
+ * Added `containerLogs` and `extraInfo` field for `com.databricks.sdk.service.serving.DeploymentStatus`.
+ * Added `accountClient.networkConnectivity()` service. 
+ * Removed the following classes: `com.databricks.sdk.service.jobs.CreateJobUiState`, `com.databricks.sdk.service.jobs.JobSettingsUiState`, `com.databricks.sdk.service.oauth2.CreateOAuthEnrollment` and `com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus`.
+ * Added the following classses: `com.databricks.sdk.service.compute.LocalFileInfo`, `com.databricks.sdk.service.compute.InitScriptInfoAndExecutionDetails`, `com.databricks.sdk.service.compute.InitScriptEventDetails`, `com.databricks.sdk.service.compute.InitScriptExecutionDetails`, `com.databricks.sdk.service.compute.InitScriptExecutionDetailsStatus`, `com.databricks.sdk.service.jobs.JobSettingsEditMode`, `com.databricks.sdk.service.jobs.CreateJobEditMode`, `com.databricks.sdk.service.catalog.CreateFunctionRequest`, `com.databricks.sdk.service.catalog.DependencyList`, `com.databricks.sdk.service.catalog.FunctionParameterInfos`, `com.databricks.sdk.service.serving.AppEvents`, `com.databricks.sdk.service.serving.AppServiceStatus`, `com.databricks.sdk.service.serving.DeleteAppResponse`, `com.databricks.sdk.service.serving.GetAppDeploymentStatusRequest`, `com.databricks.sdk.service.serving.GetAppResponse`, `com.databricks.sdk.service.serving.GetEventsRequest`, `com.databricks.sdk.service.serving.ListAppEventsResponse`, `com.databricks.sdk.service.serving.ListAppsResponse`, `com.databricks.sdk.service.settings.CreateNetworkConnectivityConfigRequest`, `com.databricks.sdk.service.settings.CreatePrivateEndpointRuleRequest`, `com.databricks.sdk.service.settings.CreatePrivateEndpointRuleRequestGroupId`, `com.databricks.sdk.service.settings.DeleteNetworkConnectivityConfigurationRequest`, `com.databricks.sdk.service.settings.DeletePrivateEndpointRuleRequest`, `com.databricks.sdk.service.settings.GetNetworkConnectivityConfigurationRequest`, `com.databricks.sdk.service.settings.GetPrivateEndpointRuleRequest`, `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRule`, `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleConnectionState`, `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleGroupId`, `com.databricks.sdk.service.settings.NccAzureServiceEndpointRule`, `com.databricks.sdk.service.settings.NccEgressConfig`, `com.databricks.sdk.service.settings.NccEgressDefaultRules`, `com.databricks.sdk.service.settings.NccEgressTargetRules` and `com.databricks.sdk.service.settings.NetworkConnectivityConfiguration`.
 
 OpenAPI SHA: e7b127cb07af8dd4d8c61c7cc045c8910cdbb02a, Date: 2023-11-08
 
