@@ -9,32 +9,36 @@
 
 API Changes:
 
- * Changed `create()` method for `workspaceClient.functions()` service . New request type is `com.databricks.sdk.service.catalog.CreateFunctionRequest` class.
- * Changed `create()` method for `workspaceClient.metastores()` service with new required argument order.
- * Changed `inputParams` field for `com.databricks.sdk.service.catalog.CreateFunction` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
- * Changed `properties` field for `com.databricks.sdk.service.catalog.CreateFunction` to `String` class.
- * Changed `returnParams` field for `com.databricks.sdk.service.catalog.CreateFunction` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
- * Changed `storageRoot` field for `com.databricks.sdk.service.catalog.CreateMetastore` to no longer be required.
- * Changed `inputParams` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
- * Changed `properties` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `String` class.
- * Changed `returnParams` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
- * Added `skipValidation` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
- * Added `libraries` field for `com.databricks.sdk.service.compute.CreatePolicy`.
- * Added `libraries` field for `com.databricks.sdk.service.compute.EditPolicy`.
- * Added `initScripts` field for `com.databricks.sdk.service.compute.EventDetails`.
- * Added `file` field for `com.databricks.sdk.service.compute.InitScriptInfo`.
- * Added `zoneId` field for `com.databricks.sdk.service.compute.InstancePoolGcpAttributes`.
- * Added `libraries` field for `com.databricks.sdk.service.compute.Policy`.
- * Added `editMode` field for `com.databricks.sdk.service.jobs.CreateJob`.
- * Added `includeResolvedValues` field for `com.databricks.sdk.service.jobs.GetRunRequest`.
- * Added `editMode` field for `com.databricks.sdk.service.jobs.JobSettings`.
- * Added `networkConnectivityConfigId` field for `com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest`.
- * Added `containerLogs` and `extraInfo` field for `com.databricks.sdk.service.serving.DeploymentStatus`.
- * Added `deleteApp()`, `getApp()`, `getAppDeploymentStatus()`, `getApps()` and `getEvents()` method for `workspaceClient.apps()` service.
+ * Changed `create()` method for `workspaceClient.functions()` and `workspaceClient.metastores()` service. 
+ * Changed the following fields:
+   * `inputParams` field for `com.databricks.sdk.service.catalog.CreateFunction` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
+   * `properties` field for `com.databricks.sdk.service.catalog.CreateFunction` to `String` class.
+   * `returnParams` field for `com.databricks.sdk.service.catalog.CreateFunction` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
+   * `storageRoot` field for `com.databricks.sdk.service.catalog.CreateMetastore` to no longer be required.
+   * `inputParams` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
+   * `properties` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `String` class.
+   * `returnParams` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
+ * Added the following fields:
+   * `skipValidation` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+   * `libraries` field for `com.databricks.sdk.service.compute.CreatePolicy`, `com.databricks.sdk.service.compute.EditPolicy` and `com.databricks.sdk.service.compute.Policy`.
+   * `initScripts` field for `com.databricks.sdk.service.compute.EventDetails`.
+   * `file` field for `com.databricks.sdk.service.compute.InitScriptInfo`.
+   * `zoneId` field for `com.databricks.sdk.service.compute.InstancePoolGcpAttributes`.
+   * `editMode` field for `com.databricks.sdk.service.jobs.CreateJob` and `com.databricks.sdk.service.jobs.JobSettings`.
+   * `includeResolvedValues` field for `com.databricks.sdk.service.jobs.GetRunRequest`.
+   * `networkConnectivityConfigId` field for `com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest`.
+   * `containerLogs` and `extraInfo` field for `com.databricks.sdk.service.serving.DeploymentStatus`.
+* Added `deleteApp()`, `getApp()`, `getAppDeploymentStatus()`, `getApps()` and `getEvents()` method for `workspaceClient.apps()` service.
  * Added `accountClient.networkConnectivity()` service. 
- * Added the following classses: `com.databricks.sdk.service.compute.LocalFileInfo`, `com.databricks.sdk.service.compute.InitScriptInfoAndExecutionDetails`, `com.databricks.sdk.service.compute.InitScriptEventDetails`, `com.databricks.sdk.service.compute.InitScriptExecutionDetails`, `com.databricks.sdk.service.compute.InitScriptExecutionDetailsStatus`, `com.databricks.sdk.service.jobs.JobSettingsEditMode`, `com.databricks.sdk.service.jobs.CreateJobEditMode`, `com.databricks.sdk.service.catalog.CreateFunctionRequest`, `com.databricks.sdk.service.catalog.DependencyList`, `com.databricks.sdk.service.catalog.FunctionParameterInfos`, `com.databricks.sdk.service.serving.AppEvents`, `com.databricks.sdk.service.serving.AppServiceStatus`, `com.databricks.sdk.service.serving.DeleteAppResponse`, `com.databricks.sdk.service.serving.GetAppDeploymentStatusRequest`, `com.databricks.sdk.service.serving.GetAppResponse`, `com.databricks.sdk.service.serving.GetEventsRequest`, `com.databricks.sdk.service.serving.ListAppEventsResponse`, `com.databricks.sdk.service.serving.ListAppsResponse`, `com.databricks.sdk.service.settings.CreateNetworkConnectivityConfigRequest`, `com.databricks.sdk.service.settings.CreatePrivateEndpointRuleRequest`, `com.databricks.sdk.service.settings.CreatePrivateEndpointRuleRequestGroupId`, `com.databricks.sdk.service.settings.DeleteNetworkConnectivityConfigurationRequest`, `com.databricks.sdk.service.settings.DeletePrivateEndpointRuleRequest`, `com.databricks.sdk.service.settings.GetNetworkConnectivityConfigurationRequest`, `com.databricks.sdk.service.settings.GetPrivateEndpointRuleRequest`, `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRule`, `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleConnectionState`, `com.databricks.sdk.service.settings.NccAzurePrivateEndpointRuleGroupId`, `com.databricks.sdk.service.settings.NccAzureServiceEndpointRule`, `com.databricks.sdk.service.settings.NccEgressConfig`, `com.databricks.sdk.service.settings.NccEgressDefaultRules`, `com.databricks.sdk.service.settings.NccEgressTargetRules` and `com.databricks.sdk.service.settings.NetworkConnectivityConfiguration`.
- * Removed `uiState` field for `com.databricks.sdk.service.jobs.CreateJob`.
- * Removed `uiState` field for `com.databricks.sdk.service.jobs.JobSettings`.
+ * Added the following classses: 
+   * `com.databricks.sdk.service.compute`: `LocalFileInfo`, `InitScriptInfoAndExecutionDetails`, `InitScriptEventDetails`, `InitScriptExecutionDetails` and `InitScriptExecutionDetailsStatus`.
+   * `com.databricks.sdk.service.jobs`: `JobSettingsEditMode` and `CreateJobEditMode`.
+   * `com.databricks.sdk.service.catalog`: `CreateFunctionRequest`, `DependencyList` and `FunctionParameterInfos`.
+   * `com.databricks.sdk.service.serving`: `AppEvents`, `AppServiceStatus`, `DeleteAppResponse`, `GetAppDeploymentStatusRequest`, `GetAppResponse`, `GetEventsRequest`, `ListAppEventsResponse` and `ListAppsResponse`.
+   * `com.databricks.sdk.service.settings`: `CreateNetworkConnectivityConfigRequest`, `CreatePrivateEndpointRuleRequest`, `CreatePrivateEndpointRuleRequestGroupId`, `DeleteNetworkConnectivityConfigurationRequest`, `DeletePrivateEndpointRuleRequest`, `GetNetworkConnectivityConfigurationRequest`, `GetPrivateEndpointRuleRequest`, `NccAzurePrivateEndpointRule`, `NccAzurePrivateEndpointRuleConnectionState`, `NccAzurePrivateEndpointRuleGroupId`, `NccAzureServiceEndpointRule`, `NccEgressConfig`, `NccEgressDefaultRules`, `NccEgressTargetRules` and `NetworkConnectivityConfiguration`.
+ * Removed the following fields:
+   * `uiState` field for `com.databricks.sdk.service.jobs.CreateJob`.
+   * `uiState` field for `com.databricks.sdk.service.jobs.JobSettings`.
  * Removed `delete()` and `get()` method for `workspaceClient.apps()` service.
  * Removed `accountClient.oAuthEnrollment()` service.
  * Removed the following classes: `com.databricks.sdk.service.jobs.CreateJobUiState`, `com.databricks.sdk.service.jobs.JobSettingsUiState`, `com.databricks.sdk.service.oauth2.CreateOAuthEnrollment` and `com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus`.
