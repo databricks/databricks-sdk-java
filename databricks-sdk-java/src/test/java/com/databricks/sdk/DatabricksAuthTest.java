@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
 
 public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
 
+  private String errorMessageBase =
+      "default auth: cannot configure default credentials, please check https://docs.databricks.com/en/dev-tools/auth.html#databricks-client-unified-authentication to configure credentials for your preferred authentication method";
+
   public DatabricksAuthTest() {
     setPermissionOnTestAz();
   }
@@ -22,7 +25,7 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
   public void testTestConfigNoParams() {
 
     raises(
-        "default auth: cannot configure default credentials",
+        errorMessageBase,
         () -> {
           DatabricksConfig config = new DatabricksConfig();
 
@@ -35,7 +38,7 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("DATABRICKS_HOST", "x");
     raises(
-        "default auth: cannot configure default credentials. Config: host=https://x. Env: DATABRICKS_HOST",
+        errorMessageBase + ". Config: host=https://x. Env: DATABRICKS_HOST",
         () -> {
           DatabricksConfig config = new DatabricksConfig();
           resolveConfig(config, env);
@@ -48,7 +51,7 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("DATABRICKS_TOKEN", "x");
     raises(
-        "default auth: cannot configure default credentials. Config: token=***. Env: DATABRICKS_TOKEN",
+        errorMessageBase + ". Config: token=***. Env: DATABRICKS_TOKEN",
         () -> {
           DatabricksConfig config = new DatabricksConfig();
           resolveConfig(config, env);
@@ -86,7 +89,8 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
     StaticEnv env =
         new StaticEnv().with("DATABRICKS_PASSWORD", "x").with("DATABRICKS_USERNAME", "x");
     raises(
-        "default auth: cannot configure default credentials. Config: username=x, password=***. Env: DATABRICKS_USERNAME, DATABRICKS_PASSWORD",
+        errorMessageBase
+            + ". Config: username=x, password=***. Env: DATABRICKS_USERNAME, DATABRICKS_PASSWORD",
         () -> {
           DatabricksConfig config = new DatabricksConfig();
           resolveConfig(config, env);
@@ -191,7 +195,7 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("DATABRICKS_CONFIG_FILE", "x");
     raises(
-        "default auth: cannot configure default credentials. Config: config_file=x. Env: DATABRICKS_CONFIG_FILE",
+        errorMessageBase + ". Config: config_file=x. Env: DATABRICKS_CONFIG_FILE",
         () -> {
           DatabricksConfig config = new DatabricksConfig();
           resolveConfig(config, env);
@@ -204,7 +208,7 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("HOME", TestOSUtils.resource("/testdata"));
     raises(
-        "default auth: cannot configure default credentials. Config: host=https://x",
+        errorMessageBase + ". Config: host=https://x",
         () -> {
           DatabricksConfig config = new DatabricksConfig().setHost("x");
           resolveConfig(config, env);
@@ -217,7 +221,7 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
     // Set environment variables
     StaticEnv env = new StaticEnv().with("HOME", TestOSUtils.resource("/testdata/empty_default"));
     raises(
-        "default auth: cannot configure default credentials",
+        errorMessageBase,
         () -> {
           DatabricksConfig config = new DatabricksConfig();
           resolveConfig(config, env);
@@ -275,7 +279,7 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
             .with("DATABRICKS_CONFIG_PROFILE", "nohost")
             .with("HOME", TestOSUtils.resource("/testdata"));
     raises(
-        "default auth: cannot configure default credentials. Config: token=***, profile=nohost. Env: DATABRICKS_CONFIG_PROFILE",
+        errorMessageBase + ". Config: token=***, profile=nohost. Env: DATABRICKS_CONFIG_PROFILE",
         () -> {
           DatabricksConfig config = new DatabricksConfig();
           resolveConfig(config, env);
@@ -292,7 +296,8 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
             .with("DATABRICKS_TOKEN", "x")
             .with("HOME", TestOSUtils.resource("/testdata"));
     raises(
-        "default auth: cannot configure default credentials. Config: token=***, profile=nohost. Env: DATABRICKS_TOKEN, DATABRICKS_CONFIG_PROFILE",
+        errorMessageBase
+            + ". Config: token=***, profile=nohost. Env: DATABRICKS_TOKEN, DATABRICKS_CONFIG_PROFILE",
         () -> {
           DatabricksConfig config = new DatabricksConfig();
           resolveConfig(config, env);
@@ -373,7 +378,7 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
             .with("HOME", TestOSUtils.resource("/testdata/azure"))
             .with("PATH", "whatever");
     raises(
-        "default auth: cannot configure default credentials. Config: azure_workspace_resource_id=/sub/rg/ws",
+        errorMessageBase + ". Config: azure_workspace_resource_id=/sub/rg/ws",
         () -> {
           DatabricksConfig config =
               new DatabricksConfig().setAzureWorkspaceResourceId("/sub/rg/ws");
