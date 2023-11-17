@@ -38,11 +38,7 @@ public class DatabricksConfig {
       sensitive = true)
   private String clientSecret;
 
-  @ConfigAttribute(
-      value = "scopes",
-      env = "DATABRICKS_SCOPES",
-      auth = "oauth",
-      sensitive = true)
+  @ConfigAttribute(value = "scopes", env = "DATABRICKS_SCOPES", auth = "oauth", sensitive = true)
   private List<String> scopes;
 
   @ConfigAttribute(
