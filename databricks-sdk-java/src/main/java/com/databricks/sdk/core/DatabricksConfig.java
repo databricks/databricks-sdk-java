@@ -7,6 +7,7 @@ import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -36,6 +37,20 @@ public class DatabricksConfig {
       auth = "oauth",
       sensitive = true)
   private String clientSecret;
+
+  @ConfigAttribute(
+      value = "scopes",
+      env = "DATABRICKS_SCOPES",
+      auth = "oauth",
+      sensitive = true)
+  private List<String> scopes;
+
+  @ConfigAttribute(
+      value = "redirect_url",
+      env = "DATABRICKS_REDIRECT_URL",
+      auth = "oauth",
+      sensitive = true)
+  private String redirectUrl;
 
   @ConfigAttribute(value = "username", env = "DATABRICKS_USERNAME", auth = "basic")
   private String username;
@@ -288,6 +303,24 @@ public class DatabricksConfig {
 
   public DatabricksConfig setClientSecret(String clientSecret) {
     this.clientSecret = clientSecret;
+    return this;
+  }
+
+  public String getOAuthRedirectUrl() {
+    return redirectUrl;
+  }
+
+  public DatabricksConfig setOAuthRedirectUrl(String redirectUrl) {
+    this.redirectUrl = redirectUrl;
+    return this;
+  }
+
+  public List<String> getScopes() {
+    return scopes;
+  }
+
+  public DatabricksConfig setScopes(List<String> scopes) {
+    this.scopes = scopes;
     return this;
   }
 

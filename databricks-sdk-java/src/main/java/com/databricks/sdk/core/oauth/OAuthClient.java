@@ -86,13 +86,24 @@ public class OAuthClient {
   private final boolean isAzure;
 
   public OAuthClient(DatabricksConfig config) throws IOException {
-    this(
-        new Builder()
-            .withHttpClient(config.getHttpClient())
-            .withClientId(config.getClientId())
-            .withClientSecret(config.getClientSecret())
-            .withHost(config.getHost())
-            .withRedirectUrl("http://localhost:8080/callback"));
+    this(prepareBuilder(config));
+  }
+
+  private static Builder prepareBuilder(DatabricksConfig config) {
+    Builder builder = new Builder()
+        .withHttpClient(config.getHttpClient())
+        .withClientId(config.getClientId())
+        .withClientSecret(config.getClientSecret())
+        .withHost(config.getHost())
+        .withRedirectUrl(
+            config.getOAuthRedirectUrl() != null
+            ? config.getOAuthRedirectUrl()
+            : "http://localhost:8080/callback");
+
+    if (config.getScopes() != null) {
+      builder.withScopes(config.getScopes());
+    }
+    return builder;
   }
 
   private OAuthClient(Builder b) throws IOException {
@@ -116,6 +127,9 @@ public class OAuthClient {
     List<String> scopes = b.scopes;
     if (scopes == null) {
       scopes = Arrays.asList("offline_access", "clusters", "sql");
+    } else if (!scopes.contains("offline_access")) {
+      scopes = new ArrayList<>(scopes);
+      scopes.add("offline_access");
     }
     if (config.isAzure()) {
       scopes =
