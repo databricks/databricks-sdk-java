@@ -1,5 +1,51 @@
 # Version changelog
 
+## 0.12.0
+
+* Implemented notebook-native auth for the Java SDK ([#171](https://github.com/databricks/databricks-sdk-java/pull/171)).
+* Addeded regression question to github issue template ([#176](https://github.com/databricks/databricks-sdk-java/pull/176)).
+* Marked Java SDK as Beta ([#177](https://github.com/databricks/databricks-sdk-java/pull/177)).
+* Updated SDK to latest OpenAPI Spec ([#181](https://github.com/databricks/databricks-sdk-java/pull/181)).
+
+API Changes:
+
+ * Changed `create()` method for `workspaceClient.functions()` and `workspaceClient.metastores()` service. 
+ * Changed the following fields:
+   * `inputParams` field for `com.databricks.sdk.service.catalog.CreateFunction` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
+   * `properties` field for `com.databricks.sdk.service.catalog.CreateFunction` to `String` class.
+   * `returnParams` field for `com.databricks.sdk.service.catalog.CreateFunction` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
+   * `storageRoot` field for `com.databricks.sdk.service.catalog.CreateMetastore` to no longer be required.
+   * `inputParams` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
+   * `properties` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `String` class.
+   * `returnParams` field for `com.databricks.sdk.service.catalog.FunctionInfo` to `com.databricks.sdk.service.catalog.FunctionParameterInfos` class.
+ * Added the following fields:
+   * `skipValidation` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+   * `libraries` field for `com.databricks.sdk.service.compute.CreatePolicy`, `com.databricks.sdk.service.compute.EditPolicy` and `com.databricks.sdk.service.compute.Policy`.
+   * `initScripts` field for `com.databricks.sdk.service.compute.EventDetails`.
+   * `file` field for `com.databricks.sdk.service.compute.InitScriptInfo`.
+   * `zoneId` field for `com.databricks.sdk.service.compute.InstancePoolGcpAttributes`.
+   * `editMode` field for `com.databricks.sdk.service.jobs.CreateJob` and `com.databricks.sdk.service.jobs.JobSettings`.
+   * `includeResolvedValues` field for `com.databricks.sdk.service.jobs.GetRunRequest`.
+   * `networkConnectivityConfigId` field for `com.databricks.sdk.service.provisioning.UpdateWorkspaceRequest`.
+   * `containerLogs` and `extraInfo` field for `com.databricks.sdk.service.serving.DeploymentStatus`.
+* Added `deleteApp()`, `getApp()`, `getAppDeploymentStatus()`, `getApps()` and `getEvents()` method for `workspaceClient.apps()` service.
+ * Added `accountClient.networkConnectivity()` service. 
+ * Added the following classses: 
+   * `com.databricks.sdk.service.compute`: `LocalFileInfo`, `InitScriptInfoAndExecutionDetails`, `InitScriptEventDetails`, `InitScriptExecutionDetails` and `InitScriptExecutionDetailsStatus`.
+   * `com.databricks.sdk.service.jobs`: `JobSettingsEditMode` and `CreateJobEditMode`.
+   * `com.databricks.sdk.service.catalog`: `CreateFunctionRequest`, `DependencyList` and `FunctionParameterInfos`.
+   * `com.databricks.sdk.service.serving`: `AppEvents`, `AppServiceStatus`, `DeleteAppResponse`, `GetAppDeploymentStatusRequest`, `GetAppResponse`, `GetEventsRequest`, `ListAppEventsResponse` and `ListAppsResponse`.
+   * `com.databricks.sdk.service.settings`: `CreateNetworkConnectivityConfigRequest`, `CreatePrivateEndpointRuleRequest`, `CreatePrivateEndpointRuleRequestGroupId`, `DeleteNetworkConnectivityConfigurationRequest`, `DeletePrivateEndpointRuleRequest`, `GetNetworkConnectivityConfigurationRequest`, `GetPrivateEndpointRuleRequest`, `NccAzurePrivateEndpointRule`, `NccAzurePrivateEndpointRuleConnectionState`, `NccAzurePrivateEndpointRuleGroupId`, `NccAzureServiceEndpointRule`, `NccEgressConfig`, `NccEgressDefaultRules`, `NccEgressTargetRules` and `NetworkConnectivityConfiguration`.
+ * Removed the following fields:
+   * `uiState` field for `com.databricks.sdk.service.jobs.CreateJob`.
+   * `uiState` field for `com.databricks.sdk.service.jobs.JobSettings`.
+ * Removed `delete()` and `get()` method for `workspaceClient.apps()` service.
+ * Removed `accountClient.oAuthEnrollment()` service.
+ * Removed the following classes: `com.databricks.sdk.service.jobs.CreateJobUiState`, `com.databricks.sdk.service.jobs.JobSettingsUiState`, `com.databricks.sdk.service.oauth2.CreateOAuthEnrollment` and `com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus`.
+
+OpenAPI SHA: e7b127cb07af8dd4d8c61c7cc045c8910cdbb02a, Date: 2023-11-08
+
+
 ## 0.11.0
 
 * Adjust token expiry window to 40 seconds because of Azure ([#170](https://github.com/databricks/databricks-sdk-java/pull/170)).
