@@ -92,7 +92,11 @@ public class OAuthClient {
             .withClientId(config.getClientId())
             .withClientSecret(config.getClientSecret())
             .withHost(config.getHost())
-            .withRedirectUrl("http://localhost:8080/callback"));
+            .withRedirectUrl(
+                config.getOAuthRedirectUrl() != null
+                    ? config.getOAuthRedirectUrl()
+                    : "http://localhost:8080/callback")
+            .withScopes(config.getScopes()));
   }
 
   private OAuthClient(Builder b) throws IOException {
@@ -116,6 +120,9 @@ public class OAuthClient {
     List<String> scopes = b.scopes;
     if (scopes == null) {
       scopes = Arrays.asList("offline_access", "clusters", "sql");
+    } else if (!scopes.contains("offline_access")) {
+      scopes = new ArrayList<>(scopes);
+      scopes.add("offline_access");
     }
     if (config.isAzure()) {
       scopes =

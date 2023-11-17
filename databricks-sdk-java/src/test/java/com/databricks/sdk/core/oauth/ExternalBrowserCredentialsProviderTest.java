@@ -12,6 +12,7 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -50,6 +51,43 @@ public class ExternalBrowserCredentialsProviderTest {
       assertTrue(authUrl.contains("client_id=test-client-id"));
       assertTrue(authUrl.contains("redirect_uri=http://localhost:8080/callback"));
       assertTrue(authUrl.contains("scope=offline_access%20clusters%20sql"));
+    }
+  }
+
+  @Test
+  void clientAndConsentTestWithCustomRedirectUrl() throws IOException {
+    FixtureServer.FixtureMapping fixture =
+        new FixtureServer.FixtureMapping.Builder()
+            .validateMethod("GET")
+            .validatePath("/oidc/.well-known/oauth-authorization-server")
+            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}")
+            .build();
+    try (FixtureServer fixtures = new FixtureServer()) {
+      fixtures.with(fixture).with(fixture);
+      DatabricksConfig config =
+          new DatabricksConfig()
+              .setAuthType("external-browser")
+              .setHost(fixtures.getUrl())
+              .setClientId("test-client-id")
+              .setHttpClient(new CommonsHttpClient(30))
+              .setOAuthRedirectUrl("http://localhost:8010")
+              .setScopes(Arrays.asList("sql"));
+      config.resolve();
+
+      assertEquals("tokenEndPointFromServer", config.getOidcEndpoints().getTokenEndpoint());
+
+      OAuthClient testClient = new OAuthClient(config);
+      assertEquals("test-client-id", testClient.getClientId());
+
+      Consent testConsent = testClient.initiateConsent();
+      assertEquals("tokenEndPointFromServer", testConsent.getTokenUrl());
+      assertEquals("test-client-id", testConsent.getClientId());
+      String authUrl = testConsent.getAuthUrl();
+      assertNotNull(authUrl);
+      assertTrue(authUrl.contains("response_type=code"));
+      assertTrue(authUrl.contains("client_id=test-client-id"));
+      assertTrue(authUrl.contains("redirect_uri=http://localhost:8010"));
+      assertTrue(authUrl.contains("scope=sql%20offline_access"));
     }
   }
 
