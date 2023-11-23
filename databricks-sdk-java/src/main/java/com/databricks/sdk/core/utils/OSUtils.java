@@ -42,17 +42,17 @@ public class OSUtils {
     String os = getOS(cfg);
     switch (os) {
       case "win":
-        return new WindowsUtilities();
+        return new WindowsUtilities(cfg);
       case "mac":
-        return new MacOSUtilities();
+        return new MacOSUtilities(cfg);
       case "linux":
-        return new LinuxUtilities();
+        return new LinuxUtilities(cfg);
     }
     throw new DatabricksException("Unsupported OS: " + os);
   }
 
-  public static String findExecutable(String name) {
-    String pathVal = System.getenv("PATH");
+  public static String findExecutable(DatabricksConfig config, String name) {
+    String pathVal = config.getAllEnv().get("PATH");
     StringTokenizer stringTokenizer = new StringTokenizer(pathVal, File.pathSeparator);
     while (stringTokenizer.hasMoreTokens()) {
       Path path = Paths.get(stringTokenizer.nextToken(), name).toAbsolutePath().normalize();
@@ -63,14 +63,16 @@ public class OSUtils {
       try {
         size = Files.size(path);
       } catch (IOException e) {
-        LOG.warn("Unable to get size of databricks cli: " + e.getMessage());
-        return null;
+        LOG.debug("Unable to get size of databricks cli, continuing", e);
+        continue;
       }
       if (size < 1024 * 1024) {
-        LOG.info("Databricks CLI version <0.100.0 detected");
-        return null;
+        LOG.debug("Databricks CLI version <0.100.0 detected");
+        continue;
       }
-      return path.toString();
+      String pathStr = path.toString();
+      LOG.debug("Found executable named " + name + " in PATH: " + pathStr);
+      return pathStr;
     }
     LOG.debug("Failed to find executable named " + name + " in PATH");
     return null;
