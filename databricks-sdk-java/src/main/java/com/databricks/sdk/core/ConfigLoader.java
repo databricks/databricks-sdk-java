@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.*;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
@@ -70,18 +71,19 @@ public class ConfigLoader {
       return;
     }
 
-    String configFile = cfg.getConfigFile();
-    boolean isDefaultConfig = false;
-    if (isNullOrEmpty(configFile)) {
-      configFile = DatabricksConfig.DEFAULT_CONFIG_FILE;
-      isDefaultConfig = true;
-    }
-
     String userHome = cfg.getAllEnv().get("HOME");
     if (isNullOrEmpty(userHome)) {
       userHome = System.getProperty("user.home");
     }
-    configFile = configFile.replaceFirst("^~", userHome);
+
+    String configFile = cfg.getConfigFile();
+    boolean isDefaultConfig = false;
+    if (isNullOrEmpty(configFile)) {
+      configFile = Paths.get(userHome, ".databrickscfg").toString();
+      isDefaultConfig = true;
+    } else {
+      configFile = configFile.replaceFirst("^~", userHome);
+    }
 
     Ini ini = parseDatabricksCfg(configFile, isDefaultConfig);
     if (ini == null) return;

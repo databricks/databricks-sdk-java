@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import org.apache.commons.io.IOUtils;
 
-public class CliTokenSource extends RefreshableTokenSource implements OSUtils {
+public class CliTokenSource extends RefreshableTokenSource {
   private List<String> cmd;
   private String tokenTypeField;
   private String accessTokenField;
@@ -30,7 +30,7 @@ public class CliTokenSource extends RefreshableTokenSource implements OSUtils {
       String expiryField,
       Supplier<Map<String, String>> getAllEnv) {
     super();
-    this.cmd = getCliExecutableCommand(cmd);
+    this.cmd = OSUtils.get().getCliExecutableCommand(cmd);
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;

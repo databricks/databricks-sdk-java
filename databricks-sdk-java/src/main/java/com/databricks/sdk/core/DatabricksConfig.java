@@ -13,9 +13,6 @@ import java.util.function.Supplier;
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
-
-  public static final String DEFAULT_CONFIG_FILE = "~/.databrickscfg";
-
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(value = "host", env = "DATABRICKS_HOST")

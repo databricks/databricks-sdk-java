@@ -8,10 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * TestOSUtils is an interface that extends the OSUtils interface and provides utility methods for
- * testing on various operating systems.
+ * TestOSUtils provides utility methods for testing on various operating systems.
  */
-public class TestOSUtils implements OSUtils {
+public class TestOSUtils {
 
   Logger LOG = LoggerFactory.getLogger(TestOSUtils.class);
 

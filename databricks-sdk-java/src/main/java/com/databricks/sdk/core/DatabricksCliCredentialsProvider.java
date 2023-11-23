@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+
+import com.databricks.sdk.core.utils.OSUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,11 +26,15 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
     String cliPath = config.getDatabricksCliPath();
     if (cliPath == null) {
-      cliPath = "databricks";
+      cliPath = OSUtils.get().getDatabricksCliFileName();
     }
     // If the path is unqualified, look it up in PATH.
     if (!cliPath.contains("/")) {
       cliPath = findExecutable(cliPath);
+    }
+    if (cliPath == null) {
+      LOG.debug("Databricks CLI could not be found");
+      return null;
     }
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
@@ -60,7 +66,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       }
       return path.toString();
     }
-    LOG.warn("Most likely the databricks CLI is not installed");
+    LOG.debug("Most likely the databricks CLI is not installed");
     return null;
   }
 
@@ -73,6 +79,9 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
 
     try {
       CliTokenSource tokenSource = getDatabricksCliTokenSource(config);
+      if (tokenSource == null) {
+        return null;
+      }
       tokenSource.getToken(); // We need this for checking if databricks CLI is installed.
       return () -> {
         Token token = tokenSource.getToken();
