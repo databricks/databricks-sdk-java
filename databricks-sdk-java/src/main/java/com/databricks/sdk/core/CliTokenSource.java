@@ -24,13 +24,14 @@ public class CliTokenSource extends RefreshableTokenSource {
   private Supplier<Map<String, String>> getAllEnv;
 
   public CliTokenSource(
+      DatabricksConfig cfg,
       List<String> cmd,
       String tokenTypeField,
       String accessTokenField,
       String expiryField,
       Supplier<Map<String, String>> getAllEnv) {
     super();
-    this.cmd = OSUtils.get().getCliExecutableCommand(cmd);
+    this.cmd = OSUtils.get(cfg).getCliExecutableCommand(cmd);
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;

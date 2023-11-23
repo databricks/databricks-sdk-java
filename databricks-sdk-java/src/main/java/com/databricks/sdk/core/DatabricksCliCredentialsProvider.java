@@ -32,7 +32,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       cmd.add("--account-id");
       cmd.add(config.getAccountId());
     }
-    return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config::getAllEnv);
+    return new CliTokenSource(config, cmd, "token_type", "access_token", "expiry", config::getAllEnv);
   }
 
   @Override

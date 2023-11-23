@@ -47,7 +47,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
 
   protected CliTokenSource getToken(DatabricksConfig config, List<String> cmd) {
     CliTokenSource token =
-        new CliTokenSource(cmd, "tokenType", "accessToken", "expiresOn", config::getAllEnv);
+        new CliTokenSource(config, cmd, "tokenType", "accessToken", "expiresOn", config::getAllEnv);
     token.getToken(); // We need this to check if the CLI is installed and to validate the config.
     return token;
   }
