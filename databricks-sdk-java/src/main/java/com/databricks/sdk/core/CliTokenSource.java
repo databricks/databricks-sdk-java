@@ -35,6 +35,7 @@ public class CliTokenSource extends RefreshableTokenSource {
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;
+    this.env = env;
   }
 
   static LocalDateTime parseExpiry(String expiry) {
