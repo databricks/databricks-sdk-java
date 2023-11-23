@@ -87,7 +87,7 @@ public class ExternalBrowserCredentialsProviderTest {
       assertTrue(authUrl.contains("response_type=code"));
       assertTrue(authUrl.contains("client_id=test-client-id"));
       assertTrue(authUrl.contains("redirect_uri=http://localhost:8010"));
-      assertTrue(authUrl.contains("scope=sql%20offline_access"));
+      assertTrue(authUrl.contains("scope=sql"));
     }
   }
 

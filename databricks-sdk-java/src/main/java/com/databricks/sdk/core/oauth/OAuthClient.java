@@ -120,9 +120,6 @@ public class OAuthClient {
     List<String> scopes = b.scopes;
     if (scopes == null) {
       scopes = Arrays.asList("offline_access", "clusters", "sql");
-    } else if (!scopes.contains("offline_access")) {
-      scopes = new ArrayList<>(scopes);
-      scopes.add("offline_access");
     }
     if (config.isAzure()) {
       scopes =
