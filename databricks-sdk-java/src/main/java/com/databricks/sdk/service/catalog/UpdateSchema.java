@@ -14,6 +14,10 @@ public class UpdateSchema {
   @JsonProperty("comment")
   private String comment;
 
+  /** Whether predictive optimization should be enabled for this object and objects under it. */
+  @JsonProperty("enable_predictive_optimization")
+  private EnablePredictiveOptimization enablePredictiveOptimization;
+
   /** Full name of the schema. */
   private String fullName;
 
@@ -36,6 +40,16 @@ public class UpdateSchema {
 
   public String getComment() {
     return comment;
+  }
+
+  public UpdateSchema setEnablePredictiveOptimization(
+      EnablePredictiveOptimization enablePredictiveOptimization) {
+    this.enablePredictiveOptimization = enablePredictiveOptimization;
+    return this;
+  }
+
+  public EnablePredictiveOptimization getEnablePredictiveOptimization() {
+    return enablePredictiveOptimization;
   }
 
   public UpdateSchema setFullName(String fullName) {
@@ -80,6 +94,7 @@ public class UpdateSchema {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateSchema that = (UpdateSchema) o;
     return Objects.equals(comment, that.comment)
+        && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
@@ -88,13 +103,14 @@ public class UpdateSchema {
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, fullName, name, owner, properties);
+    return Objects.hash(comment, enablePredictiveOptimization, fullName, name, owner, properties);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateSchema.class)
         .add("comment", comment)
+        .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("fullName", fullName)
         .add("name", name)
         .add("owner", owner)

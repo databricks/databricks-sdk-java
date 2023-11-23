@@ -39,7 +39,7 @@ public class InstancePoolAwsAttributes {
    * the Databricks deployment. For example, "us-west-2a" is not a valid zone id if the Databricks
    * deployment resides in the "us-east-1" region. This is an optional field at cluster creation,
    * and if not specified, a default zone will be used. The list of available zones as well as the
-   * default value can be found by using the `List Zones`_ method.
+   * default value can be found by using the `List Zones` method.
    */
   @JsonProperty("zone_id")
   private String zoneId;

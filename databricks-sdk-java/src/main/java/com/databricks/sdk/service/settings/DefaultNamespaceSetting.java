@@ -7,7 +7,15 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Default namespace setting. */
+/**
+ * This represents the setting configuration for the default namespace in the Databricks workspace.
+ * Setting the default catalog for the workspace determines the catalog that is used when queries do
+ * not reference a fully qualified 3 level name. For example, if the default catalog is set to
+ * 'retail_prod' then a query 'SELECT * FROM myTable' would reference the object
+ * 'retail_prod.default.myTable' (the schema 'default' is always assumed). This setting requires a
+ * restart of clusters and SQL warehouses to take effect. Additionally, the default namespace only
+ * applies when using Unity Catalog-enabled compute.
+ */
 @Generated
 public class DefaultNamespaceSetting {
   /**
@@ -28,7 +36,8 @@ public class DefaultNamespaceSetting {
   /**
    * Name of the corresponding setting. This field is populated in the response, but it will not be
    * respected even if it's set in the request body. The setting name in the path parameter will be
-   * respected instead.
+   * respected instead. Setting name is required to be 'default' if the setting only has one
+   * instance per workspace.
    */
   @JsonProperty("setting_name")
   private String settingName;

@@ -4,7 +4,16 @@ package com.databricks.sdk.service.settings;
 import com.databricks.sdk.support.Generated;
 
 /**
- * // TODO(yuyuan.tang) to add the description for the setting
+ * The default namespace setting API allows users to configure the default namespace for a
+ * Databricks workspace.
+ *
+ * <p>Through this API, users can retrieve, set, or modify the default namespace used when queries
+ * do not reference a fully qualified three-level name. For example, if you use the API to set
+ * 'retail_prod' as the default catalog, then a query 'SELECT * FROM myTable' would reference the
+ * object 'retail_prod.default.myTable' (the schema 'default' is always assumed).
+ *
+ * <p>This setting requires a restart of clusters and SQL warehouses to take effect. Additionally,
+ * the default namespace only applies when using Unity Catalog-enabled compute.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -13,29 +22,33 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface SettingsService {
   /**
-   * Delete the default namespace.
+   * Delete the default namespace setting.
    *
-   * <p>Deletes the default namespace.
+   * <p>Deletes the default namespace setting for the workspace. A fresh etag needs to be provided
+   * in DELETE requests (as a query parameter). The etag can be retrieved by making a GET request
+   * before the DELETE request. If the setting is updated/deleted concurrently, DELETE will fail
+   * with 409 and the request will need to be retried by using the fresh etag in the 409 response.
    */
   DeleteDefaultWorkspaceNamespaceResponse deleteDefaultWorkspaceNamespace(
       DeleteDefaultWorkspaceNamespaceRequest deleteDefaultWorkspaceNamespaceRequest);
 
   /**
-   * Get the default namespace.
+   * Get the default namespace setting.
    *
-   * <p>Gets the default namespace.
+   * <p>Gets the default namespace setting.
    */
   DefaultNamespaceSetting readDefaultWorkspaceNamespace(
       ReadDefaultWorkspaceNamespaceRequest readDefaultWorkspaceNamespaceRequest);
 
   /**
-   * Updates the default namespace setting.
+   * Update the default namespace setting.
    *
    * <p>Updates the default namespace setting for the workspace. A fresh etag needs to be provided
-   * in PATCH requests (as part the setting field). The etag can be retrieved by making a GET
+   * in PATCH requests (as part of the setting field). The etag can be retrieved by making a GET
    * request before the PATCH request. Note that if the setting does not exist, GET will return a
    * NOT_FOUND error and the etag will be present in the error response, which should be set in the
-   * PATCH request.
+   * PATCH request. If the setting is updated concurrently, PATCH will fail with 409 and the request
+   * will need to be retried by using the fresh etag in the 409 response.
    */
   DefaultNamespaceSetting updateDefaultWorkspaceNamespace(
       UpdateDefaultWorkspaceNamespaceRequest updateDefaultWorkspaceNamespaceRequest);

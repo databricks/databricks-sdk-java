@@ -3,6 +3,7 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,7 +77,20 @@ public class AccountUsersAPI {
    * <p>Gets details for all the users associated with a Databricks account.
    */
   public Iterable<User> list(ListAccountUsersRequest request) {
-    return impl.list(request).getResources();
+    request.setStartIndex(0L);
+    return new Paginator<>(
+            request,
+            impl::list,
+            ListUsersResponse::getResources,
+            response -> {
+              Long offset = request.getStartIndex();
+              if (offset == null) {
+                offset = 0L;
+              }
+              offset += response.getResources().size();
+              return request.setStartIndex(offset);
+            })
+        .withDedupe(User::getId);
   }
 
   public void patch(String id) {

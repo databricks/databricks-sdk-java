@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum ExportFormat {
+  AUTO,
   DBC,
   HTML,
   JUPYTER,

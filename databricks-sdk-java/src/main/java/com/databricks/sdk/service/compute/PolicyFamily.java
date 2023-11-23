@@ -9,7 +9,12 @@ import java.util.Objects;
 
 @Generated
 public class PolicyFamily {
-  /** Policy definition document expressed in Databricks Cluster Policy Definition Language. */
+  /**
+   * Policy definition document expressed in [Databricks Cluster Policy Definition Language].
+   *
+   * <p>[Databricks Cluster Policy Definition Language]:
+   * https://docs.databricks.com/administration-guide/clusters/policy-definition.html
+   */
   @JsonProperty("definition")
   private String definition;
 

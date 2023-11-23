@@ -14,6 +14,10 @@ public class UpdateCatalog {
   @JsonProperty("comment")
   private String comment;
 
+  /** Whether predictive optimization should be enabled for this object and objects under it. */
+  @JsonProperty("enable_predictive_optimization")
+  private EnablePredictiveOptimization enablePredictiveOptimization;
+
   /**
    * Whether the current securable is accessible from all workspaces or a specific set of
    * workspaces.
@@ -40,6 +44,16 @@ public class UpdateCatalog {
 
   public String getComment() {
     return comment;
+  }
+
+  public UpdateCatalog setEnablePredictiveOptimization(
+      EnablePredictiveOptimization enablePredictiveOptimization) {
+    this.enablePredictiveOptimization = enablePredictiveOptimization;
+    return this;
+  }
+
+  public EnablePredictiveOptimization getEnablePredictiveOptimization() {
+    return enablePredictiveOptimization;
   }
 
   public UpdateCatalog setIsolationMode(IsolationMode isolationMode) {
@@ -84,6 +98,7 @@ public class UpdateCatalog {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateCatalog that = (UpdateCatalog) o;
     return Objects.equals(comment, that.comment)
+        && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
@@ -92,13 +107,15 @@ public class UpdateCatalog {
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, isolationMode, name, owner, properties);
+    return Objects.hash(
+        comment, enablePredictiveOptimization, isolationMode, name, owner, properties);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateCatalog.class)
         .add("comment", comment)
+        .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("isolationMode", isolationMode)
         .add("name", name)
         .add("owner", owner)
