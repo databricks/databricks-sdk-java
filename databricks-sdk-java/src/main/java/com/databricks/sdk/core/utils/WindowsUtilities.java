@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class WindowsUtilities implements OSUtilities {
-  private final DatabricksConfig config;
-  public WindowsUtilities(DatabricksConfig config) {
-    this.config = config;
+  private final Environment env;
+  public WindowsUtilities(Environment env) {
+    this.env = env;
   }
 
   @Override
@@ -19,9 +19,9 @@ public class WindowsUtilities implements OSUtilities {
 
   @Override
   public String getDatabricksCliPath() {
-    String path = OSUtils.findExecutable(config, "databricks");
+    String path = OSUtils.findExecutable(env.getPath(), "databricks");
     if (path == null) {
-      path = OSUtils.findExecutable(config, "databricks.exe");
+      path = OSUtils.findExecutable(env.getPath(), "databricks.exe");
     }
     return path;
   }

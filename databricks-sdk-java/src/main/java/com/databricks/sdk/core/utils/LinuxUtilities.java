@@ -6,9 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LinuxUtilities implements OSUtilities {
-  private final DatabricksConfig config;
-  public LinuxUtilities(DatabricksConfig config) {
-    this.config = config;
+  private final Environment env;
+  public LinuxUtilities(Environment env) {
+    this.env = env;
   }
 
   @Override
@@ -19,6 +19,6 @@ public class LinuxUtilities implements OSUtilities {
 
   @Override
   public String getDatabricksCliPath() {
-    return OSUtils.findExecutable(config, "databricks");
+    return OSUtils.findExecutable(env.getPath(), "databricks");
   }
 }

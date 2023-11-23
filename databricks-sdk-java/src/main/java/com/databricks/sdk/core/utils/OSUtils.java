@@ -24,8 +24,8 @@ public class OSUtils {
    * @return a String representing the name of the current operating system. The value will be "win"
    *     for Windows, "mac" for macOS, and "linux" for Linux-based operating systems.
    */
-  static String getOS(DatabricksConfig cfg) {
-    String systemName = cfg.getAllEnv().get("OS_NAME");
+  static String getOS(Environment env) {
+    String systemName = env.get("OS_NAME");
     if (systemName == null || systemName.isEmpty()) {
       systemName = System.getProperty("os.name").toLowerCase();
     }
@@ -38,21 +38,20 @@ public class OSUtils {
   }
 
   /** Returns the OS-specific utilities for the current operating system. */
-  public static OSUtilities get(DatabricksConfig cfg) {
-    String os = getOS(cfg);
+  public static OSUtilities get(Environment env) {
+    String os = getOS(env);
     switch (os) {
       case "win":
-        return new WindowsUtilities(cfg);
+        return new WindowsUtilities(env);
       case "mac":
-        return new MacOSUtilities(cfg);
+        return new MacOSUtilities(env);
       case "linux":
-        return new LinuxUtilities(cfg);
+        return new LinuxUtilities(env);
     }
     throw new DatabricksException("Unsupported OS: " + os);
   }
 
-  public static String findExecutable(DatabricksConfig config, String name) {
-    String pathVal = config.getAllEnv().get("PATH");
+  public static String findExecutable(String pathVal, String name) {
     StringTokenizer stringTokenizer = new StringTokenizer(pathVal, File.pathSeparator);
     while (stringTokenizer.hasMoreTokens()) {
       Path path = Paths.get(stringTokenizer.nextToken(), name).toAbsolutePath().normalize();

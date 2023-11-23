@@ -2,6 +2,7 @@ package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.oauth.RefreshableTokenSource;
 import com.databricks.sdk.core.oauth.Token;
+import com.databricks.sdk.core.utils.Environment;
 import com.databricks.sdk.core.utils.OSUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,21 +22,19 @@ public class CliTokenSource extends RefreshableTokenSource {
   private String tokenTypeField;
   private String accessTokenField;
   private String expiryField;
-  private Supplier<Map<String, String>> getAllEnv;
+  private Environment env;
 
   public CliTokenSource(
-      DatabricksConfig cfg,
       List<String> cmd,
       String tokenTypeField,
       String accessTokenField,
       String expiryField,
-      Supplier<Map<String, String>> getAllEnv) {
+      Environment env) {
     super();
-    this.cmd = OSUtils.get(cfg).getCliExecutableCommand(cmd);
+    this.cmd = OSUtils.get(env).getCliExecutableCommand(cmd);
     this.tokenTypeField = tokenTypeField;
     this.accessTokenField = accessTokenField;
     this.expiryField = expiryField;
-    this.getAllEnv = getAllEnv;
   }
 
   static LocalDateTime parseExpiry(String expiry) {
@@ -69,7 +68,7 @@ public class CliTokenSource extends RefreshableTokenSource {
   protected Token refresh() {
     try {
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
-      processBuilder.environment().putAll(getAllEnv.get());
+      processBuilder.environment().putAll(env.getEnv());
       Process process = processBuilder.start();
       String stdout = getProcessStream(process.getInputStream());
       String stderr = getProcessStream(process.getErrorStream());

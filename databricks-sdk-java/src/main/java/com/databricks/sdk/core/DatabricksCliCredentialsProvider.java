@@ -20,7 +20,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
     String cliPath = config.getDatabricksCliPath();
     if (cliPath == null) {
-      cliPath = OSUtils.get(config).getDatabricksCliPath();
+      cliPath = OSUtils.get(config.getEnv()).getDatabricksCliPath();
     }
     if (cliPath == null) {
       LOG.debug("Databricks CLI could not be found");
@@ -32,7 +32,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       cmd.add("--account-id");
       cmd.add(config.getAccountId());
     }
-    return new CliTokenSource(config, cmd, "token_type", "access_token", "expiry", config::getAllEnv);
+    return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config.getEnv());
   }
 
   @Override

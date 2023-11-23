@@ -40,12 +40,12 @@ public class ConfigLoader {
   }
 
   static void loadFromEnvironmentVariables(DatabricksConfig cfg) throws IllegalAccessException {
-    if (cfg.getAllEnv() == null) {
+    if (cfg.getEnv() == null) {
       return;
     }
     try {
       for (ConfigAttributeAccessor accessor : accessors) {
-        String env = cfg.getAllEnv().get(accessor.getEnvVariable());
+        String env = cfg.getEnv().get(accessor.getEnvVariable());
         if (isNullOrEmpty(env)) {
           continue;
         }
@@ -71,7 +71,7 @@ public class ConfigLoader {
       return;
     }
 
-    String userHome = cfg.getAllEnv().get("HOME");
+    String userHome = cfg.getEnv().get("HOME");
     if (isNullOrEmpty(userHome)) {
       userHome = System.getProperty("user.home");
     }
@@ -182,7 +182,7 @@ public class ConfigLoader {
         true; // TODO - pass status code with exception, default this to false
     if (statusCode == 401 || statusCode == 402) isHttpUnauthorizedOrForbidden = true;
     String debugString = "";
-    if (cfg.getAllEnv() != null) {
+    if (cfg.getEnv() != null) {
       debugString = debugString(cfg);
     }
     if (!debugString.isEmpty() && isHttpUnauthorizedOrForbidden) {
@@ -197,7 +197,7 @@ public class ConfigLoader {
       List<String> attrsUsed = new ArrayList<>();
       List<String> buf = new ArrayList<>();
 
-      Map<String, String> getEnvAllEnv = cfg.getAllEnv();
+      Map<String, String> getEnvAllEnv = cfg.getEnv().getEnv();
 
       for (ConfigAttributeAccessor accessor : accessors) {
         String envVariable = accessor.getEnvVariable();

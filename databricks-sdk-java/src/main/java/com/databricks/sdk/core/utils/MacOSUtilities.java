@@ -1,14 +1,12 @@
 package com.databricks.sdk.core.utils;
 
-import com.databricks.sdk.core.DatabricksConfig;
-
 import java.util.Arrays;
 import java.util.List;
 
 public class MacOSUtilities implements OSUtilities {
-  private final DatabricksConfig config;
-  public MacOSUtilities(DatabricksConfig config) {
-    this.config = config;
+  private final Environment env;
+  public MacOSUtilities(Environment env) {
+    this.env = env;
   }
   @Override
   public List<String> getCliExecutableCommand(List<String> cmd) {
@@ -18,6 +16,6 @@ public class MacOSUtilities implements OSUtilities {
 
   @Override
   public String getDatabricksCliPath() {
-    return OSUtils.findExecutable(config, "databricks");
+    return OSUtils.findExecutable(env.getPath(), "databricks");
   }
 }
