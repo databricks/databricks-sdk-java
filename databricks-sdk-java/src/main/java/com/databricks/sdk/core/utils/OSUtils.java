@@ -70,10 +70,10 @@ public class OSUtils {
         continue;
       }
       String pathStr = path.toString();
-      LOG.debug("Found executable named " + name + " in PATH: " + pathStr);
+      LOG.debug("Found executable named '" + name + "' in PATH: " + pathStr);
       return pathStr;
     }
-    LOG.debug("Failed to find executable named " + name + " in PATH");
+    LOG.debug("Failed to find executable named '" + name + "' in PATH");
     return null;
   }
 }
