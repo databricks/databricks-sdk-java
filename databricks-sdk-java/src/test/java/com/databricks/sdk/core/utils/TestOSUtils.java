@@ -7,9 +7,7 @@ import java.net.URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * TestOSUtils provides utility methods for testing on various operating systems.
- */
+/** TestOSUtils provides utility methods for testing on various operating systems. */
 public class TestOSUtils {
 
   Logger LOG = LoggerFactory.getLogger(TestOSUtils.class);

@@ -1,14 +1,8 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.oauth.Token;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-
 import com.databricks.sdk.core.utils.OSUtils;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,11 +20,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
     String cliPath = config.getDatabricksCliPath();
     if (cliPath == null) {
-      cliPath = OSUtils.get().getDatabricksCliFileName();
-    }
-    // If the path is unqualified, look it up in PATH.
-    if (!cliPath.contains("/")) {
-      cliPath = findExecutable(cliPath);
+      cliPath = OSUtils.get(config).getDatabricksCliPath();
     }
     if (cliPath == null) {
       LOG.debug("Databricks CLI could not be found");
@@ -43,31 +33,6 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       cmd.add(config.getAccountId());
     }
     return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config::getAllEnv);
-  }
-
-  private static String findExecutable(String name) {
-    String pathVal = System.getenv("PATH");
-    StringTokenizer stringTokenizer = new StringTokenizer(pathVal, File.pathSeparator);
-    while (stringTokenizer.hasMoreTokens()) {
-      Path path = Paths.get(stringTokenizer.nextToken(), name).toAbsolutePath().normalize();
-      if (!Files.isRegularFile(path)) {
-        continue;
-      }
-      long size;
-      try {
-        size = Files.size(path);
-      } catch (IOException e) {
-        LOG.warn("Unable to get size of databricks cli: " + e.getMessage());
-        return null;
-      }
-      if (size < 1024 * 1024) {
-        LOG.info("Databricks CLI version <0.100.0 detected");
-        return null;
-      }
-      return path.toString();
-    }
-    LOG.debug("Most likely the databricks CLI is not installed");
-    return null;
   }
 
   @Override
