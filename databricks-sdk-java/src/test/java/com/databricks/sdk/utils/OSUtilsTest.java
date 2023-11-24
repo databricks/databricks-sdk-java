@@ -64,11 +64,8 @@ public class OSUtilsTest {
   })
   public void testGetDatabricksCliPath(String osName, String executableName, Boolean expectFound)
       throws Exception {
-    Map<String, String> envMap = new HashMap<>();
-    envMap.put("OS_NAME", osName);
-
     try (PathHelper pathHelper = new PathHelper(osName, executableName)) {
-      Environment env = new Environment(envMap, pathHelper.getPath());
+      Environment env = new Environment(new HashMap<>(), pathHelper.getPath(), osName);
       String executable = OSUtils.get(env).getDatabricksCliPath();
       assert (executable != null) == expectFound;
     }

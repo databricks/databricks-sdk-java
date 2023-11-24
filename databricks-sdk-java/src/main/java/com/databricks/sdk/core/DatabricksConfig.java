@@ -150,7 +150,7 @@ public class DatabricksConfig {
 
   public synchronized DatabricksConfig resolve() {
     String[] path = System.getenv("PATH").split(File.pathSeparator);
-    Environment env = new Environment(System.getenv(), path);
+    Environment env = new Environment(System.getenv(), path, System.getProperty("os.name"));
     return resolve(env);
   }
 

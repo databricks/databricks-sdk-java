@@ -16,7 +16,7 @@ public interface ConfigResolving {
     if (pathStr != null) {
       path.addAll(Arrays.asList(pathStr.split(":")));
     }
-    Environment env = new Environment(envGetter.get(), path);
+    Environment env = new Environment(envGetter.get(), path, System.getProperty("os.name"));
     config.resolve(env);
   }
 }
