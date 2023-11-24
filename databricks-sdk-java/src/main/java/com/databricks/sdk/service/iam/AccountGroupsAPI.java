@@ -73,7 +73,10 @@ public class AccountGroupsAPI {
    * <p>Gets all details of the groups associated with the Databricks account.
    */
   public Iterable<Group> list(ListAccountGroupsRequest request) {
-    request.setStartIndex(0L);
+    request.setStartIndex(1L);
+    if (request.getCount() == 0) {
+      request.setCount(100L);
+    }
     return new Paginator<>(
             request,
             impl::list,

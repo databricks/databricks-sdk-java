@@ -73,7 +73,10 @@ public class GroupsAPI {
    * <p>Gets all details of the groups associated with the Databricks workspace.
    */
   public Iterable<Group> list(ListGroupsRequest request) {
-    request.setStartIndex(0L);
+    request.setStartIndex(1L);
+    if (request.getCount() == 0) {
+      request.setCount(100L);
+    }
     return new Paginator<>(
             request,
             impl::list,

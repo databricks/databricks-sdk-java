@@ -71,7 +71,10 @@ public class AccountServicePrincipalsAPI {
    * <p>Gets the set of service principals associated with a Databricks account.
    */
   public Iterable<ServicePrincipal> list(ListAccountServicePrincipalsRequest request) {
-    request.setStartIndex(0L);
+    request.setStartIndex(1L);
+    if (request.getCount() == 0) {
+      request.setCount(100L);
+    }
     return new Paginator<>(
             request,
             impl::list,

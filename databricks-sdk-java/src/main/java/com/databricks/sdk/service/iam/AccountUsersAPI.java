@@ -77,7 +77,10 @@ public class AccountUsersAPI {
    * <p>Gets details for all the users associated with a Databricks account.
    */
   public Iterable<User> list(ListAccountUsersRequest request) {
-    request.setStartIndex(0L);
+    request.setStartIndex(1L);
+    if (request.getCount() == 0) {
+      request.setCount(100L);
+    }
     return new Paginator<>(
             request,
             impl::list,

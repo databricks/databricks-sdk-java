@@ -141,9 +141,8 @@ public class {{.PascalName}}API {
     {{- end}}L);{{end -}}
     {{if and .Pagination.Limit (contains .Path "/scim/v2/")}}
     if (request.get{{.Pagination.Limit.PascalName}}() == 0) {
-       request.set{{.Pagination.Limit.PascalName}}(100);
-    }
-    {{end}}
+       request.set{{.Pagination.Limit.PascalName}}(100L);
+    }{{end -}}
     return new Paginator<>(request, impl::{{template "java-name" .}}, {{template "type" .Response}}::get{{.Pagination.Results.PascalName}}, response -> {
       {{if eq .Path "/api/2.0/clusters/events" -}}
       return response.getNextPage();
