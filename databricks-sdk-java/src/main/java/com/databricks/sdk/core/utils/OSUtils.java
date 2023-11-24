@@ -23,7 +23,7 @@ public class OSUtils {
    *     for Windows, "mac" for macOS, and "linux" for Linux-based operating systems.
    */
   static String getOS(Environment env) {
-    String systemName = env.getSystemName();
+    String systemName = env.getSystemName().toLowerCase();
     if (systemName.startsWith("win")) {
       return "win";
     } else if (systemName.startsWith("mac")) {
