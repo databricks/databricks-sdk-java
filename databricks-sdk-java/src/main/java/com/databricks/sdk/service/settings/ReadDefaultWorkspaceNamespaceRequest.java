@@ -7,7 +7,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get the default namespace */
+/** Get the default namespace setting */
 @Generated
 public class ReadDefaultWorkspaceNamespaceRequest {
   /**

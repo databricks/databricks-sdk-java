@@ -15,17 +15,20 @@ public class ExportRequest {
    *
    * <p>The value is case sensitive.
    *
-   * <p>- `SOURCE`: The notebook is exported as source code. - `HTML`: The notebook is exported as
-   * an HTML file. - `JUPYTER`: The notebook is exported as a Jupyter/IPython Notebook file. -
-   * `DBC`: The notebook is exported in Databricks archive format. - `R_MARKDOWN`: The notebook is
-   * exported to R Markdown format.
+   * <p>- `SOURCE`: The notebook is exported as source code. Directory exports will not include
+   * non-notebook entries. - `HTML`: The notebook is exported as an HTML file. - `JUPYTER`: The
+   * notebook is exported as a Jupyter/IPython Notebook file. - `DBC`: The notebook is exported in
+   * Databricks archive format. Directory exports will not include non-notebook entries. -
+   * `R_MARKDOWN`: The notebook is exported to R Markdown format. - `AUTO`: The object or directory
+   * is exported depending on the objects type. Directory exports will include notebooks and
+   * workspace files.
    */
   @QueryParam("format")
   private ExportFormat format;
 
   /**
    * The absolute path of the object or directory. Exporting a directory is only supported for the
-   * `DBC` and `SOURCE` format.
+   * `DBC`, `SOURCE`, and `AUTO` format.
    */
   @QueryParam("path")
   private String path;

@@ -259,8 +259,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdateMetas
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdateMetastoreDeltaSharingScope.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdateModelVersionRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdatePermissions.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdatePredictiveOptimization.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdatePredictiveOptimizationResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdateRegisteredModelRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdateSchema.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/UpdateStorageCredential.java linguist-generated=true
@@ -1189,6 +1187,10 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/IpAccessLi
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/IpAccessListsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/IpAccessListsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ListIpAccessListResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ListNccAzurePrivateEndpointRulesResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ListNetworkConnectivityConfigurationsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ListNetworkConnectivityConfigurationsResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ListPrivateEndpointRulesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ListTokenManagementRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ListTokensResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ListType.java linguist-generated=true

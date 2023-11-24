@@ -10,7 +10,9 @@ import java.util.Objects;
 
 @Generated
 public class TableConstraintList {
-  /** List of table constraints. */
+  /**
+   * List of table constraints. Note: this field is not set in the output of the __listTables__ API.
+   */
   @JsonProperty("table_constraints")
   private Collection<TableConstraint> tableConstraints;
 

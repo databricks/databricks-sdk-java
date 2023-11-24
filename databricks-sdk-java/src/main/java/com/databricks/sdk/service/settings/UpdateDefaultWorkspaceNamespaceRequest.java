@@ -7,25 +7,33 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Updates the default namespace setting */
+/** Update the default namespace setting */
 @Generated
 public class UpdateDefaultWorkspaceNamespaceRequest {
-  /** This should always be set to true for Settings RPCs. Added for AIP compliance. */
+  /** This should always be set to true for Settings API. Added for AIP compliance. */
   @JsonProperty("allow_missing")
   private Boolean allowMissing;
 
   /**
-   * Field mask required to be passed into the PATCH request. Field mask specifies which fields of
-   * the setting payload will be updated. For example, for Default Namespace setting, the field mask
-   * is supposed to contain fields from the DefaultNamespaceSetting.namespace schema.
+   * Field mask is required to be passed into the PATCH request. Field mask specifies which fields
+   * of the setting payload will be updated. For example, for Default Namespace setting, the field
+   * mask is supposed to contain fields from the DefaultNamespaceSetting.namespace schema.
    *
-   * <p>The field mask needs to supplied as single string. To specify multiple fields in the field
-   * mask, use comma as the seperator (no space).
+   * <p>The field mask needs to be supplied as single string. To specify multiple fields in the
+   * field mask, use comma as the seperator (no space).
    */
   @JsonProperty("field_mask")
   private String fieldMask;
 
-  /** Default namespace setting. */
+  /**
+   * This represents the setting configuration for the default namespace in the Databricks
+   * workspace. Setting the default catalog for the workspace determines the catalog that is used
+   * when queries do not reference a fully qualified 3 level name. For example, if the default
+   * catalog is set to 'retail_prod' then a query 'SELECT * FROM myTable' would reference the object
+   * 'retail_prod.default.myTable' (the schema 'default' is always assumed). This setting requires a
+   * restart of clusters and SQL warehouses to take effect. Additionally, the default namespace only
+   * applies when using Unity Catalog-enabled compute.
+   */
   @JsonProperty("setting")
   private DefaultNamespaceSetting setting;
 

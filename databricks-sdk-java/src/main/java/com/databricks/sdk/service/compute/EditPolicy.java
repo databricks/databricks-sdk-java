@@ -10,7 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class EditPolicy {
-  /** Policy definition document expressed in Databricks Cluster Policy Definition Language. */
+  /**
+   * Policy definition document expressed in [Databricks Cluster Policy Definition Language].
+   *
+   * <p>[Databricks Cluster Policy Definition Language]:
+   * https://docs.databricks.com/administration-guide/clusters/policy-definition.html
+   */
   @JsonProperty("definition")
   private String definition;
 
@@ -37,11 +42,14 @@ public class EditPolicy {
   private String name;
 
   /**
-   * Policy definition JSON document expressed in Databricks Policy Definition Language. The JSON
+   * Policy definition JSON document expressed in [Databricks Policy Definition Language]. The JSON
    * document must be passed as a string and cannot be embedded in the requests.
    *
    * <p>You can use this to customize the policy definition inherited from the policy family. Policy
    * rules specified here are merged into the inherited policy definition.
+   *
+   * <p>[Databricks Policy Definition Language]:
+   * https://docs.databricks.com/administration-guide/clusters/policy-definition.html
    */
   @JsonProperty("policy_family_definition_overrides")
   private String policyFamilyDefinitionOverrides;
