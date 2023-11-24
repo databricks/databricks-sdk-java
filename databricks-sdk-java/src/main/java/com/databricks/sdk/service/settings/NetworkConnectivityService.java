@@ -90,4 +90,20 @@ public interface NetworkConnectivityService {
    */
   NccAzurePrivateEndpointRule getPrivateEndpointRule(
       GetPrivateEndpointRuleRequest getPrivateEndpointRuleRequest);
+
+  /**
+   * List network connectivity configurations.
+   *
+   * <p>Gets an array of network connectivity configurations.
+   */
+  ListNetworkConnectivityConfigurationsResponse listNetworkConnectivityConfigurations(
+      ListNetworkConnectivityConfigurationsRequest listNetworkConnectivityConfigurationsRequest);
+
+  /**
+   * List private endpoint rules.
+   *
+   * <p>Gets an array of private endpoint rules.
+   */
+  ListNccAzurePrivateEndpointRulesResponse listPrivateEndpointRules(
+      ListPrivateEndpointRulesRequest listPrivateEndpointRulesRequest);
 }

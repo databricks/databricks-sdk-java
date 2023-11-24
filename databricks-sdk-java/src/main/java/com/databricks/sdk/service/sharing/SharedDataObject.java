@@ -74,6 +74,15 @@ public class SharedDataObject {
   @JsonProperty("status")
   private SharedDataObjectStatus status;
 
+  /**
+   * A user-provided new name for the data object within the share. If this new name is not
+   * provided, the object's original name will be used as the `string_shared_as` name. The
+   * `string_shared_as` name must be unique within a share. For notebooks, the new name should be
+   * the new notebook file name.
+   */
+  @JsonProperty("string_shared_as")
+  private String stringSharedAs;
+
   public SharedDataObject setAddedAt(Long addedAt) {
     this.addedAt = addedAt;
     return this;
@@ -174,6 +183,15 @@ public class SharedDataObject {
     return status;
   }
 
+  public SharedDataObject setStringSharedAs(String stringSharedAs) {
+    this.stringSharedAs = stringSharedAs;
+    return this;
+  }
+
+  public String getStringSharedAs() {
+    return stringSharedAs;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -189,7 +207,8 @@ public class SharedDataObject {
         && Objects.equals(partitions, that.partitions)
         && Objects.equals(sharedAs, that.sharedAs)
         && Objects.equals(startVersion, that.startVersion)
-        && Objects.equals(status, that.status);
+        && Objects.equals(status, that.status)
+        && Objects.equals(stringSharedAs, that.stringSharedAs);
   }
 
   @Override
@@ -205,7 +224,8 @@ public class SharedDataObject {
         partitions,
         sharedAs,
         startVersion,
-        status);
+        status,
+        stringSharedAs);
   }
 
   @Override
@@ -222,6 +242,7 @@ public class SharedDataObject {
         .add("sharedAs", sharedAs)
         .add("startVersion", startVersion)
         .add("status", status)
+        .add("stringSharedAs", stringSharedAs)
         .toString();
   }
 }

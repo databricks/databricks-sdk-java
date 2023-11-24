@@ -17,7 +17,10 @@ public class InstancePoolAccessControlRequest {
   @JsonProperty("permission_level")
   private InstancePoolPermissionLevel permissionLevel;
 
-  /** name of the service principal */
+  /**
+   * Application ID of an active service principal. Setting this field requires the
+   * `servicePrincipal/user` role.
+   */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 

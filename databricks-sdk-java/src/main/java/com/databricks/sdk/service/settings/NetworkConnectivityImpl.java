@@ -90,4 +90,28 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, NccAzurePrivateEndpointRule.class, headers);
   }
+
+  @Override
+  public ListNetworkConnectivityConfigurationsResponse listNetworkConnectivityConfigurations(
+      ListNetworkConnectivityConfigurationsRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/network-connectivity-configs", apiClient.configuredAccountID());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(
+        path, request, ListNetworkConnectivityConfigurationsResponse.class, headers);
+  }
+
+  @Override
+  public ListNccAzurePrivateEndpointRulesResponse listPrivateEndpointRules(
+      ListPrivateEndpointRulesRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/network-connectivity-configs/%s/private-endpoint-rules",
+            apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ListNccAzurePrivateEndpointRulesResponse.class, headers);
+  }
 }

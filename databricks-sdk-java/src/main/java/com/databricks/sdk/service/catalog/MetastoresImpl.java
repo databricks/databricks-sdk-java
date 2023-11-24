@@ -51,16 +51,6 @@ class MetastoresImpl implements MetastoresService {
   }
 
   @Override
-  public UpdatePredictiveOptimizationResponse enableOptimization(
-      UpdatePredictiveOptimization request) {
-    String path = "/api/2.0/predictive-optimization/service";
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdatePredictiveOptimizationResponse.class, headers);
-  }
-
-  @Override
   public MetastoreInfo get(GetMetastoreRequest request) {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
     Map<String, String> headers = new HashMap<>();

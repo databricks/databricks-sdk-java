@@ -92,22 +92,6 @@ public class MetastoresAPI {
     impl.delete(request);
   }
 
-  public UpdatePredictiveOptimizationResponse enableOptimization(
-      String metastoreId, boolean enable) {
-    return enableOptimization(
-        new UpdatePredictiveOptimization().setMetastoreId(metastoreId).setEnable(enable));
-  }
-
-  /**
-   * Toggle predictive optimization on the metastore.
-   *
-   * <p>Enables or disables predictive optimization on the metastore.
-   */
-  public UpdatePredictiveOptimizationResponse enableOptimization(
-      UpdatePredictiveOptimization request) {
-    return impl.enableOptimization(request);
-  }
-
   public MetastoreInfo get(String id) {
     return get(new GetMetastoreRequest().setId(id));
   }

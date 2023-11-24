@@ -3,6 +3,7 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -159,6 +160,53 @@ public class NetworkConnectivityAPI {
    */
   public NccAzurePrivateEndpointRule getPrivateEndpointRule(GetPrivateEndpointRuleRequest request) {
     return impl.getPrivateEndpointRule(request);
+  }
+
+  /**
+   * List network connectivity configurations.
+   *
+   * <p>Gets an array of network connectivity configurations.
+   */
+  public Iterable<NetworkConnectivityConfiguration> listNetworkConnectivityConfigurations(
+      ListNetworkConnectivityConfigurationsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listNetworkConnectivityConfigurations,
+        ListNetworkConnectivityConfigurationsResponse::getItems,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<NccAzurePrivateEndpointRule> listPrivateEndpointRules(
+      String networkConnectivityConfigId) {
+    return listPrivateEndpointRules(
+        new ListPrivateEndpointRulesRequest()
+            .setNetworkConnectivityConfigId(networkConnectivityConfigId));
+  }
+
+  /**
+   * List private endpoint rules.
+   *
+   * <p>Gets an array of private endpoint rules.
+   */
+  public Iterable<NccAzurePrivateEndpointRule> listPrivateEndpointRules(
+      ListPrivateEndpointRulesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listPrivateEndpointRules,
+        ListNccAzurePrivateEndpointRulesResponse::getItems,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public NetworkConnectivityService impl() {

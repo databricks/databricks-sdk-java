@@ -27,6 +27,12 @@ public class JobSettings {
   private JobDeployment deployment;
 
   /**
+   * An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
+   */
+  @JsonProperty("description")
+  private String description;
+
+  /**
    * Edit mode of the job.
    *
    * <p>* `UI_LOCKED`: The job is in a locked UI state and cannot be modified. * `EDITABLE`: The job
@@ -88,7 +94,7 @@ public class JobSettings {
    * active runs. However, from then on, new runs are skipped unless there are fewer than 3 active
    * runs.
    *
-   * <p>This value cannot exceed 1000\. Setting this value to `0` causes all new runs to be skipped.
+   * <p>This value cannot exceed 1000. Setting this value to `0` causes all new runs to be skipped.
    */
   @JsonProperty("max_concurrent_runs")
   private Long maxConcurrentRuns;
@@ -183,6 +189,15 @@ public class JobSettings {
 
   public JobDeployment getDeployment() {
     return deployment;
+  }
+
+  public JobSettings setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   public JobSettings setEditMode(JobSettingsEditMode editMode) {
@@ -355,6 +370,7 @@ public class JobSettings {
     return Objects.equals(compute, that.compute)
         && Objects.equals(continuous, that.continuous)
         && Objects.equals(deployment, that.deployment)
+        && Objects.equals(description, that.description)
         && Objects.equals(editMode, that.editMode)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(format, that.format)
@@ -381,6 +397,7 @@ public class JobSettings {
         compute,
         continuous,
         deployment,
+        description,
         editMode,
         emailNotifications,
         format,
@@ -407,6 +424,7 @@ public class JobSettings {
         .add("compute", compute)
         .add("continuous", continuous)
         .add("deployment", deployment)
+        .add("description", description)
         .add("editMode", editMode)
         .add("emailNotifications", emailNotifications)
         .add("format", format)
