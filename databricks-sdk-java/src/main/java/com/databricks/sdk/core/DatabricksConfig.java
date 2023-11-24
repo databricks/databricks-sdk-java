@@ -7,10 +7,10 @@ import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.utils.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
-
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
@@ -149,7 +149,8 @@ public class DatabricksConfig {
   }
 
   public synchronized DatabricksConfig resolve() {
-    Environment env = new Environment(System.getenv(), System.getenv("PATH"));
+    String[] path = System.getenv("PATH").split(File.pathSeparator);
+    Environment env = new Environment(System.getenv(), path);
     return resolve(env);
   }
 

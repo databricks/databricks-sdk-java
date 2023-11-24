@@ -1,13 +1,11 @@
 package com.databricks.sdk.core.utils;
 
-import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.StringTokenizer;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,10 +49,10 @@ public class OSUtils {
     throw new DatabricksException("Unsupported OS: " + os);
   }
 
-  public static String findExecutable(String pathVal, String name) {
-    StringTokenizer stringTokenizer = new StringTokenizer(pathVal, File.pathSeparator);
-    while (stringTokenizer.hasMoreTokens()) {
-      Path path = Paths.get(stringTokenizer.nextToken(), name).toAbsolutePath().normalize();
+  public static String findExecutable(List<String> paths, String name) {
+    LOG.debug("Searching for executable named '" + name + "' in : " + String.join(", ", paths));
+    for (String dir : paths) {
+      Path path = Paths.get(dir, name).toAbsolutePath().normalize();
       if (!Files.isRegularFile(path)) {
         continue;
       }

@@ -2,6 +2,7 @@ package com.databricks.sdk.core.utils;
 
 import java.util.List;
 
+/** OS-specific functionality needed by the SDK. */
 public interface OSUtilities {
   /**
    * Returns a list of strings representing an executable command for the current operating system,

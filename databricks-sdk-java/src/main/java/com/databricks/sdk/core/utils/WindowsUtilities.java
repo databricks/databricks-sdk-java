@@ -1,12 +1,12 @@
 package com.databricks.sdk.core.utils;
 
-import com.databricks.sdk.core.DatabricksConfig;
-
 import java.util.Arrays;
 import java.util.List;
 
+/** Windows specific utilities. */
 public class WindowsUtilities implements OSUtilities {
   private final Environment env;
+
   public WindowsUtilities(Environment env) {
     this.env = env;
   }

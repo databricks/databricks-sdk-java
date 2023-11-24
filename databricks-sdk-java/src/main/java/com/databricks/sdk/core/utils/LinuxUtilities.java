@@ -1,12 +1,12 @@
 package com.databricks.sdk.core.utils;
 
-import com.databricks.sdk.core.DatabricksConfig;
-
 import java.util.Arrays;
 import java.util.List;
 
+/** Linux specific utilities. */
 public class LinuxUtilities implements OSUtilities {
   private final Environment env;
+
   public LinuxUtilities(Environment env) {
     this.env = env;
   }
