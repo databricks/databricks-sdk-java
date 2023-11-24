@@ -30,9 +30,9 @@ public class CliAuthWorkspace {
      Authenticate and retrieve the list of clusters from the workspace
      */
     public static void main(String[] args) {
-        // DatabricksConfig config = getConfig();
+        DatabricksConfig config = getConfig();
 
-        WorkspaceClient workspace = new WorkspaceClient();
+        WorkspaceClient workspace = new WorkspaceClient(config);
         for (ClusterDetails c : workspace.clusters().list(new ListClustersRequest())) {
             System.out.println(c.getClusterName());
         }
