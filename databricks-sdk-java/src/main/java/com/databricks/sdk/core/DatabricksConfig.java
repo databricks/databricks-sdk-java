@@ -41,10 +41,7 @@ public class DatabricksConfig {
   @ConfigAttribute(value = "scopes", env = "DATABRICKS_SCOPES", auth = "oauth")
   private List<String> scopes;
 
-  @ConfigAttribute(
-      value = "redirect_url",
-      env = "DATABRICKS_REDIRECT_URL",
-      auth = "oauth")
+  @ConfigAttribute(value = "redirect_url", env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
   private String redirectUrl;
 
   @ConfigAttribute(value = "username", env = "DATABRICKS_USERNAME", auth = "basic")
