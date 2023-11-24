@@ -5,18 +5,16 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
+import com.databricks.sdk.core.utils.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Supplier;
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
-
-  public static final String DEFAULT_CONFIG_FILE = "~/.databrickscfg";
-
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(value = "host", env = "DATABRICKS_HOST")
@@ -151,24 +149,26 @@ public class DatabricksConfig {
 
   private HttpClient httpClient;
 
-  private Map<String, String> allEnv;
+  private Environment env;
 
-  public Map<String, String> getAllEnv() {
-    return allEnv;
+  public Environment getEnv() {
+    return env;
   }
 
   public synchronized DatabricksConfig resolve() {
-    return resolve(System::getenv);
+    String[] path = System.getenv("PATH").split(File.pathSeparator);
+    Environment env = new Environment(System.getenv(), path, System.getProperty("os.name"));
+    return resolve(env);
   }
 
-  synchronized DatabricksConfig resolve(Supplier<Map<String, String>> getAllEnv) {
-    allEnv = getAllEnv.get();
+  synchronized DatabricksConfig resolve(Environment env) {
+    this.env = env;
     innerResolve();
     return this;
   }
 
   private synchronized DatabricksConfig innerResolve() {
-    Objects.requireNonNull(allEnv);
+    Objects.requireNonNull(env);
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);
