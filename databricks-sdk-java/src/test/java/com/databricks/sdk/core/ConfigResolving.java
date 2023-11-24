@@ -1,7 +1,6 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.utils.Environment;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
