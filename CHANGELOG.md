@@ -1,5 +1,30 @@
 # Version changelog
 
+## 0.13.0
+
+Bug fixes:
+
+* Fix databricks CLI authentication on Windows ([#192](https://github.com/databricks/databricks-sdk-java/pull/192)).
+* Fix SCIM pagination ([#193](https://github.com/databricks/databricks-sdk-java/pull/193)).
+
+Other changes:
+
+* Add more detailed error message on default credentials not found error ([#180](https://github.com/databricks/databricks-sdk-java/pull/180)).
+* Support custom scopes and redirectUrl for U2M OAuth flow ([#190](https://github.com/databricks/databricks-sdk-java/pull/190)).
+
+API Changes:
+
+ * Removed `enableOptimization()` method for `workspaceClient.metastores()` service.
+ * Added `pipelineId` field for `com.databricks.sdk.service.catalog.TableInfo`.
+ * Added `enablePredictiveOptimization` field for `com.databricks.sdk.service.catalog.UpdateCatalog` and `com.databricks.sdk.service.catalog.UpdateSchema`.
+ * Removed `com.databricks.sdk.service.catalog.UpdatePredictiveOptimization` and `com.databricks.sdk.service.catalog.UpdatePredictiveOptimizationResponse` class.
+ * Added `description` field for `com.databricks.sdk.service.jobs.CreateJob` and `com.databricks.sdk.service.jobs.JobSettings`.
+ * Added `listNetworkConnectivityConfigurations()` and `listPrivateEndpointRules()` methods for `accountClient.networkConnectivity()` service.
+ * Added `com.databricks.sdk.service.settings.ListNccAzurePrivateEndpointRulesResponse`, `com.databricks.sdk.service.settings.ListNetworkConnectivityConfigurationsRequest`, `com.databricks.sdk.service.settings.ListNetworkConnectivityConfigurationsResponse`, and `com.databricks.sdk.service.settings.ListPrivateEndpointRulesRequest` classes.
+ * Added `stringSharedAs` field for `com.databricks.sdk.service.sharing.SharedDataObject`.
+
+OpenAPI SHA: 22f09783eb8a84d52026f856be3b2068f9498db3, Date: 2023-11-23
+
 ## 0.12.0
 
 * Implemented notebook-native auth for the Java SDK ([#171](https://github.com/databricks/databricks-sdk-java/pull/171)).

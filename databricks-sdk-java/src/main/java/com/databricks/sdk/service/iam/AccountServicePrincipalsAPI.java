@@ -72,7 +72,7 @@ public class AccountServicePrincipalsAPI {
    */
   public Iterable<ServicePrincipal> list(ListAccountServicePrincipalsRequest request) {
     request.setStartIndex(1L);
-    if (request.getCount() == 0L) {
+    if (request.getCount() == null) {
       request.setCount(100L);
     }
     return new Paginator<>(
