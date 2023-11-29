@@ -140,7 +140,7 @@ public class {{.PascalName}}API {
       0
     {{- end}}L);{{end -}}
     {{if and .Pagination.Limit (contains .Path "/scim/v2/")}}
-    if (request.get{{.Pagination.Limit.PascalName}}() == 0) {
+    if (request.get{{.Pagination.Limit.PascalName}}() == 0L) {
        request.set{{.Pagination.Limit.PascalName}}(100L);
     }{{end -}}
     return new Paginator<>(request, impl::{{template "java-name" .}}, {{template "type" .Response}}::get{{.Pagination.Results.PascalName}}, response -> {
