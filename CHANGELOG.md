@@ -25,10 +25,6 @@ API Changes:
 
 OpenAPI SHA: 22f09783eb8a84d52026f856be3b2068f9498db3, Date: 2023-11-23
 
-Dependency updates:
-
- * Bump API spec: 23 Nov 2023 ([#191](https://github.com/databricks/databricks-sdk-java/pull/191)).
-
 ## 0.12.0
 
 * Implemented notebook-native auth for the Java SDK ([#171](https://github.com/databricks/databricks-sdk-java/pull/171)).
