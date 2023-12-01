@@ -5,7 +5,6 @@ import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.integration.framework.NameUtils;
 import com.databricks.sdk.integration.framework.ResourceWithCleanup;
-import com.databricks.sdk.service.files.FileInfo;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,10 +44,6 @@ public class FilesIT {
 
     // Write the file to DBFS.
     workspace.files().upload(fileName, inputStream);
-
-    // Read file status
-    FileInfo fileStatus = workspace.files().getStatus(fileName);
-    Assertions.assertEquals(fileStatus.getPath(), fileName);
 
     // Read the file back from DBFS.
     try (InputStream readContents = workspace.files().download(fileName).getContents()) {

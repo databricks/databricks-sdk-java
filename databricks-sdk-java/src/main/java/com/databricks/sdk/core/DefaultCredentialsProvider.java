@@ -29,7 +29,9 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
             new AzureCliCredentialsProvider(),
             new ExternalBrowserCredentialsProvider(),
             new DatabricksCliCredentialsProvider(),
-            new NotebookNativeCredentialsProvider());
+            new NotebookNativeCredentialsProvider(),
+            new GoogleCredentialsCredentialsProvider(),
+            new GoogleIdCredentialsProvider());
   }
 
   @Override
