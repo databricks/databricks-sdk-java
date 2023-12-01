@@ -173,6 +173,36 @@ import com.databricks.sdk.core.DatabricksConfig;
         WorkspaceClient workspace=new WorkspaceClient(config);
 ```
 
+### Google Cloud Platform native authentication
+
+By default, the Databricks SDK for Java first tries GCP credentials authentication (`auth_type='google-credentials'`, argument). If the SDK is unsuccessful, it then tries Google Cloud Platform (GCP) ID authentication (`auth_type='google-id'`, argument).
+
+The Databricks SDK for Java picks up an OAuth token in the scope of the Google Default Application Credentials (DAC) flow. This means that if you have run `gcloud auth application-default login` on your development machine, or launch the application on the compute, that is allowed to impersonate the Google Cloud service account specified in `google_service_account`. Authentication should then work out of the box. See [Creating and managing service accounts](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
+
+To authenticate as a Google Cloud service account, you must provide one of the following:
+
+- `host` and `google_credentials`; or their environment variable or `.databrickscfg` file field equivalents.
+- `host` and `google_service_account`; or their environment variable or `.databrickscfg` file field equivalents.
+
+| Argument                 | Description | Environment variable |
+|--------------------------|-------------|--------------------------------------------------|
+| `google_credentials`     | _(String)_ GCP Service Account Credentials JSON or the location of these credentials on the local filesystem. | `GOOGLE_CREDENTIALS` |
+| `google_service_account` | _(String)_ The Google Cloud Platform (GCP) service account e-mail used for impersonation in the Default Application Credentials Flow that does not require a password. | `DATABRICKS_GOOGLE_SERVICE_ACCOUNT` |
+
+For example, to use Google ID authentication:
+
+```java
+import com.databricks.sdk.WorkspaceClient;
+import com.databricks.sdk.core.DatabricksConfig;
+...
+        DatabricksConfig config=new DatabricksConfig()
+        .setAuthType("google-credentials")
+        .setHost("https://my-databricks-instance.com")
+        .setGoogleServiceAccgount("google-service-account");
+        WorkspaceClient workspace=new WorkspaceClient(config);
+
+```
+
 ### Overriding `.databrickscfg`
 
 For [Databricks native authentication](#databricks-native-authentication), you can override the default behavior for using `.databrickscfg` as follows:
