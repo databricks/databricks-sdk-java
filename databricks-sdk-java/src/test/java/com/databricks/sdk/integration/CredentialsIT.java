@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @EnvContext("account")
 @DisabledIfEnvironmentVariable(named = "ARM_CLIENT_ID", matches = ".*")
-@DisabledIfEnvironmentVariable(named = "ARM_CLIENT_ID", matches = ".*")
 @ExtendWith(EnvTest.class)
 public class CredentialsIT {
   @Test
