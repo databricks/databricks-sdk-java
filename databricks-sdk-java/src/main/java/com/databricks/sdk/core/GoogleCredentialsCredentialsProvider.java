@@ -38,11 +38,12 @@ public class GoogleCredentialsCredentialsProvider implements CredentialsProvider
           ServiceAccountCredentials.fromStream(Files.newInputStream(Paths.get(googleCredentials)));
     } catch (IOException e) {
       try {
+        // If file doesn't exist, we try to parse the config as the content.
         serviceAccountCredentials =
             ServiceAccountCredentials.fromStream(
                 new ByteArrayInputStream(googleCredentials.getBytes(StandardCharsets.UTF_8)));
       } catch (IOException ex) {
-        LOG.warn("Failed to get Google service account credentials.");
+        LOG.warn("Failed to get Google service account credentials." + ex);
         return null;
       }
     }
@@ -55,19 +56,18 @@ public class GoogleCredentialsCredentialsProvider implements CredentialsProvider
       try {
         idToken = finalServiceAccountCredentials.idTokenWithAudience(host, tokenOption);
       } catch (IOException e) {
+        LOG.warn("Failed to get id token from Google service account credentials." + e);
         throw new RuntimeException(e);
       }
       Map<String, String> headers = new HashMap<>();
       headers.put("Authorization", String.format("Bearer %s", idToken.getTokenValue()));
 
       if (config.isAccountClient()) {
-        LOG.warn("in if check");
         AccessToken token;
         try {
-          LOG.warn("Generating token");
           token = finalServiceAccountCredentials.createScoped(GcpScopes).refreshAccessToken();
         } catch (Exception e) {
-          LOG.warn("Throwing");
+          LOG.warn("Failed to refresh access token from Google service account credentials." + e);
           throw new RuntimeException(e);
         }
         headers.put("X-Databricks-GCP-SA-Access-Token", token.getTokenValue());

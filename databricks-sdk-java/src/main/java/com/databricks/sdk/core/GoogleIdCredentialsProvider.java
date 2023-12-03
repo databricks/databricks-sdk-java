@@ -32,7 +32,7 @@ public class GoogleIdCredentialsProvider implements CredentialsProvider {
     try {
       googleCredentials = GoogleCredentials.getApplicationDefault();
     } catch (IOException e) {
-      LOG.warn("Failed to get Google application default credential.");
+      LOG.warn("Failed to get Google application default credential." + e);
       return null;
     }
 
@@ -61,6 +61,7 @@ public class GoogleIdCredentialsProvider implements CredentialsProvider {
             "Authorization",
             String.format("Bearer %s", idTokenCredentials.refreshAccessToken().getTokenValue()));
       } catch (IOException e) {
+        LOG.warn("Failed to refresh access token from id token credentials." + e);
         throw new RuntimeException(e);
       }
 
@@ -70,6 +71,7 @@ public class GoogleIdCredentialsProvider implements CredentialsProvider {
               "X-Databricks-GCP-SA-Access-Token",
               gcpScopedCredentials.refreshAccessToken().getTokenValue());
         } catch (IOException e) {
+          LOG.warn("Failed to refresh access token from scoped id token credentials." + e);
           throw new RuntimeException(e);
         }
       }
