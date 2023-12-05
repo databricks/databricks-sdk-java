@@ -1,6 +1,7 @@
 package com.databricks.sdk.core;
 
-import static com.databricks.sdk.core.utils.GoogleUtils.GcpScopes;
+import static com.databricks.sdk.core.utils.GoogleUtils.GCP_SCOPES;
+import static com.databricks.sdk.core.utils.GoogleUtils.SA_ACCESS_TOKEN_HEADER;
 
 import com.google.auth.oauth2.*;
 import com.google.auth.oauth2.IdTokenProvider.Option;
@@ -56,8 +57,9 @@ public class GoogleCredentialsCredentialsProvider implements CredentialsProvider
       try {
         idToken = finalServiceAccountCredentials.idTokenWithAudience(host, tokenOption);
       } catch (IOException e) {
-        LOG.warn("Failed to get id token from Google service account credentials." + e);
-        throw new RuntimeException(e);
+        String message = "Failed to get id token from Google service account credentials.";
+        LOG.error(message + e);
+        throw new DatabricksException(message, e);
       }
       Map<String, String> headers = new HashMap<>();
       headers.put("Authorization", String.format("Bearer %s", idToken.getTokenValue()));
@@ -65,12 +67,14 @@ public class GoogleCredentialsCredentialsProvider implements CredentialsProvider
       if (config.isAccountClient()) {
         AccessToken token;
         try {
-          token = finalServiceAccountCredentials.createScoped(GcpScopes).refreshAccessToken();
-        } catch (Exception e) {
-          LOG.warn("Failed to refresh access token from Google service account credentials." + e);
-          throw new RuntimeException(e);
+          token = finalServiceAccountCredentials.createScoped(GCP_SCOPES).refreshAccessToken();
+        } catch (IOException e) {
+          String message =
+              "Failed to refresh access token from Google service account credentials.";
+          LOG.error(message + e);
+          throw new DatabricksException(message, e);
         }
-        headers.put("X-Databricks-GCP-SA-Access-Token", token.getTokenValue());
+        headers.put(SA_ACCESS_TOKEN_HEADER, token.getTokenValue());
       }
 
       return headers;

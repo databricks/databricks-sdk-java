@@ -1,6 +1,7 @@
 package com.databricks.sdk.core;
 
-import static com.databricks.sdk.core.utils.GoogleUtils.GcpScopes;
+import static com.databricks.sdk.core.utils.GoogleUtils.GCP_SCOPES;
+import static com.databricks.sdk.core.utils.GoogleUtils.SA_ACCESS_TOKEN_HEADER;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.auth.oauth2.IdTokenCredentials;
@@ -52,7 +53,7 @@ public class GoogleIdCredentialsProvider implements CredentialsProvider {
 
     ImpersonatedCredentials gcpScopedCredentials =
         ImpersonatedCredentials.create(
-            googleCredentials, googleServiceAccount, null, GcpScopes, 3600);
+            googleCredentials, googleServiceAccount, null, GCP_SCOPES, 3600);
 
     return () -> {
       Map<String, String> headers = new HashMap<>();
@@ -61,18 +62,19 @@ public class GoogleIdCredentialsProvider implements CredentialsProvider {
             "Authorization",
             String.format("Bearer %s", idTokenCredentials.refreshAccessToken().getTokenValue()));
       } catch (IOException e) {
-        LOG.warn("Failed to refresh access token from id token credentials." + e);
-        throw new RuntimeException(e);
+        String message = "Failed to refresh access token from id token credentials.";
+        LOG.error(message + e);
+        throw new DatabricksException(message, e);
       }
 
       if (config.isAccountClient()) {
         try {
           headers.put(
-              "X-Databricks-GCP-SA-Access-Token",
-              gcpScopedCredentials.refreshAccessToken().getTokenValue());
+              SA_ACCESS_TOKEN_HEADER, gcpScopedCredentials.refreshAccessToken().getTokenValue());
         } catch (IOException e) {
-          LOG.warn("Failed to refresh access token from scoped id token credentials." + e);
-          throw new RuntimeException(e);
+          String message = "Failed to refresh access token from scoped id token credentials.";
+          LOG.error(message + e);
+          throw new DatabricksException(message, e);
         }
       }
 
