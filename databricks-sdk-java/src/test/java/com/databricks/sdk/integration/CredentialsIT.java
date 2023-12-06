@@ -15,7 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class CredentialsIT {
   @Test
   void lists(AccountClient a) {
-    // Skipping this test for gcp because there is a permission issue with listing credentials.
+    // Skipping this test for GCP because this api is not enabled in GCP.
     if (!a.config().isGcp()) {
       Iterable<Credential> list = a.credentials().list();
 
