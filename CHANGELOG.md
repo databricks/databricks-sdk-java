@@ -4,7 +4,7 @@
 
 Other changes:
 
-* Added support GCP auth ([#196](https://github.com/databricks/databricks-sdk-java/pull/196)).
+* Added support for GCP auth ([#196](https://github.com/databricks/databricks-sdk-java/pull/196)).
 
 API Changes:
 
