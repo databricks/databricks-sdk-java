@@ -25,6 +25,10 @@ public class UpdateSchema {
   @JsonProperty("name")
   private String name;
 
+  /** New name for the schema. */
+  @JsonProperty("new_name")
+  private String newName;
+
   /** Username of current owner of schema. */
   @JsonProperty("owner")
   private String owner;
@@ -70,6 +74,15 @@ public class UpdateSchema {
     return name;
   }
 
+  public UpdateSchema setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
+  }
+
   public UpdateSchema setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -97,13 +110,15 @@ public class UpdateSchema {
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, enablePredictiveOptimization, fullName, name, owner, properties);
+    return Objects.hash(
+        comment, enablePredictiveOptimization, fullName, name, newName, owner, properties);
   }
 
   @Override
@@ -113,6 +128,7 @@ public class UpdateSchema {
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("fullName", fullName)
         .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .add("properties", properties)
         .toString();

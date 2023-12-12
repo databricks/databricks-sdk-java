@@ -19,10 +19,10 @@ import org.slf4j.LoggerFactory;
  * Unity Catalog. Endpoints expose the underlying models as scalable REST API endpoints using
  * serverless compute. This means the endpoints and associated compute resources are fully managed
  * by Databricks and will not appear in your cloud account. A serving endpoint can consist of one or
- * more MLflow models from the Databricks Model Registry, called served models. A serving endpoint
- * can have at most ten served models. You can configure traffic settings to define how requests
- * should be routed to your served models behind an endpoint. Additionally, you can configure the
- * scale of resources that should be applied to each served model.
+ * more MLflow models from the Databricks Model Registry, called served entities. A serving endpoint
+ * can have at most ten served entities. You can configure traffic settings to define how requests
+ * should be routed to your served entities behind an endpoint. Additionally, you can configure the
+ * scale of resources that should be applied to each served entity.
  */
 @Generated
 public class ServingEndpointsAPI {
@@ -214,6 +214,20 @@ public class ServingEndpointsAPI {
     return impl.patch(request);
   }
 
+  public PutResponse put(String name) {
+    return put(new PutRequest().setName(name));
+  }
+
+  /**
+   * Update the rate limits of a serving endpoint.
+   *
+   * <p>Used to update the rate limits of a serving endpoint. NOTE: only external and foundation
+   * model endpoints are supported as of now.
+   */
+  public PutResponse put(PutRequest request) {
+    return impl.put(request);
+  }
+
   public QueryEndpointResponse query(String name) {
     return query(new QueryEndpointInput().setName(name));
   }
@@ -239,15 +253,16 @@ public class ServingEndpointsAPI {
   }
 
   public Wait<ServingEndpointDetailed, ServingEndpointDetailed> updateConfig(
-      String name, Collection<ServedModelInput> servedModels) {
-    return updateConfig(new EndpointCoreConfigInput().setName(name).setServedModels(servedModels));
+      String name, Collection<ServedEntityInput> servedEntities) {
+    return updateConfig(
+        new EndpointCoreConfigInput().setName(name).setServedEntities(servedEntities));
   }
 
   /**
    * Update a serving endpoint with a new config.
    *
-   * <p>Updates any combination of the serving endpoint's served models, the compute configuration
-   * of those served models, and the endpoint's traffic config. An endpoint that already has an
+   * <p>Updates any combination of the serving endpoint's served entities, the compute configuration
+   * of those served entities, and the endpoint's traffic config. An endpoint that already has an
    * update in progress can not be updated until the current update completes or fails.
    */
   public Wait<ServingEndpointDetailed, ServingEndpointDetailed> updateConfig(

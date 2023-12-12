@@ -20,6 +20,10 @@ public class UpdateRegisteredModelRequest {
   @JsonProperty("name")
   private String name;
 
+  /** New name for the registered model. */
+  @JsonProperty("new_name")
+  private String newName;
+
   /** The identifier of the user who owns the registered model */
   @JsonProperty("owner")
   private String owner;
@@ -51,6 +55,15 @@ public class UpdateRegisteredModelRequest {
     return name;
   }
 
+  public UpdateRegisteredModelRequest setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
+  }
+
   public UpdateRegisteredModelRequest setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -68,12 +81,13 @@ public class UpdateRegisteredModelRequest {
     return Objects.equals(comment, that.comment)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, fullName, name, owner);
+    return Objects.hash(comment, fullName, name, newName, owner);
   }
 
   @Override
@@ -82,6 +96,7 @@ public class UpdateRegisteredModelRequest {
         .add("comment", comment)
         .add("fullName", fullName)
         .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .toString();
   }

@@ -78,6 +78,18 @@ public class SubmitTask {
   @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
 
+  /**
+   * An optional value indicating the condition that determines whether the task should be run once
+   * its dependencies have been completed. When omitted, defaults to `ALL_SUCCESS`. See
+   * :method:jobs/create for a list of possible values.
+   */
+  @JsonProperty("run_if")
+  private RunIf runIf;
+
+  /** If run_job_task, indicates that this job must execute another job. */
+  @JsonProperty("run_job_task")
+  private RunJobTask runJobTask;
+
   /** If spark_jar_task, indicates that this task must run a JAR. */
   @JsonProperty("spark_jar_task")
   private SparkJarTask sparkJarTask;
@@ -229,6 +241,24 @@ public class SubmitTask {
     return pythonWheelTask;
   }
 
+  public SubmitTask setRunIf(RunIf runIf) {
+    this.runIf = runIf;
+    return this;
+  }
+
+  public RunIf getRunIf() {
+    return runIf;
+  }
+
+  public SubmitTask setRunJobTask(RunJobTask runJobTask) {
+    this.runJobTask = runJobTask;
+    return this;
+  }
+
+  public RunJobTask getRunJobTask() {
+    return runJobTask;
+  }
+
   public SubmitTask setSparkJarTask(SparkJarTask sparkJarTask) {
     this.sparkJarTask = sparkJarTask;
     return this;
@@ -308,6 +338,8 @@ public class SubmitTask {
         && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
+        && Objects.equals(runIf, that.runIf)
+        && Objects.equals(runJobTask, that.runJobTask)
         && Objects.equals(sparkJarTask, that.sparkJarTask)
         && Objects.equals(sparkPythonTask, that.sparkPythonTask)
         && Objects.equals(sparkSubmitTask, that.sparkSubmitTask)
@@ -331,6 +363,8 @@ public class SubmitTask {
         notificationSettings,
         pipelineTask,
         pythonWheelTask,
+        runIf,
+        runJobTask,
         sparkJarTask,
         sparkPythonTask,
         sparkSubmitTask,
@@ -354,6 +388,8 @@ public class SubmitTask {
         .add("notificationSettings", notificationSettings)
         .add("pipelineTask", pipelineTask)
         .add("pythonWheelTask", pythonWheelTask)
+        .add("runIf", runIf)
+        .add("runJobTask", runJobTask)
         .add("sparkJarTask", sparkJarTask)
         .add("sparkPythonTask", sparkPythonTask)
         .add("sparkSubmitTask", sparkSubmitTask)

@@ -17,6 +17,11 @@ public class QueryFilter {
   @QueryParam("query_start_time_range")
   private TimeRange queryStartTimeRange;
 
+  /** A list of statement IDs. */
+  @JsonProperty("statement_ids")
+  @QueryParam("statement_ids")
+  private Collection<String> statementIds;
+
   /** */
   @JsonProperty("statuses")
   @QueryParam("statuses")
@@ -39,6 +44,15 @@ public class QueryFilter {
 
   public TimeRange getQueryStartTimeRange() {
     return queryStartTimeRange;
+  }
+
+  public QueryFilter setStatementIds(Collection<String> statementIds) {
+    this.statementIds = statementIds;
+    return this;
+  }
+
+  public Collection<String> getStatementIds() {
+    return statementIds;
   }
 
   public QueryFilter setStatuses(Collection<QueryStatus> statuses) {
@@ -74,6 +88,7 @@ public class QueryFilter {
     if (o == null || getClass() != o.getClass()) return false;
     QueryFilter that = (QueryFilter) o;
     return Objects.equals(queryStartTimeRange, that.queryStartTimeRange)
+        && Objects.equals(statementIds, that.statementIds)
         && Objects.equals(statuses, that.statuses)
         && Objects.equals(userIds, that.userIds)
         && Objects.equals(warehouseIds, that.warehouseIds);
@@ -81,13 +96,14 @@ public class QueryFilter {
 
   @Override
   public int hashCode() {
-    return Objects.hash(queryStartTimeRange, statuses, userIds, warehouseIds);
+    return Objects.hash(queryStartTimeRange, statementIds, statuses, userIds, warehouseIds);
   }
 
   @Override
   public String toString() {
     return new ToStringer(QueryFilter.class)
         .add("queryStartTimeRange", queryStartTimeRange)
+        .add("statementIds", statementIds)
         .add("statuses", statuses)
         .add("userIds", userIds)
         .add("warehouseIds", warehouseIds)

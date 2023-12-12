@@ -87,8 +87,8 @@ public class ConnectionsAPI {
     return impl.list().getConnections();
   }
 
-  public ConnectionInfo update(String nameArg, String name, Map<String, String> options) {
-    return update(new UpdateConnection().setNameArg(nameArg).setName(name).setOptions(options));
+  public ConnectionInfo update(String nameArg, Map<String, String> options) {
+    return update(new UpdateConnection().setNameArg(nameArg).setOptions(options));
   }
 
   /**

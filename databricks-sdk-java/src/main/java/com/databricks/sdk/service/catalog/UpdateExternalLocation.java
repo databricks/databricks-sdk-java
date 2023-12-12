@@ -30,8 +30,11 @@ public class UpdateExternalLocation {
   private Boolean force;
 
   /** Name of the external location. */
-  @JsonProperty("name")
   private String name;
+
+  /** New name for the external location. */
+  @JsonProperty("new_name")
+  private String newName;
 
   /** The owner of the external location. */
   @JsonProperty("owner")
@@ -103,6 +106,15 @@ public class UpdateExternalLocation {
     return name;
   }
 
+  public UpdateExternalLocation setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
+  }
+
   public UpdateExternalLocation setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -150,6 +162,7 @@ public class UpdateExternalLocation {
         && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(force, that.force)
         && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
         && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(skipValidation, that.skipValidation)
@@ -165,6 +178,7 @@ public class UpdateExternalLocation {
         encryptionDetails,
         force,
         name,
+        newName,
         owner,
         readOnly,
         skipValidation,
@@ -180,6 +194,7 @@ public class UpdateExternalLocation {
         .add("encryptionDetails", encryptionDetails)
         .add("force", force)
         .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)

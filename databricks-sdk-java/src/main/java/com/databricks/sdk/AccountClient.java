@@ -51,8 +51,6 @@ import com.databricks.sdk.service.provisioning.WorkspacesAPI;
 import com.databricks.sdk.service.provisioning.WorkspacesService;
 import com.databricks.sdk.service.settings.AccountIpAccessListsAPI;
 import com.databricks.sdk.service.settings.AccountIpAccessListsService;
-import com.databricks.sdk.service.settings.AccountNetworkPolicyAPI;
-import com.databricks.sdk.service.settings.AccountNetworkPolicyService;
 import com.databricks.sdk.service.settings.AccountSettingsAPI;
 import com.databricks.sdk.service.settings.AccountSettingsService;
 import com.databricks.sdk.service.settings.NetworkConnectivityAPI;
@@ -77,7 +75,6 @@ public class AccountClient {
   private AccountMetastoreAssignmentsAPI metastoreAssignmentsAPI;
   private AccountMetastoresAPI metastoresAPI;
   private NetworkConnectivityAPI networkConnectivityAPI;
-  private AccountNetworkPolicyAPI networkPolicyAPI;
   private NetworksAPI networksAPI;
   private OAuthPublishedAppsAPI oAuthPublishedAppsAPI;
   private PrivateAccessAPI privateAccessAPI;
@@ -112,7 +109,6 @@ public class AccountClient {
     metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(apiClient);
     metastoresAPI = new AccountMetastoresAPI(apiClient);
     networkConnectivityAPI = new NetworkConnectivityAPI(apiClient);
-    networkPolicyAPI = new AccountNetworkPolicyAPI(apiClient);
     networksAPI = new NetworksAPI(apiClient);
     oAuthPublishedAppsAPI = new OAuthPublishedAppsAPI(apiClient);
     privateAccessAPI = new PrivateAccessAPI(apiClient);
@@ -325,19 +321,6 @@ public class AccountClient {
   }
 
   /**
-   * Network policy is a set of rules that defines what can be accessed from your Databricks
-   * network. E.g.: You can choose to block your SQL UDF to access internet from your Databricks
-   * serverless clusters.
-   *
-   * <p>There is only one instance of this setting per account. Since this setting has a default
-   * value, this setting is present on all accounts even though it's never set on a given account.
-   * Deletion reverts the value of the setting back to the default value.
-   */
-  public AccountNetworkPolicyAPI networkPolicy() {
-    return networkPolicyAPI;
-  }
-
-  /**
    * These APIs manage network configurations for customer-managed VPCs (optional). Its ID is used
    * when creating a new workspace if you use customer-managed VPCs.
    */
@@ -541,12 +524,6 @@ public class AccountClient {
   /** Override NetworkConnectivityAPI with mock */
   public AccountClient withNetworkConnectivityImpl(NetworkConnectivityService networkConnectivity) {
     networkConnectivityAPI = new NetworkConnectivityAPI(networkConnectivity);
-    return this;
-  }
-
-  /** Override AccountNetworkPolicyAPI with mock */
-  public AccountClient withNetworkPolicyImpl(AccountNetworkPolicyService accountNetworkPolicy) {
-    networkPolicyAPI = new AccountNetworkPolicyAPI(accountNetworkPolicy);
     return this;
   }
 

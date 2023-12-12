@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class TrafficConfig {
-  /** The list of routes that define traffic to each served model. */
+  /** The list of routes that define traffic to each served entity. */
   @JsonProperty("routes")
   private Collection<Route> routes;
 
