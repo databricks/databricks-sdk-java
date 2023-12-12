@@ -110,7 +110,7 @@ public class Workspace {
    * specify this ID if you are using [AWS PrivateLink] for either front-end (user-to-workspace
    * connection), back-end (data plane to control plane connection), or both connection types.
    *
-   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
+   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].",
    *
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink/ [Databricks article about
    * PrivateLink]:

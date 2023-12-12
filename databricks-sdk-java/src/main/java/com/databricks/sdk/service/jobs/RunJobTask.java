@@ -5,6 +5,7 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
@@ -15,7 +16,7 @@ public class RunJobTask {
 
   /** Job-level parameters used to trigger the job. */
   @JsonProperty("job_parameters")
-  private Object jobParameters;
+  private Map<String, String> jobParameters;
 
   public RunJobTask setJobId(Long jobId) {
     this.jobId = jobId;
@@ -26,12 +27,12 @@ public class RunJobTask {
     return jobId;
   }
 
-  public RunJobTask setJobParameters(Object jobParameters) {
+  public RunJobTask setJobParameters(Map<String, String> jobParameters) {
     this.jobParameters = jobParameters;
     return this;
   }
 
-  public Object getJobParameters() {
+  public Map<String, String> getJobParameters() {
     return jobParameters;
   }
 

@@ -20,6 +20,10 @@ public class UpdateVolumeRequestContent {
   @JsonProperty("name")
   private String name;
 
+  /** New name for the volume. */
+  @JsonProperty("new_name")
+  private String newName;
+
   /** The identifier of the user who owns the volume */
   @JsonProperty("owner")
   private String owner;
@@ -51,6 +55,15 @@ public class UpdateVolumeRequestContent {
     return name;
   }
 
+  public UpdateVolumeRequestContent setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
+  }
+
   public UpdateVolumeRequestContent setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -68,12 +81,13 @@ public class UpdateVolumeRequestContent {
     return Objects.equals(comment, that.comment)
         && Objects.equals(fullNameArg, that.fullNameArg)
         && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, fullNameArg, name, owner);
+    return Objects.hash(comment, fullNameArg, name, newName, owner);
   }
 
   @Override
@@ -82,6 +96,7 @@ public class UpdateVolumeRequestContent {
         .add("comment", comment)
         .add("fullNameArg", fullNameArg)
         .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .toString();
   }

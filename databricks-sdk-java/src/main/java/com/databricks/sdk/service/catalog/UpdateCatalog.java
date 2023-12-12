@@ -25,9 +25,12 @@ public class UpdateCatalog {
   @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 
-  /** Name of catalog. */
-  @JsonProperty("name")
+  /** The name of the catalog. */
   private String name;
+
+  /** New name for the catalog. */
+  @JsonProperty("new_name")
+  private String newName;
 
   /** Username of current owner of catalog. */
   @JsonProperty("owner")
@@ -74,6 +77,15 @@ public class UpdateCatalog {
     return name;
   }
 
+  public UpdateCatalog setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
+  }
+
   public UpdateCatalog setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -101,6 +113,7 @@ public class UpdateCatalog {
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties);
   }
@@ -108,7 +121,7 @@ public class UpdateCatalog {
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, enablePredictiveOptimization, isolationMode, name, owner, properties);
+        comment, enablePredictiveOptimization, isolationMode, name, newName, owner, properties);
   }
 
   @Override
@@ -118,6 +131,7 @@ public class UpdateCatalog {
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("isolationMode", isolationMode)
         .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .add("properties", properties)
         .toString();

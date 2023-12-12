@@ -21,6 +21,10 @@ public class StorageCredentialInfo {
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
+  /** The Cloudflare API token configuration. */
+  @JsonProperty("cloudflare_api_token")
+  private CloudflareApiToken cloudflareApiToken;
+
   /** Comment associated with the credential. */
   @JsonProperty("comment")
   private String comment;
@@ -95,6 +99,15 @@ public class StorageCredentialInfo {
 
   public AzureServicePrincipal getAzureServicePrincipal() {
     return azureServicePrincipal;
+  }
+
+  public StorageCredentialInfo setCloudflareApiToken(CloudflareApiToken cloudflareApiToken) {
+    this.cloudflareApiToken = cloudflareApiToken;
+    return this;
+  }
+
+  public CloudflareApiToken getCloudflareApiToken() {
+    return cloudflareApiToken;
   }
 
   public StorageCredentialInfo setComment(String comment) {
@@ -214,6 +227,7 @@ public class StorageCredentialInfo {
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
+        && Objects.equals(cloudflareApiToken, that.cloudflareApiToken)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
@@ -234,6 +248,7 @@ public class StorageCredentialInfo {
         awsIamRole,
         azureManagedIdentity,
         azureServicePrincipal,
+        cloudflareApiToken,
         comment,
         createdAt,
         createdBy,
@@ -254,6 +269,7 @@ public class StorageCredentialInfo {
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
+        .add("cloudflareApiToken", cloudflareApiToken)
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)

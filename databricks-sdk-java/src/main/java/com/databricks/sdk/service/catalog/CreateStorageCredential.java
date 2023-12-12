@@ -21,6 +21,10 @@ public class CreateStorageCredential {
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
+  /** The Cloudflare API token configuration. */
+  @JsonProperty("cloudflare_api_token")
+  private CloudflareApiToken cloudflareApiToken;
+
   /** Comment associated with the credential. */
   @JsonProperty("comment")
   private String comment;
@@ -68,6 +72,15 @@ public class CreateStorageCredential {
 
   public AzureServicePrincipal getAzureServicePrincipal() {
     return azureServicePrincipal;
+  }
+
+  public CreateStorageCredential setCloudflareApiToken(CloudflareApiToken cloudflareApiToken) {
+    this.cloudflareApiToken = cloudflareApiToken;
+    return this;
+  }
+
+  public CloudflareApiToken getCloudflareApiToken() {
+    return cloudflareApiToken;
   }
 
   public CreateStorageCredential setComment(String comment) {
@@ -124,6 +137,7 @@ public class CreateStorageCredential {
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
+        && Objects.equals(cloudflareApiToken, that.cloudflareApiToken)
         && Objects.equals(comment, that.comment)
         && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(name, that.name)
@@ -137,6 +151,7 @@ public class CreateStorageCredential {
         awsIamRole,
         azureManagedIdentity,
         azureServicePrincipal,
+        cloudflareApiToken,
         comment,
         databricksGcpServiceAccount,
         name,
@@ -150,6 +165,7 @@ public class CreateStorageCredential {
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
+        .add("cloudflareApiToken", cloudflareApiToken)
         .add("comment", comment)
         .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("name", name)

@@ -21,6 +21,13 @@ public class CreateServingEndpoint {
   @JsonProperty("name")
   private String name;
 
+  /**
+   * Rate limits to be applied to the serving endpoint. NOTE: only external and foundation model
+   * endpoints are supported as of now.
+   */
+  @JsonProperty("rate_limits")
+  private Collection<RateLimit> rateLimits;
+
   /** Tags to be attached to the serving endpoint and automatically propagated to billing logs. */
   @JsonProperty("tags")
   private Collection<EndpointTag> tags;
@@ -43,6 +50,15 @@ public class CreateServingEndpoint {
     return name;
   }
 
+  public CreateServingEndpoint setRateLimits(Collection<RateLimit> rateLimits) {
+    this.rateLimits = rateLimits;
+    return this;
+  }
+
+  public Collection<RateLimit> getRateLimits() {
+    return rateLimits;
+  }
+
   public CreateServingEndpoint setTags(Collection<EndpointTag> tags) {
     this.tags = tags;
     return this;
@@ -59,12 +75,13 @@ public class CreateServingEndpoint {
     CreateServingEndpoint that = (CreateServingEndpoint) o;
     return Objects.equals(config, that.config)
         && Objects.equals(name, that.name)
+        && Objects.equals(rateLimits, that.rateLimits)
         && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(config, name, tags);
+    return Objects.hash(config, name, rateLimits, tags);
   }
 
   @Override
@@ -72,6 +89,7 @@ public class CreateServingEndpoint {
     return new ToStringer(CreateServingEndpoint.class)
         .add("config", config)
         .add("name", name)
+        .add("rateLimits", rateLimits)
         .add("tags", tags)
         .toString();
   }

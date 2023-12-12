@@ -1,5 +1,119 @@
 # Version changelog
 
+## 0.14.0
+
+Other changes:
+
+* Added support for GCP auth ([#196](https://github.com/databricks/databricks-sdk-java/pull/196)).
+
+API Changes:
+
+ * Changed `update()` method for `workspaceClient.connections()` service with new required argument order.
+ * Added `cloudflareApiToken` field for `com.databricks.sdk.service.catalog.CreateStorageCredential`.
+ * Added `cloudflareApiToken` field for `com.databricks.sdk.service.catalog.StorageCredentialInfo`.
+ * Changed `name` field for `com.databricks.sdk.service.catalog.UpdateCatalog` to be required.
+ * Added `newName` field for `com.databricks.sdk.service.catalog.UpdateCatalog`.
+ * Changed `name` field for `com.databricks.sdk.service.catalog.UpdateConnection` to no longer be required.
+ * Added `newName` field for `com.databricks.sdk.service.catalog.UpdateConnection`.
+ * Changed `name` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation` to be required.
+ * Added `newName` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+ * Added `newName` field for `com.databricks.sdk.service.catalog.UpdateMetastore`.
+ * Added `newName` field for `com.databricks.sdk.service.catalog.UpdateRegisteredModelRequest`.
+ * Added `newName` field for `com.databricks.sdk.service.catalog.UpdateSchema`.
+ * Changed `name` field for `com.databricks.sdk.service.catalog.UpdateStorageCredential` to be required.
+ * Added `cloudflareApiToken` field for `com.databricks.sdk.service.catalog.UpdateStorageCredential`.
+ * Added `newName` field for `com.databricks.sdk.service.catalog.UpdateStorageCredential`.
+ * Added `newName` field for `com.databricks.sdk.service.catalog.UpdateVolumeRequestContent`.
+ * Added `cloudflareApiToken` field for `com.databricks.sdk.service.catalog.ValidateStorageCredential`.
+ * Added `com.databricks.sdk.service.catalog.CloudflareApiToken` class.
+ * Removed `continuous` field for `com.databricks.sdk.service.jobs.BaseRun`.
+ * Removed `continuous` field for `com.databricks.sdk.service.jobs.Run`.
+ * Changed `jobParameters` field for `com.databricks.sdk.service.jobs.RunJobTask` to `com.databricks.sdk.service.jobs.ParamPairs` class.
+ * Added `runIf` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+ * Added `runJobTask` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+ * Changed `updateConfig()` method for `workspaceClient.servingEndpoints()` service with new required argument order.
+ * Added `put()` method for `workspaceClient.servingEndpoints()` service.
+ * Added `rateLimits` field for `com.databricks.sdk.service.serving.CreateServingEndpoint`.
+ * Changed `servedModels` field for `com.databricks.sdk.service.serving.EndpointCoreConfigInput` to no longer be required.
+ * Added `autoCaptureConfig` field for `com.databricks.sdk.service.serving.EndpointCoreConfigInput`.
+ * Added `servedEntities` field for `com.databricks.sdk.service.serving.EndpointCoreConfigInput`.
+ * Added `autoCaptureConfig` field for `com.databricks.sdk.service.serving.EndpointCoreConfigOutput`.
+ * Added `servedEntities` field for `com.databricks.sdk.service.serving.EndpointCoreConfigOutput`.
+ * Added `servedEntities` field for `com.databricks.sdk.service.serving.EndpointCoreConfigSummary`.
+ * Added `servedEntities` field for `com.databricks.sdk.service.serving.EndpointPendingConfig`.
+ * Added `extraParams` field for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+ * Added `input` field for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+ * Added `maxTokens` field for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+ * Added `messages` field for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+ * Added `n` field for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+ * Added `prompt` field for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+ * Added `stop` field for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+ * Added `stream` field for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+ * Added `temperature` field for `com.databricks.sdk.service.serving.QueryEndpointInput`.
+ * Changed `predictions` field for `com.databricks.sdk.service.serving.QueryEndpointResponse` to no longer be required.
+ * Added `choices` field for `com.databricks.sdk.service.serving.QueryEndpointResponse`.
+ * Added `created` field for `com.databricks.sdk.service.serving.QueryEndpointResponse`.
+ * Added `data` field for `com.databricks.sdk.service.serving.QueryEndpointResponse`.
+ * Added `id` field for `com.databricks.sdk.service.serving.QueryEndpointResponse`.
+ * Added `model` field for `com.databricks.sdk.service.serving.QueryEndpointResponse`.
+ * Added `object` field for `com.databricks.sdk.service.serving.QueryEndpointResponse`.
+ * Added `usage` field for `com.databricks.sdk.service.serving.QueryEndpointResponse`.
+ * Changed `workloadSize` field for `com.databricks.sdk.service.serving.ServedModelInput` to `com.databricks.sdk.service.serving.ServedModelInputWorkloadSize` class.
+ * Changed `workloadType` field for `com.databricks.sdk.service.serving.ServedModelInput` to `com.databricks.sdk.service.serving.ServedModelInputWorkloadType` class.
+ * Added `task` field for `com.databricks.sdk.service.serving.ServingEndpoint`.
+ * Added `task` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+ * Added `com.databricks.sdk.service.serving.Ai21LabsConfig` class.
+ * Added `com.databricks.sdk.service.serving.AnthropicConfig` class.
+ * Added `com.databricks.sdk.service.serving.AutoCaptureConfigInput` class.
+ * Added `com.databricks.sdk.service.serving.AutoCaptureConfigOutput` class.
+ * Added `com.databricks.sdk.service.serving.AutoCaptureState` class.
+ * Added `com.databricks.sdk.service.serving.AwsBedrockConfig` class.
+ * Added `com.databricks.sdk.service.serving.AwsBedrockConfigBedrockProvider` class.
+ * Added `com.databricks.sdk.service.serving.ChatMessage` class.
+ * Added `com.databricks.sdk.service.serving.ChatMessageRole` class.
+ * Added `com.databricks.sdk.service.serving.CohereConfig` class.
+ * Added `com.databricks.sdk.service.serving.DatabricksModelServingConfig` class.
+ * Added `com.databricks.sdk.service.serving.EmbeddingsV1ResponseEmbeddingElement` class.
+ * Added `com.databricks.sdk.service.serving.EmbeddingsV1ResponseEmbeddingElementObject` class.
+ * Added `com.databricks.sdk.service.serving.ExternalModel` class.
+ * Added `com.databricks.sdk.service.serving.ExternalModelConfig` class.
+ * Added `com.databricks.sdk.service.serving.ExternalModelProvider` class.
+ * Added `com.databricks.sdk.service.serving.ExternalModelUsageElement` class.
+ * Added `com.databricks.sdk.service.serving.FoundationModel` class.
+ * Added `com.databricks.sdk.service.serving.OpenAiConfig` class.
+ * Added `com.databricks.sdk.service.serving.PaLmConfig` class.
+ * Added `com.databricks.sdk.service.serving.PayloadTable` class.
+ * Added `com.databricks.sdk.service.serving.PutRequest` class.
+ * Added `com.databricks.sdk.service.serving.PutResponse` class.
+ * Added `com.databricks.sdk.service.serving.QueryEndpointResponseObject` class.
+ * Added `com.databricks.sdk.service.serving.RateLimit` class.
+ * Added `com.databricks.sdk.service.serving.RateLimitKey` class.
+ * Added `com.databricks.sdk.service.serving.RateLimitRenewalPeriod` class.
+ * Added `com.databricks.sdk.service.serving.ServedEntityInput` class.
+ * Added `com.databricks.sdk.service.serving.ServedEntityOutput` class.
+ * Added `com.databricks.sdk.service.serving.ServedEntitySpec` class.
+ * Added `com.databricks.sdk.service.serving.ServedModelInputWorkloadSize` class.
+ * Added `com.databricks.sdk.service.serving.ServedModelInputWorkloadType` class.
+ * Added `com.databricks.sdk.service.serving.V1ResponseChoiceElement` class.
+ * Removed `accountClient.networkPolicy()` service.
+ * Removed `com.databricks.sdk.service.settings.AccountNetworkPolicyMessage` class.
+ * Removed `com.databricks.sdk.service.settings.DeleteAccountNetworkPolicyRequest` class.
+ * Removed `com.databricks.sdk.service.settings.DeleteAccountNetworkPolicyResponse` class.
+ * Removed `com.databricks.sdk.service.settings.ReadAccountNetworkPolicyRequest` class.
+ * Removed `com.databricks.sdk.service.settings.UpdateAccountNetworkPolicyRequest` class.
+ * Removed `name` field for `com.databricks.sdk.service.sharing.UpdateCleanRoom`.
+ * Changed `name` field for `com.databricks.sdk.service.sharing.UpdateProvider` to be required.
+ * Added `newName` field for `com.databricks.sdk.service.sharing.UpdateProvider`.
+ * Changed `name` field for `com.databricks.sdk.service.sharing.UpdateRecipient` to be required.
+ * Added `newName` field for `com.databricks.sdk.service.sharing.UpdateRecipient`.
+ * Changed `name` field for `com.databricks.sdk.service.sharing.UpdateShare` to be required.
+ * Added `newName` field for `com.databricks.sdk.service.sharing.UpdateShare`.
+ * Added `statementIds` field for `com.databricks.sdk.service.sql.QueryFilter`.
+ * Added `com.databricks.sdk.service.sql.StatementId` class.
+
+OpenAPI SHA: 63caa3cb0c05045e81d3dcf2451fa990d8670f36, Date: 2023-12-12
+
+
 ## 0.13.0
 
 Bug fixes:

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class BuildLogsResponse {
-  /** The logs associated with building the served model's environment. */
+  /** The logs associated with building the served entity's environment. */
   @JsonProperty("logs")
   private String logs;
 

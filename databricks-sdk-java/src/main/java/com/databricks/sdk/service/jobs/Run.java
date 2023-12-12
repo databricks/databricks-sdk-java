@@ -40,10 +40,6 @@ public class Run {
   @JsonProperty("cluster_spec")
   private ClusterSpec clusterSpec;
 
-  /** The continuous trigger that triggered this run. */
-  @JsonProperty("continuous")
-  private Continuous continuous;
-
   /**
    * The creator user name. This field won’t be included in the response if the user has already
    * been deleted.
@@ -229,15 +225,6 @@ public class Run {
 
   public ClusterSpec getClusterSpec() {
     return clusterSpec;
-  }
-
-  public Run setContinuous(Continuous continuous) {
-    this.continuous = continuous;
-    return this;
-  }
-
-  public Continuous getContinuous() {
-    return continuous;
   }
 
   public Run setCreatorUserName(String creatorUserName) {
@@ -456,7 +443,6 @@ public class Run {
         && Objects.equals(cleanupDuration, that.cleanupDuration)
         && Objects.equals(clusterInstance, that.clusterInstance)
         && Objects.equals(clusterSpec, that.clusterSpec)
-        && Objects.equals(continuous, that.continuous)
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(executionDuration, that.executionDuration)
@@ -489,7 +475,6 @@ public class Run {
         cleanupDuration,
         clusterInstance,
         clusterSpec,
-        continuous,
         creatorUserName,
         endTime,
         executionDuration,
@@ -522,7 +507,6 @@ public class Run {
         .add("cleanupDuration", cleanupDuration)
         .add("clusterInstance", clusterInstance)
         .add("clusterSpec", clusterSpec)
-        .add("continuous", continuous)
         .add("creatorUserName", creatorUserName)
         .add("endTime", endTime)
         .add("executionDuration", executionDuration)

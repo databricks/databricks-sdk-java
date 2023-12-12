@@ -56,16 +56,19 @@ public class ServedModelInput {
    * each workload size will be 0.
    */
   @JsonProperty("workload_size")
-  private String workloadSize;
+  private ServedModelInputWorkloadSize workloadSize;
 
   /**
    * The workload type of the served model. The workload type selects which type of compute to use
    * in the endpoint. The default value for this parameter is "CPU". For deep learning workloads,
-   * GPU acceleration is available by selecting workload types like GPU_SMALL and others. See
-   * documentation for all options.
+   * GPU acceleration is available by selecting workload types like GPU_SMALL and others. See the
+   * available [GPU types].
+   *
+   * <p>[GPU types]:
+   * https://docs.databricks.com/machine-learning/model-serving/create-manage-serving-endpoints.html#gpu-workload-types
    */
   @JsonProperty("workload_type")
-  private String workloadType;
+  private ServedModelInputWorkloadType workloadType;
 
   public ServedModelInput setEnvironmentVars(Map<String, String> environmentVars) {
     this.environmentVars = environmentVars;
@@ -121,21 +124,21 @@ public class ServedModelInput {
     return scaleToZeroEnabled;
   }
 
-  public ServedModelInput setWorkloadSize(String workloadSize) {
+  public ServedModelInput setWorkloadSize(ServedModelInputWorkloadSize workloadSize) {
     this.workloadSize = workloadSize;
     return this;
   }
 
-  public String getWorkloadSize() {
+  public ServedModelInputWorkloadSize getWorkloadSize() {
     return workloadSize;
   }
 
-  public ServedModelInput setWorkloadType(String workloadType) {
+  public ServedModelInput setWorkloadType(ServedModelInputWorkloadType workloadType) {
     this.workloadType = workloadType;
     return this;
   }
 
-  public String getWorkloadType() {
+  public ServedModelInputWorkloadType getWorkloadType() {
     return workloadType;
   }
 

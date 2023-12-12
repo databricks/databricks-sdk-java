@@ -17,9 +17,12 @@ public class UpdateRecipient {
   @JsonProperty("ip_access_list")
   private IpAccessList ipAccessList;
 
-  /** Name of Recipient. */
-  @JsonProperty("name")
+  /** Name of the recipient. */
   private String name;
+
+  /** New name for the recipient. */
+  @JsonProperty("new_name")
+  private String newName;
 
   /** Username of the recipient owner. */
   @JsonProperty("owner")
@@ -60,6 +63,15 @@ public class UpdateRecipient {
     return name;
   }
 
+  public UpdateRecipient setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
+  }
+
   public UpdateRecipient setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -86,13 +98,14 @@ public class UpdateRecipient {
     return Objects.equals(comment, that.comment)
         && Objects.equals(ipAccessList, that.ipAccessList)
         && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
         && Objects.equals(propertiesKvpairs, that.propertiesKvpairs);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, ipAccessList, name, owner, propertiesKvpairs);
+    return Objects.hash(comment, ipAccessList, name, newName, owner, propertiesKvpairs);
   }
 
   @Override
@@ -101,6 +114,7 @@ public class UpdateRecipient {
         .add("comment", comment)
         .add("ipAccessList", ipAccessList)
         .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .add("propertiesKvpairs", propertiesKvpairs)
         .toString();
