@@ -8,8 +8,6 @@ import com.databricks.sdk.core.oauth.SessionCredentials;
 import com.databricks.sdk.service.compute.ClusterDetails;
 import com.databricks.sdk.service.compute.ListClustersRequest;
 import com.databricks.sdk.service.oauth2.CreateCustomAppIntegrationOutput;
-import com.databricks.sdk.service.oauth2.CreateOAuthEnrollment;
-import com.databricks.sdk.service.oauth2.OAuthEnrollmentStatus;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,8 +103,6 @@ public class RootController {
         .setAccountId(accountId)
         .setHttpClient(hc);
     AccountClient account = new AccountClient(c);
-    account.oAuthEnrollment().create(new CreateOAuthEnrollment().setEnableAllPublishedApps(true));
-    OAuthEnrollmentStatus status = account.oAuthEnrollment().get();
     CreateCustomAppIntegrationOutput result = account.customAppIntegration().create(
         "java-sdk-demo", Collections.singletonList(getRedirectUrl()));
 
