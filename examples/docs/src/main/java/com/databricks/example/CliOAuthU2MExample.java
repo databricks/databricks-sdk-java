@@ -10,7 +10,7 @@ import com.databricks.sdk.service.compute.ListClustersRequest;
  *
  * <p>Before running this example, make sure to configure the host and client ID in the {@code DatabricksConfig} object.
  */
-public class App {
+public class CliOAuthU2MExample {
     public static void main(String[] args) {
         DatabricksConfig config = new DatabricksConfig()
             .setAuthType("external-browser")

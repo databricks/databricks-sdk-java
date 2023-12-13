@@ -81,7 +81,7 @@ public class TriggerJobToRunPythonProgram {
 
         String runName = String.format("java-sdk-run-%s", System.currentTimeMillis()/1000.0);
 
-        RunSubmitTaskSettings task = new RunSubmitTaskSettings()
+        SubmitTask task = new SubmitTask()
                 .setTaskKey("test-task")
                 .setSparkPythonTask(
                         new SparkPythonTask()
