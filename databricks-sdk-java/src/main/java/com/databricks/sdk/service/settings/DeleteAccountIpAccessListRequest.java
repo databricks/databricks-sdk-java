@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Delete access list */
 @Generated
 public class DeleteAccountIpAccessListRequest {
-  /** The ID for the corresponding IP access list. */
+  /** */
   private String ipAccessListId;
 
   public DeleteAccountIpAccessListRequest setIpAccessListId(String ipAccessListId) {

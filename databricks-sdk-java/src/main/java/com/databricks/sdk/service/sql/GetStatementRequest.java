@@ -9,7 +9,10 @@ import java.util.Objects;
 /** Get status, manifest, and result first chunk */
 @Generated
 public class GetStatementRequest {
-  /** */
+  /**
+   * The statement ID is returned upon successfully submitting a SQL statement, and is a required
+   * reference for all subsequent calls.
+   */
   private String statementId;
 
   public GetStatementRequest setStatementId(String statementId) {

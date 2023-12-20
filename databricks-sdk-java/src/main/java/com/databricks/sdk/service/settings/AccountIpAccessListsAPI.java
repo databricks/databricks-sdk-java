@@ -3,7 +3,6 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,10 +44,8 @@ public class AccountIpAccessListsAPI {
     impl = mock;
   }
 
-  public CreateIpAccessListResponse create(
-      String label, ListType listType, Collection<String> ipAddresses) {
-    return create(
-        new CreateIpAccessList().setLabel(label).setListType(listType).setIpAddresses(ipAddresses));
+  public CreateIpAccessListResponse create(String label, ListType listType) {
+    return create(new CreateIpAccessList().setLabel(label).setListType(listType));
   }
 
   /**
@@ -107,18 +104,12 @@ public class AccountIpAccessListsAPI {
     return impl.list().getIpAccessLists();
   }
 
-  public void replace(
-      String ipAccessListId,
-      String label,
-      ListType listType,
-      Collection<String> ipAddresses,
-      boolean enabled) {
+  public void replace(String ipAccessListId, String label, ListType listType, boolean enabled) {
     replace(
         new ReplaceIpAccessList()
             .setIpAccessListId(ipAccessListId)
             .setLabel(label)
             .setListType(listType)
-            .setIpAddresses(ipAddresses)
             .setEnabled(enabled));
   }
 
@@ -139,19 +130,8 @@ public class AccountIpAccessListsAPI {
     impl.replace(request);
   }
 
-  public void update(
-      String ipAccessListId,
-      String label,
-      ListType listType,
-      Collection<String> ipAddresses,
-      boolean enabled) {
-    update(
-        new UpdateIpAccessList()
-            .setIpAccessListId(ipAccessListId)
-            .setLabel(label)
-            .setListType(listType)
-            .setIpAddresses(ipAddresses)
-            .setEnabled(enabled));
+  public void update(String ipAccessListId) {
+    update(new UpdateIpAccessList().setIpAccessListId(ipAccessListId));
   }
 
   /**

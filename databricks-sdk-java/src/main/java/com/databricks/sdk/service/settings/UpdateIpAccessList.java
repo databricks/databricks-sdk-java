@@ -8,26 +8,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Details required to update an IP access list. */
 @Generated
 public class UpdateIpAccessList {
   /** Specifies whether this IP access list is enabled. */
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /** The ID for the corresponding IP access list to modify. */
+  /** The ID for the corresponding IP access list to modify */
   private String ipAccessListId;
 
-  /** Array of IP addresses or CIDR values to be added to the IP access list. */
+  /** */
   @JsonProperty("ip_addresses")
   private Collection<String> ipAddresses;
 
   /** Label for the IP access list. This **cannot** be empty. */
   @JsonProperty("label")
   private String label;
-
-  /** Universally unique identifier (UUID) of the IP access list. */
-  @JsonProperty("list_id")
-  private String listId;
 
   /**
    * Type of IP access list. Valid values are as follows and are case-sensitive:
@@ -75,15 +72,6 @@ public class UpdateIpAccessList {
     return label;
   }
 
-  public UpdateIpAccessList setListId(String listId) {
-    this.listId = listId;
-    return this;
-  }
-
-  public String getListId() {
-    return listId;
-  }
-
   public UpdateIpAccessList setListType(ListType listType) {
     this.listType = listType;
     return this;
@@ -102,13 +90,12 @@ public class UpdateIpAccessList {
         && Objects.equals(ipAccessListId, that.ipAccessListId)
         && Objects.equals(ipAddresses, that.ipAddresses)
         && Objects.equals(label, that.label)
-        && Objects.equals(listId, that.listId)
         && Objects.equals(listType, that.listType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(enabled, ipAccessListId, ipAddresses, label, listId, listType);
+    return Objects.hash(enabled, ipAccessListId, ipAddresses, label, listType);
   }
 
   @Override
@@ -118,7 +105,6 @@ public class UpdateIpAccessList {
         .add("ipAccessListId", ipAccessListId)
         .add("ipAddresses", ipAddresses)
         .add("label", label)
-        .add("listId", listId)
         .add("listType", listType)
         .toString();
   }

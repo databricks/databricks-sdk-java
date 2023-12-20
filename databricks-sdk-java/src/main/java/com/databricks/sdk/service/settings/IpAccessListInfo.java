@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Definition of an IP Access list */
 @Generated
 public class IpAccessListInfo {
   /** Total number of IP or CIDR values. */
@@ -26,7 +27,7 @@ public class IpAccessListInfo {
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /** Array of IP addresses or CIDR values to be added to the IP access list. */
+  /** */
   @JsonProperty("ip_addresses")
   private Collection<String> ipAddresses;
 

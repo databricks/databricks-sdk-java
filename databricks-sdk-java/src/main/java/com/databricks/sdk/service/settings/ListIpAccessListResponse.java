@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** IP access lists were successfully returned. */
 @Generated
 public class ListIpAccessListResponse {
   /** */
