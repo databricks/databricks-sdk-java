@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.databricks</groupId>
   <artifactId>databricks-sdk-parent</artifactId>
-  <version>0.14.0</version>
+  <version>0.15.0</version>
   <packaging>pom</packaging>
   <name>Databricks SDK for Java</name>
   <description>The Databricks SDK for Java includes functionality to accelerate development with Java for

@@ -6,7 +6,6 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 import org.slf4j.Logger;
@@ -252,10 +251,8 @@ public class ServingEndpointsAPI {
     return impl.setPermissions(request);
   }
 
-  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> updateConfig(
-      String name, Collection<ServedEntityInput> servedEntities) {
-    return updateConfig(
-        new EndpointCoreConfigInput().setName(name).setServedEntities(servedEntities));
+  public Wait<ServingEndpointDetailed, ServingEndpointDetailed> updateConfig(String name) {
+    return updateConfig(new EndpointCoreConfigInput().setName(name));
   }
 
   /**

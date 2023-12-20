@@ -14,7 +14,12 @@ public class AlertQuery {
   @JsonProperty("created_at")
   private String createdAt;
 
-  /** Data source ID. */
+  /**
+   * Data source ID maps to the ID of the data source used by the resource and is distinct from the
+   * warehouse ID. [Learn more].
+   *
+   * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
+   */
   @JsonProperty("data_source_id")
   private String dataSourceId;
 

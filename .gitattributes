@@ -1000,6 +1000,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateSta
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/UpdateStateInfoState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/AwsCredentials.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/AwsKeyInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/AzureWorkspaceInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CloudResourceContainer.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CreateAwsKeyInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/CreateCredentialAwsCredentials.java linguist-generated=true

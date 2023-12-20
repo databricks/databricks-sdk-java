@@ -28,6 +28,7 @@ class IpAccessListsImpl implements IpAccessListsService {
   public void delete(DeleteIpAccessListRequest request) {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
     apiClient.DELETE(path, request, Void.class, headers);
   }
 

@@ -1,5 +1,33 @@
 # Version changelog
 
+## 0.15.0
+
+* Better Java examples ([#200](https://github.com/databricks/databricks-sdk-java/pull/200)).
+
+API Changes:
+
+ * Added `azureWorkspaceInfo` field for `com.databricks.sdk.service.provisioning.Workspace`.
+ * Added `com.databricks.sdk.service.provisioning.AzureWorkspaceInfo` class.
+ * Changed `updateConfig()` method for `workspaceClient.servingEndpoints()` service with new required argument order.
+ * Changed `servedEntities` field for `com.databricks.sdk.service.serving.EndpointCoreConfigInput` to no longer be required.
+ * Changed `create()` method for `accountClient.ipAccessLists()` service with new required argument order.
+ * Changed `replace()` method for `accountClient.ipAccessLists()` service with new required argument order.
+ * Changed `update()` method for `accountClient.ipAccessLists()` service with new required argument order.
+ * Changed `create()` method for `workspaceClient.ipAccessLists()` service with new required argument order.
+ * Changed `replace()` method for `workspaceClient.ipAccessLists()` service with new required argument order.
+ * Changed `update()` method for `workspaceClient.ipAccessLists()` service with new required argument order.
+ * Changed `ipAddresses` field for `com.databricks.sdk.service.settings.CreateIpAccessList` to no longer be required.
+ * Changed `ipAddresses` field for `com.databricks.sdk.service.settings.ReplaceIpAccessList` to no longer be required.
+ * Removed `listId` field for `com.databricks.sdk.service.settings.ReplaceIpAccessList`.
+ * Changed `enabled` field for `com.databricks.sdk.service.settings.UpdateIpAccessList` to no longer be required.
+ * Changed `ipAddresses` field for `com.databricks.sdk.service.settings.UpdateIpAccessList` to no longer be required.
+ * Changed `label` field for `com.databricks.sdk.service.settings.UpdateIpAccessList` to no longer be required.
+ * Removed `listId` field for `com.databricks.sdk.service.settings.UpdateIpAccessList`.
+ * Changed `listType` field for `com.databricks.sdk.service.settings.UpdateIpAccessList` to no longer be required.
+
+OpenAPI SHA: d3853c8dee5806d04da2ae8910f273ffb35719a5, Date: 2023-12-14
+
+
 ## 0.14.0
 
 Other changes:
