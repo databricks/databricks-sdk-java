@@ -51,10 +51,11 @@ public interface ExternalLocationsService {
    *
    * <p>Gets an array of external locations (__ExternalLocationInfo__ objects) from the metastore.
    * The caller must be a metastore admin, the owner of the external location, or a user that has
-   * some privilege on the external location. There is no guarantee of a specific ordering of the
-   * elements in the array.
+   * some privilege on the external location. For unpaginated request, there is no guarantee of a
+   * specific ordering of the elements in the array. For paginated request, elements are ordered by
+   * their name.
    */
-  ListExternalLocationsResponse list();
+  ListExternalLocationsResponse list(ListExternalLocationsRequest listExternalLocationsRequest);
 
   /**
    * Update an external location.

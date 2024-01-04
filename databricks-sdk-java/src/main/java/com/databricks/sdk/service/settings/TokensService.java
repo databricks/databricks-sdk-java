@@ -37,5 +37,5 @@ public interface TokensService {
    *
    * <p>Lists all the valid tokens for a user-workspace pair.
    */
-  ListTokensResponse list();
+  ListPublicTokensResponse list();
 }
