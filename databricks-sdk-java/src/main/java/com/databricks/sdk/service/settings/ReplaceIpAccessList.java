@@ -15,7 +15,7 @@ public class ReplaceIpAccessList {
   @JsonProperty("enabled")
   private Boolean enabled;
 
-  /** The ID for the corresponding IP access list to modify */
+  /** The ID for the corresponding IP access list */
   private String ipAccessListId;
 
   /** */

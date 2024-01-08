@@ -14,11 +14,16 @@ public class ListSummariesRequest {
   @QueryParam("catalog_name")
   private String catalogName;
 
-  /** Maximum number of tables to return (page length). Defaults to 10000. */
+  /**
+   * Maximum number of summaries for tables to return. If not set, the page length is set to 10000.
+   * - when set to a value less than or equal 0, an invalid parameter error is returned; - when set
+   * to a value greater than 0 and less than or equal 10000, the page length is set to that value; -
+   * when set to a value greater than 10000, an invalid parameter error is returned;
+   */
   @QueryParam("max_results")
   private Long maxResults;
 
-  /** Opaque token to send for the next page of results (pagination). */
+  /** Opaque pagination token to go to next page based on previous query. */
   @QueryParam("page_token")
   private String pageToken;
 

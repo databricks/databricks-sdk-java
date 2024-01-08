@@ -11,8 +11,8 @@ import java.util.Objects;
 @Generated
 public class ListTablesResponse {
   /**
-   * Opaque token for pagination. Omitted if there are no more results. page_token should be set to
-   * this value for fetching the next page.
+   * Opaque token to retrieve the next page of results. Absent if there are no more pages.
+   * __page_token__ should be set to this value for the next request (for the next page of results).
    */
   @JsonProperty("next_page_token")
   private String nextPageToken;

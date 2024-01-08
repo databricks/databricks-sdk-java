@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,11 +94,21 @@ public class FunctionsAPI {
    * admin, all functions are returned in the output list. Otherwise, the user must have the
    * **USE_CATALOG** privilege on the catalog and the **USE_SCHEMA** privilege on the schema, and
    * the output list contains only functions for which either the user has the **EXECUTE** privilege
-   * or the user is the owner. There is no guarantee of a specific ordering of the elements in the
-   * array.
+   * or the user is the owner. For unpaginated request, there is no guarantee of a specific ordering
+   * of the elements in the array. For paginated request, elements are ordered by their name.
    */
   public Iterable<FunctionInfo> list(ListFunctionsRequest request) {
-    return impl.list(request).getFunctions();
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListFunctionsResponse::getFunctions,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public FunctionInfo update(String name) {
