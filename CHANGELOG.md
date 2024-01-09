@@ -1,5 +1,33 @@
 # Version changelog
 
+## 0.16.0
+
+* Update to OpenAPI spec ([#204](https://github.com/databricks/databricks-sdk-java/pull/204)).
+
+API Changes:
+
+ * Changed `list()` method for `workspaceClient.externalLocations()` service to require request of `com.databricks.sdk.service.catalog.ListExternalLocationsRequest` class.
+ * Changed `list()` method for `workspaceClient.storageCredentials()` service to require request of `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` class.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListExternalLocationsResponse`.
+ * Added `maxResults` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest`.
+ * Added `pageToken` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListFunctionsResponse`.
+ * Added `maxResults` field for `com.databricks.sdk.service.catalog.ListSchemasRequest`.
+ * Added `pageToken` field for `com.databricks.sdk.service.catalog.ListSchemasRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListSchemasResponse`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListStorageCredentialsResponse`.
+ * Added `omitColumns` field for `com.databricks.sdk.service.catalog.ListTablesRequest`.
+ * Added `omitProperties` field for `com.databricks.sdk.service.catalog.ListTablesRequest`.
+ * Added `com.databricks.sdk.service.catalog.ListExternalLocationsRequest` class.
+ * Added `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` class.
+ * Changed `list()` method for `workspaceClient.tokens()` service to return `com.databricks.sdk.service.settings.ListPublicTokensResponse` class.
+ * Added `com.databricks.sdk.service.settings.ListPublicTokensResponse` class.
+ * Added `com.databricks.sdk.service.dashboards` package.
+ * Added `com.databricks.sdk.service.vectorsearch` package.
+
+OpenAPI SHA: a7a9dc025bb80303e676bf3708942c6aa06689f1, Date: 2024-01-04
+
+
 ## 0.15.0
 
 * Better Java examples ([#200](https://github.com/databricks/databricks-sdk-java/pull/200)).
