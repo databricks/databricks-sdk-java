@@ -4,9 +4,11 @@
 
 * Update to OpenAPI spec ([#204](https://github.com/databricks/databricks-sdk-java/pull/204)).
 
+Note: This release contains breaking changes, please see below.
+
 API Changes:
 
- * Changed `list()` method for `workspaceClient.externalLocations()` service to require request of `com.databricks.sdk.service.catalog.ListExternalLocationsRequest` class, `workspaceClient.storageCredentials()` service to require request of `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` class and `workspaceClient.tokens()` service to return `com.databricks.sdk.service.settings.ListPublicTokensResponse` class and `com.databricks.sdk.service.catalog.ListSchemasResponse`.
+ * [Breaking] Changed `list()` method for `workspaceClient.externalLocations()` service to require request of `com.databricks.sdk.service.catalog.ListExternalLocationsRequest` class, `workspaceClient.storageCredentials()` service to require request of `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` class and `workspaceClient.tokens()` service to return `com.databricks.sdk.service.settings.ListPublicTokensResponse` class and `com.databricks.sdk.service.catalog.ListSchemasResponse`.
  * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListExternalLocationsResponse`, `com.databricks.sdk.service.catalog.ListFunctionsResponse`, `com.databricks.sdk.service.catalog.ListSchemasResponse` and `com.databricks.sdk.service.catalog.ListStorageCredentialsResponse`.
  * Added `maxResults` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest` and `com.databricks.sdk.service.catalog.ListSchemasRequest`.
  * Added `pageToken` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest` and `com.databricks.sdk.service.catalog.ListSchemasRequest`.
