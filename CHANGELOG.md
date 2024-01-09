@@ -6,24 +6,13 @@
 
 API Changes:
 
- * Changed `list()` method for `workspaceClient.externalLocations()` service to require request of `com.databricks.sdk.service.catalog.ListExternalLocationsRequest` class.
- * Changed `list()` method for `workspaceClient.storageCredentials()` service to require request of `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` class.
- * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListExternalLocationsResponse`.
- * Added `maxResults` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest`.
- * Added `pageToken` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest`.
- * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListFunctionsResponse`.
- * Added `maxResults` field for `com.databricks.sdk.service.catalog.ListSchemasRequest`.
- * Added `pageToken` field for `com.databricks.sdk.service.catalog.ListSchemasRequest`.
- * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListSchemasResponse`.
- * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListStorageCredentialsResponse`.
- * Added `omitColumns` field for `com.databricks.sdk.service.catalog.ListTablesRequest`.
- * Added `omitProperties` field for `com.databricks.sdk.service.catalog.ListTablesRequest`.
- * Added `com.databricks.sdk.service.catalog.ListExternalLocationsRequest` class.
- * Added `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` class.
- * Changed `list()` method for `workspaceClient.tokens()` service to return `com.databricks.sdk.service.settings.ListPublicTokensResponse` class.
- * Added `com.databricks.sdk.service.settings.ListPublicTokensResponse` class.
- * Added `com.databricks.sdk.service.dashboards` package.
- * Added `com.databricks.sdk.service.vectorsearch` package.
+ * Changed `list()` method for `workspaceClient.externalLocations()` service to require request of `com.databricks.sdk.service.catalog.ListExternalLocationsRequest` class, `workspaceClient.storageCredentials()` service to require request of `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` class and `workspaceClient.tokens()` service to return `com.databricks.sdk.service.settings.ListPublicTokensResponse` class and `com.databricks.sdk.service.catalog.ListSchemasResponse`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListExternalLocationsResponse`, `com.databricks.sdk.service.catalog.ListFunctionsResponse`, `com.databricks.sdk.service.catalog.ListSchemasResponse` and `com.databricks.sdk.service.catalog.ListStorageCredentialsResponse`.
+ * Added `maxResults` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest` and `com.databricks.sdk.service.catalog.ListSchemasRequest`.
+ * Added `pageToken` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest` and `com.databricks.sdk.service.catalog.ListSchemasRequest`.
+ * Added `omitColumns` and `omitProperties` field for `com.databricks.sdk.service.catalog.ListTablesRequest`.
+ * Added class: `com.databricks.sdk.service.catalog.ListExternalLocationsRequest`, `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` and `com.databricks.sdk.service.settings.ListPublicTokensResponse` class.
+ * Added package: `com.databricks.sdk.service.dashboards` and `com.databricks.sdk.service.vectorsearch`.
 
 OpenAPI SHA: a7a9dc025bb80303e676bf3708942c6aa06689f1, Date: 2024-01-04
 
