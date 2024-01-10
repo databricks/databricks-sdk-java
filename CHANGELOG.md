@@ -1,5 +1,24 @@
 # Version changelog
 
+## 0.16.0
+
+* Update to OpenAPI spec ([#204](https://github.com/databricks/databricks-sdk-java/pull/204)).
+
+Note: This release contains breaking changes, please see below.
+
+API Changes:
+
+ * [Breaking] Changed `list()` method for `workspaceClient.externalLocations()` service to require request of `com.databricks.sdk.service.catalog.ListExternalLocationsRequest` class, `workspaceClient.storageCredentials()` service to require request of `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` class and `workspaceClient.tokens()` service to return `com.databricks.sdk.service.settings.ListPublicTokensResponse` class and `com.databricks.sdk.service.catalog.ListSchemasResponse`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListExternalLocationsResponse`, `com.databricks.sdk.service.catalog.ListFunctionsResponse`, `com.databricks.sdk.service.catalog.ListSchemasResponse` and `com.databricks.sdk.service.catalog.ListStorageCredentialsResponse`.
+ * Added `maxResults` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest` and `com.databricks.sdk.service.catalog.ListSchemasRequest`.
+ * Added `pageToken` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest` and `com.databricks.sdk.service.catalog.ListSchemasRequest`.
+ * Added `omitColumns` and `omitProperties` field for `com.databricks.sdk.service.catalog.ListTablesRequest`.
+ * Added class: `com.databricks.sdk.service.catalog.ListExternalLocationsRequest`, `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` and `com.databricks.sdk.service.settings.ListPublicTokensResponse` class.
+ * Added package: `com.databricks.sdk.service.dashboards` and `com.databricks.sdk.service.vectorsearch`.
+
+OpenAPI SHA: a7a9dc025bb80303e676bf3708942c6aa06689f1, Date: 2024-01-04
+
+
 ## 0.15.0
 
 * Better Java examples ([#200](https://github.com/databricks/databricks-sdk-java/pull/200)).
