@@ -15,10 +15,11 @@ public class ListSummariesRequest {
   private String catalogName;
 
   /**
-   * Maximum number of summaries for tables to return. If not set, the page length is set to 10000.
-   * - when set to a value less than or equal 0, an invalid parameter error is returned; - when set
-   * to a value greater than 0 and less than or equal 10000, the page length is set to that value; -
-   * when set to a value greater than 10000, an invalid parameter error is returned;
+   * Maximum number of summaries for tables to return. If not set, the page length is set to a
+   * server configured value (10000, as of 1/5/2024). - when set to a value greater than 0, the page
+   * length is the minimum of this value and a server configured value (10000, as of 1/5/2024); -
+   * when set to 0, the page length is set to a server configured value (10000, as of 1/5/2024)
+   * (recommended); - when set to a value less than 0, an invalid parameter error is returned;
    */
   @QueryParam("max_results")
   private Long maxResults;

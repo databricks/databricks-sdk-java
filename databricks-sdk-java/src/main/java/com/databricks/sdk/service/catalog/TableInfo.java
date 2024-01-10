@@ -116,9 +116,11 @@ public class TableInfo {
   @JsonProperty("storage_location")
   private String storageLocation;
 
-  /** */
+  /**
+   * List of table constraints. Note: this field is not set in the output of the __listTables__ API.
+   */
   @JsonProperty("table_constraints")
-  private TableConstraintList tableConstraints;
+  private Collection<TableConstraint> tableConstraints;
 
   /** Name of table, relative to parent schema. */
   @JsonProperty("table_id")
@@ -371,12 +373,12 @@ public class TableInfo {
     return storageLocation;
   }
 
-  public TableInfo setTableConstraints(TableConstraintList tableConstraints) {
+  public TableInfo setTableConstraints(Collection<TableConstraint> tableConstraints) {
     this.tableConstraints = tableConstraints;
     return this;
   }
 
-  public TableConstraintList getTableConstraints() {
+  public Collection<TableConstraint> getTableConstraints() {
     return tableConstraints;
   }
 

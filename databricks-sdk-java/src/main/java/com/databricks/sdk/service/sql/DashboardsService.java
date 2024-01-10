@@ -17,7 +17,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface DashboardsService {
   /** Create a dashboard object. */
-  Dashboard create(CreateDashboardRequest createDashboardRequest);
+  Dashboard create(DashboardPostContent dashboardPostContent);
 
   /**
    * Remove a dashboard.
@@ -48,4 +48,14 @@ public interface DashboardsService {
    * <p>A restored dashboard appears in list views and searches and can be shared.
    */
   void restore(RestoreDashboardRequest restoreDashboardRequest);
+
+  /**
+   * Change a dashboard definition.
+   *
+   * <p>Modify this dashboard definition. This operation only affects attributes of the dashboard
+   * object. It does not add, modify, or remove widgets.
+   *
+   * <p>**Note**: You cannot undo this operation.
+   */
+  Dashboard update(DashboardEditContent dashboardEditContent);
 }

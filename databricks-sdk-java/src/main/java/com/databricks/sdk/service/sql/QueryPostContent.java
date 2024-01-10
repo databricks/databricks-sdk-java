@@ -44,7 +44,10 @@ public class QueryPostContent {
   @JsonProperty("query")
   private String query;
 
-  /** Run as role */
+  /**
+   * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
+   * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
+   */
   @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
 

@@ -240,7 +240,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SystemSchem
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SystemSchemasImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/SystemSchemasService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TableConstraint.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TableConstraintList.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TableConstraintsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TableConstraintsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/TableConstraintsService.java linguist-generated=true
@@ -1370,14 +1369,15 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ChannelName.jav
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ColumnInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/ColumnInfoTypeName.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/CreateAlert.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/CreateDashboardRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/CreateQueryVisualizationRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/CreateWarehouseRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/CreateWarehouseRequestWarehouseType.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/CreateWarehouseResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/CreateWidget.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/Dashboard.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/DashboardEditContent.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/DashboardOptions.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/DashboardPostContent.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/DashboardWidgetsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/DashboardWidgetsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/sql/DashboardWidgetsService.java linguist-generated=true

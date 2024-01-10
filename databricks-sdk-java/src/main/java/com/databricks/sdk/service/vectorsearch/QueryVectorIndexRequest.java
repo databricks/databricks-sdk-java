@@ -40,7 +40,7 @@ public class QueryVectorIndexRequest {
    * vectors.
    */
   @JsonProperty("query_vector")
-  private Collection<Object /* MISSING TYPE */> queryVector;
+  private Collection<Double> queryVector;
 
   public QueryVectorIndexRequest setColumns(Collection<String> columns) {
     this.columns = columns;
@@ -87,12 +87,12 @@ public class QueryVectorIndexRequest {
     return queryText;
   }
 
-  public QueryVectorIndexRequest setQueryVector(Collection<Object /* MISSING TYPE */> queryVector) {
+  public QueryVectorIndexRequest setQueryVector(Collection<Double> queryVector) {
     this.queryVector = queryVector;
     return this;
   }
 
-  public Collection<Object /* MISSING TYPE */> getQueryVector() {
+  public Collection<Double> getQueryVector() {
     return queryVector;
   }
 
