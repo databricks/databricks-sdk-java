@@ -43,6 +43,13 @@ public class QueryEditContent {
   /** */
   private String queryId;
 
+  /**
+   * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
+   * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
+   */
+  @JsonProperty("run_as_role")
+  private RunAsRole runAsRole;
+
   public QueryEditContent setDataSourceId(String dataSourceId) {
     this.dataSourceId = dataSourceId;
     return this;
@@ -97,6 +104,15 @@ public class QueryEditContent {
     return queryId;
   }
 
+  public QueryEditContent setRunAsRole(RunAsRole runAsRole) {
+    this.runAsRole = runAsRole;
+    return this;
+  }
+
+  public RunAsRole getRunAsRole() {
+    return runAsRole;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -107,12 +123,13 @@ public class QueryEditContent {
         && Objects.equals(name, that.name)
         && Objects.equals(options, that.options)
         && Objects.equals(query, that.query)
-        && Objects.equals(queryId, that.queryId);
+        && Objects.equals(queryId, that.queryId)
+        && Objects.equals(runAsRole, that.runAsRole);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dataSourceId, description, name, options, query, queryId);
+    return Objects.hash(dataSourceId, description, name, options, query, queryId, runAsRole);
   }
 
   @Override
@@ -124,6 +141,7 @@ public class QueryEditContent {
         .add("options", options)
         .add("query", query)
         .add("queryId", queryId)
+        .add("runAsRole", runAsRole)
         .toString();
   }
 }

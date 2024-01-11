@@ -37,6 +37,13 @@ public class StartUpdate {
   @JsonProperty("refresh_selection")
   private Collection<String> refreshSelection;
 
+  /**
+   * If true, this update only validates the correctness of pipeline source code but does not
+   * materialize or publish any datasets.
+   */
+  @JsonProperty("validate_only")
+  private Boolean validateOnly;
+
   public StartUpdate setCause(StartUpdateCause cause) {
     this.cause = cause;
     return this;
@@ -82,6 +89,15 @@ public class StartUpdate {
     return refreshSelection;
   }
 
+  public StartUpdate setValidateOnly(Boolean validateOnly) {
+    this.validateOnly = validateOnly;
+    return this;
+  }
+
+  public Boolean getValidateOnly() {
+    return validateOnly;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -91,12 +107,14 @@ public class StartUpdate {
         && Objects.equals(fullRefresh, that.fullRefresh)
         && Objects.equals(fullRefreshSelection, that.fullRefreshSelection)
         && Objects.equals(pipelineId, that.pipelineId)
-        && Objects.equals(refreshSelection, that.refreshSelection);
+        && Objects.equals(refreshSelection, that.refreshSelection)
+        && Objects.equals(validateOnly, that.validateOnly);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cause, fullRefresh, fullRefreshSelection, pipelineId, refreshSelection);
+    return Objects.hash(
+        cause, fullRefresh, fullRefreshSelection, pipelineId, refreshSelection, validateOnly);
   }
 
   @Override
@@ -107,6 +125,7 @@ public class StartUpdate {
         .add("fullRefreshSelection", fullRefreshSelection)
         .add("pipelineId", pipelineId)
         .add("refreshSelection", refreshSelection)
+        .add("validateOnly", validateOnly)
         .toString();
   }
 }

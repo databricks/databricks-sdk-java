@@ -61,6 +61,13 @@ public class UpdateInfo {
   @JsonProperty("update_id")
   private String updateId;
 
+  /**
+   * If true, this update only validates the correctness of pipeline source code but does not
+   * materialize or publish any datasets.
+   */
+  @JsonProperty("validate_only")
+  private Boolean validateOnly;
+
   public UpdateInfo setCause(UpdateInfoCause cause) {
     this.cause = cause;
     return this;
@@ -151,6 +158,15 @@ public class UpdateInfo {
     return updateId;
   }
 
+  public UpdateInfo setValidateOnly(Boolean validateOnly) {
+    this.validateOnly = validateOnly;
+    return this;
+  }
+
+  public Boolean getValidateOnly() {
+    return validateOnly;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -165,7 +181,8 @@ public class UpdateInfo {
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(refreshSelection, that.refreshSelection)
         && Objects.equals(state, that.state)
-        && Objects.equals(updateId, that.updateId);
+        && Objects.equals(updateId, that.updateId)
+        && Objects.equals(validateOnly, that.validateOnly);
   }
 
   @Override
@@ -180,7 +197,8 @@ public class UpdateInfo {
         pipelineId,
         refreshSelection,
         state,
-        updateId);
+        updateId,
+        validateOnly);
   }
 
   @Override
@@ -196,6 +214,7 @@ public class UpdateInfo {
         .add("refreshSelection", refreshSelection)
         .add("state", state)
         .add("updateId", updateId)
+        .add("validateOnly", validateOnly)
         .toString();
   }
 }

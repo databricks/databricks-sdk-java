@@ -109,7 +109,10 @@ public class Query {
   @JsonProperty("query_hash")
   private String queryHash;
 
-  /** Run as role */
+  /**
+   * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
+   * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
+   */
   @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
 

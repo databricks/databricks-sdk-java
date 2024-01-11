@@ -8,17 +8,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Create a dashboard object */
 @Generated
-public class CreateDashboardRequest {
+public class DashboardPostContent {
   /** Indicates whether the dashboard filters are enabled */
   @JsonProperty("dashboard_filters_enabled")
   private Boolean dashboardFiltersEnabled;
 
-  /**
-   * Indicates whether this query object should appear in the current user's favorites list. The
-   * application uses this flag to determine whether or not the "favorite star " should selected.
-   */
+  /** Indicates whether this dashboard object should appear in the current user's favorites list. */
   @JsonProperty("is_favorite")
   private Boolean isFavorite;
 
@@ -32,7 +28,10 @@ public class CreateDashboardRequest {
   @JsonProperty("parent")
   private String parent;
 
-  /** Run as role */
+  /**
+   * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
+   * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
+   */
   @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
 
@@ -40,7 +39,7 @@ public class CreateDashboardRequest {
   @JsonProperty("tags")
   private Collection<String> tags;
 
-  public CreateDashboardRequest setDashboardFiltersEnabled(Boolean dashboardFiltersEnabled) {
+  public DashboardPostContent setDashboardFiltersEnabled(Boolean dashboardFiltersEnabled) {
     this.dashboardFiltersEnabled = dashboardFiltersEnabled;
     return this;
   }
@@ -49,7 +48,7 @@ public class CreateDashboardRequest {
     return dashboardFiltersEnabled;
   }
 
-  public CreateDashboardRequest setIsFavorite(Boolean isFavorite) {
+  public DashboardPostContent setIsFavorite(Boolean isFavorite) {
     this.isFavorite = isFavorite;
     return this;
   }
@@ -58,7 +57,7 @@ public class CreateDashboardRequest {
     return isFavorite;
   }
 
-  public CreateDashboardRequest setName(String name) {
+  public DashboardPostContent setName(String name) {
     this.name = name;
     return this;
   }
@@ -67,7 +66,7 @@ public class CreateDashboardRequest {
     return name;
   }
 
-  public CreateDashboardRequest setParent(String parent) {
+  public DashboardPostContent setParent(String parent) {
     this.parent = parent;
     return this;
   }
@@ -76,7 +75,7 @@ public class CreateDashboardRequest {
     return parent;
   }
 
-  public CreateDashboardRequest setRunAsRole(RunAsRole runAsRole) {
+  public DashboardPostContent setRunAsRole(RunAsRole runAsRole) {
     this.runAsRole = runAsRole;
     return this;
   }
@@ -85,7 +84,7 @@ public class CreateDashboardRequest {
     return runAsRole;
   }
 
-  public CreateDashboardRequest setTags(Collection<String> tags) {
+  public DashboardPostContent setTags(Collection<String> tags) {
     this.tags = tags;
     return this;
   }
@@ -98,7 +97,7 @@ public class CreateDashboardRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    CreateDashboardRequest that = (CreateDashboardRequest) o;
+    DashboardPostContent that = (DashboardPostContent) o;
     return Objects.equals(dashboardFiltersEnabled, that.dashboardFiltersEnabled)
         && Objects.equals(isFavorite, that.isFavorite)
         && Objects.equals(name, that.name)
@@ -114,7 +113,7 @@ public class CreateDashboardRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(CreateDashboardRequest.class)
+    return new ToStringer(DashboardPostContent.class)
         .add("dashboardFiltersEnabled", dashboardFiltersEnabled)
         .add("isFavorite", isFavorite)
         .add("name", name)

@@ -16,7 +16,7 @@ class DashboardsImpl implements DashboardsService {
   }
 
   @Override
-  public Dashboard create(CreateDashboardRequest request) {
+  public Dashboard create(DashboardPostContent request) {
     String path = "/api/2.0/preview/sql/dashboards";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -55,5 +55,14 @@ class DashboardsImpl implements DashboardsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     apiClient.POST(path, request, Void.class, headers);
+  }
+
+  @Override
+  public Dashboard update(DashboardEditContent request) {
+    String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, Dashboard.class, headers);
   }
 }

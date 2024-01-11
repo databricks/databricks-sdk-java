@@ -79,6 +79,14 @@ public class PipelineCluster {
   @JsonProperty("gcp_attributes")
   private com.databricks.sdk.service.compute.GcpAttributes gcpAttributes;
 
+  /**
+   * The configuration for storing init scripts. Any number of destinations can be specified. The
+   * scripts are executed sequentially in the order provided. If `cluster_log_conf` is specified,
+   * init script logs are sent to `<destination>/<cluster-ID>/init_scripts`.
+   */
+  @JsonProperty("init_scripts")
+  private Collection<com.databricks.sdk.service.compute.InitScriptInfo> initScripts;
+
   /** The optional ID of the instance pool to which the cluster belongs. */
   @JsonProperty("instance_pool_id")
   private String instancePoolId;
@@ -233,6 +241,16 @@ public class PipelineCluster {
     return gcpAttributes;
   }
 
+  public PipelineCluster setInitScripts(
+      Collection<com.databricks.sdk.service.compute.InitScriptInfo> initScripts) {
+    this.initScripts = initScripts;
+    return this;
+  }
+
+  public Collection<com.databricks.sdk.service.compute.InitScriptInfo> getInitScripts() {
+    return initScripts;
+  }
+
   public PipelineCluster setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;
     return this;
@@ -319,6 +337,7 @@ public class PipelineCluster {
         && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
         && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
         && Objects.equals(gcpAttributes, that.gcpAttributes)
+        && Objects.equals(initScripts, that.initScripts)
         && Objects.equals(instancePoolId, that.instancePoolId)
         && Objects.equals(label, that.label)
         && Objects.equals(nodeTypeId, that.nodeTypeId)
@@ -341,6 +360,7 @@ public class PipelineCluster {
         driverInstancePoolId,
         driverNodeTypeId,
         gcpAttributes,
+        initScripts,
         instancePoolId,
         label,
         nodeTypeId,
@@ -363,6 +383,7 @@ public class PipelineCluster {
         .add("driverInstancePoolId", driverInstancePoolId)
         .add("driverNodeTypeId", driverNodeTypeId)
         .add("gcpAttributes", gcpAttributes)
+        .add("initScripts", initScripts)
         .add("instancePoolId", instancePoolId)
         .add("label", label)
         .add("nodeTypeId", nodeTypeId)
