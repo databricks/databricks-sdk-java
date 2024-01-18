@@ -525,7 +525,7 @@ public class DatabricksConfig {
     if (getHost() == null) {
       return null;
     }
-    if (isAzure()) {
+    if (isAzure() && getAzureClientId() != null) {
       Response resp =
           getHttpClient().execute(new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize"));
       String realAuthUrl = resp.getFirstHeader("location");
