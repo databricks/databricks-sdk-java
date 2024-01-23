@@ -12,7 +12,10 @@ public class GetStatementResultChunkNRequest {
   /** */
   private Long chunkIndex;
 
-  /** */
+  /**
+   * The statement ID is returned upon successfully submitting a SQL statement, and is a required
+   * reference for all subsequent calls.
+   */
   private String statementId;
 
   public GetStatementResultChunkNRequest setChunkIndex(Long chunkIndex) {

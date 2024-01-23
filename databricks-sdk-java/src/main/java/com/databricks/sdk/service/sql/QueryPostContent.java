@@ -9,7 +9,12 @@ import java.util.Objects;
 
 @Generated
 public class QueryPostContent {
-  /** Data source ID. */
+  /**
+   * Data source ID maps to the ID of the data source used by the resource and is distinct from the
+   * warehouse ID. [Learn more].
+   *
+   * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
+   */
   @JsonProperty("data_source_id")
   private String dataSourceId;
 
@@ -39,7 +44,10 @@ public class QueryPostContent {
   @JsonProperty("query")
   private String query;
 
-  /** Run as role */
+  /**
+   * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
+   * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
+   */
   @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
 

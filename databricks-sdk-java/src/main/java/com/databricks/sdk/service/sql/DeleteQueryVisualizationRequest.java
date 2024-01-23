@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Remove visualization */
 @Generated
 public class DeleteQueryVisualizationRequest {
-  /** */
+  /** Widget ID returned by :method:queryvizualisations/create */
   private String id;
 
   public DeleteQueryVisualizationRequest setId(String id) {

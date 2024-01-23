@@ -10,9 +10,25 @@ import java.util.Objects;
 
 @Generated
 public class ListSchemasResponse {
+  /**
+   * Opaque token to retrieve the next page of results. Absent if there are no more pages.
+   * __page_token__ should be set to this value for the next request (for the next page of results).
+   */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
   /** An array of schema information objects. */
   @JsonProperty("schemas")
   private Collection<SchemaInfo> schemas;
+
+  public ListSchemasResponse setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
 
   public ListSchemasResponse setSchemas(Collection<SchemaInfo> schemas) {
     this.schemas = schemas;
@@ -28,16 +44,20 @@ public class ListSchemasResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListSchemasResponse that = (ListSchemasResponse) o;
-    return Objects.equals(schemas, that.schemas);
+    return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(schemas, that.schemas);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(schemas);
+    return Objects.hash(nextPageToken, schemas);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListSchemasResponse.class).add("schemas", schemas).toString();
+    return new ToStringer(ListSchemasResponse.class)
+        .add("nextPageToken", nextPageToken)
+        .add("schemas", schemas)
+        .toString();
   }
 }

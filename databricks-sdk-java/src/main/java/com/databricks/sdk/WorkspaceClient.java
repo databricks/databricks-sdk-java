@@ -55,6 +55,8 @@ import com.databricks.sdk.service.compute.LibrariesAPI;
 import com.databricks.sdk.service.compute.LibrariesService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
+import com.databricks.sdk.service.dashboards.LakeviewAPI;
+import com.databricks.sdk.service.dashboards.LakeviewService;
 import com.databricks.sdk.service.files.DbfsService;
 import com.databricks.sdk.service.files.FilesAPI;
 import com.databricks.sdk.service.files.FilesService;
@@ -124,6 +126,10 @@ import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
 import com.databricks.sdk.service.sql.WarehousesAPI;
 import com.databricks.sdk.service.sql.WarehousesService;
+import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsAPI;
+import com.databricks.sdk.service.vectorsearch.VectorSearchEndpointsService;
+import com.databricks.sdk.service.vectorsearch.VectorSearchIndexesAPI;
+import com.databricks.sdk.service.vectorsearch.VectorSearchIndexesService;
 import com.databricks.sdk.service.workspace.GitCredentialsAPI;
 import com.databricks.sdk.service.workspace.GitCredentialsService;
 import com.databricks.sdk.service.workspace.ReposAPI;
@@ -168,6 +174,7 @@ public class WorkspaceClient {
   private InstanceProfilesAPI instanceProfilesAPI;
   private IpAccessListsAPI ipAccessListsAPI;
   private JobsAPI jobsAPI;
+  private LakeviewAPI lakeviewAPI;
   private LibrariesAPI librariesAPI;
   private MetastoresAPI metastoresAPI;
   private ModelRegistryAPI modelRegistryAPI;
@@ -197,6 +204,8 @@ public class WorkspaceClient {
   private TokenManagementAPI tokenManagementAPI;
   private TokensAPI tokensAPI;
   private UsersAPI usersAPI;
+  private VectorSearchEndpointsAPI vectorSearchEndpointsAPI;
+  private VectorSearchIndexesAPI vectorSearchIndexesAPI;
   private VolumesAPI volumesAPI;
   private WarehousesAPI warehousesAPI;
   private WorkspaceAPI workspaceAPI;
@@ -240,6 +249,7 @@ public class WorkspaceClient {
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
     jobsAPI = new JobsAPI(apiClient);
+    lakeviewAPI = new LakeviewAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
@@ -269,6 +279,8 @@ public class WorkspaceClient {
     tokenManagementAPI = new TokenManagementAPI(apiClient);
     tokensAPI = new TokensAPI(apiClient);
     usersAPI = new UsersAPI(apiClient);
+    vectorSearchEndpointsAPI = new VectorSearchEndpointsAPI(apiClient);
+    vectorSearchIndexesAPI = new VectorSearchIndexesAPI(apiClient);
     volumesAPI = new VolumesAPI(apiClient);
     warehousesAPI = new WarehousesAPI(apiClient);
     workspaceAPI = new WorkspaceAPI(apiClient);
@@ -679,6 +691,14 @@ public class WorkspaceClient {
    */
   public JobsAPI jobs() {
     return jobsAPI;
+  }
+
+  /**
+   * These APIs provide specific management operations for Lakeview dashboards. Generic resource
+   * management can be done with Workspace API (import, export, get-status, list, delete).
+   */
+  public LakeviewAPI lakeview() {
+    return lakeviewAPI;
   }
 
   /**
@@ -1206,6 +1226,25 @@ public class WorkspaceClient {
     return usersAPI;
   }
 
+  /** **Endpoint**: Represents the compute resources to host vector search indexes. */
+  public VectorSearchEndpointsAPI vectorSearchEndpoints() {
+    return vectorSearchEndpointsAPI;
+  }
+
+  /**
+   * **Index**: An efficient representation of your embedding vectors that supports real-time and
+   * efficient approximate nearest neighbor (ANN) search queries.
+   *
+   * <p>There are 2 types of Vector Search indexes: * **Delta Sync Index**: An index that
+   * automatically syncs with a source Delta Table, automatically and incrementally updating the
+   * index as the underlying data in the Delta Table changes. * **Direct Vector Access Index**: An
+   * index that supports direct read and write of vectors and metadata through our REST and SDK
+   * APIs. With this model, the user manages index updates.
+   */
+  public VectorSearchIndexesAPI vectorSearchIndexes() {
+    return vectorSearchIndexesAPI;
+  }
+
   /**
    * Volumes are a Unity Catalog (UC) capability for accessing, storing, governing, organizing and
    * processing files. Use cases include running machine learning on unstructured data such as
@@ -1441,6 +1480,12 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace LakeviewAPI implementation with mock */
+  public WorkspaceClient withLakeviewImpl(LakeviewService lakeview) {
+    lakeviewAPI = new LakeviewAPI(lakeview);
+    return this;
+  }
+
   /** Replace LibrariesAPI implementation with mock */
   public WorkspaceClient withLibrariesImpl(LibrariesService libraries) {
     librariesAPI = new LibrariesAPI(libraries);
@@ -1614,6 +1659,20 @@ public class WorkspaceClient {
   /** Replace UsersAPI implementation with mock */
   public WorkspaceClient withUsersImpl(UsersService users) {
     usersAPI = new UsersAPI(users);
+    return this;
+  }
+
+  /** Replace VectorSearchEndpointsAPI implementation with mock */
+  public WorkspaceClient withVectorSearchEndpointsImpl(
+      VectorSearchEndpointsService vectorSearchEndpoints) {
+    vectorSearchEndpointsAPI = new VectorSearchEndpointsAPI(vectorSearchEndpoints);
+    return this;
+  }
+
+  /** Replace VectorSearchIndexesAPI implementation with mock */
+  public WorkspaceClient withVectorSearchIndexesImpl(
+      VectorSearchIndexesService vectorSearchIndexes) {
+    vectorSearchIndexesAPI = new VectorSearchIndexesAPI(vectorSearchIndexes);
     return this;
   }
 

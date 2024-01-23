@@ -31,11 +31,11 @@ public class DashboardsAPI {
   }
 
   public Dashboard create(String name) {
-    return create(new CreateDashboardRequest().setName(name));
+    return create(new DashboardPostContent().setName(name));
   }
 
   /** Create a dashboard object. */
-  public Dashboard create(CreateDashboardRequest request) {
+  public Dashboard create(DashboardPostContent request) {
     return impl.create(request);
   }
 
@@ -99,6 +99,22 @@ public class DashboardsAPI {
    */
   public void restore(RestoreDashboardRequest request) {
     impl.restore(request);
+  }
+
+  public Dashboard update(String dashboardId) {
+    return update(new DashboardEditContent().setDashboardId(dashboardId));
+  }
+
+  /**
+   * Change a dashboard definition.
+   *
+   * <p>Modify this dashboard definition. This operation only affects attributes of the dashboard
+   * object. It does not add, modify, or remove widgets.
+   *
+   * <p>**Note**: You cannot undo this operation.
+   */
+  public Dashboard update(DashboardEditContent request) {
+    return impl.update(request);
   }
 
   public DashboardsService impl() {

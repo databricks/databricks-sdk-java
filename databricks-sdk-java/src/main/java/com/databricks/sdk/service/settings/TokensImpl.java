@@ -34,10 +34,10 @@ class TokensImpl implements TokensService {
   }
 
   @Override
-  public ListTokensResponse list() {
+  public ListPublicTokensResponse list() {
     String path = "/api/2.0/token/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListTokensResponse.class, headers);
+    return apiClient.GET(path, ListPublicTokensResponse.class, headers);
   }
 }

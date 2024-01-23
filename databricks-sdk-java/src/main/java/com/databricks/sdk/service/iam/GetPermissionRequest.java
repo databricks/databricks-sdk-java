@@ -9,10 +9,14 @@ import java.util.Objects;
 /** Get object permissions */
 @Generated
 public class GetPermissionRequest {
-  /** */
+  /** The id of the request object. */
   private String requestObjectId;
 
-  /** <needs content> */
+  /**
+   * The type of the request object. Can be one of the following: authorization, clusters,
+   * cluster-policies, directories, experiments, files, instance-pools, jobs, notebooks, pipelines,
+   * registered-models, repos, serving-endpoints, or sql-warehouses.
+   */
   private String requestObjectType;
 
   public GetPermissionRequest setRequestObjectId(String requestObjectId) {

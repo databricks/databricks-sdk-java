@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,11 +81,22 @@ public class SchemasAPI {
    * <p>Gets an array of schemas for a catalog in the metastore. If the caller is the metastore
    * admin or the owner of the parent catalog, all schemas for the catalog will be retrieved.
    * Otherwise, only schemas owned by the caller (or for which the caller has the **USE_SCHEMA**
-   * privilege) will be retrieved. There is no guarantee of a specific ordering of the elements in
-   * the array.
+   * privilege) will be retrieved. For unpaginated request, there is no guarantee of a specific
+   * ordering of the elements in the array. For paginated request, elements are ordered by their
+   * name.
    */
   public Iterable<SchemaInfo> list(ListSchemasRequest request) {
-    return impl.list(request).getSchemas();
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListSchemasResponse::getSchemas,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public SchemaInfo update(String fullName) {

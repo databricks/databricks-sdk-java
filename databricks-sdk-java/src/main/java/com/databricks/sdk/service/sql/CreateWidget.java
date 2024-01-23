@@ -13,7 +13,7 @@ public class CreateWidget {
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
-  /** */
+  /** Widget ID returned by :method:dashboardwidgets/create */
   private String id;
 
   /** */

@@ -14,8 +14,8 @@ public class AccessControl {
   private String groupName;
 
   /**
-   * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_MANAGE`: Can manage the
-   * query
+   * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_EDIT`: Can edit the
+   * query * `CAN_MANAGE`: Can manage the query
    */
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;

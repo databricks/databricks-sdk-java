@@ -18,7 +18,12 @@ public class Query {
   @JsonProperty("created_at")
   private String createdAt;
 
-  /** Data source ID. */
+  /**
+   * Data source ID maps to the ID of the data source used by the resource and is distinct from the
+   * warehouse ID. [Learn more].
+   *
+   * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
+   */
   @JsonProperty("data_source_id")
   private String dataSourceId;
 
@@ -90,8 +95,8 @@ public class Query {
   private String parent;
 
   /**
-   * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_MANAGE`: Can manage the
-   * query
+   * * `CAN_VIEW`: Can view the query * `CAN_RUN`: Can run the query * `CAN_EDIT`: Can edit the
+   * query * `CAN_MANAGE`: Can manage the query
    */
   @JsonProperty("permission_tier")
   private PermissionLevel permissionTier;
@@ -104,7 +109,10 @@ public class Query {
   @JsonProperty("query_hash")
   private String queryHash;
 
-  /** Run as role */
+  /**
+   * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
+   * viewer" behavior) or `"owner"` (signifying "run as owner" behavior)
+   */
   @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
 

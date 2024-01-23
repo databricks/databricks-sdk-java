@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Get IP access list */
 @Generated
 public class GetAccountIpAccessListRequest {
-  /** The ID for the corresponding IP access list. */
+  /** The ID for the corresponding IP access list */
   private String ipAccessListId;
 
   public GetAccountIpAccessListRequest setIpAccessListId(String ipAccessListId) {

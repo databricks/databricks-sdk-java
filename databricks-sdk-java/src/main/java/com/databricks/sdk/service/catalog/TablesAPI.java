@@ -102,11 +102,11 @@ public class TablesAPI {
    * <p>Gets an array of summaries for tables for a schema and catalog within the metastore. The
    * table summaries returned are either:
    *
-   * <p>* summaries for all tables (within the current metastore and parent catalog and schema),
-   * when the user is a metastore admin, or: * summaries for all tables and schemas (within the
-   * current metastore and parent catalog) for which the user has ownership or the **SELECT**
-   * privilege on the table and ownership or **USE_SCHEMA** privilege on the schema, provided that
-   * the user also has ownership or the **USE_CATALOG** privilege on the parent catalog.
+   * <p>* summaries for tables (within the current metastore and parent catalog and schema), when
+   * the user is a metastore admin, or: * summaries for tables and schemas (within the current
+   * metastore and parent catalog) for which the user has ownership or the **SELECT** privilege on
+   * the table and ownership or **USE_SCHEMA** privilege on the schema, provided that the user also
+   * has ownership or the **USE_CATALOG** privilege on the parent catalog.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the array.
    */

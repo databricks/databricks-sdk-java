@@ -1,5 +1,52 @@
 # Version changelog
 
+## 0.16.0
+
+* Update to OpenAPI spec ([#204](https://github.com/databricks/databricks-sdk-java/pull/204)).
+
+Note: This release contains breaking changes, please see below.
+
+API Changes:
+
+ * [Breaking] Changed `list()` method for `workspaceClient.externalLocations()` service to require request of `com.databricks.sdk.service.catalog.ListExternalLocationsRequest` class, `workspaceClient.storageCredentials()` service to require request of `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` class and `workspaceClient.tokens()` service to return `com.databricks.sdk.service.settings.ListPublicTokensResponse` class and `com.databricks.sdk.service.catalog.ListSchemasResponse`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListExternalLocationsResponse`, `com.databricks.sdk.service.catalog.ListFunctionsResponse`, `com.databricks.sdk.service.catalog.ListSchemasResponse` and `com.databricks.sdk.service.catalog.ListStorageCredentialsResponse`.
+ * Added `maxResults` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest` and `com.databricks.sdk.service.catalog.ListSchemasRequest`.
+ * Added `pageToken` field for `com.databricks.sdk.service.catalog.ListFunctionsRequest` and `com.databricks.sdk.service.catalog.ListSchemasRequest`.
+ * Added `omitColumns` and `omitProperties` field for `com.databricks.sdk.service.catalog.ListTablesRequest`.
+ * Added class: `com.databricks.sdk.service.catalog.ListExternalLocationsRequest`, `com.databricks.sdk.service.catalog.ListStorageCredentialsRequest` and `com.databricks.sdk.service.settings.ListPublicTokensResponse` class.
+ * Added package: `com.databricks.sdk.service.dashboards` and `com.databricks.sdk.service.vectorsearch`.
+
+OpenAPI SHA: a7a9dc025bb80303e676bf3708942c6aa06689f1, Date: 2024-01-04
+
+
+## 0.15.0
+
+* Better Java examples ([#200](https://github.com/databricks/databricks-sdk-java/pull/200)).
+
+API Changes:
+
+ * Added `azureWorkspaceInfo` field for `com.databricks.sdk.service.provisioning.Workspace`.
+ * Added `com.databricks.sdk.service.provisioning.AzureWorkspaceInfo` class.
+ * Changed `updateConfig()` method for `workspaceClient.servingEndpoints()` service with new required argument order.
+ * Changed `servedEntities` field for `com.databricks.sdk.service.serving.EndpointCoreConfigInput` to no longer be required.
+ * Changed `create()` method for `accountClient.ipAccessLists()` service with new required argument order.
+ * Changed `replace()` method for `accountClient.ipAccessLists()` service with new required argument order.
+ * Changed `update()` method for `accountClient.ipAccessLists()` service with new required argument order.
+ * Changed `create()` method for `workspaceClient.ipAccessLists()` service with new required argument order.
+ * Changed `replace()` method for `workspaceClient.ipAccessLists()` service with new required argument order.
+ * Changed `update()` method for `workspaceClient.ipAccessLists()` service with new required argument order.
+ * Changed `ipAddresses` field for `com.databricks.sdk.service.settings.CreateIpAccessList` to no longer be required.
+ * Changed `ipAddresses` field for `com.databricks.sdk.service.settings.ReplaceIpAccessList` to no longer be required.
+ * Removed `listId` field for `com.databricks.sdk.service.settings.ReplaceIpAccessList`.
+ * Changed `enabled` field for `com.databricks.sdk.service.settings.UpdateIpAccessList` to no longer be required.
+ * Changed `ipAddresses` field for `com.databricks.sdk.service.settings.UpdateIpAccessList` to no longer be required.
+ * Changed `label` field for `com.databricks.sdk.service.settings.UpdateIpAccessList` to no longer be required.
+ * Removed `listId` field for `com.databricks.sdk.service.settings.UpdateIpAccessList`.
+ * Changed `listType` field for `com.databricks.sdk.service.settings.UpdateIpAccessList` to no longer be required.
+
+OpenAPI SHA: d3853c8dee5806d04da2ae8910f273ffb35719a5, Date: 2023-12-14
+
+
 ## 0.14.0
 
 Other changes:
