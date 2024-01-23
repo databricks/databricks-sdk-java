@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** An on-behalf token was successfully created for the service principal. */
 @Generated
 public class CreateOboTokenResponse {
   /** */

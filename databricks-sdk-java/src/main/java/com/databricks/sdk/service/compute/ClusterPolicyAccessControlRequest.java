@@ -17,10 +17,7 @@ public class ClusterPolicyAccessControlRequest {
   @JsonProperty("permission_level")
   private ClusterPolicyPermissionLevel permissionLevel;
 
-  /**
-   * Application ID of an active service principal. Setting this field requires the
-   * `servicePrincipal/user` role.
-   */
+  /** application ID of a service principal */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 

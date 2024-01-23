@@ -23,7 +23,10 @@ public class EditPolicy {
   @JsonProperty("description")
   private String description;
 
-  /** A list of libraries to be installed on the next cluster restart that uses this policy. */
+  /**
+   * A list of libraries to be installed on the next cluster restart that uses this policy. The
+   * maximum number of libraries is 500.
+   */
   @JsonProperty("libraries")
   private Collection<Library> libraries;
 

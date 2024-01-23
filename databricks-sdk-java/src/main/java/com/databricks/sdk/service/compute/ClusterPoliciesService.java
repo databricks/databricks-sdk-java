@@ -9,10 +9,10 @@ import com.databricks.sdk.support.Generated;
  * creation. Cluster policies have ACLs that limit their use to specific users and groups.
  *
  * <p>With cluster policies, you can: - Auto-install cluster libraries on the next restart by
- * listing them in the policy's "libraries" field. - Limit users to creating clusters with the
- * prescribed settings. - Simplify the user interface, enabling more users to create clusters, by
- * fixing and hiding some fields. - Manage costs by setting limits on attributes that impact the
- * hourly rate.
+ * listing them in the policy's "libraries" field (Public Preview). - Limit users to creating
+ * clusters with the prescribed settings. - Simplify the user interface, enabling more users to
+ * create clusters, by fixing and hiding some fields. - Manage costs by setting limits on attributes
+ * that impact the hourly rate.
  *
  * <p>Cluster policy permissions limit which policies a user can select in the Policy drop-down when
  * the user creates a cluster: - A user who has unrestricted cluster create permission can select

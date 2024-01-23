@@ -17,10 +17,10 @@ public interface DbfsService {
    * Append data block.
    *
    * <p>Appends a block of data to the stream specified by the input handle. If the handle does not
-   * exist, this call will throw an exception with `RESOURCE_DOES_NOT_EXIST`.
+   * exist, this call will throw an exception with ``RESOURCE_DOES_NOT_EXIST``.
    *
    * <p>If the block of data exceeds 1 MB, this call will throw an exception with
-   * `MAX_BLOCK_SIZE_EXCEEDED`.
+   * ``MAX_BLOCK_SIZE_EXCEEDED``.
    */
   void addBlock(AddBlock addBlock);
 
@@ -28,7 +28,7 @@ public interface DbfsService {
    * Close the stream.
    *
    * <p>Closes the stream specified by the input handle. If the handle does not exist, this call
-   * throws an exception with `RESOURCE_DOES_NOT_EXIST`.
+   * throws an exception with ``RESOURCE_DOES_NOT_EXIST``.
    */
   void close(Close close);
 
@@ -37,12 +37,13 @@ public interface DbfsService {
    *
    * <p>Opens a stream to write to a file and returns a handle to this stream. There is a 10 minute
    * idle timeout on this handle. If a file or directory already exists on the given path and
-   * __overwrite__ is set to `false`, this call throws an exception with `RESOURCE_ALREADY_EXISTS`.
+   * __overwrite__ is set to false, this call will throw an exception with
+   * ``RESOURCE_ALREADY_EXISTS``.
    *
    * <p>A typical workflow for file upload would be:
    *
-   * <p>1. Issue a `create` call and get a handle. 2. Issue one or more `add-block` calls with the
-   * handle you have. 3. Issue a `close` call with the handle you have.
+   * <p>1. Issue a ``create`` call and get a handle. 2. Issue one or more ``add-block`` calls with
+   * the handle you have. 3. Issue a ``close`` call with the handle you have.
    */
   CreateResponse create(Create create);
 
@@ -106,7 +107,7 @@ public interface DbfsService {
    * <p>Moves a file from one location to another location within DBFS. If the source file does not
    * exist, this call throws an exception with `RESOURCE_DOES_NOT_EXIST`. If a file already exists
    * in the destination path, this call throws an exception with `RESOURCE_ALREADY_EXISTS`. If the
-   * given source path is a directory, this call always recursively moves all files.",
+   * given source path is a directory, this call always recursively moves all files.
    */
   void move(Move move);
 
@@ -135,7 +136,7 @@ public interface DbfsService {
    * read length exceeds 1 MB, this call throws an exception with `MAX_READ_SIZE_EXCEEDED`.
    *
    * <p>If `offset + length` exceeds the number of bytes in a file, it reads the contents until the
-   * end of file.",
+   * end of file.
    */
   ReadResponse read(ReadDbfsRequest readDbfsRequest);
 }

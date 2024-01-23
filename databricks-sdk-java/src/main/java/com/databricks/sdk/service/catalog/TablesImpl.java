@@ -24,6 +24,14 @@ class TablesImpl implements TablesService {
   }
 
   @Override
+  public TableExistsResponse exists(ExistsRequest request) {
+    String path = String.format("/api/2.1/unity-catalog/tables/%s/exists", request.getFullName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, TableExistsResponse.class, headers);
+  }
+
+  @Override
   public TableInfo get(GetTableRequest request) {
     String path = String.format("/api/2.1/unity-catalog/tables/%s", request.getFullName());
     Map<String, String> headers = new HashMap<>();
