@@ -7,6 +7,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.*;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
@@ -62,6 +63,28 @@ class CommonsHttpClientTest {
           new Request("POST", fixtures.getUrl() + "/foo", IOUtils.toInputStream("bar", "UTF-8"));
       Response out = httpClient.execute(in);
       assertEquals("quux", out.getDebugBody().trim());
+    }
+  }
+
+  @Test
+  public void testRedirection() throws IOException {
+    FixtureServer.FixtureMapping fixture =
+        new FixtureServer.FixtureMapping.Builder()
+            .validatePath("/redirect")
+            .validateMethod("GET")
+            .withRedirect("http://example.com", HttpURLConnection.HTTP_MOVED_TEMP)
+            .build();
+
+    try (FixtureServer fixtures = new FixtureServer().with(fixture)) {
+      HttpClient httpClient = new CommonsHttpClient(30);
+      Request in = new Request("GET", fixtures.getUrl() + "/redirect");
+      in.setRedirectionBehavior(
+          false); // If we don't set redirection behavior to false, we get 200 as it gets
+      // redirected automatically.
+      Response out = httpClient.execute(in);
+      assertEquals(HttpURLConnection.HTTP_MOVED_TEMP, out.getStatusCode());
+      assertTrue(out.getAllHeaders().containsKey("Location"));
+      assertEquals("http://example.com", out.getHeaders("Location").get(0));
     }
   }
 }
