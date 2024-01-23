@@ -44,7 +44,7 @@ public interface GlobalInitScriptsService {
    *
    * <p>Get a list of all global init scripts for this workspace. This returns all properties for
    * each script but **not** the script contents. To retrieve the contents of a script, use the [get
-   * a global init script](#operation/get-script) operation.
+   * a global init script](:method:globalinitscripts/get) operation.
    */
   ListGlobalInitScriptsResponse list();
 

@@ -8,9 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Tokens were successfully returned. */
 @Generated
 public class ListTokensResponse {
-  /** */
+  /** Token metadata of each user-created token in the workspace */
   @JsonProperty("token_infos")
   private Collection<TokenInfo> tokenInfos;
 

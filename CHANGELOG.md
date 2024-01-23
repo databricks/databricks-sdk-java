@@ -1,5 +1,54 @@
 # Version changelog
 
+## 0.17.0
+
+Bugfixes:
+
+* Update SDK to OpenAPI spec with bug fix ([#207](https://github.com/databricks/databricks-sdk-java/pull/207)).
+* Fix Azure Databricks OAuth M2M ([#209](https://github.com/databricks/databricks-sdk-java/pull/209)).
+
+API Changes:
+
+ * Added `exists()` method for `workspaceClient.tables()` service.
+ * Added `workspaceClient.lakehouseMonitors()` service.
+ * Removed `com.databricks.sdk.service.catalog.TableConstraintList` class.
+ * Added `initScripts` field for `com.databricks.sdk.service.pipelines.PipelineCluster`.
+ * Added the following dataclasses: 
+  `databricks.sdk.service.catalog.CreateMonitor`, 
+  `databricks.sdk.service.catalog.DeleteLakehouseMonitorRequest`, 
+  `databricks.sdk.service.catalog.ExistsRequest`, 
+  `databricks.sdk.service.catalog.GetLakehouseMonitorRequest`, 
+  `databricks.sdk.service.catalog.MonitorCronSchedule`, 
+  `databricks.sdk.service.catalog.MonitorCronSchedulePauseStatus`, 
+  `databricks.sdk.service.catalog.MonitorCustomMetric`, 
+  `databricks.sdk.service.catalog.MonitorCustomMetricType`, 
+  `databricks.sdk.service.catalog.MonitorDataClassificationConfig`, 
+  `databricks.sdk.service.catalog.MonitorDestinations`, 
+  `databricks.sdk.service.catalog.MonitorInferenceLogProfileType`,   
+  `databricks.sdk.service.catalog.MonitorInferenceLogProfileTypeProblemType`, 
+  `databricks.sdk.service.catalog.MonitorInfo`, 
+  `databricks.sdk.service.catalog.MonitorInfoStatus`, 
+  `databricks.sdk.service.catalog.MonitorNotificationsConfig`, 
+  `databricks.sdk.service.catalog.MonitorTimeSeriesProfileType`, 
+  `databricks.sdk.service.catalog.TableExistsResponse` and
+  `databricks.sdk.service.catalog.UpdateMonitor`. 
+* Added `validateOnly` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
+ * Added `validateOnly` field for `com.databricks.sdk.service.pipelines.UpdateInfo`.
+ * Changed `createOboToken()` method for `workspaceClient.tokenManagement()` service with new required argument order.
+ * Changed `get()` method for `workspaceClient.tokenManagement()` service to return `com.databricks.sdk.service.settings.GetTokenResponse` class.
+ * Changed `lifetimeSeconds` field for `com.databricks.sdk.service.settings.CreateOboTokenRequest` to no longer be required.
+ * Added `com.databricks.sdk.service.settings.GetTokenResponse` class.
+ * Changed `create()` method for `workspaceClient.dashboards()` service . New request type is `com.databricks.sdk.service.sql.DashboardPostContent` class.
+ * Added `update()` method for `workspaceClient.dashboards()` service.
+ * Removed `com.databricks.sdk.service.sql.CreateDashboardRequest` class.
+ * Added `httpHeaders` field for `com.databricks.sdk.service.sql.ExternalLink`.
+ * Added `runAsRole` field for `com.databricks.sdk.service.sql.QueryEditContent`.
+ * Added `com.databricks.sdk.service.sql.DashboardEditContent` class.
+ * Added `com.databricks.sdk.service.sql.DashboardPostContent` class.
+
+OpenAPI SHA: e05401ed5dd4974c5333d737ec308a7d451f749f, Date: 2024-01-23
+
+
 ## 0.16.0
 
 * Update to OpenAPI spec ([#204](https://github.com/databricks/databricks-sdk-java/pull/204)).

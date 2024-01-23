@@ -20,6 +20,8 @@ import com.databricks.sdk.service.catalog.FunctionsAPI;
 import com.databricks.sdk.service.catalog.FunctionsService;
 import com.databricks.sdk.service.catalog.GrantsAPI;
 import com.databricks.sdk.service.catalog.GrantsService;
+import com.databricks.sdk.service.catalog.LakehouseMonitorsAPI;
+import com.databricks.sdk.service.catalog.LakehouseMonitorsService;
 import com.databricks.sdk.service.catalog.MetastoresAPI;
 import com.databricks.sdk.service.catalog.MetastoresService;
 import com.databricks.sdk.service.catalog.ModelVersionsAPI;
@@ -174,6 +176,7 @@ public class WorkspaceClient {
   private InstanceProfilesAPI instanceProfilesAPI;
   private IpAccessListsAPI ipAccessListsAPI;
   private JobsAPI jobsAPI;
+  private LakehouseMonitorsAPI lakehouseMonitorsAPI;
   private LakeviewAPI lakeviewAPI;
   private LibrariesAPI librariesAPI;
   private MetastoresAPI metastoresAPI;
@@ -249,6 +252,7 @@ public class WorkspaceClient {
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
     jobsAPI = new JobsAPI(apiClient);
+    lakehouseMonitorsAPI = new LakehouseMonitorsAPI(apiClient);
     lakeviewAPI = new LakeviewAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
@@ -366,10 +370,10 @@ public class WorkspaceClient {
    * creation. Cluster policies have ACLs that limit their use to specific users and groups.
    *
    * <p>With cluster policies, you can: - Auto-install cluster libraries on the next restart by
-   * listing them in the policy's "libraries" field. - Limit users to creating clusters with the
-   * prescribed settings. - Simplify the user interface, enabling more users to create clusters, by
-   * fixing and hiding some fields. - Manage costs by setting limits on attributes that impact the
-   * hourly rate.
+   * listing them in the policy's "libraries" field (Public Preview). - Limit users to creating
+   * clusters with the prescribed settings. - Simplify the user interface, enabling more users to
+   * create clusters, by fixing and hiding some fields. - Manage costs by setting limits on
+   * attributes that impact the hourly rate.
    *
    * <p>Cluster policy permissions limit which policies a user can select in the Policy drop-down
    * when the user creates a cluster: - A user who has unrestricted cluster create permission can
@@ -691,6 +695,20 @@ public class WorkspaceClient {
    */
   public JobsAPI jobs() {
     return jobsAPI;
+  }
+
+  /**
+   * A monitor computes and monitors data or model quality metrics for a table over time. It
+   * generates metrics tables and a dashboard that you can use to monitor table health and set
+   * alerts.
+   *
+   * <p>Most write operations require the user to be the owner of the table (or its parent schema or
+   * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only
+   * requires the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
+   * **USE_CATALOG**).
+   */
+  public LakehouseMonitorsAPI lakehouseMonitors() {
+    return lakehouseMonitorsAPI;
   }
 
   /**
@@ -1477,6 +1495,12 @@ public class WorkspaceClient {
   /** Replace JobsAPI implementation with mock */
   public WorkspaceClient withJobsImpl(JobsService jobs) {
     jobsAPI = new JobsAPI(jobs);
+    return this;
+  }
+
+  /** Replace LakehouseMonitorsAPI implementation with mock */
+  public WorkspaceClient withLakehouseMonitorsImpl(LakehouseMonitorsService lakehouseMonitors) {
+    lakehouseMonitorsAPI = new LakehouseMonitorsAPI(lakehouseMonitors);
     return this;
   }
 

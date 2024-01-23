@@ -35,8 +35,9 @@ public class SubmitTask {
 
   /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs of this task.
-   * When running tasks on an existing cluster, you may need to manually restart the cluster if it
-   * stops responding. We suggest running jobs on new clusters for greater reliability.
+   * Only all-purpose clusters are supported. When running tasks on an existing cluster, you may
+   * need to manually restart the cluster if it stops responding. We suggest running jobs on new
+   * clusters for greater reliability.
    */
   @JsonProperty("existing_cluster_id")
   private String existingClusterId;

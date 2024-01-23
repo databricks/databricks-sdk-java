@@ -12,18 +12,18 @@ import java.util.Objects;
 public class ListTokenManagementRequest {
   /** User ID of the user that created the token. */
   @QueryParam("created_by_id")
-  private String createdById;
+  private Long createdById;
 
   /** Username of the user that created the token. */
   @QueryParam("created_by_username")
   private String createdByUsername;
 
-  public ListTokenManagementRequest setCreatedById(String createdById) {
+  public ListTokenManagementRequest setCreatedById(Long createdById) {
     this.createdById = createdById;
     return this;
   }
 
-  public String getCreatedById() {
+  public Long getCreatedById() {
     return createdById;
   }
 
