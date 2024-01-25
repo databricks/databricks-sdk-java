@@ -1323,410 +1323,748 @@ public class WorkspaceClient {
     return workspaceConfAPI;
   }
 
-  /** Replace AccountAccessControlProxyAPI implementation with mock */
+  /** Replace the default AccountAccessControlProxyService with a custom implementation. */
   public WorkspaceClient withAccountAccessControlProxyImpl(
       AccountAccessControlProxyService accountAccessControlProxy) {
-    accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(accountAccessControlProxy);
+    return this.withAccountAccessControlProxyAPI(
+        new AccountAccessControlProxyAPI(accountAccessControlProxy));
+  }
+
+  /** Replace the default AccountAccessControlProxyAPI with a custom implementation. */
+  public WorkspaceClient withAccountAccessControlProxyAPI(
+      AccountAccessControlProxyAPI accountAccessControlProxy) {
+    this.accountAccessControlProxyAPI = accountAccessControlProxy;
     return this;
   }
 
-  /** Replace AlertsAPI implementation with mock */
+  /** Replace the default AlertsService with a custom implementation. */
   public WorkspaceClient withAlertsImpl(AlertsService alerts) {
-    alertsAPI = new AlertsAPI(alerts);
+    return this.withAlertsAPI(new AlertsAPI(alerts));
+  }
+
+  /** Replace the default AlertsAPI with a custom implementation. */
+  public WorkspaceClient withAlertsAPI(AlertsAPI alerts) {
+    this.alertsAPI = alerts;
     return this;
   }
 
-  /** Replace AppsAPI implementation with mock */
+  /** Replace the default AppsService with a custom implementation. */
   public WorkspaceClient withAppsImpl(AppsService apps) {
-    appsAPI = new AppsAPI(apps);
+    return this.withAppsAPI(new AppsAPI(apps));
+  }
+
+  /** Replace the default AppsAPI with a custom implementation. */
+  public WorkspaceClient withAppsAPI(AppsAPI apps) {
+    this.appsAPI = apps;
     return this;
   }
 
-  /** Replace ArtifactAllowlistsAPI implementation with mock */
+  /** Replace the default ArtifactAllowlistsService with a custom implementation. */
   public WorkspaceClient withArtifactAllowlistsImpl(ArtifactAllowlistsService artifactAllowlists) {
-    artifactAllowlistsAPI = new ArtifactAllowlistsAPI(artifactAllowlists);
+    return this.withArtifactAllowlistsAPI(new ArtifactAllowlistsAPI(artifactAllowlists));
+  }
+
+  /** Replace the default ArtifactAllowlistsAPI with a custom implementation. */
+  public WorkspaceClient withArtifactAllowlistsAPI(ArtifactAllowlistsAPI artifactAllowlists) {
+    this.artifactAllowlistsAPI = artifactAllowlists;
     return this;
   }
 
-  /** Replace CatalogsAPI implementation with mock */
+  /** Replace the default CatalogsService with a custom implementation. */
   public WorkspaceClient withCatalogsImpl(CatalogsService catalogs) {
-    catalogsAPI = new CatalogsAPI(catalogs);
+    return this.withCatalogsAPI(new CatalogsAPI(catalogs));
+  }
+
+  /** Replace the default CatalogsAPI with a custom implementation. */
+  public WorkspaceClient withCatalogsAPI(CatalogsAPI catalogs) {
+    this.catalogsAPI = catalogs;
     return this;
   }
 
-  /** Replace CleanRoomsAPI implementation with mock */
+  /** Replace the default CleanRoomsService with a custom implementation. */
   public WorkspaceClient withCleanRoomsImpl(CleanRoomsService cleanRooms) {
-    cleanRoomsAPI = new CleanRoomsAPI(cleanRooms);
+    return this.withCleanRoomsAPI(new CleanRoomsAPI(cleanRooms));
+  }
+
+  /** Replace the default CleanRoomsAPI with a custom implementation. */
+  public WorkspaceClient withCleanRoomsAPI(CleanRoomsAPI cleanRooms) {
+    this.cleanRoomsAPI = cleanRooms;
     return this;
   }
 
-  /** Replace ClusterPoliciesAPI implementation with mock */
+  /** Replace the default ClusterPoliciesService with a custom implementation. */
   public WorkspaceClient withClusterPoliciesImpl(ClusterPoliciesService clusterPolicies) {
-    clusterPoliciesAPI = new ClusterPoliciesAPI(clusterPolicies);
+    return this.withClusterPoliciesAPI(new ClusterPoliciesAPI(clusterPolicies));
+  }
+
+  /** Replace the default ClusterPoliciesAPI with a custom implementation. */
+  public WorkspaceClient withClusterPoliciesAPI(ClusterPoliciesAPI clusterPolicies) {
+    this.clusterPoliciesAPI = clusterPolicies;
     return this;
   }
 
-  /** Replace ClustersAPI implementation with mock */
+  /** Replace the default ClustersService with a custom implementation. */
   public WorkspaceClient withClustersImpl(ClustersService clusters) {
-    clustersAPI = new ClustersExt(clusters);
+    return this.withClustersAPI(new ClustersExt(clusters));
+  }
+
+  /** Replace the default ClustersAPI with a custom implementation. */
+  public WorkspaceClient withClustersAPI(ClustersExt clusters) {
+    this.clustersAPI = clusters;
     return this;
   }
 
-  /** Replace CommandExecutionAPI implementation with mock */
+  /** Replace the default CommandExecutionService with a custom implementation. */
   public WorkspaceClient withCommandExecutionImpl(CommandExecutionService commandExecution) {
-    commandExecutionAPI = new CommandExecutionAPI(commandExecution);
+    return this.withCommandExecutionAPI(new CommandExecutionAPI(commandExecution));
+  }
+
+  /** Replace the default CommandExecutionAPI with a custom implementation. */
+  public WorkspaceClient withCommandExecutionAPI(CommandExecutionAPI commandExecution) {
+    this.commandExecutionAPI = commandExecution;
     return this;
   }
 
-  /** Replace ConnectionsAPI implementation with mock */
+  /** Replace the default ConnectionsService with a custom implementation. */
   public WorkspaceClient withConnectionsImpl(ConnectionsService connections) {
-    connectionsAPI = new ConnectionsAPI(connections);
+    return this.withConnectionsAPI(new ConnectionsAPI(connections));
+  }
+
+  /** Replace the default ConnectionsAPI with a custom implementation. */
+  public WorkspaceClient withConnectionsAPI(ConnectionsAPI connections) {
+    this.connectionsAPI = connections;
     return this;
   }
 
-  /** Replace CredentialsManagerAPI implementation with mock */
+  /** Replace the default CredentialsManagerService with a custom implementation. */
   public WorkspaceClient withCredentialsManagerImpl(CredentialsManagerService credentialsManager) {
-    credentialsManagerAPI = new CredentialsManagerAPI(credentialsManager);
+    return this.withCredentialsManagerAPI(new CredentialsManagerAPI(credentialsManager));
+  }
+
+  /** Replace the default CredentialsManagerAPI with a custom implementation. */
+  public WorkspaceClient withCredentialsManagerAPI(CredentialsManagerAPI credentialsManager) {
+    this.credentialsManagerAPI = credentialsManager;
     return this;
   }
 
-  /** Replace CurrentUserAPI implementation with mock */
+  /** Replace the default CurrentUserService with a custom implementation. */
   public WorkspaceClient withCurrentUserImpl(CurrentUserService currentUser) {
-    currentUserAPI = new CurrentUserAPI(currentUser);
+    return this.withCurrentUserAPI(new CurrentUserAPI(currentUser));
+  }
+
+  /** Replace the default CurrentUserAPI with a custom implementation. */
+  public WorkspaceClient withCurrentUserAPI(CurrentUserAPI currentUser) {
+    this.currentUserAPI = currentUser;
     return this;
   }
 
-  /** Replace DashboardWidgetsAPI implementation with mock */
+  /** Replace the default DashboardWidgetsService with a custom implementation. */
   public WorkspaceClient withDashboardWidgetsImpl(DashboardWidgetsService dashboardWidgets) {
-    dashboardWidgetsAPI = new DashboardWidgetsAPI(dashboardWidgets);
+    return this.withDashboardWidgetsAPI(new DashboardWidgetsAPI(dashboardWidgets));
+  }
+
+  /** Replace the default DashboardWidgetsAPI with a custom implementation. */
+  public WorkspaceClient withDashboardWidgetsAPI(DashboardWidgetsAPI dashboardWidgets) {
+    this.dashboardWidgetsAPI = dashboardWidgets;
     return this;
   }
 
-  /** Replace DashboardsAPI implementation with mock */
+  /** Replace the default DashboardsService with a custom implementation. */
   public WorkspaceClient withDashboardsImpl(DashboardsService dashboards) {
-    dashboardsAPI = new DashboardsAPI(dashboards);
+    return this.withDashboardsAPI(new DashboardsAPI(dashboards));
+  }
+
+  /** Replace the default DashboardsAPI with a custom implementation. */
+  public WorkspaceClient withDashboardsAPI(DashboardsAPI dashboards) {
+    this.dashboardsAPI = dashboards;
     return this;
   }
 
-  /** Replace DataSourcesAPI implementation with mock */
+  /** Replace the default DataSourcesService with a custom implementation. */
   public WorkspaceClient withDataSourcesImpl(DataSourcesService dataSources) {
-    dataSourcesAPI = new DataSourcesAPI(dataSources);
+    return this.withDataSourcesAPI(new DataSourcesAPI(dataSources));
+  }
+
+  /** Replace the default DataSourcesAPI with a custom implementation. */
+  public WorkspaceClient withDataSourcesAPI(DataSourcesAPI dataSources) {
+    this.dataSourcesAPI = dataSources;
     return this;
   }
 
-  /** Replace DbfsAPI implementation with mock */
+  /** Replace the default DbfsService with a custom implementation. */
   public WorkspaceClient withDbfsImpl(DbfsService dbfs) {
-    dbfsAPI = new DbfsExt(dbfs);
+    return this.withDbfsAPI(new DbfsExt(dbfs));
+  }
+
+  /** Replace the default DbfsAPI with a custom implementation. */
+  public WorkspaceClient withDbfsAPI(DbfsExt dbfs) {
+    this.dbfsAPI = dbfs;
     return this;
   }
 
-  /** Replace DbsqlPermissionsAPI implementation with mock */
+  /** Replace the default DbsqlPermissionsService with a custom implementation. */
   public WorkspaceClient withDbsqlPermissionsImpl(DbsqlPermissionsService dbsqlPermissions) {
-    dbsqlPermissionsAPI = new DbsqlPermissionsAPI(dbsqlPermissions);
+    return this.withDbsqlPermissionsAPI(new DbsqlPermissionsAPI(dbsqlPermissions));
+  }
+
+  /** Replace the default DbsqlPermissionsAPI with a custom implementation. */
+  public WorkspaceClient withDbsqlPermissionsAPI(DbsqlPermissionsAPI dbsqlPermissions) {
+    this.dbsqlPermissionsAPI = dbsqlPermissions;
     return this;
   }
 
-  /** Replace ExperimentsAPI implementation with mock */
+  /** Replace the default ExperimentsService with a custom implementation. */
   public WorkspaceClient withExperimentsImpl(ExperimentsService experiments) {
-    experimentsAPI = new ExperimentsAPI(experiments);
+    return this.withExperimentsAPI(new ExperimentsAPI(experiments));
+  }
+
+  /** Replace the default ExperimentsAPI with a custom implementation. */
+  public WorkspaceClient withExperimentsAPI(ExperimentsAPI experiments) {
+    this.experimentsAPI = experiments;
     return this;
   }
 
-  /** Replace ExternalLocationsAPI implementation with mock */
+  /** Replace the default ExternalLocationsService with a custom implementation. */
   public WorkspaceClient withExternalLocationsImpl(ExternalLocationsService externalLocations) {
-    externalLocationsAPI = new ExternalLocationsAPI(externalLocations);
+    return this.withExternalLocationsAPI(new ExternalLocationsAPI(externalLocations));
+  }
+
+  /** Replace the default ExternalLocationsAPI with a custom implementation. */
+  public WorkspaceClient withExternalLocationsAPI(ExternalLocationsAPI externalLocations) {
+    this.externalLocationsAPI = externalLocations;
     return this;
   }
 
-  /** Replace FilesAPI implementation with mock */
+  /** Replace the default FilesService with a custom implementation. */
   public WorkspaceClient withFilesImpl(FilesService files) {
-    filesAPI = new FilesAPI(files);
+    return this.withFilesAPI(new FilesAPI(files));
+  }
+
+  /** Replace the default FilesAPI with a custom implementation. */
+  public WorkspaceClient withFilesAPI(FilesAPI files) {
+    this.filesAPI = files;
     return this;
   }
 
-  /** Replace FunctionsAPI implementation with mock */
+  /** Replace the default FunctionsService with a custom implementation. */
   public WorkspaceClient withFunctionsImpl(FunctionsService functions) {
-    functionsAPI = new FunctionsAPI(functions);
+    return this.withFunctionsAPI(new FunctionsAPI(functions));
+  }
+
+  /** Replace the default FunctionsAPI with a custom implementation. */
+  public WorkspaceClient withFunctionsAPI(FunctionsAPI functions) {
+    this.functionsAPI = functions;
     return this;
   }
 
-  /** Replace GitCredentialsAPI implementation with mock */
+  /** Replace the default GitCredentialsService with a custom implementation. */
   public WorkspaceClient withGitCredentialsImpl(GitCredentialsService gitCredentials) {
-    gitCredentialsAPI = new GitCredentialsAPI(gitCredentials);
+    return this.withGitCredentialsAPI(new GitCredentialsAPI(gitCredentials));
+  }
+
+  /** Replace the default GitCredentialsAPI with a custom implementation. */
+  public WorkspaceClient withGitCredentialsAPI(GitCredentialsAPI gitCredentials) {
+    this.gitCredentialsAPI = gitCredentials;
     return this;
   }
 
-  /** Replace GlobalInitScriptsAPI implementation with mock */
+  /** Replace the default GlobalInitScriptsService with a custom implementation. */
   public WorkspaceClient withGlobalInitScriptsImpl(GlobalInitScriptsService globalInitScripts) {
-    globalInitScriptsAPI = new GlobalInitScriptsAPI(globalInitScripts);
+    return this.withGlobalInitScriptsAPI(new GlobalInitScriptsAPI(globalInitScripts));
+  }
+
+  /** Replace the default GlobalInitScriptsAPI with a custom implementation. */
+  public WorkspaceClient withGlobalInitScriptsAPI(GlobalInitScriptsAPI globalInitScripts) {
+    this.globalInitScriptsAPI = globalInitScripts;
     return this;
   }
 
-  /** Replace GrantsAPI implementation with mock */
+  /** Replace the default GrantsService with a custom implementation. */
   public WorkspaceClient withGrantsImpl(GrantsService grants) {
-    grantsAPI = new GrantsAPI(grants);
+    return this.withGrantsAPI(new GrantsAPI(grants));
+  }
+
+  /** Replace the default GrantsAPI with a custom implementation. */
+  public WorkspaceClient withGrantsAPI(GrantsAPI grants) {
+    this.grantsAPI = grants;
     return this;
   }
 
-  /** Replace GroupsAPI implementation with mock */
+  /** Replace the default GroupsService with a custom implementation. */
   public WorkspaceClient withGroupsImpl(GroupsService groups) {
-    groupsAPI = new GroupsAPI(groups);
+    return this.withGroupsAPI(new GroupsAPI(groups));
+  }
+
+  /** Replace the default GroupsAPI with a custom implementation. */
+  public WorkspaceClient withGroupsAPI(GroupsAPI groups) {
+    this.groupsAPI = groups;
     return this;
   }
 
-  /** Replace InstancePoolsAPI implementation with mock */
+  /** Replace the default InstancePoolsService with a custom implementation. */
   public WorkspaceClient withInstancePoolsImpl(InstancePoolsService instancePools) {
-    instancePoolsAPI = new InstancePoolsAPI(instancePools);
+    return this.withInstancePoolsAPI(new InstancePoolsAPI(instancePools));
+  }
+
+  /** Replace the default InstancePoolsAPI with a custom implementation. */
+  public WorkspaceClient withInstancePoolsAPI(InstancePoolsAPI instancePools) {
+    this.instancePoolsAPI = instancePools;
     return this;
   }
 
-  /** Replace InstanceProfilesAPI implementation with mock */
+  /** Replace the default InstanceProfilesService with a custom implementation. */
   public WorkspaceClient withInstanceProfilesImpl(InstanceProfilesService instanceProfiles) {
-    instanceProfilesAPI = new InstanceProfilesAPI(instanceProfiles);
+    return this.withInstanceProfilesAPI(new InstanceProfilesAPI(instanceProfiles));
+  }
+
+  /** Replace the default InstanceProfilesAPI with a custom implementation. */
+  public WorkspaceClient withInstanceProfilesAPI(InstanceProfilesAPI instanceProfiles) {
+    this.instanceProfilesAPI = instanceProfiles;
     return this;
   }
 
-  /** Replace IpAccessListsAPI implementation with mock */
+  /** Replace the default IpAccessListsService with a custom implementation. */
   public WorkspaceClient withIpAccessListsImpl(IpAccessListsService ipAccessLists) {
-    ipAccessListsAPI = new IpAccessListsAPI(ipAccessLists);
+    return this.withIpAccessListsAPI(new IpAccessListsAPI(ipAccessLists));
+  }
+
+  /** Replace the default IpAccessListsAPI with a custom implementation. */
+  public WorkspaceClient withIpAccessListsAPI(IpAccessListsAPI ipAccessLists) {
+    this.ipAccessListsAPI = ipAccessLists;
     return this;
   }
 
-  /** Replace JobsAPI implementation with mock */
+  /** Replace the default JobsService with a custom implementation. */
   public WorkspaceClient withJobsImpl(JobsService jobs) {
-    jobsAPI = new JobsAPI(jobs);
+    return this.withJobsAPI(new JobsAPI(jobs));
+  }
+
+  /** Replace the default JobsAPI with a custom implementation. */
+  public WorkspaceClient withJobsAPI(JobsAPI jobs) {
+    this.jobsAPI = jobs;
     return this;
   }
 
-  /** Replace LakehouseMonitorsAPI implementation with mock */
+  /** Replace the default LakehouseMonitorsService with a custom implementation. */
   public WorkspaceClient withLakehouseMonitorsImpl(LakehouseMonitorsService lakehouseMonitors) {
-    lakehouseMonitorsAPI = new LakehouseMonitorsAPI(lakehouseMonitors);
+    return this.withLakehouseMonitorsAPI(new LakehouseMonitorsAPI(lakehouseMonitors));
+  }
+
+  /** Replace the default LakehouseMonitorsAPI with a custom implementation. */
+  public WorkspaceClient withLakehouseMonitorsAPI(LakehouseMonitorsAPI lakehouseMonitors) {
+    this.lakehouseMonitorsAPI = lakehouseMonitors;
     return this;
   }
 
-  /** Replace LakeviewAPI implementation with mock */
+  /** Replace the default LakeviewService with a custom implementation. */
   public WorkspaceClient withLakeviewImpl(LakeviewService lakeview) {
-    lakeviewAPI = new LakeviewAPI(lakeview);
+    return this.withLakeviewAPI(new LakeviewAPI(lakeview));
+  }
+
+  /** Replace the default LakeviewAPI with a custom implementation. */
+  public WorkspaceClient withLakeviewAPI(LakeviewAPI lakeview) {
+    this.lakeviewAPI = lakeview;
     return this;
   }
 
-  /** Replace LibrariesAPI implementation with mock */
+  /** Replace the default LibrariesService with a custom implementation. */
   public WorkspaceClient withLibrariesImpl(LibrariesService libraries) {
-    librariesAPI = new LibrariesAPI(libraries);
+    return this.withLibrariesAPI(new LibrariesAPI(libraries));
+  }
+
+  /** Replace the default LibrariesAPI with a custom implementation. */
+  public WorkspaceClient withLibrariesAPI(LibrariesAPI libraries) {
+    this.librariesAPI = libraries;
     return this;
   }
 
-  /** Replace MetastoresAPI implementation with mock */
+  /** Replace the default MetastoresService with a custom implementation. */
   public WorkspaceClient withMetastoresImpl(MetastoresService metastores) {
-    metastoresAPI = new MetastoresAPI(metastores);
+    return this.withMetastoresAPI(new MetastoresAPI(metastores));
+  }
+
+  /** Replace the default MetastoresAPI with a custom implementation. */
+  public WorkspaceClient withMetastoresAPI(MetastoresAPI metastores) {
+    this.metastoresAPI = metastores;
     return this;
   }
 
-  /** Replace ModelRegistryAPI implementation with mock */
+  /** Replace the default ModelRegistryService with a custom implementation. */
   public WorkspaceClient withModelRegistryImpl(ModelRegistryService modelRegistry) {
-    modelRegistryAPI = new ModelRegistryAPI(modelRegistry);
+    return this.withModelRegistryAPI(new ModelRegistryAPI(modelRegistry));
+  }
+
+  /** Replace the default ModelRegistryAPI with a custom implementation. */
+  public WorkspaceClient withModelRegistryAPI(ModelRegistryAPI modelRegistry) {
+    this.modelRegistryAPI = modelRegistry;
     return this;
   }
 
-  /** Replace ModelVersionsAPI implementation with mock */
+  /** Replace the default ModelVersionsService with a custom implementation. */
   public WorkspaceClient withModelVersionsImpl(ModelVersionsService modelVersions) {
-    modelVersionsAPI = new ModelVersionsAPI(modelVersions);
+    return this.withModelVersionsAPI(new ModelVersionsAPI(modelVersions));
+  }
+
+  /** Replace the default ModelVersionsAPI with a custom implementation. */
+  public WorkspaceClient withModelVersionsAPI(ModelVersionsAPI modelVersions) {
+    this.modelVersionsAPI = modelVersions;
     return this;
   }
 
-  /** Replace PermissionsAPI implementation with mock */
+  /** Replace the default PermissionsService with a custom implementation. */
   public WorkspaceClient withPermissionsImpl(PermissionsService permissions) {
-    permissionsAPI = new PermissionsAPI(permissions);
+    return this.withPermissionsAPI(new PermissionsAPI(permissions));
+  }
+
+  /** Replace the default PermissionsAPI with a custom implementation. */
+  public WorkspaceClient withPermissionsAPI(PermissionsAPI permissions) {
+    this.permissionsAPI = permissions;
     return this;
   }
 
-  /** Replace PipelinesAPI implementation with mock */
+  /** Replace the default PipelinesService with a custom implementation. */
   public WorkspaceClient withPipelinesImpl(PipelinesService pipelines) {
-    pipelinesAPI = new PipelinesAPI(pipelines);
+    return this.withPipelinesAPI(new PipelinesAPI(pipelines));
+  }
+
+  /** Replace the default PipelinesAPI with a custom implementation. */
+  public WorkspaceClient withPipelinesAPI(PipelinesAPI pipelines) {
+    this.pipelinesAPI = pipelines;
     return this;
   }
 
-  /** Replace PolicyFamiliesAPI implementation with mock */
+  /** Replace the default PolicyFamiliesService with a custom implementation. */
   public WorkspaceClient withPolicyFamiliesImpl(PolicyFamiliesService policyFamilies) {
-    policyFamiliesAPI = new PolicyFamiliesAPI(policyFamilies);
+    return this.withPolicyFamiliesAPI(new PolicyFamiliesAPI(policyFamilies));
+  }
+
+  /** Replace the default PolicyFamiliesAPI with a custom implementation. */
+  public WorkspaceClient withPolicyFamiliesAPI(PolicyFamiliesAPI policyFamilies) {
+    this.policyFamiliesAPI = policyFamilies;
     return this;
   }
 
-  /** Replace ProvidersAPI implementation with mock */
+  /** Replace the default ProvidersService with a custom implementation. */
   public WorkspaceClient withProvidersImpl(ProvidersService providers) {
-    providersAPI = new ProvidersAPI(providers);
+    return this.withProvidersAPI(new ProvidersAPI(providers));
+  }
+
+  /** Replace the default ProvidersAPI with a custom implementation. */
+  public WorkspaceClient withProvidersAPI(ProvidersAPI providers) {
+    this.providersAPI = providers;
     return this;
   }
 
-  /** Replace QueriesAPI implementation with mock */
+  /** Replace the default QueriesService with a custom implementation. */
   public WorkspaceClient withQueriesImpl(QueriesService queries) {
-    queriesAPI = new QueriesAPI(queries);
+    return this.withQueriesAPI(new QueriesAPI(queries));
+  }
+
+  /** Replace the default QueriesAPI with a custom implementation. */
+  public WorkspaceClient withQueriesAPI(QueriesAPI queries) {
+    this.queriesAPI = queries;
     return this;
   }
 
-  /** Replace QueryHistoryAPI implementation with mock */
+  /** Replace the default QueryHistoryService with a custom implementation. */
   public WorkspaceClient withQueryHistoryImpl(QueryHistoryService queryHistory) {
-    queryHistoryAPI = new QueryHistoryAPI(queryHistory);
+    return this.withQueryHistoryAPI(new QueryHistoryAPI(queryHistory));
+  }
+
+  /** Replace the default QueryHistoryAPI with a custom implementation. */
+  public WorkspaceClient withQueryHistoryAPI(QueryHistoryAPI queryHistory) {
+    this.queryHistoryAPI = queryHistory;
     return this;
   }
 
-  /** Replace QueryVisualizationsAPI implementation with mock */
+  /** Replace the default QueryVisualizationsService with a custom implementation. */
   public WorkspaceClient withQueryVisualizationsImpl(
       QueryVisualizationsService queryVisualizations) {
-    queryVisualizationsAPI = new QueryVisualizationsAPI(queryVisualizations);
+    return this.withQueryVisualizationsAPI(new QueryVisualizationsAPI(queryVisualizations));
+  }
+
+  /** Replace the default QueryVisualizationsAPI with a custom implementation. */
+  public WorkspaceClient withQueryVisualizationsAPI(QueryVisualizationsAPI queryVisualizations) {
+    this.queryVisualizationsAPI = queryVisualizations;
     return this;
   }
 
-  /** Replace RecipientActivationAPI implementation with mock */
+  /** Replace the default RecipientActivationService with a custom implementation. */
   public WorkspaceClient withRecipientActivationImpl(
       RecipientActivationService recipientActivation) {
-    recipientActivationAPI = new RecipientActivationAPI(recipientActivation);
+    return this.withRecipientActivationAPI(new RecipientActivationAPI(recipientActivation));
+  }
+
+  /** Replace the default RecipientActivationAPI with a custom implementation. */
+  public WorkspaceClient withRecipientActivationAPI(RecipientActivationAPI recipientActivation) {
+    this.recipientActivationAPI = recipientActivation;
     return this;
   }
 
-  /** Replace RecipientsAPI implementation with mock */
+  /** Replace the default RecipientsService with a custom implementation. */
   public WorkspaceClient withRecipientsImpl(RecipientsService recipients) {
-    recipientsAPI = new RecipientsAPI(recipients);
+    return this.withRecipientsAPI(new RecipientsAPI(recipients));
+  }
+
+  /** Replace the default RecipientsAPI with a custom implementation. */
+  public WorkspaceClient withRecipientsAPI(RecipientsAPI recipients) {
+    this.recipientsAPI = recipients;
     return this;
   }
 
-  /** Replace RegisteredModelsAPI implementation with mock */
+  /** Replace the default RegisteredModelsService with a custom implementation. */
   public WorkspaceClient withRegisteredModelsImpl(RegisteredModelsService registeredModels) {
-    registeredModelsAPI = new RegisteredModelsAPI(registeredModels);
+    return this.withRegisteredModelsAPI(new RegisteredModelsAPI(registeredModels));
+  }
+
+  /** Replace the default RegisteredModelsAPI with a custom implementation. */
+  public WorkspaceClient withRegisteredModelsAPI(RegisteredModelsAPI registeredModels) {
+    this.registeredModelsAPI = registeredModels;
     return this;
   }
 
-  /** Replace ReposAPI implementation with mock */
+  /** Replace the default ReposService with a custom implementation. */
   public WorkspaceClient withReposImpl(ReposService repos) {
-    reposAPI = new ReposAPI(repos);
+    return this.withReposAPI(new ReposAPI(repos));
+  }
+
+  /** Replace the default ReposAPI with a custom implementation. */
+  public WorkspaceClient withReposAPI(ReposAPI repos) {
+    this.reposAPI = repos;
     return this;
   }
 
-  /** Replace SchemasAPI implementation with mock */
+  /** Replace the default SchemasService with a custom implementation. */
   public WorkspaceClient withSchemasImpl(SchemasService schemas) {
-    schemasAPI = new SchemasAPI(schemas);
+    return this.withSchemasAPI(new SchemasAPI(schemas));
+  }
+
+  /** Replace the default SchemasAPI with a custom implementation. */
+  public WorkspaceClient withSchemasAPI(SchemasAPI schemas) {
+    this.schemasAPI = schemas;
     return this;
   }
 
-  /** Replace SecretsAPI implementation with mock */
+  /** Replace the default SecretsService with a custom implementation. */
   public WorkspaceClient withSecretsImpl(SecretsService secrets) {
-    secretsAPI = new SecretsExt(secrets);
+    return this.withSecretsAPI(new SecretsExt(secrets));
+  }
+
+  /** Replace the default SecretsAPI with a custom implementation. */
+  public WorkspaceClient withSecretsAPI(SecretsExt secrets) {
+    this.secretsAPI = secrets;
     return this;
   }
 
-  /** Replace ServicePrincipalsAPI implementation with mock */
+  /** Replace the default ServicePrincipalsService with a custom implementation. */
   public WorkspaceClient withServicePrincipalsImpl(ServicePrincipalsService servicePrincipals) {
-    servicePrincipalsAPI = new ServicePrincipalsAPI(servicePrincipals);
+    return this.withServicePrincipalsAPI(new ServicePrincipalsAPI(servicePrincipals));
+  }
+
+  /** Replace the default ServicePrincipalsAPI with a custom implementation. */
+  public WorkspaceClient withServicePrincipalsAPI(ServicePrincipalsAPI servicePrincipals) {
+    this.servicePrincipalsAPI = servicePrincipals;
     return this;
   }
 
-  /** Replace ServingEndpointsAPI implementation with mock */
+  /** Replace the default ServingEndpointsService with a custom implementation. */
   public WorkspaceClient withServingEndpointsImpl(ServingEndpointsService servingEndpoints) {
-    servingEndpointsAPI = new ServingEndpointsAPI(servingEndpoints);
+    return this.withServingEndpointsAPI(new ServingEndpointsAPI(servingEndpoints));
+  }
+
+  /** Replace the default ServingEndpointsAPI with a custom implementation. */
+  public WorkspaceClient withServingEndpointsAPI(ServingEndpointsAPI servingEndpoints) {
+    this.servingEndpointsAPI = servingEndpoints;
     return this;
   }
 
-  /** Replace SettingsAPI implementation with mock */
+  /** Replace the default SettingsService with a custom implementation. */
   public WorkspaceClient withSettingsImpl(SettingsService settings) {
-    settingsAPI = new SettingsAPI(settings);
+    return this.withSettingsAPI(new SettingsAPI(settings));
+  }
+
+  /** Replace the default SettingsAPI with a custom implementation. */
+  public WorkspaceClient withSettingsAPI(SettingsAPI settings) {
+    this.settingsAPI = settings;
     return this;
   }
 
-  /** Replace SharesAPI implementation with mock */
+  /** Replace the default SharesService with a custom implementation. */
   public WorkspaceClient withSharesImpl(SharesService shares) {
-    sharesAPI = new SharesAPI(shares);
+    return this.withSharesAPI(new SharesAPI(shares));
+  }
+
+  /** Replace the default SharesAPI with a custom implementation. */
+  public WorkspaceClient withSharesAPI(SharesAPI shares) {
+    this.sharesAPI = shares;
     return this;
   }
 
-  /** Replace StatementExecutionAPI implementation with mock */
+  /** Replace the default StatementExecutionService with a custom implementation. */
   public WorkspaceClient withStatementExecutionImpl(StatementExecutionService statementExecution) {
-    statementExecutionAPI = new StatementExecutionAPI(statementExecution);
+    return this.withStatementExecutionAPI(new StatementExecutionAPI(statementExecution));
+  }
+
+  /** Replace the default StatementExecutionAPI with a custom implementation. */
+  public WorkspaceClient withStatementExecutionAPI(StatementExecutionAPI statementExecution) {
+    this.statementExecutionAPI = statementExecution;
     return this;
   }
 
-  /** Replace StorageCredentialsAPI implementation with mock */
+  /** Replace the default StorageCredentialsService with a custom implementation. */
   public WorkspaceClient withStorageCredentialsImpl(StorageCredentialsService storageCredentials) {
-    storageCredentialsAPI = new StorageCredentialsAPI(storageCredentials);
+    return this.withStorageCredentialsAPI(new StorageCredentialsAPI(storageCredentials));
+  }
+
+  /** Replace the default StorageCredentialsAPI with a custom implementation. */
+  public WorkspaceClient withStorageCredentialsAPI(StorageCredentialsAPI storageCredentials) {
+    this.storageCredentialsAPI = storageCredentials;
     return this;
   }
 
-  /** Replace SystemSchemasAPI implementation with mock */
+  /** Replace the default SystemSchemasService with a custom implementation. */
   public WorkspaceClient withSystemSchemasImpl(SystemSchemasService systemSchemas) {
-    systemSchemasAPI = new SystemSchemasAPI(systemSchemas);
+    return this.withSystemSchemasAPI(new SystemSchemasAPI(systemSchemas));
+  }
+
+  /** Replace the default SystemSchemasAPI with a custom implementation. */
+  public WorkspaceClient withSystemSchemasAPI(SystemSchemasAPI systemSchemas) {
+    this.systemSchemasAPI = systemSchemas;
     return this;
   }
 
-  /** Replace TableConstraintsAPI implementation with mock */
+  /** Replace the default TableConstraintsService with a custom implementation. */
   public WorkspaceClient withTableConstraintsImpl(TableConstraintsService tableConstraints) {
-    tableConstraintsAPI = new TableConstraintsAPI(tableConstraints);
+    return this.withTableConstraintsAPI(new TableConstraintsAPI(tableConstraints));
+  }
+
+  /** Replace the default TableConstraintsAPI with a custom implementation. */
+  public WorkspaceClient withTableConstraintsAPI(TableConstraintsAPI tableConstraints) {
+    this.tableConstraintsAPI = tableConstraints;
     return this;
   }
 
-  /** Replace TablesAPI implementation with mock */
+  /** Replace the default TablesService with a custom implementation. */
   public WorkspaceClient withTablesImpl(TablesService tables) {
-    tablesAPI = new TablesAPI(tables);
+    return this.withTablesAPI(new TablesAPI(tables));
+  }
+
+  /** Replace the default TablesAPI with a custom implementation. */
+  public WorkspaceClient withTablesAPI(TablesAPI tables) {
+    this.tablesAPI = tables;
     return this;
   }
 
-  /** Replace TokenManagementAPI implementation with mock */
+  /** Replace the default TokenManagementService with a custom implementation. */
   public WorkspaceClient withTokenManagementImpl(TokenManagementService tokenManagement) {
-    tokenManagementAPI = new TokenManagementAPI(tokenManagement);
+    return this.withTokenManagementAPI(new TokenManagementAPI(tokenManagement));
+  }
+
+  /** Replace the default TokenManagementAPI with a custom implementation. */
+  public WorkspaceClient withTokenManagementAPI(TokenManagementAPI tokenManagement) {
+    this.tokenManagementAPI = tokenManagement;
     return this;
   }
 
-  /** Replace TokensAPI implementation with mock */
+  /** Replace the default TokensService with a custom implementation. */
   public WorkspaceClient withTokensImpl(TokensService tokens) {
-    tokensAPI = new TokensAPI(tokens);
+    return this.withTokensAPI(new TokensAPI(tokens));
+  }
+
+  /** Replace the default TokensAPI with a custom implementation. */
+  public WorkspaceClient withTokensAPI(TokensAPI tokens) {
+    this.tokensAPI = tokens;
     return this;
   }
 
-  /** Replace UsersAPI implementation with mock */
+  /** Replace the default UsersService with a custom implementation. */
   public WorkspaceClient withUsersImpl(UsersService users) {
-    usersAPI = new UsersAPI(users);
+    return this.withUsersAPI(new UsersAPI(users));
+  }
+
+  /** Replace the default UsersAPI with a custom implementation. */
+  public WorkspaceClient withUsersAPI(UsersAPI users) {
+    this.usersAPI = users;
     return this;
   }
 
-  /** Replace VectorSearchEndpointsAPI implementation with mock */
+  /** Replace the default VectorSearchEndpointsService with a custom implementation. */
   public WorkspaceClient withVectorSearchEndpointsImpl(
       VectorSearchEndpointsService vectorSearchEndpoints) {
-    vectorSearchEndpointsAPI = new VectorSearchEndpointsAPI(vectorSearchEndpoints);
+    return this.withVectorSearchEndpointsAPI(new VectorSearchEndpointsAPI(vectorSearchEndpoints));
+  }
+
+  /** Replace the default VectorSearchEndpointsAPI with a custom implementation. */
+  public WorkspaceClient withVectorSearchEndpointsAPI(
+      VectorSearchEndpointsAPI vectorSearchEndpoints) {
+    this.vectorSearchEndpointsAPI = vectorSearchEndpoints;
     return this;
   }
 
-  /** Replace VectorSearchIndexesAPI implementation with mock */
+  /** Replace the default VectorSearchIndexesService with a custom implementation. */
   public WorkspaceClient withVectorSearchIndexesImpl(
       VectorSearchIndexesService vectorSearchIndexes) {
-    vectorSearchIndexesAPI = new VectorSearchIndexesAPI(vectorSearchIndexes);
+    return this.withVectorSearchIndexesAPI(new VectorSearchIndexesAPI(vectorSearchIndexes));
+  }
+
+  /** Replace the default VectorSearchIndexesAPI with a custom implementation. */
+  public WorkspaceClient withVectorSearchIndexesAPI(VectorSearchIndexesAPI vectorSearchIndexes) {
+    this.vectorSearchIndexesAPI = vectorSearchIndexes;
     return this;
   }
 
-  /** Replace VolumesAPI implementation with mock */
+  /** Replace the default VolumesService with a custom implementation. */
   public WorkspaceClient withVolumesImpl(VolumesService volumes) {
-    volumesAPI = new VolumesAPI(volumes);
+    return this.withVolumesAPI(new VolumesAPI(volumes));
+  }
+
+  /** Replace the default VolumesAPI with a custom implementation. */
+  public WorkspaceClient withVolumesAPI(VolumesAPI volumes) {
+    this.volumesAPI = volumes;
     return this;
   }
 
-  /** Replace WarehousesAPI implementation with mock */
+  /** Replace the default WarehousesService with a custom implementation. */
   public WorkspaceClient withWarehousesImpl(WarehousesService warehouses) {
-    warehousesAPI = new WarehousesAPI(warehouses);
+    return this.withWarehousesAPI(new WarehousesAPI(warehouses));
+  }
+
+  /** Replace the default WarehousesAPI with a custom implementation. */
+  public WorkspaceClient withWarehousesAPI(WarehousesAPI warehouses) {
+    this.warehousesAPI = warehouses;
     return this;
   }
 
-  /** Replace WorkspaceAPI implementation with mock */
+  /** Replace the default WorkspaceService with a custom implementation. */
   public WorkspaceClient withWorkspaceImpl(WorkspaceService workspace) {
-    workspaceAPI = new WorkspaceAPI(workspace);
+    return this.withWorkspaceAPI(new WorkspaceAPI(workspace));
+  }
+
+  /** Replace the default WorkspaceAPI with a custom implementation. */
+  public WorkspaceClient withWorkspaceAPI(WorkspaceAPI workspace) {
+    this.workspaceAPI = workspace;
     return this;
   }
 
-  /** Replace WorkspaceBindingsAPI implementation with mock */
+  /** Replace the default WorkspaceBindingsService with a custom implementation. */
   public WorkspaceClient withWorkspaceBindingsImpl(WorkspaceBindingsService workspaceBindings) {
-    workspaceBindingsAPI = new WorkspaceBindingsAPI(workspaceBindings);
+    return this.withWorkspaceBindingsAPI(new WorkspaceBindingsAPI(workspaceBindings));
+  }
+
+  /** Replace the default WorkspaceBindingsAPI with a custom implementation. */
+  public WorkspaceClient withWorkspaceBindingsAPI(WorkspaceBindingsAPI workspaceBindings) {
+    this.workspaceBindingsAPI = workspaceBindings;
     return this;
   }
 
-  /** Replace WorkspaceConfAPI implementation with mock */
+  /** Replace the default WorkspaceConfService with a custom implementation. */
   public WorkspaceClient withWorkspaceConfImpl(WorkspaceConfService workspaceConf) {
-    workspaceConfAPI = new WorkspaceConfAPI(workspaceConf);
+    return this.withWorkspaceConfAPI(new WorkspaceConfAPI(workspaceConf));
+  }
+
+  /** Replace the default WorkspaceConfAPI with a custom implementation. */
+  public WorkspaceClient withWorkspaceConfAPI(WorkspaceConfAPI workspaceConf) {
+    this.workspaceConfAPI = workspaceConf;
     return this;
   }
 

@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 
+/** Name of the channel */
 @Generated
 public enum ChannelName {
   CHANNEL_NAME_CURRENT,

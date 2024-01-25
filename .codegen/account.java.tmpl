@@ -45,9 +45,14 @@ public class AccountClient {
   }
   {{end}}{{end}}
   {{range .Services}}{{if .IsAccounts}}
-  /** Override {{.PascalName}}API with mock */
+  /** Replace the default {{.PascalName}}Service with a custom implementation. */
   public AccountClient with{{(.TrimPrefix "account").PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
-    {{(.TrimPrefix "account").CamelName}}API = new {{.PascalName}}API({{.CamelName}});
+    return this.with{{(.TrimPrefix "account").PascalName}}API(new {{.PascalName}}API({{.CamelName}}));
+  }
+
+  /** Replace the default {{.PascalName}}API with a custom implementation. */
+  public AccountClient with{{(.TrimPrefix "account").PascalName}}API({{.PascalName}}API {{.CamelName}}) {
+    this.{{(.TrimPrefix "account").CamelName}}API = {{.CamelName}};
     return this;
   }
   {{end}}{{end}}

@@ -63,9 +63,14 @@ public class WorkspaceClient {
   }
   {{end}}{{end}}
   {{range .Services}}{{if not .IsAccounts}}
-  /** Replace {{.PascalName}}API implementation with mock */
+  /** Replace the default {{.PascalName}}Service with a custom implementation. */
   public WorkspaceClient with{{.PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
-    {{.CamelName}}API = new {{template "api" .}}({{.CamelName}});
+    return this.with{{.PascalName}}API(new {{template "api" .}}({{.CamelName}}));
+  }
+
+  /** Replace the default {{.PascalName}}API with a custom implementation. */
+  public WorkspaceClient with{{.PascalName}}API({{template "api" .}} {{.CamelName}}) {
+    this.{{.CamelName}}API = {{.CamelName}};
     return this;
   }
   {{end}}{{end}}

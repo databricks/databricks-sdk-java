@@ -453,159 +453,293 @@ public class AccountClient {
     return workspacesAPI;
   }
 
-  /** Override AccountAccessControlAPI with mock */
+  /** Replace the default AccountAccessControlService with a custom implementation. */
   public AccountClient withAccessControlImpl(AccountAccessControlService accountAccessControl) {
-    accessControlAPI = new AccountAccessControlAPI(accountAccessControl);
+    return this.withAccessControlAPI(new AccountAccessControlAPI(accountAccessControl));
+  }
+
+  /** Replace the default AccountAccessControlAPI with a custom implementation. */
+  public AccountClient withAccessControlAPI(AccountAccessControlAPI accountAccessControl) {
+    this.accessControlAPI = accountAccessControl;
     return this;
   }
 
-  /** Override BillableUsageAPI with mock */
+  /** Replace the default BillableUsageService with a custom implementation. */
   public AccountClient withBillableUsageImpl(BillableUsageService billableUsage) {
-    billableUsageAPI = new BillableUsageAPI(billableUsage);
+    return this.withBillableUsageAPI(new BillableUsageAPI(billableUsage));
+  }
+
+  /** Replace the default BillableUsageAPI with a custom implementation. */
+  public AccountClient withBillableUsageAPI(BillableUsageAPI billableUsage) {
+    this.billableUsageAPI = billableUsage;
     return this;
   }
 
-  /** Override BudgetsAPI with mock */
+  /** Replace the default BudgetsService with a custom implementation. */
   public AccountClient withBudgetsImpl(BudgetsService budgets) {
-    budgetsAPI = new BudgetsAPI(budgets);
+    return this.withBudgetsAPI(new BudgetsAPI(budgets));
+  }
+
+  /** Replace the default BudgetsAPI with a custom implementation. */
+  public AccountClient withBudgetsAPI(BudgetsAPI budgets) {
+    this.budgetsAPI = budgets;
     return this;
   }
 
-  /** Override CredentialsAPI with mock */
+  /** Replace the default CredentialsService with a custom implementation. */
   public AccountClient withCredentialsImpl(CredentialsService credentials) {
-    credentialsAPI = new CredentialsAPI(credentials);
+    return this.withCredentialsAPI(new CredentialsAPI(credentials));
+  }
+
+  /** Replace the default CredentialsAPI with a custom implementation. */
+  public AccountClient withCredentialsAPI(CredentialsAPI credentials) {
+    this.credentialsAPI = credentials;
     return this;
   }
 
-  /** Override CustomAppIntegrationAPI with mock */
+  /** Replace the default CustomAppIntegrationService with a custom implementation. */
   public AccountClient withCustomAppIntegrationImpl(
       CustomAppIntegrationService customAppIntegration) {
-    customAppIntegrationAPI = new CustomAppIntegrationAPI(customAppIntegration);
+    return this.withCustomAppIntegrationAPI(new CustomAppIntegrationAPI(customAppIntegration));
+  }
+
+  /** Replace the default CustomAppIntegrationAPI with a custom implementation. */
+  public AccountClient withCustomAppIntegrationAPI(CustomAppIntegrationAPI customAppIntegration) {
+    this.customAppIntegrationAPI = customAppIntegration;
     return this;
   }
 
-  /** Override EncryptionKeysAPI with mock */
+  /** Replace the default EncryptionKeysService with a custom implementation. */
   public AccountClient withEncryptionKeysImpl(EncryptionKeysService encryptionKeys) {
-    encryptionKeysAPI = new EncryptionKeysAPI(encryptionKeys);
+    return this.withEncryptionKeysAPI(new EncryptionKeysAPI(encryptionKeys));
+  }
+
+  /** Replace the default EncryptionKeysAPI with a custom implementation. */
+  public AccountClient withEncryptionKeysAPI(EncryptionKeysAPI encryptionKeys) {
+    this.encryptionKeysAPI = encryptionKeys;
     return this;
   }
 
-  /** Override AccountGroupsAPI with mock */
+  /** Replace the default AccountGroupsService with a custom implementation. */
   public AccountClient withGroupsImpl(AccountGroupsService accountGroups) {
-    groupsAPI = new AccountGroupsAPI(accountGroups);
+    return this.withGroupsAPI(new AccountGroupsAPI(accountGroups));
+  }
+
+  /** Replace the default AccountGroupsAPI with a custom implementation. */
+  public AccountClient withGroupsAPI(AccountGroupsAPI accountGroups) {
+    this.groupsAPI = accountGroups;
     return this;
   }
 
-  /** Override AccountIpAccessListsAPI with mock */
+  /** Replace the default AccountIpAccessListsService with a custom implementation. */
   public AccountClient withIpAccessListsImpl(AccountIpAccessListsService accountIpAccessLists) {
-    ipAccessListsAPI = new AccountIpAccessListsAPI(accountIpAccessLists);
+    return this.withIpAccessListsAPI(new AccountIpAccessListsAPI(accountIpAccessLists));
+  }
+
+  /** Replace the default AccountIpAccessListsAPI with a custom implementation. */
+  public AccountClient withIpAccessListsAPI(AccountIpAccessListsAPI accountIpAccessLists) {
+    this.ipAccessListsAPI = accountIpAccessLists;
     return this;
   }
 
-  /** Override LogDeliveryAPI with mock */
+  /** Replace the default LogDeliveryService with a custom implementation. */
   public AccountClient withLogDeliveryImpl(LogDeliveryService logDelivery) {
-    logDeliveryAPI = new LogDeliveryAPI(logDelivery);
+    return this.withLogDeliveryAPI(new LogDeliveryAPI(logDelivery));
+  }
+
+  /** Replace the default LogDeliveryAPI with a custom implementation. */
+  public AccountClient withLogDeliveryAPI(LogDeliveryAPI logDelivery) {
+    this.logDeliveryAPI = logDelivery;
     return this;
   }
 
-  /** Override AccountMetastoreAssignmentsAPI with mock */
+  /** Replace the default AccountMetastoreAssignmentsService with a custom implementation. */
   public AccountClient withMetastoreAssignmentsImpl(
       AccountMetastoreAssignmentsService accountMetastoreAssignments) {
-    metastoreAssignmentsAPI = new AccountMetastoreAssignmentsAPI(accountMetastoreAssignments);
+    return this.withMetastoreAssignmentsAPI(
+        new AccountMetastoreAssignmentsAPI(accountMetastoreAssignments));
+  }
+
+  /** Replace the default AccountMetastoreAssignmentsAPI with a custom implementation. */
+  public AccountClient withMetastoreAssignmentsAPI(
+      AccountMetastoreAssignmentsAPI accountMetastoreAssignments) {
+    this.metastoreAssignmentsAPI = accountMetastoreAssignments;
     return this;
   }
 
-  /** Override AccountMetastoresAPI with mock */
+  /** Replace the default AccountMetastoresService with a custom implementation. */
   public AccountClient withMetastoresImpl(AccountMetastoresService accountMetastores) {
-    metastoresAPI = new AccountMetastoresAPI(accountMetastores);
+    return this.withMetastoresAPI(new AccountMetastoresAPI(accountMetastores));
+  }
+
+  /** Replace the default AccountMetastoresAPI with a custom implementation. */
+  public AccountClient withMetastoresAPI(AccountMetastoresAPI accountMetastores) {
+    this.metastoresAPI = accountMetastores;
     return this;
   }
 
-  /** Override NetworkConnectivityAPI with mock */
+  /** Replace the default NetworkConnectivityService with a custom implementation. */
   public AccountClient withNetworkConnectivityImpl(NetworkConnectivityService networkConnectivity) {
-    networkConnectivityAPI = new NetworkConnectivityAPI(networkConnectivity);
+    return this.withNetworkConnectivityAPI(new NetworkConnectivityAPI(networkConnectivity));
+  }
+
+  /** Replace the default NetworkConnectivityAPI with a custom implementation. */
+  public AccountClient withNetworkConnectivityAPI(NetworkConnectivityAPI networkConnectivity) {
+    this.networkConnectivityAPI = networkConnectivity;
     return this;
   }
 
-  /** Override NetworksAPI with mock */
+  /** Replace the default NetworksService with a custom implementation. */
   public AccountClient withNetworksImpl(NetworksService networks) {
-    networksAPI = new NetworksAPI(networks);
+    return this.withNetworksAPI(new NetworksAPI(networks));
+  }
+
+  /** Replace the default NetworksAPI with a custom implementation. */
+  public AccountClient withNetworksAPI(NetworksAPI networks) {
+    this.networksAPI = networks;
     return this;
   }
 
-  /** Override OAuthPublishedAppsAPI with mock */
+  /** Replace the default OAuthPublishedAppsService with a custom implementation. */
   public AccountClient withOAuthPublishedAppsImpl(OAuthPublishedAppsService oAuthPublishedApps) {
-    oAuthPublishedAppsAPI = new OAuthPublishedAppsAPI(oAuthPublishedApps);
+    return this.withOAuthPublishedAppsAPI(new OAuthPublishedAppsAPI(oAuthPublishedApps));
+  }
+
+  /** Replace the default OAuthPublishedAppsAPI with a custom implementation. */
+  public AccountClient withOAuthPublishedAppsAPI(OAuthPublishedAppsAPI oAuthPublishedApps) {
+    this.oAuthPublishedAppsAPI = oAuthPublishedApps;
     return this;
   }
 
-  /** Override PrivateAccessAPI with mock */
+  /** Replace the default PrivateAccessService with a custom implementation. */
   public AccountClient withPrivateAccessImpl(PrivateAccessService privateAccess) {
-    privateAccessAPI = new PrivateAccessAPI(privateAccess);
+    return this.withPrivateAccessAPI(new PrivateAccessAPI(privateAccess));
+  }
+
+  /** Replace the default PrivateAccessAPI with a custom implementation. */
+  public AccountClient withPrivateAccessAPI(PrivateAccessAPI privateAccess) {
+    this.privateAccessAPI = privateAccess;
     return this;
   }
 
-  /** Override PublishedAppIntegrationAPI with mock */
+  /** Replace the default PublishedAppIntegrationService with a custom implementation. */
   public AccountClient withPublishedAppIntegrationImpl(
       PublishedAppIntegrationService publishedAppIntegration) {
-    publishedAppIntegrationAPI = new PublishedAppIntegrationAPI(publishedAppIntegration);
+    return this.withPublishedAppIntegrationAPI(
+        new PublishedAppIntegrationAPI(publishedAppIntegration));
+  }
+
+  /** Replace the default PublishedAppIntegrationAPI with a custom implementation. */
+  public AccountClient withPublishedAppIntegrationAPI(
+      PublishedAppIntegrationAPI publishedAppIntegration) {
+    this.publishedAppIntegrationAPI = publishedAppIntegration;
     return this;
   }
 
-  /** Override ServicePrincipalSecretsAPI with mock */
+  /** Replace the default ServicePrincipalSecretsService with a custom implementation. */
   public AccountClient withServicePrincipalSecretsImpl(
       ServicePrincipalSecretsService servicePrincipalSecrets) {
-    servicePrincipalSecretsAPI = new ServicePrincipalSecretsAPI(servicePrincipalSecrets);
+    return this.withServicePrincipalSecretsAPI(
+        new ServicePrincipalSecretsAPI(servicePrincipalSecrets));
+  }
+
+  /** Replace the default ServicePrincipalSecretsAPI with a custom implementation. */
+  public AccountClient withServicePrincipalSecretsAPI(
+      ServicePrincipalSecretsAPI servicePrincipalSecrets) {
+    this.servicePrincipalSecretsAPI = servicePrincipalSecrets;
     return this;
   }
 
-  /** Override AccountServicePrincipalsAPI with mock */
+  /** Replace the default AccountServicePrincipalsService with a custom implementation. */
   public AccountClient withServicePrincipalsImpl(
       AccountServicePrincipalsService accountServicePrincipals) {
-    servicePrincipalsAPI = new AccountServicePrincipalsAPI(accountServicePrincipals);
+    return this.withServicePrincipalsAPI(new AccountServicePrincipalsAPI(accountServicePrincipals));
+  }
+
+  /** Replace the default AccountServicePrincipalsAPI with a custom implementation. */
+  public AccountClient withServicePrincipalsAPI(
+      AccountServicePrincipalsAPI accountServicePrincipals) {
+    this.servicePrincipalsAPI = accountServicePrincipals;
     return this;
   }
 
-  /** Override AccountSettingsAPI with mock */
+  /** Replace the default AccountSettingsService with a custom implementation. */
   public AccountClient withSettingsImpl(AccountSettingsService accountSettings) {
-    settingsAPI = new AccountSettingsAPI(accountSettings);
+    return this.withSettingsAPI(new AccountSettingsAPI(accountSettings));
+  }
+
+  /** Replace the default AccountSettingsAPI with a custom implementation. */
+  public AccountClient withSettingsAPI(AccountSettingsAPI accountSettings) {
+    this.settingsAPI = accountSettings;
     return this;
   }
 
-  /** Override StorageAPI with mock */
+  /** Replace the default StorageService with a custom implementation. */
   public AccountClient withStorageImpl(StorageService storage) {
-    storageAPI = new StorageAPI(storage);
+    return this.withStorageAPI(new StorageAPI(storage));
+  }
+
+  /** Replace the default StorageAPI with a custom implementation. */
+  public AccountClient withStorageAPI(StorageAPI storage) {
+    this.storageAPI = storage;
     return this;
   }
 
-  /** Override AccountStorageCredentialsAPI with mock */
+  /** Replace the default AccountStorageCredentialsService with a custom implementation. */
   public AccountClient withStorageCredentialsImpl(
       AccountStorageCredentialsService accountStorageCredentials) {
-    storageCredentialsAPI = new AccountStorageCredentialsAPI(accountStorageCredentials);
+    return this.withStorageCredentialsAPI(
+        new AccountStorageCredentialsAPI(accountStorageCredentials));
+  }
+
+  /** Replace the default AccountStorageCredentialsAPI with a custom implementation. */
+  public AccountClient withStorageCredentialsAPI(
+      AccountStorageCredentialsAPI accountStorageCredentials) {
+    this.storageCredentialsAPI = accountStorageCredentials;
     return this;
   }
 
-  /** Override AccountUsersAPI with mock */
+  /** Replace the default AccountUsersService with a custom implementation. */
   public AccountClient withUsersImpl(AccountUsersService accountUsers) {
-    usersAPI = new AccountUsersAPI(accountUsers);
+    return this.withUsersAPI(new AccountUsersAPI(accountUsers));
+  }
+
+  /** Replace the default AccountUsersAPI with a custom implementation. */
+  public AccountClient withUsersAPI(AccountUsersAPI accountUsers) {
+    this.usersAPI = accountUsers;
     return this;
   }
 
-  /** Override VpcEndpointsAPI with mock */
+  /** Replace the default VpcEndpointsService with a custom implementation. */
   public AccountClient withVpcEndpointsImpl(VpcEndpointsService vpcEndpoints) {
-    vpcEndpointsAPI = new VpcEndpointsAPI(vpcEndpoints);
+    return this.withVpcEndpointsAPI(new VpcEndpointsAPI(vpcEndpoints));
+  }
+
+  /** Replace the default VpcEndpointsAPI with a custom implementation. */
+  public AccountClient withVpcEndpointsAPI(VpcEndpointsAPI vpcEndpoints) {
+    this.vpcEndpointsAPI = vpcEndpoints;
     return this;
   }
 
-  /** Override WorkspaceAssignmentAPI with mock */
+  /** Replace the default WorkspaceAssignmentService with a custom implementation. */
   public AccountClient withWorkspaceAssignmentImpl(WorkspaceAssignmentService workspaceAssignment) {
-    workspaceAssignmentAPI = new WorkspaceAssignmentAPI(workspaceAssignment);
+    return this.withWorkspaceAssignmentAPI(new WorkspaceAssignmentAPI(workspaceAssignment));
+  }
+
+  /** Replace the default WorkspaceAssignmentAPI with a custom implementation. */
+  public AccountClient withWorkspaceAssignmentAPI(WorkspaceAssignmentAPI workspaceAssignment) {
+    this.workspaceAssignmentAPI = workspaceAssignment;
     return this;
   }
 
-  /** Override WorkspacesAPI with mock */
+  /** Replace the default WorkspacesService with a custom implementation. */
   public AccountClient withWorkspacesImpl(WorkspacesService workspaces) {
-    workspacesAPI = new WorkspacesAPI(workspaces);
+    return this.withWorkspacesAPI(new WorkspacesAPI(workspaces));
+  }
+
+  /** Replace the default WorkspacesAPI with a custom implementation. */
+  public AccountClient withWorkspacesAPI(WorkspacesAPI workspaces) {
+    this.workspacesAPI = workspaces;
     return this;
   }
 
