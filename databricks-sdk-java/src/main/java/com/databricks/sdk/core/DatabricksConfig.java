@@ -481,6 +481,11 @@ public class DatabricksConfig {
     return this;
   }
 
+  public DatabricksConfig setAzureLoginAppId(String azureLoginAppId) {
+    this.azureLoginAppId = azureLoginAppId;
+    return this;
+  }
+
   public boolean isAzure() {
     if (azureWorkspaceResourceId != null) {
       return true;
