@@ -1,5 +1,18 @@
 # Version changelog
 
+## 0.17.1
+
+Major changes:
+
+* Allow customizing APIs in WorkspaceClient/AccountClient ([#213](https://github.com/databricks/databricks-sdk-java/pull/213)).
+
+Bug fixes:
+
+* Make modifications to make Azure connection work ([#202](https://github.com/databricks/databricks-sdk-java/pull/202)).
+* Tolerate missing GCP dependencies ([#214](https://github.com/databricks/databricks-sdk-java/pull/214)).
+
+
+
 ## 0.17.0
 
 Bugfixes:
@@ -32,7 +45,7 @@ API Changes:
   `databricks.sdk.service.catalog.MonitorTimeSeriesProfileType`, 
   `databricks.sdk.service.catalog.TableExistsResponse` and
   `databricks.sdk.service.catalog.UpdateMonitor`. 
-* Added `validateOnly` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
+ * Added `validateOnly` field for `com.databricks.sdk.service.pipelines.StartUpdate`.
  * Added `validateOnly` field for `com.databricks.sdk.service.pipelines.UpdateInfo`.
  * Changed `createOboToken()` method for `workspaceClient.tokenManagement()` service with new required argument order.
  * Changed `get()` method for `workspaceClient.tokenManagement()` service to return `com.databricks.sdk.service.settings.GetTokenResponse` class.
