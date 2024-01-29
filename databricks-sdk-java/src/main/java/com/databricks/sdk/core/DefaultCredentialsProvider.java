@@ -3,6 +3,7 @@ package com.databricks.sdk.core;
 import com.databricks.sdk.core.oauth.AzureServicePrincipalCredentialsProvider;
 import com.databricks.sdk.core.oauth.ExternalBrowserCredentialsProvider;
 import com.databricks.sdk.core.oauth.OAuthM2MServicePrincipalCredentialsProvider;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
@@ -11,7 +12,20 @@ import org.slf4j.LoggerFactory;
 public class DefaultCredentialsProvider implements CredentialsProvider {
   private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
 
-  private List<CredentialsProvider> providers;
+  private static final List<Class<?>> providerClasses =
+      Arrays.asList(
+          PatCredentialsProvider.class,
+          BasicCredentialsProvider.class,
+          OAuthM2MServicePrincipalCredentialsProvider.class,
+          AzureServicePrincipalCredentialsProvider.class,
+          AzureCliCredentialsProvider.class,
+          ExternalBrowserCredentialsProvider.class,
+          DatabricksCliCredentialsProvider.class,
+          NotebookNativeCredentialsProvider.class,
+          GoogleCredentialsCredentialsProvider.class,
+          GoogleIdCredentialsProvider.class);
+
+  private final List<CredentialsProvider> providers;
 
   private String authType = "default";
 
@@ -20,18 +34,20 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
   }
 
   public DefaultCredentialsProvider() {
-    providers =
-        Arrays.asList(
-            new PatCredentialsProvider(),
-            new BasicCredentialsProvider(),
-            new OAuthM2MServicePrincipalCredentialsProvider(),
-            new AzureServicePrincipalCredentialsProvider(),
-            new AzureCliCredentialsProvider(),
-            new ExternalBrowserCredentialsProvider(),
-            new DatabricksCliCredentialsProvider(),
-            new NotebookNativeCredentialsProvider(),
-            new GoogleCredentialsCredentialsProvider(),
-            new GoogleIdCredentialsProvider());
+    providers = new ArrayList<>();
+    for (Class<?> clazz : providerClasses) {
+      try {
+        providers.add((CredentialsProvider) clazz.newInstance());
+      } catch (NoClassDefFoundError | InstantiationException | IllegalAccessException e) {
+        LOG.warn(
+            "Failed to instantiate credentials provider: "
+                + clazz.getName()
+                + ", skipping. Cause: "
+                + e.getClass().getCanonicalName()
+                + ": "
+                + e.getMessage());
+      }
+    }
   }
 
   @Override
