@@ -8,8 +8,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ConfigAttribute {
-  String value();
-
   String env() default "";
 
   String auth() default "";

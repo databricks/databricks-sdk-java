@@ -5,16 +5,19 @@ import java.util.Map;
 import java.util.Objects;
 
 class ConfigAttributeAccessor {
-  private ConfigAttribute configAttribute;
-  private Field field;
+  private final ConfigAttribute configAttribute;
+  private final Field field;
+
+  private final String configFileAttribute;
 
   public ConfigAttributeAccessor(ConfigAttribute configAttribute, Field field) {
     this.configAttribute = configAttribute;
     this.field = field;
+    this.configFileAttribute = toSnakeCase(field.getName());
   }
 
   public String getName() {
-    return configAttribute.value();
+    return configFileAttribute;
   }
 
   public String getEnvVariable() {
@@ -57,7 +60,7 @@ class ConfigAttributeAccessor {
 
   @Override
   public String toString() {
-    String repr = configAttribute.value();
+    String repr = configFileAttribute;
     if (!Objects.equals(configAttribute.env(), "")) {
       repr += "(env: " + configAttribute.env() + ")";
     }
@@ -65,7 +68,19 @@ class ConfigAttributeAccessor {
   }
 
   public String getAsString(Object value) {
-    String valueToString = value.toString();
-    return valueToString;
+    return value.toString();
+  }
+
+  private String toSnakeCase(String name) {
+    StringBuilder snakeCase = new StringBuilder();
+    for (int i = 0; i < name.length(); i++) {
+      char c = name.charAt(i);
+      if (Character.isUpperCase(c)) {
+        snakeCase.append("_").append(Character.toLowerCase(c));
+      } else {
+        snakeCase.append(c);
+      }
+    }
+    return snakeCase.toString().toLowerCase();
   }
 }
