@@ -17,131 +17,104 @@ import org.apache.http.HttpMessage;
 public class DatabricksConfig {
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
-  @ConfigAttribute(value = "host", env = "DATABRICKS_HOST")
+  @ConfigAttribute(env = "DATABRICKS_HOST")
   private String host;
 
-  @ConfigAttribute(value = "account_id", env = "DATABRICKS_ACCOUNT_ID")
+  @ConfigAttribute(env = "DATABRICKS_ACCOUNT_ID")
   private String accountId;
 
-  @ConfigAttribute(value = "token", env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
+  @ConfigAttribute(env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
   private String token;
 
-  @ConfigAttribute(value = "client_id", env = "DATABRICKS_CLIENT_ID", auth = "oauth")
+  @ConfigAttribute(env = "DATABRICKS_CLIENT_ID", auth = "oauth")
   private String clientId;
 
-  @ConfigAttribute(
-      value = "client_secret",
-      env = "DATABRICKS_CLIENT_SECRET",
-      auth = "oauth",
-      sensitive = true)
+  @ConfigAttribute(env = "DATABRICKS_CLIENT_SECRET", auth = "oauth", sensitive = true)
   private String clientSecret;
 
-  @ConfigAttribute(value = "scopes", env = "DATABRICKS_SCOPES", auth = "oauth")
+  @ConfigAttribute(env = "DATABRICKS_SCOPES", auth = "oauth")
   private List<String> scopes;
 
-  @ConfigAttribute(value = "redirect_url", env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
+  @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
   private String redirectUrl;
 
-  @ConfigAttribute(value = "username", env = "DATABRICKS_USERNAME", auth = "basic")
+  @ConfigAttribute(env = "DATABRICKS_USERNAME", auth = "basic")
   private String username;
 
-  @ConfigAttribute(
-      value = "password",
-      env = "DATABRICKS_PASSWORD",
-      auth = "basic",
-      sensitive = true)
+  @ConfigAttribute(env = "DATABRICKS_PASSWORD", auth = "basic", sensitive = true)
   private String password;
 
   /** Connection profile specified within ~/.databrickscfg. */
-  @ConfigAttribute(value = "profile", env = "DATABRICKS_CONFIG_PROFILE")
+  @ConfigAttribute(env = "DATABRICKS_CONFIG_PROFILE")
   private String profile;
 
   /**
    * Location of the Databricks CLI credentials file, that is created by `databricks configure
    * --token` command. By default, it is located in ~/.databrickscfg.
    */
-  @ConfigAttribute(value = "config_file", env = "DATABRICKS_CONFIG_FILE")
+  @ConfigAttribute(env = "DATABRICKS_CONFIG_FILE")
   private String configFile;
 
-  @ConfigAttribute(value = "cluster_id", env = "DATABRICKS_CLUSTER_ID")
+  @ConfigAttribute(env = "DATABRICKS_CLUSTER_ID")
   private String clusterId;
 
-  @ConfigAttribute(
-      value = "google_service_account",
-      env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT",
-      auth = "google")
+  @ConfigAttribute(env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT", auth = "google")
   private String googleServiceAccount;
 
-  @ConfigAttribute(
-      value = "google_credentials",
-      env = "GOOGLE_CREDENTIALS",
-      auth = "google",
-      sensitive = true)
+  @ConfigAttribute(env = "GOOGLE_CREDENTIALS", auth = "google", sensitive = true)
   private String googleCredentials;
 
   /** Azure Resource Manager ID for Azure Databricks workspace, which is exchanged for a Host */
-  @ConfigAttribute(
-      value = "azure_workspace_resource_id",
-      env = "DATABRICKS_AZURE_RESOURCE_ID",
-      auth = "azure")
+  @ConfigAttribute(env = "DATABRICKS_AZURE_RESOURCE_ID", auth = "azure")
   private String azureWorkspaceResourceId;
 
-  @ConfigAttribute(value = "azure_use_msi", env = "ARM_USE_MSI", auth = "azure")
-  private Boolean azureUseMSI;
+  @ConfigAttribute(env = "ARM_USE_MSI", auth = "azure")
+  private Boolean azureUseMsi;
 
-  @ConfigAttribute(
-      value = "azure_client_secret",
-      env = "ARM_CLIENT_SECRET",
-      auth = "azure",
-      sensitive = true)
+  @ConfigAttribute(env = "ARM_CLIENT_SECRET", auth = "azure", sensitive = true)
   private String azureClientSecret;
 
-  @ConfigAttribute(value = "azure_client_id", env = "ARM_CLIENT_ID", auth = "azure")
+  @ConfigAttribute(env = "ARM_CLIENT_ID", auth = "azure")
   private String azureClientId;
 
-  @ConfigAttribute(value = "azure_tenant_id", env = "ARM_TENANT_ID", auth = "azure")
+  @ConfigAttribute(env = "ARM_TENANT_ID", auth = "azure")
   private String azureTenantId;
 
-  @ConfigAttribute(value = "azure_environment", env = "ARM_ENVIRONMENT")
+  @ConfigAttribute(env = "ARM_ENVIRONMENT")
   private String azureEnvironment;
 
-  @ConfigAttribute(
-      value = "azure_login_app_id",
-      env = "DATABRICKS_AZURE_LOGIN_APP_ID",
-      auth = "azure")
+  @ConfigAttribute(env = "DATABRICKS_AZURE_LOGIN_APP_ID", auth = "azure")
   private String azureLoginAppId;
 
-  @ConfigAttribute(value = "databricks_cli_path", env = "DATABRICKS_CLI_PATH")
+  @ConfigAttribute(env = "DATABRICKS_CLI_PATH")
   private String databricksCliPath;
 
   /**
    * When multiple auth attributes are available in the environment, use the auth type specified by
    * this argument. This argument also holds currently selected auth.
    */
-  @ConfigAttribute(value = "auth_type", env = "DATABRICKS_AUTH_TYPE")
+  @ConfigAttribute(env = "DATABRICKS_AUTH_TYPE")
   private String authType;
 
   /**
    * Skip SSL certificate verification for HTTP calls. Use at your own risk or for unit testing
    * purposes.
    */
-  @ConfigAttribute("skip_verify")
-  private Boolean skipVerify;
+  @ConfigAttribute() private Boolean skipVerify;
 
   /** Number of seconds for HTTP timeout */
-  @ConfigAttribute("http_timeout_seconds")
-  private Integer httpTimeoutSeconds;
+  @ConfigAttribute() private Integer httpTimeoutSeconds;
 
   /** Truncate JSON fields in JSON above this limit. Default is 96. */
-  @ConfigAttribute(value = "debug_truncate_bytes", env = "DATABRICKS_DEBUG_TRUNCATE_BYTES")
+  @ConfigAttribute(env = "DATABRICKS_DEBUG_TRUNCATE_BYTES")
   private Integer debugTruncateBytes;
 
   /** Debug HTTP headers of requests made by the provider. Default is false. */
-  @ConfigAttribute(value = "debug_headers", env = "DATABRICKS_DEBUG_HEADERS")
+  @ConfigAttribute(env = "DATABRICKS_DEBUG_HEADERS")
   private Boolean debugHeaders;
 
   /** Maximum number of requests per second made to Databricks REST API. */
-  @ConfigAttribute(value = "rate_limit", env = "DATABRICKS_RATE_LIMIT")
+  @ConfigAttribute(env = "DATABRICKS_RATE_LIMIT")
   private Integer rateLimit;
 
   private volatile boolean resolved;
@@ -361,12 +334,25 @@ public class DatabricksConfig {
     return this;
   }
 
-  public boolean isAzureUseMSI() {
-    return azureUseMSI;
+  public boolean getAzureUseMsi() {
+    return azureUseMsi;
   }
 
-  public DatabricksConfig setAzureUseMSI(boolean azureUseMSI) {
-    this.azureUseMSI = azureUseMSI;
+  public DatabricksConfig setAzureUseMsi(boolean azureUseMsi) {
+    this.azureUseMsi = azureUseMsi;
+    return this;
+  }
+
+  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  @Deprecated()
+  public boolean getAzureUseMSI() {
+    return azureUseMsi;
+  }
+
+  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  @Deprecated
+  public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
+    this.azureUseMsi = azureUseMsi;
     return this;
   }
 
