@@ -7,7 +7,7 @@ import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUtils {
+public class AzureCliCredentialsProvider implements CredentialsProvider {
   private final ObjectMapper mapper = new ObjectMapper();
   private static final Logger LOG = LoggerFactory.getLogger(AzureCliCredentialsProvider.class);
 
@@ -18,7 +18,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
     return AZURE_CLI;
   }
 
-  @Override
+
   public CliTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     List<String> cmd =
         new ArrayList<>(
@@ -72,7 +72,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
     }
 
     try {
-      ensureHostPresent(config, mapper);
+      AzureUtils.ensureHostPresent(config, mapper);
       String resource = config.getEffectiveAzureLoginAppId();
       CliTokenSource tokenSource = tokenSourceFor(config, resource);
       CliTokenSource mgmtTokenSource;
@@ -89,9 +89,9 @@ public class AzureCliCredentialsProvider implements CredentialsProvider, AzureUt
         Map<String, String> headers = new HashMap<>();
         headers.put("Authorization", token.getTokenType() + " " + token.getAccessToken());
         if (finalMgmtTokenSource != null) {
-          addSpManagementToken(finalMgmtTokenSource, headers);
+          AzureUtils.addSpManagementToken(finalMgmtTokenSource, headers);
         }
-        return addWorkspaceResourceId(config, headers);
+        return AzureUtils.addWorkspaceResourceId(config, headers);
       };
     } catch (DatabricksException e) {
       String stderr = e.getMessage();

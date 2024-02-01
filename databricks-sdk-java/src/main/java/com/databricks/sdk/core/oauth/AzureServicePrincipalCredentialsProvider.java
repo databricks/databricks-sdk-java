@@ -10,7 +10,7 @@ import java.util.Map;
  * Adds refreshed Azure Active Directory (AAD) Service Principal OAuth tokens to every request,
  * while automatically resolving different Azure environment endpoints.
  */
-public class AzureServicePrincipalCredentialsProvider implements CredentialsProvider, AzureUtils {
+public class AzureServicePrincipalCredentialsProvider implements CredentialsProvider {
   private final ObjectMapper mapper = new ObjectMapper();
 
   @Override
@@ -26,16 +26,16 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
         || config.getAzureTenantId() == null) {
       return null;
     }
-    ensureHostPresent(config, mapper);
-    RefreshableTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
+    AzureUtils.ensureHostPresent(config, mapper);
+    RefreshableTokenSource inner = AzureUtils.tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
     RefreshableTokenSource cloud =
-        tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
+        AzureUtils.tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
 
     return () -> {
       Map<String, String> headers = new HashMap<>();
       headers.put("Authorization", "Bearer " + inner.getToken().getAccessToken());
-      addWorkspaceResourceId(config, headers);
-      addSpManagementToken(cloud, headers);
+      AzureUtils.addWorkspaceResourceId(config, headers);
+      AzureUtils.addSpManagementToken(cloud, headers);
       return headers;
     };
   }

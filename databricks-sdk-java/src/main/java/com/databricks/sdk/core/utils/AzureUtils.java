@@ -8,14 +8,16 @@ import com.databricks.sdk.core.oauth.AuthParameterPosition;
 import com.databricks.sdk.core.oauth.ClientCredentials;
 import com.databricks.sdk.core.oauth.RefreshableTokenSource;
 import com.databricks.sdk.core.oauth.Token;
+import com.databricks.sdk.service.provisioning.Workspace;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
-public interface AzureUtils {
+public class AzureUtils {
 
   /**
    * Creates a RefreshableTokenSource for the specified Azure resource.
@@ -29,7 +31,7 @@ public interface AzureUtils {
    * @return A RefreshableTokenSource instance capable of fetching OAuth tokens for the specified
    *     Azure resource.
    */
-  default RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+  public static RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
     String tokenUrl = aadEndpoint + config.getAzureTenantId() + "/oauth2/token";
     Map<String, String> endpointParams = new HashMap<>();
@@ -44,7 +46,7 @@ public interface AzureUtils {
         .build();
   }
 
-  default String getWorkspaceFromJsonResponse(ObjectNode jsonResponse) throws IOException {
+  public static String getWorkspaceFromJsonResponse(ObjectNode jsonResponse) throws IOException {
     JsonNode properties = jsonResponse.get("properties");
     if (properties == null) {
       throw new IOException("Properties not found");
@@ -59,7 +61,7 @@ public interface AzureUtils {
   }
 
   /** Resolves Azure Databricks workspace URL from ARM Resource ID */
-  default void ensureHostPresent(DatabricksConfig config, ObjectMapper mapper) {
+  public static void ensureHostPresent(DatabricksConfig config, ObjectMapper mapper) {
     if (config.getHost() != null) {
       return;
     }
@@ -93,7 +95,7 @@ public interface AzureUtils {
     }
   }
 
-  default Map<String, String> addWorkspaceResourceId(
+  public static Map<String, String> addWorkspaceResourceId(
       DatabricksConfig config, Map<String, String> headers) {
     if (config.getAzureWorkspaceResourceId() != null) {
       headers.put("X-Databricks-Azure-Workspace-Resource-Id", config.getAzureWorkspaceResourceId());
@@ -101,9 +103,21 @@ public interface AzureUtils {
     return headers;
   }
 
-  default Map<String, String> addSpManagementToken(
+  public static Map<String, String> addSpManagementToken(
       RefreshableTokenSource tokenSource, Map<String, String> headers) {
     headers.put("X-Databricks-Azure-SP-Management-Token", tokenSource.getToken().getAccessToken());
     return headers;
+  }
+
+  public static Optional<String> getAzureWorkspaceResourceId(Workspace workspace) {
+    if (workspace.getAzureWorkspaceInfo() == null) {
+      return Optional.empty();
+    }
+
+    String resourceId = String.format("/subscriptions/%s/resourceGroups/%s/providers/Microsoft.Databricks/workspaces/%s",
+        workspace.getAzureWorkspaceInfo().getSubscriptionId(),
+        workspace.getAzureWorkspaceInfo().getResourceGroup(),
+        workspace.getWorkspaceName());
+    return Optional.of(resourceId);
   }
 }
