@@ -740,7 +740,8 @@ public class AccountClient {
   }
 
   public WorkspaceClient getWorkspaceClient(Workspace workspace) {
-    String host = this.config.getDatabricksEnvironment().getDeploymentUrl(workspace.getDeploymentName());
+    String host =
+        this.config.getDatabricksEnvironment().getDeploymentUrl(workspace.getDeploymentName());
     DatabricksConfig config = this.config.newWithWorkspaceHost(host);
     AzureUtils.getAzureWorkspaceResourceId(workspace).map(config::setAzureWorkspaceResourceId);
     return new WorkspaceClient(config);

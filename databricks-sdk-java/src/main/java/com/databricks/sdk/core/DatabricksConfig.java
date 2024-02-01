@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
-
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
@@ -346,13 +345,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
@@ -573,7 +576,8 @@ public class DatabricksConfig {
   }
 
   public DatabricksConfig newWithWorkspaceHost(String host) {
-    Set<String> fieldsToSkip = new HashSet<>(Arrays.asList("host", "accountId", "azureWorkspaceResourceId"));
+    Set<String> fieldsToSkip =
+        new HashSet<>(Arrays.asList("host", "accountId", "azureWorkspaceResourceId"));
     DatabricksConfig newConfig = new DatabricksConfig();
     for (Field f : DatabricksConfig.class.getDeclaredFields()) {
       if (fieldsToSkip.contains(f.getName())) {

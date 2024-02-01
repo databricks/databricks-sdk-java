@@ -26,10 +26,11 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
         || config.getAzureTenantId() == null) {
       return null;
     }
-    AzureUtils.ensureHostPresent(config, mapper);
-    RefreshableTokenSource inner = AzureUtils.tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
+    AzureUtils.ensureHostPresent(
+        config, mapper, AzureServicePrincipalCredentialsProvider::tokenSourceFor);
+    RefreshableTokenSource inner = tokenSourceFor(config, config.getEffectiveAzureLoginAppId());
     RefreshableTokenSource cloud =
-        AzureUtils.tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
+        tokenSourceFor(config, config.getAzureEnvironment().getServiceManagementEndpoint());
 
     return () -> {
       Map<String, String> headers = new HashMap<>();
@@ -38,5 +39,32 @@ public class AzureServicePrincipalCredentialsProvider implements CredentialsProv
       AzureUtils.addSpManagementToken(cloud, headers);
       return headers;
     };
+  }
+
+  /**
+   * Creates a RefreshableTokenSource for the specified Azure resource.
+   *
+   * <p>This function constructs a RefreshableTokenSource instance that fetches OAuth tokens for the
+   * given Azure resource. It uses the authentication parameters provided by the DatabricksConfig
+   * instance to generate the tokens.
+   *
+   * @param config The DatabricksConfig instance containing the required authentication parameters.
+   * @param resource The Azure resource for which OAuth tokens need to be fetched.
+   * @return A RefreshableTokenSource instance capable of fetching OAuth tokens for the specified
+   *     Azure resource.
+   */
+  private static RefreshableTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+    String aadEndpoint = config.getAzureEnvironment().getActiveDirectoryEndpoint();
+    String tokenUrl = aadEndpoint + config.getAzureTenantId() + "/oauth2/token";
+    Map<String, String> endpointParams = new HashMap<>();
+    endpointParams.put("resource", resource);
+    return new ClientCredentials.Builder()
+        .withHttpClient(config.getHttpClient())
+        .withClientId(config.getAzureClientId())
+        .withClientSecret(config.getAzureClientSecret())
+        .withTokenUrl(tokenUrl)
+        .withEndpointParameters(endpointParams)
+        .withAuthParameterPosition(AuthParameterPosition.BODY)
+        .build();
   }
 }

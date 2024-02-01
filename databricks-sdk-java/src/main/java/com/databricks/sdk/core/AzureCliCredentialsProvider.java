@@ -18,7 +18,6 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
     return AZURE_CLI;
   }
 
-
   public CliTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
     List<String> cmd =
         new ArrayList<>(
@@ -72,7 +71,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
     }
 
     try {
-      AzureUtils.ensureHostPresent(config, mapper);
+      AzureUtils.ensureHostPresent(config, mapper, this::tokenSourceFor);
       String resource = config.getEffectiveAzureLoginAppId();
       CliTokenSource tokenSource = tokenSourceFor(config, resource);
       CliTokenSource mgmtTokenSource;

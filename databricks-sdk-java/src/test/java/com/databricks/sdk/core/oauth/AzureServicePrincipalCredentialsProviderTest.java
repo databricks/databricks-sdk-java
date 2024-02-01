@@ -1,22 +1,15 @@
 package com.databricks.sdk.core.oauth;
 
-import static com.databricks.sdk.core.AzureEnvironment.ARM_DATABRICKS_RESOURCE_ID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
 
 import com.databricks.sdk.core.*;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.temporal.IsoFields;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -26,7 +19,8 @@ class AzureServicePrincipalCredentialsProviderTest {
 
   @Test
   void testGetToken() throws IOException {
-    AzureServicePrincipalCredentialsProvider provider = new AzureServicePrincipalCredentialsProvider();
+    AzureServicePrincipalCredentialsProvider provider =
+        new AzureServicePrincipalCredentialsProvider();
     HttpClient mockClient = Mockito.mock(HttpClient.class);
     Map<String, Object> response = new HashMap<>();
     response.put("access_token", TOKEN);

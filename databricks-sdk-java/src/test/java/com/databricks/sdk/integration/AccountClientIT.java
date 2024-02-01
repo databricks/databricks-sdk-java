@@ -5,10 +5,9 @@ import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.service.provisioning.Workspace;
+import java.util.Iterator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import java.util.Iterator;
 
 @EnvContext("account")
 @ExtendWith(EnvTest.class)
