@@ -536,6 +536,8 @@ public class DatabricksConfig {
   }
 
   public DatabricksEnvironment getDatabricksEnvironment() {
+    ConfigLoader.fixHostIfNeeded(this);
+
     if (this.databricksEnvironment != null) {
       return this.databricksEnvironment;
     }
