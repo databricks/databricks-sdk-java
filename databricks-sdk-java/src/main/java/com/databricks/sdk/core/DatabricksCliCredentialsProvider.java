@@ -38,7 +38,7 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     String host = config.getHost();
-    if (host == null || !config.isAws()) {
+    if (host == null) {
       return null;
     }
 
