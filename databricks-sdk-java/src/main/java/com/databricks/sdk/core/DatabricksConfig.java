@@ -83,9 +83,6 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "ARM_ENVIRONMENT")
   private String azureEnvironment;
 
-  @ConfigAttribute(env = "DATABRICKS_AZURE_LOGIN_APP_ID", auth = "azure")
-  private String azureLoginAppId;
-
   @ConfigAttribute(env = "DATABRICKS_CLI_PATH")
   private String databricksCliPath;
 
@@ -403,11 +400,7 @@ public class DatabricksConfig {
   }
 
   public String getEffectiveAzureLoginAppId() {
-    if (azureLoginAppId != null) {
-      return azureLoginAppId;
-    }
-
-    return AzureEnvironment.ARM_DATABRICKS_RESOURCE_ID;
+    return getDatabricksEnvironment().getAzureApplicationId();
   }
 
   public String getAuthType() {
