@@ -5,13 +5,13 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
+import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.lang.reflect.Field;
+import java.util.*;
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
@@ -83,9 +83,6 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "ARM_ENVIRONMENT")
   private String azureEnvironment;
 
-  @ConfigAttribute(env = "DATABRICKS_AZURE_LOGIN_APP_ID", auth = "azure")
-  private String azureLoginAppId;
-
   @ConfigAttribute(env = "DATABRICKS_CLI_PATH")
   private String databricksCliPath;
 
@@ -123,6 +120,8 @@ public class DatabricksConfig {
   private HttpClient httpClient;
 
   private Environment env;
+
+  private DatabricksEnvironment databricksEnvironment;
 
   public Environment getEnv() {
     return env;
@@ -397,11 +396,7 @@ public class DatabricksConfig {
   }
 
   public String getEffectiveAzureLoginAppId() {
-    if (azureLoginAppId != null) {
-      return azureLoginAppId;
-    }
-
-    return AzureEnvironment.ARM_DATABRICKS_RESOURCE_ID;
+    return getDatabricksEnvironment().getAzureApplicationId();
   }
 
   public String getAuthType() {
@@ -468,15 +463,7 @@ public class DatabricksConfig {
   }
 
   public boolean isAzure() {
-    if (azureWorkspaceResourceId != null) {
-      return true;
-    }
-    if (host == null) {
-      return false;
-    }
-    return host.contains(".azuredatabricks.net")
-        || host.contains("databricks.azure.cn")
-        || host.contains(".databricks.azure.us");
+    return this.getDatabricksEnvironment().getCloud() == Cloud.AZURE;
   }
 
   public synchronized void authenticate(HttpMessage request) {
@@ -487,17 +474,11 @@ public class DatabricksConfig {
   }
 
   public boolean isGcp() {
-    if (host == null) {
-      return false;
-    }
-    return host.contains(".gcp.databricks.com");
+    return this.getDatabricksEnvironment().getCloud() == Cloud.GCP;
   }
 
   public boolean isAws() {
-    if (host == null) {
-      return false;
-    }
-    return (!isAzure() && !isGcp());
+    return this.getDatabricksEnvironment().getCloud() == Cloud.AWS;
   }
 
   public boolean isAccountClient() {
@@ -539,5 +520,65 @@ public class DatabricksConfig {
   @Override
   public String toString() {
     return ConfigLoader.debugString(this);
+  }
+
+  public DatabricksConfig setDatabricksEnvironment(DatabricksEnvironment databricksEnvironment) {
+    this.databricksEnvironment = databricksEnvironment;
+    return this;
+  }
+
+  public DatabricksEnvironment getDatabricksEnvironment() {
+    ConfigLoader.fixHostIfNeeded(this);
+
+    if (this.databricksEnvironment != null) {
+      return this.databricksEnvironment;
+    }
+
+    if (this.host != null) {
+      for (DatabricksEnvironment env : DatabricksEnvironment.ALL_ENVIRONMENTS) {
+        if (this.host.endsWith(env.getDnsZone())) {
+          return env;
+        }
+      }
+    }
+
+    if (this.azureWorkspaceResourceId != null) {
+      String azureEnv = "PUBLIC";
+      if (this.azureEnvironment != null) {
+        azureEnv = this.azureEnvironment;
+      }
+      for (DatabricksEnvironment env : DatabricksEnvironment.ALL_ENVIRONMENTS) {
+        if (env.getCloud() != Cloud.AZURE) {
+          continue;
+        }
+        if (!env.getAzureEnvironment().getName().equals(azureEnv)) {
+          continue;
+        }
+        if (env.getDnsZone().startsWith(".dev") || env.getDnsZone().startsWith(".staging")) {
+          continue;
+        }
+        return env;
+      }
+    }
+
+    return DatabricksEnvironment.DEFAULT_ENVIRONMENT;
+  }
+
+  public DatabricksConfig newWithWorkspaceHost(String host) {
+    Set<String> fieldsToSkip =
+        new HashSet<>(Arrays.asList("host", "accountId", "azureWorkspaceResourceId"));
+    DatabricksConfig newConfig = new DatabricksConfig();
+    for (Field f : DatabricksConfig.class.getDeclaredFields()) {
+      if (fieldsToSkip.contains(f.getName())) {
+        continue;
+      }
+      try {
+        f.set(newConfig, f.get(this));
+      } catch (IllegalAccessException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    newConfig.setHost(host);
+    return newConfig;
   }
 }

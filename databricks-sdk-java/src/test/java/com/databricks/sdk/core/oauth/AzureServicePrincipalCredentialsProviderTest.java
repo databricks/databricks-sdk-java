@@ -1,60 +1,48 @@
 package com.databricks.sdk.core.oauth;
 
-import static com.databricks.sdk.core.AzureEnvironment.ARM_DATABRICKS_RESOURCE_ID;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
 
 import com.databricks.sdk.core.*;
-import java.time.LocalDateTime;
-import java.time.temporal.IsoFields;
+import com.databricks.sdk.core.http.HttpClient;
+import com.databricks.sdk.core.http.Response;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 class AzureServicePrincipalCredentialsProviderTest {
   private static final String TOKEN = "t-123";
   private static final String TOKEN_TYPE = "token-type";
-  public static final String PUBLIC_MANAGEMENT_ENDPOINT = "https://management.core.windows.net/";
-
-  private static RefreshableTokenSource mockTokenSource() {
-    RefreshableTokenSource tokenSource = Mockito.mock(RefreshableTokenSource.class);
-    Mockito.when(tokenSource.getToken())
-        .thenReturn(
-            new Token(TOKEN, TOKEN_TYPE, LocalDateTime.now().plus(1, IsoFields.WEEK_BASED_YEARS)));
-    return tokenSource;
-  }
-
-  private static AzureServicePrincipalCredentialsProvider
-      getAzureServicePrincipalCredentialsProvider(RefreshableTokenSource tokenSource) {
-    AzureServicePrincipalCredentialsProvider provider =
-        Mockito.spy(new AzureServicePrincipalCredentialsProvider());
-    Mockito.doReturn(tokenSource)
-        .when(provider)
-        .tokenSourceFor(any(), eq(ARM_DATABRICKS_RESOURCE_ID));
-    Mockito.doReturn(tokenSource)
-        .when(provider)
-        .tokenSourceFor(any(), eq(PUBLIC_MANAGEMENT_ENDPOINT));
-    return provider;
-  }
 
   @Test
-  void testGetToken() {
+  void testGetToken() throws IOException {
     AzureServicePrincipalCredentialsProvider provider =
-        getAzureServicePrincipalCredentialsProvider(mockTokenSource());
+        new AzureServicePrincipalCredentialsProvider();
+    HttpClient mockClient = Mockito.mock(HttpClient.class);
+    Map<String, Object> response = new HashMap<>();
+    response.put("access_token", TOKEN);
+    response.put("token_type", TOKEN_TYPE);
+    response.put("expires_in", 360);
+    String responseJson = new ObjectMapper().writeValueAsString(response);
+    System.out.println(responseJson);
+    Mockito.when(mockClient.execute(any()))
+        .thenReturn(new Response(responseJson))
+        .thenReturn(new Response(responseJson));
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost(".azuredatabricks.net")
             .setCredentialsProvider(provider)
             .setAzureClientId("clientID")
             .setAzureClientSecret("clientSecret")
-            .setAzureTenantId("tenantID");
+            .setAzureTenantId("tenantID")
+            .setHttpClient(mockClient);
 
     HeaderFactory header = provider.configure(config);
 
     String token = header.headers().get("Authorization");
     assertEquals(token, "Bearer " + TOKEN);
-    Mockito.verify(provider, times(1)).tokenSourceFor(any(), eq(ARM_DATABRICKS_RESOURCE_ID));
-    Mockito.verify(provider, times(1)).tokenSourceFor(any(), eq(PUBLIC_MANAGEMENT_ENDPOINT));
   }
 }

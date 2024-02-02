@@ -5,6 +5,7 @@ package com.databricks.sdk;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.utils.AzureUtils;
 import com.databricks.sdk.service.billing.BillableUsageAPI;
 import com.databricks.sdk.service.billing.BillableUsageService;
 import com.databricks.sdk.service.billing.BudgetsAPI;
@@ -35,20 +36,7 @@ import com.databricks.sdk.service.oauth2.PublishedAppIntegrationAPI;
 import com.databricks.sdk.service.oauth2.PublishedAppIntegrationService;
 import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsAPI;
 import com.databricks.sdk.service.oauth2.ServicePrincipalSecretsService;
-import com.databricks.sdk.service.provisioning.CredentialsAPI;
-import com.databricks.sdk.service.provisioning.CredentialsService;
-import com.databricks.sdk.service.provisioning.EncryptionKeysAPI;
-import com.databricks.sdk.service.provisioning.EncryptionKeysService;
-import com.databricks.sdk.service.provisioning.NetworksAPI;
-import com.databricks.sdk.service.provisioning.NetworksService;
-import com.databricks.sdk.service.provisioning.PrivateAccessAPI;
-import com.databricks.sdk.service.provisioning.PrivateAccessService;
-import com.databricks.sdk.service.provisioning.StorageAPI;
-import com.databricks.sdk.service.provisioning.StorageService;
-import com.databricks.sdk.service.provisioning.VpcEndpointsAPI;
-import com.databricks.sdk.service.provisioning.VpcEndpointsService;
-import com.databricks.sdk.service.provisioning.WorkspacesAPI;
-import com.databricks.sdk.service.provisioning.WorkspacesService;
+import com.databricks.sdk.service.provisioning.*;
 import com.databricks.sdk.service.settings.AccountIpAccessListsAPI;
 import com.databricks.sdk.service.settings.AccountIpAccessListsService;
 import com.databricks.sdk.service.settings.AccountSettingsAPI;
@@ -749,5 +737,13 @@ public class AccountClient {
 
   public DatabricksConfig config() {
     return config;
+  }
+
+  public WorkspaceClient getWorkspaceClient(Workspace workspace) {
+    String host =
+        this.config.getDatabricksEnvironment().getDeploymentUrl(workspace.getDeploymentName());
+    DatabricksConfig config = this.config.newWithWorkspaceHost(host);
+    AzureUtils.getAzureWorkspaceResourceId(workspace).map(config::setAzureWorkspaceResourceId);
+    return new WorkspaceClient(config);
   }
 }

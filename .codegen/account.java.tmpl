@@ -5,6 +5,8 @@ package com.databricks.sdk;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.utils.AzureUtils;
+import com.databricks.sdk.service.provisioning.*;
 {{range .Services}}{{if .IsAccounts}}
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}API;
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;{{end}}{{end}}
@@ -62,5 +64,12 @@ public class AccountClient {
 
   public DatabricksConfig config() {
     return config;
+  }
+
+  public WorkspaceClient getWorkspaceClient(Workspace workspace) {
+    String host = this.config.getDatabricksEnvironment().getDeploymentUrl(workspace.getDeploymentName());
+    DatabricksConfig config = this.config.newWithWorkspaceHost(host);
+    AzureUtils.getAzureWorkspaceResourceId(workspace).map(config::setAzureWorkspaceResourceId);
+    return new WorkspaceClient(config);
   }
 }
