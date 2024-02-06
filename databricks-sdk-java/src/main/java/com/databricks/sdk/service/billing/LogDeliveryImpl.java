@@ -33,7 +33,7 @@ class LogDeliveryImpl implements LogDeliveryService {
             apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, WrappedLogDeliveryConfiguration.class, headers);
+    return apiClient.GET(path, null, WrappedLogDeliveryConfiguration.class, headers);
   }
 
   @Override
@@ -42,7 +42,7 @@ class LogDeliveryImpl implements LogDeliveryService {
         String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, WrappedLogDeliveryConfigurations.class, headers);
+    return apiClient.GET(path, null, WrappedLogDeliveryConfigurations.class, headers);
   }
 
   @Override

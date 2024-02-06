@@ -29,7 +29,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/preview/apps/instances/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteAppResponse.class, headers);
+    return apiClient.DELETE(path, null, DeleteAppResponse.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/preview/apps/instances/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetAppResponse.class, headers);
+    return apiClient.GET(path, null, GetAppResponse.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/preview/apps/deployments/%s", request.getDeploymentId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, DeploymentStatus.class, headers);
+    return apiClient.GET(path, null, DeploymentStatus.class, headers);
   }
 
   @Override
@@ -61,6 +61,6 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/preview/apps/%s/events", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAppEventsResponse.class, headers);
+    return apiClient.GET(path, null, ListAppEventsResponse.class, headers);
   }
 }

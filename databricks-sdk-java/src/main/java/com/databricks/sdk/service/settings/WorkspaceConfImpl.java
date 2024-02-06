@@ -20,7 +20,7 @@ class WorkspaceConfImpl implements WorkspaceConfService {
     String path = "/api/2.0/workspace-conf";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.getStringMap(path, request, headers);
+    return apiClient.getStringMap(path, null, headers);
   }
 
   @Override

@@ -23,7 +23,7 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
             request.getObjectType(), request.getObjectId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetResponse.class, headers);
+    return apiClient.GET(path, null, GetResponse.class, headers);
   }
 
   @Override

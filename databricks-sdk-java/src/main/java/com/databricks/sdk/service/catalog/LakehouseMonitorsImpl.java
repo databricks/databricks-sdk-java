@@ -28,7 +28,7 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
   public void delete(DeleteLakehouseMonitorRequest request) {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getFullName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, MonitorInfo.class, headers);
+    return apiClient.GET(path, null, MonitorInfo.class, headers);
   }
 
   @Override

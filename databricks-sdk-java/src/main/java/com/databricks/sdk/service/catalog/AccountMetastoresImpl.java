@@ -32,7 +32,7 @@ class AccountMetastoresImpl implements AccountMetastoresService {
             apiClient.configuredAccountID(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -43,7 +43,7 @@ class AccountMetastoresImpl implements AccountMetastoresService {
             apiClient.configuredAccountID(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AccountsMetastoreInfo.class, headers);
+    return apiClient.GET(path, null, AccountsMetastoreInfo.class, headers);
   }
 
   @Override

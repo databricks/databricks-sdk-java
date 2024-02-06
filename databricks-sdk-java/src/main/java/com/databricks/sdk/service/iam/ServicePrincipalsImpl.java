@@ -28,7 +28,7 @@ class ServicePrincipalsImpl implements ServicePrincipalsService {
   public void delete(DeleteServicePrincipalRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class ServicePrincipalsImpl implements ServicePrincipalsService {
     String path = String.format("/api/2.0/preview/scim/v2/ServicePrincipals/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ServicePrincipal.class, headers);
+    return apiClient.GET(path, null, ServicePrincipal.class, headers);
   }
 
   @Override
@@ -44,7 +44,7 @@ class ServicePrincipalsImpl implements ServicePrincipalsService {
     String path = "/api/2.0/preview/scim/v2/ServicePrincipals";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListServicePrincipalResponse.class, headers);
+    return apiClient.GET(path, null, ListServicePrincipalResponse.class, headers);
   }
 
   @Override

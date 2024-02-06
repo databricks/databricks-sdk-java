@@ -29,7 +29,7 @@ class QueryVisualizationsImpl implements QueryVisualizationsService {
     String path = String.format("/api/2.0/preview/sql/visualizations/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override

@@ -28,7 +28,7 @@ class UsersImpl implements UsersService {
   public void delete(DeleteUserRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class UsersImpl implements UsersService {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, User.class, headers);
+    return apiClient.GET(path, null, User.class, headers);
   }
 
   @Override
@@ -60,7 +60,7 @@ class UsersImpl implements UsersService {
     String path = "/api/2.0/preview/scim/v2/Users";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListUsersResponse.class, headers);
+    return apiClient.GET(path, null, ListUsersResponse.class, headers);
   }
 
   @Override

@@ -29,7 +29,7 @@ class ProvidersImpl implements ProvidersService {
     String path = String.format("/api/2.1/unity-catalog/providers/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class ProvidersImpl implements ProvidersService {
     String path = String.format("/api/2.1/unity-catalog/providers/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ProviderInfo.class, headers);
+    return apiClient.GET(path, null, ProviderInfo.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class ProvidersImpl implements ProvidersService {
     String path = "/api/2.1/unity-catalog/providers";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListProvidersResponse.class, headers);
+    return apiClient.GET(path, null, ListProvidersResponse.class, headers);
   }
 
   @Override
@@ -53,7 +53,7 @@ class ProvidersImpl implements ProvidersService {
     String path = String.format("/api/2.1/unity-catalog/providers/%s/shares", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListProviderSharesResponse.class, headers);
+    return apiClient.GET(path, null, ListProviderSharesResponse.class, headers);
   }
 
   @Override

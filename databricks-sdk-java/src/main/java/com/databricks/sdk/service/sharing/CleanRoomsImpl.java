@@ -29,7 +29,7 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = String.format("/api/2.1/unity-catalog/clean-rooms/%s", request.getNameArg());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = String.format("/api/2.1/unity-catalog/clean-rooms/%s", request.getNameArg());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, CleanRoomInfo.class, headers);
+    return apiClient.GET(path, null, CleanRoomInfo.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = "/api/2.1/unity-catalog/clean-rooms";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListCleanRoomsResponse.class, headers);
+    return apiClient.GET(path, null, ListCleanRoomsResponse.class, headers);
   }
 
   @Override

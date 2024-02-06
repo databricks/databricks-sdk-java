@@ -24,7 +24,7 @@ class AccountSettingsImpl implements AccountSettingsService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeletePersonalComputeSettingResponse.class, headers);
+    return apiClient.DELETE(path, null, DeletePersonalComputeSettingResponse.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class AccountSettingsImpl implements AccountSettingsService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, PersonalComputeSetting.class, headers);
+    return apiClient.GET(path, null, PersonalComputeSetting.class, headers);
   }
 
   @Override

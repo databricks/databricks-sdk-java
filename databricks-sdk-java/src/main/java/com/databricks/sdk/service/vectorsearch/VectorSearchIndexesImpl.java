@@ -37,7 +37,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
   public void deleteIndex(DeleteIndexRequest request) {
     String path = String.format("/api/2.0/vector-search/indexes/%s", request.getIndexName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = String.format("/api/2.0/vector-search/indexes/%s", request.getIndexName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, VectorIndex.class, headers);
+    return apiClient.GET(path, null, VectorIndex.class, headers);
   }
 
   @Override
@@ -53,7 +53,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = "/api/2.0/vector-search/indexes";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListVectorIndexesResponse.class, headers);
+    return apiClient.GET(path, null, ListVectorIndexesResponse.class, headers);
   }
 
   @Override
@@ -69,7 +69,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
   public void syncIndex(SyncIndexRequest request) {
     String path = String.format("/api/2.0/vector-search/indexes/%s/sync", request.getIndexName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, null, Void.class, headers);
   }
 
   @Override

@@ -28,7 +28,7 @@ class ReposImpl implements ReposService {
   public void delete(DeleteRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class ReposImpl implements ReposService {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, RepoInfo.class, headers);
+    return apiClient.GET(path, null, RepoInfo.class, headers);
   }
 
   @Override
@@ -46,7 +46,7 @@ class ReposImpl implements ReposService {
         String.format("/api/2.0/permissions/repos/%s/permissionLevels", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetRepoPermissionLevelsResponse.class, headers);
+    return apiClient.GET(path, null, GetRepoPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -54,7 +54,7 @@ class ReposImpl implements ReposService {
     String path = String.format("/api/2.0/permissions/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, RepoPermissions.class, headers);
+    return apiClient.GET(path, null, RepoPermissions.class, headers);
   }
 
   @Override
@@ -62,7 +62,7 @@ class ReposImpl implements ReposService {
     String path = "/api/2.0/repos";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListReposResponse.class, headers);
+    return apiClient.GET(path, null, ListReposResponse.class, headers);
   }
 
   @Override

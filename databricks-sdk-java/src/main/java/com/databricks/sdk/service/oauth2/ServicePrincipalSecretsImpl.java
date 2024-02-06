@@ -23,7 +23,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.POST(path, request, CreateServicePrincipalSecretResponse.class, headers);
+    return apiClient.POST(path, null, CreateServicePrincipalSecretResponse.class, headers);
   }
 
   @Override
@@ -35,7 +35,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             request.getServicePrincipalId(),
             request.getSecretId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -46,6 +46,6 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListServicePrincipalSecretsResponse.class, headers);
+    return apiClient.GET(path, null, ListServicePrincipalSecretsResponse.class, headers);
   }
 }

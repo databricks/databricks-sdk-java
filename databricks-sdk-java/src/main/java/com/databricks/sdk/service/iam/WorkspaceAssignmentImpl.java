@@ -23,7 +23,7 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -34,7 +34,7 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
             apiClient.configuredAccountID(), request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, WorkspacePermissions.class, headers);
+    return apiClient.GET(path, null, WorkspacePermissions.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
             apiClient.configuredAccountID(), request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, PermissionAssignments.class, headers);
+    return apiClient.GET(path, null, PermissionAssignments.class, headers);
   }
 
   @Override

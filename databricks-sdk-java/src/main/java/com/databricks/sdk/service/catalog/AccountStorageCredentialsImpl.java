@@ -38,7 +38,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             request.getStorageCredentialName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -51,7 +51,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             request.getStorageCredentialName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AccountsStorageCredentialInfo.class, headers);
+    return apiClient.GET(path, null, AccountsStorageCredentialInfo.class, headers);
   }
 
   @Override

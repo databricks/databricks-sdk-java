@@ -19,7 +19,7 @@ class StatementExecutionImpl implements StatementExecutionService {
   public void cancelExecution(CancelExecutionRequest request) {
     String path = String.format("/api/2.0/sql/statements/%s/cancel", request.getStatementId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, null, Void.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class StatementExecutionImpl implements StatementExecutionService {
     String path = String.format("/api/2.0/sql/statements/%s", request.getStatementId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetStatementResponse.class, headers);
+    return apiClient.GET(path, null, GetStatementResponse.class, headers);
   }
 
   @Override
@@ -47,6 +47,6 @@ class StatementExecutionImpl implements StatementExecutionService {
             request.getStatementId(), request.getChunkIndex());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ResultData.class, headers);
+    return apiClient.GET(path, null, ResultData.class, headers);
   }
 }

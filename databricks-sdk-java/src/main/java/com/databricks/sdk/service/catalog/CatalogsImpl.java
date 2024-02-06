@@ -29,7 +29,7 @@ class CatalogsImpl implements CatalogsService {
     String path = String.format("/api/2.1/unity-catalog/catalogs/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class CatalogsImpl implements CatalogsService {
     String path = String.format("/api/2.1/unity-catalog/catalogs/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, CatalogInfo.class, headers);
+    return apiClient.GET(path, null, CatalogInfo.class, headers);
   }
 
   @Override

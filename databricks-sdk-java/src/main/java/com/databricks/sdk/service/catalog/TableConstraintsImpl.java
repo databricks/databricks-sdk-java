@@ -29,6 +29,6 @@ class TableConstraintsImpl implements TableConstraintsService {
     String path = String.format("/api/2.1/unity-catalog/constraints/%s", request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, null, Void.class, headers);
   }
 }

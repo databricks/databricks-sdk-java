@@ -52,7 +52,11 @@ apiClient.{{.Verb}}(path
 {{- end }}
 
 {{ define "request-param" -}}
+  {{- if and .Operation .Operation.RequestBody -}}
   request{{ if .RequestBodyField }}.get{{.RequestBodyField.PascalName}}(){{end}}
+  {{- else -}}
+  null
+  {{- end -}}
 {{- end }}
 
 {{ define "headers" -}}
