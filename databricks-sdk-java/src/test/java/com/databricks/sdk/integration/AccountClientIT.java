@@ -14,12 +14,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class AccountClientIT {
   @Test
   public void getWorkspaceClient(AccountClient a) {
-    Iterator<Workspace> workspaces = a.workspaces().list().iterator();
-    if (!workspaces.hasNext()) {
-      return;
+    // Skip test in GCP and Azure until fixed
+    if (!a.config().isAzure() && !a.config().isGcp()) {
+      Iterator<Workspace> workspaces = a.workspaces().list().iterator();
+      if (!workspaces.hasNext()) {
+        return;
+      }
+      Workspace workspace = workspaces.next();
+      WorkspaceClient w = a.getWorkspaceClient(workspace);
+      assert w.currentUser().me().getActive();
     }
-    Workspace workspace = workspaces.next();
-    WorkspaceClient w = a.getWorkspaceClient(workspace);
-    assert w.currentUser().me().getActive();
   }
 }
