@@ -29,7 +29,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/export";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ExportResponse.class, headers);
+    return apiClient.GET(path, request, ExportResponse.class, headers);
   }
 
   @Override
@@ -41,7 +41,7 @@ class WorkspaceImpl implements WorkspaceService {
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetWorkspaceObjectPermissionLevelsResponse.class, headers);
+    return apiClient.GET(path, request, GetWorkspaceObjectPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -52,7 +52,7 @@ class WorkspaceImpl implements WorkspaceService {
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, WorkspaceObjectPermissions.class, headers);
+    return apiClient.GET(path, request, WorkspaceObjectPermissions.class, headers);
   }
 
   @Override
@@ -60,7 +60,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/get-status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ObjectInfo.class, headers);
+    return apiClient.GET(path, request, ObjectInfo.class, headers);
   }
 
   @Override
@@ -77,7 +77,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListResponse.class, headers);
+    return apiClient.GET(path, request, ListResponse.class, headers);
   }
 
   @Override

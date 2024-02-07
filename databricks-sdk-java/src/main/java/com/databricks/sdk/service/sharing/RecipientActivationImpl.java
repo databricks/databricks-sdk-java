@@ -23,7 +23,7 @@ class RecipientActivationImpl implements RecipientActivationService {
             request.getActivationUrl());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.GET(path, null, Void.class, headers);
+    apiClient.GET(path, request, Void.class, headers);
   }
 
   @Override
@@ -33,6 +33,6 @@ class RecipientActivationImpl implements RecipientActivationService {
             "/api/2.1/unity-catalog/public/data_sharing_activation/%s", request.getActivationUrl());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, RetrieveTokenResponse.class, headers);
+    return apiClient.GET(path, request, RetrieveTokenResponse.class, headers);
   }
 }

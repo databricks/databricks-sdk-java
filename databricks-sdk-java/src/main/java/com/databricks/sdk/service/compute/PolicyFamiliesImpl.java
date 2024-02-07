@@ -20,7 +20,7 @@ class PolicyFamiliesImpl implements PolicyFamiliesService {
     String path = String.format("/api/2.0/policy-families/%s", request.getPolicyFamilyId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, PolicyFamily.class, headers);
+    return apiClient.GET(path, request, PolicyFamily.class, headers);
   }
 
   @Override
@@ -28,6 +28,6 @@ class PolicyFamiliesImpl implements PolicyFamiliesService {
     String path = "/api/2.0/policy-families";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListPolicyFamiliesResponse.class, headers);
+    return apiClient.GET(path, request, ListPolicyFamiliesResponse.class, headers);
   }
 }

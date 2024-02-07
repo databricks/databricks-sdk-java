@@ -74,7 +74,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/get-by-name";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetExperimentResponse.class, headers);
+    return apiClient.GET(path, request, GetExperimentResponse.class, headers);
   }
 
   @Override
@@ -82,7 +82,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetExperimentResponse.class, headers);
+    return apiClient.GET(path, request, GetExperimentResponse.class, headers);
   }
 
   @Override
@@ -90,7 +90,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/metrics/get-history";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetMetricHistoryResponse.class, headers);
+    return apiClient.GET(path, request, GetMetricHistoryResponse.class, headers);
   }
 
   @Override
@@ -101,7 +101,7 @@ class ExperimentsImpl implements ExperimentsService {
             "/api/2.0/permissions/experiments/%s/permissionLevels", request.getExperimentId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetExperimentPermissionLevelsResponse.class, headers);
+    return apiClient.GET(path, request, GetExperimentPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -109,7 +109,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ExperimentPermissions.class, headers);
+    return apiClient.GET(path, request, ExperimentPermissions.class, headers);
   }
 
   @Override
@@ -117,7 +117,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetRunResponse.class, headers);
+    return apiClient.GET(path, request, GetRunResponse.class, headers);
   }
 
   @Override
@@ -125,7 +125,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/artifacts/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListArtifactsResponse.class, headers);
+    return apiClient.GET(path, request, ListArtifactsResponse.class, headers);
   }
 
   @Override
@@ -133,7 +133,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListExperimentsResponse.class, headers);
+    return apiClient.GET(path, request, ListExperimentsResponse.class, headers);
   }
 
   @Override

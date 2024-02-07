@@ -34,7 +34,7 @@ class CredentialsImpl implements CredentialsService {
             apiClient.configuredAccountID(), request.getCredentialsId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class CredentialsImpl implements CredentialsService {
             apiClient.configuredAccountID(), request.getCredentialsId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, Credential.class, headers);
+    return apiClient.GET(path, request, Credential.class, headers);
   }
 
   @Override

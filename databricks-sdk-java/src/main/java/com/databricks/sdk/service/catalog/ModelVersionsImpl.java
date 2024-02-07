@@ -22,7 +22,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             "/api/2.1/unity-catalog/models/%s/versions/%s",
             request.getFullName(), request.getVersion());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -33,7 +33,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getVersion());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, RegisteredModelInfo.class, headers);
+    return apiClient.GET(path, request, RegisteredModelInfo.class, headers);
   }
 
   @Override
@@ -44,7 +44,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getAlias());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ModelVersionInfo.class, headers);
+    return apiClient.GET(path, request, ModelVersionInfo.class, headers);
   }
 
   @Override
@@ -52,7 +52,7 @@ class ModelVersionsImpl implements ModelVersionsService {
     String path = String.format("/api/2.1/unity-catalog/models/%s/versions", request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListModelVersionsResponse.class, headers);
+    return apiClient.GET(path, request, ListModelVersionsResponse.class, headers);
   }
 
   @Override

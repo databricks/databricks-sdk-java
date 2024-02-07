@@ -35,7 +35,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -46,7 +46,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetPublishedAppIntegrationOutput.class, headers);
+    return apiClient.GET(path, request, GetPublishedAppIntegrationOutput.class, headers);
   }
 
   @Override

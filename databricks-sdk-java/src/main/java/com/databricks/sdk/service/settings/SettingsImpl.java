@@ -21,7 +21,7 @@ class SettingsImpl implements SettingsService {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, null, DeleteDefaultWorkspaceNamespaceResponse.class, headers);
+    return apiClient.DELETE(path, request, DeleteDefaultWorkspaceNamespaceResponse.class, headers);
   }
 
   @Override
@@ -30,7 +30,7 @@ class SettingsImpl implements SettingsService {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, DefaultNamespaceSetting.class, headers);
+    return apiClient.GET(path, request, DefaultNamespaceSetting.class, headers);
   }
 
   @Override

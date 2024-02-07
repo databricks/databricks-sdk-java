@@ -47,7 +47,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
     String path = "/api/2.0/policies/clusters/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, Policy.class, headers);
+    return apiClient.GET(path, request, Policy.class, headers);
   }
 
   @Override
@@ -59,7 +59,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
             request.getClusterPolicyId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetClusterPolicyPermissionLevelsResponse.class, headers);
+    return apiClient.GET(path, request, GetClusterPolicyPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -68,7 +68,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
         String.format("/api/2.0/permissions/cluster-policies/%s", request.getClusterPolicyId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ClusterPolicyPermissions.class, headers);
+    return apiClient.GET(path, request, ClusterPolicyPermissions.class, headers);
   }
 
   @Override
@@ -76,7 +76,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
     String path = "/api/2.0/policies/clusters/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListPoliciesResponse.class, headers);
+    return apiClient.GET(path, request, ListPoliciesResponse.class, headers);
   }
 
   @Override

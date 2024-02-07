@@ -29,7 +29,7 @@ class SchemasImpl implements SchemasService {
     String path = String.format("/api/2.1/unity-catalog/schemas/%s", request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class SchemasImpl implements SchemasService {
     String path = String.format("/api/2.1/unity-catalog/schemas/%s", request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, SchemaInfo.class, headers);
+    return apiClient.GET(path, request, SchemaInfo.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class SchemasImpl implements SchemasService {
     String path = "/api/2.1/unity-catalog/schemas";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListSchemasResponse.class, headers);
+    return apiClient.GET(path, request, ListSchemasResponse.class, headers);
   }
 
   @Override

@@ -33,7 +33,7 @@ class NetworksImpl implements NetworksService {
             apiClient.configuredAccountID(), request.getNetworkId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -44,7 +44,7 @@ class NetworksImpl implements NetworksService {
             apiClient.configuredAccountID(), request.getNetworkId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, Network.class, headers);
+    return apiClient.GET(path, request, Network.class, headers);
   }
 
   @Override

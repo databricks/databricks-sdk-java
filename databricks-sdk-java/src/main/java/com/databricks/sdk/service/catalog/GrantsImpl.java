@@ -23,7 +23,7 @@ class GrantsImpl implements GrantsService {
             request.getSecurableType(), request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, PermissionsList.class, headers);
+    return apiClient.GET(path, request, PermissionsList.class, headers);
   }
 
   @Override
@@ -34,7 +34,7 @@ class GrantsImpl implements GrantsService {
             request.getSecurableType(), request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, EffectivePermissionsList.class, headers);
+    return apiClient.GET(path, request, EffectivePermissionsList.class, headers);
   }
 
   @Override

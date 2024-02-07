@@ -29,7 +29,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -46,7 +46,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetWarehouseResponse.class, headers);
+    return apiClient.GET(path, request, GetWarehouseResponse.class, headers);
   }
 
   @Override
@@ -57,7 +57,7 @@ class WarehousesImpl implements WarehousesService {
             "/api/2.0/permissions/warehouses/%s/permissionLevels", request.getWarehouseId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetWarehousePermissionLevelsResponse.class, headers);
+    return apiClient.GET(path, request, GetWarehousePermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -65,7 +65,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/permissions/warehouses/%s", request.getWarehouseId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, WarehousePermissions.class, headers);
+    return apiClient.GET(path, request, WarehousePermissions.class, headers);
   }
 
   @Override
@@ -81,7 +81,7 @@ class WarehousesImpl implements WarehousesService {
     String path = "/api/2.0/sql/warehouses";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListWarehousesResponse.class, headers);
+    return apiClient.GET(path, request, ListWarehousesResponse.class, headers);
   }
 
   @Override

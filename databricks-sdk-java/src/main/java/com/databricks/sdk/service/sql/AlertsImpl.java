@@ -30,7 +30,7 @@ class AlertsImpl implements AlertsService {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -38,7 +38,7 @@ class AlertsImpl implements AlertsService {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, Alert.class, headers);
+    return apiClient.GET(path, request, Alert.class, headers);
   }
 
   @Override

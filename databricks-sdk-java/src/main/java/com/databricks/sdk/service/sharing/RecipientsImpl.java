@@ -29,7 +29,7 @@ class RecipientsImpl implements RecipientsService {
     String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class RecipientsImpl implements RecipientsService {
     String path = String.format("/api/2.1/unity-catalog/recipients/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, RecipientInfo.class, headers);
+    return apiClient.GET(path, request, RecipientInfo.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class RecipientsImpl implements RecipientsService {
     String path = "/api/2.1/unity-catalog/recipients";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListRecipientsResponse.class, headers);
+    return apiClient.GET(path, request, ListRecipientsResponse.class, headers);
   }
 
   @Override
@@ -64,7 +64,7 @@ class RecipientsImpl implements RecipientsService {
         String.format("/api/2.1/unity-catalog/recipients/%s/share-permissions", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetRecipientSharePermissionsResponse.class, headers);
+    return apiClient.GET(path, request, GetRecipientSharePermissionsResponse.class, headers);
   }
 
   @Override

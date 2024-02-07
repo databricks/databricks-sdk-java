@@ -34,7 +34,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
             apiClient.configuredAccountID(), request.getVpcEndpointId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
             apiClient.configuredAccountID(), request.getVpcEndpointId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, VpcEndpoint.class, headers);
+    return apiClient.GET(path, request, VpcEndpoint.class, headers);
   }
 
   @Override

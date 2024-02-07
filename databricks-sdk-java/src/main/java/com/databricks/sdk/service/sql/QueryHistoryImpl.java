@@ -20,6 +20,6 @@ class QueryHistoryImpl implements QueryHistoryService {
     String path = "/api/2.0/sql/history/queries";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListQueriesResponse.class, headers);
+    return apiClient.GET(path, request, ListQueriesResponse.class, headers);
   }
 }

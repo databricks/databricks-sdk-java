@@ -29,7 +29,7 @@ class TokenManagementImpl implements TokenManagementService {
     String path = String.format("/api/2.0/token-management/tokens/%s", request.getTokenId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class TokenManagementImpl implements TokenManagementService {
     String path = String.format("/api/2.0/token-management/tokens/%s", request.getTokenId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetTokenResponse.class, headers);
+    return apiClient.GET(path, request, GetTokenResponse.class, headers);
   }
 
   @Override
@@ -61,7 +61,7 @@ class TokenManagementImpl implements TokenManagementService {
     String path = "/api/2.0/token-management/tokens";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListTokensResponse.class, headers);
+    return apiClient.GET(path, request, ListTokensResponse.class, headers);
   }
 
   @Override

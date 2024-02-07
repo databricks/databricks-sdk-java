@@ -56,7 +56,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, AclItem.class, headers);
+    return apiClient.GET(path, request, AclItem.class, headers);
   }
 
   @Override
@@ -64,7 +64,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetSecretResponse.class, headers);
+    return apiClient.GET(path, request, GetSecretResponse.class, headers);
   }
 
   @Override
@@ -72,7 +72,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListAclsResponse.class, headers);
+    return apiClient.GET(path, request, ListAclsResponse.class, headers);
   }
 
   @Override
@@ -88,7 +88,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListSecretsResponse.class, headers);
+    return apiClient.GET(path, request, ListSecretsResponse.class, headers);
   }
 
   @Override

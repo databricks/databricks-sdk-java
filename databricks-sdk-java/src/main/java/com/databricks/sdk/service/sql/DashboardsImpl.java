@@ -29,7 +29,7 @@ class DashboardsImpl implements DashboardsService {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class DashboardsImpl implements DashboardsService {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, Dashboard.class, headers);
+    return apiClient.GET(path, request, Dashboard.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class DashboardsImpl implements DashboardsService {
     String path = "/api/2.0/preview/sql/dashboards";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListResponse.class, headers);
+    return apiClient.GET(path, request, ListResponse.class, headers);
   }
 
   @Override

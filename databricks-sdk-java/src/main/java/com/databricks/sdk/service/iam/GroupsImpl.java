@@ -28,7 +28,7 @@ class GroupsImpl implements GroupsService {
   public void delete(DeleteGroupRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, null, Void.class, headers);
+    apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class GroupsImpl implements GroupsService {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, Group.class, headers);
+    return apiClient.GET(path, request, Group.class, headers);
   }
 
   @Override
@@ -44,7 +44,7 @@ class GroupsImpl implements GroupsService {
     String path = "/api/2.0/preview/scim/v2/Groups";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, ListGroupsResponse.class, headers);
+    return apiClient.GET(path, request, ListGroupsResponse.class, headers);
   }
 
   @Override

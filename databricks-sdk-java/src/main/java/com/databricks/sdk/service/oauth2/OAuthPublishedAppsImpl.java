@@ -22,6 +22,6 @@ class OAuthPublishedAppsImpl implements OAuthPublishedAppsService {
             "/api/2.0/accounts/%s/oauth2/published-apps/", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, null, GetPublishedAppsOutput.class, headers);
+    return apiClient.GET(path, request, GetPublishedAppsOutput.class, headers);
   }
 }
