@@ -566,7 +566,13 @@ public class DatabricksConfig {
 
   public DatabricksConfig newWithWorkspaceHost(String host) {
     Set<String> fieldsToSkip =
-        new HashSet<>(Arrays.asList("host", "accountId", "azureWorkspaceResourceId"));
+        new HashSet<>(Arrays.asList(
+            // The config for WorkspaceClient has a different host and Azure Workspace resource ID, and also omits
+            // the account ID.
+            "host", "accountId", "azureWorkspaceResourceId",
+            // For cloud-native OAuth, we need to reauthenticate as the audience has changed, so don't cache the
+            // header factory.
+            "authType", "headerFactory"));
     DatabricksConfig newConfig = new DatabricksConfig();
     for (Field f : DatabricksConfig.class.getDeclaredFields()) {
       if (fieldsToSkip.contains(f.getName())) {
