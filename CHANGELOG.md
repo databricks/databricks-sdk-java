@@ -9,7 +9,6 @@ This also renames
 getAzureMSI -> getAzureMsi
 setAzureMSI -> setAzureMsi
 `
-g
 * Fix Databricks OAuth U2M on GCP ([#217](https://github.com/databricks/databricks-sdk-java/pull/217)).
 * Make new workspace client from account client ([#218](https://github.com/databricks/databricks-sdk-java/pull/218)).
 * Only include request body when the OpenAPI operation indicates that there is a request body ([#223](https://github.com/databricks/databricks-sdk-java/pull/223)).
