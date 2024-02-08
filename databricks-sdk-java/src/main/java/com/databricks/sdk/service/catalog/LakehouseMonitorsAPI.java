@@ -31,6 +31,26 @@ public class LakehouseMonitorsAPI {
     impl = mock;
   }
 
+  public void cancelRefresh(String fullName, String refreshId) {
+    cancelRefresh(new CancelRefreshRequest().setFullName(fullName).setRefreshId(refreshId));
+  }
+
+  /**
+   * Cancel refresh.
+   *
+   * <p>Cancel an active monitor refresh for the given refresh ID.
+   *
+   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
+   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
+   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
+   * table's parent schema - be an owner of the table
+   *
+   * <p>Additionally, the call must be made from the workspace where the monitor was created.
+   */
+  public void cancelRefresh(CancelRefreshRequest request) {
+    impl.cancelRefresh(request);
+  }
+
   public MonitorInfo create(String fullName, String assetsDir, String outputSchemaName) {
     return create(
         new CreateMonitor()
@@ -100,6 +120,67 @@ public class LakehouseMonitorsAPI {
    */
   public MonitorInfo get(GetLakehouseMonitorRequest request) {
     return impl.get(request);
+  }
+
+  public MonitorRefreshInfo getRefresh(String fullName, String refreshId) {
+    return getRefresh(new GetRefreshRequest().setFullName(fullName).setRefreshId(refreshId));
+  }
+
+  /**
+   * Get refresh.
+   *
+   * <p>Gets info about a specific monitor refresh using the given refresh ID.
+   *
+   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
+   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
+   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
+   * table's parent schema - **SELECT** privilege on the table.
+   *
+   * <p>Additionally, the call must be made from the workspace where the monitor was created.
+   */
+  public MonitorRefreshInfo getRefresh(GetRefreshRequest request) {
+    return impl.getRefresh(request);
+  }
+
+  public Iterable<MonitorRefreshInfo> listRefreshes(String fullName) {
+    return listRefreshes(new ListRefreshesRequest().setFullName(fullName));
+  }
+
+  /**
+   * List refreshes.
+   *
+   * <p>Gets an array containing the history of the most recent refreshes (up to 25) for this table.
+   *
+   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
+   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
+   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
+   * table's parent schema - **SELECT** privilege on the table.
+   *
+   * <p>Additionally, the call must be made from the workspace where the monitor was created.
+   */
+  public Iterable<MonitorRefreshInfo> listRefreshes(ListRefreshesRequest request) {
+    return impl.listRefreshes(request);
+  }
+
+  public MonitorRefreshInfo runRefresh(String fullName) {
+    return runRefresh(new RunRefreshRequest().setFullName(fullName));
+  }
+
+  /**
+   * Queue a metric refresh for a monitor.
+   *
+   * <p>Queues a metric refresh on the monitor for the specified table. The refresh will execute in
+   * the background.
+   *
+   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
+   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
+   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
+   * table's parent schema - be an owner of the table
+   *
+   * <p>Additionally, the call must be made from the workspace where the monitor was created.
+   */
+  public MonitorRefreshInfo runRefresh(RunRefreshRequest request) {
+    return impl.runRefresh(request);
   }
 
   public MonitorInfo update(String fullName, String assetsDir, String outputSchemaName) {

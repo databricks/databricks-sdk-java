@@ -7,9 +7,9 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Delete the default namespace setting */
+/** Delete the restrict workspace admins setting */
 @Generated
-public class DeleteDefaultWorkspaceNamespaceRequest {
+public class DeleteRestrictWorkspaceAdminsSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class DeleteDefaultWorkspaceNamespaceRequest {
   @QueryParam("etag")
   private String etag;
 
-  public DeleteDefaultWorkspaceNamespaceRequest setEtag(String etag) {
+  public DeleteRestrictWorkspaceAdminsSettingRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,7 +34,8 @@ public class DeleteDefaultWorkspaceNamespaceRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    DeleteDefaultWorkspaceNamespaceRequest that = (DeleteDefaultWorkspaceNamespaceRequest) o;
+    DeleteRestrictWorkspaceAdminsSettingRequest that =
+        (DeleteRestrictWorkspaceAdminsSettingRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -45,7 +46,7 @@ public class DeleteDefaultWorkspaceNamespaceRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteDefaultWorkspaceNamespaceRequest.class)
+    return new ToStringer(DeleteRestrictWorkspaceAdminsSettingRequest.class)
         .add("etag", etag)
         .toString();
   }

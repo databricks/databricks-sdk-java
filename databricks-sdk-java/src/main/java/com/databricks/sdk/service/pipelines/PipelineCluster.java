@@ -20,7 +20,7 @@ public class PipelineCluster {
    * autoscaling works best with DB runtime versions 3.0 or later.
    */
   @JsonProperty("autoscale")
-  private com.databricks.sdk.service.compute.AutoScale autoscale;
+  private PipelineClusterAutoscale autoscale;
 
   /**
    * Attributes related to clusters running on Amazon Web Services. If not specified at cluster
@@ -165,12 +165,12 @@ public class PipelineCluster {
     return applyPolicyDefaultValues;
   }
 
-  public PipelineCluster setAutoscale(com.databricks.sdk.service.compute.AutoScale autoscale) {
+  public PipelineCluster setAutoscale(PipelineClusterAutoscale autoscale) {
     this.autoscale = autoscale;
     return this;
   }
 
-  public com.databricks.sdk.service.compute.AutoScale getAutoscale() {
+  public PipelineClusterAutoscale getAutoscale() {
     return autoscale;
   }
 

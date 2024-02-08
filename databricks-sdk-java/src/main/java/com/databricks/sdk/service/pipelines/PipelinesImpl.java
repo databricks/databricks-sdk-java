@@ -94,14 +94,6 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
-  public void reset(ResetRequest request) {
-    String path = String.format("/api/2.0/pipelines/%s/reset", request.getPipelineId());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    apiClient.POST(path, null, Void.class, headers);
-  }
-
-  @Override
   public PipelinePermissions setPermissions(PipelinePermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();

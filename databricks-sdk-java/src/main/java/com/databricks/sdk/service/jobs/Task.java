@@ -61,6 +61,13 @@ public class Task {
   @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
+  /**
+   * If for_each_task, indicates that this must execute the nested task within it for the inputs
+   * provided.
+   */
+  @JsonProperty("for_each_task")
+  private ForEachTask forEachTask;
+
   /** An optional set of health rules that can be defined for this job. */
   @JsonProperty("health")
   private JobsHealthRules health;
@@ -256,6 +263,15 @@ public class Task {
     return existingClusterId;
   }
 
+  public Task setForEachTask(ForEachTask forEachTask) {
+    this.forEachTask = forEachTask;
+    return this;
+  }
+
+  public ForEachTask getForEachTask() {
+    return forEachTask;
+  }
+
   public Task setHealth(JobsHealthRules health) {
     this.health = health;
     return this;
@@ -448,6 +464,7 @@ public class Task {
         && Objects.equals(description, that.description)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(forEachTask, that.forEachTask)
         && Objects.equals(health, that.health)
         && Objects.equals(jobClusterKey, that.jobClusterKey)
         && Objects.equals(libraries, that.libraries)
@@ -480,6 +497,7 @@ public class Task {
         description,
         emailNotifications,
         existingClusterId,
+        forEachTask,
         health,
         jobClusterKey,
         libraries,
@@ -512,6 +530,7 @@ public class Task {
         .add("description", description)
         .add("emailNotifications", emailNotifications)
         .add("existingClusterId", existingClusterId)
+        .add("forEachTask", forEachTask)
         .add("health", health)
         .add("jobClusterKey", jobClusterKey)
         .add("libraries", libraries)

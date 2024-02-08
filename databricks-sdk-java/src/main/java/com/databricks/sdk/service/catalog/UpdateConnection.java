@@ -11,10 +11,6 @@ import java.util.Objects;
 @Generated
 public class UpdateConnection {
   /** Name of the connection. */
-  @JsonProperty("name")
-  private String name;
-
-  /** Name of the connection. */
   private String nameArg;
 
   /** New name for the connection. */
@@ -28,15 +24,6 @@ public class UpdateConnection {
   /** Username of current owner of the connection. */
   @JsonProperty("owner")
   private String owner;
-
-  public UpdateConnection setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public String getName() {
-    return name;
-  }
 
   public UpdateConnection setNameArg(String nameArg) {
     this.nameArg = nameArg;
@@ -79,8 +66,7 @@ public class UpdateConnection {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateConnection that = (UpdateConnection) o;
-    return Objects.equals(name, that.name)
-        && Objects.equals(nameArg, that.nameArg)
+    return Objects.equals(nameArg, that.nameArg)
         && Objects.equals(newName, that.newName)
         && Objects.equals(options, that.options)
         && Objects.equals(owner, that.owner);
@@ -88,13 +74,12 @@ public class UpdateConnection {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, nameArg, newName, options, owner);
+    return Objects.hash(nameArg, newName, options, owner);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateConnection.class)
-        .add("name", name)
         .add("nameArg", nameArg)
         .add("newName", newName)
         .add("options", options)

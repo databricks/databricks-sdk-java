@@ -6,10 +6,10 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Delete a file or directory */
+/** Delete a file */
 @Generated
 public class DeleteFileRequest {
-  /** The absolute path of the file or directory in DBFS. */
+  /** The absolute path of the file. */
   private String filePath;
 
   public DeleteFileRequest setFilePath(String filePath) {

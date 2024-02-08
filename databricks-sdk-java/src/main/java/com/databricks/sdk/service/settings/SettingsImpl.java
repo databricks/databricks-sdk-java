@@ -16,17 +16,27 @@ class SettingsImpl implements SettingsService {
   }
 
   @Override
-  public DeleteDefaultWorkspaceNamespaceResponse deleteDefaultWorkspaceNamespace(
-      DeleteDefaultWorkspaceNamespaceRequest request) {
+  public DeleteDefaultNamespaceSettingResponse deleteDefaultNamespaceSetting(
+      DeleteDefaultNamespaceSettingRequest request) {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteDefaultWorkspaceNamespaceResponse.class, headers);
+    return apiClient.DELETE(path, request, DeleteDefaultNamespaceSettingResponse.class, headers);
   }
 
   @Override
-  public DefaultNamespaceSetting readDefaultWorkspaceNamespace(
-      ReadDefaultWorkspaceNamespaceRequest request) {
+  public DeleteRestrictWorkspaceAdminsSettingResponse deleteRestrictWorkspaceAdminsSetting(
+      DeleteRestrictWorkspaceAdminsSettingRequest request) {
+    String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.DELETE(
+        path, request, DeleteRestrictWorkspaceAdminsSettingResponse.class, headers);
+  }
+
+  @Override
+  public DefaultNamespaceSetting getDefaultNamespaceSetting(
+      GetDefaultNamespaceSettingRequest request) {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -34,12 +44,31 @@ class SettingsImpl implements SettingsService {
   }
 
   @Override
-  public DefaultNamespaceSetting updateDefaultWorkspaceNamespace(
-      UpdateDefaultWorkspaceNamespaceRequest request) {
+  public RestrictWorkspaceAdminsSetting getRestrictWorkspaceAdminsSetting(
+      GetRestrictWorkspaceAdminsSettingRequest request) {
+    String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, RestrictWorkspaceAdminsSetting.class, headers);
+  }
+
+  @Override
+  public DefaultNamespaceSetting updateDefaultNamespaceSetting(
+      UpdateDefaultNamespaceSettingRequest request) {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
     return apiClient.PATCH(path, request, DefaultNamespaceSetting.class, headers);
+  }
+
+  @Override
+  public RestrictWorkspaceAdminsSetting updateRestrictWorkspaceAdminsSetting(
+      UpdateRestrictWorkspaceAdminsSettingRequest request) {
+    String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, RestrictWorkspaceAdminsSetting.class, headers);
   }
 }

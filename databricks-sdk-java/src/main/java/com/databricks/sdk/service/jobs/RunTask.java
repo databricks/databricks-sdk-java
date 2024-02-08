@@ -88,6 +88,10 @@ public class RunTask {
   @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
+  /** If for_each_task, indicates that this task must execute the nested task within it. */
+  @JsonProperty("for_each_task")
+  private RunForEachTask forEachTask;
+
   /**
    * An optional specification for a remote Git repository containing the source code used by tasks.
    * Version-controlled source code is supported by notebook, dbt, Python script, and SQL File
@@ -304,6 +308,15 @@ public class RunTask {
     return existingClusterId;
   }
 
+  public RunTask setForEachTask(RunForEachTask forEachTask) {
+    this.forEachTask = forEachTask;
+    return this;
+  }
+
+  public RunForEachTask getForEachTask() {
+    return forEachTask;
+  }
+
   public RunTask setGitSource(GitSource gitSource) {
     this.gitSource = gitSource;
     return this;
@@ -490,6 +503,7 @@ public class RunTask {
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(forEachTask, that.forEachTask)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(newCluster, that.newCluster)
@@ -524,6 +538,7 @@ public class RunTask {
         endTime,
         executionDuration,
         existingClusterId,
+        forEachTask,
         gitSource,
         libraries,
         newCluster,
@@ -558,6 +573,7 @@ public class RunTask {
         .add("endTime", endTime)
         .add("executionDuration", executionDuration)
         .add("existingClusterId", existingClusterId)
+        .add("forEachTask", forEachTask)
         .add("gitSource", gitSource)
         .add("libraries", libraries)
         .add("newCluster", newCluster)

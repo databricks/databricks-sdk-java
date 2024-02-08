@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Download a file */
 @Generated
 public class DownloadRequest {
-  /** The absolute path of the file or directory in DBFS. */
+  /** The absolute path of the file. */
   private String filePath;
 
   public DownloadRequest setFilePath(String filePath) {

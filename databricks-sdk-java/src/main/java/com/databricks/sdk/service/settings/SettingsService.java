@@ -29,16 +29,36 @@ public interface SettingsService {
    * before the DELETE request. If the setting is updated/deleted concurrently, DELETE will fail
    * with 409 and the request will need to be retried by using the fresh etag in the 409 response.
    */
-  DeleteDefaultWorkspaceNamespaceResponse deleteDefaultWorkspaceNamespace(
-      DeleteDefaultWorkspaceNamespaceRequest deleteDefaultWorkspaceNamespaceRequest);
+  DeleteDefaultNamespaceSettingResponse deleteDefaultNamespaceSetting(
+      DeleteDefaultNamespaceSettingRequest deleteDefaultNamespaceSettingRequest);
+
+  /**
+   * Delete the restrict workspace admins setting.
+   *
+   * <p>Reverts the restrict workspace admins setting status for the workspace. A fresh etag needs
+   * to be provided in DELETE requests (as a query parameter). The etag can be retrieved by making a
+   * GET request before the DELETE request. If the setting is updated/deleted concurrently, DELETE
+   * will fail with 409 and the request will need to be retried by using the fresh etag in the 409
+   * response.
+   */
+  DeleteRestrictWorkspaceAdminsSettingResponse deleteRestrictWorkspaceAdminsSetting(
+      DeleteRestrictWorkspaceAdminsSettingRequest deleteRestrictWorkspaceAdminsSettingRequest);
 
   /**
    * Get the default namespace setting.
    *
    * <p>Gets the default namespace setting.
    */
-  DefaultNamespaceSetting readDefaultWorkspaceNamespace(
-      ReadDefaultWorkspaceNamespaceRequest readDefaultWorkspaceNamespaceRequest);
+  DefaultNamespaceSetting getDefaultNamespaceSetting(
+      GetDefaultNamespaceSettingRequest getDefaultNamespaceSettingRequest);
+
+  /**
+   * Get the restrict workspace admins setting.
+   *
+   * <p>Gets the restrict workspace admins setting.
+   */
+  RestrictWorkspaceAdminsSetting getRestrictWorkspaceAdminsSetting(
+      GetRestrictWorkspaceAdminsSettingRequest getRestrictWorkspaceAdminsSettingRequest);
 
   /**
    * Update the default namespace setting.
@@ -50,6 +70,17 @@ public interface SettingsService {
    * PATCH request. If the setting is updated concurrently, PATCH will fail with 409 and the request
    * will need to be retried by using the fresh etag in the 409 response.
    */
-  DefaultNamespaceSetting updateDefaultWorkspaceNamespace(
-      UpdateDefaultWorkspaceNamespaceRequest updateDefaultWorkspaceNamespaceRequest);
+  DefaultNamespaceSetting updateDefaultNamespaceSetting(
+      UpdateDefaultNamespaceSettingRequest updateDefaultNamespaceSettingRequest);
+
+  /**
+   * Update the restrict workspace admins setting.
+   *
+   * <p>Updates the restrict workspace admins setting for the workspace. A fresh etag needs to be
+   * provided in PATCH requests (as part of the setting field). The etag can be retrieved by making
+   * a GET request before the PATCH request. If the setting is updated concurrently, PATCH will fail
+   * with 409 and the request will need to be retried by using the fresh etag in the 409 response.
+   */
+  RestrictWorkspaceAdminsSetting updateRestrictWorkspaceAdminsSetting(
+      UpdateRestrictWorkspaceAdminsSettingRequest updateRestrictWorkspaceAdminsSettingRequest);
 }

@@ -14,7 +14,7 @@ public class UploadRequest {
   /** */
   private InputStream contents;
 
-  /** The absolute path of the file or directory in DBFS. */
+  /** The absolute path of the file. */
   private String filePath;
 
   /** If true, an existing file will be overwritten. */
