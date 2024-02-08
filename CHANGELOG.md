@@ -3,10 +3,19 @@
 ## 0.18.0
 
 * Derive config file name from attribute name ([#216](https://github.com/databricks/databricks-sdk-java/pull/216)).
+`
+This also renames
+
+getAzureMSI -> getAzureMsi
+setAzureMSI -> setAzureMsi
+`
+g
 * Fix Databricks OAuth U2M on GCP ([#217](https://github.com/databricks/databricks-sdk-java/pull/217)).
 * Make new workspace client from account client ([#218](https://github.com/databricks/databricks-sdk-java/pull/218)).
-* Skip `AccountClientIT` test in GCP / Azure ([#222](https://github.com/databricks/databricks-sdk-java/pull/222)).
 * Only include request body when the OpenAPI operation indicates that there is a request body ([#223](https://github.com/databricks/databricks-sdk-java/pull/223)).
+
+Internal Changes:
+* Skip `AccountClientIT` test in GCP / Azure ([#222](https://github.com/databricks/databricks-sdk-java/pull/222)).
 * Generate SDK ([#226](https://github.com/databricks/databricks-sdk-java/pull/226)).
 
 API Changes:
