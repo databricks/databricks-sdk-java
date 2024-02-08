@@ -32,8 +32,8 @@ public interface AccountSettingsService {
    *
    * <p>Gets the value of the Personal Compute setting.
    */
-  PersonalComputeSetting readPersonalComputeSetting(
-      ReadPersonalComputeSettingRequest readPersonalComputeSettingRequest);
+  PersonalComputeSetting getPersonalComputeSetting(
+      GetPersonalComputeSettingRequest getPersonalComputeSettingRequest);
 
   /**
    * Update Personal Compute setting.

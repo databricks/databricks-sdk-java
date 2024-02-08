@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /** Get Personal Compute setting */
 @Generated
-public class ReadPersonalComputeSettingRequest {
+public class GetPersonalComputeSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class ReadPersonalComputeSettingRequest {
   @QueryParam("etag")
   private String etag;
 
-  public ReadPersonalComputeSettingRequest setEtag(String etag) {
+  public GetPersonalComputeSettingRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,7 +34,7 @@ public class ReadPersonalComputeSettingRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ReadPersonalComputeSettingRequest that = (ReadPersonalComputeSettingRequest) o;
+    GetPersonalComputeSettingRequest that = (GetPersonalComputeSettingRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -45,6 +45,6 @@ public class ReadPersonalComputeSettingRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(ReadPersonalComputeSettingRequest.class).add("etag", etag).toString();
+    return new ToStringer(GetPersonalComputeSettingRequest.class).add("etag", etag).toString();
   }
 }

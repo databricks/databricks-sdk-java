@@ -16,10 +16,6 @@ public class UpdateRegisteredModelRequest {
   /** The three-level (fully qualified) name of the registered model */
   private String fullName;
 
-  /** The name of the registered model */
-  @JsonProperty("name")
-  private String name;
-
   /** New name for the registered model. */
   @JsonProperty("new_name")
   private String newName;
@@ -44,15 +40,6 @@ public class UpdateRegisteredModelRequest {
 
   public String getFullName() {
     return fullName;
-  }
-
-  public UpdateRegisteredModelRequest setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public String getName() {
-    return name;
   }
 
   public UpdateRegisteredModelRequest setNewName(String newName) {
@@ -80,14 +67,13 @@ public class UpdateRegisteredModelRequest {
     UpdateRegisteredModelRequest that = (UpdateRegisteredModelRequest) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(fullName, that.fullName)
-        && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, fullName, name, newName, owner);
+    return Objects.hash(comment, fullName, newName, owner);
   }
 
   @Override
@@ -95,7 +81,6 @@ public class UpdateRegisteredModelRequest {
     return new ToStringer(UpdateRegisteredModelRequest.class)
         .add("comment", comment)
         .add("fullName", fullName)
-        .add("name", name)
         .add("newName", newName)
         .add("owner", owner)
         .toString();

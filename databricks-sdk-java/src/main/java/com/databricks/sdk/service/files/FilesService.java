@@ -14,30 +14,47 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface FilesService {
   /**
-   * Delete a file or directory.
+   * Create a directory.
    *
-   * <p>Deletes a file or directory.
+   * <p>Creates an empty directory. If called on an existing directory, the API returns a success
+   * response.
+   */
+  void createDirectory(CreateDirectoryRequest createDirectoryRequest);
+
+  /**
+   * Delete a file.
+   *
+   * <p>Deletes a file.
    */
   void delete(DeleteFileRequest deleteFileRequest);
 
   /**
+   * Delete a directory.
+   *
+   * <p>Deletes an empty directory. If the directory is not empty, the API returns a HTTP 400 error.
+   */
+  void deleteDirectory(DeleteDirectoryRequest deleteDirectoryRequest);
+
+  /**
    * Download a file.
    *
-   * <p>Downloads a file of up to 2 GiB.
+   * <p>Downloads a file of up to 5 GiB.
    */
   DownloadResponse download(DownloadRequest downloadRequest);
 
   /**
-   * Get file or directory status.
+   * List directory contents.
    *
-   * <p>Returns the status of a file or directory.
+   * <p>Returns the contents of a directory. If there is no directory at the specified path, the API
+   * returns a HTTP 404 error.
    */
-  FileInfo getStatus(GetStatusRequest getStatusRequest);
+  ListDirectoryResponse listDirectoryContents(
+      ListDirectoryContentsRequest listDirectoryContentsRequest);
 
   /**
    * Upload a file.
    *
-   * <p>Uploads a file of up to 2 GiB.
+   * <p>Uploads a file of up to 5 GiB.
    */
   void upload(UploadRequest uploadRequest);
 }

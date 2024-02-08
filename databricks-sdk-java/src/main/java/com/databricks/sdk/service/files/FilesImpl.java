@@ -17,15 +17,29 @@ class FilesImpl implements FilesService {
   }
 
   @Override
+  public void createDirectory(CreateDirectoryRequest request) {
+    String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
+    Map<String, String> headers = new HashMap<>();
+    apiClient.PUT(path, null, Void.class, headers);
+  }
+
+  @Override
   public void delete(DeleteFileRequest request) {
-    String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
+    String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
+    Map<String, String> headers = new HashMap<>();
+    apiClient.DELETE(path, request, Void.class, headers);
+  }
+
+  @Override
+  public void deleteDirectory(DeleteDirectoryRequest request) {
+    String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
     Map<String, String> headers = new HashMap<>();
     apiClient.DELETE(path, request, Void.class, headers);
   }
 
   @Override
   public DownloadResponse download(DownloadRequest request) {
-    String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
+    String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/octet-stream");
     InputStream response = apiClient.GET(path, request, InputStream.class, headers);
@@ -33,16 +47,16 @@ class FilesImpl implements FilesService {
   }
 
   @Override
-  public FileInfo getStatus(GetStatusRequest request) {
-    String path = "/api/2.0/fs/get-status";
+  public ListDirectoryResponse listDirectoryContents(ListDirectoryContentsRequest request) {
+    String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, FileInfo.class, headers);
+    return apiClient.GET(path, request, ListDirectoryResponse.class, headers);
   }
 
   @Override
   public void upload(UploadRequest request) {
-    String path = String.format("/api/2.0/fs/files/%s", request.getFilePath());
+    String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/octet-stream");
     apiClient.PUT(path, request.getContents(), Void.class, headers);

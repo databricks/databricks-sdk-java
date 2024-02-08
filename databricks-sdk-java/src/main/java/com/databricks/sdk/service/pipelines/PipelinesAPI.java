@@ -259,21 +259,6 @@ public class PipelinesAPI {
     return impl.listUpdates(request);
   }
 
-  public Wait<GetPipelineResponse, Void> reset(String pipelineId) {
-    return reset(new ResetRequest().setPipelineId(pipelineId));
-  }
-
-  /**
-   * Reset a pipeline.
-   *
-   * <p>Resets a pipeline.
-   */
-  public Wait<GetPipelineResponse, Void> reset(ResetRequest request) {
-    impl.reset(request);
-    return new Wait<>(
-        (timeout, callback) -> waitGetPipelineRunning(request.getPipelineId(), timeout, callback));
-  }
-
   public PipelinePermissions setPermissions(String pipelineId) {
     return setPermissions(new PipelinePermissionsRequest().setPipelineId(pipelineId));
   }

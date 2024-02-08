@@ -10,8 +10,8 @@ import java.util.Objects;
 @Generated
 public class CreateVectorIndexRequest {
   /** Specification for Delta Sync Index. Required if `index_type` is `DELTA_SYNC`. */
-  @JsonProperty("delta_sync_vector_index_spec")
-  private DeltaSyncVectorIndexSpecRequest deltaSyncVectorIndexSpec;
+  @JsonProperty("delta_sync_index_spec")
+  private DeltaSyncVectorIndexSpecRequest deltaSyncIndexSpec;
 
   /** Specification for Direct Vector Access Index. Required if `index_type` is `DIRECT_ACCESS`. */
   @JsonProperty("direct_access_index_spec")
@@ -40,14 +40,14 @@ public class CreateVectorIndexRequest {
   @JsonProperty("primary_key")
   private String primaryKey;
 
-  public CreateVectorIndexRequest setDeltaSyncVectorIndexSpec(
-      DeltaSyncVectorIndexSpecRequest deltaSyncVectorIndexSpec) {
-    this.deltaSyncVectorIndexSpec = deltaSyncVectorIndexSpec;
+  public CreateVectorIndexRequest setDeltaSyncIndexSpec(
+      DeltaSyncVectorIndexSpecRequest deltaSyncIndexSpec) {
+    this.deltaSyncIndexSpec = deltaSyncIndexSpec;
     return this;
   }
 
-  public DeltaSyncVectorIndexSpecRequest getDeltaSyncVectorIndexSpec() {
-    return deltaSyncVectorIndexSpec;
+  public DeltaSyncVectorIndexSpecRequest getDeltaSyncIndexSpec() {
+    return deltaSyncIndexSpec;
   }
 
   public CreateVectorIndexRequest setDirectAccessIndexSpec(
@@ -101,7 +101,7 @@ public class CreateVectorIndexRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateVectorIndexRequest that = (CreateVectorIndexRequest) o;
-    return Objects.equals(deltaSyncVectorIndexSpec, that.deltaSyncVectorIndexSpec)
+    return Objects.equals(deltaSyncIndexSpec, that.deltaSyncIndexSpec)
         && Objects.equals(directAccessIndexSpec, that.directAccessIndexSpec)
         && Objects.equals(endpointName, that.endpointName)
         && Objects.equals(indexType, that.indexType)
@@ -112,13 +112,13 @@ public class CreateVectorIndexRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
-        deltaSyncVectorIndexSpec, directAccessIndexSpec, endpointName, indexType, name, primaryKey);
+        deltaSyncIndexSpec, directAccessIndexSpec, endpointName, indexType, name, primaryKey);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateVectorIndexRequest.class)
-        .add("deltaSyncVectorIndexSpec", deltaSyncVectorIndexSpec)
+        .add("deltaSyncIndexSpec", deltaSyncIndexSpec)
         .add("directAccessIndexSpec", directAccessIndexSpec)
         .add("endpointName", endpointName)
         .add("indexType", indexType)

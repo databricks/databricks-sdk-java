@@ -7,20 +7,17 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Update the default namespace setting */
+/** Details required to update a setting. */
 @Generated
-public class UpdateDefaultWorkspaceNamespaceRequest {
+public class UpdateDefaultNamespaceSettingRequest {
   /** This should always be set to true for Settings API. Added for AIP compliance. */
   @JsonProperty("allow_missing")
   private Boolean allowMissing;
 
   /**
    * Field mask is required to be passed into the PATCH request. Field mask specifies which fields
-   * of the setting payload will be updated. For example, for Default Namespace setting, the field
-   * mask is supposed to contain fields from the DefaultNamespaceSetting.namespace schema.
-   *
-   * <p>The field mask needs to be supplied as single string. To specify multiple fields in the
-   * field mask, use comma as the seperator (no space).
+   * of the setting payload will be updated. The field mask needs to be supplied as single string.
+   * To specify multiple fields in the field mask, use comma as the separator (no space).
    */
   @JsonProperty("field_mask")
   private String fieldMask;
@@ -37,7 +34,7 @@ public class UpdateDefaultWorkspaceNamespaceRequest {
   @JsonProperty("setting")
   private DefaultNamespaceSetting setting;
 
-  public UpdateDefaultWorkspaceNamespaceRequest setAllowMissing(Boolean allowMissing) {
+  public UpdateDefaultNamespaceSettingRequest setAllowMissing(Boolean allowMissing) {
     this.allowMissing = allowMissing;
     return this;
   }
@@ -46,7 +43,7 @@ public class UpdateDefaultWorkspaceNamespaceRequest {
     return allowMissing;
   }
 
-  public UpdateDefaultWorkspaceNamespaceRequest setFieldMask(String fieldMask) {
+  public UpdateDefaultNamespaceSettingRequest setFieldMask(String fieldMask) {
     this.fieldMask = fieldMask;
     return this;
   }
@@ -55,7 +52,7 @@ public class UpdateDefaultWorkspaceNamespaceRequest {
     return fieldMask;
   }
 
-  public UpdateDefaultWorkspaceNamespaceRequest setSetting(DefaultNamespaceSetting setting) {
+  public UpdateDefaultNamespaceSettingRequest setSetting(DefaultNamespaceSetting setting) {
     this.setting = setting;
     return this;
   }
@@ -68,7 +65,7 @@ public class UpdateDefaultWorkspaceNamespaceRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    UpdateDefaultWorkspaceNamespaceRequest that = (UpdateDefaultWorkspaceNamespaceRequest) o;
+    UpdateDefaultNamespaceSettingRequest that = (UpdateDefaultNamespaceSettingRequest) o;
     return Objects.equals(allowMissing, that.allowMissing)
         && Objects.equals(fieldMask, that.fieldMask)
         && Objects.equals(setting, that.setting);
@@ -81,7 +78,7 @@ public class UpdateDefaultWorkspaceNamespaceRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(UpdateDefaultWorkspaceNamespaceRequest.class)
+    return new ToStringer(UpdateDefaultNamespaceSettingRequest.class)
         .add("allowMissing", allowMissing)
         .add("fieldMask", fieldMask)
         .add("setting", setting)

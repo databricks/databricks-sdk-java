@@ -34,11 +34,6 @@ public class SettingsAPI {
     impl = mock;
   }
 
-  public DeleteDefaultWorkspaceNamespaceResponse deleteDefaultWorkspaceNamespace(String etag) {
-    return deleteDefaultWorkspaceNamespace(
-        new DeleteDefaultWorkspaceNamespaceRequest().setEtag(etag));
-  }
-
   /**
    * Delete the default namespace setting.
    *
@@ -47,13 +42,23 @@ public class SettingsAPI {
    * before the DELETE request. If the setting is updated/deleted concurrently, DELETE will fail
    * with 409 and the request will need to be retried by using the fresh etag in the 409 response.
    */
-  public DeleteDefaultWorkspaceNamespaceResponse deleteDefaultWorkspaceNamespace(
-      DeleteDefaultWorkspaceNamespaceRequest request) {
-    return impl.deleteDefaultWorkspaceNamespace(request);
+  public DeleteDefaultNamespaceSettingResponse deleteDefaultNamespaceSetting(
+      DeleteDefaultNamespaceSettingRequest request) {
+    return impl.deleteDefaultNamespaceSetting(request);
   }
 
-  public DefaultNamespaceSetting readDefaultWorkspaceNamespace(String etag) {
-    return readDefaultWorkspaceNamespace(new ReadDefaultWorkspaceNamespaceRequest().setEtag(etag));
+  /**
+   * Delete the restrict workspace admins setting.
+   *
+   * <p>Reverts the restrict workspace admins setting status for the workspace. A fresh etag needs
+   * to be provided in DELETE requests (as a query parameter). The etag can be retrieved by making a
+   * GET request before the DELETE request. If the setting is updated/deleted concurrently, DELETE
+   * will fail with 409 and the request will need to be retried by using the fresh etag in the 409
+   * response.
+   */
+  public DeleteRestrictWorkspaceAdminsSettingResponse deleteRestrictWorkspaceAdminsSetting(
+      DeleteRestrictWorkspaceAdminsSettingRequest request) {
+    return impl.deleteRestrictWorkspaceAdminsSetting(request);
   }
 
   /**
@@ -61,9 +66,28 @@ public class SettingsAPI {
    *
    * <p>Gets the default namespace setting.
    */
-  public DefaultNamespaceSetting readDefaultWorkspaceNamespace(
-      ReadDefaultWorkspaceNamespaceRequest request) {
-    return impl.readDefaultWorkspaceNamespace(request);
+  public DefaultNamespaceSetting getDefaultNamespaceSetting(
+      GetDefaultNamespaceSettingRequest request) {
+    return impl.getDefaultNamespaceSetting(request);
+  }
+
+  /**
+   * Get the restrict workspace admins setting.
+   *
+   * <p>Gets the restrict workspace admins setting.
+   */
+  public RestrictWorkspaceAdminsSetting getRestrictWorkspaceAdminsSetting(
+      GetRestrictWorkspaceAdminsSettingRequest request) {
+    return impl.getRestrictWorkspaceAdminsSetting(request);
+  }
+
+  public DefaultNamespaceSetting updateDefaultNamespaceSetting(
+      boolean allowMissing, DefaultNamespaceSetting setting, String fieldMask) {
+    return updateDefaultNamespaceSetting(
+        new UpdateDefaultNamespaceSettingRequest()
+            .setAllowMissing(allowMissing)
+            .setSetting(setting)
+            .setFieldMask(fieldMask));
   }
 
   /**
@@ -76,9 +100,31 @@ public class SettingsAPI {
    * PATCH request. If the setting is updated concurrently, PATCH will fail with 409 and the request
    * will need to be retried by using the fresh etag in the 409 response.
    */
-  public DefaultNamespaceSetting updateDefaultWorkspaceNamespace(
-      UpdateDefaultWorkspaceNamespaceRequest request) {
-    return impl.updateDefaultWorkspaceNamespace(request);
+  public DefaultNamespaceSetting updateDefaultNamespaceSetting(
+      UpdateDefaultNamespaceSettingRequest request) {
+    return impl.updateDefaultNamespaceSetting(request);
+  }
+
+  public RestrictWorkspaceAdminsSetting updateRestrictWorkspaceAdminsSetting(
+      boolean allowMissing, RestrictWorkspaceAdminsSetting setting, String fieldMask) {
+    return updateRestrictWorkspaceAdminsSetting(
+        new UpdateRestrictWorkspaceAdminsSettingRequest()
+            .setAllowMissing(allowMissing)
+            .setSetting(setting)
+            .setFieldMask(fieldMask));
+  }
+
+  /**
+   * Update the restrict workspace admins setting.
+   *
+   * <p>Updates the restrict workspace admins setting for the workspace. A fresh etag needs to be
+   * provided in PATCH requests (as part of the setting field). The etag can be retrieved by making
+   * a GET request before the PATCH request. If the setting is updated concurrently, PATCH will fail
+   * with 409 and the request will need to be retried by using the fresh etag in the 409 response.
+   */
+  public RestrictWorkspaceAdminsSetting updateRestrictWorkspaceAdminsSetting(
+      UpdateRestrictWorkspaceAdminsSettingRequest request) {
+    return impl.updateRestrictWorkspaceAdminsSetting(request);
   }
 
   public SettingsService impl() {

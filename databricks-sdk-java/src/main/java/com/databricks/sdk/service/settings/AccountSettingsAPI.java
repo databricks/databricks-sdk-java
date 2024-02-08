@@ -32,10 +32,6 @@ public class AccountSettingsAPI {
     impl = mock;
   }
 
-  public DeletePersonalComputeSettingResponse deletePersonalComputeSetting(String etag) {
-    return deletePersonalComputeSetting(new DeletePersonalComputeSettingRequest().setEtag(etag));
-  }
-
   /**
    * Delete Personal Compute setting.
    *
@@ -46,18 +42,23 @@ public class AccountSettingsAPI {
     return impl.deletePersonalComputeSetting(request);
   }
 
-  public PersonalComputeSetting readPersonalComputeSetting(String etag) {
-    return readPersonalComputeSetting(new ReadPersonalComputeSettingRequest().setEtag(etag));
-  }
-
   /**
    * Get Personal Compute setting.
    *
    * <p>Gets the value of the Personal Compute setting.
    */
-  public PersonalComputeSetting readPersonalComputeSetting(
-      ReadPersonalComputeSettingRequest request) {
-    return impl.readPersonalComputeSetting(request);
+  public PersonalComputeSetting getPersonalComputeSetting(
+      GetPersonalComputeSettingRequest request) {
+    return impl.getPersonalComputeSetting(request);
+  }
+
+  public PersonalComputeSetting updatePersonalComputeSetting(
+      boolean allowMissing, PersonalComputeSetting setting, String fieldMask) {
+    return updatePersonalComputeSetting(
+        new UpdatePersonalComputeSettingRequest()
+            .setAllowMissing(allowMissing)
+            .setSetting(setting)
+            .setFieldMask(fieldMask));
   }
 
   /**

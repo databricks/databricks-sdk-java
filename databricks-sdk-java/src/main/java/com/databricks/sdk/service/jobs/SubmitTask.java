@@ -42,6 +42,13 @@ public class SubmitTask {
   @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
+  /**
+   * If for_each_task, indicates that this must execute the nested task within it for the inputs
+   * provided.
+   */
+  @JsonProperty("for_each_task")
+  private ForEachTask forEachTask;
+
   /** An optional set of health rules that can be defined for this job. */
   @JsonProperty("health")
   private JobsHealthRules health;
@@ -177,6 +184,15 @@ public class SubmitTask {
 
   public String getExistingClusterId() {
     return existingClusterId;
+  }
+
+  public SubmitTask setForEachTask(ForEachTask forEachTask) {
+    this.forEachTask = forEachTask;
+    return this;
+  }
+
+  public ForEachTask getForEachTask() {
+    return forEachTask;
   }
 
   public SubmitTask setHealth(JobsHealthRules health) {
@@ -332,6 +348,7 @@ public class SubmitTask {
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(forEachTask, that.forEachTask)
         && Objects.equals(health, that.health)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(newCluster, that.newCluster)
@@ -357,6 +374,7 @@ public class SubmitTask {
         dependsOn,
         emailNotifications,
         existingClusterId,
+        forEachTask,
         health,
         libraries,
         newCluster,
@@ -382,6 +400,7 @@ public class SubmitTask {
         .add("dependsOn", dependsOn)
         .add("emailNotifications", emailNotifications)
         .add("existingClusterId", existingClusterId)
+        .add("forEachTask", forEachTask)
         .add("health", health)
         .add("libraries", libraries)
         .add("newCluster", newCluster)

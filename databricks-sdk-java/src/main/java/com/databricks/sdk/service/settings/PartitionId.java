@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Partition by workspace or account */
 @Generated
 public class PartitionId {
   /** The ID of the workspace. */

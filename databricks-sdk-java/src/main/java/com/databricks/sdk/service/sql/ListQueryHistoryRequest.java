@@ -22,7 +22,11 @@ public class ListQueryHistoryRequest {
   @QueryParam("max_results")
   private Long maxResults;
 
-  /** A token that can be used to get the next page of results. */
+  /**
+   * A token that can be used to get the next page of results. The token can contains characters
+   * that need to be encoded before using it in a URL. For example, the character '+' needs to be
+   * replaced by %2B.
+   */
   @QueryParam("page_token")
   private String pageToken;
 

@@ -10,6 +10,13 @@ import java.util.Objects;
 @Generated
 public class InitScriptInfo {
   /**
+   * destination needs to be provided. e.g. `{ "abfss" : { "destination" :
+   * "abfss://<container-name>@<storage-account-name>.dfs.core.windows.net/<directory-name>" } }
+   */
+  @JsonProperty("abfss")
+  private Adlsgen2Info abfss;
+
+  /**
    * destination needs to be provided. e.g. `{ "dbfs" : { "destination" : "dbfs:/home/cluster_log" }
    * }`
    */
@@ -22,6 +29,12 @@ public class InitScriptInfo {
    */
   @JsonProperty("file")
   private LocalFileInfo file;
+
+  /**
+   * destination needs to be provided. e.g. `{ "gcs": { "destination": "gs://my-bucket/file.sh" } }`
+   */
+  @JsonProperty("gcs")
+  private GcsStorageInfo gcs;
 
   /**
    * destination and either the region or endpoint need to be provided. e.g. `{ "s3": {
@@ -46,6 +59,15 @@ public class InitScriptInfo {
   @JsonProperty("workspace")
   private WorkspaceStorageInfo workspace;
 
+  public InitScriptInfo setAbfss(Adlsgen2Info abfss) {
+    this.abfss = abfss;
+    return this;
+  }
+
+  public Adlsgen2Info getAbfss() {
+    return abfss;
+  }
+
   public InitScriptInfo setDbfs(DbfsStorageInfo dbfs) {
     this.dbfs = dbfs;
     return this;
@@ -62,6 +84,15 @@ public class InitScriptInfo {
 
   public LocalFileInfo getFile() {
     return file;
+  }
+
+  public InitScriptInfo setGcs(GcsStorageInfo gcs) {
+    this.gcs = gcs;
+    return this;
+  }
+
+  public GcsStorageInfo getGcs() {
+    return gcs;
   }
 
   public InitScriptInfo setS3(S3StorageInfo s3) {
@@ -96,8 +127,10 @@ public class InitScriptInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     InitScriptInfo that = (InitScriptInfo) o;
-    return Objects.equals(dbfs, that.dbfs)
+    return Objects.equals(abfss, that.abfss)
+        && Objects.equals(dbfs, that.dbfs)
         && Objects.equals(file, that.file)
+        && Objects.equals(gcs, that.gcs)
         && Objects.equals(s3, that.s3)
         && Objects.equals(volumes, that.volumes)
         && Objects.equals(workspace, that.workspace);
@@ -105,14 +138,16 @@ public class InitScriptInfo {
 
   @Override
   public int hashCode() {
-    return Objects.hash(dbfs, file, s3, volumes, workspace);
+    return Objects.hash(abfss, dbfs, file, gcs, s3, volumes, workspace);
   }
 
   @Override
   public String toString() {
     return new ToStringer(InitScriptInfo.class)
+        .add("abfss", abfss)
         .add("dbfs", dbfs)
         .add("file", file)
+        .add("gcs", gcs)
         .add("s3", s3)
         .add("volumes", volumes)
         .add("workspace", workspace)

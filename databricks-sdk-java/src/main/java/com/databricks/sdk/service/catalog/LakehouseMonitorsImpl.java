@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,16 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
 
   public LakehouseMonitorsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
+  }
+
+  @Override
+  public void cancelRefresh(CancelRefreshRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/unity-catalog/tables/%s/monitor/refreshes/%s/cancel",
+            request.getFullName(), request.getRefreshId());
+    Map<String, String> headers = new HashMap<>();
+    apiClient.POST(path, null, Void.class, headers);
   }
 
   @Override
@@ -37,6 +48,35 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, MonitorInfo.class, headers);
+  }
+
+  @Override
+  public MonitorRefreshInfo getRefresh(GetRefreshRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/unity-catalog/tables/%s/monitor/refreshes/%s",
+            request.getFullName(), request.getRefreshId());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, MonitorRefreshInfo.class, headers);
+  }
+
+  @Override
+  public Collection<MonitorRefreshInfo> listRefreshes(ListRefreshesRequest request) {
+    String path =
+        String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getFullName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.getCollection(path, null, MonitorRefreshInfo.class, headers);
+  }
+
+  @Override
+  public MonitorRefreshInfo runRefresh(RunRefreshRequest request) {
+    String path =
+        String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getFullName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.POST(path, null, MonitorRefreshInfo.class, headers);
   }
 
   @Override

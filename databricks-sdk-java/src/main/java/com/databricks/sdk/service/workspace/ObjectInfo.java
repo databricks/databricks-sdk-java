@@ -29,7 +29,8 @@ public class ObjectInfo {
    * The type of the object in workspace.
    *
    * <p>- `NOTEBOOK`: document that contains runnable code, visualizations, and explanatory text. -
-   * `DIRECTORY`: directory - `LIBRARY`: library - `FILE`: file - `REPO`: repository
+   * `DIRECTORY`: directory - `LIBRARY`: library - `FILE`: file - `REPO`: repository - `DASHBOARD`:
+   * Lakeview dashboard
    */
   @JsonProperty("object_type")
   private ObjectType objectType;
@@ -37,6 +38,10 @@ public class ObjectInfo {
   /** The absolute path of the object. */
   @JsonProperty("path")
   private String path;
+
+  /** A unique identifier for the object that is consistent across all Databricks APIs. */
+  @JsonProperty("resource_id")
+  private String resourceId;
 
   /** Only applicable to files. The file size in bytes can be returned. */
   @JsonProperty("size")
@@ -96,6 +101,15 @@ public class ObjectInfo {
     return path;
   }
 
+  public ObjectInfo setResourceId(String resourceId) {
+    this.resourceId = resourceId;
+    return this;
+  }
+
+  public String getResourceId() {
+    return resourceId;
+  }
+
   public ObjectInfo setSize(Long size) {
     this.size = size;
     return this;
@@ -116,12 +130,14 @@ public class ObjectInfo {
         && Objects.equals(objectId, that.objectId)
         && Objects.equals(objectType, that.objectType)
         && Objects.equals(path, that.path)
+        && Objects.equals(resourceId, that.resourceId)
         && Objects.equals(size, that.size);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, language, modifiedAt, objectId, objectType, path, size);
+    return Objects.hash(
+        createdAt, language, modifiedAt, objectId, objectType, path, resourceId, size);
   }
 
   @Override
@@ -133,6 +149,7 @@ public class ObjectInfo {
         .add("objectId", objectId)
         .add("objectType", objectType)
         .add("path", path)
+        .add("resourceId", resourceId)
         .add("size", size)
         .toString();
   }

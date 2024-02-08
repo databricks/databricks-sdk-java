@@ -21,10 +21,6 @@ public class UpdateSchema {
   /** Full name of the schema. */
   private String fullName;
 
-  /** Name of schema, relative to parent catalog. */
-  @JsonProperty("name")
-  private String name;
-
   /** New name for the schema. */
   @JsonProperty("new_name")
   private String newName;
@@ -65,15 +61,6 @@ public class UpdateSchema {
     return fullName;
   }
 
-  public UpdateSchema setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public String getName() {
-    return name;
-  }
-
   public UpdateSchema setNewName(String newName) {
     this.newName = newName;
     return this;
@@ -109,7 +96,6 @@ public class UpdateSchema {
     return Objects.equals(comment, that.comment)
         && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(fullName, that.fullName)
-        && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties);
@@ -118,7 +104,7 @@ public class UpdateSchema {
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, enablePredictiveOptimization, fullName, name, newName, owner, properties);
+        comment, enablePredictiveOptimization, fullName, newName, owner, properties);
   }
 
   @Override
@@ -127,7 +113,6 @@ public class UpdateSchema {
         .add("comment", comment)
         .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("fullName", fullName)
-        .add("name", name)
         .add("newName", newName)
         .add("owner", owner)
         .add("properties", properties)

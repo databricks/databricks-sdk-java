@@ -71,6 +71,9 @@ public class DashboardsAPI {
    * Get dashboard objects.
    *
    * <p>Fetch a paginated list of dashboard objects.
+   *
+   * <p>### **Warning: Calling this API concurrently 10 or more times could result in throttling,
+   * service degradation, or a temporary ban.**
    */
   public Iterable<Dashboard> list(ListDashboardsRequest request) {
     request.setPage(1L);

@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
+import java.util.Collection;
 
 /**
  * A monitor computes and monitors data or model quality metrics for a table over time. It generates
@@ -18,6 +19,20 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface LakehouseMonitorsService {
+  /**
+   * Cancel refresh.
+   *
+   * <p>Cancel an active monitor refresh for the given refresh ID.
+   *
+   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
+   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
+   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
+   * table's parent schema - be an owner of the table
+   *
+   * <p>Additionally, the call must be made from the workspace where the monitor was created.
+   */
+  void cancelRefresh(CancelRefreshRequest cancelRefreshRequest);
+
   /**
    * Create a table monitor.
    *
@@ -66,6 +81,49 @@ public interface LakehouseMonitorsService {
    * in a different workspace than where the monitor was created.
    */
   MonitorInfo get(GetLakehouseMonitorRequest getLakehouseMonitorRequest);
+
+  /**
+   * Get refresh.
+   *
+   * <p>Gets info about a specific monitor refresh using the given refresh ID.
+   *
+   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
+   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
+   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
+   * table's parent schema - **SELECT** privilege on the table.
+   *
+   * <p>Additionally, the call must be made from the workspace where the monitor was created.
+   */
+  MonitorRefreshInfo getRefresh(GetRefreshRequest getRefreshRequest);
+
+  /**
+   * List refreshes.
+   *
+   * <p>Gets an array containing the history of the most recent refreshes (up to 25) for this table.
+   *
+   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
+   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
+   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
+   * table's parent schema - **SELECT** privilege on the table.
+   *
+   * <p>Additionally, the call must be made from the workspace where the monitor was created.
+   */
+  Collection<MonitorRefreshInfo> listRefreshes(ListRefreshesRequest listRefreshesRequest);
+
+  /**
+   * Queue a metric refresh for a monitor.
+   *
+   * <p>Queues a metric refresh on the monitor for the specified table. The refresh will execute in
+   * the background.
+   *
+   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
+   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
+   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
+   * table's parent schema - be an owner of the table
+   *
+   * <p>Additionally, the call must be made from the workspace where the monitor was created.
+   */
+  MonitorRefreshInfo runRefresh(RunRefreshRequest runRefreshRequest);
 
   /**
    * Update a table monitor.

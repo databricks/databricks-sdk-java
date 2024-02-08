@@ -39,6 +39,24 @@ public class GcpAttributes {
   @JsonProperty("local_ssd_count")
   private Long localSsdCount;
 
+  /**
+   * This field determines whether the spark executors will be scheduled to run on preemptible VMs
+   * (when set to true) versus standard compute engine VMs (when set to false; default). Note: Soon
+   * to be deprecated, use the availability field instead.
+   */
+  @JsonProperty("use_preemptible_executors")
+  private Boolean usePreemptibleExecutors;
+
+  /**
+   * Identifier for the availability zone in which the cluster resides. This can be one of the
+   * following: - "HA" => High availability, spread nodes across availability zones for a Databricks
+   * deployment region [default] - "AUTO" => Databricks picks an availability zone to schedule the
+   * cluster on. - A GCP availability zone => Pick One of the available zones for (machine type +
+   * region) from https://cloud.google.com/compute/docs/regions-zones.
+   */
+  @JsonProperty("zone_id")
+  private String zoneId;
+
   public GcpAttributes setAvailability(GcpAvailability availability) {
     this.availability = availability;
     return this;
@@ -75,6 +93,24 @@ public class GcpAttributes {
     return localSsdCount;
   }
 
+  public GcpAttributes setUsePreemptibleExecutors(Boolean usePreemptibleExecutors) {
+    this.usePreemptibleExecutors = usePreemptibleExecutors;
+    return this;
+  }
+
+  public Boolean getUsePreemptibleExecutors() {
+    return usePreemptibleExecutors;
+  }
+
+  public GcpAttributes setZoneId(String zoneId) {
+    this.zoneId = zoneId;
+    return this;
+  }
+
+  public String getZoneId() {
+    return zoneId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -83,12 +119,20 @@ public class GcpAttributes {
     return Objects.equals(availability, that.availability)
         && Objects.equals(bootDiskSize, that.bootDiskSize)
         && Objects.equals(googleServiceAccount, that.googleServiceAccount)
-        && Objects.equals(localSsdCount, that.localSsdCount);
+        && Objects.equals(localSsdCount, that.localSsdCount)
+        && Objects.equals(usePreemptibleExecutors, that.usePreemptibleExecutors)
+        && Objects.equals(zoneId, that.zoneId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(availability, bootDiskSize, googleServiceAccount, localSsdCount);
+    return Objects.hash(
+        availability,
+        bootDiskSize,
+        googleServiceAccount,
+        localSsdCount,
+        usePreemptibleExecutors,
+        zoneId);
   }
 
   @Override
@@ -98,6 +142,8 @@ public class GcpAttributes {
         .add("bootDiskSize", bootDiskSize)
         .add("googleServiceAccount", googleServiceAccount)
         .add("localSsdCount", localSsdCount)
+        .add("usePreemptibleExecutors", usePreemptibleExecutors)
+        .add("zoneId", zoneId)
         .toString();
   }
 }

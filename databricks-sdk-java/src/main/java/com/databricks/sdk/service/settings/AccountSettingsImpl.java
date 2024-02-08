@@ -28,8 +28,8 @@ class AccountSettingsImpl implements AccountSettingsService {
   }
 
   @Override
-  public PersonalComputeSetting readPersonalComputeSetting(
-      ReadPersonalComputeSettingRequest request) {
+  public PersonalComputeSetting getPersonalComputeSetting(
+      GetPersonalComputeSettingRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/settings/types/dcp_acct_enable/names/default",
