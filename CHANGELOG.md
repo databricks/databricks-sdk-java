@@ -1,5 +1,114 @@
 # Version changelog
 
+## 0.18.0
+
+* Derive config file name from attribute name ([#216](https://github.com/databricks/databricks-sdk-java/pull/216)).
+* Fix Databricks OAuth U2M on GCP ([#217](https://github.com/databricks/databricks-sdk-java/pull/217)).
+* Make new workspace client from account client ([#218](https://github.com/databricks/databricks-sdk-java/pull/218)).
+* Skip `AccountClientIT` test in GCP / Azure ([#222](https://github.com/databricks/databricks-sdk-java/pull/222)).
+* Only include request body when the OpenAPI operation indicates that there is a request body ([#223](https://github.com/databricks/databricks-sdk-java/pull/223)).
+* Generate SDK ([#226](https://github.com/databricks/databricks-sdk-java/pull/226)).
+
+API Changes:
+
+Additions:
+ * Added the following fields
+    - Added `usePreemptibleExecutors`, `zoneId` fields for `com.databricks.sdk.service.compute.GcpAttributes`.
+    - Added `abfss`, `gcs` fields for `com.databricks.sdk.service.compute.InitScriptInfo`.
+    - Added `source` field for `com.databricks.sdk.service.jobs.DbtTask`.
+    - Added `forEachTask` field for `com.databricks.sdk.service.jobs.RunTask`.
+    - Added `source` field for `com.databricks.sdk.service.jobs.SqlTaskFile`.
+    - Added `forEachTask` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+    - Added `forEachTask` field for `com.databricks.sdk.service.jobs.Task`.
+    - Added `fieldMask` field for `com.databricks.sdk.service.settings.UpdatePersonalComputeSettingRequest`.
+    - Added `deltaSyncIndexSpec` field for `com.databricks.sdk.service.vectorsearch.CreateVectorIndexRequest`.
+    - Added `fileType` field for `com.databricks.sdk.service.workspace.ExportResponse`.
+    - Added `resourceId` field for `com.databricks.sdk.service.workspace.ObjectInfo`.
+ * Added the following methods
+   - Added `cancelRefresh()`, `getRefresh()`, `listRefreshes()`, `runRefresh()` methods for `workspaceClient.lakehouseMonitors()` service.
+   - Added `createDirectory()`, `deleteDirectory()`, `listDirectoryContents()` methods for `workspaceClient.files()` service. 
+   - Added `getPersonalComputeSetting()` method for `accountClient.settings()` service.  
+   - Added `deleteDefaultNamespaceSetting()`, `deleteRestrictWorkspaceAdminsSetting()`, `getDefaultNamespaceSetting()`, `getRestrictWorkspaceAdminsSetting()`, `updateDefaultNamespaceSetting()`, `updateRestrictWorkspaceAdminsSetting()` methods for `workspaceClient.settings()` service.
+ * Added the following classes
+   - Added `com.databricks.sdk.service.catalog.CancelRefreshRequest` class.
+   - Added `com.databricks.sdk.service.catalog.GetRefreshRequest` class.
+   - Added `com.databricks.sdk.service.catalog.ListRefreshesRequest` class.
+   - Added `com.databricks.sdk.service.catalog.MonitorRefreshInfo` class.
+   - Added `com.databricks.sdk.service.catalog.MonitorRefreshInfoState` class.
+   - Added `com.databricks.sdk.service.catalog.RunRefreshRequest` class.
+   - Added `com.databricks.sdk.service.compute.Adlsgen2Info` class. 
+   - Added `com.databricks.sdk.service.compute.GcsStorageInfo` class.
+   - Added `com.databricks.sdk.service.files.CreateDirectoryRequest` class. 
+   - Added `com.databricks.sdk.service.files.DeleteDirectoryRequest` class. 
+   - Added `com.databricks.sdk.service.files.DirectoryEntry` class. 
+   - Added `com.databricks.sdk.service.files.ListDirectoryContentsRequest` class. 
+   - Added `com.databricks.sdk.service.files.ListDirectoryResponse` class. 
+   - Added `com.databricks.sdk.service.files.PageToken` class. 
+   - Added `com.databricks.sdk.service.jobs.ForEachStats` class. 
+   - Added `com.databricks.sdk.service.jobs.ForEachTask` class. 
+   - Added `com.databricks.sdk.service.jobs.ForEachTaskErrorMessageStats` class. 
+   - Added `com.databricks.sdk.service.jobs.ForEachTaskTaskRunStats` class. 
+   - Added `com.databricks.sdk.service.jobs.RunForEachTask` class.
+   - Added `com.databricks.sdk.service.pipelines.PipelineClusterAutoscale` class. 
+   - Added `com.databricks.sdk.service.pipelines.PipelineClusterAutoscaleMode` class. 
+   - Added `com.databricks.sdk.service.settings.DeleteDefaultNamespaceSettingRequest` class. 
+   - Added `com.databricks.sdk.service.settings.DeleteDefaultNamespaceSettingResponse` class. 
+   - Added `com.databricks.sdk.service.settings.DeleteRestrictWorkspaceAdminsSettingRequest` class. 
+   - Added `com.databricks.sdk.service.settings.DeleteRestrictWorkspaceAdminsSettingResponse` class. 
+   - Added `com.databricks.sdk.service.settings.GetDefaultNamespaceSettingRequest` class. 
+   - Added `com.databricks.sdk.service.settings.GetPersonalComputeSettingRequest` class. 
+   - Added `com.databricks.sdk.service.settings.GetRestrictWorkspaceAdminsSettingRequest` class. 
+   - Added `com.databricks.sdk.service.settings.RestrictWorkspaceAdminsMessage` class. 
+   - Added `com.databricks.sdk.service.settings.RestrictWorkspaceAdminsMessageStatus` class. 
+   - Added `com.databricks.sdk.service.settings.RestrictWorkspaceAdminsSetting` class. 
+   - Added `com.databricks.sdk.service.settings.UpdateDefaultNamespaceSettingRequest` class. 
+   - Added `com.databricks.sdk.service.settings.UpdateRestrictWorkspaceAdminsSettingRequest` class.
+
+Removals:
+ * Removed the following fields
+   - Removed `name` field for `com.databricks.sdk.service.catalog.UpdateConnection`.
+   - Removed `name` field for `com.databricks.sdk.service.catalog.UpdateMetastore`.
+   - Removed `name` field for `com.databricks.sdk.service.catalog.UpdateRegisteredModelRequest`.
+   - Removed `name` field for `com.databricks.sdk.service.catalog.UpdateSchema`.
+   - Removed `name` field for `com.databricks.sdk.service.catalog.UpdateVolumeRequestContent`.
+   - Removed `deltaSyncVectorIndexSpec` field for `com.databricks.sdk.service.vectorsearch.CreateVectorIndexRequest`.
+ * Removed the following methods
+   - Removed `getStatus()` method for `workspaceClient.files()` service. 
+   - Removed `reset()` method for `workspaceClient.pipelines()` service. 
+   - Removed `readPersonalComputeSetting()` method for `accountClient.settings()` service.  
+   - Removed `deleteDefaultWorkspaceNamespace()`, `readDefaultWorkspaceNamespace()`, `updateDefaultWorkspaceNamespace()` methods for `workspaceClient.settings()` service.
+ * Removed the following classes
+   - Removed `com.databricks.sdk.service.pipelines.ResetRequest` class.
+   - Removed `com.databricks.sdk.service.settings.DeleteDefaultWorkspaceNamespaceRequest` class. 
+   - Removed `com.databricks.sdk.service.settings.DeleteDefaultWorkspaceNamespaceResponse` class. 
+   - Changed `etag` field for `com.databricks.sdk.service.settings.DeletePersonalComputeSettingRequest` to no longer be required. 
+   - Removed `com.databricks.sdk.service.settings.ReadDefaultWorkspaceNamespaceRequest` class. 
+   - Removed `com.databricks.sdk.service.settings.ReadPersonalComputeSettingRequest` class. 
+   - Removed `com.databricks.sdk.service.settings.UpdateDefaultWorkspaceNamespaceRequest` class.
+
+
+
+
+Changes:
+ * Changed the following fields
+   - Changed `maxWorkers`, `minWorkers` fields for `com.databricks.sdk.service.compute.AutoScale` to no longer be required.
+   - Changed `destination` field for `com.databricks.sdk.service.compute.DbfsStorageInfo` to be required.
+   - Changed `destination` field for `com.databricks.sdk.service.compute.LocalFileInfo` to be required. 
+   - Changed `destination` field for `com.databricks.sdk.service.compute.S3StorageInfo` to be required. 
+   - Changed `destination` field for `com.databricks.sdk.service.compute.VolumesStorageInfo` to be required. 
+   - Changed `clients` field for `com.databricks.sdk.service.compute.WorkloadType` to be required. 
+   - Changed `destination` field for `com.databricks.sdk.service.compute.WorkspaceStorageInfo` to be required. 
+   - Changed `autoscale` field for `com.databricks.sdk.service.pipelines.PipelineCluster` to `com.databricks.sdk.service.pipelines.PipelineClusterAutoscale` class.
+   - Changed `allowMissing`, `setting` fields for `com.databricks.sdk.service.settings.UpdatePersonalComputeSettingRequest` to be required.
+ * Changed the following methods 
+   - Changed `deletePersonalComputeSetting()`, `updatePersonalComputeSetting()` methods for `accountClient.settings()` service with new required argument order.
+
+OpenAPI SHA: 6b897bc95b23abed8b9f5eff0e6b8ec034046180, Date: 2024-02-08
+
+Dependency updates:
+
+ * Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.1.2 to 3.2.5 ([#206](https://github.com/databricks/databricks-sdk-java/pull/206)).
+
 ## 0.17.1
 
 Major changes:
