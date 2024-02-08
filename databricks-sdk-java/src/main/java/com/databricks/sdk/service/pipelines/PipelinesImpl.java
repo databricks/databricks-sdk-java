@@ -98,7 +98,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/reset", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, null, Void.class, headers);
   }
 
   @Override
@@ -124,7 +124,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/stop", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, null, Void.class, headers);
   }
 
   @Override

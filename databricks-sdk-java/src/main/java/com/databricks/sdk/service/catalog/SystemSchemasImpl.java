@@ -34,7 +34,7 @@ class SystemSchemasImpl implements SystemSchemasService {
             request.getMetastoreId(), request.getSchemaName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.PUT(path, request, Void.class, headers);
+    apiClient.PUT(path, null, Void.class, headers);
   }
 
   @Override

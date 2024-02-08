@@ -23,7 +23,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.POST(path, request, CreateServicePrincipalSecretResponse.class, headers);
+    return apiClient.POST(path, null, CreateServicePrincipalSecretResponse.class, headers);
   }
 
   @Override

@@ -54,7 +54,7 @@ class DashboardsImpl implements DashboardsService {
         String.format("/api/2.0/preview/sql/dashboards/trash/%s", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, null, Void.class, headers);
   }
 
   @Override
