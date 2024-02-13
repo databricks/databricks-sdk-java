@@ -6,9 +6,7 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.SystemTimer;
 import com.databricks.sdk.core.utils.Timer;
-import com.databricks.sdk.service.files.GetMetadataResponse;
 import com.databricks.sdk.support.Header;
-import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -383,7 +381,6 @@ public class ApiClient {
         throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
       }
     } else if (response.getBody() != null) {
-      //mapper.readValue(response.getBody(), object.getClass());
       mapper.readerForUpdating(object).readValue(response.getBody());
     }
   }
