@@ -122,6 +122,8 @@ public class CommonsHttpClient implements HttpClient {
     switch (in.getMethod()) {
       case Request.GET:
         return new HttpGet(in.getUri());
+      case Request.HEAD:
+        return new HttpHead(in.getUri());
       case Request.DELETE:
         return new HttpDelete(in.getUri());
       case Request.POST:

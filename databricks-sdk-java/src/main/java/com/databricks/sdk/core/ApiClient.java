@@ -131,6 +131,18 @@ public class ApiClient {
     }
   }
 
+  public <O> O HEAD(String path, Class<O> target, Map<String, String> headers) {
+    return HEAD(path, null, target, headers);
+  }
+
+  public <I, O> O HEAD(String path, I in, Class<O> target, Map<String, String> headers) {
+    try {
+      return execute(prepareRequest("HEAD", path, in, headers), target);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
   public <O> O GET(String path, Class<O> target, Map<String, String> headers) {
     return GET(path, null, target, headers);
   }
