@@ -6,6 +6,9 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.SystemTimer;
 import com.databricks.sdk.core.utils.Timer;
+import com.databricks.sdk.service.files.GetMetadataResponse;
+import com.databricks.sdk.support.Header;
+import com.databricks.sdk.support.QueryParam;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -14,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,7 +129,7 @@ public class ApiClient {
     try {
       Request request = prepareRequest("GET", path, in, headers);
       Response response = getResponse(request);
-      return deserialize(response.getBody(), javaType);
+      return deserialize(response, javaType);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -224,7 +228,7 @@ public class ApiClient {
     if (target == Void.class) {
       return null;
     }
-    return deserialize(out.getBody(), target);
+    return deserialize(out, target);
   }
 
   private Response getResponse(Request in) {
@@ -328,21 +332,89 @@ public class ApiClient {
       sb.append("\n< ");
       sb.append(line);
     }
+    sb.append("\n<").append(out.getAllHeaders().toString());
     return sb.toString();
   }
 
-  public <T> T deserialize(InputStream body, Class<T> target) throws IOException {
-    if (target == InputStream.class) {
-      return (T) body;
+  private <T> void fillInHeaders(T target, Response response) {
+    for (Field field : target.getClass().getDeclaredFields()) {
+      Header headerAnnotation = field.getAnnotation(Header.class);
+      if (headerAnnotation == null) {
+        continue;
+      }
+      String firstHeader = response.getFirstHeader(headerAnnotation.value());
+      if (firstHeader == null) {
+        continue;
+      }
+      try {
+        field.setAccessible(true);
+        if (field.getType() == String.class) {
+          field.set(target, firstHeader);
+        } else if (field.getType() == Long.class) {
+          field.set(target, Long.parseLong(firstHeader));
+        } else {
+          LOG.warn("Unsupported header type: " + field.getType());
+        }
+        field.setAccessible(false);
+      } catch (IllegalAccessException e) {
+        field.setAccessible(false);
+        throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
+      }
     }
-    return mapper.readValue(body, target);
   }
 
-  public <T> T deserialize(InputStream body, JavaType target) throws IOException {
-    if (target == mapper.constructType(InputStream.class)) {
-      return (T) body;
+  private <T> Optional<Field> getContentsField(T target) {
+    for (Field field : target.getClass().getFields()) {
+      if (field.getName().equals("Contents") && field.getType() == InputStream.class) {
+        return Optional.of(field);
+      }
     }
-    return mapper.readValue(body, target);
+    return Optional.empty();
+  }
+
+  public <T> void deserialize(Response response, T object) throws IOException {
+    fillInHeaders(object, response);
+    Optional<Field> contentsField = getContentsField(object);
+    if (contentsField.isPresent()) {
+      try {
+        contentsField.get().set(object, response.getBody());
+        fillInHeaders(object, response);
+      } catch (IllegalAccessException e) {
+        throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
+      }
+    } else if (response.getBody() != null) {
+      //mapper.readValue(response.getBody(), object.getClass());
+      mapper.readerForUpdating(object).readValue(response.getBody());
+    }
+  }
+
+  public <T> T deserialize(Response response, Class<T> target) throws IOException {
+    if (target == InputStream.class) {
+      return (T) response.getBody();
+    }
+    T object;
+    try {
+      object = target.getDeclaredConstructor().newInstance();
+    } catch (Exception e) {
+      throw new IOException("Unable to initialize an instance of type " + target.getName());
+    }
+    deserialize(response, object);
+    return object;
+  }
+
+  public <T> T deserialize(Response response, JavaType target) throws IOException {
+    if (target == mapper.constructType(InputStream.class)) {
+      return (T) response.getBody();
+    }
+    T object;
+    Class<T> c = (Class<T>) target.getClass();
+    try {
+      object = c.getDeclaredConstructor().newInstance();
+    } catch (Exception e) {
+      throw new IOException("Unable to initialize an instance of type " + c.getName());
+    }
+    deserialize(response, object);
+    return object;
   }
 
   private String serialize(Object body) throws JsonProcessingException {

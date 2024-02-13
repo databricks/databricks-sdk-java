@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Header;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
@@ -11,6 +12,7 @@ import java.util.Objects;
 public class PinCluster {
   /** <needs content added> */
   @JsonProperty("cluster_id")
+  @Header("t")
   private String clusterId;
 
   public PinCluster setClusterId(String clusterId) {
