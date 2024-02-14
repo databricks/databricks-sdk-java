@@ -3,8 +3,6 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.Header;
-
 import java.util.HashMap;
 import java.util.Map;
 
