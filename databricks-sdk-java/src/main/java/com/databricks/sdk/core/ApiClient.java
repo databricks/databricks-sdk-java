@@ -127,7 +127,7 @@ public class ApiClient {
     try {
       Request request = prepareRequest("GET", path, in, headers);
       Response response = getResponse(request);
-      return deserialize(response, javaType);
+      return deserialize(response.getBody(), javaType);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }
@@ -331,6 +331,13 @@ public class ApiClient {
       sb.append(line);
     }
     return sb.toString();
+  }
+
+  public <T> T deserialize(InputStream body, JavaType target) throws IOException {
+    if (target == mapper.constructType(InputStream.class)) {
+      return (T) body;
+    }
+    return mapper.readValue(body, target);
   }
 
   private <T> void fillInHeaders(T target, Response response) {
