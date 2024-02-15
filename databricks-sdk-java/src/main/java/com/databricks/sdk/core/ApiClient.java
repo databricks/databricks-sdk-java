@@ -330,7 +330,6 @@ public class ApiClient {
       sb.append("\n< ");
       sb.append(line);
     }
-    sb.append("\n<").append(out.getAllHeaders().toString());
     return sb.toString();
   }
 
@@ -378,11 +377,10 @@ public class ApiClient {
       try {
         field.setAccessible(true);
         field.set(object, response.getBody());
-        fillInHeaders(object, response);
-        field.setAccessible(false);
       } catch (IllegalAccessException e) {
-        field.setAccessible(false);
         throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
+      } finally {
+        field.setAccessible(false);
       }
     } else if (response.getBody() != null) {
       mapper.readerForUpdating(object).readValue(response.getBody());
