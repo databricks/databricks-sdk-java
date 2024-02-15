@@ -333,6 +333,20 @@ public class ApiClient {
     return sb.toString();
   }
 
+  public <T> T deserialize(Response response, Class<T> target) throws IOException {
+    if (target == InputStream.class) {
+      return (T) response.getBody();
+    }
+    T object;
+    try {
+      object = target.getDeclaredConstructor().newInstance();
+    } catch (Exception e) {
+      throw new IOException("Unable to initialize an instance of type " + target.getName());
+    }
+    deserialize(response, object);
+    return object;
+  }
+
   public <T> T deserialize(InputStream body, JavaType target) throws IOException {
     if (target == mapper.constructType(InputStream.class)) {
       return (T) body;
@@ -392,20 +406,6 @@ public class ApiClient {
     } else if (response.getBody() != null) {
       mapper.readerForUpdating(object).readValue(response.getBody());
     }
-  }
-
-  public <T> T deserialize(Response response, Class<T> target) throws IOException {
-    if (target == InputStream.class) {
-      return (T) response.getBody();
-    }
-    T object;
-    try {
-      object = target.getDeclaredConstructor().newInstance();
-    } catch (Exception e) {
-      throw new IOException("Unable to initialize an instance of type " + target.getName());
-    }
-    deserialize(response, object);
-    return object;
   }
 
   private String serialize(Object body) throws JsonProcessingException {
