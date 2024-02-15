@@ -362,8 +362,8 @@ public class ApiClient {
   }
 
   private <T> Optional<Field> getContentsField(T target) {
-    for (Field field : target.getClass().getFields()) {
-      if (field.getName().equals("Contents") && field.getType() == InputStream.class) {
+    for (Field field : target.getClass().getDeclaredFields()) {
+      if (field.getName().equals("contents") && field.getType() == InputStream.class) {
         return Optional.of(field);
       }
     }
@@ -374,10 +374,14 @@ public class ApiClient {
     fillInHeaders(object, response);
     Optional<Field> contentsField = getContentsField(object);
     if (contentsField.isPresent()) {
+      Field field = contentsField.get();
       try {
-        contentsField.get().set(object, response.getBody());
+        field.setAccessible(true);
+        field.set(object, response.getBody());
         fillInHeaders(object, response);
+        field.setAccessible(false);
       } catch (IllegalAccessException e) {
+        field.setAccessible(false);
         throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
       }
     } else if (response.getBody() != null) {
