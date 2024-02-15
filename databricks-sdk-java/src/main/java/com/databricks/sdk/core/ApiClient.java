@@ -408,21 +408,6 @@ public class ApiClient {
     return object;
   }
 
-  public <T> T deserialize(Response response, JavaType target) throws IOException {
-    if (target == mapper.constructType(InputStream.class)) {
-      return (T) response.getBody();
-    }
-    T object;
-    Class<T> c = (Class<T>) target.getClass();
-    try {
-      object = c.getDeclaredConstructor().newInstance();
-    } catch (Exception e) {
-      throw new IOException("Unable to initialize an instance of type " + c.getName());
-    }
-    deserialize(response, object);
-    return object;
-  }
-
   private String serialize(Object body) throws JsonProcessingException {
     if (body == null) {
       return null;
