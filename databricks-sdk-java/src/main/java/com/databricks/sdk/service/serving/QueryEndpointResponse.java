@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Header;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
@@ -55,6 +56,13 @@ public class QueryEndpointResponse {
   /** The predictions returned by the serving endpoint. */
   @JsonProperty("predictions")
   private Collection<Object> predictions;
+
+  /**
+   * The name of the served model that served the request. This is useful when there are multiple
+   * models behind the same endpoint with traffic split.
+   */
+  @Header("served-model-name")
+  private String servedModelName;
 
   /**
    * The usage object that may be returned by the __external/foundation model__ serving endpoint.
@@ -126,6 +134,15 @@ public class QueryEndpointResponse {
     return predictions;
   }
 
+  public QueryEndpointResponse setServedModelName(String servedModelName) {
+    this.servedModelName = servedModelName;
+    return this;
+  }
+
+  public String getServedModelName() {
+    return servedModelName;
+  }
+
   public QueryEndpointResponse setUsage(ExternalModelUsageElement usage) {
     this.usage = usage;
     return this;
@@ -147,12 +164,14 @@ public class QueryEndpointResponse {
         && Objects.equals(model, that.model)
         && Objects.equals(object, that.object)
         && Objects.equals(predictions, that.predictions)
+        && Objects.equals(servedModelName, that.servedModelName)
         && Objects.equals(usage, that.usage);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(choices, created, data, id, model, object, predictions, usage);
+    return Objects.hash(
+        choices, created, data, id, model, object, predictions, servedModelName, usage);
   }
 
   @Override
@@ -165,6 +184,7 @@ public class QueryEndpointResponse {
         .add("model", model)
         .add("object", object)
         .add("predictions", predictions)
+        .add("servedModelName", servedModelName)
         .add("usage", usage)
         .toString();
   }

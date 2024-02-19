@@ -6,6 +6,7 @@ import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.SystemTimer;
 import com.databricks.sdk.core.utils.Timer;
+import com.databricks.sdk.support.Header;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -131,6 +133,18 @@ public class ApiClient {
     }
   }
 
+  public <O> O HEAD(String path, Class<O> target, Map<String, String> headers) {
+    return HEAD(path, null, target, headers);
+  }
+
+  public <I, O> O HEAD(String path, I in, Class<O> target, Map<String, String> headers) {
+    try {
+      return execute(prepareRequest("HEAD", path, in, headers), target);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
   public <O> O GET(String path, Class<O> target, Map<String, String> headers) {
     return GET(path, null, target, headers);
   }
@@ -212,7 +226,7 @@ public class ApiClient {
     if (target == Void.class) {
       return null;
     }
-    return deserialize(out.getBody(), target);
+    return deserialize(out, target);
   }
 
   private Response getResponse(Request in) {
@@ -319,11 +333,18 @@ public class ApiClient {
     return sb.toString();
   }
 
-  public <T> T deserialize(InputStream body, Class<T> target) throws IOException {
+  public <T> T deserialize(Response response, Class<T> target) throws IOException {
     if (target == InputStream.class) {
-      return (T) body;
+      return (T) response.getBody();
     }
-    return mapper.readValue(body, target);
+    T object;
+    try {
+      object = target.getDeclaredConstructor().newInstance();
+    } catch (Exception e) {
+      throw new DatabricksException("Unable to initialize an instance of type " + target.getName());
+    }
+    deserialize(response, object);
+    return object;
   }
 
   public <T> T deserialize(InputStream body, JavaType target) throws IOException {
@@ -331,6 +352,60 @@ public class ApiClient {
       return (T) body;
     }
     return mapper.readValue(body, target);
+  }
+
+  private <T> void fillInHeaders(T target, Response response) {
+    for (Field field : target.getClass().getDeclaredFields()) {
+      Header headerAnnotation = field.getAnnotation(Header.class);
+      if (headerAnnotation == null) {
+        continue;
+      }
+      String firstHeader = response.getFirstHeader(headerAnnotation.value());
+      if (firstHeader == null) {
+        continue;
+      }
+      try {
+        field.setAccessible(true);
+        if (field.getType() == String.class) {
+          field.set(target, firstHeader);
+        } else if (field.getType() == Long.class) {
+          field.set(target, Long.parseLong(firstHeader));
+        } else {
+          LOG.warn("Unsupported header type: " + field.getType());
+        }
+      } catch (IllegalAccessException e) {
+        throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
+      } finally {
+        field.setAccessible(false);
+      }
+    }
+  }
+
+  private <T> Optional<Field> getContentsField(T target) {
+    for (Field field : target.getClass().getDeclaredFields()) {
+      if (field.getName().equals("contents") && field.getType() == InputStream.class) {
+        return Optional.of(field);
+      }
+    }
+    return Optional.empty();
+  }
+
+  public <T> void deserialize(Response response, T object) throws IOException {
+    fillInHeaders(object, response);
+    Optional<Field> contentsField = getContentsField(object);
+    if (contentsField.isPresent()) {
+      Field field = contentsField.get();
+      try {
+        field.setAccessible(true);
+        field.set(object, response.getBody());
+      } catch (IllegalAccessException e) {
+        throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
+      } finally {
+        field.setAccessible(false);
+      }
+    } else if (response.getBody() != null) {
+      mapper.readerForUpdating(object).readValue(response.getBody());
+    }
   }
 
   private String serialize(Object body) throws JsonProcessingException {

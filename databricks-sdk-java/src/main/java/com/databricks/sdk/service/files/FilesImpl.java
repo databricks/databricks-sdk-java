@@ -3,7 +3,6 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,8 +41,7 @@ class FilesImpl implements FilesService {
     String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/octet-stream");
-    InputStream response = apiClient.GET(path, request, InputStream.class, headers);
-    return new DownloadResponse().setContents(response);
+    return apiClient.GET(path, request, DownloadResponse.class, headers);
   }
 
   @Override

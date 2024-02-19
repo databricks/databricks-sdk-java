@@ -44,7 +44,10 @@ public class FilesIT {
 
     // Write the file to DBFS.
     workspace.files().upload(fileName, inputStream);
-
+    // TODO: Enable after SDK generated
+    // Check header deserialization
+    // GetMetadataResponse metadata = workspace.files().getMetadata(fileName);
+    // Assertions.assertEquals("application/octet-stream", metadata.getContentType());
     // Read the file back from DBFS.
     try (InputStream readContents = workspace.files().download(fileName).getContents()) {
       byte[] result = new byte[fileContents.length];
