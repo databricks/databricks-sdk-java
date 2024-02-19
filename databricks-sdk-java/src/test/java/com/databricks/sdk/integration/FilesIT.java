@@ -5,11 +5,10 @@ import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.integration.framework.NameUtils;
 import com.databricks.sdk.integration.framework.ResourceWithCleanup;
+import com.databricks.sdk.service.files.GetMetadataResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import com.databricks.sdk.service.files.GetMetadataResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
