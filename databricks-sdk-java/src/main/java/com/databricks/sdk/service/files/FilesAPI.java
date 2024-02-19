@@ -9,8 +9,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Files API allows you to read, write, and delete files and directories in Unity Catalog
- * volumes.
+ * The Files API allows you to read, write, list, and delete files and directories. We support Unity
+ * Catalog volumes with paths starting with "/Volumes/<catalog>/<schema>/<volume>".
+ *
+ * <p>The Files API is designed like a standard HTTP API, rather than as a JSON RPC API. This is
+ * intended to make it easier and more efficient to work with file contents as raw bytes.
+ *
+ * <p>Because the Files API is a standard HTTP API, the URI path is used to specify the file or
+ * directory to operate on. The path is always absolute.
+ *
+ * <p>The Files API has separate endpoints for working with files, `/fs/files`, and working with
+ * directories, `/fs/directories`. The standard HTTP methods `GET`, `HEAD`, `PUT`, and `DELETE` work
+ * as expected on these endpoints.
  */
 @Generated
 public class FilesAPI {
@@ -35,8 +45,9 @@ public class FilesAPI {
   /**
    * Create a directory.
    *
-   * <p>Creates an empty directory. If called on an existing directory, the API returns a success
-   * response.
+   * <p>Creates an empty directory. If necessary, also creates any parent directories of the new,
+   * empty directory (like the shell command `mkdir -p`). If called on an existing directory,
+   * returns a success response; this method is idempotent.
    */
   public void createDirectory(CreateDirectoryRequest request) {
     impl.createDirectory(request);
@@ -49,7 +60,7 @@ public class FilesAPI {
   /**
    * Delete a file.
    *
-   * <p>Deletes a file.
+   * <p>Deletes a file. If the request is successful, there is no response body.
    */
   public void delete(DeleteFileRequest request) {
     impl.delete(request);
@@ -62,7 +73,10 @@ public class FilesAPI {
   /**
    * Delete a directory.
    *
-   * <p>Deletes an empty directory. If the directory is not empty, the API returns a HTTP 400 error.
+   * <p>Deletes an empty directory.
+   *
+   * <p>To delete a non-empty directory, first delete all of its contents. This can be done by
+   * listing the directory contents and deleting each file and subdirectory recursively.
    */
   public void deleteDirectory(DeleteDirectoryRequest request) {
     impl.deleteDirectory(request);
@@ -75,10 +89,45 @@ public class FilesAPI {
   /**
    * Download a file.
    *
-   * <p>Downloads a file of up to 5 GiB.
+   * <p>Downloads a file of up to 5 GiB. The file contents are the response body. This is a standard
+   * HTTP file download, not a JSON RPC.
    */
   public DownloadResponse download(DownloadRequest request) {
     return impl.download(request);
+  }
+
+  public void getDirectoryMetadata(String directoryPath) {
+    getDirectoryMetadata(new GetDirectoryMetadataRequest().setDirectoryPath(directoryPath));
+  }
+
+  /**
+   * Get directory metadata.
+   *
+   * <p>Get the metadata of a directory. The response HTTP headers contain the metadata. There is no
+   * response body.
+   *
+   * <p>This method is useful to check if a directory exists and the caller has access to it.
+   *
+   * <p>If you wish to ensure the directory exists, you can instead use `PUT`, which will create the
+   * directory if it does not exist, and is idempotent (it will succeed if the directory already
+   * exists).
+   */
+  public void getDirectoryMetadata(GetDirectoryMetadataRequest request) {
+    impl.getDirectoryMetadata(request);
+  }
+
+  public GetMetadataResponse getMetadata(String filePath) {
+    return getMetadata(new GetMetadataRequest().setFilePath(filePath));
+  }
+
+  /**
+   * Get file metadata.
+   *
+   * <p>Get the metadata of a file. The response HTTP headers contain the metadata. There is no
+   * response body.
+   */
+  public GetMetadataResponse getMetadata(GetMetadataRequest request) {
+    return impl.getMetadata(request);
   }
 
   public Iterable<DirectoryEntry> listDirectoryContents(String directoryPath) {
@@ -113,7 +162,10 @@ public class FilesAPI {
   /**
    * Upload a file.
    *
-   * <p>Uploads a file of up to 5 GiB.
+   * <p>Uploads a file of up to 5 GiB. The file contents should be sent as the request body as raw
+   * bytes (an octet stream); do not encode or otherwise modify the bytes before sending. The
+   * contents of the resulting file will be exactly the bytes sent in the request body. If the
+   * request is successful, there is no response body.
    */
   public void upload(UploadRequest request) {
     impl.upload(request);

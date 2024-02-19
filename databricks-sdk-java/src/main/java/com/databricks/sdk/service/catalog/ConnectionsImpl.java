@@ -26,7 +26,7 @@ class ConnectionsImpl implements ConnectionsService {
 
   @Override
   public void delete(DeleteConnectionRequest request) {
-    String path = String.format("/api/2.1/unity-catalog/connections/%s", request.getNameArg());
+    String path = String.format("/api/2.1/unity-catalog/connections/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     apiClient.DELETE(path, request, Void.class, headers);
@@ -34,7 +34,7 @@ class ConnectionsImpl implements ConnectionsService {
 
   @Override
   public ConnectionInfo get(GetConnectionRequest request) {
-    String path = String.format("/api/2.1/unity-catalog/connections/%s", request.getNameArg());
+    String path = String.format("/api/2.1/unity-catalog/connections/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, ConnectionInfo.class, headers);
@@ -50,7 +50,7 @@ class ConnectionsImpl implements ConnectionsService {
 
   @Override
   public ConnectionInfo update(UpdateConnection request) {
-    String path = String.format("/api/2.1/unity-catalog/connections/%s", request.getNameArg());
+    String path = String.format("/api/2.1/unity-catalog/connections/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");

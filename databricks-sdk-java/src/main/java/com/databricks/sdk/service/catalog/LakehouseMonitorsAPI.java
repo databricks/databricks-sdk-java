@@ -183,12 +183,8 @@ public class LakehouseMonitorsAPI {
     return impl.runRefresh(request);
   }
 
-  public MonitorInfo update(String fullName, String assetsDir, String outputSchemaName) {
-    return update(
-        new UpdateMonitor()
-            .setFullName(fullName)
-            .setAssetsDir(assetsDir)
-            .setOutputSchemaName(outputSchemaName));
+  public MonitorInfo update(String fullName, String outputSchemaName) {
+    return update(new UpdateMonitor().setFullName(fullName).setOutputSchemaName(outputSchemaName));
   }
 
   /**

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class ForEachTask {
-  /** Controls the number of active iterations task runs. Default is 100 (maximal value). */
+  /** Controls the number of active iterations task runs. Default is 20, maximum allowed is 100. */
   @JsonProperty("concurrency")
   private Long concurrency;
 

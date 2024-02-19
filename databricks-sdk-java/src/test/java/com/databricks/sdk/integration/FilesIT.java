@@ -8,6 +8,8 @@ import com.databricks.sdk.integration.framework.ResourceWithCleanup;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import com.databricks.sdk.service.files.GetMetadataResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,10 +46,9 @@ public class FilesIT {
 
     // Write the file to DBFS.
     workspace.files().upload(fileName, inputStream);
-    // TODO: Enable after SDK generated
     // Check header deserialization
-    // GetMetadataResponse metadata = workspace.files().getMetadata(fileName);
-    // Assertions.assertEquals("application/octet-stream", metadata.getContentType());
+     GetMetadataResponse metadata = workspace.files().getMetadata(fileName);
+     Assertions.assertEquals("application/octet-stream", metadata.getContentType());
     // Read the file back from DBFS.
     try (InputStream readContents = workspace.files().download(fileName).getContents()) {
       byte[] result = new byte[fileContents.length];

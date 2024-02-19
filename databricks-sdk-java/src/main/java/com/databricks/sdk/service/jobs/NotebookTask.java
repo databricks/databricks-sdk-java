@@ -15,7 +15,7 @@ public class NotebookTask {
    * :method:jobs/runNow with parameters specified, the two parameters maps are merged. If the same
    * key is specified in `base_parameters` and in `run-now`, the value from `run-now` is used.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
    *
    * <p>If the notebook takes a parameter that is not specified in the job’s `base_parameters` or
    * the `run-now` override parameters, the default value from the notebook is used.
@@ -24,9 +24,9 @@ public class NotebookTask {
    *
    * <p>The JSON representation of this field cannot exceed 1MB.
    *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
-   * [dbutils.widgets.get]:
-   * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-widgets
+   * <p>[dbutils.widgets.get]:
+   * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-widgets [task parameter
+   * variables]: https://docs.databricks.com/workflows/jobs/parameter-value-references.html
    */
   @JsonProperty("base_parameters")
   private Map<String, String> baseParameters;

@@ -11,8 +11,14 @@ public enum ParameterType {
   @JsonProperty("datetime")
   DATETIME,
 
+  @JsonProperty("enum")
+  ENUM,
+
   @JsonProperty("number")
   NUMBER,
+
+  @JsonProperty("query")
+  QUERY,
 
   @JsonProperty("text")
   TEXT,

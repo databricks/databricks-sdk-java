@@ -14,7 +14,7 @@ public class UpdateVolumeRequestContent {
   private String comment;
 
   /** The three-level (fully qualified) name of the volume */
-  private String fullNameArg;
+  private String name;
 
   /** New name for the volume. */
   @JsonProperty("new_name")
@@ -33,13 +33,13 @@ public class UpdateVolumeRequestContent {
     return comment;
   }
 
-  public UpdateVolumeRequestContent setFullNameArg(String fullNameArg) {
-    this.fullNameArg = fullNameArg;
+  public UpdateVolumeRequestContent setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getFullNameArg() {
-    return fullNameArg;
+  public String getName() {
+    return name;
   }
 
   public UpdateVolumeRequestContent setNewName(String newName) {
@@ -66,21 +66,21 @@ public class UpdateVolumeRequestContent {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateVolumeRequestContent that = (UpdateVolumeRequestContent) o;
     return Objects.equals(comment, that.comment)
-        && Objects.equals(fullNameArg, that.fullNameArg)
+        && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, fullNameArg, newName, owner);
+    return Objects.hash(comment, name, newName, owner);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateVolumeRequestContent.class)
         .add("comment", comment)
-        .add("fullNameArg", fullNameArg)
+        .add("name", name)
         .add("newName", newName)
         .add("owner", owner)
         .toString();
