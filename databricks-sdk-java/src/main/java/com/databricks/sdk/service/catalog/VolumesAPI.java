@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,8 +66,8 @@ public class VolumesAPI {
     return impl.create(request);
   }
 
-  public void delete(String fullNameArg) {
-    delete(new DeleteVolumeRequest().setFullNameArg(fullNameArg));
+  public void delete(String name) {
+    delete(new DeleteVolumeRequest().setName(name));
   }
 
   /**
@@ -89,7 +90,7 @@ public class VolumesAPI {
   /**
    * List Volumes.
    *
-   * <p>Gets an array of all volumes for the current metastore under the parent catalog and schema.
+   * <p>Gets an array of volumes for the current metastore under the parent catalog and schema.
    *
    * <p>The returned volumes are filtered based on the privileges of the calling user. For example,
    * the metastore admin is able to list all the volumes. A regular user needs to be the owner or
@@ -100,11 +101,21 @@ public class VolumesAPI {
    * <p>There is no guarantee of a specific ordering of the elements in the array.
    */
   public Iterable<VolumeInfo> list(ListVolumesRequest request) {
-    return impl.list(request).getVolumes();
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListVolumesResponseContent::getVolumes,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
-  public VolumeInfo read(String fullNameArg) {
-    return read(new ReadVolumeRequest().setFullNameArg(fullNameArg));
+  public VolumeInfo read(String name) {
+    return read(new ReadVolumeRequest().setName(name));
   }
 
   /**
@@ -121,8 +132,8 @@ public class VolumesAPI {
     return impl.read(request);
   }
 
-  public VolumeInfo update(String fullNameArg) {
-    return update(new UpdateVolumeRequestContent().setFullNameArg(fullNameArg));
+  public VolumeInfo update(String name) {
+    return update(new UpdateVolumeRequestContent().setName(name));
   }
 
   /**

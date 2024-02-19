@@ -153,9 +153,9 @@ public class JobSettings {
   private Long timeoutSeconds;
 
   /**
-   * Trigger settings for the job. Can be used to trigger a run when new files arrive in an external
-   * location. The default behavior is that the job runs only when triggered by clicking “Run Now”
-   * in the Jobs UI or sending an API request to `runNow`.
+   * A configuration to trigger a run when certain conditions are met. The default behavior is that
+   * the job runs only when triggered by clicking “Run Now” in the Jobs UI or sending an API request
+   * to `runNow`.
    */
   @JsonProperty("trigger")
   private TriggerSettings trigger;

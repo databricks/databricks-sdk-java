@@ -26,7 +26,7 @@ class CleanRoomsImpl implements CleanRoomsService {
 
   @Override
   public void delete(DeleteCleanRoomRequest request) {
-    String path = String.format("/api/2.1/unity-catalog/clean-rooms/%s", request.getNameArg());
+    String path = String.format("/api/2.1/unity-catalog/clean-rooms/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     apiClient.DELETE(path, request, Void.class, headers);
@@ -34,7 +34,7 @@ class CleanRoomsImpl implements CleanRoomsService {
 
   @Override
   public CleanRoomInfo get(GetCleanRoomRequest request) {
-    String path = String.format("/api/2.1/unity-catalog/clean-rooms/%s", request.getNameArg());
+    String path = String.format("/api/2.1/unity-catalog/clean-rooms/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, CleanRoomInfo.class, headers);
@@ -50,7 +50,7 @@ class CleanRoomsImpl implements CleanRoomsService {
 
   @Override
   public CleanRoomInfo update(UpdateCleanRoom request) {
-    String path = String.format("/api/2.1/unity-catalog/clean-rooms/%s", request.getNameArg());
+    String path = String.format("/api/2.1/unity-catalog/clean-rooms/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");

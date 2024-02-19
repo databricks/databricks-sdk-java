@@ -45,8 +45,8 @@ public class CleanRoomsAPI {
     return impl.create(request);
   }
 
-  public void delete(String nameArg) {
-    delete(new DeleteCleanRoomRequest().setNameArg(nameArg));
+  public void delete(String name) {
+    delete(new DeleteCleanRoomRequest().setName(name));
   }
 
   /**
@@ -59,8 +59,8 @@ public class CleanRoomsAPI {
     impl.delete(request);
   }
 
-  public CleanRoomInfo get(String nameArg) {
-    return get(new GetCleanRoomRequest().setNameArg(nameArg));
+  public CleanRoomInfo get(String name) {
+    return get(new GetCleanRoomRequest().setName(name));
   }
 
   /**
@@ -94,8 +94,8 @@ public class CleanRoomsAPI {
         });
   }
 
-  public CleanRoomInfo update(String nameArg) {
-    return update(new UpdateCleanRoom().setNameArg(nameArg));
+  public CleanRoomInfo update(String name) {
+    return update(new UpdateCleanRoom().setName(name));
   }
 
   /**

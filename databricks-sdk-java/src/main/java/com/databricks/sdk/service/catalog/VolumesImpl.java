@@ -26,7 +26,7 @@ class VolumesImpl implements VolumesService {
 
   @Override
   public void delete(DeleteVolumeRequest request) {
-    String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getFullNameArg());
+    String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     apiClient.DELETE(path, request, Void.class, headers);
   }
@@ -41,7 +41,7 @@ class VolumesImpl implements VolumesService {
 
   @Override
   public VolumeInfo read(ReadVolumeRequest request) {
-    String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getFullNameArg());
+    String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, VolumeInfo.class, headers);
@@ -49,7 +49,7 @@ class VolumesImpl implements VolumesService {
 
   @Override
   public VolumeInfo update(UpdateVolumeRequestContent request) {
-    String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getFullNameArg());
+    String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");

@@ -45,10 +45,6 @@ public class Job {
   @JsonProperty("settings")
   private JobSettings settings;
 
-  /** History of the file arrival trigger associated with the job. */
-  @JsonProperty("trigger_history")
-  private TriggerHistory triggerHistory;
-
   public Job setCreatedTime(Long createdTime) {
     this.createdTime = createdTime;
     return this;
@@ -94,15 +90,6 @@ public class Job {
     return settings;
   }
 
-  public Job setTriggerHistory(TriggerHistory triggerHistory) {
-    this.triggerHistory = triggerHistory;
-    return this;
-  }
-
-  public TriggerHistory getTriggerHistory() {
-    return triggerHistory;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -112,14 +99,12 @@ public class Job {
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(runAsUserName, that.runAsUserName)
-        && Objects.equals(settings, that.settings)
-        && Objects.equals(triggerHistory, that.triggerHistory);
+        && Objects.equals(settings, that.settings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(
-        createdTime, creatorUserName, jobId, runAsUserName, settings, triggerHistory);
+    return Objects.hash(createdTime, creatorUserName, jobId, runAsUserName, settings);
   }
 
   @Override
@@ -130,7 +115,6 @@ public class Job {
         .add("jobId", jobId)
         .add("runAsUserName", runAsUserName)
         .add("settings", settings)
-        .add("triggerHistory", triggerHistory)
         .toString();
   }
 }

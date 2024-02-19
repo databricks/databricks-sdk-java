@@ -13,9 +13,10 @@ public class SparkPythonTask {
   /**
    * Command line parameters passed to the Python file.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
    *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * <p>[task parameter variables]:
+   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
    */
   @JsonProperty("parameters")
   private Collection<String> parameters;

@@ -47,6 +47,20 @@ class FilesImpl implements FilesService {
   }
 
   @Override
+  public void getDirectoryMetadata(GetDirectoryMetadataRequest request) {
+    String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
+    Map<String, String> headers = new HashMap<>();
+    apiClient.HEAD(path, request, Void.class, headers);
+  }
+
+  @Override
+  public GetMetadataResponse getMetadata(GetMetadataRequest request) {
+    String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
+    Map<String, String> headers = new HashMap<>();
+    return apiClient.HEAD(path, request, GetMetadataResponse.class, headers);
+  }
+
+  @Override
   public ListDirectoryResponse listDirectoryContents(ListDirectoryContentsRequest request) {
     String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
     Map<String, String> headers = new HashMap<>();

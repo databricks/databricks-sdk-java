@@ -10,10 +10,6 @@ import java.util.Objects;
 
 @Generated
 public class UpdateMonitor {
-  /** The directory to store monitoring assets (e.g. dashboard, metric tables). */
-  @JsonProperty("assets_dir")
-  private String assetsDir;
-
   /**
    * Name of the baseline table from which drift metrics are computed from. Columns in the monitored
    * table should also be present in the baseline table.
@@ -68,15 +64,6 @@ public class UpdateMonitor {
   /** Configuration for monitoring time series tables. */
   @JsonProperty("time_series")
   private MonitorTimeSeriesProfileType timeSeries;
-
-  public UpdateMonitor setAssetsDir(String assetsDir) {
-    this.assetsDir = assetsDir;
-    return this;
-  }
-
-  public String getAssetsDir() {
-    return assetsDir;
-  }
 
   public UpdateMonitor setBaselineTableName(String baselineTableName) {
     this.baselineTableName = baselineTableName;
@@ -183,8 +170,7 @@ public class UpdateMonitor {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateMonitor that = (UpdateMonitor) o;
-    return Objects.equals(assetsDir, that.assetsDir)
-        && Objects.equals(baselineTableName, that.baselineTableName)
+    return Objects.equals(baselineTableName, that.baselineTableName)
         && Objects.equals(customMetrics, that.customMetrics)
         && Objects.equals(dataClassificationConfig, that.dataClassificationConfig)
         && Objects.equals(fullName, that.fullName)
@@ -200,7 +186,6 @@ public class UpdateMonitor {
   @Override
   public int hashCode() {
     return Objects.hash(
-        assetsDir,
         baselineTableName,
         customMetrics,
         dataClassificationConfig,
@@ -217,7 +202,6 @@ public class UpdateMonitor {
   @Override
   public String toString() {
     return new ToStringer(UpdateMonitor.class)
-        .add("assetsDir", assetsDir)
         .add("baselineTableName", baselineTableName)
         .add("customMetrics", customMetrics)
         .add("dataClassificationConfig", dataClassificationConfig)

@@ -63,6 +63,14 @@ public class ServedEntityOutput {
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
+  /** The maximum tokens per second that the endpoint can scale up to. */
+  @JsonProperty("max_provisioned_throughput")
+  private Long maxProvisionedThroughput;
+
+  /** The minimum tokens per second that the endpoint can scale down to. */
+  @JsonProperty("min_provisioned_throughput")
+  private Long minProvisionedThroughput;
+
   /** The name of the served entity. */
   @JsonProperty("name")
   private String name;
@@ -170,6 +178,24 @@ public class ServedEntityOutput {
     return instanceProfileArn;
   }
 
+  public ServedEntityOutput setMaxProvisionedThroughput(Long maxProvisionedThroughput) {
+    this.maxProvisionedThroughput = maxProvisionedThroughput;
+    return this;
+  }
+
+  public Long getMaxProvisionedThroughput() {
+    return maxProvisionedThroughput;
+  }
+
+  public ServedEntityOutput setMinProvisionedThroughput(Long minProvisionedThroughput) {
+    this.minProvisionedThroughput = minProvisionedThroughput;
+    return this;
+  }
+
+  public Long getMinProvisionedThroughput() {
+    return minProvisionedThroughput;
+  }
+
   public ServedEntityOutput setName(String name) {
     this.name = name;
     return this;
@@ -228,6 +254,8 @@ public class ServedEntityOutput {
         && Objects.equals(externalModel, that.externalModel)
         && Objects.equals(foundationModel, that.foundationModel)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(maxProvisionedThroughput, that.maxProvisionedThroughput)
+        && Objects.equals(minProvisionedThroughput, that.minProvisionedThroughput)
         && Objects.equals(name, that.name)
         && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
         && Objects.equals(state, that.state)
@@ -246,6 +274,8 @@ public class ServedEntityOutput {
         externalModel,
         foundationModel,
         instanceProfileArn,
+        maxProvisionedThroughput,
+        minProvisionedThroughput,
         name,
         scaleToZeroEnabled,
         state,
@@ -264,6 +294,8 @@ public class ServedEntityOutput {
         .add("externalModel", externalModel)
         .add("foundationModel", foundationModel)
         .add("instanceProfileArn", instanceProfileArn)
+        .add("maxProvisionedThroughput", maxProvisionedThroughput)
+        .add("minProvisionedThroughput", minProvisionedThroughput)
         .add("name", name)
         .add("scaleToZeroEnabled", scaleToZeroEnabled)
         .add("state", state)
