@@ -341,7 +341,7 @@ public class ApiClient {
     try {
       object = target.getDeclaredConstructor().newInstance();
     } catch (Exception e) {
-      throw new IOException("Unable to initialize an instance of type " + target.getName());
+      throw new DatabricksException("Unable to initialize an instance of type " + target.getName());
     }
     deserialize(response, object);
     return object;
@@ -373,10 +373,10 @@ public class ApiClient {
         } else {
           LOG.warn("Unsupported header type: " + field.getType());
         }
-        field.setAccessible(false);
       } catch (IllegalAccessException e) {
-        field.setAccessible(false);
         throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
+      } finally {
+        field.setAccessible(false);
       }
     }
   }
