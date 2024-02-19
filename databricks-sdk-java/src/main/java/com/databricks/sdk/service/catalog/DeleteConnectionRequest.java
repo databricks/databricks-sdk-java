@@ -10,15 +10,15 @@ import java.util.Objects;
 @Generated
 public class DeleteConnectionRequest {
   /** The name of the connection to be deleted. */
-  private String nameArg;
+  private String name;
 
-  public DeleteConnectionRequest setNameArg(String nameArg) {
-    this.nameArg = nameArg;
+  public DeleteConnectionRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getNameArg() {
-    return nameArg;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -26,16 +26,16 @@ public class DeleteConnectionRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteConnectionRequest that = (DeleteConnectionRequest) o;
-    return Objects.equals(nameArg, that.nameArg);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nameArg);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteConnectionRequest.class).add("nameArg", nameArg).toString();
+    return new ToStringer(DeleteConnectionRequest.class).add("name", name).toString();
   }
 }

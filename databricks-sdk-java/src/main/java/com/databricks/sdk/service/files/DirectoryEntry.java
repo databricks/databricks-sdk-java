@@ -21,7 +21,7 @@ public class DirectoryEntry {
   @JsonProperty("last_modified")
   private Long lastModified;
 
-  /** The name of the file or directory. */
+  /** The name of the file or directory. This is the last component of the path. */
   @JsonProperty("name")
   private String name;
 

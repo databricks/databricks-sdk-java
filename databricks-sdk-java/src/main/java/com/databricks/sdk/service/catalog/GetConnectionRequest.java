@@ -10,15 +10,15 @@ import java.util.Objects;
 @Generated
 public class GetConnectionRequest {
   /** Name of the connection. */
-  private String nameArg;
+  private String name;
 
-  public GetConnectionRequest setNameArg(String nameArg) {
-    this.nameArg = nameArg;
+  public GetConnectionRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getNameArg() {
-    return nameArg;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -26,16 +26,16 @@ public class GetConnectionRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetConnectionRequest that = (GetConnectionRequest) o;
-    return Objects.equals(nameArg, that.nameArg);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nameArg);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetConnectionRequest.class).add("nameArg", nameArg).toString();
+    return new ToStringer(GetConnectionRequest.class).add("name", name).toString();
   }
 }

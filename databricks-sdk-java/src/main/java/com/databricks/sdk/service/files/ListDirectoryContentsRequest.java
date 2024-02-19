@@ -14,9 +14,12 @@ public class ListDirectoryContentsRequest {
   private String directoryPath;
 
   /**
-   * The maximum number of directory entries to return. The API may return fewer than this value.
-   * Receiving fewer results does not imply there are no more results. As long as the response
-   * contains a next_page_token, there may be more results.
+   * The maximum number of directory entries to return. The response may contain fewer entries. If
+   * the response contains a `next_page_token`, there may be more entries, even if fewer than
+   * `page_size` entries are in the response.
+   *
+   * <p>We recommend not to set this value unless you are intentionally listing less than the
+   * complete directory contents.
    *
    * <p>If unspecified, at most 1000 directory entries will be returned. The maximum value is 1000.
    * Values above 1000 will be coerced to 1000.
@@ -25,9 +28,12 @@ public class ListDirectoryContentsRequest {
   private Long pageSize;
 
   /**
-   * A page token, received from a previous `list` call. Provide this to retrieve the subsequent
-   * page. When paginating, all other parameters provided to `list` must match the call that
-   * provided the page token.
+   * An opaque page token which was the `next_page_token` in the response of the previous request to
+   * list the contents of this directory. Provide this token to retrieve the next page of directory
+   * entries. When providing a `page_token`, all other parameters provided to the request must match
+   * the previous request. To list all of the entries in a directory, it is necessary to continue
+   * requesting pages of entries until the response contains no `next_page_token`. Note that the
+   * number of entries returned must not be used to determine when the listing is complete.
    */
   @QueryParam("page_token")
   private String pageToken;

@@ -26,6 +26,8 @@ import com.databricks.sdk.service.catalog.MetastoresAPI;
 import com.databricks.sdk.service.catalog.MetastoresService;
 import com.databricks.sdk.service.catalog.ModelVersionsAPI;
 import com.databricks.sdk.service.catalog.ModelVersionsService;
+import com.databricks.sdk.service.catalog.OnlineTablesAPI;
+import com.databricks.sdk.service.catalog.OnlineTablesService;
 import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
 import com.databricks.sdk.service.catalog.RegisteredModelsService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
@@ -182,6 +184,7 @@ public class WorkspaceClient {
   private MetastoresAPI metastoresAPI;
   private ModelRegistryAPI modelRegistryAPI;
   private ModelVersionsAPI modelVersionsAPI;
+  private OnlineTablesAPI onlineTablesAPI;
   private PermissionsAPI permissionsAPI;
   private PipelinesAPI pipelinesAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
@@ -258,6 +261,7 @@ public class WorkspaceClient {
     metastoresAPI = new MetastoresAPI(apiClient);
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
     modelVersionsAPI = new ModelVersionsAPI(apiClient);
+    onlineTablesAPI = new OnlineTablesAPI(apiClient);
     permissionsAPI = new PermissionsAPI(apiClient);
     pipelinesAPI = new PipelinesAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
@@ -544,8 +548,18 @@ public class WorkspaceClient {
   }
 
   /**
-   * The Files API allows you to read, write, and delete files and directories in Unity Catalog
-   * volumes.
+   * The Files API allows you to read, write, list, and delete files and directories. We support
+   * Unity Catalog volumes with paths starting with "/Volumes/<catalog>/<schema>/<volume>".
+   *
+   * <p>The Files API is designed like a standard HTTP API, rather than as a JSON RPC API. This is
+   * intended to make it easier and more efficient to work with file contents as raw bytes.
+   *
+   * <p>Because the Files API is a standard HTTP API, the URI path is used to specify the file or
+   * directory to operate on. The path is always absolute.
+   *
+   * <p>The Files API has separate endpoints for working with files, `/fs/files`, and working with
+   * directories, `/fs/directories`. The standard HTTP methods `GET`, `HEAD`, `PUT`, and `DELETE`
+   * work as expected on these endpoints.
    */
   public FilesAPI files() {
     return filesAPI;
@@ -786,6 +800,11 @@ public class WorkspaceClient {
    */
   public ModelVersionsAPI modelVersions() {
     return modelVersionsAPI;
+  }
+
+  /** Online tables provide lower latency and higher QPS access to data from Delta tables. */
+  public OnlineTablesAPI onlineTables() {
+    return onlineTablesAPI;
   }
 
   /**
@@ -1708,6 +1727,17 @@ public class WorkspaceClient {
   /** Replace the default ModelVersionsAPI with a custom implementation. */
   public WorkspaceClient withModelVersionsAPI(ModelVersionsAPI modelVersions) {
     this.modelVersionsAPI = modelVersions;
+    return this;
+  }
+
+  /** Replace the default OnlineTablesService with a custom implementation. */
+  public WorkspaceClient withOnlineTablesImpl(OnlineTablesService onlineTables) {
+    return this.withOnlineTablesAPI(new OnlineTablesAPI(onlineTables));
+  }
+
+  /** Replace the default OnlineTablesAPI with a custom implementation. */
+  public WorkspaceClient withOnlineTablesAPI(OnlineTablesAPI onlineTables) {
+    this.onlineTablesAPI = onlineTables;
     return this;
   }
 

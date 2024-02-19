@@ -5,6 +5,7 @@ import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.integration.framework.NameUtils;
 import com.databricks.sdk.integration.framework.ResourceWithCleanup;
+import com.databricks.sdk.service.files.GetMetadataResponse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,10 +45,9 @@ public class FilesIT {
 
     // Write the file to DBFS.
     workspace.files().upload(fileName, inputStream);
-    // TODO: Enable after SDK generated
     // Check header deserialization
-    // GetMetadataResponse metadata = workspace.files().getMetadata(fileName);
-    // Assertions.assertEquals("application/octet-stream", metadata.getContentType());
+    GetMetadataResponse metadata = workspace.files().getMetadata(fileName);
+    Assertions.assertEquals("application/octet-stream", metadata.getContentType());
     // Read the file back from DBFS.
     try (InputStream readContents = workspace.files().download(fileName).getContents()) {
       byte[] result = new byte[fileContents.length];

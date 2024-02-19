@@ -42,8 +42,10 @@ public class RunNow {
    * cannot be specified in conjunction with notebook_params. The JSON representation of this field
    * (for example `{"jar_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [Task parameter variables](/jobs.html"#parameter-variables") to set parameters
-   * containing information about job runs.
+   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
+   *
+   * <p>[task parameter variables]:
+   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
    */
   @JsonProperty("jar_params")
   private Collection<String> jarParams;
@@ -65,13 +67,14 @@ public class RunNow {
    *
    * <p>notebook_params cannot be specified in conjunction with jar_params.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
    *
    * <p>The JSON representation of this field (for example `{"notebook_params":{"name":"john
    * doe","age":"35"}}`) cannot exceed 10,000 bytes.
    *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
-   * [dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html
+   * <p>[dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html [task
+   * parameter variables]:
+   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
    */
   @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
@@ -93,7 +96,7 @@ public class RunNow {
    * `run-now`, it would overwrite the parameters specified in job setting. The JSON representation
    * of this field (for example `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
    *
    * <p>Important
    *
@@ -101,7 +104,8 @@ public class RunNow {
    * characters returns an error. Examples of invalid, non-ASCII characters are Chinese, Japanese
    * kanjis, and emojis.
    *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * <p>[task parameter variables]:
+   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
    */
   @JsonProperty("python_params")
   private Collection<String> pythonParams;
@@ -117,7 +121,7 @@ public class RunNow {
    * parameters specified in job setting. The JSON representation of this field (for example
    * `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs
+   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
    *
    * <p>Important
    *
@@ -125,7 +129,8 @@ public class RunNow {
    * characters returns an error. Examples of invalid, non-ASCII characters are Chinese, Japanese
    * kanjis, and emojis.
    *
-   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * <p>[task parameter variables]:
+   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
    */
   @JsonProperty("spark_submit_params")
   private Collection<String> sparkSubmitParams;

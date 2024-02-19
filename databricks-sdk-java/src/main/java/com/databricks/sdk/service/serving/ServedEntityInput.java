@@ -51,6 +51,14 @@ public class ServedEntityInput {
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
+  /** The maximum tokens per second that the endpoint can scale up to. */
+  @JsonProperty("max_provisioned_throughput")
+  private Long maxProvisionedThroughput;
+
+  /** The minimum tokens per second that the endpoint can scale down to. */
+  @JsonProperty("min_provisioned_throughput")
+  private Long minProvisionedThroughput;
+
   /**
    * The name of a served entity. It must be unique across an endpoint. A served entity name can
    * consist of alphanumeric characters, dashes, and underscores. If not specified for an external
@@ -132,6 +140,24 @@ public class ServedEntityInput {
     return instanceProfileArn;
   }
 
+  public ServedEntityInput setMaxProvisionedThroughput(Long maxProvisionedThroughput) {
+    this.maxProvisionedThroughput = maxProvisionedThroughput;
+    return this;
+  }
+
+  public Long getMaxProvisionedThroughput() {
+    return maxProvisionedThroughput;
+  }
+
+  public ServedEntityInput setMinProvisionedThroughput(Long minProvisionedThroughput) {
+    this.minProvisionedThroughput = minProvisionedThroughput;
+    return this;
+  }
+
+  public Long getMinProvisionedThroughput() {
+    return minProvisionedThroughput;
+  }
+
   public ServedEntityInput setName(String name) {
     this.name = name;
     return this;
@@ -178,6 +204,8 @@ public class ServedEntityInput {
         && Objects.equals(environmentVars, that.environmentVars)
         && Objects.equals(externalModel, that.externalModel)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(maxProvisionedThroughput, that.maxProvisionedThroughput)
+        && Objects.equals(minProvisionedThroughput, that.minProvisionedThroughput)
         && Objects.equals(name, that.name)
         && Objects.equals(scaleToZeroEnabled, that.scaleToZeroEnabled)
         && Objects.equals(workloadSize, that.workloadSize)
@@ -192,6 +220,8 @@ public class ServedEntityInput {
         environmentVars,
         externalModel,
         instanceProfileArn,
+        maxProvisionedThroughput,
+        minProvisionedThroughput,
         name,
         scaleToZeroEnabled,
         workloadSize,
@@ -206,6 +236,8 @@ public class ServedEntityInput {
         .add("environmentVars", environmentVars)
         .add("externalModel", externalModel)
         .add("instanceProfileArn", instanceProfileArn)
+        .add("maxProvisionedThroughput", maxProvisionedThroughput)
+        .add("minProvisionedThroughput", minProvisionedThroughput)
         .add("name", name)
         .add("scaleToZeroEnabled", scaleToZeroEnabled)
         .add("workloadSize", workloadSize)

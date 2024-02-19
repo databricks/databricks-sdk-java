@@ -1,5 +1,95 @@
 # Version changelog
 
+## 0.19.0
+
+Internal Changes:
+
+* Support head operations ([#232](https://github.com/databricks/databricks-sdk-java/pull/232)).
+
+API Changes:
+
+ * Changed `delete()` method for `workspaceClient.connections()` service with new required argument order.
+ * Changed `get()` method for `workspaceClient.connections()` service with new required argument order.
+ * Changed `update()` method for `workspaceClient.connections()` service with new required argument order.
+ * Changed `update()` method for `workspaceClient.lakehouseMonitors()` service with new required argument order.
+ * Changed `delete()` method for `workspaceClient.volumes()` service with new required argument order.
+ * Changed `read()` method for `workspaceClient.volumes()` service with new required argument order.
+ * Changed `update()` method for `workspaceClient.volumes()` service with new required argument order.
+ * Added `workspaceClient.onlineTables()` service.
+ * Removed `nameArg` field for `com.databricks.sdk.service.catalog.DeleteConnectionRequest`.
+ * Added `name` field for `com.databricks.sdk.service.catalog.DeleteConnectionRequest`.
+ * Removed `fullNameArg` field for `com.databricks.sdk.service.catalog.DeleteVolumeRequest`.
+ * Added `name` field for `com.databricks.sdk.service.catalog.DeleteVolumeRequest`.
+ * Removed `nameArg` field for `com.databricks.sdk.service.catalog.GetConnectionRequest`.
+ * Added `name` field for `com.databricks.sdk.service.catalog.GetConnectionRequest`.
+ * Added `maxResults` field for `com.databricks.sdk.service.catalog.ListVolumesRequest`.
+ * Added `pageToken` field for `com.databricks.sdk.service.catalog.ListVolumesRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListVolumesResponseContent`.
+ * Removed `fullNameArg` field for `com.databricks.sdk.service.catalog.ReadVolumeRequest`.
+ * Added `name` field for `com.databricks.sdk.service.catalog.ReadVolumeRequest`.
+ * Removed `nameArg` field for `com.databricks.sdk.service.catalog.UpdateConnection`.
+ * Added `name` field for `com.databricks.sdk.service.catalog.UpdateConnection`.
+ * Removed `assetsDir` field for `com.databricks.sdk.service.catalog.UpdateMonitor`.
+ * Removed `fullNameArg` field for `com.databricks.sdk.service.catalog.UpdateVolumeRequestContent`.
+ * Added `name` field for `com.databricks.sdk.service.catalog.UpdateVolumeRequestContent`.
+ * Added `com.databricks.sdk.service.catalog.ContinuousUpdateStatus` class.
+ * Added `com.databricks.sdk.service.catalog.DeleteOnlineTableRequest` class.
+ * Added `com.databricks.sdk.service.catalog.FailedStatus` class.
+ * Added `com.databricks.sdk.service.catalog.GetOnlineTableRequest` class.
+ * Added `com.databricks.sdk.service.catalog.OnlineTable` class.
+ * Added `com.databricks.sdk.service.catalog.OnlineTableSpec` class.
+ * Added `com.databricks.sdk.service.catalog.OnlineTableState` class.
+ * Added `com.databricks.sdk.service.catalog.OnlineTableStatus` class.
+ * Added `com.databricks.sdk.service.catalog.PipelineProgress` class.
+ * Added `com.databricks.sdk.service.catalog.ProvisioningStatus` class.
+ * Added `com.databricks.sdk.service.catalog.TriggeredUpdateStatus` class.
+ * Added `com.databricks.sdk.service.catalog.ViewData` class.
+ * Added `getDirectoryMetadata()` method for `workspaceClient.files()` service.
+ * Added `getMetadata()` method for `workspaceClient.files()` service.
+ * Added `contentLength` field for `com.databricks.sdk.service.files.DownloadResponse`.
+ * Added `contentType` field for `com.databricks.sdk.service.files.DownloadResponse`.
+ * Added `lastModified` field for `com.databricks.sdk.service.files.DownloadResponse`.
+ * Added `com.databricks.sdk.service.files.FileSize` class.
+ * Added `com.databricks.sdk.service.files.GetDirectoryMetadataRequest` class.
+ * Added `com.databricks.sdk.service.files.GetMetadataRequest` class.
+ * Added `com.databricks.sdk.service.files.GetMetadataResponse` class.
+ * Added `com.databricks.sdk.service.files.LastModifiedHttpDate` class.
+ * Removed `triggerHistory` field for `com.databricks.sdk.service.jobs.Job`.
+ * Removed `com.databricks.sdk.service.jobs.TriggerEvaluation` class.
+ * Removed `com.databricks.sdk.service.jobs.TriggerHistory` class.
+ * Added `table` field for `com.databricks.sdk.service.jobs.TriggerSettings`.
+ * Added `com.databricks.sdk.service.jobs.Condition` class.
+ * Added `com.databricks.sdk.service.jobs.TableTriggerConfiguration` class.
+ * Removed `config` field for `com.databricks.sdk.service.serving.ExternalModel`.
+ * Added `ai21labsConfig` field for `com.databricks.sdk.service.serving.ExternalModel`.
+ * Added `anthropicConfig` field for `com.databricks.sdk.service.serving.ExternalModel`.
+ * Added `awsBedrockConfig` field for `com.databricks.sdk.service.serving.ExternalModel`.
+ * Added `cohereConfig` field for `com.databricks.sdk.service.serving.ExternalModel`.
+ * Added `databricksModelServingConfig` field for `com.databricks.sdk.service.serving.ExternalModel`.
+ * Added `openaiConfig` field for `com.databricks.sdk.service.serving.ExternalModel`.
+ * Added `palmConfig` field for `com.databricks.sdk.service.serving.ExternalModel`.
+ * Removed `com.databricks.sdk.service.serving.ExternalModelConfig` class.
+ * Added `maxProvisionedThroughput` field for `com.databricks.sdk.service.serving.ServedEntityInput`.
+ * Added `minProvisionedThroughput` field for `com.databricks.sdk.service.serving.ServedEntityInput`.
+ * Added `maxProvisionedThroughput` field for `com.databricks.sdk.service.serving.ServedEntityOutput`.
+ * Added `minProvisionedThroughput` field for `com.databricks.sdk.service.serving.ServedEntityOutput`.
+ * Changed `delete()` method for `workspaceClient.cleanRooms()` service with new required argument order.
+ * Changed `get()` method for `workspaceClient.cleanRooms()` service with new required argument order.
+ * Changed `update()` method for `workspaceClient.cleanRooms()` service with new required argument order.
+ * Removed `nameArg` field for `com.databricks.sdk.service.sharing.DeleteCleanRoomRequest`.
+ * Added `name` field for `com.databricks.sdk.service.sharing.DeleteCleanRoomRequest`.
+ * Removed `nameArg` field for `com.databricks.sdk.service.sharing.GetCleanRoomRequest`.
+ * Added `name` field for `com.databricks.sdk.service.sharing.GetCleanRoomRequest`.
+ * Removed `nameArg` field for `com.databricks.sdk.service.sharing.UpdateCleanRoom`.
+ * Added `name` field for `com.databricks.sdk.service.sharing.UpdateCleanRoom`.
+ * Added `enumOptions` field for `com.databricks.sdk.service.sql.Parameter`.
+ * Added `multiValuesOptions` field for `com.databricks.sdk.service.sql.Parameter`.
+ * Added `queryId` field for `com.databricks.sdk.service.sql.Parameter`.
+ * Added `com.databricks.sdk.service.sql.MultiValuesOptions` class.
+
+OpenAPI SHA: cdd76a98a4fca7008572b3a94427566dd286c63b, Date: 2024-02-19
+
+
 ## 0.18.0
 
 * Derive config file name from attribute name ([#216](https://github.com/databricks/databricks-sdk-java/pull/216)).
