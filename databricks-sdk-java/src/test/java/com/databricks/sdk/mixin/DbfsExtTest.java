@@ -29,8 +29,8 @@ public class DbfsExtTest {
     Mockito.doReturn(new CreateResponse().setHandle(0L))
         .when(mockDbfsService)
         .create(any(Create.class));
-    Mockito.doNothing().when(mockDbfsService).addBlock(any(AddBlock.class));
-    Mockito.doNothing().when(mockDbfsService).close(any(Close.class));
+    Mockito.doReturn(new AddBlockResponse()).when(mockDbfsService).addBlock(any(AddBlock.class));
+    Mockito.doReturn(new CloseResponse()).when(mockDbfsService).close(any(Close.class));
 
     String testPath =
         mockedDbfsExt.write(Paths.get(filePath), data.getBytes(StandardCharsets.UTF_8)).toString();
