@@ -32,9 +32,16 @@ public class {{.PascalName}}API {
 
   private final {{.PascalName}}Service impl;
 
+  {{range .Subservices}}
+  private {{.PascalName}}API {{.CamelName}}API;
+  {{end}}
+
   /** Regular-use constructor */
   public {{.PascalName}}API(ApiClient apiClient) {
     impl = new {{.PascalName}}Impl(apiClient);
+    {{range .Subservices}}
+    {{.CamelName}}API = new {{.PascalName}}API(apiClient);
+    {{end}}
   }
 
   /** Constructor for mocks */
@@ -113,6 +120,16 @@ public class {{.PascalName}}API {
     {{template "method-call" .}}
   }
   {{end}}
+
+  {{range .Subservices}}
+  /**
+   * {{.Summary}}
+   */
+  public {{.PascalName}}API {{.PascalName}}() {
+  	return {{.CamelName}}API;
+  }
+  {{end}}
+
   public {{.PascalName}}Service impl() {
     return impl;
   }
