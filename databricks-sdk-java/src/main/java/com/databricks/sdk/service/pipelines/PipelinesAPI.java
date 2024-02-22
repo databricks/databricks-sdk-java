@@ -141,8 +141,8 @@ public class PipelinesAPI {
     return impl.create(request);
   }
 
-  public void delete(String pipelineId) {
-    delete(new DeletePipelineRequest().setPipelineId(pipelineId));
+  public DeletePipelineResponse delete(String pipelineId) {
+    return delete(new DeletePipelineRequest().setPipelineId(pipelineId));
   }
 
   /**
@@ -150,8 +150,8 @@ public class PipelinesAPI {
    *
    * <p>Deletes a pipeline.
    */
-  public void delete(DeletePipelineRequest request) {
-    impl.delete(request);
+  public DeletePipelineResponse delete(DeletePipelineRequest request) {
+    return impl.delete(request);
   }
 
   public GetPipelineResponse get(String pipelineId) {
@@ -286,7 +286,7 @@ public class PipelinesAPI {
     return impl.startUpdate(request);
   }
 
-  public Wait<GetPipelineResponse, Void> stop(String pipelineId) {
+  public Wait<GetPipelineResponse, StopPipelineResponse> stop(String pipelineId) {
     return stop(new StopRequest().setPipelineId(pipelineId));
   }
 
@@ -296,14 +296,15 @@ public class PipelinesAPI {
    * <p>Stops the pipeline by canceling the active update. If there is no active update for the
    * pipeline, this request is a no-op.
    */
-  public Wait<GetPipelineResponse, Void> stop(StopRequest request) {
-    impl.stop(request);
+  public Wait<GetPipelineResponse, StopPipelineResponse> stop(StopRequest request) {
+    StopPipelineResponse response = impl.stop(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetPipelineIdle(request.getPipelineId(), timeout, callback));
+        (timeout, callback) -> waitGetPipelineIdle(request.getPipelineId(), timeout, callback),
+        response);
   }
 
-  public void update(String pipelineId) {
-    update(new EditPipeline().setPipelineId(pipelineId));
+  public EditPipelineResponse update(String pipelineId) {
+    return update(new EditPipeline().setPipelineId(pipelineId));
   }
 
   /**
@@ -311,8 +312,8 @@ public class PipelinesAPI {
    *
    * <p>Updates a pipeline with the supplied configuration.
    */
-  public void update(EditPipeline request) {
-    impl.update(request);
+  public EditPipelineResponse update(EditPipeline request) {
+    return impl.update(request);
   }
 
   public PipelinePermissions updatePermissions(String pipelineId) {

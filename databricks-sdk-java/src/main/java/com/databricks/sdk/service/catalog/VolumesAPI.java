@@ -66,8 +66,8 @@ public class VolumesAPI {
     return impl.create(request);
   }
 
-  public void delete(String name) {
-    delete(new DeleteVolumeRequest().setName(name));
+  public DeleteResponse delete(String name) {
+    return delete(new DeleteVolumeRequest().setName(name));
   }
 
   /**
@@ -79,8 +79,8 @@ public class VolumesAPI {
    * caller must also be the owner or have the **USE_CATALOG** privilege on the parent catalog and
    * the **USE_SCHEMA** privilege on the parent schema.
    */
-  public void delete(DeleteVolumeRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteVolumeRequest request) {
+    return impl.delete(request);
   }
 
   public Iterable<VolumeInfo> list(String catalogName, String schemaName) {

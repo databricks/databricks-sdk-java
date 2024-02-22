@@ -50,8 +50,8 @@ public class ReposAPI {
     return impl.create(request);
   }
 
-  public void delete(long repoId) {
-    delete(new DeleteRepoRequest().setRepoId(repoId));
+  public DeleteResponse delete(long repoId) {
+    return delete(new DeleteRepoRequest().setRepoId(repoId));
   }
 
   /**
@@ -59,8 +59,8 @@ public class ReposAPI {
    *
    * <p>Deletes the specified repo.
    */
-  public void delete(DeleteRepoRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteRepoRequest request) {
+    return impl.delete(request);
   }
 
   public RepoInfo get(long repoId) {
@@ -136,8 +136,8 @@ public class ReposAPI {
     return impl.setPermissions(request);
   }
 
-  public void update(long repoId) {
-    update(new UpdateRepo().setRepoId(repoId));
+  public UpdateResponse update(long repoId) {
+    return update(new UpdateRepo().setRepoId(repoId));
   }
 
   /**
@@ -146,8 +146,8 @@ public class ReposAPI {
    * <p>Updates the repo to a different branch or tag, or updates the repo to the latest commit on
    * the same branch.
    */
-  public void update(UpdateRepo request) {
-    impl.update(request);
+  public UpdateResponse update(UpdateRepo request) {
+    return impl.update(request);
   }
 
   public RepoPermissions updatePermissions(String repoId) {

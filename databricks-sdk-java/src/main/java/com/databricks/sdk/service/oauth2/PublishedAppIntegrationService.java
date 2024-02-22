@@ -31,7 +31,8 @@ public interface PublishedAppIntegrationService {
    * <p>Delete an existing Published OAuth App Integration. You can retrieve the published oauth app
    * integration via :method:PublishedAppIntegration/get.
    */
-  void delete(DeletePublishedAppIntegrationRequest deletePublishedAppIntegrationRequest);
+  DeletePublishedAppIntegrationOutput delete(
+      DeletePublishedAppIntegrationRequest deletePublishedAppIntegrationRequest);
 
   /**
    * Get OAuth Published App Integration.
@@ -54,5 +55,6 @@ public interface PublishedAppIntegrationService {
    * <p>Updates an existing published OAuth App Integration. You can retrieve the published oauth
    * app integration via :method:PublishedAppIntegration/get.
    */
-  void update(UpdatePublishedAppIntegration updatePublishedAppIntegration);
+  UpdatePublishedAppIntegrationOutput update(
+      UpdatePublishedAppIntegration updatePublishedAppIntegration);
 }

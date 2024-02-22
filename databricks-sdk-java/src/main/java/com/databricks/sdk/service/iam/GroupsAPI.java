@@ -41,8 +41,8 @@ public class GroupsAPI {
     return impl.create(request);
   }
 
-  public void delete(String id) {
-    delete(new DeleteGroupRequest().setId(id));
+  public DeleteResponse delete(String id) {
+    return delete(new DeleteGroupRequest().setId(id));
   }
 
   /**
@@ -50,8 +50,8 @@ public class GroupsAPI {
    *
    * <p>Deletes a group from the Databricks workspace.
    */
-  public void delete(DeleteGroupRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteGroupRequest request) {
+    return impl.delete(request);
   }
 
   public Group get(String id) {
@@ -92,8 +92,8 @@ public class GroupsAPI {
         .withDedupe(Group::getId);
   }
 
-  public void patch(String id) {
-    patch(new PartialUpdate().setId(id));
+  public PatchResponse patch(String id) {
+    return patch(new PartialUpdate().setId(id));
   }
 
   /**
@@ -101,12 +101,12 @@ public class GroupsAPI {
    *
    * <p>Partially updates the details of a group.
    */
-  public void patch(PartialUpdate request) {
-    impl.patch(request);
+  public PatchResponse patch(PartialUpdate request) {
+    return impl.patch(request);
   }
 
-  public void update(String id) {
-    update(new Group().setId(id));
+  public UpdateResponse update(String id) {
+    return update(new Group().setId(id));
   }
 
   /**
@@ -114,8 +114,8 @@ public class GroupsAPI {
    *
    * <p>Updates the details of a group by replacing the entire group entity.
    */
-  public void update(Group request) {
-    impl.update(request);
+  public UpdateResponse update(Group request) {
+    return impl.update(request);
   }
 
   public GroupsService impl() {

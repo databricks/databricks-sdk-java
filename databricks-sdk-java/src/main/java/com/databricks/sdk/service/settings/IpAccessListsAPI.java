@@ -69,8 +69,8 @@ public class IpAccessListsAPI {
     return impl.create(request);
   }
 
-  public void delete(String ipAccessListId) {
-    delete(new DeleteIpAccessListRequest().setIpAccessListId(ipAccessListId));
+  public DeleteResponse delete(String ipAccessListId) {
+    return delete(new DeleteIpAccessListRequest().setIpAccessListId(ipAccessListId));
   }
 
   /**
@@ -78,8 +78,8 @@ public class IpAccessListsAPI {
    *
    * <p>Deletes an IP access list, specified by its list ID.
    */
-  public void delete(DeleteIpAccessListRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteIpAccessListRequest request) {
+    return impl.delete(request);
   }
 
   public FetchIpAccessListResponse get(String ipAccessListId) {
@@ -104,8 +104,9 @@ public class IpAccessListsAPI {
     return impl.list().getIpAccessLists();
   }
 
-  public void replace(String ipAccessListId, String label, ListType listType, boolean enabled) {
-    replace(
+  public ReplaceResponse replace(
+      String ipAccessListId, String label, ListType listType, boolean enabled) {
+    return replace(
         new ReplaceIpAccessList()
             .setIpAccessListId(ipAccessListId)
             .setLabel(label)
@@ -127,12 +128,12 @@ public class IpAccessListsAPI {
    * can take a few minutes for the changes to take effect. Note that your resulting IP access list
    * has no effect until you enable the feature. See :method:workspaceconf/setStatus.
    */
-  public void replace(ReplaceIpAccessList request) {
-    impl.replace(request);
+  public ReplaceResponse replace(ReplaceIpAccessList request) {
+    return impl.replace(request);
   }
 
-  public void update(String ipAccessListId) {
-    update(new UpdateIpAccessList().setIpAccessListId(ipAccessListId));
+  public UpdateResponse update(String ipAccessListId) {
+    return update(new UpdateIpAccessList().setIpAccessListId(ipAccessListId));
   }
 
   /**
@@ -153,8 +154,8 @@ public class IpAccessListsAPI {
    * <p>It can take a few minutes for the changes to take effect. Note that your resulting IP access
    * list has no effect until you enable the feature. See :method:workspaceconf/setStatus.
    */
-  public void update(UpdateIpAccessList request) {
-    impl.update(request);
+  public UpdateResponse update(UpdateIpAccessList request) {
+    return impl.update(request);
   }
 
   public IpAccessListsService impl() {

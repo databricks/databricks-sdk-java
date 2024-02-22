@@ -28,14 +28,14 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
   }
 
   @Override
-  public void delete(DeletePublishedAppIntegrationRequest request) {
+  public DeletePublishedAppIntegrationOutput delete(DeletePublishedAppIntegrationRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/oauth2/published-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeletePublishedAppIntegrationOutput.class, headers);
   }
 
   @Override
@@ -61,7 +61,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
   }
 
   @Override
-  public void update(UpdatePublishedAppIntegration request) {
+  public UpdatePublishedAppIntegrationOutput update(UpdatePublishedAppIntegration request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/oauth2/published-app-integrations/%s",
@@ -69,6 +69,6 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    return apiClient.PATCH(path, request, UpdatePublishedAppIntegrationOutput.class, headers);
   }
 }

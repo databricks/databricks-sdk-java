@@ -45,7 +45,7 @@ public interface PrivateAccessService {
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  void delete(DeletePrivateAccesRequest deletePrivateAccesRequest);
+  DeleteResponse delete(DeletePrivateAccesRequest deletePrivateAccesRequest);
 
   /**
    * Get a private access settings object.
@@ -90,5 +90,5 @@ public interface PrivateAccessService {
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  void replace(UpsertPrivateAccessSettingsRequest upsertPrivateAccessSettingsRequest);
+  ReplaceResponse replace(UpsertPrivateAccessSettingsRequest upsertPrivateAccessSettingsRequest);
 }

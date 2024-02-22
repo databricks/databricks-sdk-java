@@ -37,7 +37,7 @@ public interface PipelinesService {
    *
    * <p>Deletes a pipeline.
    */
-  void delete(DeletePipelineRequest deletePipelineRequest);
+  DeletePipelineResponse delete(DeletePipelineRequest deletePipelineRequest);
 
   /** Get a pipeline. */
   GetPipelineResponse get(GetPipelineRequest getPipelineRequest);
@@ -108,14 +108,14 @@ public interface PipelinesService {
    * <p>Stops the pipeline by canceling the active update. If there is no active update for the
    * pipeline, this request is a no-op.
    */
-  void stop(StopRequest stopRequest);
+  StopPipelineResponse stop(StopRequest stopRequest);
 
   /**
    * Edit a pipeline.
    *
    * <p>Updates a pipeline with the supplied configuration.
    */
-  void update(EditPipeline editPipeline);
+  EditPipelineResponse update(EditPipeline editPipeline);
 
   /**
    * Update pipeline permissions.

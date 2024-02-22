@@ -51,8 +51,8 @@ public class ServicePrincipalSecretsAPI {
     return impl.create(request);
   }
 
-  public void delete(long servicePrincipalId, String secretId) {
-    delete(
+  public DeleteResponse delete(long servicePrincipalId, String secretId) {
+    return delete(
         new DeleteServicePrincipalSecretRequest()
             .setServicePrincipalId(servicePrincipalId)
             .setSecretId(secretId));
@@ -63,8 +63,8 @@ public class ServicePrincipalSecretsAPI {
    *
    * <p>Delete a secret from the given service principal.
    */
-  public void delete(DeleteServicePrincipalSecretRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteServicePrincipalSecretRequest request) {
+    return impl.delete(request);
   }
 
   public Iterable<SecretInfo> list(long servicePrincipalId) {

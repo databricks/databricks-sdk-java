@@ -63,8 +63,8 @@ public class EncryptionKeysAPI {
     return impl.create(request);
   }
 
-  public void delete(String customerManagedKeyId) {
-    delete(new DeleteEncryptionKeyRequest().setCustomerManagedKeyId(customerManagedKeyId));
+  public DeleteResponse delete(String customerManagedKeyId) {
+    return delete(new DeleteEncryptionKeyRequest().setCustomerManagedKeyId(customerManagedKeyId));
   }
 
   /**
@@ -73,8 +73,8 @@ public class EncryptionKeysAPI {
    * <p>Deletes a customer-managed key configuration object for an account. You cannot delete a
    * configuration that is associated with a running workspace.
    */
-  public void delete(DeleteEncryptionKeyRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteEncryptionKeyRequest request) {
+    return impl.delete(request);
   }
 
   public CustomerManagedKey get(String customerManagedKeyId) {

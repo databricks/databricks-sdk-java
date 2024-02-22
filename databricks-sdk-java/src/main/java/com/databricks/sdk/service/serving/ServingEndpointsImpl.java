@@ -37,18 +37,18 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
-  public void delete(DeleteServingEndpointRequest request) {
+  public DeleteResponse delete(DeleteServingEndpointRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
-  public void exportMetrics(ExportMetricsRequest request) {
+  public ExportMetricsResponse exportMetrics(ExportMetricsRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/metrics", request.getName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.GET(path, request, Void.class, headers);
+    return apiClient.GET(path, request, ExportMetricsResponse.class, headers);
   }
 
   @Override

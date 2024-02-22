@@ -116,17 +116,17 @@ public class ServingEndpointsAPI {
         response);
   }
 
-  public void delete(String name) {
-    delete(new DeleteServingEndpointRequest().setName(name));
+  public DeleteResponse delete(String name) {
+    return delete(new DeleteServingEndpointRequest().setName(name));
   }
 
   /** Delete a serving endpoint. */
-  public void delete(DeleteServingEndpointRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteServingEndpointRequest request) {
+    return impl.delete(request);
   }
 
-  public void exportMetrics(String name) {
-    exportMetrics(new ExportMetricsRequest().setName(name));
+  public ExportMetricsResponse exportMetrics(String name) {
+    return exportMetrics(new ExportMetricsRequest().setName(name));
   }
 
   /**
@@ -135,8 +135,8 @@ public class ServingEndpointsAPI {
    * <p>Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
    * OpenMetrics exposition format.
    */
-  public void exportMetrics(ExportMetricsRequest request) {
-    impl.exportMetrics(request);
+  public ExportMetricsResponse exportMetrics(ExportMetricsRequest request) {
+    return impl.exportMetrics(request);
   }
 
   public ServingEndpointDetailed get(String name) {

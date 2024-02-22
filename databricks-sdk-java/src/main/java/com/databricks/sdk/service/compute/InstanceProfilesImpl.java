@@ -16,21 +16,21 @@ class InstanceProfilesImpl implements InstanceProfilesService {
   }
 
   @Override
-  public void add(AddInstanceProfile request) {
+  public AddResponse add(AddInstanceProfile request) {
     String path = "/api/2.0/instance-profiles/add";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, AddResponse.class, headers);
   }
 
   @Override
-  public void edit(InstanceProfile request) {
+  public EditResponse edit(InstanceProfile request) {
     String path = "/api/2.0/instance-profiles/edit";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, EditResponse.class, headers);
   }
 
   @Override
@@ -42,11 +42,11 @@ class InstanceProfilesImpl implements InstanceProfilesService {
   }
 
   @Override
-  public void remove(RemoveInstanceProfile request) {
+  public RemoveResponse remove(RemoveInstanceProfile request) {
     String path = "/api/2.0/instance-profiles/remove";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, RemoveResponse.class, headers);
   }
 }

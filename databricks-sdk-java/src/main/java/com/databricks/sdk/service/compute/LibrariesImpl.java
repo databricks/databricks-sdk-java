@@ -32,20 +32,20 @@ class LibrariesImpl implements LibrariesService {
   }
 
   @Override
-  public void install(InstallLibraries request) {
+  public InstallLibrariesResponse install(InstallLibraries request) {
     String path = "/api/2.0/libraries/install";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, InstallLibrariesResponse.class, headers);
   }
 
   @Override
-  public void uninstall(UninstallLibraries request) {
+  public UninstallLibrariesResponse uninstall(UninstallLibraries request) {
     String path = "/api/2.0/libraries/uninstall";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, UninstallLibrariesResponse.class, headers);
   }
 }

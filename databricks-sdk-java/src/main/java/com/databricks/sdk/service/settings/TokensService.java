@@ -30,7 +30,7 @@ public interface TokensService {
    * <p>If a token with the specified ID is not valid, this call returns an error
    * **RESOURCE_DOES_NOT_EXIST**.
    */
-  void delete(RevokeTokenRequest revokeTokenRequest);
+  RevokeTokenResponse delete(RevokeTokenRequest revokeTokenRequest);
 
   /**
    * List tokens.

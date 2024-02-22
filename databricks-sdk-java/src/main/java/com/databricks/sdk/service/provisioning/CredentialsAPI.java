@@ -57,8 +57,8 @@ public class CredentialsAPI {
     return impl.create(request);
   }
 
-  public void delete(String credentialsId) {
-    delete(new DeleteCredentialRequest().setCredentialsId(credentialsId));
+  public DeleteResponse delete(String credentialsId) {
+    return delete(new DeleteCredentialRequest().setCredentialsId(credentialsId));
   }
 
   /**
@@ -67,8 +67,8 @@ public class CredentialsAPI {
    * <p>Deletes a Databricks credential configuration object for an account, both specified by ID.
    * You cannot delete a credential that is associated with any workspace.
    */
-  public void delete(DeleteCredentialRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteCredentialRequest request) {
+    return impl.delete(request);
   }
 
   public Credential get(String credentialsId) {

@@ -91,8 +91,9 @@ public class NetworkConnectivityAPI {
     return impl.createPrivateEndpointRule(request);
   }
 
-  public void deleteNetworkConnectivityConfiguration(String networkConnectivityConfigId) {
-    deleteNetworkConnectivityConfiguration(
+  public DeleteNetworkConnectivityConfigurationResponse deleteNetworkConnectivityConfiguration(
+      String networkConnectivityConfigId) {
+    return deleteNetworkConnectivityConfiguration(
         new DeleteNetworkConnectivityConfigurationRequest()
             .setNetworkConnectivityConfigId(networkConnectivityConfigId));
   }
@@ -102,9 +103,9 @@ public class NetworkConnectivityAPI {
    *
    * <p>Deletes a network connectivity configuration.
    */
-  public void deleteNetworkConnectivityConfiguration(
+  public DeleteNetworkConnectivityConfigurationResponse deleteNetworkConnectivityConfiguration(
       DeleteNetworkConnectivityConfigurationRequest request) {
-    impl.deleteNetworkConnectivityConfiguration(request);
+    return impl.deleteNetworkConnectivityConfiguration(request);
   }
 
   public NccAzurePrivateEndpointRule deletePrivateEndpointRule(

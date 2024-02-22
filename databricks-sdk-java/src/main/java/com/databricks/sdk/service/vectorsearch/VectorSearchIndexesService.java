@@ -39,7 +39,7 @@ public interface VectorSearchIndexesService {
    *
    * <p>Delete an index.
    */
-  void deleteIndex(DeleteIndexRequest deleteIndexRequest);
+  DeleteIndexResponse deleteIndex(DeleteIndexRequest deleteIndexRequest);
 
   /**
    * Get an index.
@@ -67,7 +67,7 @@ public interface VectorSearchIndexesService {
    *
    * <p>Triggers a synchronization process for a specified vector index.
    */
-  void syncIndex(SyncIndexRequest syncIndexRequest);
+  SyncIndexResponse syncIndex(SyncIndexRequest syncIndexRequest);
 
   /**
    * Upsert data into an index.

@@ -51,8 +51,8 @@ public class ExternalLocationsAPI {
     return impl.create(request);
   }
 
-  public void delete(String name) {
-    delete(new DeleteExternalLocationRequest().setName(name));
+  public DeleteResponse delete(String name) {
+    return delete(new DeleteExternalLocationRequest().setName(name));
   }
 
   /**
@@ -61,8 +61,8 @@ public class ExternalLocationsAPI {
    * <p>Deletes the specified external location from the metastore. The caller must be the owner of
    * the external location.
    */
-  public void delete(DeleteExternalLocationRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteExternalLocationRequest request) {
+    return impl.delete(request);
   }
 
   public ExternalLocationInfo get(String name) {

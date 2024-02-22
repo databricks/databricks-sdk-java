@@ -28,7 +28,7 @@ public interface ServicePrincipalsService {
    *
    * <p>Delete a single service principal in the Databricks workspace.
    */
-  void delete(DeleteServicePrincipalRequest deleteServicePrincipalRequest);
+  DeleteResponse delete(DeleteServicePrincipalRequest deleteServicePrincipalRequest);
 
   /**
    * Get service principal details.
@@ -49,7 +49,7 @@ public interface ServicePrincipalsService {
    *
    * <p>Partially updates the details of a single service principal in the Databricks workspace.
    */
-  void patch(PartialUpdate partialUpdate);
+  PatchResponse patch(PartialUpdate partialUpdate);
 
   /**
    * Replace service principal.
@@ -58,5 +58,5 @@ public interface ServicePrincipalsService {
    *
    * <p>This action replaces the existing service principal with the same name.
    */
-  void update(ServicePrincipal servicePrincipal);
+  UpdateResponse update(ServicePrincipal servicePrincipal);
 }

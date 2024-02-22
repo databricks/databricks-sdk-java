@@ -16,11 +16,11 @@ class TablesImpl implements TablesService {
   }
 
   @Override
-  public void delete(DeleteTableRequest request) {
+  public DeleteResponse delete(DeleteTableRequest request) {
     String path = String.format("/api/2.1/unity-catalog/tables/%s", request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -56,11 +56,11 @@ class TablesImpl implements TablesService {
   }
 
   @Override
-  public void update(UpdateTableRequest request) {
+  public UpdateResponse update(UpdateTableRequest request) {
     String path = String.format("/api/2.1/unity-catalog/tables/%s", request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    return apiClient.PATCH(path, request, UpdateResponse.class, headers);
   }
 }

@@ -28,12 +28,44 @@ public interface AccountSettingsService {
       DeletePersonalComputeSettingRequest deletePersonalComputeSettingRequest);
 
   /**
+   * Get the compliance security profile setting for new workspaces.
+   *
+   * <p>Gets the compliance security profile setting for new workspaces.
+   */
+  CspEnablementAccountSetting getCspEnablementAccountSetting(
+      GetCspEnablementAccountSettingRequest getCspEnablementAccountSettingRequest);
+
+  /**
+   * Get the enhanced security monitoring setting for new workspaces.
+   *
+   * <p>Gets the enhanced security monitoring setting for new workspaces.
+   */
+  EsmEnablementAccountSetting getEsmEnablementAccountSetting(
+      GetEsmEnablementAccountSettingRequest getEsmEnablementAccountSettingRequest);
+
+  /**
    * Get Personal Compute setting.
    *
    * <p>Gets the value of the Personal Compute setting.
    */
   PersonalComputeSetting getPersonalComputeSetting(
       GetPersonalComputeSettingRequest getPersonalComputeSettingRequest);
+
+  /**
+   * Update the compliance security profile setting for new workspaces.
+   *
+   * <p>Updates the value of the compliance security profile setting for new workspaces.
+   */
+  CspEnablementAccountSetting updateCspEnablementAccountSetting(
+      UpdateCspEnablementAccountSettingRequest updateCspEnablementAccountSettingRequest);
+
+  /**
+   * Update the enhanced security monitoring setting for new workspaces.
+   *
+   * <p>Updates the value of the enhanced security monitoring setting for new workspaces.
+   */
+  EsmEnablementAccountSetting updateEsmEnablementAccountSetting(
+      UpdateEsmEnablementAccountSettingRequest updateEsmEnablementAccountSettingRequest);
 
   /**
    * Update Personal Compute setting.

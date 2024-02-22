@@ -39,13 +39,13 @@ public class QueryVisualizationsAPI {
     return impl.create(request);
   }
 
-  public void delete(String id) {
-    delete(new DeleteQueryVisualizationRequest().setId(id));
+  public DeleteResponse delete(String id) {
+    return delete(new DeleteQueryVisualizationRequest().setId(id));
   }
 
   /** Remove visualization. */
-  public void delete(DeleteQueryVisualizationRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteQueryVisualizationRequest request) {
+    return impl.delete(request);
   }
 
   public Visualization update(String id) {

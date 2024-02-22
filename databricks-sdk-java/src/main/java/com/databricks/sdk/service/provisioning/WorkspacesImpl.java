@@ -26,14 +26,14 @@ class WorkspacesImpl implements WorkspacesService {
   }
 
   @Override
-  public void delete(DeleteWorkspaceRequest request) {
+  public DeleteResponse delete(DeleteWorkspaceRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -56,7 +56,7 @@ class WorkspacesImpl implements WorkspacesService {
   }
 
   @Override
-  public void update(UpdateWorkspaceRequest request) {
+  public UpdateResponse update(UpdateWorkspaceRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s",
@@ -64,6 +64,6 @@ class WorkspacesImpl implements WorkspacesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    return apiClient.PATCH(path, request, UpdateResponse.class, headers);
   }
 }

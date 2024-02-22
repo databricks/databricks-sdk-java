@@ -43,7 +43,7 @@ public interface ClusterPoliciesService {
    * <p>Delete a policy for a cluster. Clusters governed by this policy can still run, but cannot be
    * edited.
    */
-  void delete(DeletePolicy deletePolicy);
+  DeletePolicyResponse delete(DeletePolicy deletePolicy);
 
   /**
    * Update a cluster policy.
@@ -51,7 +51,7 @@ public interface ClusterPoliciesService {
    * <p>Update an existing policy for cluster. This operation may make some clusters governed by the
    * previous policy invalid.
    */
-  void edit(EditPolicy editPolicy);
+  EditPolicyResponse edit(EditPolicy editPolicy);
 
   /**
    * Get a cluster policy.

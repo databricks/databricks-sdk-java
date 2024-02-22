@@ -16,12 +16,12 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public void changeOwner(ChangeClusterOwner request) {
+  public ChangeClusterOwnerResponse changeOwner(ChangeClusterOwner request) {
     String path = "/api/2.0/clusters/change-owner";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, ChangeClusterOwnerResponse.class, headers);
   }
 
   @Override
@@ -34,21 +34,21 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public void delete(DeleteCluster request) {
+  public DeleteClusterResponse delete(DeleteCluster request) {
     String path = "/api/2.0/clusters/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, DeleteClusterResponse.class, headers);
   }
 
   @Override
-  public void edit(EditCluster request) {
+  public EditClusterResponse edit(EditCluster request) {
     String path = "/api/2.0/clusters/edit";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, EditClusterResponse.class, headers);
   }
 
   @Override
@@ -111,39 +111,39 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public void permanentDelete(PermanentDeleteCluster request) {
+  public PermanentDeleteClusterResponse permanentDelete(PermanentDeleteCluster request) {
     String path = "/api/2.0/clusters/permanent-delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, PermanentDeleteClusterResponse.class, headers);
   }
 
   @Override
-  public void pin(PinCluster request) {
+  public PinClusterResponse pin(PinCluster request) {
     String path = "/api/2.0/clusters/pin";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, PinClusterResponse.class, headers);
   }
 
   @Override
-  public void resize(ResizeCluster request) {
+  public ResizeClusterResponse resize(ResizeCluster request) {
     String path = "/api/2.0/clusters/resize";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, ResizeClusterResponse.class, headers);
   }
 
   @Override
-  public void restart(RestartCluster request) {
+  public RestartClusterResponse restart(RestartCluster request) {
     String path = "/api/2.0/clusters/restart";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, RestartClusterResponse.class, headers);
   }
 
   @Override
@@ -164,21 +164,21 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
-  public void start(StartCluster request) {
+  public StartClusterResponse start(StartCluster request) {
     String path = "/api/2.0/clusters/start";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, StartClusterResponse.class, headers);
   }
 
   @Override
-  public void unpin(UnpinCluster request) {
+  public UnpinClusterResponse unpin(UnpinCluster request) {
     String path = "/api/2.0/clusters/unpin";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, UnpinClusterResponse.class, headers);
   }
 
   @Override

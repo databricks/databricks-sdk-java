@@ -16,10 +16,10 @@ class StatementExecutionImpl implements StatementExecutionService {
   }
 
   @Override
-  public void cancelExecution(CancelExecutionRequest request) {
+  public CancelExecutionResponse cancelExecution(CancelExecutionRequest request) {
     String path = String.format("/api/2.0/sql/statements/%s/cancel", request.getStatementId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.POST(path, null, Void.class, headers);
+    return apiClient.POST(path, null, CancelExecutionResponse.class, headers);
   }
 
   @Override

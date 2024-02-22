@@ -16,13 +16,13 @@ class ModelVersionsImpl implements ModelVersionsService {
   }
 
   @Override
-  public void delete(DeleteModelVersionRequest request) {
+  public DeleteResponse delete(DeleteModelVersionRequest request) {
     String path =
         String.format(
             "/api/2.1/unity-catalog/models/%s/versions/%s",
             request.getFullName(), request.getVersion());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

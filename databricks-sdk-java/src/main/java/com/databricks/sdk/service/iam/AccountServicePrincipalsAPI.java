@@ -39,8 +39,8 @@ public class AccountServicePrincipalsAPI {
     return impl.create(request);
   }
 
-  public void delete(String id) {
-    delete(new DeleteAccountServicePrincipalRequest().setId(id));
+  public DeleteResponse delete(String id) {
+    return delete(new DeleteAccountServicePrincipalRequest().setId(id));
   }
 
   /**
@@ -48,8 +48,8 @@ public class AccountServicePrincipalsAPI {
    *
    * <p>Delete a single service principal in the Databricks account.
    */
-  public void delete(DeleteAccountServicePrincipalRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteAccountServicePrincipalRequest request) {
+    return impl.delete(request);
   }
 
   public ServicePrincipal get(String id) {
@@ -90,8 +90,8 @@ public class AccountServicePrincipalsAPI {
         .withDedupe(ServicePrincipal::getId);
   }
 
-  public void patch(String id) {
-    patch(new PartialUpdate().setId(id));
+  public PatchResponse patch(String id) {
+    return patch(new PartialUpdate().setId(id));
   }
 
   /**
@@ -99,12 +99,12 @@ public class AccountServicePrincipalsAPI {
    *
    * <p>Partially updates the details of a single service principal in the Databricks account.
    */
-  public void patch(PartialUpdate request) {
-    impl.patch(request);
+  public PatchResponse patch(PartialUpdate request) {
+    return impl.patch(request);
   }
 
-  public void update(String id) {
-    update(new ServicePrincipal().setId(id));
+  public UpdateResponse update(String id) {
+    return update(new ServicePrincipal().setId(id));
   }
 
   /**
@@ -114,8 +114,8 @@ public class AccountServicePrincipalsAPI {
    *
    * <p>This action replaces the existing service principal with the same name.
    */
-  public void update(ServicePrincipal request) {
-    impl.update(request);
+  public UpdateResponse update(ServicePrincipal request) {
+    return impl.update(request);
   }
 
   public AccountServicePrincipalsService impl() {

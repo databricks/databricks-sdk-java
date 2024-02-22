@@ -30,7 +30,7 @@ public interface GroupsService {
    *
    * <p>Deletes a group from the Databricks workspace.
    */
-  void delete(DeleteGroupRequest deleteGroupRequest);
+  DeleteResponse delete(DeleteGroupRequest deleteGroupRequest);
 
   /**
    * Get group details.
@@ -51,12 +51,12 @@ public interface GroupsService {
    *
    * <p>Partially updates the details of a group.
    */
-  void patch(PartialUpdate partialUpdate);
+  PatchResponse patch(PartialUpdate partialUpdate);
 
   /**
    * Replace a group.
    *
    * <p>Updates the details of a group by replacing the entire group entity.
    */
-  void update(Group group);
+  UpdateResponse update(Group group);
 }

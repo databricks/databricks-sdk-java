@@ -8,8 +8,8 @@
 
 {{- define "type" -}}
   {{- if not . }}Object /* ERROR */
-  {{- else if .IsEmpty}}Object
   {{- else if .IsAny}}Object
+  {{- else if .IsEmpty}}{{.PascalName}}
   {{- else if .IsString}}String
   {{- else if .IsBool}}Boolean
   {{- else if .IsInt64}}Long

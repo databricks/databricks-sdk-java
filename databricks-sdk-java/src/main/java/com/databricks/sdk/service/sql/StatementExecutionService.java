@@ -103,7 +103,7 @@ public interface StatementExecutionService {
    * <p>Requests that an executing statement be canceled. Callers must poll for status to see the
    * terminal state.
    */
-  void cancelExecution(CancelExecutionRequest cancelExecutionRequest);
+  CancelExecutionResponse cancelExecution(CancelExecutionRequest cancelExecutionRequest);
 
   /** Execute a SQL statement. */
   ExecuteStatementResponse executeStatement(ExecuteStatementRequest executeStatementRequest);

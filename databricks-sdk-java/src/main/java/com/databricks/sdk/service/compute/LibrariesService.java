@@ -68,7 +68,7 @@ public interface LibrariesService {
    * libraries specified via this method and the libraries set to be installed on all clusters via
    * the libraries UI.
    */
-  void install(InstallLibraries installLibraries);
+  InstallLibrariesResponse install(InstallLibraries installLibraries);
 
   /**
    * Uninstall libraries.
@@ -77,5 +77,5 @@ public interface LibrariesService {
    * cluster is restarted. Uninstalling libraries that are not installed on the cluster will have no
    * impact but is not an error.
    */
-  void uninstall(UninstallLibraries uninstallLibraries);
+  UninstallLibrariesResponse uninstall(UninstallLibraries uninstallLibraries);
 }

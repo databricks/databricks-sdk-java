@@ -35,7 +35,7 @@ public interface ReposService {
    *
    * <p>Deletes the specified repo.
    */
-  void delete(DeleteRepoRequest deleteRepoRequest);
+  DeleteResponse delete(DeleteRepoRequest deleteRepoRequest);
 
   /**
    * Get a repo.
@@ -80,7 +80,7 @@ public interface ReposService {
    * <p>Updates the repo to a different branch or tag, or updates the repo to the latest commit on
    * the same branch.
    */
-  void update(UpdateRepo updateRepo);
+  UpdateResponse update(UpdateRepo updateRepo);
 
   /**
    * Update repo permissions.

@@ -32,14 +32,14 @@ public class OnlineTableSpec {
 
   /** Pipeline runs continuously after generating the initial data. */
   @JsonProperty("run_continuously")
-  private Object runContinuously;
+  private OnlineTableSpecContinuousSchedulingPolicy runContinuously;
 
   /**
    * Pipeline stops after generating the initial data and can be triggered later (manually, through
    * a cron job or through data triggers)
    */
   @JsonProperty("run_triggered")
-  private Object runTriggered;
+  private OnlineTableSpecTriggeredSchedulingPolicy runTriggered;
 
   /** Three-part (catalog, schema, table) name of the source Delta table. */
   @JsonProperty("source_table_full_name")
@@ -76,21 +76,22 @@ public class OnlineTableSpec {
     return primaryKeyColumns;
   }
 
-  public OnlineTableSpec setRunContinuously(Object runContinuously) {
+  public OnlineTableSpec setRunContinuously(
+      OnlineTableSpecContinuousSchedulingPolicy runContinuously) {
     this.runContinuously = runContinuously;
     return this;
   }
 
-  public Object getRunContinuously() {
+  public OnlineTableSpecContinuousSchedulingPolicy getRunContinuously() {
     return runContinuously;
   }
 
-  public OnlineTableSpec setRunTriggered(Object runTriggered) {
+  public OnlineTableSpec setRunTriggered(OnlineTableSpecTriggeredSchedulingPolicy runTriggered) {
     this.runTriggered = runTriggered;
     return this;
   }
 
-  public Object getRunTriggered() {
+  public OnlineTableSpecTriggeredSchedulingPolicy getRunTriggered() {
     return runTriggered;
   }
 

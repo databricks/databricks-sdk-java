@@ -25,9 +25,9 @@ public interface SettingsService {
    * Delete the default namespace setting.
    *
    * <p>Deletes the default namespace setting for the workspace. A fresh etag needs to be provided
-   * in DELETE requests (as a query parameter). The etag can be retrieved by making a GET request
-   * before the DELETE request. If the setting is updated/deleted concurrently, DELETE will fail
-   * with 409 and the request will need to be retried by using the fresh etag in the 409 response.
+   * in `DELETE` requests (as a query parameter). The etag can be retrieved by making a `GET`
+   * request before the `DELETE` request. If the setting is updated/deleted concurrently, `DELETE`
+   * fails with 409 and the request must be retried by using the fresh etag in the 409 response.
    */
   DeleteDefaultNamespaceSettingResponse deleteDefaultNamespaceSetting(
       DeleteDefaultNamespaceSettingRequest deleteDefaultNamespaceSettingRequest);
@@ -36,13 +36,29 @@ public interface SettingsService {
    * Delete the restrict workspace admins setting.
    *
    * <p>Reverts the restrict workspace admins setting status for the workspace. A fresh etag needs
-   * to be provided in DELETE requests (as a query parameter). The etag can be retrieved by making a
-   * GET request before the DELETE request. If the setting is updated/deleted concurrently, DELETE
-   * will fail with 409 and the request will need to be retried by using the fresh etag in the 409
+   * to be provided in `DELETE` requests (as a query parameter). The etag can be retrieved by making
+   * a `GET` request before the DELETE request. If the setting is updated/deleted concurrently,
+   * `DELETE` fails with 409 and the request must be retried by using the fresh etag in the 409
    * response.
    */
   DeleteRestrictWorkspaceAdminsSettingResponse deleteRestrictWorkspaceAdminsSetting(
       DeleteRestrictWorkspaceAdminsSettingRequest deleteRestrictWorkspaceAdminsSettingRequest);
+
+  /**
+   * Get the automatic cluster update setting.
+   *
+   * <p>Gets the automatic cluster update setting.
+   */
+  AutomaticClusterUpdateSetting getAutomaticClusterUpdateSetting(
+      GetAutomaticClusterUpdateSettingRequest getAutomaticClusterUpdateSettingRequest);
+
+  /**
+   * Get the compliance security profile setting.
+   *
+   * <p>Gets the compliance security profile setting.
+   */
+  CspEnablementSetting getCspEnablementSetting(
+      GetCspEnablementSettingRequest getCspEnablementSettingRequest);
 
   /**
    * Get the default namespace setting.
@@ -53,6 +69,14 @@ public interface SettingsService {
       GetDefaultNamespaceSettingRequest getDefaultNamespaceSettingRequest);
 
   /**
+   * Get the enhanced security monitoring setting.
+   *
+   * <p>Gets the enhanced security monitoring setting.
+   */
+  EsmEnablementSetting getEsmEnablementSetting(
+      GetEsmEnablementSettingRequest getEsmEnablementSettingRequest);
+
+  /**
    * Get the restrict workspace admins setting.
    *
    * <p>Gets the restrict workspace admins setting.
@@ -61,25 +85,62 @@ public interface SettingsService {
       GetRestrictWorkspaceAdminsSettingRequest getRestrictWorkspaceAdminsSettingRequest);
 
   /**
+   * Update the automatic cluster update setting.
+   *
+   * <p>Updates the automatic cluster update setting for the workspace. A fresh etag needs to be
+   * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by
+   * making a `GET` request before the `PATCH` request. If the setting is updated concurrently,
+   * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409
+   * response.
+   */
+  AutomaticClusterUpdateSetting updateAutomaticClusterUpdateSetting(
+      UpdateAutomaticClusterUpdateSettingRequest updateAutomaticClusterUpdateSettingRequest);
+
+  /**
+   * Update the compliance security profile setting.
+   *
+   * <p>Updates the compliance security profile setting for the workspace. A fresh etag needs to be
+   * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by
+   * making a `GET` request before the `PATCH` request. If the setting is updated concurrently,
+   * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409
+   * response.
+   */
+  CspEnablementSetting updateCspEnablementSetting(
+      UpdateCspEnablementSettingRequest updateCspEnablementSettingRequest);
+
+  /**
    * Update the default namespace setting.
    *
    * <p>Updates the default namespace setting for the workspace. A fresh etag needs to be provided
-   * in PATCH requests (as part of the setting field). The etag can be retrieved by making a GET
-   * request before the PATCH request. Note that if the setting does not exist, GET will return a
-   * NOT_FOUND error and the etag will be present in the error response, which should be set in the
-   * PATCH request. If the setting is updated concurrently, PATCH will fail with 409 and the request
-   * will need to be retried by using the fresh etag in the 409 response.
+   * in `PATCH` requests (as part of the setting field). The etag can be retrieved by making a `GET`
+   * request before the `PATCH` request. Note that if the setting does not exist, `GET` returns a
+   * NOT_FOUND error and the etag is present in the error response, which should be set in the
+   * `PATCH` request. If the setting is updated concurrently, `PATCH` fails with 409 and the request
+   * must be retried by using the fresh etag in the 409 response.
    */
   DefaultNamespaceSetting updateDefaultNamespaceSetting(
       UpdateDefaultNamespaceSettingRequest updateDefaultNamespaceSettingRequest);
 
   /**
+   * Update the enhanced security monitoring setting.
+   *
+   * <p>Updates the enhanced security monitoring setting for the workspace. A fresh etag needs to be
+   * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by
+   * making a `GET` request before the `PATCH` request. If the setting is updated concurrently,
+   * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409
+   * response.
+   */
+  EsmEnablementSetting updateEsmEnablementSetting(
+      UpdateEsmEnablementSettingRequest updateEsmEnablementSettingRequest);
+
+  /**
    * Update the restrict workspace admins setting.
    *
    * <p>Updates the restrict workspace admins setting for the workspace. A fresh etag needs to be
-   * provided in PATCH requests (as part of the setting field). The etag can be retrieved by making
-   * a GET request before the PATCH request. If the setting is updated concurrently, PATCH will fail
-   * with 409 and the request will need to be retried by using the fresh etag in the 409 response.
+   * provided in `PATCH` requests (as part of the setting field). The etag can be retrieved by
+   * making a GET request before the `PATCH` request. If the setting is updated concurrently,
+   * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409
+   * response.
    */
   RestrictWorkspaceAdminsSetting updateRestrictWorkspaceAdminsSetting(
       UpdateRestrictWorkspaceAdminsSettingRequest updateRestrictWorkspaceAdminsSettingRequest);

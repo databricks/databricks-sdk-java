@@ -28,8 +28,8 @@ public class WorkspaceAPI {
     impl = mock;
   }
 
-  public void delete(String path) {
-    delete(new Delete().setPath(path));
+  public DeleteResponse delete(String path) {
+    return delete(new Delete().setPath(path));
   }
 
   /**
@@ -42,8 +42,8 @@ public class WorkspaceAPI {
    *
    * <p>Object deletion cannot be undone and deleting a directory recursively is not atomic.
    */
-  public void delete(Delete request) {
-    impl.delete(request);
+  public DeleteResponse delete(Delete request) {
+    return impl.delete(request);
   }
 
   public ExportResponse export(String path) {
@@ -114,8 +114,8 @@ public class WorkspaceAPI {
     return impl.getStatus(request);
   }
 
-  public void importContent(String path) {
-    importContent(new Import().setPath(path));
+  public ImportResponse importContent(String path) {
+    return importContent(new Import().setPath(path));
   }
 
   /**
@@ -127,8 +127,8 @@ public class WorkspaceAPI {
    * the `SOURCE` format with the `language` field unset. To import a single file as `SOURCE`, you
    * must set the `language` field.
    */
-  public void importContent(Import request) {
-    impl.importContent(request);
+  public ImportResponse importContent(Import request) {
+    return impl.importContent(request);
   }
 
   public Iterable<ObjectInfo> list(String path) {
@@ -145,8 +145,8 @@ public class WorkspaceAPI {
     return impl.list(request).getObjects();
   }
 
-  public void mkdirs(String path) {
-    mkdirs(new Mkdirs().setPath(path));
+  public MkdirsResponse mkdirs(String path) {
+    return mkdirs(new Mkdirs().setPath(path));
   }
 
   /**
@@ -159,8 +159,8 @@ public class WorkspaceAPI {
    * <p>Note that if this operation fails it may have succeeded in creating some of the necessary
    * parent directories.
    */
-  public void mkdirs(Mkdirs request) {
-    impl.mkdirs(request);
+  public MkdirsResponse mkdirs(Mkdirs request) {
+    return impl.mkdirs(request);
   }
 
   public WorkspaceObjectPermissions setPermissions(

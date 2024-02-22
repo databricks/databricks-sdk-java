@@ -49,8 +49,8 @@ public class StorageCredentialsAPI {
     return impl.create(request);
   }
 
-  public void delete(String name) {
-    delete(new DeleteStorageCredentialRequest().setName(name));
+  public DeleteResponse delete(String name) {
+    return delete(new DeleteStorageCredentialRequest().setName(name));
   }
 
   /**
@@ -59,8 +59,8 @@ public class StorageCredentialsAPI {
    * <p>Deletes a storage credential from the metastore. The caller must be an owner of the storage
    * credential.
    */
-  public void delete(DeleteStorageCredentialRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteStorageCredentialRequest request) {
+    return impl.delete(request);
   }
 
   public StorageCredentialInfo get(String name) {

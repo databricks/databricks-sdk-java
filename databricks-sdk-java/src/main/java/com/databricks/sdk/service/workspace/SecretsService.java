@@ -26,7 +26,7 @@ public interface SecretsService {
    * <p>The scope name must consist of alphanumeric characters, dashes, underscores, and periods,
    * and may not exceed 128 characters. The maximum number of scopes in a workspace is 100.
    */
-  void createScope(CreateScope createScope);
+  CreateScopeResponse createScope(CreateScope createScope);
 
   /**
    * Delete an ACL.
@@ -37,7 +37,7 @@ public interface SecretsService {
    * if no such secret scope, principal, or ACL exists. Throws `PERMISSION_DENIED` if the user does
    * not have permission to make this API call.
    */
-  void deleteAcl(DeleteAcl deleteAcl);
+  DeleteAclResponse deleteAcl(DeleteAcl deleteAcl);
 
   /**
    * Delete a secret scope.
@@ -47,7 +47,7 @@ public interface SecretsService {
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if the scope does not exist. Throws `PERMISSION_DENIED` if
    * the user does not have permission to make this API call.
    */
-  void deleteScope(DeleteScope deleteScope);
+  DeleteScopeResponse deleteScope(DeleteScope deleteScope);
 
   /**
    * Delete a secret.
@@ -58,7 +58,7 @@ public interface SecretsService {
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope or secret exists. Throws
    * `PERMISSION_DENIED` if the user does not have permission to make this API call.
    */
-  void deleteSecret(DeleteSecret deleteSecret);
+  DeleteSecretResponse deleteSecret(DeleteSecret deleteSecret);
 
   /**
    * Get secret ACL details.
@@ -147,7 +147,7 @@ public interface SecretsService {
    * `INVALID_PARAMETER_VALUE` if the permission or principal is invalid. Throws `PERMISSION_DENIED`
    * if the user does not have permission to make this API call.
    */
-  void putAcl(PutAcl putAcl);
+  PutAclResponse putAcl(PutAcl putAcl);
 
   /**
    * Add a secret.
@@ -169,5 +169,5 @@ public interface SecretsService {
    * `INVALID_PARAMETER_VALUE` if the key name or value length is invalid. Throws
    * `PERMISSION_DENIED` if the user does not have permission to make this API call.
    */
-  void putSecret(PutSecret putSecret);
+  PutSecretResponse putSecret(PutSecret putSecret);
 }

@@ -16,12 +16,12 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
-  public void delete(Delete request) {
+  public DeleteResponse delete(Delete request) {
     String path = "/api/2.0/workspace/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -64,12 +64,12 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
-  public void importContent(Import request) {
+  public ImportResponse importContent(Import request) {
     String path = "/api/2.0/workspace/import";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, ImportResponse.class, headers);
   }
 
   @Override
@@ -81,12 +81,12 @@ class WorkspaceImpl implements WorkspaceService {
   }
 
   @Override
-  public void mkdirs(Mkdirs request) {
+  public MkdirsResponse mkdirs(Mkdirs request) {
     String path = "/api/2.0/workspace/mkdirs";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, MkdirsResponse.class, headers);
   }
 
   @Override

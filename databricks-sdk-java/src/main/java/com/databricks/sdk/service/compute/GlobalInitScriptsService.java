@@ -30,7 +30,7 @@ public interface GlobalInitScriptsService {
    *
    * <p>Deletes a global init script.
    */
-  void delete(DeleteGlobalInitScriptRequest deleteGlobalInitScriptRequest);
+  DeleteResponse delete(DeleteGlobalInitScriptRequest deleteGlobalInitScriptRequest);
 
   /**
    * Get an init script.
@@ -54,5 +54,5 @@ public interface GlobalInitScriptsService {
    * <p>Updates a global init script, specifying only the fields to change. All fields are optional.
    * Unspecified fields retain their current value.
    */
-  void update(GlobalInitScriptUpdateRequest globalInitScriptUpdateRequest);
+  UpdateResponse update(GlobalInitScriptUpdateRequest globalInitScriptUpdateRequest);
 }

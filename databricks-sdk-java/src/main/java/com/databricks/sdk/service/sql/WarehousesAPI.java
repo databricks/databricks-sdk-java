@@ -133,8 +133,8 @@ public class WarehousesAPI {
         response);
   }
 
-  public void delete(String id) {
-    delete(new DeleteWarehouseRequest().setId(id));
+  public DeleteWarehouseResponse delete(String id) {
+    return delete(new DeleteWarehouseRequest().setId(id));
   }
 
   /**
@@ -142,11 +142,11 @@ public class WarehousesAPI {
    *
    * <p>Deletes a SQL warehouse.
    */
-  public void delete(DeleteWarehouseRequest request) {
-    impl.delete(request);
+  public DeleteWarehouseResponse delete(DeleteWarehouseRequest request) {
+    return impl.delete(request);
   }
 
-  public Wait<GetWarehouseResponse, Void> edit(String id) {
+  public Wait<GetWarehouseResponse, EditWarehouseResponse> edit(String id) {
     return edit(new EditWarehouseRequest().setId(id));
   }
 
@@ -155,10 +155,11 @@ public class WarehousesAPI {
    *
    * <p>Updates the configuration for a SQL warehouse.
    */
-  public Wait<GetWarehouseResponse, Void> edit(EditWarehouseRequest request) {
-    impl.edit(request);
+  public Wait<GetWarehouseResponse, EditWarehouseResponse> edit(EditWarehouseRequest request) {
+    EditWarehouseResponse response = impl.edit(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetWarehouseRunning(request.getId(), timeout, callback));
+        (timeout, callback) -> waitGetWarehouseRunning(request.getId(), timeout, callback),
+        response);
   }
 
   public GetWarehouseResponse get(String id) {
@@ -240,11 +241,12 @@ public class WarehousesAPI {
    *
    * <p>Sets the workspace level configuration that is shared by all SQL warehouses in a workspace.
    */
-  public void setWorkspaceWarehouseConfig(SetWorkspaceWarehouseConfigRequest request) {
-    impl.setWorkspaceWarehouseConfig(request);
+  public SetWorkspaceWarehouseConfigResponse setWorkspaceWarehouseConfig(
+      SetWorkspaceWarehouseConfigRequest request) {
+    return impl.setWorkspaceWarehouseConfig(request);
   }
 
-  public Wait<GetWarehouseResponse, Void> start(String id) {
+  public Wait<GetWarehouseResponse, StartWarehouseResponse> start(String id) {
     return start(new StartRequest().setId(id));
   }
 
@@ -253,13 +255,14 @@ public class WarehousesAPI {
    *
    * <p>Starts a SQL warehouse.
    */
-  public Wait<GetWarehouseResponse, Void> start(StartRequest request) {
-    impl.start(request);
+  public Wait<GetWarehouseResponse, StartWarehouseResponse> start(StartRequest request) {
+    StartWarehouseResponse response = impl.start(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetWarehouseRunning(request.getId(), timeout, callback));
+        (timeout, callback) -> waitGetWarehouseRunning(request.getId(), timeout, callback),
+        response);
   }
 
-  public Wait<GetWarehouseResponse, Void> stop(String id) {
+  public Wait<GetWarehouseResponse, StopWarehouseResponse> stop(String id) {
     return stop(new StopRequest().setId(id));
   }
 
@@ -268,10 +271,11 @@ public class WarehousesAPI {
    *
    * <p>Stops a SQL warehouse.
    */
-  public Wait<GetWarehouseResponse, Void> stop(StopRequest request) {
-    impl.stop(request);
+  public Wait<GetWarehouseResponse, StopWarehouseResponse> stop(StopRequest request) {
+    StopWarehouseResponse response = impl.stop(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetWarehouseStopped(request.getId(), timeout, callback));
+        (timeout, callback) -> waitGetWarehouseStopped(request.getId(), timeout, callback),
+        response);
   }
 
   public WarehousePermissions updatePermissions(String warehouseId) {

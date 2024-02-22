@@ -31,7 +31,7 @@ public interface LakehouseMonitorsService {
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created.
    */
-  void cancelRefresh(CancelRefreshRequest cancelRefreshRequest);
+  CancelRefreshResponse cancelRefresh(CancelRefreshRequest cancelRefreshRequest);
 
   /**
    * Create a table monitor.
@@ -64,7 +64,7 @@ public interface LakehouseMonitorsService {
    * <p>Note that the metric tables and dashboard will not be deleted as part of this call; those
    * assets must be manually cleaned up (if desired).
    */
-  void delete(DeleteLakehouseMonitorRequest deleteLakehouseMonitorRequest);
+  DeleteResponse delete(DeleteLakehouseMonitorRequest deleteLakehouseMonitorRequest);
 
   /**
    * Get a table monitor.

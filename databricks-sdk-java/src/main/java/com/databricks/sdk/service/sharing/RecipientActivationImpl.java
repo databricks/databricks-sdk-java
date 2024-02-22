@@ -16,14 +16,14 @@ class RecipientActivationImpl implements RecipientActivationService {
   }
 
   @Override
-  public void getActivationUrlInfo(GetActivationUrlInfoRequest request) {
+  public GetActivationUrlInfoResponse getActivationUrlInfo(GetActivationUrlInfoRequest request) {
     String path =
         String.format(
             "/api/2.1/unity-catalog/public/data_sharing_activation_info/%s",
             request.getActivationUrl());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.GET(path, request, Void.class, headers);
+    return apiClient.GET(path, request, GetActivationUrlInfoResponse.class, headers);
   }
 
   @Override

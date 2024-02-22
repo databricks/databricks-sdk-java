@@ -34,7 +34,7 @@ public interface ServingEndpointsService {
   ServingEndpointDetailed create(CreateServingEndpoint createServingEndpoint);
 
   /** Delete a serving endpoint. */
-  void delete(DeleteServingEndpointRequest deleteServingEndpointRequest);
+  DeleteResponse delete(DeleteServingEndpointRequest deleteServingEndpointRequest);
 
   /**
    * Retrieve the metrics associated with a serving endpoint.
@@ -42,7 +42,7 @@ public interface ServingEndpointsService {
    * <p>Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
    * OpenMetrics exposition format.
    */
-  void exportMetrics(ExportMetricsRequest exportMetricsRequest);
+  ExportMetricsResponse exportMetrics(ExportMetricsRequest exportMetricsRequest);
 
   /**
    * Get a single serving endpoint.

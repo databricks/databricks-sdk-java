@@ -44,8 +44,8 @@ public class QueriesAPI {
     return impl.create(request);
   }
 
-  public void delete(String queryId) {
-    delete(new DeleteQueryRequest().setQueryId(queryId));
+  public DeleteResponse delete(String queryId) {
+    return delete(new DeleteQueryRequest().setQueryId(queryId));
   }
 
   /**
@@ -54,8 +54,8 @@ public class QueriesAPI {
    * <p>Moves a query to the trash. Trashed queries immediately disappear from searches and list
    * views, and they cannot be used for alerts. The trash is deleted after 30 days.
    */
-  public void delete(DeleteQueryRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteQueryRequest request) {
+    return impl.delete(request);
   }
 
   public Query get(String queryId) {
@@ -96,8 +96,8 @@ public class QueriesAPI {
         .withDedupe(Query::getId);
   }
 
-  public void restore(String queryId) {
-    restore(new RestoreQueryRequest().setQueryId(queryId));
+  public RestoreResponse restore(String queryId) {
+    return restore(new RestoreQueryRequest().setQueryId(queryId));
   }
 
   /**
@@ -106,8 +106,8 @@ public class QueriesAPI {
    * <p>Restore a query that has been moved to the trash. A restored query appears in list views and
    * searches. You can use restored queries for alerts.
    */
-  public void restore(RestoreQueryRequest request) {
-    impl.restore(request);
+  public RestoreResponse restore(RestoreQueryRequest request) {
+    return impl.restore(request);
   }
 
   public Query update(String queryId) {

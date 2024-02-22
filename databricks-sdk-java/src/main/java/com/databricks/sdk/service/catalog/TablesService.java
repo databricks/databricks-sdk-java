@@ -27,7 +27,7 @@ public interface TablesService {
    * owner of the parent schema, or be the owner of the table and have the **USE_CATALOG** privilege
    * on the parent catalog and the **USE_SCHEMA** privilege on the parent schema.
    */
-  void delete(DeleteTableRequest deleteTableRequest);
+  DeleteResponse delete(DeleteTableRequest deleteTableRequest);
 
   /**
    * Get boolean reflecting if table exists.
@@ -88,5 +88,5 @@ public interface TablesService {
    * the owner of the table and have the **USE_CATALOG** privilege on the parent catalog and the
    * **USE_SCHEMA** privilege on the parent schema.
    */
-  void update(UpdateTableRequest updateTableRequest);
+  UpdateResponse update(UpdateTableRequest updateTableRequest);
 }

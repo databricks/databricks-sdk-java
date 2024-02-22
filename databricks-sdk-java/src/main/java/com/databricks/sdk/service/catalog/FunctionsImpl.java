@@ -25,11 +25,11 @@ class FunctionsImpl implements FunctionsService {
   }
 
   @Override
-  public void delete(DeleteFunctionRequest request) {
+  public DeleteResponse delete(DeleteFunctionRequest request) {
     String path = String.format("/api/2.1/unity-catalog/functions/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

@@ -25,12 +25,12 @@ class TokensImpl implements TokensService {
   }
 
   @Override
-  public void delete(RevokeTokenRequest request) {
+  public RevokeTokenResponse delete(RevokeTokenRequest request) {
     String path = "/api/2.0/token/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, RevokeTokenResponse.class, headers);
   }
 
   @Override

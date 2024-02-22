@@ -35,8 +35,8 @@ public class AccountMetastoresAPI {
     return impl.create(request);
   }
 
-  public void delete(String metastoreId) {
-    delete(new DeleteAccountMetastoreRequest().setMetastoreId(metastoreId));
+  public DeleteResponse delete(String metastoreId) {
+    return delete(new DeleteAccountMetastoreRequest().setMetastoreId(metastoreId));
   }
 
   /**
@@ -44,8 +44,8 @@ public class AccountMetastoresAPI {
    *
    * <p>Deletes a Unity Catalog metastore for an account, both specified by ID.
    */
-  public void delete(DeleteAccountMetastoreRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteAccountMetastoreRequest request) {
+    return impl.delete(request);
   }
 
   public AccountsMetastoreInfo get(String metastoreId) {

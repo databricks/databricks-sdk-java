@@ -55,7 +55,7 @@ public interface AccountIpAccessListsService {
    *
    * <p>Deletes an IP access list, specified by its list ID.
    */
-  void delete(DeleteAccountIpAccessListRequest deleteAccountIpAccessListRequest);
+  DeleteResponse delete(DeleteAccountIpAccessListRequest deleteAccountIpAccessListRequest);
 
   /**
    * Get IP access list.
@@ -84,7 +84,7 @@ public interface AccountIpAccessListsService {
    * calling user's current IP, error 400 is returned with `error_code` value `INVALID_STATE`. It
    * can take a few minutes for the changes to take effect.
    */
-  void replace(ReplaceIpAccessList replaceIpAccessList);
+  ReplaceResponse replace(ReplaceIpAccessList replaceIpAccessList);
 
   /**
    * Update access list.
@@ -103,5 +103,5 @@ public interface AccountIpAccessListsService {
    *
    * <p>It can take a few minutes for the changes to take effect.
    */
-  void update(UpdateIpAccessList updateIpAccessList);
+  UpdateResponse update(UpdateIpAccessList updateIpAccessList);
 }

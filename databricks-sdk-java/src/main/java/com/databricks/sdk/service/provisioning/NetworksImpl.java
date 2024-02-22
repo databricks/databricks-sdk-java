@@ -26,14 +26,14 @@ class NetworksImpl implements NetworksService {
   }
 
   @Override
-  public void delete(DeleteNetworkRequest request) {
+  public DeleteResponse delete(DeleteNetworkRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/networks/%s",
             apiClient.configuredAccountID(), request.getNetworkId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

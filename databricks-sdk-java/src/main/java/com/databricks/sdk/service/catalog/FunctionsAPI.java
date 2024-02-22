@@ -48,8 +48,8 @@ public class FunctionsAPI {
     return impl.create(request);
   }
 
-  public void delete(String name) {
-    delete(new DeleteFunctionRequest().setName(name));
+  public DeleteResponse delete(String name) {
+    return delete(new DeleteFunctionRequest().setName(name));
   }
 
   /**
@@ -61,8 +61,8 @@ public class FunctionsAPI {
    * parent catalog - Is the owner of the function itself and have both the **USE_CATALOG**
    * privilege on its parent catalog and the **USE_SCHEMA** privilege on its parent schema
    */
-  public void delete(DeleteFunctionRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteFunctionRequest request) {
+    return impl.delete(request);
   }
 
   public FunctionInfo get(String name) {

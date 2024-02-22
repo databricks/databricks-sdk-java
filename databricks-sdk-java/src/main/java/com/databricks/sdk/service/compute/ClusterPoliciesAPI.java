@@ -56,8 +56,8 @@ public class ClusterPoliciesAPI {
     return impl.create(request);
   }
 
-  public void delete(String policyId) {
-    delete(new DeletePolicy().setPolicyId(policyId));
+  public DeletePolicyResponse delete(String policyId) {
+    return delete(new DeletePolicy().setPolicyId(policyId));
   }
 
   /**
@@ -66,12 +66,12 @@ public class ClusterPoliciesAPI {
    * <p>Delete a policy for a cluster. Clusters governed by this policy can still run, but cannot be
    * edited.
    */
-  public void delete(DeletePolicy request) {
-    impl.delete(request);
+  public DeletePolicyResponse delete(DeletePolicy request) {
+    return impl.delete(request);
   }
 
-  public void edit(String policyId, String name) {
-    edit(new EditPolicy().setPolicyId(policyId).setName(name));
+  public EditPolicyResponse edit(String policyId, String name) {
+    return edit(new EditPolicy().setPolicyId(policyId).setName(name));
   }
 
   /**
@@ -80,8 +80,8 @@ public class ClusterPoliciesAPI {
    * <p>Update an existing policy for cluster. This operation may make some clusters governed by the
    * previous policy invalid.
    */
-  public void edit(EditPolicy request) {
-    impl.edit(request);
+  public EditPolicyResponse edit(EditPolicy request) {
+    return impl.edit(request);
   }
 
   public Policy get(String policyId) {

@@ -34,21 +34,21 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public void deleteExperiment(DeleteExperiment request) {
+  public DeleteExperimentResponse deleteExperiment(DeleteExperiment request) {
     String path = "/api/2.0/mlflow/experiments/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, DeleteExperimentResponse.class, headers);
   }
 
   @Override
-  public void deleteRun(DeleteRun request) {
+  public DeleteRunResponse deleteRun(DeleteRun request) {
     String path = "/api/2.0/mlflow/runs/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, DeleteRunResponse.class, headers);
   }
 
   @Override
@@ -61,12 +61,12 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public void deleteTag(DeleteTag request) {
+  public DeleteTagResponse deleteTag(DeleteTag request) {
     String path = "/api/2.0/mlflow/runs/delete-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, DeleteTagResponse.class, headers);
   }
 
   @Override
@@ -137,66 +137,66 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public void logBatch(LogBatch request) {
+  public LogBatchResponse logBatch(LogBatch request) {
     String path = "/api/2.0/mlflow/runs/log-batch";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, LogBatchResponse.class, headers);
   }
 
   @Override
-  public void logInputs(LogInputs request) {
+  public LogInputsResponse logInputs(LogInputs request) {
     String path = "/api/2.0/mlflow/runs/log-inputs";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, LogInputsResponse.class, headers);
   }
 
   @Override
-  public void logMetric(LogMetric request) {
+  public LogMetricResponse logMetric(LogMetric request) {
     String path = "/api/2.0/mlflow/runs/log-metric";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, LogMetricResponse.class, headers);
   }
 
   @Override
-  public void logModel(LogModel request) {
+  public LogModelResponse logModel(LogModel request) {
     String path = "/api/2.0/mlflow/runs/log-model";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, LogModelResponse.class, headers);
   }
 
   @Override
-  public void logParam(LogParam request) {
+  public LogParamResponse logParam(LogParam request) {
     String path = "/api/2.0/mlflow/runs/log-parameter";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, LogParamResponse.class, headers);
   }
 
   @Override
-  public void restoreExperiment(RestoreExperiment request) {
+  public RestoreExperimentResponse restoreExperiment(RestoreExperiment request) {
     String path = "/api/2.0/mlflow/experiments/restore";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, RestoreExperimentResponse.class, headers);
   }
 
   @Override
-  public void restoreRun(RestoreRun request) {
+  public RestoreRunResponse restoreRun(RestoreRun request) {
     String path = "/api/2.0/mlflow/runs/restore";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, RestoreRunResponse.class, headers);
   }
 
   @Override
@@ -227,12 +227,12 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public void setExperimentTag(SetExperimentTag request) {
+  public SetExperimentTagResponse setExperimentTag(SetExperimentTag request) {
     String path = "/api/2.0/mlflow/experiments/set-experiment-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, SetExperimentTagResponse.class, headers);
   }
 
   @Override
@@ -245,21 +245,21 @@ class ExperimentsImpl implements ExperimentsService {
   }
 
   @Override
-  public void setTag(SetTag request) {
+  public SetTagResponse setTag(SetTag request) {
     String path = "/api/2.0/mlflow/runs/set-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, SetTagResponse.class, headers);
   }
 
   @Override
-  public void updateExperiment(UpdateExperiment request) {
+  public UpdateExperimentResponse updateExperiment(UpdateExperiment request) {
     String path = "/api/2.0/mlflow/experiments/update";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, UpdateExperimentResponse.class, headers);
   }
 
   @Override

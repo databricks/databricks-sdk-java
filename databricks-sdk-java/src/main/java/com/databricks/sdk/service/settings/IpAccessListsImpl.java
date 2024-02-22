@@ -25,11 +25,11 @@ class IpAccessListsImpl implements IpAccessListsService {
   }
 
   @Override
-  public void delete(DeleteIpAccessListRequest request) {
+  public DeleteResponse delete(DeleteIpAccessListRequest request) {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -49,20 +49,20 @@ class IpAccessListsImpl implements IpAccessListsService {
   }
 
   @Override
-  public void replace(ReplaceIpAccessList request) {
+  public ReplaceResponse replace(ReplaceIpAccessList request) {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, Void.class, headers);
+    return apiClient.PUT(path, request, ReplaceResponse.class, headers);
   }
 
   @Override
-  public void update(UpdateIpAccessList request) {
+  public UpdateResponse update(UpdateIpAccessList request) {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    return apiClient.PATCH(path, request, UpdateResponse.class, headers);
   }
 }

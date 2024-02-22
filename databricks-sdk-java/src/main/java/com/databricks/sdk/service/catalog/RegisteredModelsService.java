@@ -61,7 +61,7 @@ public interface RegisteredModelsService {
    * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent
    * catalog and the **USE_SCHEMA** privilege on the parent schema.
    */
-  void delete(DeleteRegisteredModelRequest deleteRegisteredModelRequest);
+  DeleteResponse delete(DeleteRegisteredModelRequest deleteRegisteredModelRequest);
 
   /**
    * Delete a Registered Model Alias.
@@ -72,7 +72,7 @@ public interface RegisteredModelsService {
    * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent
    * catalog and the **USE_SCHEMA** privilege on the parent schema.
    */
-  void deleteAlias(DeleteAliasRequest deleteAliasRequest);
+  DeleteAliasResponse deleteAlias(DeleteAliasRequest deleteAliasRequest);
 
   /**
    * Get a Registered Model.

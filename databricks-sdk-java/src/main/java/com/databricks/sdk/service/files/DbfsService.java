@@ -22,7 +22,7 @@ public interface DbfsService {
    * <p>If the block of data exceeds 1 MB, this call will throw an exception with
    * ``MAX_BLOCK_SIZE_EXCEEDED``.
    */
-  void addBlock(AddBlock addBlock);
+  AddBlockResponse addBlock(AddBlock addBlock);
 
   /**
    * Close the stream.
@@ -30,7 +30,7 @@ public interface DbfsService {
    * <p>Closes the stream specified by the input handle. If the handle does not exist, this call
    * throws an exception with ``RESOURCE_DOES_NOT_EXIST``.
    */
-  void close(Close close);
+  CloseResponse close(Close close);
 
   /**
    * Open a stream.
@@ -66,7 +66,7 @@ public interface DbfsService {
    * notebooks provides better control and manageability, such as selective deletes, and the
    * possibility to automate periodic delete jobs.
    */
-  void delete(Delete delete);
+  DeleteResponse delete(Delete delete);
 
   /**
    * Get the information of a file or directory.
@@ -99,7 +99,7 @@ public interface DbfsService {
    * `RESOURCE_ALREADY_EXISTS`. **Note**: If this operation fails, it might have succeeded in
    * creating some of the necessary parent directories.
    */
-  void mkdirs(MkDirs mkDirs);
+  MkDirsResponse mkdirs(MkDirs mkDirs);
 
   /**
    * Move a file.
@@ -109,7 +109,7 @@ public interface DbfsService {
    * in the destination path, this call throws an exception with `RESOURCE_ALREADY_EXISTS`. If the
    * given source path is a directory, this call always recursively moves all files.
    */
-  void move(Move move);
+  MoveResponse move(Move move);
 
   /**
    * Upload a file.
@@ -125,7 +125,7 @@ public interface DbfsService {
    * <p>If you want to upload large files, use the streaming upload. For details, see
    * :method:dbfs/create, :method:dbfs/addBlock, :method:dbfs/close.
    */
-  void put(Put put);
+  PutResponse put(Put put);
 
   /**
    * Get the contents of a file.

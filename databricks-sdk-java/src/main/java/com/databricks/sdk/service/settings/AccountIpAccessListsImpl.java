@@ -26,14 +26,14 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
   }
 
   @Override
-  public void delete(DeleteAccountIpAccessListRequest request) {
+  public DeleteResponse delete(DeleteAccountIpAccessListRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/ip-access-lists/%s",
             apiClient.configuredAccountID(), request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -57,7 +57,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
   }
 
   @Override
-  public void replace(ReplaceIpAccessList request) {
+  public ReplaceResponse replace(ReplaceIpAccessList request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/ip-access-lists/%s",
@@ -65,11 +65,11 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, Void.class, headers);
+    return apiClient.PUT(path, request, ReplaceResponse.class, headers);
   }
 
   @Override
-  public void update(UpdateIpAccessList request) {
+  public UpdateResponse update(UpdateIpAccessList request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/ip-access-lists/%s",
@@ -77,6 +77,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    return apiClient.PATCH(path, request, UpdateResponse.class, headers);
   }
 }

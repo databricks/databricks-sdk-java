@@ -31,7 +31,7 @@ public interface AlertsService {
    * <p>Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. **Note:**
    * Unlike queries and dashboards, alerts cannot be moved to the trash.
    */
-  void delete(DeleteAlertRequest deleteAlertRequest);
+  DeleteResponse delete(DeleteAlertRequest deleteAlertRequest);
 
   /**
    * Get an alert.
@@ -52,5 +52,5 @@ public interface AlertsService {
    *
    * <p>Updates an alert.
    */
-  void update(EditAlert editAlert);
+  UpdateResponse update(EditAlert editAlert);
 }

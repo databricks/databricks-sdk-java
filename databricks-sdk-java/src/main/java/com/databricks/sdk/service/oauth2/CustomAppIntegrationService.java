@@ -28,7 +28,8 @@ public interface CustomAppIntegrationService {
    * <p>Delete an existing Custom OAuth App Integration. You can retrieve the custom oauth app
    * integration via :method:CustomAppIntegration/get.
    */
-  void delete(DeleteCustomAppIntegrationRequest deleteCustomAppIntegrationRequest);
+  DeleteCustomAppIntegrationOutput delete(
+      DeleteCustomAppIntegrationRequest deleteCustomAppIntegrationRequest);
 
   /**
    * Get OAuth Custom App Integration.
@@ -50,5 +51,5 @@ public interface CustomAppIntegrationService {
    * <p>Updates an existing custom OAuth App Integration. You can retrieve the custom oauth app
    * integration via :method:CustomAppIntegration/get.
    */
-  void update(UpdateCustomAppIntegration updateCustomAppIntegration);
+  UpdateCustomAppIntegrationOutput update(UpdateCustomAppIntegration updateCustomAppIntegration);
 }

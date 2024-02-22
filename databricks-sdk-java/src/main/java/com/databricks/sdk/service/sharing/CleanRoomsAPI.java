@@ -45,8 +45,8 @@ public class CleanRoomsAPI {
     return impl.create(request);
   }
 
-  public void delete(String name) {
-    delete(new DeleteCleanRoomRequest().setName(name));
+  public DeleteResponse delete(String name) {
+    return delete(new DeleteCleanRoomRequest().setName(name));
   }
 
   /**
@@ -55,8 +55,8 @@ public class CleanRoomsAPI {
    * <p>Deletes a data object clean room from the metastore. The caller must be an owner of the
    * clean room.
    */
-  public void delete(DeleteCleanRoomRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteCleanRoomRequest request) {
+    return impl.delete(request);
   }
 
   public CleanRoomInfo get(String name) {

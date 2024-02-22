@@ -28,14 +28,14 @@ class PrivateAccessImpl implements PrivateAccessService {
   }
 
   @Override
-  public void delete(DeletePrivateAccesRequest request) {
+  public DeleteResponse delete(DeletePrivateAccesRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/private-access-settings/%s",
             apiClient.configuredAccountID(), request.getPrivateAccessSettingsId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -60,7 +60,7 @@ class PrivateAccessImpl implements PrivateAccessService {
   }
 
   @Override
-  public void replace(UpsertPrivateAccessSettingsRequest request) {
+  public ReplaceResponse replace(UpsertPrivateAccessSettingsRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/private-access-settings/%s",
@@ -68,6 +68,6 @@ class PrivateAccessImpl implements PrivateAccessService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, Void.class, headers);
+    return apiClient.PUT(path, request, ReplaceResponse.class, headers);
   }
 }

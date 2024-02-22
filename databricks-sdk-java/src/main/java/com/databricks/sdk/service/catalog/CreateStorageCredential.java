@@ -31,7 +31,7 @@ public class CreateStorageCredential {
 
   /** The <Databricks> managed GCP service account configuration. */
   @JsonProperty("databricks_gcp_service_account")
-  private Object databricksGcpServiceAccount;
+  private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
   /** The credential name. The name must be unique within the metastore. */
   @JsonProperty("name")
@@ -93,12 +93,12 @@ public class CreateStorageCredential {
   }
 
   public CreateStorageCredential setDatabricksGcpServiceAccount(
-      Object databricksGcpServiceAccount) {
+      DatabricksGcpServiceAccountRequest databricksGcpServiceAccount) {
     this.databricksGcpServiceAccount = databricksGcpServiceAccount;
     return this;
   }
 
-  public Object getDatabricksGcpServiceAccount() {
+  public DatabricksGcpServiceAccountRequest getDatabricksGcpServiceAccount() {
     return databricksGcpServiceAccount;
   }
 

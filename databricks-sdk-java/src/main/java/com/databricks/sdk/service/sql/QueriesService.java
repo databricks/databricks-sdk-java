@@ -34,7 +34,7 @@ public interface QueriesService {
    * <p>Moves a query to the trash. Trashed queries immediately disappear from searches and list
    * views, and they cannot be used for alerts. The trash is deleted after 30 days.
    */
-  void delete(DeleteQueryRequest deleteQueryRequest);
+  DeleteResponse delete(DeleteQueryRequest deleteQueryRequest);
 
   /**
    * Get a query definition.
@@ -60,7 +60,7 @@ public interface QueriesService {
    * <p>Restore a query that has been moved to the trash. A restored query appears in list views and
    * searches. You can use restored queries for alerts.
    */
-  void restore(RestoreQueryRequest restoreQueryRequest);
+  RestoreResponse restore(RestoreQueryRequest restoreQueryRequest);
 
   /**
    * Change a query definition.

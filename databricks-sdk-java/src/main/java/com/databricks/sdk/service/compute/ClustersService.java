@@ -40,7 +40,7 @@ public interface ClustersService {
    * perform this operation. The service principal application ID can be supplied as an argument to
    * `owner_username`.
    */
-  void changeOwner(ChangeClusterOwner changeClusterOwner);
+  ChangeClusterOwnerResponse changeOwner(ChangeClusterOwner changeClusterOwner);
 
   /**
    * Create new cluster.
@@ -61,7 +61,7 @@ public interface ClustersService {
    * Once the termination has completed, the cluster will be in a `TERMINATED` state. If the cluster
    * is already in a `TERMINATING` or `TERMINATED` state, nothing will happen.
    */
-  void delete(DeleteCluster deleteCluster);
+  DeleteClusterResponse delete(DeleteCluster deleteCluster);
 
   /**
    * Update cluster configuration.
@@ -79,7 +79,7 @@ public interface ClustersService {
    *
    * <p>Clusters created by the Databricks Jobs service cannot be edited.
    */
-  void edit(EditCluster editCluster);
+  EditClusterResponse edit(EditCluster editCluster);
 
   /**
    * List cluster activity events.
@@ -152,7 +152,7 @@ public interface ClustersService {
    * <p>In addition, users will no longer see permanently deleted clusters in the cluster list, and
    * API users can no longer perform any action on permanently deleted clusters.
    */
-  void permanentDelete(PermanentDeleteCluster permanentDeleteCluster);
+  PermanentDeleteClusterResponse permanentDelete(PermanentDeleteCluster permanentDeleteCluster);
 
   /**
    * Pin cluster.
@@ -161,7 +161,7 @@ public interface ClustersService {
    * Pinning a cluster that is already pinned will have no effect. This API can only be called by
    * workspace admins.
    */
-  void pin(PinCluster pinCluster);
+  PinClusterResponse pin(PinCluster pinCluster);
 
   /**
    * Resize cluster.
@@ -169,7 +169,7 @@ public interface ClustersService {
    * <p>Resizes a cluster to have a desired number of workers. This will fail unless the cluster is
    * in a `RUNNING` state.
    */
-  void resize(ResizeCluster resizeCluster);
+  ResizeClusterResponse resize(ResizeCluster resizeCluster);
 
   /**
    * Restart cluster.
@@ -177,7 +177,7 @@ public interface ClustersService {
    * <p>Restarts a Spark cluster with the supplied ID. If the cluster is not currently in a
    * `RUNNING` state, nothing will happen.
    */
-  void restart(RestartCluster restartCluster);
+  RestartClusterResponse restart(RestartCluster restartCluster);
 
   /**
    * Set cluster permissions.
@@ -205,7 +205,7 @@ public interface ClustersService {
    * cluster starts with the minimum number of nodes. * If the cluster is not currently in a
    * `TERMINATED` state, nothing will happen. * Clusters launched to run a job cannot be started.
    */
-  void start(StartCluster startCluster);
+  StartClusterResponse start(StartCluster startCluster);
 
   /**
    * Unpin cluster.
@@ -214,7 +214,7 @@ public interface ClustersService {
    * API. Unpinning a cluster that is not pinned will have no effect. This API can only be called by
    * workspace admins.
    */
-  void unpin(UnpinCluster unpinCluster);
+  UnpinClusterResponse unpin(UnpinCluster unpinCluster);
 
   /**
    * Update cluster permissions.

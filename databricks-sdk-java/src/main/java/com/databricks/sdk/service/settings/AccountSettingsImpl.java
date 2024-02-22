@@ -28,6 +28,30 @@ class AccountSettingsImpl implements AccountSettingsService {
   }
 
   @Override
+  public CspEnablementAccountSetting getCspEnablementAccountSetting(
+      GetCspEnablementAccountSettingRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/settings/types/shield_csp_enablement_ac/names/default",
+            apiClient.configuredAccountID());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, CspEnablementAccountSetting.class, headers);
+  }
+
+  @Override
+  public EsmEnablementAccountSetting getEsmEnablementAccountSetting(
+      GetEsmEnablementAccountSettingRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/settings/types/shield_esm_enablement_ac/names/default",
+            apiClient.configuredAccountID());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, EsmEnablementAccountSetting.class, headers);
+  }
+
+  @Override
   public PersonalComputeSetting getPersonalComputeSetting(
       GetPersonalComputeSettingRequest request) {
     String path =
@@ -37,6 +61,32 @@ class AccountSettingsImpl implements AccountSettingsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, PersonalComputeSetting.class, headers);
+  }
+
+  @Override
+  public CspEnablementAccountSetting updateCspEnablementAccountSetting(
+      UpdateCspEnablementAccountSettingRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/settings/types/shield_csp_enablement_ac/names/default",
+            apiClient.configuredAccountID());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, CspEnablementAccountSetting.class, headers);
+  }
+
+  @Override
+  public EsmEnablementAccountSetting updateEsmEnablementAccountSetting(
+      UpdateEsmEnablementAccountSettingRequest request) {
+    String path =
+        String.format(
+            "/api/2.0/accounts/%s/settings/types/shield_esm_enablement_ac/names/default",
+            apiClient.configuredAccountID());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, EsmEnablementAccountSetting.class, headers);
   }
 
   @Override

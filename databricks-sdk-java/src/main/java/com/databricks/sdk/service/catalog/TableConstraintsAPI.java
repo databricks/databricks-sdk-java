@@ -55,8 +55,8 @@ public class TableConstraintsAPI {
     return impl.create(request);
   }
 
-  public void delete(String fullName, String constraintName, boolean cascade) {
-    delete(
+  public DeleteResponse delete(String fullName, String constraintName, boolean cascade) {
+    return delete(
         new DeleteTableConstraintRequest()
             .setFullName(fullName)
             .setConstraintName(constraintName)
@@ -75,8 +75,8 @@ public class TableConstraintsAPI {
    * child tables: the **USE_CATALOG** privilege on the table's catalog, the **USE_SCHEMA**
    * privilege on the table's schema, and be the owner of the table.
    */
-  public void delete(DeleteTableConstraintRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteTableConstraintRequest request) {
+    return impl.delete(request);
   }
 
   public TableConstraintsService impl() {

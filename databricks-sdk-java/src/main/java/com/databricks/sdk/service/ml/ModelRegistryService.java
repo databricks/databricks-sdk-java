@@ -74,42 +74,45 @@ public interface ModelRegistryService {
    *
    * <p>Deletes a comment on a model version.
    */
-  void deleteComment(DeleteCommentRequest deleteCommentRequest);
+  DeleteCommentResponse deleteComment(DeleteCommentRequest deleteCommentRequest);
 
   /**
    * Delete a model.
    *
    * <p>Deletes a registered model.
    */
-  void deleteModel(DeleteModelRequest deleteModelRequest);
+  DeleteModelResponse deleteModel(DeleteModelRequest deleteModelRequest);
 
   /**
    * Delete a model tag.
    *
    * <p>Deletes the tag for a registered model.
    */
-  void deleteModelTag(DeleteModelTagRequest deleteModelTagRequest);
+  DeleteModelTagResponse deleteModelTag(DeleteModelTagRequest deleteModelTagRequest);
 
   /**
    * Delete a model version.
    *
    * <p>Deletes a model version.
    */
-  void deleteModelVersion(DeleteModelVersionRequest deleteModelVersionRequest);
+  DeleteModelVersionResponse deleteModelVersion(
+      DeleteModelVersionRequest deleteModelVersionRequest);
 
   /**
    * Delete a model version tag.
    *
    * <p>Deletes a model version tag.
    */
-  void deleteModelVersionTag(DeleteModelVersionTagRequest deleteModelVersionTagRequest);
+  DeleteModelVersionTagResponse deleteModelVersionTag(
+      DeleteModelVersionTagRequest deleteModelVersionTagRequest);
 
   /**
    * Delete a transition request.
    *
    * <p>Cancels a model version stage transition request.
    */
-  void deleteTransitionRequest(DeleteTransitionRequestRequest deleteTransitionRequestRequest);
+  DeleteTransitionRequestResponse deleteTransitionRequest(
+      DeleteTransitionRequestRequest deleteTransitionRequestRequest);
 
   /**
    * Delete a webhook.
@@ -118,7 +121,7 @@ public interface ModelRegistryService {
    *
    * <p>Deletes a registry webhook.
    */
-  void deleteWebhook(DeleteWebhookRequest deleteWebhookRequest);
+  DeleteWebhookResponse deleteWebhook(DeleteWebhookRequest deleteWebhookRequest);
 
   /**
    * Get the latest version.
@@ -229,14 +232,15 @@ public interface ModelRegistryService {
    *
    * <p>Sets a tag on a registered model.
    */
-  void setModelTag(SetModelTagRequest setModelTagRequest);
+  SetModelTagResponse setModelTag(SetModelTagRequest setModelTagRequest);
 
   /**
    * Set a version tag.
    *
    * <p>Sets a model version tag.
    */
-  void setModelVersionTag(SetModelVersionTagRequest setModelVersionTagRequest);
+  SetModelVersionTagResponse setModelVersionTag(
+      SetModelVersionTagRequest setModelVersionTagRequest);
 
   /**
    * Set registered model permissions.
@@ -281,14 +285,15 @@ public interface ModelRegistryService {
    *
    * <p>Updates a registered model.
    */
-  void updateModel(UpdateModelRequest updateModelRequest);
+  UpdateModelResponse updateModel(UpdateModelRequest updateModelRequest);
 
   /**
    * Update model version.
    *
    * <p>Updates the model version.
    */
-  void updateModelVersion(UpdateModelVersionRequest updateModelVersionRequest);
+  UpdateModelVersionResponse updateModelVersion(
+      UpdateModelVersionRequest updateModelVersionRequest);
 
   /**
    * Update registered model permissions.
@@ -306,5 +311,5 @@ public interface ModelRegistryService {
    *
    * <p>Updates a registry webhook.
    */
-  void updateWebhook(UpdateRegistryWebhook updateRegistryWebhook);
+  UpdateWebhookResponse updateWebhook(UpdateRegistryWebhook updateRegistryWebhook);
 }

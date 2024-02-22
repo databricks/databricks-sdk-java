@@ -50,7 +50,7 @@ public interface EncryptionKeysService {
    * <p>Deletes a customer-managed key configuration object for an account. You cannot delete a
    * configuration that is associated with a running workspace.
    */
-  void delete(DeleteEncryptionKeyRequest deleteEncryptionKeyRequest);
+  DeleteResponse delete(DeleteEncryptionKeyRequest deleteEncryptionKeyRequest);
 
   /**
    * Get encryption key configuration.

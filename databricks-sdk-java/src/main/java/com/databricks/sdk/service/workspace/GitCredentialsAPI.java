@@ -44,8 +44,8 @@ public class GitCredentialsAPI {
     return impl.create(request);
   }
 
-  public void delete(long credentialId) {
-    delete(new DeleteGitCredentialRequest().setCredentialId(credentialId));
+  public DeleteResponse delete(long credentialId) {
+    return delete(new DeleteGitCredentialRequest().setCredentialId(credentialId));
   }
 
   /**
@@ -53,8 +53,8 @@ public class GitCredentialsAPI {
    *
    * <p>Deletes the specified Git credential.
    */
-  public void delete(DeleteGitCredentialRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteGitCredentialRequest request) {
+    return impl.delete(request);
   }
 
   public CredentialInfo get(long credentialId) {
@@ -79,8 +79,8 @@ public class GitCredentialsAPI {
     return impl.list().getCredentials();
   }
 
-  public void update(long credentialId) {
-    update(new UpdateCredentials().setCredentialId(credentialId));
+  public UpdateResponse update(long credentialId) {
+    return update(new UpdateCredentials().setCredentialId(credentialId));
   }
 
   /**
@@ -88,8 +88,8 @@ public class GitCredentialsAPI {
    *
    * <p>Updates the specified Git credential.
    */
-  public void update(UpdateCredentials request) {
-    impl.update(request);
+  public UpdateResponse update(UpdateCredentials request) {
+    return impl.update(request);
   }
 
   public GitCredentialsService impl() {

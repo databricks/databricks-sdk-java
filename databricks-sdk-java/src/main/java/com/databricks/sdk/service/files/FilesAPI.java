@@ -9,18 +9,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The Files API allows you to read, write, list, and delete files and directories. We support Unity
- * Catalog volumes with paths starting with "/Volumes/<catalog>/<schema>/<volume>".
+ * The Files API is a standard HTTP API that allows you to read, write, list, and delete files and
+ * directories by referring to their URI. The API makes working with file content as raw bytes
+ * easier and more efficient.
  *
- * <p>The Files API is designed like a standard HTTP API, rather than as a JSON RPC API. This is
- * intended to make it easier and more efficient to work with file contents as raw bytes.
+ * <p>The API supports [Unity Catalog volumes], where files and directories to operate on are
+ * specified using their volume URI path, which follows the format
+ * /Volumes/&lt;catalog_name&gt;/&lt;schema_name&gt;/&lt;volume_name&gt;/&lt;path_to_file&gt;.
  *
- * <p>Because the Files API is a standard HTTP API, the URI path is used to specify the file or
- * directory to operate on. The path is always absolute.
+ * <p>The Files API has two distinct endpoints, one for working with files (`/fs/files`) and another
+ * one for working with directories (`/fs/directories`). Both endpoints, use the standard HTTP
+ * methods GET, HEAD, PUT, and DELETE to manage files and directories specified using their URI
+ * path. The path is always absolute.
  *
- * <p>The Files API has separate endpoints for working with files, `/fs/files`, and working with
- * directories, `/fs/directories`. The standard HTTP methods `GET`, `HEAD`, `PUT`, and `DELETE` work
- * as expected on these endpoints.
+ * <p>[Unity Catalog volumes]: https://docs.databricks.com/en/connect/unity-catalog/volumes.html
  */
 @Generated
 public class FilesAPI {
@@ -38,8 +40,8 @@ public class FilesAPI {
     impl = mock;
   }
 
-  public void createDirectory(String directoryPath) {
-    createDirectory(new CreateDirectoryRequest().setDirectoryPath(directoryPath));
+  public CreateDirectoryResponse createDirectory(String directoryPath) {
+    return createDirectory(new CreateDirectoryRequest().setDirectoryPath(directoryPath));
   }
 
   /**
@@ -47,14 +49,15 @@ public class FilesAPI {
    *
    * <p>Creates an empty directory. If necessary, also creates any parent directories of the new,
    * empty directory (like the shell command `mkdir -p`). If called on an existing directory,
-   * returns a success response; this method is idempotent.
+   * returns a success response; this method is idempotent (it will succeed if the directory already
+   * exists).
    */
-  public void createDirectory(CreateDirectoryRequest request) {
-    impl.createDirectory(request);
+  public CreateDirectoryResponse createDirectory(CreateDirectoryRequest request) {
+    return impl.createDirectory(request);
   }
 
-  public void delete(String filePath) {
-    delete(new DeleteFileRequest().setFilePath(filePath));
+  public DeleteResponse delete(String filePath) {
+    return delete(new DeleteFileRequest().setFilePath(filePath));
   }
 
   /**
@@ -62,12 +65,12 @@ public class FilesAPI {
    *
    * <p>Deletes a file. If the request is successful, there is no response body.
    */
-  public void delete(DeleteFileRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteFileRequest request) {
+    return impl.delete(request);
   }
 
-  public void deleteDirectory(String directoryPath) {
-    deleteDirectory(new DeleteDirectoryRequest().setDirectoryPath(directoryPath));
+  public DeleteDirectoryResponse deleteDirectory(String directoryPath) {
+    return deleteDirectory(new DeleteDirectoryRequest().setDirectoryPath(directoryPath));
   }
 
   /**
@@ -78,8 +81,8 @@ public class FilesAPI {
    * <p>To delete a non-empty directory, first delete all of its contents. This can be done by
    * listing the directory contents and deleting each file and subdirectory recursively.
    */
-  public void deleteDirectory(DeleteDirectoryRequest request) {
-    impl.deleteDirectory(request);
+  public DeleteDirectoryResponse deleteDirectory(DeleteDirectoryRequest request) {
+    return impl.deleteDirectory(request);
   }
 
   public DownloadResponse download(String filePath) {
@@ -96,8 +99,8 @@ public class FilesAPI {
     return impl.download(request);
   }
 
-  public void getDirectoryMetadata(String directoryPath) {
-    getDirectoryMetadata(new GetDirectoryMetadataRequest().setDirectoryPath(directoryPath));
+  public GetDirectoryMetadataResponse getDirectoryMetadata(String directoryPath) {
+    return getDirectoryMetadata(new GetDirectoryMetadataRequest().setDirectoryPath(directoryPath));
   }
 
   /**
@@ -112,8 +115,8 @@ public class FilesAPI {
    * directory if it does not exist, and is idempotent (it will succeed if the directory already
    * exists).
    */
-  public void getDirectoryMetadata(GetDirectoryMetadataRequest request) {
-    impl.getDirectoryMetadata(request);
+  public GetDirectoryMetadataResponse getDirectoryMetadata(GetDirectoryMetadataRequest request) {
+    return impl.getDirectoryMetadata(request);
   }
 
   public GetMetadataResponse getMetadata(String filePath) {
@@ -155,8 +158,8 @@ public class FilesAPI {
         });
   }
 
-  public void upload(String filePath, InputStream contents) {
-    upload(new UploadRequest().setFilePath(filePath).setContents(contents));
+  public UploadResponse upload(String filePath, InputStream contents) {
+    return upload(new UploadRequest().setFilePath(filePath).setContents(contents));
   }
 
   /**
@@ -167,8 +170,8 @@ public class FilesAPI {
    * contents of the resulting file will be exactly the bytes sent in the request body. If the
    * request is successful, there is no response body.
    */
-  public void upload(UploadRequest request) {
-    impl.upload(request);
+  public UploadResponse upload(UploadRequest request) {
+    return impl.upload(request);
   }
 
   public FilesService impl() {

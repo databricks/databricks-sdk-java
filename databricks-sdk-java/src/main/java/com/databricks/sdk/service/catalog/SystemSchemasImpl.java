@@ -16,25 +16,25 @@ class SystemSchemasImpl implements SystemSchemasService {
   }
 
   @Override
-  public void disable(DisableRequest request) {
+  public DisableResponse disable(DisableRequest request) {
     String path =
         String.format(
             "/api/2.1/unity-catalog/metastores/%s/systemschemas/%s",
             request.getMetastoreId(), request.getSchemaName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DisableResponse.class, headers);
   }
 
   @Override
-  public void enable(EnableRequest request) {
+  public EnableResponse enable(EnableRequest request) {
     String path =
         String.format(
             "/api/2.1/unity-catalog/metastores/%s/systemschemas/%s",
             request.getMetastoreId(), request.getSchemaName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.PUT(path, null, Void.class, headers);
+    return apiClient.PUT(path, null, EnableResponse.class, headers);
   }
 
   @Override

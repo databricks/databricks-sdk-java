@@ -35,7 +35,7 @@ public interface StorageCredentialsService {
    * <p>Deletes a storage credential from the metastore. The caller must be an owner of the storage
    * credential.
    */
-  void delete(DeleteStorageCredentialRequest deleteStorageCredentialRequest);
+  DeleteResponse delete(DeleteStorageCredentialRequest deleteStorageCredentialRequest);
 
   /**
    * Get a credential.

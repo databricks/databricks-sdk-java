@@ -18,5 +18,5 @@ public interface LakeviewService {
    *
    * <p>Publish the current draft dashboard.
    */
-  void publish(PublishRequest publishRequest);
+  PublishResponse publish(PublishRequest publishRequest);
 }

@@ -16,7 +16,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public void create(AccountsCreateMetastoreAssignment request) {
+  public CreateResponse create(AccountsCreateMetastoreAssignment request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
@@ -24,18 +24,18 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, CreateResponse.class, headers);
   }
 
   @Override
-  public void delete(DeleteAccountMetastoreAssignmentRequest request) {
+  public DeleteResponse delete(DeleteAccountMetastoreAssignmentRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -62,7 +62,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
   }
 
   @Override
-  public void update(AccountsUpdateMetastoreAssignment request) {
+  public UpdateResponse update(AccountsUpdateMetastoreAssignment request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/workspaces/%s/metastores/%s",
@@ -70,6 +70,6 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, Void.class, headers);
+    return apiClient.PUT(path, request, UpdateResponse.class, headers);
   }
 }

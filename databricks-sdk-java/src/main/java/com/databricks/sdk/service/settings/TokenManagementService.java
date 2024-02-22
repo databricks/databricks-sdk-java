@@ -25,7 +25,7 @@ public interface TokenManagementService {
    *
    * <p>Deletes a token, specified by its ID.
    */
-  void delete(DeleteTokenManagementRequest deleteTokenManagementRequest);
+  DeleteResponse delete(DeleteTokenManagementRequest deleteTokenManagementRequest);
 
   /**
    * Get token info.

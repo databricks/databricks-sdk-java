@@ -42,8 +42,8 @@ public class WorkspaceConfAPI {
    *
    * <p>Sets the configuration status for a workspace, including enabling or disabling it.
    */
-  public void setStatus(Map<String, String> request) {
-    impl.setStatus(request);
+  public SetStatusResponse setStatus(Map<String, String> request) {
+    return impl.setStatus(request);
   }
 
   public WorkspaceConfService impl() {

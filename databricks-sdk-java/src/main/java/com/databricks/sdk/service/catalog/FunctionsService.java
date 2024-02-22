@@ -37,7 +37,7 @@ public interface FunctionsService {
    * parent catalog - Is the owner of the function itself and have both the **USE_CATALOG**
    * privilege on its parent catalog and the **USE_SCHEMA** privilege on its parent schema
    */
-  void delete(DeleteFunctionRequest deleteFunctionRequest);
+  DeleteResponse delete(DeleteFunctionRequest deleteFunctionRequest);
 
   /**
    * Get a function.

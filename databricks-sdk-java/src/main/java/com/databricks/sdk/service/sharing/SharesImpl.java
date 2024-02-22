@@ -25,11 +25,11 @@ class SharesImpl implements SharesService {
   }
 
   @Override
-  public void delete(DeleteShareRequest request) {
+  public DeleteResponse delete(DeleteShareRequest request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -68,11 +68,11 @@ class SharesImpl implements SharesService {
   }
 
   @Override
-  public void updatePermissions(UpdateSharePermissions request) {
+  public UpdatePermissionsResponse updatePermissions(UpdateSharePermissions request) {
     String path = String.format("/api/2.1/unity-catalog/shares/%s/permissions", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    return apiClient.PATCH(path, request, UpdatePermissionsResponse.class, headers);
   }
 }

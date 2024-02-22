@@ -27,14 +27,14 @@ class CredentialsImpl implements CredentialsService {
   }
 
   @Override
-  public void delete(DeleteCredentialRequest request) {
+  public DeleteResponse delete(DeleteCredentialRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/credentials/%s",
             apiClient.configuredAccountID(), request.getCredentialsId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

@@ -9,21 +9,21 @@ import java.util.Objects;
 
 @Generated
 public class EmbeddingSourceColumn {
-  /** */
-  @JsonProperty("embedding_config")
-  private EmbeddingConfig embeddingConfig;
+  /** Name of the embedding model endpoint */
+  @JsonProperty("embedding_model_endpoint_name")
+  private String embeddingModelEndpointName;
 
   /** Name of the column */
   @JsonProperty("name")
   private String name;
 
-  public EmbeddingSourceColumn setEmbeddingConfig(EmbeddingConfig embeddingConfig) {
-    this.embeddingConfig = embeddingConfig;
+  public EmbeddingSourceColumn setEmbeddingModelEndpointName(String embeddingModelEndpointName) {
+    this.embeddingModelEndpointName = embeddingModelEndpointName;
     return this;
   }
 
-  public EmbeddingConfig getEmbeddingConfig() {
-    return embeddingConfig;
+  public String getEmbeddingModelEndpointName() {
+    return embeddingModelEndpointName;
   }
 
   public EmbeddingSourceColumn setName(String name) {
@@ -40,18 +40,19 @@ public class EmbeddingSourceColumn {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     EmbeddingSourceColumn that = (EmbeddingSourceColumn) o;
-    return Objects.equals(embeddingConfig, that.embeddingConfig) && Objects.equals(name, that.name);
+    return Objects.equals(embeddingModelEndpointName, that.embeddingModelEndpointName)
+        && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(embeddingConfig, name);
+    return Objects.hash(embeddingModelEndpointName, name);
   }
 
   @Override
   public String toString() {
     return new ToStringer(EmbeddingSourceColumn.class)
-        .add("embeddingConfig", embeddingConfig)
+        .add("embeddingModelEndpointName", embeddingModelEndpointName)
         .add("name", name)
         .toString();
   }

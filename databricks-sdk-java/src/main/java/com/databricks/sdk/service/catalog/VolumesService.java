@@ -49,7 +49,7 @@ public interface VolumesService {
    * caller must also be the owner or have the **USE_CATALOG** privilege on the parent catalog and
    * the **USE_SCHEMA** privilege on the parent schema.
    */
-  void delete(DeleteVolumeRequest deleteVolumeRequest);
+  DeleteResponse delete(DeleteVolumeRequest deleteVolumeRequest);
 
   /**
    * List Volumes.

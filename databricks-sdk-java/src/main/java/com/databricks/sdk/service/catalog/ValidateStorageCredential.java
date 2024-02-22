@@ -27,7 +27,7 @@ public class ValidateStorageCredential {
 
   /** The Databricks created GCP service account configuration. */
   @JsonProperty("databricks_gcp_service_account")
-  private Object databricksGcpServiceAccount;
+  private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
   /** The name of an existing external location to validate. */
   @JsonProperty("external_location_name")
@@ -39,7 +39,7 @@ public class ValidateStorageCredential {
 
   /** The name of the storage credential to validate. */
   @JsonProperty("storage_credential_name")
-  private Object storageCredentialName;
+  private String storageCredentialName;
 
   /** The external location url to validate. */
   @JsonProperty("url")
@@ -84,12 +84,12 @@ public class ValidateStorageCredential {
   }
 
   public ValidateStorageCredential setDatabricksGcpServiceAccount(
-      Object databricksGcpServiceAccount) {
+      DatabricksGcpServiceAccountRequest databricksGcpServiceAccount) {
     this.databricksGcpServiceAccount = databricksGcpServiceAccount;
     return this;
   }
 
-  public Object getDatabricksGcpServiceAccount() {
+  public DatabricksGcpServiceAccountRequest getDatabricksGcpServiceAccount() {
     return databricksGcpServiceAccount;
   }
 
@@ -111,12 +111,12 @@ public class ValidateStorageCredential {
     return readOnly;
   }
 
-  public ValidateStorageCredential setStorageCredentialName(Object storageCredentialName) {
+  public ValidateStorageCredential setStorageCredentialName(String storageCredentialName) {
     this.storageCredentialName = storageCredentialName;
     return this;
   }
 
-  public Object getStorageCredentialName() {
+  public String getStorageCredentialName() {
     return storageCredentialName;
   }
 

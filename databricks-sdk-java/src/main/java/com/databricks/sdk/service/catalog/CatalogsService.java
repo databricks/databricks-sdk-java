@@ -32,7 +32,7 @@ public interface CatalogsService {
    * <p>Deletes the catalog that matches the supplied name. The caller must be a metastore admin or
    * the owner of the catalog.
    */
-  void delete(DeleteCatalogRequest deleteCatalogRequest);
+  DeleteResponse delete(DeleteCatalogRequest deleteCatalogRequest);
 
   /**
    * Get a catalog.

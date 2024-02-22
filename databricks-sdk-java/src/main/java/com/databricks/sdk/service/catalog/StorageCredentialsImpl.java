@@ -25,11 +25,11 @@ class StorageCredentialsImpl implements StorageCredentialsService {
   }
 
   @Override
-  public void delete(DeleteStorageCredentialRequest request) {
+  public DeleteResponse delete(DeleteStorageCredentialRequest request) {
     String path = String.format("/api/2.1/unity-catalog/storage-credentials/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

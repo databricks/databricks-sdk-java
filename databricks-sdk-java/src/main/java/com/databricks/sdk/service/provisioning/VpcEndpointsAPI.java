@@ -49,8 +49,8 @@ public class VpcEndpointsAPI {
     return impl.create(request);
   }
 
-  public void delete(String vpcEndpointId) {
-    delete(new DeleteVpcEndpointRequest().setVpcEndpointId(vpcEndpointId));
+  public DeleteResponse delete(String vpcEndpointId) {
+    return delete(new DeleteVpcEndpointRequest().setVpcEndpointId(vpcEndpointId));
   }
 
   /**
@@ -66,8 +66,8 @@ public class VpcEndpointsAPI {
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  public void delete(DeleteVpcEndpointRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteVpcEndpointRequest request) {
+    return impl.delete(request);
   }
 
   public VpcEndpoint get(String vpcEndpointId) {

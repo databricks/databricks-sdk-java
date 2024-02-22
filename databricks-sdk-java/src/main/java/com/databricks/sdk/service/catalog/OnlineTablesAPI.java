@@ -32,8 +32,8 @@ public class OnlineTablesAPI {
     return impl.create(request);
   }
 
-  public void delete(String name) {
-    delete(new DeleteOnlineTableRequest().setName(name));
+  public DeleteResponse delete(String name) {
+    return delete(new DeleteOnlineTableRequest().setName(name));
   }
 
   /**
@@ -43,8 +43,8 @@ public class OnlineTablesAPI {
    * source Delta table was deleted or modified since this Online Table was created, this will lose
    * the data forever!
    */
-  public void delete(DeleteOnlineTableRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteOnlineTableRequest request) {
+    return impl.delete(request);
   }
 
   public OnlineTable get(String name) {

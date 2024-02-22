@@ -55,7 +55,7 @@ public interface IpAccessListsService {
    *
    * <p>Deletes an IP access list, specified by its list ID.
    */
-  void delete(DeleteIpAccessListRequest deleteIpAccessListRequest);
+  DeleteResponse delete(DeleteIpAccessListRequest deleteIpAccessListRequest);
 
   /**
    * Get access list.
@@ -85,7 +85,7 @@ public interface IpAccessListsService {
    * can take a few minutes for the changes to take effect. Note that your resulting IP access list
    * has no effect until you enable the feature. See :method:workspaceconf/setStatus.
    */
-  void replace(ReplaceIpAccessList replaceIpAccessList);
+  ReplaceResponse replace(ReplaceIpAccessList replaceIpAccessList);
 
   /**
    * Update access list.
@@ -105,5 +105,5 @@ public interface IpAccessListsService {
    * <p>It can take a few minutes for the changes to take effect. Note that your resulting IP access
    * list has no effect until you enable the feature. See :method:workspaceconf/setStatus.
    */
-  void update(UpdateIpAccessList updateIpAccessList);
+  UpdateResponse update(UpdateIpAccessList updateIpAccessList);
 }

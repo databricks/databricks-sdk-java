@@ -44,8 +44,8 @@ public class GlobalInitScriptsAPI {
     return impl.create(request);
   }
 
-  public void delete(String scriptId) {
-    delete(new DeleteGlobalInitScriptRequest().setScriptId(scriptId));
+  public DeleteResponse delete(String scriptId) {
+    return delete(new DeleteGlobalInitScriptRequest().setScriptId(scriptId));
   }
 
   /**
@@ -53,8 +53,8 @@ public class GlobalInitScriptsAPI {
    *
    * <p>Deletes a global init script.
    */
-  public void delete(DeleteGlobalInitScriptRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteGlobalInitScriptRequest request) {
+    return impl.delete(request);
   }
 
   public GlobalInitScriptDetailsWithContent get(String scriptId) {
@@ -81,8 +81,8 @@ public class GlobalInitScriptsAPI {
     return impl.list().getScripts();
   }
 
-  public void update(String scriptId, String name, String script) {
-    update(
+  public UpdateResponse update(String scriptId, String name, String script) {
+    return update(
         new GlobalInitScriptUpdateRequest().setScriptId(scriptId).setName(name).setScript(script));
   }
 
@@ -92,8 +92,8 @@ public class GlobalInitScriptsAPI {
    * <p>Updates a global init script, specifying only the fields to change. All fields are optional.
    * Unspecified fields retain their current value.
    */
-  public void update(GlobalInitScriptUpdateRequest request) {
-    impl.update(request);
+  public UpdateResponse update(GlobalInitScriptUpdateRequest request) {
+    return impl.update(request);
   }
 
   public GlobalInitScriptsService impl() {

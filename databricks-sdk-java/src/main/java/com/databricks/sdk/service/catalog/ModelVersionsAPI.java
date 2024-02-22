@@ -31,8 +31,8 @@ public class ModelVersionsAPI {
     impl = mock;
   }
 
-  public void delete(String fullName, long version) {
-    delete(new DeleteModelVersionRequest().setFullName(fullName).setVersion(version));
+  public DeleteResponse delete(String fullName, long version) {
+    return delete(new DeleteModelVersionRequest().setFullName(fullName).setVersion(version));
   }
 
   /**
@@ -45,8 +45,8 @@ public class ModelVersionsAPI {
    * latter case, the caller must also be the owner or have the **USE_CATALOG** privilege on the
    * parent catalog and the **USE_SCHEMA** privilege on the parent schema.
    */
-  public void delete(DeleteModelVersionRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteModelVersionRequest request) {
+    return impl.delete(request);
   }
 
   public RegisteredModelInfo get(String fullName, long version) {

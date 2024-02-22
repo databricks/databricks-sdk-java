@@ -28,7 +28,7 @@ public interface AccountServicePrincipalsService {
    *
    * <p>Delete a single service principal in the Databricks account.
    */
-  void delete(DeleteAccountServicePrincipalRequest deleteAccountServicePrincipalRequest);
+  DeleteResponse delete(DeleteAccountServicePrincipalRequest deleteAccountServicePrincipalRequest);
 
   /**
    * Get service principal details.
@@ -50,7 +50,7 @@ public interface AccountServicePrincipalsService {
    *
    * <p>Partially updates the details of a single service principal in the Databricks account.
    */
-  void patch(PartialUpdate partialUpdate);
+  PatchResponse patch(PartialUpdate partialUpdate);
 
   /**
    * Replace service principal.
@@ -59,5 +59,5 @@ public interface AccountServicePrincipalsService {
    *
    * <p>This action replaces the existing service principal with the same name.
    */
-  void update(ServicePrincipal servicePrincipal);
+  UpdateResponse update(ServicePrincipal servicePrincipal);
 }

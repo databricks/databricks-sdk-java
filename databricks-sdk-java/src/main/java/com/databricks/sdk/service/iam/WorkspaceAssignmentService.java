@@ -19,7 +19,8 @@ public interface WorkspaceAssignmentService {
    * <p>Deletes the workspace permissions assignment in a given account and workspace for the
    * specified principal.
    */
-  void delete(DeleteWorkspaceAssignmentRequest deleteWorkspaceAssignmentRequest);
+  DeleteWorkspaceAssignments delete(
+      DeleteWorkspaceAssignmentRequest deleteWorkspaceAssignmentRequest);
 
   /**
    * List workspace permissions.
@@ -42,5 +43,5 @@ public interface WorkspaceAssignmentService {
    * <p>Creates or updates the workspace permissions assignment in a given account and workspace for
    * the specified principal.
    */
-  void update(UpdateWorkspaceAssignments updateWorkspaceAssignments);
+  WorkspaceAssignmentsUpdated update(UpdateWorkspaceAssignments updateWorkspaceAssignments);
 }

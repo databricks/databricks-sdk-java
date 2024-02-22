@@ -207,8 +207,8 @@ public class CommandExecutionAPI {
    *
    * <p>The command ID is obtained from a prior successful call to __execute__.
    */
-  public Wait<CommandStatusResponse, Void> cancel(CancelCommand request) {
-    impl.cancel(request);
+  public Wait<CommandStatusResponse, CancelResponse> cancel(CancelCommand request) {
+    CancelResponse response = impl.cancel(request);
     return new Wait<>(
         (timeout, callback) ->
             waitCommandStatusCommandExecutionCancelled(
@@ -216,7 +216,8 @@ public class CommandExecutionAPI {
                 request.getCommandId(),
                 request.getContextId(),
                 timeout,
-                callback));
+                callback),
+        response);
   }
 
   public CommandStatusResponse commandStatus(String clusterId, String contextId, String commandId) {
@@ -268,8 +269,8 @@ public class CommandExecutionAPI {
         response);
   }
 
-  public void destroy(String clusterId, String contextId) {
-    destroy(new DestroyContext().setClusterId(clusterId).setContextId(contextId));
+  public DestroyResponse destroy(String clusterId, String contextId) {
+    return destroy(new DestroyContext().setClusterId(clusterId).setContextId(contextId));
   }
 
   /**
@@ -277,8 +278,8 @@ public class CommandExecutionAPI {
    *
    * <p>Deletes an execution context.
    */
-  public void destroy(DestroyContext request) {
-    impl.destroy(request);
+  public DestroyResponse destroy(DestroyContext request) {
+    return impl.destroy(request);
   }
 
   /**

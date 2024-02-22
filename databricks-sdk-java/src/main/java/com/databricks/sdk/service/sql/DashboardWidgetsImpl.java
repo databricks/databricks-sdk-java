@@ -25,11 +25,11 @@ class DashboardWidgetsImpl implements DashboardWidgetsService {
   }
 
   @Override
-  public void delete(DeleteDashboardWidgetRequest request) {
+  public DeleteResponse delete(DeleteDashboardWidgetRequest request) {
     String path = String.format("/api/2.0/preview/sql/widgets/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

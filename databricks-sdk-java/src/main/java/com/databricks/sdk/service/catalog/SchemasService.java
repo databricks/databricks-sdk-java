@@ -29,7 +29,7 @@ public interface SchemasService {
    * <p>Deletes the specified schema from the parent catalog. The caller must be the owner of the
    * schema or an owner of the parent catalog.
    */
-  void delete(DeleteSchemaRequest deleteSchemaRequest);
+  DeleteResponse delete(DeleteSchemaRequest deleteSchemaRequest);
 
   /**
    * Get a schema.

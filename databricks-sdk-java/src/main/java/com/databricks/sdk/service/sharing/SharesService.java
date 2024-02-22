@@ -29,7 +29,7 @@ public interface SharesService {
    *
    * <p>Deletes a data object share from the metastore. The caller must be an owner of the share.
    */
-  void delete(DeleteShareRequest deleteShareRequest);
+  DeleteResponse delete(DeleteShareRequest deleteShareRequest);
 
   /**
    * Get a share.
@@ -85,5 +85,5 @@ public interface SharesService {
    * <p>For new recipient grants, the user must also be the owner of the recipients. recipient
    * revocations do not require additional privileges.
    */
-  void updatePermissions(UpdateSharePermissions updateSharePermissions);
+  UpdatePermissionsResponse updatePermissions(UpdateSharePermissions updateSharePermissions);
 }

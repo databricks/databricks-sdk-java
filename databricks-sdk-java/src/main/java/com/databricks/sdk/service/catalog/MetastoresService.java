@@ -29,7 +29,7 @@ public interface MetastoresService {
    * it will be overwritten by the new __metastore_id__ and __default_catalog_name__. The caller
    * must be an account admin.
    */
-  void assign(CreateMetastoreAssignment createMetastoreAssignment);
+  AssignResponse assign(CreateMetastoreAssignment createMetastoreAssignment);
 
   /**
    * Create a metastore.
@@ -53,7 +53,7 @@ public interface MetastoresService {
    *
    * <p>Deletes a metastore. The caller must be a metastore admin.
    */
-  void delete(DeleteMetastoreRequest deleteMetastoreRequest);
+  DeleteResponse delete(DeleteMetastoreRequest deleteMetastoreRequest);
 
   /**
    * Get a metastore.
@@ -85,7 +85,7 @@ public interface MetastoresService {
    *
    * <p>Deletes a metastore assignment. The caller must be an account administrator.
    */
-  void unassign(UnassignRequest unassignRequest);
+  UnassignResponse unassign(UnassignRequest unassignRequest);
 
   /**
    * Update a metastore.
@@ -104,5 +104,5 @@ public interface MetastoresService {
    * metastore. The caller must be an account admin to update __metastore_id__; otherwise, the
    * caller can be a Workspace admin.
    */
-  void updateAssignment(UpdateMetastoreAssignment updateMetastoreAssignment);
+  UpdateAssignmentResponse updateAssignment(UpdateMetastoreAssignment updateMetastoreAssignment);
 }

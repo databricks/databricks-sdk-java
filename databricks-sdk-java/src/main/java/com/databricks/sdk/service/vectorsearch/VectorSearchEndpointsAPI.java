@@ -94,13 +94,13 @@ public class VectorSearchEndpointsAPI {
         response);
   }
 
-  public void deleteEndpoint(String endpointName, String name) {
-    deleteEndpoint(new DeleteEndpointRequest().setEndpointName(endpointName).setName(name));
+  public DeleteEndpointResponse deleteEndpoint(String endpointName, String name) {
+    return deleteEndpoint(new DeleteEndpointRequest().setEndpointName(endpointName).setName(name));
   }
 
   /** Delete an endpoint. */
-  public void deleteEndpoint(DeleteEndpointRequest request) {
-    impl.deleteEndpoint(request);
+  public DeleteEndpointResponse deleteEndpoint(DeleteEndpointRequest request) {
+    return impl.deleteEndpoint(request);
   }
 
   public EndpointInfo getEndpoint(String endpointName) {

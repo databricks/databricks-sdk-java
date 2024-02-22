@@ -37,7 +37,7 @@ public interface ServicePrincipalSecretsService {
    *
    * <p>Delete a secret from the given service principal.
    */
-  void delete(DeleteServicePrincipalSecretRequest deleteServicePrincipalSecretRequest);
+  DeleteResponse delete(DeleteServicePrincipalSecretRequest deleteServicePrincipalSecretRequest);
 
   /**
    * List service principal secrets.

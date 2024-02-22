@@ -26,8 +26,8 @@ public class DbfsAPI {
     impl = mock;
   }
 
-  public void addBlock(long handle, String data) {
-    addBlock(new AddBlock().setHandle(handle).setData(data));
+  public AddBlockResponse addBlock(long handle, String data) {
+    return addBlock(new AddBlock().setHandle(handle).setData(data));
   }
 
   /**
@@ -39,12 +39,12 @@ public class DbfsAPI {
    * <p>If the block of data exceeds 1 MB, this call will throw an exception with
    * ``MAX_BLOCK_SIZE_EXCEEDED``.
    */
-  public void addBlock(AddBlock request) {
-    impl.addBlock(request);
+  public AddBlockResponse addBlock(AddBlock request) {
+    return impl.addBlock(request);
   }
 
-  public void close(long handle) {
-    close(new Close().setHandle(handle));
+  public CloseResponse close(long handle) {
+    return close(new Close().setHandle(handle));
   }
 
   /**
@@ -53,8 +53,8 @@ public class DbfsAPI {
    * <p>Closes the stream specified by the input handle. If the handle does not exist, this call
    * throws an exception with ``RESOURCE_DOES_NOT_EXIST``.
    */
-  public void close(Close request) {
-    impl.close(request);
+  public CloseResponse close(Close request) {
+    return impl.close(request);
   }
 
   public CreateResponse create(String path) {
@@ -78,8 +78,8 @@ public class DbfsAPI {
     return impl.create(request);
   }
 
-  public void delete(String path) {
-    delete(new Delete().setPath(path));
+  public DeleteResponse delete(String path) {
+    return delete(new Delete().setPath(path));
   }
 
   /**
@@ -101,8 +101,8 @@ public class DbfsAPI {
    * notebooks provides better control and manageability, such as selective deletes, and the
    * possibility to automate periodic delete jobs.
    */
-  public void delete(Delete request) {
-    impl.delete(request);
+  public DeleteResponse delete(Delete request) {
+    return impl.delete(request);
   }
 
   public FileInfo getStatus(String path) {
@@ -140,8 +140,8 @@ public class DbfsAPI {
     return impl.list(request).getFiles();
   }
 
-  public void mkdirs(String path) {
-    mkdirs(new MkDirs().setPath(path));
+  public MkDirsResponse mkdirs(String path) {
+    return mkdirs(new MkDirs().setPath(path));
   }
 
   /**
@@ -152,12 +152,12 @@ public class DbfsAPI {
    * `RESOURCE_ALREADY_EXISTS`. **Note**: If this operation fails, it might have succeeded in
    * creating some of the necessary parent directories.
    */
-  public void mkdirs(MkDirs request) {
-    impl.mkdirs(request);
+  public MkDirsResponse mkdirs(MkDirs request) {
+    return impl.mkdirs(request);
   }
 
-  public void move(String sourcePath, String destinationPath) {
-    move(new Move().setSourcePath(sourcePath).setDestinationPath(destinationPath));
+  public MoveResponse move(String sourcePath, String destinationPath) {
+    return move(new Move().setSourcePath(sourcePath).setDestinationPath(destinationPath));
   }
 
   /**
@@ -168,12 +168,12 @@ public class DbfsAPI {
    * in the destination path, this call throws an exception with `RESOURCE_ALREADY_EXISTS`. If the
    * given source path is a directory, this call always recursively moves all files.
    */
-  public void move(Move request) {
-    impl.move(request);
+  public MoveResponse move(Move request) {
+    return impl.move(request);
   }
 
-  public void put(String path) {
-    put(new Put().setPath(path));
+  public PutResponse put(String path) {
+    return put(new Put().setPath(path));
   }
 
   /**
@@ -190,8 +190,8 @@ public class DbfsAPI {
    * <p>If you want to upload large files, use the streaming upload. For details, see
    * :method:dbfs/create, :method:dbfs/addBlock, :method:dbfs/close.
    */
-  public void put(Put request) {
-    impl.put(request);
+  public PutResponse put(Put request) {
+    return impl.put(request);
   }
 
   public ReadResponse read(String path) {

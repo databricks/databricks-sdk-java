@@ -30,7 +30,7 @@ public interface AccountGroupsService {
    *
    * <p>Deletes a group from the Databricks account.
    */
-  void delete(DeleteAccountGroupRequest deleteAccountGroupRequest);
+  DeleteResponse delete(DeleteAccountGroupRequest deleteAccountGroupRequest);
 
   /**
    * Get group details.
@@ -51,12 +51,12 @@ public interface AccountGroupsService {
    *
    * <p>Partially updates the details of a group.
    */
-  void patch(PartialUpdate partialUpdate);
+  PatchResponse patch(PartialUpdate partialUpdate);
 
   /**
    * Replace a group.
    *
    * <p>Updates the details of a group by replacing the entire group entity.
    */
-  void update(Group group);
+  UpdateResponse update(Group group);
 }

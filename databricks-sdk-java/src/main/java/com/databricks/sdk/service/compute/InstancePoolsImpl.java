@@ -25,21 +25,21 @@ class InstancePoolsImpl implements InstancePoolsService {
   }
 
   @Override
-  public void delete(DeleteInstancePool request) {
+  public DeleteInstancePoolResponse delete(DeleteInstancePool request) {
     String path = "/api/2.0/instance-pools/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, DeleteInstancePoolResponse.class, headers);
   }
 
   @Override
-  public void edit(EditInstancePool request) {
+  public EditInstancePoolResponse edit(EditInstancePool request) {
     String path = "/api/2.0/instance-pools/edit";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, EditInstancePoolResponse.class, headers);
   }
 
   @Override

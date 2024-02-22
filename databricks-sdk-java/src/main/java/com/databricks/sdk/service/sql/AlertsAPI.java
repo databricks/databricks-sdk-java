@@ -43,8 +43,8 @@ public class AlertsAPI {
     return impl.create(request);
   }
 
-  public void delete(String alertId) {
-    delete(new DeleteAlertRequest().setAlertId(alertId));
+  public DeleteResponse delete(String alertId) {
+    return delete(new DeleteAlertRequest().setAlertId(alertId));
   }
 
   /**
@@ -53,8 +53,8 @@ public class AlertsAPI {
    * <p>Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. **Note:**
    * Unlike queries and dashboards, alerts cannot be moved to the trash.
    */
-  public void delete(DeleteAlertRequest request) {
-    impl.delete(request);
+  public DeleteResponse delete(DeleteAlertRequest request) {
+    return impl.delete(request);
   }
 
   public Alert get(String alertId) {
@@ -79,8 +79,8 @@ public class AlertsAPI {
     return impl.list();
   }
 
-  public void update(String alertId, String name, AlertOptions options, String queryId) {
-    update(
+  public UpdateResponse update(String alertId, String name, AlertOptions options, String queryId) {
+    return update(
         new EditAlert().setAlertId(alertId).setName(name).setOptions(options).setQueryId(queryId));
   }
 
@@ -89,8 +89,8 @@ public class AlertsAPI {
    *
    * <p>Updates an alert.
    */
-  public void update(EditAlert request) {
-    impl.update(request);
+  public UpdateResponse update(EditAlert request) {
+    return impl.update(request);
   }
 
   public AlertsService impl() {

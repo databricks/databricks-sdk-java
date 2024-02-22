@@ -23,7 +23,7 @@ types.
 {{if .Description}}/**
  {{.Comment " * " 80}}
  */{{end}}
-{{if .Fields -}}
+{{if or .Fields .IsEmpty -}}
 @Generated
 public class {{.PascalName}} {
   {{- range .Fields}}
@@ -49,9 +49,13 @@ public class {{.PascalName}} {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
+    {{if .IsEmpty -}}
+    return true;
+    {{- else -}}
     {{.PascalName}} that = ({{.PascalName}}) o;
     return {{range $i, $x := .Fields}}{{if $i}}&& {{end}}Objects.equals({{.CamelName}}{{if .IsNameReserved}}Value{{end}}, that.{{.CamelName}}{{if .IsNameReserved}}Value{{end}})
     {{end}};
+    {{- end }}
   }
 
   @Override

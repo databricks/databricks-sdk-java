@@ -46,7 +46,7 @@ class LogDeliveryImpl implements LogDeliveryService {
   }
 
   @Override
-  public void patchStatus(UpdateLogDeliveryConfigurationStatusRequest request) {
+  public PatchStatusResponse patchStatus(UpdateLogDeliveryConfigurationStatusRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/log-delivery/%s",
@@ -54,6 +54,6 @@ class LogDeliveryImpl implements LogDeliveryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    return apiClient.PATCH(path, request, PatchStatusResponse.class, headers);
   }
 }

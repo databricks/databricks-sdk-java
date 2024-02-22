@@ -25,20 +25,20 @@ class WarehousesImpl implements WarehousesService {
   }
 
   @Override
-  public void delete(DeleteWarehouseRequest request) {
+  public DeleteWarehouseResponse delete(DeleteWarehouseRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteWarehouseResponse.class, headers);
   }
 
   @Override
-  public void edit(EditWarehouseRequest request) {
+  public EditWarehouseResponse edit(EditWarehouseRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/edit", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    return apiClient.POST(path, request, EditWarehouseResponse.class, headers);
   }
 
   @Override
@@ -94,28 +94,29 @@ class WarehousesImpl implements WarehousesService {
   }
 
   @Override
-  public void setWorkspaceWarehouseConfig(SetWorkspaceWarehouseConfigRequest request) {
+  public SetWorkspaceWarehouseConfigResponse setWorkspaceWarehouseConfig(
+      SetWorkspaceWarehouseConfigRequest request) {
     String path = "/api/2.0/sql/config/warehouses";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, Void.class, headers);
+    return apiClient.PUT(path, request, SetWorkspaceWarehouseConfigResponse.class, headers);
   }
 
   @Override
-  public void start(StartRequest request) {
+  public StartWarehouseResponse start(StartRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/start", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, null, Void.class, headers);
+    return apiClient.POST(path, null, StartWarehouseResponse.class, headers);
   }
 
   @Override
-  public void stop(StopRequest request) {
+  public StopWarehouseResponse stop(StopRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, null, Void.class, headers);
+    return apiClient.POST(path, null, StopWarehouseResponse.class, headers);
   }
 
   @Override

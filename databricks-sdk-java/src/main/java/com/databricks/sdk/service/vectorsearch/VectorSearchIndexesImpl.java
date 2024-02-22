@@ -34,10 +34,10 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
   }
 
   @Override
-  public void deleteIndex(DeleteIndexRequest request) {
+  public DeleteIndexResponse deleteIndex(DeleteIndexRequest request) {
     String path = String.format("/api/2.0/vector-search/indexes/%s", request.getIndexName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    return apiClient.DELETE(path, request, DeleteIndexResponse.class, headers);
   }
 
   @Override
@@ -66,10 +66,10 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
   }
 
   @Override
-  public void syncIndex(SyncIndexRequest request) {
+  public SyncIndexResponse syncIndex(SyncIndexRequest request) {
     String path = String.format("/api/2.0/vector-search/indexes/%s/sync", request.getIndexName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.POST(path, null, Void.class, headers);
+    return apiClient.POST(path, null, SyncIndexResponse.class, headers);
   }
 
   @Override
