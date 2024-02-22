@@ -13,14 +13,26 @@ public class AccountSettingsAPI {
 
   private final AccountSettingsService impl;
 
+  private PersonalComputeEnablementAPI personalComputeEnablementAPI;
+
   /** Regular-use constructor */
   public AccountSettingsAPI(ApiClient apiClient) {
     impl = new AccountSettingsImpl(apiClient);
+
+    personalComputeEnablementAPI = new PersonalComputeEnablementAPI(apiClient);
   }
 
   /** Constructor for mocks */
   public AccountSettingsAPI(AccountSettingsService mock) {
     impl = mock;
+  }
+
+  /**
+   * The Personal Compute enablement setting lets you control which users can use the Personal
+   * Compute default policy to create compute resources.
+   */
+  public PersonalComputeEnablementAPI PersonalComputeEnablement() {
+    return personalComputeEnablementAPI;
   }
 
   public AccountSettingsService impl() {

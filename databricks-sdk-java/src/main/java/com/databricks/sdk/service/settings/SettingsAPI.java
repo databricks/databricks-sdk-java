@@ -13,14 +13,37 @@ public class SettingsAPI {
 
   private final SettingsService impl;
 
+  private DefaultNamespaceAPI defaultNamespaceAPI;
+
+  private RestrictWorkspaceAdminsAPI restrictWorkspaceAdminsAPI;
+
   /** Regular-use constructor */
   public SettingsAPI(ApiClient apiClient) {
     impl = new SettingsImpl(apiClient);
+
+    defaultNamespaceAPI = new DefaultNamespaceAPI(apiClient);
+
+    restrictWorkspaceAdminsAPI = new RestrictWorkspaceAdminsAPI(apiClient);
   }
 
   /** Constructor for mocks */
   public SettingsAPI(SettingsService mock) {
     impl = mock;
+  }
+
+  /**
+   * The default namespace setting API allows users to configure the default namespace for a
+   * Databricks workspace.
+   */
+  public DefaultNamespaceAPI DefaultNamespace() {
+    return defaultNamespaceAPI;
+  }
+
+  /**
+   * The Restrict Workspace Admins setting lets you control the capabilities of workspace admins.
+   */
+  public RestrictWorkspaceAdminsAPI RestrictWorkspaceAdmins() {
+    return restrictWorkspaceAdminsAPI;
   }
 
   public SettingsService impl() {

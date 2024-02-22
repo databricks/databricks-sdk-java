@@ -33,8 +33,7 @@ public class {{.PascalName}}API {
   private final {{.PascalName}}Service impl;
 
   {{range .Subservices}}
-  {{.Comment "    // " 80}}
-  private final	{{.PascalName}}API {{.CamelName}}API;
+  private {{.PascalName}}API {{.CamelName}}API;
   {{end}}
 
   /** Regular-use constructor */
@@ -48,9 +47,6 @@ public class {{.PascalName}}API {
   /** Constructor for mocks */
   public {{.PascalName}}API({{.PascalName}}Service mock) {
     impl = mock;
-    {{range .Subservices}}
-    {{.CamelName}}API = new {{.PascalName}}API(mock);
-    {{end}}
   }
   {{range .Waits}}
   public {{.Poll.Response.PascalName}} {{.CamelName}}({{range $i, $x := .Binding}}{{if $i}}, {{end}}{{template "type" .PollField.Entity}} {{.PollField.CamelName}}{{end}})
@@ -126,6 +122,9 @@ public class {{.PascalName}}API {
   {{end}}
 
   {{range .Subservices}}
+  /**
+   * {{.Summary}}
+   */
   public {{.PascalName}}API {{.PascalName}}() {
   	return {{.CamelName}}API;
   }
