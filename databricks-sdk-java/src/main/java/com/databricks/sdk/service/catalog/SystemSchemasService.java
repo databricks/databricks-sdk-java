@@ -20,7 +20,7 @@ public interface SystemSchemasService {
    * <p>Disables the system schema and removes it from the system catalog. The caller must be an
    * account admin or a metastore admin.
    */
-  DisableResponse disable(DisableRequest disableRequest);
+  void disable(DisableRequest disableRequest);
 
   /**
    * Enable a system schema.
@@ -28,7 +28,7 @@ public interface SystemSchemasService {
    * <p>Enables the system schema and adds it to the system catalog. The caller must be an account
    * admin or a metastore admin.
    */
-  EnableResponse enable(EnableRequest enableRequest);
+  void enable(EnableRequest enableRequest);
 
   /**
    * List system schemas.

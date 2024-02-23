@@ -34,7 +34,7 @@ public interface AccountUsersService {
    * <p>Deletes a user. Deleting a user from a Databricks account also removes objects associated
    * with the user.
    */
-  DeleteResponse delete(DeleteAccountUserRequest deleteAccountUserRequest);
+  void delete(DeleteAccountUserRequest deleteAccountUserRequest);
 
   /**
    * Get user details.
@@ -56,12 +56,12 @@ public interface AccountUsersService {
    * <p>Partially updates a user resource by applying the supplied operations on specific user
    * attributes.
    */
-  PatchResponse patch(PartialUpdate partialUpdate);
+  void patch(PartialUpdate partialUpdate);
 
   /**
    * Replace a user.
    *
    * <p>Replaces a user's information with the data supplied in request.
    */
-  UpdateResponse update(User user);
+  void update(User user);
 }

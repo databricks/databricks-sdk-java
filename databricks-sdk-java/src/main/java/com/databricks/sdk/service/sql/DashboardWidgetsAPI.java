@@ -36,13 +36,13 @@ public class DashboardWidgetsAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String id) {
-    return delete(new DeleteDashboardWidgetRequest().setId(id));
+  public void delete(String id) {
+    delete(new DeleteDashboardWidgetRequest().setId(id));
   }
 
   /** Remove widget. */
-  public DeleteResponse delete(DeleteDashboardWidgetRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteDashboardWidgetRequest request) {
+    impl.delete(request);
   }
 
   public Widget update(String id, String dashboardId, WidgetOptions options, long width) {

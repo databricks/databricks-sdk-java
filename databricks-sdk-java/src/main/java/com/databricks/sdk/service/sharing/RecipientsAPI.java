@@ -52,8 +52,8 @@ public class RecipientsAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String name) {
-    return delete(new DeleteRecipientRequest().setName(name));
+  public void delete(String name) {
+    delete(new DeleteRecipientRequest().setName(name));
   }
 
   /**
@@ -62,8 +62,8 @@ public class RecipientsAPI {
    * <p>Deletes the specified recipient from the metastore. The caller must be the owner of the
    * recipient.
    */
-  public DeleteResponse delete(DeleteRecipientRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteRecipientRequest request) {
+    impl.delete(request);
   }
 
   public RecipientInfo get(String name) {
@@ -124,8 +124,8 @@ public class RecipientsAPI {
     return impl.sharePermissions(request);
   }
 
-  public UpdateResponse update(String name) {
-    return update(new UpdateRecipient().setName(name));
+  public void update(String name) {
+    update(new UpdateRecipient().setName(name));
   }
 
   /**
@@ -135,8 +135,8 @@ public class RecipientsAPI {
    * owner of the recipient. If the recipient name will be updated, the user must be both a
    * metastore admin and the owner of the recipient.
    */
-  public UpdateResponse update(UpdateRecipient request) {
-    return impl.update(request);
+  public void update(UpdateRecipient request) {
+    impl.update(request);
   }
 
   public RecipientsService impl() {

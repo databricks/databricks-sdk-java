@@ -43,8 +43,8 @@ public class SharesAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String name) {
-    return delete(new DeleteShareRequest().setName(name));
+  public void delete(String name) {
+    delete(new DeleteShareRequest().setName(name));
   }
 
   /**
@@ -52,8 +52,8 @@ public class SharesAPI {
    *
    * <p>Deletes a data object share from the metastore. The caller must be an owner of the share.
    */
-  public DeleteResponse delete(DeleteShareRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteShareRequest request) {
+    impl.delete(request);
   }
 
   public ShareInfo get(String name) {
@@ -121,8 +121,8 @@ public class SharesAPI {
     return impl.update(request);
   }
 
-  public UpdatePermissionsResponse updatePermissions(String name) {
-    return updatePermissions(new UpdateSharePermissions().setName(name));
+  public void updatePermissions(String name) {
+    updatePermissions(new UpdateSharePermissions().setName(name));
   }
 
   /**
@@ -134,8 +134,8 @@ public class SharesAPI {
    * <p>For new recipient grants, the user must also be the owner of the recipients. recipient
    * revocations do not require additional privileges.
    */
-  public UpdatePermissionsResponse updatePermissions(UpdateSharePermissions request) {
-    return impl.updatePermissions(request);
+  public void updatePermissions(UpdateSharePermissions request) {
+    impl.updatePermissions(request);
   }
 
   public SharesService impl() {

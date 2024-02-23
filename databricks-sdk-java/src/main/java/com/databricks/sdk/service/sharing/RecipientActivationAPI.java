@@ -32,8 +32,8 @@ public class RecipientActivationAPI {
     impl = mock;
   }
 
-  public GetActivationUrlInfoResponse getActivationUrlInfo(String activationUrl) {
-    return getActivationUrlInfo(new GetActivationUrlInfoRequest().setActivationUrl(activationUrl));
+  public void getActivationUrlInfo(String activationUrl) {
+    getActivationUrlInfo(new GetActivationUrlInfoRequest().setActivationUrl(activationUrl));
   }
 
   /**
@@ -41,8 +41,8 @@ public class RecipientActivationAPI {
    *
    * <p>Gets an activation URL for a share.
    */
-  public GetActivationUrlInfoResponse getActivationUrlInfo(GetActivationUrlInfoRequest request) {
-    return impl.getActivationUrlInfo(request);
+  public void getActivationUrlInfo(GetActivationUrlInfoRequest request) {
+    impl.getActivationUrlInfo(request);
   }
 
   public RetrieveTokenResponse retrieveToken(String activationUrl) {

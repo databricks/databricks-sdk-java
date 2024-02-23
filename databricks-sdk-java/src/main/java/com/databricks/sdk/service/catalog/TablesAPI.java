@@ -33,8 +33,8 @@ public class TablesAPI {
     impl = mock;
   }
 
-  public DeleteResponse delete(String fullName) {
-    return delete(new DeleteTableRequest().setFullName(fullName));
+  public void delete(String fullName) {
+    delete(new DeleteTableRequest().setFullName(fullName));
   }
 
   /**
@@ -45,8 +45,8 @@ public class TablesAPI {
    * owner of the parent schema, or be the owner of the table and have the **USE_CATALOG** privilege
    * on the parent catalog and the **USE_SCHEMA** privilege on the parent schema.
    */
-  public DeleteResponse delete(DeleteTableRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteTableRequest request) {
+    impl.delete(request);
   }
 
   public TableExistsResponse exists(String fullName) {
@@ -144,8 +144,8 @@ public class TablesAPI {
         });
   }
 
-  public UpdateResponse update(String fullName) {
-    return update(new UpdateTableRequest().setFullName(fullName));
+  public void update(String fullName) {
+    update(new UpdateTableRequest().setFullName(fullName));
   }
 
   /**
@@ -156,8 +156,8 @@ public class TablesAPI {
    * the owner of the table and have the **USE_CATALOG** privilege on the parent catalog and the
    * **USE_SCHEMA** privilege on the parent schema.
    */
-  public UpdateResponse update(UpdateTableRequest request) {
-    return impl.update(request);
+  public void update(UpdateTableRequest request) {
+    impl.update(request);
   }
 
   public TablesService impl() {

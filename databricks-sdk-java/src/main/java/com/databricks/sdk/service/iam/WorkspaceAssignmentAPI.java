@@ -27,8 +27,8 @@ public class WorkspaceAssignmentAPI {
     impl = mock;
   }
 
-  public DeleteWorkspaceAssignments delete(long workspaceId, long principalId) {
-    return delete(
+  public void delete(long workspaceId, long principalId) {
+    delete(
         new DeleteWorkspaceAssignmentRequest()
             .setWorkspaceId(workspaceId)
             .setPrincipalId(principalId));
@@ -40,8 +40,8 @@ public class WorkspaceAssignmentAPI {
    * <p>Deletes the workspace permissions assignment in a given account and workspace for the
    * specified principal.
    */
-  public DeleteWorkspaceAssignments delete(DeleteWorkspaceAssignmentRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteWorkspaceAssignmentRequest request) {
+    impl.delete(request);
   }
 
   public WorkspacePermissions get(long workspaceId) {
@@ -71,9 +71,9 @@ public class WorkspaceAssignmentAPI {
     return impl.list(request).getPermissionAssignments();
   }
 
-  public WorkspaceAssignmentsUpdated update(
+  public void update(
       long workspaceId, long principalId, Collection<WorkspacePermission> permissions) {
-    return update(
+    update(
         new UpdateWorkspaceAssignments()
             .setWorkspaceId(workspaceId)
             .setPrincipalId(principalId)
@@ -86,8 +86,8 @@ public class WorkspaceAssignmentAPI {
    * <p>Creates or updates the workspace permissions assignment in a given account and workspace for
    * the specified principal.
    */
-  public WorkspaceAssignmentsUpdated update(UpdateWorkspaceAssignments request) {
-    return impl.update(request);
+  public void update(UpdateWorkspaceAssignments request) {
+    impl.update(request);
   }
 
   public WorkspaceAssignmentService impl() {

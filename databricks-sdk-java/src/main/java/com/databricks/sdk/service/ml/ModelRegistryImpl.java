@@ -71,60 +71,59 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
-  public DeleteCommentResponse deleteComment(DeleteCommentRequest request) {
+  public void deleteComment(DeleteCommentRequest request) {
     String path = "/api/2.0/mlflow/comments/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteCommentResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteCommentResponse.class, headers);
   }
 
   @Override
-  public DeleteModelResponse deleteModel(DeleteModelRequest request) {
+  public void deleteModel(DeleteModelRequest request) {
     String path = "/api/2.0/mlflow/registered-models/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteModelResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteModelResponse.class, headers);
   }
 
   @Override
-  public DeleteModelTagResponse deleteModelTag(DeleteModelTagRequest request) {
+  public void deleteModelTag(DeleteModelTagRequest request) {
     String path = "/api/2.0/mlflow/registered-models/delete-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteModelTagResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteModelTagResponse.class, headers);
   }
 
   @Override
-  public DeleteModelVersionResponse deleteModelVersion(DeleteModelVersionRequest request) {
+  public void deleteModelVersion(DeleteModelVersionRequest request) {
     String path = "/api/2.0/mlflow/model-versions/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteModelVersionResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteModelVersionResponse.class, headers);
   }
 
   @Override
-  public DeleteModelVersionTagResponse deleteModelVersionTag(DeleteModelVersionTagRequest request) {
+  public void deleteModelVersionTag(DeleteModelVersionTagRequest request) {
     String path = "/api/2.0/mlflow/model-versions/delete-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteModelVersionTagResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteModelVersionTagResponse.class, headers);
   }
 
   @Override
-  public DeleteTransitionRequestResponse deleteTransitionRequest(
-      DeleteTransitionRequestRequest request) {
+  public void deleteTransitionRequest(DeleteTransitionRequestRequest request) {
     String path = "/api/2.0/mlflow/transition-requests/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteTransitionRequestResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteTransitionRequestResponse.class, headers);
   }
 
   @Override
-  public DeleteWebhookResponse deleteWebhook(DeleteWebhookRequest request) {
+  public void deleteWebhook(DeleteWebhookRequest request) {
     String path = "/api/2.0/mlflow/registry-webhooks/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteWebhookResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteWebhookResponse.class, headers);
   }
 
   @Override
@@ -242,21 +241,21 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
-  public SetModelTagResponse setModelTag(SetModelTagRequest request) {
+  public void setModelTag(SetModelTagRequest request) {
     String path = "/api/2.0/mlflow/registered-models/set-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, SetModelTagResponse.class, headers);
+    apiClient.POST(path, request, SetModelTagResponse.class, headers);
   }
 
   @Override
-  public SetModelVersionTagResponse setModelVersionTag(SetModelVersionTagRequest request) {
+  public void setModelVersionTag(SetModelVersionTagRequest request) {
     String path = "/api/2.0/mlflow/model-versions/set-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, SetModelVersionTagResponse.class, headers);
+    apiClient.POST(path, request, SetModelVersionTagResponse.class, headers);
   }
 
   @Override
@@ -297,21 +296,21 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
-  public UpdateModelResponse updateModel(UpdateModelRequest request) {
+  public void updateModel(UpdateModelRequest request) {
     String path = "/api/2.0/mlflow/registered-models/update";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdateModelResponse.class, headers);
+    apiClient.PATCH(path, request, UpdateModelResponse.class, headers);
   }
 
   @Override
-  public UpdateModelVersionResponse updateModelVersion(UpdateModelVersionRequest request) {
+  public void updateModelVersion(UpdateModelVersionRequest request) {
     String path = "/api/2.0/mlflow/model-versions/update";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdateModelVersionResponse.class, headers);
+    apiClient.PATCH(path, request, UpdateModelVersionResponse.class, headers);
   }
 
   @Override
@@ -325,11 +324,11 @@ class ModelRegistryImpl implements ModelRegistryService {
   }
 
   @Override
-  public UpdateWebhookResponse updateWebhook(UpdateRegistryWebhook request) {
+  public void updateWebhook(UpdateRegistryWebhook request) {
     String path = "/api/2.0/mlflow/registry-webhooks/update";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdateWebhookResponse.class, headers);
+    apiClient.PATCH(path, request, UpdateWebhookResponse.class, headers);
   }
 }

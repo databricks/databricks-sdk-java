@@ -55,8 +55,8 @@ public class StorageAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String storageConfigurationId) {
-    return delete(new DeleteStorageRequest().setStorageConfigurationId(storageConfigurationId));
+  public void delete(String storageConfigurationId) {
+    delete(new DeleteStorageRequest().setStorageConfigurationId(storageConfigurationId));
   }
 
   /**
@@ -65,8 +65,8 @@ public class StorageAPI {
    * <p>Deletes a Databricks storage configuration. You cannot delete a storage configuration that
    * is associated with any workspace.
    */
-  public DeleteResponse delete(DeleteStorageRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteStorageRequest request) {
+    impl.delete(request);
   }
 
   public StorageConfiguration get(String storageConfigurationId) {

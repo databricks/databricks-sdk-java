@@ -39,14 +39,14 @@ public interface InstancePoolsService {
    * <p>Deletes the instance pool permanently. The idle instances in the pool are terminated
    * asynchronously.
    */
-  DeleteInstancePoolResponse delete(DeleteInstancePool deleteInstancePool);
+  void delete(DeleteInstancePool deleteInstancePool);
 
   /**
    * Edit an existing instance pool.
    *
    * <p>Modifies the configuration of an existing instance pool.
    */
-  EditInstancePoolResponse edit(EditInstancePool editInstancePool);
+  void edit(EditInstancePool editInstancePool);
 
   /**
    * Get instance pool information.

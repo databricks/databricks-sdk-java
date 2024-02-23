@@ -24,12 +24,12 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
   }
 	{{range .Methods}}
   @Override
-  public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
+  public {{if not .Response.IsEmpty -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
     String path = {{if .PathParts -}}
       String.format("{{range  .PathParts}}{{.Prefix}}{{if or .Field .IsAccountId}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{ else if .IsAccountId }}, apiClient.configuredAccountID(){{end}}{{ end }})
     {{- else}}"{{.Path}}"{{end}};
     {{ template "headers" . -}}
-    {{ if not .Response -}}
+    {{ if .Response.IsEmpty -}}
     {{ template "api-call" . }}
     {{- else if .Response.ArrayValue -}} return apiClient.getCollection(path, null, {{template "type" .Response.ArrayValue}}.class, headers);
     {{- else if .Response.MapValue -}} return apiClient.getStringMap(path, {{ template "request-param" .}}, headers);

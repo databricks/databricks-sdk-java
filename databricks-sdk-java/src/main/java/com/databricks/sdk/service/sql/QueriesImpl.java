@@ -25,11 +25,11 @@ class QueriesImpl implements QueriesService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteQueryRequest request) {
+  public void delete(DeleteQueryRequest request) {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -49,11 +49,11 @@ class QueriesImpl implements QueriesService {
   }
 
   @Override
-  public RestoreResponse restore(RestoreQueryRequest request) {
+  public void restore(RestoreQueryRequest request) {
     String path = String.format("/api/2.0/preview/sql/queries/trash/%s", request.getQueryId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.POST(path, null, RestoreResponse.class, headers);
+    apiClient.POST(path, null, RestoreResponse.class, headers);
   }
 
   @Override

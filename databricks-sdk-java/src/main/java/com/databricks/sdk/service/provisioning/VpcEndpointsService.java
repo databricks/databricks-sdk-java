@@ -46,7 +46,7 @@ public interface VpcEndpointsService {
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  DeleteResponse delete(DeleteVpcEndpointRequest deleteVpcEndpointRequest);
+  void delete(DeleteVpcEndpointRequest deleteVpcEndpointRequest);
 
   /**
    * Get a VPC endpoint configuration.

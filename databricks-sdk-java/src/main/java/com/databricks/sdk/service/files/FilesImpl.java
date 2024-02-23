@@ -16,24 +16,24 @@ class FilesImpl implements FilesService {
   }
 
   @Override
-  public CreateDirectoryResponse createDirectory(CreateDirectoryRequest request) {
+  public void createDirectory(CreateDirectoryRequest request) {
     String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.PUT(path, null, CreateDirectoryResponse.class, headers);
+    apiClient.PUT(path, null, CreateDirectoryResponse.class, headers);
   }
 
   @Override
-  public DeleteResponse delete(DeleteFileRequest request) {
+  public void delete(DeleteFileRequest request) {
     String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
-  public DeleteDirectoryResponse deleteDirectory(DeleteDirectoryRequest request) {
+  public void deleteDirectory(DeleteDirectoryRequest request) {
     String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.DELETE(path, request, DeleteDirectoryResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteDirectoryResponse.class, headers);
   }
 
   @Override
@@ -45,10 +45,10 @@ class FilesImpl implements FilesService {
   }
 
   @Override
-  public GetDirectoryMetadataResponse getDirectoryMetadata(GetDirectoryMetadataRequest request) {
+  public void getDirectoryMetadata(GetDirectoryMetadataRequest request) {
     String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.HEAD(path, request, GetDirectoryMetadataResponse.class, headers);
+    apiClient.HEAD(path, request, GetDirectoryMetadataResponse.class, headers);
   }
 
   @Override
@@ -67,10 +67,10 @@ class FilesImpl implements FilesService {
   }
 
   @Override
-  public UploadResponse upload(UploadRequest request) {
+  public void upload(UploadRequest request) {
     String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/octet-stream");
-    return apiClient.PUT(path, request.getContents(), UploadResponse.class, headers);
+    apiClient.PUT(path, request.getContents(), UploadResponse.class, headers);
   }
 }

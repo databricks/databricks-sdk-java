@@ -103,11 +103,11 @@ public class JobsAPI {
    * <p>Cancels all active runs of a job. The runs are canceled asynchronously, so it doesn't
    * prevent new runs from being started.
    */
-  public CancelAllRunsResponse cancelAllRuns(CancelAllRuns request) {
-    return impl.cancelAllRuns(request);
+  public void cancelAllRuns(CancelAllRuns request) {
+    impl.cancelAllRuns(request);
   }
 
-  public Wait<Run, CancelRunResponse> cancelRun(long runId) {
+  public Wait<Run, Void> cancelRun(long runId) {
     return cancelRun(new CancelRun().setRunId(runId));
   }
 
@@ -117,12 +117,11 @@ public class JobsAPI {
    * <p>Cancels a job run or a task run. The run is canceled asynchronously, so it may still be
    * running when this request completes.
    */
-  public Wait<Run, CancelRunResponse> cancelRun(CancelRun request) {
-    CancelRunResponse response = impl.cancelRun(request);
+  public Wait<Run, Void> cancelRun(CancelRun request) {
+    impl.cancelRun(request);
     return new Wait<>(
         (timeout, callback) ->
-            waitGetRunJobTerminatedOrSkipped(request.getRunId(), timeout, callback),
-        response);
+            waitGetRunJobTerminatedOrSkipped(request.getRunId(), timeout, callback));
   }
 
   /**
@@ -134,8 +133,8 @@ public class JobsAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(long jobId) {
-    return delete(new DeleteJob().setJobId(jobId));
+  public void delete(long jobId) {
+    delete(new DeleteJob().setJobId(jobId));
   }
 
   /**
@@ -143,12 +142,12 @@ public class JobsAPI {
    *
    * <p>Deletes a job.
    */
-  public DeleteResponse delete(DeleteJob request) {
-    return impl.delete(request);
+  public void delete(DeleteJob request) {
+    impl.delete(request);
   }
 
-  public DeleteRunResponse deleteRun(long runId) {
-    return deleteRun(new DeleteRun().setRunId(runId));
+  public void deleteRun(long runId) {
+    deleteRun(new DeleteRun().setRunId(runId));
   }
 
   /**
@@ -156,8 +155,8 @@ public class JobsAPI {
    *
    * <p>Deletes a non-active run. Returns an error if the run is active.
    */
-  public DeleteRunResponse deleteRun(DeleteRun request) {
-    return impl.deleteRun(request);
+  public void deleteRun(DeleteRun request) {
+    impl.deleteRun(request);
   }
 
   public ExportRunOutput exportRun(long runId) {
@@ -302,8 +301,8 @@ public class JobsAPI {
         response);
   }
 
-  public ResetResponse reset(long jobId, JobSettings newSettings) {
-    return reset(new ResetJob().setJobId(jobId).setNewSettings(newSettings));
+  public void reset(long jobId, JobSettings newSettings) {
+    reset(new ResetJob().setJobId(jobId).setNewSettings(newSettings));
   }
 
   /**
@@ -312,8 +311,8 @@ public class JobsAPI {
    * <p>Overwrite all settings for the given job. Use the [_Update_ endpoint](:method:jobs/update)
    * to update job settings partially.
    */
-  public ResetResponse reset(ResetJob request) {
-    return impl.reset(request);
+  public void reset(ResetJob request) {
+    impl.reset(request);
   }
 
   public Wait<Run, RunNowResponse> runNow(long jobId) {
@@ -361,8 +360,8 @@ public class JobsAPI {
         response);
   }
 
-  public UpdateResponse update(long jobId) {
-    return update(new UpdateJob().setJobId(jobId));
+  public void update(long jobId) {
+    update(new UpdateJob().setJobId(jobId));
   }
 
   /**
@@ -371,8 +370,8 @@ public class JobsAPI {
    * <p>Add, update, or remove specific settings of an existing job. Use the [_Reset_
    * endpoint](:method:jobs/reset) to overwrite all job settings.
    */
-  public UpdateResponse update(UpdateJob request) {
-    return impl.update(request);
+  public void update(UpdateJob request) {
+    impl.update(request);
   }
 
   public JobPermissions updatePermissions(String jobId) {

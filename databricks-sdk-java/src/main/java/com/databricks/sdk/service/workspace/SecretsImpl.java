@@ -16,39 +16,39 @@ class SecretsImpl implements SecretsService {
   }
 
   @Override
-  public CreateScopeResponse createScope(CreateScope request) {
+  public void createScope(CreateScope request) {
     String path = "/api/2.0/secrets/scopes/create";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateScopeResponse.class, headers);
+    apiClient.POST(path, request, CreateScopeResponse.class, headers);
   }
 
   @Override
-  public DeleteAclResponse deleteAcl(DeleteAcl request) {
+  public void deleteAcl(DeleteAcl request) {
     String path = "/api/2.0/secrets/acls/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, DeleteAclResponse.class, headers);
+    apiClient.POST(path, request, DeleteAclResponse.class, headers);
   }
 
   @Override
-  public DeleteScopeResponse deleteScope(DeleteScope request) {
+  public void deleteScope(DeleteScope request) {
     String path = "/api/2.0/secrets/scopes/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, DeleteScopeResponse.class, headers);
+    apiClient.POST(path, request, DeleteScopeResponse.class, headers);
   }
 
   @Override
-  public DeleteSecretResponse deleteSecret(DeleteSecret request) {
+  public void deleteSecret(DeleteSecret request) {
     String path = "/api/2.0/secrets/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, DeleteSecretResponse.class, headers);
+    apiClient.POST(path, request, DeleteSecretResponse.class, headers);
   }
 
   @Override
@@ -92,20 +92,20 @@ class SecretsImpl implements SecretsService {
   }
 
   @Override
-  public PutAclResponse putAcl(PutAcl request) {
+  public void putAcl(PutAcl request) {
     String path = "/api/2.0/secrets/acls/put";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, PutAclResponse.class, headers);
+    apiClient.POST(path, request, PutAclResponse.class, headers);
   }
 
   @Override
-  public PutSecretResponse putSecret(PutSecret request) {
+  public void putSecret(PutSecret request) {
     String path = "/api/2.0/secrets/put";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, PutSecretResponse.class, headers);
+    apiClient.POST(path, request, PutSecretResponse.class, headers);
   }
 }

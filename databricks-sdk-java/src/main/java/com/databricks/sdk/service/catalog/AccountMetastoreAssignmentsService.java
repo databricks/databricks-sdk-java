@@ -17,15 +17,14 @@ public interface AccountMetastoreAssignmentsService {
    *
    * <p>Creates an assignment to a metastore for a workspace
    */
-  CreateResponse create(AccountsCreateMetastoreAssignment accountsCreateMetastoreAssignment);
+  void create(AccountsCreateMetastoreAssignment accountsCreateMetastoreAssignment);
 
   /**
    * Delete a metastore assignment.
    *
    * <p>Deletes a metastore assignment to a workspace, leaving the workspace with no metastore.
    */
-  DeleteResponse delete(
-      DeleteAccountMetastoreAssignmentRequest deleteAccountMetastoreAssignmentRequest);
+  void delete(DeleteAccountMetastoreAssignmentRequest deleteAccountMetastoreAssignmentRequest);
 
   /**
    * Gets the metastore assignment for a workspace.
@@ -51,5 +50,5 @@ public interface AccountMetastoreAssignmentsService {
    * <p>Updates an assignment to a metastore for a workspace. Currently, only the default catalog
    * may be updated.
    */
-  UpdateResponse update(AccountsUpdateMetastoreAssignment accountsUpdateMetastoreAssignment);
+  void update(AccountsUpdateMetastoreAssignment accountsUpdateMetastoreAssignment);
 }

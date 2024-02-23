@@ -25,11 +25,11 @@ class QueryVisualizationsImpl implements QueryVisualizationsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteQueryVisualizationRequest request) {
+  public void delete(DeleteQueryVisualizationRequest request) {
     String path = String.format("/api/2.0/preview/sql/visualizations/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

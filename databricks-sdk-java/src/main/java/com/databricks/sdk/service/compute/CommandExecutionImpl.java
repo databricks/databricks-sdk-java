@@ -16,12 +16,12 @@ class CommandExecutionImpl implements CommandExecutionService {
   }
 
   @Override
-  public CancelResponse cancel(CancelCommand request) {
+  public void cancel(CancelCommand request) {
     String path = "/api/1.2/commands/cancel";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CancelResponse.class, headers);
+    apiClient.POST(path, request, CancelResponse.class, headers);
   }
 
   @Override
@@ -50,12 +50,12 @@ class CommandExecutionImpl implements CommandExecutionService {
   }
 
   @Override
-  public DestroyResponse destroy(DestroyContext request) {
+  public void destroy(DestroyContext request) {
     String path = "/api/1.2/contexts/destroy";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, DestroyResponse.class, headers);
+    apiClient.POST(path, request, DestroyResponse.class, headers);
   }
 
   @Override

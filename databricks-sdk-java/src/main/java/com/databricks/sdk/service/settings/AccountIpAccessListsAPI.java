@@ -69,8 +69,8 @@ public class AccountIpAccessListsAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String ipAccessListId) {
-    return delete(new DeleteAccountIpAccessListRequest().setIpAccessListId(ipAccessListId));
+  public void delete(String ipAccessListId) {
+    delete(new DeleteAccountIpAccessListRequest().setIpAccessListId(ipAccessListId));
   }
 
   /**
@@ -78,8 +78,8 @@ public class AccountIpAccessListsAPI {
    *
    * <p>Deletes an IP access list, specified by its list ID.
    */
-  public DeleteResponse delete(DeleteAccountIpAccessListRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteAccountIpAccessListRequest request) {
+    impl.delete(request);
   }
 
   public GetIpAccessListResponse get(String ipAccessListId) {
@@ -104,9 +104,8 @@ public class AccountIpAccessListsAPI {
     return impl.list().getIpAccessLists();
   }
 
-  public ReplaceResponse replace(
-      String ipAccessListId, String label, ListType listType, boolean enabled) {
-    return replace(
+  public void replace(String ipAccessListId, String label, ListType listType, boolean enabled) {
+    replace(
         new ReplaceIpAccessList()
             .setIpAccessListId(ipAccessListId)
             .setLabel(label)
@@ -127,12 +126,12 @@ public class AccountIpAccessListsAPI {
    * calling user's current IP, error 400 is returned with `error_code` value `INVALID_STATE`. It
    * can take a few minutes for the changes to take effect.
    */
-  public ReplaceResponse replace(ReplaceIpAccessList request) {
-    return impl.replace(request);
+  public void replace(ReplaceIpAccessList request) {
+    impl.replace(request);
   }
 
-  public UpdateResponse update(String ipAccessListId) {
-    return update(new UpdateIpAccessList().setIpAccessListId(ipAccessListId));
+  public void update(String ipAccessListId) {
+    update(new UpdateIpAccessList().setIpAccessListId(ipAccessListId));
   }
 
   /**
@@ -152,8 +151,8 @@ public class AccountIpAccessListsAPI {
    *
    * <p>It can take a few minutes for the changes to take effect.
    */
-  public UpdateResponse update(UpdateIpAccessList request) {
-    return impl.update(request);
+  public void update(UpdateIpAccessList request) {
+    impl.update(request);
   }
 
   public AccountIpAccessListsService impl() {

@@ -25,11 +25,11 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
-  public DeletePipelineResponse delete(DeletePipelineRequest request) {
+  public void delete(DeletePipelineRequest request) {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeletePipelineResponse.class, headers);
+    apiClient.DELETE(path, request, DeletePipelineResponse.class, headers);
   }
 
   @Override
@@ -112,20 +112,20 @@ class PipelinesImpl implements PipelinesService {
   }
 
   @Override
-  public StopPipelineResponse stop(StopRequest request) {
+  public void stop(StopRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/stop", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.POST(path, null, StopPipelineResponse.class, headers);
+    apiClient.POST(path, null, StopPipelineResponse.class, headers);
   }
 
   @Override
-  public EditPipelineResponse update(EditPipeline request) {
+  public void update(EditPipeline request) {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, EditPipelineResponse.class, headers);
+    apiClient.PUT(path, request, EditPipelineResponse.class, headers);
   }
 
   @Override

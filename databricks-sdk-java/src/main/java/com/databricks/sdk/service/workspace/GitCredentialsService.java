@@ -30,7 +30,7 @@ public interface GitCredentialsService {
    *
    * <p>Deletes the specified Git credential.
    */
-  DeleteResponse delete(DeleteGitCredentialRequest deleteGitCredentialRequest);
+  void delete(DeleteGitCredentialRequest deleteGitCredentialRequest);
 
   /**
    * Get a credential entry.
@@ -51,5 +51,5 @@ public interface GitCredentialsService {
    *
    * <p>Updates the specified Git credential.
    */
-  UpdateResponse update(UpdateCredentials updateCredentials);
+  void update(UpdateCredentials updateCredentials);
 }

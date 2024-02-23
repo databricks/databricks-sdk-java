@@ -17,7 +17,7 @@ public interface DashboardWidgetsService {
   Widget create(CreateWidget createWidget);
 
   /** Remove widget. */
-  DeleteResponse delete(DeleteDashboardWidgetRequest deleteDashboardWidgetRequest);
+  void delete(DeleteDashboardWidgetRequest deleteDashboardWidgetRequest);
 
   /** Update existing widget. */
   Widget update(CreateWidget createWidget);

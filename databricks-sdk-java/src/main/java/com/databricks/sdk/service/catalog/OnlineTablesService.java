@@ -26,7 +26,7 @@ public interface OnlineTablesService {
    * source Delta table was deleted or modified since this Online Table was created, this will lose
    * the data forever!
    */
-  DeleteResponse delete(DeleteOnlineTableRequest deleteOnlineTableRequest);
+  void delete(DeleteOnlineTableRequest deleteOnlineTableRequest);
 
   /**
    * Get an Online Table.

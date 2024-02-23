@@ -35,7 +35,7 @@ public interface ConnectionsService {
    *
    * <p>Deletes the connection that matches the supplied name.
    */
-  DeleteResponse delete(DeleteConnectionRequest deleteConnectionRequest);
+  void delete(DeleteConnectionRequest deleteConnectionRequest);
 
   /**
    * Get a connection.

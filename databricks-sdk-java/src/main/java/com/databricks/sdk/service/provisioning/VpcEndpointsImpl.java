@@ -27,14 +27,14 @@ class VpcEndpointsImpl implements VpcEndpointsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteVpcEndpointRequest request) {
+  public void delete(DeleteVpcEndpointRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/vpc-endpoints/%s",
             apiClient.configuredAccountID(), request.getVpcEndpointId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

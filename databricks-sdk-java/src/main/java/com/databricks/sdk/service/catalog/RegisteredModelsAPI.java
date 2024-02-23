@@ -75,8 +75,8 @@ public class RegisteredModelsAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String fullName) {
-    return delete(new DeleteRegisteredModelRequest().setFullName(fullName));
+  public void delete(String fullName) {
+    delete(new DeleteRegisteredModelRequest().setFullName(fullName));
   }
 
   /**
@@ -89,12 +89,12 @@ public class RegisteredModelsAPI {
    * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent
    * catalog and the **USE_SCHEMA** privilege on the parent schema.
    */
-  public DeleteResponse delete(DeleteRegisteredModelRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteRegisteredModelRequest request) {
+    impl.delete(request);
   }
 
-  public DeleteAliasResponse deleteAlias(String fullName, String alias) {
-    return deleteAlias(new DeleteAliasRequest().setFullName(fullName).setAlias(alias));
+  public void deleteAlias(String fullName, String alias) {
+    deleteAlias(new DeleteAliasRequest().setFullName(fullName).setAlias(alias));
   }
 
   /**
@@ -106,8 +106,8 @@ public class RegisteredModelsAPI {
    * case, the caller must also be the owner or have the **USE_CATALOG** privilege on the parent
    * catalog and the **USE_SCHEMA** privilege on the parent schema.
    */
-  public DeleteAliasResponse deleteAlias(DeleteAliasRequest request) {
-    return impl.deleteAlias(request);
+  public void deleteAlias(DeleteAliasRequest request) {
+    impl.deleteAlias(request);
   }
 
   public RegisteredModelInfo get(String fullName) {

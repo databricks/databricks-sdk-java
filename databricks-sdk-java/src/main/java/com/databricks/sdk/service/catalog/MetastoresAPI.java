@@ -35,8 +35,8 @@ public class MetastoresAPI {
     impl = mock;
   }
 
-  public AssignResponse assign(long workspaceId, String metastoreId, String defaultCatalogName) {
-    return assign(
+  public void assign(long workspaceId, String metastoreId, String defaultCatalogName) {
+    assign(
         new CreateMetastoreAssignment()
             .setWorkspaceId(workspaceId)
             .setMetastoreId(metastoreId)
@@ -50,8 +50,8 @@ public class MetastoresAPI {
    * it will be overwritten by the new __metastore_id__ and __default_catalog_name__. The caller
    * must be an account admin.
    */
-  public AssignResponse assign(CreateMetastoreAssignment request) {
-    return impl.assign(request);
+  public void assign(CreateMetastoreAssignment request) {
+    impl.assign(request);
   }
 
   public MetastoreInfo create(String name) {
@@ -79,8 +79,8 @@ public class MetastoresAPI {
     return impl.current();
   }
 
-  public DeleteResponse delete(String id) {
-    return delete(new DeleteMetastoreRequest().setId(id));
+  public void delete(String id) {
+    delete(new DeleteMetastoreRequest().setId(id));
   }
 
   /**
@@ -88,8 +88,8 @@ public class MetastoresAPI {
    *
    * <p>Deletes a metastore. The caller must be a metastore admin.
    */
-  public DeleteResponse delete(DeleteMetastoreRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteMetastoreRequest request) {
+    impl.delete(request);
   }
 
   public MetastoreInfo get(String id) {
@@ -127,8 +127,8 @@ public class MetastoresAPI {
     return impl.summary();
   }
 
-  public UnassignResponse unassign(long workspaceId, String metastoreId) {
-    return unassign(new UnassignRequest().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
+  public void unassign(long workspaceId, String metastoreId) {
+    unassign(new UnassignRequest().setWorkspaceId(workspaceId).setMetastoreId(metastoreId));
   }
 
   /**
@@ -136,8 +136,8 @@ public class MetastoresAPI {
    *
    * <p>Deletes a metastore assignment. The caller must be an account administrator.
    */
-  public UnassignResponse unassign(UnassignRequest request) {
-    return impl.unassign(request);
+  public void unassign(UnassignRequest request) {
+    impl.unassign(request);
   }
 
   public MetastoreInfo update(String id) {
@@ -155,8 +155,8 @@ public class MetastoresAPI {
     return impl.update(request);
   }
 
-  public UpdateAssignmentResponse updateAssignment(long workspaceId) {
-    return updateAssignment(new UpdateMetastoreAssignment().setWorkspaceId(workspaceId));
+  public void updateAssignment(long workspaceId) {
+    updateAssignment(new UpdateMetastoreAssignment().setWorkspaceId(workspaceId));
   }
 
   /**
@@ -167,8 +167,8 @@ public class MetastoresAPI {
    * metastore. The caller must be an account admin to update __metastore_id__; otherwise, the
    * caller can be a Workspace admin.
    */
-  public UpdateAssignmentResponse updateAssignment(UpdateMetastoreAssignment request) {
-    return impl.updateAssignment(request);
+  public void updateAssignment(UpdateMetastoreAssignment request) {
+    impl.updateAssignment(request);
   }
 
   public MetastoresService impl() {

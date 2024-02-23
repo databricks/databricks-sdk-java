@@ -25,11 +25,11 @@ class SchemasImpl implements SchemasService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteSchemaRequest request) {
+  public void delete(DeleteSchemaRequest request) {
     String path = String.format("/api/2.1/unity-catalog/schemas/%s", request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

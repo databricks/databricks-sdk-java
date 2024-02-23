@@ -27,7 +27,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteServicePrincipalSecretRequest request) {
+  public void delete(DeleteServicePrincipalSecretRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/servicePrincipals/%s/credentials/secrets/%s",
@@ -35,7 +35,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             request.getServicePrincipalId(),
             request.getSecretId());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

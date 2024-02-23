@@ -131,9 +131,8 @@ public class LogDeliveryAPI {
     return impl.list(request).getLogDeliveryConfigurations();
   }
 
-  public PatchStatusResponse patchStatus(
-      String logDeliveryConfigurationId, LogDeliveryConfigStatus status) {
-    return patchStatus(
+  public void patchStatus(String logDeliveryConfigurationId, LogDeliveryConfigStatus status) {
+    patchStatus(
         new UpdateLogDeliveryConfigurationStatusRequest()
             .setLogDeliveryConfigurationId(logDeliveryConfigurationId)
             .setStatus(status));
@@ -147,8 +146,8 @@ public class LogDeliveryAPI {
    * can't re-enable a delivery configuration if this would violate the delivery configuration
    * limits described under [Create log delivery](:method:LogDelivery/Create).
    */
-  public PatchStatusResponse patchStatus(UpdateLogDeliveryConfigurationStatusRequest request) {
-    return impl.patchStatus(request);
+  public void patchStatus(UpdateLogDeliveryConfigurationStatusRequest request) {
+    impl.patchStatus(request);
   }
 
   public LogDeliveryService impl() {

@@ -67,8 +67,8 @@ public class VectorSearchIndexesAPI {
     return impl.deleteDataVectorIndex(request);
   }
 
-  public DeleteIndexResponse deleteIndex(String indexName) {
-    return deleteIndex(new DeleteIndexRequest().setIndexName(indexName));
+  public void deleteIndex(String indexName) {
+    deleteIndex(new DeleteIndexRequest().setIndexName(indexName));
   }
 
   /**
@@ -76,8 +76,8 @@ public class VectorSearchIndexesAPI {
    *
    * <p>Delete an index.
    */
-  public DeleteIndexResponse deleteIndex(DeleteIndexRequest request) {
-    return impl.deleteIndex(request);
+  public void deleteIndex(DeleteIndexRequest request) {
+    impl.deleteIndex(request);
   }
 
   public VectorIndex getIndex(String indexName) {
@@ -129,8 +129,8 @@ public class VectorSearchIndexesAPI {
     return impl.queryIndex(request);
   }
 
-  public SyncIndexResponse syncIndex(String indexName) {
-    return syncIndex(new SyncIndexRequest().setIndexName(indexName));
+  public void syncIndex(String indexName) {
+    syncIndex(new SyncIndexRequest().setIndexName(indexName));
   }
 
   /**
@@ -138,8 +138,8 @@ public class VectorSearchIndexesAPI {
    *
    * <p>Triggers a synchronization process for a specified vector index.
    */
-  public SyncIndexResponse syncIndex(SyncIndexRequest request) {
-    return impl.syncIndex(request);
+  public void syncIndex(SyncIndexRequest request) {
+    impl.syncIndex(request);
   }
 
   public UpsertDataVectorIndexResponse upsertDataVectorIndex(String name, String inputsJson) {

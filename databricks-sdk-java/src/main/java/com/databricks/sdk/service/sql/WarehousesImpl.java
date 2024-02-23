@@ -25,20 +25,20 @@ class WarehousesImpl implements WarehousesService {
   }
 
   @Override
-  public DeleteWarehouseResponse delete(DeleteWarehouseRequest request) {
+  public void delete(DeleteWarehouseRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteWarehouseResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteWarehouseResponse.class, headers);
   }
 
   @Override
-  public EditWarehouseResponse edit(EditWarehouseRequest request) {
+  public void edit(EditWarehouseRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/edit", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, EditWarehouseResponse.class, headers);
+    apiClient.POST(path, request, EditWarehouseResponse.class, headers);
   }
 
   @Override
@@ -94,29 +94,28 @@ class WarehousesImpl implements WarehousesService {
   }
 
   @Override
-  public SetWorkspaceWarehouseConfigResponse setWorkspaceWarehouseConfig(
-      SetWorkspaceWarehouseConfigRequest request) {
+  public void setWorkspaceWarehouseConfig(SetWorkspaceWarehouseConfigRequest request) {
     String path = "/api/2.0/sql/config/warehouses";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, SetWorkspaceWarehouseConfigResponse.class, headers);
+    apiClient.PUT(path, request, SetWorkspaceWarehouseConfigResponse.class, headers);
   }
 
   @Override
-  public StartWarehouseResponse start(StartRequest request) {
+  public void start(StartRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/start", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.POST(path, null, StartWarehouseResponse.class, headers);
+    apiClient.POST(path, null, StartWarehouseResponse.class, headers);
   }
 
   @Override
-  public StopWarehouseResponse stop(StopRequest request) {
+  public void stop(StopRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.POST(path, null, StopWarehouseResponse.class, headers);
+    apiClient.POST(path, null, StopWarehouseResponse.class, headers);
   }
 
   @Override

@@ -28,14 +28,14 @@ class StorageImpl implements StorageService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteStorageRequest request) {
+  public void delete(DeleteStorageRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/storage-configurations/%s",
             apiClient.configuredAccountID(), request.getStorageConfigurationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

@@ -39,8 +39,8 @@ public class BudgetsAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String budgetId) {
-    return delete(new DeleteBudgetRequest().setBudgetId(budgetId));
+  public void delete(String budgetId) {
+    delete(new DeleteBudgetRequest().setBudgetId(budgetId));
   }
 
   /**
@@ -48,8 +48,8 @@ public class BudgetsAPI {
    *
    * <p>Deletes the budget specified by its UUID.
    */
-  public DeleteResponse delete(DeleteBudgetRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteBudgetRequest request) {
+    impl.delete(request);
   }
 
   public WrappedBudgetWithStatus get(String budgetId) {
@@ -76,8 +76,8 @@ public class BudgetsAPI {
     return impl.list().getBudgets();
   }
 
-  public UpdateResponse update(String budgetId, Budget budget) {
-    return update(new WrappedBudget().setBudgetId(budgetId).setBudget(budget));
+  public void update(String budgetId, Budget budget) {
+    update(new WrappedBudget().setBudgetId(budgetId).setBudget(budget));
   }
 
   /**
@@ -85,8 +85,8 @@ public class BudgetsAPI {
    *
    * <p>Modifies a budget in this account. Budget properties are completely overwritten.
    */
-  public UpdateResponse update(WrappedBudget request) {
-    return impl.update(request);
+  public void update(WrappedBudget request) {
+    impl.update(request);
   }
 
   public BudgetsService impl() {

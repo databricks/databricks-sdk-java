@@ -27,8 +27,8 @@ public class SystemSchemasAPI {
     impl = mock;
   }
 
-  public DisableResponse disable(String metastoreId, DisableSchemaName schemaName) {
-    return disable(new DisableRequest().setMetastoreId(metastoreId).setSchemaName(schemaName));
+  public void disable(String metastoreId, DisableSchemaName schemaName) {
+    disable(new DisableRequest().setMetastoreId(metastoreId).setSchemaName(schemaName));
   }
 
   /**
@@ -37,12 +37,12 @@ public class SystemSchemasAPI {
    * <p>Disables the system schema and removes it from the system catalog. The caller must be an
    * account admin or a metastore admin.
    */
-  public DisableResponse disable(DisableRequest request) {
-    return impl.disable(request);
+  public void disable(DisableRequest request) {
+    impl.disable(request);
   }
 
-  public EnableResponse enable(String metastoreId, EnableSchemaName schemaName) {
-    return enable(new EnableRequest().setMetastoreId(metastoreId).setSchemaName(schemaName));
+  public void enable(String metastoreId, EnableSchemaName schemaName) {
+    enable(new EnableRequest().setMetastoreId(metastoreId).setSchemaName(schemaName));
   }
 
   /**
@@ -51,8 +51,8 @@ public class SystemSchemasAPI {
    * <p>Enables the system schema and adds it to the system catalog. The caller must be an account
    * admin or a metastore admin.
    */
-  public EnableResponse enable(EnableRequest request) {
-    return impl.enable(request);
+  public void enable(EnableRequest request) {
+    impl.enable(request);
   }
 
   public Iterable<SystemSchemaInfo> list(String metastoreId) {

@@ -25,10 +25,10 @@ class GroupsImpl implements GroupsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteGroupRequest request) {
+  public void delete(DeleteGroupRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -48,20 +48,20 @@ class GroupsImpl implements GroupsService {
   }
 
   @Override
-  public PatchResponse patch(PartialUpdate request) {
+  public void patch(PartialUpdate request) {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, PatchResponse.class, headers);
+    apiClient.PATCH(path, request, PatchResponse.class, headers);
   }
 
   @Override
-  public UpdateResponse update(Group request) {
+  public void update(Group request) {
     String path = String.format("/api/2.0/preview/scim/v2/Groups/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, UpdateResponse.class, headers);
+    apiClient.PUT(path, request, UpdateResponse.class, headers);
   }
 }

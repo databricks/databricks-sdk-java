@@ -24,8 +24,7 @@ public interface RecipientActivationService {
    *
    * <p>Gets an activation URL for a share.
    */
-  GetActivationUrlInfoResponse getActivationUrlInfo(
-      GetActivationUrlInfoRequest getActivationUrlInfoRequest);
+  void getActivationUrlInfo(GetActivationUrlInfoRequest getActivationUrlInfoRequest);
 
   /**
    * Get an access token.

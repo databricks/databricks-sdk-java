@@ -33,8 +33,8 @@ public class SecretsAPI {
     impl = mock;
   }
 
-  public CreateScopeResponse createScope(String scope) {
-    return createScope(new CreateScope().setScope(scope));
+  public void createScope(String scope) {
+    createScope(new CreateScope().setScope(scope));
   }
 
   /**
@@ -43,12 +43,12 @@ public class SecretsAPI {
    * <p>The scope name must consist of alphanumeric characters, dashes, underscores, and periods,
    * and may not exceed 128 characters. The maximum number of scopes in a workspace is 100.
    */
-  public CreateScopeResponse createScope(CreateScope request) {
-    return impl.createScope(request);
+  public void createScope(CreateScope request) {
+    impl.createScope(request);
   }
 
-  public DeleteAclResponse deleteAcl(String scope, String principal) {
-    return deleteAcl(new DeleteAcl().setScope(scope).setPrincipal(principal));
+  public void deleteAcl(String scope, String principal) {
+    deleteAcl(new DeleteAcl().setScope(scope).setPrincipal(principal));
   }
 
   /**
@@ -60,12 +60,12 @@ public class SecretsAPI {
    * if no such secret scope, principal, or ACL exists. Throws `PERMISSION_DENIED` if the user does
    * not have permission to make this API call.
    */
-  public DeleteAclResponse deleteAcl(DeleteAcl request) {
-    return impl.deleteAcl(request);
+  public void deleteAcl(DeleteAcl request) {
+    impl.deleteAcl(request);
   }
 
-  public DeleteScopeResponse deleteScope(String scope) {
-    return deleteScope(new DeleteScope().setScope(scope));
+  public void deleteScope(String scope) {
+    deleteScope(new DeleteScope().setScope(scope));
   }
 
   /**
@@ -76,12 +76,12 @@ public class SecretsAPI {
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if the scope does not exist. Throws `PERMISSION_DENIED` if
    * the user does not have permission to make this API call.
    */
-  public DeleteScopeResponse deleteScope(DeleteScope request) {
-    return impl.deleteScope(request);
+  public void deleteScope(DeleteScope request) {
+    impl.deleteScope(request);
   }
 
-  public DeleteSecretResponse deleteSecret(String scope, String key) {
-    return deleteSecret(new DeleteSecret().setScope(scope).setKey(key));
+  public void deleteSecret(String scope, String key) {
+    deleteSecret(new DeleteSecret().setScope(scope).setKey(key));
   }
 
   /**
@@ -93,8 +93,8 @@ public class SecretsAPI {
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if no such secret scope or secret exists. Throws
    * `PERMISSION_DENIED` if the user does not have permission to make this API call.
    */
-  public DeleteSecretResponse deleteSecret(DeleteSecret request) {
-    return impl.deleteSecret(request);
+  public void deleteSecret(DeleteSecret request) {
+    impl.deleteSecret(request);
   }
 
   public AclItem getAcl(String scope, String principal) {
@@ -182,8 +182,8 @@ public class SecretsAPI {
     return impl.listSecrets(request).getSecrets();
   }
 
-  public PutAclResponse putAcl(String scope, String principal, AclPermission permission) {
-    return putAcl(new PutAcl().setScope(scope).setPrincipal(principal).setPermission(permission));
+  public void putAcl(String scope, String principal, AclPermission permission) {
+    putAcl(new PutAcl().setScope(scope).setPrincipal(principal).setPermission(permission));
   }
 
   /**
@@ -214,12 +214,12 @@ public class SecretsAPI {
    * `INVALID_PARAMETER_VALUE` if the permission or principal is invalid. Throws `PERMISSION_DENIED`
    * if the user does not have permission to make this API call.
    */
-  public PutAclResponse putAcl(PutAcl request) {
-    return impl.putAcl(request);
+  public void putAcl(PutAcl request) {
+    impl.putAcl(request);
   }
 
-  public PutSecretResponse putSecret(String scope, String key) {
-    return putSecret(new PutSecret().setScope(scope).setKey(key));
+  public void putSecret(String scope, String key) {
+    putSecret(new PutSecret().setScope(scope).setKey(key));
   }
 
   /**
@@ -242,8 +242,8 @@ public class SecretsAPI {
    * `INVALID_PARAMETER_VALUE` if the key name or value length is invalid. Throws
    * `PERMISSION_DENIED` if the user does not have permission to make this API call.
    */
-  public PutSecretResponse putSecret(PutSecret request) {
-    return impl.putSecret(request);
+  public void putSecret(PutSecret request) {
+    impl.putSecret(request);
   }
 
   public SecretsService impl() {

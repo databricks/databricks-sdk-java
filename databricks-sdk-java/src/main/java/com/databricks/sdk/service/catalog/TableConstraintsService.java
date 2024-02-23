@@ -47,5 +47,5 @@ public interface TableConstraintsService {
    * child tables: the **USE_CATALOG** privilege on the table's catalog, the **USE_SCHEMA**
    * privilege on the table's schema, and be the owner of the table.
    */
-  DeleteResponse delete(DeleteTableConstraintRequest deleteTableConstraintRequest);
+  void delete(DeleteTableConstraintRequest deleteTableConstraintRequest);
 }

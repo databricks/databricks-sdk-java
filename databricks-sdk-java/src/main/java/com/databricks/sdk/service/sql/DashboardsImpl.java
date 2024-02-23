@@ -25,11 +25,11 @@ class DashboardsImpl implements DashboardsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteDashboardRequest request) {
+  public void delete(DeleteDashboardRequest request) {
     String path = String.format("/api/2.0/preview/sql/dashboards/%s", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -49,12 +49,12 @@ class DashboardsImpl implements DashboardsService {
   }
 
   @Override
-  public RestoreResponse restore(RestoreDashboardRequest request) {
+  public void restore(RestoreDashboardRequest request) {
     String path =
         String.format("/api/2.0/preview/sql/dashboards/trash/%s", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.POST(path, null, RestoreResponse.class, headers);
+    apiClient.POST(path, null, RestoreResponse.class, headers);
   }
 
   @Override

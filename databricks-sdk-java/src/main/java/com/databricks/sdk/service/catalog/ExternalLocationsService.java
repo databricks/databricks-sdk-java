@@ -36,7 +36,7 @@ public interface ExternalLocationsService {
    * <p>Deletes the specified external location from the metastore. The caller must be the owner of
    * the external location.
    */
-  DeleteResponse delete(DeleteExternalLocationRequest deleteExternalLocationRequest);
+  void delete(DeleteExternalLocationRequest deleteExternalLocationRequest);
 
   /**
    * Get an external location.

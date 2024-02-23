@@ -34,7 +34,7 @@ public interface UsersService {
    * <p>Deletes a user. Deleting a user from a Databricks workspace also removes objects associated
    * with the user.
    */
-  DeleteResponse delete(DeleteUserRequest deleteUserRequest);
+  void delete(DeleteUserRequest deleteUserRequest);
 
   /**
    * Get user details.
@@ -71,7 +71,7 @@ public interface UsersService {
    * <p>Partially updates a user resource by applying the supplied operations on specific user
    * attributes.
    */
-  PatchResponse patch(PartialUpdate partialUpdate);
+  void patch(PartialUpdate partialUpdate);
 
   /**
    * Set password permissions.
@@ -85,7 +85,7 @@ public interface UsersService {
    *
    * <p>Replaces a user's information with the data supplied in request.
    */
-  UpdateResponse update(User user);
+  void update(User user);
 
   /**
    * Update password permissions.

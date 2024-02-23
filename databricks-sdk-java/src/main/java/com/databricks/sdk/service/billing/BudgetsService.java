@@ -25,7 +25,7 @@ public interface BudgetsService {
    *
    * <p>Deletes the budget specified by its UUID.
    */
-  DeleteResponse delete(DeleteBudgetRequest deleteBudgetRequest);
+  void delete(DeleteBudgetRequest deleteBudgetRequest);
 
   /**
    * Get budget and its status.
@@ -48,5 +48,5 @@ public interface BudgetsService {
    *
    * <p>Modifies a budget in this account. Budget properties are completely overwritten.
    */
-  UpdateResponse update(WrappedBudget wrappedBudget);
+  void update(WrappedBudget wrappedBudget);
 }

@@ -19,7 +19,7 @@ public interface CommandExecutionService {
    *
    * <p>The command ID is obtained from a prior successful call to __execute__.
    */
-  CancelResponse cancel(CancelCommand cancelCommand);
+  void cancel(CancelCommand cancelCommand);
 
   /**
    * Get command info.
@@ -51,7 +51,7 @@ public interface CommandExecutionService {
    *
    * <p>Deletes an execution context.
    */
-  DestroyResponse destroy(DestroyContext destroyContext);
+  void destroy(DestroyContext destroyContext);
 
   /**
    * Run a command.

@@ -53,8 +53,8 @@ public class InstancePoolsAPI {
     return impl.create(request);
   }
 
-  public DeleteInstancePoolResponse delete(String instancePoolId) {
-    return delete(new DeleteInstancePool().setInstancePoolId(instancePoolId));
+  public void delete(String instancePoolId) {
+    delete(new DeleteInstancePool().setInstancePoolId(instancePoolId));
   }
 
   /**
@@ -63,13 +63,12 @@ public class InstancePoolsAPI {
    * <p>Deletes the instance pool permanently. The idle instances in the pool are terminated
    * asynchronously.
    */
-  public DeleteInstancePoolResponse delete(DeleteInstancePool request) {
-    return impl.delete(request);
+  public void delete(DeleteInstancePool request) {
+    impl.delete(request);
   }
 
-  public EditInstancePoolResponse edit(
-      String instancePoolId, String instancePoolName, String nodeTypeId) {
-    return edit(
+  public void edit(String instancePoolId, String instancePoolName, String nodeTypeId) {
+    edit(
         new EditInstancePool()
             .setInstancePoolId(instancePoolId)
             .setInstancePoolName(instancePoolName)
@@ -81,8 +80,8 @@ public class InstancePoolsAPI {
    *
    * <p>Modifies the configuration of an existing instance pool.
    */
-  public EditInstancePoolResponse edit(EditInstancePool request) {
-    return impl.edit(request);
+  public void edit(EditInstancePool request) {
+    impl.edit(request);
   }
 
   public GetInstancePool get(String instancePoolId) {

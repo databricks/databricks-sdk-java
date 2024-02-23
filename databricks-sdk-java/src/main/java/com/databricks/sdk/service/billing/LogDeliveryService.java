@@ -116,6 +116,6 @@ public interface LogDeliveryService {
    * can't re-enable a delivery configuration if this would violate the delivery configuration
    * limits described under [Create log delivery](:method:LogDelivery/Create).
    */
-  PatchStatusResponse patchStatus(
+  void patchStatus(
       UpdateLogDeliveryConfigurationStatusRequest updateLogDeliveryConfigurationStatusRequest);
 }

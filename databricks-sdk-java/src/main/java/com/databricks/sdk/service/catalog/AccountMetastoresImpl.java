@@ -25,14 +25,14 @@ class AccountMetastoresImpl implements AccountMetastoresService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteAccountMetastoreRequest request) {
+  public void delete(DeleteAccountMetastoreRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s",
             apiClient.configuredAccountID(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

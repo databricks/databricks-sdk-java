@@ -51,9 +51,8 @@ public class PrivateAccessAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String privateAccessSettingsId) {
-    return delete(
-        new DeletePrivateAccesRequest().setPrivateAccessSettingsId(privateAccessSettingsId));
+  public void delete(String privateAccessSettingsId) {
+    delete(new DeletePrivateAccesRequest().setPrivateAccessSettingsId(privateAccessSettingsId));
   }
 
   /**
@@ -68,8 +67,8 @@ public class PrivateAccessAPI {
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  public DeleteResponse delete(DeletePrivateAccesRequest request) {
-    return impl.delete(request);
+  public void delete(DeletePrivateAccesRequest request) {
+    impl.delete(request);
   }
 
   public PrivateAccessSettings get(String privateAccessSettingsId) {
@@ -101,9 +100,9 @@ public class PrivateAccessAPI {
     return impl.list();
   }
 
-  public ReplaceResponse replace(
+  public void replace(
       String privateAccessSettingsId, String privateAccessSettingsName, String region) {
-    return replace(
+    replace(
         new UpsertPrivateAccessSettingsRequest()
             .setPrivateAccessSettingsId(privateAccessSettingsId)
             .setPrivateAccessSettingsName(privateAccessSettingsName)
@@ -132,8 +131,8 @@ public class PrivateAccessAPI {
    * PrivateLink]:
    * https://docs.databricks.com/administration-guide/cloud-configurations/aws/privatelink.html
    */
-  public ReplaceResponse replace(UpsertPrivateAccessSettingsRequest request) {
-    return impl.replace(request);
+  public void replace(UpsertPrivateAccessSettingsRequest request) {
+    impl.replace(request);
   }
 
   public PrivateAccessService impl() {

@@ -80,8 +80,8 @@ public class LibrariesAPI {
     return impl.clusterStatus(request).getLibraryStatuses();
   }
 
-  public InstallLibrariesResponse install(String clusterId, Collection<Library> libraries) {
-    return install(new InstallLibraries().setClusterId(clusterId).setLibraries(libraries));
+  public void install(String clusterId, Collection<Library> libraries) {
+    install(new InstallLibraries().setClusterId(clusterId).setLibraries(libraries));
   }
 
   /**
@@ -94,12 +94,12 @@ public class LibrariesAPI {
    * libraries specified via this method and the libraries set to be installed on all clusters via
    * the libraries UI.
    */
-  public InstallLibrariesResponse install(InstallLibraries request) {
-    return impl.install(request);
+  public void install(InstallLibraries request) {
+    impl.install(request);
   }
 
-  public UninstallLibrariesResponse uninstall(String clusterId, Collection<Library> libraries) {
-    return uninstall(new UninstallLibraries().setClusterId(clusterId).setLibraries(libraries));
+  public void uninstall(String clusterId, Collection<Library> libraries) {
+    uninstall(new UninstallLibraries().setClusterId(clusterId).setLibraries(libraries));
   }
 
   /**
@@ -109,8 +109,8 @@ public class LibrariesAPI {
    * cluster is restarted. Uninstalling libraries that are not installed on the cluster will have no
    * impact but is not an error.
    */
-  public UninstallLibrariesResponse uninstall(UninstallLibraries request) {
-    return impl.uninstall(request);
+  public void uninstall(UninstallLibraries request) {
+    impl.uninstall(request);
   }
 
   public LibrariesService impl() {

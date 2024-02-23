@@ -25,7 +25,7 @@ public interface WorkspaceService {
    *
    * <p>Object deletion cannot be undone and deleting a directory recursively is not atomic.
    */
-  DeleteResponse delete(Delete delete);
+  void delete(Delete delete);
 
   /**
    * Export a workspace object.
@@ -73,7 +73,7 @@ public interface WorkspaceService {
    * the `SOURCE` format with the `language` field unset. To import a single file as `SOURCE`, you
    * must set the `language` field.
    */
-  ImportResponse importContent(Import importContent);
+  void importContent(Import importContent);
 
   /**
    * List contents.
@@ -93,7 +93,7 @@ public interface WorkspaceService {
    * <p>Note that if this operation fails it may have succeeded in creating some of the necessary
    * parent directories.
    */
-  MkdirsResponse mkdirs(Mkdirs mkdirs);
+  void mkdirs(Mkdirs mkdirs);
 
   /**
    * Set workspace object permissions.

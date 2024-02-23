@@ -17,13 +17,13 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
   }
 
   @Override
-  public CancelRefreshResponse cancelRefresh(CancelRefreshRequest request) {
+  public void cancelRefresh(CancelRefreshRequest request) {
     String path =
         String.format(
             "/api/2.1/unity-catalog/tables/%s/monitor/refreshes/%s/cancel",
             request.getFullName(), request.getRefreshId());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.POST(path, null, CancelRefreshResponse.class, headers);
+    apiClient.POST(path, null, CancelRefreshResponse.class, headers);
   }
 
   @Override
@@ -36,10 +36,10 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteLakehouseMonitorRequest request) {
+  public void delete(DeleteLakehouseMonitorRequest request) {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getFullName());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

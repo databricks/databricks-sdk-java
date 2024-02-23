@@ -40,8 +40,8 @@ public class FilesAPI {
     impl = mock;
   }
 
-  public CreateDirectoryResponse createDirectory(String directoryPath) {
-    return createDirectory(new CreateDirectoryRequest().setDirectoryPath(directoryPath));
+  public void createDirectory(String directoryPath) {
+    createDirectory(new CreateDirectoryRequest().setDirectoryPath(directoryPath));
   }
 
   /**
@@ -52,12 +52,12 @@ public class FilesAPI {
    * returns a success response; this method is idempotent (it will succeed if the directory already
    * exists).
    */
-  public CreateDirectoryResponse createDirectory(CreateDirectoryRequest request) {
-    return impl.createDirectory(request);
+  public void createDirectory(CreateDirectoryRequest request) {
+    impl.createDirectory(request);
   }
 
-  public DeleteResponse delete(String filePath) {
-    return delete(new DeleteFileRequest().setFilePath(filePath));
+  public void delete(String filePath) {
+    delete(new DeleteFileRequest().setFilePath(filePath));
   }
 
   /**
@@ -65,12 +65,12 @@ public class FilesAPI {
    *
    * <p>Deletes a file. If the request is successful, there is no response body.
    */
-  public DeleteResponse delete(DeleteFileRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteFileRequest request) {
+    impl.delete(request);
   }
 
-  public DeleteDirectoryResponse deleteDirectory(String directoryPath) {
-    return deleteDirectory(new DeleteDirectoryRequest().setDirectoryPath(directoryPath));
+  public void deleteDirectory(String directoryPath) {
+    deleteDirectory(new DeleteDirectoryRequest().setDirectoryPath(directoryPath));
   }
 
   /**
@@ -81,8 +81,8 @@ public class FilesAPI {
    * <p>To delete a non-empty directory, first delete all of its contents. This can be done by
    * listing the directory contents and deleting each file and subdirectory recursively.
    */
-  public DeleteDirectoryResponse deleteDirectory(DeleteDirectoryRequest request) {
-    return impl.deleteDirectory(request);
+  public void deleteDirectory(DeleteDirectoryRequest request) {
+    impl.deleteDirectory(request);
   }
 
   public DownloadResponse download(String filePath) {
@@ -99,8 +99,8 @@ public class FilesAPI {
     return impl.download(request);
   }
 
-  public GetDirectoryMetadataResponse getDirectoryMetadata(String directoryPath) {
-    return getDirectoryMetadata(new GetDirectoryMetadataRequest().setDirectoryPath(directoryPath));
+  public void getDirectoryMetadata(String directoryPath) {
+    getDirectoryMetadata(new GetDirectoryMetadataRequest().setDirectoryPath(directoryPath));
   }
 
   /**
@@ -115,8 +115,8 @@ public class FilesAPI {
    * directory if it does not exist, and is idempotent (it will succeed if the directory already
    * exists).
    */
-  public GetDirectoryMetadataResponse getDirectoryMetadata(GetDirectoryMetadataRequest request) {
-    return impl.getDirectoryMetadata(request);
+  public void getDirectoryMetadata(GetDirectoryMetadataRequest request) {
+    impl.getDirectoryMetadata(request);
   }
 
   public GetMetadataResponse getMetadata(String filePath) {
@@ -158,8 +158,8 @@ public class FilesAPI {
         });
   }
 
-  public UploadResponse upload(String filePath, InputStream contents) {
-    return upload(new UploadRequest().setFilePath(filePath).setContents(contents));
+  public void upload(String filePath, InputStream contents) {
+    upload(new UploadRequest().setFilePath(filePath).setContents(contents));
   }
 
   /**
@@ -170,8 +170,8 @@ public class FilesAPI {
    * contents of the resulting file will be exactly the bytes sent in the request body. If the
    * request is successful, there is no response body.
    */
-  public UploadResponse upload(UploadRequest request) {
-    return impl.upload(request);
+  public void upload(UploadRequest request) {
+    impl.upload(request);
   }
 
   public FilesService impl() {

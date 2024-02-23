@@ -34,7 +34,7 @@ public interface JobsService {
    * <p>Cancels all active runs of a job. The runs are canceled asynchronously, so it doesn't
    * prevent new runs from being started.
    */
-  CancelAllRunsResponse cancelAllRuns(CancelAllRuns cancelAllRuns);
+  void cancelAllRuns(CancelAllRuns cancelAllRuns);
 
   /**
    * Cancel a run.
@@ -42,7 +42,7 @@ public interface JobsService {
    * <p>Cancels a job run or a task run. The run is canceled asynchronously, so it may still be
    * running when this request completes.
    */
-  CancelRunResponse cancelRun(CancelRun cancelRun);
+  void cancelRun(CancelRun cancelRun);
 
   /**
    * Create a new job.
@@ -56,14 +56,14 @@ public interface JobsService {
    *
    * <p>Deletes a job.
    */
-  DeleteResponse delete(DeleteJob deleteJob);
+  void delete(DeleteJob deleteJob);
 
   /**
    * Delete a job run.
    *
    * <p>Deletes a non-active run. Returns an error if the run is active.
    */
-  DeleteRunResponse deleteRun(DeleteRun deleteRun);
+  void deleteRun(DeleteRun deleteRun);
 
   /**
    * Export and retrieve a job run.
@@ -144,7 +144,7 @@ public interface JobsService {
    * <p>Overwrite all settings for the given job. Use the [_Update_ endpoint](:method:jobs/update)
    * to update job settings partially.
    */
-  ResetResponse reset(ResetJob resetJob);
+  void reset(ResetJob resetJob);
 
   /**
    * Trigger a new job run.
@@ -175,7 +175,7 @@ public interface JobsService {
    * <p>Add, update, or remove specific settings of an existing job. Use the [_Reset_
    * endpoint](:method:jobs/reset) to overwrite all job settings.
    */
-  UpdateResponse update(UpdateJob updateJob);
+  void update(UpdateJob updateJob);
 
   /**
    * Update job permissions.

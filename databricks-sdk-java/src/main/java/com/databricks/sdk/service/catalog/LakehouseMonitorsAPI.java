@@ -31,8 +31,8 @@ public class LakehouseMonitorsAPI {
     impl = mock;
   }
 
-  public CancelRefreshResponse cancelRefresh(String fullName, String refreshId) {
-    return cancelRefresh(new CancelRefreshRequest().setFullName(fullName).setRefreshId(refreshId));
+  public void cancelRefresh(String fullName, String refreshId) {
+    cancelRefresh(new CancelRefreshRequest().setFullName(fullName).setRefreshId(refreshId));
   }
 
   /**
@@ -47,8 +47,8 @@ public class LakehouseMonitorsAPI {
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created.
    */
-  public CancelRefreshResponse cancelRefresh(CancelRefreshRequest request) {
-    return impl.cancelRefresh(request);
+  public void cancelRefresh(CancelRefreshRequest request) {
+    impl.cancelRefresh(request);
   }
 
   public MonitorInfo create(String fullName, String assetsDir, String outputSchemaName) {
@@ -77,8 +77,8 @@ public class LakehouseMonitorsAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String fullName) {
-    return delete(new DeleteLakehouseMonitorRequest().setFullName(fullName));
+  public void delete(String fullName) {
+    delete(new DeleteLakehouseMonitorRequest().setFullName(fullName));
   }
 
   /**
@@ -96,8 +96,8 @@ public class LakehouseMonitorsAPI {
    * <p>Note that the metric tables and dashboard will not be deleted as part of this call; those
    * assets must be manually cleaned up (if desired).
    */
-  public DeleteResponse delete(DeleteLakehouseMonitorRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteLakehouseMonitorRequest request) {
+    impl.delete(request);
   }
 
   public MonitorInfo get(String fullName) {

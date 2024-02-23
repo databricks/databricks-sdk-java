@@ -25,10 +25,10 @@ class GitCredentialsImpl implements GitCredentialsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteGitCredentialRequest request) {
+  public void delete(DeleteGitCredentialRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -48,11 +48,11 @@ class GitCredentialsImpl implements GitCredentialsService {
   }
 
   @Override
-  public UpdateResponse update(UpdateCredentials request) {
+  public void update(UpdateCredentials request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdateResponse.class, headers);
+    apiClient.PATCH(path, request, UpdateResponse.class, headers);
   }
 }

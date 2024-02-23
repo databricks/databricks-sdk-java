@@ -25,10 +25,10 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteGlobalInitScriptRequest request) {
+  public void delete(DeleteGlobalInitScriptRequest request) {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -48,10 +48,10 @@ class GlobalInitScriptsImpl implements GlobalInitScriptsService {
   }
 
   @Override
-  public UpdateResponse update(GlobalInitScriptUpdateRequest request) {
+  public void update(GlobalInitScriptUpdateRequest request) {
     String path = String.format("/api/2.0/global-init-scripts/%s", request.getScriptId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdateResponse.class, headers);
+    apiClient.PATCH(path, request, UpdateResponse.class, headers);
   }
 }

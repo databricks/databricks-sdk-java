@@ -26,8 +26,8 @@ public class LakeviewAPI {
     impl = mock;
   }
 
-  public PublishResponse publish(String dashboardId) {
-    return publish(new PublishRequest().setDashboardId(dashboardId));
+  public void publish(String dashboardId) {
+    publish(new PublishRequest().setDashboardId(dashboardId));
   }
 
   /**
@@ -35,8 +35,8 @@ public class LakeviewAPI {
    *
    * <p>Publish the current draft dashboard.
    */
-  public PublishResponse publish(PublishRequest request) {
-    return impl.publish(request);
+  public void publish(PublishRequest request) {
+    impl.publish(request);
   }
 
   public LakeviewService impl() {

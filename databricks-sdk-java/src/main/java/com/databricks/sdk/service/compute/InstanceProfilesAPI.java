@@ -30,8 +30,8 @@ public class InstanceProfilesAPI {
     impl = mock;
   }
 
-  public AddResponse add(String instanceProfileArn) {
-    return add(new AddInstanceProfile().setInstanceProfileArn(instanceProfileArn));
+  public void add(String instanceProfileArn) {
+    add(new AddInstanceProfile().setInstanceProfileArn(instanceProfileArn));
   }
 
   /**
@@ -40,12 +40,12 @@ public class InstanceProfilesAPI {
    * <p>In the UI, you can select the instance profile when launching clusters. This API is only
    * available to admin users.
    */
-  public AddResponse add(AddInstanceProfile request) {
-    return impl.add(request);
+  public void add(AddInstanceProfile request) {
+    impl.add(request);
   }
 
-  public EditResponse edit(String instanceProfileArn) {
-    return edit(new InstanceProfile().setInstanceProfileArn(instanceProfileArn));
+  public void edit(String instanceProfileArn) {
+    edit(new InstanceProfile().setInstanceProfileArn(instanceProfileArn));
   }
 
   /**
@@ -65,8 +65,8 @@ public class InstanceProfilesAPI {
    * <p>[Databricks SQL Serverless]: https://docs.databricks.com/sql/admin/serverless.html [Enable
    * serverless SQL warehouses]: https://docs.databricks.com/sql/admin/serverless.html
    */
-  public EditResponse edit(InstanceProfile request) {
-    return impl.edit(request);
+  public void edit(InstanceProfile request) {
+    impl.edit(request);
   }
 
   /**
@@ -80,8 +80,8 @@ public class InstanceProfilesAPI {
     return impl.list().getInstanceProfiles();
   }
 
-  public RemoveResponse remove(String instanceProfileArn) {
-    return remove(new RemoveInstanceProfile().setInstanceProfileArn(instanceProfileArn));
+  public void remove(String instanceProfileArn) {
+    remove(new RemoveInstanceProfile().setInstanceProfileArn(instanceProfileArn));
   }
 
   /**
@@ -92,8 +92,8 @@ public class InstanceProfilesAPI {
    *
    * <p>This API is only accessible to admin users.
    */
-  public RemoveResponse remove(RemoveInstanceProfile request) {
-    return impl.remove(request);
+  public void remove(RemoveInstanceProfile request) {
+    impl.remove(request);
   }
 
   public InstanceProfilesService impl() {

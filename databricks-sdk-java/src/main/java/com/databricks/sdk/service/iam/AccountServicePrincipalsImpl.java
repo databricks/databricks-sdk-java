@@ -27,13 +27,13 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteAccountServicePrincipalRequest request) {
+  public void delete(DeleteAccountServicePrincipalRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -58,7 +58,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
   }
 
   @Override
-  public PatchResponse patch(PartialUpdate request) {
+  public void patch(PartialUpdate request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
@@ -66,11 +66,11 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, PatchResponse.class, headers);
+    apiClient.PATCH(path, request, PatchResponse.class, headers);
   }
 
   @Override
-  public UpdateResponse update(ServicePrincipal request) {
+  public void update(ServicePrincipal request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
@@ -78,6 +78,6 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, UpdateResponse.class, headers);
+    apiClient.PUT(path, request, UpdateResponse.class, headers);
   }
 }

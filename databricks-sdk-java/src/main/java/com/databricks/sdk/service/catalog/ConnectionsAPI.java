@@ -52,8 +52,8 @@ public class ConnectionsAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String name) {
-    return delete(new DeleteConnectionRequest().setName(name));
+  public void delete(String name) {
+    delete(new DeleteConnectionRequest().setName(name));
   }
 
   /**
@@ -61,8 +61,8 @@ public class ConnectionsAPI {
    *
    * <p>Deletes the connection that matches the supplied name.
    */
-  public DeleteResponse delete(DeleteConnectionRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteConnectionRequest request) {
+    impl.delete(request);
   }
 
   public ConnectionInfo get(String name) {

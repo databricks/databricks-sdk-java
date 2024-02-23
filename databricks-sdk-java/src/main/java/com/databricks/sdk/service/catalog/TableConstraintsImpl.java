@@ -25,10 +25,10 @@ class TableConstraintsImpl implements TableConstraintsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteTableConstraintRequest request) {
+  public void delete(DeleteTableConstraintRequest request) {
     String path = String.format("/api/2.1/unity-catalog/constraints/%s", request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 }

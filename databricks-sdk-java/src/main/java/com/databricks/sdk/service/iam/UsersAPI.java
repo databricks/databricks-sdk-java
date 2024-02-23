@@ -44,8 +44,8 @@ public class UsersAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String id) {
-    return delete(new DeleteUserRequest().setId(id));
+  public void delete(String id) {
+    delete(new DeleteUserRequest().setId(id));
   }
 
   /**
@@ -54,8 +54,8 @@ public class UsersAPI {
    * <p>Deletes a user. Deleting a user from a Databricks workspace also removes objects associated
    * with the user.
    */
-  public DeleteResponse delete(DeleteUserRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteUserRequest request) {
+    impl.delete(request);
   }
 
   public User get(String id) {
@@ -115,8 +115,8 @@ public class UsersAPI {
         .withDedupe(User::getId);
   }
 
-  public PatchResponse patch(String id) {
-    return patch(new PartialUpdate().setId(id));
+  public void patch(String id) {
+    patch(new PartialUpdate().setId(id));
   }
 
   /**
@@ -125,8 +125,8 @@ public class UsersAPI {
    * <p>Partially updates a user resource by applying the supplied operations on specific user
    * attributes.
    */
-  public PatchResponse patch(PartialUpdate request) {
-    return impl.patch(request);
+  public void patch(PartialUpdate request) {
+    impl.patch(request);
   }
 
   /**
@@ -138,8 +138,8 @@ public class UsersAPI {
     return impl.setPermissions(request);
   }
 
-  public UpdateResponse update(String id) {
-    return update(new User().setId(id));
+  public void update(String id) {
+    update(new User().setId(id));
   }
 
   /**
@@ -147,8 +147,8 @@ public class UsersAPI {
    *
    * <p>Replaces a user's information with the data supplied in request.
    */
-  public UpdateResponse update(User request) {
-    return impl.update(request);
+  public void update(User request) {
+    impl.update(request);
   }
 
   /**

@@ -20,7 +20,7 @@ public interface VectorSearchEndpointsService {
   EndpointInfo createEndpoint(CreateEndpoint createEndpoint);
 
   /** Delete an endpoint. */
-  DeleteEndpointResponse deleteEndpoint(DeleteEndpointRequest deleteEndpointRequest);
+  void deleteEndpoint(DeleteEndpointRequest deleteEndpointRequest);
 
   /** Get an endpoint. */
   EndpointInfo getEndpoint(GetEndpointRequest getEndpointRequest);

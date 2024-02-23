@@ -126,8 +126,8 @@ public class ModelRegistryAPI {
     return impl.createWebhook(request);
   }
 
-  public DeleteCommentResponse deleteComment(String id) {
-    return deleteComment(new DeleteCommentRequest().setId(id));
+  public void deleteComment(String id) {
+    deleteComment(new DeleteCommentRequest().setId(id));
   }
 
   /**
@@ -135,12 +135,12 @@ public class ModelRegistryAPI {
    *
    * <p>Deletes a comment on a model version.
    */
-  public DeleteCommentResponse deleteComment(DeleteCommentRequest request) {
-    return impl.deleteComment(request);
+  public void deleteComment(DeleteCommentRequest request) {
+    impl.deleteComment(request);
   }
 
-  public DeleteModelResponse deleteModel(String name) {
-    return deleteModel(new DeleteModelRequest().setName(name));
+  public void deleteModel(String name) {
+    deleteModel(new DeleteModelRequest().setName(name));
   }
 
   /**
@@ -148,12 +148,12 @@ public class ModelRegistryAPI {
    *
    * <p>Deletes a registered model.
    */
-  public DeleteModelResponse deleteModel(DeleteModelRequest request) {
-    return impl.deleteModel(request);
+  public void deleteModel(DeleteModelRequest request) {
+    impl.deleteModel(request);
   }
 
-  public DeleteModelTagResponse deleteModelTag(String name, String key) {
-    return deleteModelTag(new DeleteModelTagRequest().setName(name).setKey(key));
+  public void deleteModelTag(String name, String key) {
+    deleteModelTag(new DeleteModelTagRequest().setName(name).setKey(key));
   }
 
   /**
@@ -161,12 +161,12 @@ public class ModelRegistryAPI {
    *
    * <p>Deletes the tag for a registered model.
    */
-  public DeleteModelTagResponse deleteModelTag(DeleteModelTagRequest request) {
-    return impl.deleteModelTag(request);
+  public void deleteModelTag(DeleteModelTagRequest request) {
+    impl.deleteModelTag(request);
   }
 
-  public DeleteModelVersionResponse deleteModelVersion(String name, String version) {
-    return deleteModelVersion(new DeleteModelVersionRequest().setName(name).setVersion(version));
+  public void deleteModelVersion(String name, String version) {
+    deleteModelVersion(new DeleteModelVersionRequest().setName(name).setVersion(version));
   }
 
   /**
@@ -174,13 +174,12 @@ public class ModelRegistryAPI {
    *
    * <p>Deletes a model version.
    */
-  public DeleteModelVersionResponse deleteModelVersion(DeleteModelVersionRequest request) {
-    return impl.deleteModelVersion(request);
+  public void deleteModelVersion(DeleteModelVersionRequest request) {
+    impl.deleteModelVersion(request);
   }
 
-  public DeleteModelVersionTagResponse deleteModelVersionTag(
-      String name, String version, String key) {
-    return deleteModelVersionTag(
+  public void deleteModelVersionTag(String name, String version, String key) {
+    deleteModelVersionTag(
         new DeleteModelVersionTagRequest().setName(name).setVersion(version).setKey(key));
   }
 
@@ -189,13 +188,13 @@ public class ModelRegistryAPI {
    *
    * <p>Deletes a model version tag.
    */
-  public DeleteModelVersionTagResponse deleteModelVersionTag(DeleteModelVersionTagRequest request) {
-    return impl.deleteModelVersionTag(request);
+  public void deleteModelVersionTag(DeleteModelVersionTagRequest request) {
+    impl.deleteModelVersionTag(request);
   }
 
-  public DeleteTransitionRequestResponse deleteTransitionRequest(
+  public void deleteTransitionRequest(
       String name, String version, DeleteTransitionRequestStage stage, String creator) {
-    return deleteTransitionRequest(
+    deleteTransitionRequest(
         new DeleteTransitionRequestRequest()
             .setName(name)
             .setVersion(version)
@@ -208,9 +207,8 @@ public class ModelRegistryAPI {
    *
    * <p>Cancels a model version stage transition request.
    */
-  public DeleteTransitionRequestResponse deleteTransitionRequest(
-      DeleteTransitionRequestRequest request) {
-    return impl.deleteTransitionRequest(request);
+  public void deleteTransitionRequest(DeleteTransitionRequestRequest request) {
+    impl.deleteTransitionRequest(request);
   }
 
   /**
@@ -220,8 +218,8 @@ public class ModelRegistryAPI {
    *
    * <p>Deletes a registry webhook.
    */
-  public DeleteWebhookResponse deleteWebhook(DeleteWebhookRequest request) {
-    return impl.deleteWebhook(request);
+  public void deleteWebhook(DeleteWebhookRequest request) {
+    impl.deleteWebhook(request);
   }
 
   public Iterable<ModelVersion> getLatestVersions(String name) {
@@ -433,8 +431,8 @@ public class ModelRegistryAPI {
         });
   }
 
-  public SetModelTagResponse setModelTag(String name, String key, String value) {
-    return setModelTag(new SetModelTagRequest().setName(name).setKey(key).setValue(value));
+  public void setModelTag(String name, String key, String value) {
+    setModelTag(new SetModelTagRequest().setName(name).setKey(key).setValue(value));
   }
 
   /**
@@ -442,13 +440,12 @@ public class ModelRegistryAPI {
    *
    * <p>Sets a tag on a registered model.
    */
-  public SetModelTagResponse setModelTag(SetModelTagRequest request) {
-    return impl.setModelTag(request);
+  public void setModelTag(SetModelTagRequest request) {
+    impl.setModelTag(request);
   }
 
-  public SetModelVersionTagResponse setModelVersionTag(
-      String name, String version, String key, String value) {
-    return setModelVersionTag(
+  public void setModelVersionTag(String name, String version, String key, String value) {
+    setModelVersionTag(
         new SetModelVersionTagRequest()
             .setName(name)
             .setVersion(version)
@@ -461,8 +458,8 @@ public class ModelRegistryAPI {
    *
    * <p>Sets a model version tag.
    */
-  public SetModelVersionTagResponse setModelVersionTag(SetModelVersionTagRequest request) {
-    return impl.setModelVersionTag(request);
+  public void setModelVersionTag(SetModelVersionTagRequest request) {
+    impl.setModelVersionTag(request);
   }
 
   public RegisteredModelPermissions setPermissions(String registeredModelId) {
@@ -531,8 +528,8 @@ public class ModelRegistryAPI {
     return impl.updateComment(request);
   }
 
-  public UpdateModelResponse updateModel(String name) {
-    return updateModel(new UpdateModelRequest().setName(name));
+  public void updateModel(String name) {
+    updateModel(new UpdateModelRequest().setName(name));
   }
 
   /**
@@ -540,12 +537,12 @@ public class ModelRegistryAPI {
    *
    * <p>Updates a registered model.
    */
-  public UpdateModelResponse updateModel(UpdateModelRequest request) {
-    return impl.updateModel(request);
+  public void updateModel(UpdateModelRequest request) {
+    impl.updateModel(request);
   }
 
-  public UpdateModelVersionResponse updateModelVersion(String name, String version) {
-    return updateModelVersion(new UpdateModelVersionRequest().setName(name).setVersion(version));
+  public void updateModelVersion(String name, String version) {
+    updateModelVersion(new UpdateModelVersionRequest().setName(name).setVersion(version));
   }
 
   /**
@@ -553,8 +550,8 @@ public class ModelRegistryAPI {
    *
    * <p>Updates the model version.
    */
-  public UpdateModelVersionResponse updateModelVersion(UpdateModelVersionRequest request) {
-    return impl.updateModelVersion(request);
+  public void updateModelVersion(UpdateModelVersionRequest request) {
+    impl.updateModelVersion(request);
   }
 
   public RegisteredModelPermissions updatePermissions(String registeredModelId) {
@@ -572,8 +569,8 @@ public class ModelRegistryAPI {
     return impl.updatePermissions(request);
   }
 
-  public UpdateWebhookResponse updateWebhook(String id) {
-    return updateWebhook(new UpdateRegistryWebhook().setId(id));
+  public void updateWebhook(String id) {
+    updateWebhook(new UpdateRegistryWebhook().setId(id));
   }
 
   /**
@@ -583,8 +580,8 @@ public class ModelRegistryAPI {
    *
    * <p>Updates a registry webhook.
    */
-  public UpdateWebhookResponse updateWebhook(UpdateRegistryWebhook request) {
-    return impl.updateWebhook(request);
+  public void updateWebhook(UpdateRegistryWebhook request) {
+    impl.updateWebhook(request);
   }
 
   public ModelRegistryService impl() {

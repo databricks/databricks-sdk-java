@@ -25,11 +25,11 @@ class TokenManagementImpl implements TokenManagementService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteTokenManagementRequest request) {
+  public void delete(DeleteTokenManagementRequest request) {
     String path = String.format("/api/2.0/token-management/tokens/%s", request.getTokenId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

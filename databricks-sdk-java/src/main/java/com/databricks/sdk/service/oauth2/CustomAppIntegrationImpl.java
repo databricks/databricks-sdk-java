@@ -27,14 +27,14 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
   }
 
   @Override
-  public DeleteCustomAppIntegrationOutput delete(DeleteCustomAppIntegrationRequest request) {
+  public void delete(DeleteCustomAppIntegrationRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations/%s",
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteCustomAppIntegrationOutput.class, headers);
+    apiClient.DELETE(path, request, DeleteCustomAppIntegrationOutput.class, headers);
   }
 
   @Override
@@ -59,7 +59,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
   }
 
   @Override
-  public UpdateCustomAppIntegrationOutput update(UpdateCustomAppIntegration request) {
+  public void update(UpdateCustomAppIntegration request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations/%s",
@@ -67,6 +67,6 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdateCustomAppIntegrationOutput.class, headers);
+    apiClient.PATCH(path, request, UpdateCustomAppIntegrationOutput.class, headers);
   }
 }

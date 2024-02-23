@@ -43,8 +43,8 @@ public class SchemasAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String fullName) {
-    return delete(new DeleteSchemaRequest().setFullName(fullName));
+  public void delete(String fullName) {
+    delete(new DeleteSchemaRequest().setFullName(fullName));
   }
 
   /**
@@ -53,8 +53,8 @@ public class SchemasAPI {
    * <p>Deletes the specified schema from the parent catalog. The caller must be the owner of the
    * schema or an owner of the parent catalog.
    */
-  public DeleteResponse delete(DeleteSchemaRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteSchemaRequest request) {
+    impl.delete(request);
   }
 
   public SchemaInfo get(String fullName) {

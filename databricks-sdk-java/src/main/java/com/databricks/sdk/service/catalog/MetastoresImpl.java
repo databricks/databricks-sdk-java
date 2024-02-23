@@ -16,13 +16,13 @@ class MetastoresImpl implements MetastoresService {
   }
 
   @Override
-  public AssignResponse assign(CreateMetastoreAssignment request) {
+  public void assign(CreateMetastoreAssignment request) {
     String path =
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, AssignResponse.class, headers);
+    apiClient.PUT(path, request, AssignResponse.class, headers);
   }
 
   @Override
@@ -43,11 +43,11 @@ class MetastoresImpl implements MetastoresService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteMetastoreRequest request) {
+  public void delete(DeleteMetastoreRequest request) {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -75,12 +75,12 @@ class MetastoresImpl implements MetastoresService {
   }
 
   @Override
-  public UnassignResponse unassign(UnassignRequest request) {
+  public void unassign(UnassignRequest request) {
     String path =
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, UnassignResponse.class, headers);
+    apiClient.DELETE(path, request, UnassignResponse.class, headers);
   }
 
   @Override
@@ -93,12 +93,12 @@ class MetastoresImpl implements MetastoresService {
   }
 
   @Override
-  public UpdateAssignmentResponse updateAssignment(UpdateMetastoreAssignment request) {
+  public void updateAssignment(UpdateMetastoreAssignment request) {
     String path =
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdateAssignmentResponse.class, headers);
+    apiClient.PATCH(path, request, UpdateAssignmentResponse.class, headers);
   }
 }

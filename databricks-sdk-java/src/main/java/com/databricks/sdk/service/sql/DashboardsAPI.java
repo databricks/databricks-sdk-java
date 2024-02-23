@@ -39,8 +39,8 @@ public class DashboardsAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String dashboardId) {
-    return delete(new DeleteDashboardRequest().setDashboardId(dashboardId));
+  public void delete(String dashboardId) {
+    delete(new DeleteDashboardRequest().setDashboardId(dashboardId));
   }
 
   /**
@@ -49,8 +49,8 @@ public class DashboardsAPI {
    * <p>Moves a dashboard to the trash. Trashed dashboards do not appear in list views or searches,
    * and cannot be shared.
    */
-  public DeleteResponse delete(DeleteDashboardRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteDashboardRequest request) {
+    impl.delete(request);
   }
 
   public Dashboard get(String dashboardId) {
@@ -91,8 +91,8 @@ public class DashboardsAPI {
         .withDedupe(Dashboard::getId);
   }
 
-  public RestoreResponse restore(String dashboardId) {
-    return restore(new RestoreDashboardRequest().setDashboardId(dashboardId));
+  public void restore(String dashboardId) {
+    restore(new RestoreDashboardRequest().setDashboardId(dashboardId));
   }
 
   /**
@@ -100,8 +100,8 @@ public class DashboardsAPI {
    *
    * <p>A restored dashboard appears in list views and searches and can be shared.
    */
-  public RestoreResponse restore(RestoreDashboardRequest request) {
-    return impl.restore(request);
+  public void restore(RestoreDashboardRequest request) {
+    impl.restore(request);
   }
 
   public Dashboard update(String dashboardId) {

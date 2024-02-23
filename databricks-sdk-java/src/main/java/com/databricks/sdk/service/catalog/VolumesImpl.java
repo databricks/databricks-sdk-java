@@ -25,10 +25,10 @@ class VolumesImpl implements VolumesService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteVolumeRequest request) {
+  public void delete(DeleteVolumeRequest request) {
     String path = String.format("/api/2.1/unity-catalog/volumes/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

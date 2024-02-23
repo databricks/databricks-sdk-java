@@ -27,7 +27,7 @@ public interface ProvidersService {
    * <p>Deletes an authentication provider, if the caller is a metastore admin or is the owner of
    * the provider.
    */
-  DeleteResponse delete(DeleteProviderRequest deleteProviderRequest);
+  void delete(DeleteProviderRequest deleteProviderRequest);
 
   /**
    * Get a provider.

@@ -23,7 +23,7 @@ public interface InstanceProfilesService {
    * <p>In the UI, you can select the instance profile when launching clusters. This API is only
    * available to admin users.
    */
-  AddResponse add(AddInstanceProfile addInstanceProfile);
+  void add(AddInstanceProfile addInstanceProfile);
 
   /**
    * Edit an instance profile.
@@ -42,7 +42,7 @@ public interface InstanceProfilesService {
    * <p>[Databricks SQL Serverless]: https://docs.databricks.com/sql/admin/serverless.html [Enable
    * serverless SQL warehouses]: https://docs.databricks.com/sql/admin/serverless.html
    */
-  EditResponse edit(InstanceProfile instanceProfile);
+  void edit(InstanceProfile instanceProfile);
 
   /**
    * List available instance profiles.
@@ -61,5 +61,5 @@ public interface InstanceProfilesService {
    *
    * <p>This API is only accessible to admin users.
    */
-  RemoveResponse remove(RemoveInstanceProfile removeInstanceProfile);
+  void remove(RemoveInstanceProfile removeInstanceProfile);
 }

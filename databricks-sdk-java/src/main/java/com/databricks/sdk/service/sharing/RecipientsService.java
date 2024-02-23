@@ -39,7 +39,7 @@ public interface RecipientsService {
    * <p>Deletes the specified recipient from the metastore. The caller must be the owner of the
    * recipient.
    */
-  DeleteResponse delete(DeleteRecipientRequest deleteRecipientRequest);
+  void delete(DeleteRecipientRequest deleteRecipientRequest);
 
   /**
    * Get a share recipient.
@@ -84,5 +84,5 @@ public interface RecipientsService {
    * owner of the recipient. If the recipient name will be updated, the user must be both a
    * metastore admin and the owner of the recipient.
    */
-  UpdateResponse update(UpdateRecipient updateRecipient);
+  void update(UpdateRecipient updateRecipient);
 }

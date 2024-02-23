@@ -25,21 +25,21 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
   }
 
   @Override
-  public DeletePolicyResponse delete(DeletePolicy request) {
+  public void delete(DeletePolicy request) {
     String path = "/api/2.0/policies/clusters/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, DeletePolicyResponse.class, headers);
+    apiClient.POST(path, request, DeletePolicyResponse.class, headers);
   }
 
   @Override
-  public EditPolicyResponse edit(EditPolicy request) {
+  public void edit(EditPolicy request) {
     String path = "/api/2.0/policies/clusters/edit";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, EditPolicyResponse.class, headers);
+    apiClient.POST(path, request, EditPolicyResponse.class, headers);
   }
 
   @Override

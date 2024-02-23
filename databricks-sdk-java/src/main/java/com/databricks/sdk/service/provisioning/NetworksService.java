@@ -30,7 +30,7 @@ public interface NetworksService {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */
-  DeleteResponse delete(DeleteNetworkRequest deleteNetworkRequest);
+  void delete(DeleteNetworkRequest deleteNetworkRequest);
 
   /**
    * Get a network configuration.

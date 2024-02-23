@@ -25,10 +25,10 @@ class ReposImpl implements ReposService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteRepoRequest request) {
+  public void delete(DeleteRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -75,12 +75,12 @@ class ReposImpl implements ReposService {
   }
 
   @Override
-  public UpdateResponse update(UpdateRepo request) {
+  public void update(UpdateRepo request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdateResponse.class, headers);
+    apiClient.PATCH(path, request, UpdateResponse.class, headers);
   }
 
   @Override

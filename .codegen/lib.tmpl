@@ -8,6 +8,7 @@
 
 {{- define "type" -}}
   {{- if not . }}Object /* ERROR */
+  {{- else if .IsExternal }}com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}
   {{- else if .IsAny}}Object
   {{- else if .IsEmpty}}{{.PascalName}}
   {{- else if .IsString}}String
@@ -19,7 +20,6 @@
   {{- else if .MapValue }}Map<String,{{template "type" .MapValue}}>
   {{- else if .IsByteStream}}InputStream
   {{- else if .IsObject }}{{.PascalName}}
-  {{- else if .IsExternal }}com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}
   {{- else if .Enum }}{{.PascalName}}
   {{- else}}Object /* MISSING TYPE */
   {{- end -}}

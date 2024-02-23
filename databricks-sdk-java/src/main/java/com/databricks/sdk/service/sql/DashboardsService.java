@@ -25,7 +25,7 @@ public interface DashboardsService {
    * <p>Moves a dashboard to the trash. Trashed dashboards do not appear in list views or searches,
    * and cannot be shared.
    */
-  DeleteResponse delete(DeleteDashboardRequest deleteDashboardRequest);
+  void delete(DeleteDashboardRequest deleteDashboardRequest);
 
   /**
    * Retrieve a definition.
@@ -50,7 +50,7 @@ public interface DashboardsService {
    *
    * <p>A restored dashboard appears in list views and searches and can be shared.
    */
-  RestoreResponse restore(RestoreDashboardRequest restoreDashboardRequest);
+  void restore(RestoreDashboardRequest restoreDashboardRequest);
 
   /**
    * Change a dashboard definition.

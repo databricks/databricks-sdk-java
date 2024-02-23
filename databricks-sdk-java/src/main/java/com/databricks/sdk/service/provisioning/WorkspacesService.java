@@ -43,7 +43,7 @@ public interface WorkspacesService {
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
    */
-  DeleteResponse delete(DeleteWorkspaceRequest deleteWorkspaceRequest);
+  void delete(DeleteWorkspaceRequest deleteWorkspaceRequest);
 
   /**
    * Get a workspace.
@@ -176,5 +176,5 @@ public interface WorkspacesService {
    * [Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
    */
-  UpdateResponse update(UpdateWorkspaceRequest updateWorkspaceRequest);
+  void update(UpdateWorkspaceRequest updateWorkspaceRequest);
 }

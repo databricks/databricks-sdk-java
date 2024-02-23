@@ -44,14 +44,14 @@ public interface ExperimentsService {
    * <p>Marks an experiment and associated metadata, runs, metrics, params, and tags for deletion.
    * If the experiment uses FileStore, artifacts associated with experiment are also deleted.
    */
-  DeleteExperimentResponse deleteExperiment(DeleteExperiment deleteExperiment);
+  void deleteExperiment(DeleteExperiment deleteExperiment);
 
   /**
    * Delete a run.
    *
    * <p>Marks a run for deletion.
    */
-  DeleteRunResponse deleteRun(DeleteRun deleteRun);
+  void deleteRun(DeleteRun deleteRun);
 
   /**
    * Delete runs by creation time.
@@ -69,7 +69,7 @@ public interface ExperimentsService {
    * <p>Deletes a tag on a run. Tags are run metadata that can be updated during a run and after a
    * run completes.
    */
-  DeleteTagResponse deleteTag(DeleteTag deleteTag);
+  void deleteTag(DeleteTag deleteTag);
 
   /**
    * Get metadata.
@@ -180,7 +180,7 @@ public interface ExperimentsService {
    * <p>* Metric keys, param keys, and tag keys can be up to 250 characters in length * Parameter
    * and tag values can be up to 250 characters in length
    */
-  LogBatchResponse logBatch(LogBatch logBatch);
+  void logBatch(LogBatch logBatch);
 
   /**
    * Log inputs to a run.
@@ -188,7 +188,7 @@ public interface ExperimentsService {
    * <p>**NOTE:** Experimental: This API may change or be removed in a future release without
    * warning.
    */
-  LogInputsResponse logInputs(LogInputs logInputs);
+  void logInputs(LogInputs logInputs);
 
   /**
    * Log a metric.
@@ -197,7 +197,7 @@ public interface ExperimentsService {
    * associated timestamp. Examples include the various metrics that represent ML model accuracy. A
    * metric can be logged multiple times.
    */
-  LogMetricResponse logMetric(LogMetric logMetric);
+  void logMetric(LogMetric logMetric);
 
   /**
    * Log a model.
@@ -205,7 +205,7 @@ public interface ExperimentsService {
    * <p>**NOTE:** Experimental: This API may change or be removed in a future release without
    * warning.
    */
-  LogModelResponse logModel(LogModel logModel);
+  void logModel(LogModel logModel);
 
   /**
    * Log a param.
@@ -214,7 +214,7 @@ public interface ExperimentsService {
    * Examples include hyperparameters used for ML model training and constant dates and values used
    * in an ETL pipeline. A param can be logged only once for a run.
    */
-  LogParamResponse logParam(LogParam logParam);
+  void logParam(LogParam logParam);
 
   /**
    * Restores an experiment.
@@ -225,14 +225,14 @@ public interface ExperimentsService {
    *
    * <p>Throws `RESOURCE_DOES_NOT_EXIST` if experiment was never created or was permanently deleted.
    */
-  RestoreExperimentResponse restoreExperiment(RestoreExperiment restoreExperiment);
+  void restoreExperiment(RestoreExperiment restoreExperiment);
 
   /**
    * Restore a run.
    *
    * <p>Restores a deleted run.
    */
-  RestoreRunResponse restoreRun(RestoreRun restoreRun);
+  void restoreRun(RestoreRun restoreRun);
 
   /**
    * Restore runs by deletion time.
@@ -265,7 +265,7 @@ public interface ExperimentsService {
    *
    * <p>Sets a tag on an experiment. Experiment tags are metadata that can be updated.
    */
-  SetExperimentTagResponse setExperimentTag(SetExperimentTag setExperimentTag);
+  void setExperimentTag(SetExperimentTag setExperimentTag);
 
   /**
    * Set experiment permissions.
@@ -281,14 +281,14 @@ public interface ExperimentsService {
    * <p>Sets a tag on a run. Tags are run metadata that can be updated during a run and after a run
    * completes.
    */
-  SetTagResponse setTag(SetTag setTag);
+  void setTag(SetTag setTag);
 
   /**
    * Update an experiment.
    *
    * <p>Updates experiment metadata.
    */
-  UpdateExperimentResponse updateExperiment(UpdateExperiment updateExperiment);
+  void updateExperiment(UpdateExperiment updateExperiment);
 
   /**
    * Update experiment permissions.

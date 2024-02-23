@@ -39,8 +39,8 @@ public class PublishedAppIntegrationAPI {
     return impl.create(request);
   }
 
-  public DeletePublishedAppIntegrationOutput delete(String integrationId) {
-    return delete(new DeletePublishedAppIntegrationRequest().setIntegrationId(integrationId));
+  public void delete(String integrationId) {
+    delete(new DeletePublishedAppIntegrationRequest().setIntegrationId(integrationId));
   }
 
   /**
@@ -49,8 +49,8 @@ public class PublishedAppIntegrationAPI {
    * <p>Delete an existing Published OAuth App Integration. You can retrieve the published oauth app
    * integration via :method:PublishedAppIntegration/get.
    */
-  public DeletePublishedAppIntegrationOutput delete(DeletePublishedAppIntegrationRequest request) {
-    return impl.delete(request);
+  public void delete(DeletePublishedAppIntegrationRequest request) {
+    impl.delete(request);
   }
 
   public GetPublishedAppIntegrationOutput get(String integrationId) {
@@ -75,8 +75,8 @@ public class PublishedAppIntegrationAPI {
     return impl.list().getApps();
   }
 
-  public UpdatePublishedAppIntegrationOutput update(String integrationId) {
-    return update(new UpdatePublishedAppIntegration().setIntegrationId(integrationId));
+  public void update(String integrationId) {
+    update(new UpdatePublishedAppIntegration().setIntegrationId(integrationId));
   }
 
   /**
@@ -85,8 +85,8 @@ public class PublishedAppIntegrationAPI {
    * <p>Updates an existing published OAuth App Integration. You can retrieve the published oauth
    * app integration via :method:PublishedAppIntegration/get.
    */
-  public UpdatePublishedAppIntegrationOutput update(UpdatePublishedAppIntegration request) {
-    return impl.update(request);
+  public void update(UpdatePublishedAppIntegration request) {
+    impl.update(request);
   }
 
   public PublishedAppIntegrationService impl() {

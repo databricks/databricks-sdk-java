@@ -16,12 +16,12 @@ class LakeviewImpl implements LakeviewService {
   }
 
   @Override
-  public PublishResponse publish(PublishRequest request) {
+  public void publish(PublishRequest request) {
     String path =
         String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, PublishResponse.class, headers);
+    apiClient.POST(path, request, PublishResponse.class, headers);
   }
 }

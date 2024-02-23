@@ -29,7 +29,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   }
 
   @Override
-  public DeleteResponse delete(DeleteAccountStorageCredentialRequest request) {
+  public void delete(DeleteAccountStorageCredentialRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials/%s",
@@ -38,7 +38,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             request.getStorageCredentialName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

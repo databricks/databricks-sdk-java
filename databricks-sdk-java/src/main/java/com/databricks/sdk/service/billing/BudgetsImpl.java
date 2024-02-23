@@ -25,14 +25,14 @@ class BudgetsImpl implements BudgetsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteBudgetRequest request) {
+  public void delete(DeleteBudgetRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/budget/%s",
             apiClient.configuredAccountID(), request.getBudgetId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -55,7 +55,7 @@ class BudgetsImpl implements BudgetsService {
   }
 
   @Override
-  public UpdateResponse update(WrappedBudget request) {
+  public void update(WrappedBudget request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/budget/%s",
@@ -63,6 +63,6 @@ class BudgetsImpl implements BudgetsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdateResponse.class, headers);
+    apiClient.PATCH(path, request, UpdateResponse.class, headers);
   }
 }

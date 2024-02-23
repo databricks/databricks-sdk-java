@@ -41,7 +41,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
   }
 
   @Override
-  public DeleteNetworkConnectivityConfigurationResponse deleteNetworkConnectivityConfiguration(
+  public void deleteNetworkConnectivityConfiguration(
       DeleteNetworkConnectivityConfigurationRequest request) {
     String path =
         String.format(
@@ -49,8 +49,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(
-        path, request, DeleteNetworkConnectivityConfigurationResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteNetworkConnectivityConfigurationResponse.class, headers);
   }
 
   @Override

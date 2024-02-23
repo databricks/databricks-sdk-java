@@ -61,7 +61,7 @@ public interface NetworkConnectivityService {
    *
    * <p>Deletes a network connectivity configuration.
    */
-  DeleteNetworkConnectivityConfigurationResponse deleteNetworkConnectivityConfiguration(
+  void deleteNetworkConnectivityConfiguration(
       DeleteNetworkConnectivityConfigurationRequest deleteNetworkConnectivityConfigurationRequest);
 
   /**

@@ -20,6 +20,6 @@ public interface {{.PascalName}}Service {
 	{{if .Description}}/**
    {{.Comment "   * " 80}}
    */{{end}}
-  {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} {{.Request.CamelName}}{{if .IsNameReserved}}Content{{end}}{{end}});
+  {{if not .Response.IsEmpty -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} {{.Request.CamelName}}{{if .IsNameReserved}}Content{{end}}{{end}});
   {{end}}
 }

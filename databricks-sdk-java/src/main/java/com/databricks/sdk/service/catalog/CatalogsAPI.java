@@ -45,8 +45,8 @@ public class CatalogsAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String name) {
-    return delete(new DeleteCatalogRequest().setName(name));
+  public void delete(String name) {
+    delete(new DeleteCatalogRequest().setName(name));
   }
 
   /**
@@ -55,8 +55,8 @@ public class CatalogsAPI {
    * <p>Deletes the catalog that matches the supplied name. The caller must be a metastore admin or
    * the owner of the catalog.
    */
-  public DeleteResponse delete(DeleteCatalogRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteCatalogRequest request) {
+    impl.delete(request);
   }
 
   public CatalogInfo get(String name) {

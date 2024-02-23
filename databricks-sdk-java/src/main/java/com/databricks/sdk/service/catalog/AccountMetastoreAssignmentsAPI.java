@@ -23,8 +23,8 @@ public class AccountMetastoreAssignmentsAPI {
     impl = mock;
   }
 
-  public CreateResponse create(long workspaceId, String metastoreId) {
-    return create(
+  public void create(long workspaceId, String metastoreId) {
+    create(
         new AccountsCreateMetastoreAssignment()
             .setWorkspaceId(workspaceId)
             .setMetastoreId(metastoreId));
@@ -35,12 +35,12 @@ public class AccountMetastoreAssignmentsAPI {
    *
    * <p>Creates an assignment to a metastore for a workspace
    */
-  public CreateResponse create(AccountsCreateMetastoreAssignment request) {
-    return impl.create(request);
+  public void create(AccountsCreateMetastoreAssignment request) {
+    impl.create(request);
   }
 
-  public DeleteResponse delete(long workspaceId, String metastoreId) {
-    return delete(
+  public void delete(long workspaceId, String metastoreId) {
+    delete(
         new DeleteAccountMetastoreAssignmentRequest()
             .setWorkspaceId(workspaceId)
             .setMetastoreId(metastoreId));
@@ -51,8 +51,8 @@ public class AccountMetastoreAssignmentsAPI {
    *
    * <p>Deletes a metastore assignment to a workspace, leaving the workspace with no metastore.
    */
-  public DeleteResponse delete(DeleteAccountMetastoreAssignmentRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteAccountMetastoreAssignmentRequest request) {
+    impl.delete(request);
   }
 
   public AccountsMetastoreAssignment get(long workspaceId) {
@@ -83,8 +83,8 @@ public class AccountMetastoreAssignmentsAPI {
     return impl.list(request).getWorkspaceIds();
   }
 
-  public UpdateResponse update(long workspaceId, String metastoreId) {
-    return update(
+  public void update(long workspaceId, String metastoreId) {
+    update(
         new AccountsUpdateMetastoreAssignment()
             .setWorkspaceId(workspaceId)
             .setMetastoreId(metastoreId));
@@ -96,8 +96,8 @@ public class AccountMetastoreAssignmentsAPI {
    * <p>Updates an assignment to a metastore for a workspace. Currently, only the default catalog
    * may be updated.
    */
-  public UpdateResponse update(AccountsUpdateMetastoreAssignment request) {
-    return impl.update(request);
+  public void update(AccountsUpdateMetastoreAssignment request) {
+    impl.update(request);
   }
 
   public AccountMetastoreAssignmentsService impl() {

@@ -42,8 +42,8 @@ public class CustomAppIntegrationAPI {
     return impl.create(request);
   }
 
-  public DeleteCustomAppIntegrationOutput delete(String integrationId) {
-    return delete(new DeleteCustomAppIntegrationRequest().setIntegrationId(integrationId));
+  public void delete(String integrationId) {
+    delete(new DeleteCustomAppIntegrationRequest().setIntegrationId(integrationId));
   }
 
   /**
@@ -52,8 +52,8 @@ public class CustomAppIntegrationAPI {
    * <p>Delete an existing Custom OAuth App Integration. You can retrieve the custom oauth app
    * integration via :method:CustomAppIntegration/get.
    */
-  public DeleteCustomAppIntegrationOutput delete(DeleteCustomAppIntegrationRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteCustomAppIntegrationRequest request) {
+    impl.delete(request);
   }
 
   public GetCustomAppIntegrationOutput get(String integrationId) {
@@ -78,8 +78,8 @@ public class CustomAppIntegrationAPI {
     return impl.list().getApps();
   }
 
-  public UpdateCustomAppIntegrationOutput update(String integrationId) {
-    return update(new UpdateCustomAppIntegration().setIntegrationId(integrationId));
+  public void update(String integrationId) {
+    update(new UpdateCustomAppIntegration().setIntegrationId(integrationId));
   }
 
   /**
@@ -88,8 +88,8 @@ public class CustomAppIntegrationAPI {
    * <p>Updates an existing custom OAuth App Integration. You can retrieve the custom oauth app
    * integration via :method:CustomAppIntegration/get.
    */
-  public UpdateCustomAppIntegrationOutput update(UpdateCustomAppIntegration request) {
-    return impl.update(request);
+  public void update(UpdateCustomAppIntegration request) {
+    impl.update(request);
   }
 
   public CustomAppIntegrationService impl() {

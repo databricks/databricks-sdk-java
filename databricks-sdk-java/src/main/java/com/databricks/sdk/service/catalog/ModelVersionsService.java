@@ -27,7 +27,7 @@ public interface ModelVersionsService {
    * latter case, the caller must also be the owner or have the **USE_CATALOG** privilege on the
    * parent catalog and the **USE_SCHEMA** privilege on the parent schema.
    */
-  DeleteResponse delete(DeleteModelVersionRequest deleteModelVersionRequest);
+  void delete(DeleteModelVersionRequest deleteModelVersionRequest);
 
   /**
    * Get a Model Version.

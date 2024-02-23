@@ -40,8 +40,8 @@ public class ProvidersAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String name) {
-    return delete(new DeleteProviderRequest().setName(name));
+  public void delete(String name) {
+    delete(new DeleteProviderRequest().setName(name));
   }
 
   /**
@@ -50,8 +50,8 @@ public class ProvidersAPI {
    * <p>Deletes an authentication provider, if the caller is a metastore admin or is the owner of
    * the provider.
    */
-  public DeleteResponse delete(DeleteProviderRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteProviderRequest request) {
+    impl.delete(request);
   }
 
   public ProviderInfo get(String name) {

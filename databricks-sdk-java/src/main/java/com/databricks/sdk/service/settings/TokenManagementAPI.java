@@ -39,8 +39,8 @@ public class TokenManagementAPI {
     return impl.createOboToken(request);
   }
 
-  public DeleteResponse delete(String tokenId) {
-    return delete(new DeleteTokenManagementRequest().setTokenId(tokenId));
+  public void delete(String tokenId) {
+    delete(new DeleteTokenManagementRequest().setTokenId(tokenId));
   }
 
   /**
@@ -48,8 +48,8 @@ public class TokenManagementAPI {
    *
    * <p>Deletes a token, specified by its ID.
    */
-  public DeleteResponse delete(DeleteTokenManagementRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteTokenManagementRequest request) {
+    impl.delete(request);
   }
 
   public GetTokenResponse get(String tokenId) {

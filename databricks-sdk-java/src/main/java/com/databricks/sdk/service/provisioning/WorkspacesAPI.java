@@ -104,8 +104,8 @@ public class WorkspacesAPI {
         response);
   }
 
-  public DeleteResponse delete(long workspaceId) {
-    return delete(new DeleteWorkspaceRequest().setWorkspaceId(workspaceId));
+  public void delete(long workspaceId) {
+    delete(new DeleteWorkspaceRequest().setWorkspaceId(workspaceId));
   }
 
   /**
@@ -118,8 +118,8 @@ public class WorkspacesAPI {
    * <p>This operation is available only if your account is on the E2 version of the platform or on
    * a select custom plan that allows multiple workspaces per account.
    */
-  public DeleteResponse delete(DeleteWorkspaceRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteWorkspaceRequest request) {
+    impl.delete(request);
   }
 
   public Workspace get(long workspaceId) {
@@ -159,7 +159,7 @@ public class WorkspacesAPI {
     return impl.list();
   }
 
-  public Wait<Workspace, UpdateResponse> update(long workspaceId) {
+  public Wait<Workspace, Void> update(long workspaceId) {
     return update(new UpdateWorkspaceRequest().setWorkspaceId(workspaceId));
   }
 
@@ -265,11 +265,11 @@ public class WorkspacesAPI {
    * [Create a new workspace using the Account API]:
    * http://docs.databricks.com/administration-guide/account-api/new-workspace.html
    */
-  public Wait<Workspace, UpdateResponse> update(UpdateWorkspaceRequest request) {
-    UpdateResponse response = impl.update(request);
+  public Wait<Workspace, Void> update(UpdateWorkspaceRequest request) {
+    impl.update(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetWorkspaceRunning(request.getWorkspaceId(), timeout, callback),
-        response);
+        (timeout, callback) ->
+            waitGetWorkspaceRunning(request.getWorkspaceId(), timeout, callback));
   }
 
   public WorkspacesService impl() {

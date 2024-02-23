@@ -33,14 +33,14 @@ public interface FilesService {
    * returns a success response; this method is idempotent (it will succeed if the directory already
    * exists).
    */
-  CreateDirectoryResponse createDirectory(CreateDirectoryRequest createDirectoryRequest);
+  void createDirectory(CreateDirectoryRequest createDirectoryRequest);
 
   /**
    * Delete a file.
    *
    * <p>Deletes a file. If the request is successful, there is no response body.
    */
-  DeleteResponse delete(DeleteFileRequest deleteFileRequest);
+  void delete(DeleteFileRequest deleteFileRequest);
 
   /**
    * Delete a directory.
@@ -50,7 +50,7 @@ public interface FilesService {
    * <p>To delete a non-empty directory, first delete all of its contents. This can be done by
    * listing the directory contents and deleting each file and subdirectory recursively.
    */
-  DeleteDirectoryResponse deleteDirectory(DeleteDirectoryRequest deleteDirectoryRequest);
+  void deleteDirectory(DeleteDirectoryRequest deleteDirectoryRequest);
 
   /**
    * Download a file.
@@ -72,8 +72,7 @@ public interface FilesService {
    * directory if it does not exist, and is idempotent (it will succeed if the directory already
    * exists).
    */
-  GetDirectoryMetadataResponse getDirectoryMetadata(
-      GetDirectoryMetadataRequest getDirectoryMetadataRequest);
+  void getDirectoryMetadata(GetDirectoryMetadataRequest getDirectoryMetadataRequest);
 
   /**
    * Get file metadata.
@@ -100,5 +99,5 @@ public interface FilesService {
    * contents of the resulting file will be exactly the bytes sent in the request body. If the
    * request is successful, there is no response body.
    */
-  UploadResponse upload(UploadRequest uploadRequest);
+  void upload(UploadRequest uploadRequest);
 }

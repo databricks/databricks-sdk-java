@@ -25,11 +25,11 @@ class OnlineTablesImpl implements OnlineTablesService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteOnlineTableRequest request) {
+  public void delete(DeleteOnlineTableRequest request) {
     String path = String.format("/api/2.0/online-tables/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

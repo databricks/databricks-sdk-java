@@ -16,21 +16,21 @@ class DbfsImpl implements DbfsService {
   }
 
   @Override
-  public AddBlockResponse addBlock(AddBlock request) {
+  public void addBlock(AddBlock request) {
     String path = "/api/2.0/dbfs/add-block";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, AddBlockResponse.class, headers);
+    apiClient.POST(path, request, AddBlockResponse.class, headers);
   }
 
   @Override
-  public CloseResponse close(Close request) {
+  public void close(Close request) {
     String path = "/api/2.0/dbfs/close";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CloseResponse.class, headers);
+    apiClient.POST(path, request, CloseResponse.class, headers);
   }
 
   @Override
@@ -43,12 +43,12 @@ class DbfsImpl implements DbfsService {
   }
 
   @Override
-  public DeleteResponse delete(Delete request) {
+  public void delete(Delete request) {
     String path = "/api/2.0/dbfs/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, DeleteResponse.class, headers);
+    apiClient.POST(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -68,30 +68,30 @@ class DbfsImpl implements DbfsService {
   }
 
   @Override
-  public MkDirsResponse mkdirs(MkDirs request) {
+  public void mkdirs(MkDirs request) {
     String path = "/api/2.0/dbfs/mkdirs";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, MkDirsResponse.class, headers);
+    apiClient.POST(path, request, MkDirsResponse.class, headers);
   }
 
   @Override
-  public MoveResponse move(Move request) {
+  public void move(Move request) {
     String path = "/api/2.0/dbfs/move";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, MoveResponse.class, headers);
+    apiClient.POST(path, request, MoveResponse.class, headers);
   }
 
   @Override
-  public PutResponse put(Put request) {
+  public void put(Put request) {
     String path = "/api/2.0/dbfs/put";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, PutResponse.class, headers);
+    apiClient.POST(path, request, PutResponse.class, headers);
   }
 
   @Override

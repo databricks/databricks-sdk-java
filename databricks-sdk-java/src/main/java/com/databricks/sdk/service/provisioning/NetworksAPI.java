@@ -40,8 +40,8 @@ public class NetworksAPI {
     return impl.create(request);
   }
 
-  public DeleteResponse delete(String networkId) {
-    return delete(new DeleteNetworkRequest().setNetworkId(networkId));
+  public void delete(String networkId) {
+    delete(new DeleteNetworkRequest().setNetworkId(networkId));
   }
 
   /**
@@ -52,8 +52,8 @@ public class NetworksAPI {
    *
    * <p>This operation is available only if your account is on the E2 version of the platform.
    */
-  public DeleteResponse delete(DeleteNetworkRequest request) {
-    return impl.delete(request);
+  public void delete(DeleteNetworkRequest request) {
+    impl.delete(request);
   }
 
   public Network get(String networkId) {

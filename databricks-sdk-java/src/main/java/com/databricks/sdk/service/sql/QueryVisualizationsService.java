@@ -17,7 +17,7 @@ public interface QueryVisualizationsService {
   Visualization create(CreateQueryVisualizationRequest createQueryVisualizationRequest);
 
   /** Remove visualization. */
-  DeleteResponse delete(DeleteQueryVisualizationRequest deleteQueryVisualizationRequest);
+  void delete(DeleteQueryVisualizationRequest deleteQueryVisualizationRequest);
 
   /** Edit existing visualization. */
   Visualization update(Visualization visualization);

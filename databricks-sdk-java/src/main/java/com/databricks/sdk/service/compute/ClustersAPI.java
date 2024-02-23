@@ -140,9 +140,8 @@ public class ClustersAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public ChangeClusterOwnerResponse changeOwner(String clusterId, String ownerUsername) {
-    return changeOwner(
-        new ChangeClusterOwner().setClusterId(clusterId).setOwnerUsername(ownerUsername));
+  public void changeOwner(String clusterId, String ownerUsername) {
+    changeOwner(new ChangeClusterOwner().setClusterId(clusterId).setOwnerUsername(ownerUsername));
   }
 
   /**
@@ -152,8 +151,8 @@ public class ClustersAPI {
    * perform this operation. The service principal application ID can be supplied as an argument to
    * `owner_username`.
    */
-  public ChangeClusterOwnerResponse changeOwner(ChangeClusterOwner request) {
-    return impl.changeOwner(request);
+  public void changeOwner(ChangeClusterOwner request) {
+    impl.changeOwner(request);
   }
 
   public Wait<ClusterDetails, CreateClusterResponse> create(String sparkVersion) {
@@ -177,7 +176,7 @@ public class ClustersAPI {
         response);
   }
 
-  public Wait<ClusterDetails, DeleteClusterResponse> delete(String clusterId) {
+  public Wait<ClusterDetails, Void> delete(String clusterId) {
     return delete(new DeleteCluster().setClusterId(clusterId));
   }
 
@@ -188,14 +187,13 @@ public class ClustersAPI {
    * Once the termination has completed, the cluster will be in a `TERMINATED` state. If the cluster
    * is already in a `TERMINATING` or `TERMINATED` state, nothing will happen.
    */
-  public Wait<ClusterDetails, DeleteClusterResponse> delete(DeleteCluster request) {
-    DeleteClusterResponse response = impl.delete(request);
+  public Wait<ClusterDetails, Void> delete(DeleteCluster request) {
+    impl.delete(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetClusterTerminated(request.getClusterId(), timeout, callback),
-        response);
+        (timeout, callback) -> waitGetClusterTerminated(request.getClusterId(), timeout, callback));
   }
 
-  public Wait<ClusterDetails, EditClusterResponse> edit(String clusterId, String sparkVersion) {
+  public Wait<ClusterDetails, Void> edit(String clusterId, String sparkVersion) {
     return edit(new EditCluster().setClusterId(clusterId).setSparkVersion(sparkVersion));
   }
 
@@ -215,11 +213,10 @@ public class ClustersAPI {
    *
    * <p>Clusters created by the Databricks Jobs service cannot be edited.
    */
-  public Wait<ClusterDetails, EditClusterResponse> edit(EditCluster request) {
-    EditClusterResponse response = impl.edit(request);
+  public Wait<ClusterDetails, Void> edit(EditCluster request) {
+    impl.edit(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback),
-        response);
+        (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
   public Iterable<ClusterEvent> events(String clusterId) {
@@ -320,8 +317,8 @@ public class ClustersAPI {
     return impl.listZones();
   }
 
-  public PermanentDeleteClusterResponse permanentDelete(String clusterId) {
-    return permanentDelete(new PermanentDeleteCluster().setClusterId(clusterId));
+  public void permanentDelete(String clusterId) {
+    permanentDelete(new PermanentDeleteCluster().setClusterId(clusterId));
   }
 
   /**
@@ -333,12 +330,12 @@ public class ClustersAPI {
    * <p>In addition, users will no longer see permanently deleted clusters in the cluster list, and
    * API users can no longer perform any action on permanently deleted clusters.
    */
-  public PermanentDeleteClusterResponse permanentDelete(PermanentDeleteCluster request) {
-    return impl.permanentDelete(request);
+  public void permanentDelete(PermanentDeleteCluster request) {
+    impl.permanentDelete(request);
   }
 
-  public PinClusterResponse pin(String clusterId) {
-    return pin(new PinCluster().setClusterId(clusterId));
+  public void pin(String clusterId) {
+    pin(new PinCluster().setClusterId(clusterId));
   }
 
   /**
@@ -348,11 +345,11 @@ public class ClustersAPI {
    * Pinning a cluster that is already pinned will have no effect. This API can only be called by
    * workspace admins.
    */
-  public PinClusterResponse pin(PinCluster request) {
-    return impl.pin(request);
+  public void pin(PinCluster request) {
+    impl.pin(request);
   }
 
-  public Wait<ClusterDetails, ResizeClusterResponse> resize(String clusterId) {
+  public Wait<ClusterDetails, Void> resize(String clusterId) {
     return resize(new ResizeCluster().setClusterId(clusterId));
   }
 
@@ -362,14 +359,13 @@ public class ClustersAPI {
    * <p>Resizes a cluster to have a desired number of workers. This will fail unless the cluster is
    * in a `RUNNING` state.
    */
-  public Wait<ClusterDetails, ResizeClusterResponse> resize(ResizeCluster request) {
-    ResizeClusterResponse response = impl.resize(request);
+  public Wait<ClusterDetails, Void> resize(ResizeCluster request) {
+    impl.resize(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback),
-        response);
+        (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
-  public Wait<ClusterDetails, RestartClusterResponse> restart(String clusterId) {
+  public Wait<ClusterDetails, Void> restart(String clusterId) {
     return restart(new RestartCluster().setClusterId(clusterId));
   }
 
@@ -379,11 +375,10 @@ public class ClustersAPI {
    * <p>Restarts a Spark cluster with the supplied ID. If the cluster is not currently in a
    * `RUNNING` state, nothing will happen.
    */
-  public Wait<ClusterDetails, RestartClusterResponse> restart(RestartCluster request) {
-    RestartClusterResponse response = impl.restart(request);
+  public Wait<ClusterDetails, Void> restart(RestartCluster request) {
+    impl.restart(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback),
-        response);
+        (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
   public ClusterPermissions setPermissions(String clusterId) {
@@ -409,7 +404,7 @@ public class ClustersAPI {
     return impl.sparkVersions();
   }
 
-  public Wait<ClusterDetails, StartClusterResponse> start(String clusterId) {
+  public Wait<ClusterDetails, Void> start(String clusterId) {
     return start(new StartCluster().setClusterId(clusterId));
   }
 
@@ -424,15 +419,14 @@ public class ClustersAPI {
    * cluster starts with the minimum number of nodes. * If the cluster is not currently in a
    * `TERMINATED` state, nothing will happen. * Clusters launched to run a job cannot be started.
    */
-  public Wait<ClusterDetails, StartClusterResponse> start(StartCluster request) {
-    StartClusterResponse response = impl.start(request);
+  public Wait<ClusterDetails, Void> start(StartCluster request) {
+    impl.start(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback),
-        response);
+        (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
-  public UnpinClusterResponse unpin(String clusterId) {
-    return unpin(new UnpinCluster().setClusterId(clusterId));
+  public void unpin(String clusterId) {
+    unpin(new UnpinCluster().setClusterId(clusterId));
   }
 
   /**
@@ -442,8 +436,8 @@ public class ClustersAPI {
    * API. Unpinning a cluster that is not pinned will have no effect. This API can only be called by
    * workspace admins.
    */
-  public UnpinClusterResponse unpin(UnpinCluster request) {
-    return impl.unpin(request);
+  public void unpin(UnpinCluster request) {
+    impl.unpin(request);
   }
 
   public ClusterPermissions updatePermissions(String clusterId) {

@@ -26,14 +26,14 @@ public interface WarehousesService {
    *
    * <p>Deletes a SQL warehouse.
    */
-  DeleteWarehouseResponse delete(DeleteWarehouseRequest deleteWarehouseRequest);
+  void delete(DeleteWarehouseRequest deleteWarehouseRequest);
 
   /**
    * Update a warehouse.
    *
    * <p>Updates the configuration for a SQL warehouse.
    */
-  EditWarehouseResponse edit(EditWarehouseRequest editWarehouseRequest);
+  void edit(EditWarehouseRequest editWarehouseRequest);
 
   /**
    * Get warehouse info.
@@ -86,7 +86,7 @@ public interface WarehousesService {
    *
    * <p>Sets the workspace level configuration that is shared by all SQL warehouses in a workspace.
    */
-  SetWorkspaceWarehouseConfigResponse setWorkspaceWarehouseConfig(
+  void setWorkspaceWarehouseConfig(
       SetWorkspaceWarehouseConfigRequest setWorkspaceWarehouseConfigRequest);
 
   /**
@@ -94,14 +94,14 @@ public interface WarehousesService {
    *
    * <p>Starts a SQL warehouse.
    */
-  StartWarehouseResponse start(StartRequest startRequest);
+  void start(StartRequest startRequest);
 
   /**
    * Stop a warehouse.
    *
    * <p>Stops a SQL warehouse.
    */
-  StopWarehouseResponse stop(StopRequest stopRequest);
+  void stop(StopRequest stopRequest);
 
   /**
    * Update SQL warehouse permissions.

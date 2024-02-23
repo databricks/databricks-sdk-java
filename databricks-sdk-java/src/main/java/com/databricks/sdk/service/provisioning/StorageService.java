@@ -39,7 +39,7 @@ public interface StorageService {
    * <p>Deletes a Databricks storage configuration. You cannot delete a storage configuration that
    * is associated with any workspace.
    */
-  DeleteResponse delete(DeleteStorageRequest deleteStorageRequest);
+  void delete(DeleteStorageRequest deleteStorageRequest);
 
   /**
    * Get storage configuration.

@@ -110,8 +110,8 @@ public class StatementExecutionAPI {
     impl = mock;
   }
 
-  public CancelExecutionResponse cancelExecution(String statementId) {
-    return cancelExecution(new CancelExecutionRequest().setStatementId(statementId));
+  public void cancelExecution(String statementId) {
+    cancelExecution(new CancelExecutionRequest().setStatementId(statementId));
   }
 
   /**
@@ -120,8 +120,8 @@ public class StatementExecutionAPI {
    * <p>Requests that an executing statement be canceled. Callers must poll for status to see the
    * terminal state.
    */
-  public CancelExecutionResponse cancelExecution(CancelExecutionRequest request) {
-    return impl.cancelExecution(request);
+  public void cancelExecution(CancelExecutionRequest request) {
+    impl.cancelExecution(request);
   }
 
   public ExecuteStatementResponse executeStatement(String statement, String warehouseId) {

@@ -37,8 +37,8 @@ public class TokensAPI {
     return impl.create(request);
   }
 
-  public RevokeTokenResponse delete(String tokenId) {
-    return delete(new RevokeTokenRequest().setTokenId(tokenId));
+  public void delete(String tokenId) {
+    delete(new RevokeTokenRequest().setTokenId(tokenId));
   }
 
   /**
@@ -49,8 +49,8 @@ public class TokensAPI {
    * <p>If a token with the specified ID is not valid, this call returns an error
    * **RESOURCE_DOES_NOT_EXIST**.
    */
-  public RevokeTokenResponse delete(RevokeTokenRequest request) {
-    return impl.delete(request);
+  public void delete(RevokeTokenRequest request) {
+    impl.delete(request);
   }
 
   /**

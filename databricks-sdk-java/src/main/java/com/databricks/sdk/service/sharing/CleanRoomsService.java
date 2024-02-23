@@ -31,7 +31,7 @@ public interface CleanRoomsService {
    * <p>Deletes a data object clean room from the metastore. The caller must be an owner of the
    * clean room.
    */
-  DeleteResponse delete(DeleteCleanRoomRequest deleteCleanRoomRequest);
+  void delete(DeleteCleanRoomRequest deleteCleanRoomRequest);
 
   /**
    * Get a clean room.

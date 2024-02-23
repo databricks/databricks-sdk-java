@@ -25,11 +25,11 @@ class ProvidersImpl implements ProvidersService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteProviderRequest request) {
+  public void delete(DeleteProviderRequest request) {
     String path = String.format("/api/2.1/unity-catalog/providers/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

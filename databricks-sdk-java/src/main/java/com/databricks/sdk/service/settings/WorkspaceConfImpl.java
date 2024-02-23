@@ -24,10 +24,10 @@ class WorkspaceConfImpl implements WorkspaceConfService {
   }
 
   @Override
-  public SetStatusResponse setStatus(Map<String, String> request) {
+  public void setStatus(Map<String, String> request) {
     String path = "/api/2.0/workspace-conf";
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, SetStatusResponse.class, headers);
+    apiClient.PATCH(path, request, SetStatusResponse.class, headers);
   }
 }

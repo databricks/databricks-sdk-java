@@ -25,7 +25,7 @@ public interface AccountMetastoresService {
    *
    * <p>Deletes a Unity Catalog metastore for an account, both specified by ID.
    */
-  DeleteResponse delete(DeleteAccountMetastoreRequest deleteAccountMetastoreRequest);
+  void delete(DeleteAccountMetastoreRequest deleteAccountMetastoreRequest);
 
   /**
    * Get a metastore.

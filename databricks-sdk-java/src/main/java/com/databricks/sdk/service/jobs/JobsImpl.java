@@ -16,21 +16,21 @@ class JobsImpl implements JobsService {
   }
 
   @Override
-  public CancelAllRunsResponse cancelAllRuns(CancelAllRuns request) {
+  public void cancelAllRuns(CancelAllRuns request) {
     String path = "/api/2.1/jobs/runs/cancel-all";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CancelAllRunsResponse.class, headers);
+    apiClient.POST(path, request, CancelAllRunsResponse.class, headers);
   }
 
   @Override
-  public CancelRunResponse cancelRun(CancelRun request) {
+  public void cancelRun(CancelRun request) {
     String path = "/api/2.1/jobs/runs/cancel";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CancelRunResponse.class, headers);
+    apiClient.POST(path, request, CancelRunResponse.class, headers);
   }
 
   @Override
@@ -43,21 +43,21 @@ class JobsImpl implements JobsService {
   }
 
   @Override
-  public DeleteResponse delete(DeleteJob request) {
+  public void delete(DeleteJob request) {
     String path = "/api/2.1/jobs/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, DeleteResponse.class, headers);
+    apiClient.POST(path, request, DeleteResponse.class, headers);
   }
 
   @Override
-  public DeleteRunResponse deleteRun(DeleteRun request) {
+  public void deleteRun(DeleteRun request) {
     String path = "/api/2.1/jobs/runs/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, DeleteRunResponse.class, headers);
+    apiClient.POST(path, request, DeleteRunResponse.class, headers);
   }
 
   @Override
@@ -135,12 +135,12 @@ class JobsImpl implements JobsService {
   }
 
   @Override
-  public ResetResponse reset(ResetJob request) {
+  public void reset(ResetJob request) {
     String path = "/api/2.1/jobs/reset";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, ResetResponse.class, headers);
+    apiClient.POST(path, request, ResetResponse.class, headers);
   }
 
   @Override
@@ -171,12 +171,12 @@ class JobsImpl implements JobsService {
   }
 
   @Override
-  public UpdateResponse update(UpdateJob request) {
+  public void update(UpdateJob request) {
     String path = "/api/2.1/jobs/update";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, UpdateResponse.class, headers);
+    apiClient.POST(path, request, UpdateResponse.class, headers);
   }
 
   @Override

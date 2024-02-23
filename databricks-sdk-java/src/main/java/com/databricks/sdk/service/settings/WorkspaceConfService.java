@@ -25,5 +25,5 @@ public interface WorkspaceConfService {
    *
    * <p>Sets the configuration status for a workspace, including enabling or disabling it.
    */
-  SetStatusResponse setStatus(Map<String, String> workspaceConf);
+  void setStatus(Map<String, String> workspaceConf);
 }
