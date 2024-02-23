@@ -21,7 +21,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, CancelResponse.class, headers);
   }
 
   @Override
@@ -55,7 +55,7 @@ class CommandExecutionImpl implements CommandExecutionService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, DestroyResponse.class, headers);
   }
 
   @Override

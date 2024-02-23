@@ -14,12 +14,12 @@ public class VectorIndex {
   private String creator;
 
   /** */
-  @JsonProperty("delta_sync_vector_index_spec")
-  private DeltaSyncVectorIndexSpecResponse deltaSyncVectorIndexSpec;
+  @JsonProperty("delta_sync_index_spec")
+  private DeltaSyncVectorIndexSpecResponse deltaSyncIndexSpec;
 
   /** */
-  @JsonProperty("direct_access_vector_index_spec")
-  private DirectAccessVectorIndexSpec directAccessVectorIndexSpec;
+  @JsonProperty("direct_access_index_spec")
+  private DirectAccessVectorIndexSpec directAccessIndexSpec;
 
   /** Name of the endpoint associated with the index */
   @JsonProperty("endpoint_name")
@@ -57,24 +57,22 @@ public class VectorIndex {
     return creator;
   }
 
-  public VectorIndex setDeltaSyncVectorIndexSpec(
-      DeltaSyncVectorIndexSpecResponse deltaSyncVectorIndexSpec) {
-    this.deltaSyncVectorIndexSpec = deltaSyncVectorIndexSpec;
+  public VectorIndex setDeltaSyncIndexSpec(DeltaSyncVectorIndexSpecResponse deltaSyncIndexSpec) {
+    this.deltaSyncIndexSpec = deltaSyncIndexSpec;
     return this;
   }
 
-  public DeltaSyncVectorIndexSpecResponse getDeltaSyncVectorIndexSpec() {
-    return deltaSyncVectorIndexSpec;
+  public DeltaSyncVectorIndexSpecResponse getDeltaSyncIndexSpec() {
+    return deltaSyncIndexSpec;
   }
 
-  public VectorIndex setDirectAccessVectorIndexSpec(
-      DirectAccessVectorIndexSpec directAccessVectorIndexSpec) {
-    this.directAccessVectorIndexSpec = directAccessVectorIndexSpec;
+  public VectorIndex setDirectAccessIndexSpec(DirectAccessVectorIndexSpec directAccessIndexSpec) {
+    this.directAccessIndexSpec = directAccessIndexSpec;
     return this;
   }
 
-  public DirectAccessVectorIndexSpec getDirectAccessVectorIndexSpec() {
-    return directAccessVectorIndexSpec;
+  public DirectAccessVectorIndexSpec getDirectAccessIndexSpec() {
+    return directAccessIndexSpec;
   }
 
   public VectorIndex setEndpointName(String endpointName) {
@@ -128,8 +126,8 @@ public class VectorIndex {
     if (o == null || getClass() != o.getClass()) return false;
     VectorIndex that = (VectorIndex) o;
     return Objects.equals(creator, that.creator)
-        && Objects.equals(deltaSyncVectorIndexSpec, that.deltaSyncVectorIndexSpec)
-        && Objects.equals(directAccessVectorIndexSpec, that.directAccessVectorIndexSpec)
+        && Objects.equals(deltaSyncIndexSpec, that.deltaSyncIndexSpec)
+        && Objects.equals(directAccessIndexSpec, that.directAccessIndexSpec)
         && Objects.equals(endpointName, that.endpointName)
         && Objects.equals(indexType, that.indexType)
         && Objects.equals(name, that.name)
@@ -141,8 +139,8 @@ public class VectorIndex {
   public int hashCode() {
     return Objects.hash(
         creator,
-        deltaSyncVectorIndexSpec,
-        directAccessVectorIndexSpec,
+        deltaSyncIndexSpec,
+        directAccessIndexSpec,
         endpointName,
         indexType,
         name,
@@ -154,8 +152,8 @@ public class VectorIndex {
   public String toString() {
     return new ToStringer(VectorIndex.class)
         .add("creator", creator)
-        .add("deltaSyncVectorIndexSpec", deltaSyncVectorIndexSpec)
-        .add("directAccessVectorIndexSpec", directAccessVectorIndexSpec)
+        .add("deltaSyncIndexSpec", deltaSyncIndexSpec)
+        .add("directAccessIndexSpec", directAccessIndexSpec)
         .add("endpointName", endpointName)
         .add("indexType", indexType)
         .add("name", name)

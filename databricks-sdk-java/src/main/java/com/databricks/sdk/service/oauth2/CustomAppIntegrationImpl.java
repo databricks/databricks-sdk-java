@@ -34,7 +34,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteCustomAppIntegrationOutput.class, headers);
   }
 
   @Override
@@ -67,6 +67,6 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    apiClient.PATCH(path, request, UpdateCustomAppIntegrationOutput.class, headers);
   }
 }

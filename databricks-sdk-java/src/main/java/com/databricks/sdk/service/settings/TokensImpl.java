@@ -30,7 +30,7 @@ class TokensImpl implements TokensService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, RevokeTokenResponse.class, headers);
   }
 
   @Override

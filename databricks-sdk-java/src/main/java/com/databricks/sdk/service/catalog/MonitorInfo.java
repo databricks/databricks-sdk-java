@@ -86,7 +86,7 @@ public class MonitorInfo {
 
   /** Configuration for monitoring snapshot tables. */
   @JsonProperty("snapshot")
-  private Object snapshot;
+  private MonitorSnapshotProfileType snapshot;
 
   /** The status of the monitor. */
   @JsonProperty("status")
@@ -229,12 +229,12 @@ public class MonitorInfo {
     return slicingExprs;
   }
 
-  public MonitorInfo setSnapshot(Object snapshot) {
+  public MonitorInfo setSnapshot(MonitorSnapshotProfileType snapshot) {
     this.snapshot = snapshot;
     return this;
   }
 
-  public Object getSnapshot() {
+  public MonitorSnapshotProfileType getSnapshot() {
     return snapshot;
   }
 

@@ -31,7 +31,7 @@ public class UpdateStorageCredential {
 
   /** The <Databricks> managed GCP service account configuration. */
   @JsonProperty("databricks_gcp_service_account")
-  private Object databricksGcpServiceAccount;
+  private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
   /** Force update even if there are dependent external locations or external tables. */
   @JsonProperty("force")
@@ -104,12 +104,12 @@ public class UpdateStorageCredential {
   }
 
   public UpdateStorageCredential setDatabricksGcpServiceAccount(
-      Object databricksGcpServiceAccount) {
+      DatabricksGcpServiceAccountRequest databricksGcpServiceAccount) {
     this.databricksGcpServiceAccount = databricksGcpServiceAccount;
     return this;
   }
 
-  public Object getDatabricksGcpServiceAccount() {
+  public DatabricksGcpServiceAccountRequest getDatabricksGcpServiceAccount() {
     return databricksGcpServiceAccount;
   }
 

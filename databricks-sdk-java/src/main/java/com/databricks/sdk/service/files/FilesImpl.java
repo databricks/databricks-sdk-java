@@ -19,21 +19,21 @@ class FilesImpl implements FilesService {
   public void createDirectory(CreateDirectoryRequest request) {
     String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
     Map<String, String> headers = new HashMap<>();
-    apiClient.PUT(path, null, Void.class, headers);
+    apiClient.PUT(path, null, CreateDirectoryResponse.class, headers);
   }
 
   @Override
   public void delete(DeleteFileRequest request) {
     String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
   public void deleteDirectory(DeleteDirectoryRequest request) {
     String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteDirectoryResponse.class, headers);
   }
 
   @Override
@@ -48,7 +48,7 @@ class FilesImpl implements FilesService {
   public void getDirectoryMetadata(GetDirectoryMetadataRequest request) {
     String path = String.format("/api/2.0/fs/directories%s", request.getDirectoryPath());
     Map<String, String> headers = new HashMap<>();
-    apiClient.HEAD(path, request, Void.class, headers);
+    apiClient.HEAD(path, request, GetDirectoryMetadataResponse.class, headers);
   }
 
   @Override
@@ -71,6 +71,6 @@ class FilesImpl implements FilesService {
     String path = String.format("/api/2.0/fs/files%s", request.getFilePath());
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/octet-stream");
-    apiClient.PUT(path, request.getContents(), Void.class, headers);
+    apiClient.PUT(path, request.getContents(), UploadResponse.class, headers);
   }
 }

@@ -23,7 +23,7 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
             "/api/2.1/unity-catalog/tables/%s/monitor/refreshes/%s/cancel",
             request.getFullName(), request.getRefreshId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.POST(path, null, Void.class, headers);
+    apiClient.POST(path, null, CancelRefreshResponse.class, headers);
   }
 
   @Override
@@ -39,7 +39,7 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
   public void delete(DeleteLakehouseMonitorRequest request) {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getFullName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

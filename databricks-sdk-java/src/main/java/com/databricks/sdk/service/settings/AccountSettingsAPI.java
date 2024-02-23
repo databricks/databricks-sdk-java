@@ -43,6 +43,26 @@ public class AccountSettingsAPI {
   }
 
   /**
+   * Get the compliance security profile setting for new workspaces.
+   *
+   * <p>Gets the compliance security profile setting for new workspaces.
+   */
+  public CspEnablementAccountSetting getCspEnablementAccountSetting(
+      GetCspEnablementAccountSettingRequest request) {
+    return impl.getCspEnablementAccountSetting(request);
+  }
+
+  /**
+   * Get the enhanced security monitoring setting for new workspaces.
+   *
+   * <p>Gets the enhanced security monitoring setting for new workspaces.
+   */
+  public EsmEnablementAccountSetting getEsmEnablementAccountSetting(
+      GetEsmEnablementAccountSettingRequest request) {
+    return impl.getEsmEnablementAccountSetting(request);
+  }
+
+  /**
    * Get Personal Compute setting.
    *
    * <p>Gets the value of the Personal Compute setting.
@@ -50,6 +70,44 @@ public class AccountSettingsAPI {
   public PersonalComputeSetting getPersonalComputeSetting(
       GetPersonalComputeSettingRequest request) {
     return impl.getPersonalComputeSetting(request);
+  }
+
+  public CspEnablementAccountSetting updateCspEnablementAccountSetting(
+      boolean allowMissing, CspEnablementAccountSetting setting, String fieldMask) {
+    return updateCspEnablementAccountSetting(
+        new UpdateCspEnablementAccountSettingRequest()
+            .setAllowMissing(allowMissing)
+            .setSetting(setting)
+            .setFieldMask(fieldMask));
+  }
+
+  /**
+   * Update the compliance security profile setting for new workspaces.
+   *
+   * <p>Updates the value of the compliance security profile setting for new workspaces.
+   */
+  public CspEnablementAccountSetting updateCspEnablementAccountSetting(
+      UpdateCspEnablementAccountSettingRequest request) {
+    return impl.updateCspEnablementAccountSetting(request);
+  }
+
+  public EsmEnablementAccountSetting updateEsmEnablementAccountSetting(
+      boolean allowMissing, EsmEnablementAccountSetting setting, String fieldMask) {
+    return updateEsmEnablementAccountSetting(
+        new UpdateEsmEnablementAccountSettingRequest()
+            .setAllowMissing(allowMissing)
+            .setSetting(setting)
+            .setFieldMask(fieldMask));
+  }
+
+  /**
+   * Update the enhanced security monitoring setting for new workspaces.
+   *
+   * <p>Updates the value of the enhanced security monitoring setting for new workspaces.
+   */
+  public EsmEnablementAccountSetting updateEsmEnablementAccountSetting(
+      UpdateEsmEnablementAccountSettingRequest request) {
+    return impl.updateEsmEnablementAccountSetting(request);
   }
 
   public PersonalComputeSetting updatePersonalComputeSetting(

@@ -35,12 +35,37 @@ class SettingsImpl implements SettingsService {
   }
 
   @Override
+  public AutomaticClusterUpdateSetting getAutomaticClusterUpdateSetting(
+      GetAutomaticClusterUpdateSettingRequest request) {
+    String path = "/api/2.0/settings/types/automatic_cluster_update/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, AutomaticClusterUpdateSetting.class, headers);
+  }
+
+  @Override
+  public CspEnablementSetting getCspEnablementSetting(GetCspEnablementSettingRequest request) {
+    String path = "/api/2.0/settings/types/shield_csp_enablement_ws_db/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, CspEnablementSetting.class, headers);
+  }
+
+  @Override
   public DefaultNamespaceSetting getDefaultNamespaceSetting(
       GetDefaultNamespaceSettingRequest request) {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, DefaultNamespaceSetting.class, headers);
+  }
+
+  @Override
+  public EsmEnablementSetting getEsmEnablementSetting(GetEsmEnablementSettingRequest request) {
+    String path = "/api/2.0/settings/types/shield_esm_enablement_ws_db/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, EsmEnablementSetting.class, headers);
   }
 
   @Override
@@ -53,6 +78,26 @@ class SettingsImpl implements SettingsService {
   }
 
   @Override
+  public AutomaticClusterUpdateSetting updateAutomaticClusterUpdateSetting(
+      UpdateAutomaticClusterUpdateSettingRequest request) {
+    String path = "/api/2.0/settings/types/automatic_cluster_update/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, AutomaticClusterUpdateSetting.class, headers);
+  }
+
+  @Override
+  public CspEnablementSetting updateCspEnablementSetting(
+      UpdateCspEnablementSettingRequest request) {
+    String path = "/api/2.0/settings/types/shield_csp_enablement_ws_db/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, CspEnablementSetting.class, headers);
+  }
+
+  @Override
   public DefaultNamespaceSetting updateDefaultNamespaceSetting(
       UpdateDefaultNamespaceSettingRequest request) {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
@@ -60,6 +105,16 @@ class SettingsImpl implements SettingsService {
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
     return apiClient.PATCH(path, request, DefaultNamespaceSetting.class, headers);
+  }
+
+  @Override
+  public EsmEnablementSetting updateEsmEnablementSetting(
+      UpdateEsmEnablementSettingRequest request) {
+    String path = "/api/2.0/settings/types/shield_esm_enablement_ws_db/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PATCH(path, request, EsmEnablementSetting.class, headers);
   }
 
   @Override

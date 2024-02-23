@@ -4,18 +4,20 @@ package com.databricks.sdk.service.files;
 import com.databricks.sdk.support.Generated;
 
 /**
- * The Files API allows you to read, write, list, and delete files and directories. We support Unity
- * Catalog volumes with paths starting with "/Volumes/<catalog>/<schema>/<volume>".
+ * The Files API is a standard HTTP API that allows you to read, write, list, and delete files and
+ * directories by referring to their URI. The API makes working with file content as raw bytes
+ * easier and more efficient.
  *
- * <p>The Files API is designed like a standard HTTP API, rather than as a JSON RPC API. This is
- * intended to make it easier and more efficient to work with file contents as raw bytes.
+ * <p>The API supports [Unity Catalog volumes], where files and directories to operate on are
+ * specified using their volume URI path, which follows the format
+ * /Volumes/&lt;catalog_name&gt;/&lt;schema_name&gt;/&lt;volume_name&gt;/&lt;path_to_file&gt;.
  *
- * <p>Because the Files API is a standard HTTP API, the URI path is used to specify the file or
- * directory to operate on. The path is always absolute.
+ * <p>The Files API has two distinct endpoints, one for working with files (`/fs/files`) and another
+ * one for working with directories (`/fs/directories`). Both endpoints, use the standard HTTP
+ * methods GET, HEAD, PUT, and DELETE to manage files and directories specified using their URI
+ * path. The path is always absolute.
  *
- * <p>The Files API has separate endpoints for working with files, `/fs/files`, and working with
- * directories, `/fs/directories`. The standard HTTP methods `GET`, `HEAD`, `PUT`, and `DELETE` work
- * as expected on these endpoints.
+ * <p>[Unity Catalog volumes]: https://docs.databricks.com/en/connect/unity-catalog/volumes.html
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -28,7 +30,8 @@ public interface FilesService {
    *
    * <p>Creates an empty directory. If necessary, also creates any parent directories of the new,
    * empty directory (like the shell command `mkdir -p`). If called on an existing directory,
-   * returns a success response; this method is idempotent.
+   * returns a success response; this method is idempotent (it will succeed if the directory already
+   * exists).
    */
   void createDirectory(CreateDirectoryRequest createDirectoryRequest);
 

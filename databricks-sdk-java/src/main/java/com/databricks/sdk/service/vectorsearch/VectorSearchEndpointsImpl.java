@@ -28,7 +28,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
   public void deleteEndpoint(DeleteEndpointRequest request) {
     String path = String.format("/api/2.0/vector-search/endpoints/%s", request.getEndpointName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteEndpointResponse.class, headers);
   }
 
   @Override

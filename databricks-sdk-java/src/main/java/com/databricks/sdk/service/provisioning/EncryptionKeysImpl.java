@@ -35,7 +35,7 @@ class EncryptionKeysImpl implements EncryptionKeysService {
             apiClient.configuredAccountID(), request.getCustomerManagedKeyId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

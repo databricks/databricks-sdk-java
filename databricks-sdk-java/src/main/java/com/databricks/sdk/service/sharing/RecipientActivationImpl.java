@@ -23,7 +23,7 @@ class RecipientActivationImpl implements RecipientActivationService {
             request.getActivationUrl());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.GET(path, request, Void.class, headers);
+    apiClient.GET(path, request, GetActivationUrlInfoResponse.class, headers);
   }
 
   @Override

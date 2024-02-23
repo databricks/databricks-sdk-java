@@ -5,7 +5,6 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
 import java.util.Objects;
 
 /** Metrics about query execution. */
@@ -40,10 +39,6 @@ public class QueryMetrics {
    */
   @JsonProperty("photon_total_time_ms")
   private Long photonTotalTimeMs;
-
-  /** Reserved for internal use. */
-  @JsonProperty("planning_phases")
-  private Collection<Object> planningPhases;
 
   /** Reserved for internal use. */
   @JsonProperty("planning_time_ms")
@@ -177,15 +172,6 @@ public class QueryMetrics {
 
   public Long getPhotonTotalTimeMs() {
     return photonTotalTimeMs;
-  }
-
-  public QueryMetrics setPlanningPhases(Collection<Object> planningPhases) {
-    this.planningPhases = planningPhases;
-    return this;
-  }
-
-  public Collection<Object> getPlanningPhases() {
-    return planningPhases;
   }
 
   public QueryMetrics setPlanningTimeMs(Long planningTimeMs) {
@@ -370,7 +356,6 @@ public class QueryMetrics {
         && Objects.equals(networkSentBytes, that.networkSentBytes)
         && Objects.equals(overloadingQueueStartTimestamp, that.overloadingQueueStartTimestamp)
         && Objects.equals(photonTotalTimeMs, that.photonTotalTimeMs)
-        && Objects.equals(planningPhases, that.planningPhases)
         && Objects.equals(planningTimeMs, that.planningTimeMs)
         && Objects.equals(provisioningQueueStartTimestamp, that.provisioningQueueStartTimestamp)
         && Objects.equals(prunedBytes, that.prunedBytes)
@@ -401,7 +386,6 @@ public class QueryMetrics {
         networkSentBytes,
         overloadingQueueStartTimestamp,
         photonTotalTimeMs,
-        planningPhases,
         planningTimeMs,
         provisioningQueueStartTimestamp,
         prunedBytes,
@@ -432,7 +416,6 @@ public class QueryMetrics {
         .add("networkSentBytes", networkSentBytes)
         .add("overloadingQueueStartTimestamp", overloadingQueueStartTimestamp)
         .add("photonTotalTimeMs", photonTotalTimeMs)
-        .add("planningPhases", planningPhases)
         .add("planningTimeMs", planningTimeMs)
         .add("provisioningQueueStartTimestamp", provisioningQueueStartTimestamp)
         .add("prunedBytes", prunedBytes)

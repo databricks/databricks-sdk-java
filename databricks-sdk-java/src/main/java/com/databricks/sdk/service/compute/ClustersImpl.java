@@ -21,7 +21,7 @@ class ClustersImpl implements ClustersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, ChangeClusterOwnerResponse.class, headers);
   }
 
   @Override
@@ -39,7 +39,7 @@ class ClustersImpl implements ClustersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, DeleteClusterResponse.class, headers);
   }
 
   @Override
@@ -48,7 +48,7 @@ class ClustersImpl implements ClustersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, EditClusterResponse.class, headers);
   }
 
   @Override
@@ -116,7 +116,7 @@ class ClustersImpl implements ClustersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, PermanentDeleteClusterResponse.class, headers);
   }
 
   @Override
@@ -125,7 +125,7 @@ class ClustersImpl implements ClustersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, PinClusterResponse.class, headers);
   }
 
   @Override
@@ -134,7 +134,7 @@ class ClustersImpl implements ClustersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, ResizeClusterResponse.class, headers);
   }
 
   @Override
@@ -143,7 +143,7 @@ class ClustersImpl implements ClustersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, RestartClusterResponse.class, headers);
   }
 
   @Override
@@ -169,7 +169,7 @@ class ClustersImpl implements ClustersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, StartClusterResponse.class, headers);
   }
 
   @Override
@@ -178,7 +178,7 @@ class ClustersImpl implements ClustersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, UnpinClusterResponse.class, headers);
   }
 
   @Override

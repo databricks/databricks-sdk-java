@@ -29,7 +29,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeletePipelineResponse.class, headers);
   }
 
   @Override
@@ -116,7 +116,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/stop", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, null, Void.class, headers);
+    apiClient.POST(path, null, StopPipelineResponse.class, headers);
   }
 
   @Override
@@ -125,7 +125,7 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, Void.class, headers);
+    apiClient.PUT(path, request, EditPipelineResponse.class, headers);
   }
 
   @Override

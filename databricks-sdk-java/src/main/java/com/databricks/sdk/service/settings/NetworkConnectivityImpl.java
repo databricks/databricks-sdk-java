@@ -49,7 +49,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteNetworkConnectivityConfigurationResponse.class, headers);
   }
 
   @Override

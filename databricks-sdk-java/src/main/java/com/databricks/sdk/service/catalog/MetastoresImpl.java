@@ -22,7 +22,7 @@ class MetastoresImpl implements MetastoresService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, Void.class, headers);
+    apiClient.PUT(path, request, AssignResponse.class, headers);
   }
 
   @Override
@@ -47,7 +47,7 @@ class MetastoresImpl implements MetastoresService {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -80,7 +80,7 @@ class MetastoresImpl implements MetastoresService {
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, UnassignResponse.class, headers);
   }
 
   @Override
@@ -99,6 +99,6 @@ class MetastoresImpl implements MetastoresService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    apiClient.PATCH(path, request, UpdateAssignmentResponse.class, headers);
   }
 }

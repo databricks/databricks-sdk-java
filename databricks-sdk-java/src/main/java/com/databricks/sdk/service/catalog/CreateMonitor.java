@@ -67,7 +67,7 @@ public class CreateMonitor {
 
   /** Configuration for monitoring snapshot tables. */
   @JsonProperty("snapshot")
-  private Object snapshot;
+  private MonitorSnapshotProfileType snapshot;
 
   /** Configuration for monitoring time series tables. */
   @JsonProperty("time_series")
@@ -180,12 +180,12 @@ public class CreateMonitor {
     return slicingExprs;
   }
 
-  public CreateMonitor setSnapshot(Object snapshot) {
+  public CreateMonitor setSnapshot(MonitorSnapshotProfileType snapshot) {
     this.snapshot = snapshot;
     return this;
   }
 
-  public Object getSnapshot() {
+  public MonitorSnapshotProfileType getSnapshot() {
     return snapshot;
   }
 

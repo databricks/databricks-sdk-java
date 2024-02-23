@@ -29,7 +29,7 @@ class TokenManagementImpl implements TokenManagementService {
     String path = String.format("/api/2.0/token-management/tokens/%s", request.getTokenId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
