@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-/**
- * Utilities for serialization and deserialization in the Databricks Java SDK.
- */
+/** Utilities for serialization and deserialization in the Databricks Java SDK. */
 public class SerDeUtils {
   public static ObjectMapper createMapper() {
     ObjectMapper mapper = new ObjectMapper();
@@ -20,6 +18,5 @@ public class SerDeUtils {
         .configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true)
         .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     return mapper;
-
   }
 }
