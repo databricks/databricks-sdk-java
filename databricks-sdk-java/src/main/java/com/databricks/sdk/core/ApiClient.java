@@ -4,6 +4,7 @@ import com.databricks.sdk.core.error.ApiErrors;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.utils.SerDeUtils;
 import com.databricks.sdk.core.utils.SystemTimer;
 import com.databricks.sdk.core.utils.Timer;
 import com.databricks.sdk.support.Header;
@@ -66,24 +67,11 @@ public class ApiClient {
     }
 
     maxAttempts = 3;
-    mapper = makeObjectMapper();
+    mapper = SerDeUtils.createMapper();
     random = new Random();
     httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
     this.timer = timer;
-  }
-
-  private ObjectMapper makeObjectMapper() {
-    ObjectMapper mapper = new ObjectMapper();
-    mapper
-        .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
-        .configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false)
-        .configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true)
-        .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-        .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true)
-        .configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, true)
-        .setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    return mapper;
   }
 
   private static <I> void setQuery(Request in, I entity) {
