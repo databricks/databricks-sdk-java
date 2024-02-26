@@ -53,6 +53,7 @@ public class CommonsHttpClient implements HttpClient {
     return HttpClientBuilder.create()
         .setConnectionManager(connectionManager)
         .setDefaultRequestConfig(makeRequestConfig())
+        .useSystemProperties()
         .build();
   }
 
