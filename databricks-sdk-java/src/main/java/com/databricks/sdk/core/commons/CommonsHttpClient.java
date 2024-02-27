@@ -2,6 +2,7 @@ package com.databricks.sdk.core.commons;
 
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
@@ -16,14 +17,20 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.ProxyAuthenticationStrategy;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +46,39 @@ public class CommonsHttpClient implements HttpClient {
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
     hc = makeClosableHttpClient();
+  }
+
+  public CommonsHttpClient(int timeoutSeconds, DatabricksConfig config) {
+    timeout = timeoutSeconds * 1000;
+    connectionManager.setMaxTotal(100);
+    hc = makeClosableHttpClient(config);
+  }
+
+
+  private CloseableHttpClient makeClosableHttpClient(DatabricksConfig config) {
+    HttpClientBuilder builder = HttpClientBuilder.create()
+            .setConnectionManager(connectionManager)
+            .setDefaultRequestConfig(makeRequestConfig());
+    if (config.getUseSystemProxy() != null && config.getUseSystemProxy()) {
+      builder.useSystemProperties();
+    }
+    if (config.getUseProxy() != null && config.getUseProxy()) {
+      String proxyHost = config.getProxyHost();
+      int proxyPort = config.getProxyPort();
+      builder.setProxy(new HttpHost(proxyHost, proxyPort));
+      if (config.getUseProxyAuth() != null && config.getUseProxyAuth()) {
+        String proxyUser = config.getProxyUser();
+        String proxyPassword = config.getProxyPassword();
+        CredentialsProvider credsProvider = new BasicCredentialsProvider();
+        credsProvider.setCredentials(
+                new AuthScope(proxyHost, proxyPort),
+                new UsernamePasswordCredentials(proxyUser, proxyPassword));
+
+        builder.setDefaultCredentialsProvider(credsProvider)
+                .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
+      }
+    }
+    return builder.build();
   }
 
   private RequestConfig makeRequestConfig() {

@@ -17,6 +17,27 @@ import org.apache.http.HttpMessage;
 public class DatabricksConfig {
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
+  @ConfigAttribute(env = "PROXY_HOST")
+  private String proxyHost;
+
+  @ConfigAttribute(env = "PROXY_PORT")
+  private Integer proxyPort;
+
+  @ConfigAttribute(env = "PROXY_USER")
+  private String proxyUser;
+
+  @ConfigAttribute(env = "PROXY_PASSWORD", sensitive = true)
+  private String proxyPassword;
+
+  @ConfigAttribute(env = "USE_PROXY")
+  private Boolean useProxy;
+
+  @ConfigAttribute(env = "USE_PROXY_AUTH")
+  private Boolean useProxyAuth;
+
+  @ConfigAttribute(env = "USE_SYSTEM_PROXY")
+  private Boolean useSystemProxy;
+
   @ConfigAttribute(env = "DATABRICKS_HOST")
   private String host;
 
@@ -161,7 +182,7 @@ public class DatabricksConfig {
       timeout = httpTimeoutSeconds;
     }
     // eventually it'll get decoupled from config.
-    httpClient = new CommonsHttpClient(timeout);
+    httpClient = new CommonsHttpClient(timeout, this);
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {
@@ -592,5 +613,68 @@ public class DatabricksConfig {
     }
     newConfig.setHost(host);
     return newConfig;
+  }
+
+  public String getProxyHost() {
+    return proxyHost;
+  }
+
+  public DatabricksConfig setProxyHost(String proxyHost) {
+    this.proxyHost = proxyHost;
+    return this;
+  }
+
+  public Integer getProxyPort() {
+    return proxyPort;
+  }
+
+  public DatabricksConfig setProxyPort(Integer proxyPort) {
+    this.proxyPort = proxyPort;
+    return this;
+  }
+
+  public String getProxyUser() {
+    return proxyUser;
+  }
+
+  public DatabricksConfig setProxyUser(String proxyUser) {
+    this.proxyUser = proxyUser;
+    return this;
+  }
+
+  public String getProxyPassword() {
+    return proxyPassword;
+  }
+
+  public DatabricksConfig setProxyPassword(String proxyPassword) {
+    this.proxyPassword = proxyPassword;
+    return this;
+  }
+
+  public Boolean getUseProxy() {
+    return useProxy;
+  }
+
+  public DatabricksConfig setUseProxy(Boolean useProxy) {
+    this.useProxy = useProxy;
+    return this;
+  }
+
+  public Boolean getUseProxyAuth() {
+    return useProxyAuth;
+  }
+
+  public DatabricksConfig setUseProxyAuth(Boolean useProxyAuth) {
+    this.useProxyAuth = useProxyAuth;
+    return this;
+  }
+
+  public Boolean getUseSystemProxy() {
+    return useSystemProxy;
+  }
+
+  public DatabricksConfig setUseSystemProxy(Boolean useSystemProxy) {
+    this.useSystemProxy = useSystemProxy;
+    return this;
   }
 }
