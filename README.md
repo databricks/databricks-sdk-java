@@ -1,5 +1,7 @@
 # Databricks SDK for Java
 
+[![lines of code](https://tokei.rs/b1/github/databricks/databricks-sdk-java)]([https://codecov.io/github/databricks/databricks-sdk-java](https://github.com/databricks/databricks-sdk-java))
+
 **Stability**: [Beta](https://docs.databricks.com/release-notes/release-types.html)
 
 The Databricks SDK for Java includes functionality to accelerate development with Java for the Databricks Lakehouse. It covers all public [Databricks REST API](https://docs.databricks.com/dev-tools/api/index.html) operations. The SDK's internal HTTP client is robust and handles failures on different levels by performing intelligent retries.
