@@ -73,24 +73,21 @@
  * Removed `deletePersonalComputeSetting()`, `getPersonalComputeSetting()` and `updatePersonalComputeSetting()` method for `accountClient.settings()` service.
  * Removed `deleteDefaultNamespaceSetting()`, `deleteRestrictWorkspaceAdminsSetting()`, `getDefaultNamespaceSetting()`, `getRestrictWorkspaceAdminsSetting()`, `updateDefaultNamespaceSetting()` and `updateRestrictWorkspaceAdminsSetting()` method for `workspaceClient.settings()` service.
  * Added `awsStableIpRule` field for `com.databricks.sdk.service.settings.NccEgressDefaultRules`.
- * Removed `planningPhases` field for `com.databricks.sdk.service.sql.QueryMetrics`.
- * Changed `deleteEndpoint()` method for `workspaceClient.vectorSearchEndpoints()` service with new required argument order.
- * Changed `createIndex()` method for `workspaceClient.vectorSearchIndexes()` service with new required argument order.
- * Changed `deleteDataVectorIndex()` method for `workspaceClient.vectorSearchIndexes()` service with new required argument order.
- * Changed `upsertDataVectorIndex()` method for `workspaceClient.vectorSearchIndexes()` service with new required argument order.
- * Changed `endpointName` field for `com.databricks.sdk.service.vectorsearch.CreateVectorIndexRequest` to be required.
- * Removed `name` field for `com.databricks.sdk.service.vectorsearch.DeleteDataVectorIndexRequest`.
  * Added `indexName` field for `com.databricks.sdk.service.vectorsearch.DeleteDataVectorIndexRequest`.
+ * Added `embeddingModelEndpointName` field for `com.databricks.sdk.service.vectorsearch.EmbeddingSourceColumn`.
+ * Added `indexName` field for `com.databricks.sdk.service.vectorsearch.UpsertDataVectorIndexRequest`.
+ * Added `deltaSyncIndexSpec` field for `com.databricks.sdk.service.vectorsearch.VectorIndex`.
+ * Added `directAccessIndexSpec` field for `com.databricks.sdk.service.vectorsearch.VectorIndex`.
+ * Changed `deleteEndpoint()`, `createIndex()`, `deleteDataVectorIndex()` and `upsertDataVectorIndex()` method for `workspaceClient.vectorSearchEndpoints()` service with new required argument order.
+ * Changed `endpointName` field for `com.databricks.sdk.service.vectorsearch.CreateVectorIndexRequest` to be required.
+ * Removed `planningPhases` field for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Removed `name` field for `com.databricks.sdk.service.vectorsearch.DeleteDataVectorIndexRequest`.
  * Removed `name` field for `com.databricks.sdk.service.vectorsearch.DeleteEndpointRequest`.
  * Removed `com.databricks.sdk.service.vectorsearch.EmbeddingConfig` class.
  * Removed `embeddingConfig` field for `com.databricks.sdk.service.vectorsearch.EmbeddingSourceColumn`.
- * Added `embeddingModelEndpointName` field for `com.databricks.sdk.service.vectorsearch.EmbeddingSourceColumn`.
  * Removed `name` field for `com.databricks.sdk.service.vectorsearch.UpsertDataVectorIndexRequest`.
- * Added `indexName` field for `com.databricks.sdk.service.vectorsearch.UpsertDataVectorIndexRequest`.
  * Removed `deltaSyncVectorIndexSpec` field for `com.databricks.sdk.service.vectorsearch.VectorIndex`.
  * Removed `directAccessVectorIndexSpec` field for `com.databricks.sdk.service.vectorsearch.VectorIndex`.
- * Added `deltaSyncIndexSpec` field for `com.databricks.sdk.service.vectorsearch.VectorIndex`.
- * Added `directAccessIndexSpec` field for `com.databricks.sdk.service.vectorsearch.VectorIndex`.
 
 OpenAPI SHA: d855b30f25a06fe84f25214efa20e7f1fffcdf9e, Date: 2024-03-04
 
