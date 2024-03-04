@@ -94,8 +94,8 @@ public class VectorSearchEndpointsAPI {
         response);
   }
 
-  public void deleteEndpoint(String endpointName, String name) {
-    deleteEndpoint(new DeleteEndpointRequest().setEndpointName(endpointName).setName(name));
+  public void deleteEndpoint(String endpointName) {
+    deleteEndpoint(new DeleteEndpointRequest().setEndpointName(endpointName));
   }
 
   /** Delete an endpoint. */

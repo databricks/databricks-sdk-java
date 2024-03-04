@@ -7,9 +7,9 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Delete the restrict workspace admins setting */
+/** Get the restrict workspace admins setting */
 @Generated
-public class DeleteRestrictWorkspaceAdminsSettingRequest {
+public class GetRestrictWorkspaceAdminRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class DeleteRestrictWorkspaceAdminsSettingRequest {
   @QueryParam("etag")
   private String etag;
 
-  public DeleteRestrictWorkspaceAdminsSettingRequest setEtag(String etag) {
+  public GetRestrictWorkspaceAdminRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,8 +34,7 @@ public class DeleteRestrictWorkspaceAdminsSettingRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    DeleteRestrictWorkspaceAdminsSettingRequest that =
-        (DeleteRestrictWorkspaceAdminsSettingRequest) o;
+    GetRestrictWorkspaceAdminRequest that = (GetRestrictWorkspaceAdminRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -46,8 +45,6 @@ public class DeleteRestrictWorkspaceAdminsSettingRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteRestrictWorkspaceAdminsSettingRequest.class)
-        .add("etag", etag)
-        .toString();
+    return new ToStringer(GetRestrictWorkspaceAdminRequest.class).add("etag", etag).toString();
   }
 }
