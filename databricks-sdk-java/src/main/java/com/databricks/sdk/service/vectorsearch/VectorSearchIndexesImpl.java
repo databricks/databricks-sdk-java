@@ -26,7 +26,8 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
 
   @Override
   public DeleteDataVectorIndexResponse deleteDataVectorIndex(DeleteDataVectorIndexRequest request) {
-    String path = String.format("/api/2.0/vector-search/indexes/%s/delete-data", request.getName());
+    String path =
+        String.format("/api/2.0/vector-search/indexes/%s/delete-data", request.getIndexName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -74,7 +75,8 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
 
   @Override
   public UpsertDataVectorIndexResponse upsertDataVectorIndex(UpsertDataVectorIndexRequest request) {
-    String path = String.format("/api/2.0/vector-search/indexes/%s/upsert-data", request.getName());
+    String path =
+        String.format("/api/2.0/vector-search/indexes/%s/upsert-data", request.getIndexName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");

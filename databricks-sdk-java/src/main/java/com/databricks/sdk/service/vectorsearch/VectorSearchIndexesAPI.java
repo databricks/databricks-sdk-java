@@ -35,10 +35,11 @@ public class VectorSearchIndexesAPI {
   }
 
   public CreateVectorIndexResponse createIndex(
-      String name, String primaryKey, VectorIndexType indexType) {
+      String name, String endpointName, String primaryKey, VectorIndexType indexType) {
     return createIndex(
         new CreateVectorIndexRequest()
             .setName(name)
+            .setEndpointName(endpointName)
             .setPrimaryKey(primaryKey)
             .setIndexType(indexType));
   }
@@ -53,9 +54,9 @@ public class VectorSearchIndexesAPI {
   }
 
   public DeleteDataVectorIndexResponse deleteDataVectorIndex(
-      String name, Collection<String> primaryKeys) {
+      String indexName, Collection<String> primaryKeys) {
     return deleteDataVectorIndex(
-        new DeleteDataVectorIndexRequest().setName(name).setPrimaryKeys(primaryKeys));
+        new DeleteDataVectorIndexRequest().setIndexName(indexName).setPrimaryKeys(primaryKeys));
   }
 
   /**
@@ -142,9 +143,9 @@ public class VectorSearchIndexesAPI {
     impl.syncIndex(request);
   }
 
-  public UpsertDataVectorIndexResponse upsertDataVectorIndex(String name, String inputsJson) {
+  public UpsertDataVectorIndexResponse upsertDataVectorIndex(String indexName, String inputsJson) {
     return upsertDataVectorIndex(
-        new UpsertDataVectorIndexRequest().setName(name).setInputsJson(inputsJson));
+        new UpsertDataVectorIndexRequest().setIndexName(indexName).setInputsJson(inputsJson));
   }
 
   /**

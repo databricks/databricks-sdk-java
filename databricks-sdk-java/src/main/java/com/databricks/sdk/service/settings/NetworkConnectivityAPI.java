@@ -9,14 +9,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * These APIs provide configurations for the network connectivity of your workspaces for serverless
- * compute resources. This API provides stable subnets for your workspace so that you can configure
- * your firewalls on your Azure Storage accounts to allow access from Databricks. You can also use
- * the API to provision private endpoints for Databricks to privately connect serverless compute
- * resources to your Azure resources using Azure Private Link. See [configure serverless secure
- * connectivity].
- *
- * <p>[configure serverless secure connectivity]:
- * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security
+ * compute resources.
  */
 @Generated
 public class NetworkConnectivityAPI {
@@ -40,22 +33,7 @@ public class NetworkConnectivityAPI {
         new CreateNetworkConnectivityConfigRequest().setName(name).setRegion(region));
   }
 
-  /**
-   * Create a network connectivity configuration.
-   *
-   * <p>Creates a network connectivity configuration (NCC), which provides stable Azure service
-   * subnets when accessing your Azure Storage accounts. You can also use a network connectivity
-   * configuration to create Databricks-managed private endpoints so that Databricks serverless
-   * compute resources privately access your resources.
-   *
-   * <p>**IMPORTANT**: After you create the network connectivity configuration, you must assign one
-   * or more workspaces to the new network connectivity configuration. You can share one network
-   * connectivity configuration with multiple workspaces from the same Azure region within the same
-   * Databricks account. See [configure serverless secure connectivity].
-   *
-   * <p>[configure serverless secure connectivity]:
-   * https://learn.microsoft.com/azure/databricks/security/network/serverless-network-security
-   */
+  /** Create a network connectivity configuration. */
   public NetworkConnectivityConfiguration createNetworkConnectivityConfiguration(
       CreateNetworkConnectivityConfigRequest request) {
     return impl.createNetworkConnectivityConfiguration(request);

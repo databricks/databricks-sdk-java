@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /** Delete Personal Compute setting */
 @Generated
-public class DeletePersonalComputeSettingRequest {
+public class DeletePersonalComputeRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class DeletePersonalComputeSettingRequest {
   @QueryParam("etag")
   private String etag;
 
-  public DeletePersonalComputeSettingRequest setEtag(String etag) {
+  public DeletePersonalComputeRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,7 +34,7 @@ public class DeletePersonalComputeSettingRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    DeletePersonalComputeSettingRequest that = (DeletePersonalComputeSettingRequest) o;
+    DeletePersonalComputeRequest that = (DeletePersonalComputeRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -45,6 +45,6 @@ public class DeletePersonalComputeSettingRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeletePersonalComputeSettingRequest.class).add("etag", etag).toString();
+    return new ToStringer(DeletePersonalComputeRequest.class).add("etag", etag).toString();
   }
 }
