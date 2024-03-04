@@ -70,6 +70,8 @@ import com.databricks.sdk.service.iam.CurrentUserAPI;
 import com.databricks.sdk.service.iam.CurrentUserService;
 import com.databricks.sdk.service.iam.GroupsAPI;
 import com.databricks.sdk.service.iam.GroupsService;
+import com.databricks.sdk.service.iam.PermissionMigrationAPI;
+import com.databricks.sdk.service.iam.PermissionMigrationService;
 import com.databricks.sdk.service.iam.PermissionsAPI;
 import com.databricks.sdk.service.iam.PermissionsService;
 import com.databricks.sdk.service.iam.ServicePrincipalsAPI;
@@ -185,6 +187,7 @@ public class WorkspaceClient {
   private ModelRegistryAPI modelRegistryAPI;
   private ModelVersionsAPI modelVersionsAPI;
   private OnlineTablesAPI onlineTablesAPI;
+  private PermissionMigrationAPI permissionMigrationAPI;
   private PermissionsAPI permissionsAPI;
   private PipelinesAPI pipelinesAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
@@ -262,6 +265,7 @@ public class WorkspaceClient {
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
     modelVersionsAPI = new ModelVersionsAPI(apiClient);
     onlineTablesAPI = new OnlineTablesAPI(apiClient);
+    permissionMigrationAPI = new PermissionMigrationAPI(apiClient);
     permissionsAPI = new PermissionsAPI(apiClient);
     pipelinesAPI = new PipelinesAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
@@ -810,6 +814,14 @@ public class WorkspaceClient {
   }
 
   /**
+   * This spec contains undocumented permission migration APIs used in
+   * https://github.com/databrickslabs/ucx.
+   */
+  public PermissionMigrationAPI permissionMigration() {
+    return permissionMigrationAPI;
+  }
+
+  /**
    * Permissions API are used to create read, write, edit, update and manage access for various
    * users on different objects and endpoints.
    *
@@ -1057,18 +1069,7 @@ public class WorkspaceClient {
     return servingEndpointsAPI;
   }
 
-  /**
-   * The default namespace setting API allows users to configure the default namespace for a
-   * Databricks workspace.
-   *
-   * <p>Through this API, users can retrieve, set, or modify the default namespace used when queries
-   * do not reference a fully qualified three-level name. For example, if you use the API to set
-   * 'retail_prod' as the default catalog, then a query 'SELECT * FROM myTable' would reference the
-   * object 'retail_prod.default.myTable' (the schema 'default' is always assumed).
-   *
-   * <p>This setting requires a restart of clusters and SQL warehouses to take effect. Additionally,
-   * the default namespace only applies when using Unity Catalog-enabled compute.
-   */
+  /** Workspace Settings API allows users to manage settings at the workspace level. */
   public SettingsAPI settings() {
     return settingsAPI;
   }
@@ -1740,6 +1741,18 @@ public class WorkspaceClient {
   /** Replace the default OnlineTablesAPI with a custom implementation. */
   public WorkspaceClient withOnlineTablesAPI(OnlineTablesAPI onlineTables) {
     this.onlineTablesAPI = onlineTables;
+    return this;
+  }
+
+  /** Replace the default PermissionMigrationService with a custom implementation. */
+  public WorkspaceClient withPermissionMigrationImpl(
+      PermissionMigrationService permissionMigration) {
+    return this.withPermissionMigrationAPI(new PermissionMigrationAPI(permissionMigration));
+  }
+
+  /** Replace the default PermissionMigrationAPI with a custom implementation. */
+  public WorkspaceClient withPermissionMigrationAPI(PermissionMigrationAPI permissionMigration) {
+    this.permissionMigrationAPI = permissionMigration;
     return this;
   }
 

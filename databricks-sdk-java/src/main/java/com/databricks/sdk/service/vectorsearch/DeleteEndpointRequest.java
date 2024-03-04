@@ -12,9 +12,6 @@ public class DeleteEndpointRequest {
   /** Name of the endpoint */
   private String endpointName;
 
-  /** Name of the endpoint to delete */
-  private String name;
-
   public DeleteEndpointRequest setEndpointName(String endpointName) {
     this.endpointName = endpointName;
     return this;
@@ -24,33 +21,21 @@ public class DeleteEndpointRequest {
     return endpointName;
   }
 
-  public DeleteEndpointRequest setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public String getName() {
-    return name;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteEndpointRequest that = (DeleteEndpointRequest) o;
-    return Objects.equals(endpointName, that.endpointName) && Objects.equals(name, that.name);
+    return Objects.equals(endpointName, that.endpointName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endpointName, name);
+    return Objects.hash(endpointName);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteEndpointRequest.class)
-        .add("endpointName", endpointName)
-        .add("name", name)
-        .toString();
+    return new ToStringer(DeleteEndpointRequest.class).add("endpointName", endpointName).toString();
   }
 }

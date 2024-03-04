@@ -10,14 +10,23 @@ import java.util.Objects;
 /** Request payload for upserting data into a vector index. */
 @Generated
 public class UpsertDataVectorIndexRequest {
+  /**
+   * Name of the vector index where data is to be upserted. Must be a Direct Vector Access Index.
+   */
+  private String indexName;
+
   /** JSON string representing the data to be upserted. */
   @JsonProperty("inputs_json")
   private String inputsJson;
 
-  /**
-   * Name of the vector index where data is to be upserted. Must be a Direct Vector Access Index.
-   */
-  private String name;
+  public UpsertDataVectorIndexRequest setIndexName(String indexName) {
+    this.indexName = indexName;
+    return this;
+  }
+
+  public String getIndexName() {
+    return indexName;
+  }
 
   public UpsertDataVectorIndexRequest setInputsJson(String inputsJson) {
     this.inputsJson = inputsJson;
@@ -28,33 +37,24 @@ public class UpsertDataVectorIndexRequest {
     return inputsJson;
   }
 
-  public UpsertDataVectorIndexRequest setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public String getName() {
-    return name;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpsertDataVectorIndexRequest that = (UpsertDataVectorIndexRequest) o;
-    return Objects.equals(inputsJson, that.inputsJson) && Objects.equals(name, that.name);
+    return Objects.equals(indexName, that.indexName) && Objects.equals(inputsJson, that.inputsJson);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(inputsJson, name);
+    return Objects.hash(indexName, inputsJson);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpsertDataVectorIndexRequest.class)
+        .add("indexName", indexName)
         .add("inputsJson", inputsJson)
-        .add("name", name)
         .toString();
   }
 }

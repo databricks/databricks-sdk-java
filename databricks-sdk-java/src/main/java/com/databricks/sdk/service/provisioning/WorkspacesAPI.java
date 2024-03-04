@@ -187,7 +187,11 @@ public class WorkspacesAPI {
    * update the private access settings ID to upgrade a workspace to add support for front-end,
    * back-end, or both types of connectivity. You cannot remove (downgrade) any existing front-end
    * or back-end PrivateLink support on a workspace. - Custom tags. Given you provide an empty
-   * custom tags, the update would not be applied.
+   * custom tags, the update would not be applied. - Network connectivity configuration ID to add
+   * serverless stable IP support. You can add or update the network connectivity configuration ID
+   * to ensure the workspace uses the same set of stable IP CIDR blocks to access your resources.
+   * You cannot remove a network connectivity configuration from the workspace once attached, you
+   * can only switch to another one.
    *
    * <p>After calling the `PATCH` operation to update the workspace configuration, make repeated
    * `GET` requests with the workspace ID and check the workspace status. The workspace is
@@ -198,15 +202,13 @@ public class WorkspacesAPI {
    *
    * <p>### Update a running workspace You can update a Databricks workspace configuration for
    * running workspaces for some fields, but not all fields. For a running workspace, this request
-   * supports updating the following fields only: - Credential configuration ID
-   *
-   * <p>- Network configuration ID. Used only if you already use a customer-managed VPC. You cannot
-   * convert a running workspace from a Databricks-managed VPC to a customer-managed VPC. You can
-   * use a network configuration update in this API for a failed or running workspace to add support
-   * for PrivateLink, although you also need to add a private access settings object.
-   *
-   * <p>- Key configuration ID for managed services (control plane storage, such as notebook source
-   * and Databricks SQL queries). Databricks does not directly encrypt the data with the
+   * supports updating the following fields only: - Credential configuration ID - Network
+   * configuration ID. Used only if you already use a customer-managed VPC. You cannot convert a
+   * running workspace from a Databricks-managed VPC to a customer-managed VPC. You can use a
+   * network configuration update in this API for a failed or running workspace to add support for
+   * PrivateLink, although you also need to add a private access settings object. - Key
+   * configuration ID for managed services (control plane storage, such as notebook source and
+   * Databricks SQL queries). Databricks does not directly encrypt the data with the
    * customer-managed key (CMK). Databricks uses both the CMK and the Databricks managed key (DMK)
    * that is unique to your workspace to encrypt the Data Encryption Key (DEK). Databricks uses the
    * DEK to encrypt your workspace's managed services persisted data. If the workspace does not
@@ -221,7 +223,10 @@ public class WorkspacesAPI {
    * upgrade a workspace to add support for front-end, back-end, or both types of connectivity. You
    * cannot remove (downgrade) any existing front-end or back-end PrivateLink support on a
    * workspace. - Custom tags. Given you provide an empty custom tags, the update would not be
-   * applied.
+   * applied. - Network connectivity configuration ID to add serverless stable IP support. You can
+   * add or update the network connectivity configuration ID to ensure the workspace uses the same
+   * set of stable IP CIDR blocks to access your resources. You cannot remove a network connectivity
+   * configuration from the workspace once attached, you can only switch to another one.
    *
    * <p>**Important**: To update a running workspace, your workspace must have no running compute
    * resources that run in your workspace's VPC in the Classic data plane. For example, stop all
@@ -238,10 +243,8 @@ public class WorkspacesAPI {
    * clusters for another 20 minutes after that status change. This results in a total of up to 40
    * minutes in which you cannot create clusters. If you create or use clusters before this time
    * interval elapses, clusters do not launch successfully, fail, or could cause other unexpected
-   * behavior.
-   *
-   * <p>* For workspaces with a customer-managed VPC, the workspace status stays at status `RUNNING`
-   * and the VPC change happens immediately. A change to the storage customer-managed key
+   * behavior. * For workspaces with a customer-managed VPC, the workspace status stays at status
+   * `RUNNING` and the VPC change happens immediately. A change to the storage customer-managed key
    * configuration ID might take a few minutes to update, so continue to check the workspace until
    * you observe that it has been updated. If the update fails, the workspace might revert silently
    * to its original configuration. After the workspace has been updated, you cannot use or create

@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /** Delete the default namespace setting */
 @Generated
-public class DeleteDefaultNamespaceSettingRequest {
+public class DeleteDefaultNamespaceRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class DeleteDefaultNamespaceSettingRequest {
   @QueryParam("etag")
   private String etag;
 
-  public DeleteDefaultNamespaceSettingRequest setEtag(String etag) {
+  public DeleteDefaultNamespaceRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,7 +34,7 @@ public class DeleteDefaultNamespaceSettingRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    DeleteDefaultNamespaceSettingRequest that = (DeleteDefaultNamespaceSettingRequest) o;
+    DeleteDefaultNamespaceRequest that = (DeleteDefaultNamespaceRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -45,6 +45,6 @@ public class DeleteDefaultNamespaceSettingRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteDefaultNamespaceSettingRequest.class).add("etag", etag).toString();
+    return new ToStringer(DeleteDefaultNamespaceRequest.class).add("etag", etag).toString();
   }
 }

@@ -14,15 +14,15 @@ public class ListJobsResponse {
   @JsonProperty("has_more")
   private Boolean hasMore;
 
-  /** The list of jobs. */
+  /** The list of jobs. Only included in the response if there are jobs to list. */
   @JsonProperty("jobs")
   private Collection<BaseJob> jobs;
 
-  /** A token that can be used to list the next page of jobs. */
+  /** A token that can be used to list the next page of jobs (if applicable). */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** A token that can be used to list the previous page of jobs. */
+  /** A token that can be used to list the previous page of jobs (if applicable). */
   @JsonProperty("prev_page_token")
   private String prevPageToken;
 
