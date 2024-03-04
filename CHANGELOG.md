@@ -5,6 +5,7 @@
 ### Features and Improvements
   * Added basic support for HTTP proxies ([#241](https://github.com/databricks/databricks-sdk-java/pull/241)).
   * Fixed getWorkspaceClient() for GCP ([#224](https://github.com/databricks/databricks-sdk-java/pull/224)).
+  * Note: Backwards incompatible changes - Settings are now nested, please see the API changes below.
 
 ### Internal Changes
   * Reading headers should be done in a case-insensitive manner ([#235](https://github.com/databricks/databricks-sdk-java/pull/235)).
