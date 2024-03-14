@@ -1,32 +1,28 @@
 package com.databricks.sdk.core.commons;
 
-import static org.apache.http.entity.ContentType.APPLICATION_JSON;
-
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.CustomCloseInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
+import org.apache.http.auth.AuthSchemeProvider;
 import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.Credentials;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.config.AuthSchemes;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
+import org.apache.http.config.RegistryBuilder;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.auth.SPNegoSchemeFactory;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -34,6 +30,17 @@ import org.apache.http.impl.client.ProxyAuthenticationStrategy;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.Principal;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
 public class CommonsHttpClient implements HttpClient {
   private static final Logger LOG = LoggerFactory.getLogger(CommonsHttpClient.class);
@@ -59,26 +66,83 @@ public class CommonsHttpClient implements HttpClient {
     HttpClientBuilder builder = HttpClientBuilder.create()
             .setConnectionManager(connectionManager)
             .setDefaultRequestConfig(makeRequestConfig());
+    setupProxy(config, builder);
+    return builder.build();
+  }
+
+  public static void setupProxy(DatabricksConfig config, HttpClientBuilder builder) {
+    String proxyHost = null;
+    Integer proxyPort = null;
+    String proxyUser = null;
+    String proxyPassword = null;
     if (config.getUseSystemProxy() != null && config.getUseSystemProxy()) {
       builder.useSystemProperties();
+      proxyHost = System.getProperty("https.proxyHost");
+      proxyPort = Integer.parseInt(System.getProperty("https.proxyPort"));
+      proxyUser = System.getProperty("https.proxyUser");
+      proxyPassword = System.getProperty("https.proxyPassword");
     }
     if (config.getUseProxy() != null && config.getUseProxy()) {
-      String proxyHost = config.getProxyHost();
-      int proxyPort = config.getProxyPort();
+      proxyHost = config.getProxyHost();
+      proxyPort = config.getProxyPort();
+      proxyUser = config.getProxyUser();
+      proxyPassword = config.getProxyPassword();
       builder.setProxy(new HttpHost(proxyHost, proxyPort));
-      if (config.getUseProxyAuth() != null && config.getUseProxyAuth()) {
-        String proxyUser = config.getProxyUser();
-        String proxyPassword = config.getProxyPassword();
-        CredentialsProvider credsProvider = new BasicCredentialsProvider();
-        credsProvider.setCredentials(
-                new AuthScope(proxyHost, proxyPort),
-                new UsernamePasswordCredentials(proxyUser, proxyPassword));
-
-        builder.setDefaultCredentialsProvider(credsProvider)
-                .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
-      }
     }
-    return builder.build();
+    if (config.getProxyAuth() != null) {
+      setupProxyAuth(proxyHost, proxyPort, config.getProxyAuth(), proxyUser, proxyPassword, builder);
+    }
+  }
+
+  public static void setupProxyAuth(String proxyHost, Integer proxyPort, Integer proxyAuth,
+                                    String proxyUser, String proxyPassword, HttpClientBuilder builder) {
+    AuthScope authScope = new AuthScope(proxyHost, proxyPort);
+    switch (proxyAuth) {
+      case 0:
+        break;
+      case 1:
+        setupBasicProxyAuth(builder, authScope, proxyUser, proxyPassword);
+        break;
+      case 2:
+        setupKerberosProxyAuth(builder, authScope);
+        break;
+      default:
+        throw new DatabricksException("Unknown proxy auth type: " + proxyAuth);
+    }
+  }
+
+  public static void setupKerberosProxyAuth(HttpClientBuilder builder, AuthScope authScope) {
+    LOG.debug("Existing krb5.conf: " + System.getProperty("java.security.krb5.conf"));
+//    System.setProperty("java.security.krb5.conf", "/etc/krb5.conf");
+//    System.setProperty("java.security.auth.login.config", "/media/psf/Home/Desktop/login.conf");
+    System.setProperty("javax.security.auth.useSubjectCredsOnly", "false");
+    System.setProperty("sun.security.krb5.debug", "true");
+    System.setProperty("sun.security.jgss.debug", "true");
+    Credentials use_jaas_creds = new Credentials() {
+      public String getPassword() {
+        return null;
+      }
+
+      public Principal getUserPrincipal() {
+        return null;
+      }
+    };
+
+    CredentialsProvider credsProvider = new BasicCredentialsProvider();
+    credsProvider.setCredentials(authScope, use_jaas_creds);
+    builder.setDefaultCredentialsProvider(credsProvider)
+            .setDefaultAuthSchemeRegistry(RegistryBuilder.<AuthSchemeProvider>create()
+                    .register(AuthSchemes.SPNEGO, new SPNegoSchemeFactory(true))
+                    .build());
+  }
+
+  public static void setupBasicProxyAuth(HttpClientBuilder builder, AuthScope authScope, String proxyUser, String proxyPassword) {
+    CredentialsProvider credsProvider = new BasicCredentialsProvider();
+    credsProvider.setCredentials(
+        authScope,
+        new UsernamePasswordCredentials(proxyUser, proxyPassword));
+    builder.setDefaultCredentialsProvider(credsProvider)
+            .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
   }
 
   private RequestConfig makeRequestConfig() {
