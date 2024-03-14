@@ -32,8 +32,8 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "USE_PROXY")
   private Boolean useProxy;
 
-  @ConfigAttribute(env = "USE_PROXY_AUTH")
-  private Boolean useProxyAuth;
+  @ConfigAttribute(env = "PROXY_AUTH")
+  private Integer proxyAuth;
 
   @ConfigAttribute(env = "USE_SYSTEM_PROXY")
   private Boolean useSystemProxy;
@@ -660,12 +660,12 @@ public class DatabricksConfig {
     return this;
   }
 
-  public Boolean getUseProxyAuth() {
-    return useProxyAuth;
+  public Integer getProxyAuth() {
+    return proxyAuth;
   }
 
-  public DatabricksConfig setUseProxyAuth(Boolean useProxyAuth) {
-    this.useProxyAuth = useProxyAuth;
+  public DatabricksConfig setProxyAuth(int proxyAuth) {
+    this.proxyAuth = proxyAuth;
     return this;
   }
 
