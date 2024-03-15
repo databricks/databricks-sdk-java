@@ -349,19 +349,24 @@ public class ApiClient {
       if (firstHeader == null) {
         continue;
       }
-      try {
-        field.setAccessible(true);
-        if (field.getType() == String.class) {
-          field.set(target, firstHeader);
-        } else if (field.getType() == Long.class) {
-          field.set(target, Long.parseLong(firstHeader));
-        } else {
-          LOG.warn("Unsupported header type: " + field.getType());
+      // Synchronize on field across all methods which alter its accessibility to ensure
+      // multi threaded access of these objects (e.g. in the example of concurrent creation of
+      // workspace clients or config resolution) are safe
+      synchronized (field) {
+        try {
+          field.setAccessible(true);
+          if (field.getType() == String.class) {
+            field.set(target, firstHeader);
+          } else if (field.getType() == Long.class) {
+            field.set(target, Long.parseLong(firstHeader));
+          } else {
+            LOG.warn("Unsupported header type: " + field.getType());
+          }
+        } catch (IllegalAccessException e) {
+          throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
+        } finally {
+          field.setAccessible(false);
         }
-      } catch (IllegalAccessException e) {
-        throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
-      } finally {
-        field.setAccessible(false);
       }
     }
   }
@@ -380,13 +385,18 @@ public class ApiClient {
     Optional<Field> contentsField = getContentsField(object);
     if (contentsField.isPresent()) {
       Field field = contentsField.get();
-      try {
-        field.setAccessible(true);
-        field.set(object, response.getBody());
-      } catch (IllegalAccessException e) {
-        throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
-      } finally {
-        field.setAccessible(false);
+      // Synchronize on field across all methods which alter its accessibility to ensure
+      // multi threaded access of these objects (e.g. in the example of concurrent creation of
+      // workspace clients or config resolution) are safe
+      synchronized (field) {
+        try {
+          field.setAccessible(true);
+          field.set(object, response.getBody());
+        } catch (IllegalAccessException e) {
+          throw new DatabricksException("Failed to unmarshal headers: " + e.getMessage(), e);
+        } finally {
+          field.setAccessible(false);
+        }
       }
     } else if (response.getBody() != null) {
       mapper.readerForUpdating(object).readValue(response.getBody());

@@ -36,22 +36,29 @@ class ConfigAttributeAccessor {
   }
 
   public void setValueOnConfig(DatabricksConfig cfg, String value) throws IllegalAccessException {
-    field.setAccessible(true);
-    if (field.getType() == String.class) {
-      field.set(cfg, value);
-    } else if (field.getType() == int.class) {
-      field.set(cfg, Integer.parseInt(value));
-    } else if (field.getType() == boolean.class) {
-      field.set(cfg, Boolean.parseBoolean(value));
+    // Synchronize on field across all methods which alter its accessibility to ensure
+    // multi threaded access of these objects (e.g. in the example of concurrent creation of
+    // workspace clients or config resolution) are safe
+    synchronized (field) {
+      field.setAccessible(true);
+      if (field.getType() == String.class) {
+        field.set(cfg, value);
+      } else if (field.getType() == int.class) {
+        field.set(cfg, Integer.parseInt(value));
+      } else if (field.getType() == boolean.class) {
+        field.set(cfg, Boolean.parseBoolean(value));
+      }
+      field.setAccessible(false);
     }
-    field.setAccessible(false);
   }
 
   public Object getValueFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
-    field.setAccessible(true);
-    Object value = field.get(cfg);
-    field.setAccessible(false);
-    return value;
+    synchronized (field) {
+      field.setAccessible(true);
+      Object value = field.get(cfg);
+      field.setAccessible(false);
+      return value;
+    }
   }
 
   public String getAuthType() {
