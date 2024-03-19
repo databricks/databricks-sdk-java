@@ -1,9 +1,11 @@
 package com.databricks.sdk.core;
 
-import com.databricks.sdk.core.error.ApiErrors;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.retry.RetryStrategy;
+import com.databricks.sdk.core.retry.RetryStrategyPicker;
+import com.databricks.sdk.core.retry.StatementExecutionRetryStrategyPicker;
 import com.databricks.sdk.core.utils.SerDeUtils;
 import com.databricks.sdk.core.utils.SystemTimer;
 import com.databricks.sdk.core.utils.Timer;
@@ -11,12 +13,16 @@ import com.databricks.sdk.support.Header;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Simplified REST API client with retries, JSON POJO SerDe through Jackson and exception POJO
@@ -63,7 +69,7 @@ public class ApiClient {
       debugTruncateBytes = 96;
     }
 
-    maxAttempts = 3;
+    maxAttempts = 4;
     mapper = SerDeUtils.createMapper();
     random = new Random();
     httpClient = config.getHttpClient();
@@ -228,6 +234,8 @@ public class ApiClient {
   }
 
   private Response executeInner(Request in) {
+    RetryStrategyPicker strategyPicker = new StatementExecutionRetryStrategyPicker();
+    RetryStrategy retryStrategy = strategyPicker.getRetryStrategy(in);
     int attemptNumber = 0;
     while (true) {
       attemptNumber++;
@@ -263,12 +271,11 @@ public class ApiClient {
       // 2. The request failed with a non-retriable error (err != null, out == null).
       // 3. The request failed with a retriable error, but the number of attempts exceeds
       // maxAttempts.
-      DatabricksError res = ApiErrors.checkForRetry(out, err);
-      if (!res.isRetriable()) {
-        if (res.getErrorCode() == null) {
+      if (!retryStrategy.isRetriable(out, err)) {
+        if (retryStrategy.getError() == null || retryStrategy.getError().getErrorCode() == null) {
           return out;
         }
-        throw res;
+        throw retryStrategy.getError();
       }
       if (attemptNumber == maxAttempts) {
         throw new DatabricksException(
@@ -276,7 +283,7 @@ public class ApiClient {
       }
 
       // Retry after a backoff.
-      int sleepMillis = getBackoffMillis(attemptNumber);
+      long sleepMillis = getBackoffMillis(out, attemptNumber);
       LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis));
       try {
         timer.wait(sleepMillis);
@@ -286,14 +293,39 @@ public class ApiClient {
     }
   }
 
-  private int getBackoffMillis(int attemptNumber) {
-    int maxWait = 10000;
+  private long getBackoffMillis(Response response, int attemptNumber) {
+    Optional<Long> backoffMillisInResponse = getBackoffFromRetryAfterHeader(response);
+    if (backoffMillisInResponse.isPresent()) {
+      return backoffMillisInResponse.get();
+    }
+    int minWait = 1000; // 1 second
+    int maxWait = 60000; // 1 minute
     int minJitter = 50;
     int maxJitter = 750;
 
-    int wait = Math.min(maxWait, attemptNumber * 1000);
-    wait += random.nextInt(maxJitter - minJitter + 1) + minJitter;
-    return wait;
+    int wait = Math.min(maxWait, minWait * (1 << attemptNumber));
+    int jitter = random.nextInt(maxJitter - minJitter + 1) + minJitter;
+    return wait + jitter;
+  }
+
+  private static Optional<Long> getBackoffFromRetryAfterHeader(Response response) {
+    List<String> retryAfterHeader = response.getHeaders("retry-after");
+    if (retryAfterHeader.isEmpty()) {
+      return Optional.empty();
+    }
+    long waitTime = 0;
+    for (String retryAfter : retryAfterHeader) {
+      try {
+        Date date = Date.from(Instant.parse(retryAfter));
+        LocalDateTime dateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+        LocalDateTime now = LocalDateTime.now();
+        waitTime = java.time.Duration.between(now, dateTime).getSeconds();
+      } catch (Exception e) {
+        // If not a date, assume it is seconds
+        waitTime = Long.parseLong(retryAfter);
+      }
+    }
+    return Optional.of(waitTime * 1000);
   }
 
   private String makeLogRecord(Request in, Response out) {
