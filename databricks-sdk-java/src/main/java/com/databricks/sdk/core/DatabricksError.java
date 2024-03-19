@@ -89,8 +89,12 @@ public class DatabricksError extends DatabricksException {
     return errorCode;
   }
 
-  int getStatusCode() {
+  public int getStatusCode() {
     return statusCode;
+  }
+
+  public Throwable getCause() {
+    return cause;
   }
 
   public boolean isMissing() {
