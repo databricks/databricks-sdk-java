@@ -3,9 +3,9 @@ package com.databricks.sdk.core;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.retry.RequestBasedRetryStrategyPicker;
 import com.databricks.sdk.core.retry.RetryStrategy;
 import com.databricks.sdk.core.retry.RetryStrategyPicker;
-import com.databricks.sdk.core.retry.StatementExecutionRetryStrategyPicker;
 import com.databricks.sdk.core.utils.SerDeUtils;
 import com.databricks.sdk.core.utils.SystemTimer;
 import com.databricks.sdk.core.utils.Timer;
@@ -13,9 +13,6 @@ import com.databricks.sdk.support.Header;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -23,6 +20,8 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Simplified REST API client with retries, JSON POJO SerDe through Jackson and exception POJO
@@ -42,6 +41,7 @@ public class ApiClient {
   private final HttpClient httpClient;
   private final BodyLogger bodyLogger;
   private final Timer timer;
+  private static final String RETRY_AFTER_HEADER = "retry-after";
 
   public ApiClient() {
     this(ConfigLoader.getDefault());
@@ -226,7 +226,7 @@ public class ApiClient {
   }
 
   private Response executeInner(Request in) {
-    RetryStrategyPicker strategyPicker = new StatementExecutionRetryStrategyPicker();
+    RetryStrategyPicker strategyPicker = new RequestBasedRetryStrategyPicker();
     RetryStrategy retryStrategy = strategyPicker.getRetryStrategy(in);
     int attemptNumber = 0;
     while (true) {
@@ -301,7 +301,7 @@ public class ApiClient {
   }
 
   private static Optional<Long> getBackoffFromRetryAfterHeader(Response response) {
-    List<String> retryAfterHeader = response.getHeaders("retry-after");
+    List<String> retryAfterHeader = response.getHeaders(RETRY_AFTER_HEADER);
     if (retryAfterHeader.isEmpty()) {
       return Optional.empty();
     }
