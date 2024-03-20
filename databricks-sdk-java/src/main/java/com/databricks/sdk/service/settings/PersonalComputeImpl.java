@@ -16,7 +16,7 @@ class PersonalComputeImpl implements PersonalComputeService {
   }
 
   @Override
-  public DeletePersonalComputeSettingResponse delete(DeletePersonalComputeRequest request) {
+  public DeletePersonalComputeSettingResponse delete(DeletePersonalComputeSettingRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/settings/types/dcp_acct_enable/names/default",
@@ -27,7 +27,7 @@ class PersonalComputeImpl implements PersonalComputeService {
   }
 
   @Override
-  public PersonalComputeSetting get(GetPersonalComputeRequest request) {
+  public PersonalComputeSetting get(GetPersonalComputeSettingRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/settings/types/dcp_acct_enable/names/default",

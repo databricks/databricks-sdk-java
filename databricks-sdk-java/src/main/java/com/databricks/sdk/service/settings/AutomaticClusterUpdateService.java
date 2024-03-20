@@ -19,7 +19,7 @@ public interface AutomaticClusterUpdateService {
    * <p>Gets the automatic cluster update setting.
    */
   AutomaticClusterUpdateSetting get(
-      GetAutomaticClusterUpdateRequest getAutomaticClusterUpdateRequest);
+      GetAutomaticClusterUpdateSettingRequest getAutomaticClusterUpdateSettingRequest);
 
   /**
    * Update the automatic cluster update setting.

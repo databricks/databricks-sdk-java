@@ -7,9 +7,9 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Delete the restrict workspace admins setting */
+/** Get Personal Compute setting */
 @Generated
-public class DeleteRestrictWorkspaceAdminRequest {
+public class GetPersonalComputeSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class DeleteRestrictWorkspaceAdminRequest {
   @QueryParam("etag")
   private String etag;
 
-  public DeleteRestrictWorkspaceAdminRequest setEtag(String etag) {
+  public GetPersonalComputeSettingRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,7 +34,7 @@ public class DeleteRestrictWorkspaceAdminRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    DeleteRestrictWorkspaceAdminRequest that = (DeleteRestrictWorkspaceAdminRequest) o;
+    GetPersonalComputeSettingRequest that = (GetPersonalComputeSettingRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -45,6 +45,6 @@ public class DeleteRestrictWorkspaceAdminRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteRestrictWorkspaceAdminRequest.class).add("etag", etag).toString();
+    return new ToStringer(GetPersonalComputeSettingRequest.class).add("etag", etag).toString();
   }
 }

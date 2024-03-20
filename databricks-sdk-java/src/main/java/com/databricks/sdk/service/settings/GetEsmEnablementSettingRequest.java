@@ -7,9 +7,9 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get the compliance security profile setting for new workspaces */
+/** Get the enhanced security monitoring setting */
 @Generated
-public class GetCspEnablementAccountRequest {
+public class GetEsmEnablementSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class GetCspEnablementAccountRequest {
   @QueryParam("etag")
   private String etag;
 
-  public GetCspEnablementAccountRequest setEtag(String etag) {
+  public GetEsmEnablementSettingRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,7 +34,7 @@ public class GetCspEnablementAccountRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetCspEnablementAccountRequest that = (GetCspEnablementAccountRequest) o;
+    GetEsmEnablementSettingRequest that = (GetEsmEnablementSettingRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -45,6 +45,6 @@ public class GetCspEnablementAccountRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetCspEnablementAccountRequest.class).add("etag", etag).toString();
+    return new ToStringer(GetEsmEnablementSettingRequest.class).add("etag", etag).toString();
   }
 }

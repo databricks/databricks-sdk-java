@@ -7,9 +7,9 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get Personal Compute setting */
+/** Get the automatic cluster update setting */
 @Generated
-public class GetPersonalComputeRequest {
+public class GetAutomaticClusterUpdateSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class GetPersonalComputeRequest {
   @QueryParam("etag")
   private String etag;
 
-  public GetPersonalComputeRequest setEtag(String etag) {
+  public GetAutomaticClusterUpdateSettingRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,7 +34,7 @@ public class GetPersonalComputeRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetPersonalComputeRequest that = (GetPersonalComputeRequest) o;
+    GetAutomaticClusterUpdateSettingRequest that = (GetAutomaticClusterUpdateSettingRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -45,6 +45,8 @@ public class GetPersonalComputeRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetPersonalComputeRequest.class).add("etag", etag).toString();
+    return new ToStringer(GetAutomaticClusterUpdateSettingRequest.class)
+        .add("etag", etag)
+        .toString();
   }
 }

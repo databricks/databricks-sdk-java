@@ -16,7 +16,7 @@ class EsmEnablementImpl implements EsmEnablementService {
   }
 
   @Override
-  public EsmEnablementSetting get(GetEsmEnablementRequest request) {
+  public EsmEnablementSetting get(GetEsmEnablementSettingRequest request) {
     String path = "/api/2.0/settings/types/shield_esm_enablement_ws_db/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

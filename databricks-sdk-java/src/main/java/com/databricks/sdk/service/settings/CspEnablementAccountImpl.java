@@ -16,7 +16,7 @@ class CspEnablementAccountImpl implements CspEnablementAccountService {
   }
 
   @Override
-  public CspEnablementAccountSetting get(GetCspEnablementAccountRequest request) {
+  public CspEnablementAccountSetting get(GetCspEnablementAccountSettingRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/settings/types/shield_csp_enablement_ac/names/default",

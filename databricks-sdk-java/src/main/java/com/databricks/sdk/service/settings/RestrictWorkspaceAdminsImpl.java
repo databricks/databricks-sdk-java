@@ -17,7 +17,7 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
 
   @Override
   public DeleteRestrictWorkspaceAdminsSettingResponse delete(
-      DeleteRestrictWorkspaceAdminRequest request) {
+      DeleteRestrictWorkspaceAdminsSettingRequest request) {
     String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -26,7 +26,7 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
   }
 
   @Override
-  public RestrictWorkspaceAdminsSetting get(GetRestrictWorkspaceAdminRequest request) {
+  public RestrictWorkspaceAdminsSetting get(GetRestrictWorkspaceAdminsSettingRequest request) {
     String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
