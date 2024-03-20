@@ -226,7 +226,7 @@ public class ApiClient {
   }
 
   private Response executeInner(Request in) {
-    RetryStrategyPicker strategyPicker = new RequestBasedRetryStrategyPicker();
+    RetryStrategyPicker strategyPicker = new RequestBasedRetryStrategyPicker(this.config);
     RetryStrategy retryStrategy = strategyPicker.getRetryStrategy(in);
     int attemptNumber = 0;
     while (true) {
@@ -278,7 +278,7 @@ public class ApiClient {
       long sleepMillis = getBackoffMillis(out, attemptNumber);
       LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis));
       try {
-        timer.wait(sleepMillis);
+        Thread.sleep(sleepMillis);
       } catch (InterruptedException ex) {
         Thread.currentThread().interrupt();
       }
@@ -295,14 +295,15 @@ public class ApiClient {
     int minJitter = 50;
     int maxJitter = 750;
 
-    int wait = Math.min(maxWait, minWait * (1 << attemptNumber));
+    int wait = Math.min(maxWait, minWait * (1 << (attemptNumber - 1)));
     int jitter = random.nextInt(maxJitter - minJitter + 1) + minJitter;
     return wait + jitter;
   }
 
-  private static Optional<Long> getBackoffFromRetryAfterHeader(Response response) {
+  public static Optional<Long> getBackoffFromRetryAfterHeader(Response response) {
+    if (response == null) return Optional.empty();
     List<String> retryAfterHeader = response.getHeaders(RETRY_AFTER_HEADER);
-    if (retryAfterHeader.isEmpty()) {
+    if (retryAfterHeader == null) {
       return Optional.empty();
     }
     long waitTime = 0;
