@@ -31,7 +31,7 @@ public class AutomaticClusterUpdateAPI {
    *
    * <p>Gets the automatic cluster update setting.
    */
-  public AutomaticClusterUpdateSetting get(GetAutomaticClusterUpdateRequest request) {
+  public AutomaticClusterUpdateSetting get(GetAutomaticClusterUpdateSettingRequest request) {
     return impl.get(request);
   }
 

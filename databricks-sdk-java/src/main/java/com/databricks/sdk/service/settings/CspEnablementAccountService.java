@@ -23,7 +23,8 @@ public interface CspEnablementAccountService {
    *
    * <p>Gets the compliance security profile setting for new workspaces.
    */
-  CspEnablementAccountSetting get(GetCspEnablementAccountRequest getCspEnablementAccountRequest);
+  CspEnablementAccountSetting get(
+      GetCspEnablementAccountSettingRequest getCspEnablementAccountSettingRequest);
 
   /**
    * Update the compliance security profile setting for new workspaces.

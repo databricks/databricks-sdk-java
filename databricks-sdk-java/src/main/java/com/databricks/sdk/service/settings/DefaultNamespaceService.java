@@ -30,14 +30,14 @@ public interface DefaultNamespaceService {
    * fails with 409 and the request must be retried by using the fresh etag in the 409 response.
    */
   DeleteDefaultNamespaceSettingResponse delete(
-      DeleteDefaultNamespaceRequest deleteDefaultNamespaceRequest);
+      DeleteDefaultNamespaceSettingRequest deleteDefaultNamespaceSettingRequest);
 
   /**
    * Get the default namespace setting.
    *
    * <p>Gets the default namespace setting.
    */
-  DefaultNamespaceSetting get(GetDefaultNamespaceRequest getDefaultNamespaceRequest);
+  DefaultNamespaceSetting get(GetDefaultNamespaceSettingRequest getDefaultNamespaceSettingRequest);
 
   /**
    * Update the default namespace setting.

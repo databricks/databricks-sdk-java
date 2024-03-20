@@ -31,7 +31,7 @@ public interface RestrictWorkspaceAdminsService {
    * response.
    */
   DeleteRestrictWorkspaceAdminsSettingResponse delete(
-      DeleteRestrictWorkspaceAdminRequest deleteRestrictWorkspaceAdminRequest);
+      DeleteRestrictWorkspaceAdminsSettingRequest deleteRestrictWorkspaceAdminsSettingRequest);
 
   /**
    * Get the restrict workspace admins setting.
@@ -39,7 +39,7 @@ public interface RestrictWorkspaceAdminsService {
    * <p>Gets the restrict workspace admins setting.
    */
   RestrictWorkspaceAdminsSetting get(
-      GetRestrictWorkspaceAdminRequest getRestrictWorkspaceAdminRequest);
+      GetRestrictWorkspaceAdminsSettingRequest getRestrictWorkspaceAdminsSettingRequest);
 
   /**
    * Update the restrict workspace admins setting.

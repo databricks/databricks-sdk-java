@@ -21,7 +21,7 @@ public class EndpointCoreConfigInput {
   private String name;
 
   /**
-   * A list of served entities for the endpoint to serve. A serving endpoint can have up to 10
+   * A list of served entities for the endpoint to serve. A serving endpoint can have up to 15
    * served entities.
    */
   @JsonProperty("served_entities")
@@ -29,7 +29,7 @@ public class EndpointCoreConfigInput {
 
   /**
    * (Deprecated, use served_entities instead) A list of served models for the endpoint to serve. A
-   * serving endpoint can have up to 10 served models.
+   * serving endpoint can have up to 15 served models.
    */
   @JsonProperty("served_models")
   private Collection<ServedModelInput> servedModels;

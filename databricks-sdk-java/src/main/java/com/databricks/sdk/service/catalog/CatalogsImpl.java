@@ -41,11 +41,11 @@ class CatalogsImpl implements CatalogsService {
   }
 
   @Override
-  public ListCatalogsResponse list() {
+  public ListCatalogsResponse list(ListCatalogsRequest request) {
     String path = "/api/2.1/unity-catalog/catalogs";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListCatalogsResponse.class, headers);
+    return apiClient.GET(path, request, ListCatalogsResponse.class, headers);
   }
 
   @Override

@@ -13,6 +13,13 @@ public class VolumeInfo {
   @JsonProperty("access_point")
   private String accessPoint;
 
+  /**
+   * Indicates whether the principal is limited to retrieving metadata for the associated object
+   * through the BROWSE privilege when include_browse is enabled in the request.
+   */
+  @JsonProperty("browse_only")
+  private Boolean browseOnly;
+
   /** The name of the catalog where the schema and the volume are */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -80,6 +87,15 @@ public class VolumeInfo {
 
   public String getAccessPoint() {
     return accessPoint;
+  }
+
+  public VolumeInfo setBrowseOnly(Boolean browseOnly) {
+    this.browseOnly = browseOnly;
+    return this;
+  }
+
+  public Boolean getBrowseOnly() {
+    return browseOnly;
   }
 
   public VolumeInfo setCatalogName(String catalogName) {
@@ -223,6 +239,7 @@ public class VolumeInfo {
     if (o == null || getClass() != o.getClass()) return false;
     VolumeInfo that = (VolumeInfo) o;
     return Objects.equals(accessPoint, that.accessPoint)
+        && Objects.equals(browseOnly, that.browseOnly)
         && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
@@ -244,6 +261,7 @@ public class VolumeInfo {
   public int hashCode() {
     return Objects.hash(
         accessPoint,
+        browseOnly,
         catalogName,
         comment,
         createdAt,
@@ -265,6 +283,7 @@ public class VolumeInfo {
   public String toString() {
     return new ToStringer(VolumeInfo.class)
         .add("accessPoint", accessPoint)
+        .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("comment", comment)
         .add("createdAt", createdAt)

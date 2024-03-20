@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /** Online Table information. */
 @Generated
-public class ViewData {
+public class CreateOnlineTableRequest {
   /** Full three-part (catalog, schema, table) name of the table. */
   @JsonProperty("name")
   private String name;
@@ -18,7 +18,7 @@ public class ViewData {
   @JsonProperty("spec")
   private OnlineTableSpec spec;
 
-  public ViewData setName(String name) {
+  public CreateOnlineTableRequest setName(String name) {
     this.name = name;
     return this;
   }
@@ -27,7 +27,7 @@ public class ViewData {
     return name;
   }
 
-  public ViewData setSpec(OnlineTableSpec spec) {
+  public CreateOnlineTableRequest setSpec(OnlineTableSpec spec) {
     this.spec = spec;
     return this;
   }
@@ -40,7 +40,7 @@ public class ViewData {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ViewData that = (ViewData) o;
+    CreateOnlineTableRequest that = (CreateOnlineTableRequest) o;
     return Objects.equals(name, that.name) && Objects.equals(spec, that.spec);
   }
 
@@ -51,6 +51,9 @@ public class ViewData {
 
   @Override
   public String toString() {
-    return new ToStringer(ViewData.class).add("name", name).add("spec", spec).toString();
+    return new ToStringer(CreateOnlineTableRequest.class)
+        .add("name", name)
+        .add("spec", spec)
+        .toString();
   }
 }

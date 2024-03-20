@@ -14,9 +14,44 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface LakeviewService {
   /**
+   * Create dashboard.
+   *
+   * <p>Create a draft dashboard.
+   */
+  Dashboard create(CreateDashboardRequest createDashboardRequest);
+
+  /**
+   * Get dashboard.
+   *
+   * <p>Get a draft dashboard.
+   */
+  Dashboard get(GetDashboardRequest getDashboardRequest);
+
+  /**
+   * Get published dashboard.
+   *
+   * <p>Get the current published dashboard.
+   */
+  PublishedDashboard getPublished(GetPublishedDashboardRequest getPublishedDashboardRequest);
+
+  /**
    * Publish dashboard.
    *
    * <p>Publish the current draft dashboard.
    */
-  void publish(PublishRequest publishRequest);
+  PublishedDashboard publish(PublishRequest publishRequest);
+
+  /**
+   * Trash dashboard.
+   *
+   * <p>Trash a dashboard.
+   */
+  void trash(TrashDashboardRequest trashDashboardRequest);
+
+  /**
+   * Update dashboard.
+   *
+   * <p>Update a draft dashboard.
+   */
+  Dashboard update(UpdateDashboardRequest updateDashboardRequest);
 }

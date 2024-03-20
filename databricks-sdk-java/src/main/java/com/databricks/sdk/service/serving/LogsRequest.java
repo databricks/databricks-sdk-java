@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Retrieve the most recent log lines associated with a given serving endpoint's served model */
+/** Get the latest logs for a served model */
 @Generated
 public class LogsRequest {
   /** The name of the serving endpoint that the served model belongs to. This field is required. */
