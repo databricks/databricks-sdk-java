@@ -129,7 +129,7 @@ public class ApiClientTest {
             req,
             429,
             "Too Many Requests",
-            Map.of("retry-after", Collections.singletonList("1")),
+            Collections.singletonMap("retry-after", Collections.singletonList("1")),
             (String) null));
   }
 
