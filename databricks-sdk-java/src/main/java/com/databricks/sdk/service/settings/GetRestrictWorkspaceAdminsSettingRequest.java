@@ -7,9 +7,9 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get the default namespace setting */
+/** Get the restrict workspace admins setting */
 @Generated
-public class GetDefaultNamespaceRequest {
+public class GetRestrictWorkspaceAdminsSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class GetDefaultNamespaceRequest {
   @QueryParam("etag")
   private String etag;
 
-  public GetDefaultNamespaceRequest setEtag(String etag) {
+  public GetRestrictWorkspaceAdminsSettingRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,7 +34,7 @@ public class GetDefaultNamespaceRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetDefaultNamespaceRequest that = (GetDefaultNamespaceRequest) o;
+    GetRestrictWorkspaceAdminsSettingRequest that = (GetRestrictWorkspaceAdminsSettingRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -45,6 +45,8 @@ public class GetDefaultNamespaceRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetDefaultNamespaceRequest.class).add("etag", etag).toString();
+    return new ToStringer(GetRestrictWorkspaceAdminsSettingRequest.class)
+        .add("etag", etag)
+        .toString();
   }
 }

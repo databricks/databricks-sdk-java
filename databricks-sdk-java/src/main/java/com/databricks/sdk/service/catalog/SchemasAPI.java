@@ -81,9 +81,8 @@ public class SchemasAPI {
    * <p>Gets an array of schemas for a catalog in the metastore. If the caller is the metastore
    * admin or the owner of the parent catalog, all schemas for the catalog will be retrieved.
    * Otherwise, only schemas owned by the caller (or for which the caller has the **USE_SCHEMA**
-   * privilege) will be retrieved. For unpaginated request, there is no guarantee of a specific
-   * ordering of the elements in the array. For paginated request, elements are ordered by their
-   * name.
+   * privilege) will be retrieved. There is no guarantee of a specific ordering of the elements in
+   * the array.
    */
   public Iterable<SchemaInfo> list(ListSchemasRequest request) {
     return new Paginator<>(

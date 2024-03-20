@@ -17,7 +17,7 @@ public interface OnlineTablesService {
    *
    * <p>Create a new Online Table.
    */
-  OnlineTable create(ViewData viewData);
+  OnlineTable create(CreateOnlineTableRequest createOnlineTableRequest);
 
   /**
    * Delete an Online Table.

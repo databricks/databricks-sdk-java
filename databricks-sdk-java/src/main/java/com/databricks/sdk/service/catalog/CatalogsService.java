@@ -50,7 +50,7 @@ public interface CatalogsService {
    * caller has the **USE_CATALOG** privilege) will be retrieved. There is no guarantee of a
    * specific ordering of the elements in the array.
    */
-  ListCatalogsResponse list();
+  ListCatalogsResponse list(ListCatalogsRequest listCatalogsRequest);
 
   /**
    * Update a catalog.

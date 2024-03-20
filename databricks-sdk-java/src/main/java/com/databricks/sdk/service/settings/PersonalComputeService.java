@@ -25,14 +25,14 @@ public interface PersonalComputeService {
    * <p>Reverts back the Personal Compute setting value to default (ON)
    */
   DeletePersonalComputeSettingResponse delete(
-      DeletePersonalComputeRequest deletePersonalComputeRequest);
+      DeletePersonalComputeSettingRequest deletePersonalComputeSettingRequest);
 
   /**
    * Get Personal Compute setting.
    *
    * <p>Gets the value of the Personal Compute setting.
    */
-  PersonalComputeSetting get(GetPersonalComputeRequest getPersonalComputeRequest);
+  PersonalComputeSetting get(GetPersonalComputeSettingRequest getPersonalComputeSettingRequest);
 
   /**
    * Update Personal Compute setting.

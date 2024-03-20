@@ -7,9 +7,9 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get the compliance security profile setting */
+/** Get the default namespace setting */
 @Generated
-public class GetCspEnablementRequest {
+public class GetDefaultNamespaceSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class GetCspEnablementRequest {
   @QueryParam("etag")
   private String etag;
 
-  public GetCspEnablementRequest setEtag(String etag) {
+  public GetDefaultNamespaceSettingRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,7 +34,7 @@ public class GetCspEnablementRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetCspEnablementRequest that = (GetCspEnablementRequest) o;
+    GetDefaultNamespaceSettingRequest that = (GetDefaultNamespaceSettingRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -45,6 +45,6 @@ public class GetCspEnablementRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetCspEnablementRequest.class).add("etag", etag).toString();
+    return new ToStringer(GetDefaultNamespaceSettingRequest.class).add("etag", etag).toString();
   }
 }

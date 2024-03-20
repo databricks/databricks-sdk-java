@@ -13,6 +13,13 @@ public class ExternalLocationInfo {
   @JsonProperty("access_point")
   private String accessPoint;
 
+  /**
+   * Indicates whether the principal is limited to retrieving metadata for the associated object
+   * through the BROWSE privilege when include_browse is enabled in the request.
+   */
+  @JsonProperty("browse_only")
+  private Boolean browseOnly;
+
   /** User-provided free-form text description. */
   @JsonProperty("comment")
   private String comment;
@@ -72,6 +79,15 @@ public class ExternalLocationInfo {
 
   public String getAccessPoint() {
     return accessPoint;
+  }
+
+  public ExternalLocationInfo setBrowseOnly(Boolean browseOnly) {
+    this.browseOnly = browseOnly;
+    return this;
+  }
+
+  public Boolean getBrowseOnly() {
+    return browseOnly;
   }
 
   public ExternalLocationInfo setComment(String comment) {
@@ -197,6 +213,7 @@ public class ExternalLocationInfo {
     if (o == null || getClass() != o.getClass()) return false;
     ExternalLocationInfo that = (ExternalLocationInfo) o;
     return Objects.equals(accessPoint, that.accessPoint)
+        && Objects.equals(browseOnly, that.browseOnly)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
@@ -216,6 +233,7 @@ public class ExternalLocationInfo {
   public int hashCode() {
     return Objects.hash(
         accessPoint,
+        browseOnly,
         comment,
         createdAt,
         createdBy,
@@ -235,6 +253,7 @@ public class ExternalLocationInfo {
   public String toString() {
     return new ToStringer(ExternalLocationInfo.class)
         .add("accessPoint", accessPoint)
+        .add("browseOnly", browseOnly)
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)

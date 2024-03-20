@@ -33,7 +33,7 @@ public class CspEnablementAPI {
    *
    * <p>Gets the compliance security profile setting.
    */
-  public CspEnablementSetting get(GetCspEnablementRequest request) {
+  public CspEnablementSetting get(GetCspEnablementSettingRequest request) {
     return impl.get(request);
   }
 

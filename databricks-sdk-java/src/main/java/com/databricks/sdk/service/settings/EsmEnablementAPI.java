@@ -35,7 +35,7 @@ public class EsmEnablementAPI {
    *
    * <p>Gets the enhanced security monitoring setting.
    */
-  public EsmEnablementSetting get(GetEsmEnablementRequest request) {
+  public EsmEnablementSetting get(GetEsmEnablementSettingRequest request) {
     return impl.get(request);
   }
 
