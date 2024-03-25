@@ -1,5 +1,6 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.error.ApiErrors;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
@@ -16,9 +17,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +40,7 @@ public class ApiClient {
 
   private final HttpClient httpClient;
   private final BodyLogger bodyLogger;
+  private final RetryStrategyPicker retryStrategyPicker;
   private final Timer timer;
   private static final String RETRY_AFTER_HEADER = "retry-after";
 
@@ -74,6 +75,7 @@ public class ApiClient {
     random = new Random();
     httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
+    retryStrategyPicker = new RequestBasedRetryStrategyPicker(this.config);
     this.timer = timer;
   }
 
@@ -234,8 +236,7 @@ public class ApiClient {
   }
 
   private Response executeInner(Request in) {
-    RetryStrategyPicker strategyPicker = new RequestBasedRetryStrategyPicker(this.config);
-    RetryStrategy retryStrategy = strategyPicker.getRetryStrategy(in);
+    RetryStrategy retryStrategy = retryStrategyPicker.getRetryStrategy(in);
     int attemptNumber = 0;
     while (true) {
       attemptNumber++;
@@ -265,17 +266,15 @@ public class ApiClient {
         LOG.debug("Request {} failed", in, e);
       }
 
-      // The request is not retried under three conditions:
-      // 1. The request succeeded (err == null, out != null). In this case, the response is
-      // returned.
-      // 2. The request failed with a non-retriable error (err != null, out == null).
-      // 3. The request failed with a retriable error, but the number of attempts exceeds
-      // maxAttempts.
-      if (!retryStrategy.isRetriable(out, err)) {
-        if (retryStrategy.getError() == null || retryStrategy.getError().getErrorCode() == null) {
-          return out;
-        }
-        throw retryStrategy.getError();
+      // Check if the request succeeded
+      if (isRequestSuccessful(out, err)) {
+        return out;
+      }
+      // The request did not succeed.
+      // Check if the request cannot be retried: if yes, retry after backoff, else throw the error.
+      DatabricksError databricksError = ApiErrors.getDatabricksError(out, err);
+      if (!retryStrategy.isRetriable(databricksError)) {
+        throw databricksError;
       }
       if (attemptNumber == maxAttempts) {
         throw new DatabricksException(
@@ -291,6 +290,10 @@ public class ApiClient {
         Thread.currentThread().interrupt();
       }
     }
+  }
+
+  private boolean isRequestSuccessful(Response response, Exception e) {
+    return e == null && response.getStatusCode() >= 200 && response.getStatusCode() < 300;
   }
 
   private long getBackoffMillis(Response response, int attemptNumber) {
@@ -317,13 +320,19 @@ public class ApiClient {
     long waitTime = 0;
     for (String retryAfter : retryAfterHeader) {
       try {
-        Date date = Date.from(Instant.parse(retryAfter));
-        LocalDateTime dateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-        LocalDateTime now = LocalDateTime.now();
-        waitTime = java.time.Duration.between(now, dateTime).getSeconds();
+        // Datetime in header is always in GMT
+        ZonedDateTime retryAfterDate =
+            ZonedDateTime.parse(retryAfter, DateTimeFormatter.RFC_1123_DATE_TIME);
+        ZonedDateTime now = ZonedDateTime.now();
+        waitTime = java.time.Duration.between(now, retryAfterDate).getSeconds();
       } catch (Exception e) {
         // If not a date, assume it is seconds
-        waitTime = Long.parseLong(retryAfter);
+        try {
+          waitTime = Long.parseLong(retryAfter);
+        } catch (NumberFormatException nfe) {
+          // Just fallback to using exponential backoff
+          return Optional.empty();
+        }
       }
     }
     return Optional.of(waitTime * 1000);

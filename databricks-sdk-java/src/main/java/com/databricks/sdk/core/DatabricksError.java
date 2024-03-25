@@ -1,15 +1,9 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.error.ErrorDetail;
-import java.net.ConnectException;
-import java.net.SocketException;
-import java.net.SocketTimeoutException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The result of checking whether {@code ApiClient} should retry a request.
@@ -21,24 +15,6 @@ import org.slf4j.LoggerFactory;
  */
 public class DatabricksError extends DatabricksException {
   private static final String ERROR_INFO_TYPE = "type.googleapis.com/google.rpc.ErrorInfo";
-  private final Logger LOG = LoggerFactory.getLogger(getClass().getName());
-
-  /** Errors returned by Databricks services which are known to be retriable. */
-  private static final List<String> TRANSIENT_ERROR_STRING_MATCHES =
-      Arrays.asList(
-          "com.databricks.backend.manager.util.UnknownWorkerEnvironmentException",
-          "does not have any associated worker environments",
-          "There is no worker environment with id",
-          "Unknown worker environment",
-          "ClusterNotReadyException");
-
-  /**
-   * Exception classes thrown by Java and Java libraries in which case the request should be
-   * retried.
-   */
-  private static final List<Class<? extends Throwable>> RETRYABLE_CLASSES =
-      Arrays.asList(SocketException.class, SocketTimeoutException.class, ConnectException.class);
-
   private final String message;
   private final Throwable cause;
   private final String errorCode;
@@ -97,44 +73,7 @@ public class DatabricksError extends DatabricksException {
     return cause;
   }
 
-  public boolean isMissing() {
-    return statusCode == 404;
-  }
-
-  public boolean isTooManyRequests() {
-    return statusCode == 429;
-  }
-
-  public boolean isRetriable() {
-    if (isTooManyRequests()) {
-      return true;
-    }
-    for (String substring : TRANSIENT_ERROR_STRING_MATCHES) {
-      if (message != null && message.contains(substring)) {
-        LOG.debug("Attempting retry because of {}", substring);
-        return true;
-      }
-    }
-    for (Class<? extends Throwable> clazz : RETRYABLE_CLASSES) {
-      if (isCausedBy(cause, clazz)) {
-        LOG.debug("Attempting retry because cause or nested cause extends {}", clazz.getName());
-        return true;
-      }
-    }
-    return false;
-  }
-
   List<ErrorDetail> getDetailsByType(String type) {
     return this.details.stream().filter(e -> e.getType().equals(type)).collect(Collectors.toList());
-  }
-
-  private static boolean isCausedBy(Throwable throwable, Class<? extends Throwable> clazz) {
-    if (throwable == null) {
-      return false;
-    }
-    if (clazz.isInstance(throwable)) {
-      return true;
-    }
-    return isCausedBy(throwable.getCause(), clazz);
   }
 }

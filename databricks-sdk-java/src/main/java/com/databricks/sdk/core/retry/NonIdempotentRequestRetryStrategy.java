@@ -1,18 +1,19 @@
 package com.databricks.sdk.core.retry;
 
 import com.databricks.sdk.core.DatabricksError;
-import com.databricks.sdk.core.error.ApiErrors;
-import com.databricks.sdk.core.http.Response;
 import java.net.*;
 import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This class is used to determine if a non-idempotent request should be retried. We essentially
+ * want to ensure that any request that could have potentially been processed by the server is not
+ * retried.
+ */
 public class NonIdempotentRequestRetryStrategy implements RetryStrategy {
   private final Logger LOGGER = LoggerFactory.getLogger(getClass().getName());
-
-  private DatabricksError databricksError;
 
   private static final List<String> TRANSIENT_ERROR_STRING_MATCHES =
       Arrays.asList(
@@ -30,8 +31,7 @@ public class NonIdempotentRequestRetryStrategy implements RetryStrategy {
           PortUnreachableException.class);
 
   @Override
-  public boolean isRetriable(Response response, Exception e) {
-    databricksError = ApiErrors.checkForRetry(response, e);
+  public boolean isRetriable(DatabricksError databricksError) {
     if (isTooManyRequestsError(databricksError)) {
       return true;
     }
@@ -45,11 +45,6 @@ public class NonIdempotentRequestRetryStrategy implements RetryStrategy {
       return true;
     }
     return false;
-  }
-
-  @Override
-  public DatabricksError getError() {
-    return databricksError;
   }
 
   private boolean isNotProcessedByServer(DatabricksError databricksError) {
