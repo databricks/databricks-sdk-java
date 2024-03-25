@@ -1,6 +1,8 @@
 package com.databricks.sdk.core.retry;
 
 import com.databricks.sdk.core.DatabricksError;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -10,21 +12,22 @@ import java.util.Set;
 public class IdempotentRequestRetryStrategy implements RetryStrategy {
 
   private static final Set<Class<? extends RuntimeException>> NON_RETRIABLE_EXCEPTIONS =
-      Set.of(
-          IllegalArgumentException.class,
-          IllegalStateException.class,
-          UnsupportedOperationException.class,
-          IndexOutOfBoundsException.class,
-          NullPointerException.class,
-          ClassCastException.class,
-          NumberFormatException.class,
-          ArrayIndexOutOfBoundsException.class,
-          ArrayStoreException.class,
-          ArithmeticException.class,
-          NegativeArraySizeException.class);
+      new HashSet<>(
+          Arrays.asList(
+              IllegalArgumentException.class,
+              IllegalStateException.class,
+              UnsupportedOperationException.class,
+              IndexOutOfBoundsException.class,
+              NullPointerException.class,
+              ClassCastException.class,
+              NumberFormatException.class,
+              ArrayIndexOutOfBoundsException.class,
+              ArrayStoreException.class,
+              ArithmeticException.class,
+              NegativeArraySizeException.class));
 
   private static final Set<Integer> NON_RETRIABLE_HTTP_CODES =
-      Set.of(400, 401, 403, 404, 405, 409, 410, 411, 412, 413, 414, 415, 416);
+      new HashSet<>(Arrays.asList(400, 401, 403, 404, 405, 409, 410, 411, 412, 413, 414, 415, 416));
 
   @Override
   public boolean isRetriable(DatabricksError databricksError) {
