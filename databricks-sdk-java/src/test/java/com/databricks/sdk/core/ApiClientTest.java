@@ -11,7 +11,8 @@ import com.databricks.sdk.core.utils.FakeTimer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.time.*;
 import java.util.*;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.junit.jupiter.api.Test;
@@ -133,6 +134,20 @@ public class ApiClientTest {
             (String) null));
   }
 
+  private SuccessfulResponse getTooManyRequestsResponseWithRetryAfterDateHeader(Request req) {
+    ZoneOffset gmtOffset = ZoneId.of("GMT").getRules().getOffset(Instant.now());
+    ZonedDateTime now = ZonedDateTime.now(gmtOffset);
+    String retryAfterTime =
+        now.plusSeconds(5).format(java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME);
+    return new SuccessfulResponse(
+        new Response(
+            req,
+            429,
+            "Too Many Requests",
+            Collections.singletonMap("retry-after", Collections.singletonList(retryAfterTime)),
+            (String) null));
+  }
+
   private SuccessfulResponse getTransientError(Request req, int statusCode, ApiErrorBody body)
       throws JsonProcessingException {
     return getTransientError(req, statusCode, mapper.writeValueAsString(body));
@@ -187,7 +202,7 @@ public class ApiClientTest {
     runFailingApiClientTest(
         req,
         Arrays.asList(
-            getTooManyRequestsResponse(req),
+            getTooManyRequestsResponseWithRetryAfterDateHeader(req),
             getTooManyRequestsResponse(req),
             getTooManyRequestsResponse(req),
             getTooManyRequestsResponse(req),
@@ -309,13 +324,13 @@ public class ApiClientTest {
   }
 
   @Test
-  void retrySocketTimeoutException() {
+  void retryUnknownHostException() {
     Request req = getBasicRequest();
 
     runApiClientTest(
         req,
         Arrays.asList(
-            new Failure(new SocketTimeoutException("Connect timed out")), getSuccessResponse(req)),
+            new Failure(new UnknownHostException("Connect timed out")), getSuccessResponse(req)),
         MyEndpointResponse.class,
         new MyEndpointResponse().setKey("value"));
   }

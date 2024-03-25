@@ -4,36 +4,76 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.http.Request;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * A RetryStrategyPicker that selects a retry strategy based on whether the request is idempotent or
+ * not.
+ */
 public class RequestBasedRetryStrategyPicker implements RetryStrategyPicker {
-  private static final List<Request> NON_IDEMPOTENT_REQUESTS =
-      Arrays.asList(new Request("POST", "/api/2.0/sql/statements/"));
+  private static final List<Request> IDEMPOTENT_REQUESTS =
+      Arrays.asList(
+          // Create a new session v1.0
+          new Request("POST", "/api/2.0/sql/statements/sessions/"),
+          // Create a new session v2.0
+          new Request("POST", "/api/2.0/sql/sessions/"),
+          // Delete an existing session v1.0
+          new Request("DELETE", "/api/2.0/sql/statements/sessions/*"),
+          // Delete an existing session v2.0
+          new Request("DELETE", "/api/2.0/sql/sessions/*"),
+          // Get status of a statement
+          new Request("GET", "/api/2.0/sql/statements/*"),
+          // Close a statement
+          new Request("DELETE", "/api/2.0/sql/statements/*"),
+          // Fetch a chunk of a statement result
+          new Request("GET", "/api/2.0/sql/statements/*/result/chunks/*"));
 
-  private final List<Request> nonIdempotentRequestsWithUrl;
-  DatabricksConfig config;
+  private final List<Map.Entry<String, Pattern>> idempotentRequestsPattern;
+  private static final NonIdempotentRequestRetryStrategy NON_IDEMPOTENT_RETRY_STRATEGY =
+      new NonIdempotentRequestRetryStrategy();
+  private static final IdempotentRequestRetryStrategy IDEMPOTENT_RETRY_STRATEGY =
+      new IdempotentRequestRetryStrategy();
 
   public RequestBasedRetryStrategyPicker(DatabricksConfig config) {
-    this.config = config;
-    this.nonIdempotentRequestsWithUrl =
-        NON_IDEMPOTENT_REQUESTS.stream()
-            .map(request -> new Request(request.getMethod(), config.getHost() + request.getUrl()))
+    this.idempotentRequestsPattern =
+        IDEMPOTENT_REQUESTS.stream()
+            .map(
+                request ->
+                    Map.entry(
+                        request.getMethod(),
+                        Pattern.compile(
+                            config.getHost() + request.getUrl(), Pattern.CASE_INSENSITIVE)))
             .collect(Collectors.toList());
   }
 
+  /**
+   * This function gets the retry strategy for a given request based on whether the request is
+   * idempotent or not.
+   *
+   * @param request to get the retry strategy for
+   * @return the retry strategy for the given request
+   */
   @Override
   public RetryStrategy getRetryStrategy(Request request) {
-    if (isNonIdempotentRequest(request)) {
-      return new NonIdempotentRequestRetryStrategy();
+    if (isIdempotentRequest(request)) {
+      return IDEMPOTENT_RETRY_STRATEGY;
     } else {
-      return new IdempotentRequestRetryStrategy();
+      return NON_IDEMPOTENT_RETRY_STRATEGY;
     }
   }
 
-  private boolean isNonIdempotentRequest(Request request) {
-    for (Request nonIdempotentRequest : nonIdempotentRequestsWithUrl) {
-      if (nonIdempotentRequest.getMethod().equals(request.getMethod())
-          && nonIdempotentRequest.getUrl().equals(request.getUrl())) {
+  /**
+   * This function checks if a given request is idempotent.
+   *
+   * @param request to check if it is idempotent
+   * @return true if the request is idempotent, false otherwise
+   */
+  private boolean isIdempotentRequest(Request request) {
+    for (Map.Entry<String, Pattern> idempotentRequest : idempotentRequestsPattern) {
+      if (idempotentRequest.getKey().equals(request.getMethod())
+          && idempotentRequest.getValue().matcher(request.getUrl()).find()) {
         return true;
       }
     }
