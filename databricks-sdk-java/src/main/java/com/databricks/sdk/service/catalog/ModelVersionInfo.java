@@ -9,6 +9,13 @@ import java.util.Objects;
 
 @Generated
 public class ModelVersionInfo {
+  /**
+   * Indicates whether the principal is limited to retrieving metadata for the associated object
+   * through the BROWSE privilege when include_browse is enabled in the request.
+   */
+  @JsonProperty("browse_only")
+  private Boolean browseOnly;
+
   /** The name of the catalog containing the model version */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -87,6 +94,15 @@ public class ModelVersionInfo {
   /** Integer model version number, used to reference the model version in API requests. */
   @JsonProperty("version")
   private Long version;
+
+  public ModelVersionInfo setBrowseOnly(Boolean browseOnly) {
+    this.browseOnly = browseOnly;
+    return this;
+  }
+
+  public Boolean getBrowseOnly() {
+    return browseOnly;
+  }
 
   public ModelVersionInfo setCatalogName(String catalogName) {
     this.catalogName = catalogName;
@@ -246,7 +262,8 @@ public class ModelVersionInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ModelVersionInfo that = (ModelVersionInfo) o;
-    return Objects.equals(catalogName, that.catalogName)
+    return Objects.equals(browseOnly, that.browseOnly)
+        && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
@@ -268,6 +285,7 @@ public class ModelVersionInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        browseOnly,
         catalogName,
         comment,
         createdAt,
@@ -290,6 +308,7 @@ public class ModelVersionInfo {
   @Override
   public String toString() {
     return new ToStringer(ModelVersionInfo.class)
+        .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("comment", comment)
         .add("createdAt", createdAt)

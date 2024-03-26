@@ -15,6 +15,13 @@ public class ListFunctionsRequest {
   private String catalogName;
 
   /**
+   * Whether to include functions in the response for which the principal can only access selective
+   * metadata for
+   */
+  @QueryParam("include_browse")
+  private Boolean includeBrowse;
+
+  /**
    * Maximum number of functions to return. If not set, all the functions are returned (not
    * recommended). - when set to a value greater than 0, the page length is the minimum of this
    * value and a server configured value; - when set to 0, the page length is set to a server
@@ -39,6 +46,15 @@ public class ListFunctionsRequest {
 
   public String getCatalogName() {
     return catalogName;
+  }
+
+  public ListFunctionsRequest setIncludeBrowse(Boolean includeBrowse) {
+    this.includeBrowse = includeBrowse;
+    return this;
+  }
+
+  public Boolean getIncludeBrowse() {
+    return includeBrowse;
   }
 
   public ListFunctionsRequest setMaxResults(Long maxResults) {
@@ -74,6 +90,7 @@ public class ListFunctionsRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListFunctionsRequest that = (ListFunctionsRequest) o;
     return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(includeBrowse, that.includeBrowse)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(schemaName, that.schemaName);
@@ -81,13 +98,14 @@ public class ListFunctionsRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(catalogName, maxResults, pageToken, schemaName);
+    return Objects.hash(catalogName, includeBrowse, maxResults, pageToken, schemaName);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListFunctionsRequest.class)
         .add("catalogName", catalogName)
+        .add("includeBrowse", includeBrowse)
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .add("schemaName", schemaName)

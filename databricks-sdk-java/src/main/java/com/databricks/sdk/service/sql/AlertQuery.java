@@ -76,7 +76,7 @@ public class AlertQuery {
   @JsonProperty("updated_at")
   private String updatedAt;
 
-  /** The ID of the user who created this query. */
+  /** The ID of the user who owns the query. */
   @JsonProperty("user_id")
   private Long userId;
 

@@ -92,8 +92,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Retrieve the logs associated with building the model's environment for a given serving
-   * endpoint's served model.
+   * Get build logs for a served model.
    *
    * <p>Retrieves the build logs associated with the provided served model.
    */
@@ -130,7 +129,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Retrieve the metrics associated with a serving endpoint.
+   * Get metrics of a serving endpoint.
    *
    * <p>Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
    * OpenMetrics exposition format.
@@ -182,7 +181,7 @@ public class ServingEndpointsAPI {
     return impl.getPermissions(request);
   }
 
-  /** Retrieve all serving endpoints. */
+  /** Get all serving endpoints. */
   public Iterable<ServingEndpoint> list() {
     return impl.list().getEndpoints();
   }
@@ -192,7 +191,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Retrieve the most recent log lines associated with a given serving endpoint's served model.
+   * Get the latest logs for a served model.
    *
    * <p>Retrieves the service logs associated with the provided served model.
    */
@@ -205,7 +204,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Patch the tags of a serving endpoint.
+   * Update tags of a serving endpoint.
    *
    * <p>Used to batch add and delete tags from a serving endpoint with a single API call.
    */
@@ -218,7 +217,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Update the rate limits of a serving endpoint.
+   * Update rate limits of a serving endpoint.
    *
    * <p>Used to update the rate limits of a serving endpoint. NOTE: only external and foundation
    * model endpoints are supported as of now.
@@ -231,7 +230,7 @@ public class ServingEndpointsAPI {
     return query(new QueryEndpointInput().setName(name));
   }
 
-  /** Query a serving endpoint with provided model input. */
+  /** Query a serving endpoint. */
   public QueryEndpointResponse query(QueryEndpointInput request) {
     return impl.query(request);
   }
@@ -256,7 +255,7 @@ public class ServingEndpointsAPI {
   }
 
   /**
-   * Update a serving endpoint with a new config.
+   * Update config of a serving endpoint.
    *
    * <p>Updates any combination of the serving endpoint's served entities, the compute configuration
    * of those served entities, and the endpoint's traffic config. An endpoint that already has an

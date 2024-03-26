@@ -42,7 +42,7 @@ public class CreateMonitor {
 
   /** The notification settings for the monitor. */
   @JsonProperty("notifications")
-  private Collection<MonitorNotificationsConfig> notifications;
+  private MonitorNotificationsConfig notifications;
 
   /** Schema where output metric tables are created. */
   @JsonProperty("output_schema_name")
@@ -135,12 +135,12 @@ public class CreateMonitor {
     return inferenceLog;
   }
 
-  public CreateMonitor setNotifications(Collection<MonitorNotificationsConfig> notifications) {
+  public CreateMonitor setNotifications(MonitorNotificationsConfig notifications) {
     this.notifications = notifications;
     return this;
   }
 
-  public Collection<MonitorNotificationsConfig> getNotifications() {
+  public MonitorNotificationsConfig getNotifications() {
     return notifications;
   }
 

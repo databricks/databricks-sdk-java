@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class MonitorDestinations {
-  /** The list of email addresses to send the notification to. */
+  /**
+   * The list of email addresses to send the notification to. A maximum of 5 email addresses is
+   * supported.
+   */
   @JsonProperty("email_addresses")
   private Collection<String> emailAddresses;
 

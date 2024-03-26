@@ -13,6 +13,13 @@ public class GetTableRequest {
   /** Full name of the table. */
   private String fullName;
 
+  /**
+   * Whether to include tables in the response for which the principal can only access selective
+   * metadata for
+   */
+  @QueryParam("include_browse")
+  private Boolean includeBrowse;
+
   /** Whether delta metadata should be included in the response. */
   @QueryParam("include_delta_metadata")
   private Boolean includeDeltaMetadata;
@@ -24,6 +31,15 @@ public class GetTableRequest {
 
   public String getFullName() {
     return fullName;
+  }
+
+  public GetTableRequest setIncludeBrowse(Boolean includeBrowse) {
+    this.includeBrowse = includeBrowse;
+    return this;
+  }
+
+  public Boolean getIncludeBrowse() {
+    return includeBrowse;
   }
 
   public GetTableRequest setIncludeDeltaMetadata(Boolean includeDeltaMetadata) {
@@ -41,18 +57,20 @@ public class GetTableRequest {
     if (o == null || getClass() != o.getClass()) return false;
     GetTableRequest that = (GetTableRequest) o;
     return Objects.equals(fullName, that.fullName)
+        && Objects.equals(includeBrowse, that.includeBrowse)
         && Objects.equals(includeDeltaMetadata, that.includeDeltaMetadata);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullName, includeDeltaMetadata);
+    return Objects.hash(fullName, includeBrowse, includeDeltaMetadata);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetTableRequest.class)
         .add("fullName", fullName)
+        .add("includeBrowse", includeBrowse)
         .add("includeDeltaMetadata", includeDeltaMetadata)
         .toString();
   }

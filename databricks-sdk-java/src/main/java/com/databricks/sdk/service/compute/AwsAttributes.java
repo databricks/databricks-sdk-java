@@ -38,7 +38,10 @@ public class AwsAttributes {
   @JsonProperty("ebs_volume_count")
   private Long ebsVolumeCount;
 
-  /** <needs content added> */
+  /**
+   * If using gp3 volumes, what IOPS to use for the disk. If this is not set, the maximum
+   * performance of a gp2 volume with the same volume size will be used.
+   */
   @JsonProperty("ebs_volume_iops")
   private Long ebsVolumeIops;
 
@@ -50,7 +53,10 @@ public class AwsAttributes {
   @JsonProperty("ebs_volume_size")
   private Long ebsVolumeSize;
 
-  /** <needs content added> */
+  /**
+   * If using gp3 volumes, what throughput to use for the disk. If this is not set, the maximum
+   * performance of a gp2 volume with the same volume size will be used.
+   */
   @JsonProperty("ebs_volume_throughput")
   private Long ebsVolumeThroughput;
 

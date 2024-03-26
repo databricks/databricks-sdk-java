@@ -16,7 +16,7 @@ class OnlineTablesImpl implements OnlineTablesService {
   }
 
   @Override
-  public OnlineTable create(ViewData request) {
+  public OnlineTable create(CreateOnlineTableRequest request) {
     String path = "/api/2.0/online-tables";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

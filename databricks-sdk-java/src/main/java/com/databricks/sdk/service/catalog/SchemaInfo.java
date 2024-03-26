@@ -10,6 +10,13 @@ import java.util.Objects;
 
 @Generated
 public class SchemaInfo {
+  /**
+   * Indicates whether the principal is limited to retrieving metadata for the associated object
+   * through the BROWSE privilege when include_browse is enabled in the request.
+   */
+  @JsonProperty("browse_only")
+  private Boolean browseOnly;
+
   /** Name of parent catalog. */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -73,6 +80,15 @@ public class SchemaInfo {
   /** Username of user who last modified schema. */
   @JsonProperty("updated_by")
   private String updatedBy;
+
+  public SchemaInfo setBrowseOnly(Boolean browseOnly) {
+    this.browseOnly = browseOnly;
+    return this;
+  }
+
+  public Boolean getBrowseOnly() {
+    return browseOnly;
+  }
 
   public SchemaInfo setCatalogName(String catalogName) {
     this.catalogName = catalogName;
@@ -225,7 +241,8 @@ public class SchemaInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SchemaInfo that = (SchemaInfo) o;
-    return Objects.equals(catalogName, that.catalogName)
+    return Objects.equals(browseOnly, that.browseOnly)
+        && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(catalogType, that.catalogType)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
@@ -247,6 +264,7 @@ public class SchemaInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        browseOnly,
         catalogName,
         catalogType,
         comment,
@@ -268,6 +286,7 @@ public class SchemaInfo {
   @Override
   public String toString() {
     return new ToStringer(SchemaInfo.class)
+        .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("catalogType", catalogType)
         .add("comment", comment)

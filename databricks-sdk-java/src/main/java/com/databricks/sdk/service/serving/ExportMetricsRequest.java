@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Retrieve the metrics associated with a serving endpoint */
+/** Get metrics of a serving endpoint */
 @Generated
 public class ExportMetricsRequest {
   /** The name of the serving endpoint to retrieve metrics for. This field is required. */

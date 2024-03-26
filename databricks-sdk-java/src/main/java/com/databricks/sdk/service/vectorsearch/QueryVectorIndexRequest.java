@@ -42,6 +42,10 @@ public class QueryVectorIndexRequest {
   @JsonProperty("query_vector")
   private Collection<Double> queryVector;
 
+  /** Threshold for the approximate nearest neighbor search. Defaults to 0.0. */
+  @JsonProperty("score_threshold")
+  private Double scoreThreshold;
+
   public QueryVectorIndexRequest setColumns(Collection<String> columns) {
     this.columns = columns;
     return this;
@@ -96,6 +100,15 @@ public class QueryVectorIndexRequest {
     return queryVector;
   }
 
+  public QueryVectorIndexRequest setScoreThreshold(Double scoreThreshold) {
+    this.scoreThreshold = scoreThreshold;
+    return this;
+  }
+
+  public Double getScoreThreshold() {
+    return scoreThreshold;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -106,12 +119,14 @@ public class QueryVectorIndexRequest {
         && Objects.equals(indexName, that.indexName)
         && Objects.equals(numResults, that.numResults)
         && Objects.equals(queryText, that.queryText)
-        && Objects.equals(queryVector, that.queryVector);
+        && Objects.equals(queryVector, that.queryVector)
+        && Objects.equals(scoreThreshold, that.scoreThreshold);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(columns, filtersJson, indexName, numResults, queryText, queryVector);
+    return Objects.hash(
+        columns, filtersJson, indexName, numResults, queryText, queryVector, scoreThreshold);
   }
 
   @Override
@@ -123,6 +138,7 @@ public class QueryVectorIndexRequest {
         .add("numResults", numResults)
         .add("queryText", queryText)
         .add("queryVector", queryVector)
+        .add("scoreThreshold", scoreThreshold)
         .toString();
   }
 }

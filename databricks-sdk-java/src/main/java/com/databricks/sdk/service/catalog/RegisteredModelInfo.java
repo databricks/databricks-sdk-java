@@ -14,6 +14,13 @@ public class RegisteredModelInfo {
   @JsonProperty("aliases")
   private Collection<RegisteredModelAlias> aliases;
 
+  /**
+   * Indicates whether the principal is limited to retrieving metadata for the associated object
+   * through the BROWSE privilege when include_browse is enabled in the request.
+   */
+  @JsonProperty("browse_only")
+  private Boolean browseOnly;
+
   /** The name of the catalog where the schema and the registered model reside */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -69,6 +76,15 @@ public class RegisteredModelInfo {
 
   public Collection<RegisteredModelAlias> getAliases() {
     return aliases;
+  }
+
+  public RegisteredModelInfo setBrowseOnly(Boolean browseOnly) {
+    this.browseOnly = browseOnly;
+    return this;
+  }
+
+  public Boolean getBrowseOnly() {
+    return browseOnly;
   }
 
   public RegisteredModelInfo setCatalogName(String catalogName) {
@@ -185,6 +201,7 @@ public class RegisteredModelInfo {
     if (o == null || getClass() != o.getClass()) return false;
     RegisteredModelInfo that = (RegisteredModelInfo) o;
     return Objects.equals(aliases, that.aliases)
+        && Objects.equals(browseOnly, that.browseOnly)
         && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
@@ -203,6 +220,7 @@ public class RegisteredModelInfo {
   public int hashCode() {
     return Objects.hash(
         aliases,
+        browseOnly,
         catalogName,
         comment,
         createdAt,
@@ -221,6 +239,7 @@ public class RegisteredModelInfo {
   public String toString() {
     return new ToStringer(RegisteredModelInfo.class)
         .add("aliases", aliases)
+        .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("comment", comment)
         .add("createdAt", createdAt)

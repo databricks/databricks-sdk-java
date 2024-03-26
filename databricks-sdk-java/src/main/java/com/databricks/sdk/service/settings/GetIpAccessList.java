@@ -8,11 +8,11 @@ import java.util.Objects;
 
 /** Get access list */
 @Generated
-public class GetIpAccessListRequest {
+public class GetIpAccessList {
   /** The ID for the corresponding IP access list */
   private String ipAccessListId;
 
-  public GetIpAccessListRequest setIpAccessListId(String ipAccessListId) {
+  public GetIpAccessList setIpAccessListId(String ipAccessListId) {
     this.ipAccessListId = ipAccessListId;
     return this;
   }
@@ -25,7 +25,7 @@ public class GetIpAccessListRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetIpAccessListRequest that = (GetIpAccessListRequest) o;
+    GetIpAccessList that = (GetIpAccessList) o;
     return Objects.equals(ipAccessListId, that.ipAccessListId);
   }
 
@@ -36,8 +36,6 @@ public class GetIpAccessListRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetIpAccessListRequest.class)
-        .add("ipAccessListId", ipAccessListId)
-        .toString();
+    return new ToStringer(GetIpAccessList.class).add("ipAccessListId", ipAccessListId).toString();
   }
 }

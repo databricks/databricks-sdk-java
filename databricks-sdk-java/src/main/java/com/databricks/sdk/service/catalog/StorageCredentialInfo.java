@@ -11,7 +11,7 @@ import java.util.Objects;
 public class StorageCredentialInfo {
   /** The AWS IAM role configuration. */
   @JsonProperty("aws_iam_role")
-  private AwsIamRole awsIamRole;
+  private AwsIamRoleResponse awsIamRole;
 
   /** The Azure managed identity configuration. */
   @JsonProperty("azure_managed_identity")
@@ -73,12 +73,12 @@ public class StorageCredentialInfo {
   @JsonProperty("used_for_managed_storage")
   private Boolean usedForManagedStorage;
 
-  public StorageCredentialInfo setAwsIamRole(AwsIamRole awsIamRole) {
+  public StorageCredentialInfo setAwsIamRole(AwsIamRoleResponse awsIamRole) {
     this.awsIamRole = awsIamRole;
     return this;
   }
 
-  public AwsIamRole getAwsIamRole() {
+  public AwsIamRoleResponse getAwsIamRole() {
     return awsIamRole;
   }
 

@@ -11,7 +11,7 @@ import java.util.Objects;
 public class ValidateStorageCredential {
   /** The AWS IAM role configuration. */
   @JsonProperty("aws_iam_role")
-  private AwsIamRole awsIamRole;
+  private AwsIamRoleRequest awsIamRole;
 
   /** The Azure managed identity configuration. */
   @JsonProperty("azure_managed_identity")
@@ -45,12 +45,12 @@ public class ValidateStorageCredential {
   @JsonProperty("url")
   private String url;
 
-  public ValidateStorageCredential setAwsIamRole(AwsIamRole awsIamRole) {
+  public ValidateStorageCredential setAwsIamRole(AwsIamRoleRequest awsIamRole) {
     this.awsIamRole = awsIamRole;
     return this;
   }
 
-  public AwsIamRole getAwsIamRole() {
+  public AwsIamRoleRequest getAwsIamRole() {
     return awsIamRole;
   }
 

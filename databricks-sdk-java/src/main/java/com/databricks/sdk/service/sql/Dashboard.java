@@ -89,7 +89,7 @@ public class Dashboard {
   @JsonProperty("user")
   private User user;
 
-  /** The ID of the user that created and owns this dashboard. */
+  /** The ID of the user who owns the dashboard. */
   @JsonProperty("user_id")
   private Long userId;
 

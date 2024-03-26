@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class AwsIamRole {
+public class AwsIamRoleResponse {
   /** The external ID used in role assumption to prevent confused deputy problem.. */
   @JsonProperty("external_id")
   private String externalId;
@@ -24,7 +24,7 @@ public class AwsIamRole {
   @JsonProperty("unity_catalog_iam_arn")
   private String unityCatalogIamArn;
 
-  public AwsIamRole setExternalId(String externalId) {
+  public AwsIamRoleResponse setExternalId(String externalId) {
     this.externalId = externalId;
     return this;
   }
@@ -33,7 +33,7 @@ public class AwsIamRole {
     return externalId;
   }
 
-  public AwsIamRole setRoleArn(String roleArn) {
+  public AwsIamRoleResponse setRoleArn(String roleArn) {
     this.roleArn = roleArn;
     return this;
   }
@@ -42,7 +42,7 @@ public class AwsIamRole {
     return roleArn;
   }
 
-  public AwsIamRole setUnityCatalogIamArn(String unityCatalogIamArn) {
+  public AwsIamRoleResponse setUnityCatalogIamArn(String unityCatalogIamArn) {
     this.unityCatalogIamArn = unityCatalogIamArn;
     return this;
   }
@@ -55,7 +55,7 @@ public class AwsIamRole {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    AwsIamRole that = (AwsIamRole) o;
+    AwsIamRoleResponse that = (AwsIamRoleResponse) o;
     return Objects.equals(externalId, that.externalId)
         && Objects.equals(roleArn, that.roleArn)
         && Objects.equals(unityCatalogIamArn, that.unityCatalogIamArn);
@@ -68,7 +68,7 @@ public class AwsIamRole {
 
   @Override
   public String toString() {
-    return new ToStringer(AwsIamRole.class)
+    return new ToStringer(AwsIamRoleResponse.class)
         .add("externalId", externalId)
         .add("roleArn", roleArn)
         .add("unityCatalogIamArn", unityCatalogIamArn)

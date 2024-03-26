@@ -9,6 +9,13 @@ import java.util.Objects;
 
 @Generated
 public class FunctionInfo {
+  /**
+   * Indicates whether the principal is limited to retrieving metadata for the associated object
+   * through the BROWSE privilege when include_browse is enabled in the request.
+   */
+  @JsonProperty("browse_only")
+  private Boolean browseOnly;
+
   /** Name of parent catalog. */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -129,6 +136,15 @@ public class FunctionInfo {
   /** Username of user who last modified function. */
   @JsonProperty("updated_by")
   private String updatedBy;
+
+  public FunctionInfo setBrowseOnly(Boolean browseOnly) {
+    this.browseOnly = browseOnly;
+    return this;
+  }
+
+  public Boolean getBrowseOnly() {
+    return browseOnly;
+  }
 
   public FunctionInfo setCatalogName(String catalogName) {
     this.catalogName = catalogName;
@@ -396,7 +412,8 @@ public class FunctionInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     FunctionInfo that = (FunctionInfo) o;
-    return Objects.equals(catalogName, that.catalogName)
+    return Objects.equals(browseOnly, that.browseOnly)
+        && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
@@ -430,6 +447,7 @@ public class FunctionInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        browseOnly,
         catalogName,
         comment,
         createdAt,
@@ -464,6 +482,7 @@ public class FunctionInfo {
   @Override
   public String toString() {
     return new ToStringer(FunctionInfo.class)
+        .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("comment", comment)
         .add("createdAt", createdAt)

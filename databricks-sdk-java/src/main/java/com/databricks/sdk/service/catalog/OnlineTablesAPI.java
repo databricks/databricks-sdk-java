@@ -28,7 +28,7 @@ public class OnlineTablesAPI {
    *
    * <p>Create a new Online Table.
    */
-  public OnlineTable create(ViewData request) {
+  public OnlineTable create(CreateOnlineTableRequest request) {
     return impl.create(request);
   }
 

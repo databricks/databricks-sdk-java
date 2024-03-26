@@ -15,6 +15,13 @@ public class ListSchemasRequest {
   private String catalogName;
 
   /**
+   * Whether to include schemas in the response for which the principal can only access selective
+   * metadata for
+   */
+  @QueryParam("include_browse")
+  private Boolean includeBrowse;
+
+  /**
    * Maximum number of schemas to return. If not set, all the schemas are returned (not
    * recommended). - when set to a value greater than 0, the page length is the minimum of this
    * value and a server configured value; - when set to 0, the page length is set to a server
@@ -35,6 +42,15 @@ public class ListSchemasRequest {
 
   public String getCatalogName() {
     return catalogName;
+  }
+
+  public ListSchemasRequest setIncludeBrowse(Boolean includeBrowse) {
+    this.includeBrowse = includeBrowse;
+    return this;
+  }
+
+  public Boolean getIncludeBrowse() {
+    return includeBrowse;
   }
 
   public ListSchemasRequest setMaxResults(Long maxResults) {
@@ -61,19 +77,21 @@ public class ListSchemasRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListSchemasRequest that = (ListSchemasRequest) o;
     return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(includeBrowse, that.includeBrowse)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(pageToken, that.pageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(catalogName, maxResults, pageToken);
+    return Objects.hash(catalogName, includeBrowse, maxResults, pageToken);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListSchemasRequest.class)
         .add("catalogName", catalogName)
+        .add("includeBrowse", includeBrowse)
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();

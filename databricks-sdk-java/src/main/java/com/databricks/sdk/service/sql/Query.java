@@ -128,7 +128,7 @@ public class Query {
   @JsonProperty("user")
   private User user;
 
-  /** The ID of the user who created this query. */
+  /** The ID of the user who owns the query. */
   @JsonProperty("user_id")
   private Long userId;
 

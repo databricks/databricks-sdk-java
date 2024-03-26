@@ -11,7 +11,7 @@ import java.util.Objects;
 public class UpdateStorageCredential {
   /** The AWS IAM role configuration. */
   @JsonProperty("aws_iam_role")
-  private AwsIamRole awsIamRole;
+  private AwsIamRoleRequest awsIamRole;
 
   /** The Azure managed identity configuration. */
   @JsonProperty("azure_managed_identity")
@@ -56,12 +56,12 @@ public class UpdateStorageCredential {
   @JsonProperty("skip_validation")
   private Boolean skipValidation;
 
-  public UpdateStorageCredential setAwsIamRole(AwsIamRole awsIamRole) {
+  public UpdateStorageCredential setAwsIamRole(AwsIamRoleRequest awsIamRole) {
     this.awsIamRole = awsIamRole;
     return this;
   }
 
-  public AwsIamRole getAwsIamRole() {
+  public AwsIamRoleRequest getAwsIamRole() {
     return awsIamRole;
   }
 

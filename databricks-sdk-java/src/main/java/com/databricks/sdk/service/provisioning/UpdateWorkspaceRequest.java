@@ -39,10 +39,7 @@ public class UpdateWorkspaceRequest {
   @JsonProperty("managed_services_customer_managed_key_id")
   private String managedServicesCustomerManagedKeyId;
 
-  /**
-   * The ID of the network connectivity configuration object, which is the parent resource of this
-   * private endpoint rule object.
-   */
+  /** */
   @JsonProperty("network_connectivity_config_id")
   private String networkConnectivityConfigId;
 

@@ -14,15 +14,18 @@ public class ListRunsResponse {
   @JsonProperty("has_more")
   private Boolean hasMore;
 
-  /** A token that can be used to list the next page of runs. */
+  /** A token that can be used to list the next page of runs (if applicable). */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** A token that can be used to list the previous page of runs. */
+  /** A token that can be used to list the previous page of runs (if applicable). */
   @JsonProperty("prev_page_token")
   private String prevPageToken;
 
-  /** A list of runs, from most recently started to least. */
+  /**
+   * A list of runs, from most recently started to least. Only included in the response if there are
+   * runs to list.
+   */
   @JsonProperty("runs")
   private Collection<BaseRun> runs;
 

@@ -15,6 +15,13 @@ public class TableInfo {
   @JsonProperty("access_point")
   private String accessPoint;
 
+  /**
+   * Indicates whether the principal is limited to retrieving metadata for the associated object
+   * through the BROWSE privilege when include_browse is enabled in the request.
+   */
+  @JsonProperty("browse_only")
+  private Boolean browseOnly;
+
   /** Name of parent catalog. */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -161,6 +168,15 @@ public class TableInfo {
 
   public String getAccessPoint() {
     return accessPoint;
+  }
+
+  public TableInfo setBrowseOnly(Boolean browseOnly) {
+    this.browseOnly = browseOnly;
+    return this;
+  }
+
+  public Boolean getBrowseOnly() {
+    return browseOnly;
   }
 
   public TableInfo setCatalogName(String catalogName) {
@@ -442,6 +458,7 @@ public class TableInfo {
     if (o == null || getClass() != o.getClass()) return false;
     TableInfo that = (TableInfo) o;
     return Objects.equals(accessPoint, that.accessPoint)
+        && Objects.equals(browseOnly, that.browseOnly)
         && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(columns, that.columns)
         && Objects.equals(comment, that.comment)
@@ -479,6 +496,7 @@ public class TableInfo {
   public int hashCode() {
     return Objects.hash(
         accessPoint,
+        browseOnly,
         catalogName,
         columns,
         comment,
@@ -515,6 +533,7 @@ public class TableInfo {
   public String toString() {
     return new ToStringer(TableInfo.class)
         .add("accessPoint", accessPoint)
+        .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("columns", columns)
         .add("comment", comment)

@@ -58,7 +58,7 @@ public class MonitorInfo {
 
   /** The notification settings for the monitor. */
   @JsonProperty("notifications")
-  private Collection<MonitorNotificationsConfig> notifications;
+  private MonitorNotificationsConfig notifications;
 
   /** Schema where output metric tables are created. */
   @JsonProperty("output_schema_name")
@@ -184,12 +184,12 @@ public class MonitorInfo {
     return monitorVersion;
   }
 
-  public MonitorInfo setNotifications(Collection<MonitorNotificationsConfig> notifications) {
+  public MonitorInfo setNotifications(MonitorNotificationsConfig notifications) {
     this.notifications = notifications;
     return this;
   }
 
-  public Collection<MonitorNotificationsConfig> getNotifications() {
+  public MonitorNotificationsConfig getNotifications() {
     return notifications;
   }
 

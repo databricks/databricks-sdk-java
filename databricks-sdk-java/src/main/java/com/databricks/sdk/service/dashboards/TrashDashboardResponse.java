@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 @Generated
-public class PublishResponse {
+public class TrashDashboardResponse {
 
   @Override
   public boolean equals(Object o) {
@@ -23,6 +23,6 @@ public class PublishResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(PublishResponse.class).toString();
+    return new ToStringer(TrashDashboardResponse.class).toString();
   }
 }
