@@ -1,11 +1,21 @@
 package com.databricks.sdk.core.commons;
 
-import com.databricks.sdk.core.DatabricksConfig;
+import static org.apache.http.entity.ContentType.APPLICATION_JSON;
+
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.ProxyConfig;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.CustomCloseInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.Principal;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
@@ -31,17 +41,6 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import static org.apache.http.entity.ContentType.APPLICATION_JSON;
-
 public class CommonsHttpClient implements HttpClient {
   private static final Logger LOG = LoggerFactory.getLogger(CommonsHttpClient.class);
   private final PoolingHttpClientConnectionManager connectionManager =
@@ -55,94 +54,10 @@ public class CommonsHttpClient implements HttpClient {
     hc = makeClosableHttpClient();
   }
 
-  public CommonsHttpClient(int timeoutSeconds, DatabricksConfig config) {
+  public CommonsHttpClient(int timeoutSeconds, ProxyConfig proxyConfig) {
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
-    hc = makeClosableHttpClient(config);
-  }
-
-
-  private CloseableHttpClient makeClosableHttpClient(DatabricksConfig config) {
-    HttpClientBuilder builder = HttpClientBuilder.create()
-            .setConnectionManager(connectionManager)
-            .setDefaultRequestConfig(makeRequestConfig());
-    setupProxy(config, builder);
-    return builder.build();
-  }
-
-  public static void setupProxy(DatabricksConfig config, HttpClientBuilder builder) {
-    String proxyHost = null;
-    Integer proxyPort = null;
-    String proxyUser = null;
-    String proxyPassword = null;
-    if (config.getUseSystemProxy() != null && config.getUseSystemProxy()) {
-      builder.useSystemProperties();
-      proxyHost = System.getProperty("https.proxyHost");
-      proxyPort = Integer.parseInt(System.getProperty("https.proxyPort"));
-      proxyUser = System.getProperty("https.proxyUser");
-      proxyPassword = System.getProperty("https.proxyPassword");
-    }
-    if (config.getUseProxy() != null && config.getUseProxy()) {
-      proxyHost = config.getProxyHost();
-      proxyPort = config.getProxyPort();
-      proxyUser = config.getProxyUser();
-      proxyPassword = config.getProxyPassword();
-      builder.setProxy(new HttpHost(proxyHost, proxyPort));
-    }
-    if (config.getProxyAuth() != null) {
-      setupProxyAuth(proxyHost, proxyPort, config.getProxyAuth(), proxyUser, proxyPassword, builder);
-    }
-  }
-
-  public static void setupProxyAuth(String proxyHost, Integer proxyPort, Integer proxyAuth,
-                                    String proxyUser, String proxyPassword, HttpClientBuilder builder) {
-    AuthScope authScope = new AuthScope(proxyHost, proxyPort);
-    switch (proxyAuth) {
-      case 0:
-        break;
-      case 1:
-        setupBasicProxyAuth(builder, authScope, proxyUser, proxyPassword);
-        break;
-      case 2:
-        setupKerberosProxyAuth(builder, authScope);
-        break;
-      default:
-        throw new DatabricksException("Unknown proxy auth type: " + proxyAuth);
-    }
-  }
-
-  public static void setupKerberosProxyAuth(HttpClientBuilder builder, AuthScope authScope) {
-    LOG.debug("Existing krb5.conf: " + System.getProperty("java.security.krb5.conf"));
-//    System.setProperty("java.security.krb5.conf", "/etc/krb5.conf");
-//    System.setProperty("java.security.auth.login.config", "/media/psf/Home/Desktop/login.conf");
-    System.setProperty("javax.security.auth.useSubjectCredsOnly", "false");
-    System.setProperty("sun.security.krb5.debug", "true");
-    System.setProperty("sun.security.jgss.debug", "true");
-    Credentials use_jaas_creds = new Credentials() {
-      public String getPassword() {
-        return null;
-      }
-
-      public Principal getUserPrincipal() {
-        return null;
-      }
-    };
-
-    CredentialsProvider credsProvider = new BasicCredentialsProvider();
-    credsProvider.setCredentials(authScope, use_jaas_creds);
-    builder.setDefaultCredentialsProvider(credsProvider)
-            .setDefaultAuthSchemeRegistry(RegistryBuilder.<AuthSchemeProvider>create()
-                    .register(AuthSchemes.SPNEGO, new SPNegoSchemeFactory(true))
-                    .build());
-  }
-
-  public static void setupBasicProxyAuth(HttpClientBuilder builder, AuthScope authScope, String proxyUser, String proxyPassword) {
-    CredentialsProvider credsProvider = new BasicCredentialsProvider();
-    credsProvider.setCredentials(
-        authScope,
-        new UsernamePasswordCredentials(proxyUser, proxyPassword));
-    builder.setDefaultCredentialsProvider(credsProvider)
-            .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
+    hc = makeClosableHttpClient(proxyConfig);
   }
 
   private RequestConfig makeRequestConfig() {
@@ -159,6 +74,99 @@ public class CommonsHttpClient implements HttpClient {
         .setDefaultRequestConfig(makeRequestConfig())
         .useSystemProperties()
         .build();
+  }
+
+  private CloseableHttpClient makeClosableHttpClient(ProxyConfig proxyConfig) {
+    HttpClientBuilder builder =
+        HttpClientBuilder.create()
+            .setConnectionManager(connectionManager)
+            .setDefaultRequestConfig(makeRequestConfig());
+    setupProxy(proxyConfig, builder);
+    return builder.build();
+  }
+
+  public static void setupProxy(ProxyConfig config, HttpClientBuilder builder) {
+    String proxyHost = null;
+    Integer proxyPort = null;
+    String proxyUser = null;
+    String proxyPassword = null;
+    if (config.isUseSystemProperties()) {
+      builder.useSystemProperties();
+      String protocol = System.getProperty("https.proxyHost") != null ? "https" : "http";
+      proxyHost = System.getProperty(protocol + ".proxyHost");
+      proxyPort = Integer.parseInt(System.getProperty(protocol + ".proxyPort"));
+      proxyUser = System.getProperty(protocol + ".proxyUser");
+      proxyPassword = System.getProperty(protocol + ".proxyPassword");
+    }
+    // Override system properties if proxy configuration is explicitly set
+    if (config.getHost() != null) {
+      proxyHost = config.getHost();
+      proxyPort = config.getPort();
+      proxyUser = config.getUsername();
+      proxyPassword = config.getPassword();
+      builder.setProxy(new HttpHost(proxyHost, proxyPort));
+    }
+    setupProxyAuth(
+        proxyHost, proxyPort, config.getProxyAuthType(), proxyUser, proxyPassword, builder);
+  }
+
+  public static void setupProxyAuth(
+      String proxyHost,
+      Integer proxyPort,
+      ProxyConfig.ProxyAuthType proxyAuthType,
+      String proxyUser,
+      String proxyPassword,
+      HttpClientBuilder builder) {
+    AuthScope authScope = new AuthScope(proxyHost, proxyPort);
+    switch (proxyAuthType) {
+      case NONE:
+        break;
+      case BASIC:
+        setupBasicProxyAuth(builder, authScope, proxyUser, proxyPassword);
+        break;
+      case SPNEGO:
+        setupNegotiateProxyAuth(builder, authScope);
+        break;
+      default:
+        throw new DatabricksException("Unknown proxy auth type: " + proxyAuthType);
+    }
+  }
+
+  public static void setupNegotiateProxyAuth(HttpClientBuilder builder, AuthScope authScope) {
+    // We only support kerberos for negotiate as of now
+    System.setProperty("javax.security.auth.useSubjectCredsOnly", "false");
+    // "java.security.krb5.conf" system property needs to be set if krb5.conf is not in the default
+    // location
+    // Use "sun.security.krb5.debug" and "sun.security.jgss.debug" system properties for debugging
+    Credentials use_jaas_creds =
+        new Credentials() {
+          public String getPassword() {
+            return null;
+          }
+
+          public Principal getUserPrincipal() {
+            return null;
+          }
+        };
+
+    CredentialsProvider credsProvider = new BasicCredentialsProvider();
+    credsProvider.setCredentials(authScope, use_jaas_creds);
+    builder
+        .setDefaultCredentialsProvider(credsProvider)
+        .setDefaultAuthSchemeRegistry(
+            RegistryBuilder.<AuthSchemeProvider>create()
+                .register(AuthSchemes.SPNEGO, new SPNegoSchemeFactory(true))
+                .build());
+  }
+
+  public static void setupBasicProxyAuth(
+      HttpClientBuilder builder, AuthScope authScope, String proxyUser, String proxyPassword) {
+    CredentialsProvider credsProvider = new BasicCredentialsProvider();
+    credsProvider.setCredentials(
+        authScope, new UsernamePasswordCredentials(proxyUser, proxyPassword));
+    builder
+        .setDefaultCredentialsProvider(credsProvider)
+        .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
   }
 
   @Override
