@@ -28,7 +28,7 @@ public class FilesIT {
         workspace,
         (volumePath) -> {
           // Generate a random file name and random contents of 10 KiB.
-          String fileName = NameUtils.uniqueName(volumePath + "/test");
+          String fileName = NameUtils.uniqueName(volumePath + "/test-with-?-and-#");
           byte[] fileContents = new byte[1024 * 10];
           for (int i = 0; i < fileContents.length; i++) {
             fileContents[i] = (byte) (i & 0xFF);
