@@ -2,6 +2,9 @@
 
 ## 0.22.0
 
+Improvements and Bug Fixes
+* Properly escape multi-segment path parameters ([#252](https://github.com/databricks/databricks-sdk-java/pull/252)).
+
 API Changes:
 
  * Added `Migrate` and `Unpublish` methods for [w.Lakeview](https://pkg.go.dev/github.com/databricks/databricks-sdk-go/service/dashboards#LakeviewAPI) workspace-level service.
