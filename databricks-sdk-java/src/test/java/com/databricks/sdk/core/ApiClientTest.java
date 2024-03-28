@@ -11,7 +11,8 @@ import com.databricks.sdk.core.utils.FakeTimer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.time.*;
 import java.util.*;
 import org.apache.http.impl.EnglishReasonPhraseCatalog;
 import org.junit.jupiter.api.Test;
@@ -62,7 +63,14 @@ public class ApiClientTest {
       Class<? extends T> clazz,
       T expectedResponse) {
     ApiClient client = getApiClient(request, responses);
-    T response = client.GET(request.getUri().getPath(), clazz, Collections.emptyMap());
+    T response;
+    if (request.getMethod().equals(Request.GET)) {
+      response = client.GET(request.getUri().getPath(), clazz, Collections.emptyMap());
+    } else if (request.getMethod().equals(Request.POST)) {
+      response = client.POST(request.getUri().getPath(), request, clazz, Collections.emptyMap());
+    } else {
+      throw new IllegalArgumentException("Unsupported method: " + request.getMethod());
+    }
     assertEquals(response, expectedResponse);
   }
 
@@ -76,13 +84,29 @@ public class ApiClientTest {
   private <T extends Throwable> T runFailingApiClientTest(
       Request request, List<ResponseProvider> responses, Class<?> clazz, Class<T> exceptionClass) {
     ApiClient client = getApiClient(request, responses);
-    return assertThrows(
-        exceptionClass,
-        () -> client.GET(request.getUri().getPath(), clazz, Collections.emptyMap()));
+    if (request.getMethod().equals(Request.GET)) {
+      return assertThrows(
+          exceptionClass,
+          () -> client.GET(request.getUri().getPath(), clazz, Collections.emptyMap()));
+    } else if (request.getMethod().equals(Request.POST)) {
+      return assertThrows(
+          exceptionClass,
+          () -> client.POST(request.getUri().getPath(), request, clazz, Collections.emptyMap()));
+    } else {
+      throw new IllegalArgumentException("Unsupported method: " + request.getMethod());
+    }
   }
 
   private Request getBasicRequest() {
     return new Request("GET", "http://my.host/api/my/endpoint");
+  }
+
+  private Request getExampleNonIdempotentRequest() {
+    return new Request("POST", "http://my.host/api/2.0/sql/statements/");
+  }
+
+  private Request getExampleIdempotentRequest() {
+    return new Request("GET", "http://my.host/api/2.0/sql/sessions/");
   }
 
   private SuccessfulResponse getSuccessResponse(Request req) {
@@ -98,6 +122,30 @@ public class ApiClientTest {
   private SuccessfulResponse getTooManyRequestsResponse(Request req) {
     return new SuccessfulResponse(
         new Response(req, 429, "Too Many Requests", Collections.emptyMap(), (String) null));
+  }
+
+  private SuccessfulResponse getTooManyRequestsResponseWithRetryAfterHeader(Request req) {
+    return new SuccessfulResponse(
+        new Response(
+            req,
+            429,
+            "Too Many Requests",
+            Collections.singletonMap("retry-after", Collections.singletonList("1")),
+            (String) null));
+  }
+
+  private SuccessfulResponse getTooManyRequestsResponseWithRetryAfterDateHeader(Request req) {
+    ZoneOffset gmtOffset = ZoneId.of("GMT").getRules().getOffset(Instant.now());
+    ZonedDateTime now = ZonedDateTime.now(gmtOffset);
+    String retryAfterTime =
+        now.plusSeconds(5).format(java.time.format.DateTimeFormatter.RFC_1123_DATE_TIME);
+    return new SuccessfulResponse(
+        new Response(
+            req,
+            429,
+            "Too Many Requests",
+            Collections.singletonMap("retry-after", Collections.singletonList(retryAfterTime)),
+            (String) null));
   }
 
   private SuccessfulResponse getTransientError(Request req, int statusCode, ApiErrorBody body)
@@ -141,7 +189,7 @@ public class ApiClientTest {
     runApiClientTest(
         req,
         Arrays.asList(
-            getTooManyRequestsResponse(req),
+            getTooManyRequestsResponseWithRetryAfterHeader(req),
             getTooManyRequestsResponse(req),
             getSuccessResponse(req)),
         MyEndpointResponse.class,
@@ -154,12 +202,39 @@ public class ApiClientTest {
     runFailingApiClientTest(
         req,
         Arrays.asList(
+            getTooManyRequestsResponseWithRetryAfterDateHeader(req),
             getTooManyRequestsResponse(req),
             getTooManyRequestsResponse(req),
             getTooManyRequestsResponse(req),
             getSuccessResponse(req)),
         MyEndpointResponse.class,
-        "Request GET /api/my/endpoint failed after 3 retries");
+        "Request GET /api/my/endpoint failed after 4 retries");
+  }
+
+  @Test
+  void failIdempotentRequestAfterTooManyRetries() throws JsonProcessingException {
+    Request req = getExampleIdempotentRequest();
+
+    runFailingApiClientTest(
+        req,
+        Arrays.asList(
+            getTooManyRequestsResponse(req),
+            getTransientError(
+                req,
+                400,
+                new ApiErrorBody(
+                    "ERROR",
+                    null,
+                    null,
+                    null,
+                    null,
+                    "Workspace 123 does not have any associated worker environments",
+                    null)),
+            getTooManyRequestsResponse(req),
+            getTooManyRequestsResponse(req),
+            getSuccessResponse(req)),
+        MyEndpointResponse.class,
+        "Request GET /api/2.0/sql/sessions/ failed after 4 retries");
   }
 
   @Test
@@ -188,7 +263,7 @@ public class ApiClientTest {
 
   @Test
   void errorDetails() throws JsonProcessingException {
-    Request req = getBasicRequest();
+    Request req = getExampleNonIdempotentRequest();
 
     Map<String, String> metadata = new HashMap<>();
     metadata.put("etag", "value");
@@ -249,14 +324,24 @@ public class ApiClientTest {
   }
 
   @Test
-  void retrySocketTimeoutException() {
+  void retryUnknownHostException() {
     Request req = getBasicRequest();
 
     runApiClientTest(
         req,
         Arrays.asList(
-            new Failure(new SocketTimeoutException("Connect timed out")), getSuccessResponse(req)),
+            new Failure(new UnknownHostException("Connect timed out")), getSuccessResponse(req)),
         MyEndpointResponse.class,
         new MyEndpointResponse().setKey("value"));
+  }
+
+  @Test
+  void testGetBackoffFromRetryAfterHeader() {
+    Request req = getBasicRequest();
+    Response response = getTooManyRequestsResponseWithRetryAfterHeader(req).getResponse();
+    assertEquals(Optional.of(1000L), ApiClient.getBackoffFromRetryAfterHeader(response));
+
+    response = getTooManyRequestsResponse(req).getResponse();
+    assertEquals(Optional.empty(), ApiClient.getBackoffFromRetryAfterHeader(response));
   }
 }

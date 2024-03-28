@@ -31,10 +31,19 @@ public class DummyHttpClient implements HttpClient {
 
   @Override
   public Response execute(Request in) throws IOException {
-    List<ResponseProvider> responses = stub.get(in);
+    List<ResponseProvider> responses = getResponseList(in);
     if (responses == null || responses.isEmpty()) {
       throw new IllegalArgumentException("No mock for " + in);
     }
     return responses.remove(0).getResponse();
+  }
+
+  private List<ResponseProvider> getResponseList(Request in) {
+    for (Request r : stub.keySet()) {
+      if (r.getMethod().equals(in.getMethod()) && r.getUrl().equals(in.getUrl())) {
+        return stub.get(r);
+      }
+    }
+    return null;
   }
 }
