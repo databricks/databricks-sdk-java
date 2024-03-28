@@ -138,7 +138,7 @@ public class CommonsHttpClient implements HttpClient {
     // "java.security.krb5.conf" system property needs to be set if krb5.conf is not in the default
     // location
     // Use "sun.security.krb5.debug" and "sun.security.jgss.debug" system properties for debugging
-    Credentials use_jaas_creds =
+    Credentials useJaasCreds =
         new Credentials() {
           public String getPassword() {
             return null;
@@ -150,7 +150,7 @@ public class CommonsHttpClient implements HttpClient {
         };
 
     CredentialsProvider credsProvider = new BasicCredentialsProvider();
-    credsProvider.setCredentials(authScope, use_jaas_creds);
+    credsProvider.setCredentials(authScope, useJaasCreds);
     builder
         .setDefaultCredentialsProvider(credsProvider)
         .setDefaultAuthSchemeRegistry(
