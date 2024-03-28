@@ -26,9 +26,8 @@ public class ListJobsRequest {
   private String name;
 
   /**
-   * The offset of the first job to return, relative to the most recently created job.
-   *
-   * <p>Deprecated since June 2023. Use `page_token` to iterate through the pages instead.
+   * The offset of the first job to return, relative to the most recently created job. Deprecated
+   * since June 2023. Use `page_token` to iterate through the pages instead.
    */
   @QueryParam("offset")
   private Long offset;

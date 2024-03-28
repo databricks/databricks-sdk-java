@@ -19,7 +19,7 @@ public class ForEachTask {
   @JsonProperty("inputs")
   private String inputs;
 
-  /** */
+  /** Configuration for the task that will be run for each element in the array */
   @JsonProperty("task")
   private Task task;
 

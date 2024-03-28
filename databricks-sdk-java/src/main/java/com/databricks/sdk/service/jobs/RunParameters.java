@@ -13,7 +13,7 @@ import java.util.Objects;
 public class RunParameters {
   /**
    * An array of commands to execute for jobs with the dbt task, for example `"dbt_commands": ["dbt
-   * deps", "dbt seed", "dbt run"]`
+   * deps", "dbt seed", "dbt deps", "dbt seed", "dbt run"]`
    */
   @JsonProperty("dbt_commands")
   private Collection<String> dbtCommands;
@@ -25,17 +25,11 @@ public class RunParameters {
    * cannot be specified in conjunction with notebook_params. The JSON representation of this field
    * (for example `{"jar_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
-   *
-   * <p>[task parameter variables]:
-   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
+   * <p>Use [Task parameter variables](/jobs.html\"#parameter-variables\") to set parameters
+   * containing information about job runs.
    */
   @JsonProperty("jar_params")
   private Collection<String> jarParams;
-
-  /** Job-level parameters used in the run. for example `"param": "overriding_val"` */
-  @JsonProperty("job_parameters")
-  private Map<String, String> jobParameters;
 
   /**
    * A map from keys to values for jobs with notebook task, for example `"notebook_params": {"name":
@@ -46,14 +40,13 @@ public class RunParameters {
    *
    * <p>notebook_params cannot be specified in conjunction with jar_params.
    *
-   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
+   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
    *
    * <p>The JSON representation of this field (for example `{"notebook_params":{"name":"john
    * doe","age":"35"}}`) cannot exceed 10,000 bytes.
    *
-   * <p>[dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html [task
-   * parameter variables]:
-   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
+   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
+   * [dbutils.widgets.get]: https://docs.databricks.com/dev-tools/databricks-utils.html
    */
   @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
@@ -75,7 +68,7 @@ public class RunParameters {
    * `run-now`, it would overwrite the parameters specified in job setting. The JSON representation
    * of this field (for example `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
+   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
    *
    * <p>Important
    *
@@ -83,8 +76,7 @@ public class RunParameters {
    * characters returns an error. Examples of invalid, non-ASCII characters are Chinese, Japanese
    * kanjis, and emojis.
    *
-   * <p>[task parameter variables]:
-   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
+   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("python_params")
   private Collection<String> pythonParams;
@@ -96,7 +88,7 @@ public class RunParameters {
    * parameters specified in job setting. The JSON representation of this field (for example
    * `{"python_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
+   * <p>Use [Task parameter variables] to set parameters containing information about job runs
    *
    * <p>Important
    *
@@ -104,8 +96,7 @@ public class RunParameters {
    * characters returns an error. Examples of invalid, non-ASCII characters are Chinese, Japanese
    * kanjis, and emojis.
    *
-   * <p>[task parameter variables]:
-   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
+   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("spark_submit_params")
   private Collection<String> sparkSubmitParams;
@@ -133,15 +124,6 @@ public class RunParameters {
 
   public Collection<String> getJarParams() {
     return jarParams;
-  }
-
-  public RunParameters setJobParameters(Map<String, String> jobParameters) {
-    this.jobParameters = jobParameters;
-    return this;
-  }
-
-  public Map<String, String> getJobParameters() {
-    return jobParameters;
   }
 
   public RunParameters setNotebookParams(Map<String, String> notebookParams) {
@@ -205,7 +187,6 @@ public class RunParameters {
     RunParameters that = (RunParameters) o;
     return Objects.equals(dbtCommands, that.dbtCommands)
         && Objects.equals(jarParams, that.jarParams)
-        && Objects.equals(jobParameters, that.jobParameters)
         && Objects.equals(notebookParams, that.notebookParams)
         && Objects.equals(pipelineParams, that.pipelineParams)
         && Objects.equals(pythonNamedParams, that.pythonNamedParams)
@@ -219,7 +200,6 @@ public class RunParameters {
     return Objects.hash(
         dbtCommands,
         jarParams,
-        jobParameters,
         notebookParams,
         pipelineParams,
         pythonNamedParams,
@@ -233,7 +213,6 @@ public class RunParameters {
     return new ToStringer(RunParameters.class)
         .add("dbtCommands", dbtCommands)
         .add("jarParams", jarParams)
-        .add("jobParameters", jobParameters)
         .add("notebookParams", notebookParams)
         .add("pipelineParams", pipelineParams)
         .add("pythonNamedParams", pythonNamedParams)

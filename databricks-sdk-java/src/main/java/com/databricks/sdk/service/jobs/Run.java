@@ -47,6 +47,10 @@ public class Run {
   @JsonProperty("creator_user_name")
   private String creatorUserName;
 
+  /** Description of the run */
+  @JsonProperty("description")
+  private String description;
+
   /**
    * The time at which this run ended in epoch milliseconds (milliseconds since 1/1/1970 UTC). This
    * field is set to 0 if the job is still running.
@@ -109,6 +113,10 @@ public class Run {
   @JsonProperty("overriding_parameters")
   private RunParameters overridingParameters;
 
+  /** The time in milliseconds that the run has spent in the queue. */
+  @JsonProperty("queue_duration")
+  private Long queueDuration;
+
   /** The repair history of the run. */
   @JsonProperty("repair_history")
   private Collection<RepairHistoryItem> repairHistory;
@@ -130,9 +138,9 @@ public class Run {
   private String runPageUrl;
 
   /**
-   * * `JOB_RUN`: Normal job run. A run created with :method:jobs/runNow. * `WORKFLOW_RUN`: Workflow
-   * run. A run created with [dbutils.notebook.run]. * `SUBMIT_RUN`: Submit run. A run created with
-   * :method:jobs/submit.
+   * The type of a run. * `JOB_RUN`: Normal job run. A run created with :method:jobs/runNow. *
+   * `WORKFLOW_RUN`: Workflow run. A run created with [dbutils.notebook.run]. * `SUBMIT_RUN`: Submit
+   * run. A run created with :method:jobs/submit.
    *
    * <p>[dbutils.notebook.run]:
    * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-workflow
@@ -187,7 +195,7 @@ public class Run {
   @JsonProperty("trigger")
   private TriggerType trigger;
 
-  /** */
+  /** Additional details about what triggered the run */
   @JsonProperty("trigger_info")
   private TriggerInfo triggerInfo;
 
@@ -234,6 +242,15 @@ public class Run {
 
   public String getCreatorUserName() {
     return creatorUserName;
+  }
+
+  public Run setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   public Run setEndTime(Long endTime) {
@@ -315,6 +332,15 @@ public class Run {
 
   public RunParameters getOverridingParameters() {
     return overridingParameters;
+  }
+
+  public Run setQueueDuration(Long queueDuration) {
+    this.queueDuration = queueDuration;
+    return this;
+  }
+
+  public Long getQueueDuration() {
+    return queueDuration;
   }
 
   public Run setRepairHistory(Collection<RepairHistoryItem> repairHistory) {
@@ -444,6 +470,7 @@ public class Run {
         && Objects.equals(clusterInstance, that.clusterInstance)
         && Objects.equals(clusterSpec, that.clusterSpec)
         && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(description, that.description)
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(gitSource, that.gitSource)
@@ -453,6 +480,7 @@ public class Run {
         && Objects.equals(numberInJob, that.numberInJob)
         && Objects.equals(originalAttemptRunId, that.originalAttemptRunId)
         && Objects.equals(overridingParameters, that.overridingParameters)
+        && Objects.equals(queueDuration, that.queueDuration)
         && Objects.equals(repairHistory, that.repairHistory)
         && Objects.equals(runDuration, that.runDuration)
         && Objects.equals(runId, that.runId)
@@ -476,6 +504,7 @@ public class Run {
         clusterInstance,
         clusterSpec,
         creatorUserName,
+        description,
         endTime,
         executionDuration,
         gitSource,
@@ -485,6 +514,7 @@ public class Run {
         numberInJob,
         originalAttemptRunId,
         overridingParameters,
+        queueDuration,
         repairHistory,
         runDuration,
         runId,
@@ -508,6 +538,7 @@ public class Run {
         .add("clusterInstance", clusterInstance)
         .add("clusterSpec", clusterSpec)
         .add("creatorUserName", creatorUserName)
+        .add("description", description)
         .add("endTime", endTime)
         .add("executionDuration", executionDuration)
         .add("gitSource", gitSource)
@@ -517,6 +548,7 @@ public class Run {
         .add("numberInJob", numberInJob)
         .add("originalAttemptRunId", originalAttemptRunId)
         .add("overridingParameters", overridingParameters)
+        .add("queueDuration", queueDuration)
         .add("repairHistory", repairHistory)
         .add("runDuration", runDuration)
         .add("runId", runId)

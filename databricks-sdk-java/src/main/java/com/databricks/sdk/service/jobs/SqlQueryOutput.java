@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class SqlQueryOutput {
+  /** */
+  @JsonProperty("endpoint_id")
+  private String endpointId;
+
   /** The link to find the output results. */
   @JsonProperty("output_link")
   private String outputLink;
@@ -27,6 +31,15 @@ public class SqlQueryOutput {
   /** The canonical identifier of the SQL warehouse. */
   @JsonProperty("warehouse_id")
   private String warehouseId;
+
+  public SqlQueryOutput setEndpointId(String endpointId) {
+    this.endpointId = endpointId;
+    return this;
+  }
+
+  public String getEndpointId() {
+    return endpointId;
+  }
 
   public SqlQueryOutput setOutputLink(String outputLink) {
     this.outputLink = outputLink;
@@ -69,7 +82,8 @@ public class SqlQueryOutput {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SqlQueryOutput that = (SqlQueryOutput) o;
-    return Objects.equals(outputLink, that.outputLink)
+    return Objects.equals(endpointId, that.endpointId)
+        && Objects.equals(outputLink, that.outputLink)
         && Objects.equals(queryText, that.queryText)
         && Objects.equals(sqlStatements, that.sqlStatements)
         && Objects.equals(warehouseId, that.warehouseId);
@@ -77,12 +91,13 @@ public class SqlQueryOutput {
 
   @Override
   public int hashCode() {
-    return Objects.hash(outputLink, queryText, sqlStatements, warehouseId);
+    return Objects.hash(endpointId, outputLink, queryText, sqlStatements, warehouseId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(SqlQueryOutput.class)
+        .add("endpointId", endpointId)
         .add("outputLink", outputLink)
         .add("queryText", queryText)
         .add("sqlStatements", sqlStatements)

@@ -19,11 +19,14 @@ public class RunForEachTask {
   @JsonProperty("inputs")
   private String inputs;
 
-  /** */
+  /**
+   * Read only field. Populated for GetRun and ListRuns RPC calls and stores the execution stats of
+   * an For each task
+   */
   @JsonProperty("stats")
   private ForEachStats stats;
 
-  /** */
+  /** Configuration for the task that will be run for each element in the array */
   @JsonProperty("task")
   private Task task;
 

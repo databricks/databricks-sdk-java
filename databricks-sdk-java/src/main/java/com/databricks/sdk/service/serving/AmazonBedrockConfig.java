@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class AwsBedrockConfig {
+public class AmazonBedrockConfig {
   /**
    * The Databricks secret key reference for an AWS Access Key ID with permissions to interact with
    * Bedrock services.
@@ -28,13 +28,13 @@ public class AwsBedrockConfig {
   private String awsSecretAccessKey;
 
   /**
-   * The underlying provider in AWS Bedrock. Supported values (case insensitive) include: Anthropic,
-   * Cohere, AI21Labs, Amazon.
+   * The underlying provider in Amazon Bedrock. Supported values (case insensitive) include:
+   * Anthropic, Cohere, AI21Labs, Amazon.
    */
   @JsonProperty("bedrock_provider")
-  private AwsBedrockConfigBedrockProvider bedrockProvider;
+  private AmazonBedrockConfigBedrockProvider bedrockProvider;
 
-  public AwsBedrockConfig setAwsAccessKeyId(String awsAccessKeyId) {
+  public AmazonBedrockConfig setAwsAccessKeyId(String awsAccessKeyId) {
     this.awsAccessKeyId = awsAccessKeyId;
     return this;
   }
@@ -43,7 +43,7 @@ public class AwsBedrockConfig {
     return awsAccessKeyId;
   }
 
-  public AwsBedrockConfig setAwsRegion(String awsRegion) {
+  public AmazonBedrockConfig setAwsRegion(String awsRegion) {
     this.awsRegion = awsRegion;
     return this;
   }
@@ -52,7 +52,7 @@ public class AwsBedrockConfig {
     return awsRegion;
   }
 
-  public AwsBedrockConfig setAwsSecretAccessKey(String awsSecretAccessKey) {
+  public AmazonBedrockConfig setAwsSecretAccessKey(String awsSecretAccessKey) {
     this.awsSecretAccessKey = awsSecretAccessKey;
     return this;
   }
@@ -61,12 +61,13 @@ public class AwsBedrockConfig {
     return awsSecretAccessKey;
   }
 
-  public AwsBedrockConfig setBedrockProvider(AwsBedrockConfigBedrockProvider bedrockProvider) {
+  public AmazonBedrockConfig setBedrockProvider(
+      AmazonBedrockConfigBedrockProvider bedrockProvider) {
     this.bedrockProvider = bedrockProvider;
     return this;
   }
 
-  public AwsBedrockConfigBedrockProvider getBedrockProvider() {
+  public AmazonBedrockConfigBedrockProvider getBedrockProvider() {
     return bedrockProvider;
   }
 
@@ -74,7 +75,7 @@ public class AwsBedrockConfig {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    AwsBedrockConfig that = (AwsBedrockConfig) o;
+    AmazonBedrockConfig that = (AmazonBedrockConfig) o;
     return Objects.equals(awsAccessKeyId, that.awsAccessKeyId)
         && Objects.equals(awsRegion, that.awsRegion)
         && Objects.equals(awsSecretAccessKey, that.awsSecretAccessKey)
@@ -88,7 +89,7 @@ public class AwsBedrockConfig {
 
   @Override
   public String toString() {
-    return new ToStringer(AwsBedrockConfig.class)
+    return new ToStringer(AmazonBedrockConfig.class)
         .add("awsAccessKeyId", awsAccessKeyId)
         .add("awsRegion", awsRegion)
         .add("awsSecretAccessKey", awsSecretAccessKey)

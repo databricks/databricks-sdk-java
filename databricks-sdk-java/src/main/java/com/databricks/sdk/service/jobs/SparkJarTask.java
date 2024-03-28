@@ -30,10 +30,9 @@ public class SparkJarTask {
   /**
    * Parameters passed to the main method.
    *
-   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
+   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
    *
-   * <p>[task parameter variables]:
-   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
+   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("parameters")
   private Collection<String> parameters;

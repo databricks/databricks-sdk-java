@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** List of jobs was retrieved successfully. */
 @Generated
 public class ListJobsResponse {
   /** If true, additional jobs matching the provided filter are available for listing. */

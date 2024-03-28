@@ -13,13 +13,13 @@ public class ExternalModel {
   @JsonProperty("ai21labs_config")
   private Ai21LabsConfig ai21labsConfig;
 
+  /** Amazon Bedrock Config. Only required if the provider is 'amazon-bedrock'. */
+  @JsonProperty("amazon_bedrock_config")
+  private AmazonBedrockConfig amazonBedrockConfig;
+
   /** Anthropic Config. Only required if the provider is 'anthropic'. */
   @JsonProperty("anthropic_config")
   private AnthropicConfig anthropicConfig;
-
-  /** AWS Bedrock Config. Only required if the provider is 'aws-bedrock'. */
-  @JsonProperty("aws_bedrock_config")
-  private AwsBedrockConfig awsBedrockConfig;
 
   /** Cohere Config. Only required if the provider is 'cohere'. */
   @JsonProperty("cohere_config")
@@ -45,7 +45,7 @@ public class ExternalModel {
 
   /**
    * The name of the provider for the external model. Currently, the supported providers are
-   * 'ai21labs', 'anthropic', 'aws-bedrock', 'cohere', 'databricks-model-serving', 'openai', and
+   * 'ai21labs', 'anthropic', 'amazon-bedrock', 'cohere', 'databricks-model-serving', 'openai', and
    * 'palm'.",
    */
   @JsonProperty("provider")
@@ -64,6 +64,15 @@ public class ExternalModel {
     return ai21labsConfig;
   }
 
+  public ExternalModel setAmazonBedrockConfig(AmazonBedrockConfig amazonBedrockConfig) {
+    this.amazonBedrockConfig = amazonBedrockConfig;
+    return this;
+  }
+
+  public AmazonBedrockConfig getAmazonBedrockConfig() {
+    return amazonBedrockConfig;
+  }
+
   public ExternalModel setAnthropicConfig(AnthropicConfig anthropicConfig) {
     this.anthropicConfig = anthropicConfig;
     return this;
@@ -71,15 +80,6 @@ public class ExternalModel {
 
   public AnthropicConfig getAnthropicConfig() {
     return anthropicConfig;
-  }
-
-  public ExternalModel setAwsBedrockConfig(AwsBedrockConfig awsBedrockConfig) {
-    this.awsBedrockConfig = awsBedrockConfig;
-    return this;
-  }
-
-  public AwsBedrockConfig getAwsBedrockConfig() {
-    return awsBedrockConfig;
   }
 
   public ExternalModel setCohereConfig(CohereConfig cohereConfig) {
@@ -152,8 +152,8 @@ public class ExternalModel {
     if (o == null || getClass() != o.getClass()) return false;
     ExternalModel that = (ExternalModel) o;
     return Objects.equals(ai21labsConfig, that.ai21labsConfig)
+        && Objects.equals(amazonBedrockConfig, that.amazonBedrockConfig)
         && Objects.equals(anthropicConfig, that.anthropicConfig)
-        && Objects.equals(awsBedrockConfig, that.awsBedrockConfig)
         && Objects.equals(cohereConfig, that.cohereConfig)
         && Objects.equals(databricksModelServingConfig, that.databricksModelServingConfig)
         && Objects.equals(name, that.name)
@@ -167,8 +167,8 @@ public class ExternalModel {
   public int hashCode() {
     return Objects.hash(
         ai21labsConfig,
+        amazonBedrockConfig,
         anthropicConfig,
-        awsBedrockConfig,
         cohereConfig,
         databricksModelServingConfig,
         name,
@@ -182,8 +182,8 @@ public class ExternalModel {
   public String toString() {
     return new ToStringer(ExternalModel.class)
         .add("ai21labsConfig", ai21labsConfig)
+        .add("amazonBedrockConfig", amazonBedrockConfig)
         .add("anthropicConfig", anthropicConfig)
-        .add("awsBedrockConfig", awsBedrockConfig)
         .add("cohereConfig", cohereConfig)
         .add("databricksModelServingConfig", databricksModelServingConfig)
         .add("name", name)

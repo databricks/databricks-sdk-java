@@ -11,7 +11,7 @@ import com.databricks.sdk.support.Generated;
  * is in an editable state and can be modified.
  */
 @Generated
-public enum CreateJobEditMode {
+public enum JobEditMode {
   EDITABLE, // The job is in an editable state and can be modified.
   UI_LOCKED, // The job is in a locked UI state and cannot be modified.
 }

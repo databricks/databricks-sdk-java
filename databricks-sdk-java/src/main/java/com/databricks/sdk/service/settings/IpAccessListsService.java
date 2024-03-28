@@ -62,7 +62,7 @@ public interface IpAccessListsService {
    *
    * <p>Gets an IP access list, specified by its list ID.
    */
-  FetchIpAccessListResponse get(GetIpAccessList getIpAccessList);
+  FetchIpAccessListResponse get(GetIpAccessListRequest getIpAccessListRequest);
 
   /**
    * Get access lists.

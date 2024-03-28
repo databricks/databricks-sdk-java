@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Additional details about what triggered the run */
 @Generated
 public class TriggerInfo {
   /** The run id of the Run Job task run */

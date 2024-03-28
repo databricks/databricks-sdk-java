@@ -20,11 +20,24 @@ public class UpdateCredentials {
   @JsonProperty("git_provider")
   private String gitProvider;
 
-  /** Git username. */
+  /**
+   * The username or email provided with your Git provider account, depending on which provider you
+   * are using. For GitHub, GitHub Enterprise Server, or Azure DevOps Services, either email or
+   * username may be used. For GitLab, GitLab Enterprise Edition, email must be used. For AWS
+   * CodeCommit, BitBucket or BitBucket Server, username must be used. For all other providers
+   * please see your provider's Personal Access Token authentication documentation to see what is
+   * supported.
+   */
   @JsonProperty("git_username")
   private String gitUsername;
 
-  /** The personal access token used to authenticate to the corresponding Git provider. */
+  /**
+   * The personal access token used to authenticate to the corresponding Git provider. For certain
+   * providers, support may exist for other types of scoped access tokens. [Learn more]. The
+   * personal access token used to authenticate to the corresponding Git
+   *
+   * <p>[Learn more]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
+   */
   @JsonProperty("personal_access_token")
   private String personalAccessToken;
 

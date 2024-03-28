@@ -11,20 +11,20 @@ import java.util.Objects;
 @Generated
 public class ResolvedRunJobTaskValues {
   /** */
-  @JsonProperty("named_parameters")
-  private Map<String, String> namedParameters;
+  @JsonProperty("job_parameters")
+  private Map<String, String> jobParameters;
 
   /** */
   @JsonProperty("parameters")
   private Map<String, String> parameters;
 
-  public ResolvedRunJobTaskValues setNamedParameters(Map<String, String> namedParameters) {
-    this.namedParameters = namedParameters;
+  public ResolvedRunJobTaskValues setJobParameters(Map<String, String> jobParameters) {
+    this.jobParameters = jobParameters;
     return this;
   }
 
-  public Map<String, String> getNamedParameters() {
-    return namedParameters;
+  public Map<String, String> getJobParameters() {
+    return jobParameters;
   }
 
   public ResolvedRunJobTaskValues setParameters(Map<String, String> parameters) {
@@ -41,19 +41,19 @@ public class ResolvedRunJobTaskValues {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ResolvedRunJobTaskValues that = (ResolvedRunJobTaskValues) o;
-    return Objects.equals(namedParameters, that.namedParameters)
+    return Objects.equals(jobParameters, that.jobParameters)
         && Objects.equals(parameters, that.parameters);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(namedParameters, parameters);
+    return Objects.hash(jobParameters, parameters);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ResolvedRunJobTaskValues.class)
-        .add("namedParameters", namedParameters)
+        .add("jobParameters", jobParameters)
         .add("parameters", parameters)
         .toString();
   }

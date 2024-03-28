@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Run output was retrieved successfully. */
 @Generated
 public class RunOutput {
   /** The output of a dbt task, if available. */
@@ -23,6 +24,10 @@ public class RunOutput {
   /** If there was an error executing the run, this field contains any available stack traces. */
   @JsonProperty("error_trace")
   private String errorTrace;
+
+  /** */
+  @JsonProperty("info")
+  private String info;
 
   /**
    * The output from tasks that write to standard streams (stdout/stderr) such as spark_jar_task,
@@ -46,10 +51,12 @@ public class RunOutput {
   /**
    * The output of a notebook task, if available. A notebook task that terminates (either
    * successfully or with a failure) without calling `dbutils.notebook.exit()` is considered to have
-   * an empty output. This field is set but its result value is empty. <Databricks> restricts this
-   * API to return the first 5 MB of the output. To return a larger result, use the
-   * [ClusterLogConf](/dev-tools/api/latest/clusters.html#clusterlogconf) field to configure log
-   * storage for the job cluster.
+   * an empty output. This field is set but its result value is empty. Databricks restricts this API
+   * to return the first 5 MB of the output. To return a larger result, use the [ClusterLogConf]
+   * field to configure log storage for the job cluster.
+   *
+   * <p>[ClusterLogConf]:
+   * https://docs.databricks.com/dev-tools/api/latest/clusters.html#clusterlogconf
    */
   @JsonProperty("notebook_output")
   private NotebookOutput notebookOutput;
@@ -87,6 +94,15 @@ public class RunOutput {
 
   public String getErrorTrace() {
     return errorTrace;
+  }
+
+  public RunOutput setInfo(String info) {
+    this.info = info;
+    return this;
+  }
+
+  public String getInfo() {
+    return info;
   }
 
   public RunOutput setLogs(String logs) {
@@ -151,6 +167,7 @@ public class RunOutput {
     return Objects.equals(dbtOutput, that.dbtOutput)
         && Objects.equals(error, that.error)
         && Objects.equals(errorTrace, that.errorTrace)
+        && Objects.equals(info, that.info)
         && Objects.equals(logs, that.logs)
         && Objects.equals(logsTruncated, that.logsTruncated)
         && Objects.equals(metadata, that.metadata)
@@ -165,6 +182,7 @@ public class RunOutput {
         dbtOutput,
         error,
         errorTrace,
+        info,
         logs,
         logsTruncated,
         metadata,
@@ -179,6 +197,7 @@ public class RunOutput {
         .add("dbtOutput", dbtOutput)
         .add("error", error)
         .add("errorTrace", errorTrace)
+        .add("info", info)
         .add("logs", logs)
         .add("logsTruncated", logsTruncated)
         .add("metadata", metadata)

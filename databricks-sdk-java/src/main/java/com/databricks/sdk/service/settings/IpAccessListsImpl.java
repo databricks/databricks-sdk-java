@@ -33,7 +33,7 @@ class IpAccessListsImpl implements IpAccessListsService {
   }
 
   @Override
-  public FetchIpAccessListResponse get(GetIpAccessList request) {
+  public FetchIpAccessListResponse get(GetIpAccessListRequest request) {
     String path = String.format("/api/2.0/ip-access-lists/%s", request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

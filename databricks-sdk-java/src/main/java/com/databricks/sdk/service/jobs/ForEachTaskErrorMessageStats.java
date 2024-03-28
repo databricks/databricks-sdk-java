@@ -11,18 +11,18 @@ import java.util.Objects;
 public class ForEachTaskErrorMessageStats {
   /** Describes the count of such error message encountered during the iterations. */
   @JsonProperty("count")
-  private String count;
+  private Long count;
 
   /** Describes the error message occured during the iterations. */
   @JsonProperty("error_message")
   private String errorMessage;
 
-  public ForEachTaskErrorMessageStats setCount(String count) {
+  public ForEachTaskErrorMessageStats setCount(Long count) {
     this.count = count;
     return this;
   }
 
-  public String getCount() {
+  public Long getCount() {
     return count;
   }
 

@@ -16,8 +16,7 @@ public class WebhookNotifications {
    * destinations can be specified for the `on_duration_warning_threshold_exceeded` property.
    */
   @JsonProperty("on_duration_warning_threshold_exceeded")
-  private Collection<WebhookNotificationsOnDurationWarningThresholdExceededItem>
-      onDurationWarningThresholdExceeded;
+  private Collection<Webhook> onDurationWarningThresholdExceeded;
 
   /**
    * An optional list of system notification IDs to call when the run fails. A maximum of 3
@@ -41,14 +40,12 @@ public class WebhookNotifications {
   private Collection<Webhook> onSuccess;
 
   public WebhookNotifications setOnDurationWarningThresholdExceeded(
-      Collection<WebhookNotificationsOnDurationWarningThresholdExceededItem>
-          onDurationWarningThresholdExceeded) {
+      Collection<Webhook> onDurationWarningThresholdExceeded) {
     this.onDurationWarningThresholdExceeded = onDurationWarningThresholdExceeded;
     return this;
   }
 
-  public Collection<WebhookNotificationsOnDurationWarningThresholdExceededItem>
-      getOnDurationWarningThresholdExceeded() {
+  public Collection<Webhook> getOnDurationWarningThresholdExceeded() {
     return onDurationWarningThresholdExceeded;
   }
 
