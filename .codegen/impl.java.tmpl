@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Encoding;
 import com.databricks.sdk.support.Generated;
 
 {{range .Package.ImportedEntities}}
@@ -25,9 +26,7 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
 	{{range .Methods}}
   @Override
   public {{if not .Response.IsEmpty -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
-    String path = {{if .PathParts -}}
-      String.format("{{range  .PathParts}}{{.Prefix}}{{if or .Field .IsAccountId}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{ else if .IsAccountId }}, apiClient.configuredAccountID(){{end}}{{ end }})
-    {{- else}}"{{.Path}}"{{end}};
+    String path = {{ template "path" . }};
     {{ template "headers" . -}}
     {{ if .Response.IsEmpty -}}
     {{ template "api-call" . }}
@@ -38,6 +37,23 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
   }
   {{end}}
 }
+
+{{- define "path" -}}
+{{- if .PathParts -}}
+  String.format("{{range  .PathParts -}}
+    {{- .Prefix -}}
+    {{- if or .Field .IsAccountId -}}%s{{- end -}}
+  {{- end -}}"
+  {{- range .PathParts -}}
+    {{- if and .Field .Field.IsPathMultiSegment -}}, Encoding.encodeMultiSegmentPathParameter(request.get{{.Field.PascalName}}())
+    {{- else if .Field -}}, request.get{{.Field.PascalName}}()
+    {{- else if .IsAccountId -}}, apiClient.configuredAccountID()
+    {{- end -}}
+  {{- end -}})
+{{- else -}}
+  "{{.Path}}"
+{{- end -}}
+{{- end -}}
 
 {{ define "api-call" }}
 apiClient.{{.Verb}}(path
