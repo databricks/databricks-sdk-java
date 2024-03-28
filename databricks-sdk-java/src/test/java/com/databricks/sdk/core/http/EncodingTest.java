@@ -1,8 +1,8 @@
 package com.databricks.sdk.core.http;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 public class EncodingTest {
   @Test

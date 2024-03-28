@@ -21,14 +21,12 @@ public class Encoding {
   private static final BitSet UNRESERVED = new BitSet(256);
 
   /**
-   * Characters which are safe to use in a path, excluding /, i.e. {@link #UNRESERVED} plus punctuation
-   * plus @
+   * Characters which are safe to use in a path, excluding /, i.e. {@link #UNRESERVED} plus
+   * punctuation plus @
    */
   private static final BitSet PATHSAFE = new BitSet(256);
 
-  /**
-   * Characters which are safe to use in a path, including /.
-   */
+  /** Characters which are safe to use in a path, including /. */
   private static final BitSet PATH_SPECIAL = new BitSet(256);
 
   static {
