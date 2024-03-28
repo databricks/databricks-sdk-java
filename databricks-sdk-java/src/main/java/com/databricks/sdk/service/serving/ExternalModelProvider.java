@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The name of the provider for the external model. Currently, the supported providers are
- * 'ai21labs', 'anthropic', 'aws-bedrock', 'cohere', 'databricks-model-serving', 'openai', and
+ * 'ai21labs', 'anthropic', 'amazon-bedrock', 'cohere', 'databricks-model-serving', 'openai', and
  * 'palm'.",
  */
 @Generated
@@ -15,11 +15,11 @@ public enum ExternalModelProvider {
   @JsonProperty("ai21labs")
   AI21LABS,
 
+  @JsonProperty("amazon-bedrock")
+  AMAZON_BEDROCK,
+
   @JsonProperty("anthropic")
   ANTHROPIC,
-
-  @JsonProperty("aws-bedrock")
-  AWS_BEDROCK,
 
   @JsonProperty("cohere")
   COHERE,

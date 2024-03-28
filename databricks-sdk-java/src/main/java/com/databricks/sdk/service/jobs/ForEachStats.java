@@ -5,24 +5,26 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class ForEachStats {
   /** Sample of 3 most common error messages occurred during the iteration. */
   @JsonProperty("error_message_stats")
-  private ForEachTaskErrorMessageStats errorMessageStats;
+  private Collection<ForEachTaskErrorMessageStats> errorMessageStats;
 
   /** Describes stats of the iteration. Only latest retries are considered. */
   @JsonProperty("task_run_stats")
   private ForEachTaskTaskRunStats taskRunStats;
 
-  public ForEachStats setErrorMessageStats(ForEachTaskErrorMessageStats errorMessageStats) {
+  public ForEachStats setErrorMessageStats(
+      Collection<ForEachTaskErrorMessageStats> errorMessageStats) {
     this.errorMessageStats = errorMessageStats;
     return this;
   }
 
-  public ForEachTaskErrorMessageStats getErrorMessageStats() {
+  public Collection<ForEachTaskErrorMessageStats> getErrorMessageStats() {
     return errorMessageStats;
   }
 

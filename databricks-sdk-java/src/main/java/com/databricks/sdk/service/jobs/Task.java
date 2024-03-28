@@ -45,6 +45,10 @@ public class Task {
   @JsonProperty("description")
   private String description;
 
+  /** An option to disable auto optimization in serverless */
+  @JsonProperty("disable_auto_optimization")
+  private Boolean disableAutoOptimization;
+
   /**
    * An optional set of email addresses that is notified when runs of this task begin or complete as
    * well as when this task is deleted. The default behavior is to not send any emails.
@@ -53,18 +57,14 @@ public class Task {
   private TaskEmailNotifications emailNotifications;
 
   /**
-   * If existing_cluster_id, the ID of an existing cluster that is used for all runs of this task.
-   * Only all-purpose clusters are supported. When running tasks on an existing cluster, you may
-   * need to manually restart the cluster if it stops responding. We suggest running jobs on new
-   * clusters for greater reliability.
+   * If existing_cluster_id, the ID of an existing cluster that is used for all runs. When running
+   * jobs or tasks on an existing cluster, you may need to manually restart the cluster if it stops
+   * responding. We suggest running jobs and tasks on new clusters for greater reliability
    */
   @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
-  /**
-   * If for_each_task, indicates that this must execute the nested task within it for the inputs
-   * provided.
-   */
+  /** If for_each_task, indicates that this task must execute the nested task within it. */
   @JsonProperty("for_each_task")
   private ForEachTask forEachTask;
 
@@ -80,8 +80,8 @@ public class Task {
   private String jobClusterKey;
 
   /**
-   * An optional list of libraries to be installed on the cluster that executes the task. The
-   * default value is an empty list.
+   * An optional list of libraries to be installed on the cluster. The default value is an empty
+   * list.
    */
   @JsonProperty("libraries")
   private Collection<com.databricks.sdk.service.compute.Library> libraries;
@@ -102,7 +102,7 @@ public class Task {
   @JsonProperty("min_retry_interval_millis")
   private Long minRetryIntervalMillis;
 
-  /** If new_cluster, a description of a cluster that is created for only for this task. */
+  /** If new_cluster, a description of a new cluster that is created for each run. */
   @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
@@ -128,7 +128,10 @@ public class Task {
   @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
 
-  /** An optional policy to specify whether to retry a task when it times out. */
+  /**
+   * An optional policy to specify whether to retry a job when it times out. The default behavior is
+   * to not retry on timeout.
+   */
   @JsonProperty("retry_on_timeout")
   private Boolean retryOnTimeout;
 
@@ -243,6 +246,15 @@ public class Task {
 
   public String getDescription() {
     return description;
+  }
+
+  public Task setDisableAutoOptimization(Boolean disableAutoOptimization) {
+    this.disableAutoOptimization = disableAutoOptimization;
+    return this;
+  }
+
+  public Boolean getDisableAutoOptimization() {
+    return disableAutoOptimization;
   }
 
   public Task setEmailNotifications(TaskEmailNotifications emailNotifications) {
@@ -462,6 +474,7 @@ public class Task {
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
+        && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
@@ -495,6 +508,7 @@ public class Task {
         dbtTask,
         dependsOn,
         description,
+        disableAutoOptimization,
         emailNotifications,
         existingClusterId,
         forEachTask,
@@ -528,6 +542,7 @@ public class Task {
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
+        .add("disableAutoOptimization", disableAutoOptimization)
         .add("emailNotifications", emailNotifications)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)

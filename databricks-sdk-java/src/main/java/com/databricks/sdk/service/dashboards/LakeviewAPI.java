@@ -65,6 +65,19 @@ public class LakeviewAPI {
     return impl.getPublished(request);
   }
 
+  public Dashboard migrate(String sourceDashboardId) {
+    return migrate(new MigrateDashboardRequest().setSourceDashboardId(sourceDashboardId));
+  }
+
+  /**
+   * Migrate dashboard.
+   *
+   * <p>Migrates a classic SQL dashboard to Lakeview.
+   */
+  public Dashboard migrate(MigrateDashboardRequest request) {
+    return impl.migrate(request);
+  }
+
   public PublishedDashboard publish(String dashboardId) {
     return publish(new PublishRequest().setDashboardId(dashboardId));
   }
@@ -89,6 +102,19 @@ public class LakeviewAPI {
    */
   public void trash(TrashDashboardRequest request) {
     impl.trash(request);
+  }
+
+  public void unpublish(String dashboardId) {
+    unpublish(new UnpublishDashboardRequest().setDashboardId(dashboardId));
+  }
+
+  /**
+   * Unpublish dashboard.
+   *
+   * <p>Unpublish the dashboard.
+   */
+  public void unpublish(UnpublishDashboardRequest request) {
+    impl.unpublish(request);
   }
 
   public Dashboard update(String dashboardId) {
