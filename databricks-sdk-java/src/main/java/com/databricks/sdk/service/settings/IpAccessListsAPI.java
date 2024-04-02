@@ -83,7 +83,7 @@ public class IpAccessListsAPI {
   }
 
   public FetchIpAccessListResponse get(String ipAccessListId) {
-    return get(new GetIpAccessList().setIpAccessListId(ipAccessListId));
+    return get(new GetIpAccessListRequest().setIpAccessListId(ipAccessListId));
   }
 
   /**
@@ -91,7 +91,7 @@ public class IpAccessListsAPI {
    *
    * <p>Gets an IP access list, specified by its list ID.
    */
-  public FetchIpAccessListResponse get(GetIpAccessList request) {
+  public FetchIpAccessListResponse get(GetIpAccessListRequest request) {
     return impl.get(request);
   }
 

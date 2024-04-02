@@ -41,9 +41,8 @@ public class ListRunsRequest {
   private Long limit;
 
   /**
-   * The offset of the first run to return, relative to the most recent run.
-   *
-   * <p>Deprecated since June 2023. Use `page_token` to iterate through the pages instead.
+   * The offset of the first run to return, relative to the most recent run. Deprecated since June
+   * 2023. Use `page_token` to iterate through the pages instead.
    */
   @QueryParam("offset")
   private Long offset;
@@ -57,7 +56,7 @@ public class ListRunsRequest {
 
   /** The type of runs to return. For a description of run types, see :method:jobs/getRun. */
   @QueryParam("run_type")
-  private ListRunsRunType runType;
+  private RunType runType;
 
   /**
    * Show runs that started _at or after_ this value. The value must be a UTC timestamp in
@@ -136,12 +135,12 @@ public class ListRunsRequest {
     return pageToken;
   }
 
-  public ListRunsRequest setRunType(ListRunsRunType runType) {
+  public ListRunsRequest setRunType(RunType runType) {
     this.runType = runType;
     return this;
   }
 
-  public ListRunsRunType getRunType() {
+  public RunType getRunType() {
     return runType;
   }
 

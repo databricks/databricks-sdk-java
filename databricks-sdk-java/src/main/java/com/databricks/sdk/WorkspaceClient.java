@@ -866,6 +866,9 @@ public class WorkspaceClient {
    * <p>For the mapping of the required permissions for specific actions or abilities and other
    * important information, see [Access Control].
    *
+   * <p>Note that to manage access control on service principals, use **[Account Access Control
+   * Proxy](:service:accountaccesscontrolproxy)**.
+   *
    * <p>[Access Control]: https://docs.databricks.com/security/auth-authz/access-control/index.html
    */
   public PermissionsAPI permissions() {

@@ -4,7 +4,6 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 
-/** The execution status of the SQL widget. */
 @Generated
 public enum SqlDashboardWidgetOutputStatus {
   CANCELLED,

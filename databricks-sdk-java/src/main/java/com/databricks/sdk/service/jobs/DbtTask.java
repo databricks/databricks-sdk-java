@@ -49,11 +49,11 @@ public class DbtTask {
 
   /**
    * Optional location type of the project directory. When set to `WORKSPACE`, the project will be
-   * retrieved from the local <Databricks> workspace. When set to `GIT`, the project will be
-   * retrieved from a Git repository defined in `git_source`. If the value is empty, the task will
-   * use `GIT` if `git_source` is defined and `WORKSPACE` otherwise.
+   * retrieved from the local Databricks workspace. When set to `GIT`, the project will be retrieved
+   * from a Git repository defined in `git_source`. If the value is empty, the task will use `GIT`
+   * if `git_source` is defined and `WORKSPACE` otherwise.
    *
-   * <p>* `WORKSPACE`: Project is located in <Databricks> workspace. * `GIT`: Project is located in
+   * <p>* `WORKSPACE`: Project is located in Databricks workspace. * `GIT`: Project is located in
    * cloud Git provider.
    */
   @JsonProperty("source")

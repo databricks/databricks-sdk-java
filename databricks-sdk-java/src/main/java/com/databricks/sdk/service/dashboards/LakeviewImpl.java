@@ -42,6 +42,15 @@ class LakeviewImpl implements LakeviewService {
   }
 
   @Override
+  public Dashboard migrate(MigrateDashboardRequest request) {
+    String path = "/api/2.0/lakeview/dashboards/migrate";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, Dashboard.class, headers);
+  }
+
+  @Override
   public PublishedDashboard publish(PublishRequest request) {
     String path =
         String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
@@ -57,6 +66,15 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     apiClient.DELETE(path, request, TrashDashboardResponse.class, headers);
+  }
+
+  @Override
+  public void unpublish(UnpublishDashboardRequest request) {
+    String path =
+        String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    apiClient.DELETE(path, request, UnpublishDashboardResponse.class, headers);
   }
 
   @Override
