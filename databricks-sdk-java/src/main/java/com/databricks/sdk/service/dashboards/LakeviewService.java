@@ -35,6 +35,13 @@ public interface LakeviewService {
   PublishedDashboard getPublished(GetPublishedDashboardRequest getPublishedDashboardRequest);
 
   /**
+   * Migrate dashboard.
+   *
+   * <p>Migrates a classic SQL dashboard to Lakeview.
+   */
+  Dashboard migrate(MigrateDashboardRequest migrateDashboardRequest);
+
+  /**
    * Publish dashboard.
    *
    * <p>Publish the current draft dashboard.
@@ -47,6 +54,13 @@ public interface LakeviewService {
    * <p>Trash a dashboard.
    */
   void trash(TrashDashboardRequest trashDashboardRequest);
+
+  /**
+   * Unpublish dashboard.
+   *
+   * <p>Unpublish the dashboard.
+   */
+  void unpublish(UnpublishDashboardRequest unpublishDashboardRequest);
 
   /**
    * Update dashboard.

@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class TaskEmailNotifications {
+  /** If true, do not send email to recipients specified in `on_failure` if the run is skipped. */
+  @JsonProperty("no_alert_for_skipped_runs")
+  private Boolean noAlertForSkippedRuns;
+
   /**
    * A list of email addresses to be notified when the duration of a run exceeds the threshold
    * specified for the `RUN_DURATION_SECONDS` metric in the `health` field. If no rule for the
@@ -43,6 +47,15 @@ public class TaskEmailNotifications {
    */
   @JsonProperty("on_success")
   private Collection<String> onSuccess;
+
+  public TaskEmailNotifications setNoAlertForSkippedRuns(Boolean noAlertForSkippedRuns) {
+    this.noAlertForSkippedRuns = noAlertForSkippedRuns;
+    return this;
+  }
+
+  public Boolean getNoAlertForSkippedRuns() {
+    return noAlertForSkippedRuns;
+  }
 
   public TaskEmailNotifications setOnDurationWarningThresholdExceeded(
       Collection<String> onDurationWarningThresholdExceeded) {
@@ -86,7 +99,8 @@ public class TaskEmailNotifications {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TaskEmailNotifications that = (TaskEmailNotifications) o;
-    return Objects.equals(
+    return Objects.equals(noAlertForSkippedRuns, that.noAlertForSkippedRuns)
+        && Objects.equals(
             onDurationWarningThresholdExceeded, that.onDurationWarningThresholdExceeded)
         && Objects.equals(onFailure, that.onFailure)
         && Objects.equals(onStart, that.onStart)
@@ -95,12 +109,14 @@ public class TaskEmailNotifications {
 
   @Override
   public int hashCode() {
-    return Objects.hash(onDurationWarningThresholdExceeded, onFailure, onStart, onSuccess);
+    return Objects.hash(
+        noAlertForSkippedRuns, onDurationWarningThresholdExceeded, onFailure, onStart, onSuccess);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TaskEmailNotifications.class)
+        .add("noAlertForSkippedRuns", noAlertForSkippedRuns)
         .add("onDurationWarningThresholdExceeded", onDurationWarningThresholdExceeded)
         .add("onFailure", onFailure)
         .add("onStart", onStart)

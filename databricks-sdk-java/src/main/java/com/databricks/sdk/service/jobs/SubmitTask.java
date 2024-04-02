@@ -26,6 +26,10 @@ public class SubmitTask {
   @JsonProperty("depends_on")
   private Collection<TaskDependency> dependsOn;
 
+  /** An optional description for this task. */
+  @JsonProperty("description")
+  private String description;
+
   /**
    * An optional set of email addresses notified when the task run begins or completes. The default
    * behavior is to not send any emails.
@@ -34,18 +38,14 @@ public class SubmitTask {
   private JobEmailNotifications emailNotifications;
 
   /**
-   * If existing_cluster_id, the ID of an existing cluster that is used for all runs of this task.
-   * Only all-purpose clusters are supported. When running tasks on an existing cluster, you may
-   * need to manually restart the cluster if it stops responding. We suggest running jobs on new
-   * clusters for greater reliability.
+   * If existing_cluster_id, the ID of an existing cluster that is used for all runs. When running
+   * jobs or tasks on an existing cluster, you may need to manually restart the cluster if it stops
+   * responding. We suggest running jobs and tasks on new clusters for greater reliability
    */
   @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
-  /**
-   * If for_each_task, indicates that this must execute the nested task within it for the inputs
-   * provided.
-   */
+  /** If for_each_task, indicates that this task must execute the nested task within it. */
   @JsonProperty("for_each_task")
   private ForEachTask forEachTask;
 
@@ -54,13 +54,13 @@ public class SubmitTask {
   private JobsHealthRules health;
 
   /**
-   * An optional list of libraries to be installed on the cluster that executes the task. The
-   * default value is an empty list.
+   * An optional list of libraries to be installed on the cluster. The default value is an empty
+   * list.
    */
   @JsonProperty("libraries")
   private Collection<com.databricks.sdk.service.compute.Library> libraries;
 
-  /** If new_cluster, a description of a cluster that is created for each run. */
+  /** If new_cluster, a description of a new cluster that is created for each run. */
   @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
@@ -94,7 +94,7 @@ public class SubmitTask {
   @JsonProperty("run_if")
   private RunIf runIf;
 
-  /** If run_job_task, indicates that this job must execute another job. */
+  /** If run_job_task, indicates that this task must execute another job. */
   @JsonProperty("run_job_task")
   private RunJobTask runJobTask;
 
@@ -126,7 +126,7 @@ public class SubmitTask {
   @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
 
-  /** If sql_task, indicates that this job must execute a SQL. */
+  /** If sql_task, indicates that this job must execute a SQL task. */
   @JsonProperty("sql_task")
   private SqlTask sqlTask;
 
@@ -166,6 +166,15 @@ public class SubmitTask {
 
   public Collection<TaskDependency> getDependsOn() {
     return dependsOn;
+  }
+
+  public SubmitTask setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   public SubmitTask setEmailNotifications(JobEmailNotifications emailNotifications) {
@@ -346,6 +355,7 @@ public class SubmitTask {
     SubmitTask that = (SubmitTask) o;
     return Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dependsOn, that.dependsOn)
+        && Objects.equals(description, that.description)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
@@ -372,6 +382,7 @@ public class SubmitTask {
     return Objects.hash(
         conditionTask,
         dependsOn,
+        description,
         emailNotifications,
         existingClusterId,
         forEachTask,
@@ -398,6 +409,7 @@ public class SubmitTask {
     return new ToStringer(SubmitTask.class)
         .add("conditionTask", conditionTask)
         .add("dependsOn", dependsOn)
+        .add("description", description)
         .add("emailNotifications", emailNotifications)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)

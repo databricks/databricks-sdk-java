@@ -17,9 +17,13 @@ public class TriggerSettings {
   @JsonProperty("pause_status")
   private PauseStatus pauseStatus;
 
-  /** Table trigger settings. */
+  /** Old table trigger settings name. Deprecated in favor of `table_update`. */
   @JsonProperty("table")
   private TableTriggerConfiguration table;
+
+  /** */
+  @JsonProperty("table_update")
+  private TableTriggerConfiguration tableUpdate;
 
   public TriggerSettings setFileArrival(FileArrivalTriggerConfiguration fileArrival) {
     this.fileArrival = fileArrival;
@@ -48,6 +52,15 @@ public class TriggerSettings {
     return table;
   }
 
+  public TriggerSettings setTableUpdate(TableTriggerConfiguration tableUpdate) {
+    this.tableUpdate = tableUpdate;
+    return this;
+  }
+
+  public TableTriggerConfiguration getTableUpdate() {
+    return tableUpdate;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -55,12 +68,13 @@ public class TriggerSettings {
     TriggerSettings that = (TriggerSettings) o;
     return Objects.equals(fileArrival, that.fileArrival)
         && Objects.equals(pauseStatus, that.pauseStatus)
-        && Objects.equals(table, that.table);
+        && Objects.equals(table, that.table)
+        && Objects.equals(tableUpdate, that.tableUpdate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileArrival, pauseStatus, table);
+    return Objects.hash(fileArrival, pauseStatus, table, tableUpdate);
   }
 
   @Override
@@ -69,6 +83,7 @@ public class TriggerSettings {
         .add("fileArrival", fileArrival)
         .add("pauseStatus", pauseStatus)
         .add("table", table)
+        .add("tableUpdate", tableUpdate)
         .toString();
   }
 }
