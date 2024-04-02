@@ -223,7 +223,7 @@ public class PipelinesAPI {
           if (token == null) {
             return null;
           }
-          return request.setPageToken(token);
+          return request.setPageToken(token).setFilter(null);
         });
   }
 
@@ -242,7 +242,7 @@ public class PipelinesAPI {
           if (token == null) {
             return null;
           }
-          return request.setPageToken(token);
+          return request.setPageToken(token).setFilter(null);
         });
   }
 
