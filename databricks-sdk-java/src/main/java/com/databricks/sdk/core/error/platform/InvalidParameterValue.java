@@ -1,7 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.core.error;
+package com.databricks.sdk.core.error.platform;
 
+import com.databricks.sdk.core.error.ErrorDetail;
 import com.databricks.sdk.support.Generated;
 import java.util.List;
 
@@ -9,6 +10,6 @@ import java.util.List;
 @Generated
 public class InvalidParameterValue extends BadRequest {
   public InvalidParameterValue(String message, List<ErrorDetail> details) {
-    super("INVALID_PARAMETER_VALUE", message, 400, details);
+    super("INVALID_PARAMETER_VALUE", message, details);
   }
 }

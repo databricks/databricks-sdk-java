@@ -1,7 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.core.error;
+package com.databricks.sdk.core.error.platform;
 
+import com.databricks.sdk.core.error.ErrorDetail;
 import com.databricks.sdk.support.Generated;
 import java.util.List;
 
@@ -9,6 +10,6 @@ import java.util.List;
 @Generated
 public class RequestLimitExceeded extends TooManyRequests {
   public RequestLimitExceeded(String message, List<ErrorDetail> details) {
-    super("REQUEST_LIMIT_EXCEEDED", message, 429, details);
+    super("REQUEST_LIMIT_EXCEEDED", message, details);
   }
 }

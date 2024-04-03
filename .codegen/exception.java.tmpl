@@ -1,8 +1,9 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.core.error;
+package com.databricks.sdk.core.error.platform;
 
 import com.databricks.sdk.core.DatabricksError;
+import com.databricks.sdk.core.error.ErrorDetail;
 import com.databricks.sdk.support.Generated;
 
 import java.util.List;
@@ -13,12 +14,12 @@ import java.util.List;
 @Generated
 public class {{.PascalName}} extends {{if .Inherit -}}{{.Inherit.PascalName}}{{else}}DatabricksError{{end}} {
   public {{.PascalName}}(String message, List<ErrorDetail> details) {
-    super("{{.Name}}", message, {{.StatusCode}}, details);
+    super("{{.Name}}", message, {{if not .Inherit}}{{.StatusCode}}, {{end}}details);
   }
 
   {{if not .Inherit}}
-  {{.PascalName}}(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-      super(errorCode, message, statusCode, details);
+  public {{.PascalName}}(String errorCode, String message, List<ErrorDetail> details) {
+      super(errorCode, message, {{.StatusCode}}, details);
   }
   {{end}}
 }

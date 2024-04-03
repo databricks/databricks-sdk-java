@@ -1,7 +1,8 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.core.error;
+package com.databricks.sdk.core.error.platform;
 
+import com.databricks.sdk.core.error.ErrorDetail;
 import com.databricks.sdk.support.Generated;
 import java.util.List;
 
@@ -11,6 +12,6 @@ import java.util.List;
 @Generated
 public class Aborted extends ResourceConflict {
   public Aborted(String message, List<ErrorDetail> details) {
-    super("ABORTED", message, 409, details);
+    super("ABORTED", message, details);
   }
 }

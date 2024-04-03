@@ -3,6 +3,7 @@ package com.databricks.sdk.integration;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.WorkspaceClient;
+import com.databricks.sdk.core.error.platform.InvalidParameterValue;
 import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvOrSkip;
@@ -46,5 +47,15 @@ public class ClustersIT {
     String runtime = w.clusters().selectSparkVersion(new SparkVersionSelector().withLatest());
 
     assertNotNull(runtime);
+  }
+
+  @Test
+  void clusterDoesNotExist(WorkspaceClient w) {
+    assertThrowsExactly(
+        InvalidParameterValue.class,
+        () -> {
+          w.clusters().get("does-not-exist");
+        }
+    );
   }
 }

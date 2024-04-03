@@ -1,8 +1,9 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.core.error;
+package com.databricks.sdk.core.error.platform;
 
 import com.databricks.sdk.core.DatabricksError;
+import com.databricks.sdk.core.error.ErrorDetail;
 import com.databricks.sdk.support.Generated;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class BadRequest extends DatabricksError {
     super("BAD_REQUEST", message, 400, details);
   }
 
-  BadRequest(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  public BadRequest(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 400, details);
   }
 }
