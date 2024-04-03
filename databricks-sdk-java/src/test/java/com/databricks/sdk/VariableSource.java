@@ -1,8 +1,7 @@
 package com.databricks.sdk;
 
-import org.junit.jupiter.params.provider.ArgumentsSource;
-
 import java.lang.annotation.*;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
 @Documented
 @Target(ElementType.METHOD)

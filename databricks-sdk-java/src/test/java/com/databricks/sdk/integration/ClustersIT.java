@@ -55,7 +55,6 @@ public class ClustersIT {
         InvalidParameterValue.class,
         () -> {
           w.clusters().get("does-not-exist");
-        }
-    );
+        });
   }
 }
