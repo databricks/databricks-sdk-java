@@ -7,9 +7,9 @@ import com.databricks.sdk.support.Generated;
 @Generated
 class ErrorMapper extends AbstractErrorMapper {
   public ErrorMapper() {
-    {{range .ErrorStatusCodeMapping}}statusCode({{.StatusCode}}, {{.PascalName}}::new);
+    {{range .ErrorStatusCodeMapping}}statusCode({{.StatusCode}}, com.databricks.sdk.core.error.platform.{{.PascalName}}::new);
     {{end}}
-    {{range .ErrorCodeMapping}}errorCode("{{.ErrorCode}}", {{.PascalName}}::new);
+    {{range .ErrorCodeMapping}}errorCode("{{.ErrorCode}}", com.databricks.sdk.core.error.platform.{{.PascalName}}::new);
     {{end}}
   }
 }
