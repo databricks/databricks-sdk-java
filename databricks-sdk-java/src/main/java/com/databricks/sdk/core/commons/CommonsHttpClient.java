@@ -53,12 +53,17 @@ public class CommonsHttpClient implements HttpClient {
     return HttpClientBuilder.create()
         .setConnectionManager(connectionManager)
         .setDefaultRequestConfig(makeRequestConfig())
+        .useSystemProperties()
         .build();
   }
 
   @Override
   public Response execute(Request in) throws IOException {
     HttpUriRequest request = transformRequest(in);
+    boolean handleRedirects = in.getRedirectionBehavior().orElse(true);
+    if (!handleRedirects) {
+      request.getParams().setParameter("http.protocol.handle-redirects", false);
+    }
     in.getHeaders().forEach(request::setHeader);
     CloseableHttpResponse response = hc.execute(request);
     return computeResponse(in, response);
@@ -118,6 +123,8 @@ public class CommonsHttpClient implements HttpClient {
     switch (in.getMethod()) {
       case Request.GET:
         return new HttpGet(in.getUri());
+      case Request.HEAD:
+        return new HttpHead(in.getUri());
       case Request.DELETE:
         return new HttpDelete(in.getUri());
       case Request.POST:

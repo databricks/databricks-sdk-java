@@ -9,13 +9,25 @@ import java.util.Objects;
 
 @Generated
 public class RunConditionTask {
-  /** The left operand of the condition task. */
+  /**
+   * The left operand of the condition task. Can be either a string value or a job state or
+   * parameter reference.
+   */
   @JsonProperty("left")
   private String left;
 
-  /** The condtion task operator. */
+  /**
+   * * `EQUAL_TO`, `NOT_EQUAL` operators perform string comparison of their operands. This means
+   * that `“12.0” == “12”` will evaluate to `false`. * `GREATER_THAN`, `GREATER_THAN_OR_EQUAL`,
+   * `LESS_THAN`, `LESS_THAN_OR_EQUAL` operators perform numeric comparison of their operands.
+   * `“12.0” >= “12”` will evaluate to `true`, `“10.0” >= “12”` will evaluate to `false`.
+   *
+   * <p>The boolean comparison to task values can be implemented with operators `EQUAL_TO`,
+   * `NOT_EQUAL`. If a task value was set to a boolean value, it will be serialized to `“true”` or
+   * `“false”` for the comparison.
+   */
   @JsonProperty("op")
-  private RunConditionTaskOp op;
+  private ConditionTaskOp op;
 
   /**
    * The condition expression evaluation result. Filled in if the task was successfully completed.
@@ -24,7 +36,10 @@ public class RunConditionTask {
   @JsonProperty("outcome")
   private String outcome;
 
-  /** The right operand of the condition task. */
+  /**
+   * The right operand of the condition task. Can be either a string value or a job state or
+   * parameter reference.
+   */
   @JsonProperty("right")
   private String right;
 
@@ -37,12 +52,12 @@ public class RunConditionTask {
     return left;
   }
 
-  public RunConditionTask setOp(RunConditionTaskOp op) {
+  public RunConditionTask setOp(ConditionTaskOp op) {
     this.op = op;
     return this;
   }
 
-  public RunConditionTaskOp getOp() {
+  public ConditionTaskOp getOp() {
     return op;
   }
 

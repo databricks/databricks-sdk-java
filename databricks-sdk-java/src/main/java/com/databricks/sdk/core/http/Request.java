@@ -10,6 +10,7 @@ import java.util.*;
 
 public class Request {
   public static final String GET = "GET";
+  public static final String HEAD = "HEAD";
   public static final String DELETE = "DELETE";
   public static final String POST = "POST";
   public static final String PUT = "PUT";
@@ -18,6 +19,7 @@ public class Request {
   private String url;
   private final Map<String, String> headers = new HashMap<>();
   private final Map<String, List<String>> query = new TreeMap<>();
+  private Optional<Boolean> redirectionBehavior = Optional.empty();
   /**
    * The body of the request for requests with streaming bodies. At most one of {@link #bodyStream}
    * and {@link #bodyString} can be non-null.
@@ -182,7 +184,8 @@ public class Request {
     return method.equals(request.method)
         && url.equals(request.url)
         && Objects.equals(query, request.query)
-        && Objects.equals(bodyStream, request.bodyStream);
+        && Objects.equals(bodyStream, request.bodyStream)
+        && Objects.equals(redirectionBehavior, request.redirectionBehavior);
   }
 
   @Override
@@ -196,5 +199,13 @@ public class Request {
   @Override
   public String toString() {
     return getRequestLine();
+  }
+
+  public Optional<Boolean> getRedirectionBehavior() {
+    return this.redirectionBehavior;
+  }
+
+  public void setRedirectionBehavior(boolean redirectionBehavior) {
+    this.redirectionBehavior = Optional.of(redirectionBehavior);
   }
 }

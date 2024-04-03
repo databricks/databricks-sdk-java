@@ -17,7 +17,7 @@ public class RegisteredModelAccessControlRequest {
   @JsonProperty("permission_level")
   private RegisteredModelPermissionLevel permissionLevel;
 
-  /** name of the service principal */
+  /** application ID of a service principal */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 

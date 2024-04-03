@@ -13,7 +13,10 @@ import java.util.Objects;
  */
 @Generated
 public class BaseChunkInfo {
-  /** The number of bytes in the result chunk. */
+  /**
+   * The number of bytes in the result chunk. This field is not available when using `INLINE`
+   * disposition.
+   */
   @JsonProperty("byte_count")
   private Long byteCount;
 

@@ -24,6 +24,8 @@ public class FixtureServer implements Closeable {
     public static class Builder {
       private ArrayList<Validation> validations = new ArrayList<>();
       private String response;
+      private String redirectUrl;
+      private int redirectStatusCode;
 
       public Builder validateMethod(String method) {
         this.validations.add(
@@ -105,6 +107,12 @@ public class FixtureServer implements Closeable {
         return this;
       }
 
+      public Builder withRedirect(String redirectUrl, int redirectStatusCode) {
+        this.redirectUrl = redirectUrl;
+        this.redirectStatusCode = redirectStatusCode;
+        return this;
+      }
+
       public FixtureMapping build() {
         Validation validation =
             (exchange) -> {
@@ -112,16 +120,26 @@ public class FixtureServer implements Closeable {
                 v.validate(exchange);
               }
             };
-        return new FixtureMapping(validation, response);
+        return new FixtureMapping(validation, response, redirectUrl, redirectStatusCode);
       }
     }
 
     private final Validation validation;
     private final String response;
+    private String redirectUrl;
+    private int redirectStatusCode;
 
     FixtureMapping(Validation validation, String response) {
       this.validation = validation;
       this.response = response;
+    }
+
+    FixtureMapping(
+        Validation validation, String response, String redirectUrl, int redirectStatusCode) {
+      this.validation = validation;
+      this.response = response;
+      this.redirectUrl = redirectUrl;
+      this.redirectStatusCode = redirectStatusCode;
     }
 
     Validation getValidation() {
@@ -130,6 +148,14 @@ public class FixtureServer implements Closeable {
 
     String getResponse() {
       return response;
+    }
+
+    public String getRedirectUrl() {
+      return redirectUrl;
+    }
+
+    public int getRedirectStatusCode() {
+      return redirectStatusCode;
     }
   }
 
@@ -167,7 +193,10 @@ public class FixtureServer implements Closeable {
         respondBadRequest(exchange, e.getMessage());
         return;
       }
-
+      if (response.getRedirectUrl() != null) {
+        respondRedirect(exchange, response.getRedirectUrl(), response.getRedirectStatusCode());
+        return;
+      }
       respondSuccess(exchange, response.getResponse());
     }
 
@@ -190,6 +219,13 @@ public class FixtureServer implements Closeable {
 
     private void respondSuccess(HttpExchange exchange, String body) throws IOException {
       respond(exchange, 200, body);
+    }
+
+    private void respondRedirect(HttpExchange exchange, String location, int statusCode)
+        throws IOException {
+      Headers headers = exchange.getResponseHeaders();
+      headers.add("Location", location);
+      respond(exchange, statusCode, "");
     }
   }
 

@@ -1,11 +1,7 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.oauth.Token;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import com.databricks.sdk.core.utils.OSUtils;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +20,11 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
   private CliTokenSource getDatabricksCliTokenSource(DatabricksConfig config) {
     String cliPath = config.getDatabricksCliPath();
     if (cliPath == null) {
-      cliPath = "databricks";
+      cliPath = OSUtils.get(config.getEnv()).getDatabricksCliPath();
     }
-    // If the path is unqualified, look it up in PATH.
-    if (!cliPath.contains("/")) {
-      cliPath = findExecutable(cliPath);
+    if (cliPath == null) {
+      LOG.debug("Databricks CLI could not be found");
+      return null;
     }
     List<String> cmd =
         new ArrayList<>(Arrays.asList(cliPath, "auth", "token", "--host", config.getHost()));
@@ -36,43 +32,21 @@ public class DatabricksCliCredentialsProvider implements CredentialsProvider {
       cmd.add("--account-id");
       cmd.add(config.getAccountId());
     }
-    return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config::getAllEnv);
-  }
-
-  private static String findExecutable(String name) {
-    String pathVal = System.getenv("PATH");
-    StringTokenizer stringTokenizer = new StringTokenizer(pathVal, File.pathSeparator);
-    while (stringTokenizer.hasMoreTokens()) {
-      Path path = Paths.get(stringTokenizer.nextToken(), name).toAbsolutePath().normalize();
-      if (!Files.isRegularFile(path)) {
-        continue;
-      }
-      long size;
-      try {
-        size = Files.size(path);
-      } catch (IOException e) {
-        LOG.warn("Unable to get size of databricks cli: " + e.getMessage());
-        return null;
-      }
-      if (size < 1024 * 1024) {
-        LOG.info("Databricks CLI version <0.100.0 detected");
-        return null;
-      }
-      return path.toString();
-    }
-    LOG.warn("Most likely the databricks CLI is not installed");
-    return null;
+    return new CliTokenSource(cmd, "token_type", "access_token", "expiry", config.getEnv());
   }
 
   @Override
   public HeaderFactory configure(DatabricksConfig config) {
     String host = config.getHost();
-    if (host == null || !config.isAws()) {
+    if (host == null) {
       return null;
     }
 
     try {
       CliTokenSource tokenSource = getDatabricksCliTokenSource(config);
+      if (tokenSource == null) {
+        return null;
+      }
       tokenSource.getToken(); // We need this for checking if databricks CLI is installed.
       return () -> {
         Token token = tokenSource.getToken();

@@ -10,15 +10,15 @@ import java.util.Objects;
 @Generated
 public class DeleteVolumeRequest {
   /** The three-level (fully qualified) name of the volume */
-  private String fullNameArg;
+  private String name;
 
-  public DeleteVolumeRequest setFullNameArg(String fullNameArg) {
-    this.fullNameArg = fullNameArg;
+  public DeleteVolumeRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getFullNameArg() {
-    return fullNameArg;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -26,16 +26,16 @@ public class DeleteVolumeRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteVolumeRequest that = (DeleteVolumeRequest) o;
-    return Objects.equals(fullNameArg, that.fullNameArg);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullNameArg);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteVolumeRequest.class).add("fullNameArg", fullNameArg).toString();
+    return new ToStringer(DeleteVolumeRequest.class).add("name", name).toString();
   }
 }

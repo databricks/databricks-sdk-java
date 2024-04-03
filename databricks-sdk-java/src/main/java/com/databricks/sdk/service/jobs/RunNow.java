@@ -13,7 +13,7 @@ import java.util.Objects;
 public class RunNow {
   /**
    * An array of commands to execute for jobs with the dbt task, for example `"dbt_commands": ["dbt
-   * deps", "dbt seed", "dbt run"]`
+   * deps", "dbt seed", "dbt deps", "dbt seed", "dbt run"]`
    */
   @JsonProperty("dbt_commands")
   private Collection<String> dbtCommands;
@@ -42,7 +42,7 @@ public class RunNow {
    * cannot be specified in conjunction with notebook_params. The JSON representation of this field
    * (for example `{"jar_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [Task parameter variables](/jobs.html"#parameter-variables") to set parameters
+   * <p>Use [Task parameter variables](/jobs.html\"#parameter-variables\") to set parameters
    * containing information about job runs.
    */
   @JsonProperty("jar_params")

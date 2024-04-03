@@ -11,7 +11,7 @@ import java.util.Objects;
 public class StorageCredentialInfo {
   /** The AWS IAM role configuration. */
   @JsonProperty("aws_iam_role")
-  private AwsIamRole awsIamRole;
+  private AwsIamRoleResponse awsIamRole;
 
   /** The Azure managed identity configuration. */
   @JsonProperty("azure_managed_identity")
@@ -20,6 +20,10 @@ public class StorageCredentialInfo {
   /** The Azure service principal configuration. */
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
+
+  /** The Cloudflare API token configuration. */
+  @JsonProperty("cloudflare_api_token")
+  private CloudflareApiToken cloudflareApiToken;
 
   /** Comment associated with the credential. */
   @JsonProperty("comment")
@@ -69,12 +73,12 @@ public class StorageCredentialInfo {
   @JsonProperty("used_for_managed_storage")
   private Boolean usedForManagedStorage;
 
-  public StorageCredentialInfo setAwsIamRole(AwsIamRole awsIamRole) {
+  public StorageCredentialInfo setAwsIamRole(AwsIamRoleResponse awsIamRole) {
     this.awsIamRole = awsIamRole;
     return this;
   }
 
-  public AwsIamRole getAwsIamRole() {
+  public AwsIamRoleResponse getAwsIamRole() {
     return awsIamRole;
   }
 
@@ -95,6 +99,15 @@ public class StorageCredentialInfo {
 
   public AzureServicePrincipal getAzureServicePrincipal() {
     return azureServicePrincipal;
+  }
+
+  public StorageCredentialInfo setCloudflareApiToken(CloudflareApiToken cloudflareApiToken) {
+    this.cloudflareApiToken = cloudflareApiToken;
+    return this;
+  }
+
+  public CloudflareApiToken getCloudflareApiToken() {
+    return cloudflareApiToken;
   }
 
   public StorageCredentialInfo setComment(String comment) {
@@ -214,6 +227,7 @@ public class StorageCredentialInfo {
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
+        && Objects.equals(cloudflareApiToken, that.cloudflareApiToken)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
@@ -234,6 +248,7 @@ public class StorageCredentialInfo {
         awsIamRole,
         azureManagedIdentity,
         azureServicePrincipal,
+        cloudflareApiToken,
         comment,
         createdAt,
         createdBy,
@@ -254,6 +269,7 @@ public class StorageCredentialInfo {
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
+        .add("cloudflareApiToken", cloudflareApiToken)
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)

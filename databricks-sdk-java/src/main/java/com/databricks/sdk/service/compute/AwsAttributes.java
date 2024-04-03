@@ -38,7 +38,10 @@ public class AwsAttributes {
   @JsonProperty("ebs_volume_count")
   private Long ebsVolumeCount;
 
-  /** <needs content added> */
+  /**
+   * If using gp3 volumes, what IOPS to use for the disk. If this is not set, the maximum
+   * performance of a gp2 volume with the same volume size will be used.
+   */
   @JsonProperty("ebs_volume_iops")
   private Long ebsVolumeIops;
 
@@ -50,7 +53,10 @@ public class AwsAttributes {
   @JsonProperty("ebs_volume_size")
   private Long ebsVolumeSize;
 
-  /** <needs content added> */
+  /**
+   * If using gp3 volumes, what throughput to use for the disk. If this is not set, the maximum
+   * performance of a gp2 volume with the same volume size will be used.
+   */
   @JsonProperty("ebs_volume_throughput")
   private Long ebsVolumeThroughput;
 
@@ -106,8 +112,8 @@ public class AwsAttributes {
    * deployment resides in the "us-east-1" region. This is an optional field at cluster creation,
    * and if not specified, a default zone will be used. If the zone specified is "auto", will try to
    * place cluster in a zone with high availability, and will retry placement in a different AZ if
-   * there is not enough capacity. See [[AutoAZHelper.scala]] for more details. The list of
-   * available zones as well as the default value can be found by using the `List Zones`_ method.
+   * there is not enough capacity. The list of available zones as well as the default value can be
+   * found by using the `List Zones` method.
    */
   @JsonProperty("zone_id")
   private String zoneId;

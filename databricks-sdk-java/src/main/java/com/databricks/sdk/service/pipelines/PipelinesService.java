@@ -88,13 +88,6 @@ public interface PipelinesService {
   ListUpdatesResponse listUpdates(ListUpdatesRequest listUpdatesRequest);
 
   /**
-   * Reset a pipeline.
-   *
-   * <p>Resets a pipeline.
-   */
-  void reset(ResetRequest resetRequest);
-
-  /**
    * Set pipeline permissions.
    *
    * <p>Sets permissions on a pipeline. Pipelines can inherit permissions from their root object.

@@ -29,7 +29,7 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -53,7 +53,7 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/preview/sql/queries/trash/%s", request.getQueryId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, null, RestoreResponse.class, headers);
   }
 
   @Override

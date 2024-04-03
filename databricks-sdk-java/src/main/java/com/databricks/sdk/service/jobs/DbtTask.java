@@ -34,8 +34,8 @@ public class DbtTask {
   private String profilesDirectory;
 
   /**
-   * Optional (relative) path to the project directory, if no value is provided, the root of the git
-   * repository is used.
+   * Path to the project directory. Optional for Git sourced tasks, in which case if no value is
+   * provided, the root of the Git repository is used.
    */
   @JsonProperty("project_directory")
   private String projectDirectory;
@@ -46,6 +46,18 @@ public class DbtTask {
    */
   @JsonProperty("schema")
   private String schema;
+
+  /**
+   * Optional location type of the project directory. When set to `WORKSPACE`, the project will be
+   * retrieved from the local Databricks workspace. When set to `GIT`, the project will be retrieved
+   * from a Git repository defined in `git_source`. If the value is empty, the task will use `GIT`
+   * if `git_source` is defined and `WORKSPACE` otherwise.
+   *
+   * <p>* `WORKSPACE`: Project is located in Databricks workspace. * `GIT`: Project is located in
+   * cloud Git provider.
+   */
+  @JsonProperty("source")
+  private Source source;
 
   /**
    * ID of the SQL warehouse to connect to. If provided, we automatically generate and provide the
@@ -100,6 +112,15 @@ public class DbtTask {
     return schema;
   }
 
+  public DbtTask setSource(Source source) {
+    this.source = source;
+    return this;
+  }
+
+  public Source getSource() {
+    return source;
+  }
+
   public DbtTask setWarehouseId(String warehouseId) {
     this.warehouseId = warehouseId;
     return this;
@@ -119,13 +140,14 @@ public class DbtTask {
         && Objects.equals(profilesDirectory, that.profilesDirectory)
         && Objects.equals(projectDirectory, that.projectDirectory)
         && Objects.equals(schema, that.schema)
+        && Objects.equals(source, that.source)
         && Objects.equals(warehouseId, that.warehouseId);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        catalog, commands, profilesDirectory, projectDirectory, schema, warehouseId);
+        catalog, commands, profilesDirectory, projectDirectory, schema, source, warehouseId);
   }
 
   @Override
@@ -136,6 +158,7 @@ public class DbtTask {
         .add("profilesDirectory", profilesDirectory)
         .add("projectDirectory", projectDirectory)
         .add("schema", schema)
+        .add("source", source)
         .add("warehouseId", warehouseId)
         .toString();
   }

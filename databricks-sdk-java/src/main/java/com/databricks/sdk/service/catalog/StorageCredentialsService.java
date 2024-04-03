@@ -50,10 +50,10 @@ public interface StorageCredentialsService {
    *
    * <p>Gets an array of storage credentials (as __StorageCredentialInfo__ objects). The array is
    * limited to only those storage credentials the caller has permission to access. If the caller is
-   * a metastore admin, all storage credentials will be retrieved. There is no guarantee of a
+   * a metastore admin, retrieval of credentials is unrestricted. There is no guarantee of a
    * specific ordering of the elements in the array.
    */
-  ListStorageCredentialsResponse list();
+  ListStorageCredentialsResponse list(ListStorageCredentialsRequest listStorageCredentialsRequest);
 
   /**
    * Update a credential.

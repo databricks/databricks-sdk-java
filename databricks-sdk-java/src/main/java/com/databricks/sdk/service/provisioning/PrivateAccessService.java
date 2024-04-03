@@ -39,7 +39,7 @@ public interface PrivateAccessService {
    * <p>Deletes a private access settings object, which determines how your workspace is accessed
    * over [AWS PrivateLink].
    *
-   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
+   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].",
    *
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
    * PrivateLink]:
@@ -53,7 +53,7 @@ public interface PrivateAccessService {
    * <p>Gets a private access settings object, which specifies how your workspace is accessed over
    * [AWS PrivateLink].
    *
-   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
+   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].",
    *
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink [Databricks article about
    * PrivateLink]:

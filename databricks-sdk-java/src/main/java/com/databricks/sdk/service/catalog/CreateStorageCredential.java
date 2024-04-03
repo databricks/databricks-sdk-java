@@ -11,7 +11,7 @@ import java.util.Objects;
 public class CreateStorageCredential {
   /** The AWS IAM role configuration. */
   @JsonProperty("aws_iam_role")
-  private AwsIamRole awsIamRole;
+  private AwsIamRoleRequest awsIamRole;
 
   /** The Azure managed identity configuration. */
   @JsonProperty("azure_managed_identity")
@@ -21,13 +21,17 @@ public class CreateStorageCredential {
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
+  /** The Cloudflare API token configuration. */
+  @JsonProperty("cloudflare_api_token")
+  private CloudflareApiToken cloudflareApiToken;
+
   /** Comment associated with the credential. */
   @JsonProperty("comment")
   private String comment;
 
   /** The <Databricks> managed GCP service account configuration. */
   @JsonProperty("databricks_gcp_service_account")
-  private Object databricksGcpServiceAccount;
+  private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
   /** The credential name. The name must be unique within the metastore. */
   @JsonProperty("name")
@@ -41,12 +45,12 @@ public class CreateStorageCredential {
   @JsonProperty("skip_validation")
   private Boolean skipValidation;
 
-  public CreateStorageCredential setAwsIamRole(AwsIamRole awsIamRole) {
+  public CreateStorageCredential setAwsIamRole(AwsIamRoleRequest awsIamRole) {
     this.awsIamRole = awsIamRole;
     return this;
   }
 
-  public AwsIamRole getAwsIamRole() {
+  public AwsIamRoleRequest getAwsIamRole() {
     return awsIamRole;
   }
 
@@ -70,6 +74,15 @@ public class CreateStorageCredential {
     return azureServicePrincipal;
   }
 
+  public CreateStorageCredential setCloudflareApiToken(CloudflareApiToken cloudflareApiToken) {
+    this.cloudflareApiToken = cloudflareApiToken;
+    return this;
+  }
+
+  public CloudflareApiToken getCloudflareApiToken() {
+    return cloudflareApiToken;
+  }
+
   public CreateStorageCredential setComment(String comment) {
     this.comment = comment;
     return this;
@@ -80,12 +93,12 @@ public class CreateStorageCredential {
   }
 
   public CreateStorageCredential setDatabricksGcpServiceAccount(
-      Object databricksGcpServiceAccount) {
+      DatabricksGcpServiceAccountRequest databricksGcpServiceAccount) {
     this.databricksGcpServiceAccount = databricksGcpServiceAccount;
     return this;
   }
 
-  public Object getDatabricksGcpServiceAccount() {
+  public DatabricksGcpServiceAccountRequest getDatabricksGcpServiceAccount() {
     return databricksGcpServiceAccount;
   }
 
@@ -124,6 +137,7 @@ public class CreateStorageCredential {
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
+        && Objects.equals(cloudflareApiToken, that.cloudflareApiToken)
         && Objects.equals(comment, that.comment)
         && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(name, that.name)
@@ -137,6 +151,7 @@ public class CreateStorageCredential {
         awsIamRole,
         azureManagedIdentity,
         azureServicePrincipal,
+        cloudflareApiToken,
         comment,
         databricksGcpServiceAccount,
         name,
@@ -150,6 +165,7 @@ public class CreateStorageCredential {
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
+        .add("cloudflareApiToken", cloudflareApiToken)
         .add("comment", comment)
         .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("name", name)

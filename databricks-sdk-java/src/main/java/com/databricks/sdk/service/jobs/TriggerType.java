@@ -11,9 +11,9 @@ import com.databricks.sdk.support.Generated;
  * `ONE_TIME`: One time triggers that fire a single run. This occurs you triggered a single run on
  * demand through the UI or the API. * `RETRY`: Indicates a run that is triggered as a retry of a
  * previously failed run. This occurs when you request to re-run the job in case of failures. *
- * `RUN_JOB_TASK`: Indicates a run that is triggered using a Run Job task.
- *
- * <p>* `FILE_ARRIVAL`: Indicates a run that is triggered by a file arrival.
+ * `RUN_JOB_TASK`: Indicates a run that is triggered using a Run Job task. * `FILE_ARRIVAL`:
+ * Indicates a run that is triggered by a file arrival. * `TABLE`: Indicates a run that is triggered
+ * by a table update.
  */
 @Generated
 public enum TriggerType {
@@ -24,4 +24,5 @@ public enum TriggerType {
   RETRY, // Indicates a run that is triggered as a retry of a previously failed run. This
   // occurs when you request to re-run the job in case of failures.
   RUN_JOB_TASK, // Indicates a run that is triggered using a Run Job task.
+  TABLE, // Indicates a run that is triggered by a table update.
 }

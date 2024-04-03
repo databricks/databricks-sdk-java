@@ -32,9 +32,16 @@ public class {{.PascalName}}API {
 
   private final {{.PascalName}}Service impl;
 
+  {{range .Subservices}}
+  private {{.PascalName}}API {{.CamelName}}API;
+  {{end}}
+
   /** Regular-use constructor */
   public {{.PascalName}}API(ApiClient apiClient) {
     impl = new {{.PascalName}}Impl(apiClient);
+    {{range .Subservices}}
+    {{.CamelName}}API = new {{.PascalName}}API(apiClient);
+    {{end}}
   }
 
   /** Constructor for mocks */
@@ -101,7 +108,7 @@ public class {{.PascalName}}API {
   public {{template "method-return-type" .}} {{template "java-name" .}}({{range $i, $p := .Request.RequiredFields -}}
     {{if $i}}, {{end}}{{template "type-unboxed" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}}
   {{- end}}) {
-    {{if or .Response .Wait -}}return {{end}}{{template "java-name" .}}(new {{.Request.PascalName}}(){{range .Request.RequiredFields}}
+    {{if or (not .Response.IsEmpty) .Wait -}}return {{end}}{{template "java-name" .}}(new {{.Request.PascalName}}(){{range .Request.RequiredFields}}
       .set{{.PascalName}}({{.CamelName}}{{if .IsNameReserved}}Value{{end}}){{end}});
   }
   {{end}}
@@ -113,6 +120,16 @@ public class {{.PascalName}}API {
     {{template "method-call" .}}
   }
   {{end}}
+
+  {{range .Subservices}}
+  /**
+   * {{.Summary}}
+   */
+  public {{.PascalName}}API {{.PascalName}}() {
+  	return {{.CamelName}}API;
+  }
+  {{end}}
+
   public {{.PascalName}}Service impl() {
     return impl;
   }
@@ -131,7 +148,18 @@ public class {{.PascalName}}API {
 {{define "method-call-paginated" -}}
   {{- if .Pagination.MultiRequest -}}
     {{- if and .Pagination.Offset (not (eq .Path "/api/2.0/clusters/events")) -}}
-    request.set{{.Pagination.Offset.PascalName}}({{if eq .Pagination.Increment 1}}1{{else}}0{{end}}L);{{end -}}
+    request.set{{.Pagination.Offset.PascalName}}(
+    {{- if eq .Pagination.Increment 1 -}}
+      1
+    {{- else if contains .Path "/scim/v2/" -}}
+      1
+    {{- else -}}
+      0
+    {{- end}}L);{{end -}}
+    {{if and .Pagination.Limit (contains .Path "/scim/v2/")}}
+    if (request.get{{.Pagination.Limit.PascalName}}() == null) {
+       request.set{{.Pagination.Limit.PascalName}}(100L);
+    }{{end -}}
     return new Paginator<>(request, impl::{{template "java-name" .}}, {{template "type" .Response}}::get{{.Pagination.Results.PascalName}}, response -> {
       {{if eq .Path "/api/2.0/clusters/events" -}}
       return response.getNextPage();
@@ -162,17 +190,17 @@ public class {{.PascalName}}API {
 {{- end}}
 
 {{define "method-call-retried" -}}
-    {{if .Response}}{{.Response.PascalName}} response = {{end}}impl.{{template "java-name" .}}(request);
-    return new Wait<>((timeout, callback) -> {{.Wait.CamelName}}({{range .Wait.Binding}}{{if .IsResponseBind}}response{{else}}request{{end}}.get{{.Bind.PascalName}}(), {{end}}timeout, callback){{if .Response}}, response{{end}});
+    {{if not .Response.IsEmpty}}{{.Response.PascalName}} response = {{end}}impl.{{template "java-name" .}}(request);
+    return new Wait<>((timeout, callback) -> {{.Wait.CamelName}}({{range .Wait.Binding}}{{if .IsResponseBind}}response{{else}}request{{end}}.get{{.Bind.PascalName}}(), {{end}}timeout, callback){{if not .Response.IsEmpty}}, response{{end}});
 {{- end}}
 
 {{define "method-call-default" -}}
-  {{if .Response -}}return {{end}}impl.{{template "java-name" .}}({{if .Request}}request{{end}});
+  {{if not .Response.IsEmpty -}}return {{end}}impl.{{template "java-name" .}}({{if .Request}}request{{end}});
 {{- end}}
 
 {{define "method-return-type" -}}
-  {{if and .Wait (and (not .IsCrudRead) (not (eq .SnakeName "get_run"))) }}Wait<{{.Wait.Poll.Response.PascalName}},{{if .Response}}{{.Response.PascalName}}{{else}}Void{{end}}>
-  {{- else if .Response}}{{if .Response.ArrayValue -}}
+  {{if and .Wait (and (not .IsCrudRead) (not (eq .SnakeName "get_run"))) }}Wait<{{.Wait.Poll.Response.PascalName}},{{if not .Response.IsEmpty}}{{.Response.PascalName}}{{else}}Void{{end}}>
+  {{- else if not .Response.IsEmpty }}{{if .Response.ArrayValue -}}
     Iterable<{{ template "type" .Response.ArrayValue }}>
   {{- else if .Pagination -}}
     Iterable<{{ template "type" .Pagination.Entity }}>

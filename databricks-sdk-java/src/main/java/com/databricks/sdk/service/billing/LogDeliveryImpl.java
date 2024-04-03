@@ -54,6 +54,6 @@ class LogDeliveryImpl implements LogDeliveryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    apiClient.PATCH(path, request, PatchStatusResponse.class, headers);
   }
 }

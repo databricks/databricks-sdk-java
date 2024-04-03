@@ -7,6 +7,7 @@ import com.databricks.sdk.support.Generated;
 /** The type of connection. */
 @Generated
 public enum ConnectionType {
+  BIGQUERY,
   DATABRICKS,
   MYSQL,
   POSTGRESQL,

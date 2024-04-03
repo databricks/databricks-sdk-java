@@ -54,7 +54,7 @@ public interface VolumesService {
   /**
    * List Volumes.
    *
-   * <p>Gets an array of all volumes for the current metastore under the parent catalog and schema.
+   * <p>Gets an array of volumes for the current metastore under the parent catalog and schema.
    *
    * <p>The returned volumes are filtered based on the privileges of the calling user. For example,
    * the metastore admin is able to list all the volumes. A regular user needs to be the owner or

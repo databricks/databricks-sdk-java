@@ -26,11 +26,8 @@ public class TokenManagementAPI {
     impl = mock;
   }
 
-  public CreateOboTokenResponse createOboToken(String applicationId, long lifetimeSeconds) {
-    return createOboToken(
-        new CreateOboTokenRequest()
-            .setApplicationId(applicationId)
-            .setLifetimeSeconds(lifetimeSeconds));
+  public CreateOboTokenResponse createOboToken(String applicationId) {
+    return createOboToken(new CreateOboTokenRequest().setApplicationId(applicationId));
   }
 
   /**
@@ -55,7 +52,7 @@ public class TokenManagementAPI {
     impl.delete(request);
   }
 
-  public TokenInfo get(String tokenId) {
+  public GetTokenResponse get(String tokenId) {
     return get(new GetTokenManagementRequest().setTokenId(tokenId));
   }
 
@@ -64,7 +61,7 @@ public class TokenManagementAPI {
    *
    * <p>Gets information about a token, specified by its ID.
    */
-  public TokenInfo get(GetTokenManagementRequest request) {
+  public GetTokenResponse get(GetTokenManagementRequest request) {
     return impl.get(request);
   }
 

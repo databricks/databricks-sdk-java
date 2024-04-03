@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Remove widget */
 @Generated
 public class DeleteDashboardWidgetRequest {
-  /** */
+  /** Widget ID returned by :method:dashboardwidgets/create */
   private String id;
 
   public DeleteDashboardWidgetRequest setId(String id) {

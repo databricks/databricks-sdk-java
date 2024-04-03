@@ -15,7 +15,7 @@ public class GetCleanRoomRequest {
   private Boolean includeRemoteDetails;
 
   /** The name of the clean room. */
-  private String nameArg;
+  private String name;
 
   public GetCleanRoomRequest setIncludeRemoteDetails(Boolean includeRemoteDetails) {
     this.includeRemoteDetails = includeRemoteDetails;
@@ -26,13 +26,13 @@ public class GetCleanRoomRequest {
     return includeRemoteDetails;
   }
 
-  public GetCleanRoomRequest setNameArg(String nameArg) {
-    this.nameArg = nameArg;
+  public GetCleanRoomRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getNameArg() {
-    return nameArg;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -41,19 +41,19 @@ public class GetCleanRoomRequest {
     if (o == null || getClass() != o.getClass()) return false;
     GetCleanRoomRequest that = (GetCleanRoomRequest) o;
     return Objects.equals(includeRemoteDetails, that.includeRemoteDetails)
-        && Objects.equals(nameArg, that.nameArg);
+        && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(includeRemoteDetails, nameArg);
+    return Objects.hash(includeRemoteDetails, name);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetCleanRoomRequest.class)
         .add("includeRemoteDetails", includeRemoteDetails)
-        .add("nameArg", nameArg)
+        .add("name", name)
         .toString();
   }
 }

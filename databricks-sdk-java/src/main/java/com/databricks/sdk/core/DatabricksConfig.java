@@ -5,138 +5,113 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
+import com.databricks.sdk.core.utils.Cloud;
+import com.databricks.sdk.core.utils.Environment;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
 import java.io.IOException;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Supplier;
+import java.lang.reflect.Field;
+import java.util.*;
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
-
-  public static final String DEFAULT_CONFIG_FILE = "~/.databrickscfg";
-
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
-  @ConfigAttribute(value = "host", env = "DATABRICKS_HOST")
+  @ConfigAttribute(env = "DATABRICKS_HOST")
   private String host;
 
-  @ConfigAttribute(value = "account_id", env = "DATABRICKS_ACCOUNT_ID")
+  @ConfigAttribute(env = "DATABRICKS_ACCOUNT_ID")
   private String accountId;
 
-  @ConfigAttribute(value = "token", env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
+  @ConfigAttribute(env = "DATABRICKS_TOKEN", auth = "pat", sensitive = true)
   private String token;
 
-  @ConfigAttribute(value = "client_id", env = "DATABRICKS_CLIENT_ID", auth = "oauth")
+  @ConfigAttribute(env = "DATABRICKS_CLIENT_ID", auth = "oauth")
   private String clientId;
 
-  @ConfigAttribute(
-      value = "client_secret",
-      env = "DATABRICKS_CLIENT_SECRET",
-      auth = "oauth",
-      sensitive = true)
+  @ConfigAttribute(env = "DATABRICKS_CLIENT_SECRET", auth = "oauth", sensitive = true)
   private String clientSecret;
 
-  @ConfigAttribute(value = "username", env = "DATABRICKS_USERNAME", auth = "basic")
+  @ConfigAttribute(env = "DATABRICKS_SCOPES", auth = "oauth")
+  private List<String> scopes;
+
+  @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
+  private String redirectUrl;
+
+  @ConfigAttribute(env = "DATABRICKS_USERNAME", auth = "basic")
   private String username;
 
-  @ConfigAttribute(
-      value = "password",
-      env = "DATABRICKS_PASSWORD",
-      auth = "basic",
-      sensitive = true)
+  @ConfigAttribute(env = "DATABRICKS_PASSWORD", auth = "basic", sensitive = true)
   private String password;
 
   /** Connection profile specified within ~/.databrickscfg. */
-  @ConfigAttribute(value = "profile", env = "DATABRICKS_CONFIG_PROFILE")
+  @ConfigAttribute(env = "DATABRICKS_CONFIG_PROFILE")
   private String profile;
 
   /**
    * Location of the Databricks CLI credentials file, that is created by `databricks configure
    * --token` command. By default, it is located in ~/.databrickscfg.
    */
-  @ConfigAttribute(value = "config_file", env = "DATABRICKS_CONFIG_FILE")
+  @ConfigAttribute(env = "DATABRICKS_CONFIG_FILE")
   private String configFile;
 
-  @ConfigAttribute(value = "cluster_id", env = "DATABRICKS_CLUSTER_ID")
+  @ConfigAttribute(env = "DATABRICKS_CLUSTER_ID")
   private String clusterId;
 
-  @ConfigAttribute(
-      value = "google_service_account",
-      env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT",
-      auth = "google")
+  @ConfigAttribute(env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT", auth = "google")
   private String googleServiceAccount;
 
-  @ConfigAttribute(
-      value = "google_credentials",
-      env = "GOOGLE_CREDENTIALS",
-      auth = "google",
-      sensitive = true)
+  @ConfigAttribute(env = "GOOGLE_CREDENTIALS", auth = "google", sensitive = true)
   private String googleCredentials;
 
   /** Azure Resource Manager ID for Azure Databricks workspace, which is exchanged for a Host */
-  @ConfigAttribute(
-      value = "azure_workspace_resource_id",
-      env = "DATABRICKS_AZURE_RESOURCE_ID",
-      auth = "azure")
+  @ConfigAttribute(env = "DATABRICKS_AZURE_RESOURCE_ID", auth = "azure")
   private String azureWorkspaceResourceId;
 
-  @ConfigAttribute(value = "azure_use_msi", env = "ARM_USE_MSI", auth = "azure")
-  private Boolean azureUseMSI;
+  @ConfigAttribute(env = "ARM_USE_MSI", auth = "azure")
+  private Boolean azureUseMsi;
 
-  @ConfigAttribute(
-      value = "azure_client_secret",
-      env = "ARM_CLIENT_SECRET",
-      auth = "azure",
-      sensitive = true)
+  @ConfigAttribute(env = "ARM_CLIENT_SECRET", auth = "azure", sensitive = true)
   private String azureClientSecret;
 
-  @ConfigAttribute(value = "azure_client_id", env = "ARM_CLIENT_ID", auth = "azure")
+  @ConfigAttribute(env = "ARM_CLIENT_ID", auth = "azure")
   private String azureClientId;
 
-  @ConfigAttribute(value = "azure_tenant_id", env = "ARM_TENANT_ID", auth = "azure")
+  @ConfigAttribute(env = "ARM_TENANT_ID", auth = "azure")
   private String azureTenantId;
 
-  @ConfigAttribute(value = "azure_environment", env = "ARM_ENVIRONMENT")
+  @ConfigAttribute(env = "ARM_ENVIRONMENT")
   private String azureEnvironment;
 
-  @ConfigAttribute(
-      value = "azure_login_app_id",
-      env = "DATABRICKS_AZURE_LOGIN_APP_ID",
-      auth = "azure")
-  private String azureLoginAppId;
-
-  @ConfigAttribute(value = "databricks_cli_path", env = "DATABRICKS_CLI_PATH")
+  @ConfigAttribute(env = "DATABRICKS_CLI_PATH")
   private String databricksCliPath;
 
   /**
    * When multiple auth attributes are available in the environment, use the auth type specified by
    * this argument. This argument also holds currently selected auth.
    */
-  @ConfigAttribute(value = "auth_type", env = "DATABRICKS_AUTH_TYPE")
+  @ConfigAttribute(env = "DATABRICKS_AUTH_TYPE")
   private String authType;
 
   /**
    * Skip SSL certificate verification for HTTP calls. Use at your own risk or for unit testing
    * purposes.
    */
-  @ConfigAttribute("skip_verify")
-  private Boolean skipVerify;
+  @ConfigAttribute() private Boolean skipVerify;
 
   /** Number of seconds for HTTP timeout */
-  @ConfigAttribute("http_timeout_seconds")
-  private Integer httpTimeoutSeconds;
+  @ConfigAttribute() private Integer httpTimeoutSeconds;
 
   /** Truncate JSON fields in JSON above this limit. Default is 96. */
-  @ConfigAttribute(value = "debug_truncate_bytes", env = "DATABRICKS_DEBUG_TRUNCATE_BYTES")
+  @ConfigAttribute(env = "DATABRICKS_DEBUG_TRUNCATE_BYTES")
   private Integer debugTruncateBytes;
 
   /** Debug HTTP headers of requests made by the provider. Default is false. */
-  @ConfigAttribute(value = "debug_headers", env = "DATABRICKS_DEBUG_HEADERS")
+  @ConfigAttribute(env = "DATABRICKS_DEBUG_HEADERS")
   private Boolean debugHeaders;
 
   /** Maximum number of requests per second made to Databricks REST API. */
-  @ConfigAttribute(value = "rate_limit", env = "DATABRICKS_RATE_LIMIT")
+  @ConfigAttribute(env = "DATABRICKS_RATE_LIMIT")
   private Integer rateLimit;
 
   private volatile boolean resolved;
@@ -144,24 +119,28 @@ public class DatabricksConfig {
 
   private HttpClient httpClient;
 
-  private Map<String, String> allEnv;
+  private Environment env;
 
-  public Map<String, String> getAllEnv() {
-    return allEnv;
+  private DatabricksEnvironment databricksEnvironment;
+
+  public Environment getEnv() {
+    return env;
   }
 
   public synchronized DatabricksConfig resolve() {
-    return resolve(System::getenv);
+    String[] path = System.getenv("PATH").split(File.pathSeparator);
+    Environment env = new Environment(System.getenv(), path, System.getProperty("os.name"));
+    return resolve(env);
   }
 
-  synchronized DatabricksConfig resolve(Supplier<Map<String, String>> getAllEnv) {
-    allEnv = getAllEnv.get();
+  synchronized DatabricksConfig resolve(Environment env) {
+    this.env = env;
     innerResolve();
     return this;
   }
 
   private synchronized DatabricksConfig innerResolve() {
-    Objects.requireNonNull(allEnv);
+    Objects.requireNonNull(env);
     try {
       ConfigLoader.resolve(this);
       ConfigLoader.validate(this);
@@ -291,6 +270,24 @@ public class DatabricksConfig {
     return this;
   }
 
+  public String getOAuthRedirectUrl() {
+    return redirectUrl;
+  }
+
+  public DatabricksConfig setOAuthRedirectUrl(String redirectUrl) {
+    this.redirectUrl = redirectUrl;
+    return this;
+  }
+
+  public List<String> getScopes() {
+    return scopes;
+  }
+
+  public DatabricksConfig setScopes(List<String> scopes) {
+    this.scopes = scopes;
+    return this;
+  }
+
   public String getProfile() {
     return profile;
   }
@@ -336,12 +333,25 @@ public class DatabricksConfig {
     return this;
   }
 
-  public boolean isAzureUseMSI() {
-    return azureUseMSI;
+  public boolean getAzureUseMsi() {
+    return azureUseMsi;
   }
 
-  public DatabricksConfig setAzureUseMSI(boolean azureUseMSI) {
-    this.azureUseMSI = azureUseMSI;
+  public DatabricksConfig setAzureUseMsi(boolean azureUseMsi) {
+    this.azureUseMsi = azureUseMsi;
+    return this;
+  }
+
+  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  @Deprecated()
+  public boolean getAzureUseMSI() {
+    return azureUseMsi;
+  }
+
+  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  @Deprecated
+  public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
+    this.azureUseMsi = azureUseMsi;
     return this;
   }
 
@@ -386,11 +396,7 @@ public class DatabricksConfig {
   }
 
   public String getEffectiveAzureLoginAppId() {
-    if (azureLoginAppId != null) {
-      return azureLoginAppId;
-    }
-
-    return AzureEnvironment.ARM_DATABRICKS_RESOURCE_ID;
+    return getDatabricksEnvironment().getAzureApplicationId();
   }
 
   public String getAuthType() {
@@ -457,15 +463,7 @@ public class DatabricksConfig {
   }
 
   public boolean isAzure() {
-    if (azureWorkspaceResourceId != null) {
-      return true;
-    }
-    if (host == null) {
-      return false;
-    }
-    return host.contains(".azuredatabricks.net")
-        || host.contains("databricks.azure.cn")
-        || host.contains(".databricks.azure.us");
+    return this.getDatabricksEnvironment().getCloud() == Cloud.AZURE;
   }
 
   public synchronized void authenticate(HttpMessage request) {
@@ -476,17 +474,11 @@ public class DatabricksConfig {
   }
 
   public boolean isGcp() {
-    if (host == null) {
-      return false;
-    }
-    return host.contains(".gcp.databricks.com");
+    return this.getDatabricksEnvironment().getCloud() == Cloud.GCP;
   }
 
   public boolean isAws() {
-    if (host == null) {
-      return false;
-    }
-    return (!isAzure() && !isGcp());
+    return this.getDatabricksEnvironment().getCloud() == Cloud.AWS;
   }
 
   public boolean isAccountClient() {
@@ -500,9 +492,11 @@ public class DatabricksConfig {
     if (getHost() == null) {
       return null;
     }
-    if (isAzure()) {
-      Response resp =
-          getHttpClient().execute(new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize"));
+
+    if (isAzure() && getAzureClientId() != null) {
+      Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
+      request.setRedirectionBehavior(false);
+      Response resp = getHttpClient().execute(request);
       String realAuthUrl = resp.getFirstHeader("location");
       if (realAuthUrl == null) {
         return null;
@@ -526,5 +520,77 @@ public class DatabricksConfig {
   @Override
   public String toString() {
     return ConfigLoader.debugString(this);
+  }
+
+  public DatabricksConfig setDatabricksEnvironment(DatabricksEnvironment databricksEnvironment) {
+    this.databricksEnvironment = databricksEnvironment;
+    return this;
+  }
+
+  public DatabricksEnvironment getDatabricksEnvironment() {
+    ConfigLoader.fixHostIfNeeded(this);
+
+    if (this.databricksEnvironment != null) {
+      return this.databricksEnvironment;
+    }
+
+    if (this.host != null) {
+      for (DatabricksEnvironment env : DatabricksEnvironment.ALL_ENVIRONMENTS) {
+        if (this.host.endsWith(env.getDnsZone())) {
+          return env;
+        }
+      }
+    }
+
+    if (this.azureWorkspaceResourceId != null) {
+      String azureEnv = "PUBLIC";
+      if (this.azureEnvironment != null) {
+        azureEnv = this.azureEnvironment;
+      }
+      for (DatabricksEnvironment env : DatabricksEnvironment.ALL_ENVIRONMENTS) {
+        if (env.getCloud() != Cloud.AZURE) {
+          continue;
+        }
+        if (!env.getAzureEnvironment().getName().equals(azureEnv)) {
+          continue;
+        }
+        if (env.getDnsZone().startsWith(".dev") || env.getDnsZone().startsWith(".staging")) {
+          continue;
+        }
+        return env;
+      }
+    }
+
+    return DatabricksEnvironment.DEFAULT_ENVIRONMENT;
+  }
+
+  public DatabricksConfig newWithWorkspaceHost(String host) {
+    Set<String> fieldsToSkip =
+        new HashSet<>(
+            Arrays.asList(
+                // The config for WorkspaceClient has a different host and Azure Workspace resource
+                // ID, and also omits
+                // the account ID.
+                "host",
+                "accountId",
+                "azureWorkspaceResourceId",
+                // For cloud-native OAuth, we need to reauthenticate as the audience has changed, so
+                // don't cache the
+                // header factory.
+                "authType",
+                "headerFactory"));
+    DatabricksConfig newConfig = new DatabricksConfig();
+    for (Field f : DatabricksConfig.class.getDeclaredFields()) {
+      if (fieldsToSkip.contains(f.getName())) {
+        continue;
+      }
+      try {
+        f.set(newConfig, f.get(this));
+      } catch (IllegalAccessException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    newConfig.setHost(host);
+    return newConfig;
   }
 }

@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,8 +87,18 @@ public class ExternalLocationsAPI {
    * some privilege on the external location. There is no guarantee of a specific ordering of the
    * elements in the array.
    */
-  public Iterable<ExternalLocationInfo> list() {
-    return impl.list().getExternalLocations();
+  public Iterable<ExternalLocationInfo> list(ListExternalLocationsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListExternalLocationsResponse::getExternalLocations,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public ExternalLocationInfo update(String name) {

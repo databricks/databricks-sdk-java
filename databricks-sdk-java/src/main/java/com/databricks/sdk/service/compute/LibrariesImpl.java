@@ -37,7 +37,7 @@ class LibrariesImpl implements LibrariesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, InstallLibrariesResponse.class, headers);
   }
 
   @Override
@@ -46,6 +46,6 @@ class LibrariesImpl implements LibrariesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, UninstallLibrariesResponse.class, headers);
   }
 }

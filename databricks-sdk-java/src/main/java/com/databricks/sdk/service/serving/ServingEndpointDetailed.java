@@ -53,6 +53,10 @@ public class ServingEndpointDetailed {
   @JsonProperty("tags")
   private Collection<EndpointTag> tags;
 
+  /** The task type of the serving endpoint. */
+  @JsonProperty("task")
+  private String task;
+
   public ServingEndpointDetailed setConfig(EndpointCoreConfigOutput config) {
     this.config = config;
     return this;
@@ -144,6 +148,15 @@ public class ServingEndpointDetailed {
     return tags;
   }
 
+  public ServingEndpointDetailed setTask(String task) {
+    this.task = task;
+    return this;
+  }
+
+  public String getTask() {
+    return task;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -158,7 +171,8 @@ public class ServingEndpointDetailed {
         && Objects.equals(pendingConfig, that.pendingConfig)
         && Objects.equals(permissionLevel, that.permissionLevel)
         && Objects.equals(state, that.state)
-        && Objects.equals(tags, that.tags);
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(task, that.task);
   }
 
   @Override
@@ -173,7 +187,8 @@ public class ServingEndpointDetailed {
         pendingConfig,
         permissionLevel,
         state,
-        tags);
+        tags,
+        task);
   }
 
   @Override
@@ -189,6 +204,7 @@ public class ServingEndpointDetailed {
         .add("permissionLevel", permissionLevel)
         .add("state", state)
         .add("tags", tags)
+        .add("task", task)
         .toString();
   }
 }

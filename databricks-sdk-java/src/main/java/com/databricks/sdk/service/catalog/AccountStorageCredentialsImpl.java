@@ -38,7 +38,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             request.getStorageCredentialName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

@@ -17,7 +17,7 @@ public class RepoAccessControlRequest {
   @JsonProperty("permission_level")
   private RepoPermissionLevel permissionLevel;
 
-  /** name of the service principal */
+  /** application ID of a service principal */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 

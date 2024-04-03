@@ -10,11 +10,17 @@ import java.util.Objects;
 /** List clean rooms */
 @Generated
 public class ListCleanRoomsRequest {
-  /** Maximum number of clean rooms to return. */
+  /**
+   * Maximum number of clean rooms to return. If not set, all the clean rooms are returned (not
+   * recommended). - when set to a value greater than 0, the page length is the minimum of this
+   * value and a server configured value; - when set to 0, the page length is set to a server
+   * configured value (recommended); - when set to a value less than 0, an invalid parameter error
+   * is returned;
+   */
   @QueryParam("max_results")
   private Long maxResults;
 
-  /** Pagination token to go to next page based on previous query. */
+  /** Opaque pagination token to go to next page based on previous query. */
   @QueryParam("page_token")
   private String pageToken;
 

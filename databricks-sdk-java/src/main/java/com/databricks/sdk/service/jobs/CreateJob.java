@@ -31,13 +31,19 @@ public class CreateJob {
   private JobDeployment deployment;
 
   /**
+   * An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
+   */
+  @JsonProperty("description")
+  private String description;
+
+  /**
    * Edit mode of the job.
    *
    * <p>* `UI_LOCKED`: The job is in a locked UI state and cannot be modified. * `EDITABLE`: The job
    * is in an editable state and can be modified.
    */
   @JsonProperty("edit_mode")
-  private CreateJobEditMode editMode;
+  private JobEditMode editMode;
 
   /**
    * An optional set of email addresses that is notified when runs of this job begin or complete as
@@ -80,19 +86,14 @@ public class CreateJob {
   private Collection<JobCluster> jobClusters;
 
   /**
-   * An optional maximum allowed number of concurrent runs of the job.
-   *
-   * <p>Set this value if you want to be able to execute multiple runs of the same job concurrently.
-   * This is useful for example if you trigger your job on a frequent schedule and want to allow
-   * consecutive runs to overlap with each other, or if you want to trigger multiple runs which
-   * differ by their input parameters.
-   *
-   * <p>This setting affects only new runs. For example, suppose the job’s concurrency is 4 and
-   * there are 4 concurrent active runs. Then setting the concurrency to 3 won’t kill any of the
-   * active runs. However, from then on, new runs are skipped unless there are fewer than 3 active
-   * runs.
-   *
-   * <p>This value cannot exceed 1000\. Setting this value to `0` causes all new runs to be skipped.
+   * An optional maximum allowed number of concurrent runs of the job. Set this value if you want to
+   * be able to execute multiple runs of the same job concurrently. This is useful for example if
+   * you trigger your job on a frequent schedule and want to allow consecutive runs to overlap with
+   * each other, or if you want to trigger multiple runs which differ by their input parameters.
+   * This setting affects only new runs. For example, suppose the job’s concurrency is 4 and there
+   * are 4 concurrent active runs. Then setting the concurrency to 3 won’t kill any of the active
+   * runs. However, from then on, new runs are skipped unless there are fewer than 3 active runs.
+   * This value cannot exceed 1000. Setting this value to `0` causes all new runs to be skipped.
    */
   @JsonProperty("max_concurrent_runs")
   private Long maxConcurrentRuns;
@@ -151,9 +152,9 @@ public class CreateJob {
   private Long timeoutSeconds;
 
   /**
-   * Trigger settings for the job. Can be used to trigger a run when new files arrive in an external
-   * location. The default behavior is that the job runs only when triggered by clicking “Run Now”
-   * in the Jobs UI or sending an API request to `runNow`.
+   * A configuration to trigger a run when certain conditions are met. The default behavior is that
+   * the job runs only when triggered by clicking “Run Now” in the Jobs UI or sending an API request
+   * to `runNow`.
    */
   @JsonProperty("trigger")
   private TriggerSettings trigger;
@@ -199,12 +200,21 @@ public class CreateJob {
     return deployment;
   }
 
-  public CreateJob setEditMode(CreateJobEditMode editMode) {
+  public CreateJob setDescription(String description) {
+    this.description = description;
+    return this;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
+  public CreateJob setEditMode(JobEditMode editMode) {
     this.editMode = editMode;
     return this;
   }
 
-  public CreateJobEditMode getEditMode() {
+  public JobEditMode getEditMode() {
     return editMode;
   }
 
@@ -370,6 +380,7 @@ public class CreateJob {
         && Objects.equals(compute, that.compute)
         && Objects.equals(continuous, that.continuous)
         && Objects.equals(deployment, that.deployment)
+        && Objects.equals(description, that.description)
         && Objects.equals(editMode, that.editMode)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(format, that.format)
@@ -397,6 +408,7 @@ public class CreateJob {
         compute,
         continuous,
         deployment,
+        description,
         editMode,
         emailNotifications,
         format,
@@ -424,6 +436,7 @@ public class CreateJob {
         .add("compute", compute)
         .add("continuous", continuous)
         .add("deployment", deployment)
+        .add("description", description)
         .add("editMode", editMode)
         .add("emailNotifications", emailNotifications)
         .add("format", format)

@@ -31,12 +31,12 @@ public class SparkPythonTask {
 
   /**
    * Optional location type of the Python file. When set to `WORKSPACE` or not specified, the file
-   * will be retrieved from the local <Databricks> workspace or cloud location (if the `python_file`
+   * will be retrieved from the local Databricks workspace or cloud location (if the `python_file`
    * has a URI format). When set to `GIT`, the Python file will be retrieved from a Git repository
    * defined in `git_source`.
    *
-   * <p>* `WORKSPACE`: The Python file is located in a <Databricks> workspace or at a cloud
-   * filesystem URI. * `GIT`: The Python file is located in a remote Git repository.
+   * <p>* `WORKSPACE`: The Python file is located in a Databricks workspace or at a cloud filesystem
+   * URI. * `GIT`: The Python file is located in a remote Git repository.
    */
   @JsonProperty("source")
   private Source source;

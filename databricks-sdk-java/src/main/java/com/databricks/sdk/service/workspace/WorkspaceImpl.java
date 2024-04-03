@@ -21,7 +21,7 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -69,7 +69,7 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, ImportResponse.class, headers);
   }
 
   @Override
@@ -86,7 +86,7 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, MkdirsResponse.class, headers);
   }
 
   @Override

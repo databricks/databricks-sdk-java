@@ -32,7 +32,7 @@ public interface TokenManagementService {
    *
    * <p>Gets information about a token, specified by its ID.
    */
-  TokenInfo get(GetTokenManagementRequest getTokenManagementRequest);
+  GetTokenResponse get(GetTokenManagementRequest getTokenManagementRequest);
 
   /**
    * Get token permission levels.

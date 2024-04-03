@@ -18,6 +18,10 @@ public class Workspace {
   @JsonProperty("aws_region")
   private String awsRegion;
 
+  /** */
+  @JsonProperty("azure_workspace_info")
+  private AzureWorkspaceInfo azureWorkspaceInfo;
+
   /** The cloud name. This field always has the value `gcp`. */
   @JsonProperty("cloud")
   private String cloud;
@@ -110,7 +114,7 @@ public class Workspace {
    * specify this ID if you are using [AWS PrivateLink] for either front-end (user-to-workspace
    * connection), back-end (data plane to control plane connection), or both connection types.
    *
-   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].
+   * <p>Before configuring PrivateLink, read the [Databricks article about PrivateLink].",
    *
    * <p>[AWS PrivateLink]: https://aws.amazon.com/privatelink/ [Databricks article about
    * PrivateLink]:
@@ -162,6 +166,15 @@ public class Workspace {
 
   public String getAwsRegion() {
     return awsRegion;
+  }
+
+  public Workspace setAzureWorkspaceInfo(AzureWorkspaceInfo azureWorkspaceInfo) {
+    this.azureWorkspaceInfo = azureWorkspaceInfo;
+    return this;
+  }
+
+  public AzureWorkspaceInfo getAzureWorkspaceInfo() {
+    return azureWorkspaceInfo;
   }
 
   public Workspace setCloud(String cloud) {
@@ -343,6 +356,7 @@ public class Workspace {
     Workspace that = (Workspace) o;
     return Objects.equals(accountId, that.accountId)
         && Objects.equals(awsRegion, that.awsRegion)
+        && Objects.equals(azureWorkspaceInfo, that.azureWorkspaceInfo)
         && Objects.equals(cloud, that.cloud)
         && Objects.equals(cloudResourceContainer, that.cloudResourceContainer)
         && Objects.equals(creationTime, that.creationTime)
@@ -370,6 +384,7 @@ public class Workspace {
     return Objects.hash(
         accountId,
         awsRegion,
+        azureWorkspaceInfo,
         cloud,
         cloudResourceContainer,
         creationTime,
@@ -396,6 +411,7 @@ public class Workspace {
     return new ToStringer(Workspace.class)
         .add("accountId", accountId)
         .add("awsRegion", awsRegion)
+        .add("azureWorkspaceInfo", azureWorkspaceInfo)
         .add("cloud", cloud)
         .add("cloudResourceContainer", cloudResourceContainer)
         .add("creationTime", creationTime)

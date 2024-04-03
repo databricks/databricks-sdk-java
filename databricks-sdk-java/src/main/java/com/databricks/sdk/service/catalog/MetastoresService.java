@@ -56,14 +56,6 @@ public interface MetastoresService {
   void delete(DeleteMetastoreRequest deleteMetastoreRequest);
 
   /**
-   * Toggle predictive optimization on the metastore.
-   *
-   * <p>Enables or disables predictive optimization on the metastore.
-   */
-  UpdatePredictiveOptimizationResponse enableOptimization(
-      UpdatePredictiveOptimization updatePredictiveOptimization);
-
-  /**
    * Get a metastore.
    *
    * <p>Gets a metastore that matches the supplied ID. The caller must be a metastore admin to

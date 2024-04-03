@@ -92,7 +92,11 @@ public class OAuthClient {
             .withClientId(config.getClientId())
             .withClientSecret(config.getClientSecret())
             .withHost(config.getHost())
-            .withRedirectUrl("http://localhost:8080/callback"));
+            .withRedirectUrl(
+                config.getOAuthRedirectUrl() != null
+                    ? config.getOAuthRedirectUrl()
+                    : "http://localhost:8080/callback")
+            .withScopes(config.getScopes()));
   }
 
   private OAuthClient(Builder b) throws IOException {

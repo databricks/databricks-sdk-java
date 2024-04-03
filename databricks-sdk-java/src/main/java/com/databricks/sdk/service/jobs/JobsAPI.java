@@ -306,10 +306,10 @@ public class JobsAPI {
   }
 
   /**
-   * Overwrite all settings for a job.
+   * Update all job settings (reset).
    *
-   * <p>Overwrite all settings for the given job. Use the Update endpoint to update job settings
-   * partially.
+   * <p>Overwrite all settings for the given job. Use the [_Update_ endpoint](:method:jobs/update)
+   * to update job settings partially.
    */
   public void reset(ResetJob request) {
     impl.reset(request);
@@ -365,10 +365,10 @@ public class JobsAPI {
   }
 
   /**
-   * Partially update a job.
+   * Update job settings partially.
    *
-   * <p>Add, update, or remove specific settings of an existing job. Use the ResetJob to overwrite
-   * all job settings.
+   * <p>Add, update, or remove specific settings of an existing job. Use the [_Reset_
+   * endpoint](:method:jobs/reset) to overwrite all job settings.
    */
   public void update(UpdateJob request) {
     impl.update(request);

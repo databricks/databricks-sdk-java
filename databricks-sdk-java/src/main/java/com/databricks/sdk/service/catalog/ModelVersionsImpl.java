@@ -22,7 +22,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             "/api/2.1/unity-catalog/models/%s/versions/%s",
             request.getFullName(), request.getVersion());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override

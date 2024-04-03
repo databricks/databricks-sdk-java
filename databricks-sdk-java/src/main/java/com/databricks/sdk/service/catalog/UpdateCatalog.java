@@ -14,6 +14,10 @@ public class UpdateCatalog {
   @JsonProperty("comment")
   private String comment;
 
+  /** Whether predictive optimization should be enabled for this object and objects under it. */
+  @JsonProperty("enable_predictive_optimization")
+  private EnablePredictiveOptimization enablePredictiveOptimization;
+
   /**
    * Whether the current securable is accessible from all workspaces or a specific set of
    * workspaces.
@@ -21,9 +25,12 @@ public class UpdateCatalog {
   @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 
-  /** Name of catalog. */
-  @JsonProperty("name")
+  /** The name of the catalog. */
   private String name;
+
+  /** New name for the catalog. */
+  @JsonProperty("new_name")
+  private String newName;
 
   /** Username of current owner of catalog. */
   @JsonProperty("owner")
@@ -42,6 +49,16 @@ public class UpdateCatalog {
     return comment;
   }
 
+  public UpdateCatalog setEnablePredictiveOptimization(
+      EnablePredictiveOptimization enablePredictiveOptimization) {
+    this.enablePredictiveOptimization = enablePredictiveOptimization;
+    return this;
+  }
+
+  public EnablePredictiveOptimization getEnablePredictiveOptimization() {
+    return enablePredictiveOptimization;
+  }
+
   public UpdateCatalog setIsolationMode(IsolationMode isolationMode) {
     this.isolationMode = isolationMode;
     return this;
@@ -58,6 +75,15 @@ public class UpdateCatalog {
 
   public String getName() {
     return name;
+  }
+
+  public UpdateCatalog setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
   }
 
   public UpdateCatalog setOwner(String owner) {
@@ -84,23 +110,28 @@ public class UpdateCatalog {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateCatalog that = (UpdateCatalog) o;
     return Objects.equals(comment, that.comment)
+        && Objects.equals(enablePredictiveOptimization, that.enablePredictiveOptimization)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, isolationMode, name, owner, properties);
+    return Objects.hash(
+        comment, enablePredictiveOptimization, isolationMode, name, newName, owner, properties);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateCatalog.class)
         .add("comment", comment)
+        .add("enablePredictiveOptimization", enablePredictiveOptimization)
         .add("isolationMode", isolationMode)
         .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .add("properties", properties)
         .toString();

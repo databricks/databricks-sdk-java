@@ -18,12 +18,8 @@ public class UpdateCleanRoom {
   @JsonProperty("comment")
   private String comment;
 
-  /** Name of the clean room. */
-  @JsonProperty("name")
-  private String name;
-
   /** The name of the clean room. */
-  private String nameArg;
+  private String name;
 
   /** Username of current owner of clean room. */
   @JsonProperty("owner")
@@ -56,15 +52,6 @@ public class UpdateCleanRoom {
     return name;
   }
 
-  public UpdateCleanRoom setNameArg(String nameArg) {
-    this.nameArg = nameArg;
-    return this;
-  }
-
-  public String getNameArg() {
-    return nameArg;
-  }
-
   public UpdateCleanRoom setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -82,13 +69,12 @@ public class UpdateCleanRoom {
     return Objects.equals(catalogUpdates, that.catalogUpdates)
         && Objects.equals(comment, that.comment)
         && Objects.equals(name, that.name)
-        && Objects.equals(nameArg, that.nameArg)
         && Objects.equals(owner, that.owner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(catalogUpdates, comment, name, nameArg, owner);
+    return Objects.hash(catalogUpdates, comment, name, owner);
   }
 
   @Override
@@ -97,7 +83,6 @@ public class UpdateCleanRoom {
         .add("catalogUpdates", catalogUpdates)
         .add("comment", comment)
         .add("name", name)
-        .add("nameArg", nameArg)
         .add("owner", owner)
         .toString();
   }

@@ -53,28 +53,28 @@ public class AzureEnvironment {
     ENVIRONMENTS.put(
         "PUBLIC",
         new AzureEnvironment(
-            "AzurePublicCloud",
+            "PUBLIC",
             "https://management.core.windows.net/",
             "https://management.azure.com/",
             "https://login.microsoftonline.com/"));
     ENVIRONMENTS.put(
         "GERMAN",
         new AzureEnvironment(
-            "AzureGermanCloud",
+            "GERMAN",
             "https://management.core.cloudapi.de/",
             "https://management.microsoftazure.de/",
             "https://login.microsoftonline.de/"));
     ENVIRONMENTS.put(
         "USGOVERNMENT",
         new AzureEnvironment(
-            "AzureUSGovernmentCloud",
+            "USGOVERNMENT",
             "https://management.core.usgovcloudapi.net/",
             "https://management.usgovcloudapi.net/",
             "https://login.microsoftonline.us/"));
     ENVIRONMENTS.put(
         "CHINA",
         new AzureEnvironment(
-            "AzureChinaCloud",
+            "CHINA",
             "https://management.core.chinacloudapi.cn/",
             "https://management.chinacloudapi.cn/",
             "https://login.chinacloudapi.cn/"));

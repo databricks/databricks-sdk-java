@@ -15,6 +15,13 @@ public class TableInfo {
   @JsonProperty("access_point")
   private String accessPoint;
 
+  /**
+   * Indicates whether the principal is limited to retrieving metadata for the associated object
+   * through the BROWSE privilege when include_browse is enabled in the request.
+   */
+  @JsonProperty("browse_only")
+  private Boolean browseOnly;
+
   /** Name of parent catalog. */
   @JsonProperty("catalog_name")
   private String catalogName;
@@ -82,6 +89,13 @@ public class TableInfo {
   @JsonProperty("owner")
   private String owner;
 
+  /**
+   * The pipeline ID of the table. Applicable for tables created by pipelines (Materialized View,
+   * Streaming Table, etc.).
+   */
+  @JsonProperty("pipeline_id")
+  private String pipelineId;
+
   /** A map of key-value properties attached to the securable. */
   @JsonProperty("properties")
   private Map<String, String> properties;
@@ -109,9 +123,11 @@ public class TableInfo {
   @JsonProperty("storage_location")
   private String storageLocation;
 
-  /** */
+  /**
+   * List of table constraints. Note: this field is not set in the output of the __listTables__ API.
+   */
   @JsonProperty("table_constraints")
-  private TableConstraintList tableConstraints;
+  private Collection<TableConstraint> tableConstraints;
 
   /** Name of table, relative to parent schema. */
   @JsonProperty("table_id")
@@ -152,6 +168,15 @@ public class TableInfo {
 
   public String getAccessPoint() {
     return accessPoint;
+  }
+
+  public TableInfo setBrowseOnly(Boolean browseOnly) {
+    this.browseOnly = browseOnly;
+    return this;
+  }
+
+  public Boolean getBrowseOnly() {
+    return browseOnly;
   }
 
   public TableInfo setCatalogName(String catalogName) {
@@ -301,6 +326,15 @@ public class TableInfo {
     return owner;
   }
 
+  public TableInfo setPipelineId(String pipelineId) {
+    this.pipelineId = pipelineId;
+    return this;
+  }
+
+  public String getPipelineId() {
+    return pipelineId;
+  }
+
   public TableInfo setProperties(Map<String, String> properties) {
     this.properties = properties;
     return this;
@@ -355,12 +389,12 @@ public class TableInfo {
     return storageLocation;
   }
 
-  public TableInfo setTableConstraints(TableConstraintList tableConstraints) {
+  public TableInfo setTableConstraints(Collection<TableConstraint> tableConstraints) {
     this.tableConstraints = tableConstraints;
     return this;
   }
 
-  public TableConstraintList getTableConstraints() {
+  public Collection<TableConstraint> getTableConstraints() {
     return tableConstraints;
   }
 
@@ -424,6 +458,7 @@ public class TableInfo {
     if (o == null || getClass() != o.getClass()) return false;
     TableInfo that = (TableInfo) o;
     return Objects.equals(accessPoint, that.accessPoint)
+        && Objects.equals(browseOnly, that.browseOnly)
         && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(columns, that.columns)
         && Objects.equals(comment, that.comment)
@@ -441,6 +476,7 @@ public class TableInfo {
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
+        && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(properties, that.properties)
         && Objects.equals(rowFilter, that.rowFilter)
         && Objects.equals(schemaName, that.schemaName)
@@ -460,6 +496,7 @@ public class TableInfo {
   public int hashCode() {
     return Objects.hash(
         accessPoint,
+        browseOnly,
         catalogName,
         columns,
         comment,
@@ -476,6 +513,7 @@ public class TableInfo {
         metastoreId,
         name,
         owner,
+        pipelineId,
         properties,
         rowFilter,
         schemaName,
@@ -495,6 +533,7 @@ public class TableInfo {
   public String toString() {
     return new ToStringer(TableInfo.class)
         .add("accessPoint", accessPoint)
+        .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("columns", columns)
         .add("comment", comment)
@@ -511,6 +550,7 @@ public class TableInfo {
         .add("metastoreId", metastoreId)
         .add("name", name)
         .add("owner", owner)
+        .add("pipelineId", pipelineId)
         .add("properties", properties)
         .add("rowFilter", rowFilter)
         .add("schemaName", schemaName)

@@ -30,7 +30,7 @@ class InstancePoolsImpl implements InstancePoolsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, DeleteInstancePoolResponse.class, headers);
   }
 
   @Override
@@ -39,7 +39,7 @@ class InstancePoolsImpl implements InstancePoolsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, EditInstancePoolResponse.class, headers);
   }
 
   @Override

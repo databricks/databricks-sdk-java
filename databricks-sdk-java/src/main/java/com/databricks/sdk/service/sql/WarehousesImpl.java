@@ -29,7 +29,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteWarehouseResponse.class, headers);
   }
 
   @Override
@@ -38,7 +38,7 @@ class WarehousesImpl implements WarehousesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, EditWarehouseResponse.class, headers);
   }
 
   @Override
@@ -99,7 +99,7 @@ class WarehousesImpl implements WarehousesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, Void.class, headers);
+    apiClient.PUT(path, request, SetWorkspaceWarehouseConfigResponse.class, headers);
   }
 
   @Override
@@ -107,7 +107,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s/start", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, null, StartWarehouseResponse.class, headers);
   }
 
   @Override
@@ -115,7 +115,7 @@ class WarehousesImpl implements WarehousesService {
     String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, null, StopWarehouseResponse.class, headers);
   }
 
   @Override

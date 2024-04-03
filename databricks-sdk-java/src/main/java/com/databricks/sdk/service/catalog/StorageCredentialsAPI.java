@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -81,11 +82,21 @@ public class StorageCredentialsAPI {
    *
    * <p>Gets an array of storage credentials (as __StorageCredentialInfo__ objects). The array is
    * limited to only those storage credentials the caller has permission to access. If the caller is
-   * a metastore admin, all storage credentials will be retrieved. There is no guarantee of a
+   * a metastore admin, retrieval of credentials is unrestricted. There is no guarantee of a
    * specific ordering of the elements in the array.
    */
-  public Iterable<StorageCredentialInfo> list() {
-    return impl.list().getStorageCredentials();
+  public Iterable<StorageCredentialInfo> list(ListStorageCredentialsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListStorageCredentialsResponse::getStorageCredentials,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public StorageCredentialInfo update(String name) {

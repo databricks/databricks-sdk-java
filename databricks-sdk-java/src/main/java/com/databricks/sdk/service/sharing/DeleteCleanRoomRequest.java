@@ -10,15 +10,15 @@ import java.util.Objects;
 @Generated
 public class DeleteCleanRoomRequest {
   /** The name of the clean room. */
-  private String nameArg;
+  private String name;
 
-  public DeleteCleanRoomRequest setNameArg(String nameArg) {
-    this.nameArg = nameArg;
+  public DeleteCleanRoomRequest setName(String name) {
+    this.name = name;
     return this;
   }
 
-  public String getNameArg() {
-    return nameArg;
+  public String getName() {
+    return name;
   }
 
   @Override
@@ -26,16 +26,16 @@ public class DeleteCleanRoomRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteCleanRoomRequest that = (DeleteCleanRoomRequest) o;
-    return Objects.equals(nameArg, that.nameArg);
+    return Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nameArg);
+    return Objects.hash(name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteCleanRoomRequest.class).add("nameArg", nameArg).toString();
+    return new ToStringer(DeleteCleanRoomRequest.class).add("name", name).toString();
   }
 }

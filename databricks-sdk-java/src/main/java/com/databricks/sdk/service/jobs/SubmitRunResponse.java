@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Run was created and started successfully. */
 @Generated
 public class SubmitRunResponse {
   /** The canonical identifier for the newly submitted run. */

@@ -45,6 +45,10 @@ public class ServingEndpoint {
   @JsonProperty("tags")
   private Collection<EndpointTag> tags;
 
+  /** The task type of the serving endpoint. */
+  @JsonProperty("task")
+  private String task;
+
   public ServingEndpoint setConfig(EndpointCoreConfigSummary config) {
     this.config = config;
     return this;
@@ -117,6 +121,15 @@ public class ServingEndpoint {
     return tags;
   }
 
+  public ServingEndpoint setTask(String task) {
+    this.task = task;
+    return this;
+  }
+
+  public String getTask() {
+    return task;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -129,13 +142,14 @@ public class ServingEndpoint {
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(name, that.name)
         && Objects.equals(state, that.state)
-        && Objects.equals(tags, that.tags);
+        && Objects.equals(tags, that.tags)
+        && Objects.equals(task, that.task);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        config, creationTimestamp, creator, id, lastUpdatedTimestamp, name, state, tags);
+        config, creationTimestamp, creator, id, lastUpdatedTimestamp, name, state, tags, task);
   }
 
   @Override
@@ -149,6 +163,7 @@ public class ServingEndpoint {
         .add("name", name)
         .add("state", state)
         .add("tags", tags)
+        .add("task", task)
         .toString();
   }
 }

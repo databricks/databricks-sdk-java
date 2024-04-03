@@ -32,7 +32,7 @@ class AccountGroupsImpl implements AccountGroupsService {
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -64,7 +64,7 @@ class AccountGroupsImpl implements AccountGroupsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    apiClient.PATCH(path, request, PatchResponse.class, headers);
   }
 
   @Override
@@ -76,6 +76,6 @@ class AccountGroupsImpl implements AccountGroupsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, Void.class, headers);
+    apiClient.PUT(path, request, UpdateResponse.class, headers);
   }
 }

@@ -76,6 +76,9 @@ public class QueriesAPI {
    * Get a list of queries.
    *
    * <p>Gets a list of queries. Optionally, this list can be filtered by a search term.
+   *
+   * <p>### **Warning: Calling this API concurrently 10 or more times could result in throttling,
+   * service degradation, or a temporary ban.**
    */
   public Iterable<Query> list(ListQueriesRequest request) {
     request.setPage(1L);

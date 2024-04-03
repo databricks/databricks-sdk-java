@@ -13,9 +13,12 @@ public class UpdateProvider {
   @JsonProperty("comment")
   private String comment;
 
-  /** The name of the Provider. */
-  @JsonProperty("name")
+  /** Name of the provider. */
   private String name;
+
+  /** New name for the provider. */
+  @JsonProperty("new_name")
+  private String newName;
 
   /** Username of Provider owner. */
   @JsonProperty("owner")
@@ -43,6 +46,15 @@ public class UpdateProvider {
     return name;
   }
 
+  public UpdateProvider setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
+  }
+
   public UpdateProvider setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -68,13 +80,14 @@ public class UpdateProvider {
     UpdateProvider that = (UpdateProvider) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
         && Objects.equals(recipientProfileStr, that.recipientProfileStr);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, name, owner, recipientProfileStr);
+    return Objects.hash(comment, name, newName, owner, recipientProfileStr);
   }
 
   @Override
@@ -82,6 +95,7 @@ public class UpdateProvider {
     return new ToStringer(UpdateProvider.class)
         .add("comment", comment)
         .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .add("recipientProfileStr", recipientProfileStr)
         .toString();

@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.databricks</groupId>
     <artifactId>databricks-sdk-parent</artifactId>
-    <version>0.11.0</version>
+    <version>0.22.0</version>
   </parent>
   <artifactId>databricks-sdk-java</artifactId>
   <properties>
@@ -85,6 +85,12 @@
       <artifactId>mockito-junit-jupiter</artifactId>
       <version>${mockito.version}</version>
       <scope>test</scope>
+    </dependency>
+    <!-- Google Auth Library -->
+    <dependency>
+      <groupId>com.google.auth</groupId>
+      <artifactId>google-auth-library-oauth2-http</artifactId>
+      <version>1.20.0</version>
     </dependency>
   </dependencies>
 </project>

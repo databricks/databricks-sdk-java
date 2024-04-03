@@ -139,10 +139,10 @@ public interface JobsService {
   RepairRunResponse repairRun(RepairRun repairRun);
 
   /**
-   * Overwrite all settings for a job.
+   * Update all job settings (reset).
    *
-   * <p>Overwrite all settings for the given job. Use the Update endpoint to update job settings
-   * partially.
+   * <p>Overwrite all settings for the given job. Use the [_Update_ endpoint](:method:jobs/update)
+   * to update job settings partially.
    */
   void reset(ResetJob resetJob);
 
@@ -170,10 +170,10 @@ public interface JobsService {
   SubmitRunResponse submit(SubmitRun submitRun);
 
   /**
-   * Partially update a job.
+   * Update job settings partially.
    *
-   * <p>Add, update, or remove specific settings of an existing job. Use the ResetJob to overwrite
-   * all job settings.
+   * <p>Add, update, or remove specific settings of an existing job. Use the [_Reset_
+   * endpoint](:method:jobs/reset) to overwrite all job settings.
    */
   void update(UpdateJob updateJob);
 

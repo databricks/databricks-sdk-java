@@ -30,12 +30,26 @@ public interface TablesService {
   void delete(DeleteTableRequest deleteTableRequest);
 
   /**
+   * Get boolean reflecting if table exists.
+   *
+   * <p>Gets if a table exists in the metastore for a specific catalog and schema. The caller must
+   * satisfy one of the following requirements: * Be a metastore admin * Be the owner of the parent
+   * catalog * Be the owner of the parent schema and have the USE_CATALOG privilege on the parent
+   * catalog * Have the **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA**
+   * privilege on the parent schema, and either be the table owner or have the SELECT privilege on
+   * the table. * Have BROWSE privilege on the parent catalog * Have BROWSE privilege on the parent
+   * schema.
+   */
+  TableExistsResponse exists(ExistsRequest existsRequest);
+
+  /**
    * Get a table.
    *
-   * <p>Gets a table from the metastore for a specific catalog and schema. The caller must be a
-   * metastore admin, be the owner of the table and have the **USE_CATALOG** privilege on the parent
-   * catalog and the **USE_SCHEMA** privilege on the parent schema, or be the owner of the table and
-   * have the **SELECT** privilege on it as well.
+   * <p>Gets a table from the metastore for a specific catalog and schema. The caller must satisfy
+   * one of the following requirements: * Be a metastore admin * Be the owner of the parent catalog
+   * * Be the owner of the parent schema and have the USE_CATALOG privilege on the parent catalog *
+   * Have the **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on
+   * the parent schema, and either be the table owner or have the SELECT privilege on the table.
    */
   TableInfo get(GetTableRequest getTableRequest);
 
@@ -56,11 +70,11 @@ public interface TablesService {
    * <p>Gets an array of summaries for tables for a schema and catalog within the metastore. The
    * table summaries returned are either:
    *
-   * <p>* summaries for all tables (within the current metastore and parent catalog and schema),
-   * when the user is a metastore admin, or: * summaries for all tables and schemas (within the
-   * current metastore and parent catalog) for which the user has ownership or the **SELECT**
-   * privilege on the table and ownership or **USE_SCHEMA** privilege on the schema, provided that
-   * the user also has ownership or the **USE_CATALOG** privilege on the parent catalog.
+   * <p>* summaries for tables (within the current metastore and parent catalog and schema), when
+   * the user is a metastore admin, or: * summaries for tables and schemas (within the current
+   * metastore and parent catalog) for which the user has ownership or the **SELECT** privilege on
+   * the table and ownership or **USE_SCHEMA** privilege on the schema, provided that the user also
+   * has ownership or the **USE_CATALOG** privilege on the parent catalog.
    *
    * <p>There is no guarantee of a specific ordering of the elements in the array.
    */

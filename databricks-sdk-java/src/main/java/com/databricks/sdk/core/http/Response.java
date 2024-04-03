@@ -86,11 +86,16 @@ public class Response {
   }
 
   public List<String> getHeaders(String key) {
-    return headers.get(key);
+    for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
+      if (entry.getKey().equalsIgnoreCase(key)) {
+        return entry.getValue();
+      }
+    }
+    return null;
   }
 
   public String getFirstHeader(String key) {
-    List<String> hs = headers.get(key);
+    List<String> hs = getHeaders(key);
     if (hs == null || hs.isEmpty()) {
       return null;
     }

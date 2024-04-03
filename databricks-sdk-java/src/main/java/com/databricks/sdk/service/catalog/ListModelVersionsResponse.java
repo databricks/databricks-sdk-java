@@ -14,7 +14,10 @@ public class ListModelVersionsResponse {
   @JsonProperty("model_versions")
   private Collection<ModelVersionInfo> modelVersions;
 
-  /** Token to retrieve the next page of results */
+  /**
+   * Opaque token to retrieve the next page of results. Absent if there are no more pages.
+   * __page_token__ should be set to this value for the next request (for the next page of results).
+   */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
