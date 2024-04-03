@@ -5,6 +5,8 @@ package com.databricks.sdk;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.core.utils.AzureUtils;
+import com.databricks.sdk.service.provisioning.*;
 {{range .Services}}{{if .IsAccounts}}
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}API;
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;{{end}}{{end}}
@@ -17,7 +19,7 @@ import com.databricks.sdk.support.Generated;
 public class AccountClient {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
-  {{range .Services}}{{if .IsAccounts}}
+  {{range .Services}}{{if and .IsAccounts (not .HasParent)}}
   private {{.PascalName}}API {{(.TrimPrefix "account").CamelName}}API;{{end}}{{end}}
 
   public AccountClient() {
@@ -27,7 +29,7 @@ public class AccountClient {
   public AccountClient(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
-    {{range .Services}}{{if .IsAccounts}}
+    {{range .Services}}{{if and .IsAccounts (not .HasParent)}}
     {{(.TrimPrefix "account").CamelName}}API = new {{.PascalName}}API(apiClient);{{end}}{{end}}
   }
 
@@ -36,7 +38,7 @@ public class AccountClient {
     apiClient = null;
     config = null;
   }
-  {{range .Services}}{{if .IsAccounts}}
+  {{range .Services}}{{if and .IsAccounts (not .HasParent)}}
   {{if .Description}}/**
    {{.Comment "   * " 80}}
    */{{end}}
@@ -44,10 +46,15 @@ public class AccountClient {
     return {{(.TrimPrefix "account").CamelName}}API;
   }
   {{end}}{{end}}
-  {{range .Services}}{{if .IsAccounts}}
-  /** Override {{.PascalName}}API with mock */
+  {{range .Services}}{{if and .IsAccounts (not .HasParent)}}
+  /** Replace the default {{.PascalName}}Service with a custom implementation. */
   public AccountClient with{{(.TrimPrefix "account").PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
-    {{(.TrimPrefix "account").CamelName}}API = new {{.PascalName}}API({{.CamelName}});
+    return this.with{{(.TrimPrefix "account").PascalName}}API(new {{.PascalName}}API({{.CamelName}}));
+  }
+
+  /** Replace the default {{.PascalName}}API with a custom implementation. */
+  public AccountClient with{{(.TrimPrefix "account").PascalName}}API({{.PascalName}}API {{.CamelName}}) {
+    this.{{(.TrimPrefix "account").CamelName}}API = {{.CamelName}};
     return this;
   }
   {{end}}{{end}}
@@ -57,5 +64,12 @@ public class AccountClient {
 
   public DatabricksConfig config() {
     return config;
+  }
+
+  public WorkspaceClient getWorkspaceClient(Workspace workspace) {
+    String host = this.config.getDatabricksEnvironment().getDeploymentUrl(workspace.getDeploymentName());
+    DatabricksConfig config = this.config.newWithWorkspaceHost(host);
+    AzureUtils.getAzureWorkspaceResourceId(workspace).map(config::setAzureWorkspaceResourceId);
+    return new WorkspaceClient(config);
   }
 }

@@ -6,16 +6,36 @@ import com.databricks.sdk.support.Generated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** // TODO(yuyuan.tang) to add the description for the setting */
+/** Workspace Settings API allows users to manage settings at the workspace level. */
 @Generated
 public class SettingsAPI {
   private static final Logger LOG = LoggerFactory.getLogger(SettingsAPI.class);
 
   private final SettingsService impl;
 
+  private AutomaticClusterUpdateAPI automaticClusterUpdateAPI;
+
+  private CspEnablementAPI cspEnablementAPI;
+
+  private DefaultNamespaceAPI defaultNamespaceAPI;
+
+  private EsmEnablementAPI esmEnablementAPI;
+
+  private RestrictWorkspaceAdminsAPI restrictWorkspaceAdminsAPI;
+
   /** Regular-use constructor */
   public SettingsAPI(ApiClient apiClient) {
     impl = new SettingsImpl(apiClient);
+
+    automaticClusterUpdateAPI = new AutomaticClusterUpdateAPI(apiClient);
+
+    cspEnablementAPI = new CspEnablementAPI(apiClient);
+
+    defaultNamespaceAPI = new DefaultNamespaceAPI(apiClient);
+
+    esmEnablementAPI = new EsmEnablementAPI(apiClient);
+
+    restrictWorkspaceAdminsAPI = new RestrictWorkspaceAdminsAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -23,47 +43,34 @@ public class SettingsAPI {
     impl = mock;
   }
 
-  public DeleteDefaultWorkspaceNamespaceResponse deleteDefaultWorkspaceNamespace(String etag) {
-    return deleteDefaultWorkspaceNamespace(
-        new DeleteDefaultWorkspaceNamespaceRequest().setEtag(etag));
+  /** Controls whether automatic cluster update is enabled for the current workspace. */
+  public AutomaticClusterUpdateAPI AutomaticClusterUpdate() {
+    return automaticClusterUpdateAPI;
+  }
+
+  /** Controls whether to enable the compliance security profile for the current workspace. */
+  public CspEnablementAPI CspEnablement() {
+    return cspEnablementAPI;
   }
 
   /**
-   * Delete the default namespace.
-   *
-   * <p>Deletes the default namespace.
+   * The default namespace setting API allows users to configure the default namespace for a
+   * Databricks workspace.
    */
-  public DeleteDefaultWorkspaceNamespaceResponse deleteDefaultWorkspaceNamespace(
-      DeleteDefaultWorkspaceNamespaceRequest request) {
-    return impl.deleteDefaultWorkspaceNamespace(request);
+  public DefaultNamespaceAPI DefaultNamespace() {
+    return defaultNamespaceAPI;
   }
 
-  public DefaultNamespaceSetting readDefaultWorkspaceNamespace(String etag) {
-    return readDefaultWorkspaceNamespace(new ReadDefaultWorkspaceNamespaceRequest().setEtag(etag));
-  }
-
-  /**
-   * Get the default namespace.
-   *
-   * <p>Gets the default namespace.
-   */
-  public DefaultNamespaceSetting readDefaultWorkspaceNamespace(
-      ReadDefaultWorkspaceNamespaceRequest request) {
-    return impl.readDefaultWorkspaceNamespace(request);
+  /** Controls whether enhanced security monitoring is enabled for the current workspace. */
+  public EsmEnablementAPI EsmEnablement() {
+    return esmEnablementAPI;
   }
 
   /**
-   * Updates the default namespace setting.
-   *
-   * <p>Updates the default namespace setting for the workspace. A fresh etag needs to be provided
-   * in PATCH requests (as part the setting field). The etag can be retrieved by making a GET
-   * request before the PATCH request. Note that if the setting does not exist, GET will return a
-   * NOT_FOUND error and the etag will be present in the error response, which should be set in the
-   * PATCH request.
+   * The Restrict Workspace Admins setting lets you control the capabilities of workspace admins.
    */
-  public DefaultNamespaceSetting updateDefaultWorkspaceNamespace(
-      UpdateDefaultWorkspaceNamespaceRequest request) {
-    return impl.updateDefaultWorkspaceNamespace(request);
+  public RestrictWorkspaceAdminsAPI RestrictWorkspaceAdmins() {
+    return restrictWorkspaceAdminsAPI;
   }
 
   public SettingsService impl() {

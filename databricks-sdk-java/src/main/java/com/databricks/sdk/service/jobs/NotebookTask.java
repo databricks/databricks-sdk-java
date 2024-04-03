@@ -12,10 +12,9 @@ import java.util.Objects;
 public class NotebookTask {
   /**
    * Base parameters to be used for each run of this job. If the run is initiated by a call to
-   * :method:jobs/runNow with parameters specified, the two parameters maps are merged. If the same
-   * key is specified in `base_parameters` and in `run-now`, the value from `run-now` is used.
-   *
-   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   * :method:jobs/run Now with parameters specified, the two parameters maps are merged. If the same
+   * key is specified in `base_parameters` and in `run-now`, the value from `run-now` is used. Use
+   * [Task parameter variables] to set parameters containing information about job runs.
    *
    * <p>If the notebook takes a parameter that is not specified in the job’s `base_parameters` or
    * the `run-now` override parameters, the default value from the notebook is used.
@@ -41,12 +40,10 @@ public class NotebookTask {
 
   /**
    * Optional location type of the notebook. When set to `WORKSPACE`, the notebook will be retrieved
-   * from the local <Databricks> workspace. When set to `GIT`, the notebook will be retrieved from a
+   * from the local Databricks workspace. When set to `GIT`, the notebook will be retrieved from a
    * Git repository defined in `git_source`. If the value is empty, the task will use `GIT` if
-   * `git_source` is defined and `WORKSPACE` otherwise.
-   *
-   * <p>* `WORKSPACE`: Notebook is located in <Databricks> workspace. * `GIT`: Notebook is located
-   * in cloud Git provider.
+   * `git_source` is defined and `WORKSPACE` otherwise. * `WORKSPACE`: Notebook is located in
+   * Databricks workspace. * `GIT`: Notebook is located in cloud Git provider.
    */
   @JsonProperty("source")
   private Source source;

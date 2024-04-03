@@ -30,7 +30,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, DeletePolicyResponse.class, headers);
   }
 
   @Override
@@ -39,7 +39,7 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, EditPolicyResponse.class, headers);
   }
 
   @Override

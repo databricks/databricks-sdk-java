@@ -18,8 +18,8 @@ public class CreateNetworkConnectivityConfigRequest {
   private String name;
 
   /**
-   * The Azure region for this network connectivity configuration. Only workspaces in the same Azure
-   * region can be attached to this network connectivity configuration.
+   * The region for the network connectivity configuration. Only workspaces in the same region can
+   * be attached to the network connectivity configuration.
    */
   @JsonProperty("region")
   private String region;

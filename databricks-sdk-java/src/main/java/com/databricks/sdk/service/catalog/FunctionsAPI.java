@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -97,7 +98,17 @@ public class FunctionsAPI {
    * array.
    */
   public Iterable<FunctionInfo> list(ListFunctionsRequest request) {
-    return impl.list(request).getFunctions();
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListFunctionsResponse::getFunctions,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public FunctionInfo update(String name) {

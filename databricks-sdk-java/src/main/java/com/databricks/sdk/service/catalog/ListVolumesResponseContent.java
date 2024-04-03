@@ -10,9 +10,26 @@ import java.util.Objects;
 
 @Generated
 public class ListVolumesResponseContent {
+  /**
+   * Opaque token to retrieve the next page of results. Absent if there are no more pages.
+   * __page_token__ should be set to this value for the next request to retrieve the next page of
+   * results.
+   */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
   /** */
   @JsonProperty("volumes")
   private Collection<VolumeInfo> volumes;
+
+  public ListVolumesResponseContent setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
 
   public ListVolumesResponseContent setVolumes(Collection<VolumeInfo> volumes) {
     this.volumes = volumes;
@@ -28,16 +45,20 @@ public class ListVolumesResponseContent {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListVolumesResponseContent that = (ListVolumesResponseContent) o;
-    return Objects.equals(volumes, that.volumes);
+    return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(volumes, that.volumes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(volumes);
+    return Objects.hash(nextPageToken, volumes);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListVolumesResponseContent.class).add("volumes", volumes).toString();
+    return new ToStringer(ListVolumesResponseContent.class)
+        .add("nextPageToken", nextPageToken)
+        .add("volumes", volumes)
+        .toString();
   }
 }

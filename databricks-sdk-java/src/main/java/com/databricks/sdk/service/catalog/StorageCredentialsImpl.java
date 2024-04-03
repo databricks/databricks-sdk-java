@@ -29,7 +29,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
     String path = String.format("/api/2.1/unity-catalog/storage-credentials/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -41,11 +41,11 @@ class StorageCredentialsImpl implements StorageCredentialsService {
   }
 
   @Override
-  public ListStorageCredentialsResponse list() {
+  public ListStorageCredentialsResponse list(ListStorageCredentialsRequest request) {
     String path = "/api/2.1/unity-catalog/storage-credentials";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListStorageCredentialsResponse.class, headers);
+    return apiClient.GET(path, request, ListStorageCredentialsResponse.class, headers);
   }
 
   @Override

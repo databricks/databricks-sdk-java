@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Used when outputting a child run, in GetRun or ListRuns. */
 @Generated
 public class RunTask {
   /**
@@ -37,6 +38,13 @@ public class RunTask {
   private ClusterInstance clusterInstance;
 
   /**
+   * The key of the compute requirement, specified in `job.settings.compute`, to use for execution
+   * of this task.
+   */
+  @JsonProperty("compute_key")
+  private String computeKey;
+
+  /**
    * If condition_task, specifies a condition with an outcome that can be used to control the
    * execution of other tasks. Does not require a cluster to execute and does not support retries or
    * notifications.
@@ -64,6 +72,13 @@ public class RunTask {
   private String description;
 
   /**
+   * An optional set of email addresses notified when the task run begins or completes. The default
+   * behavior is to not send any emails.
+   */
+  @JsonProperty("email_notifications")
+  private JobEmailNotifications emailNotifications;
+
+  /**
    * The time at which this run ended in epoch milliseconds (milliseconds since 1/1/1970 UTC). This
    * field is set to 0 if the job is still running.
    */
@@ -81,46 +96,61 @@ public class RunTask {
   private Long executionDuration;
 
   /**
-   * If existing_cluster_id, the ID of an existing cluster that is used for all runs of this job.
-   * When running jobs on an existing cluster, you may need to manually restart the cluster if it
-   * stops responding. We suggest running jobs on new clusters for greater reliability.
+   * If existing_cluster_id, the ID of an existing cluster that is used for all runs. When running
+   * jobs or tasks on an existing cluster, you may need to manually restart the cluster if it stops
+   * responding. We suggest running jobs and tasks on new clusters for greater reliability
    */
   @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
+  /** If for_each_task, indicates that this task must execute the nested task within it. */
+  @JsonProperty("for_each_task")
+  private RunForEachTask forEachTask;
+
   /**
    * An optional specification for a remote Git repository containing the source code used by tasks.
    * Version-controlled source code is supported by notebook, dbt, Python script, and SQL File
-   * tasks.
-   *
-   * <p>If `git_source` is set, these tasks retrieve the file from the remote repository by default.
-   * However, this behavior can be overridden by setting `source` to `WORKSPACE` on the task.
-   *
-   * <p>Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
+   * tasks. If `git_source` is set, these tasks retrieve the file from the remote repository by
+   * default. However, this behavior can be overridden by setting `source` to `WORKSPACE` on the
+   * task. Note: dbt and SQL File tasks support only version-controlled sources. If dbt or SQL File
    * tasks are used, `git_source` must be defined on the job.
    */
   @JsonProperty("git_source")
   private GitSource gitSource;
 
   /**
-   * An optional list of libraries to be installed on the cluster that executes the job. The default
-   * value is an empty list.
+   * If job_cluster_key, this task is executed reusing the cluster specified in
+   * `job.settings.job_clusters`.
+   */
+  @JsonProperty("job_cluster_key")
+  private String jobClusterKey;
+
+  /**
+   * An optional list of libraries to be installed on the cluster. The default value is an empty
+   * list.
    */
   @JsonProperty("libraries")
   private Collection<com.databricks.sdk.service.compute.Library> libraries;
 
-  /** If new_cluster, a description of a new cluster that is created only for this task. */
+  /** If new_cluster, a description of a new cluster that is created for each run. */
   @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
   /**
-   * If notebook_task, indicates that this job must run a notebook. This field may not be specified
+   * If notebook_task, indicates that this task must run a notebook. This field may not be specified
    * in conjunction with spark_jar_task.
    */
   @JsonProperty("notebook_task")
   private NotebookTask notebookTask;
 
-  /** If pipeline_task, indicates that this job must execute a Pipeline. */
+  /**
+   * Optional notification settings that are used when sending notifications to each of the
+   * `email_notifications` and `webhook_notifications` for this task run.
+   */
+  @JsonProperty("notification_settings")
+  private TaskNotificationSettings notificationSettings;
+
+  /** If pipeline_task, indicates that this task must execute a Pipeline. */
   @JsonProperty("pipeline_task")
   private PipelineTask pipelineTask;
 
@@ -135,6 +165,10 @@ public class RunTask {
   /** Parameter values including resolved references */
   @JsonProperty("resolved_values")
   private ResolvedValues resolvedValues;
+
+  /** The time in milliseconds it took the job run and all of its repairs to finish. */
+  @JsonProperty("run_duration")
+  private Long runDuration;
 
   /** The ID of the task run. */
   @JsonProperty("run_id")
@@ -152,6 +186,10 @@ public class RunTask {
   @JsonProperty("run_job_task")
   private RunJobTask runJobTask;
 
+  /** */
+  @JsonProperty("run_page_url")
+  private String runPageUrl;
+
   /**
    * The time in milliseconds it took to set up the cluster. For runs that run on new clusters this
    * is the cluster creation time, for runs that run on existing clusters this time should be very
@@ -162,11 +200,11 @@ public class RunTask {
   @JsonProperty("setup_duration")
   private Long setupDuration;
 
-  /** If spark_jar_task, indicates that this job must run a JAR. */
+  /** If spark_jar_task, indicates that this task must run a JAR. */
   @JsonProperty("spark_jar_task")
   private SparkJarTask sparkJarTask;
 
-  /** If spark_python_task, indicates that this job must run a Python file. */
+  /** If spark_python_task, indicates that this task must run a Python file. */
   @JsonProperty("spark_python_task")
   private SparkPythonTask sparkPythonTask;
 
@@ -190,7 +228,7 @@ public class RunTask {
   @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
 
-  /** If sql_task, indicates that this job must execute a SQL. */
+  /** If sql_task, indicates that this job must execute a SQL task. */
   @JsonProperty("sql_task")
   private SqlTask sqlTask;
 
@@ -213,6 +251,18 @@ public class RunTask {
    */
   @JsonProperty("task_key")
   private String taskKey;
+
+  /** An optional timeout applied to each run of this job task. A value of `0` means no timeout. */
+  @JsonProperty("timeout_seconds")
+  private Long timeoutSeconds;
+
+  /**
+   * A collection of system notification IDs to notify when the run begins or completes. The default
+   * behavior is to not send any system notifications. Task webhooks respect the task notification
+   * settings.
+   */
+  @JsonProperty("webhook_notifications")
+  private WebhookNotifications webhookNotifications;
 
   public RunTask setAttemptNumber(Long attemptNumber) {
     this.attemptNumber = attemptNumber;
@@ -239,6 +289,15 @@ public class RunTask {
 
   public ClusterInstance getClusterInstance() {
     return clusterInstance;
+  }
+
+  public RunTask setComputeKey(String computeKey) {
+    this.computeKey = computeKey;
+    return this;
+  }
+
+  public String getComputeKey() {
+    return computeKey;
   }
 
   public RunTask setConditionTask(RunConditionTask conditionTask) {
@@ -277,6 +336,15 @@ public class RunTask {
     return description;
   }
 
+  public RunTask setEmailNotifications(JobEmailNotifications emailNotifications) {
+    this.emailNotifications = emailNotifications;
+    return this;
+  }
+
+  public JobEmailNotifications getEmailNotifications() {
+    return emailNotifications;
+  }
+
   public RunTask setEndTime(Long endTime) {
     this.endTime = endTime;
     return this;
@@ -304,6 +372,15 @@ public class RunTask {
     return existingClusterId;
   }
 
+  public RunTask setForEachTask(RunForEachTask forEachTask) {
+    this.forEachTask = forEachTask;
+    return this;
+  }
+
+  public RunForEachTask getForEachTask() {
+    return forEachTask;
+  }
+
   public RunTask setGitSource(GitSource gitSource) {
     this.gitSource = gitSource;
     return this;
@@ -311,6 +388,15 @@ public class RunTask {
 
   public GitSource getGitSource() {
     return gitSource;
+  }
+
+  public RunTask setJobClusterKey(String jobClusterKey) {
+    this.jobClusterKey = jobClusterKey;
+    return this;
+  }
+
+  public String getJobClusterKey() {
+    return jobClusterKey;
   }
 
   public RunTask setLibraries(Collection<com.databricks.sdk.service.compute.Library> libraries) {
@@ -338,6 +424,15 @@ public class RunTask {
 
   public NotebookTask getNotebookTask() {
     return notebookTask;
+  }
+
+  public RunTask setNotificationSettings(TaskNotificationSettings notificationSettings) {
+    this.notificationSettings = notificationSettings;
+    return this;
+  }
+
+  public TaskNotificationSettings getNotificationSettings() {
+    return notificationSettings;
   }
 
   public RunTask setPipelineTask(PipelineTask pipelineTask) {
@@ -376,6 +471,15 @@ public class RunTask {
     return resolvedValues;
   }
 
+  public RunTask setRunDuration(Long runDuration) {
+    this.runDuration = runDuration;
+    return this;
+  }
+
+  public Long getRunDuration() {
+    return runDuration;
+  }
+
   public RunTask setRunId(Long runId) {
     this.runId = runId;
     return this;
@@ -401,6 +505,15 @@ public class RunTask {
 
   public RunJobTask getRunJobTask() {
     return runJobTask;
+  }
+
+  public RunTask setRunPageUrl(String runPageUrl) {
+    this.runPageUrl = runPageUrl;
+    return this;
+  }
+
+  public String getRunPageUrl() {
+    return runPageUrl;
   }
 
   public RunTask setSetupDuration(Long setupDuration) {
@@ -475,6 +588,24 @@ public class RunTask {
     return taskKey;
   }
 
+  public RunTask setTimeoutSeconds(Long timeoutSeconds) {
+    this.timeoutSeconds = timeoutSeconds;
+    return this;
+  }
+
+  public Long getTimeoutSeconds() {
+    return timeoutSeconds;
+  }
+
+  public RunTask setWebhookNotifications(WebhookNotifications webhookNotifications) {
+    this.webhookNotifications = webhookNotifications;
+    return this;
+  }
+
+  public WebhookNotifications getWebhookNotifications() {
+    return webhookNotifications;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -483,24 +614,31 @@ public class RunTask {
     return Objects.equals(attemptNumber, that.attemptNumber)
         && Objects.equals(cleanupDuration, that.cleanupDuration)
         && Objects.equals(clusterInstance, that.clusterInstance)
+        && Objects.equals(computeKey, that.computeKey)
         && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
+        && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(existingClusterId, that.existingClusterId)
+        && Objects.equals(forEachTask, that.forEachTask)
         && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(jobClusterKey, that.jobClusterKey)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(newCluster, that.newCluster)
         && Objects.equals(notebookTask, that.notebookTask)
+        && Objects.equals(notificationSettings, that.notificationSettings)
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(queueDuration, that.queueDuration)
         && Objects.equals(resolvedValues, that.resolvedValues)
+        && Objects.equals(runDuration, that.runDuration)
         && Objects.equals(runId, that.runId)
         && Objects.equals(runIf, that.runIf)
         && Objects.equals(runJobTask, that.runJobTask)
+        && Objects.equals(runPageUrl, that.runPageUrl)
         && Objects.equals(setupDuration, that.setupDuration)
         && Objects.equals(sparkJarTask, that.sparkJarTask)
         && Objects.equals(sparkPythonTask, that.sparkPythonTask)
@@ -508,7 +646,9 @@ public class RunTask {
         && Objects.equals(sqlTask, that.sqlTask)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
-        && Objects.equals(taskKey, that.taskKey);
+        && Objects.equals(taskKey, that.taskKey)
+        && Objects.equals(timeoutSeconds, that.timeoutSeconds)
+        && Objects.equals(webhookNotifications, that.webhookNotifications);
   }
 
   @Override
@@ -517,24 +657,31 @@ public class RunTask {
         attemptNumber,
         cleanupDuration,
         clusterInstance,
+        computeKey,
         conditionTask,
         dbtTask,
         dependsOn,
         description,
+        emailNotifications,
         endTime,
         executionDuration,
         existingClusterId,
+        forEachTask,
         gitSource,
+        jobClusterKey,
         libraries,
         newCluster,
         notebookTask,
+        notificationSettings,
         pipelineTask,
         pythonWheelTask,
         queueDuration,
         resolvedValues,
+        runDuration,
         runId,
         runIf,
         runJobTask,
+        runPageUrl,
         setupDuration,
         sparkJarTask,
         sparkPythonTask,
@@ -542,7 +689,9 @@ public class RunTask {
         sqlTask,
         startTime,
         state,
-        taskKey);
+        taskKey,
+        timeoutSeconds,
+        webhookNotifications);
   }
 
   @Override
@@ -551,24 +700,31 @@ public class RunTask {
         .add("attemptNumber", attemptNumber)
         .add("cleanupDuration", cleanupDuration)
         .add("clusterInstance", clusterInstance)
+        .add("computeKey", computeKey)
         .add("conditionTask", conditionTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
+        .add("emailNotifications", emailNotifications)
         .add("endTime", endTime)
         .add("executionDuration", executionDuration)
         .add("existingClusterId", existingClusterId)
+        .add("forEachTask", forEachTask)
         .add("gitSource", gitSource)
+        .add("jobClusterKey", jobClusterKey)
         .add("libraries", libraries)
         .add("newCluster", newCluster)
         .add("notebookTask", notebookTask)
+        .add("notificationSettings", notificationSettings)
         .add("pipelineTask", pipelineTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("queueDuration", queueDuration)
         .add("resolvedValues", resolvedValues)
+        .add("runDuration", runDuration)
         .add("runId", runId)
         .add("runIf", runIf)
         .add("runJobTask", runJobTask)
+        .add("runPageUrl", runPageUrl)
         .add("setupDuration", setupDuration)
         .add("sparkJarTask", sparkJarTask)
         .add("sparkPythonTask", sparkPythonTask)
@@ -577,6 +733,8 @@ public class RunTask {
         .add("startTime", startTime)
         .add("state", state)
         .add("taskKey", taskKey)
+        .add("timeoutSeconds", timeoutSeconds)
+        .add("webhookNotifications", webhookNotifications)
         .toString();
   }
 }

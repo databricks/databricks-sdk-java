@@ -29,7 +29,7 @@ class SharesImpl implements SharesService {
     String path = String.format("/api/2.1/unity-catalog/shares/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -73,6 +73,6 @@ class SharesImpl implements SharesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    apiClient.PATCH(path, request, UpdatePermissionsResponse.class, headers);
   }
 }

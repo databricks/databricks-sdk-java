@@ -3,6 +3,7 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
@@ -11,6 +12,13 @@ import java.util.Objects;
 public class GetRegisteredModelRequest {
   /** The three-level (fully qualified) name of the registered model */
   private String fullName;
+
+  /**
+   * Whether to include registered models in the response for which the principal can only access
+   * selective metadata for
+   */
+  @QueryParam("include_browse")
+  private Boolean includeBrowse;
 
   public GetRegisteredModelRequest setFullName(String fullName) {
     this.fullName = fullName;
@@ -21,21 +29,34 @@ public class GetRegisteredModelRequest {
     return fullName;
   }
 
+  public GetRegisteredModelRequest setIncludeBrowse(Boolean includeBrowse) {
+    this.includeBrowse = includeBrowse;
+    return this;
+  }
+
+  public Boolean getIncludeBrowse() {
+    return includeBrowse;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetRegisteredModelRequest that = (GetRegisteredModelRequest) o;
-    return Objects.equals(fullName, that.fullName);
+    return Objects.equals(fullName, that.fullName)
+        && Objects.equals(includeBrowse, that.includeBrowse);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullName);
+    return Objects.hash(fullName, includeBrowse);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetRegisteredModelRequest.class).add("fullName", fullName).toString();
+    return new ToStringer(GetRegisteredModelRequest.class)
+        .add("fullName", fullName)
+        .add("includeBrowse", includeBrowse)
+        .toString();
   }
 }

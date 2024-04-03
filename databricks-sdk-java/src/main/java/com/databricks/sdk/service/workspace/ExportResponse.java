@@ -16,6 +16,10 @@ public class ExportResponse {
   @JsonProperty("content")
   private String content;
 
+  /** The file type of the exported file. */
+  @JsonProperty("file_type")
+  private String fileType;
+
   public ExportResponse setContent(String content) {
     this.content = content;
     return this;
@@ -25,21 +29,33 @@ public class ExportResponse {
     return content;
   }
 
+  public ExportResponse setFileType(String fileType) {
+    this.fileType = fileType;
+    return this;
+  }
+
+  public String getFileType() {
+    return fileType;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ExportResponse that = (ExportResponse) o;
-    return Objects.equals(content, that.content);
+    return Objects.equals(content, that.content) && Objects.equals(fileType, that.fileType);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(content);
+    return Objects.hash(content, fileType);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ExportResponse.class).add("content", content).toString();
+    return new ToStringer(ExportResponse.class)
+        .add("content", content)
+        .add("fileType", fileType)
+        .toString();
   }
 }

@@ -27,9 +27,9 @@ public class UpdateMetastore {
   /** Unique ID of the metastore. */
   private String id;
 
-  /** The user-specified name of the metastore. */
-  @JsonProperty("name")
-  private String name;
+  /** New name for the metastore. */
+  @JsonProperty("new_name")
+  private String newName;
 
   /** The owner of the metastore. */
   @JsonProperty("owner")
@@ -80,13 +80,13 @@ public class UpdateMetastore {
     return id;
   }
 
-  public UpdateMetastore setName(String name) {
-    this.name = name;
+  public UpdateMetastore setNewName(String newName) {
+    this.newName = newName;
     return this;
   }
 
-  public String getName() {
-    return name;
+  public String getNewName() {
+    return newName;
   }
 
   public UpdateMetastore setOwner(String owner) {
@@ -127,7 +127,7 @@ public class UpdateMetastore {
             that.deltaSharingRecipientTokenLifetimeInSeconds)
         && Objects.equals(deltaSharingScope, that.deltaSharingScope)
         && Objects.equals(id, that.id)
-        && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
         && Objects.equals(privilegeModelVersion, that.privilegeModelVersion)
         && Objects.equals(storageRootCredentialId, that.storageRootCredentialId);
@@ -140,7 +140,7 @@ public class UpdateMetastore {
         deltaSharingRecipientTokenLifetimeInSeconds,
         deltaSharingScope,
         id,
-        name,
+        newName,
         owner,
         privilegeModelVersion,
         storageRootCredentialId);
@@ -155,7 +155,7 @@ public class UpdateMetastore {
             deltaSharingRecipientTokenLifetimeInSeconds)
         .add("deltaSharingScope", deltaSharingScope)
         .add("id", id)
-        .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .add("privilegeModelVersion", privilegeModelVersion)
         .add("storageRootCredentialId", storageRootCredentialId)

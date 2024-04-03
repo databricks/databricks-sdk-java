@@ -17,7 +17,7 @@ public class AccessControlRequest {
   @JsonProperty("permission_level")
   private PermissionLevel permissionLevel;
 
-  /** name of the service principal */
+  /** application ID of a service principal */
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 

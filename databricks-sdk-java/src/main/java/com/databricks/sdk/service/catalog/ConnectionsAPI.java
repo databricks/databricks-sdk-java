@@ -52,8 +52,8 @@ public class ConnectionsAPI {
     return impl.create(request);
   }
 
-  public void delete(String nameArg) {
-    delete(new DeleteConnectionRequest().setNameArg(nameArg));
+  public void delete(String name) {
+    delete(new DeleteConnectionRequest().setName(name));
   }
 
   /**
@@ -65,8 +65,8 @@ public class ConnectionsAPI {
     impl.delete(request);
   }
 
-  public ConnectionInfo get(String nameArg) {
-    return get(new GetConnectionRequest().setNameArg(nameArg));
+  public ConnectionInfo get(String name) {
+    return get(new GetConnectionRequest().setName(name));
   }
 
   /**
@@ -87,8 +87,8 @@ public class ConnectionsAPI {
     return impl.list().getConnections();
   }
 
-  public ConnectionInfo update(String nameArg, String name, Map<String, String> options) {
-    return update(new UpdateConnection().setNameArg(nameArg).setName(name).setOptions(options));
+  public ConnectionInfo update(String name, Map<String, String> options) {
+    return update(new UpdateConnection().setName(name).setOptions(options));
   }
 
   /**

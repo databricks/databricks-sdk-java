@@ -147,7 +147,9 @@ public class ClustersAPI {
   /**
    * Change cluster owner.
    *
-   * <p>Change the owner of the cluster. You must be an admin to perform this operation.
+   * <p>Change the owner of the cluster. You must be an admin and the cluster must be terminated to
+   * perform this operation. The service principal application ID can be supplied as an argument to
+   * `owner_username`.
    */
   public void changeOwner(ChangeClusterOwner request) {
     impl.changeOwner(request);

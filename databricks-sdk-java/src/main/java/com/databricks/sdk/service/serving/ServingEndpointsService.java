@@ -11,10 +11,10 @@ import java.util.Collection;
  * Unity Catalog. Endpoints expose the underlying models as scalable REST API endpoints using
  * serverless compute. This means the endpoints and associated compute resources are fully managed
  * by Databricks and will not appear in your cloud account. A serving endpoint can consist of one or
- * more MLflow models from the Databricks Model Registry, called served models. A serving endpoint
- * can have at most ten served models. You can configure traffic settings to define how requests
- * should be routed to your served models behind an endpoint. Additionally, you can configure the
- * scale of resources that should be applied to each served model.
+ * more MLflow models from the Databricks Model Registry, called served entities. A serving endpoint
+ * can have at most ten served entities. You can configure traffic settings to define how requests
+ * should be routed to your served entities behind an endpoint. Additionally, you can configure the
+ * scale of resources that should be applied to each served entity.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -23,8 +23,7 @@ import java.util.Collection;
 @Generated
 public interface ServingEndpointsService {
   /**
-   * Retrieve the logs associated with building the model's environment for a given serving
-   * endpoint's served model.
+   * Get build logs for a served model.
    *
    * <p>Retrieves the build logs associated with the provided served model.
    */
@@ -37,7 +36,7 @@ public interface ServingEndpointsService {
   void delete(DeleteServingEndpointRequest deleteServingEndpointRequest);
 
   /**
-   * Retrieve the metrics associated with a serving endpoint.
+   * Get metrics of a serving endpoint.
    *
    * <p>Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
    * OpenMetrics exposition format.
@@ -68,24 +67,32 @@ public interface ServingEndpointsService {
   ServingEndpointPermissions getPermissions(
       GetServingEndpointPermissionsRequest getServingEndpointPermissionsRequest);
 
-  /** Retrieve all serving endpoints. */
+  /** Get all serving endpoints. */
   ListEndpointsResponse list();
 
   /**
-   * Retrieve the most recent log lines associated with a given serving endpoint's served model.
+   * Get the latest logs for a served model.
    *
    * <p>Retrieves the service logs associated with the provided served model.
    */
   ServerLogsResponse logs(LogsRequest logsRequest);
 
   /**
-   * Patch the tags of a serving endpoint.
+   * Update tags of a serving endpoint.
    *
    * <p>Used to batch add and delete tags from a serving endpoint with a single API call.
    */
   Collection<EndpointTag> patch(PatchServingEndpointTags patchServingEndpointTags);
 
-  /** Query a serving endpoint with provided model input. */
+  /**
+   * Update rate limits of a serving endpoint.
+   *
+   * <p>Used to update the rate limits of a serving endpoint. NOTE: only external and foundation
+   * model endpoints are supported as of now.
+   */
+  PutResponse put(PutRequest putRequest);
+
+  /** Query a serving endpoint. */
   QueryEndpointResponse query(QueryEndpointInput queryEndpointInput);
 
   /**
@@ -98,10 +105,10 @@ public interface ServingEndpointsService {
       ServingEndpointPermissionsRequest servingEndpointPermissionsRequest);
 
   /**
-   * Update a serving endpoint with a new config.
+   * Update config of a serving endpoint.
    *
-   * <p>Updates any combination of the serving endpoint's served models, the compute configuration
-   * of those served models, and the endpoint's traffic config. An endpoint that already has an
+   * <p>Updates any combination of the serving endpoint's served entities, the compute configuration
+   * of those served entities, and the endpoint's traffic config. An endpoint that already has an
    * update in progress can not be updated until the current update completes or fails.
    */
   ServingEndpointDetailed updateConfig(EndpointCoreConfigInput endpointCoreConfigInput);

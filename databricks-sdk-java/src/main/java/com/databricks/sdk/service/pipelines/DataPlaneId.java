@@ -15,7 +15,7 @@ public class DataPlaneId {
 
   /** A sequence number, unique and increasing within the data plane instance. */
   @JsonProperty("seq_no")
-  private Object seqNo;
+  private Long seqNo;
 
   public DataPlaneId setInstance(String instance) {
     this.instance = instance;
@@ -26,12 +26,12 @@ public class DataPlaneId {
     return instance;
   }
 
-  public DataPlaneId setSeqNo(Object seqNo) {
+  public DataPlaneId setSeqNo(Long seqNo) {
     this.seqNo = seqNo;
     return this;
   }
 
-  public Object getSeqNo() {
+  public Long getSeqNo() {
     return seqNo;
   }
 

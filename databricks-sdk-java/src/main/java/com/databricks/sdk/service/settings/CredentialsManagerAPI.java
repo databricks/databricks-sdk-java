@@ -39,7 +39,7 @@ public class CredentialsManagerAPI {
   /**
    * Exchange token.
    *
-   * <p>Exchange tokens with an Identity Provider to get a new access token. It allowes specifying
+   * <p>Exchange tokens with an Identity Provider to get a new access token. It allows specifying
    * scopes to determine token permissions.
    */
   public ExchangeTokenResponse exchangeToken(ExchangeTokenRequest request) {

@@ -11,7 +11,7 @@ import java.util.Objects;
 public class UpdateStorageCredential {
   /** The AWS IAM role configuration. */
   @JsonProperty("aws_iam_role")
-  private AwsIamRole awsIamRole;
+  private AwsIamRoleRequest awsIamRole;
 
   /** The Azure managed identity configuration. */
   @JsonProperty("azure_managed_identity")
@@ -21,21 +21,28 @@ public class UpdateStorageCredential {
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
+  /** The Cloudflare API token configuration. */
+  @JsonProperty("cloudflare_api_token")
+  private CloudflareApiToken cloudflareApiToken;
+
   /** Comment associated with the credential. */
   @JsonProperty("comment")
   private String comment;
 
   /** The <Databricks> managed GCP service account configuration. */
   @JsonProperty("databricks_gcp_service_account")
-  private Object databricksGcpServiceAccount;
+  private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
   /** Force update even if there are dependent external locations or external tables. */
   @JsonProperty("force")
   private Boolean force;
 
-  /** The credential name. The name must be unique within the metastore. */
-  @JsonProperty("name")
+  /** Name of the storage credential. */
   private String name;
+
+  /** New name for the storage credential. */
+  @JsonProperty("new_name")
+  private String newName;
 
   /** Username of current owner of credential. */
   @JsonProperty("owner")
@@ -49,12 +56,12 @@ public class UpdateStorageCredential {
   @JsonProperty("skip_validation")
   private Boolean skipValidation;
 
-  public UpdateStorageCredential setAwsIamRole(AwsIamRole awsIamRole) {
+  public UpdateStorageCredential setAwsIamRole(AwsIamRoleRequest awsIamRole) {
     this.awsIamRole = awsIamRole;
     return this;
   }
 
-  public AwsIamRole getAwsIamRole() {
+  public AwsIamRoleRequest getAwsIamRole() {
     return awsIamRole;
   }
 
@@ -78,6 +85,15 @@ public class UpdateStorageCredential {
     return azureServicePrincipal;
   }
 
+  public UpdateStorageCredential setCloudflareApiToken(CloudflareApiToken cloudflareApiToken) {
+    this.cloudflareApiToken = cloudflareApiToken;
+    return this;
+  }
+
+  public CloudflareApiToken getCloudflareApiToken() {
+    return cloudflareApiToken;
+  }
+
   public UpdateStorageCredential setComment(String comment) {
     this.comment = comment;
     return this;
@@ -88,12 +104,12 @@ public class UpdateStorageCredential {
   }
 
   public UpdateStorageCredential setDatabricksGcpServiceAccount(
-      Object databricksGcpServiceAccount) {
+      DatabricksGcpServiceAccountRequest databricksGcpServiceAccount) {
     this.databricksGcpServiceAccount = databricksGcpServiceAccount;
     return this;
   }
 
-  public Object getDatabricksGcpServiceAccount() {
+  public DatabricksGcpServiceAccountRequest getDatabricksGcpServiceAccount() {
     return databricksGcpServiceAccount;
   }
 
@@ -113,6 +129,15 @@ public class UpdateStorageCredential {
 
   public String getName() {
     return name;
+  }
+
+  public UpdateStorageCredential setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
   }
 
   public UpdateStorageCredential setOwner(String owner) {
@@ -150,10 +175,12 @@ public class UpdateStorageCredential {
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
+        && Objects.equals(cloudflareApiToken, that.cloudflareApiToken)
         && Objects.equals(comment, that.comment)
         && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(force, that.force)
         && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
         && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(skipValidation, that.skipValidation);
@@ -165,10 +192,12 @@ public class UpdateStorageCredential {
         awsIamRole,
         azureManagedIdentity,
         azureServicePrincipal,
+        cloudflareApiToken,
         comment,
         databricksGcpServiceAccount,
         force,
         name,
+        newName,
         owner,
         readOnly,
         skipValidation);
@@ -180,10 +209,12 @@ public class UpdateStorageCredential {
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
+        .add("cloudflareApiToken", cloudflareApiToken)
         .add("comment", comment)
         .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("force", force)
         .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)

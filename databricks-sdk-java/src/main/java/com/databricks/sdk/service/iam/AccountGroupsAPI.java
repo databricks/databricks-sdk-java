@@ -3,6 +3,7 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,7 +73,23 @@ public class AccountGroupsAPI {
    * <p>Gets all details of the groups associated with the Databricks account.
    */
   public Iterable<Group> list(ListAccountGroupsRequest request) {
-    return impl.list(request).getResources();
+    request.setStartIndex(1L);
+    if (request.getCount() == null) {
+      request.setCount(100L);
+    }
+    return new Paginator<>(
+            request,
+            impl::list,
+            ListGroupsResponse::getResources,
+            response -> {
+              Long offset = request.getStartIndex();
+              if (offset == null) {
+                offset = 0L;
+              }
+              offset += response.getResources().size();
+              return request.setStartIndex(offset);
+            })
+        .withDedupe(Group::getId);
   }
 
   public void patch(String id) {

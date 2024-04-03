@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class CatalogInfo {
-  /** Indicate whether or not the catalog info contains only browsable metadata. */
+  /**
+   * Indicates whether the principal is limited to retrieving metadata for the associated object
+   * through the BROWSE privilege when include_browse is enabled in the request.
+   */
   @JsonProperty("browse_only")
   private Boolean browseOnly;
 

@@ -14,9 +14,12 @@ public class UpdateShare {
   @JsonProperty("comment")
   private String comment;
 
-  /** Name of the share. */
-  @JsonProperty("name")
+  /** The name of the share. */
   private String name;
+
+  /** New name for the share. */
+  @JsonProperty("new_name")
+  private String newName;
 
   /** Username of current owner of share. */
   @JsonProperty("owner")
@@ -44,6 +47,15 @@ public class UpdateShare {
     return name;
   }
 
+  public UpdateShare setNewName(String newName) {
+    this.newName = newName;
+    return this;
+  }
+
+  public String getNewName() {
+    return newName;
+  }
+
   public UpdateShare setOwner(String owner) {
     this.owner = owner;
     return this;
@@ -69,13 +81,14 @@ public class UpdateShare {
     UpdateShare that = (UpdateShare) o;
     return Objects.equals(comment, that.comment)
         && Objects.equals(name, that.name)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
         && Objects.equals(updates, that.updates);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, name, owner, updates);
+    return Objects.hash(comment, name, newName, owner, updates);
   }
 
   @Override
@@ -83,6 +96,7 @@ public class UpdateShare {
     return new ToStringer(UpdateShare.class)
         .add("comment", comment)
         .add("name", name)
+        .add("newName", newName)
         .add("owner", owner)
         .add("updates", updates)
         .toString();

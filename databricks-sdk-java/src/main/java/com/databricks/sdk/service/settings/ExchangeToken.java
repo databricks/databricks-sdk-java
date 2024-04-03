@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** The exchange token is the result of the token exchange with the IdP */
 @Generated
 public class ExchangeToken {
   /** The requested token. */
@@ -26,7 +27,7 @@ public class ExchangeToken {
   @JsonProperty("scopes")
   private Collection<String> scopes;
 
-  /** The type of token request. As of now, only `AZURE_ACTIVE_DIRECTORY_TOKEN` is supported. */
+  /** The type of this exchange token */
   @JsonProperty("tokenType")
   private TokenType tokenType;
 

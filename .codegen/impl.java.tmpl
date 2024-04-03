@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.http.Encoding;
 import com.databricks.sdk.support.Generated;
 
 {{range .Package.ImportedEntities}}
@@ -24,35 +25,50 @@ class {{.PascalName}}Impl implements {{.PascalName}}Service {
   }
 	{{range .Methods}}
   @Override
-  public {{if .Response -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
-    String path = {{if .PathParts -}}
-      String.format("{{range  .PathParts}}{{.Prefix}}{{if or .Field .IsAccountId}}%s{{end}}{{ end }}"{{ range .PathParts }}{{if .Field}}, request.get{{.Field.PascalName}}(){{ else if .IsAccountId }}, apiClient.configuredAccountID(){{end}}{{ end }})
-    {{- else}}"{{.Path}}"{{end}};
+  public {{if not .Response.IsEmpty -}}{{template "type" .Response}}{{else}}void{{end}} {{.CamelName}}{{if .IsNameReserved}}Content{{end}}({{if .Request}}{{template "type" .Request}} request{{end}}) {
+    String path = {{ template "path" . }};
     {{ template "headers" . -}}
-    {{ if not .Response -}}
+    {{ if .Response.IsEmpty -}}
     {{ template "api-call" . }}
     {{- else if .Response.ArrayValue -}} return apiClient.getCollection(path, null, {{template "type" .Response.ArrayValue}}.class, headers);
     {{- else if .Response.MapValue -}} return apiClient.getStringMap(path, {{ template "request-param" .}}, headers);
-    {{- else if .IsResponseByteStream -}}
-    InputStream response = {{ template "api-call" . }}
-    return new {{ .Response.PascalName }}().set{{.ResponseBodyField.PascalName}}(response);
     {{- else }}return {{ template "api-call" . }}
     {{- end}}
   }
   {{end}}
 }
 
+{{- define "path" -}}
+{{- if .PathParts -}}
+  String.format("{{range  .PathParts -}}
+    {{- .Prefix -}}
+    {{- if or .Field .IsAccountId -}}%s{{- end -}}
+  {{- end -}}"
+  {{- range .PathParts -}}
+    {{- if and .Field .Field.IsPathMultiSegment -}}, Encoding.encodeMultiSegmentPathParameter(request.get{{.Field.PascalName}}())
+    {{- else if .Field -}}, request.get{{.Field.PascalName}}()
+    {{- else if .IsAccountId -}}, apiClient.configuredAccountID()
+    {{- end -}}
+  {{- end -}})
+{{- else -}}
+  "{{.Path}}"
+{{- end -}}
+{{- end -}}
+
 {{ define "api-call" }}
 apiClient.{{.Verb}}(path
   {{- if .Request}}, {{ template "request-param" .}}{{end}}
   , {{ if not .Response -}}Void
-  {{- else if .IsResponseByteStream}}InputStream
   {{- else}}{{template "type" .Response}}{{- end -}}.class
   , headers);
 {{- end }}
 
 {{ define "request-param" -}}
+  {{- if or (and .Operation .Operation.RequestBody) (eq .Verb "GET") (eq .Verb "DELETE") (eq .Verb "HEAD") -}}
   request{{ if .RequestBodyField }}.get{{.RequestBodyField.PascalName}}(){{end}}
+  {{- else -}}
+  null
+  {{- end -}}
 {{- end }}
 
 {{ define "headers" -}}

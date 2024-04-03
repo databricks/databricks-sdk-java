@@ -15,7 +15,7 @@ public class CronSchedule {
 
   /**
    * A Cron expression using Quartz syntax that describes the schedule for a job. See [Cron Trigger]
-   * for details. This field is required."
+   * for details. This field is required.
    *
    * <p>[Cron Trigger]:
    * http://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html

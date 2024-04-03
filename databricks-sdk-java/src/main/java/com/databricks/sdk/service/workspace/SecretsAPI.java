@@ -41,7 +41,7 @@ public class SecretsAPI {
    * Create a new secret scope.
    *
    * <p>The scope name must consist of alphanumeric characters, dashes, underscores, and periods,
-   * and may not exceed 128 characters. The maximum number of scopes in a workspace is 100.
+   * and may not exceed 128 characters.
    */
   public void createScope(CreateScope request) {
     impl.createScope(request);

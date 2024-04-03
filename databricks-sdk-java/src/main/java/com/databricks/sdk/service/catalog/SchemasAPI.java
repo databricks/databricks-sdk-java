@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,7 +85,17 @@ public class SchemasAPI {
    * the array.
    */
   public Iterable<SchemaInfo> list(ListSchemasRequest request) {
-    return impl.list(request).getSchemas();
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListSchemasResponse::getSchemas,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public SchemaInfo update(String fullName) {

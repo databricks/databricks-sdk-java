@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Job was created successfully */
 @Generated
 public class CreateResponse {
   /** The canonical identifier for the newly created job. */

@@ -11,11 +11,11 @@ import java.util.Objects;
 @Generated
 public class UpdateConnection {
   /** Name of the connection. */
-  @JsonProperty("name")
   private String name;
 
-  /** Name of the connection. */
-  private String nameArg;
+  /** New name for the connection. */
+  @JsonProperty("new_name")
+  private String newName;
 
   /** A map of key-value properties attached to the securable. */
   @JsonProperty("options")
@@ -34,13 +34,13 @@ public class UpdateConnection {
     return name;
   }
 
-  public UpdateConnection setNameArg(String nameArg) {
-    this.nameArg = nameArg;
+  public UpdateConnection setNewName(String newName) {
+    this.newName = newName;
     return this;
   }
 
-  public String getNameArg() {
-    return nameArg;
+  public String getNewName() {
+    return newName;
   }
 
   public UpdateConnection setOptions(Map<String, String> options) {
@@ -67,21 +67,21 @@ public class UpdateConnection {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateConnection that = (UpdateConnection) o;
     return Objects.equals(name, that.name)
-        && Objects.equals(nameArg, that.nameArg)
+        && Objects.equals(newName, that.newName)
         && Objects.equals(options, that.options)
         && Objects.equals(owner, that.owner);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, nameArg, options, owner);
+    return Objects.hash(name, newName, options, owner);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateConnection.class)
         .add("name", name)
-        .add("nameArg", nameArg)
+        .add("newName", newName)
         .add("options", options)
         .add("owner", owner)
         .toString();

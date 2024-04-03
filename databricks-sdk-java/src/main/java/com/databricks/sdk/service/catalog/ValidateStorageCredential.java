@@ -11,7 +11,7 @@ import java.util.Objects;
 public class ValidateStorageCredential {
   /** The AWS IAM role configuration. */
   @JsonProperty("aws_iam_role")
-  private AwsIamRole awsIamRole;
+  private AwsIamRoleRequest awsIamRole;
 
   /** The Azure managed identity configuration. */
   @JsonProperty("azure_managed_identity")
@@ -21,9 +21,13 @@ public class ValidateStorageCredential {
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
+  /** The Cloudflare API token configuration. */
+  @JsonProperty("cloudflare_api_token")
+  private CloudflareApiToken cloudflareApiToken;
+
   /** The Databricks created GCP service account configuration. */
   @JsonProperty("databricks_gcp_service_account")
-  private Object databricksGcpServiceAccount;
+  private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
   /** The name of an existing external location to validate. */
   @JsonProperty("external_location_name")
@@ -35,18 +39,18 @@ public class ValidateStorageCredential {
 
   /** The name of the storage credential to validate. */
   @JsonProperty("storage_credential_name")
-  private Object storageCredentialName;
+  private String storageCredentialName;
 
   /** The external location url to validate. */
   @JsonProperty("url")
   private String url;
 
-  public ValidateStorageCredential setAwsIamRole(AwsIamRole awsIamRole) {
+  public ValidateStorageCredential setAwsIamRole(AwsIamRoleRequest awsIamRole) {
     this.awsIamRole = awsIamRole;
     return this;
   }
 
-  public AwsIamRole getAwsIamRole() {
+  public AwsIamRoleRequest getAwsIamRole() {
     return awsIamRole;
   }
 
@@ -70,13 +74,22 @@ public class ValidateStorageCredential {
     return azureServicePrincipal;
   }
 
+  public ValidateStorageCredential setCloudflareApiToken(CloudflareApiToken cloudflareApiToken) {
+    this.cloudflareApiToken = cloudflareApiToken;
+    return this;
+  }
+
+  public CloudflareApiToken getCloudflareApiToken() {
+    return cloudflareApiToken;
+  }
+
   public ValidateStorageCredential setDatabricksGcpServiceAccount(
-      Object databricksGcpServiceAccount) {
+      DatabricksGcpServiceAccountRequest databricksGcpServiceAccount) {
     this.databricksGcpServiceAccount = databricksGcpServiceAccount;
     return this;
   }
 
-  public Object getDatabricksGcpServiceAccount() {
+  public DatabricksGcpServiceAccountRequest getDatabricksGcpServiceAccount() {
     return databricksGcpServiceAccount;
   }
 
@@ -98,12 +111,12 @@ public class ValidateStorageCredential {
     return readOnly;
   }
 
-  public ValidateStorageCredential setStorageCredentialName(Object storageCredentialName) {
+  public ValidateStorageCredential setStorageCredentialName(String storageCredentialName) {
     this.storageCredentialName = storageCredentialName;
     return this;
   }
 
-  public Object getStorageCredentialName() {
+  public String getStorageCredentialName() {
     return storageCredentialName;
   }
 
@@ -124,6 +137,7 @@ public class ValidateStorageCredential {
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
+        && Objects.equals(cloudflareApiToken, that.cloudflareApiToken)
         && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(externalLocationName, that.externalLocationName)
         && Objects.equals(readOnly, that.readOnly)
@@ -137,6 +151,7 @@ public class ValidateStorageCredential {
         awsIamRole,
         azureManagedIdentity,
         azureServicePrincipal,
+        cloudflareApiToken,
         databricksGcpServiceAccount,
         externalLocationName,
         readOnly,
@@ -150,6 +165,7 @@ public class ValidateStorageCredential {
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
+        .add("cloudflareApiToken", cloudflareApiToken)
         .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("externalLocationName", externalLocationName)
         .add("readOnly", readOnly)

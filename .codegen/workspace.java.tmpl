@@ -30,7 +30,7 @@ import com.databricks.sdk.support.Generated;
 public class WorkspaceClient {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
-  {{range .Services}}{{if not .IsAccounts}}
+  {{range .Services}}{{if and (not .IsAccounts) (not .HasParent)}}
   private {{template "api" .}} {{.CamelName}}API;{{end}}{{end}}
 
   public WorkspaceClient() {
@@ -40,7 +40,7 @@ public class WorkspaceClient {
   public WorkspaceClient(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
-    {{range .Services}}{{if not .IsAccounts}}
+    {{range .Services}}{{if and (not .IsAccounts) (not .HasParent)}}
     {{.CamelName}}API = new {{template "api" .}}(apiClient);{{end}}{{end}}
   }
 
@@ -54,7 +54,7 @@ public class WorkspaceClient {
     this.apiClient = apiClient;
     this.config = null;
   }
-  {{range .Services}}{{if not .IsAccounts}}
+  {{range .Services}}{{if and (not .IsAccounts) (not .HasParent)}}
   {{if .Description}}/**
    {{.Comment "   * " 80}}
    */{{end}}
@@ -62,10 +62,15 @@ public class WorkspaceClient {
     return {{.CamelName}}API;
   }
   {{end}}{{end}}
-  {{range .Services}}{{if not .IsAccounts}}
-  /** Replace {{.PascalName}}API implementation with mock */
+  {{range .Services}}{{if and (not .IsAccounts) (not .HasParent)}}
+  /** Replace the default {{.PascalName}}Service with a custom implementation. */
   public WorkspaceClient with{{.PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
-    {{.CamelName}}API = new {{template "api" .}}({{.CamelName}});
+    return this.with{{.PascalName}}API(new {{template "api" .}}({{.CamelName}}));
+  }
+
+  /** Replace the default {{.PascalName}}API with a custom implementation. */
+  public WorkspaceClient with{{.PascalName}}API({{template "api" .}} {{.CamelName}}) {
+    this.{{.CamelName}}API = {{.CamelName}};
     return this;
   }
   {{end}}{{end}}

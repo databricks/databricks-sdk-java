@@ -9,7 +9,10 @@ import java.util.Objects;
 /** Cancel statement execution */
 @Generated
 public class CancelExecutionRequest {
-  /** */
+  /**
+   * The statement ID is returned upon successfully submitting a SQL statement, and is a required
+   * reference for all subsequent calls.
+   */
   private String statementId;
 
   public CancelExecutionRequest setStatementId(String statementId) {

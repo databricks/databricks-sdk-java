@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Exhanged tokens were successfully returned. */
 @Generated
 public class ExchangeTokenResponse {
   /** */

@@ -5,11 +5,15 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Map;
 import java.util.Objects;
 
 @Generated
 public class ExternalLink {
-  /** The number of bytes in the result chunk. */
+  /**
+   * The number of bytes in the result chunk. This field is not available when using `INLINE`
+   * disposition.
+   */
   @JsonProperty("byte_count")
   private Long byteCount;
 
@@ -27,10 +31,19 @@ public class ExternalLink {
   /**
    * A presigned URL pointing to a chunk of result data, hosted by an external service, with a short
    * expiration time (<= 15 minutes). As this URL contains a temporary credential, it should be
-   * considered sensitive and the client should expose this URL in a log.
+   * considered sensitive and the client should not expose this URL in a log.
    */
   @JsonProperty("external_link")
   private String externalLink;
+
+  /**
+   * HTTP headers that must be included with a GET request to the `external_link`. Each header is
+   * provided as a key-value pair. Headers are typically used to pass a decryption key to the
+   * external service. The values of these headers should be considered sensitive and the client
+   * should not expose these values in a log.
+   */
+  @JsonProperty("http_headers")
+  private Map<String, String> httpHeaders;
 
   /**
    * When fetching, provides the `chunk_index` for the _next_ chunk. If absent, indicates there are
@@ -92,6 +105,15 @@ public class ExternalLink {
     return externalLink;
   }
 
+  public ExternalLink setHttpHeaders(Map<String, String> httpHeaders) {
+    this.httpHeaders = httpHeaders;
+    return this;
+  }
+
+  public Map<String, String> getHttpHeaders() {
+    return httpHeaders;
+  }
+
   public ExternalLink setNextChunkIndex(Long nextChunkIndex) {
     this.nextChunkIndex = nextChunkIndex;
     return this;
@@ -137,6 +159,7 @@ public class ExternalLink {
         && Objects.equals(chunkIndex, that.chunkIndex)
         && Objects.equals(expiration, that.expiration)
         && Objects.equals(externalLink, that.externalLink)
+        && Objects.equals(httpHeaders, that.httpHeaders)
         && Objects.equals(nextChunkIndex, that.nextChunkIndex)
         && Objects.equals(nextChunkInternalLink, that.nextChunkInternalLink)
         && Objects.equals(rowCount, that.rowCount)
@@ -150,6 +173,7 @@ public class ExternalLink {
         chunkIndex,
         expiration,
         externalLink,
+        httpHeaders,
         nextChunkIndex,
         nextChunkInternalLink,
         rowCount,
@@ -163,6 +187,7 @@ public class ExternalLink {
         .add("chunkIndex", chunkIndex)
         .add("expiration", expiration)
         .add("externalLink", externalLink)
+        .add("httpHeaders", httpHeaders)
         .add("nextChunkIndex", nextChunkIndex)
         .add("nextChunkInternalLink", nextChunkInternalLink)
         .add("rowCount", rowCount)

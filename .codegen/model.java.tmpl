@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Header;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 
@@ -22,14 +23,14 @@ types.
 {{if .Description}}/**
  {{.Comment " * " 80}}
  */{{end}}
-{{if .Fields -}}
+{{if or .Fields .IsEmpty -}}
 @Generated
 public class {{.PascalName}} {
   {{- range .Fields}}
   /**
    {{.Comment "   * " 80}}
    */
-  {{if .IsJson}}@JsonProperty("{{.Name}}"){{end}}{{if .IsQuery}}@QueryParam("{{.Name}}"){{end}}
+  {{if .IsJson}}@JsonProperty("{{.Name}}"){{end}}{{if .IsQuery}}@QueryParam("{{.Name}}"){{end}}{{if .IsHeader}}@Header("{{.Name}}"){{end}}
   private {{template "type" .Entity }} {{.CamelName}}{{if .IsNameReserved}}Value{{end}};
   {{end}}
 
@@ -48,9 +49,13 @@ public class {{.PascalName}} {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
+    {{if .IsEmpty -}}
+    return true;
+    {{- else -}}
     {{.PascalName}} that = ({{.PascalName}}) o;
     return {{range $i, $x := .Fields}}{{if $i}}&& {{end}}Objects.equals({{.CamelName}}{{if .IsNameReserved}}Value{{end}}, that.{{.CamelName}}{{if .IsNameReserved}}Value{{end}})
     {{end}};
+    {{- end }}
   }
 
   @Override

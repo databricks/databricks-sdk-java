@@ -27,7 +27,8 @@ public class PersonalComputeSetting {
   /**
    * Name of the corresponding setting. This field is populated in the response, but it will not be
    * respected even if it's set in the request body. The setting name in the path parameter will be
-   * respected instead.
+   * respected instead. Setting name is required to be 'default' if the setting only has one
+   * instance per workspace.
    */
   @JsonProperty("setting_name")
   private String settingName;

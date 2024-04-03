@@ -21,7 +21,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, CancelAllRunsResponse.class, headers);
   }
 
   @Override
@@ -30,7 +30,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, CancelRunResponse.class, headers);
   }
 
   @Override
@@ -48,7 +48,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -57,7 +57,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, DeleteRunResponse.class, headers);
   }
 
   @Override
@@ -140,7 +140,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, ResetResponse.class, headers);
   }
 
   @Override
@@ -176,7 +176,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, UpdateResponse.class, headers);
   }
 
   @Override

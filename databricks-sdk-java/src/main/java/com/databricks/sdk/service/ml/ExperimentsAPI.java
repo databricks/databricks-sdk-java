@@ -96,7 +96,9 @@ public class ExperimentsAPI {
    * Delete runs by creation time.
    *
    * <p>Bulk delete runs in an experiment that were created prior to or at the specified timestamp.
-   * Deletes at most max_runs per request.
+   * Deletes at most max_runs per request. To call this API from a Databricks Notebook in Python,
+   * you can use the client code snippet on
+   * https://learn.microsoft.com/en-us/azure/databricks/mlflow/runs#bulk-delete.
    */
   public DeleteRunsResponse deleteRuns(DeleteRuns request) {
     return impl.deleteRuns(request);
@@ -388,7 +390,9 @@ public class ExperimentsAPI {
    * Restore runs by deletion time.
    *
    * <p>Bulk restore runs in an experiment that were deleted no earlier than the specified
-   * timestamp. Restores at most max_runs per request.
+   * timestamp. Restores at most max_runs per request. To call this API from a Databricks Notebook
+   * in Python, you can use the client code snippet on
+   * https://learn.microsoft.com/en-us/azure/databricks/mlflow/runs#bulk-restore.
    */
   public RestoreRunsResponse restoreRuns(RestoreRuns request) {
     return impl.restoreRuns(request);

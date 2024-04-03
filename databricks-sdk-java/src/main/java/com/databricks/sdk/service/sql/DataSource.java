@@ -10,7 +10,12 @@ import java.util.Objects;
 /** A JSON object representing a DBSQL data source / SQL warehouse. */
 @Generated
 public class DataSource {
-  /** Data source ID. */
+  /**
+   * Data source ID maps to the ID of the data source used by the resource and is distinct from the
+   * warehouse ID. [Learn more].
+   *
+   * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
+   */
   @JsonProperty("id")
   private String id;
 

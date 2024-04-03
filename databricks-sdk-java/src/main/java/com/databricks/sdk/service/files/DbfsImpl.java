@@ -21,7 +21,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, AddBlockResponse.class, headers);
   }
 
   @Override
@@ -30,7 +30,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, CloseResponse.class, headers);
   }
 
   @Override
@@ -48,7 +48,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -73,7 +73,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, MkDirsResponse.class, headers);
   }
 
   @Override
@@ -82,7 +82,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, MoveResponse.class, headers);
   }
 
   @Override
@@ -91,7 +91,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, Void.class, headers);
+    apiClient.POST(path, request, PutResponse.class, headers);
   }
 
   @Override

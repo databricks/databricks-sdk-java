@@ -54,7 +54,7 @@ public interface ExternalLocationsService {
    * some privilege on the external location. There is no guarantee of a specific ordering of the
    * elements in the array.
    */
-  ListExternalLocationsResponse list();
+  ListExternalLocationsResponse list(ListExternalLocationsRequest listExternalLocationsRequest);
 
   /**
    * Update an external location.

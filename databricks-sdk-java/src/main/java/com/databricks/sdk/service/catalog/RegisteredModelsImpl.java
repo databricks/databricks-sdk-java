@@ -28,7 +28,7 @@ class RegisteredModelsImpl implements RegisteredModelsService {
   public void delete(DeleteRegisteredModelRequest request) {
     String path = String.format("/api/2.1/unity-catalog/models/%s", request.getFullName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -38,7 +38,7 @@ class RegisteredModelsImpl implements RegisteredModelsService {
             "/api/2.1/unity-catalog/models/%s/aliases/%s",
             request.getFullName(), request.getAlias());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteAliasResponse.class, headers);
   }
 
   @Override

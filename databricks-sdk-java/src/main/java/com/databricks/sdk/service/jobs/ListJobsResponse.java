@@ -8,21 +8,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** List of jobs was retrieved successfully. */
 @Generated
 public class ListJobsResponse {
   /** If true, additional jobs matching the provided filter are available for listing. */
   @JsonProperty("has_more")
   private Boolean hasMore;
 
-  /** The list of jobs. */
+  /** The list of jobs. Only included in the response if there are jobs to list. */
   @JsonProperty("jobs")
   private Collection<BaseJob> jobs;
 
-  /** A token that can be used to list the next page of jobs. */
+  /** A token that can be used to list the next page of jobs (if applicable). */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  /** A token that can be used to list the previous page of jobs. */
+  /** A token that can be used to list the previous page of jobs (if applicable). */
   @JsonProperty("prev_page_token")
   private String prevPageToken;
 

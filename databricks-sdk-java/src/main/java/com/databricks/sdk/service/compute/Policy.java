@@ -21,7 +21,12 @@ public class Policy {
   @JsonProperty("creator_user_name")
   private String creatorUserName;
 
-  /** Policy definition document expressed in Databricks Cluster Policy Definition Language. */
+  /**
+   * Policy definition document expressed in [Databricks Cluster Policy Definition Language].
+   *
+   * <p>[Databricks Cluster Policy Definition Language]:
+   * https://docs.databricks.com/administration-guide/clusters/policy-definition.html
+   */
   @JsonProperty("definition")
   private String definition;
 
@@ -36,7 +41,10 @@ public class Policy {
   @JsonProperty("is_default")
   private Boolean isDefault;
 
-  /** A list of libraries to be installed on the next cluster restart that uses this policy. */
+  /**
+   * A list of libraries to be installed on the next cluster restart that uses this policy. The
+   * maximum number of libraries is 500.
+   */
   @JsonProperty("libraries")
   private Collection<Library> libraries;
 
@@ -55,11 +63,14 @@ public class Policy {
   private String name;
 
   /**
-   * Policy definition JSON document expressed in Databricks Policy Definition Language. The JSON
+   * Policy definition JSON document expressed in [Databricks Policy Definition Language]. The JSON
    * document must be passed as a string and cannot be embedded in the requests.
    *
    * <p>You can use this to customize the policy definition inherited from the policy family. Policy
    * rules specified here are merged into the inherited policy definition.
+   *
+   * <p>[Databricks Policy Definition Language]:
+   * https://docs.databricks.com/administration-guide/clusters/policy-definition.html
    */
   @JsonProperty("policy_family_definition_overrides")
   private String policyFamilyDefinitionOverrides;

@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Get the output for a single run */
 @Generated
 public class GetRunOutputRequest {
-  /** The canonical identifier for the run. This field is required. */
+  /** The canonical identifier for the run. */
   @QueryParam("run_id")
   private Long runId;
 

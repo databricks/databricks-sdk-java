@@ -8,9 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Exchange a token with the IdP */
 @Generated
 public class ExchangeTokenRequest {
-  /** */
+  /** The partition of Credentials store */
   @JsonProperty("partitionId")
   private PartitionId partitionId;
 
@@ -18,7 +19,7 @@ public class ExchangeTokenRequest {
   @JsonProperty("scopes")
   private Collection<String> scopes;
 
-  /** */
+  /** A list of token types being requested */
   @JsonProperty("tokenType")
   private Collection<TokenType> tokenType;
 

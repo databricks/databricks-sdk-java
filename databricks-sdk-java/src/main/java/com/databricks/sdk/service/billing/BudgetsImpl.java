@@ -32,7 +32,7 @@ class BudgetsImpl implements BudgetsService {
             apiClient.configuredAccountID(), request.getBudgetId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Void.class, headers);
+    apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -63,6 +63,6 @@ class BudgetsImpl implements BudgetsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, Void.class, headers);
+    apiClient.PATCH(path, request, UpdateResponse.class, headers);
   }
 }
