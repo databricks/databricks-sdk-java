@@ -13,7 +13,7 @@ public class ResourceConflict extends DatabricksError {
     super("RESOURCE_CONFLICT", message, 409, details);
   }
 
-  ResourceConflict(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  ResourceConflict(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 409, details);
   }
 }

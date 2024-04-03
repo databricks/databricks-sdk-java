@@ -13,7 +13,7 @@ public class Unauthenticated extends DatabricksError {
     super("UNAUTHENTICATED", message, 401, details);
   }
 
-  Unauthenticated(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  Unauthenticated(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 401, details);
   }
 }

@@ -13,12 +13,12 @@ import java.util.List;
 @Generated
 public class {{.PascalName}} extends {{if .Inherit -}}{{.Inherit.PascalName}}{{else}}DatabricksError{{end}} {
   public {{.PascalName}}(String message, List<ErrorDetail> details) {
-    super("{{.Name}}", message, {{.StatusCode}}, details);
+    super("{{.Name}}", message, {{if not .Inherit}}{{.StatusCode}}, {{end}}details);
   }
 
   {{if not .Inherit}}
-  {{.PascalName}}(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-      super(errorCode, message, statusCode, details);
+  {{.PascalName}}(String errorCode, String message, List<ErrorDetail> details) {
+      super(errorCode, message, {{.StatusCode}}, details);
   }
   {{end}}
 }

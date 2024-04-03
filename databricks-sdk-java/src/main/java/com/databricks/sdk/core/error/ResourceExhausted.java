@@ -9,6 +9,6 @@ import java.util.List;
 @Generated
 public class ResourceExhausted extends TooManyRequests {
   public ResourceExhausted(String message, List<ErrorDetail> details) {
-    super("RESOURCE_EXHAUSTED", message, 429, details);
+    super("RESOURCE_EXHAUSTED", message, details);
   }
 }

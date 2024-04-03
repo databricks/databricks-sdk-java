@@ -13,7 +13,7 @@ public class TooManyRequests extends DatabricksError {
     super("TOO_MANY_REQUESTS", message, 429, details);
   }
 
-  TooManyRequests(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  TooManyRequests(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 429, details);
   }
 }

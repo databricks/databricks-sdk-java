@@ -13,7 +13,7 @@ public class NotFound extends DatabricksError {
     super("NOT_FOUND", message, 404, details);
   }
 
-  NotFound(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  NotFound(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 404, details);
   }
 }

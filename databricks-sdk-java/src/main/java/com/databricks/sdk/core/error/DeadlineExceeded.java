@@ -13,7 +13,7 @@ public class DeadlineExceeded extends DatabricksError {
     super("DEADLINE_EXCEEDED", message, 504, details);
   }
 
-  DeadlineExceeded(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  DeadlineExceeded(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 504, details);
   }
 }

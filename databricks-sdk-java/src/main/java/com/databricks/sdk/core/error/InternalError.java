@@ -13,7 +13,7 @@ public class InternalError extends DatabricksError {
     super("INTERNAL_ERROR", message, 500, details);
   }
 
-  InternalError(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  InternalError(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 500, details);
   }
 }

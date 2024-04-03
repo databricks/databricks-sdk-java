@@ -13,7 +13,7 @@ public class Cancelled extends DatabricksError {
     super("CANCELLED", message, 499, details);
   }
 
-  Cancelled(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  Cancelled(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 499, details);
   }
 }

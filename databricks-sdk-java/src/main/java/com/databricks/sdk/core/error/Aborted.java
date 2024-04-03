@@ -11,6 +11,6 @@ import java.util.List;
 @Generated
 public class Aborted extends ResourceConflict {
   public Aborted(String message, List<ErrorDetail> details) {
-    super("ABORTED", message, 409, details);
+    super("ABORTED", message, details);
   }
 }

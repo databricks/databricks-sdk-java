@@ -13,7 +13,7 @@ public class BadRequest extends DatabricksError {
     super("BAD_REQUEST", message, 400, details);
   }
 
-  BadRequest(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  BadRequest(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 400, details);
   }
 }

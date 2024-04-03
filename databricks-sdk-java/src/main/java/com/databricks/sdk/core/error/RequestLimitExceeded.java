@@ -9,6 +9,6 @@ import java.util.List;
 @Generated
 public class RequestLimitExceeded extends TooManyRequests {
   public RequestLimitExceeded(String message, List<ErrorDetail> details) {
-    super("REQUEST_LIMIT_EXCEEDED", message, 429, details);
+    super("REQUEST_LIMIT_EXCEEDED", message, details);
   }
 }

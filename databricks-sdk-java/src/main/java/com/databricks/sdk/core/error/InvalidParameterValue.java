@@ -9,6 +9,6 @@ import java.util.List;
 @Generated
 public class InvalidParameterValue extends BadRequest {
   public InvalidParameterValue(String message, List<ErrorDetail> details) {
-    super("INVALID_PARAMETER_VALUE", message, 400, details);
+    super("INVALID_PARAMETER_VALUE", message, details);
   }
 }

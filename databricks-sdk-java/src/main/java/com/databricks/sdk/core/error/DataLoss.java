@@ -9,6 +9,6 @@ import java.util.List;
 @Generated
 public class DataLoss extends InternalError {
   public DataLoss(String message, List<ErrorDetail> details) {
-    super("DATA_LOSS", message, 500, details);
+    super("DATA_LOSS", message, details);
   }
 }

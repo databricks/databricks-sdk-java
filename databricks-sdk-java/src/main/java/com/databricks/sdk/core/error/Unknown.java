@@ -9,6 +9,6 @@ import java.util.List;
 @Generated
 public class Unknown extends InternalError {
   public Unknown(String message, List<ErrorDetail> details) {
-    super("UNKNOWN", message, 500, details);
+    super("UNKNOWN", message, details);
   }
 }

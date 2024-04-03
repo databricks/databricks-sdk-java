@@ -13,8 +13,7 @@ public class TemporarilyUnavailable extends DatabricksError {
     super("TEMPORARILY_UNAVAILABLE", message, 503, details);
   }
 
-  TemporarilyUnavailable(
-      String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  TemporarilyUnavailable(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 503, details);
   }
 }

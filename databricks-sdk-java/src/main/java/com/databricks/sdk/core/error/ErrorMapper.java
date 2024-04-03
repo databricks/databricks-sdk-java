@@ -20,6 +20,7 @@ class ErrorMapper extends AbstractErrorMapper {
     statusCode(504, DeadlineExceeded::new);
 
     errorCode("INVALID_PARAMETER_VALUE", InvalidParameterValue::new);
+    errorCode("RESOURCE_DOES_NOT_EXIST", ResourceDoesNotExist::new);
     errorCode("ABORTED", Aborted::new);
     errorCode("ALREADY_EXISTS", AlreadyExists::new);
     errorCode("RESOURCE_ALREADY_EXISTS", ResourceAlreadyExists::new);

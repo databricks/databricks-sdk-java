@@ -13,7 +13,7 @@ public class NotImplemented extends DatabricksError {
     super("NOT_IMPLEMENTED", message, 501, details);
   }
 
-  NotImplemented(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  NotImplemented(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 501, details);
   }
 }

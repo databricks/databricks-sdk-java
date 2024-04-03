@@ -13,7 +13,7 @@ public class PermissionDenied extends DatabricksError {
     super("PERMISSION_DENIED", message, 403, details);
   }
 
-  PermissionDenied(String errorCode, String message, int statusCode, List<ErrorDetail> details) {
-    super(errorCode, message, statusCode, details);
+  PermissionDenied(String errorCode, String message, List<ErrorDetail> details) {
+    super(errorCode, message, 403, details);
   }
 }

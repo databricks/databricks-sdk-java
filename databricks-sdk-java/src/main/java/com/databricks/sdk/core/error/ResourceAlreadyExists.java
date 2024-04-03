@@ -9,6 +9,6 @@ import java.util.List;
 @Generated
 public class ResourceAlreadyExists extends ResourceConflict {
   public ResourceAlreadyExists(String message, List<ErrorDetail> details) {
-    super("RESOURCE_ALREADY_EXISTS", message, 409, details);
+    super("RESOURCE_ALREADY_EXISTS", message, details);
   }
 }
