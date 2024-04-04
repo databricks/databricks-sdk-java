@@ -364,12 +364,13 @@ The Databricks SDK for Java provides a robust error-handling mechanism that allo
 ```java
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.errors.platform.ResourceDoesNotExist;
+import com.databricks.sdk.service.compute.ClusterDetails;
 
 public class ErrorDemo {
     public static void main(String[] args) {
         WorkspaceClient w = new WorkspaceClient();
         try {
-            Cluster c = w.clusters().get("1234-5678-9012");
+            ClusterDetails c = w.clusters().get("1234-5678-9012");
         } catch (ResourceDoesNotExist e) {
           System.out.println("Cluster not found: " + e.getMessage());
         }
