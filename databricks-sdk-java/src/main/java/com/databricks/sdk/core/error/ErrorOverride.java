@@ -49,7 +49,8 @@ public class ErrorOverride<T extends DatabricksError> {
         && !this.errorCodeMatcher.matcher(body.getErrorCode()).matches()) {
       return false;
     }
-    if (this.messageMatcher != null && !this.messageMatcher.matcher(body.getMessage()).matches()) {
+    // Allow matching substring of the error message.
+    if (this.messageMatcher != null && !this.messageMatcher.matcher(body.getMessage()).find()) {
       return false;
     }
     return true;
