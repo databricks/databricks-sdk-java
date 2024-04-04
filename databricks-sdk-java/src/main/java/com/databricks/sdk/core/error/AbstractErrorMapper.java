@@ -2,15 +2,15 @@ package com.databricks.sdk.core.error;
 
 import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.http.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 abstract class AbstractErrorMapper {
   private static final Logger LOG = LoggerFactory.getLogger(AbstractErrorMapper.class);
+
   @FunctionalInterface
   protected interface ErrorCodeRule {
     DatabricksError create(String message, List<ErrorDetail> details);
@@ -22,9 +22,13 @@ abstract class AbstractErrorMapper {
   }
 
   public DatabricksError apply(Response resp, ApiErrorBody errorBody) {
-    for (ErrorOverride<?> override: ErrorOverrides.ALL_OVERRIDES) {
+    for (ErrorOverride<?> override : ErrorOverrides.ALL_OVERRIDES) {
       if (override.matches(errorBody, resp)) {
-        LOG.debug("Overriding error with {} (original status code: {}, original error code: {})", override.getDebugName(), resp.getStatusCode(), errorBody.getErrorCode());
+        LOG.debug(
+            "Overriding error with {} (original status code: {}, original error code: {})",
+            override.getDebugName(),
+            resp.getStatusCode(),
+            errorBody.getErrorCode());
         return override.makeError(errorBody);
       }
     }

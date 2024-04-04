@@ -38,7 +38,8 @@ public class ErrorOverride<T extends DatabricksError> {
       return false;
     }
 
-    if (this.pathRegex != null && !this.pathRegex.matcher(resp.getRequest().getUri().getPath()).matches()) {
+    if (this.pathRegex != null
+        && !this.pathRegex.matcher(resp.getRequest().getUri().getPath()).matches()) {
       return false;
     }
     String statusCode = Integer.toString(resp.getStatusCode());
