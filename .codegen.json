@@ -17,7 +17,8 @@
   "batch": {
     ".codegen/workspace.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/WorkspaceClient.java",
     ".codegen/account.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/AccountClient.java",
-    ".codegen/error-mapper.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/ErrorMapper.java"
+    ".codegen/error-mapper.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/ErrorMapper.java",
+    ".codegen/error-overrides.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/ErrorOverrides.java"
   },
   "version": {
     "pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n  <version>$VERSION</version>",

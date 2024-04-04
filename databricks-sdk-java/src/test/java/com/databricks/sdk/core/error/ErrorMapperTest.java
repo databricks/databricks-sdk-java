@@ -3,6 +3,8 @@ package com.databricks.sdk.core.error;
 import com.databricks.sdk.VariableSource;
 import com.databricks.sdk.core.DatabricksError;
 import com.databricks.sdk.core.error.platform.*;
+import com.databricks.sdk.core.http.Request;
+import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.stream.Stream;
@@ -99,7 +101,9 @@ public class ErrorMapperTest {
       throws JsonProcessingException {
     ErrorMapper mapper = new ErrorMapper();
     ApiErrorBody apiErrorBody = new ObjectMapper().readValue(errorBody, ApiErrorBody.class);
-    DatabricksError error = mapper.apply(statusCode, apiErrorBody);
+    Request req = new Request("GET", "/a/b/c");
+    Response resp = new Response(req, statusCode, null, null);
+    DatabricksError error = mapper.apply(resp, apiErrorBody);
     assert error.getClass().equals(expectedClass);
   }
 }
