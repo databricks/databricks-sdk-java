@@ -106,4 +106,38 @@ public class ErrorMapperTest {
     DatabricksError error = mapper.apply(resp, apiErrorBody);
     assert error.getClass().equals(expectedClass);
   }
+
+  static final Stream<Arguments> overrideCases = Stream.of(
+      Arguments.of(
+          ResourceDoesNotExist.class,
+          "GET",
+          "https://my.databricks.workspace/api/2.0/clusters/get?cluster_id=123",
+          400,
+          "{\"error_code\":\"INVALID_PARAMETER_VALUE\",\"message\":\"Cluster 123 does not exist\"}"
+      ),
+      Arguments.of(
+          ResourceDoesNotExist.class,
+          "GET",
+          "https://my.databricks.workspace/api/2.1/jobs/get?job_id=123",
+          400,
+          "{\"error_code\":\"INVALID_PARAMETER_VALUE\",\"message\":\"Job 123 does not exist\"}"
+      )
+  );
+
+  @ParameterizedTest
+  @VariableSource("overrideCases")
+  void applyOverridesErrorsCorrectly(
+      Class<?> expected,
+      String method,
+      String url,
+      int statusCode,
+      String errorBody) throws JsonProcessingException {
+    ErrorMapper mapper = new ErrorMapper();
+    ApiErrorBody apiErrorBody = new ObjectMapper().readValue(errorBody, ApiErrorBody.class);
+    Request req = new Request(method, url);
+    Response resp = new Response(req, statusCode, null, null);
+    DatabricksError error = mapper.apply(resp, apiErrorBody);
+    assert error.getClass().equals(expected);
+  }
+
 }
