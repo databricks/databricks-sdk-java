@@ -118,7 +118,7 @@ public class DatabricksConfig {
   private String proxyHost;
 
   @ConfigAttribute(env = "PROXY_PORT")
-  private int proxyPort;
+  private Integer proxyPort;
 
   @ConfigAttribute(env = "PROXY_USERNAME")
   private String proxyUsername;
@@ -130,7 +130,7 @@ public class DatabricksConfig {
   private ProxyConfig.ProxyAuthType proxyAuthType;
 
   @ConfigAttribute(env = "USE_SYSTEM_PROPERTIES_HTTP")
-  private boolean useSystemPropertiesHttp;
+  private Boolean useSystemPropertiesHttp;
 
   private volatile boolean resolved;
   private HeaderFactory headerFactory;
@@ -356,13 +356,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
@@ -485,11 +489,11 @@ public class DatabricksConfig {
     return this;
   }
 
-  public int getProxyPort() {
+  public Integer getProxyPort() {
     return proxyPort;
   }
 
-  public DatabricksConfig setProxyPort(int proxyPort) {
+  public DatabricksConfig setProxyPort(Integer proxyPort) {
     this.proxyPort = proxyPort;
     return this;
   }
@@ -521,11 +525,11 @@ public class DatabricksConfig {
     return this;
   }
 
-  public boolean isUseSystemPropertiesHttp() {
+  public Boolean isUseSystemPropertiesHttp() {
     return useSystemPropertiesHttp;
   }
 
-  public DatabricksConfig setUseSystemPropertiesHttp(boolean useSystemPropertiesHttp) {
+  public DatabricksConfig setUseSystemPropertiesHttp(Boolean useSystemPropertiesHttp) {
     this.useSystemPropertiesHttp = useSystemPropertiesHttp;
     return this;
   }

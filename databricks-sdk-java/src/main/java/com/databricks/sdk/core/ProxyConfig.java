@@ -2,11 +2,11 @@ package com.databricks.sdk.core;
 
 public class ProxyConfig {
   private String host;
-  private int port;
+  private Integer port;
   private String username;
   private String password;
   private ProxyAuthType proxyAuthType;
-  private boolean useSystemProperties;
+  private Boolean useSystemProperties;
 
   public enum ProxyAuthType {
     // Currently we only support BASIC and SPNEGO
@@ -34,11 +34,11 @@ public class ProxyConfig {
     return this;
   }
 
-  public int getPort() {
+  public Integer getPort() {
     return port;
   }
 
-  public ProxyConfig setPort(int port) {
+  public ProxyConfig setPort(Integer port) {
     this.port = port;
     return this;
   }
@@ -70,11 +70,11 @@ public class ProxyConfig {
     return this;
   }
 
-  public boolean isUseSystemProperties() {
+  public Boolean isUseSystemProperties() {
     return useSystemProperties;
   }
 
-  public ProxyConfig setUseSystemProperties(boolean useSystemProperties) {
+  public ProxyConfig setUseSystemProperties(Boolean useSystemProperties) {
     this.useSystemProperties = useSystemProperties;
     return this;
   }

@@ -23,7 +23,7 @@ public class ProxyUtils {
     Integer proxyPort = null;
     String proxyUser = null;
     String proxyPassword = null;
-    if (config.isUseSystemProperties()) {
+    if (config.isUseSystemProperties() != null && config.isUseSystemProperties()) {
       builder.useSystemProperties();
       String protocol = System.getProperty("https.proxyHost") != null ? "https" : "http";
       proxyHost = System.getProperty(protocol + ".proxyHost");
@@ -50,6 +50,9 @@ public class ProxyUtils {
       String proxyUser,
       String proxyPassword,
       HttpClientBuilder builder) {
+    if (proxyAuthType == null) {
+      return;
+    }
     AuthScope authScope = new AuthScope(proxyHost, proxyPort);
     switch (proxyAuthType) {
       case NONE:
