@@ -3,7 +3,9 @@ package com.databricks.sdk.core.retry;
 import com.databricks.sdk.core.DatabricksError;
 import java.net.*;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,58 +17,38 @@ import org.slf4j.LoggerFactory;
 public class NonIdempotentRequestRetryStrategy implements RetryStrategy {
   private final Logger LOGGER = LoggerFactory.getLogger(getClass().getName());
 
-  private static final List<String> TRANSIENT_ERROR_STRING_MATCHES =
-      Arrays.asList(
-          "com.databricks.backend.manager.util.UnknownWorkerEnvironmentException",
-          "does not have any associated worker environments",
-          "There is no worker environment with id",
-          "Unknown worker environment",
-          "ClusterNotReadyException");
-
-  private static final List<Class<? extends Throwable>> RETRYABLE_CLASSES =
+  private static final List<Class<? extends Throwable>> RETRIABLE_CLASSES =
       Arrays.asList(
           ConnectException.class,
           UnknownHostException.class,
           NoRouteToHostException.class,
           PortUnreachableException.class);
 
+  private static final Set<Integer> RETRIABLE_HTTP_CODES =
+      new HashSet<>(
+          Arrays.asList(
+              /* Too many requests */ 429, /* Request not processed by server */ 501, 503));
+
   @Override
   public boolean isRetriable(DatabricksError databricksError) {
-    if (isTooManyRequestsError(databricksError)) {
-      return true;
-    }
-    if (isCausedByTransientError(databricksError)) {
+    if (RetryUtils.isCausedByTransientError(databricksError)) {
       return true;
     }
     if (isClientSideException(databricksError)) {
       return true;
     }
-    if (isNotProcessedByServer(databricksError)) {
+    if (isRetriableHttpErrorCode(databricksError)) {
       return true;
     }
     return false;
   }
 
-  private boolean isNotProcessedByServer(DatabricksError databricksError) {
-    return databricksError.getStatusCode() == 501 || databricksError.getStatusCode() == 503;
-  }
-
-  private boolean isTooManyRequestsError(DatabricksError databricksError) {
-    return databricksError.getStatusCode() == 429;
-  }
-
-  private boolean isCausedByTransientError(DatabricksError databricksError) {
-    String message = databricksError.getMessage();
-    for (String match : TRANSIENT_ERROR_STRING_MATCHES) {
-      if (message != null && message.contains(match)) {
-        return true;
-      }
-    }
-    return false;
+  private boolean isRetriableHttpErrorCode(DatabricksError databricksError) {
+    return RETRIABLE_HTTP_CODES.contains(databricksError.getStatusCode());
   }
 
   private boolean isClientSideException(DatabricksError error) {
-    for (Class<? extends Throwable> clazz : RETRYABLE_CLASSES) {
+    for (Class<? extends Throwable> clazz : RETRIABLE_CLASSES) {
       if (isCausedBy(error.getCause(), clazz)) {
         LOGGER.debug("Attempting retry because cause or nested cause extends {}", clazz.getName());
         return true;

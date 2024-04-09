@@ -31,6 +31,9 @@ public class IdempotentRequestRetryStrategy implements RetryStrategy {
 
   @Override
   public boolean isRetriable(DatabricksError databricksError) {
+    if (RetryUtils.isCausedByTransientError(databricksError)) {
+      return true;
+    }
     if (isNonRetriableException(databricksError)) {
       return false;
     }
