@@ -1,7 +1,6 @@
 package com.databricks.sdk.core;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.error.ApiErrorBody;
 import com.databricks.sdk.core.error.ErrorDetail;
@@ -209,6 +208,19 @@ public class ApiClientTest {
             getSuccessResponse(req)),
         MyEndpointResponse.class,
         "Request GET /api/my/endpoint failed after 4 retries");
+  }
+
+  @Test
+  void checkExponentialBackoffForRetry() {
+    Request req = getBasicRequest();
+    ApiClient client =
+        getApiClient(req, Collections.singletonList(getTooManyRequestsResponse(req)));
+    for (int attemptNumber = 1; attemptNumber < 5; attemptNumber++) {
+      long backoff = client.getBackoffMillis(null, attemptNumber);
+      int expectedBackoff = Math.min(60000, 1000 * (1 << (attemptNumber - 1)));
+      assertTrue(backoff >= expectedBackoff);
+      assertTrue(backoff <= expectedBackoff + 750L);
+    }
   }
 
   @Test
