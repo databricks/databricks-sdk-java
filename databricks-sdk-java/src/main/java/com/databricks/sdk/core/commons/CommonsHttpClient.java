@@ -2,41 +2,31 @@ package com.databricks.sdk.core.commons;
 
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.ProxyConfig;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.CustomCloseInputStream;
+import com.databricks.sdk.core.utils.ProxyUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
-import org.apache.http.auth.AuthSchemeProvider;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.Credentials;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.config.AuthSchemes;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
-import org.apache.http.config.RegistryBuilder;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.auth.SPNegoSchemeFactory;
-import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.client.ProxyAuthenticationStrategy;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +42,17 @@ public class CommonsHttpClient implements HttpClient {
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
     hc = makeClosableHttpClient();
+  }
+
+  public CommonsHttpClient(DatabricksConfig databricksConfig) {
+    int timeoutSeconds =
+        databricksConfig.getHttpTimeoutSeconds() == null
+            ? 300
+            : databricksConfig.getHttpTimeoutSeconds();
+    timeout = timeoutSeconds * 1000;
+    connectionManager.setMaxTotal(100);
+    ProxyConfig proxyConfig = new ProxyConfig(databricksConfig);
+    hc = makeClosableHttpClient(proxyConfig);
   }
 
   public CommonsHttpClient(int timeoutSeconds, ProxyConfig proxyConfig) {
@@ -72,7 +73,6 @@ public class CommonsHttpClient implements HttpClient {
     return HttpClientBuilder.create()
         .setConnectionManager(connectionManager)
         .setDefaultRequestConfig(makeRequestConfig())
-        .useSystemProperties()
         .build();
   }
 
@@ -81,92 +81,8 @@ public class CommonsHttpClient implements HttpClient {
         HttpClientBuilder.create()
             .setConnectionManager(connectionManager)
             .setDefaultRequestConfig(makeRequestConfig());
-    setupProxy(proxyConfig, builder);
+    ProxyUtils.setupProxy(proxyConfig, builder);
     return builder.build();
-  }
-
-  public static void setupProxy(ProxyConfig config, HttpClientBuilder builder) {
-    String proxyHost = null;
-    Integer proxyPort = null;
-    String proxyUser = null;
-    String proxyPassword = null;
-    if (config.isUseSystemProperties()) {
-      builder.useSystemProperties();
-      String protocol = System.getProperty("https.proxyHost") != null ? "https" : "http";
-      proxyHost = System.getProperty(protocol + ".proxyHost");
-      proxyPort = Integer.parseInt(System.getProperty(protocol + ".proxyPort"));
-      proxyUser = System.getProperty(protocol + ".proxyUser");
-      proxyPassword = System.getProperty(protocol + ".proxyPassword");
-    }
-    // Override system properties if proxy configuration is explicitly set
-    if (config.getHost() != null) {
-      proxyHost = config.getHost();
-      proxyPort = config.getPort();
-      proxyUser = config.getUsername();
-      proxyPassword = config.getPassword();
-      builder.setProxy(new HttpHost(proxyHost, proxyPort));
-    }
-    setupProxyAuth(
-        proxyHost, proxyPort, config.getProxyAuthType(), proxyUser, proxyPassword, builder);
-  }
-
-  public static void setupProxyAuth(
-      String proxyHost,
-      Integer proxyPort,
-      ProxyConfig.ProxyAuthType proxyAuthType,
-      String proxyUser,
-      String proxyPassword,
-      HttpClientBuilder builder) {
-    AuthScope authScope = new AuthScope(proxyHost, proxyPort);
-    switch (proxyAuthType) {
-      case NONE:
-        break;
-      case BASIC:
-        setupBasicProxyAuth(builder, authScope, proxyUser, proxyPassword);
-        break;
-      case SPNEGO:
-        setupNegotiateProxyAuth(builder, authScope);
-        break;
-      default:
-        throw new DatabricksException("Unknown proxy auth type: " + proxyAuthType);
-    }
-  }
-
-  public static void setupNegotiateProxyAuth(HttpClientBuilder builder, AuthScope authScope) {
-    // We only support kerberos for negotiate as of now
-    System.setProperty("javax.security.auth.useSubjectCredsOnly", "false");
-    // "java.security.krb5.conf" system property needs to be set if krb5.conf is not in the default
-    // location
-    // Use "sun.security.krb5.debug" and "sun.security.jgss.debug" system properties for debugging
-    Credentials useJaasCreds =
-        new Credentials() {
-          public String getPassword() {
-            return null;
-          }
-
-          public Principal getUserPrincipal() {
-            return null;
-          }
-        };
-
-    CredentialsProvider credsProvider = new BasicCredentialsProvider();
-    credsProvider.setCredentials(authScope, useJaasCreds);
-    builder
-        .setDefaultCredentialsProvider(credsProvider)
-        .setDefaultAuthSchemeRegistry(
-            RegistryBuilder.<AuthSchemeProvider>create()
-                .register(AuthSchemes.SPNEGO, new SPNegoSchemeFactory(true))
-                .build());
-  }
-
-  public static void setupBasicProxyAuth(
-      HttpClientBuilder builder, AuthScope authScope, String proxyUser, String proxyPassword) {
-    CredentialsProvider credsProvider = new BasicCredentialsProvider();
-    credsProvider.setCredentials(
-        authScope, new UsernamePasswordCredentials(proxyUser, proxyPassword));
-    builder
-        .setDefaultCredentialsProvider(credsProvider)
-        .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
   }
 
   @Override

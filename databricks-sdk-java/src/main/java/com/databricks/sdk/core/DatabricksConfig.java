@@ -114,6 +114,24 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_RATE_LIMIT")
   private Integer rateLimit;
 
+  @ConfigAttribute(env = "PROXY_HOST")
+  private String proxyHost;
+
+  @ConfigAttribute(env = "PROXY_PORT")
+  private int proxyPort;
+
+  @ConfigAttribute(env = "PROXY_USERNAME")
+  private String proxyUsername;
+
+  @ConfigAttribute(env = "PROXY_PASSWORD")
+  private String proxyPassword;
+
+  @ConfigAttribute(env = "PROXY_AUTH_TYPE")
+  private ProxyConfig.ProxyAuthType proxyAuthType;
+
+  @ConfigAttribute(env = "USE_SYSTEM_PROPERTIES_HTTP")
+  private boolean useSystemPropertiesHttp;
+
   private volatile boolean resolved;
   private HeaderFactory headerFactory;
 
@@ -156,12 +174,8 @@ public class DatabricksConfig {
     if (httpClient != null) {
       return;
     }
-    int timeout = 300;
-    if (httpTimeoutSeconds != null) {
-      timeout = httpTimeoutSeconds;
-    }
     // eventually it'll get decoupled from config.
-    httpClient = new CommonsHttpClient(timeout);
+    httpClient = new CommonsHttpClient(this);
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {
@@ -342,13 +356,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
@@ -459,6 +477,60 @@ public class DatabricksConfig {
 
   public DatabricksConfig setHttpClient(HttpClient httpClient) {
     this.httpClient = httpClient;
+    return this;
+  }
+
+  public String getProxyHost() {
+    return proxyHost;
+  }
+
+  public DatabricksConfig setProxyHost(String proxyHost) {
+    this.proxyHost = proxyHost;
+    return this;
+  }
+
+  public int getProxyPort() {
+    return proxyPort;
+  }
+
+  public DatabricksConfig setProxyPort(int proxyPort) {
+    this.proxyPort = proxyPort;
+    return this;
+  }
+
+  public String getProxyUsername() {
+    return proxyUsername;
+  }
+
+  public DatabricksConfig setProxyUsername(String proxyUsername) {
+    this.proxyUsername = proxyUsername;
+    return this;
+  }
+
+  public String getProxyPassword() {
+    return proxyPassword;
+  }
+
+  public DatabricksConfig setProxyPassword(String proxyPassword) {
+    this.proxyPassword = proxyPassword;
+    return this;
+  }
+
+  public ProxyConfig.ProxyAuthType getProxyAuthType() {
+    return proxyAuthType;
+  }
+
+  public DatabricksConfig setProxyAuthType(ProxyConfig.ProxyAuthType proxyAuthType) {
+    this.proxyAuthType = proxyAuthType;
+    return this;
+  }
+
+  public boolean isUseSystemPropertiesHttp() {
+    return useSystemPropertiesHttp;
+  }
+
+  public DatabricksConfig setUseSystemPropertiesHttp(boolean useSystemPropertiesHttp) {
+    this.useSystemPropertiesHttp = useSystemPropertiesHttp;
     return this;
   }
 
