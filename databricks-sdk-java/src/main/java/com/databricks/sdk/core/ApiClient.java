@@ -142,6 +142,14 @@ public class ApiClient {
     }
   }
 
+  public <O> O POST(String path, Class<O> target, Map<String, String> headers) {
+    try {
+      return execute(prepareRequest("POST", path, null, headers), target);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
   public <I, O> O POST(String path, I in, Class<O> target, Map<String, String> headers) {
     try {
       return execute(prepareRequest("POST", path, in, headers), target);
