@@ -20,7 +20,8 @@ public interface EsmEnablementAccountService {
    *
    * <p>Gets the enhanced security monitoring setting for new workspaces.
    */
-  EsmEnablementAccountSetting get(GetEsmEnablementAccountRequest getEsmEnablementAccountRequest);
+  EsmEnablementAccountSetting get(
+      GetEsmEnablementAccountSettingRequest getEsmEnablementAccountSettingRequest);
 
   /**
    * Update the enhanced security monitoring setting for new workspaces.

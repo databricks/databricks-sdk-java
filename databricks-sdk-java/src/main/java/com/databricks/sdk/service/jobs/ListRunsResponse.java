@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** List of runs was retrieved successfully. */
 @Generated
 public class ListRunsResponse {
   /** If true, additional runs matching the provided filter are available for listing. */

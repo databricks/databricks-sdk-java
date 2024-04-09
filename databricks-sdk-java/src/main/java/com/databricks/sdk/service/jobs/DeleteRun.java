@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class DeleteRun {
-  /** The canonical identifier of the run for which to retrieve the metadata. */
+  /** ID of the run to delete. */
   @JsonProperty("run_id")
   private Long runId;
 

@@ -36,7 +36,7 @@ public class CspEnablementAccountAPI {
    *
    * <p>Gets the compliance security profile setting for new workspaces.
    */
-  public CspEnablementAccountSetting get(GetCspEnablementAccountRequest request) {
+  public CspEnablementAccountSetting get(GetCspEnablementAccountSettingRequest request) {
     return impl.get(request);
   }
 

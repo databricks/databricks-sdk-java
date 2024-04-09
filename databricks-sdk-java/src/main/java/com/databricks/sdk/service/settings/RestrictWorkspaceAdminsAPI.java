@@ -44,7 +44,7 @@ public class RestrictWorkspaceAdminsAPI {
    * response.
    */
   public DeleteRestrictWorkspaceAdminsSettingResponse delete(
-      DeleteRestrictWorkspaceAdminRequest request) {
+      DeleteRestrictWorkspaceAdminsSettingRequest request) {
     return impl.delete(request);
   }
 
@@ -53,7 +53,7 @@ public class RestrictWorkspaceAdminsAPI {
    *
    * <p>Gets the restrict workspace admins setting.
    */
-  public RestrictWorkspaceAdminsSetting get(GetRestrictWorkspaceAdminRequest request) {
+  public RestrictWorkspaceAdminsSetting get(GetRestrictWorkspaceAdminsSettingRequest request) {
     return impl.get(request);
   }
 

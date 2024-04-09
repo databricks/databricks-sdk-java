@@ -16,7 +16,7 @@ class CspEnablementImpl implements CspEnablementService {
   }
 
   @Override
-  public CspEnablementSetting get(GetCspEnablementRequest request) {
+  public CspEnablementSetting get(GetCspEnablementSettingRequest request) {
     String path = "/api/2.0/settings/types/shield_csp_enablement_ws_db/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

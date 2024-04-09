@@ -33,7 +33,7 @@ public class EsmEnablementAccountAPI {
    *
    * <p>Gets the enhanced security monitoring setting for new workspaces.
    */
-  public EsmEnablementAccountSetting get(GetEsmEnablementAccountRequest request) {
+  public EsmEnablementAccountSetting get(GetEsmEnablementAccountSettingRequest request) {
     return impl.get(request);
   }
 

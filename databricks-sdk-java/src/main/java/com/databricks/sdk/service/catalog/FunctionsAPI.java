@@ -94,8 +94,8 @@ public class FunctionsAPI {
    * admin, all functions are returned in the output list. Otherwise, the user must have the
    * **USE_CATALOG** privilege on the catalog and the **USE_SCHEMA** privilege on the schema, and
    * the output list contains only functions for which either the user has the **EXECUTE** privilege
-   * or the user is the owner. For unpaginated request, there is no guarantee of a specific ordering
-   * of the elements in the array. For paginated request, elements are ordered by their name.
+   * or the user is the owner. There is no guarantee of a specific ordering of the elements in the
+   * array.
    */
   public Iterable<FunctionInfo> list(ListFunctionsRequest request) {
     return new Paginator<>(

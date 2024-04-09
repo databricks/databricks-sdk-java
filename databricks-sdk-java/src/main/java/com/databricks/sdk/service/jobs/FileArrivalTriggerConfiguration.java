@@ -17,8 +17,8 @@ public class FileArrivalTriggerConfiguration {
   private Long minTimeBetweenTriggersSeconds;
 
   /**
-   * The storage location to monitor for file arrivals. The value must point to the root or a
-   * subpath of an external location URL or the root or subpath of a Unity Catalog volume.
+   * URL to be monitored for file arrivals. The path must point to the root or a subpath of the
+   * external location.
    */
   @JsonProperty("url")
   private String url;

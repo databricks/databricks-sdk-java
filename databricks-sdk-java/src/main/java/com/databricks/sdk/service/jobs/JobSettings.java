@@ -39,7 +39,7 @@ public class JobSettings {
    * is in an editable state and can be modified.
    */
   @JsonProperty("edit_mode")
-  private JobSettingsEditMode editMode;
+  private JobEditMode editMode;
 
   /**
    * An optional set of email addresses that is notified when runs of this job begin or complete as
@@ -82,19 +82,14 @@ public class JobSettings {
   private Collection<JobCluster> jobClusters;
 
   /**
-   * An optional maximum allowed number of concurrent runs of the job.
-   *
-   * <p>Set this value if you want to be able to execute multiple runs of the same job concurrently.
-   * This is useful for example if you trigger your job on a frequent schedule and want to allow
-   * consecutive runs to overlap with each other, or if you want to trigger multiple runs which
-   * differ by their input parameters.
-   *
-   * <p>This setting affects only new runs. For example, suppose the job’s concurrency is 4 and
-   * there are 4 concurrent active runs. Then setting the concurrency to 3 won’t kill any of the
-   * active runs. However, from then on, new runs are skipped unless there are fewer than 3 active
-   * runs.
-   *
-   * <p>This value cannot exceed 1000. Setting this value to `0` causes all new runs to be skipped.
+   * An optional maximum allowed number of concurrent runs of the job. Set this value if you want to
+   * be able to execute multiple runs of the same job concurrently. This is useful for example if
+   * you trigger your job on a frequent schedule and want to allow consecutive runs to overlap with
+   * each other, or if you want to trigger multiple runs which differ by their input parameters.
+   * This setting affects only new runs. For example, suppose the job’s concurrency is 4 and there
+   * are 4 concurrent active runs. Then setting the concurrency to 3 won’t kill any of the active
+   * runs. However, from then on, new runs are skipped unless there are fewer than 3 active runs.
+   * This value cannot exceed 1000. Setting this value to `0` causes all new runs to be skipped.
    */
   @JsonProperty("max_concurrent_runs")
   private Long maxConcurrentRuns;
@@ -200,12 +195,12 @@ public class JobSettings {
     return description;
   }
 
-  public JobSettings setEditMode(JobSettingsEditMode editMode) {
+  public JobSettings setEditMode(JobEditMode editMode) {
     this.editMode = editMode;
     return this;
   }
 
-  public JobSettingsEditMode getEditMode() {
+  public JobEditMode getEditMode() {
     return editMode;
   }
 
