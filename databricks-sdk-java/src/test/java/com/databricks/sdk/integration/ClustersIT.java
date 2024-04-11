@@ -3,7 +3,7 @@ package com.databricks.sdk.integration;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.WorkspaceClient;
-import com.databricks.sdk.core.error.platform.InvalidParameterValue;
+import com.databricks.sdk.core.error.platform.ResourceDoesNotExist;
 import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvOrSkip;
@@ -52,7 +52,7 @@ public class ClustersIT {
   @Test
   void clusterDoesNotExist(WorkspaceClient w) {
     assertThrowsExactly(
-        InvalidParameterValue.class,
+        ResourceDoesNotExist.class,
         () -> {
           w.clusters().get("does-not-exist");
         });

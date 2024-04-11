@@ -1,0 +1,24 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.core.error;
+
+import java.util.Arrays;
+import java.util.List;
+
+import com.databricks.sdk.support.Generated;
+
+@Generated
+class ErrorOverrides {
+  static final List<ErrorOverride<?>> ALL_OVERRIDES = Arrays.asList(
+{{- range $i, $x := .ErrorOverrides }}
+    {{if not (eq $i 0)}}, {{end}}new ErrorOverride<>(
+        "{{$x.Name}}",
+        "{{ replaceAll "\\" "\\\\" $x.PathRegex}}",
+        "{{$x.Verb}}",
+        "{{ replaceAll "\\" "\\\\" $x.StatusCodeMatcher}}",
+        "{{ replaceAll "\\" "\\\\" $x.ErrorCodeMatcher}}",
+        "{{ replaceAll "\\" "\\\\" $x.MessageMatcher}}",
+        com.databricks.sdk.core.error.platform.{{$x.OverrideErrorCode.PascalName}}.class)
+{{- end}}
+  );
+}

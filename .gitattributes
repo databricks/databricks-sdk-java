@@ -1,6 +1,7 @@
 databricks-sdk-java/src/main/java/com/databricks/sdk/AccountClient.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/WorkspaceClient.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/ErrorMapper.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/ErrorOverrides.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/platform/Aborted.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/platform/AlreadyExists.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/platform/BadRequest.java linguist-generated=true
