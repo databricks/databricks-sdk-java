@@ -14,6 +14,7 @@ The Databricks SDK for Java includes functionality to accelerate development wit
 - [Long-running operations](#long-running-operations)
 - [Paginated responses](#paginated-responses)
 - [Single-sign-on with OAuth](#single-sign-on-sso-with-oauth)
+- [Error handling](#error-handling)
 - [Logging](#logging)
 - [Interface stability](#interface-stability)
 - [Disclaimer](#disclaimer)
@@ -356,6 +357,30 @@ For applications, that do run on developer workstations, Databricks SDK for Java
 ### Creating custom OAuth applications
 
 In order to use OAuth with Databricks SDK for Python, you should use `AccountClient.customAppIntegration().create()` API. Usage of this can be seen in the [Spring Boot example project](/examples/spring-boot-oauth-u2m-demo/src/main/java/com/databricks/sdk/App.java).
+
+## Error Handling
+The Databricks SDK for Java provides a robust error-handling mechanism that allows developers to catch and handle API errors. When an error occurs, the SDK will raise an exception that contains information about the error, such as the HTTP status code, error message, and error details. Developers can catch these exceptions and handle them appropriately in their code.
+
+```java
+import com.databricks.sdk.WorkspaceClient;
+import com.databricks.sdk.core.errors.platform.ResourceDoesNotExist;
+import com.databricks.sdk.service.compute.ClusterDetails;
+
+public class ErrorDemo {
+    public static void main(String[] args) {
+        WorkspaceClient w = new WorkspaceClient();
+        try {
+            ClusterDetails c = w.clusters().get("1234-5678-9012");
+        } catch (ResourceDoesNotExist e) {
+          System.out.println("Cluster not found: " + e.getMessage());
+        }
+    }
+}
+```
+
+The SDK handles inconsistencies in error responses amongst the different services, providing a consistent interface for developers to work with. Simply catch the appropriate exception type and handle the error as needed. The errors returned by the Databricks API are defined in [databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/platform](https://github.com/databricks/databricks-sdk-java/tree/main/databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/platform).
+
+
 
 ## Logging
 

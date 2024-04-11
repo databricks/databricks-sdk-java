@@ -52,7 +52,7 @@ public class ApiErrors {
     if (errorBody.getErrorDetails() == null) {
       errorBody.setErrorDetails(Collections.emptyList());
     }
-    return ERROR_MAPPER.apply(response.getStatusCode(), errorBody);
+    return ERROR_MAPPER.apply(response, errorBody);
   }
 
   /**

@@ -1,6 +1,9 @@
 package com.databricks.sdk.integration;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.databricks.sdk.WorkspaceClient;
+import com.databricks.sdk.core.error.platform.ResourceDoesNotExist;
 import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
@@ -19,5 +22,14 @@ public class JobsIT {
     java.util.List<BaseJob> all = CollectionUtils.asList(list);
 
     CollectionUtils.assertUnique(all);
+  }
+
+  @Test
+  void getNonExistingJob(WorkspaceClient w) {
+    assertThrowsExactly(
+        ResourceDoesNotExist.class,
+        () -> {
+          w.jobs().get(123456789);
+        });
   }
 }
