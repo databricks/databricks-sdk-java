@@ -276,12 +276,10 @@ public class ApiClient {
       // Retry after a backoff.
       long sleepMillis = getBackoffMillis(out, attemptNumber);
       LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis));
-      synchronized (timer) {
-        try {
-          timer.wait(sleepMillis);
-        } catch (InterruptedException ex) {
-          Thread.currentThread().interrupt();
-        }
+      try {
+        timer.sleep(sleepMillis);
+      } catch (InterruptedException ex) {
+        Thread.currentThread().interrupt();
       }
     }
   }

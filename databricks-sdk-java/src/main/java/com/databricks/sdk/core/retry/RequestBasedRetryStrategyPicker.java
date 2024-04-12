@@ -21,15 +21,15 @@ public class RequestBasedRetryStrategyPicker implements RetryStrategyPicker {
           // Create a new session v2.0
           new Request("POST", "/api/2.0/sql/sessions/"),
           // Delete an existing session v1.0
-          new Request("DELETE", "/api/2.0/sql/statements/sessions/."),
+          new Request("DELETE", "/api/2.0/sql/statements/sessions/.*"),
           // Delete an existing session v2.0
-          new Request("DELETE", "/api/2.0/sql/sessions/."),
+          new Request("DELETE", "/api/2.0/sql/sessions/.*"),
           // Get status of a statement
-          new Request("GET", "/api/2.0/sql/statements/."),
+          new Request("GET", "/api/2.0/sql/statements/.*"),
           // Close a statement
-          new Request("DELETE", "/api/2.0/sql/statements/."),
+          new Request("DELETE", "/api/2.0/sql/statements/.*"),
           // Fetch a chunk of a statement result
-          new Request("GET", "/api/2.0/sql/statements/./result/chunks/."));
+          new Request("GET", "/api/2.0/sql/statements/.*/result/chunks/.*"));
 
   private final List<Map.Entry<String, Pattern>> idempotentRequestsPattern;
   private static final NonIdempotentRequestRetryStrategy NON_IDEMPOTENT_RETRY_STRATEGY =
