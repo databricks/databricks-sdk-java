@@ -11,10 +11,6 @@ import java.util.Objects;
 
 @Generated
 public class JobSettings {
-  /** A list of compute requirements that can be referenced by tasks of this job. */
-  @JsonProperty("compute")
-  private Collection<JobCompute> compute;
-
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
    * always one run executing. Only one of `schedule` and `continuous` can be used.
@@ -47,6 +43,13 @@ public class JobSettings {
    */
   @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
+
+  /**
+   * A list of task execution environment specifications that can be referenced by tasks of this
+   * job.
+   */
+  @JsonProperty("environments")
+  private Collection<JobEnvironment> environments;
 
   /**
    * Used to tell what is the format of the job. This field is ignored in Create/Update/Reset calls.
@@ -159,15 +162,6 @@ public class JobSettings {
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
-  public JobSettings setCompute(Collection<JobCompute> compute) {
-    this.compute = compute;
-    return this;
-  }
-
-  public Collection<JobCompute> getCompute() {
-    return compute;
-  }
-
   public JobSettings setContinuous(Continuous continuous) {
     this.continuous = continuous;
     return this;
@@ -211,6 +205,15 @@ public class JobSettings {
 
   public JobEmailNotifications getEmailNotifications() {
     return emailNotifications;
+  }
+
+  public JobSettings setEnvironments(Collection<JobEnvironment> environments) {
+    this.environments = environments;
+    return this;
+  }
+
+  public Collection<JobEnvironment> getEnvironments() {
+    return environments;
   }
 
   public JobSettings setFormat(Format format) {
@@ -362,12 +365,12 @@ public class JobSettings {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     JobSettings that = (JobSettings) o;
-    return Objects.equals(compute, that.compute)
-        && Objects.equals(continuous, that.continuous)
+    return Objects.equals(continuous, that.continuous)
         && Objects.equals(deployment, that.deployment)
         && Objects.equals(description, that.description)
         && Objects.equals(editMode, that.editMode)
         && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(environments, that.environments)
         && Objects.equals(format, that.format)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(health, that.health)
@@ -389,12 +392,12 @@ public class JobSettings {
   @Override
   public int hashCode() {
     return Objects.hash(
-        compute,
         continuous,
         deployment,
         description,
         editMode,
         emailNotifications,
+        environments,
         format,
         gitSource,
         health,
@@ -416,12 +419,12 @@ public class JobSettings {
   @Override
   public String toString() {
     return new ToStringer(JobSettings.class)
-        .add("compute", compute)
         .add("continuous", continuous)
         .add("deployment", deployment)
         .add("description", description)
         .add("editMode", editMode)
         .add("emailNotifications", emailNotifications)
+        .add("environments", environments)
         .add("format", format)
         .add("gitSource", gitSource)
         .add("health", health)

@@ -11,13 +11,6 @@ import java.util.Objects;
 @Generated
 public class Task {
   /**
-   * The key of the compute requirement, specified in `job.settings.compute`, to use for execution
-   * of this task.
-   */
-  @JsonProperty("compute_key")
-  private String computeKey;
-
-  /**
    * If condition_task, specifies a condition with an outcome that can be used to control the
    * execution of other tasks. Does not require a cluster to execute and does not support retries or
    * notifications.
@@ -55,6 +48,13 @@ public class Task {
    */
   @JsonProperty("email_notifications")
   private TaskEmailNotifications emailNotifications;
+
+  /**
+   * The key that references an environment spec in a job. This field is required for Python script,
+   * Python wheel and dbt tasks when using serverless compute.
+   */
+  @JsonProperty("environment_key")
+  private String environmentKey;
 
   /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs. When running
@@ -203,15 +203,6 @@ public class Task {
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
-  public Task setComputeKey(String computeKey) {
-    this.computeKey = computeKey;
-    return this;
-  }
-
-  public String getComputeKey() {
-    return computeKey;
-  }
-
   public Task setConditionTask(ConditionTask conditionTask) {
     this.conditionTask = conditionTask;
     return this;
@@ -264,6 +255,15 @@ public class Task {
 
   public TaskEmailNotifications getEmailNotifications() {
     return emailNotifications;
+  }
+
+  public Task setEnvironmentKey(String environmentKey) {
+    this.environmentKey = environmentKey;
+    return this;
+  }
+
+  public String getEnvironmentKey() {
+    return environmentKey;
   }
 
   public Task setExistingClusterId(String existingClusterId) {
@@ -469,13 +469,13 @@ public class Task {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Task that = (Task) o;
-    return Objects.equals(computeKey, that.computeKey)
-        && Objects.equals(conditionTask, that.conditionTask)
+    return Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
         && Objects.equals(disableAutoOptimization, that.disableAutoOptimization)
         && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(environmentKey, that.environmentKey)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
         && Objects.equals(health, that.health)
@@ -503,13 +503,13 @@ public class Task {
   @Override
   public int hashCode() {
     return Objects.hash(
-        computeKey,
         conditionTask,
         dbtTask,
         dependsOn,
         description,
         disableAutoOptimization,
         emailNotifications,
+        environmentKey,
         existingClusterId,
         forEachTask,
         health,
@@ -537,13 +537,13 @@ public class Task {
   @Override
   public String toString() {
     return new ToStringer(Task.class)
-        .add("computeKey", computeKey)
         .add("conditionTask", conditionTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
         .add("disableAutoOptimization", disableAutoOptimization)
         .add("emailNotifications", emailNotifications)
+        .add("environmentKey", environmentKey)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)
         .add("health", health)

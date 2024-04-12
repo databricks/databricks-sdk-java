@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class MonitorRefreshInfo {
-  /** The time at which the refresh ended, in epoch milliseconds. */
+  /** Time at which refresh operation completed (milliseconds since 1/1/1970 UTC). */
   @JsonProperty("end_time_ms")
   private Long endTimeMs;
 
@@ -19,17 +19,21 @@ public class MonitorRefreshInfo {
   @JsonProperty("message")
   private String message;
 
-  /** The ID of the refresh. */
+  /** Unique id of the refresh operation. */
   @JsonProperty("refresh_id")
   private Long refreshId;
 
-  /** The time at which the refresh started, in epoch milliseconds. */
+  /** Time at which refresh operation was initiated (milliseconds since 1/1/1970 UTC). */
   @JsonProperty("start_time_ms")
   private Long startTimeMs;
 
   /** The current state of the refresh. */
   @JsonProperty("state")
   private MonitorRefreshInfoState state;
+
+  /** The method by which the refresh was triggered. */
+  @JsonProperty("trigger")
+  private MonitorRefreshInfoTrigger trigger;
 
   public MonitorRefreshInfo setEndTimeMs(Long endTimeMs) {
     this.endTimeMs = endTimeMs;
@@ -76,6 +80,15 @@ public class MonitorRefreshInfo {
     return state;
   }
 
+  public MonitorRefreshInfo setTrigger(MonitorRefreshInfoTrigger trigger) {
+    this.trigger = trigger;
+    return this;
+  }
+
+  public MonitorRefreshInfoTrigger getTrigger() {
+    return trigger;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -85,12 +98,13 @@ public class MonitorRefreshInfo {
         && Objects.equals(message, that.message)
         && Objects.equals(refreshId, that.refreshId)
         && Objects.equals(startTimeMs, that.startTimeMs)
-        && Objects.equals(state, that.state);
+        && Objects.equals(state, that.state)
+        && Objects.equals(trigger, that.trigger);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endTimeMs, message, refreshId, startTimeMs, state);
+    return Objects.hash(endTimeMs, message, refreshId, startTimeMs, state, trigger);
   }
 
   @Override
@@ -101,6 +115,7 @@ public class MonitorRefreshInfo {
         .add("refreshId", refreshId)
         .add("startTimeMs", startTimeMs)
         .add("state", state)
+        .add("trigger", trigger)
         .toString();
   }
 }

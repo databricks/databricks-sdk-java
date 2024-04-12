@@ -9,20 +9,11 @@ import java.util.Objects;
 /** Get refresh */
 @Generated
 public class GetRefreshRequest {
-  /** Full name of the table. */
-  private String fullName;
-
   /** ID of the refresh. */
   private String refreshId;
 
-  public GetRefreshRequest setFullName(String fullName) {
-    this.fullName = fullName;
-    return this;
-  }
-
-  public String getFullName() {
-    return fullName;
-  }
+  /** Full name of the table. */
+  private String tableName;
 
   public GetRefreshRequest setRefreshId(String refreshId) {
     this.refreshId = refreshId;
@@ -33,24 +24,33 @@ public class GetRefreshRequest {
     return refreshId;
   }
 
+  public GetRefreshRequest setTableName(String tableName) {
+    this.tableName = tableName;
+    return this;
+  }
+
+  public String getTableName() {
+    return tableName;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetRefreshRequest that = (GetRefreshRequest) o;
-    return Objects.equals(fullName, that.fullName) && Objects.equals(refreshId, that.refreshId);
+    return Objects.equals(refreshId, that.refreshId) && Objects.equals(tableName, that.tableName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullName, refreshId);
+    return Objects.hash(refreshId, tableName);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetRefreshRequest.class)
-        .add("fullName", fullName)
         .add("refreshId", refreshId)
+        .add("tableName", tableName)
         .toString();
   }
 }
