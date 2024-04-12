@@ -22,7 +22,7 @@ public interface EsmEnablementService {
    *
    * <p>Gets the enhanced security monitoring setting.
    */
-  EsmEnablementSetting get(GetEsmEnablementRequest getEsmEnablementRequest);
+  EsmEnablementSetting get(GetEsmEnablementSettingRequest getEsmEnablementSettingRequest);
 
   /**
    * Update the enhanced security monitoring setting.

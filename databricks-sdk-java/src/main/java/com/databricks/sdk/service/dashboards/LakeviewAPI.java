@@ -26,8 +26,60 @@ public class LakeviewAPI {
     impl = mock;
   }
 
-  public void publish(String dashboardId) {
-    publish(new PublishRequest().setDashboardId(dashboardId));
+  public Dashboard create(String displayName) {
+    return create(new CreateDashboardRequest().setDisplayName(displayName));
+  }
+
+  /**
+   * Create dashboard.
+   *
+   * <p>Create a draft dashboard.
+   */
+  public Dashboard create(CreateDashboardRequest request) {
+    return impl.create(request);
+  }
+
+  public Dashboard get(String dashboardId) {
+    return get(new GetDashboardRequest().setDashboardId(dashboardId));
+  }
+
+  /**
+   * Get dashboard.
+   *
+   * <p>Get a draft dashboard.
+   */
+  public Dashboard get(GetDashboardRequest request) {
+    return impl.get(request);
+  }
+
+  public PublishedDashboard getPublished(String dashboardId) {
+    return getPublished(new GetPublishedDashboardRequest().setDashboardId(dashboardId));
+  }
+
+  /**
+   * Get published dashboard.
+   *
+   * <p>Get the current published dashboard.
+   */
+  public PublishedDashboard getPublished(GetPublishedDashboardRequest request) {
+    return impl.getPublished(request);
+  }
+
+  public Dashboard migrate(String sourceDashboardId) {
+    return migrate(new MigrateDashboardRequest().setSourceDashboardId(sourceDashboardId));
+  }
+
+  /**
+   * Migrate dashboard.
+   *
+   * <p>Migrates a classic SQL dashboard to Lakeview.
+   */
+  public Dashboard migrate(MigrateDashboardRequest request) {
+    return impl.migrate(request);
+  }
+
+  public PublishedDashboard publish(String dashboardId) {
+    return publish(new PublishRequest().setDashboardId(dashboardId));
   }
 
   /**
@@ -35,8 +87,47 @@ public class LakeviewAPI {
    *
    * <p>Publish the current draft dashboard.
    */
-  public void publish(PublishRequest request) {
-    impl.publish(request);
+  public PublishedDashboard publish(PublishRequest request) {
+    return impl.publish(request);
+  }
+
+  public void trash(String dashboardId) {
+    trash(new TrashDashboardRequest().setDashboardId(dashboardId));
+  }
+
+  /**
+   * Trash dashboard.
+   *
+   * <p>Trash a dashboard.
+   */
+  public void trash(TrashDashboardRequest request) {
+    impl.trash(request);
+  }
+
+  public void unpublish(String dashboardId) {
+    unpublish(new UnpublishDashboardRequest().setDashboardId(dashboardId));
+  }
+
+  /**
+   * Unpublish dashboard.
+   *
+   * <p>Unpublish the dashboard.
+   */
+  public void unpublish(UnpublishDashboardRequest request) {
+    impl.unpublish(request);
+  }
+
+  public Dashboard update(String dashboardId) {
+    return update(new UpdateDashboardRequest().setDashboardId(dashboardId));
+  }
+
+  /**
+   * Update dashboard.
+   *
+   * <p>Update a draft dashboard.
+   */
+  public Dashboard update(UpdateDashboardRequest request) {
+    return impl.update(request);
   }
 
   public LakeviewService impl() {

@@ -16,7 +16,7 @@ class EsmEnablementAccountImpl implements EsmEnablementAccountService {
   }
 
   @Override
-  public EsmEnablementAccountSetting get(GetEsmEnablementAccountRequest request) {
+  public EsmEnablementAccountSetting get(GetEsmEnablementAccountSettingRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/settings/types/shield_esm_enablement_ac/names/default",

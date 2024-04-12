@@ -45,9 +45,10 @@ public interface NetworkConnectivityService {
   /**
    * Delete a private endpoint rule.
    *
-   * <p>Initiates deleting a private endpoint rule. The private endpoint will be deactivated and
-   * will be purged after seven days of deactivation. When a private endpoint is in deactivated
-   * state, `deactivated` field is set to `true` and the private endpoint is not available to your
+   * <p>Initiates deleting a private endpoint rule. If the connection state is PENDING or EXPIRED,
+   * the private endpoint is immediately deleted. Otherwise, the private endpoint is deactivated and
+   * will be deleted after seven days of deactivation. When a private endpoint is deactivated, the
+   * `deactivated` field is set to `true` and the private endpoint is not available to your
    * serverless compute resources.
    */
   NccAzurePrivateEndpointRule deletePrivateEndpointRule(

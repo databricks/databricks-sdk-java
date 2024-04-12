@@ -37,7 +37,7 @@ public class PersonalComputeAPI {
    *
    * <p>Reverts back the Personal Compute setting value to default (ON)
    */
-  public DeletePersonalComputeSettingResponse delete(DeletePersonalComputeRequest request) {
+  public DeletePersonalComputeSettingResponse delete(DeletePersonalComputeSettingRequest request) {
     return impl.delete(request);
   }
 
@@ -46,7 +46,7 @@ public class PersonalComputeAPI {
    *
    * <p>Gets the value of the Personal Compute setting.
    */
-  public PersonalComputeSetting get(GetPersonalComputeRequest request) {
+  public PersonalComputeSetting get(GetPersonalComputeSettingRequest request) {
     return impl.get(request);
   }
 

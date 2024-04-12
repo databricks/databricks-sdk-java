@@ -16,7 +16,7 @@ class AutomaticClusterUpdateImpl implements AutomaticClusterUpdateService {
   }
 
   @Override
-  public AutomaticClusterUpdateSetting get(GetAutomaticClusterUpdateRequest request) {
+  public AutomaticClusterUpdateSetting get(GetAutomaticClusterUpdateSettingRequest request) {
     String path = "/api/2.0/settings/types/automatic_cluster_update/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

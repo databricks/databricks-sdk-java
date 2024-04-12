@@ -15,6 +15,7 @@ import org.apache.commons.io.IOUtils;
 public class ApiErrors {
   private static final ObjectMapper MAPPER = new ObjectMapper();
   private static final Pattern HTML_ERROR_REGEX = Pattern.compile("<pre>(.*)</pre>");
+  private static final ErrorMapper ERROR_MAPPER = new ErrorMapper();
 
   public static DatabricksError getDatabricksError(Response out, Exception error) {
     if (error != null) {
@@ -51,11 +52,7 @@ public class ApiErrors {
     if (errorBody.getErrorDetails() == null) {
       errorBody.setErrorDetails(Collections.emptyList());
     }
-    return new DatabricksError(
-        errorBody.getErrorCode(),
-        errorBody.getMessage(),
-        response.getStatusCode(),
-        errorBody.getErrorDetails());
+    return ERROR_MAPPER.apply(response.getStatusCode(), errorBody);
   }
 
   /**

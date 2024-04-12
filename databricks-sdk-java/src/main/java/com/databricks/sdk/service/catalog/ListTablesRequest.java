@@ -14,6 +14,13 @@ public class ListTablesRequest {
   @QueryParam("catalog_name")
   private String catalogName;
 
+  /**
+   * Whether to include tables in the response for which the principal can only access selective
+   * metadata for
+   */
+  @QueryParam("include_browse")
+  private Boolean includeBrowse;
+
   /** Whether delta metadata should be included in the response. */
   @QueryParam("include_delta_metadata")
   private Boolean includeDeltaMetadata;
@@ -50,6 +57,15 @@ public class ListTablesRequest {
 
   public String getCatalogName() {
     return catalogName;
+  }
+
+  public ListTablesRequest setIncludeBrowse(Boolean includeBrowse) {
+    this.includeBrowse = includeBrowse;
+    return this;
+  }
+
+  public Boolean getIncludeBrowse() {
+    return includeBrowse;
   }
 
   public ListTablesRequest setIncludeDeltaMetadata(Boolean includeDeltaMetadata) {
@@ -112,6 +128,7 @@ public class ListTablesRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListTablesRequest that = (ListTablesRequest) o;
     return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(includeBrowse, that.includeBrowse)
         && Objects.equals(includeDeltaMetadata, that.includeDeltaMetadata)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(omitColumns, that.omitColumns)
@@ -124,6 +141,7 @@ public class ListTablesRequest {
   public int hashCode() {
     return Objects.hash(
         catalogName,
+        includeBrowse,
         includeDeltaMetadata,
         maxResults,
         omitColumns,
@@ -136,6 +154,7 @@ public class ListTablesRequest {
   public String toString() {
     return new ToStringer(ListTablesRequest.class)
         .add("catalogName", catalogName)
+        .add("includeBrowse", includeBrowse)
         .add("includeDeltaMetadata", includeDeltaMetadata)
         .add("maxResults", maxResults)
         .add("omitColumns", omitColumns)

@@ -13,10 +13,9 @@ public class SparkPythonTask {
   /**
    * Command line parameters passed to the Python file.
    *
-   * <p>Use [task parameter variables] such as `{{job.id}}` to pass context about job runs.
+   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
    *
-   * <p>[task parameter variables]:
-   * https://docs.databricks.com/workflows/jobs/parameter-value-references.html
+   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("parameters")
   private Collection<String> parameters;
@@ -32,12 +31,12 @@ public class SparkPythonTask {
 
   /**
    * Optional location type of the Python file. When set to `WORKSPACE` or not specified, the file
-   * will be retrieved from the local <Databricks> workspace or cloud location (if the `python_file`
+   * will be retrieved from the local Databricks workspace or cloud location (if the `python_file`
    * has a URI format). When set to `GIT`, the Python file will be retrieved from a Git repository
    * defined in `git_source`.
    *
-   * <p>* `WORKSPACE`: The Python file is located in a <Databricks> workspace or at a cloud
-   * filesystem URI. * `GIT`: The Python file is located in a remote Git repository.
+   * <p>* `WORKSPACE`: The Python file is located in a Databricks workspace or at a cloud filesystem
+   * URI. * `GIT`: The Python file is located in a remote Git repository.
    */
   @JsonProperty("source")
   private Source source;

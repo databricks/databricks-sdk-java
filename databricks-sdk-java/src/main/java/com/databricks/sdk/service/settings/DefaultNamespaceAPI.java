@@ -42,7 +42,8 @@ public class DefaultNamespaceAPI {
    * request before the `DELETE` request. If the setting is updated/deleted concurrently, `DELETE`
    * fails with 409 and the request must be retried by using the fresh etag in the 409 response.
    */
-  public DeleteDefaultNamespaceSettingResponse delete(DeleteDefaultNamespaceRequest request) {
+  public DeleteDefaultNamespaceSettingResponse delete(
+      DeleteDefaultNamespaceSettingRequest request) {
     return impl.delete(request);
   }
 
@@ -51,7 +52,7 @@ public class DefaultNamespaceAPI {
    *
    * <p>Gets the default namespace setting.
    */
-  public DefaultNamespaceSetting get(GetDefaultNamespaceRequest request) {
+  public DefaultNamespaceSetting get(GetDefaultNamespaceSettingRequest request) {
     return impl.get(request);
   }
 

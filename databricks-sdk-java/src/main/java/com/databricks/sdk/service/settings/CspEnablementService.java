@@ -20,7 +20,7 @@ public interface CspEnablementService {
    *
    * <p>Gets the compliance security profile setting.
    */
-  CspEnablementSetting get(GetCspEnablementRequest getCspEnablementRequest);
+  CspEnablementSetting get(GetCspEnablementSettingRequest getCspEnablementSettingRequest);
 
   /**
    * Update the compliance security profile setting.

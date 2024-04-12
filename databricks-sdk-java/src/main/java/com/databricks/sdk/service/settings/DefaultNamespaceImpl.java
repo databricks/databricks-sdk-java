@@ -16,7 +16,8 @@ class DefaultNamespaceImpl implements DefaultNamespaceService {
   }
 
   @Override
-  public DeleteDefaultNamespaceSettingResponse delete(DeleteDefaultNamespaceRequest request) {
+  public DeleteDefaultNamespaceSettingResponse delete(
+      DeleteDefaultNamespaceSettingRequest request) {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -24,7 +25,7 @@ class DefaultNamespaceImpl implements DefaultNamespaceService {
   }
 
   @Override
-  public DefaultNamespaceSetting get(GetDefaultNamespaceRequest request) {
+  public DefaultNamespaceSetting get(GetDefaultNamespaceSettingRequest request) {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
