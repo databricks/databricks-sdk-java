@@ -42,5 +42,5 @@ public interface WorkspaceAssignmentService {
    * <p>Creates or updates the workspace permissions assignment in a given account and workspace for
    * the specified principal.
    */
-  void update(UpdateWorkspaceAssignments updateWorkspaceAssignments);
+  PermissionAssignment update(UpdateWorkspaceAssignments updateWorkspaceAssignments);
 }

@@ -10,15 +10,15 @@ import java.util.Objects;
 @Generated
 public class DeleteLakehouseMonitorRequest {
   /** Full name of the table. */
-  private String fullName;
+  private String tableName;
 
-  public DeleteLakehouseMonitorRequest setFullName(String fullName) {
-    this.fullName = fullName;
+  public DeleteLakehouseMonitorRequest setTableName(String tableName) {
+    this.tableName = tableName;
     return this;
   }
 
-  public String getFullName() {
-    return fullName;
+  public String getTableName() {
+    return tableName;
   }
 
   @Override
@@ -26,16 +26,18 @@ public class DeleteLakehouseMonitorRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteLakehouseMonitorRequest that = (DeleteLakehouseMonitorRequest) o;
-    return Objects.equals(fullName, that.fullName);
+    return Objects.equals(tableName, that.tableName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullName);
+    return Objects.hash(tableName);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteLakehouseMonitorRequest.class).add("fullName", fullName).toString();
+    return new ToStringer(DeleteLakehouseMonitorRequest.class)
+        .add("tableName", tableName)
+        .toString();
   }
 }

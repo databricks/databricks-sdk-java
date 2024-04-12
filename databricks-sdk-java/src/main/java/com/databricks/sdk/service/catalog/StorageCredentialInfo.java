@@ -15,7 +15,7 @@ public class StorageCredentialInfo {
 
   /** The Azure managed identity configuration. */
   @JsonProperty("azure_managed_identity")
-  private AzureManagedIdentity azureManagedIdentity;
+  private AzureManagedIdentityResponse azureManagedIdentity;
 
   /** The Azure service principal configuration. */
   @JsonProperty("azure_service_principal")
@@ -82,12 +82,13 @@ public class StorageCredentialInfo {
     return awsIamRole;
   }
 
-  public StorageCredentialInfo setAzureManagedIdentity(AzureManagedIdentity azureManagedIdentity) {
+  public StorageCredentialInfo setAzureManagedIdentity(
+      AzureManagedIdentityResponse azureManagedIdentity) {
     this.azureManagedIdentity = azureManagedIdentity;
     return this;
   }
 
-  public AzureManagedIdentity getAzureManagedIdentity() {
+  public AzureManagedIdentityResponse getAzureManagedIdentity() {
     return azureManagedIdentity;
   }
 

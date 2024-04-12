@@ -38,13 +38,6 @@ public class RunTask {
   private ClusterInstance clusterInstance;
 
   /**
-   * The key of the compute requirement, specified in `job.settings.compute`, to use for execution
-   * of this task.
-   */
-  @JsonProperty("compute_key")
-  private String computeKey;
-
-  /**
    * If condition_task, specifies a condition with an outcome that can be used to control the
    * execution of other tasks. Does not require a cluster to execute and does not support retries or
    * notifications.
@@ -289,15 +282,6 @@ public class RunTask {
 
   public ClusterInstance getClusterInstance() {
     return clusterInstance;
-  }
-
-  public RunTask setComputeKey(String computeKey) {
-    this.computeKey = computeKey;
-    return this;
-  }
-
-  public String getComputeKey() {
-    return computeKey;
   }
 
   public RunTask setConditionTask(RunConditionTask conditionTask) {
@@ -614,7 +598,6 @@ public class RunTask {
     return Objects.equals(attemptNumber, that.attemptNumber)
         && Objects.equals(cleanupDuration, that.cleanupDuration)
         && Objects.equals(clusterInstance, that.clusterInstance)
-        && Objects.equals(computeKey, that.computeKey)
         && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
@@ -657,7 +640,6 @@ public class RunTask {
         attemptNumber,
         cleanupDuration,
         clusterInstance,
-        computeKey,
         conditionTask,
         dbtTask,
         dependsOn,
@@ -700,7 +682,6 @@ public class RunTask {
         .add("attemptNumber", attemptNumber)
         .add("cleanupDuration", cleanupDuration)
         .add("clusterInstance", clusterInstance)
-        .add("computeKey", computeKey)
         .add("conditionTask", conditionTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)

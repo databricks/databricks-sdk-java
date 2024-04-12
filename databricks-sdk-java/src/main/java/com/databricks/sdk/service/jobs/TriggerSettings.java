@@ -19,11 +19,11 @@ public class TriggerSettings {
 
   /** Old table trigger settings name. Deprecated in favor of `table_update`. */
   @JsonProperty("table")
-  private TableTriggerConfiguration table;
+  private TableUpdateTriggerConfiguration table;
 
   /** */
   @JsonProperty("table_update")
-  private TableTriggerConfiguration tableUpdate;
+  private TableUpdateTriggerConfiguration tableUpdate;
 
   public TriggerSettings setFileArrival(FileArrivalTriggerConfiguration fileArrival) {
     this.fileArrival = fileArrival;
@@ -43,21 +43,21 @@ public class TriggerSettings {
     return pauseStatus;
   }
 
-  public TriggerSettings setTable(TableTriggerConfiguration table) {
+  public TriggerSettings setTable(TableUpdateTriggerConfiguration table) {
     this.table = table;
     return this;
   }
 
-  public TableTriggerConfiguration getTable() {
+  public TableUpdateTriggerConfiguration getTable() {
     return table;
   }
 
-  public TriggerSettings setTableUpdate(TableTriggerConfiguration tableUpdate) {
+  public TriggerSettings setTableUpdate(TableUpdateTriggerConfiguration tableUpdate) {
     this.tableUpdate = tableUpdate;
     return this;
   }
 
-  public TableTriggerConfiguration getTableUpdate() {
+  public TableUpdateTriggerConfiguration getTableUpdate() {
     return tableUpdate;
   }
 

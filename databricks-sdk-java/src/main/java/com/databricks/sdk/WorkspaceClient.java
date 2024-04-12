@@ -80,6 +80,30 @@ import com.databricks.sdk.service.iam.UsersAPI;
 import com.databricks.sdk.service.iam.UsersService;
 import com.databricks.sdk.service.jobs.JobsAPI;
 import com.databricks.sdk.service.jobs.JobsService;
+import com.databricks.sdk.service.marketplace.ConsumerFulfillmentsAPI;
+import com.databricks.sdk.service.marketplace.ConsumerFulfillmentsService;
+import com.databricks.sdk.service.marketplace.ConsumerInstallationsAPI;
+import com.databricks.sdk.service.marketplace.ConsumerInstallationsService;
+import com.databricks.sdk.service.marketplace.ConsumerListingsAPI;
+import com.databricks.sdk.service.marketplace.ConsumerListingsService;
+import com.databricks.sdk.service.marketplace.ConsumerPersonalizationRequestsAPI;
+import com.databricks.sdk.service.marketplace.ConsumerPersonalizationRequestsService;
+import com.databricks.sdk.service.marketplace.ConsumerProvidersAPI;
+import com.databricks.sdk.service.marketplace.ConsumerProvidersService;
+import com.databricks.sdk.service.marketplace.ProviderExchangeFiltersAPI;
+import com.databricks.sdk.service.marketplace.ProviderExchangeFiltersService;
+import com.databricks.sdk.service.marketplace.ProviderExchangesAPI;
+import com.databricks.sdk.service.marketplace.ProviderExchangesService;
+import com.databricks.sdk.service.marketplace.ProviderFilesAPI;
+import com.databricks.sdk.service.marketplace.ProviderFilesService;
+import com.databricks.sdk.service.marketplace.ProviderListingsAPI;
+import com.databricks.sdk.service.marketplace.ProviderListingsService;
+import com.databricks.sdk.service.marketplace.ProviderPersonalizationRequestsAPI;
+import com.databricks.sdk.service.marketplace.ProviderPersonalizationRequestsService;
+import com.databricks.sdk.service.marketplace.ProviderProviderAnalyticsDashboardsAPI;
+import com.databricks.sdk.service.marketplace.ProviderProviderAnalyticsDashboardsService;
+import com.databricks.sdk.service.marketplace.ProviderProvidersAPI;
+import com.databricks.sdk.service.marketplace.ProviderProvidersService;
 import com.databricks.sdk.service.ml.ExperimentsAPI;
 import com.databricks.sdk.service.ml.ExperimentsService;
 import com.databricks.sdk.service.ml.ModelRegistryAPI;
@@ -161,6 +185,11 @@ public class WorkspaceClient {
   private ClustersExt clustersAPI;
   private CommandExecutionAPI commandExecutionAPI;
   private ConnectionsAPI connectionsAPI;
+  private ConsumerFulfillmentsAPI consumerFulfillmentsAPI;
+  private ConsumerInstallationsAPI consumerInstallationsAPI;
+  private ConsumerListingsAPI consumerListingsAPI;
+  private ConsumerPersonalizationRequestsAPI consumerPersonalizationRequestsAPI;
+  private ConsumerProvidersAPI consumerProvidersAPI;
   private CredentialsManagerAPI credentialsManagerAPI;
   private CurrentUserAPI currentUserAPI;
   private DashboardWidgetsAPI dashboardWidgetsAPI;
@@ -191,6 +220,13 @@ public class WorkspaceClient {
   private PermissionsAPI permissionsAPI;
   private PipelinesAPI pipelinesAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
+  private ProviderExchangeFiltersAPI providerExchangeFiltersAPI;
+  private ProviderExchangesAPI providerExchangesAPI;
+  private ProviderFilesAPI providerFilesAPI;
+  private ProviderListingsAPI providerListingsAPI;
+  private ProviderPersonalizationRequestsAPI providerPersonalizationRequestsAPI;
+  private ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboardsAPI;
+  private ProviderProvidersAPI providerProvidersAPI;
   private ProvidersAPI providersAPI;
   private QueriesAPI queriesAPI;
   private QueryHistoryAPI queryHistoryAPI;
@@ -239,6 +275,11 @@ public class WorkspaceClient {
     clustersAPI = new ClustersExt(apiClient);
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
     connectionsAPI = new ConnectionsAPI(apiClient);
+    consumerFulfillmentsAPI = new ConsumerFulfillmentsAPI(apiClient);
+    consumerInstallationsAPI = new ConsumerInstallationsAPI(apiClient);
+    consumerListingsAPI = new ConsumerListingsAPI(apiClient);
+    consumerPersonalizationRequestsAPI = new ConsumerPersonalizationRequestsAPI(apiClient);
+    consumerProvidersAPI = new ConsumerProvidersAPI(apiClient);
     credentialsManagerAPI = new CredentialsManagerAPI(apiClient);
     currentUserAPI = new CurrentUserAPI(apiClient);
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
@@ -269,6 +310,13 @@ public class WorkspaceClient {
     permissionsAPI = new PermissionsAPI(apiClient);
     pipelinesAPI = new PipelinesAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
+    providerExchangeFiltersAPI = new ProviderExchangeFiltersAPI(apiClient);
+    providerExchangesAPI = new ProviderExchangesAPI(apiClient);
+    providerFilesAPI = new ProviderFilesAPI(apiClient);
+    providerListingsAPI = new ProviderListingsAPI(apiClient);
+    providerPersonalizationRequestsAPI = new ProviderPersonalizationRequestsAPI(apiClient);
+    providerProviderAnalyticsDashboardsAPI = new ProviderProviderAnalyticsDashboardsAPI(apiClient);
+    providerProvidersAPI = new ProviderProvidersAPI(apiClient);
     providersAPI = new ProvidersAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
@@ -445,6 +493,40 @@ public class WorkspaceClient {
    */
   public ConnectionsAPI connections() {
     return connectionsAPI;
+  }
+
+  /** Fulfillments are entities that allow consumers to preview installations. */
+  public ConsumerFulfillmentsAPI consumerFulfillments() {
+    return consumerFulfillmentsAPI;
+  }
+
+  /**
+   * Installations are entities that allow consumers to interact with Databricks Marketplace
+   * listings.
+   */
+  public ConsumerInstallationsAPI consumerInstallations() {
+    return consumerInstallationsAPI;
+  }
+
+  /**
+   * Listings are the core entities in the Marketplace. They represent the products that are
+   * available for consumption.
+   */
+  public ConsumerListingsAPI consumerListings() {
+    return consumerListingsAPI;
+  }
+
+  /**
+   * Personalization Requests allow customers to interact with the individualized Marketplace
+   * listing flow.
+   */
+  public ConsumerPersonalizationRequestsAPI consumerPersonalizationRequests() {
+    return consumerPersonalizationRequestsAPI;
+  }
+
+  /** Providers are the entities that publish listings to the Marketplace. */
+  public ConsumerProvidersAPI consumerProviders() {
+    return consumerProvidersAPI;
   }
 
   /**
@@ -907,6 +989,52 @@ public class WorkspaceClient {
    */
   public PolicyFamiliesAPI policyFamilies() {
     return policyFamiliesAPI;
+  }
+
+  /** Marketplace exchanges filters curate which groups can access an exchange. */
+  public ProviderExchangeFiltersAPI providerExchangeFilters() {
+    return providerExchangeFiltersAPI;
+  }
+
+  /**
+   * Marketplace exchanges allow providers to share their listings with a curated set of customers.
+   */
+  public ProviderExchangesAPI providerExchanges() {
+    return providerExchangesAPI;
+  }
+
+  /**
+   * Marketplace offers a set of file APIs for various purposes such as preview notebooks and
+   * provider icons.
+   */
+  public ProviderFilesAPI providerFiles() {
+    return providerFilesAPI;
+  }
+
+  /**
+   * Listings are the core entities in the Marketplace. They represent the products that are
+   * available for consumption.
+   */
+  public ProviderListingsAPI providerListings() {
+    return providerListingsAPI;
+  }
+
+  /**
+   * Personalization requests are an alternate to instantly available listings. Control the
+   * lifecycle of personalized solutions.
+   */
+  public ProviderPersonalizationRequestsAPI providerPersonalizationRequests() {
+    return providerPersonalizationRequestsAPI;
+  }
+
+  /** Manage templated analytics solution for providers. */
+  public ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboards() {
+    return providerProviderAnalyticsDashboardsAPI;
+  }
+
+  /** Providers are entities that manage assets in Marketplace. */
+  public ProviderProvidersAPI providerProviders() {
+    return providerProvidersAPI;
   }
 
   /**
@@ -1461,6 +1589,67 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default ConsumerFulfillmentsService with a custom implementation. */
+  public WorkspaceClient withConsumerFulfillmentsImpl(
+      ConsumerFulfillmentsService consumerFulfillments) {
+    return this.withConsumerFulfillmentsAPI(new ConsumerFulfillmentsAPI(consumerFulfillments));
+  }
+
+  /** Replace the default ConsumerFulfillmentsAPI with a custom implementation. */
+  public WorkspaceClient withConsumerFulfillmentsAPI(ConsumerFulfillmentsAPI consumerFulfillments) {
+    this.consumerFulfillmentsAPI = consumerFulfillments;
+    return this;
+  }
+
+  /** Replace the default ConsumerInstallationsService with a custom implementation. */
+  public WorkspaceClient withConsumerInstallationsImpl(
+      ConsumerInstallationsService consumerInstallations) {
+    return this.withConsumerInstallationsAPI(new ConsumerInstallationsAPI(consumerInstallations));
+  }
+
+  /** Replace the default ConsumerInstallationsAPI with a custom implementation. */
+  public WorkspaceClient withConsumerInstallationsAPI(
+      ConsumerInstallationsAPI consumerInstallations) {
+    this.consumerInstallationsAPI = consumerInstallations;
+    return this;
+  }
+
+  /** Replace the default ConsumerListingsService with a custom implementation. */
+  public WorkspaceClient withConsumerListingsImpl(ConsumerListingsService consumerListings) {
+    return this.withConsumerListingsAPI(new ConsumerListingsAPI(consumerListings));
+  }
+
+  /** Replace the default ConsumerListingsAPI with a custom implementation. */
+  public WorkspaceClient withConsumerListingsAPI(ConsumerListingsAPI consumerListings) {
+    this.consumerListingsAPI = consumerListings;
+    return this;
+  }
+
+  /** Replace the default ConsumerPersonalizationRequestsService with a custom implementation. */
+  public WorkspaceClient withConsumerPersonalizationRequestsImpl(
+      ConsumerPersonalizationRequestsService consumerPersonalizationRequests) {
+    return this.withConsumerPersonalizationRequestsAPI(
+        new ConsumerPersonalizationRequestsAPI(consumerPersonalizationRequests));
+  }
+
+  /** Replace the default ConsumerPersonalizationRequestsAPI with a custom implementation. */
+  public WorkspaceClient withConsumerPersonalizationRequestsAPI(
+      ConsumerPersonalizationRequestsAPI consumerPersonalizationRequests) {
+    this.consumerPersonalizationRequestsAPI = consumerPersonalizationRequests;
+    return this;
+  }
+
+  /** Replace the default ConsumerProvidersService with a custom implementation. */
+  public WorkspaceClient withConsumerProvidersImpl(ConsumerProvidersService consumerProviders) {
+    return this.withConsumerProvidersAPI(new ConsumerProvidersAPI(consumerProviders));
+  }
+
+  /** Replace the default ConsumerProvidersAPI with a custom implementation. */
+  public WorkspaceClient withConsumerProvidersAPI(ConsumerProvidersAPI consumerProviders) {
+    this.consumerProvidersAPI = consumerProviders;
+    return this;
+  }
+
   /** Replace the default CredentialsManagerService with a custom implementation. */
   public WorkspaceClient withCredentialsManagerImpl(CredentialsManagerService credentialsManager) {
     return this.withCredentialsManagerAPI(new CredentialsManagerAPI(credentialsManager));
@@ -1789,6 +1978,94 @@ public class WorkspaceClient {
   /** Replace the default PolicyFamiliesAPI with a custom implementation. */
   public WorkspaceClient withPolicyFamiliesAPI(PolicyFamiliesAPI policyFamilies) {
     this.policyFamiliesAPI = policyFamilies;
+    return this;
+  }
+
+  /** Replace the default ProviderExchangeFiltersService with a custom implementation. */
+  public WorkspaceClient withProviderExchangeFiltersImpl(
+      ProviderExchangeFiltersService providerExchangeFilters) {
+    return this.withProviderExchangeFiltersAPI(
+        new ProviderExchangeFiltersAPI(providerExchangeFilters));
+  }
+
+  /** Replace the default ProviderExchangeFiltersAPI with a custom implementation. */
+  public WorkspaceClient withProviderExchangeFiltersAPI(
+      ProviderExchangeFiltersAPI providerExchangeFilters) {
+    this.providerExchangeFiltersAPI = providerExchangeFilters;
+    return this;
+  }
+
+  /** Replace the default ProviderExchangesService with a custom implementation. */
+  public WorkspaceClient withProviderExchangesImpl(ProviderExchangesService providerExchanges) {
+    return this.withProviderExchangesAPI(new ProviderExchangesAPI(providerExchanges));
+  }
+
+  /** Replace the default ProviderExchangesAPI with a custom implementation. */
+  public WorkspaceClient withProviderExchangesAPI(ProviderExchangesAPI providerExchanges) {
+    this.providerExchangesAPI = providerExchanges;
+    return this;
+  }
+
+  /** Replace the default ProviderFilesService with a custom implementation. */
+  public WorkspaceClient withProviderFilesImpl(ProviderFilesService providerFiles) {
+    return this.withProviderFilesAPI(new ProviderFilesAPI(providerFiles));
+  }
+
+  /** Replace the default ProviderFilesAPI with a custom implementation. */
+  public WorkspaceClient withProviderFilesAPI(ProviderFilesAPI providerFiles) {
+    this.providerFilesAPI = providerFiles;
+    return this;
+  }
+
+  /** Replace the default ProviderListingsService with a custom implementation. */
+  public WorkspaceClient withProviderListingsImpl(ProviderListingsService providerListings) {
+    return this.withProviderListingsAPI(new ProviderListingsAPI(providerListings));
+  }
+
+  /** Replace the default ProviderListingsAPI with a custom implementation. */
+  public WorkspaceClient withProviderListingsAPI(ProviderListingsAPI providerListings) {
+    this.providerListingsAPI = providerListings;
+    return this;
+  }
+
+  /** Replace the default ProviderPersonalizationRequestsService with a custom implementation. */
+  public WorkspaceClient withProviderPersonalizationRequestsImpl(
+      ProviderPersonalizationRequestsService providerPersonalizationRequests) {
+    return this.withProviderPersonalizationRequestsAPI(
+        new ProviderPersonalizationRequestsAPI(providerPersonalizationRequests));
+  }
+
+  /** Replace the default ProviderPersonalizationRequestsAPI with a custom implementation. */
+  public WorkspaceClient withProviderPersonalizationRequestsAPI(
+      ProviderPersonalizationRequestsAPI providerPersonalizationRequests) {
+    this.providerPersonalizationRequestsAPI = providerPersonalizationRequests;
+    return this;
+  }
+
+  /**
+   * Replace the default ProviderProviderAnalyticsDashboardsService with a custom implementation.
+   */
+  public WorkspaceClient withProviderProviderAnalyticsDashboardsImpl(
+      ProviderProviderAnalyticsDashboardsService providerProviderAnalyticsDashboards) {
+    return this.withProviderProviderAnalyticsDashboardsAPI(
+        new ProviderProviderAnalyticsDashboardsAPI(providerProviderAnalyticsDashboards));
+  }
+
+  /** Replace the default ProviderProviderAnalyticsDashboardsAPI with a custom implementation. */
+  public WorkspaceClient withProviderProviderAnalyticsDashboardsAPI(
+      ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboards) {
+    this.providerProviderAnalyticsDashboardsAPI = providerProviderAnalyticsDashboards;
+    return this;
+  }
+
+  /** Replace the default ProviderProvidersService with a custom implementation. */
+  public WorkspaceClient withProviderProvidersImpl(ProviderProvidersService providerProviders) {
+    return this.withProviderProvidersAPI(new ProviderProvidersAPI(providerProviders));
+  }
+
+  /** Replace the default ProviderProvidersAPI with a custom implementation. */
+  public WorkspaceClient withProviderProvidersAPI(ProviderProvidersAPI providerProviders) {
+    this.providerProvidersAPI = providerProviders;
     return this;
   }
 
