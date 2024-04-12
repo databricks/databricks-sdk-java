@@ -27,22 +27,19 @@ public class CreateMonitor {
    * time windows).
    */
   @JsonProperty("custom_metrics")
-  private Collection<MonitorCustomMetric> customMetrics;
+  private Collection<MonitorMetric> customMetrics;
 
   /** The data classification config for the monitor. */
   @JsonProperty("data_classification_config")
   private MonitorDataClassificationConfig dataClassificationConfig;
 
-  /** Full name of the table. */
-  private String fullName;
-
   /** Configuration for monitoring inference logs. */
   @JsonProperty("inference_log")
-  private MonitorInferenceLogProfileType inferenceLog;
+  private MonitorInferenceLog inferenceLog;
 
   /** The notification settings for the monitor. */
   @JsonProperty("notifications")
-  private MonitorNotificationsConfig notifications;
+  private MonitorNotifications notifications;
 
   /** Schema where output metric tables are created. */
   @JsonProperty("output_schema_name")
@@ -67,11 +64,14 @@ public class CreateMonitor {
 
   /** Configuration for monitoring snapshot tables. */
   @JsonProperty("snapshot")
-  private MonitorSnapshotProfileType snapshot;
+  private MonitorSnapshot snapshot;
+
+  /** Full name of the table. */
+  private String tableName;
 
   /** Configuration for monitoring time series tables. */
   @JsonProperty("time_series")
-  private MonitorTimeSeriesProfileType timeSeries;
+  private MonitorTimeSeries timeSeries;
 
   /**
    * Optional argument to specify the warehouse for dashboard creation. If not specified, the first
@@ -98,12 +98,12 @@ public class CreateMonitor {
     return baselineTableName;
   }
 
-  public CreateMonitor setCustomMetrics(Collection<MonitorCustomMetric> customMetrics) {
+  public CreateMonitor setCustomMetrics(Collection<MonitorMetric> customMetrics) {
     this.customMetrics = customMetrics;
     return this;
   }
 
-  public Collection<MonitorCustomMetric> getCustomMetrics() {
+  public Collection<MonitorMetric> getCustomMetrics() {
     return customMetrics;
   }
 
@@ -117,30 +117,21 @@ public class CreateMonitor {
     return dataClassificationConfig;
   }
 
-  public CreateMonitor setFullName(String fullName) {
-    this.fullName = fullName;
-    return this;
-  }
-
-  public String getFullName() {
-    return fullName;
-  }
-
-  public CreateMonitor setInferenceLog(MonitorInferenceLogProfileType inferenceLog) {
+  public CreateMonitor setInferenceLog(MonitorInferenceLog inferenceLog) {
     this.inferenceLog = inferenceLog;
     return this;
   }
 
-  public MonitorInferenceLogProfileType getInferenceLog() {
+  public MonitorInferenceLog getInferenceLog() {
     return inferenceLog;
   }
 
-  public CreateMonitor setNotifications(MonitorNotificationsConfig notifications) {
+  public CreateMonitor setNotifications(MonitorNotifications notifications) {
     this.notifications = notifications;
     return this;
   }
 
-  public MonitorNotificationsConfig getNotifications() {
+  public MonitorNotifications getNotifications() {
     return notifications;
   }
 
@@ -180,21 +171,30 @@ public class CreateMonitor {
     return slicingExprs;
   }
 
-  public CreateMonitor setSnapshot(MonitorSnapshotProfileType snapshot) {
+  public CreateMonitor setSnapshot(MonitorSnapshot snapshot) {
     this.snapshot = snapshot;
     return this;
   }
 
-  public MonitorSnapshotProfileType getSnapshot() {
+  public MonitorSnapshot getSnapshot() {
     return snapshot;
   }
 
-  public CreateMonitor setTimeSeries(MonitorTimeSeriesProfileType timeSeries) {
+  public CreateMonitor setTableName(String tableName) {
+    this.tableName = tableName;
+    return this;
+  }
+
+  public String getTableName() {
+    return tableName;
+  }
+
+  public CreateMonitor setTimeSeries(MonitorTimeSeries timeSeries) {
     this.timeSeries = timeSeries;
     return this;
   }
 
-  public MonitorTimeSeriesProfileType getTimeSeries() {
+  public MonitorTimeSeries getTimeSeries() {
     return timeSeries;
   }
 
@@ -216,7 +216,6 @@ public class CreateMonitor {
         && Objects.equals(baselineTableName, that.baselineTableName)
         && Objects.equals(customMetrics, that.customMetrics)
         && Objects.equals(dataClassificationConfig, that.dataClassificationConfig)
-        && Objects.equals(fullName, that.fullName)
         && Objects.equals(inferenceLog, that.inferenceLog)
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(outputSchemaName, that.outputSchemaName)
@@ -224,6 +223,7 @@ public class CreateMonitor {
         && Objects.equals(skipBuiltinDashboard, that.skipBuiltinDashboard)
         && Objects.equals(slicingExprs, that.slicingExprs)
         && Objects.equals(snapshot, that.snapshot)
+        && Objects.equals(tableName, that.tableName)
         && Objects.equals(timeSeries, that.timeSeries)
         && Objects.equals(warehouseId, that.warehouseId);
   }
@@ -235,7 +235,6 @@ public class CreateMonitor {
         baselineTableName,
         customMetrics,
         dataClassificationConfig,
-        fullName,
         inferenceLog,
         notifications,
         outputSchemaName,
@@ -243,6 +242,7 @@ public class CreateMonitor {
         skipBuiltinDashboard,
         slicingExprs,
         snapshot,
+        tableName,
         timeSeries,
         warehouseId);
   }
@@ -254,7 +254,6 @@ public class CreateMonitor {
         .add("baselineTableName", baselineTableName)
         .add("customMetrics", customMetrics)
         .add("dataClassificationConfig", dataClassificationConfig)
-        .add("fullName", fullName)
         .add("inferenceLog", inferenceLog)
         .add("notifications", notifications)
         .add("outputSchemaName", outputSchemaName)
@@ -262,6 +261,7 @@ public class CreateMonitor {
         .add("skipBuiltinDashboard", skipBuiltinDashboard)
         .add("slicingExprs", slicingExprs)
         .add("snapshot", snapshot)
+        .add("tableName", tableName)
         .add("timeSeries", timeSeries)
         .add("warehouseId", warehouseId)
         .toString();

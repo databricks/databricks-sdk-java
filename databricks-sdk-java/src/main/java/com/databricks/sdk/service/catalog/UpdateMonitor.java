@@ -23,22 +23,19 @@ public class UpdateMonitor {
    * time windows).
    */
   @JsonProperty("custom_metrics")
-  private Collection<MonitorCustomMetric> customMetrics;
+  private Collection<MonitorMetric> customMetrics;
 
   /** The data classification config for the monitor. */
   @JsonProperty("data_classification_config")
   private MonitorDataClassificationConfig dataClassificationConfig;
 
-  /** Full name of the table. */
-  private String fullName;
-
   /** Configuration for monitoring inference logs. */
   @JsonProperty("inference_log")
-  private MonitorInferenceLogProfileType inferenceLog;
+  private MonitorInferenceLog inferenceLog;
 
   /** The notification settings for the monitor. */
   @JsonProperty("notifications")
-  private MonitorNotificationsConfig notifications;
+  private MonitorNotifications notifications;
 
   /** Schema where output metric tables are created. */
   @JsonProperty("output_schema_name")
@@ -59,11 +56,14 @@ public class UpdateMonitor {
 
   /** Configuration for monitoring snapshot tables. */
   @JsonProperty("snapshot")
-  private MonitorSnapshotProfileType snapshot;
+  private MonitorSnapshot snapshot;
+
+  /** Full name of the table. */
+  private String tableName;
 
   /** Configuration for monitoring time series tables. */
   @JsonProperty("time_series")
-  private MonitorTimeSeriesProfileType timeSeries;
+  private MonitorTimeSeries timeSeries;
 
   public UpdateMonitor setBaselineTableName(String baselineTableName) {
     this.baselineTableName = baselineTableName;
@@ -74,12 +74,12 @@ public class UpdateMonitor {
     return baselineTableName;
   }
 
-  public UpdateMonitor setCustomMetrics(Collection<MonitorCustomMetric> customMetrics) {
+  public UpdateMonitor setCustomMetrics(Collection<MonitorMetric> customMetrics) {
     this.customMetrics = customMetrics;
     return this;
   }
 
-  public Collection<MonitorCustomMetric> getCustomMetrics() {
+  public Collection<MonitorMetric> getCustomMetrics() {
     return customMetrics;
   }
 
@@ -93,30 +93,21 @@ public class UpdateMonitor {
     return dataClassificationConfig;
   }
 
-  public UpdateMonitor setFullName(String fullName) {
-    this.fullName = fullName;
-    return this;
-  }
-
-  public String getFullName() {
-    return fullName;
-  }
-
-  public UpdateMonitor setInferenceLog(MonitorInferenceLogProfileType inferenceLog) {
+  public UpdateMonitor setInferenceLog(MonitorInferenceLog inferenceLog) {
     this.inferenceLog = inferenceLog;
     return this;
   }
 
-  public MonitorInferenceLogProfileType getInferenceLog() {
+  public MonitorInferenceLog getInferenceLog() {
     return inferenceLog;
   }
 
-  public UpdateMonitor setNotifications(MonitorNotificationsConfig notifications) {
+  public UpdateMonitor setNotifications(MonitorNotifications notifications) {
     this.notifications = notifications;
     return this;
   }
 
-  public MonitorNotificationsConfig getNotifications() {
+  public MonitorNotifications getNotifications() {
     return notifications;
   }
 
@@ -147,21 +138,30 @@ public class UpdateMonitor {
     return slicingExprs;
   }
 
-  public UpdateMonitor setSnapshot(MonitorSnapshotProfileType snapshot) {
+  public UpdateMonitor setSnapshot(MonitorSnapshot snapshot) {
     this.snapshot = snapshot;
     return this;
   }
 
-  public MonitorSnapshotProfileType getSnapshot() {
+  public MonitorSnapshot getSnapshot() {
     return snapshot;
   }
 
-  public UpdateMonitor setTimeSeries(MonitorTimeSeriesProfileType timeSeries) {
+  public UpdateMonitor setTableName(String tableName) {
+    this.tableName = tableName;
+    return this;
+  }
+
+  public String getTableName() {
+    return tableName;
+  }
+
+  public UpdateMonitor setTimeSeries(MonitorTimeSeries timeSeries) {
     this.timeSeries = timeSeries;
     return this;
   }
 
-  public MonitorTimeSeriesProfileType getTimeSeries() {
+  public MonitorTimeSeries getTimeSeries() {
     return timeSeries;
   }
 
@@ -173,13 +173,13 @@ public class UpdateMonitor {
     return Objects.equals(baselineTableName, that.baselineTableName)
         && Objects.equals(customMetrics, that.customMetrics)
         && Objects.equals(dataClassificationConfig, that.dataClassificationConfig)
-        && Objects.equals(fullName, that.fullName)
         && Objects.equals(inferenceLog, that.inferenceLog)
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(outputSchemaName, that.outputSchemaName)
         && Objects.equals(schedule, that.schedule)
         && Objects.equals(slicingExprs, that.slicingExprs)
         && Objects.equals(snapshot, that.snapshot)
+        && Objects.equals(tableName, that.tableName)
         && Objects.equals(timeSeries, that.timeSeries);
   }
 
@@ -189,13 +189,13 @@ public class UpdateMonitor {
         baselineTableName,
         customMetrics,
         dataClassificationConfig,
-        fullName,
         inferenceLog,
         notifications,
         outputSchemaName,
         schedule,
         slicingExprs,
         snapshot,
+        tableName,
         timeSeries);
   }
 
@@ -205,13 +205,13 @@ public class UpdateMonitor {
         .add("baselineTableName", baselineTableName)
         .add("customMetrics", customMetrics)
         .add("dataClassificationConfig", dataClassificationConfig)
-        .add("fullName", fullName)
         .add("inferenceLog", inferenceLog)
         .add("notifications", notifications)
         .add("outputSchemaName", outputSchemaName)
         .add("schedule", schedule)
         .add("slicingExprs", slicingExprs)
         .add("snapshot", snapshot)
+        .add("tableName", tableName)
         .add("timeSeries", timeSeries)
         .toString();
   }

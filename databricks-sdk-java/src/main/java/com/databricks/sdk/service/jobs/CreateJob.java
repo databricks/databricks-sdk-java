@@ -15,10 +15,6 @@ public class CreateJob {
   @JsonProperty("access_control_list")
   private Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList;
 
-  /** A list of compute requirements that can be referenced by tasks of this job. */
-  @JsonProperty("compute")
-  private Collection<JobCompute> compute;
-
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
    * always one run executing. Only one of `schedule` and `continuous` can be used.
@@ -51,6 +47,13 @@ public class CreateJob {
    */
   @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
+
+  /**
+   * A list of task execution environment specifications that can be referenced by tasks of this
+   * job.
+   */
+  @JsonProperty("environments")
+  private Collection<JobEnvironment> environments;
 
   /**
    * Used to tell what is the format of the job. This field is ignored in Create/Update/Reset calls.
@@ -173,15 +176,6 @@ public class CreateJob {
     return accessControlList;
   }
 
-  public CreateJob setCompute(Collection<JobCompute> compute) {
-    this.compute = compute;
-    return this;
-  }
-
-  public Collection<JobCompute> getCompute() {
-    return compute;
-  }
-
   public CreateJob setContinuous(Continuous continuous) {
     this.continuous = continuous;
     return this;
@@ -225,6 +219,15 @@ public class CreateJob {
 
   public JobEmailNotifications getEmailNotifications() {
     return emailNotifications;
+  }
+
+  public CreateJob setEnvironments(Collection<JobEnvironment> environments) {
+    this.environments = environments;
+    return this;
+  }
+
+  public Collection<JobEnvironment> getEnvironments() {
+    return environments;
   }
 
   public CreateJob setFormat(Format format) {
@@ -377,12 +380,12 @@ public class CreateJob {
     if (o == null || getClass() != o.getClass()) return false;
     CreateJob that = (CreateJob) o;
     return Objects.equals(accessControlList, that.accessControlList)
-        && Objects.equals(compute, that.compute)
         && Objects.equals(continuous, that.continuous)
         && Objects.equals(deployment, that.deployment)
         && Objects.equals(description, that.description)
         && Objects.equals(editMode, that.editMode)
         && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(environments, that.environments)
         && Objects.equals(format, that.format)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(health, that.health)
@@ -405,12 +408,12 @@ public class CreateJob {
   public int hashCode() {
     return Objects.hash(
         accessControlList,
-        compute,
         continuous,
         deployment,
         description,
         editMode,
         emailNotifications,
+        environments,
         format,
         gitSource,
         health,
@@ -433,12 +436,12 @@ public class CreateJob {
   public String toString() {
     return new ToStringer(CreateJob.class)
         .add("accessControlList", accessControlList)
-        .add("compute", compute)
         .add("continuous", continuous)
         .add("deployment", deployment)
         .add("description", description)
         .add("editMode", editMode)
         .add("emailNotifications", emailNotifications)
+        .add("environments", environments)
         .add("format", format)
         .add("gitSource", gitSource)
         .add("health", health)

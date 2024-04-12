@@ -15,7 +15,7 @@ public class UpdateStorageCredential {
 
   /** The Azure managed identity configuration. */
   @JsonProperty("azure_managed_identity")
-  private AzureManagedIdentity azureManagedIdentity;
+  private AzureManagedIdentityResponse azureManagedIdentity;
 
   /** The Azure service principal configuration. */
   @JsonProperty("azure_service_principal")
@@ -66,12 +66,12 @@ public class UpdateStorageCredential {
   }
 
   public UpdateStorageCredential setAzureManagedIdentity(
-      AzureManagedIdentity azureManagedIdentity) {
+      AzureManagedIdentityResponse azureManagedIdentity) {
     this.azureManagedIdentity = azureManagedIdentity;
     return this;
   }
 
-  public AzureManagedIdentity getAzureManagedIdentity() {
+  public AzureManagedIdentityResponse getAzureManagedIdentity() {
     return azureManagedIdentity;
   }
 

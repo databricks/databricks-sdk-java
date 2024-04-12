@@ -31,8 +31,8 @@ public class LakehouseMonitorsAPI {
     impl = mock;
   }
 
-  public void cancelRefresh(String fullName, String refreshId) {
-    cancelRefresh(new CancelRefreshRequest().setFullName(fullName).setRefreshId(refreshId));
+  public void cancelRefresh(String tableName, String refreshId) {
+    cancelRefresh(new CancelRefreshRequest().setTableName(tableName).setRefreshId(refreshId));
   }
 
   /**
@@ -51,10 +51,10 @@ public class LakehouseMonitorsAPI {
     impl.cancelRefresh(request);
   }
 
-  public MonitorInfo create(String fullName, String assetsDir, String outputSchemaName) {
+  public MonitorInfo create(String tableName, String assetsDir, String outputSchemaName) {
     return create(
         new CreateMonitor()
-            .setFullName(fullName)
+            .setTableName(tableName)
             .setAssetsDir(assetsDir)
             .setOutputSchemaName(outputSchemaName));
   }
@@ -77,8 +77,8 @@ public class LakehouseMonitorsAPI {
     return impl.create(request);
   }
 
-  public void delete(String fullName) {
-    delete(new DeleteLakehouseMonitorRequest().setFullName(fullName));
+  public void delete(String tableName) {
+    delete(new DeleteLakehouseMonitorRequest().setTableName(tableName));
   }
 
   /**
@@ -100,8 +100,8 @@ public class LakehouseMonitorsAPI {
     impl.delete(request);
   }
 
-  public MonitorInfo get(String fullName) {
-    return get(new GetLakehouseMonitorRequest().setFullName(fullName));
+  public MonitorInfo get(String tableName) {
+    return get(new GetLakehouseMonitorRequest().setTableName(tableName));
   }
 
   /**
@@ -122,8 +122,8 @@ public class LakehouseMonitorsAPI {
     return impl.get(request);
   }
 
-  public MonitorRefreshInfo getRefresh(String fullName, String refreshId) {
-    return getRefresh(new GetRefreshRequest().setFullName(fullName).setRefreshId(refreshId));
+  public MonitorRefreshInfo getRefresh(String tableName, String refreshId) {
+    return getRefresh(new GetRefreshRequest().setTableName(tableName).setRefreshId(refreshId));
   }
 
   /**
@@ -142,8 +142,8 @@ public class LakehouseMonitorsAPI {
     return impl.getRefresh(request);
   }
 
-  public Iterable<MonitorRefreshInfo> listRefreshes(String fullName) {
-    return listRefreshes(new ListRefreshesRequest().setFullName(fullName));
+  public Iterable<MonitorRefreshInfo> listRefreshes(String tableName) {
+    return listRefreshes(new ListRefreshesRequest().setTableName(tableName));
   }
 
   /**
@@ -162,8 +162,8 @@ public class LakehouseMonitorsAPI {
     return impl.listRefreshes(request);
   }
 
-  public MonitorRefreshInfo runRefresh(String fullName) {
-    return runRefresh(new RunRefreshRequest().setFullName(fullName));
+  public MonitorRefreshInfo runRefresh(String tableName) {
+    return runRefresh(new RunRefreshRequest().setTableName(tableName));
   }
 
   /**
@@ -183,8 +183,9 @@ public class LakehouseMonitorsAPI {
     return impl.runRefresh(request);
   }
 
-  public MonitorInfo update(String fullName, String outputSchemaName) {
-    return update(new UpdateMonitor().setFullName(fullName).setOutputSchemaName(outputSchemaName));
+  public MonitorInfo update(String tableName, String outputSchemaName) {
+    return update(
+        new UpdateMonitor().setTableName(tableName).setOutputSchemaName(outputSchemaName));
   }
 
   /**

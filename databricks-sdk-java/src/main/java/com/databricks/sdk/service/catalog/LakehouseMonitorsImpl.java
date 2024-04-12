@@ -21,14 +21,14 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
     String path =
         String.format(
             "/api/2.1/unity-catalog/tables/%s/monitor/refreshes/%s/cancel",
-            request.getFullName(), request.getRefreshId());
+            request.getTableName(), request.getRefreshId());
     Map<String, String> headers = new HashMap<>();
     apiClient.POST(path, null, CancelRefreshResponse.class, headers);
   }
 
   @Override
   public MonitorInfo create(CreateMonitor request) {
-    String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getFullName());
+    String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -37,14 +37,14 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
 
   @Override
   public void delete(DeleteLakehouseMonitorRequest request) {
-    String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getFullName());
+    String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
   public MonitorInfo get(GetLakehouseMonitorRequest request) {
-    String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getFullName());
+    String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, MonitorInfo.class, headers);
@@ -55,7 +55,7 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
     String path =
         String.format(
             "/api/2.1/unity-catalog/tables/%s/monitor/refreshes/%s",
-            request.getFullName(), request.getRefreshId());
+            request.getTableName(), request.getRefreshId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, MonitorRefreshInfo.class, headers);
@@ -64,7 +64,7 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
   @Override
   public Collection<MonitorRefreshInfo> listRefreshes(ListRefreshesRequest request) {
     String path =
-        String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getFullName());
+        String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.getCollection(path, null, MonitorRefreshInfo.class, headers);
@@ -73,7 +73,7 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
   @Override
   public MonitorRefreshInfo runRefresh(RunRefreshRequest request) {
     String path =
-        String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getFullName());
+        String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.POST(path, null, MonitorRefreshInfo.class, headers);
@@ -81,7 +81,7 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
 
   @Override
   public MonitorInfo update(UpdateMonitor request) {
-    String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getFullName());
+    String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");

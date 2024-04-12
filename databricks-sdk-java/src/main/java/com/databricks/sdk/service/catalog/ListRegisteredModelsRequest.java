@@ -25,9 +25,20 @@ public class ListRegisteredModelsRequest {
   private Boolean includeBrowse;
 
   /**
-   * Max number of registered models to return. If catalog and schema are unspecified, max_results
-   * must be specified. If max_results is unspecified, we return all results, starting from the page
-   * specified by page_token.
+   * Max number of registered models to return.
+   *
+   * <p>If both catalog and schema are specified: - when max_results is not specified, the page
+   * length is set to a server configured value (10000, as of 4/2/2024). - when set to a value
+   * greater than 0, the page length is the minimum of this value and a server configured value
+   * (10000, as of 4/2/2024); - when set to 0, the page length is set to a server configured value
+   * (10000, as of 4/2/2024); - when set to a value less than 0, an invalid parameter error is
+   * returned;
+   *
+   * <p>If neither schema nor catalog is specified: - when max_results is not specified, the page
+   * length is set to a server configured value (100, as of 4/2/2024). - when set to a value greater
+   * than 0, the page length is the minimum of this value and a server configured value (1000, as of
+   * 4/2/2024); - when set to 0, the page length is set to a server configured value (100, as of
+   * 4/2/2024); - when set to a value less than 0, an invalid parameter error is returned;
    */
   @QueryParam("max_results")
   private Long maxResults;

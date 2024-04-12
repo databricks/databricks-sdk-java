@@ -46,6 +46,13 @@ public class CreateCluster {
   private AzureAttributes azureAttributes;
 
   /**
+   * When specified, this clones libraries from a source cluster during the creation of a new
+   * cluster.
+   */
+  @JsonProperty("clone_from")
+  private CloneCluster cloneFrom;
+
+  /**
    * The configuration for delivering spark logs to a long-term storage destination. Two kinds of
    * destinations (dbfs and s3) are supported. Only one destination can be specified for one
    * cluster. If the conf is given, the logs will be delivered to the destination every `5 mins`.
@@ -274,6 +281,15 @@ public class CreateCluster {
     return azureAttributes;
   }
 
+  public CreateCluster setCloneFrom(CloneCluster cloneFrom) {
+    this.cloneFrom = cloneFrom;
+    return this;
+  }
+
+  public CloneCluster getCloneFrom() {
+    return cloneFrom;
+  }
+
   public CreateCluster setClusterLogConf(ClusterLogConf clusterLogConf) {
     this.clusterLogConf = clusterLogConf;
     return this;
@@ -491,6 +507,7 @@ public class CreateCluster {
         && Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
         && Objects.equals(awsAttributes, that.awsAttributes)
         && Objects.equals(azureAttributes, that.azureAttributes)
+        && Objects.equals(cloneFrom, that.cloneFrom)
         && Objects.equals(clusterLogConf, that.clusterLogConf)
         && Objects.equals(clusterName, that.clusterName)
         && Objects.equals(clusterSource, that.clusterSource)
@@ -524,6 +541,7 @@ public class CreateCluster {
         autoterminationMinutes,
         awsAttributes,
         azureAttributes,
+        cloneFrom,
         clusterLogConf,
         clusterName,
         clusterSource,
@@ -557,6 +575,7 @@ public class CreateCluster {
         .add("autoterminationMinutes", autoterminationMinutes)
         .add("awsAttributes", awsAttributes)
         .add("azureAttributes", azureAttributes)
+        .add("cloneFrom", cloneFrom)
         .add("clusterLogConf", clusterLogConf)
         .add("clusterName", clusterName)
         .add("clusterSource", clusterSource)

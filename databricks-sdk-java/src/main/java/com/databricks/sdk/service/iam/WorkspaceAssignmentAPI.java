@@ -71,9 +71,9 @@ public class WorkspaceAssignmentAPI {
     return impl.list(request).getPermissionAssignments();
   }
 
-  public void update(
+  public PermissionAssignment update(
       long workspaceId, long principalId, Collection<WorkspacePermission> permissions) {
-    update(
+    return update(
         new UpdateWorkspaceAssignments()
             .setWorkspaceId(workspaceId)
             .setPrincipalId(principalId)
@@ -86,8 +86,8 @@ public class WorkspaceAssignmentAPI {
    * <p>Creates or updates the workspace permissions assignment in a given account and workspace for
    * the specified principal.
    */
-  public void update(UpdateWorkspaceAssignments request) {
-    impl.update(request);
+  public PermissionAssignment update(UpdateWorkspaceAssignments request) {
+    return impl.update(request);
   }
 
   public WorkspaceAssignmentService impl() {

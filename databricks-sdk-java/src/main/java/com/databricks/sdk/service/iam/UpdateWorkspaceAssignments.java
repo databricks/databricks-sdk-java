@@ -10,7 +10,11 @@ import java.util.Objects;
 
 @Generated
 public class UpdateWorkspaceAssignments {
-  /** Array of permissions assignments to update on the workspace. */
+  /**
+   * Array of permissions assignments to update on the workspace. Note that excluding this field
+   * will have the same effect as providing an empty list which will result in the deletion of all
+   * permissions for the principal.
+   */
   @JsonProperty("permissions")
   private Collection<WorkspacePermission> permissions;
 

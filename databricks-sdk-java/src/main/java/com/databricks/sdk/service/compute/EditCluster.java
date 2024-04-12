@@ -45,6 +45,13 @@ public class EditCluster {
   @JsonProperty("azure_attributes")
   private AzureAttributes azureAttributes;
 
+  /**
+   * When specified, this clones libraries from a source cluster during the creation of a new
+   * cluster.
+   */
+  @JsonProperty("clone_from")
+  private CloneCluster cloneFrom;
+
   /** ID of the cluser */
   @JsonProperty("cluster_id")
   private String clusterId;
@@ -278,6 +285,15 @@ public class EditCluster {
     return azureAttributes;
   }
 
+  public EditCluster setCloneFrom(CloneCluster cloneFrom) {
+    this.cloneFrom = cloneFrom;
+    return this;
+  }
+
+  public CloneCluster getCloneFrom() {
+    return cloneFrom;
+  }
+
   public EditCluster setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -504,6 +520,7 @@ public class EditCluster {
         && Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
         && Objects.equals(awsAttributes, that.awsAttributes)
         && Objects.equals(azureAttributes, that.azureAttributes)
+        && Objects.equals(cloneFrom, that.cloneFrom)
         && Objects.equals(clusterId, that.clusterId)
         && Objects.equals(clusterLogConf, that.clusterLogConf)
         && Objects.equals(clusterName, that.clusterName)
@@ -538,6 +555,7 @@ public class EditCluster {
         autoterminationMinutes,
         awsAttributes,
         azureAttributes,
+        cloneFrom,
         clusterId,
         clusterLogConf,
         clusterName,
@@ -572,6 +590,7 @@ public class EditCluster {
         .add("autoterminationMinutes", autoterminationMinutes)
         .add("awsAttributes", awsAttributes)
         .add("azureAttributes", azureAttributes)
+        .add("cloneFrom", cloneFrom)
         .add("clusterId", clusterId)
         .add("clusterLogConf", clusterLogConf)
         .add("clusterName", clusterName)

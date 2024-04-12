@@ -27,9 +27,12 @@ public class MonitorInfo {
    * time windows).
    */
   @JsonProperty("custom_metrics")
-  private Collection<MonitorCustomMetric> customMetrics;
+  private Collection<MonitorMetric> customMetrics;
 
-  /** The ID of the generated dashboard. */
+  /**
+   * Id of dashboard that visualizes the computed metrics. This can be empty if the monitor is in
+   * PENDING state.
+   */
   @JsonProperty("dashboard_id")
   private String dashboardId;
 
@@ -46,7 +49,7 @@ public class MonitorInfo {
 
   /** Configuration for monitoring inference logs. */
   @JsonProperty("inference_log")
-  private MonitorInferenceLogProfileType inferenceLog;
+  private MonitorInferenceLog inferenceLog;
 
   /** The latest failure message of the monitor (if any). */
   @JsonProperty("latest_monitor_failure_msg")
@@ -58,7 +61,7 @@ public class MonitorInfo {
 
   /** The notification settings for the monitor. */
   @JsonProperty("notifications")
-  private MonitorNotificationsConfig notifications;
+  private MonitorNotifications notifications;
 
   /** Schema where output metric tables are created. */
   @JsonProperty("output_schema_name")
@@ -86,7 +89,7 @@ public class MonitorInfo {
 
   /** Configuration for monitoring snapshot tables. */
   @JsonProperty("snapshot")
-  private MonitorSnapshotProfileType snapshot;
+  private MonitorSnapshot snapshot;
 
   /** The status of the monitor. */
   @JsonProperty("status")
@@ -100,7 +103,7 @@ public class MonitorInfo {
 
   /** Configuration for monitoring time series tables. */
   @JsonProperty("time_series")
-  private MonitorTimeSeriesProfileType timeSeries;
+  private MonitorTimeSeries timeSeries;
 
   public MonitorInfo setAssetsDir(String assetsDir) {
     this.assetsDir = assetsDir;
@@ -120,12 +123,12 @@ public class MonitorInfo {
     return baselineTableName;
   }
 
-  public MonitorInfo setCustomMetrics(Collection<MonitorCustomMetric> customMetrics) {
+  public MonitorInfo setCustomMetrics(Collection<MonitorMetric> customMetrics) {
     this.customMetrics = customMetrics;
     return this;
   }
 
-  public Collection<MonitorCustomMetric> getCustomMetrics() {
+  public Collection<MonitorMetric> getCustomMetrics() {
     return customMetrics;
   }
 
@@ -157,12 +160,12 @@ public class MonitorInfo {
     return driftMetricsTableName;
   }
 
-  public MonitorInfo setInferenceLog(MonitorInferenceLogProfileType inferenceLog) {
+  public MonitorInfo setInferenceLog(MonitorInferenceLog inferenceLog) {
     this.inferenceLog = inferenceLog;
     return this;
   }
 
-  public MonitorInferenceLogProfileType getInferenceLog() {
+  public MonitorInferenceLog getInferenceLog() {
     return inferenceLog;
   }
 
@@ -184,12 +187,12 @@ public class MonitorInfo {
     return monitorVersion;
   }
 
-  public MonitorInfo setNotifications(MonitorNotificationsConfig notifications) {
+  public MonitorInfo setNotifications(MonitorNotifications notifications) {
     this.notifications = notifications;
     return this;
   }
 
-  public MonitorNotificationsConfig getNotifications() {
+  public MonitorNotifications getNotifications() {
     return notifications;
   }
 
@@ -229,12 +232,12 @@ public class MonitorInfo {
     return slicingExprs;
   }
 
-  public MonitorInfo setSnapshot(MonitorSnapshotProfileType snapshot) {
+  public MonitorInfo setSnapshot(MonitorSnapshot snapshot) {
     this.snapshot = snapshot;
     return this;
   }
 
-  public MonitorSnapshotProfileType getSnapshot() {
+  public MonitorSnapshot getSnapshot() {
     return snapshot;
   }
 
@@ -256,12 +259,12 @@ public class MonitorInfo {
     return tableName;
   }
 
-  public MonitorInfo setTimeSeries(MonitorTimeSeriesProfileType timeSeries) {
+  public MonitorInfo setTimeSeries(MonitorTimeSeries timeSeries) {
     this.timeSeries = timeSeries;
     return this;
   }
 
-  public MonitorTimeSeriesProfileType getTimeSeries() {
+  public MonitorTimeSeries getTimeSeries() {
     return timeSeries;
   }
 
