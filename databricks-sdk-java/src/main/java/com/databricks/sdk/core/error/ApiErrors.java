@@ -17,7 +17,7 @@ public class ApiErrors {
   private static final Pattern HTML_ERROR_REGEX = Pattern.compile("<pre>(.*)</pre>");
   private static final ErrorMapper ERROR_MAPPER = new ErrorMapper();
 
-  public static DatabricksError checkForRetry(Response out, Exception error) {
+  public static DatabricksError getDatabricksError(Response out, Exception error) {
     if (error != null) {
       // If the endpoint did not respond to the request, interpret the exception.
       return new DatabricksError("IO_ERROR", 523, error);
