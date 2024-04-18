@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @EnvContext("account")
 @DisabledIfEnvironmentVariable(named = "ARM_CLIENT_ID", matches = ".*")
+// VPC Endpoints need to be enabled in our GCP E2 account.
+@DisabledIfEnvironmentVariable(named = "GOOGLE_CREDENTIALS", matches = ".*")
 @ExtendWith(EnvTest.class)
 public class VpcEndpointsIT {
   @Test

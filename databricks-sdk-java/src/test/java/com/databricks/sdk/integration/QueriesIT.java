@@ -14,7 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 class QueriesIT {
   @Test
   void listsQueries(WorkspaceClient w) {
-    Iterable<Query> list = w.queries().list(new ListQueriesRequest().setPageSize(2L));
+    Iterable<Query> list = w.queries().list(new ListQueriesRequest().setPageSize(1000L));
 
     java.util.List<Query> all = CollectionUtils.asList(list);
 
