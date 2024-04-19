@@ -3,6 +3,7 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,7 +77,8 @@ public class GitCredentialsAPI {
    * <p>Lists the calling user's Git credentials. One credential per user is supported.
    */
   public Iterable<CredentialInfo> list() {
-    return impl.list().getCredentials();
+    return new Paginator<>(
+        null, (Void v) -> impl.list(), GetCredentialsResponse::getCredentials, response -> null);
   }
 
   public void update(long credentialId) {

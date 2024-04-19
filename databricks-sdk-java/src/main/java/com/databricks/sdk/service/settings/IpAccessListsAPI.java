@@ -3,6 +3,7 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,7 +102,11 @@ public class IpAccessListsAPI {
    * <p>Gets all IP access lists for the specified workspace.
    */
   public Iterable<IpAccessListInfo> list() {
-    return impl.list().getIpAccessLists();
+    return new Paginator<>(
+        null,
+        (Void v) -> impl.list(),
+        ListIpAccessListResponse::getIpAccessLists,
+        response -> null);
   }
 
   public void replace(String ipAccessListId, String label, ListType listType, boolean enabled) {

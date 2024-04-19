@@ -3,6 +3,7 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,7 +76,8 @@ public class CustomAppIntegrationAPI {
    * <p>Get the list of custom oauth app integrations for the specified Databricks account
    */
   public Iterable<GetCustomAppIntegrationOutput> list() {
-    return impl.list().getApps();
+    return new Paginator<>(
+        null, (Void v) -> impl.list(), GetCustomAppIntegrationsOutput::getApps, response -> null);
   }
 
   public void update(String integrationId) {

@@ -3,6 +3,7 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -72,7 +73,11 @@ public class PublishedAppIntegrationAPI {
    * <p>Get the list of published oauth app integrations for the specified Databricks account
    */
   public Iterable<GetPublishedAppIntegrationOutput> list() {
-    return impl.list().getApps();
+    return new Paginator<>(
+        null,
+        (Void v) -> impl.list(),
+        GetPublishedAppIntegrationsOutput::getApps,
+        response -> null);
   }
 
   public void update(String integrationId) {

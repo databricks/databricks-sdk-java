@@ -3,6 +3,7 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +60,8 @@ public class TokensAPI {
    * <p>Lists all the valid tokens for a user-workspace pair.
    */
   public Iterable<PublicTokenInfo> list() {
-    return impl.list().getTokenInfos();
+    return new Paginator<>(
+        null, (Void v) -> impl.list(), ListPublicTokensResponse::getTokenInfos, response -> null);
   }
 
   public TokensService impl() {
