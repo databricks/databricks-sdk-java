@@ -45,14 +45,11 @@ public class CommonsHttpClient implements HttpClient {
   }
 
   public CommonsHttpClient(DatabricksConfig databricksConfig) {
-    int timeoutSeconds =
+    this(
         databricksConfig.getHttpTimeoutSeconds() == null
             ? 300
-            : databricksConfig.getHttpTimeoutSeconds();
-    timeout = timeoutSeconds * 1000;
-    connectionManager.setMaxTotal(100);
-    ProxyConfig proxyConfig = new ProxyConfig(databricksConfig);
-    hc = makeClosableHttpClient(proxyConfig);
+            : databricksConfig.getHttpTimeoutSeconds(),
+        new ProxyConfig(databricksConfig));
   }
 
   public CommonsHttpClient(int timeoutSeconds, ProxyConfig proxyConfig) {

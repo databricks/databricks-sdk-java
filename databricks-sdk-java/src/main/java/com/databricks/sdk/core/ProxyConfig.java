@@ -22,7 +22,7 @@ public class ProxyConfig {
     this.username = config.getProxyUsername();
     this.password = config.getProxyPassword();
     this.proxyAuthType = config.getProxyAuthType();
-    this.useSystemProperties = config.isUseSystemPropertiesHttp();
+    this.useSystemProperties = config.getUseSystemPropertiesHttp();
   }
 
   public String getHost() {

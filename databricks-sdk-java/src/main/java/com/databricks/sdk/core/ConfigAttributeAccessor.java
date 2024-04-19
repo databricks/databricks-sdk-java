@@ -47,6 +47,8 @@ class ConfigAttributeAccessor {
         field.set(cfg, Integer.parseInt(value));
       } else if (field.getType() == boolean.class) {
         field.set(cfg, Boolean.parseBoolean(value));
+      } else if (field.getType() == ProxyConfig.ProxyAuthType.class) {
+        field.set(cfg, ProxyConfig.ProxyAuthType.valueOf(value));
       }
       field.setAccessible(false);
     }

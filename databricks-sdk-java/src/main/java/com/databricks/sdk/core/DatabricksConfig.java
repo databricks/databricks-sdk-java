@@ -521,7 +521,7 @@ public class DatabricksConfig {
     return this;
   }
 
-  public Boolean isUseSystemPropertiesHttp() {
+  public Boolean getUseSystemPropertiesHttp() {
     return useSystemPropertiesHttp;
   }
 
