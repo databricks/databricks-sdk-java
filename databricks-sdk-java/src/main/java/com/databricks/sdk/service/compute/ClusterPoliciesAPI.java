@@ -3,6 +3,7 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -133,7 +134,8 @@ public class ClusterPoliciesAPI {
    * <p>Returns a list of policies accessible by the requesting user.
    */
   public Iterable<Policy> list(ListClusterPoliciesRequest request) {
-    return impl.list(request).getPolicies();
+    return new Paginator<>(
+        request, impl::list, ListPoliciesResponse::getPolicies, response -> null);
   }
 
   public ClusterPolicyPermissions setPermissions(String clusterPolicyId) {

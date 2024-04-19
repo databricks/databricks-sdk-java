@@ -232,12 +232,7 @@ public class ClustersAPI {
    */
   public Iterable<ClusterEvent> events(GetEvents request) {
     return new Paginator<>(
-        request,
-        impl::events,
-        GetEventsResponse::getEvents,
-        response -> {
-          return response.getNextPage();
-        });
+        request, impl::events, GetEventsResponse::getEvents, response -> response.getNextPage());
   }
 
   public ClusterDetails get(String clusterId) {
@@ -294,7 +289,8 @@ public class ClustersAPI {
    * the 30 most recently terminated job clusters.
    */
   public Iterable<ClusterDetails> list(ListClustersRequest request) {
-    return impl.list(request).getClusters();
+    return new Paginator<>(
+        request, impl::list, ListClustersResponse::getClusters, response -> null);
   }
 
   /**

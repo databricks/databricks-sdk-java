@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,7 +81,11 @@ public class AccountMetastoreAssignmentsAPI {
    * <p>Gets a list of all Databricks workspace IDs that have been assigned to given metastore.
    */
   public Iterable<Long> list(ListAccountMetastoreAssignmentsRequest request) {
-    return impl.list(request).getWorkspaceIds();
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListAccountMetastoreAssignmentsResponse::getWorkspaceIds,
+        response -> null);
   }
 
   public void update(long workspaceId, String metastoreId) {

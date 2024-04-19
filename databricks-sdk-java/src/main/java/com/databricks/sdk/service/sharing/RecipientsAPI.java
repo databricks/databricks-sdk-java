@@ -3,6 +3,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,7 +91,8 @@ public class RecipientsAPI {
    * specific ordering of the elements in the array.
    */
   public Iterable<RecipientInfo> list(ListRecipientsRequest request) {
-    return impl.list(request).getRecipients();
+    return new Paginator<>(
+        request, impl::list, ListRecipientsResponse::getRecipients, response -> null);
   }
 
   public RecipientInfo rotateToken(String name, long existingTokenExpireInSeconds) {

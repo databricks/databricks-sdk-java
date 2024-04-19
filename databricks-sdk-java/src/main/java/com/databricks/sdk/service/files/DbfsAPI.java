@@ -3,6 +3,7 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -137,7 +138,7 @@ public class DbfsAPI {
    * same functionality without timing out.
    */
   public Iterable<FileInfo> list(ListDbfsRequest request) {
-    return impl.list(request).getFiles();
+    return new Paginator<>(request, impl::list, ListStatusResponse::getFiles, response -> null);
   }
 
   public void mkdirs(String path) {

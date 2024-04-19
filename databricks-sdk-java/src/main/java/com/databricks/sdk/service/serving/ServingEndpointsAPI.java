@@ -3,6 +3,7 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
@@ -183,7 +184,8 @@ public class ServingEndpointsAPI {
 
   /** Get all serving endpoints. */
   public Iterable<ServingEndpoint> list() {
-    return impl.list().getEndpoints();
+    return new Paginator<>(
+        null, (Void v) -> impl.list(), ListEndpointsResponse::getEndpoints, response -> null);
   }
 
   public ServerLogsResponse logs(String name, String servedModelName) {

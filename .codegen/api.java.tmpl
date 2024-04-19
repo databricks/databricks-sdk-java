@@ -146,47 +146,55 @@ public class {{.PascalName}}API {
 {{- end}}
 
 {{define "method-call-paginated" -}}
-  {{- if .Pagination.MultiRequest -}}
-    {{- if and .Pagination.Offset (not (eq .Path "/api/2.0/clusters/events")) -}}
-    request.set{{.Pagination.Offset.PascalName}}(
-    {{- if eq .Pagination.Increment 1 -}}
-      1
-    {{- else if contains .Path "/scim/v2/" -}}
-      1
-    {{- else -}}
-      0
-    {{- end}}L);{{end -}}
-    {{if and .Pagination.Limit (contains .Path "/scim/v2/")}}
-    if (request.get{{.Pagination.Limit.PascalName}}() == null) {
-       request.set{{.Pagination.Limit.PascalName}}(100L);
-    }{{end -}}
-    return new Paginator<>(request, impl::{{template "java-name" .}}, {{template "type" .Response}}::get{{.Pagination.Results.PascalName}}, response -> {
-      {{if eq .Path "/api/2.0/clusters/events" -}}
-      return response.getNextPage();
-      {{- else if .Pagination.Token -}}
-      String token = response.get{{.Pagination.Token.Bind.PascalName}}();
-      if (token == null) {
-        return null;
-      }
-      return request.set{{.Pagination.Token.PollField.PascalName}}(token);
-      {{- else if eq .Pagination.Increment 1 -}}
-      Long page = request.get{{.Pagination.Offset.PascalName}}();
-      if (page == null) {
-        page = 1L; // redash uses 1-based pagination
-      }
-      return request.set{{.Pagination.Offset.PascalName}}(page+1L);
-      {{- else -}}
-      Long offset = request.get{{.Pagination.Offset.PascalName}}();
-      if (offset == null) {
-        offset = 0L;
-      }
-      offset += response.get{{.Pagination.Results.PascalName}}().size();
-      return request.set{{.Pagination.Offset.PascalName}}(offset);
-      {{- end}}
-    }){{if .NeedsOffsetDedupe -}}.withDedupe({{.Pagination.Entity.PascalName}}::get{{.IdentifierField.PascalName}}){{end}};
+  {{- if and .Pagination.Offset (not (eq .Path "/api/2.0/clusters/events")) -}}
+  request.set{{.Pagination.Offset.PascalName}}(
+  {{- if eq .Pagination.Increment 1 -}}
+    1
+  {{- else if contains .Path "/scim/v2/" -}}
+    1
   {{- else -}}
-    return impl.{{template "java-name" .}}({{if .Request}}request{{end}}){{with .Pagination.Results}}.get{{.PascalName}}(){{end}};
-  {{- end -}}
+    0
+  {{- end}}L);{{end -}}
+  {{if and .Pagination.Limit (contains .Path "/scim/v2/")}}
+  if (request.get{{.Pagination.Limit.PascalName}}() == null) {
+     request.set{{.Pagination.Limit.PascalName}}(100L);
+  }{{end -}}
+  return new Paginator<>(
+    {{ if .Request }}request{{ else }}null{{ end }},
+    {{ if .Request }}impl::{{template "java-name" .}}{{ else }}(Void v) -> impl.{{template "java-name" .}}(){{ end }},
+    {{template "type" .Response}}::get{{.Pagination.Results.PascalName}},
+    response ->
+      {{ if not .Pagination.MultiRequest }}
+      null
+      {{- else if eq .Path "/api/2.0/clusters/events" -}}
+      response.getNextPage()
+      {{- else if .Pagination.Token -}}
+      {
+        String token = response.get{{.Pagination.Token.Bind.PascalName}}();
+        if (token == null) {
+          return null;
+        }
+        return request.set{{.Pagination.Token.PollField.PascalName}}(token);
+      }
+      {{- else if eq .Pagination.Increment 1 -}}
+      {
+        Long page = request.get{{.Pagination.Offset.PascalName}}();
+        if (page == null) {
+          page = 1L; // redash uses 1-based pagination
+        }
+        return request.set{{.Pagination.Offset.PascalName}}(page+1L);
+      }
+      {{- else -}}
+      {
+        Long offset = request.get{{.Pagination.Offset.PascalName}}();
+        if (offset == null) {
+          offset = 0L;
+        }
+        offset += response.get{{.Pagination.Results.PascalName}}().size();
+        return request.set{{.Pagination.Offset.PascalName}}(offset);
+      }
+      {{- end}}
+  ){{if .NeedsOffsetDedupe -}}.withDedupe({{.Pagination.Entity.PascalName}}::get{{.IdentifierField.PascalName}}){{end}};
 {{- end}}
 
 {{define "method-call-retried" -}}

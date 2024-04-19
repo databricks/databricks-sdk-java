@@ -3,6 +3,7 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +79,8 @@ public class ServicePrincipalSecretsAPI {
    * information about the secrets themselves and does not include the secret values.
    */
   public Iterable<SecretInfo> list(ListServicePrincipalSecretsRequest request) {
-    return impl.list(request).getSecrets();
+    return new Paginator<>(
+        request, impl::list, ListServicePrincipalSecretsResponse::getSecrets, response -> null);
   }
 
   public ServicePrincipalSecretsService impl() {
