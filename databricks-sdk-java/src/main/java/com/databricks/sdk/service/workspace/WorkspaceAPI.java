@@ -3,6 +3,7 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -142,7 +143,7 @@ public class WorkspaceAPI {
    * does not exist, this call returns an error `RESOURCE_DOES_NOT_EXIST`.
    */
   public Iterable<ObjectInfo> list(ListWorkspaceRequest request) {
-    return impl.list(request).getObjects();
+    return new Paginator<>(request, impl::list, ListResponse::getObjects, response -> null);
   }
 
   public void mkdirs(String path) {

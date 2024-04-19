@@ -3,6 +3,7 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -149,7 +150,7 @@ public class SecretsAPI {
    * if the user does not have permission to make this API call.
    */
   public Iterable<AclItem> listAcls(ListAclsRequest request) {
-    return impl.listAcls(request).getItems();
+    return new Paginator<>(request, impl::listAcls, ListAclsResponse::getItems, response -> null);
   }
 
   /**
@@ -160,7 +161,8 @@ public class SecretsAPI {
    * <p>Throws `PERMISSION_DENIED` if the user does not have permission to make this API call.
    */
   public Iterable<SecretScope> listScopes() {
-    return impl.listScopes().getScopes();
+    return new Paginator<>(
+        null, (Void v) -> impl.listScopes(), ListScopesResponse::getScopes, response -> null);
   }
 
   public Iterable<SecretMetadata> listSecrets(String scope) {
@@ -179,7 +181,8 @@ public class SecretsAPI {
    * user does not have permission to make this API call.
    */
   public Iterable<SecretMetadata> listSecrets(ListSecretsRequest request) {
-    return impl.listSecrets(request).getSecrets();
+    return new Paginator<>(
+        request, impl::listSecrets, ListSecretsResponse::getSecrets, response -> null);
   }
 
   public void putAcl(String scope, String principal, AclPermission permission) {

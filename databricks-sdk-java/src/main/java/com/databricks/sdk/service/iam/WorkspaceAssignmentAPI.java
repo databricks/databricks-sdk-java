@@ -3,6 +3,7 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +69,8 @@ public class WorkspaceAssignmentAPI {
    * workspace.
    */
   public Iterable<PermissionAssignment> list(ListWorkspaceAssignmentRequest request) {
-    return impl.list(request).getPermissionAssignments();
+    return new Paginator<>(
+        request, impl::list, PermissionAssignments::getPermissionAssignments, response -> null);
   }
 
   public PermissionAssignment update(

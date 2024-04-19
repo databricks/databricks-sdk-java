@@ -3,6 +3,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +79,8 @@ public class SharesAPI {
    * array.
    */
   public Iterable<ShareInfo> list() {
-    return impl.list().getShares();
+    return new Paginator<>(
+        null, (Void v) -> impl.list(), ListSharesResponse::getShares, response -> null);
   }
 
   public com.databricks.sdk.service.catalog.PermissionsList sharePermissions(String name) {

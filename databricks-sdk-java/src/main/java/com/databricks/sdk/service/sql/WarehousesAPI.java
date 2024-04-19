@@ -3,6 +3,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
@@ -218,7 +219,8 @@ public class WarehousesAPI {
    * <p>Lists all SQL warehouses that a user has manager permissions on.
    */
   public Iterable<EndpointInfo> list(ListWarehousesRequest request) {
-    return impl.list(request).getWarehouses();
+    return new Paginator<>(
+        request, impl::list, ListWarehousesResponse::getWarehouses, response -> null);
   }
 
   public WarehousePermissions setPermissions(String warehouseId) {

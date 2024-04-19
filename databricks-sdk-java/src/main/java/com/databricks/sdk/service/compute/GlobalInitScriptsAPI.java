@@ -3,6 +3,7 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +79,8 @@ public class GlobalInitScriptsAPI {
    * a global init script](:method:globalinitscripts/get) operation.
    */
   public Iterable<GlobalInitScriptDetails> list() {
-    return impl.list().getScripts();
+    return new Paginator<>(
+        null, (Void v) -> impl.list(), ListGlobalInitScriptsResponse::getScripts, response -> null);
   }
 
   public void update(String scriptId, String name, String script) {

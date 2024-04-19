@@ -3,6 +3,7 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -133,7 +134,8 @@ public class InstancePoolsAPI {
    * <p>Gets a list of instance pools with their statistics.
    */
   public Iterable<InstancePoolAndStats> list() {
-    return impl.list().getInstancePools();
+    return new Paginator<>(
+        null, (Void v) -> impl.list(), ListInstancePools::getInstancePools, response -> null);
   }
 
   public InstancePoolPermissions setPermissions(String instancePoolId) {

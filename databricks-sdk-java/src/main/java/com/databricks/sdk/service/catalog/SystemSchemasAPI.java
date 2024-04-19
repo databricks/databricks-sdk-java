@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,7 +67,8 @@ public class SystemSchemasAPI {
    * metastore admin.
    */
   public Iterable<SystemSchemaInfo> list(ListSystemSchemasRequest request) {
-    return impl.list(request).getSchemas();
+    return new Paginator<>(
+        request, impl::list, ListSystemSchemasResponse::getSchemas, response -> null);
   }
 
   public SystemSchemasService impl() {
