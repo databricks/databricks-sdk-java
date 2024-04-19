@@ -16,8 +16,18 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.ProxyAuthenticationStrategy;
 
+/**
+ * This class is used to setup the proxy configs for the http client. This includes setting up the
+ * proxy host, port, and authentication.
+ */
 public class ProxyUtils {
 
+  /**
+   * Setup the proxy configuration in the http client builder.
+   *
+   * @param config the proxy configuration
+   * @param builder the http client builder
+   */
   public static void setupProxy(ProxyConfig config, HttpClientBuilder builder) {
     String proxyHost = null;
     Integer proxyPort = null;
@@ -43,6 +53,16 @@ public class ProxyUtils {
         proxyHost, proxyPort, config.getProxyAuthType(), proxyUser, proxyPassword, builder);
   }
 
+  /**
+   * This method sets up the proxy authentication in the http client builder.
+   *
+   * @param proxyHost the proxy host
+   * @param proxyPort the proxy port
+   * @param proxyAuthType the proxy authentication type
+   * @param proxyUser the proxy user
+   * @param proxyPassword the proxy password
+   * @param builder the http client builder
+   */
   public static void setupProxyAuth(
       String proxyHost,
       Integer proxyPort,
@@ -68,6 +88,13 @@ public class ProxyUtils {
     }
   }
 
+  /**
+   * This method sets up the proxy authentication using the negotiate mechanism in the http client
+   * builder.
+   *
+   * @param builder the http client builder
+   * @param authScope the authentication scope
+   */
   public static void setupNegotiateProxyAuth(HttpClientBuilder builder, AuthScope authScope) {
     // We only support kerberos for negotiate as of now
     System.setProperty("javax.security.auth.useSubjectCredsOnly", "false");
@@ -95,6 +122,15 @@ public class ProxyUtils {
                 .build());
   }
 
+  /**
+   * This method sets up the proxy authentication using the basic mechanism credentials provided
+   * into the http client builder.
+   *
+   * @param builder the http client builder
+   * @param authScope the authentication scope
+   * @param proxyUser the proxy user
+   * @param proxyPassword the proxy password
+   */
   public static void setupBasicProxyAuth(
       HttpClientBuilder builder, AuthScope authScope, String proxyUser, String proxyPassword) {
     CredentialsProvider credsProvider = new BasicCredentialsProvider();
