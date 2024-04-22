@@ -40,6 +40,10 @@ public class CreatePipeline {
   @JsonProperty("continuous")
   private Boolean continuous;
 
+  /** Deployment type of this pipeline. */
+  @JsonProperty("deployment")
+  private PipelineDeployment deployment;
+
   /** Whether the pipeline is in Development mode. Defaults to false. */
   @JsonProperty("development")
   private Boolean development;
@@ -148,6 +152,15 @@ public class CreatePipeline {
 
   public Boolean getContinuous() {
     return continuous;
+  }
+
+  public CreatePipeline setDeployment(PipelineDeployment deployment) {
+    this.deployment = deployment;
+    return this;
+  }
+
+  public PipelineDeployment getDeployment() {
+    return deployment;
   }
 
   public CreatePipeline setDevelopment(Boolean development) {
@@ -278,6 +291,7 @@ public class CreatePipeline {
         && Objects.equals(clusters, that.clusters)
         && Objects.equals(configuration, that.configuration)
         && Objects.equals(continuous, that.continuous)
+        && Objects.equals(deployment, that.deployment)
         && Objects.equals(development, that.development)
         && Objects.equals(dryRun, that.dryRun)
         && Objects.equals(edition, that.edition)
@@ -302,6 +316,7 @@ public class CreatePipeline {
         clusters,
         configuration,
         continuous,
+        deployment,
         development,
         dryRun,
         edition,
@@ -326,6 +341,7 @@ public class CreatePipeline {
         .add("clusters", clusters)
         .add("configuration", configuration)
         .add("continuous", continuous)
+        .add("deployment", deployment)
         .add("development", development)
         .add("dryRun", dryRun)
         .add("edition", edition)

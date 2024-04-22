@@ -33,6 +33,13 @@ public class InstancePoolGcpAttributes {
    * the Databricks workspace. For example, "us-west1-a" is not a valid zone id if the Databricks
    * workspace resides in the "us-east1" region. This is an optional field at instance pool
    * creation, and if not specified, a default zone will be used.
+   *
+   * <p>This field can be one of the following: - "HA" => High availability, spread nodes across
+   * availability zones for a Databricks deployment region - A GCP availability zone => Pick One of
+   * the available zones for (machine type + region) from
+   * https://cloud.google.com/compute/docs/regions-zones (e.g. "us-west1-a").
+   *
+   * <p>If empty, Databricks picks an availability zone to schedule the cluster on.
    */
   @JsonProperty("zone_id")
   private String zoneId;

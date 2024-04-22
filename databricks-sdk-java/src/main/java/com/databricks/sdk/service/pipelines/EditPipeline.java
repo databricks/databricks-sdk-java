@@ -42,6 +42,10 @@ public class EditPipeline {
   @JsonProperty("continuous")
   private Boolean continuous;
 
+  /** Deployment type of this pipeline. */
+  @JsonProperty("deployment")
+  private PipelineDeployment deployment;
+
   /** Whether the pipeline is in Development mode. Defaults to false. */
   @JsonProperty("development")
   private Boolean development;
@@ -157,6 +161,15 @@ public class EditPipeline {
 
   public Boolean getContinuous() {
     return continuous;
+  }
+
+  public EditPipeline setDeployment(PipelineDeployment deployment) {
+    this.deployment = deployment;
+    return this;
+  }
+
+  public PipelineDeployment getDeployment() {
+    return deployment;
   }
 
   public EditPipeline setDevelopment(Boolean development) {
@@ -296,6 +309,7 @@ public class EditPipeline {
         && Objects.equals(clusters, that.clusters)
         && Objects.equals(configuration, that.configuration)
         && Objects.equals(continuous, that.continuous)
+        && Objects.equals(deployment, that.deployment)
         && Objects.equals(development, that.development)
         && Objects.equals(edition, that.edition)
         && Objects.equals(expectedLastModified, that.expectedLastModified)
@@ -321,6 +335,7 @@ public class EditPipeline {
         clusters,
         configuration,
         continuous,
+        deployment,
         development,
         edition,
         expectedLastModified,
@@ -346,6 +361,7 @@ public class EditPipeline {
         .add("clusters", clusters)
         .add("configuration", configuration)
         .add("continuous", continuous)
+        .add("deployment", deployment)
         .add("development", development)
         .add("edition", edition)
         .add("expectedLastModified", expectedLastModified)

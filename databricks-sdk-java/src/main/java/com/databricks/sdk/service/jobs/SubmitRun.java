@@ -95,6 +95,13 @@ public class SubmitRun {
   @JsonProperty("queue")
   private QueueSettings queue;
 
+  /**
+   * Specifies the user or service principal that the job runs as. If not specified, the job runs as
+   * the user who submits the request.
+   */
+  @JsonProperty("run_as")
+  private JobRunAs runAs;
+
   /** If run_job_task, indicates that this task must execute another job. */
   @JsonProperty("run_job_task")
   private RunJobTask runJobTask;
@@ -256,6 +263,15 @@ public class SubmitRun {
     return queue;
   }
 
+  public SubmitRun setRunAs(JobRunAs runAs) {
+    this.runAs = runAs;
+    return this;
+  }
+
+  public JobRunAs getRunAs() {
+    return runAs;
+  }
+
   public SubmitRun setRunJobTask(RunJobTask runJobTask) {
     this.runJobTask = runJobTask;
     return this;
@@ -354,6 +370,7 @@ public class SubmitRun {
         && Objects.equals(pipelineTask, that.pipelineTask)
         && Objects.equals(pythonWheelTask, that.pythonWheelTask)
         && Objects.equals(queue, that.queue)
+        && Objects.equals(runAs, that.runAs)
         && Objects.equals(runJobTask, that.runJobTask)
         && Objects.equals(runName, that.runName)
         && Objects.equals(sparkJarTask, that.sparkJarTask)
@@ -380,6 +397,7 @@ public class SubmitRun {
         pipelineTask,
         pythonWheelTask,
         queue,
+        runAs,
         runJobTask,
         runName,
         sparkJarTask,
@@ -406,6 +424,7 @@ public class SubmitRun {
         .add("pipelineTask", pipelineTask)
         .add("pythonWheelTask", pythonWheelTask)
         .add("queue", queue)
+        .add("runAs", runAs)
         .add("runJobTask", runJobTask)
         .add("runName", runName)
         .add("sparkJarTask", sparkJarTask)
