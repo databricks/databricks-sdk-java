@@ -16,8 +16,9 @@ import java.util.Objects;
 @Generated
 public class Environment {
   /**
-   * * User-friendly name for the client version: “client”: “1” The version is a string, consisting
-   * of the major client version
+   * Client version used by the environment The client is the user-facing environment of the
+   * runtime. Each client comes with a specific set of pre-installed libraries. The version is a
+   * string, consisting of the major client version.
    */
   @JsonProperty("client")
   private String client;

@@ -9,12 +9,12 @@ import java.util.Objects;
 
 /** Get status */
 @Generated
-public class ClusterStatusRequest {
+public class ClusterStatus {
   /** Unique identifier of the cluster whose status should be retrieved. */
   @QueryParam("cluster_id")
   private String clusterId;
 
-  public ClusterStatusRequest setClusterId(String clusterId) {
+  public ClusterStatus setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
   }
@@ -27,7 +27,7 @@ public class ClusterStatusRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ClusterStatusRequest that = (ClusterStatusRequest) o;
+    ClusterStatus that = (ClusterStatus) o;
     return Objects.equals(clusterId, that.clusterId);
   }
 
@@ -38,6 +38,6 @@ public class ClusterStatusRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(ClusterStatusRequest.class).add("clusterId", clusterId).toString();
+    return new ToStringer(ClusterStatus.class).add("clusterId", clusterId).toString();
   }
 }

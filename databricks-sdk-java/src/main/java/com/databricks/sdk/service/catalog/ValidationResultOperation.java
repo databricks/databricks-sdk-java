@@ -6,9 +6,8 @@ import com.databricks.sdk.support.Generated;
 
 /** The operation tested. */
 @Generated
-public enum ValidationResultAzureOperation {
+public enum ValidationResultOperation {
   DELETE,
-  HIERARCHICAL_NAMESPACE_ENABLED,
   LIST,
   PATH_EXISTS,
   READ,

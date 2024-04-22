@@ -4,14 +4,15 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 
-/** Status of installing the library on the cluster. */
+/** The status of a library on a specific cluster. */
 @Generated
-public enum LibraryFullStatusStatus {
+public enum LibraryInstallStatus {
   FAILED,
   INSTALLED,
   INSTALLING,
   PENDING,
   RESOLVING,
+  RESTORED,
   SKIPPED,
   UNINSTALL_ON_RESTART,
 }

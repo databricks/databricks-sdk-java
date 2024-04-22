@@ -6,6 +6,7 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum Privilege {
+  ACCESS,
   ALL_PRIVILEGES,
   APPLY_TAG,
   CREATE,
@@ -22,6 +23,7 @@ public enum Privilege {
   CREATE_PROVIDER,
   CREATE_RECIPIENT,
   CREATE_SCHEMA,
+  CREATE_SERVICE_CREDENTIAL,
   CREATE_SHARE,
   CREATE_STORAGE_CREDENTIAL,
   CREATE_TABLE,
