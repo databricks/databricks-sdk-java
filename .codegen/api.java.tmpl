@@ -95,7 +95,7 @@ public class {{.PascalName}}API {
         try {
             Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            throw new DatabricksException("Current thread was interrupted", e);
         }
         attempt++;
     }
