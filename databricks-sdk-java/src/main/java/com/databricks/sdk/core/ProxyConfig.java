@@ -70,7 +70,7 @@ public class ProxyConfig {
     return this;
   }
 
-  public Boolean isUseSystemProperties() {
+  public Boolean getUseSystemProperties() {
     return useSystemProperties;
   }
 

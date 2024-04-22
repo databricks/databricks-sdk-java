@@ -33,7 +33,7 @@ public class ProxyUtils {
     Integer proxyPort = null;
     String proxyUser = null;
     String proxyPassword = null;
-    if (config.isUseSystemProperties() != null && config.isUseSystemProperties()) {
+    if (config.getUseSystemProperties() != null && config.getUseSystemProperties()) {
       builder.useSystemProperties();
       String protocol = System.getProperty("https.proxyHost") != null ? "https" : "http";
       proxyHost = System.getProperty(protocol + ".proxyHost");
