@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** The status of the library on a specific cluster. */
 @Generated
 public class LibraryFullStatus {
   /** Whether the library was set to be installed on all clusters via the libraries UI. */
@@ -24,7 +25,7 @@ public class LibraryFullStatus {
 
   /** Status of installing the library on the cluster. */
   @JsonProperty("status")
-  private LibraryFullStatusStatus status;
+  private LibraryInstallStatus status;
 
   public LibraryFullStatus setIsLibraryForAllClusters(Boolean isLibraryForAllClusters) {
     this.isLibraryForAllClusters = isLibraryForAllClusters;
@@ -53,12 +54,12 @@ public class LibraryFullStatus {
     return messages;
   }
 
-  public LibraryFullStatus setStatus(LibraryFullStatusStatus status) {
+  public LibraryFullStatus setStatus(LibraryInstallStatus status) {
     this.status = status;
     return this;
   }
 
-  public LibraryFullStatusStatus getStatus() {
+  public LibraryInstallStatus getStatus() {
     return status;
   }
 

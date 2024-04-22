@@ -18,11 +18,7 @@ public class SqlTask {
   @JsonProperty("dashboard")
   private SqlTaskDashboard dashboard;
 
-  /**
-   * If file, indicates that this job runs a SQL file in a remote Git repository. Only one SQL
-   * statement is supported in a file. Multiple SQL statements separated by semicolons (;) are not
-   * permitted.
-   */
+  /** If file, indicates that this job runs a SQL file in a remote Git repository. */
   @JsonProperty("file")
   private SqlTaskFile file;
 

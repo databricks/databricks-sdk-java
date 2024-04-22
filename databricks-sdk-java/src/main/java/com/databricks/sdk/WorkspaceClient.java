@@ -827,16 +827,12 @@ public class WorkspaceClient {
    *
    * <p>To make third-party or custom code available to notebooks and jobs running on your clusters,
    * you can install a library. Libraries can be written in Python, Java, Scala, and R. You can
-   * upload Java, Scala, and Python libraries and point to external packages in PyPI, Maven, and
+   * upload Python, Java, Scala and R libraries and point to external packages in PyPI, Maven, and
    * CRAN repositories.
    *
    * <p>Cluster libraries can be used by all notebooks running on a cluster. You can install a
    * cluster library directly from a public repository such as PyPI or Maven, using a previously
    * installed workspace library, or using an init script.
-   *
-   * <p>When you install a library on a cluster, a notebook already attached to that cluster will
-   * not immediately see the new library. You must first detach and then reattach the notebook to
-   * the cluster.
    *
    * <p>When you uninstall a library from a cluster, the library is removed only when you restart
    * the cluster. Until you restart the cluster, the status of the uninstalled library appears as

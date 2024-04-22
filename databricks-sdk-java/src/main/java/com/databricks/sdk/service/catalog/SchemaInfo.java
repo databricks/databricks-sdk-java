@@ -65,6 +65,10 @@ public class SchemaInfo {
   @JsonProperty("properties")
   private Map<String, String> properties;
 
+  /** The unique identifier of the schema. */
+  @JsonProperty("schema_id")
+  private String schemaId;
+
   /** Storage location for managed tables within schema. */
   @JsonProperty("storage_location")
   private String storageLocation;
@@ -200,6 +204,15 @@ public class SchemaInfo {
     return properties;
   }
 
+  public SchemaInfo setSchemaId(String schemaId) {
+    this.schemaId = schemaId;
+    return this;
+  }
+
+  public String getSchemaId() {
+    return schemaId;
+  }
+
   public SchemaInfo setStorageLocation(String storageLocation) {
     this.storageLocation = storageLocation;
     return this;
@@ -255,6 +268,7 @@ public class SchemaInfo {
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
         && Objects.equals(properties, that.properties)
+        && Objects.equals(schemaId, that.schemaId)
         && Objects.equals(storageLocation, that.storageLocation)
         && Objects.equals(storageRoot, that.storageRoot)
         && Objects.equals(updatedAt, that.updatedAt)
@@ -277,6 +291,7 @@ public class SchemaInfo {
         name,
         owner,
         properties,
+        schemaId,
         storageLocation,
         storageRoot,
         updatedAt,
@@ -299,6 +314,7 @@ public class SchemaInfo {
         .add("name", name)
         .add("owner", owner)
         .add("properties", properties)
+        .add("schemaId", schemaId)
         .add("storageLocation", storageLocation)
         .add("storageRoot", storageRoot)
         .add("updatedAt", updatedAt)

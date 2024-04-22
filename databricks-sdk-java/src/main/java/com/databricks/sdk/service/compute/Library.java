@@ -14,18 +14,20 @@ public class Library {
   private RCranLibrary cran;
 
   /**
-   * URI of the egg to be installed. Currently only DBFS and S3 URIs are supported. For example: `{
-   * "egg": "dbfs:/my/egg" }` or `{ "egg": "s3://my-bucket/egg" }`. If S3 is used, please make sure
-   * the cluster has read access on the library. You may need to launch the cluster with an IAM role
-   * to access the S3 URI.
+   * URI of the egg library to install. Supported URIs include Workspace paths, Unity Catalog
+   * Volumes paths, and S3 URIs. For example: `{ "egg": "/Workspace/path/to/library.egg" }`, `{
+   * "egg" : "/Volumes/path/to/library.egg" }` or `{ "egg": "s3://my-bucket/library.egg" }`. If S3
+   * is used, please make sure the cluster has read access on the library. You may need to launch
+   * the cluster with an IAM role to access the S3 URI.
    */
   @JsonProperty("egg")
   private String egg;
 
   /**
-   * URI of the jar to be installed. Currently only DBFS and S3 URIs are supported. For example: `{
-   * "jar": "dbfs:/mnt/databricks/library.jar" }` or `{ "jar": "s3://my-bucket/library.jar" }`. If
-   * S3 is used, please make sure the cluster has read access on the library. You may need to launch
+   * URI of the JAR library to install. Supported URIs include Workspace paths, Unity Catalog
+   * Volumes paths, and S3 URIs. For example: `{ "jar": "/Workspace/path/to/library.jar" }`, `{
+   * "jar" : "/Volumes/path/to/library.jar" }` or `{ "jar": "s3://my-bucket/library.jar" }`. If S3
+   * is used, please make sure the cluster has read access on the library. You may need to launch
    * the cluster with an IAM role to access the S3 URI.
    */
   @JsonProperty("jar")
@@ -43,9 +45,19 @@ public class Library {
   private PythonPyPiLibrary pypi;
 
   /**
-   * URI of the wheel to be installed. For example: `{ "whl": "dbfs:/my/whl" }` or `{ "whl":
-   * "s3://my-bucket/whl" }`. If S3 is used, please make sure the cluster has read access on the
-   * library. You may need to launch the cluster with an IAM role to access the S3 URI.
+   * URI of the requirements.txt file to install. Only Workspace paths and Unity Catalog Volumes
+   * paths are supported. For example: `{ "requirements": "/Workspace/path/to/requirements.txt" }`
+   * or `{ "requirements" : "/Volumes/path/to/requirements.txt" }`
+   */
+  @JsonProperty("requirements")
+  private String requirements;
+
+  /**
+   * URI of the wheel library to install. Supported URIs include Workspace paths, Unity Catalog
+   * Volumes paths, and S3 URIs. For example: `{ "whl": "/Workspace/path/to/library.whl" }`, `{
+   * "whl" : "/Volumes/path/to/library.whl" }` or `{ "whl": "s3://my-bucket/library.whl" }`. If S3
+   * is used, please make sure the cluster has read access on the library. You may need to launch
+   * the cluster with an IAM role to access the S3 URI.
    */
   @JsonProperty("whl")
   private String whl;
@@ -95,6 +107,15 @@ public class Library {
     return pypi;
   }
 
+  public Library setRequirements(String requirements) {
+    this.requirements = requirements;
+    return this;
+  }
+
+  public String getRequirements() {
+    return requirements;
+  }
+
   public Library setWhl(String whl) {
     this.whl = whl;
     return this;
@@ -114,12 +135,13 @@ public class Library {
         && Objects.equals(jar, that.jar)
         && Objects.equals(maven, that.maven)
         && Objects.equals(pypi, that.pypi)
+        && Objects.equals(requirements, that.requirements)
         && Objects.equals(whl, that.whl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cran, egg, jar, maven, pypi, whl);
+    return Objects.hash(cran, egg, jar, maven, pypi, requirements, whl);
   }
 
   @Override
@@ -130,6 +152,7 @@ public class Library {
         .add("jar", jar)
         .add("maven", maven)
         .add("pypi", pypi)
+        .add("requirements", requirements)
         .add("whl", whl)
         .toString();
   }
