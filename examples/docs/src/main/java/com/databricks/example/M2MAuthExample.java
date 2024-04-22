@@ -12,7 +12,7 @@ import com.databricks.sdk.service.provisioning.Workspace;
  The authentication type can be set to either "databricks-cli" or "azure-cli".
  For details on authenticating via bricks cli, please see: <a href="https://docs.databricks.com/dev-tools/cli/auth-commands.html">...</a>
  */
-public class M2MWorkspaceAuthExample {
+public class M2MAuthExample {
     /**
      Get config used for authenticating with Databricks.
      @return DatabricksConfig object used for authentication
@@ -20,9 +20,13 @@ public class M2MWorkspaceAuthExample {
     private static DatabricksConfig getConfig() {
         return new DatabricksConfig()
             .setHost("https://accounts.cloud.databricks.com")
-            .setAccountId("4d9d3bc8-66c3-4e5a-8a0a-551f564257f0")
-            .setClientId("be8a7e9d-609d-4719-a574-614067b6fc3f")
-            .setClientSecret("dosea225161b0f804998f0cf2d97e1088d89");
+            // Fill in your E2 account ID. Click on your username in the top-right corner of the accounts console to
+            // display your account ID.
+            .setAccountId("")
+            // Create a service principal in the Account console at "User Management" -> "Service Principals" and
+            // click "Create service principal". Generate a secret and paste the client ID and secret below.
+            .setClientId("")
+            .setClientSecret("");
     }
 
     /**
