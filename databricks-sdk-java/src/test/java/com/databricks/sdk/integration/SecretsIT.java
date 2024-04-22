@@ -1,6 +1,5 @@
 package com.databricks.sdk.integration;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.databricks.sdk.WorkspaceClient;
@@ -40,8 +39,9 @@ public class SecretsIT {
 
         assertTrue(foundSecret);
 
-        String responseValue = secretsExt.get(scope, key);
-        assertEquals(value, responseValue);
+        // TODO: Uncomment once secrets.get is enabled
+        // String responseValue = secretResource.secretsExt.get(scope, key);
+        // assertEquals(value, responseValue);
       }
     }
   }
