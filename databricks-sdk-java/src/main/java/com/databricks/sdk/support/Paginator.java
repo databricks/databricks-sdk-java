@@ -48,11 +48,11 @@ public class Paginator<RQ, RS, T> implements Iterable<T> {
     this.itemsFn = itemsFn;
     this.nextPageFn = nextPageFn;
     all = outerIterator();
-    flipNextPage(request);
+    flipNextPage(request, true);
   }
 
-  private boolean flipNextPage(RQ request) {
-    if (request == null) {
+  private boolean flipNextPage(RQ request, boolean firstRequest) {
+    if (!firstRequest && request == null) {
       return false;
     }
     response = requestFn.apply(request);
@@ -77,7 +77,7 @@ public class Paginator<RQ, RS, T> implements Iterable<T> {
         if (currentPage.hasNext()) {
           return true;
         }
-        return flipNextPage(nextPageFn.apply(response));
+        return flipNextPage(nextPageFn.apply(response), false);
       }
 
       @Override
