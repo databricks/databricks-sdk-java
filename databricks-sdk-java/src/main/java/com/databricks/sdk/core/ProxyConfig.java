@@ -16,6 +16,8 @@ public class ProxyConfig {
     SPNEGO
   }
 
+  public ProxyConfig() {}
+
   public ProxyConfig(DatabricksConfig config) {
     this.host = config.getProxyHost();
     this.port = config.getProxyPort();

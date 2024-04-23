@@ -33,6 +33,7 @@ public class ProxyUtils {
     Integer proxyPort = null;
     String proxyUser = null;
     String proxyPassword = null;
+    ProxyConfig.ProxyAuthType proxyAuthType = null;
     if (config.getUseSystemProperties() != null && config.getUseSystemProperties()) {
       builder.useSystemProperties();
       String protocol = System.getProperty("https.proxyHost") != null ? "https" : "http";
@@ -40,6 +41,7 @@ public class ProxyUtils {
       proxyPort = Integer.parseInt(System.getProperty(protocol + ".proxyPort"));
       proxyUser = System.getProperty(protocol + ".proxyUser");
       proxyPassword = System.getProperty(protocol + ".proxyPassword");
+      proxyAuthType = ProxyConfig.ProxyAuthType.BASIC;
     }
     // Override system properties if proxy configuration is explicitly set
     if (config.getHost() != null) {
@@ -47,10 +49,10 @@ public class ProxyUtils {
       proxyPort = config.getPort();
       proxyUser = config.getUsername();
       proxyPassword = config.getPassword();
+      proxyAuthType = config.getProxyAuthType();
       builder.setProxy(new HttpHost(proxyHost, proxyPort));
     }
-    setupProxyAuth(
-        proxyHost, proxyPort, config.getProxyAuthType(), proxyUser, proxyPassword, builder);
+    setupProxyAuth(proxyHost, proxyPort, proxyAuthType, proxyUser, proxyPassword, builder);
   }
 
   /**

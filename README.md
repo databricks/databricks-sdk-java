@@ -16,6 +16,7 @@ The Databricks SDK for Java includes functionality to accelerate development wit
 - [Single-sign-on with OAuth](#single-sign-on-sso-with-oauth)
 - [Error handling](#error-handling)
 - [Logging](#logging)
+- [Proxy](#proxy)
 - [Interface stability](#interface-stability)
 - [Disclaimer](#disclaimer)
 
@@ -410,5 +411,18 @@ This will enable logging at the debug level and above. Developers can adjust the
 
 Overall, the logging capabilities provided by the Databricks SDK for Java can be a powerful tool for monitoring and troubleshooting your Databricks Java projects. Developers can use the various logging methods and configuration options provided by the SDK to customize the logging output to their specific needs.
 
+## Proxy
+Databricks SDK for Java supports clients using proxy. Clients can use their proxy setup either by providing the proxy settings in the `DatabricksConfig` configuration object or by creating a `ProxyConfig` object and passing it to the constructor of `CommonsHttpClient`. The following properties can be set in the `.databrickscfg` file to configure the proxy settings:
+
+| DatabricksConfig Attribute   | Description                                                                                                                                                                 | Environment variable         |
+|------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------|
+| `use_system_properties_http` | _(Boolean)_ Setting this boolean to `true` will cause the http client to automatically use proxy settings set at the system level. Namely under `http/https.proxyHost` etc. | `USE_SYSTEM_PROPERTIES_HTTP` |
+| `proxy_host`                 | _(String)_ The proxy server host                                                                                                                                            | `PROXY_HOST`                 |
+| `proxy_port`                 | _(Integer)_ The proxy server port                                                                                                                                           | `PROXY_PORT`                 |
+| `proxy_auth_type`            | _(Enum: ProxyAuthType)_ This specifies how the client authenticates with the proxy server. Currently, supported auth mechanisms are `BASIC` and `SPNEGO` (only kerberos)    | `PROXY_AUTH_TYPE`            |
+| `proxy_username`             | _(String)_ The proxy user to authenticate with, when using `BASIC` auth mechanism                                                                                           | `PROXY_USERNAME`             |
+| `proxy_password`             | _(String)_ The proxy password to authenticate with, when using `BASIC` auth mechanism                                                                                       | `PROXY_PASSWORD`             |
+
+Note: when using Kerberos authentication in SPNEGO, the `java.security.krb5.conf` system property must point to the `krb5.conf/krb5.ini` file that contains the Kerberos configuration.
 ## Disclaimer
 Databricks is actively working on stabilizing the Databricks SDK for Java's interfaces. API clients for all services are generated from specification files that are synchronized from the main platform. You are highly encouraged to pin the exact dependency version and read the [changelog](https://github.com/databricks/databricks-sdk-java/blob/main/CHANGELOG.md) where Databricks documents the changes. Databricks may have minor [documented](https://github.com/databricks/databricks-sdk-java/blob/main/CHANGELOG.md) backward-incompatible changes, such as renaming the methods or some type names to bring more consistency.
