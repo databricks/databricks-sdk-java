@@ -1,5 +1,46 @@
 # Version changelog
 
+## 0.24.0
+
+* [PECO-1008] Add retry strategy based on idempotency of requests ([#264](https://github.com/databricks/databricks-sdk-java/pull/264)).
+* Fix remaining Java integration tests ([#265](https://github.com/databricks/databricks-sdk-java/pull/265)).
+* Fix one-shot list APIs to not return null ([#266](https://github.com/databricks/databricks-sdk-java/pull/266)).
+* Remove unnecessary secret from example ([#267](https://github.com/databricks/databricks-sdk-java/pull/267)).
+* Fix one shot pagination ([#268](https://github.com/databricks/databricks-sdk-java/pull/268)).
+* Update SDK to OpenAPI spec ([#269](https://github.com/databricks/databricks-sdk-java/pull/269)).
+* [PECO-1542] Add a way to provide proxy details to SDK ([#271](https://github.com/databricks/databricks-sdk-java/pull/271)).
+
+API Changes:
+
+ * Added `schemaId` field for `com.databricks.sdk.service.catalog.SchemaInfo`.
+ * Removed `awsOperation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Removed `azureOperation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Removed `gcpOperation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Added `operation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Removed `com.databricks.sdk.service.catalog.ValidationResultAwsOperation` class.
+ * Removed `com.databricks.sdk.service.catalog.ValidationResultAzureOperation` class.
+ * Removed `com.databricks.sdk.service.catalog.ValidationResultGcpOperation` class.
+ * Added `com.databricks.sdk.service.catalog.ValidationResultOperation` class.
+ * Changed `clusterStatus()` method for `workspaceClient.libraries()` service . New request type is `com.databricks.sdk.service.compute.ClusterStatus` class.
+ * Changed `clusterStatus()` method for `workspaceClient.libraries()` service to return `com.databricks.sdk.service.compute.ClusterStatusResponse` class.
+ * Removed `com.databricks.sdk.service.compute.ClusterStatusRequest` class.
+ * Added `requirements` field for `com.databricks.sdk.service.compute.Library`.
+ * Changed `status` field for `com.databricks.sdk.service.compute.LibraryFullStatus` to `com.databricks.sdk.service.compute.LibraryInstallStatus` class.
+ * Removed `com.databricks.sdk.service.compute.LibraryFullStatusStatus` class.
+ * Added `com.databricks.sdk.service.compute.ClusterStatus` class.
+ * Added `com.databricks.sdk.service.compute.ClusterStatusResponse` class.
+ * Added `com.databricks.sdk.service.compute.LibraryInstallStatus` class.
+ * Added `warehouseId` field for `com.databricks.sdk.service.jobs.NotebookTask`.
+ * Added `runAs` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+ * Added `deployment` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+ * Added `deployment` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+ * Added `deployment` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+ * Added `com.databricks.sdk.service.pipelines.DeploymentKind` class.
+ * Added `com.databricks.sdk.service.pipelines.PipelineDeployment` class.
+
+OpenAPI SHA: 06d330f43d92c1be864d4638c672cd0723e20a51, Date: 2024-04-22
+
+
 ## 0.23.0
 
 ### Improvements and Bug Fixes
