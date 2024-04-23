@@ -2,11 +2,14 @@ package com.databricks.sdk.core.commons;
 
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.ProxyConfig;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.CustomCloseInputStream;
+import com.databricks.sdk.core.utils.ProxyUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -41,6 +44,20 @@ public class CommonsHttpClient implements HttpClient {
     hc = makeClosableHttpClient();
   }
 
+  public CommonsHttpClient(DatabricksConfig databricksConfig) {
+    this(
+        databricksConfig.getHttpTimeoutSeconds() == null
+            ? 300
+            : databricksConfig.getHttpTimeoutSeconds(),
+        new ProxyConfig(databricksConfig));
+  }
+
+  public CommonsHttpClient(int timeoutSeconds, ProxyConfig proxyConfig) {
+    timeout = timeoutSeconds * 1000;
+    connectionManager.setMaxTotal(100);
+    hc = makeClosableHttpClient(proxyConfig);
+  }
+
   private RequestConfig makeRequestConfig() {
     return RequestConfig.custom()
         .setConnectionRequestTimeout(timeout)
@@ -53,8 +70,16 @@ public class CommonsHttpClient implements HttpClient {
     return HttpClientBuilder.create()
         .setConnectionManager(connectionManager)
         .setDefaultRequestConfig(makeRequestConfig())
-        .useSystemProperties()
         .build();
+  }
+
+  private CloseableHttpClient makeClosableHttpClient(ProxyConfig proxyConfig) {
+    HttpClientBuilder builder =
+        HttpClientBuilder.create()
+            .setConnectionManager(connectionManager)
+            .setDefaultRequestConfig(makeRequestConfig());
+    ProxyUtils.setupProxy(proxyConfig, builder);
+    return builder.build();
   }
 
   @Override
