@@ -10,6 +10,8 @@
 * Updated SDK to OpenAPI spec ([#269](https://github.com/databricks/databricks-sdk-java/pull/269)).
 * Added a way to provide proxy details to SDK ([#271](https://github.com/databricks/databricks-sdk-java/pull/271)).
 
+Note: This release contains breaking changes, please see the API changes below for more details. 
+
 API Changes:
 
  * Added `deployment` field for `com.databricks.sdk.service.pipelines.CreatePipeline`, `com.databricks.sdk.service.pipelines.EditPipeline`, `com.databricks.sdk.service.pipelines.PipelineSpec`.
