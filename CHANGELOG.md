@@ -1,5 +1,12 @@
 # Version changelog
 
+## 0.24.1
+
+* Fix interrupt handling ([#272](https://github.com/databricks/databricks-sdk-java/pull/272)).
+* [PECO-1598] Add README for proxy and minor fix ([#273](https://github.com/databricks/databricks-sdk-java/pull/273)).
+
+
+
 ## 0.24.0
 
 * Added retry strategy based on idempotency of requests ([#264](https://github.com/databricks/databricks-sdk-java/pull/264)).
