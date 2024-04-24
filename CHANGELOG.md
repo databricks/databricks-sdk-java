@@ -2,8 +2,8 @@
 
 ## 0.24.1
 
-* Fix interrupt handling ([#272](https://github.com/databricks/databricks-sdk-java/pull/272)).
-* [PECO-1598] Add README for proxy and minor fix ([#273](https://github.com/databricks/databricks-sdk-java/pull/273)).
+* Fixed interrupt handling ([#272](https://github.com/databricks/databricks-sdk-java/pull/272)).
+* Added README for proxy and minor fix ([#273](https://github.com/databricks/databricks-sdk-java/pull/273)).
 
 
 
