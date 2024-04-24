@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
@@ -91,6 +92,7 @@ public class JobsAPI {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
       }
       attempt++;
     }
