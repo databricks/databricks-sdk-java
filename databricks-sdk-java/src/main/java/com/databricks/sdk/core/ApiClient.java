@@ -288,6 +288,7 @@ public class ApiClient {
         timer.sleep(sleepMillis);
       } catch (InterruptedException ex) {
         Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", ex);
       }
     }
   }
