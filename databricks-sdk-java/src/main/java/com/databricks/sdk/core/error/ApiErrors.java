@@ -62,9 +62,18 @@ public class ApiErrors {
    */
   private static ApiErrorBody parseApiError(Response response) {
     try {
+      InputStream in = response.getBody();
+      if (in == null) {
+        ApiErrorBody errorBody = new ApiErrorBody();
+        errorBody.setMessage(
+          String.format(
+            "Status response from server: %s", response.getStatus()));
+        return errorBody;
+      }
+
       // Read the body now, so we can try to parse as JSON and then fallback to old error handling
       // logic.
-      String body = IOUtils.toString(response.getBody(), StandardCharsets.UTF_8);
+      String body = IOUtils.toString(in, StandardCharsets.UTF_8);
       try {
         return MAPPER.readValue(body, ApiErrorBody.class);
       } catch (IOException e) {
