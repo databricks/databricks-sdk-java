@@ -572,7 +572,7 @@ public class DatabricksConfig {
       return new OpenIDConnectEndpoints(
           realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
     }
-    if (getAccountId() != null) {
+    if (isAccountClient() && getAccountId() != null) {
       String prefix = getHost() + "/oidc/accounts/" + getAccountId();
       return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
     }
