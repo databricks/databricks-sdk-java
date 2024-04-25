@@ -66,8 +66,7 @@ public class ApiErrors {
       if (in == null) {
         ApiErrorBody errorBody = new ApiErrorBody();
         errorBody.setMessage(
-          String.format(
-            "Status response from server: %s", response.getStatus()));
+            String.format("Status response from server: %s", response.getStatus()));
         return errorBody;
       }
 
