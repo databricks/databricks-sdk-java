@@ -1,10 +1,9 @@
 package com.databricks.sdk.core;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class DatabricksConfigTest {
   @Test
@@ -53,19 +52,18 @@ public class DatabricksConfigTest {
 
   @Test
   public void testWorkspaceLevelOidcEndpointsWithAccountId() throws IOException {
-    try (FixtureServer server = new FixtureServer().with(
-        "GET",
-        "/oidc/.well-known/oauth-authorization-server",
-        "{\"authorization_endpoint\":\"https://test-workspace.cloud.databricks.com/oidc/v1/authorize\"}"
-    )) {
-      DatabricksConfig c = new DatabricksConfig()
-          .setHost(server.getUrl())
-          .setAccountId("1234567890");
+    try (FixtureServer server =
+        new FixtureServer()
+            .with(
+                "GET",
+                "/oidc/.well-known/oauth-authorization-server",
+                "{\"authorization_endpoint\":\"https://test-workspace.cloud.databricks.com/oidc/v1/authorize\"}")) {
+      DatabricksConfig c =
+          new DatabricksConfig().setHost(server.getUrl()).setAccountId("1234567890");
       c.resolve();
       assertEquals(
           c.getOidcEndpoints().getAuthorizationEndpoint(),
-          "https://test-workspace.cloud.databricks.com/oidc/v1/authorize"
-      );
+          "https://test-workspace.cloud.databricks.com/oidc/v1/authorize");
     }
   }
 
@@ -75,8 +73,8 @@ public class DatabricksConfigTest {
         new DatabricksConfig()
             .setHost("https://accounts.cloud.databricks.com")
             .setAccountId("1234567890")
-            .getOidcEndpoints().getAuthorizationEndpoint(),
-        "https://accounts.cloud.databricks.com/oidc/accounts/1234567890/v1/authorize"
-    );
+            .getOidcEndpoints()
+            .getAuthorizationEndpoint(),
+        "https://accounts.cloud.databricks.com/oidc/accounts/1234567890/v1/authorize");
   }
 }
