@@ -93,16 +93,15 @@ public class ExternalBrowserCredentialsProviderTest {
 
   @Test
   void openIDConnectEndPointsTestAccounts() throws IOException {
-    String testHost = "https://localhost:8080";
     DatabricksConfig config =
         new DatabricksConfig()
             .setAuthType("external-browser")
-            .setHost("https://localhost:8080")
+            .setHost("https://accounts.cloud.databricks.com")
             .setHttpClient(new CommonsHttpClient(30))
             .setAccountId("testAccountId");
     config.resolve();
 
-    String prefix = testHost + "/oidc/accounts/" + config.getAccountId();
+    String prefix = "https://accounts.cloud.databricks.com/oidc/accounts/" + config.getAccountId();
     assertEquals(prefix + "/v1/token", config.getOidcEndpoints().getTokenEndpoint());
     assertEquals(prefix + "/v1/authorize", config.getOidcEndpoints().getAuthorizationEndpoint());
   }
