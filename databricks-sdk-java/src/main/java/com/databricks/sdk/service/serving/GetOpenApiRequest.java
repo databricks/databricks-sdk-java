@@ -6,13 +6,13 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get deployment events for an application */
+/** Get the schema for a serving endpoint */
 @Generated
-public class GetEventsRequest {
-  /** The name of an application. This field is required. */
+public class GetOpenApiRequest {
+  /** The name of the serving endpoint that the served model belongs to. This field is required. */
   private String name;
 
-  public GetEventsRequest setName(String name) {
+  public GetOpenApiRequest setName(String name) {
     this.name = name;
     return this;
   }
@@ -25,7 +25,7 @@ public class GetEventsRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetEventsRequest that = (GetEventsRequest) o;
+    GetOpenApiRequest that = (GetOpenApiRequest) o;
     return Objects.equals(name, that.name);
   }
 
@@ -36,6 +36,6 @@ public class GetEventsRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetEventsRequest.class).add("name", name).toString();
+    return new ToStringer(GetOpenApiRequest.class).add("name", name).toString();
   }
 }

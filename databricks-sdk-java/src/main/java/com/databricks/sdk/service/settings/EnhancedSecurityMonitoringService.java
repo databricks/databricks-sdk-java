@@ -16,13 +16,14 @@ import com.databricks.sdk.support.Generated;
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
 @Generated
-public interface EsmEnablementService {
+public interface EnhancedSecurityMonitoringService {
   /**
    * Get the enhanced security monitoring setting.
    *
    * <p>Gets the enhanced security monitoring setting.
    */
-  EsmEnablementSetting get(GetEsmEnablementSettingRequest getEsmEnablementSettingRequest);
+  EnhancedSecurityMonitoringSetting get(
+      GetEnhancedSecurityMonitoringSettingRequest getEnhancedSecurityMonitoringSettingRequest);
 
   /**
    * Update the enhanced security monitoring setting.
@@ -33,5 +34,7 @@ public interface EsmEnablementService {
    * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409
    * response.
    */
-  EsmEnablementSetting update(UpdateEsmEnablementSettingRequest updateEsmEnablementSettingRequest);
+  EnhancedSecurityMonitoringSetting update(
+      UpdateEnhancedSecurityMonitoringSettingRequest
+          updateEnhancedSecurityMonitoringSettingRequest);
 }

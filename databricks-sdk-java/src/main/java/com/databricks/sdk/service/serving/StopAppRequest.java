@@ -6,13 +6,12 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Delete an App */
 @Generated
-public class DeleteAppRequest {
+public class StopAppRequest {
   /** The name of the app. */
   private String name;
 
-  public DeleteAppRequest setName(String name) {
+  public StopAppRequest setName(String name) {
     this.name = name;
     return this;
   }
@@ -25,7 +24,7 @@ public class DeleteAppRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    DeleteAppRequest that = (DeleteAppRequest) o;
+    StopAppRequest that = (StopAppRequest) o;
     return Objects.equals(name, that.name);
   }
 
@@ -36,6 +35,6 @@ public class DeleteAppRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteAppRequest.class).add("name", name).toString();
+    return new ToStringer(StopAppRequest.class).add("name", name).toString();
   }
 }

@@ -9,25 +9,25 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Generated
-public class ListAppsResponse {
-  /** */
-  @JsonProperty("apps")
-  private Collection<App> apps;
+public class ListAppDeploymentsResponse {
+  /** Deployment history of the app. */
+  @JsonProperty("app_deployments")
+  private Collection<AppDeployment> appDeployments;
 
   /** Pagination token to request the next page of apps. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  public ListAppsResponse setApps(Collection<App> apps) {
-    this.apps = apps;
+  public ListAppDeploymentsResponse setAppDeployments(Collection<AppDeployment> appDeployments) {
+    this.appDeployments = appDeployments;
     return this;
   }
 
-  public Collection<App> getApps() {
-    return apps;
+  public Collection<AppDeployment> getAppDeployments() {
+    return appDeployments;
   }
 
-  public ListAppsResponse setNextPageToken(String nextPageToken) {
+  public ListAppDeploymentsResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
   }
@@ -40,19 +40,20 @@ public class ListAppsResponse {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ListAppsResponse that = (ListAppsResponse) o;
-    return Objects.equals(apps, that.apps) && Objects.equals(nextPageToken, that.nextPageToken);
+    ListAppDeploymentsResponse that = (ListAppDeploymentsResponse) o;
+    return Objects.equals(appDeployments, that.appDeployments)
+        && Objects.equals(nextPageToken, that.nextPageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apps, nextPageToken);
+    return Objects.hash(appDeployments, nextPageToken);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListAppsResponse.class)
-        .add("apps", apps)
+    return new ToStringer(ListAppDeploymentsResponse.class)
+        .add("appDeployments", appDeployments)
         .add("nextPageToken", nextPageToken)
         .toString();
   }

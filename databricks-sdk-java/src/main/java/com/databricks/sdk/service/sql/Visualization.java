@@ -38,6 +38,10 @@ public class Visualization {
   @JsonProperty("options")
   private Object options;
 
+  /** */
+  @JsonProperty("query")
+  private Query query;
+
   /** The type of visualization: chart, table, pivot table, and so on. */
   @JsonProperty("type")
   private String typeValue;
@@ -91,6 +95,15 @@ public class Visualization {
     return options;
   }
 
+  public Visualization setQuery(Query query) {
+    this.query = query;
+    return this;
+  }
+
+  public Query getQuery() {
+    return query;
+  }
+
   public Visualization setType(String typeValue) {
     this.typeValue = typeValue;
     return this;
@@ -119,13 +132,14 @@ public class Visualization {
         && Objects.equals(id, that.id)
         && Objects.equals(name, that.name)
         && Objects.equals(options, that.options)
+        && Objects.equals(query, that.query)
         && Objects.equals(typeValue, that.typeValue)
         && Objects.equals(updatedAt, that.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, description, id, name, options, typeValue, updatedAt);
+    return Objects.hash(createdAt, description, id, name, options, query, typeValue, updatedAt);
   }
 
   @Override
@@ -136,6 +150,7 @@ public class Visualization {
         .add("id", id)
         .add("name", name)
         .add("options", options)
+        .add("query", query)
         .add("typeValue", typeValue)
         .add("updatedAt", updatedAt)
         .toString();

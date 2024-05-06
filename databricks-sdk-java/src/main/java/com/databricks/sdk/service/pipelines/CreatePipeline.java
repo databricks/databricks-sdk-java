@@ -64,6 +64,13 @@ public class CreatePipeline {
   @JsonProperty("id")
   private String id;
 
+  /**
+   * The configuration for a managed ingestion pipeline. These settings cannot be used with the
+   * 'libraries', 'target' or 'catalog' settings.
+   */
+  @JsonProperty("ingestion_definition")
+  private ManagedIngestionPipelineDefinition ingestionDefinition;
+
   /** Libraries or code needed by this deployment. */
   @JsonProperty("libraries")
   private Collection<PipelineLibrary> libraries;
@@ -208,6 +215,16 @@ public class CreatePipeline {
     return id;
   }
 
+  public CreatePipeline setIngestionDefinition(
+      ManagedIngestionPipelineDefinition ingestionDefinition) {
+    this.ingestionDefinition = ingestionDefinition;
+    return this;
+  }
+
+  public ManagedIngestionPipelineDefinition getIngestionDefinition() {
+    return ingestionDefinition;
+  }
+
   public CreatePipeline setLibraries(Collection<PipelineLibrary> libraries) {
     this.libraries = libraries;
     return this;
@@ -297,6 +314,7 @@ public class CreatePipeline {
         && Objects.equals(edition, that.edition)
         && Objects.equals(filters, that.filters)
         && Objects.equals(id, that.id)
+        && Objects.equals(ingestionDefinition, that.ingestionDefinition)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(name, that.name)
         && Objects.equals(notifications, that.notifications)
@@ -322,6 +340,7 @@ public class CreatePipeline {
         edition,
         filters,
         id,
+        ingestionDefinition,
         libraries,
         name,
         notifications,
@@ -347,6 +366,7 @@ public class CreatePipeline {
         .add("edition", edition)
         .add("filters", filters)
         .add("id", id)
+        .add("ingestionDefinition", ingestionDefinition)
         .add("libraries", libraries)
         .add("name", name)
         .add("notifications", notifications)

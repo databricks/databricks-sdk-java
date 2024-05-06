@@ -6,10 +6,10 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get definition for an application */
+/** Get an App */
 @Generated
 public class GetAppRequest {
-  /** The name of an application. This field is required. */
+  /** The name of the app. */
   private String name;
 
   public GetAppRequest setName(String name) {

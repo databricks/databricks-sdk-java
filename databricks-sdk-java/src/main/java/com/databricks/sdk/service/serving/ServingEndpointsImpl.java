@@ -60,6 +60,14 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
+  public void getOpenApi(GetOpenApiRequest request) {
+    String path = String.format("/api/2.0/serving-endpoints/%s/openapi", request.getName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    apiClient.GET(path, request, GetOpenApiResponse.class, headers);
+  }
+
+  @Override
   public GetServingEndpointPermissionLevelsResponse getPermissionLevels(
       GetServingEndpointPermissionLevelsRequest request) {
     String path =

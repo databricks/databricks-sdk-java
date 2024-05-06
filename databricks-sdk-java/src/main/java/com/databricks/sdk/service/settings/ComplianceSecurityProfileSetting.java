@@ -8,13 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class EsmEnablementSetting {
-  /**
-   * Enhanced Security Monitoring (ESM) - one of the features in ESC product Tracks if the feature
-   * is enabled.
-   */
-  @JsonProperty("esm_enablement_workspace")
-  private EsmEnablement esmEnablementWorkspace;
+public class ComplianceSecurityProfileSetting {
+  /** SHIELD feature: CSP */
+  @JsonProperty("compliance_security_profile_workspace")
+  private ComplianceSecurityProfile complianceSecurityProfileWorkspace;
 
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -36,16 +33,17 @@ public class EsmEnablementSetting {
   @JsonProperty("setting_name")
   private String settingName;
 
-  public EsmEnablementSetting setEsmEnablementWorkspace(EsmEnablement esmEnablementWorkspace) {
-    this.esmEnablementWorkspace = esmEnablementWorkspace;
+  public ComplianceSecurityProfileSetting setComplianceSecurityProfileWorkspace(
+      ComplianceSecurityProfile complianceSecurityProfileWorkspace) {
+    this.complianceSecurityProfileWorkspace = complianceSecurityProfileWorkspace;
     return this;
   }
 
-  public EsmEnablement getEsmEnablementWorkspace() {
-    return esmEnablementWorkspace;
+  public ComplianceSecurityProfile getComplianceSecurityProfileWorkspace() {
+    return complianceSecurityProfileWorkspace;
   }
 
-  public EsmEnablementSetting setEtag(String etag) {
+  public ComplianceSecurityProfileSetting setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -54,7 +52,7 @@ public class EsmEnablementSetting {
     return etag;
   }
 
-  public EsmEnablementSetting setSettingName(String settingName) {
+  public ComplianceSecurityProfileSetting setSettingName(String settingName) {
     this.settingName = settingName;
     return this;
   }
@@ -67,21 +65,22 @@ public class EsmEnablementSetting {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    EsmEnablementSetting that = (EsmEnablementSetting) o;
-    return Objects.equals(esmEnablementWorkspace, that.esmEnablementWorkspace)
+    ComplianceSecurityProfileSetting that = (ComplianceSecurityProfileSetting) o;
+    return Objects.equals(
+            complianceSecurityProfileWorkspace, that.complianceSecurityProfileWorkspace)
         && Objects.equals(etag, that.etag)
         && Objects.equals(settingName, that.settingName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(esmEnablementWorkspace, etag, settingName);
+    return Objects.hash(complianceSecurityProfileWorkspace, etag, settingName);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(EsmEnablementSetting.class)
-        .add("esmEnablementWorkspace", esmEnablementWorkspace)
+    return new ToStringer(ComplianceSecurityProfileSetting.class)
+        .add("complianceSecurityProfileWorkspace", complianceSecurityProfileWorkspace)
         .add("etag", etag)
         .add("settingName", settingName)
         .toString();

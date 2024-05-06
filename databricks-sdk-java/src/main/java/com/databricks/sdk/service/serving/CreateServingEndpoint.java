@@ -28,6 +28,10 @@ public class CreateServingEndpoint {
   @JsonProperty("rate_limits")
   private Collection<RateLimit> rateLimits;
 
+  /** Enable route optimization for the serving endpoint. */
+  @JsonProperty("route_optimized")
+  private Boolean routeOptimized;
+
   /** Tags to be attached to the serving endpoint and automatically propagated to billing logs. */
   @JsonProperty("tags")
   private Collection<EndpointTag> tags;
@@ -59,6 +63,15 @@ public class CreateServingEndpoint {
     return rateLimits;
   }
 
+  public CreateServingEndpoint setRouteOptimized(Boolean routeOptimized) {
+    this.routeOptimized = routeOptimized;
+    return this;
+  }
+
+  public Boolean getRouteOptimized() {
+    return routeOptimized;
+  }
+
   public CreateServingEndpoint setTags(Collection<EndpointTag> tags) {
     this.tags = tags;
     return this;
@@ -76,12 +89,13 @@ public class CreateServingEndpoint {
     return Objects.equals(config, that.config)
         && Objects.equals(name, that.name)
         && Objects.equals(rateLimits, that.rateLimits)
+        && Objects.equals(routeOptimized, that.routeOptimized)
         && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(config, name, rateLimits, tags);
+    return Objects.hash(config, name, rateLimits, routeOptimized, tags);
   }
 
   @Override
@@ -90,6 +104,7 @@ public class CreateServingEndpoint {
         .add("config", config)
         .add("name", name)
         .add("rateLimits", rateLimits)
+        .add("routeOptimized", routeOptimized)
         .add("tags", tags)
         .toString();
   }

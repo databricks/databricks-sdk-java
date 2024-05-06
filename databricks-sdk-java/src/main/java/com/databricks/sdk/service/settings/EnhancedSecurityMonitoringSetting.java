@@ -8,13 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class CspEnablementSetting {
-  /**
-   * Compliance Security Profile (CSP) - one of the features in ESC product Tracks if the feature is
-   * enabled.
-   */
-  @JsonProperty("csp_enablement_workspace")
-  private CspEnablement cspEnablementWorkspace;
+public class EnhancedSecurityMonitoringSetting {
+  /** SHIELD feature: ESM */
+  @JsonProperty("enhanced_security_monitoring_workspace")
+  private EnhancedSecurityMonitoring enhancedSecurityMonitoringWorkspace;
 
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
@@ -36,16 +33,17 @@ public class CspEnablementSetting {
   @JsonProperty("setting_name")
   private String settingName;
 
-  public CspEnablementSetting setCspEnablementWorkspace(CspEnablement cspEnablementWorkspace) {
-    this.cspEnablementWorkspace = cspEnablementWorkspace;
+  public EnhancedSecurityMonitoringSetting setEnhancedSecurityMonitoringWorkspace(
+      EnhancedSecurityMonitoring enhancedSecurityMonitoringWorkspace) {
+    this.enhancedSecurityMonitoringWorkspace = enhancedSecurityMonitoringWorkspace;
     return this;
   }
 
-  public CspEnablement getCspEnablementWorkspace() {
-    return cspEnablementWorkspace;
+  public EnhancedSecurityMonitoring getEnhancedSecurityMonitoringWorkspace() {
+    return enhancedSecurityMonitoringWorkspace;
   }
 
-  public CspEnablementSetting setEtag(String etag) {
+  public EnhancedSecurityMonitoringSetting setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -54,7 +52,7 @@ public class CspEnablementSetting {
     return etag;
   }
 
-  public CspEnablementSetting setSettingName(String settingName) {
+  public EnhancedSecurityMonitoringSetting setSettingName(String settingName) {
     this.settingName = settingName;
     return this;
   }
@@ -67,21 +65,22 @@ public class CspEnablementSetting {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    CspEnablementSetting that = (CspEnablementSetting) o;
-    return Objects.equals(cspEnablementWorkspace, that.cspEnablementWorkspace)
+    EnhancedSecurityMonitoringSetting that = (EnhancedSecurityMonitoringSetting) o;
+    return Objects.equals(
+            enhancedSecurityMonitoringWorkspace, that.enhancedSecurityMonitoringWorkspace)
         && Objects.equals(etag, that.etag)
         && Objects.equals(settingName, that.settingName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cspEnablementWorkspace, etag, settingName);
+    return Objects.hash(enhancedSecurityMonitoringWorkspace, etag, settingName);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(CspEnablementSetting.class)
-        .add("cspEnablementWorkspace", cspEnablementWorkspace)
+    return new ToStringer(EnhancedSecurityMonitoringSetting.class)
+        .add("enhancedSecurityMonitoringWorkspace", enhancedSecurityMonitoringWorkspace)
         .add("etag", etag)
         .add("settingName", settingName)
         .toString();

@@ -13,18 +13,18 @@ import org.slf4j.LoggerFactory;
  * <p>This settings can NOT be disabled once it is enabled.
  */
 @Generated
-public class CspEnablementAPI {
-  private static final Logger LOG = LoggerFactory.getLogger(CspEnablementAPI.class);
+public class ComplianceSecurityProfileAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(ComplianceSecurityProfileAPI.class);
 
-  private final CspEnablementService impl;
+  private final ComplianceSecurityProfileService impl;
 
   /** Regular-use constructor */
-  public CspEnablementAPI(ApiClient apiClient) {
-    impl = new CspEnablementImpl(apiClient);
+  public ComplianceSecurityProfileAPI(ApiClient apiClient) {
+    impl = new ComplianceSecurityProfileImpl(apiClient);
   }
 
   /** Constructor for mocks */
-  public CspEnablementAPI(CspEnablementService mock) {
+  public ComplianceSecurityProfileAPI(ComplianceSecurityProfileService mock) {
     impl = mock;
   }
 
@@ -33,14 +33,14 @@ public class CspEnablementAPI {
    *
    * <p>Gets the compliance security profile setting.
    */
-  public CspEnablementSetting get(GetCspEnablementSettingRequest request) {
+  public ComplianceSecurityProfileSetting get(GetComplianceSecurityProfileSettingRequest request) {
     return impl.get(request);
   }
 
-  public CspEnablementSetting update(
-      boolean allowMissing, CspEnablementSetting setting, String fieldMask) {
+  public ComplianceSecurityProfileSetting update(
+      boolean allowMissing, ComplianceSecurityProfileSetting setting, String fieldMask) {
     return update(
-        new UpdateCspEnablementSettingRequest()
+        new UpdateComplianceSecurityProfileSettingRequest()
             .setAllowMissing(allowMissing)
             .setSetting(setting)
             .setFieldMask(fieldMask));
@@ -55,11 +55,12 @@ public class CspEnablementAPI {
    * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409
    * response.
    */
-  public CspEnablementSetting update(UpdateCspEnablementSettingRequest request) {
+  public ComplianceSecurityProfileSetting update(
+      UpdateComplianceSecurityProfileSettingRequest request) {
     return impl.update(request);
   }
 
-  public CspEnablementService impl() {
+  public ComplianceSecurityProfileService impl() {
     return impl;
   }
 }

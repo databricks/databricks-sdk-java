@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /** Details required to update a setting. */
 @Generated
-public class UpdateCspEnablementSettingRequest {
+public class UpdateComplianceSecurityProfileSettingRequest {
   /** This should always be set to true for Settings API. Added for AIP compliance. */
   @JsonProperty("allow_missing")
   private Boolean allowMissing;
@@ -24,9 +24,9 @@ public class UpdateCspEnablementSettingRequest {
 
   /** */
   @JsonProperty("setting")
-  private CspEnablementSetting setting;
+  private ComplianceSecurityProfileSetting setting;
 
-  public UpdateCspEnablementSettingRequest setAllowMissing(Boolean allowMissing) {
+  public UpdateComplianceSecurityProfileSettingRequest setAllowMissing(Boolean allowMissing) {
     this.allowMissing = allowMissing;
     return this;
   }
@@ -35,7 +35,7 @@ public class UpdateCspEnablementSettingRequest {
     return allowMissing;
   }
 
-  public UpdateCspEnablementSettingRequest setFieldMask(String fieldMask) {
+  public UpdateComplianceSecurityProfileSettingRequest setFieldMask(String fieldMask) {
     this.fieldMask = fieldMask;
     return this;
   }
@@ -44,12 +44,13 @@ public class UpdateCspEnablementSettingRequest {
     return fieldMask;
   }
 
-  public UpdateCspEnablementSettingRequest setSetting(CspEnablementSetting setting) {
+  public UpdateComplianceSecurityProfileSettingRequest setSetting(
+      ComplianceSecurityProfileSetting setting) {
     this.setting = setting;
     return this;
   }
 
-  public CspEnablementSetting getSetting() {
+  public ComplianceSecurityProfileSetting getSetting() {
     return setting;
   }
 
@@ -57,7 +58,8 @@ public class UpdateCspEnablementSettingRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    UpdateCspEnablementSettingRequest that = (UpdateCspEnablementSettingRequest) o;
+    UpdateComplianceSecurityProfileSettingRequest that =
+        (UpdateComplianceSecurityProfileSettingRequest) o;
     return Objects.equals(allowMissing, that.allowMissing)
         && Objects.equals(fieldMask, that.fieldMask)
         && Objects.equals(setting, that.setting);
@@ -70,7 +72,7 @@ public class UpdateCspEnablementSettingRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(UpdateCspEnablementSettingRequest.class)
+    return new ToStringer(UpdateComplianceSecurityProfileSettingRequest.class)
         .add("allowMissing", allowMissing)
         .add("fieldMask", fieldMask)
         .add("setting", setting)
