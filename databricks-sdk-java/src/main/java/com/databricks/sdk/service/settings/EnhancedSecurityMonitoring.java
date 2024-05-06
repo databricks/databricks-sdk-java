@@ -7,17 +7,14 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * Enhanced Security Monitoring (ESM) - one of the features in ESC product Tracks if the feature is
- * enabled.
- */
+/** SHIELD feature: ESM */
 @Generated
-public class EsmEnablement {
+public class EnhancedSecurityMonitoring {
   /** */
   @JsonProperty("is_enabled")
   private Boolean isEnabled;
 
-  public EsmEnablement setIsEnabled(Boolean isEnabled) {
+  public EnhancedSecurityMonitoring setIsEnabled(Boolean isEnabled) {
     this.isEnabled = isEnabled;
     return this;
   }
@@ -30,7 +27,7 @@ public class EsmEnablement {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    EsmEnablement that = (EsmEnablement) o;
+    EnhancedSecurityMonitoring that = (EnhancedSecurityMonitoring) o;
     return Objects.equals(isEnabled, that.isEnabled);
   }
 
@@ -41,6 +38,6 @@ public class EsmEnablement {
 
   @Override
   public String toString() {
-    return new ToStringer(EsmEnablement.class).add("isEnabled", isEnabled).toString();
+    return new ToStringer(EnhancedSecurityMonitoring.class).add("isEnabled", isEnabled).toString();
   }
 }

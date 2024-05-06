@@ -9,35 +9,35 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Generated
-public class ListAppEventsResponse {
-  /** App events */
-  @JsonProperty("events")
-  private Collection<AppEvents> events;
+public class AppEnvironment {
+  /** */
+  @JsonProperty("env")
+  private Collection<EnvVariable> env;
 
-  public ListAppEventsResponse setEvents(Collection<AppEvents> events) {
-    this.events = events;
+  public AppEnvironment setEnv(Collection<EnvVariable> env) {
+    this.env = env;
     return this;
   }
 
-  public Collection<AppEvents> getEvents() {
-    return events;
+  public Collection<EnvVariable> getEnv() {
+    return env;
   }
 
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ListAppEventsResponse that = (ListAppEventsResponse) o;
-    return Objects.equals(events, that.events);
+    AppEnvironment that = (AppEnvironment) o;
+    return Objects.equals(env, that.env);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(events);
+    return Objects.hash(env);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListAppEventsResponse.class).add("events", events).toString();
+    return new ToStringer(AppEnvironment.class).add("env", env).toString();
   }
 }

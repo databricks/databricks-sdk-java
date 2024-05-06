@@ -7,9 +7,9 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get the enhanced security monitoring setting */
+/** Get the compliance security profile setting */
 @Generated
-public class GetEsmEnablementSettingRequest {
+public class GetComplianceSecurityProfileSettingRequest {
   /**
    * etag used for versioning. The response is at least as fresh as the eTag provided. This is used
    * for optimistic concurrency control as a way to help prevent simultaneous writes of a setting
@@ -21,7 +21,7 @@ public class GetEsmEnablementSettingRequest {
   @QueryParam("etag")
   private String etag;
 
-  public GetEsmEnablementSettingRequest setEtag(String etag) {
+  public GetComplianceSecurityProfileSettingRequest setEtag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -34,7 +34,8 @@ public class GetEsmEnablementSettingRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetEsmEnablementSettingRequest that = (GetEsmEnablementSettingRequest) o;
+    GetComplianceSecurityProfileSettingRequest that =
+        (GetComplianceSecurityProfileSettingRequest) o;
     return Objects.equals(etag, that.etag);
   }
 
@@ -45,6 +46,8 @@ public class GetEsmEnablementSettingRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetEsmEnablementSettingRequest.class).add("etag", etag).toString();
+    return new ToStringer(GetComplianceSecurityProfileSettingRequest.class)
+        .add("etag", etag)
+        .toString();
   }
 }

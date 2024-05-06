@@ -4,11 +4,18 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 
-/** State: one of DEPLOYING,SUCCESS, FAILURE, DEPLOYMENT_STATE_UNSPECIFIED */
 @Generated
-public enum DeploymentStatusState {
+public enum AppState {
+  CREATING,
+  DELETED,
+  DELETING,
+  DEPLOYED,
   DEPLOYING,
-  DEPLOYMENT_STATE_UNSPECIFIED,
-  FAILURE,
-  SUCCESS,
+  ERROR,
+  IDLE,
+  READY,
+  RUNNING,
+  STARTING,
+  STATE_UNSPECIFIED,
+  UPDATING,
 }

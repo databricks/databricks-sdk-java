@@ -98,8 +98,12 @@ public class CreateCluster {
    * cluster features and data governance features are available in this mode. * `USER_ISOLATION`: A
    * secure cluster that can be shared by multiple users. Cluster users are fully isolated so that
    * they cannot see each other's data and credentials. Most data governance features are supported
-   * in this mode. But programming languages and cluster features might be limited. *
-   * `LEGACY_TABLE_ACL`: This mode is for users migrating from legacy Table ACL clusters. *
+   * in this mode. But programming languages and cluster features might be limited.
+   *
+   * <p>The following modes are deprecated starting with Databricks Runtime 15.0 and will be removed
+   * for future Databricks Runtime versions:
+   *
+   * <p>* `LEGACY_TABLE_ACL`: This mode is for users migrating from legacy Table ACL clusters. *
    * `LEGACY_PASSTHROUGH`: This mode is for users migrating from legacy Passthrough on high
    * concurrency clusters. * `LEGACY_SINGLE_USER`: This mode is for users migrating from legacy
    * Passthrough on standard clusters.

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -24,6 +25,10 @@ public class DashboardEditContent {
    */
   @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
+
+  /** */
+  @JsonProperty("tags")
+  private Collection<String> tags;
 
   public DashboardEditContent setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;
@@ -52,6 +57,15 @@ public class DashboardEditContent {
     return runAsRole;
   }
 
+  public DashboardEditContent setTags(Collection<String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Collection<String> getTags() {
+    return tags;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -59,12 +73,13 @@ public class DashboardEditContent {
     DashboardEditContent that = (DashboardEditContent) o;
     return Objects.equals(dashboardId, that.dashboardId)
         && Objects.equals(name, that.name)
-        && Objects.equals(runAsRole, that.runAsRole);
+        && Objects.equals(runAsRole, that.runAsRole)
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dashboardId, name, runAsRole);
+    return Objects.hash(dashboardId, name, runAsRole, tags);
   }
 
   @Override
@@ -73,6 +88,7 @@ public class DashboardEditContent {
         .add("dashboardId", dashboardId)
         .add("name", name)
         .add("runAsRole", runAsRole)
+        .add("tags", tags)
         .toString();
   }
 }

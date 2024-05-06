@@ -8,16 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/**
- * Compliance Security Profile (CSP) - one of the features in ESC product Tracks if the feature is
- * enabled.
- */
+/** SHIELD feature: CSP */
 @Generated
-public class CspEnablement {
-  /**
-   * Set by customers when they request Compliance Security Profile (CSP) Invariants are enforced in
-   * Settings policy.
-   */
+public class ComplianceSecurityProfile {
+  /** Set by customers when they request Compliance Security Profile (CSP) */
   @JsonProperty("compliance_standards")
   private Collection<ComplianceStandard> complianceStandards;
 
@@ -25,7 +19,8 @@ public class CspEnablement {
   @JsonProperty("is_enabled")
   private Boolean isEnabled;
 
-  public CspEnablement setComplianceStandards(Collection<ComplianceStandard> complianceStandards) {
+  public ComplianceSecurityProfile setComplianceStandards(
+      Collection<ComplianceStandard> complianceStandards) {
     this.complianceStandards = complianceStandards;
     return this;
   }
@@ -34,7 +29,7 @@ public class CspEnablement {
     return complianceStandards;
   }
 
-  public CspEnablement setIsEnabled(Boolean isEnabled) {
+  public ComplianceSecurityProfile setIsEnabled(Boolean isEnabled) {
     this.isEnabled = isEnabled;
     return this;
   }
@@ -47,7 +42,7 @@ public class CspEnablement {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    CspEnablement that = (CspEnablement) o;
+    ComplianceSecurityProfile that = (ComplianceSecurityProfile) o;
     return Objects.equals(complianceStandards, that.complianceStandards)
         && Objects.equals(isEnabled, that.isEnabled);
   }
@@ -59,7 +54,7 @@ public class CspEnablement {
 
   @Override
   public String toString() {
-    return new ToStringer(CspEnablement.class)
+    return new ToStringer(ComplianceSecurityProfile.class)
         .add("complianceStandards", complianceStandards)
         .add("isEnabled", isEnabled)
         .toString();

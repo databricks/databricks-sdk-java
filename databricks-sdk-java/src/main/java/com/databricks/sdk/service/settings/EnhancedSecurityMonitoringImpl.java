@@ -6,29 +6,31 @@ import com.databricks.sdk.support.Generated;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Package-local implementation of EsmEnablement */
+/** Package-local implementation of EnhancedSecurityMonitoring */
 @Generated
-class EsmEnablementImpl implements EsmEnablementService {
+class EnhancedSecurityMonitoringImpl implements EnhancedSecurityMonitoringService {
   private final ApiClient apiClient;
 
-  public EsmEnablementImpl(ApiClient apiClient) {
+  public EnhancedSecurityMonitoringImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
   @Override
-  public EsmEnablementSetting get(GetEsmEnablementSettingRequest request) {
+  public EnhancedSecurityMonitoringSetting get(
+      GetEnhancedSecurityMonitoringSettingRequest request) {
     String path = "/api/2.0/settings/types/shield_esm_enablement_ws_db/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, EsmEnablementSetting.class, headers);
+    return apiClient.GET(path, request, EnhancedSecurityMonitoringSetting.class, headers);
   }
 
   @Override
-  public EsmEnablementSetting update(UpdateEsmEnablementSettingRequest request) {
+  public EnhancedSecurityMonitoringSetting update(
+      UpdateEnhancedSecurityMonitoringSettingRequest request) {
     String path = "/api/2.0/settings/types/shield_esm_enablement_ws_db/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, EsmEnablementSetting.class, headers);
+    return apiClient.PATCH(path, request, EnhancedSecurityMonitoringSetting.class, headers);
   }
 }

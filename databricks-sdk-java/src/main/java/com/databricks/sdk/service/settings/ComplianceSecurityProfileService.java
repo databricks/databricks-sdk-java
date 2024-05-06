@@ -14,13 +14,14 @@ import com.databricks.sdk.support.Generated;
  * <p>Evolving: this interface is under development. Method signatures may change.
  */
 @Generated
-public interface CspEnablementService {
+public interface ComplianceSecurityProfileService {
   /**
    * Get the compliance security profile setting.
    *
    * <p>Gets the compliance security profile setting.
    */
-  CspEnablementSetting get(GetCspEnablementSettingRequest getCspEnablementSettingRequest);
+  ComplianceSecurityProfileSetting get(
+      GetComplianceSecurityProfileSettingRequest getComplianceSecurityProfileSettingRequest);
 
   /**
    * Update the compliance security profile setting.
@@ -31,5 +32,6 @@ public interface CspEnablementService {
    * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409
    * response.
    */
-  CspEnablementSetting update(UpdateCspEnablementSettingRequest updateCspEnablementSettingRequest);
+  ComplianceSecurityProfileSetting update(
+      UpdateComplianceSecurityProfileSettingRequest updateComplianceSecurityProfileSettingRequest);
 }

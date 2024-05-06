@@ -51,6 +51,14 @@ public interface ServingEndpointsService {
   ServingEndpointDetailed get(GetServingEndpointRequest getServingEndpointRequest);
 
   /**
+   * Get the schema for a serving endpoint.
+   *
+   * <p>Get the query schema of the serving endpoint in OpenAPI format. The schema contains
+   * information for the supported paths, input and output format and datatypes.
+   */
+  void getOpenApi(GetOpenApiRequest getOpenApiRequest);
+
+  /**
    * Get serving endpoint permission levels.
    *
    * <p>Gets the permission levels that a user can have on an object.

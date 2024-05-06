@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /** Details required to update a setting. */
 @Generated
-public class UpdateEsmEnablementSettingRequest {
+public class UpdateEnhancedSecurityMonitoringSettingRequest {
   /** This should always be set to true for Settings API. Added for AIP compliance. */
   @JsonProperty("allow_missing")
   private Boolean allowMissing;
@@ -24,9 +24,9 @@ public class UpdateEsmEnablementSettingRequest {
 
   /** */
   @JsonProperty("setting")
-  private EsmEnablementSetting setting;
+  private EnhancedSecurityMonitoringSetting setting;
 
-  public UpdateEsmEnablementSettingRequest setAllowMissing(Boolean allowMissing) {
+  public UpdateEnhancedSecurityMonitoringSettingRequest setAllowMissing(Boolean allowMissing) {
     this.allowMissing = allowMissing;
     return this;
   }
@@ -35,7 +35,7 @@ public class UpdateEsmEnablementSettingRequest {
     return allowMissing;
   }
 
-  public UpdateEsmEnablementSettingRequest setFieldMask(String fieldMask) {
+  public UpdateEnhancedSecurityMonitoringSettingRequest setFieldMask(String fieldMask) {
     this.fieldMask = fieldMask;
     return this;
   }
@@ -44,12 +44,13 @@ public class UpdateEsmEnablementSettingRequest {
     return fieldMask;
   }
 
-  public UpdateEsmEnablementSettingRequest setSetting(EsmEnablementSetting setting) {
+  public UpdateEnhancedSecurityMonitoringSettingRequest setSetting(
+      EnhancedSecurityMonitoringSetting setting) {
     this.setting = setting;
     return this;
   }
 
-  public EsmEnablementSetting getSetting() {
+  public EnhancedSecurityMonitoringSetting getSetting() {
     return setting;
   }
 
@@ -57,7 +58,8 @@ public class UpdateEsmEnablementSettingRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    UpdateEsmEnablementSettingRequest that = (UpdateEsmEnablementSettingRequest) o;
+    UpdateEnhancedSecurityMonitoringSettingRequest that =
+        (UpdateEnhancedSecurityMonitoringSettingRequest) o;
     return Objects.equals(allowMissing, that.allowMissing)
         && Objects.equals(fieldMask, that.fieldMask)
         && Objects.equals(setting, that.setting);
@@ -70,7 +72,7 @@ public class UpdateEsmEnablementSettingRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(UpdateEsmEnablementSettingRequest.class)
+    return new ToStringer(UpdateEnhancedSecurityMonitoringSettingRequest.class)
         .add("allowMissing", allowMissing)
         .add("fieldMask", fieldMask)
         .add("setting", setting)

@@ -22,6 +22,10 @@ public class ServingEndpointDetailed {
   @JsonProperty("creator")
   private String creator;
 
+  /** Endpoint invocation url if route optimization is enabled for endpoint */
+  @JsonProperty("endpoint_url")
+  private String endpointUrl;
+
   /**
    * System-generated ID of the endpoint. This is used to refer to the endpoint in the Permissions
    * API
@@ -44,6 +48,10 @@ public class ServingEndpointDetailed {
   /** The permission level of the principal making the request. */
   @JsonProperty("permission_level")
   private ServingEndpointDetailedPermissionLevel permissionLevel;
+
+  /** Boolean representing if route optimization has been enabled for the endpoint */
+  @JsonProperty("route_optimized")
+  private Boolean routeOptimized;
 
   /** Information corresponding to the state of the serving endpoint. */
   @JsonProperty("state")
@@ -82,6 +90,15 @@ public class ServingEndpointDetailed {
 
   public String getCreator() {
     return creator;
+  }
+
+  public ServingEndpointDetailed setEndpointUrl(String endpointUrl) {
+    this.endpointUrl = endpointUrl;
+    return this;
+  }
+
+  public String getEndpointUrl() {
+    return endpointUrl;
   }
 
   public ServingEndpointDetailed setId(String id) {
@@ -130,6 +147,15 @@ public class ServingEndpointDetailed {
     return permissionLevel;
   }
 
+  public ServingEndpointDetailed setRouteOptimized(Boolean routeOptimized) {
+    this.routeOptimized = routeOptimized;
+    return this;
+  }
+
+  public Boolean getRouteOptimized() {
+    return routeOptimized;
+  }
+
   public ServingEndpointDetailed setState(EndpointState state) {
     this.state = state;
     return this;
@@ -165,11 +191,13 @@ public class ServingEndpointDetailed {
     return Objects.equals(config, that.config)
         && Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(endpointUrl, that.endpointUrl)
         && Objects.equals(id, that.id)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(name, that.name)
         && Objects.equals(pendingConfig, that.pendingConfig)
         && Objects.equals(permissionLevel, that.permissionLevel)
+        && Objects.equals(routeOptimized, that.routeOptimized)
         && Objects.equals(state, that.state)
         && Objects.equals(tags, that.tags)
         && Objects.equals(task, that.task);
@@ -181,11 +209,13 @@ public class ServingEndpointDetailed {
         config,
         creationTimestamp,
         creator,
+        endpointUrl,
         id,
         lastUpdatedTimestamp,
         name,
         pendingConfig,
         permissionLevel,
+        routeOptimized,
         state,
         tags,
         task);
@@ -197,11 +227,13 @@ public class ServingEndpointDetailed {
         .add("config", config)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)
+        .add("endpointUrl", endpointUrl)
         .add("id", id)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
         .add("name", name)
         .add("pendingConfig", pendingConfig)
         .add("permissionLevel", permissionLevel)
+        .add("routeOptimized", routeOptimized)
         .add("state", state)
         .add("tags", tags)
         .add("task", task)

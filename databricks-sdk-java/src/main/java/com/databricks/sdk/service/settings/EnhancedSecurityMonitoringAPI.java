@@ -15,18 +15,18 @@ import org.slf4j.LoggerFactory;
  * is not permanent.
  */
 @Generated
-public class EsmEnablementAPI {
-  private static final Logger LOG = LoggerFactory.getLogger(EsmEnablementAPI.class);
+public class EnhancedSecurityMonitoringAPI {
+  private static final Logger LOG = LoggerFactory.getLogger(EnhancedSecurityMonitoringAPI.class);
 
-  private final EsmEnablementService impl;
+  private final EnhancedSecurityMonitoringService impl;
 
   /** Regular-use constructor */
-  public EsmEnablementAPI(ApiClient apiClient) {
-    impl = new EsmEnablementImpl(apiClient);
+  public EnhancedSecurityMonitoringAPI(ApiClient apiClient) {
+    impl = new EnhancedSecurityMonitoringImpl(apiClient);
   }
 
   /** Constructor for mocks */
-  public EsmEnablementAPI(EsmEnablementService mock) {
+  public EnhancedSecurityMonitoringAPI(EnhancedSecurityMonitoringService mock) {
     impl = mock;
   }
 
@@ -35,14 +35,15 @@ public class EsmEnablementAPI {
    *
    * <p>Gets the enhanced security monitoring setting.
    */
-  public EsmEnablementSetting get(GetEsmEnablementSettingRequest request) {
+  public EnhancedSecurityMonitoringSetting get(
+      GetEnhancedSecurityMonitoringSettingRequest request) {
     return impl.get(request);
   }
 
-  public EsmEnablementSetting update(
-      boolean allowMissing, EsmEnablementSetting setting, String fieldMask) {
+  public EnhancedSecurityMonitoringSetting update(
+      boolean allowMissing, EnhancedSecurityMonitoringSetting setting, String fieldMask) {
     return update(
-        new UpdateEsmEnablementSettingRequest()
+        new UpdateEnhancedSecurityMonitoringSettingRequest()
             .setAllowMissing(allowMissing)
             .setSetting(setting)
             .setFieldMask(fieldMask));
@@ -57,11 +58,12 @@ public class EsmEnablementAPI {
    * `PATCH` fails with 409 and the request must be retried by using the fresh etag in the 409
    * response.
    */
-  public EsmEnablementSetting update(UpdateEsmEnablementSettingRequest request) {
+  public EnhancedSecurityMonitoringSetting update(
+      UpdateEnhancedSecurityMonitoringSettingRequest request) {
     return impl.update(request);
   }
 
-  public EsmEnablementService impl() {
+  public EnhancedSecurityMonitoringService impl() {
     return impl;
   }
 }

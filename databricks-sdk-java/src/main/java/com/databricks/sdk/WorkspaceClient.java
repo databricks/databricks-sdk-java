@@ -380,8 +380,8 @@ public class WorkspaceClient {
   }
 
   /**
-   * Lakehouse Apps run directly on a customer’s Databricks instance, integrate with their data, use
-   * and extend Databricks services, and enable users to interact through single sign-on.
+   * Apps run directly on a customer’s Databricks instance, integrate with their data, use and
+   * extend Databricks services, and enable users to interact through single sign-on.
    */
   public AppsAPI apps() {
     return appsAPI;

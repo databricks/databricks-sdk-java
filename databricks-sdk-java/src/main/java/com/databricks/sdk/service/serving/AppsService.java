@@ -4,8 +4,8 @@ package com.databricks.sdk.service.serving;
 import com.databricks.sdk.support.Generated;
 
 /**
- * Lakehouse Apps run directly on a customer’s Databricks instance, integrate with their data, use
- * and extend Databricks services, and enable users to interact through single sign-on.
+ * Apps run directly on a customer’s Databricks instance, integrate with their data, use and extend
+ * Databricks services, and enable users to interact through single sign-on.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -14,45 +14,72 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AppsService {
   /**
-   * Create and deploy an application.
+   * Create an App.
    *
-   * <p>Creates and deploys an application.
+   * <p>Creates a new app.
    */
-  DeploymentStatus create(DeployAppRequest deployAppRequest);
+  App create(CreateAppRequest createAppRequest);
 
   /**
-   * Delete an application.
+   * Create an App Deployment.
    *
-   * <p>Delete an application definition
+   * <p>Creates an app deployment for the app with the supplied name.
    */
-  DeleteAppResponse deleteApp(DeleteAppRequest deleteAppRequest);
+  AppDeployment createDeployment(CreateAppDeploymentRequest createAppDeploymentRequest);
 
   /**
-   * Get definition for an application.
+   * Delete an App.
    *
-   * <p>Get an application definition
+   * <p>Deletes an app.
    */
-  GetAppResponse getApp(GetAppRequest getAppRequest);
+  void delete(DeleteAppRequest deleteAppRequest);
 
   /**
-   * Get deployment status for an application.
+   * Get an App.
    *
-   * <p>Get deployment status for an application
+   * <p>Retrieves information for the app with the supplied name.
    */
-  DeploymentStatus getAppDeploymentStatus(
-      GetAppDeploymentStatusRequest getAppDeploymentStatusRequest);
+  App get(GetAppRequest getAppRequest);
 
   /**
-   * List all applications.
+   * Get an App Deployment.
    *
-   * <p>List all available applications
+   * <p>Retrieves information for the app deployment with the supplied name and deployment id.
    */
-  ListAppsResponse getApps();
+  AppDeployment getDeployment(GetAppDeploymentRequest getAppDeploymentRequest);
 
   /**
-   * Get deployment events for an application.
+   * Get App Environment.
    *
-   * <p>Get deployment events for an application
+   * <p>Retrieves app environment.
    */
-  ListAppEventsResponse getEvents(GetEventsRequest getEventsRequest);
+  AppEnvironment getEnvironment(GetAppEnvironmentRequest getAppEnvironmentRequest);
+
+  /**
+   * List Apps.
+   *
+   * <p>Lists all apps in the workspace.
+   */
+  ListAppsResponse list(ListAppsRequest listAppsRequest);
+
+  /**
+   * List App Deployments.
+   *
+   * <p>Lists all app deployments for the app with the supplied name.
+   */
+  ListAppDeploymentsResponse listDeployments(ListAppDeploymentsRequest listAppDeploymentsRequest);
+
+  /**
+   * Stop an App.
+   *
+   * <p>Stops the active deployment of the app in the workspace.
+   */
+  void stop(StopAppRequest stopAppRequest);
+
+  /**
+   * Update an App.
+   *
+   * <p>Updates the app with the supplied name.
+   */
+  App update(UpdateAppRequest updateAppRequest);
 }

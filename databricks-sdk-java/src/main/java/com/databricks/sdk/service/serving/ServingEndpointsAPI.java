@@ -154,6 +154,20 @@ public class ServingEndpointsAPI {
     return impl.get(request);
   }
 
+  public void getOpenApi(String name) {
+    getOpenApi(new GetOpenApiRequest().setName(name));
+  }
+
+  /**
+   * Get the schema for a serving endpoint.
+   *
+   * <p>Get the query schema of the serving endpoint in OpenAPI format. The schema contains
+   * information for the supported paths, input and output format and datatypes.
+   */
+  public void getOpenApi(GetOpenApiRequest request) {
+    impl.getOpenApi(request);
+  }
+
   public GetServingEndpointPermissionLevelsResponse getPermissionLevels(String servingEndpointId) {
     return getPermissionLevels(
         new GetServingEndpointPermissionLevelsRequest().setServingEndpointId(servingEndpointId));

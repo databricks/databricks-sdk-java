@@ -4,16 +4,15 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Get App Environment */
 @Generated
-public class DeleteAppResponse {
-  /** */
-  @JsonProperty("name")
+public class GetAppEnvironmentRequest {
+  /** The name of the app. */
   private String name;
 
-  public DeleteAppResponse setName(String name) {
+  public GetAppEnvironmentRequest setName(String name) {
     this.name = name;
     return this;
   }
@@ -26,7 +25,7 @@ public class DeleteAppResponse {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    DeleteAppResponse that = (DeleteAppResponse) o;
+    GetAppEnvironmentRequest that = (GetAppEnvironmentRequest) o;
     return Objects.equals(name, that.name);
   }
 
@@ -37,6 +36,6 @@ public class DeleteAppResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteAppResponse.class).add("name", name).toString();
+    return new ToStringer(GetAppEnvironmentRequest.class).add("name", name).toString();
   }
 }

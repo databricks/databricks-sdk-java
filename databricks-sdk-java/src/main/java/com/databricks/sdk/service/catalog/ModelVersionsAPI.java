@@ -102,7 +102,8 @@ public class ModelVersionsAPI {
    * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
    * schema.
    *
-   * <p>There is no guarantee of a specific ordering of the elements in the response.
+   * <p>There is no guarantee of a specific ordering of the elements in the response. The elements
+   * in the response will not contain any aliases or tags.
    */
   public Iterable<ModelVersionInfo> list(ListModelVersionsRequest request) {
     return new Paginator<>(

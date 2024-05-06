@@ -2,13 +2,20 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
+import com.databricks.sdk.support.Wait;
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Lakehouse Apps run directly on a customer’s Databricks instance, integrate with their data, use
- * and extend Databricks services, and enable users to interact through single sign-on.
+ * Apps run directly on a customer’s Databricks instance, integrate with their data, use and extend
+ * Databricks services, and enable users to interact through single sign-on.
  */
 @Generated
 public class AppsAPI {
@@ -26,79 +33,258 @@ public class AppsAPI {
     impl = mock;
   }
 
-  public DeploymentStatus create(AppManifest manifest) {
-    return create(new DeployAppRequest().setManifest(manifest));
+  public App waitGetAppIdle(String name) throws TimeoutException {
+    return waitGetAppIdle(name, Duration.ofMinutes(20), null);
+  }
+
+  public App waitGetAppIdle(String name, Duration timeout, Consumer<App> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<AppState> targetStates = Arrays.asList(AppState.IDLE);
+    java.util.List<AppState> failureStates = Arrays.asList(AppState.ERROR);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      App poll = get(new GetAppRequest().setName(name));
+      AppState status = poll.getStatus().getState();
+      statusMessage = String.format("current status: %s", status);
+      if (poll.getStatus() != null) {
+        statusMessage = poll.getStatus().getMessage();
+      }
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg = String.format("failed to reach IDLE, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("name=%s", name);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
+  public AppDeployment waitGetDeploymentAppSucceeded(String appName, String deploymentId)
+      throws TimeoutException {
+    return waitGetDeploymentAppSucceeded(appName, deploymentId, Duration.ofMinutes(20), null);
+  }
+
+  public AppDeployment waitGetDeploymentAppSucceeded(
+      String appName, String deploymentId, Duration timeout, Consumer<AppDeployment> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<AppDeploymentState> targetStates = Arrays.asList(AppDeploymentState.SUCCEEDED);
+    java.util.List<AppDeploymentState> failureStates = Arrays.asList(AppDeploymentState.FAILED);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      AppDeployment poll =
+          getDeployment(
+              new GetAppDeploymentRequest().setAppName(appName).setDeploymentId(deploymentId));
+      AppDeploymentState status = poll.getStatus().getState();
+      statusMessage = String.format("current status: %s", status);
+      if (poll.getStatus() != null) {
+        statusMessage = poll.getStatus().getMessage();
+      }
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg = String.format("failed to reach SUCCEEDED, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("appName=%s, deploymentId=%s", appName, deploymentId);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
+  public Wait<App, App> create(String name) {
+    return create(new CreateAppRequest().setName(name));
   }
 
   /**
-   * Create and deploy an application.
+   * Create an App.
    *
-   * <p>Creates and deploys an application.
+   * <p>Creates a new app.
    */
-  public DeploymentStatus create(DeployAppRequest request) {
-    return impl.create(request);
+  public Wait<App, App> create(CreateAppRequest request) {
+    App response = impl.create(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetAppIdle(response.getName(), timeout, callback), response);
   }
 
-  public DeleteAppResponse deleteApp(String name) {
-    return deleteApp(new DeleteAppRequest().setName(name));
+  public Wait<AppDeployment, AppDeployment> createDeployment(
+      String appName, String sourceCodePath) {
+    return createDeployment(
+        new CreateAppDeploymentRequest().setAppName(appName).setSourceCodePath(sourceCodePath));
   }
 
   /**
-   * Delete an application.
+   * Create an App Deployment.
    *
-   * <p>Delete an application definition
+   * <p>Creates an app deployment for the app with the supplied name.
    */
-  public DeleteAppResponse deleteApp(DeleteAppRequest request) {
-    return impl.deleteApp(request);
+  public Wait<AppDeployment, AppDeployment> createDeployment(CreateAppDeploymentRequest request) {
+    AppDeployment response = impl.createDeployment(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetDeploymentAppSucceeded(
+                request.getAppName(), response.getDeploymentId(), timeout, callback),
+        response);
   }
 
-  public GetAppResponse getApp(String name) {
-    return getApp(new GetAppRequest().setName(name));
+  public void delete(String name) {
+    delete(new DeleteAppRequest().setName(name));
   }
 
   /**
-   * Get definition for an application.
+   * Delete an App.
    *
-   * <p>Get an application definition
+   * <p>Deletes an app.
    */
-  public GetAppResponse getApp(GetAppRequest request) {
-    return impl.getApp(request);
+  public void delete(DeleteAppRequest request) {
+    impl.delete(request);
   }
 
-  public DeploymentStatus getAppDeploymentStatus(String deploymentId) {
-    return getAppDeploymentStatus(
-        new GetAppDeploymentStatusRequest().setDeploymentId(deploymentId));
+  public App get(String name) {
+    return get(new GetAppRequest().setName(name));
   }
 
   /**
-   * Get deployment status for an application.
+   * Get an App.
    *
-   * <p>Get deployment status for an application
+   * <p>Retrieves information for the app with the supplied name.
    */
-  public DeploymentStatus getAppDeploymentStatus(GetAppDeploymentStatusRequest request) {
-    return impl.getAppDeploymentStatus(request);
+  public App get(GetAppRequest request) {
+    return impl.get(request);
+  }
+
+  public AppDeployment getDeployment(String appName, String deploymentId) {
+    return getDeployment(
+        new GetAppDeploymentRequest().setAppName(appName).setDeploymentId(deploymentId));
   }
 
   /**
-   * List all applications.
+   * Get an App Deployment.
    *
-   * <p>List all available applications
+   * <p>Retrieves information for the app deployment with the supplied name and deployment id.
    */
-  public ListAppsResponse getApps() {
-    return impl.getApps();
+  public AppDeployment getDeployment(GetAppDeploymentRequest request) {
+    return impl.getDeployment(request);
   }
 
-  public ListAppEventsResponse getEvents(String name) {
-    return getEvents(new GetEventsRequest().setName(name));
+  public AppEnvironment getEnvironment(String name) {
+    return getEnvironment(new GetAppEnvironmentRequest().setName(name));
   }
 
   /**
-   * Get deployment events for an application.
+   * Get App Environment.
    *
-   * <p>Get deployment events for an application
+   * <p>Retrieves app environment.
    */
-  public ListAppEventsResponse getEvents(GetEventsRequest request) {
-    return impl.getEvents(request);
+  public AppEnvironment getEnvironment(GetAppEnvironmentRequest request) {
+    return impl.getEnvironment(request);
+  }
+
+  /**
+   * List Apps.
+   *
+   * <p>Lists all apps in the workspace.
+   */
+  public Iterable<App> list(ListAppsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListAppsResponse::getApps,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<AppDeployment> listDeployments(String appName) {
+    return listDeployments(new ListAppDeploymentsRequest().setAppName(appName));
+  }
+
+  /**
+   * List App Deployments.
+   *
+   * <p>Lists all app deployments for the app with the supplied name.
+   */
+  public Iterable<AppDeployment> listDeployments(ListAppDeploymentsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listDeployments,
+        ListAppDeploymentsResponse::getAppDeployments,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public void stop(String name) {
+    stop(new StopAppRequest().setName(name));
+  }
+
+  /**
+   * Stop an App.
+   *
+   * <p>Stops the active deployment of the app in the workspace.
+   */
+  public void stop(StopAppRequest request) {
+    impl.stop(request);
+  }
+
+  public App update(String name) {
+    return update(new UpdateAppRequest().setName(name));
+  }
+
+  /**
+   * Update an App.
+   *
+   * <p>Updates the app with the supplied name.
+   */
+  public App update(UpdateAppRequest request) {
+    return impl.update(request);
   }
 
   public AppsService impl() {
