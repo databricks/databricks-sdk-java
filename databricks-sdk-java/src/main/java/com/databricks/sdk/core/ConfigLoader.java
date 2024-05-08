@@ -8,6 +8,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.*;
+
+import com.databricks.sdk.core.utils.Environment;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 import org.slf4j.Logger;
@@ -197,7 +199,13 @@ public class ConfigLoader {
       List<String> attrsUsed = new ArrayList<>();
       List<String> buf = new ArrayList<>();
 
-      Map<String, String> getEnvAllEnv = cfg.getEnv().getEnv();
+      Environment env = cfg.getEnv();
+      Map<String, String> getEnvAllEnv;
+      if (env != null) {
+        getEnvAllEnv = env.getEnv();
+      } else {
+        getEnvAllEnv = new HashMap<>();
+      }
 
       for (ConfigAttributeAccessor accessor : accessors) {
         String envVariable = accessor.getEnvVariable();
@@ -222,11 +230,15 @@ public class ConfigLoader {
       }
       if (!attrsUsed.isEmpty()) {
         buf.add(String.format("Config: %s", String.join(", ", attrsUsed)));
+      } else {
+        buf.add(String.format("Config: <empty>"));
       }
       if (!envsUsed.isEmpty()) {
         buf.add(String.format("Env: %s", String.join(", ", envsUsed)));
+      } else {
+        buf.add(String.format("Env: <none>"));
       }
-      return String.join(". ", buf);
+      return String.join("; ", buf);
     } catch (IllegalAccessException e) {
       throw new DatabricksException(e.getMessage());
     }
