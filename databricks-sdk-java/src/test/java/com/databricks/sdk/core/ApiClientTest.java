@@ -42,7 +42,8 @@ public class ApiClientTest {
     }
   }
 
-  private ApiClient getApiClient(DatabricksConfig config, Request request, List<ResponseProvider> responses) {
+  private ApiClient getApiClient(
+      DatabricksConfig config, Request request, List<ResponseProvider> responses) {
     DummyHttpClient hc = new DummyHttpClient();
     for (ResponseProvider response : responses) {
       hc.with(request, response);
@@ -53,17 +54,12 @@ public class ApiClientTest {
   private ApiClient getApiClient(Request request, List<ResponseProvider> responses) {
     String host = request.getUri().getScheme() + "://" + request.getUri().getHost();
     DatabricksConfig config =
-            new DatabricksConfig()
-                    .setHost(host)
-                    .setCredentialsProvider(new DummyCredentialsProvider());
+        new DatabricksConfig().setHost(host).setCredentialsProvider(new DummyCredentialsProvider());
     return getApiClient(config, request, responses);
   }
 
   private <T> void runApiClientTest(
-          ApiClient client,
-          Request request,
-          Class<? extends T> clazz,
-          T expectedResponse) {
+      ApiClient client, Request request, Class<? extends T> clazz, T expectedResponse) {
     T response;
     if (request.getMethod().equals(Request.GET)) {
       response = client.GET(request.getUri().getPath(), clazz, Collections.emptyMap());
@@ -76,10 +72,10 @@ public class ApiClientTest {
   }
 
   private <T> void runApiClientTest(
-          Request request,
-          List<ResponseProvider> responses,
-          Class<? extends T> clazz,
-          T expectedResponse) {
+      Request request,
+      List<ResponseProvider> responses,
+      Class<? extends T> clazz,
+      T expectedResponse) {
     ApiClient client = getApiClient(request, responses);
     runApiClientTest(client, request, clazz, expectedResponse);
   }
@@ -382,14 +378,13 @@ public class ApiClientTest {
   @Test
   void populateHostFromCredentialProvider() {
     Request req = getBasicRequest();
-    DatabricksConfig config = new DatabricksConfig()
+    DatabricksConfig config =
+        new DatabricksConfig()
             .setCredentialsProvider(new HostPopulatingCredentialsProvider("http://my.host"));
-    ApiClient client = getApiClient(config, req, Collections.singletonList(getSuccessResponse(req)));
+    ApiClient client =
+        getApiClient(config, req, Collections.singletonList(getSuccessResponse(req)));
     runApiClientTest(
-            client,
-            req,
-            MyEndpointResponse.class,
-            new MyEndpointResponse().setKey("value"));
+        client, req, MyEndpointResponse.class, new MyEndpointResponse().setKey("value"));
   }
 
   @Test
