@@ -2,13 +2,12 @@ package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.databricks.sdk.core.utils.Environment;
 import org.junit.jupiter.api.Test;
 
 public class DatabricksConfigTest {
@@ -59,14 +58,14 @@ public class DatabricksConfigTest {
   @Test
   public void testToStringEmpty() {
     DatabricksConfig config = new DatabricksConfig();
-    assertEquals("Config: <empty>; Env: <none>", config.toString());
+    assertEquals("Config: <empty>. Env: <none>", config.toString());
   }
 
   @Test
   public void testToStringWithSetter() {
     DatabricksConfig config = new DatabricksConfig();
     config.setHost("http://my.host");
-    assertEquals("Config: host=http://my.host; Env: <none>", config.toString());
+    assertEquals("Config: host=http://my.host. Env: <none>", config.toString());
   }
 
   @Test
@@ -78,7 +77,7 @@ public class DatabricksConfigTest {
 
     DatabricksConfig config = new DatabricksConfig();
     config.resolve(new Environment(map, path, systemName));
-    assertEquals("Config: host=http://my.host; Env: DATABRICKS_HOST", config.toString());
+    assertEquals("Config: host=http://my.host. Env: DATABRICKS_HOST", config.toString());
   }
 
   @Test

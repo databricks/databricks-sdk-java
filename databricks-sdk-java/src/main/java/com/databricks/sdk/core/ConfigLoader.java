@@ -1,5 +1,6 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.utils.Environment;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,8 +9,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.*;
-
-import com.databricks.sdk.core.utils.Environment;
 import org.ini4j.Ini;
 import org.ini4j.Profile;
 import org.slf4j.Logger;
@@ -238,7 +237,7 @@ public class ConfigLoader {
       } else {
         buf.add(String.format("Env: <none>"));
       }
-      return String.join("; ", buf);
+      return String.join(". ", buf);
     } catch (IllegalAccessException e) {
       throw new DatabricksException(e.getMessage());
     }
