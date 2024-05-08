@@ -2,16 +2,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <properties>
+    <sdk.version>0.24.1</sdk.version>
+  </properties>
+
   <groupId>com.databricks</groupId>
   <artifactId>shaded-databricks-sdk</artifactId>
-  <version>0.24.1</version>
+  <version>${sdk.version}</version>
+
   <dependencies>
     <dependency>
       <groupId>com.databricks</groupId>
       <artifactId>databricks-sdk-java</artifactId>
-      <version>0.24.1</version>
+      <version>${sdk.version}</version>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
