@@ -42,26 +42,28 @@ public class ApiClientTest {
     }
   }
 
-  private ApiClient getApiClient(Request request, List<ResponseProvider> responses) {
+  private ApiClient getApiClient(DatabricksConfig config, Request request, List<ResponseProvider> responses) {
     DummyHttpClient hc = new DummyHttpClient();
     for (ResponseProvider response : responses) {
       hc.with(request, response);
     }
+    return new ApiClient(config.setHttpClient(hc), new FakeTimer());
+  }
+
+  private ApiClient getApiClient(Request request, List<ResponseProvider> responses) {
     String host = request.getUri().getScheme() + "://" + request.getUri().getHost();
     DatabricksConfig config =
-        new DatabricksConfig()
-            .setHttpClient(hc)
-            .setHost(host)
-            .setCredentialsProvider(new DummyCredentialsProvider());
-    return new ApiClient(config, new FakeTimer());
+            new DatabricksConfig()
+                    .setHost(host)
+                    .setCredentialsProvider(new DummyCredentialsProvider());
+    return getApiClient(config, request, responses);
   }
 
   private <T> void runApiClientTest(
-      Request request,
-      List<ResponseProvider> responses,
-      Class<? extends T> clazz,
-      T expectedResponse) {
-    ApiClient client = getApiClient(request, responses);
+          ApiClient client,
+          Request request,
+          Class<? extends T> clazz,
+          T expectedResponse) {
     T response;
     if (request.getMethod().equals(Request.GET)) {
       response = client.GET(request.getUri().getPath(), clazz, Collections.emptyMap());
@@ -71,6 +73,15 @@ public class ApiClientTest {
       throw new IllegalArgumentException("Unsupported method: " + request.getMethod());
     }
     assertEquals(response, expectedResponse);
+  }
+
+  private <T> void runApiClientTest(
+          Request request,
+          List<ResponseProvider> responses,
+          Class<? extends T> clazz,
+          T expectedResponse) {
+    ApiClient client = getApiClient(request, responses);
+    runApiClientTest(client, request, clazz, expectedResponse);
   }
 
   private void runFailingApiClientTest(
@@ -345,6 +356,40 @@ public class ApiClientTest {
             new Failure(new UnknownHostException("Connect timed out")), getSuccessResponse(req)),
         MyEndpointResponse.class,
         new MyEndpointResponse().setKey("value"));
+  }
+
+  class HostPopulatingCredentialsProvider implements CredentialsProvider {
+    private final String host;
+    private final CredentialsProvider parent;
+
+    public HostPopulatingCredentialsProvider(String host) {
+      this.host = host;
+      this.parent = new DummyCredentialsProvider();
+    }
+
+    @Override
+    public String authType() {
+      return parent.authType();
+    }
+
+    @Override
+    public HeaderFactory configure(DatabricksConfig config) {
+      config.setHost(this.host);
+      return parent.configure(config);
+    }
+  }
+
+  @Test
+  void populateHostFromCredentialProvider() {
+    Request req = getBasicRequest();
+    DatabricksConfig config = new DatabricksConfig()
+            .setCredentialsProvider(new HostPopulatingCredentialsProvider("http://my.host"));
+    ApiClient client = getApiClient(config, req, Collections.singletonList(getSuccessResponse(req)));
+    runApiClientTest(
+            client,
+            req,
+            MyEndpointResponse.class,
+            new MyEndpointResponse().setKey("value"));
   }
 
   @Test
