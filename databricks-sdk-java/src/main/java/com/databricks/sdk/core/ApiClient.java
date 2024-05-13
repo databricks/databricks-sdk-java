@@ -231,11 +231,10 @@ public class ApiClient {
   }
 
   private Response getResponse(Request in) {
-    in.withUrl(config.getHost() + in.getUrl());
-    return executeInner(in);
+    return executeInner(in, in.getUrl());
   }
 
-  private Response executeInner(Request in) {
+  private Response executeInner(Request in, String path) {
     RetryStrategy retryStrategy = retryStrategyPicker.getRetryStrategy(in);
     int attemptNumber = 0;
     while (true) {
@@ -246,6 +245,10 @@ public class ApiClient {
 
       // Authenticate the request. Failures should not be retried.
       in.withHeaders(config.authenticate());
+
+      // Prepend host to URL only after config.authenticate().
+      // This call may configure the host (e.g. in case of notebook native auth).
+      in.withUrl(config.getHost() + path);
 
       // Set User-Agent with auth type info, which is available only
       // after the first invocation to config.authenticate()
