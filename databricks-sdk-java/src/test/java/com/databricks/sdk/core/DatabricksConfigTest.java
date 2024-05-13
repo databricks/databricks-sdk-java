@@ -2,7 +2,10 @@ package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 public class DatabricksConfigTest {
@@ -60,7 +63,7 @@ public class DatabricksConfigTest {
                 "{\"authorization_endpoint\":\"https://test-workspace.cloud.databricks.com/oidc/v1/authorize\"}")) {
       DatabricksConfig c =
           new DatabricksConfig().setHost(server.getUrl()).setAccountId("1234567890");
-      c.resolve();
+      c.resolve(new Environment(new HashMap<>(), new ArrayList<String>(), "system"));
       assertEquals(
           c.getOidcEndpoints().getAuthorizationEndpoint(),
           "https://test-workspace.cloud.databricks.com/oidc/v1/authorize");
