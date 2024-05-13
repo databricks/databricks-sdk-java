@@ -90,7 +90,8 @@ public class DatabricksConfigTest {
                 "{\"authorization_endpoint\":\"https://test-workspace.cloud.databricks.com/oidc/v1/authorize\"}")) {
       DatabricksConfig c =
           new DatabricksConfig().setHost(server.getUrl()).setAccountId("1234567890");
-      c.resolve(new Environment(new HashMap<>(), new ArrayList<String>(), System.getProperty("os.name")));
+      c.resolve(
+          new Environment(new HashMap<>(), new ArrayList<String>(), System.getProperty("os.name")));
       assertEquals(
           c.getOidcEndpoints().getAuthorizationEndpoint(),
           "https://test-workspace.cloud.databricks.com/oidc/v1/authorize");
