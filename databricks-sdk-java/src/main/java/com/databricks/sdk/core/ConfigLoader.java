@@ -1,5 +1,6 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.utils.Environment;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -197,7 +198,13 @@ public class ConfigLoader {
       List<String> attrsUsed = new ArrayList<>();
       List<String> buf = new ArrayList<>();
 
-      Map<String, String> getEnvAllEnv = cfg.getEnv().getEnv();
+      Environment env = cfg.getEnv();
+      Map<String, String> getEnvAllEnv;
+      if (env != null) {
+        getEnvAllEnv = env.getEnv();
+      } else {
+        getEnvAllEnv = new HashMap<>();
+      }
 
       for (ConfigAttributeAccessor accessor : accessors) {
         String envVariable = accessor.getEnvVariable();
@@ -222,9 +229,13 @@ public class ConfigLoader {
       }
       if (!attrsUsed.isEmpty()) {
         buf.add(String.format("Config: %s", String.join(", ", attrsUsed)));
+      } else {
+        buf.add(String.format("Config: <empty>"));
       }
       if (!envsUsed.isEmpty()) {
         buf.add(String.format("Env: %s", String.join(", ", envsUsed)));
+      } else {
+        buf.add(String.format("Env: <none>"));
       }
       return String.join(". ", buf);
     } catch (IllegalAccessException e) {
