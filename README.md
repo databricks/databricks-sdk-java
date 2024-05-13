@@ -360,6 +360,7 @@ For applications, that do run on developer workstations, Databricks SDK for Java
 In order to use OAuth with Databricks SDK for Python, you should use `AccountClient.customAppIntegration().create()` API. Usage of this can be seen in the [Spring Boot example project](/examples/spring-boot-oauth-u2m-demo/src/main/java/com/databricks/sdk/App.java).
 
 ## Error Handling
+
 The Databricks SDK for Java provides a robust error-handling mechanism that allows developers to catch and handle API errors. When an error occurs, the SDK will raise an exception that contains information about the error, such as the HTTP status code, error message, and error details. Developers can catch these exceptions and handle them appropriately in their code.
 
 ```java
@@ -412,6 +413,7 @@ This will enable logging at the debug level and above. Developers can adjust the
 Overall, the logging capabilities provided by the Databricks SDK for Java can be a powerful tool for monitoring and troubleshooting your Databricks Java projects. Developers can use the various logging methods and configuration options provided by the SDK to customize the logging output to their specific needs.
 
 ## Proxy
+
 Databricks SDK for Java supports clients using proxy. Clients can use their proxy setup either by providing the proxy settings in the `DatabricksConfig` configuration object or by creating a `ProxyConfig` object and passing it to the constructor of `CommonsHttpClient`. The following properties can be set in the `.databrickscfg` file to configure the proxy settings:
 
 | DatabricksConfig Attribute   | Description                                                                                                                                                                 | Environment variable         |
@@ -424,5 +426,33 @@ Databricks SDK for Java supports clients using proxy. Clients can use their prox
 | `proxy_password`             | _(String)_ The proxy password to authenticate with, when using `BASIC` auth mechanism                                                                                       | `PROXY_PASSWORD`             |
 
 Note: when using Kerberos authentication in SPNEGO, the `java.security.krb5.conf` system property must point to the `krb5.conf/krb5.ini` file that contains the Kerberos configuration.
+
+## Shaded JAR
+
+If you wish to use the latest version of the Databricks SDK for Java on DBR, you'll find that
+the version that's built into DBR takes precedence.
+
+To use the latest version regardless, you can build and install a JAR with a different
+namespace for the SDK packages:
+
+```shell
+cd shaded
+mvn package
+ls -l target
+# The target directory includes a file "shaded-databricks-sdk-X.Y.Z.jar".
+```
+
+Use the SDK in this package by prepending `shaded.` to all imports:
+```java
+import shaded.com.databricks.sdk.WorkspaceClient;
+import shaded.com.databricks.sdk.AccountClient;
+import shaded.com.databricks.sdk.core.DatabricksConfig;
+import shaded.com.databricks.sdk.service.compute.ClusterInfo;
+import shaded.com.databricks.sdk.service.compute.ListClustersRequest;
+
+// ...
+```
+
 ## Disclaimer
+
 Databricks is actively working on stabilizing the Databricks SDK for Java's interfaces. API clients for all services are generated from specification files that are synchronized from the main platform. You are highly encouraged to pin the exact dependency version and read the [changelog](https://github.com/databricks/databricks-sdk-java/blob/main/CHANGELOG.md) where Databricks documents the changes. Databricks may have minor [documented](https://github.com/databricks/databricks-sdk-java/blob/main/CHANGELOG.md) backward-incompatible changes, such as renaming the methods or some type names to bring more consistency.

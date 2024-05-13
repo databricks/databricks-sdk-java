@@ -25,7 +25,8 @@
     "databricks-sdk-java/pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n    <version>$VERSION</version>",
     "databricks-sdk-java/src/main/java/com/databricks/sdk/core/UserAgent.java": "private static final String version = \"$VERSION\";",
     "examples/docs/pom.xml": "<artifactId>databricks-sdk-java</artifactId>\n      <version>$VERSION</version>",
-    "examples/spring-boot-oauth-u2m-demo/pom.xml": "<artifactId>databricks-sdk-java</artifactId>\n      <version>$VERSION</version>"
+    "examples/spring-boot-oauth-u2m-demo/pom.xml": "<artifactId>databricks-sdk-java</artifactId>\n      <version>$VERSION</version>",
+    "shaded/pom.xml": "<properties>\n    <sdk.version>$VERSION</sdk.version>"
   },
   "toolchain": {
     "require": ["mvn", "java"],
