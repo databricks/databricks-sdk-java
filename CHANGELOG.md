@@ -2,57 +2,34 @@
 
 ## 0.25.0
 
+### New Features and Improvements
 * Fix OIDC Endpoint Fetching in DatabricksConfig for Workspace Clients ([#277](https://github.com/databricks/databricks-sdk-java/pull/277)).
 * Fix NullPointerException when reading error response body ([#276](https://github.com/databricks/databricks-sdk-java/pull/276)).
-* Update SDK to OpenAPI spec ([#280](https://github.com/databricks/databricks-sdk-java/pull/280)).
-* Remove unused script from repository root ([#281](https://github.com/databricks/databricks-sdk-java/pull/281)).
-* Add missing return ([#283](https://github.com/databricks/databricks-sdk-java/pull/283)).
 * Incorporate host in request after `authenticate()` call ([#282](https://github.com/databricks/databricks-sdk-java/pull/282)).
 * Fix NPE in string function on DatabricksConfig ([#285](https://github.com/databricks/databricks-sdk-java/pull/285)).
+
+### Documentation Changes
 * Add instructions for building a shaded JAR ([#284](https://github.com/databricks/databricks-sdk-java/pull/284)).
-* Fix test that was picking up configuration from the environment ([#287](https://github.com/databricks/databricks-sdk-java/pull/287)).
 
-API Changes:
-
- * Added `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
- * Added `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
- * Added `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+### API Changes:
+ * Added `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.CreatePipeline`, `com.databricks.sdk.service.pipelines.EditPipeline` and `com.databricks.sdk.service.pipelines.PipelineSpec`
+ * Changed `create()` method for `workspaceClient.apps()` service . New request type is `com.databricks.sdk.service.serving.CreateAppRequest` class.
+ * Changed `create()` method for `workspaceClient.apps()` service to return `com.databricks.sdk.service.serving.App` class.
+ * Removed `deleteApp()`, `getApp()`, `getApps()` and `getEvents()` method for `workspaceClient.apps()` service.
+* Added `createDeployment()`, `delete()`, `get()`, `getDeployment()`, `getEnvironment()`, `list()`, `listDeployments()`, `stop()`, and `update()` methods for `workspaceClient.apps()` service.
+ * Added `getOpenApi()` method for `workspaceClient.servingEndpoints()` service.
+ * Changed `apps` field for `com.databricks.sdk.service.serving.ListAppsResponse` to `com.databricks.sdk.service.serving.AppList` class.
+ * Added `routeOptimized` field for `com.databricks.sdk.service.serving.CreateServingEndpoint`.
+ * Added `endpointUrl` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+ * Added `routeOptimized` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+ * Added `tags` field for `com.databricks.sdk.service.sql.DashboardEditContent`. `com.databricks.sdk.service.sql.QueryEditContent` and `com.databricks.sdk.service.sql.QueryPostContent`.
+ * Added `catalog` field for `com.databricks.sdk.service.sql.QueryOptions`.
+ * Added `schema` field for `com.databricks.sdk.service.sql.QueryOptions`.
+ * Added `query` field for `com.databricks.sdk.service.sql.Visualization`.
  * Added `com.databricks.sdk.service.pipelines.IngestionConfig` class.
  * Added `com.databricks.sdk.service.pipelines.ManagedIngestionPipelineDefinition` class.
  * Added `com.databricks.sdk.service.pipelines.SchemaSpec` class.
  * Added `com.databricks.sdk.service.pipelines.TableSpec` class.
- * Changed `create()` method for `workspaceClient.apps()` service . New request type is `com.databricks.sdk.service.serving.CreateAppRequest` class.
- * Changed `create()` method for `workspaceClient.apps()` service to return `com.databricks.sdk.service.serving.App` class.
- * Removed `deleteApp()` method for `workspaceClient.apps()` service.
- * Removed `getApp()` method for `workspaceClient.apps()` service.
- * Removed `getAppDeploymentStatus()` method for `workspaceClient.apps()` service.
- * Removed `getApps()` method for `workspaceClient.apps()` service.
- * Removed `getEvents()` method for `workspaceClient.apps()` service.
- * Added `createDeployment()` method for `workspaceClient.apps()` service.
- * Added `delete()` method for `workspaceClient.apps()` service.
- * Added `get()` method for `workspaceClient.apps()` service.
- * Added `getDeployment()` method for `workspaceClient.apps()` service.
- * Added `getEnvironment()` method for `workspaceClient.apps()` service.
- * Added `list()` method for `workspaceClient.apps()` service.
- * Added `listDeployments()` method for `workspaceClient.apps()` service.
- * Added `stop()` method for `workspaceClient.apps()` service.
- * Added `update()` method for `workspaceClient.apps()` service.
- * Added `getOpenApi()` method for `workspaceClient.servingEndpoints()` service.
- * Removed `com.databricks.sdk.service.serving.AppEvents` class.
- * Removed `com.databricks.sdk.service.serving.AppManifest` class.
- * Removed `com.databricks.sdk.service.serving.AppServiceStatus` class.
- * Added `routeOptimized` field for `com.databricks.sdk.service.serving.CreateServingEndpoint`.
- * Removed `com.databricks.sdk.service.serving.DeleteAppResponse` class.
- * Removed `com.databricks.sdk.service.serving.DeployAppRequest` class.
- * Removed `com.databricks.sdk.service.serving.DeploymentStatus` class.
- * Removed `com.databricks.sdk.service.serving.DeploymentStatusState` class.
- * Removed `com.databricks.sdk.service.serving.GetAppDeploymentStatusRequest` class.
- * Removed `com.databricks.sdk.service.serving.GetAppResponse` class.
- * Removed `com.databricks.sdk.service.serving.GetEventsRequest` class.
- * Removed `com.databricks.sdk.service.serving.ListAppEventsResponse` class.
- * Changed `apps` field for `com.databricks.sdk.service.serving.ListAppsResponse` to `com.databricks.sdk.service.serving.AppList` class.
- * Added `endpointUrl` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
- * Added `routeOptimized` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
  * Added `com.databricks.sdk.service.serving.App` class.
  * Added `com.databricks.sdk.service.serving.AppDeployment` class.
  * Added `com.databricks.sdk.service.serving.AppDeploymentState` class.
@@ -73,18 +50,6 @@ API Changes:
  * Added `com.databricks.sdk.service.serving.StopAppRequest` class.
  * Added `Object` class.
  * Added `com.databricks.sdk.service.serving.UpdateAppRequest` class.
- * Removed `workspaceClient.cspEnablement()` service.
- * Removed `workspaceClient.esmEnablement()` service.
- * Added `workspaceClient.complianceSecurityProfile()` service.
- * Added `workspaceClient.enhancedSecurityMonitoring()` service.
- * Removed `com.databricks.sdk.service.settings.CspEnablement` class.
- * Removed `com.databricks.sdk.service.settings.CspEnablementSetting` class.
- * Removed `com.databricks.sdk.service.settings.EsmEnablement` class.
- * Removed `com.databricks.sdk.service.settings.EsmEnablementSetting` class.
- * Removed `com.databricks.sdk.service.settings.GetCspEnablementSettingRequest` class.
- * Removed `com.databricks.sdk.service.settings.GetEsmEnablementSettingRequest` class.
- * Removed `com.databricks.sdk.service.settings.UpdateCspEnablementSettingRequest` class.
- * Removed `com.databricks.sdk.service.settings.UpdateEsmEnablementSettingRequest` class.
  * Added `com.databricks.sdk.service.settings.ComplianceSecurityProfile` class.
  * Added `com.databricks.sdk.service.settings.ComplianceSecurityProfileSetting` class.
  * Added `com.databricks.sdk.service.settings.EnhancedSecurityMonitoring` class.
@@ -93,14 +58,37 @@ API Changes:
  * Added `com.databricks.sdk.service.settings.GetEnhancedSecurityMonitoringSettingRequest` class.
  * Added `com.databricks.sdk.service.settings.UpdateComplianceSecurityProfileSettingRequest` class.
  * Added `com.databricks.sdk.service.settings.UpdateEnhancedSecurityMonitoringSettingRequest` class.
- * Added `tags` field for `com.databricks.sdk.service.sql.DashboardEditContent`.
- * Added `tags` field for `com.databricks.sdk.service.sql.QueryEditContent`.
- * Added `catalog` field for `com.databricks.sdk.service.sql.QueryOptions`.
- * Added `schema` field for `com.databricks.sdk.service.sql.QueryOptions`.
- * Added `tags` field for `com.databricks.sdk.service.sql.QueryPostContent`.
- * Added `query` field for `com.databricks.sdk.service.sql.Visualization`.
+ * Added `workspaceClient.complianceSecurityProfile()` service.
+ * Added `workspaceClient.enhancedSecurityMonitoring()` service.
+ * Removed `workspaceClient.cspEnablement()` service.
+ * Removed `workspaceClient.esmEnablement()` service.
+ * Removed `com.databricks.sdk.service.serving.AppEvents` class.
+ * Removed `com.databricks.sdk.service.serving.AppManifest` class.
+ * Removed `com.databricks.sdk.service.serving.AppServiceStatus` class.
+ * Removed `com.databricks.sdk.service.serving.DeleteAppResponse` class.
+ * Removed `com.databricks.sdk.service.serving.DeployAppRequest` class.
+ * Removed `com.databricks.sdk.service.serving.DeploymentStatus` class.
+ * Removed `com.databricks.sdk.service.serving.DeploymentStatusState` class.
+ * Removed `com.databricks.sdk.service.serving.GetAppDeploymentStatusRequest` class.
+ * Removed `com.databricks.sdk.service.serving.GetAppResponse` class.
+ * Removed `com.databricks.sdk.service.serving.GetEventsRequest` class.
+ * Removed `com.databricks.sdk.service.serving.ListAppEventsResponse` class.
+ * Removed `com.databricks.sdk.service.settings.CspEnablement` class.
+ * Removed `com.databricks.sdk.service.settings.CspEnablementSetting` class.
+ * Removed `com.databricks.sdk.service.settings.EsmEnablement` class.
+ * Removed `com.databricks.sdk.service.settings.EsmEnablementSetting` class.
+ * Removed `com.databricks.sdk.service.settings.GetCspEnablementSettingRequest` class.
+ * Removed `com.databricks.sdk.service.settings.GetEsmEnablementSettingRequest` class.
+ * Removed `com.databricks.sdk.service.settings.UpdateCspEnablementSettingRequest` class.
+ * Removed `com.databricks.sdk.service.settings.UpdateEsmEnablementSettingRequest` class.
 
 OpenAPI SHA: 84f9315bc9cdcf3917f764cf608255a74271ab2c, Date: 2024-05-06
+
+### Internal Changes
+* Update SDK to OpenAPI spec ([#280](https://github.com/databricks/databricks-sdk-java/pull/280)).
+* Remove unused script from repository root ([#281](https://github.com/databricks/databricks-sdk-java/pull/281)).
+* Add missing return ([#283](https://github.com/databricks/databricks-sdk-java/pull/283)).
+* Fix test that was picking up configuration from the environment ([#287](https://github.com/databricks/databricks-sdk-java/pull/287)).
 
 
 ## 0.24.1
