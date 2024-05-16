@@ -10,9 +10,25 @@ public class UserAgent {
   private static String product = "unknown";
   private static String productVersion = "0.0.0";
 
-  private static final Map<String, String> otherInfo = new HashMap<>();
+  private static class Info {
+    private String key;
+    private String value;
 
-  private static final List<String> partners = new ArrayList<>();
+    public Info(String key, String value) {
+      this.key = key;
+      this.value = value;
+    }
+
+    public String getKey() {
+      return key;
+    }
+
+    public String getValue() {
+      return value;
+    }
+  }
+
+  private static final ArrayList<Info> otherInfo = new ArrayList<>();
 
   // TODO: check if reading from
   // /META-INF/maven/com.databricks/databrics-sdk-java/pom.properties
@@ -25,11 +41,11 @@ public class UserAgent {
   }
 
   public static void withPartner(String partner) {
-    partners.add(partner);
+    withOtherInfo("partner", partner);
   }
 
   public static void withOtherInfo(String key, String value) {
-    otherInfo.put(key, value);
+    otherInfo.add(new Info(key, value));
   }
 
   private static String osName() {
@@ -57,9 +73,8 @@ public class UserAgent {
     segments.add(String.format("jvm/%s", jvmVersion()));
     segments.add(String.format("os/%s", osName()));
     segments.addAll(
-        otherInfo.entrySet().stream()
+        otherInfo.stream()
             .map(e -> String.format("%s/%s", e.getKey(), e.getValue())).collect(Collectors.toSet()));
-    segments.addAll(partners.stream().map(p -> "partner/" + p).collect(Collectors.toSet()));
     return segments.stream().collect(Collectors.joining(" "));
   }
 }
