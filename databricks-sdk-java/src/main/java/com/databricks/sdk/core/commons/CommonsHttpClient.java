@@ -12,6 +12,7 @@ import com.databricks.sdk.core.utils.CustomCloseInputStream;
 import com.databricks.sdk.core.utils.ProxyUtils;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
@@ -91,12 +92,14 @@ public class CommonsHttpClient implements HttpClient {
     }
     in.getHeaders().forEach(request::setHeader);
     CloseableHttpResponse response = hc.execute(request);
-    return computeResponse(in, response);
+    return computeResponse(in, request, response);
   }
 
-  private Response computeResponse(Request in, CloseableHttpResponse response) throws IOException {
+  private Response computeResponse(
+      Request in, HttpUriRequest request, CloseableHttpResponse response) throws IOException {
     HttpEntity entity = response.getEntity();
     StatusLine statusLine = response.getStatusLine();
+    URL url = request.getURI().toURL();
     Map<String, List<String>> hs =
         Arrays.stream(response.getAllHeaders())
             .collect(
@@ -105,7 +108,7 @@ public class CommonsHttpClient implements HttpClient {
                     Collectors.mapping(NameValuePair::getValue, Collectors.toList())));
     if (entity == null) {
       response.close();
-      return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs);
+      return new Response(in, url, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs);
     }
 
     // The Databricks SDK is currently designed to treat all non-application/json responses as
@@ -133,12 +136,13 @@ public class CommonsHttpClient implements HttpClient {
                 }
               });
       return new Response(
-          in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, inputStream);
+          in, url, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, inputStream);
     }
 
     try (InputStream inputStream = entity.getContent()) {
       String body = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
-      return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
+      return new Response(
+          in, url, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
     } finally {
       response.close();
     }

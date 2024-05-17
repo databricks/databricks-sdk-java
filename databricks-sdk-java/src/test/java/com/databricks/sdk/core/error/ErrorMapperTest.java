@@ -101,7 +101,7 @@ public class ErrorMapperTest {
       throws JsonProcessingException {
     ErrorMapper mapper = new ErrorMapper();
     ApiErrorBody apiErrorBody = new ObjectMapper().readValue(errorBody, ApiErrorBody.class);
-    Request req = new Request("GET", "/a/b/c");
+    Request req = new Request("GET", "https://databricks.com/api/2.0/a/b/c");
     Response resp = new Response(req, statusCode, null, null);
     DatabricksError error = mapper.apply(resp, apiErrorBody);
     assert error.getClass().equals(expectedClass);

@@ -8,6 +8,7 @@ import com.databricks.sdk.core.DummyHttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.service.compute.*;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.concurrent.TimeoutException;
@@ -22,13 +23,12 @@ class ClustersExtTest {
   @Mock ClustersService clustersMock;
 
   @Test
-  void ensureClusterIsRunning() throws TimeoutException {
+  void ensureClusterIsRunning() throws TimeoutException, MalformedURLException {
+    Request req =
+        new Request("GET", "https://localhost/api/2.0/clusters/get")
+            .withQueryParam("cluster_id", "abc");
     DummyHttpClient httpClient =
-        new DummyHttpClient()
-            .with(
-                new Request("GET", "https://localhost/api/2.0/clusters/get")
-                    .withQueryParam("cluster_id", "abc"),
-                new Response("{}"));
+        new DummyHttpClient().with(req, new Response("{}", req.getUri().toURL()));
 
     DatabricksConfig config =
         new DatabricksConfig()

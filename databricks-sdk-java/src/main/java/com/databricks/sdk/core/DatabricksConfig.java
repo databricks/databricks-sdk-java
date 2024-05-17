@@ -531,6 +531,9 @@ public class DatabricksConfig {
   }
 
   public boolean isAzure() {
+    if (azureWorkspaceResourceId != null) {
+      return true;
+    }
     return this.getDatabricksEnvironment().getCloud() == Cloud.AZURE;
   }
 
@@ -602,15 +605,7 @@ public class DatabricksConfig {
       return this.databricksEnvironment;
     }
 
-    if (this.host != null) {
-      for (DatabricksEnvironment env : DatabricksEnvironment.ALL_ENVIRONMENTS) {
-        if (this.host.endsWith(env.getDnsZone())) {
-          return env;
-        }
-      }
-    }
-
-    if (this.azureWorkspaceResourceId != null) {
+    if (this.host == null && this.azureWorkspaceResourceId != null) {
       String azureEnv = "PUBLIC";
       if (this.azureEnvironment != null) {
         azureEnv = this.azureEnvironment;
@@ -629,7 +624,7 @@ public class DatabricksConfig {
       }
     }
 
-    return DatabricksEnvironment.DEFAULT_ENVIRONMENT;
+    return DatabricksEnvironment.getEnvironmentFromHostname(this.host);
   }
 
   public DatabricksConfig newWithWorkspaceHost(String host) {
