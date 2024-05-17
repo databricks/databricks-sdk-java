@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import com.databricks.sdk.core.error.ApiErrorBody;
 import com.databricks.sdk.core.error.ErrorDetail;
-import com.databricks.sdk.core.error.PrivateLinkInfo;
 import com.databricks.sdk.core.error.PrivateLinkValidationError;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
@@ -12,7 +11,6 @@ import com.databricks.sdk.core.utils.FakeTimer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -405,11 +403,18 @@ public class ApiClientTest {
   @Test
   void privateLinkRedirectBecomesPrivateLinkValidationError() throws MalformedURLException {
     Request req = getBasicRequest();
-    URL url = new URL("https://databricks.com/login.html?error=private-link-validation-error:123456");
-    Response response = new Response(req, url, 200, "OK", Collections.emptyMap(), (String) "Garbage HTML");
-    ApiClient client = getApiClient(req, Collections.singletonList(new SuccessfulResponse(response)));
+    URL url =
+        new URL("https://databricks.com/login.html?error=private-link-validation-error:123456");
+    Response response =
+        new Response(req, url, 200, "OK", Collections.emptyMap(), (String) "Garbage HTML");
+    ApiClient client =
+        getApiClient(req, Collections.singletonList(new SuccessfulResponse(response)));
     PrivateLinkValidationError e =
-        assertThrows(PrivateLinkValidationError.class, () -> client.GET(req.getUri().getPath(), MyEndpointResponse.class, Collections.emptyMap()));
+        assertThrows(
+            PrivateLinkValidationError.class,
+            () ->
+                client.GET(
+                    req.getUri().getPath(), MyEndpointResponse.class, Collections.emptyMap()));
     assertTrue(e.getMessage().contains("AWS PrivateLink"));
   }
 }

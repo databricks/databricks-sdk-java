@@ -90,24 +90,28 @@ class CommonsHttpClientTest {
 
   @Test
   public void testRedirection() throws IOException {
-    List<FixtureServer.FixtureMapping> fixtures = Arrays.asList(
-        new FixtureServer.FixtureMapping.Builder()
-            .validatePath("/redirect")
-            .validateMethod("GET")
-            .withRedirect("/login.html?error=private-link-validation-error", HttpURLConnection.HTTP_MOVED_TEMP)
-            .build(),
-        new FixtureServer.FixtureMapping.Builder()
-            .validatePath("/login.html?error=private-link-validation-error")
-            .validateMethod("GET")
-            .withResponse("login page")
-            .build()
-    );
+    List<FixtureServer.FixtureMapping> fixtures =
+        Arrays.asList(
+            new FixtureServer.FixtureMapping.Builder()
+                .validatePath("/redirect")
+                .validateMethod("GET")
+                .withRedirect(
+                    "/login.html?error=private-link-validation-error",
+                    HttpURLConnection.HTTP_MOVED_TEMP)
+                .build(),
+            new FixtureServer.FixtureMapping.Builder()
+                .validatePath("/login.html?error=private-link-validation-error")
+                .validateMethod("GET")
+                .withResponse("login page")
+                .build());
 
     try (FixtureServer server = new FixtureServer().with(fixtures)) {
       HttpClient httpClient = new CommonsHttpClient(30);
-      Request in = new Request("GET",  server.getUrl() + "/redirect");
+      Request in = new Request("GET", server.getUrl() + "/redirect");
       Response out = httpClient.execute(in);
-      assertEquals(server.getUrl() + "/login.html?error=private-link-validation-error", out.getUrl().toString());
+      assertEquals(
+          server.getUrl() + "/login.html?error=private-link-validation-error",
+          out.getUrl().toString());
     }
   }
 }
