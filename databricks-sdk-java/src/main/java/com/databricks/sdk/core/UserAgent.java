@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class UserAgent {
@@ -40,11 +41,59 @@ public class UserAgent {
     UserAgent.productVersion = productVersion;
   }
 
+  // Regular expression copied from https://semver.org/.
+  private static final String semVerCore = "(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)";
+  private static final String semVerPrerelease = "(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?";
+  private static final String semVerBuildmetadata = "(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?";
+  private static final Pattern regexpSemVer = Pattern.compile("^" + semVerCore + semVerPrerelease + semVerBuildmetadata + "$");
+
+  // Sanitize replaces all non-alphanumeric characters with a hyphen. Use this to
+  // ensure that the user agent value is valid. This is useful when the value is not
+  // ensured to be valid at compile time.
+  //
+  // Example: You want to avoid having '/' and ' ' in the value because it will
+  // make downstream applications fail.
+  //
+  // Note: Semver strings are comprised of alphanumeric characters, hyphens, periods
+  // and plus signs. This function will not remove these characters.
+  // see:
+  // 1. https://semver.org/#spec-item-9
+  // 2. https://semver.org/#spec-item-10
+  private static final Pattern regexpAlphanum = Pattern.compile("^[0-9A-Za-z_\\.\\+-]+$");
+  private static final Pattern regexpAlphanumInverse = Pattern.compile("[^0-9A-Za-z_\\.\\+-]");
+
+  public static String sanitize(String s) {
+    return regexpAlphanumInverse.matcher(s).replaceAll("-");
+  }
+
+  public static boolean matchSemVer(String s) throws IllegalArgumentException {
+    if (regexpSemVer.matcher(s).matches()) {
+      return true;
+    }
+    throw new IllegalArgumentException("Invalid semver string: " + s);
+  }
+
+  public static boolean matchAlphanum(String s) throws IllegalArgumentException {
+    if (regexpAlphanum.matcher(s).matches()) {
+      return true;
+    }
+    throw new IllegalArgumentException("Invalid alphanumeric string: " + s);
+  }
+
+  public static boolean matchAlphanumOrSemVer(String s) throws IllegalArgumentException {
+    if (regexpAlphanum.matcher(s).matches() || regexpSemVer.matcher(s).matches()) {
+      return true;
+    }
+    throw new IllegalArgumentException("Invalid alphanumeric or semver string: " + s);
+  }
+
   public static void withPartner(String partner) {
     withOtherInfo("partner", partner);
   }
 
   public static void withOtherInfo(String key, String value) {
+    matchAlphanum(key);
+    matchAlphanumOrSemVer(value);
     otherInfo.add(new Info(key, value));
   }
 

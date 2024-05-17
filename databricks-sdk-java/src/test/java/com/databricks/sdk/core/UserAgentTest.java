@@ -31,4 +31,25 @@ public class UserAgentTest {
     Assertions.assertTrue(userAgent.contains("key1/value1"));
     Assertions.assertTrue(userAgent.contains("key2/value2"));
   }
+
+  @Test
+  public void testUserAgentWithInvalidKey() {
+    Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      UserAgent.withOtherInfo("key1!", "value1");
+    });
+  }
+
+  @Test
+  public void testUserAgentWithInvalidValue() {
+    Assertions.assertThrows(IllegalArgumentException.class, () -> {
+      UserAgent.withOtherInfo("key1", "value1!");
+    });
+  }
+
+  @Test
+  public void testUserAgentWithSemverValue() {
+    UserAgent.withOtherInfo("key1", "1.0.0-dev+metadata");
+    String userAgent = UserAgent.asString();
+    Assertions.assertTrue(userAgent.contains("key1/1.0.0-dev+metadata"));
+  }
 }
