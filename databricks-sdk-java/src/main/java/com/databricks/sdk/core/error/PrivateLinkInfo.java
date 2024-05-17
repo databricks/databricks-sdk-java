@@ -51,7 +51,7 @@ public class PrivateLinkInfo {
         serviceName, serviceName, endpointName, referencePage);
   }
 
-  static boolean isPrivateLinkRedirect(Response resp) {
+  public static boolean isPrivateLinkRedirect(Response resp) {
     return resp.getUrl().getPath().equals("/login.html")
         && resp.getUrl().getQuery().contains("error=private-link-validation-error");
   }

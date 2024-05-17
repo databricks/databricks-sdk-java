@@ -42,6 +42,9 @@ abstract class AbstractErrorMapper {
     if (statusCodeMapping.containsKey(code)) {
       return statusCodeMapping.get(code).create(errorCode, message, details);
     }
+    if (PrivateLinkInfo.isPrivateLinkRedirect(resp)) {
+      return PrivateLinkInfo.createPrivateLinkValidationError(resp);
+    }
     return new DatabricksError(errorCode, message, code, details);
   }
 
