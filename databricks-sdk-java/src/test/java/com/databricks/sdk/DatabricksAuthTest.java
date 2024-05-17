@@ -343,12 +343,12 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
             .with("HOME", TestOSUtils.resource("/testdata/azure"))
             .with("PATH", "testdata:/bin");
     DatabricksConfig config =
-        new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
+        new DatabricksConfig().setHost("https://adb-123.4.azuredatabricks.net").setAzureWorkspaceResourceId("/sub/rg/ws");
     resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("azure-cli", config.getAuthType());
-    assertEquals("https://x", config.getHost());
+    assertEquals("https://adb-123.4.azuredatabricks.net", config.getHost());
     assertTrue(config.isAzure());
   }
 
@@ -412,12 +412,12 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
             .with("HOME", TestOSUtils.resource("/testdata"))
             .with("PATH", "testdata:/bin");
     DatabricksConfig config =
-        new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
+        new DatabricksConfig().setHost("https://adb-123.4.azuredatabricks.net").setAzureWorkspaceResourceId("/sub/rg/ws");
     resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("azure-cli", config.getAuthType());
-    assertEquals("https://x", config.getHost());
+    assertEquals("https://adb-123.4.azuredatabricks.net", config.getHost());
     assertTrue(config.isAzure());
   }
 
@@ -430,12 +430,12 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
             .with("HOME", TestOSUtils.resource("/testdata/azure"))
             .with("PATH", "testdata:/bin");
     DatabricksConfig config =
-        new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
+        new DatabricksConfig().setHost("https://adb-123.4.azuredatabricks.net").setAzureWorkspaceResourceId("/sub/rg/ws");
     resolveConfig(config, env);
     config.authenticate();
 
     assertEquals("azure-cli", config.getAuthType());
-    assertEquals("https://x", config.getHost());
+    assertEquals("https://adb-123.4.azuredatabricks.net", config.getHost());
     assertTrue(config.isAzure());
   }
 
@@ -448,10 +448,10 @@ public class DatabricksAuthTest implements GitHubUtils, ConfigResolving {
             .with("HOME", TestOSUtils.resource("/testdata/azure"))
             .with("PATH", "testdata:/bin");
     raises(
-        "validate: more than one authorization method configured: azure and basic. Config: host=x, username=x, azure_workspace_resource_id=/sub/rg/ws. Env: DATABRICKS_USERNAME",
+        "validate: more than one authorization method configured: azure and basic. Config: host=https://adb-123.4.azuredatabricks.net, username=x, azure_workspace_resource_id=/sub/rg/ws. Env: DATABRICKS_USERNAME",
         () -> {
           DatabricksConfig config =
-              new DatabricksConfig().setHost("x").setAzureWorkspaceResourceId("/sub/rg/ws");
+              new DatabricksConfig().setHost("https://adb-123.4.azuredatabricks.net").setAzureWorkspaceResourceId("/sub/rg/ws");
           resolveConfig(config, env);
           config.authenticate();
         });
