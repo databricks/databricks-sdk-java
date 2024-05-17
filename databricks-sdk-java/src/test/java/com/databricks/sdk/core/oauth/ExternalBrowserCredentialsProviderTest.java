@@ -11,6 +11,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -111,9 +112,10 @@ public class ExternalBrowserCredentialsProviderTest {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
         "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
+    URL url = new URL("https://databricks.com/");
 
     // Mock because it's a POST Request to http client
-    Mockito.doReturn(new Response(response)).when(hc).execute(any(Request.class));
+    Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
 
     Consent testConsent =
         new Consent.Builder()
@@ -156,7 +158,8 @@ public class ExternalBrowserCredentialsProviderTest {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
         "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
-    Mockito.doReturn(new Response(response)).when(hc).execute(any(Request.class));
+    URL url = new URL("https://databricks.com/");
+    Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
 
     ClientCredentials clientCredentials =
         new ClientCredentials.Builder()
@@ -175,7 +178,8 @@ public class ExternalBrowserCredentialsProviderTest {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
         "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
-    Mockito.doReturn(new Response(response)).when(hc).execute(any(Request.class));
+    URL url = new URL("https://databricks.com/");
+    Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
 
     SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()

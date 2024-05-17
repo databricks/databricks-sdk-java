@@ -12,6 +12,10 @@ import com.databricks.sdk.core.utils.CustomCloseInputStream;
 import com.databricks.sdk.core.utils.ProxyUtils;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpHost;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
@@ -28,6 +33,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,11 +97,32 @@ public class CommonsHttpClient implements HttpClient {
       request.getParams().setParameter("http.protocol.handle-redirects", false);
     }
     in.getHeaders().forEach(request::setHeader);
-    CloseableHttpResponse response = hc.execute(request);
-    return computeResponse(in, response);
+    HttpContext context = new BasicHttpContext();
+    CloseableHttpResponse response = hc.execute(request, context);
+    return computeResponse(in, context, response);
   }
 
-  private Response computeResponse(Request in, CloseableHttpResponse response) throws IOException {
+  private URL getTargetUrl(HttpContext context) {
+    try {
+      HttpHost targetHost = (HttpHost) context.getAttribute("http.target_host");
+      HttpUriRequest request = (HttpUriRequest) context.getAttribute("http.request");
+      URI uri =
+          new URI(
+              targetHost.getSchemeName(),
+              null,
+              targetHost.getHostName(),
+              targetHost.getPort(),
+              request.getURI().getPath(),
+              request.getURI().getQuery(),
+              request.getURI().getFragment());
+      return uri.toURL();
+    } catch (MalformedURLException | URISyntaxException e) {
+      throw new DatabricksException("Unable to get target URL", e);
+    }
+  }
+
+  private Response computeResponse(Request in, HttpContext context, CloseableHttpResponse response)
+      throws IOException {
     HttpEntity entity = response.getEntity();
     StatusLine statusLine = response.getStatusLine();
     Map<String, List<String>> hs =
@@ -103,9 +131,10 @@ public class CommonsHttpClient implements HttpClient {
                 Collectors.groupingBy(
                     NameValuePair::getName,
                     Collectors.mapping(NameValuePair::getValue, Collectors.toList())));
+    URL url = getTargetUrl(context);
     if (entity == null) {
       response.close();
-      return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs);
+      return new Response(in, url, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs);
     }
 
     // The Databricks SDK is currently designed to treat all non-application/json responses as
@@ -133,12 +162,13 @@ public class CommonsHttpClient implements HttpClient {
                 }
               });
       return new Response(
-          in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, inputStream);
+          in, url, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, inputStream);
     }
 
     try (InputStream inputStream = entity.getContent()) {
       String body = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
-      return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
+      return new Response(
+          in, url, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
     } finally {
       response.close();
     }

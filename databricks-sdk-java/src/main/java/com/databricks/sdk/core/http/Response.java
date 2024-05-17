@@ -1,7 +1,10 @@
 package com.databricks.sdk.core.http;
 
+import com.databricks.sdk.core.DatabricksException;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.Map;
 
 public class Response {
   private Request request;
+  private URL url;
   private int statusCode;
   private String status;
   private Map<String, List<String>> headers;
@@ -17,7 +21,21 @@ public class Response {
 
   public Response(
       Request request, int statusCode, String status, Map<String, List<String>> headers) {
-    this(request, statusCode, status, headers, (InputStream) null, null);
+    this(
+        request, getURLFromRequest(request), statusCode, status, headers, (InputStream) null, null);
+  }
+
+  public Response(
+      Request request, URL url, int statusCode, String status, Map<String, List<String>> headers) {
+    this(request, url, statusCode, status, headers, (InputStream) null, null);
+  }
+
+  private static URL getURLFromRequest(Request request) {
+    try {
+      return request.getUri().toURL();
+    } catch (MalformedURLException e) {
+      throw new DatabricksException("Failed to convert URI to URL", e);
+    }
   }
 
   public Response(
@@ -28,6 +46,7 @@ public class Response {
       String body) {
     this(
         request,
+        getURLFromRequest(request),
         statusCode,
         status,
         headers,
@@ -37,16 +56,35 @@ public class Response {
 
   public Response(
       Request request,
+      URL url,
+      int statusCode,
+      String status,
+      Map<String, List<String>> headers,
+      String body) {
+    this(
+        request,
+        url,
+        statusCode,
+        status,
+        headers,
+        body != null ? new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8)) : null,
+        body);
+  }
+
+  public Response(
+      Request request,
+      URL url,
       int statusCode,
       String status,
       Map<String, List<String>> headers,
       InputStream body) {
-    this(request, statusCode, status, headers, body, "\"<InputStream>\"");
+    this(request, url, statusCode, status, headers, body, "\"<InputStream>\"");
   }
 
-  public Response(String body) {
+  public Response(String body, URL url) {
     this(
         new Request("GET", "/"),
+        url,
         200,
         "OK",
         Collections.emptyMap(),
@@ -56,12 +94,14 @@ public class Response {
 
   private Response(
       Request request,
+      URL url,
       int statusCode,
       String status,
       Map<String, List<String>> headers,
       InputStream body,
       String debugBody) {
     this.request = request;
+    this.url = url;
     this.statusCode = statusCode;
     this.status = status;
     this.headers = headers;
@@ -71,6 +111,10 @@ public class Response {
 
   public Request getRequest() {
     return request;
+  }
+
+  public URL getUrl() {
+    return url;
   }
 
   public int getStatusCode() {

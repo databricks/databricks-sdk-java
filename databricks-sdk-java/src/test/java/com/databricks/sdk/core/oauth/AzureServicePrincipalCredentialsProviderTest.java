@@ -8,6 +8,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
@@ -29,8 +30,8 @@ class AzureServicePrincipalCredentialsProviderTest {
     String responseJson = new ObjectMapper().writeValueAsString(response);
     System.out.println(responseJson);
     Mockito.when(mockClient.execute(any()))
-        .thenReturn(new Response(responseJson))
-        .thenReturn(new Response(responseJson));
+        .thenReturn(new Response(responseJson, new URL("https://databricks.com/")))
+        .thenReturn(new Response(responseJson, new URL("https://databricks.com/")));
     DatabricksConfig config =
         new DatabricksConfig()
             .setHost(".azuredatabricks.net")

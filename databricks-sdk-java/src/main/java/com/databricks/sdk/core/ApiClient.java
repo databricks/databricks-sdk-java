@@ -1,6 +1,7 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.error.ApiErrors;
+import com.databricks.sdk.core.error.PrivateLinkInfo;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
@@ -261,9 +262,6 @@ public class ApiClient {
         if (LOG.isDebugEnabled()) {
           LOG.debug(makeLogRecord(in, out));
         }
-        if (out.getStatusCode() < 400) {
-          return out;
-        }
       } catch (IOException e) {
         err = e;
         LOG.debug("Request {} failed", in, e);
@@ -297,7 +295,10 @@ public class ApiClient {
   }
 
   private boolean isRequestSuccessful(Response response, Exception e) {
-    return e == null && response.getStatusCode() >= 200 && response.getStatusCode() < 300;
+    return e == null
+        && response.getStatusCode() >= 200
+        && response.getStatusCode() < 300
+        && !PrivateLinkInfo.isPrivateLinkRedirect(response);
   }
 
   public long getBackoffMillis(Response response, int attemptNumber) {
