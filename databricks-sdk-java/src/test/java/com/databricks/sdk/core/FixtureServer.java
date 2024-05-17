@@ -10,6 +10,7 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.IOUtils;
@@ -241,6 +242,11 @@ public class FixtureServer implements Closeable {
 
   public FixtureServer with(FixtureMapping fixture) {
     fixtures.add(fixture);
+    return this;
+  }
+
+  public FixtureServer with(Collection<FixtureMapping> fs) {
+    fixtures.addAll(fs);
     return this;
   }
 

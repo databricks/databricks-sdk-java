@@ -109,7 +109,9 @@ public class CommonsHttpClient implements HttpClient {
       URI uri =
           new URI(
               targetHost.getSchemeName(),
+              null,
               targetHost.getHostName(),
+              targetHost.getPort(),
               request.getURI().getPath(),
               request.getURI().getQuery(),
               request.getURI().getFragment());
