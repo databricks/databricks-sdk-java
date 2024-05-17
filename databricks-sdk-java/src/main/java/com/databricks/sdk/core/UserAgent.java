@@ -1,9 +1,7 @@
 package com.databricks.sdk.core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -43,9 +41,11 @@ public class UserAgent {
 
   // Regular expression copied from https://semver.org/.
   private static final String semVerCore = "(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)";
-  private static final String semVerPrerelease = "(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?";
+  private static final String semVerPrerelease =
+      "(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?";
   private static final String semVerBuildmetadata = "(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?";
-  private static final Pattern regexpSemVer = Pattern.compile("^" + semVerCore + semVerPrerelease + semVerBuildmetadata + "$");
+  private static final Pattern regexpSemVer =
+      Pattern.compile("^" + semVerCore + semVerPrerelease + semVerBuildmetadata + "$");
 
   // Sanitize replaces all non-alphanumeric characters with a hyphen. Use this to
   // ensure that the user agent value is valid. This is useful when the value is not
@@ -123,7 +123,8 @@ public class UserAgent {
     segments.add(String.format("os/%s", osName()));
     segments.addAll(
         otherInfo.stream()
-            .map(e -> String.format("%s/%s", e.getKey(), e.getValue())).collect(Collectors.toSet()));
+            .map(e -> String.format("%s/%s", e.getKey(), e.getValue()))
+            .collect(Collectors.toSet()));
     return segments.stream().collect(Collectors.joining(" "));
   }
 }

@@ -34,16 +34,20 @@ public class UserAgentTest {
 
   @Test
   public void testUserAgentWithInvalidKey() {
-    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      UserAgent.withOtherInfo("key1!", "value1");
-    });
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          UserAgent.withOtherInfo("key1!", "value1");
+        });
   }
 
   @Test
   public void testUserAgentWithInvalidValue() {
-    Assertions.assertThrows(IllegalArgumentException.class, () -> {
-      UserAgent.withOtherInfo("key1", "value1!");
-    });
+    Assertions.assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          UserAgent.withOtherInfo("key1", "value1!");
+        });
   }
 
   @Test
