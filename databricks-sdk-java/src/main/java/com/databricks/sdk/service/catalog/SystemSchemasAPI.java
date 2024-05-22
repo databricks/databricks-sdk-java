@@ -28,7 +28,7 @@ public class SystemSchemasAPI {
     impl = mock;
   }
 
-  public void disable(String metastoreId, DisableSchemaName schemaName) {
+  public void disable(String metastoreId, String schemaName) {
     disable(new DisableRequest().setMetastoreId(metastoreId).setSchemaName(schemaName));
   }
 
@@ -42,7 +42,7 @@ public class SystemSchemasAPI {
     impl.disable(request);
   }
 
-  public void enable(String metastoreId, EnableSchemaName schemaName) {
+  public void enable(String metastoreId, String schemaName) {
     enable(new EnableRequest().setMetastoreId(metastoreId).setSchemaName(schemaName));
   }
 

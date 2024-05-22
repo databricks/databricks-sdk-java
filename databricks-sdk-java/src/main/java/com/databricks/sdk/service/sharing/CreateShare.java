@@ -17,6 +17,10 @@ public class CreateShare {
   @JsonProperty("name")
   private String name;
 
+  /** Storage root URL for the share. */
+  @JsonProperty("storage_root")
+  private String storageRoot;
+
   public CreateShare setComment(String comment) {
     this.comment = comment;
     return this;
@@ -35,21 +39,36 @@ public class CreateShare {
     return name;
   }
 
+  public CreateShare setStorageRoot(String storageRoot) {
+    this.storageRoot = storageRoot;
+    return this;
+  }
+
+  public String getStorageRoot() {
+    return storageRoot;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateShare that = (CreateShare) o;
-    return Objects.equals(comment, that.comment) && Objects.equals(name, that.name);
+    return Objects.equals(comment, that.comment)
+        && Objects.equals(name, that.name)
+        && Objects.equals(storageRoot, that.storageRoot);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, name);
+    return Objects.hash(comment, name, storageRoot);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(CreateShare.class).add("comment", comment).add("name", name).toString();
+    return new ToStringer(CreateShare.class)
+        .add("comment", comment)
+        .add("name", name)
+        .add("storageRoot", storageRoot)
+        .toString();
   }
 }

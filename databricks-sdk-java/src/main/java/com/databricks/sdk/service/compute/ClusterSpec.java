@@ -11,7 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class ClusterSpec {
-  /** */
+  /**
+   * When set to true, fixed and default values from the policy will be used for fields that are
+   * omitted. When set to false, only fixed values from the policy will be applied.
+   */
   @JsonProperty("apply_policy_default_values")
   private Boolean applyPolicyDefaultValues;
 
@@ -46,13 +49,6 @@ public class ClusterSpec {
   private AzureAttributes azureAttributes;
 
   /**
-   * When specified, this clones libraries from a source cluster during the creation of a new
-   * cluster.
-   */
-  @JsonProperty("clone_from")
-  private CloneCluster cloneFrom;
-
-  /**
    * The configuration for delivering spark logs to a long-term storage destination. Two kinds of
    * destinations (dbfs and s3) are supported. Only one destination can be specified for one
    * cluster. If the conf is given, the logs will be delivered to the destination every `5 mins`.
@@ -68,13 +64,6 @@ public class ClusterSpec {
    */
   @JsonProperty("cluster_name")
   private String clusterName;
-
-  /**
-   * Determines whether the cluster was created by a user through the UI, created by the Databricks
-   * Jobs Scheduler, or through an API request. This is the same as cluster_creator, but read only.
-   */
-  @JsonProperty("cluster_source")
-  private ClusterSource clusterSource;
 
   /**
    * Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS
@@ -285,15 +274,6 @@ public class ClusterSpec {
     return azureAttributes;
   }
 
-  public ClusterSpec setCloneFrom(CloneCluster cloneFrom) {
-    this.cloneFrom = cloneFrom;
-    return this;
-  }
-
-  public CloneCluster getCloneFrom() {
-    return cloneFrom;
-  }
-
   public ClusterSpec setClusterLogConf(ClusterLogConf clusterLogConf) {
     this.clusterLogConf = clusterLogConf;
     return this;
@@ -310,15 +290,6 @@ public class ClusterSpec {
 
   public String getClusterName() {
     return clusterName;
-  }
-
-  public ClusterSpec setClusterSource(ClusterSource clusterSource) {
-    this.clusterSource = clusterSource;
-    return this;
-  }
-
-  public ClusterSource getClusterSource() {
-    return clusterSource;
   }
 
   public ClusterSpec setCustomTags(Map<String, String> customTags) {
@@ -511,10 +482,8 @@ public class ClusterSpec {
         && Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
         && Objects.equals(awsAttributes, that.awsAttributes)
         && Objects.equals(azureAttributes, that.azureAttributes)
-        && Objects.equals(cloneFrom, that.cloneFrom)
         && Objects.equals(clusterLogConf, that.clusterLogConf)
         && Objects.equals(clusterName, that.clusterName)
-        && Objects.equals(clusterSource, that.clusterSource)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(dataSecurityMode, that.dataSecurityMode)
         && Objects.equals(dockerImage, that.dockerImage)
@@ -545,10 +514,8 @@ public class ClusterSpec {
         autoterminationMinutes,
         awsAttributes,
         azureAttributes,
-        cloneFrom,
         clusterLogConf,
         clusterName,
-        clusterSource,
         customTags,
         dataSecurityMode,
         dockerImage,
@@ -579,10 +546,8 @@ public class ClusterSpec {
         .add("autoterminationMinutes", autoterminationMinutes)
         .add("awsAttributes", awsAttributes)
         .add("azureAttributes", azureAttributes)
-        .add("cloneFrom", cloneFrom)
         .add("clusterLogConf", clusterLogConf)
         .add("clusterName", clusterName)
-        .add("clusterSource", clusterSource)
         .add("customTags", customTags)
         .add("dataSecurityMode", dataSecurityMode)
         .add("dockerImage", dockerImage)

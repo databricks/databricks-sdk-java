@@ -52,6 +52,10 @@ public class PipelineSpec {
   @JsonProperty("filters")
   private Filters filters;
 
+  /** The definition of a gateway pipeline to support CDC. */
+  @JsonProperty("gateway_definition")
+  private IngestionGatewayPipelineDefinition gatewayDefinition;
+
   /** Unique identifier for this pipeline. */
   @JsonProperty("id")
   private String id;
@@ -180,6 +184,15 @@ public class PipelineSpec {
     return filters;
   }
 
+  public PipelineSpec setGatewayDefinition(IngestionGatewayPipelineDefinition gatewayDefinition) {
+    this.gatewayDefinition = gatewayDefinition;
+    return this;
+  }
+
+  public IngestionGatewayPipelineDefinition getGatewayDefinition() {
+    return gatewayDefinition;
+  }
+
   public PipelineSpec setId(String id) {
     this.id = id;
     return this;
@@ -285,6 +298,7 @@ public class PipelineSpec {
         && Objects.equals(development, that.development)
         && Objects.equals(edition, that.edition)
         && Objects.equals(filters, that.filters)
+        && Objects.equals(gatewayDefinition, that.gatewayDefinition)
         && Objects.equals(id, that.id)
         && Objects.equals(ingestionDefinition, that.ingestionDefinition)
         && Objects.equals(libraries, that.libraries)
@@ -309,6 +323,7 @@ public class PipelineSpec {
         development,
         edition,
         filters,
+        gatewayDefinition,
         id,
         ingestionDefinition,
         libraries,
@@ -333,6 +348,7 @@ public class PipelineSpec {
         .add("development", development)
         .add("edition", edition)
         .add("filters", filters)
+        .add("gatewayDefinition", gatewayDefinition)
         .add("id", id)
         .add("ingestionDefinition", ingestionDefinition)
         .add("libraries", libraries)

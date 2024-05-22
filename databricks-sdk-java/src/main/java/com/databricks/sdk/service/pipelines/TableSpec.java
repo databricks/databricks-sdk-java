@@ -36,6 +36,14 @@ public class TableSpec {
   @JsonProperty("source_table")
   private String sourceTable;
 
+  /**
+   * Configuration settings to control the ingestion of tables. These settings override the
+   * table_configuration defined in the ManagedIngestionPipelineDefinition object and the
+   * SchemaSpec.
+   */
+  @JsonProperty("table_configuration")
+  private TableSpecificConfig tableConfiguration;
+
   public TableSpec setDestinationCatalog(String destinationCatalog) {
     this.destinationCatalog = destinationCatalog;
     return this;
@@ -90,6 +98,15 @@ public class TableSpec {
     return sourceTable;
   }
 
+  public TableSpec setTableConfiguration(TableSpecificConfig tableConfiguration) {
+    this.tableConfiguration = tableConfiguration;
+    return this;
+  }
+
+  public TableSpecificConfig getTableConfiguration() {
+    return tableConfiguration;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -100,7 +117,8 @@ public class TableSpec {
         && Objects.equals(destinationTable, that.destinationTable)
         && Objects.equals(sourceCatalog, that.sourceCatalog)
         && Objects.equals(sourceSchema, that.sourceSchema)
-        && Objects.equals(sourceTable, that.sourceTable);
+        && Objects.equals(sourceTable, that.sourceTable)
+        && Objects.equals(tableConfiguration, that.tableConfiguration);
   }
 
   @Override
@@ -111,7 +129,8 @@ public class TableSpec {
         destinationTable,
         sourceCatalog,
         sourceSchema,
-        sourceTable);
+        sourceTable,
+        tableConfiguration);
   }
 
   @Override
@@ -123,6 +142,7 @@ public class TableSpec {
         .add("sourceCatalog", sourceCatalog)
         .add("sourceSchema", sourceSchema)
         .add("sourceTable", sourceTable)
+        .add("tableConfiguration", tableConfiguration)
         .toString();
   }
 }

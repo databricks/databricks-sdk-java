@@ -20,14 +20,14 @@ import com.databricks.sdk.service.catalog.FunctionsAPI;
 import com.databricks.sdk.service.catalog.FunctionsService;
 import com.databricks.sdk.service.catalog.GrantsAPI;
 import com.databricks.sdk.service.catalog.GrantsService;
-import com.databricks.sdk.service.catalog.LakehouseMonitorsAPI;
-import com.databricks.sdk.service.catalog.LakehouseMonitorsService;
 import com.databricks.sdk.service.catalog.MetastoresAPI;
 import com.databricks.sdk.service.catalog.MetastoresService;
 import com.databricks.sdk.service.catalog.ModelVersionsAPI;
 import com.databricks.sdk.service.catalog.ModelVersionsService;
 import com.databricks.sdk.service.catalog.OnlineTablesAPI;
 import com.databricks.sdk.service.catalog.OnlineTablesService;
+import com.databricks.sdk.service.catalog.QualityMonitorsAPI;
+import com.databricks.sdk.service.catalog.QualityMonitorsService;
 import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
 import com.databricks.sdk.service.catalog.RegisteredModelsService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
@@ -209,7 +209,6 @@ public class WorkspaceClient {
   private InstanceProfilesAPI instanceProfilesAPI;
   private IpAccessListsAPI ipAccessListsAPI;
   private JobsAPI jobsAPI;
-  private LakehouseMonitorsAPI lakehouseMonitorsAPI;
   private LakeviewAPI lakeviewAPI;
   private LibrariesAPI librariesAPI;
   private MetastoresAPI metastoresAPI;
@@ -228,6 +227,7 @@ public class WorkspaceClient {
   private ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboardsAPI;
   private ProviderProvidersAPI providerProvidersAPI;
   private ProvidersAPI providersAPI;
+  private QualityMonitorsAPI qualityMonitorsAPI;
   private QueriesAPI queriesAPI;
   private QueryHistoryAPI queryHistoryAPI;
   private QueryVisualizationsAPI queryVisualizationsAPI;
@@ -299,7 +299,6 @@ public class WorkspaceClient {
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
     jobsAPI = new JobsAPI(apiClient);
-    lakehouseMonitorsAPI = new LakehouseMonitorsAPI(apiClient);
     lakeviewAPI = new LakeviewAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
@@ -318,6 +317,7 @@ public class WorkspaceClient {
     providerProviderAnalyticsDashboardsAPI = new ProviderProviderAnalyticsDashboardsAPI(apiClient);
     providerProvidersAPI = new ProviderProvidersAPI(apiClient);
     providersAPI = new ProvidersAPI(apiClient);
+    qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
@@ -800,20 +800,6 @@ public class WorkspaceClient {
   }
 
   /**
-   * A monitor computes and monitors data or model quality metrics for a table over time. It
-   * generates metrics tables and a dashboard that you can use to monitor table health and set
-   * alerts.
-   *
-   * <p>Most write operations require the user to be the owner of the table (or its parent schema or
-   * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only
-   * requires the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
-   * **USE_CATALOG**).
-   */
-  public LakehouseMonitorsAPI lakehouseMonitors() {
-    return lakehouseMonitorsAPI;
-  }
-
-  /**
    * These APIs provide specific management operations for Lakeview dashboards. Generic resource
    * management can be done with Workspace API (import, export, get-status, list, delete).
    */
@@ -1039,6 +1025,20 @@ public class WorkspaceClient {
    */
   public ProvidersAPI providers() {
     return providersAPI;
+  }
+
+  /**
+   * A monitor computes and monitors data or model quality metrics for a table over time. It
+   * generates metrics tables and a dashboard that you can use to monitor table health and set
+   * alerts.
+   *
+   * <p>Most write operations require the user to be the owner of the table (or its parent schema or
+   * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only
+   * requires the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
+   * **USE_CATALOG**).
+   */
+  public QualityMonitorsAPI qualityMonitors() {
+    return qualityMonitorsAPI;
   }
 
   /**
@@ -1855,17 +1855,6 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default LakehouseMonitorsService with a custom implementation. */
-  public WorkspaceClient withLakehouseMonitorsImpl(LakehouseMonitorsService lakehouseMonitors) {
-    return this.withLakehouseMonitorsAPI(new LakehouseMonitorsAPI(lakehouseMonitors));
-  }
-
-  /** Replace the default LakehouseMonitorsAPI with a custom implementation. */
-  public WorkspaceClient withLakehouseMonitorsAPI(LakehouseMonitorsAPI lakehouseMonitors) {
-    this.lakehouseMonitorsAPI = lakehouseMonitors;
-    return this;
-  }
-
   /** Replace the default LakeviewService with a custom implementation. */
   public WorkspaceClient withLakeviewImpl(LakeviewService lakeview) {
     return this.withLakeviewAPI(new LakeviewAPI(lakeview));
@@ -2073,6 +2062,17 @@ public class WorkspaceClient {
   /** Replace the default ProvidersAPI with a custom implementation. */
   public WorkspaceClient withProvidersAPI(ProvidersAPI providers) {
     this.providersAPI = providers;
+    return this;
+  }
+
+  /** Replace the default QualityMonitorsService with a custom implementation. */
+  public WorkspaceClient withQualityMonitorsImpl(QualityMonitorsService qualityMonitors) {
+    return this.withQualityMonitorsAPI(new QualityMonitorsAPI(qualityMonitors));
+  }
+
+  /** Replace the default QualityMonitorsAPI with a custom implementation. */
+  public WorkspaceClient withQualityMonitorsAPI(QualityMonitorsAPI qualityMonitors) {
+    this.qualityMonitorsAPI = qualityMonitors;
     return this;
   }
 

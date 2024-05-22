@@ -60,6 +60,10 @@ public class CreatePipeline {
   @JsonProperty("filters")
   private Filters filters;
 
+  /** The definition of a gateway pipeline to support CDC. */
+  @JsonProperty("gateway_definition")
+  private IngestionGatewayPipelineDefinition gatewayDefinition;
+
   /** Unique identifier for this pipeline. */
   @JsonProperty("id")
   private String id;
@@ -206,6 +210,15 @@ public class CreatePipeline {
     return filters;
   }
 
+  public CreatePipeline setGatewayDefinition(IngestionGatewayPipelineDefinition gatewayDefinition) {
+    this.gatewayDefinition = gatewayDefinition;
+    return this;
+  }
+
+  public IngestionGatewayPipelineDefinition getGatewayDefinition() {
+    return gatewayDefinition;
+  }
+
   public CreatePipeline setId(String id) {
     this.id = id;
     return this;
@@ -313,6 +326,7 @@ public class CreatePipeline {
         && Objects.equals(dryRun, that.dryRun)
         && Objects.equals(edition, that.edition)
         && Objects.equals(filters, that.filters)
+        && Objects.equals(gatewayDefinition, that.gatewayDefinition)
         && Objects.equals(id, that.id)
         && Objects.equals(ingestionDefinition, that.ingestionDefinition)
         && Objects.equals(libraries, that.libraries)
@@ -339,6 +353,7 @@ public class CreatePipeline {
         dryRun,
         edition,
         filters,
+        gatewayDefinition,
         id,
         ingestionDefinition,
         libraries,
@@ -365,6 +380,7 @@ public class CreatePipeline {
         .add("dryRun", dryRun)
         .add("edition", edition)
         .add("filters", filters)
+        .add("gatewayDefinition", gatewayDefinition)
         .add("id", id)
         .add("ingestionDefinition", ingestionDefinition)
         .add("libraries", libraries)

@@ -84,9 +84,18 @@ public class ConnectionsAPI {
    *
    * <p>List all connections.
    */
-  public Iterable<ConnectionInfo> list() {
+  public Iterable<ConnectionInfo> list(ListConnectionsRequest request) {
     return new Paginator<>(
-        null, (Void v) -> impl.list(), ListConnectionsResponse::getConnections, response -> null);
+        request,
+        impl::list,
+        ListConnectionsResponse::getConnections,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public ConnectionInfo update(String name, Map<String, String> options) {

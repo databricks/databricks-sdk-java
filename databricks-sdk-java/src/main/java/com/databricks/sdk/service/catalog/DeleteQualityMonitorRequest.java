@@ -6,13 +6,13 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get a table monitor */
+/** Delete a table monitor */
 @Generated
-public class GetLakehouseMonitorRequest {
+public class DeleteQualityMonitorRequest {
   /** Full name of the table. */
   private String tableName;
 
-  public GetLakehouseMonitorRequest setTableName(String tableName) {
+  public DeleteQualityMonitorRequest setTableName(String tableName) {
     this.tableName = tableName;
     return this;
   }
@@ -25,7 +25,7 @@ public class GetLakehouseMonitorRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetLakehouseMonitorRequest that = (GetLakehouseMonitorRequest) o;
+    DeleteQualityMonitorRequest that = (DeleteQualityMonitorRequest) o;
     return Objects.equals(tableName, that.tableName);
   }
 
@@ -36,6 +36,6 @@ public class GetLakehouseMonitorRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetLakehouseMonitorRequest.class).add("tableName", tableName).toString();
+    return new ToStringer(DeleteQualityMonitorRequest.class).add("tableName", tableName).toString();
   }
 }

@@ -18,6 +18,13 @@ public class DeltaSyncVectorIndexSpecResponse {
   @JsonProperty("embedding_vector_columns")
   private Collection<EmbeddingVectorColumn> embeddingVectorColumns;
 
+  /**
+   * [Optional] Name of the Delta table to sync the vector index contents and computed embeddings
+   * to.
+   */
+  @JsonProperty("embedding_writeback_table")
+  private String embeddingWritebackTable;
+
   /** The ID of the pipeline that is used to sync the index. */
   @JsonProperty("pipeline_id")
   private String pipelineId;
@@ -58,6 +65,16 @@ public class DeltaSyncVectorIndexSpecResponse {
     return embeddingVectorColumns;
   }
 
+  public DeltaSyncVectorIndexSpecResponse setEmbeddingWritebackTable(
+      String embeddingWritebackTable) {
+    this.embeddingWritebackTable = embeddingWritebackTable;
+    return this;
+  }
+
+  public String getEmbeddingWritebackTable() {
+    return embeddingWritebackTable;
+  }
+
   public DeltaSyncVectorIndexSpecResponse setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;
     return this;
@@ -92,6 +109,7 @@ public class DeltaSyncVectorIndexSpecResponse {
     DeltaSyncVectorIndexSpecResponse that = (DeltaSyncVectorIndexSpecResponse) o;
     return Objects.equals(embeddingSourceColumns, that.embeddingSourceColumns)
         && Objects.equals(embeddingVectorColumns, that.embeddingVectorColumns)
+        && Objects.equals(embeddingWritebackTable, that.embeddingWritebackTable)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(pipelineType, that.pipelineType)
         && Objects.equals(sourceTable, that.sourceTable);
@@ -100,7 +118,12 @@ public class DeltaSyncVectorIndexSpecResponse {
   @Override
   public int hashCode() {
     return Objects.hash(
-        embeddingSourceColumns, embeddingVectorColumns, pipelineId, pipelineType, sourceTable);
+        embeddingSourceColumns,
+        embeddingVectorColumns,
+        embeddingWritebackTable,
+        pipelineId,
+        pipelineType,
+        sourceTable);
   }
 
   @Override
@@ -108,6 +131,7 @@ public class DeltaSyncVectorIndexSpecResponse {
     return new ToStringer(DeltaSyncVectorIndexSpecResponse.class)
         .add("embeddingSourceColumns", embeddingSourceColumns)
         .add("embeddingVectorColumns", embeddingVectorColumns)
+        .add("embeddingWritebackTable", embeddingWritebackTable)
         .add("pipelineId", pipelineId)
         .add("pipelineType", pipelineType)
         .add("sourceTable", sourceTable)

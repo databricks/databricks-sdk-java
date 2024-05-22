@@ -130,6 +130,20 @@ public class VectorSearchIndexesAPI {
     return impl.queryIndex(request);
   }
 
+  public ScanVectorIndexResponse scanIndex(String indexName) {
+    return scanIndex(new ScanVectorIndexRequest().setIndexName(indexName));
+  }
+
+  /**
+   * Scan an index.
+   *
+   * <p>Scan the specified vector index and return the first `num_results` entries after the
+   * exclusive `primary_key`.
+   */
+  public ScanVectorIndexResponse scanIndex(ScanVectorIndexRequest request) {
+    return impl.scanIndex(request);
+  }
+
   public void syncIndex(String indexName) {
     syncIndex(new SyncIndexRequest().setIndexName(indexName));
   }

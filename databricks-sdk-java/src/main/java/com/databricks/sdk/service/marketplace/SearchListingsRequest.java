@@ -20,6 +20,10 @@ public class SearchListingsRequest {
   private Collection<Category> categories;
 
   /** */
+  @QueryParam("is_ascending")
+  private Boolean isAscending;
+
+  /** */
   @QueryParam("is_free")
   private Boolean isFree;
 
@@ -63,6 +67,15 @@ public class SearchListingsRequest {
 
   public Collection<Category> getCategories() {
     return categories;
+  }
+
+  public SearchListingsRequest setIsAscending(Boolean isAscending) {
+    this.isAscending = isAscending;
+    return this;
+  }
+
+  public Boolean getIsAscending() {
+    return isAscending;
   }
 
   public SearchListingsRequest setIsFree(Boolean isFree) {
@@ -135,6 +148,7 @@ public class SearchListingsRequest {
     SearchListingsRequest that = (SearchListingsRequest) o;
     return Objects.equals(assets, that.assets)
         && Objects.equals(categories, that.categories)
+        && Objects.equals(isAscending, that.isAscending)
         && Objects.equals(isFree, that.isFree)
         && Objects.equals(isPrivateExchange, that.isPrivateExchange)
         && Objects.equals(pageSize, that.pageSize)
@@ -149,6 +163,7 @@ public class SearchListingsRequest {
     return Objects.hash(
         assets,
         categories,
+        isAscending,
         isFree,
         isPrivateExchange,
         pageSize,
@@ -163,6 +178,7 @@ public class SearchListingsRequest {
     return new ToStringer(SearchListingsRequest.class)
         .add("assets", assets)
         .add("categories", categories)
+        .add("isAscending", isAscending)
         .add("isFree", isFree)
         .add("isPrivateExchange", isPrivateExchange)
         .add("pageSize", pageSize)

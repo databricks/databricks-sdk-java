@@ -17,7 +17,10 @@ public class ListReposRequest {
   @QueryParam("next_page_token")
   private String nextPageToken;
 
-  /** Filters repos that have paths starting with the given path prefix. */
+  /**
+   * Filters repos that have paths starting with the given path prefix. If not provided repos from
+   * /Repos will be served.
+   */
   @QueryParam("path_prefix")
   private String pathPrefix;
 

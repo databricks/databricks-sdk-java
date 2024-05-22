@@ -45,10 +45,11 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
-  public void exportMetrics(ExportMetricsRequest request) {
+  public ExportMetricsResponse exportMetrics(ExportMetricsRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/metrics", request.getName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.GET(path, request, ExportMetricsResponse.class, headers);
+    headers.put("Accept", "text/plain");
+    return apiClient.GET(path, request, ExportMetricsResponse.class, headers);
   }
 
   @Override

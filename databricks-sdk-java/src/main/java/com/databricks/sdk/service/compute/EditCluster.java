@@ -11,7 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class EditCluster {
-  /** */
+  /**
+   * When set to true, fixed and default values from the policy will be used for fields that are
+   * omitted. When set to false, only fixed values from the policy will be applied.
+   */
   @JsonProperty("apply_policy_default_values")
   private Boolean applyPolicyDefaultValues;
 
@@ -45,13 +48,6 @@ public class EditCluster {
   @JsonProperty("azure_attributes")
   private AzureAttributes azureAttributes;
 
-  /**
-   * When specified, this clones libraries from a source cluster during the creation of a new
-   * cluster.
-   */
-  @JsonProperty("clone_from")
-  private CloneCluster cloneFrom;
-
   /** ID of the cluser */
   @JsonProperty("cluster_id")
   private String clusterId;
@@ -72,13 +68,6 @@ public class EditCluster {
    */
   @JsonProperty("cluster_name")
   private String clusterName;
-
-  /**
-   * Determines whether the cluster was created by a user through the UI, created by the Databricks
-   * Jobs Scheduler, or through an API request. This is the same as cluster_creator, but read only.
-   */
-  @JsonProperty("cluster_source")
-  private ClusterSource clusterSource;
 
   /**
    * Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS
@@ -289,15 +278,6 @@ public class EditCluster {
     return azureAttributes;
   }
 
-  public EditCluster setCloneFrom(CloneCluster cloneFrom) {
-    this.cloneFrom = cloneFrom;
-    return this;
-  }
-
-  public CloneCluster getCloneFrom() {
-    return cloneFrom;
-  }
-
   public EditCluster setClusterId(String clusterId) {
     this.clusterId = clusterId;
     return this;
@@ -323,15 +303,6 @@ public class EditCluster {
 
   public String getClusterName() {
     return clusterName;
-  }
-
-  public EditCluster setClusterSource(ClusterSource clusterSource) {
-    this.clusterSource = clusterSource;
-    return this;
-  }
-
-  public ClusterSource getClusterSource() {
-    return clusterSource;
   }
 
   public EditCluster setCustomTags(Map<String, String> customTags) {
@@ -524,11 +495,9 @@ public class EditCluster {
         && Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
         && Objects.equals(awsAttributes, that.awsAttributes)
         && Objects.equals(azureAttributes, that.azureAttributes)
-        && Objects.equals(cloneFrom, that.cloneFrom)
         && Objects.equals(clusterId, that.clusterId)
         && Objects.equals(clusterLogConf, that.clusterLogConf)
         && Objects.equals(clusterName, that.clusterName)
-        && Objects.equals(clusterSource, that.clusterSource)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(dataSecurityMode, that.dataSecurityMode)
         && Objects.equals(dockerImage, that.dockerImage)
@@ -559,11 +528,9 @@ public class EditCluster {
         autoterminationMinutes,
         awsAttributes,
         azureAttributes,
-        cloneFrom,
         clusterId,
         clusterLogConf,
         clusterName,
-        clusterSource,
         customTags,
         dataSecurityMode,
         dockerImage,
@@ -594,11 +561,9 @@ public class EditCluster {
         .add("autoterminationMinutes", autoterminationMinutes)
         .add("awsAttributes", awsAttributes)
         .add("azureAttributes", azureAttributes)
-        .add("cloneFrom", cloneFrom)
         .add("clusterId", clusterId)
         .add("clusterLogConf", clusterLogConf)
         .add("clusterName", clusterName)
-        .add("clusterSource", clusterSource)
         .add("customTags", customTags)
         .add("dataSecurityMode", dataSecurityMode)
         .add("dockerImage", dockerImage)

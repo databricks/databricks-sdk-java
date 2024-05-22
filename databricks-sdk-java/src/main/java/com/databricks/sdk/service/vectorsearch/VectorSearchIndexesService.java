@@ -63,6 +63,14 @@ public interface VectorSearchIndexesService {
   QueryVectorIndexResponse queryIndex(QueryVectorIndexRequest queryVectorIndexRequest);
 
   /**
+   * Scan an index.
+   *
+   * <p>Scan the specified vector index and return the first `num_results` entries after the
+   * exclusive `primary_key`.
+   */
+  ScanVectorIndexResponse scanIndex(ScanVectorIndexRequest scanVectorIndexRequest);
+
+  /**
    * Synchronize an index.
    *
    * <p>Triggers a synchronization process for a specified vector index.

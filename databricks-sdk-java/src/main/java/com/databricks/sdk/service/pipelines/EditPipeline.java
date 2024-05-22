@@ -65,6 +65,10 @@ public class EditPipeline {
   @JsonProperty("filters")
   private Filters filters;
 
+  /** The definition of a gateway pipeline to support CDC. */
+  @JsonProperty("gateway_definition")
+  private IngestionGatewayPipelineDefinition gatewayDefinition;
+
   /** Unique identifier for this pipeline. */
   @JsonProperty("id")
   private String id;
@@ -215,6 +219,15 @@ public class EditPipeline {
     return filters;
   }
 
+  public EditPipeline setGatewayDefinition(IngestionGatewayPipelineDefinition gatewayDefinition) {
+    this.gatewayDefinition = gatewayDefinition;
+    return this;
+  }
+
+  public IngestionGatewayPipelineDefinition getGatewayDefinition() {
+    return gatewayDefinition;
+  }
+
   public EditPipeline setId(String id) {
     this.id = id;
     return this;
@@ -331,6 +344,7 @@ public class EditPipeline {
         && Objects.equals(edition, that.edition)
         && Objects.equals(expectedLastModified, that.expectedLastModified)
         && Objects.equals(filters, that.filters)
+        && Objects.equals(gatewayDefinition, that.gatewayDefinition)
         && Objects.equals(id, that.id)
         && Objects.equals(ingestionDefinition, that.ingestionDefinition)
         && Objects.equals(libraries, that.libraries)
@@ -358,6 +372,7 @@ public class EditPipeline {
         edition,
         expectedLastModified,
         filters,
+        gatewayDefinition,
         id,
         ingestionDefinition,
         libraries,
@@ -385,6 +400,7 @@ public class EditPipeline {
         .add("edition", edition)
         .add("expectedLastModified", expectedLastModified)
         .add("filters", filters)
+        .add("gatewayDefinition", gatewayDefinition)
         .add("id", id)
         .add("ingestionDefinition", ingestionDefinition)
         .add("libraries", libraries)
