@@ -25,6 +25,10 @@ public class UpdateShare {
   @JsonProperty("owner")
   private String owner;
 
+  /** Storage root URL for the share. */
+  @JsonProperty("storage_root")
+  private String storageRoot;
+
   /** Array of shared data object updates. */
   @JsonProperty("updates")
   private Collection<SharedDataObjectUpdate> updates;
@@ -65,6 +69,15 @@ public class UpdateShare {
     return owner;
   }
 
+  public UpdateShare setStorageRoot(String storageRoot) {
+    this.storageRoot = storageRoot;
+    return this;
+  }
+
+  public String getStorageRoot() {
+    return storageRoot;
+  }
+
   public UpdateShare setUpdates(Collection<SharedDataObjectUpdate> updates) {
     this.updates = updates;
     return this;
@@ -83,12 +96,13 @@ public class UpdateShare {
         && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
+        && Objects.equals(storageRoot, that.storageRoot)
         && Objects.equals(updates, that.updates);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, name, newName, owner, updates);
+    return Objects.hash(comment, name, newName, owner, storageRoot, updates);
   }
 
   @Override
@@ -98,6 +112,7 @@ public class UpdateShare {
         .add("name", name)
         .add("newName", newName)
         .add("owner", owner)
+        .add("storageRoot", storageRoot)
         .add("updates", updates)
         .toString();
   }

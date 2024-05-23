@@ -25,6 +25,13 @@ public class UpdateMonitor {
   @JsonProperty("custom_metrics")
   private Collection<MonitorMetric> customMetrics;
 
+  /**
+   * Id of dashboard that visualizes the computed metrics. This can be empty if the monitor is in
+   * PENDING state.
+   */
+  @JsonProperty("dashboard_id")
+  private String dashboardId;
+
   /** The data classification config for the monitor. */
   @JsonProperty("data_classification_config")
   private MonitorDataClassificationConfig dataClassificationConfig;
@@ -81,6 +88,15 @@ public class UpdateMonitor {
 
   public Collection<MonitorMetric> getCustomMetrics() {
     return customMetrics;
+  }
+
+  public UpdateMonitor setDashboardId(String dashboardId) {
+    this.dashboardId = dashboardId;
+    return this;
+  }
+
+  public String getDashboardId() {
+    return dashboardId;
   }
 
   public UpdateMonitor setDataClassificationConfig(
@@ -172,6 +188,7 @@ public class UpdateMonitor {
     UpdateMonitor that = (UpdateMonitor) o;
     return Objects.equals(baselineTableName, that.baselineTableName)
         && Objects.equals(customMetrics, that.customMetrics)
+        && Objects.equals(dashboardId, that.dashboardId)
         && Objects.equals(dataClassificationConfig, that.dataClassificationConfig)
         && Objects.equals(inferenceLog, that.inferenceLog)
         && Objects.equals(notifications, that.notifications)
@@ -188,6 +205,7 @@ public class UpdateMonitor {
     return Objects.hash(
         baselineTableName,
         customMetrics,
+        dashboardId,
         dataClassificationConfig,
         inferenceLog,
         notifications,
@@ -204,6 +222,7 @@ public class UpdateMonitor {
     return new ToStringer(UpdateMonitor.class)
         .add("baselineTableName", baselineTableName)
         .add("customMetrics", customMetrics)
+        .add("dashboardId", dashboardId)
         .add("dataClassificationConfig", dataClassificationConfig)
         .add("inferenceLog", inferenceLog)
         .add("notifications", notifications)

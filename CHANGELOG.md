@@ -1,5 +1,61 @@
 # Version changelog
 
+## 0.26.0
+
+### Improvements
+
+ * Better error message when private link enabled workspaces reject requests ([#290](https://github.com/databricks/databricks-sdk-java/pull/290)).
+
+### API Changes:
+
+ * Changed `list()` method for `workspaceClient.connections()` service to require request of `com.databricks.sdk.service.catalog.ListConnectionsRequest` class.
+ * Renamed `workspaceClient.lakehouseMonitors()` service to `workspaceClient.qualityMonitors()`.
+ * Renamed `com.databricks.sdk.service.catalog.DeleteLakehouseMonitorRequest` class to `com.databricks.sdk.service.catalog.DeleteQualityMonitorRequest`.
+ * Changed `schemaName` field for `com.databricks.sdk.service.catalog.DisableRequest` to `String` class.
+ * Removed `com.databricks.sdk.service.catalog.DisableSchemaName` class.
+ * Changed `schemaName` field for `com.databricks.sdk.service.catalog.EnableRequest` to `String` class.
+ * Removed `com.databricks.sdk.service.catalog.EnableSchemaName` class.
+ * Renamed `com.databricks.sdk.service.catalog.GetLakehouseMonitorRequest` class to `com.databricks.sdk.service.catalog.GetQualityMonitorRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListConnectionsResponse`.
+ * Added `dashboardId` field for `com.databricks.sdk.service.catalog.UpdateMonitor`.
+ * Added `com.databricks.sdk.service.catalog.ListConnectionsRequest` class.
+ * Added `com.databricks.sdk.service.catalog.MonitorRefreshListResponse` class.
+ * Changed `clusterStatus()` method for `workspaceClient.libraries()` service to return `com.databricks.sdk.service.compute.ClusterLibraryStatuses` class.
+ * Removed `clusterSource` field for `com.databricks.sdk.service.compute.ClusterAttributes`.
+ * Changed `spec` field for `com.databricks.sdk.service.compute.ClusterDetails` to `com.databricks.sdk.service.compute.ClusterSpec` class.
+ * Removed `cloneFrom` and `clusterSource` fields for `com.databricks.sdk.service.compute.ClusterSpec`.
+ * Removed `com.databricks.sdk.service.compute.ClusterStatusResponse` class.
+ * Removed `clusterSource` field for `com.databricks.sdk.service.compute.CreateCluster`.
+ * Removed `cloneFrom` and `clusterSource` fields for `com.databricks.sdk.service.compute.EditCluster`.
+ * Removed `sortBySpec` field for `com.databricks.sdk.service.marketplace.ListListingsRequest`.
+ * Added `isAscending` field for `com.databricks.sdk.service.marketplace.ListListingsRequest`.
+ * Added `sortBy` field for `com.databricks.sdk.service.marketplace.ListListingsRequest`.
+ * Added `isAscending` field for `com.databricks.sdk.service.marketplace.SearchListingsRequest`.
+ * Removed `com.databricks.sdk.service.marketplace.SortBySpec` and  `com.databricks.sdk.service.marketplace.SortOrder` classes.
+ * Added `gatewayDefinition` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+ * Added `gatewayDefinition` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+ * Added `tableConfiguration` field for `com.databricks.sdk.service.pipelines.ManagedIngestionPipelineDefinition`.
+ * Added `gatewayDefinition` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+ * Added `tableConfiguration` field for `com.databricks.sdk.service.pipelines.SchemaSpec`.
+ * Added `tableConfiguration` field for `com.databricks.sdk.service.pipelines.TableSpec`.
+ * Added `com.databricks.sdk.service.pipelines.IngestionGatewayPipelineDefinition` class.
+ * Added `com.databricks.sdk.service.pipelines.TableSpecificConfig` class.
+ * Added `com.databricks.sdk.service.pipelines.TableSpecificConfigScdType` class.
+ * Added `deploymentArtifacts` field for `com.databricks.sdk.service.serving.AppDeployment`.
+ * Added `contents` field for `com.databricks.sdk.service.serving.ExportMetricsResponse`.
+ * Changed `openaiApiKey` field for `com.databricks.sdk.service.serving.OpenAiConfig` to no longer be required.
+ * Added `microsoftEntraClientId`, `microsoftEntraClientSecret` and `microsoftEntraTenantId` fields for `com.databricks.sdk.service.serving.OpenAiConfig`.
+ * Added `com.databricks.sdk.service.serving.AppDeploymentArtifacts` class.
+ * Added `storageRoot` field for `com.databricks.sdk.service.sharing.CreateShare`.
+ * Added `storageLocation` and `storageRoot` fields for `com.databricks.sdk.service.sharing.ShareInfo`.
+ * Added `storageRoot` field for `com.databricks.sdk.service.sharing.UpdateShare`.
+ * Added `scanIndex()` method for `workspaceClient.vectorSearchIndexes()` service.
+ * Added `embeddingWritebackTable` field for `com.databricks.sdk.service.vectorsearch.DeltaSyncVectorIndexSpecRequest`.
+ * Added `embeddingWritebackTable` field for `com.databricks.sdk.service.vectorsearch.DeltaSyncVectorIndexSpecResponse`.
+ * Added `com.databricks.sdk.service.vectorsearch.ListValue`, `com.databricks.sdk.service.vectorsearch.MapStringValueEntry`, `com.databricks.sdk.service.vectorsearch.ScanVectorIndexRequest`, `com.databricks.sdk.service.vectorsearch.ScanVectorIndexResponse`, `com.databricks.sdk.service.vectorsearch.Struct`and `com.databricks.sdk.service.vectorsearch.Value` classes.
+
+OpenAPI SHA: 7eb5ad9a2ed3e3f1055968a2d1014ac92c06fe92, Date: 2024-05-21
+
 ## 0.25.0
 
 ### New Features and Improvements

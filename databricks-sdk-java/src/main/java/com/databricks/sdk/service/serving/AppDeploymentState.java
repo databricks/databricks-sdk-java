@@ -10,5 +10,6 @@ public enum AppDeploymentState {
   FAILED,
   IN_PROGRESS,
   STATE_UNSPECIFIED,
+  STOPPED,
   SUCCEEDED,
 }

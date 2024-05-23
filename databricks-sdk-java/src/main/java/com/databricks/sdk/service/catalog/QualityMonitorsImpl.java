@@ -3,16 +3,15 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Package-local implementation of LakehouseMonitors */
+/** Package-local implementation of QualityMonitors */
 @Generated
-class LakehouseMonitorsImpl implements LakehouseMonitorsService {
+class QualityMonitorsImpl implements QualityMonitorsService {
   private final ApiClient apiClient;
 
-  public LakehouseMonitorsImpl(ApiClient apiClient) {
+  public QualityMonitorsImpl(ApiClient apiClient) {
     this.apiClient = apiClient;
   }
 
@@ -36,14 +35,14 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
   }
 
   @Override
-  public void delete(DeleteLakehouseMonitorRequest request) {
+  public void delete(DeleteQualityMonitorRequest request) {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     apiClient.DELETE(path, request, DeleteResponse.class, headers);
   }
 
   @Override
-  public MonitorInfo get(GetLakehouseMonitorRequest request) {
+  public MonitorInfo get(GetQualityMonitorRequest request) {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -62,12 +61,12 @@ class LakehouseMonitorsImpl implements LakehouseMonitorsService {
   }
 
   @Override
-  public Collection<MonitorRefreshInfo> listRefreshes(ListRefreshesRequest request) {
+  public MonitorRefreshListResponse listRefreshes(ListRefreshesRequest request) {
     String path =
         String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.getCollection(path, null, MonitorRefreshInfo.class, headers);
+    return apiClient.GET(path, request, MonitorRefreshListResponse.class, headers);
   }
 
   @Override

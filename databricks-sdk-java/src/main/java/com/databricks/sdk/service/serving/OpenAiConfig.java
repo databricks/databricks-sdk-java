@@ -9,6 +9,21 @@ import java.util.Objects;
 
 @Generated
 public class OpenAiConfig {
+  /** This field is only required for Azure AD OpenAI and is the Microsoft Entra Client ID. */
+  @JsonProperty("microsoft_entra_client_id")
+  private String microsoftEntraClientId;
+
+  /**
+   * The Databricks secret key reference for the Microsoft Entra Client Secret that is only required
+   * for Azure AD OpenAI.
+   */
+  @JsonProperty("microsoft_entra_client_secret")
+  private String microsoftEntraClientSecret;
+
+  /** This field is only required for Azure AD OpenAI and is the Microsoft Entra Tenant ID. */
+  @JsonProperty("microsoft_entra_tenant_id")
+  private String microsoftEntraTenantId;
+
   /**
    * This is the base URL for the OpenAI API (default: "https://api.openai.com/v1"). For Azure
    * OpenAI, this field is required, and is the base URL for the Azure OpenAI API service provided
@@ -47,6 +62,33 @@ public class OpenAiConfig {
   /** This is an optional field to specify the organization in OpenAI or Azure OpenAI. */
   @JsonProperty("openai_organization")
   private String openaiOrganization;
+
+  public OpenAiConfig setMicrosoftEntraClientId(String microsoftEntraClientId) {
+    this.microsoftEntraClientId = microsoftEntraClientId;
+    return this;
+  }
+
+  public String getMicrosoftEntraClientId() {
+    return microsoftEntraClientId;
+  }
+
+  public OpenAiConfig setMicrosoftEntraClientSecret(String microsoftEntraClientSecret) {
+    this.microsoftEntraClientSecret = microsoftEntraClientSecret;
+    return this;
+  }
+
+  public String getMicrosoftEntraClientSecret() {
+    return microsoftEntraClientSecret;
+  }
+
+  public OpenAiConfig setMicrosoftEntraTenantId(String microsoftEntraTenantId) {
+    this.microsoftEntraTenantId = microsoftEntraTenantId;
+    return this;
+  }
+
+  public String getMicrosoftEntraTenantId() {
+    return microsoftEntraTenantId;
+  }
 
   public OpenAiConfig setOpenaiApiBase(String openaiApiBase) {
     this.openaiApiBase = openaiApiBase;
@@ -107,7 +149,10 @@ public class OpenAiConfig {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     OpenAiConfig that = (OpenAiConfig) o;
-    return Objects.equals(openaiApiBase, that.openaiApiBase)
+    return Objects.equals(microsoftEntraClientId, that.microsoftEntraClientId)
+        && Objects.equals(microsoftEntraClientSecret, that.microsoftEntraClientSecret)
+        && Objects.equals(microsoftEntraTenantId, that.microsoftEntraTenantId)
+        && Objects.equals(openaiApiBase, that.openaiApiBase)
         && Objects.equals(openaiApiKey, that.openaiApiKey)
         && Objects.equals(openaiApiType, that.openaiApiType)
         && Objects.equals(openaiApiVersion, that.openaiApiVersion)
@@ -118,6 +163,9 @@ public class OpenAiConfig {
   @Override
   public int hashCode() {
     return Objects.hash(
+        microsoftEntraClientId,
+        microsoftEntraClientSecret,
+        microsoftEntraTenantId,
         openaiApiBase,
         openaiApiKey,
         openaiApiType,
@@ -129,6 +177,9 @@ public class OpenAiConfig {
   @Override
   public String toString() {
     return new ToStringer(OpenAiConfig.class)
+        .add("microsoftEntraClientId", microsoftEntraClientId)
+        .add("microsoftEntraClientSecret", microsoftEntraClientSecret)
+        .add("microsoftEntraTenantId", microsoftEntraTenantId)
         .add("openaiApiBase", openaiApiBase)
         .add("openaiApiKey", openaiApiKey)
         .add("openaiApiType", openaiApiType)

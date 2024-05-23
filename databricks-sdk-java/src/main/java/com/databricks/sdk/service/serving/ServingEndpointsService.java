@@ -41,7 +41,7 @@ public interface ServingEndpointsService {
    * <p>Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
    * OpenMetrics exposition format.
    */
-  void exportMetrics(ExportMetricsRequest exportMetricsRequest);
+  ExportMetricsResponse exportMetrics(ExportMetricsRequest exportMetricsRequest);
 
   /**
    * Get a single serving endpoint.

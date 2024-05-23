@@ -13,7 +13,7 @@ public class EnableRequest {
   private String metastoreId;
 
   /** Full name of the system schema. */
-  private EnableSchemaName schemaName;
+  private String schemaName;
 
   public EnableRequest setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
@@ -24,12 +24,12 @@ public class EnableRequest {
     return metastoreId;
   }
 
-  public EnableRequest setSchemaName(EnableSchemaName schemaName) {
+  public EnableRequest setSchemaName(String schemaName) {
     this.schemaName = schemaName;
     return this;
   }
 
-  public EnableSchemaName getSchemaName() {
+  public String getSchemaName() {
     return schemaName;
   }
 

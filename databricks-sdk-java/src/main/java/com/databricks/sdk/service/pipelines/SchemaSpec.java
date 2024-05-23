@@ -29,6 +29,14 @@ public class SchemaSpec {
   @JsonProperty("source_schema")
   private String sourceSchema;
 
+  /**
+   * Configuration settings to control the ingestion of tables. These settings are applied to all
+   * tables in this schema and override the table_configuration defined in the
+   * ManagedIngestionPipelineDefinition object.
+   */
+  @JsonProperty("table_configuration")
+  private TableSpecificConfig tableConfiguration;
+
   public SchemaSpec setDestinationCatalog(String destinationCatalog) {
     this.destinationCatalog = destinationCatalog;
     return this;
@@ -65,6 +73,15 @@ public class SchemaSpec {
     return sourceSchema;
   }
 
+  public SchemaSpec setTableConfiguration(TableSpecificConfig tableConfiguration) {
+    this.tableConfiguration = tableConfiguration;
+    return this;
+  }
+
+  public TableSpecificConfig getTableConfiguration() {
+    return tableConfiguration;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -73,12 +90,14 @@ public class SchemaSpec {
     return Objects.equals(destinationCatalog, that.destinationCatalog)
         && Objects.equals(destinationSchema, that.destinationSchema)
         && Objects.equals(sourceCatalog, that.sourceCatalog)
-        && Objects.equals(sourceSchema, that.sourceSchema);
+        && Objects.equals(sourceSchema, that.sourceSchema)
+        && Objects.equals(tableConfiguration, that.tableConfiguration);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(destinationCatalog, destinationSchema, sourceCatalog, sourceSchema);
+    return Objects.hash(
+        destinationCatalog, destinationSchema, sourceCatalog, sourceSchema, tableConfiguration);
   }
 
   @Override
@@ -88,6 +107,7 @@ public class SchemaSpec {
         .add("destinationSchema", destinationSchema)
         .add("sourceCatalog", sourceCatalog)
         .add("sourceSchema", sourceSchema)
+        .add("tableConfiguration", tableConfiguration)
         .toString();
   }
 }

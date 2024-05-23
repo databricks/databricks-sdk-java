@@ -1,10 +1,7 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 package com.databricks.sdk.service.catalog;
 
-import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A monitor computes and monitors data or model quality metrics for a table over time. It generates
@@ -14,27 +11,13 @@ import org.slf4j.LoggerFactory;
  * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only requires
  * the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
  * **USE_CATALOG**).
+ *
+ * <p>This is the high-level interface, that contains generated methods.
+ *
+ * <p>Evolving: this interface is under development. Method signatures may change.
  */
 @Generated
-public class LakehouseMonitorsAPI {
-  private static final Logger LOG = LoggerFactory.getLogger(LakehouseMonitorsAPI.class);
-
-  private final LakehouseMonitorsService impl;
-
-  /** Regular-use constructor */
-  public LakehouseMonitorsAPI(ApiClient apiClient) {
-    impl = new LakehouseMonitorsImpl(apiClient);
-  }
-
-  /** Constructor for mocks */
-  public LakehouseMonitorsAPI(LakehouseMonitorsService mock) {
-    impl = mock;
-  }
-
-  public void cancelRefresh(String tableName, String refreshId) {
-    cancelRefresh(new CancelRefreshRequest().setTableName(tableName).setRefreshId(refreshId));
-  }
-
+public interface QualityMonitorsService {
   /**
    * Cancel refresh.
    *
@@ -47,17 +30,7 @@ public class LakehouseMonitorsAPI {
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created.
    */
-  public void cancelRefresh(CancelRefreshRequest request) {
-    impl.cancelRefresh(request);
-  }
-
-  public MonitorInfo create(String tableName, String assetsDir, String outputSchemaName) {
-    return create(
-        new CreateMonitor()
-            .setTableName(tableName)
-            .setAssetsDir(assetsDir)
-            .setOutputSchemaName(outputSchemaName));
-  }
+  void cancelRefresh(CancelRefreshRequest cancelRefreshRequest);
 
   /**
    * Create a table monitor.
@@ -73,13 +46,7 @@ public class LakehouseMonitorsAPI {
    * <p>Workspace assets, such as the dashboard, will be created in the workspace where this call
    * was made.
    */
-  public MonitorInfo create(CreateMonitor request) {
-    return impl.create(request);
-  }
-
-  public void delete(String tableName) {
-    delete(new DeleteLakehouseMonitorRequest().setTableName(tableName));
-  }
+  MonitorInfo create(CreateMonitor createMonitor);
 
   /**
    * Delete a table monitor.
@@ -96,13 +63,7 @@ public class LakehouseMonitorsAPI {
    * <p>Note that the metric tables and dashboard will not be deleted as part of this call; those
    * assets must be manually cleaned up (if desired).
    */
-  public void delete(DeleteLakehouseMonitorRequest request) {
-    impl.delete(request);
-  }
-
-  public MonitorInfo get(String tableName) {
-    return get(new GetLakehouseMonitorRequest().setTableName(tableName));
-  }
+  void delete(DeleteQualityMonitorRequest deleteQualityMonitorRequest);
 
   /**
    * Get a table monitor.
@@ -118,13 +79,7 @@ public class LakehouseMonitorsAPI {
    * created by the monitor. Some information (e.g., dashboard) may be filtered out if the caller is
    * in a different workspace than where the monitor was created.
    */
-  public MonitorInfo get(GetLakehouseMonitorRequest request) {
-    return impl.get(request);
-  }
-
-  public MonitorRefreshInfo getRefresh(String tableName, String refreshId) {
-    return getRefresh(new GetRefreshRequest().setTableName(tableName).setRefreshId(refreshId));
-  }
+  MonitorInfo get(GetQualityMonitorRequest getQualityMonitorRequest);
 
   /**
    * Get refresh.
@@ -138,13 +93,7 @@ public class LakehouseMonitorsAPI {
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created.
    */
-  public MonitorRefreshInfo getRefresh(GetRefreshRequest request) {
-    return impl.getRefresh(request);
-  }
-
-  public Iterable<MonitorRefreshInfo> listRefreshes(String tableName) {
-    return listRefreshes(new ListRefreshesRequest().setTableName(tableName));
-  }
+  MonitorRefreshInfo getRefresh(GetRefreshRequest getRefreshRequest);
 
   /**
    * List refreshes.
@@ -158,13 +107,7 @@ public class LakehouseMonitorsAPI {
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created.
    */
-  public Iterable<MonitorRefreshInfo> listRefreshes(ListRefreshesRequest request) {
-    return impl.listRefreshes(request);
-  }
-
-  public MonitorRefreshInfo runRefresh(String tableName) {
-    return runRefresh(new RunRefreshRequest().setTableName(tableName));
-  }
+  MonitorRefreshListResponse listRefreshes(ListRefreshesRequest listRefreshesRequest);
 
   /**
    * Queue a metric refresh for a monitor.
@@ -179,14 +122,7 @@ public class LakehouseMonitorsAPI {
    *
    * <p>Additionally, the call must be made from the workspace where the monitor was created.
    */
-  public MonitorRefreshInfo runRefresh(RunRefreshRequest request) {
-    return impl.runRefresh(request);
-  }
-
-  public MonitorInfo update(String tableName, String outputSchemaName) {
-    return update(
-        new UpdateMonitor().setTableName(tableName).setOutputSchemaName(outputSchemaName));
-  }
+  MonitorRefreshInfo runRefresh(RunRefreshRequest runRefreshRequest);
 
   /**
    * Update a table monitor.
@@ -203,11 +139,5 @@ public class LakehouseMonitorsAPI {
    *
    * <p>Certain configuration fields, such as output asset identifiers, cannot be updated.
    */
-  public MonitorInfo update(UpdateMonitor request) {
-    return impl.update(request);
-  }
-
-  public LakehouseMonitorsService impl() {
-    return impl;
-  }
+  MonitorInfo update(UpdateMonitor updateMonitor);
 }

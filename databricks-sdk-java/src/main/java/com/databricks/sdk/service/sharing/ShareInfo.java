@@ -34,6 +34,14 @@ public class ShareInfo {
   @JsonProperty("owner")
   private String owner;
 
+  /** Storage Location URL (full path) for the share. */
+  @JsonProperty("storage_location")
+  private String storageLocation;
+
+  /** Storage root URL for the share. */
+  @JsonProperty("storage_root")
+  private String storageRoot;
+
   /** Time at which this share was updated, in epoch milliseconds. */
   @JsonProperty("updated_at")
   private Long updatedAt;
@@ -96,6 +104,24 @@ public class ShareInfo {
     return owner;
   }
 
+  public ShareInfo setStorageLocation(String storageLocation) {
+    this.storageLocation = storageLocation;
+    return this;
+  }
+
+  public String getStorageLocation() {
+    return storageLocation;
+  }
+
+  public ShareInfo setStorageRoot(String storageRoot) {
+    this.storageRoot = storageRoot;
+    return this;
+  }
+
+  public String getStorageRoot() {
+    return storageRoot;
+  }
+
   public ShareInfo setUpdatedAt(Long updatedAt) {
     this.updatedAt = updatedAt;
     return this;
@@ -125,13 +151,25 @@ public class ShareInfo {
         && Objects.equals(name, that.name)
         && Objects.equals(objects, that.objects)
         && Objects.equals(owner, that.owner)
+        && Objects.equals(storageLocation, that.storageLocation)
+        && Objects.equals(storageRoot, that.storageRoot)
         && Objects.equals(updatedAt, that.updatedAt)
         && Objects.equals(updatedBy, that.updatedBy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, createdAt, createdBy, name, objects, owner, updatedAt, updatedBy);
+    return Objects.hash(
+        comment,
+        createdAt,
+        createdBy,
+        name,
+        objects,
+        owner,
+        storageLocation,
+        storageRoot,
+        updatedAt,
+        updatedBy);
   }
 
   @Override
@@ -143,6 +181,8 @@ public class ShareInfo {
         .add("name", name)
         .add("objects", objects)
         .add("owner", owner)
+        .add("storageLocation", storageLocation)
+        .add("storageRoot", storageRoot)
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
         .toString();

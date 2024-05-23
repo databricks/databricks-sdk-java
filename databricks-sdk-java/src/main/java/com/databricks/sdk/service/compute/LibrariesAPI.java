@@ -47,8 +47,12 @@ public class LibrariesAPI {
    * <p>Get the status of all libraries on all clusters. A status is returned for all libraries
    * installed on this cluster via the API or the libraries UI.
    */
-  public ListAllClusterLibraryStatusesResponse allClusterStatuses() {
-    return impl.allClusterStatuses();
+  public Iterable<ClusterLibraryStatuses> allClusterStatuses() {
+    return new Paginator<>(
+        null,
+        (Void v) -> impl.allClusterStatuses(),
+        ListAllClusterLibraryStatusesResponse::getStatuses,
+        response -> null);
   }
 
   public Iterable<LibraryFullStatus> clusterStatus(String clusterId) {
@@ -66,7 +70,7 @@ public class LibrariesAPI {
    */
   public Iterable<LibraryFullStatus> clusterStatus(ClusterStatus request) {
     return new Paginator<>(
-        request, impl::clusterStatus, ClusterStatusResponse::getLibraryStatuses, response -> null);
+        request, impl::clusterStatus, ClusterLibraryStatuses::getLibraryStatuses, response -> null);
   }
 
   public void install(String clusterId, Collection<Library> libraries) {

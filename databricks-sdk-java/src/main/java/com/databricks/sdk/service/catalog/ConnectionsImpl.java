@@ -41,11 +41,11 @@ class ConnectionsImpl implements ConnectionsService {
   }
 
   @Override
-  public ListConnectionsResponse list() {
+  public ListConnectionsResponse list(ListConnectionsRequest request) {
     String path = "/api/2.1/unity-catalog/connections";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListConnectionsResponse.class, headers);
+    return apiClient.GET(path, request, ListConnectionsResponse.class, headers);
   }
 
   @Override

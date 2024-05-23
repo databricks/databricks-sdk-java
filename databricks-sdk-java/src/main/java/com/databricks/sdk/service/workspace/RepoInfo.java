@@ -22,7 +22,8 @@ public class RepoInfo {
   private Long id;
 
   /**
-   * Desired path for the repo in the workspace. Must be in the format /Repos/{folder}/{repo-name}.
+   * Desired path for the repo in the workspace. Almost any path in the workspace can be chosen. If
+   * repo is created in /Repos, path must be in the format /Repos/{folder}/{repo-name}.
    */
   @JsonProperty("path")
   private String path;

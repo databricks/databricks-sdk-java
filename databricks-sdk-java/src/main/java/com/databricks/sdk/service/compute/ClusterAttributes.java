@@ -52,13 +52,6 @@ public class ClusterAttributes {
   private String clusterName;
 
   /**
-   * Determines whether the cluster was created by a user through the UI, created by the Databricks
-   * Jobs Scheduler, or through an API request. This is the same as cluster_creator, but read only.
-   */
-  @JsonProperty("cluster_source")
-  private ClusterSource clusterSource;
-
-  /**
    * Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS
    * instances and EBS volumes) with these tags in addition to `default_tags`. Notes:
    *
@@ -254,15 +247,6 @@ public class ClusterAttributes {
     return clusterName;
   }
 
-  public ClusterAttributes setClusterSource(ClusterSource clusterSource) {
-    this.clusterSource = clusterSource;
-    return this;
-  }
-
-  public ClusterSource getClusterSource() {
-    return clusterSource;
-  }
-
   public ClusterAttributes setCustomTags(Map<String, String> customTags) {
     this.customTags = customTags;
     return this;
@@ -444,7 +428,6 @@ public class ClusterAttributes {
         && Objects.equals(azureAttributes, that.azureAttributes)
         && Objects.equals(clusterLogConf, that.clusterLogConf)
         && Objects.equals(clusterName, that.clusterName)
-        && Objects.equals(clusterSource, that.clusterSource)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(dataSecurityMode, that.dataSecurityMode)
         && Objects.equals(dockerImage, that.dockerImage)
@@ -474,7 +457,6 @@ public class ClusterAttributes {
         azureAttributes,
         clusterLogConf,
         clusterName,
-        clusterSource,
         customTags,
         dataSecurityMode,
         dockerImage,
@@ -504,7 +486,6 @@ public class ClusterAttributes {
         .add("azureAttributes", azureAttributes)
         .add("clusterLogConf", clusterLogConf)
         .add("clusterName", clusterName)
-        .add("clusterSource", clusterSource)
         .add("customTags", customTags)
         .add("dataSecurityMode", dataSecurityMode)
         .add("dockerImage", dockerImage)

@@ -49,7 +49,7 @@ public interface ConnectionsService {
    *
    * <p>List all connections.
    */
-  ListConnectionsResponse list();
+  ListConnectionsResponse list(ListConnectionsRequest listConnectionsRequest);
 
   /**
    * Update a connection.

@@ -17,6 +17,10 @@ public class AppDeployment {
   @JsonProperty("creator")
   private String creator;
 
+  /** The deployment artifacts for an app. */
+  @JsonProperty("deployment_artifacts")
+  private AppDeploymentArtifacts deploymentArtifacts;
+
   /** The unique id of the deployment. */
   @JsonProperty("deployment_id")
   private String deploymentId;
@@ -49,6 +53,15 @@ public class AppDeployment {
 
   public String getCreator() {
     return creator;
+  }
+
+  public AppDeployment setDeploymentArtifacts(AppDeploymentArtifacts deploymentArtifacts) {
+    this.deploymentArtifacts = deploymentArtifacts;
+    return this;
+  }
+
+  public AppDeploymentArtifacts getDeploymentArtifacts() {
+    return deploymentArtifacts;
   }
 
   public AppDeployment setDeploymentId(String deploymentId) {
@@ -94,6 +107,7 @@ public class AppDeployment {
     AppDeployment that = (AppDeployment) o;
     return Objects.equals(createTime, that.createTime)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(deploymentArtifacts, that.deploymentArtifacts)
         && Objects.equals(deploymentId, that.deploymentId)
         && Objects.equals(sourceCodePath, that.sourceCodePath)
         && Objects.equals(status, that.status)
@@ -102,7 +116,8 @@ public class AppDeployment {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createTime, creator, deploymentId, sourceCodePath, status, updateTime);
+    return Objects.hash(
+        createTime, creator, deploymentArtifacts, deploymentId, sourceCodePath, status, updateTime);
   }
 
   @Override
@@ -110,6 +125,7 @@ public class AppDeployment {
     return new ToStringer(AppDeployment.class)
         .add("createTime", createTime)
         .add("creator", creator)
+        .add("deploymentArtifacts", deploymentArtifacts)
         .add("deploymentId", deploymentId)
         .add("sourceCodePath", sourceCodePath)
         .add("status", status)

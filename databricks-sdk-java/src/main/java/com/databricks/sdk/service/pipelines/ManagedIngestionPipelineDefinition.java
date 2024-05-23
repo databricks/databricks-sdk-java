@@ -31,6 +31,13 @@ public class ManagedIngestionPipelineDefinition {
   @JsonProperty("objects")
   private Collection<IngestionConfig> objects;
 
+  /**
+   * Configuration settings to control the ingestion of tables. These settings are applied to all
+   * tables in the pipeline.
+   */
+  @JsonProperty("table_configuration")
+  private TableSpecificConfig tableConfiguration;
+
   public ManagedIngestionPipelineDefinition setConnectionName(String connectionName) {
     this.connectionName = connectionName;
     return this;
@@ -58,6 +65,16 @@ public class ManagedIngestionPipelineDefinition {
     return objects;
   }
 
+  public ManagedIngestionPipelineDefinition setTableConfiguration(
+      TableSpecificConfig tableConfiguration) {
+    this.tableConfiguration = tableConfiguration;
+    return this;
+  }
+
+  public TableSpecificConfig getTableConfiguration() {
+    return tableConfiguration;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -65,12 +82,13 @@ public class ManagedIngestionPipelineDefinition {
     ManagedIngestionPipelineDefinition that = (ManagedIngestionPipelineDefinition) o;
     return Objects.equals(connectionName, that.connectionName)
         && Objects.equals(ingestionGatewayId, that.ingestionGatewayId)
-        && Objects.equals(objects, that.objects);
+        && Objects.equals(objects, that.objects)
+        && Objects.equals(tableConfiguration, that.tableConfiguration);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(connectionName, ingestionGatewayId, objects);
+    return Objects.hash(connectionName, ingestionGatewayId, objects, tableConfiguration);
   }
 
   @Override
@@ -79,6 +97,7 @@ public class ManagedIngestionPipelineDefinition {
         .add("connectionName", connectionName)
         .add("ingestionGatewayId", ingestionGatewayId)
         .add("objects", objects)
+        .add("tableConfiguration", tableConfiguration)
         .toString();
   }
 }

@@ -43,7 +43,7 @@ public interface LibrariesService {
    * the cluster, are returned first. 2. Libraries that were previously requested to be installed on
    * this cluster or, but are now marked for removal, in no particular order, are returned last.
    */
-  ClusterStatusResponse clusterStatus(ClusterStatus clusterStatus);
+  ClusterLibraryStatuses clusterStatus(ClusterStatus clusterStatus);
 
   /**
    * Add a library.

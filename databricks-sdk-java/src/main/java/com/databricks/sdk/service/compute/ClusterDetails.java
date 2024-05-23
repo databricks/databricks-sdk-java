@@ -304,7 +304,7 @@ public class ClusterDetails {
    * API.
    */
   @JsonProperty("spec")
-  private CreateCluster spec;
+  private ClusterSpec spec;
 
   /**
    * SSH public key contents that will be added to each Spark node in this cluster. The
@@ -680,12 +680,12 @@ public class ClusterDetails {
     return sparkVersion;
   }
 
-  public ClusterDetails setSpec(CreateCluster spec) {
+  public ClusterDetails setSpec(ClusterSpec spec) {
     this.spec = spec;
     return this;
   }
 
-  public CreateCluster getSpec() {
+  public ClusterSpec getSpec() {
     return spec;
   }
 

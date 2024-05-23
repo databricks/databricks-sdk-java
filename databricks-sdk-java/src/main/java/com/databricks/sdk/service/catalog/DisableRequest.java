@@ -13,7 +13,7 @@ public class DisableRequest {
   private String metastoreId;
 
   /** Full name of the system schema. */
-  private DisableSchemaName schemaName;
+  private String schemaName;
 
   public DisableRequest setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
@@ -24,12 +24,12 @@ public class DisableRequest {
     return metastoreId;
   }
 
-  public DisableRequest setSchemaName(DisableSchemaName schemaName) {
+  public DisableRequest setSchemaName(String schemaName) {
     this.schemaName = schemaName;
     return this;
   }
 
-  public DisableSchemaName getSchemaName() {
+  public String getSchemaName() {
     return schemaName;
   }
 
