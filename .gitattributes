@@ -216,6 +216,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/IsolationMo
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListAccountMetastoreAssignmentsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListAccountMetastoreAssignmentsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListAccountStorageCredentialsRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListAccountStorageCredentialsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListCatalogsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListCatalogsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/ListConnectionsRequest.java linguist-generated=true

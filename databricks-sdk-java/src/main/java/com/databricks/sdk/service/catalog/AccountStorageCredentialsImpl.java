@@ -3,7 +3,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,14 +54,14 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
   }
 
   @Override
-  public Collection<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
+  public ListAccountStorageCredentialsResponse list(ListAccountStorageCredentialsRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/metastores/%s/storage-credentials",
             apiClient.configuredAccountID(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.getCollection(path, null, StorageCredentialInfo.class, headers);
+    return apiClient.GET(path, request, ListAccountStorageCredentialsResponse.class, headers);
   }
 
   @Override
