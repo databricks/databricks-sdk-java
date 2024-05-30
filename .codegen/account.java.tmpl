@@ -7,7 +7,7 @@ import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.utils.AzureUtils;
 import com.databricks.sdk.service.provisioning.*;
-{{range .Services}}{{if .IsAccounts}}
+{{range .Services}}{{if and .IsAccounts (not .IsDataPlane)}}
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}API;
 import com.databricks.sdk.service.{{.Package.Name}}.{{.PascalName}}Service;{{end}}{{end}}
 import com.databricks.sdk.support.Generated;
@@ -19,7 +19,7 @@ import com.databricks.sdk.support.Generated;
 public class AccountClient {
   private final ApiClient apiClient;
   private final DatabricksConfig config;
-  {{range .Services}}{{if and .IsAccounts (not .HasParent)}}
+  {{range .Services}}{{if and .IsAccounts (not .HasParent) (not .IsDataPlane)}}
   private {{.PascalName}}API {{(.TrimPrefix "account").CamelName}}API;{{end}}{{end}}
 
   public AccountClient() {
@@ -29,7 +29,7 @@ public class AccountClient {
   public AccountClient(DatabricksConfig config) {
     this.config = config;
     apiClient = new ApiClient(config);
-    {{range .Services}}{{if and .IsAccounts (not .HasParent)}}
+    {{range .Services}}{{if and .IsAccounts (not .HasParent) (not .IsDataPlane)}}
     {{(.TrimPrefix "account").CamelName}}API = new {{.PascalName}}API(apiClient);{{end}}{{end}}
   }
 
@@ -38,7 +38,7 @@ public class AccountClient {
     apiClient = null;
     config = null;
   }
-  {{range .Services}}{{if and .IsAccounts (not .HasParent)}}
+  {{range .Services}}{{if and .IsAccounts (not .HasParent) (not .IsDataPlane)}}
   {{if .Description}}/**
    {{.Comment "   * " 80}}
    */{{end}}
@@ -46,7 +46,7 @@ public class AccountClient {
     return {{(.TrimPrefix "account").CamelName}}API;
   }
   {{end}}{{end}}
-  {{range .Services}}{{if and .IsAccounts (not .HasParent)}}
+  {{range .Services}}{{if and .IsAccounts (not .HasParent) (not .IsDataPlane)}}
   /** Replace the default {{.PascalName}}Service with a custom implementation. */
   public AccountClient with{{(.TrimPrefix "account").PascalName}}Impl({{.PascalName}}Service {{.CamelName}}) {
     return this.with{{(.TrimPrefix "account").PascalName}}API(new {{.PascalName}}API({{.CamelName}}));
