@@ -24,6 +24,15 @@ public class ConsumerProvidersAPI {
     impl = mock;
   }
 
+  /**
+   * Get one batch of providers. One may specify up to 50 IDs per request.
+   *
+   * <p>Batch get a provider in the Databricks Marketplace with at least one visible listing.
+   */
+  public BatchGetProvidersResponse batchGet(BatchGetProvidersRequest request) {
+    return impl.batchGet(request);
+  }
+
   public GetProviderResponse get(String id) {
     return get(new GetProviderRequest().setId(id));
   }

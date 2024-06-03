@@ -14,6 +14,13 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface ConsumerListingsService {
   /**
+   * Get one batch of listings. One may specify up to 50 IDs per request.
+   *
+   * <p>Batch get a published listing in the Databricks Marketplace that the consumer has access to.
+   */
+  BatchGetListingsResponse batchGet(BatchGetListingsRequest batchGetListingsRequest);
+
+  /**
    * Get listing.
    *
    * <p>Get a published listing in the Databricks Marketplace that the consumer has access to.

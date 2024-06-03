@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get an App Deployment */
+/** Get an app deployment */
 @Generated
 public class GetAppDeploymentRequest {
   /** The name of the app. */

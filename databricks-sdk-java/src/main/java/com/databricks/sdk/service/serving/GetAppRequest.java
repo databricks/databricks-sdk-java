@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get an App */
+/** Get an app */
 @Generated
 public class GetAppRequest {
   /** The name of the app. */

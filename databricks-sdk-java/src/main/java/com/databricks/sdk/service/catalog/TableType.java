@@ -7,7 +7,10 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum TableType {
   EXTERNAL,
+  EXTERNAL_SHALLOW_CLONE,
+  FOREIGN,
   MANAGED,
+  MANAGED_SHALLOW_CLONE,
   MATERIALIZED_VIEW,
   STREAMING_TABLE,
   VIEW,

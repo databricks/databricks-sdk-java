@@ -16,6 +16,14 @@ class ConsumerListingsImpl implements ConsumerListingsService {
   }
 
   @Override
+  public BatchGetListingsResponse batchGet(BatchGetListingsRequest request) {
+    String path = "/api/2.1/marketplace-consumer/listings:batchGet";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, BatchGetListingsResponse.class, headers);
+  }
+
+  @Override
   public GetListingResponse get(GetListingRequest request) {
     String path = String.format("/api/2.1/marketplace-consumer/listings/%s", request.getId());
     Map<String, String> headers = new HashMap<>();

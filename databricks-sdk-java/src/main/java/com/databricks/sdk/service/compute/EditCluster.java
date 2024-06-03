@@ -99,7 +99,8 @@ public class EditCluster {
    * <p>* `LEGACY_TABLE_ACL`: This mode is for users migrating from legacy Table ACL clusters. *
    * `LEGACY_PASSTHROUGH`: This mode is for users migrating from legacy Passthrough on high
    * concurrency clusters. * `LEGACY_SINGLE_USER`: This mode is for users migrating from legacy
-   * Passthrough on standard clusters.
+   * Passthrough on standard clusters. * `LEGACY_SINGLE_USER_STANDARD`: This mode provides a way
+   * that doesn’t have UC nor passthrough enabled.
    */
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;

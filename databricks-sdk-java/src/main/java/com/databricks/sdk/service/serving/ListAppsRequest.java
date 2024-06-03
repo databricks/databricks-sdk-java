@@ -7,7 +7,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** List Apps */
+/** List apps */
 @Generated
 public class ListAppsRequest {
   /** Upper bound for items returned. */

@@ -14,8 +14,8 @@ public class UpdateAppRequest {
   private String description;
 
   /**
-   * The name of the app. The name must contain only lowercase alphanumeric characters and hyphens
-   * and be between 2 and 30 characters long. It must be unique within the workspace.
+   * The name of the app. The name must contain only lowercase alphanumeric characters and hyphens.
+   * It must be unique within the workspace.
    */
   @JsonProperty("name")
   private String name;
