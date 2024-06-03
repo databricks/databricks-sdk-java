@@ -25,7 +25,17 @@ public class AppDeployment {
   @JsonProperty("deployment_id")
   private String deploymentId;
 
-  /** The source code path of the deployment. */
+  /** The mode of which the deployment will manage the source code. */
+  @JsonProperty("mode")
+  private AppDeploymentMode mode;
+
+  /**
+   * The workspace file system path of the source code used to create the app deployment. This is
+   * different from `deployment_artifacts.source_code_path`, which is the path used by the deployed
+   * app. The former refers to the original source code location of the app in the workspace during
+   * deployment creation, whereas the latter provides a system generated stable snapshotted source
+   * code path used by the deployment.
+   */
   @JsonProperty("source_code_path")
   private String sourceCodePath;
 
@@ -73,6 +83,15 @@ public class AppDeployment {
     return deploymentId;
   }
 
+  public AppDeployment setMode(AppDeploymentMode mode) {
+    this.mode = mode;
+    return this;
+  }
+
+  public AppDeploymentMode getMode() {
+    return mode;
+  }
+
   public AppDeployment setSourceCodePath(String sourceCodePath) {
     this.sourceCodePath = sourceCodePath;
     return this;
@@ -109,6 +128,7 @@ public class AppDeployment {
         && Objects.equals(creator, that.creator)
         && Objects.equals(deploymentArtifacts, that.deploymentArtifacts)
         && Objects.equals(deploymentId, that.deploymentId)
+        && Objects.equals(mode, that.mode)
         && Objects.equals(sourceCodePath, that.sourceCodePath)
         && Objects.equals(status, that.status)
         && Objects.equals(updateTime, that.updateTime);
@@ -117,7 +137,14 @@ public class AppDeployment {
   @Override
   public int hashCode() {
     return Objects.hash(
-        createTime, creator, deploymentArtifacts, deploymentId, sourceCodePath, status, updateTime);
+        createTime,
+        creator,
+        deploymentArtifacts,
+        deploymentId,
+        mode,
+        sourceCodePath,
+        status,
+        updateTime);
   }
 
   @Override
@@ -127,6 +154,7 @@ public class AppDeployment {
         .add("creator", creator)
         .add("deploymentArtifacts", deploymentArtifacts)
         .add("deploymentId", deploymentId)
+        .add("mode", mode)
         .add("sourceCodePath", sourceCodePath)
         .add("status", status)
         .add("updateTime", updateTime)

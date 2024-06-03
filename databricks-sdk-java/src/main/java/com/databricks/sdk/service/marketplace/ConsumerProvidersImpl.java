@@ -16,6 +16,14 @@ class ConsumerProvidersImpl implements ConsumerProvidersService {
   }
 
   @Override
+  public BatchGetProvidersResponse batchGet(BatchGetProvidersRequest request) {
+    String path = "/api/2.1/marketplace-consumer/providers:batchGet";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, BatchGetProvidersResponse.class, headers);
+  }
+
+  @Override
   public GetProviderResponse get(GetProviderRequest request) {
     String path = String.format("/api/2.1/marketplace-consumer/providers/%s", request.getId());
     Map<String, String> headers = new HashMap<>();

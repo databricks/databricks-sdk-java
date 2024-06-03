@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Get App Environment */
+/** Get app environment */
 @Generated
 public class GetAppEnvironmentRequest {
   /** The name of the app. */

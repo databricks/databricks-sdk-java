@@ -27,6 +27,15 @@ public class ConsumerListingsAPI {
     impl = mock;
   }
 
+  /**
+   * Get one batch of listings. One may specify up to 50 IDs per request.
+   *
+   * <p>Batch get a published listing in the Databricks Marketplace that the consumer has access to.
+   */
+  public BatchGetListingsResponse batchGet(BatchGetListingsRequest request) {
+    return impl.batchGet(request);
+  }
+
   public GetListingResponse get(String id) {
     return get(new GetListingRequest().setId(id));
   }

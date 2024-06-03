@@ -136,7 +136,7 @@ public class AppsAPI {
   }
 
   /**
-   * Create an App.
+   * Create an app.
    *
    * <p>Creates a new app.
    */
@@ -146,32 +146,12 @@ public class AppsAPI {
         (timeout, callback) -> waitGetAppIdle(response.getName(), timeout, callback), response);
   }
 
-  public Wait<AppDeployment, AppDeployment> createDeployment(
-      String appName, String sourceCodePath) {
-    return createDeployment(
-        new CreateAppDeploymentRequest().setAppName(appName).setSourceCodePath(sourceCodePath));
-  }
-
-  /**
-   * Create an App Deployment.
-   *
-   * <p>Creates an app deployment for the app with the supplied name.
-   */
-  public Wait<AppDeployment, AppDeployment> createDeployment(CreateAppDeploymentRequest request) {
-    AppDeployment response = impl.createDeployment(request);
-    return new Wait<>(
-        (timeout, callback) ->
-            waitGetDeploymentAppSucceeded(
-                request.getAppName(), response.getDeploymentId(), timeout, callback),
-        response);
-  }
-
   public void delete(String name) {
     delete(new DeleteAppRequest().setName(name));
   }
 
   /**
-   * Delete an App.
+   * Delete an app.
    *
    * <p>Deletes an app.
    */
@@ -179,12 +159,35 @@ public class AppsAPI {
     impl.delete(request);
   }
 
+  public Wait<AppDeployment, AppDeployment> deploy(
+      String appName, String sourceCodePath, AppDeploymentMode mode) {
+    return deploy(
+        new CreateAppDeploymentRequest()
+            .setAppName(appName)
+            .setSourceCodePath(sourceCodePath)
+            .setMode(mode));
+  }
+
+  /**
+   * Create an app deployment.
+   *
+   * <p>Creates an app deployment for the app with the supplied name.
+   */
+  public Wait<AppDeployment, AppDeployment> deploy(CreateAppDeploymentRequest request) {
+    AppDeployment response = impl.deploy(request);
+    return new Wait<>(
+        (timeout, callback) ->
+            waitGetDeploymentAppSucceeded(
+                request.getAppName(), response.getDeploymentId(), timeout, callback),
+        response);
+  }
+
   public App get(String name) {
     return get(new GetAppRequest().setName(name));
   }
 
   /**
-   * Get an App.
+   * Get an app.
    *
    * <p>Retrieves information for the app with the supplied name.
    */
@@ -198,7 +201,7 @@ public class AppsAPI {
   }
 
   /**
-   * Get an App Deployment.
+   * Get an app deployment.
    *
    * <p>Retrieves information for the app deployment with the supplied name and deployment id.
    */
@@ -211,7 +214,7 @@ public class AppsAPI {
   }
 
   /**
-   * Get App Environment.
+   * Get app environment.
    *
    * <p>Retrieves app environment.
    */
@@ -220,7 +223,7 @@ public class AppsAPI {
   }
 
   /**
-   * List Apps.
+   * List apps.
    *
    * <p>Lists all apps in the workspace.
    */
@@ -243,7 +246,7 @@ public class AppsAPI {
   }
 
   /**
-   * List App Deployments.
+   * List app deployments.
    *
    * <p>Lists all app deployments for the app with the supplied name.
    */
@@ -266,7 +269,7 @@ public class AppsAPI {
   }
 
   /**
-   * Stop an App.
+   * Stop an app.
    *
    * <p>Stops the active deployment of the app in the workspace.
    */
@@ -279,7 +282,7 @@ public class AppsAPI {
   }
 
   /**
-   * Update an App.
+   * Update an app.
    *
    * <p>Updates the app with the supplied name.
    */

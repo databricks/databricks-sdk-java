@@ -7,7 +7,7 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** List App Deployments */
+/** List app deployments */
 @Generated
 public class ListAppDeploymentsRequest {
   /** The name of the app. */

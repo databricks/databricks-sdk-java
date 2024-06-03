@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class AppDeploymentArtifacts {
-  /** The source code of the deployment. */
+  /** The snapshotted workspace file system path of the source code loaded by the deployed app. */
   @JsonProperty("source_code_path")
   private String sourceCodePath;
 

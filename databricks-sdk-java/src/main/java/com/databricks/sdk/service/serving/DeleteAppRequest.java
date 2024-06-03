@@ -6,7 +6,7 @@ import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** Delete an App */
+/** Delete an app */
 @Generated
 public class DeleteAppRequest {
   /** The name of the app. */

@@ -25,20 +25,20 @@ class AppsImpl implements AppsService {
   }
 
   @Override
-  public AppDeployment createDeployment(CreateAppDeploymentRequest request) {
-    String path = String.format("/api/2.0/preview/apps/%s/deployments", request.getAppName());
-    Map<String, String> headers = new HashMap<>();
-    headers.put("Accept", "application/json");
-    headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, AppDeployment.class, headers);
-  }
-
-  @Override
   public void delete(DeleteAppRequest request) {
     String path = String.format("/api/2.0/preview/apps/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     apiClient.DELETE(path, request, DeleteResponse.class, headers);
+  }
+
+  @Override
+  public AppDeployment deploy(CreateAppDeploymentRequest request) {
+    String path = String.format("/api/2.0/preview/apps/%s/deployments", request.getAppName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, AppDeployment.class, headers);
   }
 
   @Override

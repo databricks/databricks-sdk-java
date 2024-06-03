@@ -17,7 +17,7 @@ public class QueryInfo {
   @JsonProperty("channel_used")
   private ChannelInfo channelUsed;
 
-  /** Total execution time of the query from the client’s point of view, in milliseconds. */
+  /** Total execution time of the statement ( excluding result fetch time ). */
   @JsonProperty("duration")
   private Long duration;
 

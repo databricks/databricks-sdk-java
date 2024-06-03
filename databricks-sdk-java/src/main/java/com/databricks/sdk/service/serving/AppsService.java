@@ -14,70 +14,70 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AppsService {
   /**
-   * Create an App.
+   * Create an app.
    *
    * <p>Creates a new app.
    */
   App create(CreateAppRequest createAppRequest);
 
   /**
-   * Create an App Deployment.
-   *
-   * <p>Creates an app deployment for the app with the supplied name.
-   */
-  AppDeployment createDeployment(CreateAppDeploymentRequest createAppDeploymentRequest);
-
-  /**
-   * Delete an App.
+   * Delete an app.
    *
    * <p>Deletes an app.
    */
   void delete(DeleteAppRequest deleteAppRequest);
 
   /**
-   * Get an App.
+   * Create an app deployment.
+   *
+   * <p>Creates an app deployment for the app with the supplied name.
+   */
+  AppDeployment deploy(CreateAppDeploymentRequest createAppDeploymentRequest);
+
+  /**
+   * Get an app.
    *
    * <p>Retrieves information for the app with the supplied name.
    */
   App get(GetAppRequest getAppRequest);
 
   /**
-   * Get an App Deployment.
+   * Get an app deployment.
    *
    * <p>Retrieves information for the app deployment with the supplied name and deployment id.
    */
   AppDeployment getDeployment(GetAppDeploymentRequest getAppDeploymentRequest);
 
   /**
-   * Get App Environment.
+   * Get app environment.
    *
    * <p>Retrieves app environment.
    */
   AppEnvironment getEnvironment(GetAppEnvironmentRequest getAppEnvironmentRequest);
 
   /**
-   * List Apps.
+   * List apps.
    *
    * <p>Lists all apps in the workspace.
    */
   ListAppsResponse list(ListAppsRequest listAppsRequest);
 
   /**
-   * List App Deployments.
+   * List app deployments.
    *
    * <p>Lists all app deployments for the app with the supplied name.
    */
   ListAppDeploymentsResponse listDeployments(ListAppDeploymentsRequest listAppDeploymentsRequest);
 
   /**
-   * Stop an App.
+   * Stop an app.
    *
    * <p>Stops the active deployment of the app in the workspace.
    */
   void stop(StopAppRequest stopAppRequest);
 
   /**
-   * Update an App.
+   * Update an app.
    *
    * <p>Updates the app with the supplied name.
    */
