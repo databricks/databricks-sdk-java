@@ -51,11 +51,12 @@ public class UserAgent {
   private static final Pattern regexpAlphanumInverse = Pattern.compile("[^0-9A-Za-z_\\.\\+-]");
 
   /**
-   * Replaces all non-alphanumeric characters with a hyphen. Use this to ensure that the user agent value is valid. This
-   * is useful when the value is not ensured to be valid at compile time.
-   * <p>
-   * Note: Semver strings are comprised of alphanumeric characters, hyphens, periods
-   * and plus signs. This function will not remove these characters.
+   * Replaces all non-alphanumeric characters with a hyphen. Use this to ensure that the user agent
+   * value is valid. This is useful when the value is not ensured to be valid at compile time.
+   *
+   * <p>Note: Semver strings are comprised of alphanumeric characters, hyphens, periods and plus
+   * signs. This function will not remove these characters.
+   *
    * @param s The string to sanitize.
    * @return The sanitized string.
    */
