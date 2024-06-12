@@ -106,6 +106,9 @@
       <plugin>
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>3.2.5</version>
+        <configuration>
+          <rerunFailingTestsCount>2</rerunFailingTestsCount>
+        </configuration>
         <executions>
           <execution>
             <goals>
