@@ -58,6 +58,9 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_CLUSTER_ID")
   private String clusterId;
 
+  @ConfigAttribute(env = "DATABRICKS_SERVERLESS_COMPUTE_ID")
+  private String serverlessComputeId;
+
   @ConfigAttribute(env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT", auth = "google")
   private String googleServiceAccount;
 
@@ -254,6 +257,13 @@ public class DatabricksConfig {
 
   public DatabricksConfig setClusterId(String clusterId) {
     this.clusterId = clusterId;
+    return this;
+  }
+
+  public String getServerlessComputeId() { return serverlessComputeId; }
+
+  public DatabricksConfig setServerlessComputeId(String serverlessComputeId) {
+    this.serverlessComputeId = serverlessComputeId;
     return this;
   }
 
