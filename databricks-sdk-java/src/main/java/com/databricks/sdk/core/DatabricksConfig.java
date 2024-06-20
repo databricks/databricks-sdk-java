@@ -260,7 +260,9 @@ public class DatabricksConfig {
     return this;
   }
 
-  public String getServerlessComputeId() { return serverlessComputeId; }
+  public String getServerlessComputeId() {
+    return serverlessComputeId;
+  }
 
   public DatabricksConfig setServerlessComputeId(String serverlessComputeId) {
     this.serverlessComputeId = serverlessComputeId;
