@@ -41,7 +41,7 @@ public class ProxyUtils {
       proxyPort = Integer.parseInt(System.getProperty(protocol + ".proxyPort"));
       proxyUser = System.getProperty(protocol + ".proxyUser");
       proxyPassword = System.getProperty(protocol + ".proxyPassword");
-      proxyAuthType = ProxyConfig.ProxyAuthType.BASIC;
+      proxyAuthType = config.getProxyAuthType();
     }
     // Override system properties if proxy configuration is explicitly set
     if (config.getHost() != null) {
