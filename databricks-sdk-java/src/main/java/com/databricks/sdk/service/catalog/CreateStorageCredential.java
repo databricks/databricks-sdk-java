@@ -29,7 +29,7 @@ public class CreateStorageCredential {
   @JsonProperty("comment")
   private String comment;
 
-  /** The <Databricks> managed GCP service account configuration. */
+  /** The Databricks managed GCP service account configuration. */
   @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 

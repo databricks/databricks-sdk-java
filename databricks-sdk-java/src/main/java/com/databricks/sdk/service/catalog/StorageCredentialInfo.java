@@ -37,13 +37,20 @@ public class StorageCredentialInfo {
   @JsonProperty("created_by")
   private String createdBy;
 
-  /** The <Databricks> managed GCP service account configuration. */
+  /** The Databricks managed GCP service account configuration. */
   @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccountResponse databricksGcpServiceAccount;
 
   /** The unique identifier of the credential. */
   @JsonProperty("id")
   private String id;
+
+  /**
+   * Whether the current securable is accessible from all workspaces or a specific set of
+   * workspaces.
+   */
+  @JsonProperty("isolation_mode")
+  private IsolationMode isolationMode;
 
   /** Unique identifier of parent metastore. */
   @JsonProperty("metastore_id")
@@ -157,6 +164,15 @@ public class StorageCredentialInfo {
     return id;
   }
 
+  public StorageCredentialInfo setIsolationMode(IsolationMode isolationMode) {
+    this.isolationMode = isolationMode;
+    return this;
+  }
+
+  public IsolationMode getIsolationMode() {
+    return isolationMode;
+  }
+
   public StorageCredentialInfo setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
     return this;
@@ -234,6 +250,7 @@ public class StorageCredentialInfo {
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(id, that.id)
+        && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
@@ -255,6 +272,7 @@ public class StorageCredentialInfo {
         createdBy,
         databricksGcpServiceAccount,
         id,
+        isolationMode,
         metastoreId,
         name,
         owner,
@@ -276,6 +294,7 @@ public class StorageCredentialInfo {
         .add("createdBy", createdBy)
         .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("id", id)
+        .add("isolationMode", isolationMode)
         .add("metastoreId", metastoreId)
         .add("name", name)
         .add("owner", owner)

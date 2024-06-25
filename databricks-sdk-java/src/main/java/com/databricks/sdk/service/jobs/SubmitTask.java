@@ -19,6 +19,13 @@ public class SubmitTask {
   private ConditionTask conditionTask;
 
   /**
+   * If dbt_task, indicates that this must execute a dbt task. It requires both Databricks SQL and
+   * the ability to use a serverless or a pro SQL warehouse.
+   */
+  @JsonProperty("dbt_task")
+  private DbtTask dbtTask;
+
+  /**
    * An optional array of objects specifying the dependency graph of the task. All tasks specified
    * in this field must complete successfully before executing this task. The key is `task_key`, and
    * the value is the name assigned to the dependent task.
@@ -36,6 +43,13 @@ public class SubmitTask {
    */
   @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
+
+  /**
+   * The key that references an environment spec in a job. This field is required for Python script,
+   * Python wheel and dbt tasks when using serverless compute.
+   */
+  @JsonProperty("environment_key")
+  private String environmentKey;
 
   /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs. When running
@@ -159,6 +173,15 @@ public class SubmitTask {
     return conditionTask;
   }
 
+  public SubmitTask setDbtTask(DbtTask dbtTask) {
+    this.dbtTask = dbtTask;
+    return this;
+  }
+
+  public DbtTask getDbtTask() {
+    return dbtTask;
+  }
+
   public SubmitTask setDependsOn(Collection<TaskDependency> dependsOn) {
     this.dependsOn = dependsOn;
     return this;
@@ -184,6 +207,15 @@ public class SubmitTask {
 
   public JobEmailNotifications getEmailNotifications() {
     return emailNotifications;
+  }
+
+  public SubmitTask setEnvironmentKey(String environmentKey) {
+    this.environmentKey = environmentKey;
+    return this;
+  }
+
+  public String getEnvironmentKey() {
+    return environmentKey;
   }
 
   public SubmitTask setExistingClusterId(String existingClusterId) {
@@ -354,9 +386,11 @@ public class SubmitTask {
     if (o == null || getClass() != o.getClass()) return false;
     SubmitTask that = (SubmitTask) o;
     return Objects.equals(conditionTask, that.conditionTask)
+        && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
         && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(environmentKey, that.environmentKey)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
         && Objects.equals(health, that.health)
@@ -381,9 +415,11 @@ public class SubmitTask {
   public int hashCode() {
     return Objects.hash(
         conditionTask,
+        dbtTask,
         dependsOn,
         description,
         emailNotifications,
+        environmentKey,
         existingClusterId,
         forEachTask,
         health,
@@ -408,9 +444,11 @@ public class SubmitTask {
   public String toString() {
     return new ToStringer(SubmitTask.class)
         .add("conditionTask", conditionTask)
+        .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
         .add("emailNotifications", emailNotifications)
+        .add("environmentKey", environmentKey)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)
         .add("health", health)

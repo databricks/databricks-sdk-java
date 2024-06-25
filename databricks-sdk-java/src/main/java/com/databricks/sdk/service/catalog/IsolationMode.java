@@ -9,6 +9,6 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public enum IsolationMode {
-  ISOLATED,
-  OPEN,
+  ISOLATION_MODE_ISOLATED,
+  ISOLATION_MODE_OPEN,
 }

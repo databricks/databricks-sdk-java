@@ -16,8 +16,10 @@ public class StatementParameterListItem {
   /**
    * The data type, given as a string. For example: `INT`, `STRING`, `DECIMAL(10,2)`. If no type is
    * given the type is assumed to be `STRING`. Complex types, such as `ARRAY`, `MAP`, and `STRUCT`
-   * are not supported. For valid types, refer to the section [Data
-   * types](/sql/language-manual/functions/cast.html) of the SQL language reference.
+   * are not supported. For valid types, refer to the section [Data types] of the SQL language
+   * reference.
+   *
+   * <p>[Data types]: https://docs.databricks.com/sql/language-manual/functions/cast.html
    */
   @JsonProperty("type")
   private String typeValue;

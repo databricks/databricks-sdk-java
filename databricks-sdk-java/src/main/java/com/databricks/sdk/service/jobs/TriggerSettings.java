@@ -17,6 +17,10 @@ public class TriggerSettings {
   @JsonProperty("pause_status")
   private PauseStatus pauseStatus;
 
+  /** Periodic trigger settings. */
+  @JsonProperty("periodic")
+  private PeriodicTriggerConfiguration periodic;
+
   /** Old table trigger settings name. Deprecated in favor of `table_update`. */
   @JsonProperty("table")
   private TableUpdateTriggerConfiguration table;
@@ -41,6 +45,15 @@ public class TriggerSettings {
 
   public PauseStatus getPauseStatus() {
     return pauseStatus;
+  }
+
+  public TriggerSettings setPeriodic(PeriodicTriggerConfiguration periodic) {
+    this.periodic = periodic;
+    return this;
+  }
+
+  public PeriodicTriggerConfiguration getPeriodic() {
+    return periodic;
   }
 
   public TriggerSettings setTable(TableUpdateTriggerConfiguration table) {
@@ -68,13 +81,14 @@ public class TriggerSettings {
     TriggerSettings that = (TriggerSettings) o;
     return Objects.equals(fileArrival, that.fileArrival)
         && Objects.equals(pauseStatus, that.pauseStatus)
+        && Objects.equals(periodic, that.periodic)
         && Objects.equals(table, that.table)
         && Objects.equals(tableUpdate, that.tableUpdate);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fileArrival, pauseStatus, table, tableUpdate);
+    return Objects.hash(fileArrival, pauseStatus, periodic, table, tableUpdate);
   }
 
   @Override
@@ -82,6 +96,7 @@ public class TriggerSettings {
     return new ToStringer(TriggerSettings.class)
         .add("fileArrival", fileArrival)
         .add("pauseStatus", pauseStatus)
+        .add("periodic", periodic)
         .add("table", table)
         .add("tableUpdate", tableUpdate)
         .toString();

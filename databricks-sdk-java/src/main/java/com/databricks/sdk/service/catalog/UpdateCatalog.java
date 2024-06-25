@@ -23,7 +23,7 @@ public class UpdateCatalog {
    * workspaces.
    */
   @JsonProperty("isolation_mode")
-  private IsolationMode isolationMode;
+  private CatalogIsolationMode isolationMode;
 
   /** The name of the catalog. */
   private String name;
@@ -59,12 +59,12 @@ public class UpdateCatalog {
     return enablePredictiveOptimization;
   }
 
-  public UpdateCatalog setIsolationMode(IsolationMode isolationMode) {
+  public UpdateCatalog setIsolationMode(CatalogIsolationMode isolationMode) {
     this.isolationMode = isolationMode;
     return this;
   }
 
-  public IsolationMode getIsolationMode() {
+  public CatalogIsolationMode getIsolationMode() {
     return isolationMode;
   }
 

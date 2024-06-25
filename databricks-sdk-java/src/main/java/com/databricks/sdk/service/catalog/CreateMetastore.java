@@ -14,7 +14,8 @@ public class CreateMetastore {
   private String name;
 
   /**
-   * Cloud region which the metastore serves (e.g., `us-west-2`, `westus`). If this field is
+   * Cloud region which the metastore serves (e.g., `us-west-2`, `westus`). The field can be omitted
+   * in the __workspace-level__ __API__ but not in the __account-level__ __API__. If this field is
    * omitted, the region of the workspace receiving the request will be used.
    */
   @JsonProperty("region")
