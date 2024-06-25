@@ -38,6 +38,8 @@ public class FunctionsAPI {
   /**
    * Create a function.
    *
+   * <p>**WARNING: This API is experimental and will change in future versions**
+   *
    * <p>Creates a new function
    *
    * <p>The user must have the following permissions in order for the function to be created: -

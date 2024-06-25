@@ -13,7 +13,7 @@ public class AutoCaptureConfigOutput {
   @JsonProperty("catalog_name")
   private String catalogName;
 
-  /** If inference tables are enabled or not. */
+  /** Indicates whether the inference table is enabled. */
   @JsonProperty("enabled")
   private Boolean enabled;
 

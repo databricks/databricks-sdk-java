@@ -8,6 +8,11 @@ import com.databricks.sdk.support.Generated;
  * target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
  * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
  *
+ * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+ *
+ * <p>[Learn more]:
+ * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+ *
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
@@ -25,6 +30,11 @@ public interface QueriesService {
    * copy the `data_source_id` from an existing query.
    *
    * <p>**Note**: You cannot add a visualization until you create the query.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   Query create(QueryPostContent queryPostContent);
 
@@ -33,6 +43,11 @@ public interface QueriesService {
    *
    * <p>Moves a query to the trash. Trashed queries immediately disappear from searches and list
    * views, and they cannot be used for alerts. The trash is deleted after 30 days.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   void delete(DeleteQueryRequest deleteQueryRequest);
 
@@ -41,6 +56,11 @@ public interface QueriesService {
    *
    * <p>Retrieve a query object definition along with contextual permissions information about the
    * currently authenticated user.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   Query get(GetQueryRequest getQueryRequest);
 
@@ -49,8 +69,13 @@ public interface QueriesService {
    *
    * <p>Gets a list of queries. Optionally, this list can be filtered by a search term.
    *
-   * <p>### **Warning: Calling this API concurrently 10 or more times could result in throttling,
-   * service degradation, or a temporary ban.**
+   * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
+   * service degradation, or a temporary ban.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   QueryList list(ListQueriesRequest listQueriesRequest);
 
@@ -59,6 +84,11 @@ public interface QueriesService {
    *
    * <p>Restore a query that has been moved to the trash. A restored query appears in list views and
    * searches. You can use restored queries for alerts.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   void restore(RestoreQueryRequest restoreQueryRequest);
 
@@ -68,6 +98,11 @@ public interface QueriesService {
    * <p>Modify this query definition.
    *
    * <p>**Note**: You cannot undo this operation.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   Query update(QueryEditContent queryEditContent);
 }

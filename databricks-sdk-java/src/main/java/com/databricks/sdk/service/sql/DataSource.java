@@ -12,7 +12,7 @@ import java.util.Objects;
 public class DataSource {
   /**
    * Data source ID maps to the ID of the data source used by the resource and is distinct from the
-   * warehouse ID. [Learn more].
+   * warehouse ID. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
    */

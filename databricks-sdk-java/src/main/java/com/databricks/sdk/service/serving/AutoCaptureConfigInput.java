@@ -11,28 +11,25 @@ import java.util.Objects;
 public class AutoCaptureConfigInput {
   /**
    * The name of the catalog in Unity Catalog. NOTE: On update, you cannot change the catalog name
-   * if it was already set.
+   * if the inference table is already enabled.
    */
   @JsonProperty("catalog_name")
   private String catalogName;
 
-  /**
-   * If inference tables are enabled or not. NOTE: If you have already disabled payload logging
-   * once, you cannot enable again.
-   */
+  /** Indicates whether the inference table is enabled. */
   @JsonProperty("enabled")
   private Boolean enabled;
 
   /**
    * The name of the schema in Unity Catalog. NOTE: On update, you cannot change the schema name if
-   * it was already set.
+   * the inference table is already enabled.
    */
   @JsonProperty("schema_name")
   private String schemaName;
 
   /**
    * The prefix of the table in Unity Catalog. NOTE: On update, you cannot change the prefix name if
-   * it was already set.
+   * the inference table is already enabled.
    */
   @JsonProperty("table_name_prefix")
   private String tableNamePrefix;

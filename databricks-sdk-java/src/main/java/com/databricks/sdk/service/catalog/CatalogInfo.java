@@ -54,7 +54,7 @@ public class CatalogInfo {
    * workspaces.
    */
   @JsonProperty("isolation_mode")
-  private IsolationMode isolationMode;
+  private CatalogIsolationMode isolationMode;
 
   /** Unique identifier of parent metastore. */
   @JsonProperty("metastore_id")
@@ -200,12 +200,12 @@ public class CatalogInfo {
     return fullName;
   }
 
-  public CatalogInfo setIsolationMode(IsolationMode isolationMode) {
+  public CatalogInfo setIsolationMode(CatalogIsolationMode isolationMode) {
     this.isolationMode = isolationMode;
     return this;
   }
 
-  public IsolationMode getIsolationMode() {
+  public CatalogIsolationMode getIsolationMode() {
     return isolationMode;
   }
 

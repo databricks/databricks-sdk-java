@@ -37,7 +37,7 @@
     <dependency>
       <groupId>com.databricks</groupId>
       <artifactId>databricks-sdk-java</artifactId>
-      <version>0.26.0</version>
+      <version>0.27.0</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>

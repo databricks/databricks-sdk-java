@@ -130,6 +130,20 @@ public class VectorSearchIndexesAPI {
     return impl.queryIndex(request);
   }
 
+  public QueryVectorIndexResponse queryNextPage(String indexName) {
+    return queryNextPage(new QueryVectorIndexNextPageRequest().setIndexName(indexName));
+  }
+
+  /**
+   * Query next page.
+   *
+   * <p>Use `next_page_token` returned from previous `QueryVectorIndex` or
+   * `QueryVectorIndexNextPage` request to fetch next page of results.
+   */
+  public QueryVectorIndexResponse queryNextPage(QueryVectorIndexNextPageRequest request) {
+    return impl.queryNextPage(request);
+  }
+
   public ScanVectorIndexResponse scanIndex(String indexName) {
     return scanIndex(new ScanVectorIndexRequest().setIndexName(indexName));
   }

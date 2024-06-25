@@ -21,7 +21,7 @@ public class PipelineLibrary {
   @JsonProperty("maven")
   private com.databricks.sdk.service.compute.MavenLibrary maven;
 
-  /** The path to a notebook that defines a pipeline and is stored in the <Databricks> workspace. */
+  /** The path to a notebook that defines a pipeline and is stored in the Databricks workspace. */
   @JsonProperty("notebook")
   private NotebookLibrary notebook;
 
