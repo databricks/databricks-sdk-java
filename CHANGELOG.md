@@ -1,5 +1,68 @@
 # Version changelog
 
+## 0.27.0
+
+### Improvements
+ 
+ * Support partners in headers for SDK ([#291](https://github.com/databricks/databricks-sdk-java/pull/291)).
+ * Add `serverless_compute_id` field to the config ([#299](https://github.com/databricks/databricks-sdk-java/pull/299)).
+
+
+### Internal Changes
+ 
+ * Ignore DataPlane Services during generation ([#296](https://github.com/databricks/databricks-sdk-java/pull/296)).
+ * Update OpenAPI spec ([#297](https://github.com/databricks/databricks-sdk-java/pull/297)).
+ * Retry failed integration tests ([#298](https://github.com/databricks/databricks-sdk-java/pull/298)).
+
+
+### API Changes:
+
+ * Changed `list()` method for `accountClient.storageCredentials()` service to return `com.databricks.sdk.service.catalog.ListAccountStorageCredentialsResponse` class.
+ * Changed `isolationMode` field for `com.databricks.sdk.service.catalog.CatalogInfo` to `com.databricks.sdk.service.catalog.CatalogIsolationMode` class.
+ * Added `isolationMode` field for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.catalog.ListCatalogsRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListCatalogsResponse`.
+ * Added `tableServingUrl` field for `com.databricks.sdk.service.catalog.OnlineTable`.
+ * Added `isolationMode` field for `com.databricks.sdk.service.catalog.StorageCredentialInfo`.
+ * Changed `isolationMode` field for `com.databricks.sdk.service.catalog.UpdateCatalog` to `com.databricks.sdk.service.catalog.CatalogIsolationMode` class.
+ * Added `isolationMode` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+ * Added `isolationMode` field for `com.databricks.sdk.service.catalog.UpdateStorageCredential`.
+ * Added `com.databricks.sdk.service.catalog.CatalogIsolationMode` and `com.databricks.sdk.service.catalog.ListAccountStorageCredentialsResponse` class.es
+ * Added `createSchedule()`, `createSubscription()`, `deleteSchedule()`, `deleteSubscription()`, `getSchedule()`, `getSubscription()`, `list()`, `listSchedules()`, `listSubscriptions()` and `updateSchedule()` methods for `workspaceClient.lakeview()` service.
+ * Added `com.databricks.sdk.service.dashboards.CreateScheduleRequest`, `com.databricks.sdk.service.dashboards.CreateSubscriptionRequest`, `com.databricks.sdk.service.dashboards.CronSchedule`, `com.databricks.sdk.service.dashboards.DashboardView`, `com.databricks.sdk.service.dashboards.DeleteScheduleRequest`, `com.databricks.sdk.service.dashboards.DeleteSubscriptionRequest`, `com.databricks.sdk.service.dashboards.GetScheduleRequest`, `com.databricks.sdk.service.dashboards.GetSubscriptionRequest`, `com.databricks.sdk.service.dashboards.ListDashboardsRequest`, `com.databricks.sdk.service.dashboards.ListDashboardsResponse`,`com.databricks.sdk.service.dashboards.ListSchedulesRequest`, `com.databricks.sdk.service.dashboards.ListSchedulesResponse`, `com.databricks.sdk.service.dashboards.ListSubscriptionsRequest`, `com.databricks.sdk.service.dashboards.ListSubscriptionsResponse`, `com.databricks.sdk.service.dashboards.Schedule`, `com.databricks.sdk.service.dashboards.SchedulePauseStatus`, `com.databricks.sdk.service.dashboards.Subscriber`, `com.databricks.sdk.service.dashboards.Subscription`, `com.databricks.sdk.service.dashboards.SubscriptionSubscriberDestination`, `com.databricks.sdk.service.dashboards.SubscriptionSubscriberUser`and `com.databricks.sdk.service.dashboards.UpdateScheduleRequest` classes.
+ * Added `terminationCategory` field for `com.databricks.sdk.service.jobs.ForEachTaskErrorMessageStats`.
+ * Added `onStreamingBacklogExceeded` field for `com.databricks.sdk.service.jobs.JobEmailNotifications`.
+ * Added `environmentKey` field for `com.databricks.sdk.service.jobs.RunTask`.
+ * Removed `conditionTask`, `dbtTask`, `notebookTask`, `pipelineTask`, `pythonWheelTask`, `runJobTask`, `sparkJarTask`, `sparkPythonTask`, `sparkSubmitTask` and `sqlTask` fields for `com.databricks.sdk.service.jobs.SubmitRun`.
+ * Added `environments` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+ * Added `dbtTask` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+ * Added `environmentKey` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+ * Added `onStreamingBacklogExceeded` field for `com.databricks.sdk.service.jobs.TaskEmailNotifications`.
+ * Added `periodic` field for `com.databricks.sdk.service.jobs.TriggerSettings`.
+ * Added `onStreamingBacklogExceeded` field for `com.databricks.sdk.service.jobs.WebhookNotifications`.
+ * Added `com.databricks.sdk.service.jobs.PeriodicTriggerConfiguration` and `com.databricks.sdk.service.jobs.PeriodicTriggerConfigurationTimeUnit` classes.
+ * Added `batchGet()` method for `workspaceClient.consumerListings()` service.
+ * Added `batchGet()` method for `workspaceClient.consumerProviders()` service.
+ * Added `providerSummary` field for `com.databricks.sdk.service.marketplace.Listing`.
+ * Added `com.databricks.sdk.service.marketplace.BatchGetListingsRequest`, `com.databricks.sdk.service.marketplace.BatchGetListingsResponse`, `com.databricks.sdk.service.marketplace.BatchGetProvidersRequest`, `com.databricks.sdk.service.marketplace.BatchGetProvidersResponse`, `com.databricks.sdk.service.marketplace.ProviderIconFile`, `com.databricks.sdk.service.marketplace.ProviderIconType`, `com.databricks.sdk.service.marketplace.ProviderListingSummaryInfo` and `com.databricks.sdk.service.oauth2.DataPlaneInfo` classes.
+ * Removed `createDeployment()` method for `workspaceClient.apps()` service.
+ * Added `deploy()` and `start()` methods for `workspaceClient.apps()` service.
+ * Added `workspaceClient.servingEndpointsDataPlane()` service.
+ * Added `servicePrincipalId` field for `com.databricks.sdk.service.serving.App`.
+ * Added `servicePrincipalName` field for `com.databricks.sdk.service.serving.App`.
+ * Added `mode` field for `com.databricks.sdk.service.serving.AppDeployment`.
+ * Added `mode` field for `com.databricks.sdk.service.serving.CreateAppDeploymentRequest`.
+ * Added `dataPlaneInfo` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+ * Added `com.databricks.sdk.service.serving.AppDeploymentMode` class.
+ * Added `com.databricks.sdk.service.serving.ModelDataPlaneInfo` class.
+ * Added `com.databricks.sdk.service.serving.StartAppRequest` class.
+ * Added `queryNextPage()` method for `workspaceClient.vectorSearchIndexes()` service.
+ * Added `queryType` field for `com.databricks.sdk.service.vectorsearch.QueryVectorIndexRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.vectorsearch.QueryVectorIndexResponse`.
+ * Added `com.databricks.sdk.service.vectorsearch.QueryVectorIndexNextPageRequest` class.
+
+OpenAPI SHA: 7437dabb9dadee402c1fc060df4c1ce8cc5369f0, Date: 2024-06-24
+
 ## 0.26.0
 
 ### Improvements

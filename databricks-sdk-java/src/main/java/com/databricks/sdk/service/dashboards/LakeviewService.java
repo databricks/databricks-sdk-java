@@ -20,6 +20,18 @@ public interface LakeviewService {
    */
   Dashboard create(CreateDashboardRequest createDashboardRequest);
 
+  /** Create dashboard schedule. */
+  Schedule createSchedule(CreateScheduleRequest createScheduleRequest);
+
+  /** Create schedule subscription. */
+  Subscription createSubscription(CreateSubscriptionRequest createSubscriptionRequest);
+
+  /** Delete dashboard schedule. */
+  void deleteSchedule(DeleteScheduleRequest deleteScheduleRequest);
+
+  /** Delete schedule subscription. */
+  void deleteSubscription(DeleteSubscriptionRequest deleteSubscriptionRequest);
+
   /**
    * Get dashboard.
    *
@@ -33,6 +45,21 @@ public interface LakeviewService {
    * <p>Get the current published dashboard.
    */
   PublishedDashboard getPublished(GetPublishedDashboardRequest getPublishedDashboardRequest);
+
+  /** Get dashboard schedule. */
+  Schedule getSchedule(GetScheduleRequest getScheduleRequest);
+
+  /** Get schedule subscription. */
+  Subscription getSubscription(GetSubscriptionRequest getSubscriptionRequest);
+
+  /** List dashboards. */
+  ListDashboardsResponse list(ListDashboardsRequest listDashboardsRequest);
+
+  /** List dashboard schedules. */
+  ListSchedulesResponse listSchedules(ListSchedulesRequest listSchedulesRequest);
+
+  /** List schedule subscriptions. */
+  ListSubscriptionsResponse listSubscriptions(ListSubscriptionsRequest listSubscriptionsRequest);
 
   /**
    * Migrate dashboard.
@@ -68,4 +95,7 @@ public interface LakeviewService {
    * <p>Update a draft dashboard.
    */
   Dashboard update(UpdateDashboardRequest updateDashboardRequest);
+
+  /** Update dashboard schedule. */
+  Schedule updateSchedule(UpdateScheduleRequest updateScheduleRequest);
 }

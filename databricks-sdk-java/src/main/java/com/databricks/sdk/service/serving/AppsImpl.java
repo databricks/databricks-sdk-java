@@ -85,6 +85,15 @@ class AppsImpl implements AppsService {
   }
 
   @Override
+  public AppDeployment start(StartAppRequest request) {
+    String path = String.format("/api/2.0/preview/apps/%s/start", request.getName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, AppDeployment.class, headers);
+  }
+
+  @Override
   public void stop(StopAppRequest request) {
     String path = String.format("/api/2.0/preview/apps/%s/stop", request.getName());
     Map<String, String> headers = new HashMap<>();

@@ -79,6 +79,13 @@ public class RunTask {
   private Long endTime;
 
   /**
+   * The key that references an environment spec in a job. This field is required for Python script,
+   * Python wheel and dbt tasks when using serverless compute.
+   */
+  @JsonProperty("environment_key")
+  private String environmentKey;
+
+  /**
    * The time in milliseconds it took to execute the commands in the JAR or notebook until they
    * completed, failed, timed out, were cancelled, or encountered an unexpected error. The duration
    * of a task run is the sum of the `setup_duration`, `execution_duration`, and the
@@ -336,6 +343,15 @@ public class RunTask {
 
   public Long getEndTime() {
     return endTime;
+  }
+
+  public RunTask setEnvironmentKey(String environmentKey) {
+    this.environmentKey = environmentKey;
+    return this;
+  }
+
+  public String getEnvironmentKey() {
+    return environmentKey;
   }
 
   public RunTask setExecutionDuration(Long executionDuration) {
@@ -604,6 +620,7 @@ public class RunTask {
         && Objects.equals(description, that.description)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endTime, that.endTime)
+        && Objects.equals(environmentKey, that.environmentKey)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
@@ -646,6 +663,7 @@ public class RunTask {
         description,
         emailNotifications,
         endTime,
+        environmentKey,
         executionDuration,
         existingClusterId,
         forEachTask,
@@ -688,6 +706,7 @@ public class RunTask {
         .add("description", description)
         .add("emailNotifications", emailNotifications)
         .add("endTime", endTime)
+        .add("environmentKey", environmentKey)
         .add("executionDuration", executionDuration)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)

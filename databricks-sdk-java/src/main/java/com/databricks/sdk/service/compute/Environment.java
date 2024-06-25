@@ -9,9 +9,8 @@ import java.util.Collection;
 import java.util.Objects;
 
 /**
- * The a environment entity used to preserve serverless environment side panel and jobs' environment
+ * The environment entity used to preserve serverless environment side panel and jobs' environment
  * for non-notebook task. In this minimal environment spec, only pip dependencies are supported.
- * Next ID: 5
  */
 @Generated
 public class Environment {

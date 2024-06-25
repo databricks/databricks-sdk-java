@@ -3,6 +3,7 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +40,53 @@ public class LakeviewAPI {
     return impl.create(request);
   }
 
+  public Schedule createSchedule(String dashboardId, CronSchedule cronSchedule) {
+    return createSchedule(
+        new CreateScheduleRequest().setDashboardId(dashboardId).setCronSchedule(cronSchedule));
+  }
+
+  /** Create dashboard schedule. */
+  public Schedule createSchedule(CreateScheduleRequest request) {
+    return impl.createSchedule(request);
+  }
+
+  public Subscription createSubscription(
+      String dashboardId, String scheduleId, Subscriber subscriber) {
+    return createSubscription(
+        new CreateSubscriptionRequest()
+            .setDashboardId(dashboardId)
+            .setScheduleId(scheduleId)
+            .setSubscriber(subscriber));
+  }
+
+  /** Create schedule subscription. */
+  public Subscription createSubscription(CreateSubscriptionRequest request) {
+    return impl.createSubscription(request);
+  }
+
+  public void deleteSchedule(String dashboardId, String scheduleId) {
+    deleteSchedule(
+        new DeleteScheduleRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
+  }
+
+  /** Delete dashboard schedule. */
+  public void deleteSchedule(DeleteScheduleRequest request) {
+    impl.deleteSchedule(request);
+  }
+
+  public void deleteSubscription(String dashboardId, String scheduleId, String subscriptionId) {
+    deleteSubscription(
+        new DeleteSubscriptionRequest()
+            .setDashboardId(dashboardId)
+            .setScheduleId(scheduleId)
+            .setSubscriptionId(subscriptionId));
+  }
+
+  /** Delete schedule subscription. */
+  public void deleteSubscription(DeleteSubscriptionRequest request) {
+    impl.deleteSubscription(request);
+  }
+
   public Dashboard get(String dashboardId) {
     return get(new GetDashboardRequest().setDashboardId(dashboardId));
   }
@@ -63,6 +111,84 @@ public class LakeviewAPI {
    */
   public PublishedDashboard getPublished(GetPublishedDashboardRequest request) {
     return impl.getPublished(request);
+  }
+
+  public Schedule getSchedule(String dashboardId, String scheduleId) {
+    return getSchedule(
+        new GetScheduleRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
+  }
+
+  /** Get dashboard schedule. */
+  public Schedule getSchedule(GetScheduleRequest request) {
+    return impl.getSchedule(request);
+  }
+
+  public Subscription getSubscription(
+      String dashboardId, String scheduleId, String subscriptionId) {
+    return getSubscription(
+        new GetSubscriptionRequest()
+            .setDashboardId(dashboardId)
+            .setScheduleId(scheduleId)
+            .setSubscriptionId(subscriptionId));
+  }
+
+  /** Get schedule subscription. */
+  public Subscription getSubscription(GetSubscriptionRequest request) {
+    return impl.getSubscription(request);
+  }
+
+  /** List dashboards. */
+  public Iterable<Dashboard> list(ListDashboardsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListDashboardsResponse::getDashboards,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<Schedule> listSchedules(String dashboardId) {
+    return listSchedules(new ListSchedulesRequest().setDashboardId(dashboardId));
+  }
+
+  /** List dashboard schedules. */
+  public Iterable<Schedule> listSchedules(ListSchedulesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listSchedules,
+        ListSchedulesResponse::getSchedules,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Iterable<Subscription> listSubscriptions(String dashboardId, String scheduleId) {
+    return listSubscriptions(
+        new ListSubscriptionsRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
+  }
+
+  /** List schedule subscriptions. */
+  public Iterable<Subscription> listSubscriptions(ListSubscriptionsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listSubscriptions,
+        ListSubscriptionsResponse::getSubscriptions,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public Dashboard migrate(String sourceDashboardId) {
@@ -128,6 +254,19 @@ public class LakeviewAPI {
    */
   public Dashboard update(UpdateDashboardRequest request) {
     return impl.update(request);
+  }
+
+  public Schedule updateSchedule(String dashboardId, String scheduleId, CronSchedule cronSchedule) {
+    return updateSchedule(
+        new UpdateScheduleRequest()
+            .setDashboardId(dashboardId)
+            .setScheduleId(scheduleId)
+            .setCronSchedule(cronSchedule));
+  }
+
+  /** Update dashboard schedule. */
+  public Schedule updateSchedule(UpdateScheduleRequest request) {
+    return impl.updateSchedule(request);
   }
 
   public LakeviewService impl() {

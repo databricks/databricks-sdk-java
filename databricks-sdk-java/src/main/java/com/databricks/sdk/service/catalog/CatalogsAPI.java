@@ -84,7 +84,16 @@ public class CatalogsAPI {
    */
   public Iterable<CatalogInfo> list(ListCatalogsRequest request) {
     return new Paginator<>(
-        request, impl::list, ListCatalogsResponse::getCatalogs, response -> null);
+        request,
+        impl::list,
+        ListCatalogsResponse::getCatalogs,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public CatalogInfo update(String name) {

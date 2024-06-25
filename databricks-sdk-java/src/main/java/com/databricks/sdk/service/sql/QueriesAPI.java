@@ -11,6 +11,11 @@ import org.slf4j.LoggerFactory;
  * These endpoints are used for CRUD operations on query definitions. Query definitions include the
  * target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
  * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+ *
+ * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+ *
+ * <p>[Learn more]:
+ * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
  */
 @Generated
 public class QueriesAPI {
@@ -39,6 +44,11 @@ public class QueriesAPI {
    * copy the `data_source_id` from an existing query.
    *
    * <p>**Note**: You cannot add a visualization until you create the query.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public Query create(QueryPostContent request) {
     return impl.create(request);
@@ -53,6 +63,11 @@ public class QueriesAPI {
    *
    * <p>Moves a query to the trash. Trashed queries immediately disappear from searches and list
    * views, and they cannot be used for alerts. The trash is deleted after 30 days.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public void delete(DeleteQueryRequest request) {
     impl.delete(request);
@@ -67,6 +82,11 @@ public class QueriesAPI {
    *
    * <p>Retrieve a query object definition along with contextual permissions information about the
    * currently authenticated user.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public Query get(GetQueryRequest request) {
     return impl.get(request);
@@ -77,8 +97,13 @@ public class QueriesAPI {
    *
    * <p>Gets a list of queries. Optionally, this list can be filtered by a search term.
    *
-   * <p>### **Warning: Calling this API concurrently 10 or more times could result in throttling,
-   * service degradation, or a temporary ban.**
+   * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
+   * service degradation, or a temporary ban.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public Iterable<Query> list(ListQueriesRequest request) {
     request.setPage(1L);
@@ -105,6 +130,11 @@ public class QueriesAPI {
    *
    * <p>Restore a query that has been moved to the trash. A restored query appears in list views and
    * searches. You can use restored queries for alerts.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public void restore(RestoreQueryRequest request) {
     impl.restore(request);
@@ -120,6 +150,11 @@ public class QueriesAPI {
    * <p>Modify this query definition.
    *
    * <p>**Note**: You cannot undo this operation.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public Query update(QueryEditContent request) {
     return impl.update(request);

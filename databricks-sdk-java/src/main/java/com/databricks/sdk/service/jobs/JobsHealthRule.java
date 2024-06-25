@@ -9,7 +9,17 @@ import java.util.Objects;
 
 @Generated
 public class JobsHealthRule {
-  /** Specifies the health metric that is being evaluated for a particular health rule. */
+  /**
+   * Specifies the health metric that is being evaluated for a particular health rule.
+   *
+   * <p>* `RUN_DURATION_SECONDS`: Expected total time for a run in seconds. *
+   * `STREAMING_BACKLOG_BYTES`: An estimate of the maximum bytes of data waiting to be consumed
+   * across all streams. This metric is in Private Preview. * `STREAMING_BACKLOG_RECORDS`: An
+   * estimate of the maximum offset lag across all streams. This metric is in Private Preview. *
+   * `STREAMING_BACKLOG_SECONDS`: An estimate of the maximum consumer delay across all streams. This
+   * metric is in Private Preview. * `STREAMING_BACKLOG_FILES`: An estimate of the maximum number of
+   * outstanding files across all streams. This metric is in Private Preview.
+   */
   @JsonProperty("metric")
   private JobsHealthMetric metric;
 

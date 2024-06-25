@@ -33,6 +33,17 @@ public class WebhookNotifications {
   private Collection<Webhook> onStart;
 
   /**
+   * An optional list of system notification IDs to call when any streaming backlog thresholds are
+   * exceeded for any stream. Streaming backlog thresholds can be set in the `health` field using
+   * the following metrics: `STREAMING_BACKLOG_BYTES`, `STREAMING_BACKLOG_RECORDS`,
+   * `STREAMING_BACKLOG_SECONDS`, or `STREAMING_BACKLOG_FILES`. Alerting is based on the 10-minute
+   * average of these metrics. If the issue persists, notifications are resent every 30 minutes. A
+   * maximum of 3 destinations can be specified for the `on_streaming_backlog_exceeded` property.
+   */
+  @JsonProperty("on_streaming_backlog_exceeded")
+  private Collection<Webhook> onStreamingBacklogExceeded;
+
+  /**
    * An optional list of system notification IDs to call when the run completes successfully. A
    * maximum of 3 destinations can be specified for the `on_success` property.
    */
@@ -67,6 +78,16 @@ public class WebhookNotifications {
     return onStart;
   }
 
+  public WebhookNotifications setOnStreamingBacklogExceeded(
+      Collection<Webhook> onStreamingBacklogExceeded) {
+    this.onStreamingBacklogExceeded = onStreamingBacklogExceeded;
+    return this;
+  }
+
+  public Collection<Webhook> getOnStreamingBacklogExceeded() {
+    return onStreamingBacklogExceeded;
+  }
+
   public WebhookNotifications setOnSuccess(Collection<Webhook> onSuccess) {
     this.onSuccess = onSuccess;
     return this;
@@ -85,12 +106,18 @@ public class WebhookNotifications {
             onDurationWarningThresholdExceeded, that.onDurationWarningThresholdExceeded)
         && Objects.equals(onFailure, that.onFailure)
         && Objects.equals(onStart, that.onStart)
+        && Objects.equals(onStreamingBacklogExceeded, that.onStreamingBacklogExceeded)
         && Objects.equals(onSuccess, that.onSuccess);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(onDurationWarningThresholdExceeded, onFailure, onStart, onSuccess);
+    return Objects.hash(
+        onDurationWarningThresholdExceeded,
+        onFailure,
+        onStart,
+        onStreamingBacklogExceeded,
+        onSuccess);
   }
 
   @Override
@@ -99,6 +126,7 @@ public class WebhookNotifications {
         .add("onDurationWarningThresholdExceeded", onDurationWarningThresholdExceeded)
         .add("onFailure", onFailure)
         .add("onStart", onStart)
+        .add("onStreamingBacklogExceeded", onStreamingBacklogExceeded)
         .add("onSuccess", onSuccess)
         .toString();
   }

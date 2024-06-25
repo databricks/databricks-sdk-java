@@ -22,6 +22,10 @@ public class OnlineTable {
   @JsonProperty("status")
   private OnlineTableStatus status;
 
+  /** Data serving REST API URL for this table */
+  @JsonProperty("table_serving_url")
+  private String tableServingUrl;
+
   public OnlineTable setName(String name) {
     this.name = name;
     return this;
@@ -49,6 +53,15 @@ public class OnlineTable {
     return status;
   }
 
+  public OnlineTable setTableServingUrl(String tableServingUrl) {
+    this.tableServingUrl = tableServingUrl;
+    return this;
+  }
+
+  public String getTableServingUrl() {
+    return tableServingUrl;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -56,12 +69,13 @@ public class OnlineTable {
     OnlineTable that = (OnlineTable) o;
     return Objects.equals(name, that.name)
         && Objects.equals(spec, that.spec)
-        && Objects.equals(status, that.status);
+        && Objects.equals(status, that.status)
+        && Objects.equals(tableServingUrl, that.tableServingUrl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, spec, status);
+    return Objects.hash(name, spec, status, tableServingUrl);
   }
 
   @Override
@@ -70,6 +84,7 @@ public class OnlineTable {
         .add("name", name)
         .add("spec", spec)
         .add("status", status)
+        .add("tableServingUrl", tableServingUrl)
         .toString();
   }
 }

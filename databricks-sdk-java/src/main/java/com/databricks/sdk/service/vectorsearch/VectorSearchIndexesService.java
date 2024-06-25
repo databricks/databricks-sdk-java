@@ -63,6 +63,15 @@ public interface VectorSearchIndexesService {
   QueryVectorIndexResponse queryIndex(QueryVectorIndexRequest queryVectorIndexRequest);
 
   /**
+   * Query next page.
+   *
+   * <p>Use `next_page_token` returned from previous `QueryVectorIndex` or
+   * `QueryVectorIndexNextPage` request to fetch next page of results.
+   */
+  QueryVectorIndexResponse queryNextPage(
+      QueryVectorIndexNextPageRequest queryVectorIndexNextPageRequest);
+
+  /**
    * Scan an index.
    *
    * <p>Scan the specified vector index and return the first `num_results` entries after the

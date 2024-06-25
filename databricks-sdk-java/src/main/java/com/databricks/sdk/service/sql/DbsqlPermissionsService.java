@@ -17,6 +17,11 @@ import com.databricks.sdk.support.Generated;
  * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
  * `CAN_RUN`)
  *
+ * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+ *
+ * <p>[Learn more]:
+ * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+ *
  * <p>This is the high-level interface, that contains generated methods.
  *
  * <p>Evolving: this interface is under development. Method signatures may change.
@@ -27,6 +32,11 @@ public interface DbsqlPermissionsService {
    * Get object ACL.
    *
    * <p>Gets a JSON representation of the access control list (ACL) for a specified object.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   GetResponse get(GetDbsqlPermissionRequest getDbsqlPermissionRequest);
 
@@ -35,6 +45,11 @@ public interface DbsqlPermissionsService {
    *
    * <p>Sets the access control list (ACL) for a specified object. This operation will complete
    * rewrite the ACL.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   SetResponse set(SetRequest setRequest);
 
@@ -43,6 +58,11 @@ public interface DbsqlPermissionsService {
    *
    * <p>Transfers ownership of a dashboard, query, or alert to an active user. Requires an admin API
    * key.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   Success transferOwnership(TransferOwnershipRequest transferOwnershipRequest);
 }

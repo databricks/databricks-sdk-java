@@ -176,8 +176,9 @@ public class ExecuteStatementRequest {
   private String waitTimeout;
 
   /**
-   * Warehouse upon which to execute a statement. See also [What are SQL
-   * warehouses?](/sql/admin/warehouse-type.html)
+   * Warehouse upon which to execute a statement. See also [What are SQL warehouses?]
+   *
+   * <p>[What are SQL warehouses?]: https://docs.databricks.com/sql/admin/warehouse-type.html
    */
   @JsonProperty("warehouse_id")
   private String warehouseId;
