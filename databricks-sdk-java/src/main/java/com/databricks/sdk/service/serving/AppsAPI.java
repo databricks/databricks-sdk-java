@@ -264,6 +264,19 @@ public class AppsAPI {
         });
   }
 
+  public AppDeployment start(String name) {
+    return start(new StartAppRequest().setName(name));
+  }
+
+  /**
+   * Start an app.
+   *
+   * <p>Start the last active deployment of the app in the workspace.
+   */
+  public AppDeployment start(StartAppRequest request) {
+    return impl.start(request);
+  }
+
   public void stop(String name) {
     stop(new StopAppRequest().setName(name));
   }

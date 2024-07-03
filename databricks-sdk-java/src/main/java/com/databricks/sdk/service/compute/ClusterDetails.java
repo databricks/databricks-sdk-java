@@ -153,7 +153,7 @@ public class ClusterDetails {
 
   /**
    * Node on which the Spark driver resides. The driver node contains the Spark master and the
-   * <Databricks> application that manages the per-notebook Spark REPLs.
+   * Databricks application that manages the per-notebook Spark REPLs.
    */
   @JsonProperty("driver")
   private SparkNode driver;

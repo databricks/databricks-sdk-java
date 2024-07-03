@@ -11,6 +11,11 @@ import org.slf4j.LoggerFactory;
  * object that periodically runs a query, evaluates a condition of its result, and notifies one or
  * more users and/or notification destinations if the condition was met. Alerts can be scheduled
  * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+ *
+ * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+ *
+ * <p>[Learn more]:
+ * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
  */
 @Generated
 public class AlertsAPI {
@@ -38,6 +43,11 @@ public class AlertsAPI {
    * <p>Creates an alert. An alert is a Databricks SQL object that periodically runs a query,
    * evaluates a condition of its result, and notifies users or notification destinations if the
    * condition was met.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public Alert create(CreateAlert request) {
     return impl.create(request);
@@ -50,8 +60,13 @@ public class AlertsAPI {
   /**
    * Delete an alert.
    *
-   * <p>Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. **Note:**
+   * <p>Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. **Note**:
    * Unlike queries and dashboards, alerts cannot be moved to the trash.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public void delete(DeleteAlertRequest request) {
     impl.delete(request);
@@ -65,6 +80,11 @@ public class AlertsAPI {
    * Get an alert.
    *
    * <p>Gets an alert.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public Alert get(GetAlertRequest request) {
     return impl.get(request);
@@ -74,6 +94,11 @@ public class AlertsAPI {
    * Get alerts.
    *
    * <p>Gets a list of alerts.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public Iterable<Alert> list() {
     return impl.list();
@@ -88,6 +113,11 @@ public class AlertsAPI {
    * Update an alert.
    *
    * <p>Updates an alert.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public void update(EditAlert request) {
     impl.update(request);

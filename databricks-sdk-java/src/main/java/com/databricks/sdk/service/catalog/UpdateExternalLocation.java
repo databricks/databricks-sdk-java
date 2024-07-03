@@ -29,6 +29,13 @@ public class UpdateExternalLocation {
   @JsonProperty("force")
   private Boolean force;
 
+  /**
+   * Whether the current securable is accessible from all workspaces or a specific set of
+   * workspaces.
+   */
+  @JsonProperty("isolation_mode")
+  private IsolationMode isolationMode;
+
   /** Name of the external location. */
   private String name;
 
@@ -97,6 +104,15 @@ public class UpdateExternalLocation {
     return force;
   }
 
+  public UpdateExternalLocation setIsolationMode(IsolationMode isolationMode) {
+    this.isolationMode = isolationMode;
+    return this;
+  }
+
+  public IsolationMode getIsolationMode() {
+    return isolationMode;
+  }
+
   public UpdateExternalLocation setName(String name) {
     this.name = name;
     return this;
@@ -161,6 +177,7 @@ public class UpdateExternalLocation {
         && Objects.equals(credentialName, that.credentialName)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
         && Objects.equals(force, that.force)
+        && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
@@ -177,6 +194,7 @@ public class UpdateExternalLocation {
         credentialName,
         encryptionDetails,
         force,
+        isolationMode,
         name,
         newName,
         owner,
@@ -193,6 +211,7 @@ public class UpdateExternalLocation {
         .add("credentialName", credentialName)
         .add("encryptionDetails", encryptionDetails)
         .add("force", force)
+        .add("isolationMode", isolationMode)
         .add("name", name)
         .add("newName", newName)
         .add("owner", owner)

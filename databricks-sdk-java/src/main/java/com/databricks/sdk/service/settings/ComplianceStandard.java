@@ -8,6 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum ComplianceStandard {
   COMPLIANCE_STANDARD_UNSPECIFIED,
+  CYBER_ESSENTIAL_PLUS,
   FEDRAMP_HIGH,
   FEDRAMP_IL5,
   FEDRAMP_MODERATE,

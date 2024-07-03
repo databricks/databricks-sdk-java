@@ -37,6 +37,14 @@ public class App {
   private AppDeployment pendingDeployment;
 
   /** */
+  @JsonProperty("service_principal_id")
+  private Long servicePrincipalId;
+
+  /** */
+  @JsonProperty("service_principal_name")
+  private String servicePrincipalName;
+
+  /** */
   @JsonProperty("status")
   private AppStatus status;
 
@@ -106,6 +114,24 @@ public class App {
     return pendingDeployment;
   }
 
+  public App setServicePrincipalId(Long servicePrincipalId) {
+    this.servicePrincipalId = servicePrincipalId;
+    return this;
+  }
+
+  public Long getServicePrincipalId() {
+    return servicePrincipalId;
+  }
+
+  public App setServicePrincipalName(String servicePrincipalName) {
+    this.servicePrincipalName = servicePrincipalName;
+    return this;
+  }
+
+  public String getServicePrincipalName() {
+    return servicePrincipalName;
+  }
+
   public App setStatus(AppStatus status) {
     this.status = status;
     return this;
@@ -153,6 +179,8 @@ public class App {
         && Objects.equals(description, that.description)
         && Objects.equals(name, that.name)
         && Objects.equals(pendingDeployment, that.pendingDeployment)
+        && Objects.equals(servicePrincipalId, that.servicePrincipalId)
+        && Objects.equals(servicePrincipalName, that.servicePrincipalName)
         && Objects.equals(status, that.status)
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updater, that.updater)
@@ -168,6 +196,8 @@ public class App {
         description,
         name,
         pendingDeployment,
+        servicePrincipalId,
+        servicePrincipalName,
         status,
         updateTime,
         updater,
@@ -183,6 +213,8 @@ public class App {
         .add("description", description)
         .add("name", name)
         .add("pendingDeployment", pendingDeployment)
+        .add("servicePrincipalId", servicePrincipalId)
+        .add("servicePrincipalName", servicePrincipalName)
         .add("status", status)
         .add("updateTime", updateTime)
         .add("updater", updater)

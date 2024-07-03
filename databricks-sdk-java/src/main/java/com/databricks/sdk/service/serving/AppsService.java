@@ -70,6 +70,13 @@ public interface AppsService {
   ListAppDeploymentsResponse listDeployments(ListAppDeploymentsRequest listAppDeploymentsRequest);
 
   /**
+   * Start an app.
+   *
+   * <p>Start the last active deployment of the app in the workspace.
+   */
+  AppDeployment start(StartAppRequest startAppRequest);
+
+  /**
    * Stop an app.
    *
    * <p>Stops the active deployment of the app in the workspace.

@@ -44,6 +44,13 @@ public class ExternalLocationInfo {
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
+  /**
+   * Whether the current securable is accessible from all workspaces or a specific set of
+   * workspaces.
+   */
+  @JsonProperty("isolation_mode")
+  private IsolationMode isolationMode;
+
   /** Unique identifier of metastore hosting the external location. */
   @JsonProperty("metastore_id")
   private String metastoreId;
@@ -144,6 +151,15 @@ public class ExternalLocationInfo {
     return encryptionDetails;
   }
 
+  public ExternalLocationInfo setIsolationMode(IsolationMode isolationMode) {
+    this.isolationMode = isolationMode;
+    return this;
+  }
+
+  public IsolationMode getIsolationMode() {
+    return isolationMode;
+  }
+
   public ExternalLocationInfo setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;
     return this;
@@ -220,6 +236,7 @@ public class ExternalLocationInfo {
         && Objects.equals(credentialId, that.credentialId)
         && Objects.equals(credentialName, that.credentialName)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
+        && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
@@ -240,6 +257,7 @@ public class ExternalLocationInfo {
         credentialId,
         credentialName,
         encryptionDetails,
+        isolationMode,
         metastoreId,
         name,
         owner,
@@ -260,6 +278,7 @@ public class ExternalLocationInfo {
         .add("credentialId", credentialId)
         .add("credentialName", credentialName)
         .add("encryptionDetails", encryptionDetails)
+        .add("isolationMode", isolationMode)
         .add("metastoreId", metastoreId)
         .add("name", name)
         .add("owner", owner)

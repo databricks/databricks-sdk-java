@@ -374,6 +374,11 @@ public class WorkspaceClient {
    * object that periodically runs a query, evaluates a condition of its result, and notifies one or
    * more users and/or notification destinations if the condition was met. Alerts can be scheduled
    * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public AlertsAPI alerts() {
     return alertsAPI;
@@ -572,6 +577,11 @@ public class WorkspaceClient {
    * <p>This API does not support searches. It returns the full list of SQL warehouses in your
    * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
    * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public DataSourcesAPI dataSources() {
     return dataSourcesAPI;
@@ -598,6 +608,11 @@ public class WorkspaceClient {
    *
    * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
    * `CAN_RUN`)
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public DbsqlPermissionsAPI dbsqlPermissions() {
     return dbsqlPermissionsAPI;
@@ -1045,6 +1060,11 @@ public class WorkspaceClient {
    * These endpoints are used for CRUD operations on query definitions. Query definitions include
    * the target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
    * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
+   *
+   * <p>[Learn more]:
+   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public QueriesAPI queries() {
     return queriesAPI;
