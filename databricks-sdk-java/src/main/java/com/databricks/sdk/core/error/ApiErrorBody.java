@@ -7,10 +7,6 @@ import java.util.List;
 /**
  * The union of all JSON error responses from the Databricks APIs, not including HTML responses.
  *
- * <p>This is a direct translation of <a
- * href="https://github.com/databricks/databricks-sdk-go/blob/main/apierr/errors.go#L31">the
- * APIErrorBody struct from the Go SDK</a>.
- *
  * <p>Unknown properties in the response should be ignored.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
