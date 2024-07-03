@@ -12,7 +12,7 @@ public class ApiErrorBodyDeserializationSuite {
   void deserializeErrorResponse() throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
     String rawResponse =
-            "{\"error_code\":\"theerrorcode\",\"message\":\"themessage\",\"detail\":\"thescimdetail\",\"status\":\"thescimstatus\",\"scimType\":\"thescimtype\",\"error\":\"theerror\"}";
+        "{\"error_code\":\"theerrorcode\",\"message\":\"themessage\",\"detail\":\"thescimdetail\",\"status\":\"thescimstatus\",\"scimType\":\"thescimtype\",\"error\":\"theerror\"}";
     ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
     assertEquals(error.getErrorCode(), "theerrorcode");
     assertEquals(error.getMessage(), "themessage");
@@ -25,7 +25,7 @@ public class ApiErrorBodyDeserializationSuite {
   void deserializeErrorResponseWitIntErrorCode() throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
     String rawResponse =
-            "{\"error_code\":42,\"message\":\"themessage\",\"detail\":\"thescimdetail\",\"status\":\"thescimstatus\",\"scimType\":\"thescimtype\",\"error\":\"theerror\"}";
+        "{\"error_code\":42,\"message\":\"themessage\",\"detail\":\"thescimdetail\",\"status\":\"thescimstatus\",\"scimType\":\"thescimtype\",\"error\":\"theerror\"}";
     ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
     assertEquals(error.getErrorCode(), "42");
     assertEquals(error.getMessage(), "themessage");
