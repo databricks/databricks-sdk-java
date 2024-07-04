@@ -59,6 +59,9 @@ public class Token {
     this.clockSupplier = clockSupplier;
   }
 
+  /**
+   * @deprecated use {@link CachedTokenSource} instead.
+   */
   public boolean isExpired() {
     if (expiry == null) {
       return false;
@@ -70,6 +73,9 @@ public class Token {
     return potentiallyExpired.isBefore(now);
   }
 
+  /**
+   * @deprecated use {@link CachedTokenSource} instead.
+   */
   public boolean isValid() {
     return accessToken != null && !isExpired();
   }
@@ -84,5 +90,9 @@ public class Token {
 
   public String getAccessToken() {
     return accessToken;
+  }
+
+  public LocalDateTime getExpiry() {
+    return expiry;
   }
 }
