@@ -30,7 +30,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.message.BasicHttpRequest;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
@@ -105,14 +104,15 @@ public class CommonsHttpClient implements HttpClient {
       HttpHost targetHost = (HttpHost) context.getAttribute("http.target_host");
       HttpRequest request = (HttpRequest) context.getAttribute("http.request");
       URI uri = new URI(request.getRequestLine().getUri());
-      uri = new URI(
-          targetHost.getSchemeName(),
-          null,
-          targetHost.getHostName(),
-          targetHost.getPort(),
-          uri.getPath(),
-          uri.getQuery(),
-          uri.getFragment());
+      uri =
+          new URI(
+              targetHost.getSchemeName(),
+              null,
+              targetHost.getHostName(),
+              targetHost.getPort(),
+              uri.getPath(),
+              uri.getQuery(),
+              uri.getFragment());
       return uri.toURL();
     } catch (MalformedURLException | URISyntaxException e) {
       throw new DatabricksException("Unable to get target URL", e);
