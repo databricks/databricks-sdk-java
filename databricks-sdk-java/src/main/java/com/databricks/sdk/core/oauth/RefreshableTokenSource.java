@@ -18,7 +18,7 @@ import org.apache.http.HttpHeaders;
  * <p>Calls to getToken() will first check if the token is still valid (currently defined by having
  * at least 10 seconds until expiry). If not, refresh() is called first to refresh the token.
  *
- * @deprecated replaced by {@code CachedTokenSource}.
+ * @deprecated replaced by {@link CachedTokenSource}.
  */
 public abstract class RefreshableTokenSource implements TokenSource {
   protected Token token;
