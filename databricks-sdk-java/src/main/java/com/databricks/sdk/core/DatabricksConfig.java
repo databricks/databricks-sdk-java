@@ -86,6 +86,12 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "ARM_ENVIRONMENT")
   private String azureEnvironment;
 
+  @ConfigAttribute(env = "ACTIONS_ID_TOKEN_REQUEST_URL")
+  private String actionsIdTokenRequestUrl;
+
+  @ConfigAttribute(env = "ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+  private String actionsIdTokenRequestToken;
+
   @ConfigAttribute(env = "DATABRICKS_CLI_PATH")
   private String databricksCliPath;
 
@@ -418,6 +424,24 @@ public class DatabricksConfig {
 
   public DatabricksConfig setAzureEnvironment(String azureEnvironment) {
     this.azureEnvironment = azureEnvironment;
+    return this;
+  }
+
+  public String getActionsIdTokenRequestUrl() {
+    return actionsIdTokenRequestUrl;
+  }
+
+  public DatabricksConfig setActionsIdTokenRequestUrl(String url) {
+    this.actionsIdTokenRequestUrl = url;
+    return this;
+  }
+
+  public String getActionsIdTokenRequestToken() {
+    return actionsIdTokenRequestToken;
+  }
+
+  public DatabricksConfig setActionsIdTokenRequestToken(String token) {
+    this.actionsIdTokenRequestToken = token;
     return this;
   }
 
