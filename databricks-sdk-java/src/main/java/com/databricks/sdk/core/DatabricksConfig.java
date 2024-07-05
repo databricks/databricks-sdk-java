@@ -374,7 +374,7 @@ public class DatabricksConfig {
     return this;
   }
 
-  /**@deprecated Use {@link #getAzureUseMsi()} instead. */
+  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
