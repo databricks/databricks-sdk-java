@@ -22,6 +22,19 @@ public class ApiErrorBodyDeserializationSuite {
     assertEquals(error.getApi12Error(), "theerror");
   }
 
+  void deserializeErrorResponseWitIntErrorCode() throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    String rawResponse =
+        "{\"error_code\":42,\"message\":\"themessage\",\"detail\":\"thescimdetail\",\"status\":\"thescimstatus\",\"scimType\":\"thescimtype\",\"error\":\"theerror\"}";
+    ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
+    assertEquals(error.getErrorCode(), "42");
+    assertEquals(error.getMessage(), "themessage");
+    assertEquals(error.getScimDetail(), "thescimdetail");
+    assertEquals(error.getScimStatus(), "thescimstatus");
+    assertEquals(error.getScimType(), "thescimtype");
+    assertEquals(error.getApi12Error(), "theerror");
+  }
+
   @Test
   void deserializeDetailedResponse() throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
