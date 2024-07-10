@@ -3,22 +3,13 @@
 ## 0.27.1
 
 ### New Features and Improvements
-
  * Specify proxy auth explicitly when using system proxy ([#300](https://github.com/databricks/databricks-sdk-java/pull/300)).
-
+ * Accept any `HttpRequest` instead of `HttpUriRequest` in `CommonHttpClient` ([#305](https://github.com/databricks/databricks-sdk-java/pull/305)).
 
 ### Internal Changes
-
  * Add Release tag and Workflow Fix ([#309](https://github.com/databricks/databricks-sdk-java/pull/309)).
  * Improve Changelog by grouping changes ([#308](https://github.com/databricks/databricks-sdk-java/pull/308)).
-
-
-### Other Changes
-
- * Accept any `HttpRequest` instead of `HttpUriRequest` in `CommonHttpClient` ([#305](https://github.com/databricks/databricks-sdk-java/pull/305)).
  * Test parsing of error messages with `int` error codes ([#303](https://github.com/databricks/databricks-sdk-java/pull/303)).
-
-
 
 
 ## 0.27.0
