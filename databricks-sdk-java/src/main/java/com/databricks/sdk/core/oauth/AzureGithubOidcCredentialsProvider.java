@@ -81,11 +81,11 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
     }
 
     if (resp.getStatusCode() != 200) {
-        throw new DatabricksException(
-            "Failed to request ID token: status code "
-                + resp.getStatusCode()
-                + ", response body: "
-                + resp.getBody());
+      throw new DatabricksException(
+          "Failed to request ID token: status code "
+              + resp.getStatusCode()
+              + ", response body: "
+              + resp.getBody());
     }
 
     ObjectNode jsonResp;
