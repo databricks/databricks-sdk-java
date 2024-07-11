@@ -75,16 +75,17 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
     Response resp;
     try {
       resp = config.getHttpClient().execute(req);
-      if (resp.getStatusCode() != 200) {
+    } catch (IOException e) {
+      throw new DatabricksException(
+          "Failed to request ID token from " + requestUrl + ":" + e.getMessage(), e);
+    }
+
+    if (resp.getStatusCode() != 200) {
         throw new DatabricksException(
             "Failed to request ID token: status code "
                 + resp.getStatusCode()
                 + ", response body: "
                 + resp.getBody());
-      }
-    } catch (IOException e) {
-      throw new DatabricksException(
-          "Failed to request ID token from " + requestUrl + ":" + e.getMessage(), e);
     }
 
     ObjectNode jsonResp;
