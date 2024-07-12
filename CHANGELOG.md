@@ -11,6 +11,7 @@
  * Add Release tag and Workflow Fix ([#309](https://github.com/databricks/databricks-sdk-java/pull/309)).
  * Improve Changelog by grouping changes ([#308](https://github.com/databricks/databricks-sdk-java/pull/308)).
  * Test parsing of error messages with `int` error codes ([#303](https://github.com/databricks/databricks-sdk-java/pull/303)).
+ * Run AccountClientIT test only for aws-prod-ucacct ([#311](https://github.com/databricks/databricks-sdk-java/pull/311)).
 
 
 ## 0.27.0
