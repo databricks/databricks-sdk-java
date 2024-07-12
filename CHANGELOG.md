@@ -5,6 +5,7 @@
 ### New Features and Improvements
  * Specify proxy auth explicitly when using system proxy ([#300](https://github.com/databricks/databricks-sdk-java/pull/300)).
  * Accept any `HttpRequest` instead of `HttpUriRequest` in `CommonHttpClient` ([#305](https://github.com/databricks/databricks-sdk-java/pull/305)).
+ * Add credential provider for Azure Github OIDC ([#307](https://github.com/databricks/databricks-sdk-java/pull/307)).
 
 ### Internal Changes
  * Add Release tag and Workflow Fix ([#309](https://github.com/databricks/databricks-sdk-java/pull/309)).
