@@ -81,15 +81,19 @@ public class Response {
     this(request, url, statusCode, status, headers, body, "\"<InputStream>\"");
   }
 
-  public Response(String body, URL url) {
+  public Response(String body, int statusCode, String status, URL url) {
     this(
         new Request("GET", "/"),
         url,
-        200,
-        "OK",
+        statusCode,
+        status,
         Collections.emptyMap(),
         new ByteArrayInputStream(body.getBytes(StandardCharsets.UTF_8)),
         body);
+  }
+
+  public Response(String body, URL url) {
+    this(body, 200, "OK", url);
   }
 
   private Response(
