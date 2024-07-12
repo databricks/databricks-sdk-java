@@ -13,6 +13,7 @@
  * Ignore DataPlane Services during generation ([#296](https://github.com/databricks/databricks-sdk-java/pull/296)).
  * Update OpenAPI spec ([#297](https://github.com/databricks/databricks-sdk-java/pull/297)).
  * Retry failed integration tests ([#298](https://github.com/databricks/databricks-sdk-java/pull/298)).
+ * Run AccountClientIT test only for aws-prod-ucacct ([#311](https://github.com/databricks/databricks-sdk-java/pull/311)).
 
 
 ### API Changes:
