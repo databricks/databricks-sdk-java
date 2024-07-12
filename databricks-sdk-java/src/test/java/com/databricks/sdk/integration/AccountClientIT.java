@@ -9,7 +9,7 @@ import com.databricks.sdk.service.provisioning.Workspace;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-// Enable this test for aws-prod-acct once the issue with adding SP to non UC account is resolved
+// Enable this test for aws-prod-acct once the issue with adding SP to non UC account is resolved 
 @EnvContext("ucacct")
 @ExtendWith(EnvTest.class)
 public class AccountClientIT {
