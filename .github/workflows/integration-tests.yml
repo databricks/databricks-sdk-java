@@ -1,0 +1,54 @@
+name: Integration Tests
+on:
+  repository_dispatch:
+    types: [integration-check]
+jobs:
+  myEvent:
+    runs-on: ubuntu-latest
+    steps:
+      ####################################################
+      # Update the status to show that the queued message
+      # was received and is being processed
+      ####################################################
+      - name: Acknowledge Request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X PATCH -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -f 'status=in_progress' \
+            -f 'output[title]=Integration Tests' \
+            -f 'output[summary]=Running Integration Tests for Py SDK' \
+            /repos/${{ github.repository }}/check-runs/${{ github.event.client_payload.checkRunId }}          
+
+      ####################################################
+      # Actually, we'll just sleep to simulate some work
+      ####################################################
+      - name: Processing
+        run: sleep 10
+
+      #####################################################
+      # Send a final message to complete the run and
+      # provide any final updates. Doing this one in JSON
+      # to make it more readable. This approach can also
+      # be used to get total control over the serialized
+      # data types (for example, integers).
+      #####################################################
+      - name: Complete Check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X PATCH -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/${{ github.repository }}/check-runs/${{ github.event.client_payload.checkRunId }} \
+            --input - <<- EOF
+            {
+              "conclusion": "success",
+              "details_url": "TODO",
+              "output": {
+                "title": "Integration Tests",
+                "summary": "**Summary**: The run completed.",
+                "text": "Everything worked as expected."
+               }
+            }
+          EOF
