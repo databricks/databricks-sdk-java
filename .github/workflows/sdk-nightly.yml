@@ -1,6 +1,5 @@
 name: Integration Tests
 on:
-  pull_request:
   workflow_dispatch:
     inputs:
       check_run_id:
@@ -11,9 +10,11 @@ on:
         description: "Pull request number to test (if empty, tests run against main)"
         required: false
 
+
 jobs:
-  myEvent:
+  acknowledge-request:
     runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.check_run_id }} != ""
     steps:
       - name: Acknowledge Request
         env:
@@ -24,21 +25,39 @@ jobs:
             -f 'status=in_progress' \
             -f 'output[title]=Run Integration Tests' \
             -f 'output[summary]=Running Integration Tests for Java SDK' \
-            /repos/${{ github.repository }}/check-runs/${{ github.event.inputs.checkRunId }}          
+            /repos/${{ github.repository }}/check-runs/${{ github.event.inputs.check_run_id }}          
 
       ####################################################
       # Actually, we'll just sleep to simulate some work
       ####################################################
-      - name: Processing
-        run: sleep 10
+  integration-tests-prod:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.check_run_id }} != ""
+    steps:
+     - name: Processing
+       run: sleep 10
 
-      - name: Complete Check
+#  publish-lkg:
+#    if: ${{ github.ref == 'refs/heads/main' &&  inputs.pull_request_number == '' }}
+#    needs: [integration-tests-prod]
+#    uses: ./.github/workflows/publish-lkg.yml
+#    secrets: inherit
+#    with:
+#      lkg_sha: ${{ needs.integration-tests-prod.outputs.lkg_sha}}
+#      repository_name: "databricks-sdk-go"
+#      repository_org: "databricks"
+
+  complete-notification:
+    runs-on: ubuntu-latest
+    needs: [ integration-tests-prod ]
+    steps:
+      - name: Send Complete Notification
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh api -X PATCH -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/${{ github.repository }}/check-runs/${{ github.event.inputs.checkRunId }} \
+            /repos/${{ github.repository }}/check-runs/${{ github.event.inputs.check_run_id }} \
             --input - <<- EOF
             {
               "conclusion": "success",
@@ -50,14 +69,18 @@ jobs:
             }
           EOF
 
-      - name: Fail Check
-        if: failure()
+  failure-notification:
+      runs-on: ubuntu-latest
+      if: failure()
+      needs: [integration-tests-prod]
+      steps:
+      - name: Send Failure Notification
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh api -X PATCH -H "Accept: application/vnd.github+json" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            /repos/${{ github.repository }}/check-runs/${{ github.event.inputs.checkRunId }} \
+            /repos/${{ github.repository }}/check-runs/${{ github.event.inputs.check_run_id }} \
             --input - <<- EOF
             {
               "conclusion": "failure",
