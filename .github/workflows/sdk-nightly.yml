@@ -1,10 +1,15 @@
 name: Integration Tests
 on:
+  pull_request:
   workflow_dispatch:
     inputs:
-      checkRunId:
+      check_run_id:
         description: "ID for the Check Run in a PR"
         type: string
+        required: false
+      pull_request_number:
+        description: "Pull request number to test (if empty, tests run against main)"
+        required: false
 
 jobs:
   myEvent:
