@@ -19,7 +19,7 @@ import com.databricks.sdk.support.Generated;
  * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name}) which
  * introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
  *
- * <p>Securables that support binding: - catalog
+ * <p>Securable types that support binding: - catalog - storage_credential - external_location
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

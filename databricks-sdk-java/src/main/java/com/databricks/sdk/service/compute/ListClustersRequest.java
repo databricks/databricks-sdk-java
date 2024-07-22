@@ -7,24 +7,65 @@ import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
-/** List all clusters */
+/** List clusters */
 @Generated
 public class ListClustersRequest {
-  /**
-   * Filter clusters based on what type of client it can be used for. Could be either NOTEBOOKS or
-   * JOBS. No input for this field will get all clusters in the workspace without filtering on its
-   * supported client
-   */
-  @QueryParam("can_use_client")
-  private String canUseClient;
+  /** Filters to apply to the list of clusters. */
+  @QueryParam("filter_by")
+  private ListClustersFilterBy filterBy;
 
-  public ListClustersRequest setCanUseClient(String canUseClient) {
-    this.canUseClient = canUseClient;
+  /**
+   * Use this field to specify the maximum number of results to be returned by the server. The
+   * server may further constrain the maximum number of results returned in a single page.
+   */
+  @QueryParam("page_size")
+  private Long pageSize;
+
+  /**
+   * Use next_page_token or prev_page_token returned from the previous request to list the next or
+   * previous page of clusters respectively.
+   */
+  @QueryParam("page_token")
+  private String pageToken;
+
+  /** Sort the list of clusters by a specific criteria. */
+  @QueryParam("sort_by")
+  private ListClustersSortBy sortBy;
+
+  public ListClustersRequest setFilterBy(ListClustersFilterBy filterBy) {
+    this.filterBy = filterBy;
     return this;
   }
 
-  public String getCanUseClient() {
-    return canUseClient;
+  public ListClustersFilterBy getFilterBy() {
+    return filterBy;
+  }
+
+  public ListClustersRequest setPageSize(Long pageSize) {
+    this.pageSize = pageSize;
+    return this;
+  }
+
+  public Long getPageSize() {
+    return pageSize;
+  }
+
+  public ListClustersRequest setPageToken(String pageToken) {
+    this.pageToken = pageToken;
+    return this;
+  }
+
+  public String getPageToken() {
+    return pageToken;
+  }
+
+  public ListClustersRequest setSortBy(ListClustersSortBy sortBy) {
+    this.sortBy = sortBy;
+    return this;
+  }
+
+  public ListClustersSortBy getSortBy() {
+    return sortBy;
   }
 
   @Override
@@ -32,16 +73,24 @@ public class ListClustersRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListClustersRequest that = (ListClustersRequest) o;
-    return Objects.equals(canUseClient, that.canUseClient);
+    return Objects.equals(filterBy, that.filterBy)
+        && Objects.equals(pageSize, that.pageSize)
+        && Objects.equals(pageToken, that.pageToken)
+        && Objects.equals(sortBy, that.sortBy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(canUseClient);
+    return Objects.hash(filterBy, pageSize, pageToken, sortBy);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListClustersRequest.class).add("canUseClient", canUseClient).toString();
+    return new ToStringer(ListClustersRequest.class)
+        .add("filterBy", filterBy)
+        .add("pageSize", pageSize)
+        .add("pageToken", pageToken)
+        .add("sortBy", sortBy)
+        .toString();
   }
 }

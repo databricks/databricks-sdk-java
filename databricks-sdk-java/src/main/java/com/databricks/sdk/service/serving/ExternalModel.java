@@ -31,6 +31,10 @@ public class ExternalModel {
   @JsonProperty("databricks_model_serving_config")
   private DatabricksModelServingConfig databricksModelServingConfig;
 
+  /** Google Cloud Vertex AI Config. Only required if the provider is 'google-cloud-vertex-ai'. */
+  @JsonProperty("google_cloud_vertex_ai_config")
+  private GoogleCloudVertexAiConfig googleCloudVertexAiConfig;
+
   /** The name of the external model. */
   @JsonProperty("name")
   private String name;
@@ -45,8 +49,8 @@ public class ExternalModel {
 
   /**
    * The name of the provider for the external model. Currently, the supported providers are
-   * 'ai21labs', 'anthropic', 'amazon-bedrock', 'cohere', 'databricks-model-serving', 'openai', and
-   * 'palm'.",
+   * 'ai21labs', 'anthropic', 'amazon-bedrock', 'cohere', 'databricks-model-serving',
+   * 'google-cloud-vertex-ai', 'openai', and 'palm'.",
    */
   @JsonProperty("provider")
   private ExternalModelProvider provider;
@@ -99,6 +103,16 @@ public class ExternalModel {
 
   public DatabricksModelServingConfig getDatabricksModelServingConfig() {
     return databricksModelServingConfig;
+  }
+
+  public ExternalModel setGoogleCloudVertexAiConfig(
+      GoogleCloudVertexAiConfig googleCloudVertexAiConfig) {
+    this.googleCloudVertexAiConfig = googleCloudVertexAiConfig;
+    return this;
+  }
+
+  public GoogleCloudVertexAiConfig getGoogleCloudVertexAiConfig() {
+    return googleCloudVertexAiConfig;
   }
 
   public ExternalModel setName(String name) {
@@ -156,6 +170,7 @@ public class ExternalModel {
         && Objects.equals(anthropicConfig, that.anthropicConfig)
         && Objects.equals(cohereConfig, that.cohereConfig)
         && Objects.equals(databricksModelServingConfig, that.databricksModelServingConfig)
+        && Objects.equals(googleCloudVertexAiConfig, that.googleCloudVertexAiConfig)
         && Objects.equals(name, that.name)
         && Objects.equals(openaiConfig, that.openaiConfig)
         && Objects.equals(palmConfig, that.palmConfig)
@@ -171,6 +186,7 @@ public class ExternalModel {
         anthropicConfig,
         cohereConfig,
         databricksModelServingConfig,
+        googleCloudVertexAiConfig,
         name,
         openaiConfig,
         palmConfig,
@@ -186,6 +202,7 @@ public class ExternalModel {
         .add("anthropicConfig", anthropicConfig)
         .add("cohereConfig", cohereConfig)
         .add("databricksModelServingConfig", databricksModelServingConfig)
+        .add("googleCloudVertexAiConfig", googleCloudVertexAiConfig)
         .add("name", name)
         .add("openaiConfig", openaiConfig)
         .add("palmConfig", palmConfig)

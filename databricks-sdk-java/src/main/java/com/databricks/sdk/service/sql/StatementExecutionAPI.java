@@ -124,17 +124,17 @@ public class StatementExecutionAPI {
     impl.cancelExecution(request);
   }
 
-  public ExecuteStatementResponse executeStatement(String statement, String warehouseId) {
+  public StatementResponse executeStatement(String statement, String warehouseId) {
     return executeStatement(
         new ExecuteStatementRequest().setStatement(statement).setWarehouseId(warehouseId));
   }
 
   /** Execute a SQL statement. */
-  public ExecuteStatementResponse executeStatement(ExecuteStatementRequest request) {
+  public StatementResponse executeStatement(ExecuteStatementRequest request) {
     return impl.executeStatement(request);
   }
 
-  public GetStatementResponse getStatement(String statementId) {
+  public StatementResponse getStatement(String statementId) {
     return getStatement(new GetStatementRequest().setStatementId(statementId));
   }
 
@@ -149,7 +149,7 @@ public class StatementExecutionAPI {
    *
    * <p>**NOTE** This call currently might take up to 5 seconds to get the latest status and result.
    */
-  public GetStatementResponse getStatement(GetStatementRequest request) {
+  public StatementResponse getStatement(GetStatementRequest request) {
     return impl.getStatement(request);
   }
 

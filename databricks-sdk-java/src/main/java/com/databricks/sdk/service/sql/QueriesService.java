@@ -4,14 +4,10 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 
 /**
- * These endpoints are used for CRUD operations on query definitions. Query definitions include the
- * target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
- * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
- *
- * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
- *
- * <p>[Learn more]:
- * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+ * The queries API can be used to perform CRUD operations on queries. A query is a Databricks SQL
+ * object that includes the target SQL warehouse, query text, name, description, tags, and
+ * parameters. Queries can be scheduled using the `sql_task` type of the Jobs API, e.g.
+ * :method:jobs/create.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -20,89 +16,49 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface QueriesService {
   /**
-   * Create a new query definition.
+   * Create a query.
    *
-   * <p>Creates a new query definition. Queries created with this endpoint belong to the
-   * authenticated user making the request.
-   *
-   * <p>The `data_source_id` field specifies the ID of the SQL warehouse to run this query against.
-   * You can use the Data Sources API to see a complete list of available SQL warehouses. Or you can
-   * copy the `data_source_id` from an existing query.
-   *
-   * <p>**Note**: You cannot add a visualization until you create the query.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>Creates a query.
    */
-  Query create(QueryPostContent queryPostContent);
+  Query create(CreateQueryRequest createQueryRequest);
 
   /**
    * Delete a query.
    *
    * <p>Moves a query to the trash. Trashed queries immediately disappear from searches and list
-   * views, and they cannot be used for alerts. The trash is deleted after 30 days.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * views, and cannot be used for alerts. You can restore a trashed query through the UI. A trashed
+   * query is permanently deleted after 30 days.
    */
-  void delete(DeleteQueryRequest deleteQueryRequest);
+  void delete(TrashQueryRequest trashQueryRequest);
 
   /**
-   * Get a query definition.
+   * Get a query.
    *
-   * <p>Retrieve a query object definition along with contextual permissions information about the
-   * currently authenticated user.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>Gets a query.
    */
   Query get(GetQueryRequest getQueryRequest);
 
   /**
-   * Get a list of queries.
+   * List queries.
    *
-   * <p>Gets a list of queries. Optionally, this list can be filtered by a search term.
-   *
-   * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
-   * service degradation, or a temporary ban.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>Gets a list of queries accessible to the user, ordered by creation time. **Warning:**
+   * Calling this API concurrently 10 or more times could result in throttling, service degradation,
+   * or a temporary ban.
    */
-  QueryList list(ListQueriesRequest listQueriesRequest);
+  ListQueryObjectsResponse list(ListQueriesRequest listQueriesRequest);
 
   /**
-   * Restore a query.
+   * List visualizations on a query.
    *
-   * <p>Restore a query that has been moved to the trash. A restored query appears in list views and
-   * searches. You can use restored queries for alerts.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>Gets a list of visualizations on a query.
    */
-  void restore(RestoreQueryRequest restoreQueryRequest);
+  ListVisualizationsForQueryResponse listVisualizations(
+      ListVisualizationsForQueryRequest listVisualizationsForQueryRequest);
 
   /**
-   * Change a query definition.
+   * Update a query.
    *
-   * <p>Modify this query definition.
-   *
-   * <p>**Note**: You cannot undo this operation.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>Updates a query.
    */
-  Query update(QueryEditContent queryEditContent);
+  Query update(UpdateQueryRequest updateQueryRequest);
 }

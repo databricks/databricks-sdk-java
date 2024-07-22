@@ -43,10 +43,6 @@ public class ListingSummary {
   private ListingType listingType;
 
   /** */
-  @JsonProperty("metastore_id")
-  private String metastoreId;
-
-  /** */
   @JsonProperty("name")
   private String name;
 
@@ -155,15 +151,6 @@ public class ListingSummary {
 
   public ListingType getListingType() {
     return listingType;
-  }
-
-  public ListingSummary setMetastoreId(String metastoreId) {
-    this.metastoreId = metastoreId;
-    return this;
-  }
-
-  public String getMetastoreId() {
-    return metastoreId;
   }
 
   public ListingSummary setName(String name) {
@@ -286,7 +273,6 @@ public class ListingSummary {
         && Objects.equals(exchangeIds, that.exchangeIds)
         && Objects.equals(gitRepo, that.gitRepo)
         && Objects.equals(listingType, that.listingType)
-        && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
         && Objects.equals(providerId, that.providerId)
         && Objects.equals(providerRegion, that.providerRegion)
@@ -311,7 +297,6 @@ public class ListingSummary {
         exchangeIds,
         gitRepo,
         listingType,
-        metastoreId,
         name,
         providerId,
         providerRegion,
@@ -336,7 +321,6 @@ public class ListingSummary {
         .add("exchangeIds", exchangeIds)
         .add("gitRepo", gitRepo)
         .add("listingType", listingType)
-        .add("metastoreId", metastoreId)
         .add("name", name)
         .add("providerId", providerId)
         .add("providerRegion", providerRegion)

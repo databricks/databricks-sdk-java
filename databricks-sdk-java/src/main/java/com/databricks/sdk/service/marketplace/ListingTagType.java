@@ -8,5 +8,4 @@ import com.databricks.sdk.support.Generated;
 public enum ListingTagType {
   LISTING_TAG_TYPE_LANGUAGE,
   LISTING_TAG_TYPE_TASK,
-  LISTING_TAG_TYPE_UNSPECIFIED,
 }

@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name}) which
  * introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
  *
- * <p>Securables that support binding: - catalog
+ * <p>Securable types that support binding: - catalog - storage_credential - external_location
  */
 @Generated
 public class WorkspaceBindingsAPI {
@@ -54,7 +54,8 @@ public class WorkspaceBindingsAPI {
     return impl.get(request);
   }
 
-  public WorkspaceBindingsResponse getBindings(String securableType, String securableName) {
+  public WorkspaceBindingsResponse getBindings(
+      GetBindingsSecurableType securableType, String securableName) {
     return getBindings(
         new GetBindingsRequest().setSecurableType(securableType).setSecurableName(securableName));
   }
@@ -83,7 +84,8 @@ public class WorkspaceBindingsAPI {
     return impl.update(request);
   }
 
-  public WorkspaceBindingsResponse updateBindings(String securableType, String securableName) {
+  public WorkspaceBindingsResponse updateBindings(
+      UpdateBindingsSecurableType securableType, String securableName) {
     return updateBindings(
         new UpdateWorkspaceBindingsParameters()
             .setSecurableType(securableType)

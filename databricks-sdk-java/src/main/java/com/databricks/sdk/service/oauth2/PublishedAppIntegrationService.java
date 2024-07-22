@@ -4,7 +4,7 @@ package com.databricks.sdk.service.oauth2;
 import com.databricks.sdk.support.Generated;
 
 /**
- * These APIs enable administrators to manage published oauth app integrations, which is required
+ * These APIs enable administrators to manage published OAuth app integrations, which is required
  * for adding/using Published OAuth App Integration like Tableau Desktop for Databricks in AWS
  * cloud.
  *
@@ -19,7 +19,7 @@ public interface PublishedAppIntegrationService {
    *
    * <p>Create Published OAuth App Integration.
    *
-   * <p>You can retrieve the published oauth app integration via
+   * <p>You can retrieve the published OAuth app integration via
    * :method:PublishedAppIntegration/get.
    */
   CreatePublishedAppIntegrationOutput create(
@@ -28,7 +28,7 @@ public interface PublishedAppIntegrationService {
   /**
    * Delete Published OAuth App Integration.
    *
-   * <p>Delete an existing Published OAuth App Integration. You can retrieve the published oauth app
+   * <p>Delete an existing Published OAuth App Integration. You can retrieve the published OAuth app
    * integration via :method:PublishedAppIntegration/get.
    */
   void delete(DeletePublishedAppIntegrationRequest deletePublishedAppIntegrationRequest);
@@ -44,14 +44,15 @@ public interface PublishedAppIntegrationService {
   /**
    * Get published oauth app integrations.
    *
-   * <p>Get the list of published oauth app integrations for the specified Databricks account
+   * <p>Get the list of published OAuth app integrations for the specified Databricks account
    */
-  GetPublishedAppIntegrationsOutput list();
+  GetPublishedAppIntegrationsOutput list(
+      ListPublishedAppIntegrationsRequest listPublishedAppIntegrationsRequest);
 
   /**
    * Updates Published OAuth App Integration.
    *
-   * <p>Updates an existing published OAuth App Integration. You can retrieve the published oauth
+   * <p>Updates an existing published OAuth App Integration. You can retrieve the published OAuth
    * app integration via :method:PublishedAppIntegration/get.
    */
   void update(UpdatePublishedAppIntegration updatePublishedAppIntegration);

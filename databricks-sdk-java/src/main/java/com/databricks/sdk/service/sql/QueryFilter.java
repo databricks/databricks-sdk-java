@@ -9,18 +9,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** A filter to limit query history results. This field is optional. */
 @Generated
 public class QueryFilter {
-  /** */
+  /** Filter by one or more property describing where the query was generated */
+  @JsonProperty("context_filter")
+  @QueryParam("context_filter")
+  private ContextFilter contextFilter;
+
+  /** A range filter for query submitted time. The time range must be <= 30 days. */
   @JsonProperty("query_start_time_range")
   @QueryParam("query_start_time_range")
   private TimeRange queryStartTimeRange;
-
-  /** A list of statement IDs. */
-  @JsonProperty("statement_ids")
-  @QueryParam("statement_ids")
-  private Collection<String> statementIds;
 
   /** */
   @JsonProperty("statuses")
@@ -37,6 +36,15 @@ public class QueryFilter {
   @QueryParam("warehouse_ids")
   private Collection<String> warehouseIds;
 
+  public QueryFilter setContextFilter(ContextFilter contextFilter) {
+    this.contextFilter = contextFilter;
+    return this;
+  }
+
+  public ContextFilter getContextFilter() {
+    return contextFilter;
+  }
+
   public QueryFilter setQueryStartTimeRange(TimeRange queryStartTimeRange) {
     this.queryStartTimeRange = queryStartTimeRange;
     return this;
@@ -44,15 +52,6 @@ public class QueryFilter {
 
   public TimeRange getQueryStartTimeRange() {
     return queryStartTimeRange;
-  }
-
-  public QueryFilter setStatementIds(Collection<String> statementIds) {
-    this.statementIds = statementIds;
-    return this;
-  }
-
-  public Collection<String> getStatementIds() {
-    return statementIds;
   }
 
   public QueryFilter setStatuses(Collection<QueryStatus> statuses) {
@@ -87,8 +86,8 @@ public class QueryFilter {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     QueryFilter that = (QueryFilter) o;
-    return Objects.equals(queryStartTimeRange, that.queryStartTimeRange)
-        && Objects.equals(statementIds, that.statementIds)
+    return Objects.equals(contextFilter, that.contextFilter)
+        && Objects.equals(queryStartTimeRange, that.queryStartTimeRange)
         && Objects.equals(statuses, that.statuses)
         && Objects.equals(userIds, that.userIds)
         && Objects.equals(warehouseIds, that.warehouseIds);
@@ -96,14 +95,14 @@ public class QueryFilter {
 
   @Override
   public int hashCode() {
-    return Objects.hash(queryStartTimeRange, statementIds, statuses, userIds, warehouseIds);
+    return Objects.hash(contextFilter, queryStartTimeRange, statuses, userIds, warehouseIds);
   }
 
   @Override
   public String toString() {
     return new ToStringer(QueryFilter.class)
+        .add("contextFilter", contextFilter)
         .add("queryStartTimeRange", queryStartTimeRange)
-        .add("statementIds", statementIds)
         .add("statuses", statuses)
         .add("userIds", userIds)
         .add("warehouseIds", warehouseIds)

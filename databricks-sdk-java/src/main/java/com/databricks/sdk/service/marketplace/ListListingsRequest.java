@@ -19,10 +19,6 @@ public class ListListingsRequest {
   @QueryParam("categories")
   private Collection<Category> categories;
 
-  /** */
-  @QueryParam("is_ascending")
-  private Boolean isAscending;
-
   /** Filters each listing based on if it is free. */
   @QueryParam("is_free")
   private Boolean isFree;
@@ -47,10 +43,6 @@ public class ListListingsRequest {
   @QueryParam("provider_ids")
   private Collection<String> providerIds;
 
-  /** Criteria for sorting the resulting set of listings. */
-  @QueryParam("sort_by")
-  private SortBy sortBy;
-
   /** Matches any of the following tags */
   @QueryParam("tags")
   private Collection<ListingTag> tags;
@@ -71,15 +63,6 @@ public class ListListingsRequest {
 
   public Collection<Category> getCategories() {
     return categories;
-  }
-
-  public ListListingsRequest setIsAscending(Boolean isAscending) {
-    this.isAscending = isAscending;
-    return this;
-  }
-
-  public Boolean getIsAscending() {
-    return isAscending;
   }
 
   public ListListingsRequest setIsFree(Boolean isFree) {
@@ -136,15 +119,6 @@ public class ListListingsRequest {
     return providerIds;
   }
 
-  public ListListingsRequest setSortBy(SortBy sortBy) {
-    this.sortBy = sortBy;
-    return this;
-  }
-
-  public SortBy getSortBy() {
-    return sortBy;
-  }
-
   public ListListingsRequest setTags(Collection<ListingTag> tags) {
     this.tags = tags;
     return this;
@@ -161,14 +135,12 @@ public class ListListingsRequest {
     ListListingsRequest that = (ListListingsRequest) o;
     return Objects.equals(assets, that.assets)
         && Objects.equals(categories, that.categories)
-        && Objects.equals(isAscending, that.isAscending)
         && Objects.equals(isFree, that.isFree)
         && Objects.equals(isPrivateExchange, that.isPrivateExchange)
         && Objects.equals(isStaffPick, that.isStaffPick)
         && Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(providerIds, that.providerIds)
-        && Objects.equals(sortBy, that.sortBy)
         && Objects.equals(tags, that.tags);
   }
 
@@ -177,14 +149,12 @@ public class ListListingsRequest {
     return Objects.hash(
         assets,
         categories,
-        isAscending,
         isFree,
         isPrivateExchange,
         isStaffPick,
         pageSize,
         pageToken,
         providerIds,
-        sortBy,
         tags);
   }
 
@@ -193,14 +163,12 @@ public class ListListingsRequest {
     return new ToStringer(ListListingsRequest.class)
         .add("assets", assets)
         .add("categories", categories)
-        .add("isAscending", isAscending)
         .add("isFree", isFree)
         .add("isPrivateExchange", isPrivateExchange)
         .add("isStaffPick", isStaffPick)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .add("providerIds", providerIds)
-        .add("sortBy", sortBy)
         .add("tags", tags)
         .toString();
   }

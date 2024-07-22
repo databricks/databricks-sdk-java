@@ -5,7 +5,9 @@ import com.databricks.sdk.integration.framework.CollectionUtils;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.service.sql.ListQueriesRequest;
-import com.databricks.sdk.service.sql.Query;
+import com.databricks.sdk.service.sql.ListQueryObjectsResponseQuery;
+import java.util.ArrayList;
+import java.util.Iterator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -14,9 +16,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 class QueriesIT {
   @Test
   void listsQueries(WorkspaceClient w) {
-    Iterable<Query> list = w.queries().list(new ListQueriesRequest().setPageSize(1000L));
+    Iterator<ListQueryObjectsResponseQuery> list =
+        w.queries().list(new ListQueriesRequest().setPageSize(1000L)).iterator();
 
-    java.util.List<Query> all = CollectionUtils.asList(list);
+    java.util.List<ListQueryObjectsResponseQuery> all = new ArrayList<>();
+    list.forEachRemaining(all::add);
 
     CollectionUtils.assertUnique(all);
   }

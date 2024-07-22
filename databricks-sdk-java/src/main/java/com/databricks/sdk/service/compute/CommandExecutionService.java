@@ -5,6 +5,7 @@ import com.databricks.sdk.support.Generated;
 
 /**
  * This API allows execution of Python, Scala, SQL, or R commands on running Databricks Clusters.
+ * This API only supports (classic) all-purpose clusters. Serverless compute is not supported.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *

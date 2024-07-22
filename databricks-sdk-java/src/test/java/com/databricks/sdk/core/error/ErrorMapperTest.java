@@ -112,7 +112,7 @@ public class ErrorMapperTest {
           Arguments.of(
               ResourceDoesNotExist.class,
               "GET",
-              "https://my.databricks.workspace/api/2.0/clusters/get?cluster_id=123",
+              "https://my.databricks.workspace/api/2.1/clusters/get?cluster_id=123",
               400,
               "{\"error_code\":\"INVALID_PARAMETER_VALUE\",\"message\":\"Cluster 123 does not exist\"}"),
           Arguments.of(

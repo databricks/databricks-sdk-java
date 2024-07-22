@@ -9,10 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class UpdatePublishedAppIntegration {
-  /** The oauth app integration ID. */
+  /** */
   private String integrationId;
 
-  /** Token access policy to be updated in the published oauth app integration */
+  /** Token access policy to be updated in the published OAuth app integration */
   @JsonProperty("token_access_policy")
   private TokenAccessPolicy tokenAccessPolicy;
 

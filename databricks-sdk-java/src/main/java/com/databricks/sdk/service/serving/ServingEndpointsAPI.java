@@ -53,7 +53,8 @@ public class ServingEndpointsAPI {
     java.util.List<EndpointStateConfigUpdate> targetStates =
         Arrays.asList(EndpointStateConfigUpdate.NOT_UPDATING);
     java.util.List<EndpointStateConfigUpdate> failureStates =
-        Arrays.asList(EndpointStateConfigUpdate.UPDATE_FAILED);
+        Arrays.asList(
+            EndpointStateConfigUpdate.UPDATE_FAILED, EndpointStateConfigUpdate.UPDATE_CANCELED);
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {

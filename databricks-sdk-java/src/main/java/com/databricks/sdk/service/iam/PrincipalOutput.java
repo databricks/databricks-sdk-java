@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Information about the principal assigned to the workspace. */
 @Generated
 public class PrincipalOutput {
   /** The display name of the principal. */

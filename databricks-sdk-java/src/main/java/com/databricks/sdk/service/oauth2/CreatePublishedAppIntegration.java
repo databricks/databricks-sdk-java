@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class CreatePublishedAppIntegration {
-  /** app_id of the oauth published app integration. For example power-bi, tableau-deskop */
+  /** App id of the OAuth published app integration. For example power-bi, tableau-deskop */
   @JsonProperty("app_id")
   private String appId;
 

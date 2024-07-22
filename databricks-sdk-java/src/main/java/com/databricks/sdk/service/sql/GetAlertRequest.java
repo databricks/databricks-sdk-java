@@ -10,15 +10,15 @@ import java.util.Objects;
 @Generated
 public class GetAlertRequest {
   /** */
-  private String alertId;
+  private String id;
 
-  public GetAlertRequest setAlertId(String alertId) {
-    this.alertId = alertId;
+  public GetAlertRequest setId(String id) {
+    this.id = id;
     return this;
   }
 
-  public String getAlertId() {
-    return alertId;
+  public String getId() {
+    return id;
   }
 
   @Override
@@ -26,16 +26,16 @@ public class GetAlertRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetAlertRequest that = (GetAlertRequest) o;
-    return Objects.equals(alertId, that.alertId);
+    return Objects.equals(id, that.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(alertId);
+    return Objects.hash(id);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetAlertRequest.class).add("alertId", alertId).toString();
+    return new ToStringer(GetAlertRequest.class).add("id", id).toString();
   }
 }

@@ -9,11 +9,7 @@ import java.util.Objects;
 
 @Generated
 public class QueryInfo {
-  /** Reserved for internal use. */
-  @JsonProperty("canSubscribeToLiveQuery")
-  private Boolean canSubscribeToLiveQuery;
-
-  /** Channel information for the SQL warehouse at the time of query execution */
+  /** SQL Warehouse channel information at the time of query execution */
   @JsonProperty("channel_used")
   private ChannelInfo channelUsed;
 
@@ -65,6 +61,10 @@ public class QueryInfo {
   @JsonProperty("query_id")
   private String queryId;
 
+  /** */
+  @JsonProperty("query_source")
+  private QuerySource querySource;
+
   /** The time the query started. */
   @JsonProperty("query_start_time_ms")
   private Long queryStartTimeMs;
@@ -77,7 +77,7 @@ public class QueryInfo {
   @JsonProperty("rows_produced")
   private Long rowsProduced;
 
-  /** URL to the query plan. */
+  /** URL to the Spark UI query plan. */
   @JsonProperty("spark_ui_url")
   private String sparkUiUrl;
 
@@ -86,9 +86,11 @@ public class QueryInfo {
   private QueryStatementType statementType;
 
   /**
-   * Query status with one the following values: * `QUEUED`: Query has been received and queued. *
-   * `RUNNING`: Query has started. * `CANCELED`: Query has been cancelled by the user. * `FAILED`:
-   * Query has failed. * `FINISHED`: Query has completed.
+   * Query status with one the following values:
+   *
+   * <p>- `QUEUED`: Query has been received and queued. - `RUNNING`: Query has started. -
+   * `CANCELED`: Query has been cancelled by the user. - `FAILED`: Query has failed. - `FINISHED`:
+   * Query has completed.
    */
   @JsonProperty("status")
   private QueryStatus status;
@@ -104,15 +106,6 @@ public class QueryInfo {
   /** Warehouse ID. */
   @JsonProperty("warehouse_id")
   private String warehouseId;
-
-  public QueryInfo setCanSubscribeToLiveQuery(Boolean canSubscribeToLiveQuery) {
-    this.canSubscribeToLiveQuery = canSubscribeToLiveQuery;
-    return this;
-  }
-
-  public Boolean getCanSubscribeToLiveQuery() {
-    return canSubscribeToLiveQuery;
-  }
 
   public QueryInfo setChannelUsed(ChannelInfo channelUsed) {
     this.channelUsed = channelUsed;
@@ -231,6 +224,15 @@ public class QueryInfo {
     return queryId;
   }
 
+  public QueryInfo setQuerySource(QuerySource querySource) {
+    this.querySource = querySource;
+    return this;
+  }
+
+  public QuerySource getQuerySource() {
+    return querySource;
+  }
+
   public QueryInfo setQueryStartTimeMs(Long queryStartTimeMs) {
     this.queryStartTimeMs = queryStartTimeMs;
     return this;
@@ -317,8 +319,7 @@ public class QueryInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     QueryInfo that = (QueryInfo) o;
-    return Objects.equals(canSubscribeToLiveQuery, that.canSubscribeToLiveQuery)
-        && Objects.equals(channelUsed, that.channelUsed)
+    return Objects.equals(channelUsed, that.channelUsed)
         && Objects.equals(duration, that.duration)
         && Objects.equals(endpointId, that.endpointId)
         && Objects.equals(errorMessage, that.errorMessage)
@@ -331,6 +332,7 @@ public class QueryInfo {
         && Objects.equals(plansState, that.plansState)
         && Objects.equals(queryEndTimeMs, that.queryEndTimeMs)
         && Objects.equals(queryId, that.queryId)
+        && Objects.equals(querySource, that.querySource)
         && Objects.equals(queryStartTimeMs, that.queryStartTimeMs)
         && Objects.equals(queryText, that.queryText)
         && Objects.equals(rowsProduced, that.rowsProduced)
@@ -345,7 +347,6 @@ public class QueryInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
-        canSubscribeToLiveQuery,
         channelUsed,
         duration,
         endpointId,
@@ -359,6 +360,7 @@ public class QueryInfo {
         plansState,
         queryEndTimeMs,
         queryId,
+        querySource,
         queryStartTimeMs,
         queryText,
         rowsProduced,
@@ -373,7 +375,6 @@ public class QueryInfo {
   @Override
   public String toString() {
     return new ToStringer(QueryInfo.class)
-        .add("canSubscribeToLiveQuery", canSubscribeToLiveQuery)
         .add("channelUsed", channelUsed)
         .add("duration", duration)
         .add("endpointId", endpointId)
@@ -387,6 +388,7 @@ public class QueryInfo {
         .add("plansState", plansState)
         .add("queryEndTimeMs", queryEndTimeMs)
         .add("queryId", queryId)
+        .add("querySource", querySource)
         .add("queryStartTimeMs", queryStartTimeMs)
         .add("queryText", queryText)
         .add("rowsProduced", rowsProduced)

@@ -50,14 +50,14 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
   }
 
   @Override
-  public GetPublishedAppIntegrationsOutput list() {
+  public GetPublishedAppIntegrationsOutput list(ListPublishedAppIntegrationsRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/oauth2/published-app-integrations",
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, GetPublishedAppIntegrationsOutput.class, headers);
+    return apiClient.GET(path, request, GetPublishedAppIntegrationsOutput.class, headers);
   }
 
   @Override

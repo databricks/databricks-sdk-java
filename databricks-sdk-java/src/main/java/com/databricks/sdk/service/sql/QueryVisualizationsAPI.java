@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This is an evolving API that facilitates the addition and removal of vizualisations from existing
- * queries within the Databricks Workspace. Data structures may change over time.
+ * This is an evolving API that facilitates the addition and removal of visualizations from existing
+ * queries in the Databricks Workspace. Data structures can change over time.
  */
 @Generated
 public class QueryVisualizationsAPI {
@@ -26,34 +26,38 @@ public class QueryVisualizationsAPI {
     impl = mock;
   }
 
-  public Visualization create(String queryId, String typeValue, Object options) {
-    return create(
-        new CreateQueryVisualizationRequest()
-            .setQueryId(queryId)
-            .setType(typeValue)
-            .setOptions(options));
-  }
-
-  /** Add visualization to a query. */
-  public Visualization create(CreateQueryVisualizationRequest request) {
+  /**
+   * Add a visualization to a query.
+   *
+   * <p>Adds a visualization to a query.
+   */
+  public Visualization create(CreateVisualizationRequest request) {
     return impl.create(request);
   }
 
   public void delete(String id) {
-    delete(new DeleteQueryVisualizationRequest().setId(id));
+    delete(new DeleteVisualizationRequest().setId(id));
   }
 
-  /** Remove visualization. */
-  public void delete(DeleteQueryVisualizationRequest request) {
+  /**
+   * Remove a visualization.
+   *
+   * <p>Removes a visualization.
+   */
+  public void delete(DeleteVisualizationRequest request) {
     impl.delete(request);
   }
 
-  public Visualization update(String id) {
-    return update(new Visualization().setId(id));
+  public Visualization update(String id, String updateMask) {
+    return update(new UpdateVisualizationRequest().setId(id).setUpdateMask(updateMask));
   }
 
-  /** Edit existing visualization. */
-  public Visualization update(Visualization request) {
+  /**
+   * Update a visualization.
+   *
+   * <p>Updates a visualization.
+   */
+  public Visualization update(UpdateVisualizationRequest request) {
     return impl.update(request);
   }
 

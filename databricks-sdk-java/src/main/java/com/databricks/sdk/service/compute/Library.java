@@ -14,11 +14,8 @@ public class Library {
   private RCranLibrary cran;
 
   /**
-   * URI of the egg library to install. Supported URIs include Workspace paths, Unity Catalog
-   * Volumes paths, and S3 URIs. For example: `{ "egg": "/Workspace/path/to/library.egg" }`, `{
-   * "egg" : "/Volumes/path/to/library.egg" }` or `{ "egg": "s3://my-bucket/library.egg" }`. If S3
-   * is used, please make sure the cluster has read access on the library. You may need to launch
-   * the cluster with an IAM role to access the S3 URI.
+   * Deprecated. URI of the egg library to install. Installing Python egg files is deprecated and is
+   * not supported in Databricks Runtime 14.0 and above.
    */
   @JsonProperty("egg")
   private String egg;

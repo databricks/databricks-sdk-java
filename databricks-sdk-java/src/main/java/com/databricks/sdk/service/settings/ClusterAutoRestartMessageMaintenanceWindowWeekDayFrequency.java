@@ -13,5 +13,4 @@ public enum ClusterAutoRestartMessageMaintenanceWindowWeekDayFrequency {
   SECOND_AND_FOURTH_OF_MONTH,
   SECOND_OF_MONTH,
   THIRD_OF_MONTH,
-  WEEK_DAY_FREQUENCY_UNSPECIFIED,
 }

@@ -6,7 +6,6 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum ClusterAutoRestartMessageMaintenanceWindowDayOfWeek {
-  DAY_OF_WEEK_UNSPECIFIED,
   FRIDAY,
   MONDAY,
   SATURDAY,

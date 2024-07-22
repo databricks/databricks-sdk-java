@@ -10,15 +10,17 @@ import java.util.Objects;
 
 @Generated
 public class CreateCustomAppIntegration {
-  /** indicates if an oauth client-secret should be generated */
+  /**
+   * This field indicates whether an OAuth client secret is required to authenticate this client.
+   */
   @JsonProperty("confidential")
   private Boolean confidential;
 
-  /** name of the custom oauth app */
+  /** Name of the custom OAuth app */
   @JsonProperty("name")
   private String name;
 
-  /** List of oauth redirect urls */
+  /** List of OAuth redirect urls */
   @JsonProperty("redirect_urls")
   private Collection<String> redirectUrls;
 

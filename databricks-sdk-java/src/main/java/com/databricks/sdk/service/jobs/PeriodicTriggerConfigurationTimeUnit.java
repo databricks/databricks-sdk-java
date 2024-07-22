@@ -8,6 +8,5 @@ import com.databricks.sdk.support.Generated;
 public enum PeriodicTriggerConfigurationTimeUnit {
   DAYS,
   HOURS,
-  TIME_UNIT_UNSPECIFIED,
   WEEKS,
 }
