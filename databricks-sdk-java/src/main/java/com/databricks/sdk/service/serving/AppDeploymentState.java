@@ -8,7 +8,6 @@ import com.databricks.sdk.support.Generated;
 public enum AppDeploymentState {
   FAILED,
   IN_PROGRESS,
-  STATE_UNSPECIFIED,
   STOPPED,
   SUCCEEDED,
 }

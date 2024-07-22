@@ -8,8 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * These APIs manage budget configuration including notifications for exceeding a budget for a
- * period. They can also retrieve the status of each budget.
+ * These APIs manage budget configurations for this account. Budgets enable you to monitor usage
+ * across your account. You can set up budgets to either track account-wide spending, or apply
+ * filters to track the spending of specific teams, projects, or workspaces.
  */
 @Generated
 public class BudgetsAPI {
@@ -27,67 +28,80 @@ public class BudgetsAPI {
     impl = mock;
   }
 
-  public WrappedBudgetWithStatus create(Budget budget) {
-    return create(new WrappedBudget().setBudget(budget));
+  public CreateBudgetConfigurationResponse create(CreateBudgetConfigurationBudget budget) {
+    return create(new CreateBudgetConfigurationRequest().setBudget(budget));
   }
 
   /**
-   * Create a new budget.
+   * Create new budget.
    *
-   * <p>Creates a new budget in the specified account.
+   * <p>Create a new budget configuration for an account. For full details, see
+   * https://docs.databricks.com/en/admin/account-settings/budgets.html.
    */
-  public WrappedBudgetWithStatus create(WrappedBudget request) {
+  public CreateBudgetConfigurationResponse create(CreateBudgetConfigurationRequest request) {
     return impl.create(request);
   }
 
   public void delete(String budgetId) {
-    delete(new DeleteBudgetRequest().setBudgetId(budgetId));
+    delete(new DeleteBudgetConfigurationRequest().setBudgetId(budgetId));
   }
 
   /**
    * Delete budget.
    *
-   * <p>Deletes the budget specified by its UUID.
+   * <p>Deletes a budget configuration for an account. Both account and budget configuration are
+   * specified by ID. This cannot be undone.
    */
-  public void delete(DeleteBudgetRequest request) {
+  public void delete(DeleteBudgetConfigurationRequest request) {
     impl.delete(request);
   }
 
-  public WrappedBudgetWithStatus get(String budgetId) {
-    return get(new GetBudgetRequest().setBudgetId(budgetId));
+  public GetBudgetConfigurationResponse get(String budgetId) {
+    return get(new GetBudgetConfigurationRequest().setBudgetId(budgetId));
   }
 
   /**
-   * Get budget and its status.
+   * Get budget.
    *
-   * <p>Gets the budget specified by its UUID, including noncumulative status for each day that the
-   * budget is configured to include.
+   * <p>Gets a budget configuration for an account. Both account and budget configuration are
+   * specified by ID.
    */
-  public WrappedBudgetWithStatus get(GetBudgetRequest request) {
+  public GetBudgetConfigurationResponse get(GetBudgetConfigurationRequest request) {
     return impl.get(request);
   }
 
   /**
    * Get all budgets.
    *
-   * <p>Gets all budgets associated with this account, including noncumulative status for each day
-   * that the budget is configured to include.
+   * <p>Gets all budgets associated with this account.
    */
-  public Iterable<BudgetWithStatus> list() {
-    return new Paginator<>(null, (Void v) -> impl.list(), BudgetList::getBudgets, response -> null);
+  public Iterable<BudgetConfiguration> list(ListBudgetConfigurationsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListBudgetConfigurationsResponse::getBudgets,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
-  public void update(String budgetId, Budget budget) {
-    update(new WrappedBudget().setBudgetId(budgetId).setBudget(budget));
+  public UpdateBudgetConfigurationResponse update(
+      String budgetId, UpdateBudgetConfigurationBudget budget) {
+    return update(new UpdateBudgetConfigurationRequest().setBudgetId(budgetId).setBudget(budget));
   }
 
   /**
    * Modify budget.
    *
-   * <p>Modifies a budget in this account. Budget properties are completely overwritten.
+   * <p>Updates a budget configuration for an account. Both account and budget configuration are
+   * specified by ID.
    */
-  public void update(WrappedBudget request) {
-    impl.update(request);
+  public UpdateBudgetConfigurationResponse update(UpdateBudgetConfigurationRequest request) {
+    return impl.update(request);
   }
 
   public BudgetsService impl() {

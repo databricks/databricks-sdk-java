@@ -59,6 +59,8 @@ import com.databricks.sdk.service.compute.LibrariesAPI;
 import com.databricks.sdk.service.compute.LibrariesService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
+import com.databricks.sdk.service.dashboards.GenieAPI;
+import com.databricks.sdk.service.dashboards.GenieService;
 import com.databricks.sdk.service.dashboards.LakeviewAPI;
 import com.databricks.sdk.service.dashboards.LakeviewService;
 import com.databricks.sdk.service.files.DbfsService;
@@ -118,6 +120,8 @@ import com.databricks.sdk.service.settings.CredentialsManagerAPI;
 import com.databricks.sdk.service.settings.CredentialsManagerService;
 import com.databricks.sdk.service.settings.IpAccessListsAPI;
 import com.databricks.sdk.service.settings.IpAccessListsService;
+import com.databricks.sdk.service.settings.NotificationDestinationsAPI;
+import com.databricks.sdk.service.settings.NotificationDestinationsService;
 import com.databricks.sdk.service.settings.SettingsAPI;
 import com.databricks.sdk.service.settings.SettingsService;
 import com.databricks.sdk.service.settings.TokenManagementAPI;
@@ -137,6 +141,8 @@ import com.databricks.sdk.service.sharing.RecipientsService;
 import com.databricks.sdk.service.sharing.SharesAPI;
 import com.databricks.sdk.service.sharing.SharesService;
 import com.databricks.sdk.service.sql.AlertsAPI;
+import com.databricks.sdk.service.sql.AlertsLegacyAPI;
+import com.databricks.sdk.service.sql.AlertsLegacyService;
 import com.databricks.sdk.service.sql.AlertsService;
 import com.databricks.sdk.service.sql.DashboardWidgetsAPI;
 import com.databricks.sdk.service.sql.DashboardWidgetsService;
@@ -147,10 +153,14 @@ import com.databricks.sdk.service.sql.DataSourcesService;
 import com.databricks.sdk.service.sql.DbsqlPermissionsAPI;
 import com.databricks.sdk.service.sql.DbsqlPermissionsService;
 import com.databricks.sdk.service.sql.QueriesAPI;
+import com.databricks.sdk.service.sql.QueriesLegacyAPI;
+import com.databricks.sdk.service.sql.QueriesLegacyService;
 import com.databricks.sdk.service.sql.QueriesService;
 import com.databricks.sdk.service.sql.QueryHistoryAPI;
 import com.databricks.sdk.service.sql.QueryHistoryService;
 import com.databricks.sdk.service.sql.QueryVisualizationsAPI;
+import com.databricks.sdk.service.sql.QueryVisualizationsLegacyAPI;
+import com.databricks.sdk.service.sql.QueryVisualizationsLegacyService;
 import com.databricks.sdk.service.sql.QueryVisualizationsService;
 import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
@@ -177,6 +187,7 @@ public class WorkspaceClient {
 
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AlertsAPI alertsAPI;
+  private AlertsLegacyAPI alertsLegacyAPI;
   private AppsAPI appsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
@@ -201,6 +212,7 @@ public class WorkspaceClient {
   private ExternalLocationsAPI externalLocationsAPI;
   private FilesAPI filesAPI;
   private FunctionsAPI functionsAPI;
+  private GenieAPI genieAPI;
   private GitCredentialsAPI gitCredentialsAPI;
   private GlobalInitScriptsAPI globalInitScriptsAPI;
   private GrantsAPI grantsAPI;
@@ -214,6 +226,7 @@ public class WorkspaceClient {
   private MetastoresAPI metastoresAPI;
   private ModelRegistryAPI modelRegistryAPI;
   private ModelVersionsAPI modelVersionsAPI;
+  private NotificationDestinationsAPI notificationDestinationsAPI;
   private OnlineTablesAPI onlineTablesAPI;
   private PermissionMigrationAPI permissionMigrationAPI;
   private PermissionsAPI permissionsAPI;
@@ -229,8 +242,10 @@ public class WorkspaceClient {
   private ProvidersAPI providersAPI;
   private QualityMonitorsAPI qualityMonitorsAPI;
   private QueriesAPI queriesAPI;
+  private QueriesLegacyAPI queriesLegacyAPI;
   private QueryHistoryAPI queryHistoryAPI;
   private QueryVisualizationsAPI queryVisualizationsAPI;
+  private QueryVisualizationsLegacyAPI queryVisualizationsLegacyAPI;
   private RecipientActivationAPI recipientActivationAPI;
   private RecipientsAPI recipientsAPI;
   private RegisteredModelsAPI registeredModelsAPI;
@@ -267,6 +282,7 @@ public class WorkspaceClient {
 
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
+    alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
     appsAPI = new AppsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
@@ -291,6 +307,7 @@ public class WorkspaceClient {
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
     filesAPI = new FilesAPI(apiClient);
     functionsAPI = new FunctionsAPI(apiClient);
+    genieAPI = new GenieAPI(apiClient);
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
     grantsAPI = new GrantsAPI(apiClient);
@@ -304,6 +321,7 @@ public class WorkspaceClient {
     metastoresAPI = new MetastoresAPI(apiClient);
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
     modelVersionsAPI = new ModelVersionsAPI(apiClient);
+    notificationDestinationsAPI = new NotificationDestinationsAPI(apiClient);
     onlineTablesAPI = new OnlineTablesAPI(apiClient);
     permissionMigrationAPI = new PermissionMigrationAPI(apiClient);
     permissionsAPI = new PermissionsAPI(apiClient);
@@ -319,8 +337,10 @@ public class WorkspaceClient {
     providersAPI = new ProvidersAPI(apiClient);
     qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
+    queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
+    queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
     recipientsAPI = new RecipientsAPI(apiClient);
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
@@ -374,14 +394,22 @@ public class WorkspaceClient {
    * object that periodically runs a query, evaluates a condition of its result, and notifies one or
    * more users and/or notification destinations if the condition was met. Alerts can be scheduled
    * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
    */
   public AlertsAPI alerts() {
     return alertsAPI;
+  }
+
+  /**
+   * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
+   * object that periodically runs a query, evaluates a condition of its result, and notifies one or
+   * more users and/or notification destinations if the condition was met. Alerts can be scheduled
+   * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
+   * version.
+   */
+  public AlertsLegacyAPI alertsLegacy() {
+    return alertsLegacyAPI;
   }
 
   /**
@@ -469,10 +497,9 @@ public class WorkspaceClient {
    * terminate and restart an all-purpose cluster. Multiple users can share such clusters to do
    * collaborative interactive analysis.
    *
-   * <p>IMPORTANT: Databricks retains cluster configuration information for up to 200 all-purpose
-   * clusters terminated in the last 30 days and up to 30 job clusters recently terminated by the
-   * job scheduler. To keep an all-purpose cluster configuration even after it has been terminated
-   * for more than 30 days, an administrator can pin a cluster to the cluster list.
+   * <p>IMPORTANT: Databricks retains cluster configuration information for terminated clusters for
+   * 30 days. To keep an all-purpose cluster configuration even after it has been terminated for
+   * more than 30 days, an administrator can pin a cluster to the cluster list.
    */
   public ClustersExt clusters() {
     return clustersAPI;
@@ -480,6 +507,7 @@ public class WorkspaceClient {
 
   /**
    * This API allows execution of Python, Scala, SQL, or R commands on running Databricks Clusters.
+   * This API only supports (classic) all-purpose clusters. Serverless compute is not supported.
    */
   public CommandExecutionAPI commandExecution() {
     return commandExecutionAPI;
@@ -578,10 +606,8 @@ public class WorkspaceClient {
    * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
    * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
    *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
+   * version.
    */
   public DataSourcesAPI dataSources() {
     return dataSourcesAPI;
@@ -609,10 +635,8 @@ public class WorkspaceClient {
    * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
    * `CAN_RUN`)
    *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
+   * version.
    */
   public DbsqlPermissionsAPI dbsqlPermissions() {
     return dbsqlPermissionsAPI;
@@ -678,6 +702,16 @@ public class WorkspaceClient {
    */
   public FunctionsAPI functions() {
     return functionsAPI;
+  }
+
+  /**
+   * Genie provides a no-code experience for business users, powered by AI/BI. Analysts set up
+   * spaces that business users can use to ask questions using natural language. Genie uses data
+   * registered to Unity Catalog and requires at least CAN USE permission on a Pro or Serverless SQL
+   * warehouse. Also, Databricks Assistant must be enabled.
+   */
+  public GenieAPI genie() {
+    return genieAPI;
   }
 
   /**
@@ -887,14 +921,24 @@ public class WorkspaceClient {
     return modelVersionsAPI;
   }
 
+  /**
+   * The notification destinations API lets you programmatically manage a workspace's notification
+   * destinations. Notification destinations are used to send notifications for query alerts and
+   * jobs to destinations outside of Databricks. Only workspace admins can create, update, and
+   * delete notification destinations.
+   */
+  public NotificationDestinationsAPI notificationDestinations() {
+    return notificationDestinationsAPI;
+  }
+
   /** Online tables provide lower latency and higher QPS access to data from Delta tables. */
   public OnlineTablesAPI onlineTables() {
     return onlineTablesAPI;
   }
 
   /**
-   * This spec contains undocumented permission migration APIs used in
-   * https://github.com/databrickslabs/ucx.
+   * APIs for migrating acl permissions, used only by the ucx tool:
+   * https://github.com/databrickslabs/ucx
    */
   public PermissionMigrationAPI permissionMigration() {
     return permissionMigrationAPI;
@@ -1057,30 +1101,52 @@ public class WorkspaceClient {
   }
 
   /**
-   * These endpoints are used for CRUD operations on query definitions. Query definitions include
-   * the target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
-   * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * The queries API can be used to perform CRUD operations on queries. A query is a Databricks SQL
+   * object that includes the target SQL warehouse, query text, name, description, tags, and
+   * parameters. Queries can be scheduled using the `sql_task` type of the Jobs API, e.g.
+   * :method:jobs/create.
    */
   public QueriesAPI queries() {
     return queriesAPI;
   }
 
-  /** Access the history of queries through SQL warehouses. */
+  /**
+   * These endpoints are used for CRUD operations on query definitions. Query definitions include
+   * the target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
+   * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
+   * version.
+   */
+  public QueriesLegacyAPI queriesLegacy() {
+    return queriesLegacyAPI;
+  }
+
+  /**
+   * A service responsible for storing and retrieving the list of queries run against SQL endpoints,
+   * serverless compute, and DLT.
+   */
   public QueryHistoryAPI queryHistory() {
     return queryHistoryAPI;
   }
 
   /**
-   * This is an evolving API that facilitates the addition and removal of vizualisations from
-   * existing queries within the Databricks Workspace. Data structures may change over time.
+   * This is an evolving API that facilitates the addition and removal of visualizations from
+   * existing queries in the Databricks Workspace. Data structures can change over time.
    */
   public QueryVisualizationsAPI queryVisualizations() {
     return queryVisualizationsAPI;
+  }
+
+  /**
+   * This is an evolving API that facilitates the addition and removal of vizualisations from
+   * existing queries within the Databricks Workspace. Data structures may change over time.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
+   * version.
+   */
+  public QueryVisualizationsLegacyAPI queryVisualizationsLegacy() {
+    return queryVisualizationsLegacyAPI;
   }
 
   /**
@@ -1481,7 +1547,7 @@ public class WorkspaceClient {
    * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name})
    * which introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
    *
-   * <p>Securables that support binding: - catalog
+   * <p>Securable types that support binding: - catalog - storage_credential - external_location
    */
   public WorkspaceBindingsAPI workspaceBindings() {
     return workspaceBindingsAPI;
@@ -1514,6 +1580,17 @@ public class WorkspaceClient {
   /** Replace the default AlertsAPI with a custom implementation. */
   public WorkspaceClient withAlertsAPI(AlertsAPI alerts) {
     this.alertsAPI = alerts;
+    return this;
+  }
+
+  /** Replace the default AlertsLegacyService with a custom implementation. */
+  public WorkspaceClient withAlertsLegacyImpl(AlertsLegacyService alertsLegacy) {
+    return this.withAlertsLegacyAPI(new AlertsLegacyAPI(alertsLegacy));
+  }
+
+  /** Replace the default AlertsLegacyAPI with a custom implementation. */
+  public WorkspaceClient withAlertsLegacyAPI(AlertsLegacyAPI alertsLegacy) {
+    this.alertsLegacyAPI = alertsLegacy;
     return this;
   }
 
@@ -1787,6 +1864,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default GenieService with a custom implementation. */
+  public WorkspaceClient withGenieImpl(GenieService genie) {
+    return this.withGenieAPI(new GenieAPI(genie));
+  }
+
+  /** Replace the default GenieAPI with a custom implementation. */
+  public WorkspaceClient withGenieAPI(GenieAPI genie) {
+    this.genieAPI = genie;
+    return this;
+  }
+
   /** Replace the default GitCredentialsService with a custom implementation. */
   public WorkspaceClient withGitCredentialsImpl(GitCredentialsService gitCredentials) {
     return this.withGitCredentialsAPI(new GitCredentialsAPI(gitCredentials));
@@ -1927,6 +2015,20 @@ public class WorkspaceClient {
   /** Replace the default ModelVersionsAPI with a custom implementation. */
   public WorkspaceClient withModelVersionsAPI(ModelVersionsAPI modelVersions) {
     this.modelVersionsAPI = modelVersions;
+    return this;
+  }
+
+  /** Replace the default NotificationDestinationsService with a custom implementation. */
+  public WorkspaceClient withNotificationDestinationsImpl(
+      NotificationDestinationsService notificationDestinations) {
+    return this.withNotificationDestinationsAPI(
+        new NotificationDestinationsAPI(notificationDestinations));
+  }
+
+  /** Replace the default NotificationDestinationsAPI with a custom implementation. */
+  public WorkspaceClient withNotificationDestinationsAPI(
+      NotificationDestinationsAPI notificationDestinations) {
+    this.notificationDestinationsAPI = notificationDestinations;
     return this;
   }
 
@@ -2107,6 +2209,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default QueriesLegacyService with a custom implementation. */
+  public WorkspaceClient withQueriesLegacyImpl(QueriesLegacyService queriesLegacy) {
+    return this.withQueriesLegacyAPI(new QueriesLegacyAPI(queriesLegacy));
+  }
+
+  /** Replace the default QueriesLegacyAPI with a custom implementation. */
+  public WorkspaceClient withQueriesLegacyAPI(QueriesLegacyAPI queriesLegacy) {
+    this.queriesLegacyAPI = queriesLegacy;
+    return this;
+  }
+
   /** Replace the default QueryHistoryService with a custom implementation. */
   public WorkspaceClient withQueryHistoryImpl(QueryHistoryService queryHistory) {
     return this.withQueryHistoryAPI(new QueryHistoryAPI(queryHistory));
@@ -2127,6 +2240,20 @@ public class WorkspaceClient {
   /** Replace the default QueryVisualizationsAPI with a custom implementation. */
   public WorkspaceClient withQueryVisualizationsAPI(QueryVisualizationsAPI queryVisualizations) {
     this.queryVisualizationsAPI = queryVisualizations;
+    return this;
+  }
+
+  /** Replace the default QueryVisualizationsLegacyService with a custom implementation. */
+  public WorkspaceClient withQueryVisualizationsLegacyImpl(
+      QueryVisualizationsLegacyService queryVisualizationsLegacy) {
+    return this.withQueryVisualizationsLegacyAPI(
+        new QueryVisualizationsLegacyAPI(queryVisualizationsLegacy));
+  }
+
+  /** Replace the default QueryVisualizationsLegacyAPI with a custom implementation. */
+  public WorkspaceClient withQueryVisualizationsLegacyAPI(
+      QueryVisualizationsLegacyAPI queryVisualizationsLegacy) {
+    this.queryVisualizationsLegacyAPI = queryVisualizationsLegacy;
     return this;
   }
 

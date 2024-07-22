@@ -4,7 +4,6 @@ package com.databricks.sdk.service.iam;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,13 +72,9 @@ public class WorkspaceAssignmentAPI {
         request, impl::list, PermissionAssignments::getPermissionAssignments, response -> null);
   }
 
-  public PermissionAssignment update(
-      long workspaceId, long principalId, Collection<WorkspacePermission> permissions) {
+  public PermissionAssignment update(long workspaceId, long principalId) {
     return update(
-        new UpdateWorkspaceAssignments()
-            .setWorkspaceId(workspaceId)
-            .setPrincipalId(principalId)
-            .setPermissions(permissions));
+        new UpdateWorkspaceAssignments().setWorkspaceId(workspaceId).setPrincipalId(principalId));
   }
 
   /**

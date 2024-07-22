@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Generated
 public class GetPublishedAppsOutput {
-  /** Array of Published OAuth Apps. */
+  /** List of Published OAuth Apps. */
   @JsonProperty("apps")
   private Collection<PublishedAppOutput> apps;
 

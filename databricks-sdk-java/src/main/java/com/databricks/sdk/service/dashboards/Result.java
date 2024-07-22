@@ -1,0 +1,61 @@
+// Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
+
+package com.databricks.sdk.service.dashboards;
+
+import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
+
+@Generated
+public class Result {
+  /** Row count of the result */
+  @JsonProperty("row_count")
+  private Long rowCount;
+
+  /**
+   * Statement Execution API statement id. Use [Get status, manifest, and result first
+   * chunk](:method:statementexecution/getstatement) to get the full result data.
+   */
+  @JsonProperty("statement_id")
+  private String statementId;
+
+  public Result setRowCount(Long rowCount) {
+    this.rowCount = rowCount;
+    return this;
+  }
+
+  public Long getRowCount() {
+    return rowCount;
+  }
+
+  public Result setStatementId(String statementId) {
+    this.statementId = statementId;
+    return this;
+  }
+
+  public String getStatementId() {
+    return statementId;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Result that = (Result) o;
+    return Objects.equals(rowCount, that.rowCount) && Objects.equals(statementId, that.statementId);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(rowCount, statementId);
+  }
+
+  @Override
+  public String toString() {
+    return new ToStringer(Result.class)
+        .add("rowCount", rowCount)
+        .add("statementId", statementId)
+        .toString();
+  }
+}

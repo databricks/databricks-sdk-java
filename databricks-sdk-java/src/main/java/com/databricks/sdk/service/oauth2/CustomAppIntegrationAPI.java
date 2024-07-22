@@ -4,12 +4,11 @@ package com.databricks.sdk.service.oauth2;
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
-import java.util.Collection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * These APIs enable administrators to manage custom oauth app integrations, which is required for
+ * These APIs enable administrators to manage custom OAuth app integrations, which is required for
  * adding/using Custom OAuth App Integration like Tableau Cloud for Databricks in AWS cloud.
  */
 @Generated
@@ -28,16 +27,12 @@ public class CustomAppIntegrationAPI {
     impl = mock;
   }
 
-  public CreateCustomAppIntegrationOutput create(String name, Collection<String> redirectUrls) {
-    return create(new CreateCustomAppIntegration().setName(name).setRedirectUrls(redirectUrls));
-  }
-
   /**
    * Create Custom OAuth App Integration.
    *
    * <p>Create Custom OAuth App Integration.
    *
-   * <p>You can retrieve the custom oauth app integration via :method:CustomAppIntegration/get.
+   * <p>You can retrieve the custom OAuth app integration via :method:CustomAppIntegration/get.
    */
   public CreateCustomAppIntegrationOutput create(CreateCustomAppIntegration request) {
     return impl.create(request);
@@ -50,7 +45,7 @@ public class CustomAppIntegrationAPI {
   /**
    * Delete Custom OAuth App Integration.
    *
-   * <p>Delete an existing Custom OAuth App Integration. You can retrieve the custom oauth app
+   * <p>Delete an existing Custom OAuth App Integration. You can retrieve the custom OAuth app
    * integration via :method:CustomAppIntegration/get.
    */
   public void delete(DeleteCustomAppIntegrationRequest request) {
@@ -73,11 +68,20 @@ public class CustomAppIntegrationAPI {
   /**
    * Get custom oauth app integrations.
    *
-   * <p>Get the list of custom oauth app integrations for the specified Databricks account
+   * <p>Get the list of custom OAuth app integrations for the specified Databricks account
    */
-  public Iterable<GetCustomAppIntegrationOutput> list() {
+  public Iterable<GetCustomAppIntegrationOutput> list(ListCustomAppIntegrationsRequest request) {
     return new Paginator<>(
-        null, (Void v) -> impl.list(), GetCustomAppIntegrationsOutput::getApps, response -> null);
+        request,
+        impl::list,
+        GetCustomAppIntegrationsOutput::getApps,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public void update(String integrationId) {
@@ -87,7 +91,7 @@ public class CustomAppIntegrationAPI {
   /**
    * Updates Custom OAuth App Integration.
    *
-   * <p>Updates an existing custom OAuth App Integration. You can retrieve the custom oauth app
+   * <p>Updates an existing custom OAuth App Integration. You can retrieve the custom OAuth app
    * integration via :method:CustomAppIntegration/get.
    */
   public void update(UpdateCustomAppIntegration request) {

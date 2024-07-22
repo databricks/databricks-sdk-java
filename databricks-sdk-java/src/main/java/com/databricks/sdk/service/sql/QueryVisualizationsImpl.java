@@ -16,8 +16,8 @@ class QueryVisualizationsImpl implements QueryVisualizationsService {
   }
 
   @Override
-  public Visualization create(CreateQueryVisualizationRequest request) {
-    String path = "/api/2.0/preview/sql/visualizations";
+  public Visualization create(CreateVisualizationRequest request) {
+    String path = "/api/2.0/sql/visualizations";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -25,19 +25,19 @@ class QueryVisualizationsImpl implements QueryVisualizationsService {
   }
 
   @Override
-  public void delete(DeleteQueryVisualizationRequest request) {
-    String path = String.format("/api/2.0/preview/sql/visualizations/%s", request.getId());
+  public void delete(DeleteVisualizationRequest request) {
+    String path = String.format("/api/2.0/sql/visualizations/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, Empty.class, headers);
   }
 
   @Override
-  public Visualization update(Visualization request) {
-    String path = String.format("/api/2.0/preview/sql/visualizations/%s", request.getId());
+  public Visualization update(UpdateVisualizationRequest request) {
+    String path = String.format("/api/2.0/sql/visualizations/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Visualization.class, headers);
+    return apiClient.PATCH(path, request, Visualization.class, headers);
   }
 }

@@ -25,7 +25,7 @@ class ClustersExtTest {
   @Test
   void ensureClusterIsRunning() throws TimeoutException, MalformedURLException {
     Request req =
-        new Request("GET", "https://localhost/api/2.0/clusters/get")
+        new Request("GET", "https://localhost/api/2.1/clusters/get")
             .withQueryParam("cluster_id", "abc");
     DummyHttpClient httpClient =
         new DummyHttpClient().with(req, new Response("{}", req.getUri().toURL()));

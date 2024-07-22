@@ -23,7 +23,7 @@ class WorkspaceAssignmentImpl implements WorkspaceAssignmentService {
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getPrincipalId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteWorkspaceAssignments.class, headers);
+    apiClient.DELETE(path, request, DeleteWorkspacePermissionAssignmentResponse.class, headers);
   }
 
   @Override

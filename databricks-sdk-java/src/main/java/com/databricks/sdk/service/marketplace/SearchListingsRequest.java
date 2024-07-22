@@ -20,10 +20,6 @@ public class SearchListingsRequest {
   private Collection<Category> categories;
 
   /** */
-  @QueryParam("is_ascending")
-  private Boolean isAscending;
-
-  /** */
   @QueryParam("is_free")
   private Boolean isFree;
 
@@ -47,10 +43,6 @@ public class SearchListingsRequest {
   @QueryParam("query")
   private String query;
 
-  /** */
-  @QueryParam("sort_by")
-  private SortBy sortBy;
-
   public SearchListingsRequest setAssets(Collection<AssetType> assets) {
     this.assets = assets;
     return this;
@@ -67,15 +59,6 @@ public class SearchListingsRequest {
 
   public Collection<Category> getCategories() {
     return categories;
-  }
-
-  public SearchListingsRequest setIsAscending(Boolean isAscending) {
-    this.isAscending = isAscending;
-    return this;
-  }
-
-  public Boolean getIsAscending() {
-    return isAscending;
   }
 
   public SearchListingsRequest setIsFree(Boolean isFree) {
@@ -132,15 +115,6 @@ public class SearchListingsRequest {
     return query;
   }
 
-  public SearchListingsRequest setSortBy(SortBy sortBy) {
-    this.sortBy = sortBy;
-    return this;
-  }
-
-  public SortBy getSortBy() {
-    return sortBy;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -148,29 +122,18 @@ public class SearchListingsRequest {
     SearchListingsRequest that = (SearchListingsRequest) o;
     return Objects.equals(assets, that.assets)
         && Objects.equals(categories, that.categories)
-        && Objects.equals(isAscending, that.isAscending)
         && Objects.equals(isFree, that.isFree)
         && Objects.equals(isPrivateExchange, that.isPrivateExchange)
         && Objects.equals(pageSize, that.pageSize)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(providerIds, that.providerIds)
-        && Objects.equals(query, that.query)
-        && Objects.equals(sortBy, that.sortBy);
+        && Objects.equals(query, that.query);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        assets,
-        categories,
-        isAscending,
-        isFree,
-        isPrivateExchange,
-        pageSize,
-        pageToken,
-        providerIds,
-        query,
-        sortBy);
+        assets, categories, isFree, isPrivateExchange, pageSize, pageToken, providerIds, query);
   }
 
   @Override
@@ -178,14 +141,12 @@ public class SearchListingsRequest {
     return new ToStringer(SearchListingsRequest.class)
         .add("assets", assets)
         .add("categories", categories)
-        .add("isAscending", isAscending)
         .add("isFree", isFree)
         .add("isPrivateExchange", isPrivateExchange)
         .add("pageSize", pageSize)
         .add("pageToken", pageToken)
         .add("providerIds", providerIds)
         .add("query", query)
-        .add("sortBy", sortBy)
         .toString();
   }
 }

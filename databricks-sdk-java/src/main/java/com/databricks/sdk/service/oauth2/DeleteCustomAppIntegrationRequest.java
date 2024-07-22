@@ -9,7 +9,7 @@ import java.util.Objects;
 /** Delete Custom OAuth App Integration */
 @Generated
 public class DeleteCustomAppIntegrationRequest {
-  /** The oauth app integration ID. */
+  /** */
   private String integrationId;
 
   public DeleteCustomAppIntegrationRequest setIntegrationId(String integrationId) {

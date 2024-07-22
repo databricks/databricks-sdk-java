@@ -12,8 +12,8 @@ public class GetBindingsRequest {
   /** The name of the securable. */
   private String securableName;
 
-  /** The type of the securable. */
-  private String securableType;
+  /** The type of the securable to bind to a workspace. */
+  private GetBindingsSecurableType securableType;
 
   public GetBindingsRequest setSecurableName(String securableName) {
     this.securableName = securableName;
@@ -24,12 +24,12 @@ public class GetBindingsRequest {
     return securableName;
   }
 
-  public GetBindingsRequest setSecurableType(String securableType) {
+  public GetBindingsRequest setSecurableType(GetBindingsSecurableType securableType) {
     this.securableType = securableType;
     return this;
   }
 
-  public String getSecurableType() {
+  public GetBindingsSecurableType getSecurableType() {
     return securableType;
   }
 

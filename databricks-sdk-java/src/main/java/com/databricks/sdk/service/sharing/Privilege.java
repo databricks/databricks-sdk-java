@@ -30,6 +30,7 @@ public enum Privilege {
   CREATE_VIEW,
   CREATE_VOLUME,
   EXECUTE,
+  MANAGE,
   MANAGE_ALLOWLIST,
   MODIFY,
   READ_FILES,

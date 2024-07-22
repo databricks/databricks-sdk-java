@@ -7,10 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Channel information for the SQL warehouse at the time of query execution */
+/** Details about a Channel. */
 @Generated
 public class ChannelInfo {
-  /** DBSQL Version the channel is mapped to */
+  /** DB SQL Version the Channel is mapped to. */
   @JsonProperty("dbsql_version")
   private String dbsqlVersion;
 

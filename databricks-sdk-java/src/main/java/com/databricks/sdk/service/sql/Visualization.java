@@ -7,65 +7,62 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * The visualization description API changes frequently and is unsupported. You can duplicate a
- * visualization by copying description objects received _from the API_ and then using them to
- * create a new one with a POST request to the same endpoint. Databricks does not recommend
- * constructing ad-hoc visualizations entirely in JSON.
- */
 @Generated
 public class Visualization {
-  /** */
-  @JsonProperty("created_at")
-  private String createdAt;
+  /** The timestamp indicating when the visualization was created. */
+  @JsonProperty("create_time")
+  private String createTime;
 
-  /** A short description of this visualization. This is not displayed in the UI. */
-  @JsonProperty("description")
-  private String description;
+  /** The display name of the visualization. */
+  @JsonProperty("display_name")
+  private String displayName;
 
-  /** The UUID for this visualization. */
+  /** UUID identifying the visualization. */
   @JsonProperty("id")
   private String id;
 
-  /** The name of the visualization that appears on dashboards and the query screen. */
-  @JsonProperty("name")
-  private String name;
+  /** UUID of the query that the visualization is attached to. */
+  @JsonProperty("query_id")
+  private String queryId;
 
   /**
-   * The options object varies widely from one visualization type to the next and is unsupported.
-   * Databricks does not recommend modifying visualization settings in JSON.
+   * The visualization options varies widely from one visualization type to the next and is
+   * unsupported. Databricks does not recommend modifying visualization options directly.
    */
-  @JsonProperty("options")
-  private Object options;
+  @JsonProperty("serialized_options")
+  private String serializedOptions;
 
-  /** */
-  @JsonProperty("query")
-  private Query query;
+  /**
+   * The visualization query plan varies widely from one visualization type to the next and is
+   * unsupported. Databricks does not recommend modifying the visualization query plan directly.
+   */
+  @JsonProperty("serialized_query_plan")
+  private String serializedQueryPlan;
 
-  /** The type of visualization: chart, table, pivot table, and so on. */
+  /** The type of visualization: counter, table, funnel, and so on. */
   @JsonProperty("type")
   private String typeValue;
 
-  /** */
-  @JsonProperty("updated_at")
-  private String updatedAt;
+  /** The timestamp indicating when the visualization was updated. */
+  @JsonProperty("update_time")
+  private String updateTime;
 
-  public Visualization setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
+  public Visualization setCreateTime(String createTime) {
+    this.createTime = createTime;
     return this;
   }
 
-  public String getCreatedAt() {
-    return createdAt;
+  public String getCreateTime() {
+    return createTime;
   }
 
-  public Visualization setDescription(String description) {
-    this.description = description;
+  public Visualization setDisplayName(String displayName) {
+    this.displayName = displayName;
     return this;
   }
 
-  public String getDescription() {
-    return description;
+  public String getDisplayName() {
+    return displayName;
   }
 
   public Visualization setId(String id) {
@@ -77,31 +74,31 @@ public class Visualization {
     return id;
   }
 
-  public Visualization setName(String name) {
-    this.name = name;
+  public Visualization setQueryId(String queryId) {
+    this.queryId = queryId;
     return this;
   }
 
-  public String getName() {
-    return name;
+  public String getQueryId() {
+    return queryId;
   }
 
-  public Visualization setOptions(Object options) {
-    this.options = options;
+  public Visualization setSerializedOptions(String serializedOptions) {
+    this.serializedOptions = serializedOptions;
     return this;
   }
 
-  public Object getOptions() {
-    return options;
+  public String getSerializedOptions() {
+    return serializedOptions;
   }
 
-  public Visualization setQuery(Query query) {
-    this.query = query;
+  public Visualization setSerializedQueryPlan(String serializedQueryPlan) {
+    this.serializedQueryPlan = serializedQueryPlan;
     return this;
   }
 
-  public Query getQuery() {
-    return query;
+  public String getSerializedQueryPlan() {
+    return serializedQueryPlan;
   }
 
   public Visualization setType(String typeValue) {
@@ -113,13 +110,13 @@ public class Visualization {
     return typeValue;
   }
 
-  public Visualization setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
+  public Visualization setUpdateTime(String updateTime) {
+    this.updateTime = updateTime;
     return this;
   }
 
-  public String getUpdatedAt() {
-    return updatedAt;
+  public String getUpdateTime() {
+    return updateTime;
   }
 
   @Override
@@ -127,32 +124,40 @@ public class Visualization {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Visualization that = (Visualization) o;
-    return Objects.equals(createdAt, that.createdAt)
-        && Objects.equals(description, that.description)
+    return Objects.equals(createTime, that.createTime)
+        && Objects.equals(displayName, that.displayName)
         && Objects.equals(id, that.id)
-        && Objects.equals(name, that.name)
-        && Objects.equals(options, that.options)
-        && Objects.equals(query, that.query)
+        && Objects.equals(queryId, that.queryId)
+        && Objects.equals(serializedOptions, that.serializedOptions)
+        && Objects.equals(serializedQueryPlan, that.serializedQueryPlan)
         && Objects.equals(typeValue, that.typeValue)
-        && Objects.equals(updatedAt, that.updatedAt);
+        && Objects.equals(updateTime, that.updateTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, description, id, name, options, query, typeValue, updatedAt);
+    return Objects.hash(
+        createTime,
+        displayName,
+        id,
+        queryId,
+        serializedOptions,
+        serializedQueryPlan,
+        typeValue,
+        updateTime);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Visualization.class)
-        .add("createdAt", createdAt)
-        .add("description", description)
+        .add("createTime", createTime)
+        .add("displayName", displayName)
         .add("id", id)
-        .add("name", name)
-        .add("options", options)
-        .add("query", query)
+        .add("queryId", queryId)
+        .add("serializedOptions", serializedOptions)
+        .add("serializedQueryPlan", serializedQueryPlan)
         .add("typeValue", typeValue)
-        .add("updatedAt", updatedAt)
+        .add("updateTime", updateTime)
         .toString();
   }
 }

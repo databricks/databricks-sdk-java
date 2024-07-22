@@ -147,7 +147,7 @@ public class {{.PascalName}}API {
 {{- end}}
 
 {{define "method-call-paginated" -}}
-  {{- if and .Pagination.Offset (not (eq .Path "/api/2.0/clusters/events")) -}}
+  {{- if and .Pagination.Offset (not (eq .Path "/api/2.1/clusters/events")) -}}
   request.set{{.Pagination.Offset.PascalName}}(
   {{- if eq .Pagination.Increment 1 -}}
     1
@@ -167,7 +167,7 @@ public class {{.PascalName}}API {
     response ->
       {{ if not .Pagination.MultiRequest }}
       null
-      {{- else if eq .Path "/api/2.0/clusters/events" -}}
+      {{- else if eq .Path "/api/2.1/clusters/events" -}}
       response.getNextPage()
       {{- else if .Pagination.Token -}}
       {

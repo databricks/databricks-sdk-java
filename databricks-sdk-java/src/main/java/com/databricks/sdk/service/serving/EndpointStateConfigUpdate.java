@@ -14,5 +14,6 @@ import com.databricks.sdk.support.Generated;
 public enum EndpointStateConfigUpdate {
   IN_PROGRESS,
   NOT_UPDATING,
+  UPDATE_CANCELED,
   UPDATE_FAILED,
 }

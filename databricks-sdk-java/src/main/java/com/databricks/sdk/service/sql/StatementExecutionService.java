@@ -106,7 +106,7 @@ public interface StatementExecutionService {
   void cancelExecution(CancelExecutionRequest cancelExecutionRequest);
 
   /** Execute a SQL statement. */
-  ExecuteStatementResponse executeStatement(ExecuteStatementRequest executeStatementRequest);
+  StatementResponse executeStatement(ExecuteStatementRequest executeStatementRequest);
 
   /**
    * Get status, manifest, and result first chunk.
@@ -119,7 +119,7 @@ public interface StatementExecutionService {
    *
    * <p>**NOTE** This call currently might take up to 5 seconds to get the latest status and result.
    */
-  GetStatementResponse getStatement(GetStatementRequest getStatementRequest);
+  StatementResponse getStatement(GetStatementRequest getStatementRequest);
 
   /**
    * Get result chunk by index.

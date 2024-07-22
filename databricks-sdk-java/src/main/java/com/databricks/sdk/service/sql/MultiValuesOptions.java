@@ -7,10 +7,6 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/**
- * If specified, allows multiple values to be selected for this parameter. Only applies to dropdown
- * list and query-based dropdown list parameters.
- */
 @Generated
 public class MultiValuesOptions {
   /** Character that prefixes each selected parameter value. */

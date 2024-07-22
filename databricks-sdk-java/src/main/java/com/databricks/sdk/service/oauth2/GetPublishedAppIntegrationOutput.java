@@ -9,15 +9,23 @@ import java.util.Objects;
 
 @Generated
 public class GetPublishedAppIntegrationOutput {
-  /** app-id of the published app integration */
+  /** App-id of the published app integration */
   @JsonProperty("app_id")
   private String appId;
 
-  /** unique integration id for the published oauth app */
+  /** */
+  @JsonProperty("create_time")
+  private String createTime;
+
+  /** */
+  @JsonProperty("created_by")
+  private Long createdBy;
+
+  /** Unique integration id for the published OAuth app */
   @JsonProperty("integration_id")
   private String integrationId;
 
-  /** name of the published oauth app */
+  /** Display name of the published OAuth app */
   @JsonProperty("name")
   private String name;
 
@@ -32,6 +40,24 @@ public class GetPublishedAppIntegrationOutput {
 
   public String getAppId() {
     return appId;
+  }
+
+  public GetPublishedAppIntegrationOutput setCreateTime(String createTime) {
+    this.createTime = createTime;
+    return this;
+  }
+
+  public String getCreateTime() {
+    return createTime;
+  }
+
+  public GetPublishedAppIntegrationOutput setCreatedBy(Long createdBy) {
+    this.createdBy = createdBy;
+    return this;
+  }
+
+  public Long getCreatedBy() {
+    return createdBy;
   }
 
   public GetPublishedAppIntegrationOutput setIntegrationId(String integrationId) {
@@ -68,6 +94,8 @@ public class GetPublishedAppIntegrationOutput {
     if (o == null || getClass() != o.getClass()) return false;
     GetPublishedAppIntegrationOutput that = (GetPublishedAppIntegrationOutput) o;
     return Objects.equals(appId, that.appId)
+        && Objects.equals(createTime, that.createTime)
+        && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(integrationId, that.integrationId)
         && Objects.equals(name, that.name)
         && Objects.equals(tokenAccessPolicy, that.tokenAccessPolicy);
@@ -75,13 +103,15 @@ public class GetPublishedAppIntegrationOutput {
 
   @Override
   public int hashCode() {
-    return Objects.hash(appId, integrationId, name, tokenAccessPolicy);
+    return Objects.hash(appId, createTime, createdBy, integrationId, name, tokenAccessPolicy);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetPublishedAppIntegrationOutput.class)
         .add("appId", appId)
+        .add("createTime", createTime)
+        .add("createdBy", createdBy)
         .add("integrationId", integrationId)
         .add("name", name)
         .add("tokenAccessPolicy", tokenAccessPolicy)

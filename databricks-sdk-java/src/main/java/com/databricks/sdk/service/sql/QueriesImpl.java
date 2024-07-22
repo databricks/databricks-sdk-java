@@ -16,8 +16,8 @@ class QueriesImpl implements QueriesService {
   }
 
   @Override
-  public Query create(QueryPostContent request) {
-    String path = "/api/2.0/preview/sql/queries";
+  public Query create(CreateQueryRequest request) {
+    String path = "/api/2.0/sql/queries";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -25,43 +25,44 @@ class QueriesImpl implements QueriesService {
   }
 
   @Override
-  public void delete(DeleteQueryRequest request) {
-    String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
+  public void delete(TrashQueryRequest request) {
+    String path = String.format("/api/2.0/sql/queries/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, Empty.class, headers);
   }
 
   @Override
   public Query get(GetQueryRequest request) {
-    String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
+    String path = String.format("/api/2.0/sql/queries/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, Query.class, headers);
   }
 
   @Override
-  public QueryList list(ListQueriesRequest request) {
-    String path = "/api/2.0/preview/sql/queries";
+  public ListQueryObjectsResponse list(ListQueriesRequest request) {
+    String path = "/api/2.0/sql/queries";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, QueryList.class, headers);
+    return apiClient.GET(path, request, ListQueryObjectsResponse.class, headers);
   }
 
   @Override
-  public void restore(RestoreQueryRequest request) {
-    String path = String.format("/api/2.0/preview/sql/queries/trash/%s", request.getQueryId());
+  public ListVisualizationsForQueryResponse listVisualizations(
+      ListVisualizationsForQueryRequest request) {
+    String path = String.format("/api/2.0/sql/queries/%s/visualizations", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, null, RestoreResponse.class, headers);
+    return apiClient.GET(path, request, ListVisualizationsForQueryResponse.class, headers);
   }
 
   @Override
-  public Query update(QueryEditContent request) {
-    String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
+  public Query update(UpdateQueryRequest request) {
+    String path = String.format("/api/2.0/sql/queries/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Query.class, headers);
+    return apiClient.PATCH(path, request, Query.class, headers);
   }
 }

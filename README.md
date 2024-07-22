@@ -395,7 +395,7 @@ log4j.logger.com.databricks.sdk=DEBUG
 This will enable logging at the debug level and above. Developers can adjust the logging level as needed to control the verbosity of the logging output. The SDK will log all requests and responses to standard error output, using the format `> ` for requests and `< ` for responses. In some cases, requests or responses may be truncated due to size considerations. If this occurs, the log message will include the text `... (XXX additional elements)` to indicate that the request or response has been truncated. To increase the truncation limits, developers can set the `debug_truncate_bytes` configuration property or the `DATABRICKS_DEBUG_TRUNCATE_BYTES` environment variable. To protect sensitive data, such as authentication tokens, passwords, or any HTTP headers, the SDK will automatically replace these values with `**REDACTED**` in the log output. Developers can disable this redaction by setting the `debug_headers` configuration property to `True`.
 
 ```text
-2023-03-22 21:19:21,702 [databricks.sdk][DEBUG] GET /api/2.0/clusters/list
+2023-03-22 21:19:21,702 [databricks.sdk][DEBUG] GET /api/2.1/clusters/list
 < 200 OK
 < {
 <   "clusters": [

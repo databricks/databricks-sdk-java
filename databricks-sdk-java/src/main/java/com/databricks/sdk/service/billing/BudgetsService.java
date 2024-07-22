@@ -4,8 +4,9 @@ package com.databricks.sdk.service.billing;
 import com.databricks.sdk.support.Generated;
 
 /**
- * These APIs manage budget configuration including notifications for exceeding a budget for a
- * period. They can also retrieve the status of each budget.
+ * These APIs manage budget configurations for this account. Budgets enable you to monitor usage
+ * across your account. You can set up budgets to either track account-wide spending, or apply
+ * filters to track the spending of specific teams, projects, or workspaces.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -14,39 +15,44 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface BudgetsService {
   /**
-   * Create a new budget.
+   * Create new budget.
    *
-   * <p>Creates a new budget in the specified account.
+   * <p>Create a new budget configuration for an account. For full details, see
+   * https://docs.databricks.com/en/admin/account-settings/budgets.html.
    */
-  WrappedBudgetWithStatus create(WrappedBudget wrappedBudget);
+  CreateBudgetConfigurationResponse create(
+      CreateBudgetConfigurationRequest createBudgetConfigurationRequest);
 
   /**
    * Delete budget.
    *
-   * <p>Deletes the budget specified by its UUID.
+   * <p>Deletes a budget configuration for an account. Both account and budget configuration are
+   * specified by ID. This cannot be undone.
    */
-  void delete(DeleteBudgetRequest deleteBudgetRequest);
+  void delete(DeleteBudgetConfigurationRequest deleteBudgetConfigurationRequest);
 
   /**
-   * Get budget and its status.
+   * Get budget.
    *
-   * <p>Gets the budget specified by its UUID, including noncumulative status for each day that the
-   * budget is configured to include.
+   * <p>Gets a budget configuration for an account. Both account and budget configuration are
+   * specified by ID.
    */
-  WrappedBudgetWithStatus get(GetBudgetRequest getBudgetRequest);
+  GetBudgetConfigurationResponse get(GetBudgetConfigurationRequest getBudgetConfigurationRequest);
 
   /**
    * Get all budgets.
    *
-   * <p>Gets all budgets associated with this account, including noncumulative status for each day
-   * that the budget is configured to include.
+   * <p>Gets all budgets associated with this account.
    */
-  BudgetList list();
+  ListBudgetConfigurationsResponse list(
+      ListBudgetConfigurationsRequest listBudgetConfigurationsRequest);
 
   /**
    * Modify budget.
    *
-   * <p>Modifies a budget in this account. Budget properties are completely overwritten.
+   * <p>Updates a budget configuration for an account. Both account and budget configuration are
+   * specified by ID.
    */
-  void update(WrappedBudget wrappedBudget);
+  UpdateBudgetConfigurationResponse update(
+      UpdateBudgetConfigurationRequest updateBudgetConfigurationRequest);
 }

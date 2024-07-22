@@ -32,10 +32,9 @@ import org.slf4j.LoggerFactory;
  * terminate and restart an all-purpose cluster. Multiple users can share such clusters to do
  * collaborative interactive analysis.
  *
- * <p>IMPORTANT: Databricks retains cluster configuration information for up to 200 all-purpose
- * clusters terminated in the last 30 days and up to 30 job clusters recently terminated by the job
- * scheduler. To keep an all-purpose cluster configuration even after it has been terminated for
- * more than 30 days, an administrator can pin a cluster to the cluster list.
+ * <p>IMPORTANT: Databricks retains cluster configuration information for terminated clusters for 30
+ * days. To keep an all-purpose cluster configuration even after it has been terminated for more
+ * than 30 days, an administrator can pin a cluster to the cluster list.
  */
 @Generated
 public class ClustersAPI {
@@ -280,20 +279,23 @@ public class ClustersAPI {
   }
 
   /**
-   * List all clusters.
+   * List clusters.
    *
-   * <p>Return information about all pinned clusters, active clusters, up to 200 of the most
-   * recently terminated all-purpose clusters in the past 30 days, and up to 30 of the most recently
-   * terminated job clusters in the past 30 days.
-   *
-   * <p>For example, if there is 1 pinned cluster, 4 active clusters, 45 terminated all-purpose
-   * clusters in the past 30 days, and 50 terminated job clusters in the past 30 days, then this API
-   * returns the 1 pinned cluster, 4 active clusters, all 45 terminated all-purpose clusters, and
-   * the 30 most recently terminated job clusters.
+   * <p>Return information about all pinned and active clusters, and all clusters terminated within
+   * the last 30 days. Clusters terminated prior to this period are not included.
    */
   public Iterable<ClusterDetails> list(ListClustersRequest request) {
     return new Paginator<>(
-        request, impl::list, ListClustersResponse::getClusters, response -> null);
+        request,
+        impl::list,
+        ListClustersResponse::getClusters,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /**

@@ -21,8 +21,8 @@ public class UpdateWorkspaceBindingsParameters {
   /** The name of the securable. */
   private String securableName;
 
-  /** The type of the securable. */
-  private String securableType;
+  /** The type of the securable to bind to a workspace. */
+  private UpdateBindingsSecurableType securableType;
 
   public UpdateWorkspaceBindingsParameters setAdd(Collection<WorkspaceBinding> add) {
     this.add = add;
@@ -51,12 +51,13 @@ public class UpdateWorkspaceBindingsParameters {
     return securableName;
   }
 
-  public UpdateWorkspaceBindingsParameters setSecurableType(String securableType) {
+  public UpdateWorkspaceBindingsParameters setSecurableType(
+      UpdateBindingsSecurableType securableType) {
     this.securableType = securableType;
     return this;
   }
 
-  public String getSecurableType() {
+  public UpdateBindingsSecurableType getSecurableType() {
     return securableType;
   }
 

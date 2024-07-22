@@ -8,14 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * These endpoints are used for CRUD operations on query definitions. Query definitions include the
- * target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
- * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
- *
- * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
- *
- * <p>[Learn more]:
- * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+ * The queries API can be used to perform CRUD operations on queries. A query is a Databricks SQL
+ * object that includes the target SQL warehouse, query text, name, description, tags, and
+ * parameters. Queries can be scheduled using the `sql_task` type of the Jobs API, e.g.
+ * :method:jobs/create.
  */
 @Generated
 public class QueriesAPI {
@@ -34,129 +30,96 @@ public class QueriesAPI {
   }
 
   /**
-   * Create a new query definition.
+   * Create a query.
    *
-   * <p>Creates a new query definition. Queries created with this endpoint belong to the
-   * authenticated user making the request.
-   *
-   * <p>The `data_source_id` field specifies the ID of the SQL warehouse to run this query against.
-   * You can use the Data Sources API to see a complete list of available SQL warehouses. Or you can
-   * copy the `data_source_id` from an existing query.
-   *
-   * <p>**Note**: You cannot add a visualization until you create the query.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>Creates a query.
    */
-  public Query create(QueryPostContent request) {
+  public Query create(CreateQueryRequest request) {
     return impl.create(request);
   }
 
-  public void delete(String queryId) {
-    delete(new DeleteQueryRequest().setQueryId(queryId));
+  public void delete(String id) {
+    delete(new TrashQueryRequest().setId(id));
   }
 
   /**
    * Delete a query.
    *
    * <p>Moves a query to the trash. Trashed queries immediately disappear from searches and list
-   * views, and they cannot be used for alerts. The trash is deleted after 30 days.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * views, and cannot be used for alerts. You can restore a trashed query through the UI. A trashed
+   * query is permanently deleted after 30 days.
    */
-  public void delete(DeleteQueryRequest request) {
+  public void delete(TrashQueryRequest request) {
     impl.delete(request);
   }
 
-  public Query get(String queryId) {
-    return get(new GetQueryRequest().setQueryId(queryId));
+  public Query get(String id) {
+    return get(new GetQueryRequest().setId(id));
   }
 
   /**
-   * Get a query definition.
+   * Get a query.
    *
-   * <p>Retrieve a query object definition along with contextual permissions information about the
-   * currently authenticated user.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>Gets a query.
    */
   public Query get(GetQueryRequest request) {
     return impl.get(request);
   }
 
   /**
-   * Get a list of queries.
+   * List queries.
    *
-   * <p>Gets a list of queries. Optionally, this list can be filtered by a search term.
-   *
-   * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
-   * service degradation, or a temporary ban.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>Gets a list of queries accessible to the user, ordered by creation time. **Warning:**
+   * Calling this API concurrently 10 or more times could result in throttling, service degradation,
+   * or a temporary ban.
    */
-  public Iterable<Query> list(ListQueriesRequest request) {
-    request.setPage(1L);
+  public Iterable<ListQueryObjectsResponseQuery> list(ListQueriesRequest request) {
     return new Paginator<>(
-            request,
-            impl::list,
-            QueryList::getResults,
-            response -> {
-              Long page = request.getPage();
-              if (page == null) {
-                page = 1L; // redash uses 1-based pagination
-              }
-              return request.setPage(page + 1L);
-            })
-        .withDedupe(Query::getId);
+        request,
+        impl::list,
+        ListQueryObjectsResponse::getResults,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
-  public void restore(String queryId) {
-    restore(new RestoreQueryRequest().setQueryId(queryId));
-  }
-
-  /**
-   * Restore a query.
-   *
-   * <p>Restore a query that has been moved to the trash. A restored query appears in list views and
-   * searches. You can use restored queries for alerts.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
-   */
-  public void restore(RestoreQueryRequest request) {
-    impl.restore(request);
-  }
-
-  public Query update(String queryId) {
-    return update(new QueryEditContent().setQueryId(queryId));
+  public Iterable<Visualization> listVisualizations(String id) {
+    return listVisualizations(new ListVisualizationsForQueryRequest().setId(id));
   }
 
   /**
-   * Change a query definition.
+   * List visualizations on a query.
    *
-   * <p>Modify this query definition.
-   *
-   * <p>**Note**: You cannot undo this operation.
-   *
-   * <p>**Note**: A new version of the Databricks SQL API will soon be available. [Learn more]
-   *
-   * <p>[Learn more]:
-   * https://docs.databricks.com/en/whats-coming.html#updates-to-the-databricks-sql-api-for-managing-queries-alerts-and-data-sources
+   * <p>Gets a list of visualizations on a query.
    */
-  public Query update(QueryEditContent request) {
+  public Iterable<Visualization> listVisualizations(ListVisualizationsForQueryRequest request) {
+    return new Paginator<>(
+        request,
+        impl::listVisualizations,
+        ListVisualizationsForQueryResponse::getResults,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
+  }
+
+  public Query update(String id, String updateMask) {
+    return update(new UpdateQueryRequest().setId(id).setUpdateMask(updateMask));
+  }
+
+  /**
+   * Update a query.
+   *
+   * <p>Updates a query.
+   */
+  public Query update(UpdateQueryRequest request) {
     return impl.update(request);
   }
 

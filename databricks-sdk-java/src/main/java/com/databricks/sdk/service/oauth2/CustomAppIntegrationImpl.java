@@ -49,13 +49,13 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
   }
 
   @Override
-  public GetCustomAppIntegrationsOutput list() {
+  public GetCustomAppIntegrationsOutput list(ListCustomAppIntegrationsRequest request) {
     String path =
         String.format(
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, GetCustomAppIntegrationsOutput.class, headers);
+    return apiClient.GET(path, request, GetCustomAppIntegrationsOutput.class, headers);
   }
 
   @Override

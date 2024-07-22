@@ -10,12 +10,12 @@ import java.util.Objects;
 
 @Generated
 public class TimeRange {
-  /** Limit results to queries that started before this time. */
+  /** The end time in milliseconds. */
   @JsonProperty("end_time_ms")
   @QueryParam("end_time_ms")
   private Long endTimeMs;
 
-  /** Limit results to queries that started after this time. */
+  /** The start time in milliseconds. */
   @JsonProperty("start_time_ms")
   @QueryParam("start_time_ms")
   private Long startTimeMs;

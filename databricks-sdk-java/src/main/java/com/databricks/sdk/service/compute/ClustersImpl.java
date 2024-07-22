@@ -17,7 +17,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void changeOwner(ChangeClusterOwner request) {
-    String path = "/api/2.0/clusters/change-owner";
+    String path = "/api/2.1/clusters/change-owner";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -26,7 +26,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public CreateClusterResponse create(CreateCluster request) {
-    String path = "/api/2.0/clusters/create";
+    String path = "/api/2.1/clusters/create";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -35,7 +35,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void delete(DeleteCluster request) {
-    String path = "/api/2.0/clusters/delete";
+    String path = "/api/2.1/clusters/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -44,7 +44,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void edit(EditCluster request) {
-    String path = "/api/2.0/clusters/edit";
+    String path = "/api/2.1/clusters/edit";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -53,7 +53,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public GetEventsResponse events(GetEvents request) {
-    String path = "/api/2.0/clusters/events";
+    String path = "/api/2.1/clusters/events";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -62,7 +62,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public ClusterDetails get(GetClusterRequest request) {
-    String path = "/api/2.0/clusters/get";
+    String path = "/api/2.1/clusters/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, ClusterDetails.class, headers);
@@ -88,7 +88,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public ListClustersResponse list(ListClustersRequest request) {
-    String path = "/api/2.0/clusters/list";
+    String path = "/api/2.1/clusters/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, ListClustersResponse.class, headers);
@@ -96,7 +96,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public ListNodeTypesResponse listNodeTypes() {
-    String path = "/api/2.0/clusters/list-node-types";
+    String path = "/api/2.1/clusters/list-node-types";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, ListNodeTypesResponse.class, headers);
@@ -104,7 +104,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public ListAvailableZonesResponse listZones() {
-    String path = "/api/2.0/clusters/list-zones";
+    String path = "/api/2.1/clusters/list-zones";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, ListAvailableZonesResponse.class, headers);
@@ -112,7 +112,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void permanentDelete(PermanentDeleteCluster request) {
-    String path = "/api/2.0/clusters/permanent-delete";
+    String path = "/api/2.1/clusters/permanent-delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -121,7 +121,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void pin(PinCluster request) {
-    String path = "/api/2.0/clusters/pin";
+    String path = "/api/2.1/clusters/pin";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -130,7 +130,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void resize(ResizeCluster request) {
-    String path = "/api/2.0/clusters/resize";
+    String path = "/api/2.1/clusters/resize";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -139,7 +139,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void restart(RestartCluster request) {
-    String path = "/api/2.0/clusters/restart";
+    String path = "/api/2.1/clusters/restart";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -157,7 +157,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public GetSparkVersionsResponse sparkVersions() {
-    String path = "/api/2.0/clusters/spark-versions";
+    String path = "/api/2.1/clusters/spark-versions";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, GetSparkVersionsResponse.class, headers);
@@ -165,7 +165,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void start(StartCluster request) {
-    String path = "/api/2.0/clusters/start";
+    String path = "/api/2.1/clusters/start";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -174,7 +174,7 @@ class ClustersImpl implements ClustersService {
 
   @Override
   public void unpin(UnpinCluster request) {
-    String path = "/api/2.0/clusters/unpin";
+    String path = "/api/2.1/clusters/unpin";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");

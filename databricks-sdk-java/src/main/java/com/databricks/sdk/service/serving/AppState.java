@@ -13,5 +13,4 @@ public enum AppState {
   IDLE,
   RUNNING,
   STARTING,
-  STATE_UNSPECIFIED,
 }

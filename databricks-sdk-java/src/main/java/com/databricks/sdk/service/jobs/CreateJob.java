@@ -27,7 +27,7 @@ public class CreateJob {
   private JobDeployment deployment;
 
   /**
-   * An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
+   * An optional description for the job. The maximum length is 27700 characters in UTF-8 encoding.
    */
   @JsonProperty("description")
   private String description;

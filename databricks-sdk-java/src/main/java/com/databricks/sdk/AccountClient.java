@@ -67,7 +67,6 @@ public class AccountClient {
 
   private AccountAccessControlAPI accessControlAPI;
   private BillableUsageAPI billableUsageAPI;
-  private BudgetsAPI budgetsAPI;
   private CredentialsAPI credentialsAPI;
   private CustomAppIntegrationAPI customAppIntegrationAPI;
   private EncryptionKeysAPI encryptionKeysAPI;
@@ -90,6 +89,7 @@ public class AccountClient {
   private VpcEndpointsAPI vpcEndpointsAPI;
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
   private WorkspacesAPI workspacesAPI;
+  private BudgetsAPI budgetsAPI;
 
   public AccountClient() {
     this(ConfigLoader.getDefault());
@@ -101,7 +101,6 @@ public class AccountClient {
 
     accessControlAPI = new AccountAccessControlAPI(apiClient);
     billableUsageAPI = new BillableUsageAPI(apiClient);
-    budgetsAPI = new BudgetsAPI(apiClient);
     credentialsAPI = new CredentialsAPI(apiClient);
     customAppIntegrationAPI = new CustomAppIntegrationAPI(apiClient);
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
@@ -124,6 +123,7 @@ public class AccountClient {
     vpcEndpointsAPI = new VpcEndpointsAPI(apiClient);
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(apiClient);
     workspacesAPI = new WorkspacesAPI(apiClient);
+    budgetsAPI = new BudgetsAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -150,14 +150,6 @@ public class AccountClient {
   }
 
   /**
-   * These APIs manage budget configuration including notifications for exceeding a budget for a
-   * period. They can also retrieve the status of each budget.
-   */
-  public BudgetsAPI budgets() {
-    return budgetsAPI;
-  }
-
-  /**
    * These APIs manage credential configurations for this workspace. Databricks needs access to a
    * cross-account service IAM role in your AWS account so that Databricks can deploy clusters in
    * the appropriate VPC for the new workspace. A credential configuration encapsulates this role
@@ -168,7 +160,7 @@ public class AccountClient {
   }
 
   /**
-   * These APIs enable administrators to manage custom oauth app integrations, which is required for
+   * These APIs enable administrators to manage custom OAuth app integrations, which is required for
    * adding/using Custom OAuth App Integration like Tableau Cloud for Databricks in AWS cloud.
    */
   public CustomAppIntegrationAPI customAppIntegration() {
@@ -338,7 +330,7 @@ public class AccountClient {
   }
 
   /**
-   * These APIs enable administrators to manage published oauth app integrations, which is required
+   * These APIs enable administrators to manage published OAuth app integrations, which is required
    * for adding/using Published OAuth App Integration like Tableau Desktop for Databricks in AWS
    * cloud.
    */
@@ -439,6 +431,15 @@ public class AccountClient {
     return workspacesAPI;
   }
 
+  /**
+   * These APIs manage budget configurations for this account. Budgets enable you to monitor usage
+   * across your account. You can set up budgets to either track account-wide spending, or apply
+   * filters to track the spending of specific teams, projects, or workspaces.
+   */
+  public BudgetsAPI budgets() {
+    return budgetsAPI;
+  }
+
   /** Replace the default AccountAccessControlService with a custom implementation. */
   public AccountClient withAccessControlImpl(AccountAccessControlService accountAccessControl) {
     return this.withAccessControlAPI(new AccountAccessControlAPI(accountAccessControl));
@@ -458,17 +459,6 @@ public class AccountClient {
   /** Replace the default BillableUsageAPI with a custom implementation. */
   public AccountClient withBillableUsageAPI(BillableUsageAPI billableUsage) {
     this.billableUsageAPI = billableUsage;
-    return this;
-  }
-
-  /** Replace the default BudgetsService with a custom implementation. */
-  public AccountClient withBudgetsImpl(BudgetsService budgets) {
-    return this.withBudgetsAPI(new BudgetsAPI(budgets));
-  }
-
-  /** Replace the default BudgetsAPI with a custom implementation. */
-  public AccountClient withBudgetsAPI(BudgetsAPI budgets) {
-    this.budgetsAPI = budgets;
     return this;
   }
 
@@ -726,6 +716,17 @@ public class AccountClient {
   /** Replace the default WorkspacesAPI with a custom implementation. */
   public AccountClient withWorkspacesAPI(WorkspacesAPI workspaces) {
     this.workspacesAPI = workspaces;
+    return this;
+  }
+
+  /** Replace the default BudgetsService with a custom implementation. */
+  public AccountClient withBudgetsImpl(BudgetsService budgets) {
+    return this.withBudgetsAPI(new BudgetsAPI(budgets));
+  }
+
+  /** Replace the default BudgetsAPI with a custom implementation. */
+  public AccountClient withBudgetsAPI(BudgetsAPI budgets) {
+    this.budgetsAPI = budgets;
     return this;
   }
 

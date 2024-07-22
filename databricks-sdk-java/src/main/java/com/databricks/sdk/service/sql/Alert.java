@@ -9,64 +9,120 @@ import java.util.Objects;
 
 @Generated
 public class Alert {
-  /** Timestamp when the alert was created. */
-  @JsonProperty("created_at")
-  private String createdAt;
+  /** Trigger conditions of the alert. */
+  @JsonProperty("condition")
+  private AlertCondition condition;
 
-  /** Alert ID. */
+  /** The timestamp indicating when the alert was created. */
+  @JsonProperty("create_time")
+  private String createTime;
+
+  /**
+   * Custom body of alert notification, if it exists. See [here] for custom templating instructions.
+   *
+   * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
+   */
+  @JsonProperty("custom_body")
+  private String customBody;
+
+  /**
+   * Custom subject of alert notification, if it exists. This can include email subject entries and
+   * Slack notification headers, for example. See [here] for custom templating instructions.
+   *
+   * <p>[here]: https://docs.databricks.com/sql/user/alerts/index.html
+   */
+  @JsonProperty("custom_subject")
+  private String customSubject;
+
+  /** The display name of the alert. */
+  @JsonProperty("display_name")
+  private String displayName;
+
+  /** UUID identifying the alert. */
   @JsonProperty("id")
   private String id;
 
-  /** Timestamp when the alert was last triggered. */
-  @JsonProperty("last_triggered_at")
-  private String lastTriggeredAt;
+  /** The workspace state of the alert. Used for tracking trashed status. */
+  @JsonProperty("lifecycle_state")
+  private LifecycleState lifecycleState;
 
-  /** Name of the alert. */
-  @JsonProperty("name")
-  private String name;
+  /** The owner's username. This field is set to "Unavailable" if the user has been deleted. */
+  @JsonProperty("owner_user_name")
+  private String ownerUserName;
 
-  /** Alert configuration options. */
-  @JsonProperty("options")
-  private AlertOptions options;
+  /** The workspace path of the folder containing the alert. */
+  @JsonProperty("parent_path")
+  private String parentPath;
 
-  /** The identifier of the workspace folder containing the object. */
-  @JsonProperty("parent")
-  private String parent;
-
-  /** */
-  @JsonProperty("query")
-  private AlertQuery query;
+  /** UUID of the query attached to the alert. */
+  @JsonProperty("query_id")
+  private String queryId;
 
   /**
-   * Number of seconds after being triggered before the alert rearms itself and can be triggered
-   * again. If `null`, alert will never be triggered again.
+   * Number of seconds an alert must wait after being triggered to rearm itself. After rearming, it
+   * can be triggered again. If 0 or not specified, the alert will not be triggered again.
    */
-  @JsonProperty("rearm")
-  private Long rearm;
+  @JsonProperty("seconds_to_retrigger")
+  private Long secondsToRetrigger;
 
   /**
-   * State of the alert. Possible values are: `unknown` (yet to be evaluated), `triggered`
-   * (evaluated and fulfilled trigger conditions), or `ok` (evaluated and did not fulfill trigger
-   * conditions).
+   * Current state of the alert's trigger status. This field is set to UNKNOWN if the alert has not
+   * yet been evaluated or ran into an error during the last evaluation.
    */
   @JsonProperty("state")
   private AlertState state;
 
-  /** Timestamp when the alert was last updated. */
-  @JsonProperty("updated_at")
-  private String updatedAt;
+  /** Timestamp when the alert was last triggered, if the alert has been triggered before. */
+  @JsonProperty("trigger_time")
+  private String triggerTime;
 
-  /** */
-  @JsonProperty("user")
-  private User user;
+  /** The timestamp indicating when the alert was updated. */
+  @JsonProperty("update_time")
+  private String updateTime;
 
-  public Alert setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
+  public Alert setCondition(AlertCondition condition) {
+    this.condition = condition;
     return this;
   }
 
-  public String getCreatedAt() {
-    return createdAt;
+  public AlertCondition getCondition() {
+    return condition;
+  }
+
+  public Alert setCreateTime(String createTime) {
+    this.createTime = createTime;
+    return this;
+  }
+
+  public String getCreateTime() {
+    return createTime;
+  }
+
+  public Alert setCustomBody(String customBody) {
+    this.customBody = customBody;
+    return this;
+  }
+
+  public String getCustomBody() {
+    return customBody;
+  }
+
+  public Alert setCustomSubject(String customSubject) {
+    this.customSubject = customSubject;
+    return this;
+  }
+
+  public String getCustomSubject() {
+    return customSubject;
+  }
+
+  public Alert setDisplayName(String displayName) {
+    this.displayName = displayName;
+    return this;
+  }
+
+  public String getDisplayName() {
+    return displayName;
   }
 
   public Alert setId(String id) {
@@ -78,58 +134,49 @@ public class Alert {
     return id;
   }
 
-  public Alert setLastTriggeredAt(String lastTriggeredAt) {
-    this.lastTriggeredAt = lastTriggeredAt;
+  public Alert setLifecycleState(LifecycleState lifecycleState) {
+    this.lifecycleState = lifecycleState;
     return this;
   }
 
-  public String getLastTriggeredAt() {
-    return lastTriggeredAt;
+  public LifecycleState getLifecycleState() {
+    return lifecycleState;
   }
 
-  public Alert setName(String name) {
-    this.name = name;
+  public Alert setOwnerUserName(String ownerUserName) {
+    this.ownerUserName = ownerUserName;
     return this;
   }
 
-  public String getName() {
-    return name;
+  public String getOwnerUserName() {
+    return ownerUserName;
   }
 
-  public Alert setOptions(AlertOptions options) {
-    this.options = options;
+  public Alert setParentPath(String parentPath) {
+    this.parentPath = parentPath;
     return this;
   }
 
-  public AlertOptions getOptions() {
-    return options;
+  public String getParentPath() {
+    return parentPath;
   }
 
-  public Alert setParent(String parent) {
-    this.parent = parent;
+  public Alert setQueryId(String queryId) {
+    this.queryId = queryId;
     return this;
   }
 
-  public String getParent() {
-    return parent;
+  public String getQueryId() {
+    return queryId;
   }
 
-  public Alert setQuery(AlertQuery query) {
-    this.query = query;
+  public Alert setSecondsToRetrigger(Long secondsToRetrigger) {
+    this.secondsToRetrigger = secondsToRetrigger;
     return this;
   }
 
-  public AlertQuery getQuery() {
-    return query;
-  }
-
-  public Alert setRearm(Long rearm) {
-    this.rearm = rearm;
-    return this;
-  }
-
-  public Long getRearm() {
-    return rearm;
+  public Long getSecondsToRetrigger() {
+    return secondsToRetrigger;
   }
 
   public Alert setState(AlertState state) {
@@ -141,22 +188,22 @@ public class Alert {
     return state;
   }
 
-  public Alert setUpdatedAt(String updatedAt) {
-    this.updatedAt = updatedAt;
+  public Alert setTriggerTime(String triggerTime) {
+    this.triggerTime = triggerTime;
     return this;
   }
 
-  public String getUpdatedAt() {
-    return updatedAt;
+  public String getTriggerTime() {
+    return triggerTime;
   }
 
-  public Alert setUser(User user) {
-    this.user = user;
+  public Alert setUpdateTime(String updateTime) {
+    this.updateTime = updateTime;
     return this;
   }
 
-  public User getUser() {
-    return user;
+  public String getUpdateTime() {
+    return updateTime;
   }
 
   @Override
@@ -164,49 +211,58 @@ public class Alert {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Alert that = (Alert) o;
-    return Objects.equals(createdAt, that.createdAt)
+    return Objects.equals(condition, that.condition)
+        && Objects.equals(createTime, that.createTime)
+        && Objects.equals(customBody, that.customBody)
+        && Objects.equals(customSubject, that.customSubject)
+        && Objects.equals(displayName, that.displayName)
         && Objects.equals(id, that.id)
-        && Objects.equals(lastTriggeredAt, that.lastTriggeredAt)
-        && Objects.equals(name, that.name)
-        && Objects.equals(options, that.options)
-        && Objects.equals(parent, that.parent)
-        && Objects.equals(query, that.query)
-        && Objects.equals(rearm, that.rearm)
+        && Objects.equals(lifecycleState, that.lifecycleState)
+        && Objects.equals(ownerUserName, that.ownerUserName)
+        && Objects.equals(parentPath, that.parentPath)
+        && Objects.equals(queryId, that.queryId)
+        && Objects.equals(secondsToRetrigger, that.secondsToRetrigger)
         && Objects.equals(state, that.state)
-        && Objects.equals(updatedAt, that.updatedAt)
-        && Objects.equals(user, that.user);
+        && Objects.equals(triggerTime, that.triggerTime)
+        && Objects.equals(updateTime, that.updateTime);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        createdAt,
+        condition,
+        createTime,
+        customBody,
+        customSubject,
+        displayName,
         id,
-        lastTriggeredAt,
-        name,
-        options,
-        parent,
-        query,
-        rearm,
+        lifecycleState,
+        ownerUserName,
+        parentPath,
+        queryId,
+        secondsToRetrigger,
         state,
-        updatedAt,
-        user);
+        triggerTime,
+        updateTime);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Alert.class)
-        .add("createdAt", createdAt)
+        .add("condition", condition)
+        .add("createTime", createTime)
+        .add("customBody", customBody)
+        .add("customSubject", customSubject)
+        .add("displayName", displayName)
         .add("id", id)
-        .add("lastTriggeredAt", lastTriggeredAt)
-        .add("name", name)
-        .add("options", options)
-        .add("parent", parent)
-        .add("query", query)
-        .add("rearm", rearm)
+        .add("lifecycleState", lifecycleState)
+        .add("ownerUserName", ownerUserName)
+        .add("parentPath", parentPath)
+        .add("queryId", queryId)
+        .add("secondsToRetrigger", secondsToRetrigger)
         .add("state", state)
-        .add("updatedAt", updatedAt)
-        .add("user", user)
+        .add("triggerTime", triggerTime)
+        .add("updateTime", updateTime)
         .toString();
   }
 }

@@ -7,6 +7,5 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum AppDeploymentMode {
   AUTO_SYNC,
-  MODE_UNSPECIFIED,
   SNAPSHOT,
 }

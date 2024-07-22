@@ -17,13 +17,6 @@ public class Listing {
   @JsonProperty("id")
   private String id;
 
-  /**
-   * we can not use just ProviderListingSummary since we already have same name on entity side of
-   * the state
-   */
-  @JsonProperty("provider_summary")
-  private ProviderListingSummaryInfo providerSummary;
-
   /** Next Number: 26 */
   @JsonProperty("summary")
   private ListingSummary summary;
@@ -46,15 +39,6 @@ public class Listing {
     return id;
   }
 
-  public Listing setProviderSummary(ProviderListingSummaryInfo providerSummary) {
-    this.providerSummary = providerSummary;
-    return this;
-  }
-
-  public ProviderListingSummaryInfo getProviderSummary() {
-    return providerSummary;
-  }
-
   public Listing setSummary(ListingSummary summary) {
     this.summary = summary;
     return this;
@@ -71,13 +55,12 @@ public class Listing {
     Listing that = (Listing) o;
     return Objects.equals(detail, that.detail)
         && Objects.equals(id, that.id)
-        && Objects.equals(providerSummary, that.providerSummary)
         && Objects.equals(summary, that.summary);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(detail, id, providerSummary, summary);
+    return Objects.hash(detail, id, summary);
   }
 
   @Override
@@ -85,7 +68,6 @@ public class Listing {
     return new ToStringer(Listing.class)
         .add("detail", detail)
         .add("id", id)
-        .add("providerSummary", providerSummary)
         .add("summary", summary)
         .toString();
   }
