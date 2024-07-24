@@ -42,7 +42,7 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
         new OidcTokenSource(
             config.getHttpClient(),
             config.getDatabricksEnvironment().getAzureEnvironment().getActiveDirectoryEndpoint() + config.getAzureTenantId() + "/oauth2/token",
-            config.getClientId(),
+            config.getAzureClientId(),
             config.getEffectiveAzureLoginAppId(),
             idToken.get(),
             "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
