@@ -41,8 +41,10 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
     TokenSource tokenSource =
         new OidcTokenSource(
             config.getHttpClient(),
-            "",
-            config.getClientId(),
+            config.getDatabricksEnvironment().getAzureEnvironment().getActiveDirectoryEndpoint()
+                + config.getAzureTenantId()
+                + "/oauth2/token",
+            config.getAzureClientId(),
             config.getEffectiveAzureLoginAppId(),
             idToken.get(),
             "urn:ietf:params:oauth:client-assertion-type:jwt-bearer");
@@ -85,7 +87,7 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
           "Failed to request ID token: status code "
               + resp.getStatusCode()
               + ", response body: "
-              + resp.getBody());
+              + resp.getBody().toString());
     }
 
     ObjectNode jsonResp;
