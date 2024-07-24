@@ -41,7 +41,7 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
     TokenSource tokenSource =
         new OidcTokenSource(
             config.getHttpClient(),
-            "",
+            config.getAzureEnvironment().getActiveDirectoryEndpoint() + config.getAzureTenantId() + "oauth2/token",
             config.getClientId(),
             config.getEffectiveAzureLoginAppId(),
             idToken.get(),
