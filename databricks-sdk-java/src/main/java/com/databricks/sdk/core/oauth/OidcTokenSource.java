@@ -7,6 +7,9 @@ import com.databricks.sdk.core.http.Response;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -16,6 +19,8 @@ import java.time.LocalDateTime;
  * credentials grant type instead of a client secret.
  */
 class OidcTokenSource extends RefreshableTokenSource {
+
+  private static final Logger LOG = LoggerFactory.getLogger(OidcTokenSource.class);
 
   private final HttpClient httpClient;
   private final String tokenUrl;
@@ -49,8 +54,7 @@ class OidcTokenSource extends RefreshableTokenSource {
     putIfDefined(builder, "client_assertion", clientAssertion);
     this.params = builder.build();
 
-    System.out.println(tokenUrl);
-    System.out.println(params);
+    LOG.warn("URL: {}", tokenUrl);
   }
 
   // Add the key-value pair to the builder iff the value is a non-empty string.
