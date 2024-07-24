@@ -85,7 +85,7 @@ public class AzureGithubOidcCredentialsProvider implements CredentialsProvider {
           "Failed to request ID token: status code "
               + resp.getStatusCode()
               + ", response body: "
-              + resp.getBody());
+              + resp.getBody().toString());
     }
 
     ObjectNode jsonResp;
