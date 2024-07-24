@@ -48,6 +48,9 @@ class OidcTokenSource extends RefreshableTokenSource {
     putIfDefined(builder, "client_assertion_type", clientAssertionType);
     putIfDefined(builder, "client_assertion", clientAssertion);
     this.params = builder.build();
+
+    System.out.println(tokenUrl);
+    System.out.println(params);
   }
 
   // Add the key-value pair to the builder iff the value is a non-empty string.
