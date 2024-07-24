@@ -70,7 +70,7 @@ class OidcTokenSource extends RefreshableTokenSource {
     try {
       rawResp = httpClient.execute(new FormRequest(tokenUrl, params));
     } catch (IOException e) {
-      throw new DatabricksException("Failed to request auth token: " + e.getMessage(), e);
+      throw new DatabricksException("TEST Failed to request auth token for URL "+ tokenUrl + ": " + e.getMessage(), e);
     }
 
     OAuthResponse resp;
