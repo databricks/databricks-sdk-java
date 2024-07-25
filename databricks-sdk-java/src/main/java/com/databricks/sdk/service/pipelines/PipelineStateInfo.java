@@ -18,6 +18,10 @@ public class PipelineStateInfo {
   @JsonProperty("creator_user_name")
   private String creatorUserName;
 
+  /** The health of a pipeline. */
+  @JsonProperty("health")
+  private PipelineStateInfoHealth health;
+
   /** Status of the latest updates for the pipeline. Ordered with the newest update first. */
   @JsonProperty("latest_updates")
   private Collection<UpdateStateInfo> latestUpdates;
@@ -57,6 +61,15 @@ public class PipelineStateInfo {
 
   public String getCreatorUserName() {
     return creatorUserName;
+  }
+
+  public PipelineStateInfo setHealth(PipelineStateInfoHealth health) {
+    this.health = health;
+    return this;
+  }
+
+  public PipelineStateInfoHealth getHealth() {
+    return health;
   }
 
   public PipelineStateInfo setLatestUpdates(Collection<UpdateStateInfo> latestUpdates) {
@@ -111,6 +124,7 @@ public class PipelineStateInfo {
     PipelineStateInfo that = (PipelineStateInfo) o;
     return Objects.equals(clusterId, that.clusterId)
         && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(health, that.health)
         && Objects.equals(latestUpdates, that.latestUpdates)
         && Objects.equals(name, that.name)
         && Objects.equals(pipelineId, that.pipelineId)
@@ -121,7 +135,7 @@ public class PipelineStateInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
-        clusterId, creatorUserName, latestUpdates, name, pipelineId, runAsUserName, state);
+        clusterId, creatorUserName, health, latestUpdates, name, pipelineId, runAsUserName, state);
   }
 
   @Override
@@ -129,6 +143,7 @@ public class PipelineStateInfo {
     return new ToStringer(PipelineStateInfo.class)
         .add("clusterId", clusterId)
         .add("creatorUserName", creatorUserName)
+        .add("health", health)
         .add("latestUpdates", latestUpdates)
         .add("name", name)
         .add("pipelineId", pipelineId)

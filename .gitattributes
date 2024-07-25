@@ -40,6 +40,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetConfi
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/BudgetsService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/CreateBillingUsageDashboardRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/CreateBillingUsageDashboardResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/CreateBudgetConfigurationBudget.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/CreateBudgetConfigurationBudgetActionConfigurations.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/CreateBudgetConfigurationBudgetAlertConfigurations.java linguist-generated=true
@@ -51,6 +53,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/DeleteBudge
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/DeliveryStatus.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/DownloadRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/DownloadResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/GetBillingUsageDashboardRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/GetBillingUsageDashboardResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/GetBudgetConfigurationRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/GetBudgetConfigurationResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/GetLogDeliveryRequest.java linguist-generated=true
@@ -70,6 +74,10 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/UpdateBudge
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/UpdateBudgetConfigurationRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/UpdateBudgetConfigurationResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/UpdateLogDeliveryConfigurationStatusRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/UsageDashboardType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/UsageDashboardsAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/UsageDashboardsImpl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/UsageDashboardsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/WrappedCreateLogDeliveryConfiguration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/WrappedLogDeliveryConfiguration.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/billing/WrappedLogDeliveryConfigurations.java linguist-generated=true
@@ -1417,6 +1425,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelineP
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelineSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelineState.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelineStateInfo.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelineStateInfoHealth.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelineTrigger.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelinesAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelinesImpl.java linguist-generated=true

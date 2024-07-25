@@ -78,9 +78,18 @@ public class SharesAPI {
    * or the owner of the share. There is no guarantee of a specific ordering of the elements in the
    * array.
    */
-  public Iterable<ShareInfo> list() {
+  public Iterable<ShareInfo> list(ListSharesRequest request) {
     return new Paginator<>(
-        null, (Void v) -> impl.list(), ListSharesResponse::getShares, response -> null);
+        request,
+        impl::list,
+        ListSharesResponse::getShares,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public com.databricks.sdk.service.catalog.PermissionsList sharePermissions(String name) {
