@@ -3,10 +3,8 @@ package com.databricks.sdk.integration;
 import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvTest;
-import com.databricks.sdk.service.sql.ListQueryHistoryRequest;
-import com.databricks.sdk.service.sql.QueryFilter;
-import com.databricks.sdk.service.sql.QueryInfo;
-import com.databricks.sdk.service.sql.TimeRange;
+import com.databricks.sdk.service.sql.*;
+
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,8 +20,10 @@ public class SqlIT {
         new ListQueryHistoryRequest()
             .setFilterBy(new QueryFilter().setQueryStartTimeRange(timeRange));
     Iterable<QueryInfo> queries = w.queryHistory().list(request).getRes();
-    for (QueryInfo query : queries) {
-      System.out.println(query);
+    if (queries != null) {
+      for (QueryInfo query : queries) {
+        System.out.println(query);
+      }
     }
   }
 
@@ -33,8 +33,10 @@ public class SqlIT {
         new ListQueryHistoryRequest()
             .setFilterBy(new QueryFilter().setUserIds(Arrays.asList(123L, 456L)));
     Iterable<QueryInfo> queries = w.queryHistory().list(request).getRes();
-    for (QueryInfo query : queries) {
-      System.out.println(query);
+    if (queries != null) {
+      for (QueryInfo query : queries) {
+        System.out.println(query);
+      }
     }
   }
 }
