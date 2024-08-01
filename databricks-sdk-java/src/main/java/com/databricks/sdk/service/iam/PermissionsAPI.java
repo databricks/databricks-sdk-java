@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
  * Permissions API are used to create read, write, edit, update and manage access for various users
  * on different objects and endpoints.
  *
+ * <p>* **[Apps permissions](:service:apps)** — Manage which users can manage or use apps.
+ *
  * <p>* **[Cluster permissions](:service:clusters)** — Manage which users can manage, restart, or
  * attach to clusters.
  *
@@ -46,7 +48,7 @@ import org.slf4j.LoggerFactory;
  * tokens.
  *
  * <p>* **[Workspace object permissions](:service:workspace)** — Manage which users can read, run,
- * edit, or manage directories, files, and notebooks.
+ * edit, or manage alerts, dbsql-dashboards, directories, files, notebooks and queries.
  *
  * <p>For the mapping of the required permissions for specific actions or abilities and other
  * important information, see [Access Control].

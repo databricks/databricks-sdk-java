@@ -11,7 +11,9 @@ import org.slf4j.LoggerFactory;
  * queries within the Databricks Workspace. Data structures may change over time.
  *
  * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
- * version.
+ * version. [Learn more]
+ *
+ * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  */
 @Generated
 public class QueryVisualizationsLegacyAPI {
@@ -43,7 +45,9 @@ public class QueryVisualizationsLegacyAPI {
    * <p>Creates visualization in the query.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queryvisualizations/create instead.
+   * :method:queryvisualizations/create instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public LegacyVisualization create(CreateQueryVisualizationsLegacyRequest request) {
     return impl.create(request);
@@ -59,7 +63,9 @@ public class QueryVisualizationsLegacyAPI {
    * <p>Removes a visualization from the query.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queryvisualizations/delete instead.
+   * :method:queryvisualizations/delete instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public void delete(DeleteQueryVisualizationsLegacyRequest request) {
     impl.delete(request);
@@ -75,7 +81,9 @@ public class QueryVisualizationsLegacyAPI {
    * <p>Updates visualization in the query.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queryvisualizations/update instead.
+   * :method:queryvisualizations/update instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public LegacyVisualization update(LegacyVisualization request) {
     return impl.update(request);

@@ -72,6 +72,10 @@ public class PipelineCluster {
   @JsonProperty("driver_node_type_id")
   private String driverNodeTypeId;
 
+  /** Whether to enable local disk encryption for the cluster. */
+  @JsonProperty("enable_local_disk_encryption")
+  private Boolean enableLocalDiskEncryption;
+
   /**
    * Attributes related to clusters running on Google Cloud Platform. If not specified at cluster
    * creation, a set of default values will be used.
@@ -231,6 +235,15 @@ public class PipelineCluster {
     return driverNodeTypeId;
   }
 
+  public PipelineCluster setEnableLocalDiskEncryption(Boolean enableLocalDiskEncryption) {
+    this.enableLocalDiskEncryption = enableLocalDiskEncryption;
+    return this;
+  }
+
+  public Boolean getEnableLocalDiskEncryption() {
+    return enableLocalDiskEncryption;
+  }
+
   public PipelineCluster setGcpAttributes(
       com.databricks.sdk.service.compute.GcpAttributes gcpAttributes) {
     this.gcpAttributes = gcpAttributes;
@@ -336,6 +349,7 @@ public class PipelineCluster {
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(driverInstancePoolId, that.driverInstancePoolId)
         && Objects.equals(driverNodeTypeId, that.driverNodeTypeId)
+        && Objects.equals(enableLocalDiskEncryption, that.enableLocalDiskEncryption)
         && Objects.equals(gcpAttributes, that.gcpAttributes)
         && Objects.equals(initScripts, that.initScripts)
         && Objects.equals(instancePoolId, that.instancePoolId)
@@ -359,6 +373,7 @@ public class PipelineCluster {
         customTags,
         driverInstancePoolId,
         driverNodeTypeId,
+        enableLocalDiskEncryption,
         gcpAttributes,
         initScripts,
         instancePoolId,
@@ -382,6 +397,7 @@ public class PipelineCluster {
         .add("customTags", customTags)
         .add("driverInstancePoolId", driverInstancePoolId)
         .add("driverNodeTypeId", driverNodeTypeId)
+        .add("enableLocalDiskEncryption", enableLocalDiskEncryption)
         .add("gcpAttributes", gcpAttributes)
         .add("initScripts", initScripts)
         .add("instancePoolId", instancePoolId)

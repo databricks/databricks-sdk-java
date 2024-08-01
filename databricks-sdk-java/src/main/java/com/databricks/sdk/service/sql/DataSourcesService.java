@@ -14,8 +14,9 @@ import java.util.Collection;
  * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
  * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
  *
- * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
- * version.
+ * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+ *
+ * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -31,7 +32,9 @@ public interface DataSourcesService {
    * to create new queries against it.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:warehouses/list instead.
+   * :method:warehouses/list instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   Collection<DataSource> list();
 }

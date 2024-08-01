@@ -78,7 +78,16 @@ public class ProvidersAPI {
    */
   public Iterable<ProviderInfo> list(ListProvidersRequest request) {
     return new Paginator<>(
-        request, impl::list, ListProvidersResponse::getProviders, response -> null);
+        request,
+        impl::list,
+        ListProvidersResponse::getProviders,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public Iterable<ProviderShare> listShares(String name) {

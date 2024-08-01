@@ -46,7 +46,7 @@ public interface SharesService {
    * or the owner of the share. There is no guarantee of a specific ordering of the elements in the
    * array.
    */
-  ListSharesResponse list();
+  ListSharesResponse list(ListSharesRequest listSharesRequest);
 
   /**
    * Get permissions.

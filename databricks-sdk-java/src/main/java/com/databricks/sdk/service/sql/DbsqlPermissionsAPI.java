@@ -20,8 +20,9 @@ import org.slf4j.LoggerFactory;
  * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
  * `CAN_RUN`)
  *
- * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
- * version.
+ * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+ *
+ * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  */
 @Generated
 public class DbsqlPermissionsAPI {
@@ -47,6 +48,11 @@ public class DbsqlPermissionsAPI {
    * Get object ACL.
    *
    * <p>Gets a JSON representation of the access control list (ACL) for a specified object.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
+   * :method:workspace/getpermissions instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public GetResponse get(GetDbsqlPermissionRequest request) {
     return impl.get(request);
@@ -61,6 +67,11 @@ public class DbsqlPermissionsAPI {
    *
    * <p>Sets the access control list (ACL) for a specified object. This operation will complete
    * rewrite the ACL.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
+   * :method:workspace/setpermissions instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public SetResponse set(SetRequest request) {
     return impl.set(request);
@@ -79,7 +90,9 @@ public class DbsqlPermissionsAPI {
    * key.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. For queries and alerts,
-   * please use :method:queries/update and :method:alerts/update respectively instead.
+   * please use :method:queries/update and :method:alerts/update respectively instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public Success transferOwnership(TransferOwnershipRequest request) {
     return impl.transferOwnership(request);
