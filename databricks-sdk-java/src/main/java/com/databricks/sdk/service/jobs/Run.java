@@ -83,6 +83,10 @@ public class Run {
   @JsonProperty("git_source")
   private GitSource gitSource;
 
+  /** Only populated by for-each iterations. The parent for-each task is located in tasks array. */
+  @JsonProperty("iterations")
+  private Collection<RunTask> iterations;
+
   /**
    * A list of job cluster specifications that can be shared and reused by tasks of this job.
    * Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in
@@ -99,6 +103,10 @@ public class Run {
   @JsonProperty("job_parameters")
   private Collection<JobParameter> jobParameters;
 
+  /** A token that can be used to list the next page of sub-resources. */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
   /** A unique identifier for this job run. This is set to the same value as `run_id`. */
   @JsonProperty("number_in_job")
   private Long numberInJob;
@@ -113,6 +121,10 @@ public class Run {
   /** The parameters used for this run. */
   @JsonProperty("overriding_parameters")
   private RunParameters overridingParameters;
+
+  /** A token that can be used to list the previous page of sub-resources. */
+  @JsonProperty("prev_page_token")
+  private String prevPageToken;
 
   /** The time in milliseconds that the run has spent in the queue. */
   @JsonProperty("queue_duration")
@@ -281,6 +293,15 @@ public class Run {
     return gitSource;
   }
 
+  public Run setIterations(Collection<RunTask> iterations) {
+    this.iterations = iterations;
+    return this;
+  }
+
+  public Collection<RunTask> getIterations() {
+    return iterations;
+  }
+
   public Run setJobClusters(Collection<JobCluster> jobClusters) {
     this.jobClusters = jobClusters;
     return this;
@@ -308,6 +329,15 @@ public class Run {
     return jobParameters;
   }
 
+  public Run setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
   public Run setNumberInJob(Long numberInJob) {
     this.numberInJob = numberInJob;
     return this;
@@ -333,6 +363,15 @@ public class Run {
 
   public RunParameters getOverridingParameters() {
     return overridingParameters;
+  }
+
+  public Run setPrevPageToken(String prevPageToken) {
+    this.prevPageToken = prevPageToken;
+    return this;
+  }
+
+  public String getPrevPageToken() {
+    return prevPageToken;
   }
 
   public Run setQueueDuration(Long queueDuration) {
@@ -475,12 +514,15 @@ public class Run {
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(iterations, that.iterations)
         && Objects.equals(jobClusters, that.jobClusters)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(jobParameters, that.jobParameters)
+        && Objects.equals(nextPageToken, that.nextPageToken)
         && Objects.equals(numberInJob, that.numberInJob)
         && Objects.equals(originalAttemptRunId, that.originalAttemptRunId)
         && Objects.equals(overridingParameters, that.overridingParameters)
+        && Objects.equals(prevPageToken, that.prevPageToken)
         && Objects.equals(queueDuration, that.queueDuration)
         && Objects.equals(repairHistory, that.repairHistory)
         && Objects.equals(runDuration, that.runDuration)
@@ -509,12 +551,15 @@ public class Run {
         endTime,
         executionDuration,
         gitSource,
+        iterations,
         jobClusters,
         jobId,
         jobParameters,
+        nextPageToken,
         numberInJob,
         originalAttemptRunId,
         overridingParameters,
+        prevPageToken,
         queueDuration,
         repairHistory,
         runDuration,
@@ -543,12 +588,15 @@ public class Run {
         .add("endTime", endTime)
         .add("executionDuration", executionDuration)
         .add("gitSource", gitSource)
+        .add("iterations", iterations)
         .add("jobClusters", jobClusters)
         .add("jobId", jobId)
         .add("jobParameters", jobParameters)
+        .add("nextPageToken", nextPageToken)
         .add("numberInJob", numberInJob)
         .add("originalAttemptRunId", originalAttemptRunId)
         .add("overridingParameters", overridingParameters)
+        .add("prevPageToken", prevPageToken)
         .add("queueDuration", queueDuration)
         .add("repairHistory", repairHistory)
         .add("runDuration", runDuration)

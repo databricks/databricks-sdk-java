@@ -12,6 +12,8 @@ import com.databricks.sdk.service.billing.BudgetsAPI;
 import com.databricks.sdk.service.billing.BudgetsService;
 import com.databricks.sdk.service.billing.LogDeliveryAPI;
 import com.databricks.sdk.service.billing.LogDeliveryService;
+import com.databricks.sdk.service.billing.UsageDashboardsAPI;
+import com.databricks.sdk.service.billing.UsageDashboardsService;
 import com.databricks.sdk.service.catalog.AccountMetastoreAssignmentsAPI;
 import com.databricks.sdk.service.catalog.AccountMetastoreAssignmentsService;
 import com.databricks.sdk.service.catalog.AccountMetastoresAPI;
@@ -85,6 +87,7 @@ public class AccountClient {
   private AccountSettingsAPI settingsAPI;
   private StorageAPI storageAPI;
   private AccountStorageCredentialsAPI storageCredentialsAPI;
+  private UsageDashboardsAPI usageDashboardsAPI;
   private AccountUsersAPI usersAPI;
   private VpcEndpointsAPI vpcEndpointsAPI;
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
@@ -119,6 +122,7 @@ public class AccountClient {
     settingsAPI = new AccountSettingsAPI(apiClient);
     storageAPI = new StorageAPI(apiClient);
     storageCredentialsAPI = new AccountStorageCredentialsAPI(apiClient);
+    usageDashboardsAPI = new UsageDashboardsAPI(apiClient);
     usersAPI = new AccountUsersAPI(apiClient);
     vpcEndpointsAPI = new VpcEndpointsAPI(apiClient);
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(apiClient);
@@ -388,6 +392,15 @@ public class AccountClient {
   /** These APIs manage storage credentials for a particular metastore. */
   public AccountStorageCredentialsAPI storageCredentials() {
     return storageCredentialsAPI;
+  }
+
+  /**
+   * These APIs manage usage dashboards for this account. Usage dashboards enable you to gain
+   * insights into your usage with pre-built dashboards: visualize breakdowns, analyze tag
+   * attributions, and identify cost drivers.
+   */
+  public UsageDashboardsAPI usageDashboards() {
+    return usageDashboardsAPI;
   }
 
   /**
@@ -672,6 +685,17 @@ public class AccountClient {
   public AccountClient withStorageCredentialsAPI(
       AccountStorageCredentialsAPI accountStorageCredentials) {
     this.storageCredentialsAPI = accountStorageCredentials;
+    return this;
+  }
+
+  /** Replace the default UsageDashboardsService with a custom implementation. */
+  public AccountClient withUsageDashboardsImpl(UsageDashboardsService usageDashboards) {
+    return this.withUsageDashboardsAPI(new UsageDashboardsAPI(usageDashboards));
+  }
+
+  /** Replace the default UsageDashboardsAPI with a custom implementation. */
+  public AccountClient withUsageDashboardsAPI(UsageDashboardsAPI usageDashboards) {
+    this.usageDashboardsAPI = usageDashboards;
     return this;
   }
 

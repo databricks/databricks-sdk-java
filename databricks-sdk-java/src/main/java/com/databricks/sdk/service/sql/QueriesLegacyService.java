@@ -9,7 +9,9 @@ import com.databricks.sdk.support.Generated;
  * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
  *
  * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
- * version.
+ * version. [Learn more]
+ *
+ * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -30,7 +32,9 @@ public interface QueriesLegacyService {
    * <p>**Note**: You cannot add a visualization until you create the query.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queries/create instead.
+   * :method:queries/create instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   LegacyQuery create(QueryPostContent queryPostContent);
 
@@ -41,7 +45,9 @@ public interface QueriesLegacyService {
    * views, and they cannot be used for alerts. The trash is deleted after 30 days.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queries/delete instead.
+   * :method:queries/delete instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   void delete(DeleteQueriesLegacyRequest deleteQueriesLegacyRequest);
 
@@ -52,7 +58,9 @@ public interface QueriesLegacyService {
    * currently authenticated user.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queries/get instead.
+   * :method:queries/get instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   LegacyQuery get(GetQueriesLegacyRequest getQueriesLegacyRequest);
 
@@ -65,7 +73,9 @@ public interface QueriesLegacyService {
    * service degradation, or a temporary ban.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queries/list instead.
+   * :method:queries/list instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   QueryList list(ListQueriesLegacyRequest listQueriesLegacyRequest);
 
@@ -76,7 +86,9 @@ public interface QueriesLegacyService {
    * searches. You can use restored queries for alerts.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version.
+   * version. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   void restore(RestoreQueriesLegacyRequest restoreQueriesLegacyRequest);
 
@@ -88,7 +100,9 @@ public interface QueriesLegacyService {
    * <p>**Note**: You cannot undo this operation.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queries/update instead.
+   * :method:queries/update instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   LegacyQuery update(QueryEditContent queryEditContent);
 }

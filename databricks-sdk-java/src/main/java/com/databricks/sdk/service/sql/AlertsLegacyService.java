@@ -11,7 +11,9 @@ import java.util.Collection;
  * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
  *
  * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
- * version.
+ * version. [Learn more]
+ *
+ * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -27,7 +29,9 @@ public interface AlertsLegacyService {
    * condition was met.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:alerts/create instead.
+   * :method:alerts/create instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   LegacyAlert create(CreateAlert createAlert);
 
@@ -38,7 +42,9 @@ public interface AlertsLegacyService {
    * Unlike queries and dashboards, alerts cannot be moved to the trash.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:alerts/delete instead.
+   * :method:alerts/delete instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   void delete(DeleteAlertsLegacyRequest deleteAlertsLegacyRequest);
 
@@ -48,7 +54,9 @@ public interface AlertsLegacyService {
    * <p>Gets an alert.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:alerts/get instead.
+   * :method:alerts/get instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   LegacyAlert get(GetAlertsLegacyRequest getAlertsLegacyRequest);
 
@@ -58,7 +66,9 @@ public interface AlertsLegacyService {
    * <p>Gets a list of alerts.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:alerts/list instead.
+   * :method:alerts/list instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   Collection<LegacyAlert> list();
 
@@ -68,7 +78,9 @@ public interface AlertsLegacyService {
    * <p>Updates an alert.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:alerts/update instead.
+   * :method:alerts/update instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   void update(EditAlert editAlert);
 }

@@ -8,6 +8,7 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum WarehousePermissionLevel {
   CAN_MANAGE,
+  CAN_MONITOR,
   CAN_USE,
   IS_OWNER,
 }

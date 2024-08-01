@@ -8,6 +8,8 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
+import com.databricks.sdk.service.apps.AppsAPI;
+import com.databricks.sdk.service.apps.AppsService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsService;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
@@ -112,8 +114,6 @@ import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
-import com.databricks.sdk.service.serving.AppsAPI;
-import com.databricks.sdk.service.serving.AppsService;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsService;
 import com.databricks.sdk.service.settings.CredentialsManagerAPI;
@@ -406,7 +406,9 @@ public class WorkspaceClient {
    * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version.
+   * version. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public AlertsLegacyAPI alertsLegacy() {
     return alertsLegacyAPI;
@@ -606,8 +608,9 @@ public class WorkspaceClient {
    * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
    * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version.
+   * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public DataSourcesAPI dataSources() {
     return dataSourcesAPI;
@@ -635,8 +638,9 @@ public class WorkspaceClient {
    * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
    * `CAN_RUN`)
    *
-   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version.
+   * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public DbsqlPermissionsAPI dbsqlPermissions() {
     return dbsqlPermissionsAPI;
@@ -948,6 +952,8 @@ public class WorkspaceClient {
    * Permissions API are used to create read, write, edit, update and manage access for various
    * users on different objects and endpoints.
    *
+   * <p>* **[Apps permissions](:service:apps)** — Manage which users can manage or use apps.
+   *
    * <p>* **[Cluster permissions](:service:clusters)** — Manage which users can manage, restart, or
    * attach to clusters.
    *
@@ -984,7 +990,7 @@ public class WorkspaceClient {
    * tokens.
    *
    * <p>* **[Workspace object permissions](:service:workspace)** — Manage which users can read, run,
-   * edit, or manage directories, files, and notebooks.
+   * edit, or manage alerts, dbsql-dashboards, directories, files, notebooks and queries.
    *
    * <p>For the mapping of the required permissions for specific actions or abilities and other
    * important information, see [Access Control].
@@ -1116,7 +1122,9 @@ public class WorkspaceClient {
    * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version.
+   * version. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public QueriesLegacyAPI queriesLegacy() {
     return queriesLegacyAPI;
@@ -1143,7 +1151,9 @@ public class WorkspaceClient {
    * existing queries within the Databricks Workspace. Data structures may change over time.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
-   * version.
+   * version. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public QueryVisualizationsLegacyAPI queryVisualizationsLegacy() {
     return queryVisualizationsLegacyAPI;

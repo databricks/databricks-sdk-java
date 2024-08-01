@@ -92,7 +92,16 @@ public class RecipientsAPI {
    */
   public Iterable<RecipientInfo> list(ListRecipientsRequest request) {
     return new Paginator<>(
-        request, impl::list, ListRecipientsResponse::getRecipients, response -> null);
+        request,
+        impl::list,
+        ListRecipientsResponse::getRecipients,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public RecipientInfo rotateToken(String name, long existingTokenExpireInSeconds) {

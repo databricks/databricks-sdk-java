@@ -16,8 +16,9 @@ import org.slf4j.LoggerFactory;
  * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
  * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
  *
- * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
- * version.
+ * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+ *
+ * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  */
 @Generated
 public class DataSourcesAPI {
@@ -43,7 +44,9 @@ public class DataSourcesAPI {
    * to create new queries against it.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:warehouses/list instead.
+   * :method:warehouses/list instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public Iterable<DataSource> list() {
     return impl.list();

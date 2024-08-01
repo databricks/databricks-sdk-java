@@ -8,7 +8,9 @@ import com.databricks.sdk.support.Generated;
  * queries within the Databricks Workspace. Data structures may change over time.
  *
  * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
- * version.
+ * version. [Learn more]
+ *
+ * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -22,7 +24,9 @@ public interface QueryVisualizationsLegacyService {
    * <p>Creates visualization in the query.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queryvisualizations/create instead.
+   * :method:queryvisualizations/create instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   LegacyVisualization create(
       CreateQueryVisualizationsLegacyRequest createQueryVisualizationsLegacyRequest);
@@ -33,7 +37,9 @@ public interface QueryVisualizationsLegacyService {
    * <p>Removes a visualization from the query.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queryvisualizations/delete instead.
+   * :method:queryvisualizations/delete instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   void delete(DeleteQueryVisualizationsLegacyRequest deleteQueryVisualizationsLegacyRequest);
 
@@ -43,7 +49,9 @@ public interface QueryVisualizationsLegacyService {
    * <p>Updates visualization in the query.
    *
    * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
-   * :method:queryvisualizations/update instead.
+   * :method:queryvisualizations/update instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   LegacyVisualization update(LegacyVisualization legacyVisualization);
 }
