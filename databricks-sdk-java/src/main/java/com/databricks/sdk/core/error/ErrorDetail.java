@@ -26,7 +26,7 @@ public class ErrorDetail {
     this.type = type;
     this.reason = reason;
     this.domain = domain;
-    this.metadata = Collections.unmodifiableMap(metadata);
+    this.metadata = metadata != null ? Collections.unmodifiableMap(metadata) : null;
   }
 
   public String getType() {
