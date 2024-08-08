@@ -44,10 +44,6 @@ public class ClusterPoliciesAPI {
     impl = mock;
   }
 
-  public CreatePolicyResponse create(String name) {
-    return create(new CreatePolicy().setName(name));
-  }
-
   /**
    * Create a new policy.
    *
@@ -71,8 +67,8 @@ public class ClusterPoliciesAPI {
     impl.delete(request);
   }
 
-  public void edit(String policyId, String name) {
-    edit(new EditPolicy().setPolicyId(policyId).setName(name));
+  public void edit(String policyId) {
+    edit(new EditPolicy().setPolicyId(policyId));
   }
 
   /**
@@ -85,8 +81,24 @@ public class ClusterPoliciesAPI {
     impl.edit(request);
   }
 
+  public EnforcePolicyComplianceForJobResponse enforceCompliance(long jobId) {
+    return enforceCompliance(new EnforcePolicyComplianceForJob().setJobId(jobId));
+  }
+
+  /**
+   * Enforce job policy compliance.
+   *
+   * <p>Updates a job so the job clusters that are created when running the job (specified in
+   * `new_cluster`) are compliant with the current versions of their respective cluster policies.
+   * All-purpose clusters used in the job will not be updated.
+   */
+  public EnforcePolicyComplianceForJobResponse enforceCompliance(
+      EnforcePolicyComplianceForJob request) {
+    return impl.enforceCompliance(request);
+  }
+
   public Policy get(String policyId) {
-    return get(new GetClusterPolicyRequest().setPolicyId(policyId));
+    return get(new GetPolicy().setPolicyId(policyId));
   }
 
   /**
@@ -94,8 +106,23 @@ public class ClusterPoliciesAPI {
    *
    * <p>Get a cluster policy entity. Creation and editing is available to admins only.
    */
-  public Policy get(GetClusterPolicyRequest request) {
+  public Policy get(GetPolicy request) {
     return impl.get(request);
+  }
+
+  public GetPolicyComplianceForJobResponse getCompliance(long jobId) {
+    return getCompliance(new GetPolicyComplianceForJob().setJobId(jobId));
+  }
+
+  /**
+   * Get job policy compliance.
+   *
+   * <p>Returns the policy compliance status of a job. Jobs could be out of compliance if a policy
+   * they use was updated after the job was last edited and some of its job clusters no longer
+   * comply with their updated policies.
+   */
+  public GetPolicyComplianceForJobResponse getCompliance(GetPolicyComplianceForJob request) {
+    return impl.getCompliance(request);
   }
 
   public GetClusterPolicyPermissionLevelsResponse getPermissionLevels(String clusterPolicyId) {
@@ -133,9 +160,33 @@ public class ClusterPoliciesAPI {
    *
    * <p>Returns a list of policies accessible by the requesting user.
    */
-  public Iterable<Policy> list(ListClusterPoliciesRequest request) {
+  public Iterable<Policy> list(ListPolicies request) {
     return new Paginator<>(
         request, impl::list, ListPoliciesResponse::getPolicies, response -> null);
+  }
+
+  public Iterable<ClusterCompliance> listCompliance(String policyId) {
+    return listCompliance(new ListClusterComplianceForPolicy().setPolicyId(policyId));
+  }
+
+  /**
+   * List cluster policy compliance.
+   *
+   * <p>Returns the policy compliance status of all clusters that use a given policy. Clusters could
+   * be out of compliance if their policy was updated after the cluster was last edited.
+   */
+  public Iterable<ClusterCompliance> listCompliance(ListClusterComplianceForPolicy request) {
+    return new Paginator<>(
+        request,
+        impl::listCompliance,
+        ListClusterComplianceForPolicyResponse::getClusters,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public ClusterPolicyPermissions setPermissions(String clusterPolicyId) {

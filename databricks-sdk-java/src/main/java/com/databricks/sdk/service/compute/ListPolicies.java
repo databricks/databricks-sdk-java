@@ -9,36 +9,36 @@ import java.util.Objects;
 
 /** List cluster policies */
 @Generated
-public class ListClusterPoliciesRequest {
+public class ListPolicies {
   /**
    * The cluster policy attribute to sort by. * `POLICY_CREATION_TIME` - Sort result list by policy
    * creation time. * `POLICY_NAME` - Sort result list by policy name.
    */
   @QueryParam("sort_column")
-  private ListSortColumn sortColumn;
+  private PolicySortColumn sortColumn;
 
   /**
    * The order in which the policies get listed. * `DESC` - Sort result list in descending order. *
    * `ASC` - Sort result list in ascending order.
    */
   @QueryParam("sort_order")
-  private ListSortOrder sortOrder;
+  private ListOrder sortOrder;
 
-  public ListClusterPoliciesRequest setSortColumn(ListSortColumn sortColumn) {
+  public ListPolicies setSortColumn(PolicySortColumn sortColumn) {
     this.sortColumn = sortColumn;
     return this;
   }
 
-  public ListSortColumn getSortColumn() {
+  public PolicySortColumn getSortColumn() {
     return sortColumn;
   }
 
-  public ListClusterPoliciesRequest setSortOrder(ListSortOrder sortOrder) {
+  public ListPolicies setSortOrder(ListOrder sortOrder) {
     this.sortOrder = sortOrder;
     return this;
   }
 
-  public ListSortOrder getSortOrder() {
+  public ListOrder getSortOrder() {
     return sortOrder;
   }
 
@@ -46,7 +46,7 @@ public class ListClusterPoliciesRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ListClusterPoliciesRequest that = (ListClusterPoliciesRequest) o;
+    ListPolicies that = (ListPolicies) o;
     return Objects.equals(sortColumn, that.sortColumn) && Objects.equals(sortOrder, that.sortOrder);
   }
 
@@ -57,7 +57,7 @@ public class ListClusterPoliciesRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(ListClusterPoliciesRequest.class)
+    return new ToStringer(ListPolicies.class)
         .add("sortColumn", sortColumn)
         .add("sortOrder", sortOrder)
         .toString();

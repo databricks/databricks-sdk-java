@@ -26,7 +26,7 @@ public class PolicyFamily {
   @JsonProperty("name")
   private String name;
 
-  /** ID of the policy family. */
+  /** Unique identifier for the policy family. */
   @JsonProperty("policy_family_id")
   private String policyFamilyId;
 

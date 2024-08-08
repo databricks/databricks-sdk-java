@@ -182,6 +182,15 @@ class ClustersImpl implements ClustersService {
   }
 
   @Override
+  public void update(UpdateCluster request) {
+    String path = "/api/2.1/clusters/update";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    apiClient.POST(path, request, UpdateClusterResponse.class, headers);
+  }
+
+  @Override
   public ClusterPermissions updatePermissions(ClusterPermissionsRequest request) {
     String path = String.format("/api/2.0/permissions/clusters/%s", request.getClusterId());
     Map<String, String> headers = new HashMap<>();

@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,7 +55,7 @@ public class WorkspaceBindingsAPI {
     return impl.get(request);
   }
 
-  public WorkspaceBindingsResponse getBindings(
+  public Iterable<WorkspaceBinding> getBindings(
       GetBindingsSecurableType securableType, String securableName) {
     return getBindings(
         new GetBindingsRequest().setSecurableType(securableType).setSecurableName(securableName));
@@ -66,8 +67,18 @@ public class WorkspaceBindingsAPI {
    * <p>Gets workspace bindings of the securable. The caller must be a metastore admin or an owner
    * of the securable.
    */
-  public WorkspaceBindingsResponse getBindings(GetBindingsRequest request) {
-    return impl.getBindings(request);
+  public Iterable<WorkspaceBinding> getBindings(GetBindingsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::getBindings,
+        WorkspaceBindingsResponse::getBindings,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public CurrentWorkspaceBindings update(String name) {

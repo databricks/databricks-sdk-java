@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Generated
-public class ManagedIngestionPipelineDefinition {
+public class IngestionPipelineDefinition {
   /**
    * Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the
    * source. Specify either ingestion_gateway_id or connection_name.
@@ -38,7 +38,7 @@ public class ManagedIngestionPipelineDefinition {
   @JsonProperty("table_configuration")
   private TableSpecificConfig tableConfiguration;
 
-  public ManagedIngestionPipelineDefinition setConnectionName(String connectionName) {
+  public IngestionPipelineDefinition setConnectionName(String connectionName) {
     this.connectionName = connectionName;
     return this;
   }
@@ -47,7 +47,7 @@ public class ManagedIngestionPipelineDefinition {
     return connectionName;
   }
 
-  public ManagedIngestionPipelineDefinition setIngestionGatewayId(String ingestionGatewayId) {
+  public IngestionPipelineDefinition setIngestionGatewayId(String ingestionGatewayId) {
     this.ingestionGatewayId = ingestionGatewayId;
     return this;
   }
@@ -56,7 +56,7 @@ public class ManagedIngestionPipelineDefinition {
     return ingestionGatewayId;
   }
 
-  public ManagedIngestionPipelineDefinition setObjects(Collection<IngestionConfig> objects) {
+  public IngestionPipelineDefinition setObjects(Collection<IngestionConfig> objects) {
     this.objects = objects;
     return this;
   }
@@ -65,8 +65,7 @@ public class ManagedIngestionPipelineDefinition {
     return objects;
   }
 
-  public ManagedIngestionPipelineDefinition setTableConfiguration(
-      TableSpecificConfig tableConfiguration) {
+  public IngestionPipelineDefinition setTableConfiguration(TableSpecificConfig tableConfiguration) {
     this.tableConfiguration = tableConfiguration;
     return this;
   }
@@ -79,7 +78,7 @@ public class ManagedIngestionPipelineDefinition {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ManagedIngestionPipelineDefinition that = (ManagedIngestionPipelineDefinition) o;
+    IngestionPipelineDefinition that = (IngestionPipelineDefinition) o;
     return Objects.equals(connectionName, that.connectionName)
         && Objects.equals(ingestionGatewayId, that.ingestionGatewayId)
         && Objects.equals(objects, that.objects)
@@ -93,7 +92,7 @@ public class ManagedIngestionPipelineDefinition {
 
   @Override
   public String toString() {
-    return new ToStringer(ManagedIngestionPipelineDefinition.class)
+    return new ToStringer(IngestionPipelineDefinition.class)
         .add("connectionName", connectionName)
         .add("ingestionGatewayId", ingestionGatewayId)
         .add("objects", objects)

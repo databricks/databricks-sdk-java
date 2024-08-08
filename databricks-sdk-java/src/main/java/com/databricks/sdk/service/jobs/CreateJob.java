@@ -13,7 +13,7 @@ import java.util.Objects;
 public class CreateJob {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
-  private Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList;
+  private Collection<JobAccessControlRequest> accessControlList;
 
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
@@ -166,13 +166,12 @@ public class CreateJob {
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
-  public CreateJob setAccessControlList(
-      Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList) {
+  public CreateJob setAccessControlList(Collection<JobAccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public Collection<com.databricks.sdk.service.iam.AccessControlRequest> getAccessControlList() {
+  public Collection<JobAccessControlRequest> getAccessControlList() {
     return accessControlList;
   }
 
