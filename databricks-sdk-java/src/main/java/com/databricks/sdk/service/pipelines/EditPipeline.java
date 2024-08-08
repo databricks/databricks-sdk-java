@@ -78,7 +78,7 @@ public class EditPipeline {
    * 'libraries', 'target' or 'catalog' settings.
    */
   @JsonProperty("ingestion_definition")
-  private ManagedIngestionPipelineDefinition ingestionDefinition;
+  private IngestionPipelineDefinition ingestionDefinition;
 
   /** Libraries or code needed by this deployment. */
   @JsonProperty("libraries")
@@ -237,13 +237,12 @@ public class EditPipeline {
     return id;
   }
 
-  public EditPipeline setIngestionDefinition(
-      ManagedIngestionPipelineDefinition ingestionDefinition) {
+  public EditPipeline setIngestionDefinition(IngestionPipelineDefinition ingestionDefinition) {
     this.ingestionDefinition = ingestionDefinition;
     return this;
   }
 
-  public ManagedIngestionPipelineDefinition getIngestionDefinition() {
+  public IngestionPipelineDefinition getIngestionDefinition() {
     return ingestionDefinition;
   }
 

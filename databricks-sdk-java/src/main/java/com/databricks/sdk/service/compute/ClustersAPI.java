@@ -441,6 +441,28 @@ public class ClustersAPI {
     impl.unpin(request);
   }
 
+  public Wait<ClusterDetails, Void> update(String clusterId, String updateMask) {
+    return update(new UpdateCluster().setClusterId(clusterId).setUpdateMask(updateMask));
+  }
+
+  /**
+   * Update cluster configuration (partial).
+   *
+   * <p>Updates the configuration of a cluster to match the partial set of attributes and size.
+   * Denote which fields to update using the `update_mask` field in the request body. A cluster can
+   * be updated if it is in a `RUNNING` or `TERMINATED` state. If a cluster is updated while in a
+   * `RUNNING` state, it will be restarted so that the new attributes can take effect. If a cluster
+   * is updated while in a `TERMINATED` state, it will remain `TERMINATED`. The updated attributes
+   * will take effect the next time the cluster is started using the `clusters/start` API. Attempts
+   * to update a cluster in any other state will be rejected with an `INVALID_STATE` error code.
+   * Clusters created by the Databricks Jobs service cannot be updated.
+   */
+  public Wait<ClusterDetails, Void> update(UpdateCluster request) {
+    impl.update(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
+  }
+
   public ClusterPermissions updatePermissions(String clusterId) {
     return updatePermissions(new ClusterPermissionsRequest().setClusterId(clusterId));
   }

@@ -9,12 +9,12 @@ import java.util.Objects;
 
 /** Get a cluster policy */
 @Generated
-public class GetClusterPolicyRequest {
-  /** Canonical unique identifier for the cluster policy. */
+public class GetPolicy {
+  /** Canonical unique identifier for the Cluster Policy. */
   @QueryParam("policy_id")
   private String policyId;
 
-  public GetClusterPolicyRequest setPolicyId(String policyId) {
+  public GetPolicy setPolicyId(String policyId) {
     this.policyId = policyId;
     return this;
   }
@@ -27,7 +27,7 @@ public class GetClusterPolicyRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    GetClusterPolicyRequest that = (GetClusterPolicyRequest) o;
+    GetPolicy that = (GetPolicy) o;
     return Objects.equals(policyId, that.policyId);
   }
 
@@ -38,6 +38,6 @@ public class GetClusterPolicyRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(GetClusterPolicyRequest.class).add("policyId", policyId).toString();
+    return new ToStringer(GetPolicy.class).add("policyId", policyId).toString();
   }
 }

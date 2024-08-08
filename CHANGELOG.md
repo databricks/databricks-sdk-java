@@ -1,5 +1,45 @@
 # Version changelog
 
+## [Release] Release v0.29.0
+
+### Internal Changes
+
+ * Test that Jobs API endpoints are pinned to 2.1 ([#319](https://github.com/databricks/databricks-sdk-java/pull/319)).
+
+
+### API Changes:
+
+ * Added `enforceCompliance()`, `getCompliance()` and `listCompliance()` methods for `workspaceClient.clusterPolicies()` service.
+ * Added `update()` method for `workspaceClient.clusters()` service.
+ * Added `com.databricks.sdk.service.compute.ClusterCompliance`, `com.databricks.sdk.service.compute.EnforcePolicyComplianceForCluster`, `com.databricks.sdk.service.compute.EnforcePolicyComplianceForClusterResponse`, `com.databricks.sdk.service.compute.EnforcePolicyComplianceForClusterResponseClusterSettingsChange`, `com.databricks.sdk.service.compute.EnforcePolicyComplianceForJob`, `com.databricks.sdk.service.compute.EnforcePolicyComplianceForJobResponse`, `com.databricks.sdk.service.compute.EnforcePolicyComplianceForJobResponseJobClusterSettingsChange`, `com.databricks.sdk.service.compute.GetPolicy`, `com.databricks.sdk.service.compute.GetPolicyComplianceForCluster`, `com.databricks.sdk.service.compute.GetPolicyComplianceForClusterResponse`, `com.databricks.sdk.service.compute.GetPolicyComplianceForJob`, `com.databricks.sdk.service.compute.GetPolicyComplianceForJobResponse`, `com.databricks.sdk.service.compute.ListClusterComplianceForPolicy`, `com.databricks.sdk.service.compute.ListClusterComplianceForPolicyResponse`, `com.databricks.sdk.service.compute.ListJobComplianceForPolicy`, `com.databricks.sdk.service.compute.ListJobComplianceForPolicyJobCompliance`, `com.databricks.sdk.service.compute.ListJobComplianceForPolicyResponse`, `com.databricks.sdk.service.compute.ListOrder`, `com.databricks.sdk.service.compute.ListPolicies`, `com.databricks.sdk.service.compute.ListPolicyFamilies`, `com.databricks.sdk.service.compute.PolicySortColumn`, `com.databricks.sdk.service.compute.UpdateCluster`, `com.databricks.sdk.service.compute.UpdateClusterResource` and `Object` classes.
+ * Added `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.catalog.GetBindingsRequest`.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.catalog.ListSystemSchemasRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListSystemSchemasResponse`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.WorkspaceBindingsResponse`.
+ * Added `version` field for `com.databricks.sdk.service.compute.GetPolicyFamilyRequest`.
+ * Added `id` field for `com.databricks.sdk.service.dashboards.QueryAttachment`.
+ * Added `id` field for `com.databricks.sdk.service.dashboards.TextAttachment`.
+ * Changed `create()` and `edit()` methods for `workspaceClient.clusterPolicies()` service with new required argument order.
+ * Changed `get()` method for `workspaceClient.clusterPolicies()` service . New request type is `com.databricks.sdk.service.compute.GetPolicy` class.
+ * Changed `list()` method for `workspaceClient.clusterPolicies()` service . New request type is `com.databricks.sdk.service.compute.ListPolicies` class.
+ * Changed `list()` method for `workspaceClient.policyFamilies()` service . New request type is `com.databricks.sdk.service.compute.ListPolicyFamilies` class.
+ * Changed `name` field for `com.databricks.sdk.service.compute.CreatePolicy` to no longer be required.
+ * Changed `name` field for `com.databricks.sdk.service.compute.EditPolicy` to no longer be required.
+ * Changed `policyFamilyId` field for `com.databricks.sdk.service.compute.GetPolicyFamilyRequest` to `String` class.
+ * Changed `policyFamilies` field for `com.databricks.sdk.service.compute.ListPolicyFamiliesResponse` to no longer be required.
+ * Changed `definition`, `description`, `name` and `policyFamilyId` fields for `com.databricks.sdk.service.compute.PolicyFamily` to no longer be required.
+ * Changed `accessControlList` field for `com.databricks.sdk.service.jobs.CreateJob` to `com.databricks.sdk.service.jobs.JobAccessControlRequestList` class.
+ * Changed `accessControlList` field for `com.databricks.sdk.service.jobs.SubmitRun` to `com.databricks.sdk.service.jobs.JobAccessControlRequestList` class.
+ * Changed `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.CreatePipeline` to `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Changed `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.EditPipeline` to `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Changed `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.PipelineSpec` to `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Removed `com.databricks.sdk.service.compute.GetClusterPolicyRequest`, `com.databricks.sdk.service.compute.ListClusterPoliciesRequest`, `com.databricks.sdk.service.compute.ListPolicyFamiliesRequest`, `com.databricks.sdk.service.compute.ListSortColumn`, `com.databricks.sdk.service.compute.ListSortOrder` and `com.databricks.sdk.service.compute.PolicyFamilyId` classes.
+ * Removed `com.databricks.sdk.service.pipelines.ManagedIngestionPipelineDefinition` class.
+
+OpenAPI SHA: 88571b688969bc4509fb520d86d161eb20c3d662, Date: 2024-08-08
+
+
 ## [Release] Release v0.28.0
 
 ### Bug Fixes

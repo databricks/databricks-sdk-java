@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Describes a Cluster Policy entity. */
 @Generated
 public class Policy {
   /** Creation time. The timestamp (in millisecond) when this Cluster Policy was created. */
@@ -75,7 +76,13 @@ public class Policy {
   @JsonProperty("policy_family_definition_overrides")
   private String policyFamilyDefinitionOverrides;
 
-  /** ID of the policy family. */
+  /**
+   * ID of the policy family. The cluster policy's policy definition inherits the policy family's
+   * policy definition.
+   *
+   * <p>Cannot be used with `definition`. Use `policy_family_definition_overrides` instead to
+   * customize the policy definition.
+   */
   @JsonProperty("policy_family_id")
   private String policyFamilyId;
 

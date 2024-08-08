@@ -13,6 +13,10 @@ public class QueryAttachment {
   @JsonProperty("description")
   private String description;
 
+  /** */
+  @JsonProperty("id")
+  private String id;
+
   /** If the query was created on an instruction (trusted asset) we link to the id */
   @JsonProperty("instruction_id")
   private String instructionId;
@@ -43,6 +47,15 @@ public class QueryAttachment {
 
   public String getDescription() {
     return description;
+  }
+
+  public QueryAttachment setId(String id) {
+    this.id = id;
+    return this;
+  }
+
+  public String getId() {
+    return id;
   }
 
   public QueryAttachment setInstructionId(String instructionId) {
@@ -96,6 +109,7 @@ public class QueryAttachment {
     if (o == null || getClass() != o.getClass()) return false;
     QueryAttachment that = (QueryAttachment) o;
     return Objects.equals(description, that.description)
+        && Objects.equals(id, that.id)
         && Objects.equals(instructionId, that.instructionId)
         && Objects.equals(instructionTitle, that.instructionTitle)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
@@ -106,13 +120,14 @@ public class QueryAttachment {
   @Override
   public int hashCode() {
     return Objects.hash(
-        description, instructionId, instructionTitle, lastUpdatedTimestamp, query, title);
+        description, id, instructionId, instructionTitle, lastUpdatedTimestamp, query, title);
   }
 
   @Override
   public String toString() {
     return new ToStringer(QueryAttachment.class)
         .add("description", description)
+        .add("id", id)
         .add("instructionId", instructionId)
         .add("instructionTitle", instructionTitle)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)

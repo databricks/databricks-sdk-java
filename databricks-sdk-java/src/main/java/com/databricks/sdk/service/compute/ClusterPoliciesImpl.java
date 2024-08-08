@@ -43,11 +43,29 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
   }
 
   @Override
-  public Policy get(GetClusterPolicyRequest request) {
+  public EnforcePolicyComplianceForJobResponse enforceCompliance(
+      EnforcePolicyComplianceForJob request) {
+    String path = "/api/2.0/policies/jobs/enforce-compliance";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, EnforcePolicyComplianceForJobResponse.class, headers);
+  }
+
+  @Override
+  public Policy get(GetPolicy request) {
     String path = "/api/2.0/policies/clusters/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, Policy.class, headers);
+  }
+
+  @Override
+  public GetPolicyComplianceForJobResponse getCompliance(GetPolicyComplianceForJob request) {
+    String path = "/api/2.0/policies/jobs/get-compliance";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, GetPolicyComplianceForJobResponse.class, headers);
   }
 
   @Override
@@ -72,11 +90,20 @@ class ClusterPoliciesImpl implements ClusterPoliciesService {
   }
 
   @Override
-  public ListPoliciesResponse list(ListClusterPoliciesRequest request) {
+  public ListPoliciesResponse list(ListPolicies request) {
     String path = "/api/2.0/policies/clusters/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, ListPoliciesResponse.class, headers);
+  }
+
+  @Override
+  public ListClusterComplianceForPolicyResponse listCompliance(
+      ListClusterComplianceForPolicy request) {
+    String path = "/api/2.0/policies/clusters/list-compliance";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, ListClusterComplianceForPolicyResponse.class, headers);
   }
 
   @Override

@@ -54,11 +54,31 @@ public interface ClusterPoliciesService {
   void edit(EditPolicy editPolicy);
 
   /**
+   * Enforce job policy compliance.
+   *
+   * <p>Updates a job so the job clusters that are created when running the job (specified in
+   * `new_cluster`) are compliant with the current versions of their respective cluster policies.
+   * All-purpose clusters used in the job will not be updated.
+   */
+  EnforcePolicyComplianceForJobResponse enforceCompliance(
+      EnforcePolicyComplianceForJob enforcePolicyComplianceForJob);
+
+  /**
    * Get a cluster policy.
    *
    * <p>Get a cluster policy entity. Creation and editing is available to admins only.
    */
-  Policy get(GetClusterPolicyRequest getClusterPolicyRequest);
+  Policy get(GetPolicy getPolicy);
+
+  /**
+   * Get job policy compliance.
+   *
+   * <p>Returns the policy compliance status of a job. Jobs could be out of compliance if a policy
+   * they use was updated after the job was last edited and some of its job clusters no longer
+   * comply with their updated policies.
+   */
+  GetPolicyComplianceForJobResponse getCompliance(
+      GetPolicyComplianceForJob getPolicyComplianceForJob);
 
   /**
    * Get cluster policy permission levels.
@@ -82,7 +102,16 @@ public interface ClusterPoliciesService {
    *
    * <p>Returns a list of policies accessible by the requesting user.
    */
-  ListPoliciesResponse list(ListClusterPoliciesRequest listClusterPoliciesRequest);
+  ListPoliciesResponse list(ListPolicies listPolicies);
+
+  /**
+   * List cluster policy compliance.
+   *
+   * <p>Returns the policy compliance status of all clusters that use a given policy. Clusters could
+   * be out of compliance if their policy was updated after the cluster was last edited.
+   */
+  ListClusterComplianceForPolicyResponse listCompliance(
+      ListClusterComplianceForPolicy listClusterComplianceForPolicy);
 
   /**
    * Set cluster policy permissions.
