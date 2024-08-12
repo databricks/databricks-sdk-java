@@ -13,6 +13,10 @@ public class GetRegisteredModelRequest {
   /** The three-level (fully qualified) name of the registered model */
   private String fullName;
 
+  /** Whether to include registered model aliases in the response */
+  @QueryParam("include_aliases")
+  private Boolean includeAliases;
+
   /**
    * Whether to include registered models in the response for which the principal can only access
    * selective metadata for
@@ -27,6 +31,15 @@ public class GetRegisteredModelRequest {
 
   public String getFullName() {
     return fullName;
+  }
+
+  public GetRegisteredModelRequest setIncludeAliases(Boolean includeAliases) {
+    this.includeAliases = includeAliases;
+    return this;
+  }
+
+  public Boolean getIncludeAliases() {
+    return includeAliases;
   }
 
   public GetRegisteredModelRequest setIncludeBrowse(Boolean includeBrowse) {
@@ -44,18 +57,20 @@ public class GetRegisteredModelRequest {
     if (o == null || getClass() != o.getClass()) return false;
     GetRegisteredModelRequest that = (GetRegisteredModelRequest) o;
     return Objects.equals(fullName, that.fullName)
+        && Objects.equals(includeAliases, that.includeAliases)
         && Objects.equals(includeBrowse, that.includeBrowse);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullName, includeBrowse);
+    return Objects.hash(fullName, includeAliases, includeBrowse);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetRegisteredModelRequest.class)
         .add("fullName", fullName)
+        .add("includeAliases", includeAliases)
         .add("includeBrowse", includeBrowse)
         .toString();
   }

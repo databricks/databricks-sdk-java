@@ -12,7 +12,7 @@ import java.util.Objects;
 public class SubmitRun {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
-  private Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList;
+  private Collection<JobAccessControlRequest> accessControlList;
 
   /** An optional set of email addresses notified when the run begins or completes. */
   @JsonProperty("email_notifications")
@@ -95,13 +95,12 @@ public class SubmitRun {
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
-  public SubmitRun setAccessControlList(
-      Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList) {
+  public SubmitRun setAccessControlList(Collection<JobAccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public Collection<com.databricks.sdk.service.iam.AccessControlRequest> getAccessControlList() {
+  public Collection<JobAccessControlRequest> getAccessControlList() {
     return accessControlList;
   }
 

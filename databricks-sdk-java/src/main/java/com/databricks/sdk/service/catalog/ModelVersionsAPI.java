@@ -49,7 +49,7 @@ public class ModelVersionsAPI {
     impl.delete(request);
   }
 
-  public RegisteredModelInfo get(String fullName, long version) {
+  public ModelVersionInfo get(String fullName, long version) {
     return get(new GetModelVersionRequest().setFullName(fullName).setVersion(version));
   }
 
@@ -63,7 +63,7 @@ public class ModelVersionsAPI {
    * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
    * schema.
    */
-  public RegisteredModelInfo get(GetModelVersionRequest request) {
+  public ModelVersionInfo get(GetModelVersionRequest request) {
     return impl.get(request);
   }
 
