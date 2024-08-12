@@ -7,6 +7,9 @@ public class ProxyConfig {
   private String password;
   private ProxyAuthType proxyAuthType;
   private Boolean useSystemProperties;
+  // Needs the nonProxyHosts to be set in the format of "host1|host2|host3" with * as wildcard.
+  // Reference: https://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html
+  private String nonProxyHosts;
 
   public enum ProxyAuthType {
     // Currently we only support BASIC and SPNEGO
@@ -78,6 +81,15 @@ public class ProxyConfig {
 
   public ProxyConfig setUseSystemProperties(Boolean useSystemProperties) {
     this.useSystemProperties = useSystemProperties;
+    return this;
+  }
+
+  public String getNonProxyHosts() {
+    return nonProxyHosts;
+  }
+
+  public ProxyConfig setNonProxyHosts(String nonProxyHosts) {
+    this.nonProxyHosts = nonProxyHosts;
     return this;
   }
 }
