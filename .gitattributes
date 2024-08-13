@@ -652,6 +652,9 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UninstallLi
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UninstallLibrariesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UnpinCluster.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UnpinClusterResponse.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UpdateCluster.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UpdateClusterResource.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UpdateClusterResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/UpdateResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/VolumesStorageInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/compute/WorkloadType.java linguist-generated=true
@@ -1432,13 +1435,13 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GetUpdate
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/GetUpdateResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionGatewayPipelineDefinition.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/IngestionPipelineDefinition.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipelineEventsRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipelineEventsResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipelinesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListPipelinesResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListUpdatesRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ListUpdatesResponse.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ManagedIngestionPipelineDefinition.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ManualTrigger.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/MaturityLevel.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/NotebookLibrary.java linguist-generated=true

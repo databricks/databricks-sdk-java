@@ -32,7 +32,7 @@ public class SchemaSpec {
   /**
    * Configuration settings to control the ingestion of tables. These settings are applied to all
    * tables in this schema and override the table_configuration defined in the
-   * ManagedIngestionPipelineDefinition object.
+   * IngestionPipelineDefinition object.
    */
   @JsonProperty("table_configuration")
   private TableSpecificConfig tableConfiguration;

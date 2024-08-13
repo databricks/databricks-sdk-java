@@ -10,7 +10,7 @@ import java.util.Objects;
 /** List policy families */
 @Generated
 public class ListPolicyFamiliesRequest {
-  /** The max number of policy families to return. */
+  /** Maximum number of policy families to return. */
   @QueryParam("max_results")
   private Long maxResults;
 

@@ -210,6 +210,20 @@ public interface ClustersService {
   void unpin(UnpinCluster unpinCluster);
 
   /**
+   * Update cluster configuration (partial).
+   *
+   * <p>Updates the configuration of a cluster to match the partial set of attributes and size.
+   * Denote which fields to update using the `update_mask` field in the request body. A cluster can
+   * be updated if it is in a `RUNNING` or `TERMINATED` state. If a cluster is updated while in a
+   * `RUNNING` state, it will be restarted so that the new attributes can take effect. If a cluster
+   * is updated while in a `TERMINATED` state, it will remain `TERMINATED`. The updated attributes
+   * will take effect the next time the cluster is started using the `clusters/start` API. Attempts
+   * to update a cluster in any other state will be rejected with an `INVALID_STATE` error code.
+   * Clusters created by the Databricks Jobs service cannot be updated.
+   */
+  void update(UpdateCluster updateCluster);
+
+  /**
    * Update cluster permissions.
    *
    * <p>Updates the permissions on a cluster. Clusters can inherit permissions from their root

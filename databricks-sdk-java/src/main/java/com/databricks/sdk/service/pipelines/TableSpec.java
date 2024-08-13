@@ -38,8 +38,7 @@ public class TableSpec {
 
   /**
    * Configuration settings to control the ingestion of tables. These settings override the
-   * table_configuration defined in the ManagedIngestionPipelineDefinition object and the
-   * SchemaSpec.
+   * table_configuration defined in the IngestionPipelineDefinition object and the SchemaSpec.
    */
   @JsonProperty("table_configuration")
   private TableSpecificConfig tableConfiguration;
