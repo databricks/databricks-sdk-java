@@ -72,7 +72,7 @@ public class JobsExtTest {
     for (long runId : taskRunIds) {
       tasks.add(new RunTask().setRunId(runId));
     }
-    run.setIterations(tasks);
+    run.setTasks(tasks);
   }
 
   private void addIterations(Run run, long... iterationRunIds) {
