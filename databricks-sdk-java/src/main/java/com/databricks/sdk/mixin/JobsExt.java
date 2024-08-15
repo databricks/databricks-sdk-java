@@ -20,7 +20,7 @@ public class JobsExt extends JobsAPI {
    *
    * <p>Depending on the Jobs API version used under the hood, tasks or iteration runs retrieved by
    * the initial request may be truncated due to high cardinalities. Truncation can happen for job
-   * runs with many task runs, as well as ForEach task runs with many iteration runs. To avoid
+   * runs over 100 task runs, as well as ForEach task runs with over 100 iteration runs. To avoid
    * returning an incomplete {@code Run} object to the user, this method performs all the requests
    * required to collect all task/iteration runs into a single {@code Run} object.
    */
