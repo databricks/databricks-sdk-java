@@ -7,7 +7,7 @@ public class ProxyConfig {
   private String password;
   private ProxyAuthType proxyAuthType;
   private Boolean useSystemProperties;
-  // Needs the nonProxyHosts to be set in the format of "host1,host2,host3"
+  // Needs the nonProxyHosts to be set in the format of "suffix1,suffix2,suffix3"
   private String nonProxyHosts;
 
   public enum ProxyAuthType {
