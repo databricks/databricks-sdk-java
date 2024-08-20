@@ -25,6 +25,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -45,7 +46,7 @@ public class CommonsHttpClient implements HttpClient {
   public CommonsHttpClient(int timeoutSeconds) {
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
-    hc = makeClosableHttpClient();
+    hc = makeClosableHttpClientBuilder().build();
   }
 
   public CommonsHttpClient(DatabricksConfig databricksConfig) {
@@ -59,7 +60,26 @@ public class CommonsHttpClient implements HttpClient {
   public CommonsHttpClient(int timeoutSeconds, ProxyConfig proxyConfig) {
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
-    hc = makeClosableHttpClient(proxyConfig);
+    HttpClientBuilder builder = makeClosableHttpClientBuilder();
+    ProxyUtils.setupProxy(proxyConfig, builder);
+    hc = builder.build();
+  }
+
+  public CommonsHttpClient(int timeoutSeconds, ProxyConfig proxyConfig, SSLConnectionSocketFactory sslSocketFactory) {
+    timeout = timeoutSeconds * 1000;
+    connectionManager.setMaxTotal(100);
+    HttpClientBuilder builder = makeClosableHttpClientBuilder();
+    ProxyUtils.setupProxy(proxyConfig, builder);
+    builder.setSSLSocketFactory(sslSocketFactory);
+    hc = builder.build();
+  }
+
+  public CommonsHttpClient(int timeoutSeconds, SSLConnectionSocketFactory sslSocketFactory) {
+    timeout = timeoutSeconds * 1000;
+    connectionManager.setMaxTotal(100);
+    HttpClientBuilder builder = makeClosableHttpClientBuilder();
+    builder.setSSLSocketFactory(sslSocketFactory);
+    hc = builder.build();
   }
 
   private RequestConfig makeRequestConfig() {
@@ -70,20 +90,12 @@ public class CommonsHttpClient implements HttpClient {
         .build();
   }
 
-  private CloseableHttpClient makeClosableHttpClient() {
-    return HttpClientBuilder.create()
-        .setConnectionManager(connectionManager)
-        .setDefaultRequestConfig(makeRequestConfig())
-        .build();
-  }
-
-  private CloseableHttpClient makeClosableHttpClient(ProxyConfig proxyConfig) {
+  private HttpClientBuilder makeClosableHttpClientBuilder() {
     HttpClientBuilder builder =
-        HttpClientBuilder.create()
-            .setConnectionManager(connectionManager)
-            .setDefaultRequestConfig(makeRequestConfig());
-    ProxyUtils.setupProxy(proxyConfig, builder);
-    return builder.build();
+            HttpClientBuilder.create()
+                    .setConnectionManager(connectionManager)
+                    .setDefaultRequestConfig(makeRequestConfig());
+    return builder;
   }
 
   @Override
