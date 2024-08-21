@@ -15,12 +15,15 @@ public class CreateDashboardRequest {
 
   /**
    * The workspace path of the folder containing the dashboard. Includes leading slash and no
-   * trailing slash.
+   * trailing slash. This field is excluded in List Dashboards responses.
    */
   @JsonProperty("parent_path")
   private String parentPath;
 
-  /** The contents of the dashboard in serialized string form. */
+  /**
+   * The contents of the dashboard in serialized string form. This field is excluded in List
+   * Dashboards responses.
+   */
   @JsonProperty("serialized_dashboard")
   private String serializedDashboard;
 

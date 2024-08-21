@@ -1,5 +1,29 @@
 # Version changelog
 
+## [Release] Release v0.30.0
+
+### API Changes:
+
+ * Added `workspaceClient.policyComplianceForClusters()` service.
+ * Added `workspaceClient.policyComplianceForJobs()` service.
+ * Added `workspaceClient.resourceQuotas()` service.
+ * Added `com.databricks.sdk.service.catalog.GetQuotaRequest`, `com.databricks.sdk.service.catalog.GetQuotaResponse`, `com.databricks.sdk.service.catalog.ListQuotasRequest`, `com.databricks.sdk.service.catalog.ListQuotasResponse` and `com.databricks.sdk.service.catalog.QuotaInfo` classes.
+ * Added `com.databricks.sdk.service.compute.ClusterCompliance`, `com.databricks.sdk.service.compute.ClusterSettingsChange`, `com.databricks.sdk.service.compute.EnforceClusterComplianceRequest`, `com.databricks.sdk.service.compute.EnforceClusterComplianceResponse`, `com.databricks.sdk.service.compute.GetClusterComplianceRequest`, `com.databricks.sdk.service.compute.GetClusterComplianceResponse`, `com.databricks.sdk.service.compute.ListClusterCompliancesRequest` and `com.databricks.sdk.service.compute.ListClusterCompliancesResponse` classes.
+ * Added `com.databricks.sdk.service.jobs.EnforcePolicyComplianceForJobResponseJobClusterSettingsChange`, `com.databricks.sdk.service.jobs.EnforcePolicyComplianceRequest`, `com.databricks.sdk.service.jobs.EnforcePolicyComplianceResponse`, `com.databricks.sdk.service.jobs.GetPolicyComplianceRequest`, `com.databricks.sdk.service.jobs.GetPolicyComplianceResponse`, `com.databricks.sdk.service.jobs.JobCompliance`, `com.databricks.sdk.service.jobs.ListJobComplianceForPolicyResponse` and `com.databricks.sdk.service.jobs.ListJobComplianceRequest` classes.
+ * Added `fallback` field for `com.databricks.sdk.service.catalog.CreateExternalLocation`.
+ * Added `fallback` field for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+ * Added `fallback` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+ * Added `jobRunId` field for `com.databricks.sdk.service.jobs.BaseRun`.
+ * Added `jobRunId` field for `com.databricks.sdk.service.jobs.Run`.
+ * Added `includeMetrics` field for `com.databricks.sdk.service.sql.ListQueryHistoryRequest`.
+ * Added `statementIds` field for `com.databricks.sdk.service.sql.QueryFilter`.
+ * Removed `com.databricks.sdk.service.sql.ContextFilter` class.
+ * Removed `contextFilter` field for `com.databricks.sdk.service.sql.QueryFilter`.
+ * Removed `pipelineId` and `pipelineUpdateId` fields for `com.databricks.sdk.service.sql.QuerySource`.
+
+OpenAPI SHA: 3eae49b444cac5a0118a3503e5b7ecef7f96527a, Date: 2024-08-21
+
+
 ## [Release] Release v0.29.0
 
 ### Internal Changes

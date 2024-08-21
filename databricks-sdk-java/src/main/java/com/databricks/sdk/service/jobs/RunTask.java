@@ -13,8 +13,8 @@ import java.util.Objects;
 public class RunTask {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
-   * has an attempt_number of 0\. If the initial run attempt fails, and the job has a retry policy
-   * (`max_retries` \> 0), subsequent runs are created with an `original_attempt_run_id` of the
+   * has an attempt_number of 0. If the initial run attempt fails, and the job has a retry policy
+   * (`max_retries` > 0), subsequent runs are created with an `original_attempt_run_id` of the
    * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
    * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
    */
