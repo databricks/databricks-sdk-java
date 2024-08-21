@@ -32,6 +32,8 @@ import com.databricks.sdk.service.catalog.QualityMonitorsAPI;
 import com.databricks.sdk.service.catalog.QualityMonitorsService;
 import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
 import com.databricks.sdk.service.catalog.RegisteredModelsService;
+import com.databricks.sdk.service.catalog.ResourceQuotasAPI;
+import com.databricks.sdk.service.catalog.ResourceQuotasService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
@@ -59,6 +61,8 @@ import com.databricks.sdk.service.compute.InstanceProfilesAPI;
 import com.databricks.sdk.service.compute.InstanceProfilesService;
 import com.databricks.sdk.service.compute.LibrariesAPI;
 import com.databricks.sdk.service.compute.LibrariesService;
+import com.databricks.sdk.service.compute.PolicyComplianceForClustersAPI;
+import com.databricks.sdk.service.compute.PolicyComplianceForClustersService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
 import com.databricks.sdk.service.dashboards.GenieAPI;
@@ -84,6 +88,8 @@ import com.databricks.sdk.service.iam.UsersAPI;
 import com.databricks.sdk.service.iam.UsersService;
 import com.databricks.sdk.service.jobs.JobsAPI;
 import com.databricks.sdk.service.jobs.JobsService;
+import com.databricks.sdk.service.jobs.PolicyComplianceForJobsAPI;
+import com.databricks.sdk.service.jobs.PolicyComplianceForJobsService;
 import com.databricks.sdk.service.marketplace.ConsumerFulfillmentsAPI;
 import com.databricks.sdk.service.marketplace.ConsumerFulfillmentsService;
 import com.databricks.sdk.service.marketplace.ConsumerInstallationsAPI;
@@ -231,6 +237,8 @@ public class WorkspaceClient {
   private PermissionMigrationAPI permissionMigrationAPI;
   private PermissionsAPI permissionsAPI;
   private PipelinesAPI pipelinesAPI;
+  private PolicyComplianceForClustersAPI policyComplianceForClustersAPI;
+  private PolicyComplianceForJobsAPI policyComplianceForJobsAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
   private ProviderExchangeFiltersAPI providerExchangeFiltersAPI;
   private ProviderExchangesAPI providerExchangesAPI;
@@ -250,6 +258,7 @@ public class WorkspaceClient {
   private RecipientsAPI recipientsAPI;
   private RegisteredModelsAPI registeredModelsAPI;
   private ReposAPI reposAPI;
+  private ResourceQuotasAPI resourceQuotasAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
@@ -326,6 +335,8 @@ public class WorkspaceClient {
     permissionMigrationAPI = new PermissionMigrationAPI(apiClient);
     permissionsAPI = new PermissionsAPI(apiClient);
     pipelinesAPI = new PipelinesAPI(apiClient);
+    policyComplianceForClustersAPI = new PolicyComplianceForClustersAPI(apiClient);
+    policyComplianceForJobsAPI = new PolicyComplianceForJobsAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
     providerExchangeFiltersAPI = new ProviderExchangeFiltersAPI(apiClient);
     providerExchangesAPI = new ProviderExchangesAPI(apiClient);
@@ -345,6 +356,7 @@ public class WorkspaceClient {
     recipientsAPI = new RecipientsAPI(apiClient);
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
+    resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
@@ -1024,6 +1036,39 @@ public class WorkspaceClient {
   }
 
   /**
+   * The policy compliance APIs allow you to view and manage the policy compliance status of
+   * clusters in your workspace.
+   *
+   * <p>A cluster is compliant with its policy if its configuration satisfies all its policy rules.
+   * Clusters could be out of compliance if their policy was updated after the cluster was last
+   * edited.
+   *
+   * <p>The get and list compliance APIs allow you to view the policy compliance status of a
+   * cluster. The enforce compliance API allows you to update a cluster to be compliant with the
+   * current version of its policy.
+   */
+  public PolicyComplianceForClustersAPI policyComplianceForClusters() {
+    return policyComplianceForClustersAPI;
+  }
+
+  /**
+   * The compliance APIs allow you to view and manage the policy compliance status of jobs in your
+   * workspace. This API currently only supports compliance controls for cluster policies.
+   *
+   * <p>A job is in compliance if its cluster configurations satisfy the rules of all their
+   * respective cluster policies. A job could be out of compliance if a cluster policy it uses was
+   * updated after the job was last edited. The job is considered out of compliance if any of its
+   * clusters no longer comply with their updated policies.
+   *
+   * <p>The get and list compliance APIs allow you to view the policy compliance status of a job.
+   * The enforce compliance API allows you to update a job so that it becomes compliant with all of
+   * its policies.
+   */
+  public PolicyComplianceForJobsAPI policyComplianceForJobs() {
+    return policyComplianceForJobsAPI;
+  }
+
+  /**
    * View available policy families. A policy family contains a policy definition providing best
    * practices for configuring clusters for a particular use case.
    *
@@ -1131,8 +1176,8 @@ public class WorkspaceClient {
   }
 
   /**
-   * A service responsible for storing and retrieving the list of queries run against SQL endpoints,
-   * serverless compute, and DLT.
+   * A service responsible for storing and retrieving the list of queries run against SQL endpoints
+   * and serverless compute.
    */
   public QueryHistoryAPI queryHistory() {
     return queryHistoryAPI;
@@ -1238,6 +1283,20 @@ public class WorkspaceClient {
    */
   public ReposAPI repos() {
     return reposAPI;
+  }
+
+  /**
+   * Unity Catalog enforces resource quotas on all securable objects, which limits the number of
+   * resources that can be created. Quotas are expressed in terms of a resource type and a parent
+   * (for example, tables per metastore or schemas per catalog). The resource quota APIs enable you
+   * to monitor your current usage and limits. For more information on resource quotas see the
+   * [Unity Catalog documentation].
+   *
+   * <p>[Unity Catalog documentation]:
+   * https://docs.databricks.com/en/data-governance/unity-catalog/index.html#resource-quotas
+   */
+  public ResourceQuotasAPI resourceQuotas() {
+    return resourceQuotasAPI;
   }
 
   /**
@@ -2087,6 +2146,34 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default PolicyComplianceForClustersService with a custom implementation. */
+  public WorkspaceClient withPolicyComplianceForClustersImpl(
+      PolicyComplianceForClustersService policyComplianceForClusters) {
+    return this.withPolicyComplianceForClustersAPI(
+        new PolicyComplianceForClustersAPI(policyComplianceForClusters));
+  }
+
+  /** Replace the default PolicyComplianceForClustersAPI with a custom implementation. */
+  public WorkspaceClient withPolicyComplianceForClustersAPI(
+      PolicyComplianceForClustersAPI policyComplianceForClusters) {
+    this.policyComplianceForClustersAPI = policyComplianceForClusters;
+    return this;
+  }
+
+  /** Replace the default PolicyComplianceForJobsService with a custom implementation. */
+  public WorkspaceClient withPolicyComplianceForJobsImpl(
+      PolicyComplianceForJobsService policyComplianceForJobs) {
+    return this.withPolicyComplianceForJobsAPI(
+        new PolicyComplianceForJobsAPI(policyComplianceForJobs));
+  }
+
+  /** Replace the default PolicyComplianceForJobsAPI with a custom implementation. */
+  public WorkspaceClient withPolicyComplianceForJobsAPI(
+      PolicyComplianceForJobsAPI policyComplianceForJobs) {
+    this.policyComplianceForJobsAPI = policyComplianceForJobs;
+    return this;
+  }
+
   /** Replace the default PolicyFamiliesService with a custom implementation. */
   public WorkspaceClient withPolicyFamiliesImpl(PolicyFamiliesService policyFamilies) {
     return this.withPolicyFamiliesAPI(new PolicyFamiliesAPI(policyFamilies));
@@ -2309,6 +2396,17 @@ public class WorkspaceClient {
   /** Replace the default ReposAPI with a custom implementation. */
   public WorkspaceClient withReposAPI(ReposAPI repos) {
     this.reposAPI = repos;
+    return this;
+  }
+
+  /** Replace the default ResourceQuotasService with a custom implementation. */
+  public WorkspaceClient withResourceQuotasImpl(ResourceQuotasService resourceQuotas) {
+    return this.withResourceQuotasAPI(new ResourceQuotasAPI(resourceQuotas));
+  }
+
+  /** Replace the default ResourceQuotasAPI with a custom implementation. */
+  public WorkspaceClient withResourceQuotasAPI(ResourceQuotasAPI resourceQuotas) {
+    this.resourceQuotasAPI = resourceQuotas;
     return this;
   }
 

@@ -19,6 +19,7 @@ class ErrorMapper extends AbstractErrorMapper {
     statusCode(503, com.databricks.sdk.core.error.platform.TemporarilyUnavailable::new);
     statusCode(504, com.databricks.sdk.core.error.platform.DeadlineExceeded::new);
 
+    errorCode("INVALID_STATE", com.databricks.sdk.core.error.platform.InvalidState::new);
     errorCode(
         "INVALID_PARAMETER_VALUE",
         com.databricks.sdk.core.error.platform.InvalidParameterValue::new);

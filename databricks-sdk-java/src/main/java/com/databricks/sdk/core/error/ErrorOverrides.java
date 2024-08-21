@@ -25,5 +25,13 @@ class ErrorOverrides {
               "^400$",
               "INVALID_PARAMETER_VALUE",
               "Job .* does not exist",
+              com.databricks.sdk.core.error.platform.ResourceDoesNotExist.class),
+          new ErrorOverride<>(
+              "Job Runs InvalidParameterValue=>ResourceDoesNotExist",
+              "^/api/2\\.\\d/jobs/runs/get",
+              "GET",
+              "^400$",
+              "INVALID_PARAMETER_VALUE",
+              "(Run .* does not exist|Run: .* in job: .* doesn't exist)",
               com.databricks.sdk.core.error.platform.ResourceDoesNotExist.class));
 }
