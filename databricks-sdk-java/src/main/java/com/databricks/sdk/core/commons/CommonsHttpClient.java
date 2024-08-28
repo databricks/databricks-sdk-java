@@ -37,32 +37,58 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CommonsHttpClient implements HttpClient {
+  /**
+   * Builder for {@link CommonsHttpClient}. This class is used to construct instances of
+   * {@link CommonsHttpClient} with configurable parameters for the underlying Apache HttpClient.
+   */
   public static class Builder {
     private DatabricksConfig databricksConfig;
     private Integer timeoutSeconds;
     private ProxyConfig proxyConfig;
     private SSLConnectionSocketFactory sslSocketFactory;
 
+    /**
+     * @param databricksConfig The DatabricksConfig to use for the HttpClient. If the
+     *                         DatabricksConfig has an httpTimeoutSeconds set, it will be used as
+     *                         the default timeout for the HttpClient.
+     * @return This builder.
+     */
     public Builder withDatabricksConfig(DatabricksConfig databricksConfig) {
       this.databricksConfig = databricksConfig;
       return this;
     }
 
+    /**
+     * @param timeoutSeconds The timeout in seconds to use for the HttpClient. This will override
+     *                       any timeout set in the DatabricksConfig.
+     * @return This builder.
+     */
     public Builder withTimeoutSeconds(int timeoutSeconds) {
       this.timeoutSeconds = timeoutSeconds;
       return this;
     }
 
+    /**
+     * @param proxyConfig the proxy configuration to use for the HttpClient.
+     * @return This builder.
+     */
     public Builder withProxyConfig(ProxyConfig proxyConfig) {
       this.proxyConfig = proxyConfig;
       return this;
     }
 
+    /**
+     * @param sslSocketFactory the SSLConnectionSocketFactory to use for the HttpClient.
+     * @return This builder.
+     */
     public Builder withSslSocketFactory(SSLConnectionSocketFactory sslSocketFactory) {
       this.sslSocketFactory = sslSocketFactory;
       return this;
     }
 
+    /**
+     * @return A new instance of {@link CommonsHttpClient} with the configured parameters.
+     */
     public CommonsHttpClient build() {
       return new CommonsHttpClient(this);
     }
