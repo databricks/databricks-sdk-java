@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 import org.apache.http.HttpMessage;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.util.EntityUtils;
 
 public class DatabricksConfig {
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
@@ -37,6 +40,9 @@ public class DatabricksConfig {
 
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
   private String redirectUrl;
+
+  @ConfigAttribute(env = "DISCOVERY_URL")
+  private String discoveryUrl;
 
   @ConfigAttribute(env = "DATABRICKS_USERNAME", auth = "basic")
   private String username;
@@ -218,6 +224,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setHost(String host) {
     this.host = host;
+    return this;
+  }
+
+  public String getDiscoveryUrl() {
+    return discoveryUrl;
+  }
+
+  public DatabricksConfig setDiscoveryUrl(String discoveryUrl) {
+    this.discoveryUrl = discoveryUrl;
     return this;
   }
 
@@ -596,6 +611,25 @@ public class DatabricksConfig {
   }
 
   public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
+   if(discoveryUrl==null){
+     return getDefaultOidc();
+   }
+   return getOidcFromDiscoveryEndpoint();
+  }
+
+  private OpenIDConnectEndpoints getOidcFromDiscoveryEndpoint() {
+    try {
+      Request request = new Request("GET", discoveryUrl);
+      Response resp = getHttpClient().execute(request);
+      if (resp.getStatusCode()== 200) {
+        return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
+      }
+    } catch (IOException e) {
+      throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
+    }
+    return null;
+  }
+  private OpenIDConnectEndpoints getDefaultOidc() throws IOException {
     if (getHost() == null) {
       return null;
     }
@@ -609,7 +643,7 @@ public class DatabricksConfig {
         return null;
       }
       return new OpenIDConnectEndpoints(
-          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
+              realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
     }
     if (isAccountClient() && getAccountId() != null) {
       String prefix = getHost() + "/oidc/accounts/" + getAccountId();
