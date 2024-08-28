@@ -5,10 +5,15 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class ModelVersionInfo {
+  /** List of aliases associated with the model version */
+  @JsonProperty("aliases")
+  private Collection<RegisteredModelAlias> aliases;
+
   /**
    * Indicates whether the principal is limited to retrieving metadata for the associated object
    * through the BROWSE privilege when include_browse is enabled in the request.
@@ -94,6 +99,15 @@ public class ModelVersionInfo {
   /** Integer model version number, used to reference the model version in API requests. */
   @JsonProperty("version")
   private Long version;
+
+  public ModelVersionInfo setAliases(Collection<RegisteredModelAlias> aliases) {
+    this.aliases = aliases;
+    return this;
+  }
+
+  public Collection<RegisteredModelAlias> getAliases() {
+    return aliases;
+  }
 
   public ModelVersionInfo setBrowseOnly(Boolean browseOnly) {
     this.browseOnly = browseOnly;
@@ -262,7 +276,8 @@ public class ModelVersionInfo {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ModelVersionInfo that = (ModelVersionInfo) o;
-    return Objects.equals(browseOnly, that.browseOnly)
+    return Objects.equals(aliases, that.aliases)
+        && Objects.equals(browseOnly, that.browseOnly)
         && Objects.equals(catalogName, that.catalogName)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
@@ -285,6 +300,7 @@ public class ModelVersionInfo {
   @Override
   public int hashCode() {
     return Objects.hash(
+        aliases,
         browseOnly,
         catalogName,
         comment,
@@ -308,6 +324,7 @@ public class ModelVersionInfo {
   @Override
   public String toString() {
     return new ToStringer(ModelVersionInfo.class)
+        .add("aliases", aliases)
         .add("browseOnly", browseOnly)
         .add("catalogName", catalogName)
         .add("comment", comment)

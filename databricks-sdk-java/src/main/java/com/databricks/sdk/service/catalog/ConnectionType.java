@@ -9,6 +9,8 @@ import com.databricks.sdk.support.Generated;
 public enum ConnectionType {
   BIGQUERY,
   DATABRICKS,
+  GLUE,
+  HIVE_METASTORE,
   MYSQL,
   POSTGRESQL,
   REDSHIFT,

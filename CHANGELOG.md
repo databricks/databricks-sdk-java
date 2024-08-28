@@ -1,5 +1,72 @@
 # Version changelog
 
+## [Release] Release v0.30.0
+
+### API Changes:
+
+ * Added `workspaceClient.policyComplianceForClusters()` service.
+ * Added `workspaceClient.policyComplianceForJobs()` service.
+ * Added `workspaceClient.resourceQuotas()` service.
+ * Added `com.databricks.sdk.service.catalog.GetQuotaRequest`, `com.databricks.sdk.service.catalog.GetQuotaResponse`, `com.databricks.sdk.service.catalog.ListQuotasRequest`, `com.databricks.sdk.service.catalog.ListQuotasResponse` and `com.databricks.sdk.service.catalog.QuotaInfo` classes.
+ * Added `com.databricks.sdk.service.compute.ClusterCompliance`, `com.databricks.sdk.service.compute.ClusterSettingsChange`, `com.databricks.sdk.service.compute.EnforceClusterComplianceRequest`, `com.databricks.sdk.service.compute.EnforceClusterComplianceResponse`, `com.databricks.sdk.service.compute.GetClusterComplianceRequest`, `com.databricks.sdk.service.compute.GetClusterComplianceResponse`, `com.databricks.sdk.service.compute.ListClusterCompliancesRequest` and `com.databricks.sdk.service.compute.ListClusterCompliancesResponse` classes.
+ * Added `com.databricks.sdk.service.jobs.EnforcePolicyComplianceForJobResponseJobClusterSettingsChange`, `com.databricks.sdk.service.jobs.EnforcePolicyComplianceRequest`, `com.databricks.sdk.service.jobs.EnforcePolicyComplianceResponse`, `com.databricks.sdk.service.jobs.GetPolicyComplianceRequest`, `com.databricks.sdk.service.jobs.GetPolicyComplianceResponse`, `com.databricks.sdk.service.jobs.JobCompliance`, `com.databricks.sdk.service.jobs.ListJobComplianceForPolicyResponse` and `com.databricks.sdk.service.jobs.ListJobComplianceRequest` classes.
+ * Added `fallback` field for `com.databricks.sdk.service.catalog.CreateExternalLocation`.
+ * Added `fallback` field for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+ * Added `fallback` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+ * Added `jobRunId` field for `com.databricks.sdk.service.jobs.BaseRun`.
+ * Added `jobRunId` field for `com.databricks.sdk.service.jobs.Run`.
+ * Added `includeMetrics` field for `com.databricks.sdk.service.sql.ListQueryHistoryRequest`.
+ * Added `statementIds` field for `com.databricks.sdk.service.sql.QueryFilter`.
+ * Removed `com.databricks.sdk.service.sql.ContextFilter` class.
+ * Removed `contextFilter` field for `com.databricks.sdk.service.sql.QueryFilter`.
+ * Removed `pipelineId` and `pipelineUpdateId` fields for `com.databricks.sdk.service.sql.QuerySource`.
+
+OpenAPI SHA: 3eae49b444cac5a0118a3503e5b7ecef7f96527a, Date: 2024-08-21
+
+
+## [Release] Release v0.29.0
+
+### Internal Changes
+
+ * Test that Jobs API endpoints are pinned to 2.1 ([#319](https://github.com/databricks/databricks-sdk-java/pull/319)).
+
+
+### API Changes:
+
+ * Added `update()` method for `workspaceClient.clusters()` service.
+ * Added `com.databricks.sdk.service.compute.UpdateCluster`, `com.databricks.sdk.service.compute.UpdateClusterResource` and `Object` classes.
+ * Added `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.catalog.GetBindingsRequest`.
+ * Added `includeAliases` field for `com.databricks.sdk.service.catalog.GetByAliasRequest`.
+ * Added `includeAliases` field for `com.databricks.sdk.service.catalog.GetModelVersionRequest`.
+ * Added `includeAliases` field for `com.databricks.sdk.service.catalog.GetRegisteredModelRequest`.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.catalog.ListSystemSchemasRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListSystemSchemasResponse`.
+ * Added `aliases` field for `com.databricks.sdk.service.catalog.ModelVersionInfo`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.WorkspaceBindingsResponse`.
+ * Added `version` field for `com.databricks.sdk.service.compute.GetPolicyFamilyRequest`.
+ * Added `id` field for `com.databricks.sdk.service.dashboards.QueryAttachment`.
+ * Added `id` field for `com.databricks.sdk.service.dashboards.TextAttachment`.
+ * Added `expirationTime` field for `com.databricks.sdk.service.sharing.CreateRecipient`.
+ * Added `expirationTime` field for `com.databricks.sdk.service.sharing.UpdateRecipient`.
+ * Changed `create()` and `edit()` methods for `workspaceClient.clusterPolicies()` service with new required argument order.
+ * Changed `get()` method for `workspaceClient.modelVersions()` service to return `com.databricks.sdk.service.catalog.ModelVersionInfo` class.
+ * Changed `name` field for `com.databricks.sdk.service.compute.CreatePolicy` to no longer be required.
+ * Changed `name` field for `com.databricks.sdk.service.compute.EditPolicy` to no longer be required.
+ * Changed `policyFamilyId` field for `com.databricks.sdk.service.compute.GetPolicyFamilyRequest` to `String` class.
+ * Changed `policyFamilies` field for `com.databricks.sdk.service.compute.ListPolicyFamiliesResponse` to no longer be required.
+ * Changed `definition`, `description`, `name` and `policyFamilyId` fields for `com.databricks.sdk.service.compute.PolicyFamily` to no longer be required.
+ * Changed `accessControlList` field for `com.databricks.sdk.service.jobs.CreateJob` to `com.databricks.sdk.service.jobs.JobAccessControlRequestList` class.
+ * Changed `accessControlList` field for `com.databricks.sdk.service.jobs.SubmitRun` to `com.databricks.sdk.service.jobs.JobAccessControlRequestList` class.
+ * Changed `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.CreatePipeline` to `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Changed `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.EditPipeline` to `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Changed `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.PipelineSpec` to `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Removed `com.databricks.sdk.service.pipelines.ManagedIngestionPipelineDefinition` class.
+ * Removed `com.databricks.sdk.service.compute.PolicyFamilyId` class.
+
+OpenAPI SHA: f98c07f9c71f579de65d2587bb0292f83d10e55d, Date: 2024-08-12
+
+
 ## [Release] Release v0.28.0
 
 ### Bug Fixes

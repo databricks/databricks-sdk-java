@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Get a cluster policy */
 @Generated
 public class GetClusterPolicyRequest {
-  /** Canonical unique identifier for the cluster policy. */
+  /** Canonical unique identifier for the Cluster Policy. */
   @QueryParam("policy_id")
   private String policyId;
 

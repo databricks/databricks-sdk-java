@@ -45,6 +45,14 @@ public class ExternalLocationInfo {
   private EncryptionDetails encryptionDetails;
 
   /**
+   * Indicates whether fallback mode is enabled for this external location. When fallback mode is
+   * enabled, the access to the location falls back to cluster credentials if UC credentials are not
+   * sufficient.
+   */
+  @JsonProperty("fallback")
+  private Boolean fallback;
+
+  /**
    * Whether the current securable is accessible from all workspaces or a specific set of
    * workspaces.
    */
@@ -151,6 +159,15 @@ public class ExternalLocationInfo {
     return encryptionDetails;
   }
 
+  public ExternalLocationInfo setFallback(Boolean fallback) {
+    this.fallback = fallback;
+    return this;
+  }
+
+  public Boolean getFallback() {
+    return fallback;
+  }
+
   public ExternalLocationInfo setIsolationMode(IsolationMode isolationMode) {
     this.isolationMode = isolationMode;
     return this;
@@ -236,6 +253,7 @@ public class ExternalLocationInfo {
         && Objects.equals(credentialId, that.credentialId)
         && Objects.equals(credentialName, that.credentialName)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
+        && Objects.equals(fallback, that.fallback)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -257,6 +275,7 @@ public class ExternalLocationInfo {
         credentialId,
         credentialName,
         encryptionDetails,
+        fallback,
         isolationMode,
         metastoreId,
         name,
@@ -278,6 +297,7 @@ public class ExternalLocationInfo {
         .add("credentialId", credentialId)
         .add("credentialName", credentialName)
         .add("encryptionDetails", encryptionDetails)
+        .add("fallback", fallback)
         .add("isolationMode", isolationMode)
         .add("metastoreId", metastoreId)
         .add("name", name)

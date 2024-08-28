@@ -25,6 +25,14 @@ public class CreateExternalLocation {
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
+  /**
+   * Indicates whether fallback mode is enabled for this external location. When fallback mode is
+   * enabled, the access to the location falls back to cluster credentials if UC credentials are not
+   * sufficient.
+   */
+  @JsonProperty("fallback")
+  private Boolean fallback;
+
   /** Name of the external location. */
   @JsonProperty("name")
   private String name;
@@ -77,6 +85,15 @@ public class CreateExternalLocation {
     return encryptionDetails;
   }
 
+  public CreateExternalLocation setFallback(Boolean fallback) {
+    this.fallback = fallback;
+    return this;
+  }
+
+  public Boolean getFallback() {
+    return fallback;
+  }
+
   public CreateExternalLocation setName(String name) {
     this.name = name;
     return this;
@@ -122,6 +139,7 @@ public class CreateExternalLocation {
         && Objects.equals(comment, that.comment)
         && Objects.equals(credentialName, that.credentialName)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
+        && Objects.equals(fallback, that.fallback)
         && Objects.equals(name, that.name)
         && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(skipValidation, that.skipValidation)
@@ -135,6 +153,7 @@ public class CreateExternalLocation {
         comment,
         credentialName,
         encryptionDetails,
+        fallback,
         name,
         readOnly,
         skipValidation,
@@ -148,6 +167,7 @@ public class CreateExternalLocation {
         .add("comment", comment)
         .add("credentialName", credentialName)
         .add("encryptionDetails", encryptionDetails)
+        .add("fallback", fallback)
         .add("name", name)
         .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)

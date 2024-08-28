@@ -3,14 +3,19 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 /** Get policy family information */
 @Generated
 public class GetPolicyFamilyRequest {
-  /** */
+  /** The family ID about which to retrieve information. */
   private String policyFamilyId;
+
+  /** The version number for the family to fetch. Defaults to the latest version. */
+  @QueryParam("version")
+  private Long version;
 
   public GetPolicyFamilyRequest setPolicyFamilyId(String policyFamilyId) {
     this.policyFamilyId = policyFamilyId;
@@ -21,23 +26,34 @@ public class GetPolicyFamilyRequest {
     return policyFamilyId;
   }
 
+  public GetPolicyFamilyRequest setVersion(Long version) {
+    this.version = version;
+    return this;
+  }
+
+  public Long getVersion() {
+    return version;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetPolicyFamilyRequest that = (GetPolicyFamilyRequest) o;
-    return Objects.equals(policyFamilyId, that.policyFamilyId);
+    return Objects.equals(policyFamilyId, that.policyFamilyId)
+        && Objects.equals(version, that.version);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(policyFamilyId);
+    return Objects.hash(policyFamilyId, version);
   }
 
   @Override
   public String toString() {
     return new ToStringer(GetPolicyFamilyRequest.class)
         .add("policyFamilyId", policyFamilyId)
+        .add("version", version)
         .toString();
   }
 }
