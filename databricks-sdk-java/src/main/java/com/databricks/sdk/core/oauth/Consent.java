@@ -55,7 +55,7 @@ public class Consent implements Serializable {
   private final String clientSecret;
 
   public static class Builder {
-    private HttpClient hc = new CommonsHttpClient(30);
+    private HttpClient hc = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
     private String authUrl;
     private String verifier;
     private String state;

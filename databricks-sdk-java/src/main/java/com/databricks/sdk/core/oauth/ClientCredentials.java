@@ -17,7 +17,7 @@ public class ClientCredentials extends RefreshableTokenSource {
     private String clientId;
     private String clientSecret;
     private String tokenUrl;
-    private HttpClient hc = new CommonsHttpClient(30);
+    private HttpClient hc = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
     private Map<String, String> endpointParams = Collections.emptyMap();
     private List<String> scopes = Collections.emptyList();
     private AuthParameterPosition position = AuthParameterPosition.BODY;
