@@ -184,7 +184,7 @@ public class DatabricksConfig {
       return;
     }
     // eventually it'll get decoupled from config.
-    httpClient = new CommonsHttpClient(this);
+    httpClient = new CommonsHttpClient.Builder().withDatabricksConfig(this).build();
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {
@@ -374,13 +374,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;

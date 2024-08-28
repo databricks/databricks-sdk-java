@@ -35,7 +35,7 @@ public class ExternalBrowserCredentialsProviderTest {
               .setAuthType("external-browser")
               .setHost(fixtures.getUrl())
               .setClientId("test-client-id")
-              .setHttpClient(new CommonsHttpClient(30));
+              .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
       config.resolve();
 
       assertEquals("tokenEndPointFromServer", config.getOidcEndpoints().getTokenEndpoint());
@@ -70,7 +70,7 @@ public class ExternalBrowserCredentialsProviderTest {
               .setAuthType("external-browser")
               .setHost(fixtures.getUrl())
               .setClientId("test-client-id")
-              .setHttpClient(new CommonsHttpClient(30))
+              .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
               .setOAuthRedirectUrl("http://localhost:8010")
               .setScopes(Arrays.asList("sql"));
       config.resolve();
@@ -98,7 +98,7 @@ public class ExternalBrowserCredentialsProviderTest {
         new DatabricksConfig()
             .setAuthType("external-browser")
             .setHost("https://accounts.cloud.databricks.com")
-            .setHttpClient(new CommonsHttpClient(30))
+            .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
             .setAccountId("testAccountId");
     config.resolve();
 

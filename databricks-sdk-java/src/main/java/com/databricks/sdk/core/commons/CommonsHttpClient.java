@@ -37,18 +37,76 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CommonsHttpClient implements HttpClient {
+  public static class Builder {
+    private DatabricksConfig databricksConfig;
+    private int timeoutSeconds;
+    private ProxyConfig proxyConfig;
+    private SSLConnectionSocketFactory sslSocketFactory;
+
+    public Builder withDatabricksConfig(DatabricksConfig databricksConfig) {
+      this.databricksConfig = databricksConfig;
+      return this;
+    }
+
+    public Builder withTimeoutSeconds(int timeoutSeconds) {
+      this.timeoutSeconds = timeoutSeconds;
+      return this;
+    }
+
+    public Builder withProxyConfig(ProxyConfig proxyConfig) {
+      this.proxyConfig = proxyConfig;
+      return this;
+    }
+
+    public Builder withSslSocketFactory(SSLConnectionSocketFactory sslSocketFactory) {
+      this.sslSocketFactory = sslSocketFactory;
+      return this;
+    }
+
+    public CommonsHttpClient build() {
+      return new CommonsHttpClient(this);
+    }
+  }
+
   private static final Logger LOG = LoggerFactory.getLogger(CommonsHttpClient.class);
   private final PoolingHttpClientConnectionManager connectionManager =
       new PoolingHttpClientConnectionManager();
   private final CloseableHttpClient hc;
   private int timeout;
 
+  private CommonsHttpClient(Builder builder) {
+    int timeoutSeconds = 300;
+    if (builder.databricksConfig != null) {
+      timeoutSeconds =
+          Math.max(builder.timeoutSeconds, builder.databricksConfig.getHttpTimeoutSeconds());
+    } else if (builder.timeoutSeconds != 0) {
+      timeoutSeconds = builder.timeoutSeconds * 1000;
+    }
+    timeout = timeoutSeconds * 1000;
+    connectionManager.setMaxTotal(100);
+    HttpClientBuilder httpClientBuilder =
+        HttpClientBuilder.create()
+            .setConnectionManager(connectionManager)
+            .setDefaultRequestConfig(makeRequestConfig());
+    if (builder.proxyConfig != null) {
+      ProxyUtils.setupProxy(builder.proxyConfig, httpClientBuilder);
+    }
+    if (builder.sslSocketFactory != null) {
+      httpClientBuilder.setSSLSocketFactory(builder.sslSocketFactory);
+    }
+    hc = httpClientBuilder.build();
+  }
+
+  // These constructors have been deprecate in favour of a builder pattern.
+  // They will be removed in a future release.
+  @Deprecated
   public CommonsHttpClient(int timeoutSeconds) {
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
-    hc = makeClosableHttpClientBuilder().build();
+    hc = makeClosableHttpClient();
   }
 
+  @Deprecated
   public CommonsHttpClient(DatabricksConfig databricksConfig) {
     this(
         databricksConfig.getHttpTimeoutSeconds() == null
@@ -57,29 +115,11 @@ public class CommonsHttpClient implements HttpClient {
         new ProxyConfig(databricksConfig));
   }
 
+  @Deprecated
   public CommonsHttpClient(int timeoutSeconds, ProxyConfig proxyConfig) {
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
-    HttpClientBuilder builder = makeClosableHttpClientBuilder();
-    ProxyUtils.setupProxy(proxyConfig, builder);
-    hc = builder.build();
-  }
-
-  public CommonsHttpClient(int timeoutSeconds, ProxyConfig proxyConfig, SSLConnectionSocketFactory sslSocketFactory) {
-    timeout = timeoutSeconds * 1000;
-    connectionManager.setMaxTotal(100);
-    HttpClientBuilder builder = makeClosableHttpClientBuilder();
-    ProxyUtils.setupProxy(proxyConfig, builder);
-    builder.setSSLSocketFactory(sslSocketFactory);
-    hc = builder.build();
-  }
-
-  public CommonsHttpClient(int timeoutSeconds, SSLConnectionSocketFactory sslSocketFactory) {
-    timeout = timeoutSeconds * 1000;
-    connectionManager.setMaxTotal(100);
-    HttpClientBuilder builder = makeClosableHttpClientBuilder();
-    builder.setSSLSocketFactory(sslSocketFactory);
-    hc = builder.build();
+    hc = makeClosableHttpClient(proxyConfig);
   }
 
   private RequestConfig makeRequestConfig() {
@@ -90,12 +130,22 @@ public class CommonsHttpClient implements HttpClient {
         .build();
   }
 
-  private HttpClientBuilder makeClosableHttpClientBuilder() {
+  @Deprecated
+  private CloseableHttpClient makeClosableHttpClient() {
+    return HttpClientBuilder.create()
+        .setConnectionManager(connectionManager)
+        .setDefaultRequestConfig(makeRequestConfig())
+        .build();
+  }
+
+  @Deprecated
+  private CloseableHttpClient makeClosableHttpClient(ProxyConfig proxyConfig) {
     HttpClientBuilder builder =
-            HttpClientBuilder.create()
-                    .setConnectionManager(connectionManager)
-                    .setDefaultRequestConfig(makeRequestConfig());
-    return builder;
+        HttpClientBuilder.create()
+            .setConnectionManager(connectionManager)
+            .setDefaultRequestConfig(makeRequestConfig());
+    ProxyUtils.setupProxy(proxyConfig, builder);
+    return builder.build();
   }
 
   @Override

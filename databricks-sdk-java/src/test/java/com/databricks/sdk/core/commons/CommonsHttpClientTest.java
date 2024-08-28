@@ -16,7 +16,7 @@ class CommonsHttpClientTest {
   @Test
   public void itWorks() throws IOException {
     try (FixtureServer fixtures = new FixtureServer().with("GET", "/foo?x=y", "bar")) {
-      HttpClient httpClient = new CommonsHttpClient(30);
+      HttpClient httpClient = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
       Request in = new Request("GET", fixtures.getUrl() + "/foo").withQueryParam("x", "y");
       Response out = httpClient.execute(in);
       assertEquals("bar", out.getDebugBody().trim());
@@ -37,7 +37,7 @@ class CommonsHttpClientTest {
             .withResponse("quux")
             .build();
     try (FixtureServer fixtures = new FixtureServer().with(fixture)) {
-      HttpClient httpClient = new CommonsHttpClient(30);
+      HttpClient httpClient = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
       Request in = new Request("POST", fixtures.getUrl() + "/foo", "bar");
       Response out = httpClient.execute(in);
       assertEquals("quux", out.getDebugBody().trim());
@@ -58,7 +58,7 @@ class CommonsHttpClientTest {
             .withResponse("quux")
             .build();
     try (FixtureServer fixtures = new FixtureServer().with(fixture)) {
-      HttpClient httpClient = new CommonsHttpClient(30);
+      HttpClient httpClient = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
       Request in =
           new Request("POST", fixtures.getUrl() + "/foo", IOUtils.toInputStream("bar", "UTF-8"));
       Response out = httpClient.execute(in);
@@ -76,7 +76,7 @@ class CommonsHttpClientTest {
             .build();
 
     try (FixtureServer fixtures = new FixtureServer().with(fixture)) {
-      HttpClient httpClient = new CommonsHttpClient(30);
+      HttpClient httpClient = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
       Request in = new Request("GET", fixtures.getUrl() + "/redirect");
       in.setRedirectionBehavior(
           false); // If we don't set redirection behavior to false, we get 200 as it gets
@@ -106,7 +106,7 @@ class CommonsHttpClientTest {
                 .build());
 
     try (FixtureServer server = new FixtureServer().with(fixtures)) {
-      HttpClient httpClient = new CommonsHttpClient(30);
+      HttpClient httpClient = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
       Request in = new Request("GET", server.getUrl() + "/redirect");
       Response out = httpClient.execute(in);
       assertEquals(

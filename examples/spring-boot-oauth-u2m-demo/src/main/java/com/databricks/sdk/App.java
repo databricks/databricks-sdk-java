@@ -20,7 +20,7 @@ public class App {
 
     @Bean
     public HttpClient getHttpClient() {
-        return new CommonsHttpClient(30);
+        return new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
     }
 
     @Bean
