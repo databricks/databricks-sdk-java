@@ -76,7 +76,8 @@ public class CommonsHttpClient implements HttpClient {
 
   private CommonsHttpClient(Builder builder) {
     int timeoutSeconds = 300;
-    if (builder.databricksConfig != null) {
+    if (builder.databricksConfig != null
+        && builder.databricksConfig.getHttpTimeoutSeconds() != null) {
       timeoutSeconds =
           Math.max(builder.timeoutSeconds, builder.databricksConfig.getHttpTimeoutSeconds());
     } else if (builder.timeoutSeconds != 0) {
