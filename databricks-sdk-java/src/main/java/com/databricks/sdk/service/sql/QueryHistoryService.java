@@ -4,8 +4,8 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 
 /**
- * A service responsible for storing and retrieving the list of queries run against SQL endpoints,
- * serverless compute, and DLT.
+ * A service responsible for storing and retrieving the list of queries run against SQL endpoints
+ * and serverless compute.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -16,7 +16,7 @@ public interface QueryHistoryService {
   /**
    * List Queries.
    *
-   * <p>List the history of queries through SQL warehouses, serverless compute, and DLT.
+   * <p>List the history of queries through SQL warehouses, and serverless compute.
    *
    * <p>You can filter by user ID, warehouse ID, status, and time range. Most recently started
    * queries are returned first (up to max_results in request). The pagination token returned in

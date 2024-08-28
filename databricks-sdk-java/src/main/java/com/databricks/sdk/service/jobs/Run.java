@@ -13,8 +13,8 @@ import java.util.Objects;
 public class Run {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
-   * has an attempt_number of 0\. If the initial run attempt fails, and the job has a retry policy
-   * (`max_retries` \> 0), subsequent runs are created with an `original_attempt_run_id` of the
+   * has an attempt_number of 0. If the initial run attempt fails, and the job has a retry policy
+   * (`max_retries` > 0), subsequent runs are created with an `original_attempt_run_id` of the
    * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
    * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
    */
@@ -102,6 +102,14 @@ public class Run {
   /** Job-level parameters used in the run */
   @JsonProperty("job_parameters")
   private Collection<JobParameter> jobParameters;
+
+  /**
+   * ID of the job run that this run belongs to. For legacy and single-task job runs the field is
+   * populated with the job run ID. For task runs, the field is populated with the ID of the job run
+   * that the task run belongs to.
+   */
+  @JsonProperty("job_run_id")
+  private Long jobRunId;
 
   /** A token that can be used to list the next page of sub-resources. */
   @JsonProperty("next_page_token")
@@ -329,6 +337,15 @@ public class Run {
     return jobParameters;
   }
 
+  public Run setJobRunId(Long jobRunId) {
+    this.jobRunId = jobRunId;
+    return this;
+  }
+
+  public Long getJobRunId() {
+    return jobRunId;
+  }
+
   public Run setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
@@ -518,6 +535,7 @@ public class Run {
         && Objects.equals(jobClusters, that.jobClusters)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(jobParameters, that.jobParameters)
+        && Objects.equals(jobRunId, that.jobRunId)
         && Objects.equals(nextPageToken, that.nextPageToken)
         && Objects.equals(numberInJob, that.numberInJob)
         && Objects.equals(originalAttemptRunId, that.originalAttemptRunId)
@@ -555,6 +573,7 @@ public class Run {
         jobClusters,
         jobId,
         jobParameters,
+        jobRunId,
         nextPageToken,
         numberInJob,
         originalAttemptRunId,
@@ -592,6 +611,7 @@ public class Run {
         .add("jobClusters", jobClusters)
         .add("jobId", jobId)
         .add("jobParameters", jobParameters)
+        .add("jobRunId", jobRunId)
         .add("nextPageToken", nextPageToken)
         .add("numberInJob", numberInJob)
         .add("originalAttemptRunId", originalAttemptRunId)

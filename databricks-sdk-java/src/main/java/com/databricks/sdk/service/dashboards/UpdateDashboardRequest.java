@@ -18,12 +18,15 @@ public class UpdateDashboardRequest {
 
   /**
    * The etag for the dashboard. Can be optionally provided on updates to ensure that the dashboard
-   * has not been modified since the last read.
+   * has not been modified since the last read. This field is excluded in List Dashboards responses.
    */
   @JsonProperty("etag")
   private String etag;
 
-  /** The contents of the dashboard in serialized string form. */
+  /**
+   * The contents of the dashboard in serialized string form. This field is excluded in List
+   * Dashboards responses.
+   */
   @JsonProperty("serialized_dashboard")
   private String serializedDashboard;
 
