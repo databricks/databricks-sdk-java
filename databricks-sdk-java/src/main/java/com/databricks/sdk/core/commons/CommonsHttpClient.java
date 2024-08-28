@@ -25,6 +25,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -36,18 +37,101 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CommonsHttpClient implements HttpClient {
+  /**
+   * Builder for CommonsHttpClient. This class is used to construct instances of CommonsHttpClient
+   * with configurable parameters for the underlying Apache HttpClient.
+   */
+  public static class Builder {
+    private DatabricksConfig databricksConfig;
+    private Integer timeoutSeconds;
+    private ProxyConfig proxyConfig;
+    private SSLConnectionSocketFactory sslSocketFactory;
+
+    /**
+     * @param databricksConfig The DatabricksConfig to use for the HttpClient. If the
+     *     DatabricksConfig has an httpTimeoutSeconds set, it will be used as the default timeout
+     *     for the HttpClient.
+     * @return This builder.
+     */
+    public Builder withDatabricksConfig(DatabricksConfig databricksConfig) {
+      this.databricksConfig = databricksConfig;
+      return this;
+    }
+
+    /**
+     * @param timeoutSeconds The timeout in seconds to use for the HttpClient. This will override
+     *     any timeout set in the DatabricksConfig.
+     * @return This builder.
+     */
+    public Builder withTimeoutSeconds(int timeoutSeconds) {
+      this.timeoutSeconds = timeoutSeconds;
+      return this;
+    }
+
+    /**
+     * @param proxyConfig the proxy configuration to use for the HttpClient.
+     * @return This builder.
+     */
+    public Builder withProxyConfig(ProxyConfig proxyConfig) {
+      this.proxyConfig = proxyConfig;
+      return this;
+    }
+
+    /**
+     * @param sslSocketFactory the SSLConnectionSocketFactory to use for the HttpClient.
+     * @return This builder.
+     */
+    public Builder withSslSocketFactory(SSLConnectionSocketFactory sslSocketFactory) {
+      this.sslSocketFactory = sslSocketFactory;
+      return this;
+    }
+
+    /** Builds a new instance of CommonsHttpClient with the configured parameters. */
+    public CommonsHttpClient build() {
+      return new CommonsHttpClient(this);
+    }
+  }
+
   private static final Logger LOG = LoggerFactory.getLogger(CommonsHttpClient.class);
   private final PoolingHttpClientConnectionManager connectionManager =
       new PoolingHttpClientConnectionManager();
   private final CloseableHttpClient hc;
   private int timeout;
 
+  private CommonsHttpClient(Builder builder) {
+    int timeoutSeconds = 300;
+    if (builder.databricksConfig != null
+        && builder.databricksConfig.getHttpTimeoutSeconds() != null) {
+      timeoutSeconds = builder.databricksConfig.getHttpTimeoutSeconds();
+    }
+    if (builder.timeoutSeconds != null) {
+      timeoutSeconds = builder.timeoutSeconds;
+    }
+    timeout = timeoutSeconds * 1000;
+    connectionManager.setMaxTotal(100);
+    HttpClientBuilder httpClientBuilder =
+        HttpClientBuilder.create()
+            .setConnectionManager(connectionManager)
+            .setDefaultRequestConfig(makeRequestConfig());
+    if (builder.proxyConfig != null) {
+      ProxyUtils.setupProxy(builder.proxyConfig, httpClientBuilder);
+    }
+    if (builder.sslSocketFactory != null) {
+      httpClientBuilder.setSSLSocketFactory(builder.sslSocketFactory);
+    }
+    hc = httpClientBuilder.build();
+  }
+
+  // These constructors have been deprecate in favour of a builder pattern.
+  // They will be removed in a future release.
+  @Deprecated
   public CommonsHttpClient(int timeoutSeconds) {
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
     hc = makeClosableHttpClient();
   }
 
+  @Deprecated
   public CommonsHttpClient(DatabricksConfig databricksConfig) {
     this(
         databricksConfig.getHttpTimeoutSeconds() == null
@@ -56,6 +140,7 @@ public class CommonsHttpClient implements HttpClient {
         new ProxyConfig(databricksConfig));
   }
 
+  @Deprecated
   public CommonsHttpClient(int timeoutSeconds, ProxyConfig proxyConfig) {
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
@@ -70,6 +155,7 @@ public class CommonsHttpClient implements HttpClient {
         .build();
   }
 
+  @Deprecated
   private CloseableHttpClient makeClosableHttpClient() {
     return HttpClientBuilder.create()
         .setConnectionManager(connectionManager)
@@ -77,6 +163,7 @@ public class CommonsHttpClient implements HttpClient {
         .build();
   }
 
+  @Deprecated
   private CloseableHttpClient makeClosableHttpClient(ProxyConfig proxyConfig) {
     HttpClientBuilder builder =
         HttpClientBuilder.create()

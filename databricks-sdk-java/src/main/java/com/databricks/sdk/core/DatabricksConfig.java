@@ -184,7 +184,7 @@ public class DatabricksConfig {
       return;
     }
     // eventually it'll get decoupled from config.
-    httpClient = new CommonsHttpClient(this);
+    httpClient = new CommonsHttpClient.Builder().withDatabricksConfig(this).build();
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {
