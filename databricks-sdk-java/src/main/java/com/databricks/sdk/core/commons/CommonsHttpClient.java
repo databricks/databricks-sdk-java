@@ -38,8 +38,8 @@ import org.slf4j.LoggerFactory;
 
 public class CommonsHttpClient implements HttpClient {
   /**
-   * Builder for {@link CommonsHttpClient}. This class is used to construct instances of {@link
-   * CommonsHttpClient} with configurable parameters for the underlying Apache HttpClient.
+   * Builder for CommonsHttpClient. This class is used to construct instances of CommonsHttpClient
+   * with configurable parameters for the underlying Apache HttpClient.
    */
   public static class Builder {
     private DatabricksConfig databricksConfig;
