@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 public class CommonsHttpClient implements HttpClient {
   public static class Builder {
     private DatabricksConfig databricksConfig;
-    private int timeoutSeconds;
+    private Integer timeoutSeconds;
     private ProxyConfig proxyConfig;
     private SSLConnectionSocketFactory sslSocketFactory;
 
@@ -78,10 +78,10 @@ public class CommonsHttpClient implements HttpClient {
     int timeoutSeconds = 300;
     if (builder.databricksConfig != null
         && builder.databricksConfig.getHttpTimeoutSeconds() != null) {
-      timeoutSeconds =
-          Math.max(builder.timeoutSeconds, builder.databricksConfig.getHttpTimeoutSeconds());
-    } else if (builder.timeoutSeconds != 0) {
-      timeoutSeconds = builder.timeoutSeconds * 1000;
+      timeoutSeconds = builder.databricksConfig.getHttpTimeoutSeconds();
+    }
+    if (builder.timeoutSeconds != null) {
+      timeoutSeconds = builder.timeoutSeconds;
     }
     timeout = timeoutSeconds * 1000;
     connectionManager.setMaxTotal(100);
