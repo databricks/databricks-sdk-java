@@ -87,7 +87,7 @@ public class CommonsHttpClient implements HttpClient {
     }
 
     /**
-     * @return A new instance of {@link CommonsHttpClient} with the configured parameters.
+     * @return A new instance of CommonsHttpClient with the configured parameters.
      */
     public CommonsHttpClient build() {
       return new CommonsHttpClient(this);
