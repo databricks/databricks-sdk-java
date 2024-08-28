@@ -38,8 +38,8 @@ import org.slf4j.LoggerFactory;
 
 public class CommonsHttpClient implements HttpClient {
   /**
-   * Builder for {@link CommonsHttpClient}. This class is used to construct instances of
-   * {@link CommonsHttpClient} with configurable parameters for the underlying Apache HttpClient.
+   * Builder for {@link CommonsHttpClient}. This class is used to construct instances of {@link
+   * CommonsHttpClient} with configurable parameters for the underlying Apache HttpClient.
    */
   public static class Builder {
     private DatabricksConfig databricksConfig;
@@ -49,8 +49,8 @@ public class CommonsHttpClient implements HttpClient {
 
     /**
      * @param databricksConfig The DatabricksConfig to use for the HttpClient. If the
-     *                         DatabricksConfig has an httpTimeoutSeconds set, it will be used as
-     *                         the default timeout for the HttpClient.
+     *     DatabricksConfig has an httpTimeoutSeconds set, it will be used as the default timeout
+     *     for the HttpClient.
      * @return This builder.
      */
     public Builder withDatabricksConfig(DatabricksConfig databricksConfig) {
@@ -60,7 +60,7 @@ public class CommonsHttpClient implements HttpClient {
 
     /**
      * @param timeoutSeconds The timeout in seconds to use for the HttpClient. This will override
-     *                       any timeout set in the DatabricksConfig.
+     *     any timeout set in the DatabricksConfig.
      * @return This builder.
      */
     public Builder withTimeoutSeconds(int timeoutSeconds) {
