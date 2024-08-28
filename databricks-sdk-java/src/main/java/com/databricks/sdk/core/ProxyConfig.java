@@ -7,7 +7,12 @@ public class ProxyConfig {
   private String password;
   private ProxyAuthType proxyAuthType;
   private Boolean useSystemProperties;
-  // Needs the nonProxyHosts to be set in the format of "suffix1,suffix2,suffix3"
+  // a list of hosts that should be reached directly, bypassing the proxy.
+  // This is a list of patterns separated by '|'. The patterns may start or end with a '*' for
+  // wildcards.
+  // Any host matching one of these patterns will be reached through a direct connection instead of
+  // through a proxy.
+  // More info here: https://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html
   private String nonProxyHosts;
 
   public enum ProxyAuthType {
@@ -87,6 +92,12 @@ public class ProxyConfig {
     return nonProxyHosts;
   }
 
+  /**
+   * @param nonProxyHosts a list of hosts that should be reached directly, bypassing the proxy. This
+   *     is a list of patterns separated by '|'. The patterns may start or end with a '*' for
+   *     wildcards.
+   * @return the current ProxyConfig object
+   */
   public ProxyConfig setNonProxyHosts(String nonProxyHosts) {
     this.nonProxyHosts = nonProxyHosts;
     return this;

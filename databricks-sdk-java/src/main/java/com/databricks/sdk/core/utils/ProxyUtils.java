@@ -3,10 +3,6 @@ package com.databricks.sdk.core.utils;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.ProxyConfig;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthSchemeProvider;
 import org.apache.http.auth.AuthScope;
@@ -15,14 +11,10 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
 import org.apache.http.client.config.AuthSchemes;
 import org.apache.http.config.RegistryBuilder;
-import org.apache.http.conn.routing.HttpRoute;
-import org.apache.http.conn.routing.HttpRoutePlanner;
 import org.apache.http.impl.auth.SPNegoSchemeFactory;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.ProxyAuthenticationStrategy;
-import org.apache.http.impl.conn.DefaultProxyRoutePlanner;
-import org.apache.http.protocol.HttpContext;
 
 /**
  * This class is used to setup the proxy configs for the http client. This includes setting up the
@@ -157,30 +149,5 @@ public class ProxyUtils {
     builder
         .setDefaultCredentialsProvider(credsProvider)
         .setProxyAuthenticationStrategy(new ProxyAuthenticationStrategy());
-  }
-
-  static class CustomRoutePlanner implements HttpRoutePlanner {
-    private final DefaultProxyRoutePlanner defaultRoutePlanner;
-    private final List<String> nonProxyHostEndsWith;
-
-    public CustomRoutePlanner(HttpHost proxy, String nonProxyHosts) {
-      this.defaultRoutePlanner = new DefaultProxyRoutePlanner(proxy);
-      if (nonProxyHosts == null || nonProxyHosts.isEmpty()) {
-        this.nonProxyHostEndsWith = new ArrayList<>();
-      } else {
-        this.nonProxyHostEndsWith = Arrays.asList(nonProxyHosts.split(","));
-      }
-    }
-
-    @Override
-    public HttpRoute determineRoute(
-        HttpHost target, org.apache.http.HttpRequest request, HttpContext context)
-        throws org.apache.http.HttpException {
-      String targetHostName = target.getHostName();
-      if (nonProxyHostEndsWith.stream().anyMatch(targetHostName::endsWith)) {
-        return new HttpRoute(target); // Direct route, no proxy
-      }
-      return defaultRoutePlanner.determineRoute(target, request, context); // Route via proxy
-    }
   }
 }
