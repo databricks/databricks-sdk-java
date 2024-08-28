@@ -41,6 +41,10 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
   private String redirectUrl;
 
+  /**
+   * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints.
+   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases without notice.
+   */
   @ConfigAttribute(env = "DISCOVERY_URL")
   private String discoveryUrl;
 
@@ -611,17 +615,17 @@ public class DatabricksConfig {
   }
 
   public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
-   if(discoveryUrl==null){
-     return getDefaultOidc();
-   }
-   return getOidcFromDiscoveryEndpoint();
+    if (discoveryUrl == null) {
+      return getDefaultOidc();
+    }
+    return getOidcFromDiscoveryEndpoint();
   }
 
   private OpenIDConnectEndpoints getOidcFromDiscoveryEndpoint() {
     try {
       Request request = new Request("GET", discoveryUrl);
       Response resp = getHttpClient().execute(request);
-      if (resp.getStatusCode()== 200) {
+      if (resp.getStatusCode() == 200) {
         return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
       }
     } catch (IOException e) {
@@ -629,11 +633,11 @@ public class DatabricksConfig {
     }
     return null;
   }
+
   private OpenIDConnectEndpoints getDefaultOidc() throws IOException {
     if (getHost() == null) {
       return null;
     }
-
     if (isAzure() && getAzureClientId() != null) {
       Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
       request.setRedirectionBehavior(false);
