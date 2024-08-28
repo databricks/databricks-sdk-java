@@ -10,17 +10,17 @@ import org.apache.http.conn.routing.HttpRoutePlanner;
 import org.apache.http.message.BasicHttpRequest;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class CustomRoutePlannerTest {
 
-  private HttpHost proxy;
-  private HttpRoutePlanner customRoutePlanner;
-  private HttpContext context;
+  private static HttpHost proxy;
+  private static HttpRoutePlanner customRoutePlanner;
+  private static HttpContext context;
 
-  @BeforeEach
-  public void setUp() {
+  @BeforeAll
+  public static void setUp() {
     proxy = new HttpHost("proxy.example.com", 8080);
     String nonProxyHosts =
         String.join("|", Arrays.asList("example.com", "localhost", "*.mydomain.com"));
