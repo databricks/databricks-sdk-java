@@ -52,6 +52,14 @@ public class ProxyUtils {
       proxyAuthType = config.getProxyAuthType();
       builder.setProxy(new HttpHost(proxyHost, proxyPort));
     }
+    if (proxyHost == null) {
+      // No proxy is set in system properties or in the config
+      return;
+    }
+    if (config.getNonProxyHosts() != null) {
+      builder.setRoutePlanner(
+          new CustomRoutePlanner(new HttpHost(proxyHost, proxyPort), config.getNonProxyHosts()));
+    }
     setupProxyAuth(proxyHost, proxyPort, proxyAuthType, proxyUser, proxyPassword, builder);
   }
 
