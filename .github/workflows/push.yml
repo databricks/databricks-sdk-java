@@ -56,9 +56,3 @@ jobs:
       - name: Check Unit Tests
         run: mvn --errors test
 
-      - name: Upload Surefire Reports
-        if: failure() # This ensures the step runs only if the tests fail
-        uses: actions/upload-artifact@v3
-        with:
-          name: surefire-reports
-          path: target/surefire-reports
