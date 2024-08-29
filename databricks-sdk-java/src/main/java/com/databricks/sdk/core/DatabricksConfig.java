@@ -13,9 +13,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 import org.apache.http.HttpMessage;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.util.EntityUtils;
 
 public class DatabricksConfig {
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
@@ -43,7 +40,9 @@ public class DatabricksConfig {
 
   /**
    * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints.
-   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases without notice.
+   *
+   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
+   * without notice.
    */
   @ConfigAttribute(env = "DISCOVERY_URL")
   private String discoveryUrl;
@@ -393,13 +392,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
@@ -647,7 +650,7 @@ public class DatabricksConfig {
         return null;
       }
       return new OpenIDConnectEndpoints(
-              realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
+          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
     }
     if (isAccountClient() && getAccountId() != null) {
       String prefix = getHost() + "/oidc/accounts/" + getAccountId();

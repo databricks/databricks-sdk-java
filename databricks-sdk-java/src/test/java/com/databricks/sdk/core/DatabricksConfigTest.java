@@ -110,29 +110,31 @@ public class DatabricksConfigTest {
             .getAuthorizationEndpoint(),
         "https://accounts.cloud.databricks.com/oidc/accounts/1234567890/v1/authorize");
   }
+
   @Test
   public void testDiscoveryEndpoint() throws IOException {
     String discoveryUrlSuffix = "/test.discovery.url";
-    String discoveryUrlResponse = "{\n" +
-            "  \"authorization_endpoint\": \"https://test.auth.endpoint/oidc/v1/authorize\",\n" +
-            "  \"token_endpoint\": \"https://test.auth.endpoint/oidc/v1/token\"\n" +
-            "}";
+    String discoveryUrlResponse =
+        "{\n"
+            + "  \"authorization_endpoint\": \"https://test.auth.endpoint/oidc/v1/authorize\",\n"
+            + "  \"token_endpoint\": \"https://test.auth.endpoint/oidc/v1/token\"\n"
+            + "}";
 
-    try (FixtureServer server = new FixtureServer()
-            .with("GET", discoveryUrlSuffix, discoveryUrlResponse)) {
+    try (FixtureServer server =
+        new FixtureServer().with("GET", discoveryUrlSuffix, discoveryUrlResponse)) {
 
       String discoveryUrl = server.getUrl() + discoveryUrlSuffix;
 
-      OpenIDConnectEndpoints oidcEndpoints = new DatabricksConfig()
+      OpenIDConnectEndpoints oidcEndpoints =
+          new DatabricksConfig()
               .setHost(server.getUrl())
               .setDiscoveryUrl(discoveryUrl)
               .setHttpClient(new CommonsHttpClient(30))
               .getOidcEndpoints();
 
-      assertEquals(oidcEndpoints.getAuthorizationEndpoint(),
-              "https://test.auth.endpoint/oidc/v1/authorize");
-      assertEquals(oidcEndpoints.getTokenEndpoint(),
-              "https://test.auth.endpoint/oidc/v1/token");
+      assertEquals(
+          oidcEndpoints.getAuthorizationEndpoint(), "https://test.auth.endpoint/oidc/v1/authorize");
+      assertEquals(oidcEndpoints.getTokenEndpoint(), "https://test.auth.endpoint/oidc/v1/token");
     }
   }
 }
