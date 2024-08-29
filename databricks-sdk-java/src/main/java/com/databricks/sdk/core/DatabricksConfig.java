@@ -44,7 +44,7 @@ public class DatabricksConfig {
    * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
    * without notice.
    */
-  @ConfigAttribute(env = "DISCOVERY_URL")
+  @ConfigAttribute(env = "DATABRICKS_DISCOVERY_URL")
   private String discoveryUrl;
 
   @ConfigAttribute(env = "DATABRICKS_USERNAME", auth = "basic")
