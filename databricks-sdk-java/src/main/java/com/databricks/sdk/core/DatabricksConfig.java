@@ -141,6 +141,9 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "USE_SYSTEM_PROPERTIES_HTTP")
   private Boolean useSystemPropertiesHttp;
 
+  @ConfigAttribute(env = "NON_PROXY_HOSTS")
+  private String nonProxyHosts;
+
   private volatile boolean resolved;
   private HeaderFactory headerFactory;
 
@@ -564,6 +567,15 @@ public class DatabricksConfig {
   public DatabricksConfig setUseSystemPropertiesHttp(Boolean useSystemPropertiesHttp) {
     this.useSystemPropertiesHttp = useSystemPropertiesHttp;
     return this;
+  }
+
+  public String getNonProxyHosts() {
+    return nonProxyHosts;
+  }
+
+  public DatabricksConfig setNonProxyHosts(String nonProxyHosts) {
+      this.nonProxyHosts = nonProxyHosts;
+      return this;
   }
 
   public boolean isAzure() {

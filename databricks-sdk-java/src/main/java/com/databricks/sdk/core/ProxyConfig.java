@@ -32,6 +32,7 @@ public class ProxyConfig {
     this.password = config.getProxyPassword();
     this.proxyAuthType = config.getProxyAuthType();
     this.useSystemProperties = config.getUseSystemPropertiesHttp();
+    this.nonProxyHosts = config.getNonProxyHosts();
   }
 
   public String getHost() {
