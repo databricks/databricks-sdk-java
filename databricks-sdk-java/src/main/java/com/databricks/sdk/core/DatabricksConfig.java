@@ -615,12 +615,12 @@ public class DatabricksConfig {
 
   public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
     if (discoveryUrl == null) {
-      return getDefaultOidc();
+      return fetchDefaultOidcEndpoints();
     }
-    return getOidcFromDiscoveryEndpoint();
+    return fetchOidcEndpointsFromDiscovery();
   }
 
-  private OpenIDConnectEndpoints getOidcFromDiscoveryEndpoint() {
+  private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
     try {
       Request request = new Request("GET", discoveryUrl);
       Response resp = getHttpClient().execute(request);
@@ -633,7 +633,7 @@ public class DatabricksConfig {
     return null;
   }
 
-  private OpenIDConnectEndpoints getDefaultOidc() throws IOException {
+  private OpenIDConnectEndpoints fetchDefaultOidcEndpoints() throws IOException {
     if (getHost() == null) {
       return null;
     }
