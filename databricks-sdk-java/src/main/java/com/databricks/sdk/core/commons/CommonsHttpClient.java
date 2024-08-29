@@ -99,20 +99,22 @@ public class CommonsHttpClient implements HttpClient {
   private int timeout;
 
   private CommonsHttpClient(Builder builder) {
+    connectionManager.setMaxTotal(100);
+    HttpClientBuilder httpClientBuilder =
+            HttpClientBuilder.create()
+                    .setConnectionManager(connectionManager)
+                    .setDefaultRequestConfig(makeRequestConfig());
     int timeoutSeconds = 300;
-    if (builder.databricksConfig != null
-        && builder.databricksConfig.getHttpTimeoutSeconds() != null) {
-      timeoutSeconds = builder.databricksConfig.getHttpTimeoutSeconds();
+    if (builder.databricksConfig != null) {
+      if (builder.databricksConfig.getHttpTimeoutSeconds() != null) {
+        timeoutSeconds = builder.databricksConfig.getHttpTimeoutSeconds();
+      }
+      ProxyUtils.setupProxy(new ProxyConfig(builder.databricksConfig), httpClientBuilder);
     }
     if (builder.timeoutSeconds != null) {
       timeoutSeconds = builder.timeoutSeconds;
     }
     timeout = timeoutSeconds * 1000;
-    connectionManager.setMaxTotal(100);
-    HttpClientBuilder httpClientBuilder =
-        HttpClientBuilder.create()
-            .setConnectionManager(connectionManager)
-            .setDefaultRequestConfig(makeRequestConfig());
     if (builder.proxyConfig != null) {
       ProxyUtils.setupProxy(builder.proxyConfig, httpClientBuilder);
     }
