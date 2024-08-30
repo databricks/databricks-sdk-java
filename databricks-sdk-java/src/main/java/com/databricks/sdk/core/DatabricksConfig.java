@@ -713,7 +713,6 @@ public class DatabricksConfig {
                 // For cloud-native OAuth, we need to reauthenticate as the audience has changed, so
                 // don't cache the
                 // header factory.
-                "authType",
                 "headerFactory"));
     DatabricksConfig newConfig = new DatabricksConfig();
     for (Field f : DatabricksConfig.class.getDeclaredFields()) {
