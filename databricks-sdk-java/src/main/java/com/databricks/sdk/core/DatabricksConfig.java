@@ -38,6 +38,15 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
   private String redirectUrl;
 
+  /**
+   * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints.
+   *
+   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
+   * without notice.
+   */
+  @ConfigAttribute(env = "DATABRICKS_DISCOVERY_URL")
+  private String discoveryUrl;
+
   @ConfigAttribute(env = "DATABRICKS_USERNAME", auth = "basic")
   private String username;
 
@@ -218,6 +227,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setHost(String host) {
     this.host = host;
+    return this;
+  }
+
+  public String getDiscoveryUrl() {
+    return discoveryUrl;
+  }
+
+  public DatabricksConfig setDiscoveryUrl(String discoveryUrl) {
+    this.discoveryUrl = discoveryUrl;
     return this;
   }
 
@@ -596,10 +614,29 @@ public class DatabricksConfig {
   }
 
   public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
+    if (discoveryUrl == null) {
+      return fetchDefaultOidcEndpoints();
+    }
+    return fetchOidcEndpointsFromDiscovery();
+  }
+
+  private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
+    try {
+      Request request = new Request("GET", discoveryUrl);
+      Response resp = getHttpClient().execute(request);
+      if (resp.getStatusCode() == 200) {
+        return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
+      }
+    } catch (IOException e) {
+      throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
+    }
+    return null;
+  }
+
+  private OpenIDConnectEndpoints fetchDefaultOidcEndpoints() throws IOException {
     if (getHost() == null) {
       return null;
     }
-
     if (isAzure() && getAzureClientId() != null) {
       Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
       request.setRedirectionBehavior(false);
