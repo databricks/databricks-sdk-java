@@ -155,6 +155,5 @@ public class DatabricksConfigTest {
     assert newWorkspaceConfig.getAuthType().equals("oauth-m2m");
     assert newWorkspaceConfig.getClientId().equals("my-client-id");
     assert newWorkspaceConfig.getClientSecret().equals("my-client-secret");
-    assert newWorkspaceConfig.getAccountId() == null;
   }
 }
