@@ -10,6 +10,14 @@ import java.util.Objects;
 
 @Generated
 public class DeltaSyncVectorIndexSpecRequest {
+  /**
+   * [Optional] Select the columns to sync with the vector index. If you leave this field blank, all
+   * columns from the source table are synced with the index. The primary key column and embedding
+   * source column or embedding vector column are always synced.
+   */
+  @JsonProperty("columns_to_sync")
+  private Collection<String> columnsToSync;
+
   /** The columns that contain the embedding source. */
   @JsonProperty("embedding_source_columns")
   private Collection<EmbeddingSourceColumn> embeddingSourceColumns;
@@ -41,6 +49,15 @@ public class DeltaSyncVectorIndexSpecRequest {
   /** The name of the source table. */
   @JsonProperty("source_table")
   private String sourceTable;
+
+  public DeltaSyncVectorIndexSpecRequest setColumnsToSync(Collection<String> columnsToSync) {
+    this.columnsToSync = columnsToSync;
+    return this;
+  }
+
+  public Collection<String> getColumnsToSync() {
+    return columnsToSync;
+  }
 
   public DeltaSyncVectorIndexSpecRequest setEmbeddingSourceColumns(
       Collection<EmbeddingSourceColumn> embeddingSourceColumns) {
@@ -95,7 +112,8 @@ public class DeltaSyncVectorIndexSpecRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeltaSyncVectorIndexSpecRequest that = (DeltaSyncVectorIndexSpecRequest) o;
-    return Objects.equals(embeddingSourceColumns, that.embeddingSourceColumns)
+    return Objects.equals(columnsToSync, that.columnsToSync)
+        && Objects.equals(embeddingSourceColumns, that.embeddingSourceColumns)
         && Objects.equals(embeddingVectorColumns, that.embeddingVectorColumns)
         && Objects.equals(embeddingWritebackTable, that.embeddingWritebackTable)
         && Objects.equals(pipelineType, that.pipelineType)
@@ -105,6 +123,7 @@ public class DeltaSyncVectorIndexSpecRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
+        columnsToSync,
         embeddingSourceColumns,
         embeddingVectorColumns,
         embeddingWritebackTable,
@@ -115,6 +134,7 @@ public class DeltaSyncVectorIndexSpecRequest {
   @Override
   public String toString() {
     return new ToStringer(DeltaSyncVectorIndexSpecRequest.class)
+        .add("columnsToSync", columnsToSync)
         .add("embeddingSourceColumns", embeddingSourceColumns)
         .add("embeddingVectorColumns", embeddingVectorColumns)
         .add("embeddingWritebackTable", embeddingWritebackTable)

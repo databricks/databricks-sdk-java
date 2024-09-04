@@ -70,6 +70,17 @@ class QualityMonitorsImpl implements QualityMonitorsService {
   }
 
   @Override
+  public RegenerateDashboardResponse regenerateDashboard(RegenerateDashboardRequest request) {
+    String path =
+        String.format(
+            "/api/2.1/quality-monitoring/tables/%s/monitor/dashboard", request.getTableName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, RegenerateDashboardResponse.class, headers);
+  }
+
+  @Override
   public MonitorRefreshInfo runRefresh(RunRefreshRequest request) {
     String path =
         String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getTableName());

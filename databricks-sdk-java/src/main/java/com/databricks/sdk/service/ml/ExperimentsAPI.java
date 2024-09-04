@@ -222,7 +222,11 @@ public class ExperimentsAPI {
    * Get all artifacts.
    *
    * <p>List artifacts for a run. Takes an optional `artifact_path` prefix. If it is specified, the
-   * response contains only artifacts with the specified prefix.",
+   * response contains only artifacts with the specified prefix. This API does not support
+   * pagination when listing artifacts in UC Volumes. A maximum of 1000 artifacts will be retrieved
+   * for UC Volumes. Please call `/api/2.0/fs/directories{directory_path}` for listing artifacts in
+   * UC Volumes, which supports pagination. See [List directory contents | Files
+   * API](/api/workspace/files/listdirectorycontents).
    */
   public Iterable<FileInfo> listArtifacts(ListArtifactsRequest request) {
     return new Paginator<>(

@@ -162,6 +162,27 @@ public class QualityMonitorsAPI {
     return impl.listRefreshes(request);
   }
 
+  public RegenerateDashboardResponse regenerateDashboard(String tableName) {
+    return regenerateDashboard(new RegenerateDashboardRequest().setTableName(tableName));
+  }
+
+  /**
+   * Regenerate a monitoring dashboard.
+   *
+   * <p>Regenerates the monitoring dashboard for the specified table.
+   *
+   * <p>The caller must either: 1. be an owner of the table's parent catalog 2. have **USE_CATALOG**
+   * on the table's parent catalog and be an owner of the table's parent schema 3. have the
+   * following permissions: - **USE_CATALOG** on the table's parent catalog - **USE_SCHEMA** on the
+   * table's parent schema - be an owner of the table
+   *
+   * <p>The call must be made from the workspace where the monitor was created. The dashboard will
+   * be regenerated in the assets directory that was specified when the monitor was created.
+   */
+  public RegenerateDashboardResponse regenerateDashboard(RegenerateDashboardRequest request) {
+    return impl.regenerateDashboard(request);
+  }
+
   public MonitorRefreshInfo runRefresh(String tableName) {
     return runRefresh(new RunRefreshRequest().setTableName(tableName));
   }

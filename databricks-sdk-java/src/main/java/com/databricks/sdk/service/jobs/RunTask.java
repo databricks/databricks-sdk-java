@@ -240,9 +240,13 @@ public class RunTask {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The current state of the run. */
+  /** Deprecated. Please use the `status` field instead. */
   @JsonProperty("state")
   private RunState state;
+
+  /** The current status of the run */
+  @JsonProperty("status")
+  private RunStatus status;
 
   /**
    * A unique name for the task. This field is used to refer to this task from other tasks. This
@@ -579,6 +583,15 @@ public class RunTask {
     return state;
   }
 
+  public RunTask setStatus(RunStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public RunStatus getStatus() {
+    return status;
+  }
+
   public RunTask setTaskKey(String taskKey) {
     this.taskKey = taskKey;
     return this;
@@ -646,6 +659,7 @@ public class RunTask {
         && Objects.equals(sqlTask, that.sqlTask)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
+        && Objects.equals(status, that.status)
         && Objects.equals(taskKey, that.taskKey)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
         && Objects.equals(webhookNotifications, that.webhookNotifications);
@@ -689,6 +703,7 @@ public class RunTask {
         sqlTask,
         startTime,
         state,
+        status,
         taskKey,
         timeoutSeconds,
         webhookNotifications);
@@ -732,6 +747,7 @@ public class RunTask {
         .add("sqlTask", sqlTask)
         .add("startTime", startTime)
         .add("state", state)
+        .add("status", status)
         .add("taskKey", taskKey)
         .add("timeoutSeconds", timeoutSeconds)
         .add("webhookNotifications", webhookNotifications)

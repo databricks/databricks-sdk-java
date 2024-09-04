@@ -14,8 +14,9 @@ public class GetPermissionRequest {
 
   /**
    * The type of the request object. Can be one of the following: alerts, authorization, clusters,
-   * cluster-policies, dbsql-dashboards, directories, experiments, files, instance-pools, jobs,
-   * notebooks, pipelines, queries, registered-models, repos, serving-endpoints, or warehouses.
+   * cluster-policies, dashboards, dbsql-dashboards, directories, experiments, files,
+   * instance-pools, jobs, notebooks, pipelines, queries, registered-models, repos,
+   * serving-endpoints, or warehouses.
    */
   private String requestObjectType;
 
