@@ -1,5 +1,41 @@
 # Version changelog
 
+## [Release] Release v0.31.0
+
+### New Features and Improvements
+
+ * Add a way to provide non proxy hosts ([#331](https://github.com/databricks/databricks-sdk-java/pull/331)).
+ * Add support for discovery URL ([#336](https://github.com/databricks/databricks-sdk-java/pull/336)).
+ * Provide SSLSocketFactory in HttpClient ([#333](https://github.com/databricks/databricks-sdk-java/pull/333)).
+
+
+### Bug Fixes
+
+ * DatabricksConfig: newWithWorkspaceHost should retain authType ([#338](https://github.com/databricks/databricks-sdk-java/pull/338)).
+ * Handle login.html incorrect validation for private link ([#340](https://github.com/databricks/databricks-sdk-java/pull/340)).
+
+
+### Internal Changes
+
+ * Fix nightly test failure ([#339](https://github.com/databricks/databricks-sdk-java/pull/339)).
+
+
+### API Changes:
+
+ * Added `regenerateDashboard()` method for `workspaceClient.qualityMonitors()` service.
+ * Added `com.databricks.sdk.service.catalog.RegenerateDashboardRequest` and `com.databricks.sdk.service.catalog.RegenerateDashboardResponse` classes.
+ * Added `com.databricks.sdk.service.jobs.QueueDetails`, `com.databricks.sdk.service.jobs.QueueDetailsCodeCode`, `com.databricks.sdk.service.jobs.RunLifecycleStateV2State`, `com.databricks.sdk.service.jobs.RunStatus`, `com.databricks.sdk.service.jobs.TerminationCodeCode`, `com.databricks.sdk.service.jobs.TerminationDetails` and `com.databricks.sdk.service.jobs.TerminationTypeType` classes.
+ * Added `status` field for `com.databricks.sdk.service.jobs.BaseRun`.
+ * Added `status` field for `com.databricks.sdk.service.jobs.RepairHistoryItem`.
+ * Added `status` field for `com.databricks.sdk.service.jobs.Run`.
+ * Added `status` field for `com.databricks.sdk.service.jobs.RunTask`.
+ * Added `maxProvisionedThroughput` and `minProvisionedThroughput` fields for `com.databricks.sdk.service.serving.ServedModelInput`.
+ * Added `columnsToSync` field for `com.databricks.sdk.service.vectorsearch.DeltaSyncVectorIndexSpecRequest`.
+ * Changed `workloadSize` field for `com.databricks.sdk.service.serving.ServedModelInput` to no longer be required.
+
+OpenAPI SHA: d05898328669a3f8ab0c2ecee37db2673d3ea3f7, Date: 2024-09-04
+
+
 ## [Release] Release v0.30.0
 
 ### API Changes:
