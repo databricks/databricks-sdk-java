@@ -191,9 +191,13 @@ public class Run {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The current state of the run. */
+  /** Deprecated. Please use the `status` field instead. */
   @JsonProperty("state")
   private RunState state;
+
+  /** The current status of the run */
+  @JsonProperty("status")
+  private RunStatus status;
 
   /**
    * The list of tasks performed by the run. Each task has its own `run_id` which you can use to
@@ -490,6 +494,15 @@ public class Run {
     return state;
   }
 
+  public Run setStatus(RunStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public RunStatus getStatus() {
+    return status;
+  }
+
   public Run setTasks(Collection<RunTask> tasks) {
     this.tasks = tasks;
     return this;
@@ -552,6 +565,7 @@ public class Run {
         && Objects.equals(setupDuration, that.setupDuration)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
+        && Objects.equals(status, that.status)
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(trigger, that.trigger)
         && Objects.equals(triggerInfo, that.triggerInfo);
@@ -590,6 +604,7 @@ public class Run {
         setupDuration,
         startTime,
         state,
+        status,
         tasks,
         trigger,
         triggerInfo);
@@ -628,6 +643,7 @@ public class Run {
         .add("setupDuration", setupDuration)
         .add("startTime", startTime)
         .add("state", state)
+        .add("status", status)
         .add("tasks", tasks)
         .add("trigger", trigger)
         .add("triggerInfo", triggerInfo)

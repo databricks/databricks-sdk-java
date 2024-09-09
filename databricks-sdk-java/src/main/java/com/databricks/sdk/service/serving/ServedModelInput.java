@@ -23,6 +23,14 @@ public class ServedModelInput {
   @JsonProperty("instance_profile_arn")
   private String instanceProfileArn;
 
+  /** The maximum tokens per second that the endpoint can scale up to. */
+  @JsonProperty("max_provisioned_throughput")
+  private Long maxProvisionedThroughput;
+
+  /** The minimum tokens per second that the endpoint can scale down to. */
+  @JsonProperty("min_provisioned_throughput")
+  private Long minProvisionedThroughput;
+
   /**
    * The name of the model in Databricks Model Registry to be served or if the model resides in
    * Unity Catalog, the full name of model, in the form of
@@ -88,6 +96,24 @@ public class ServedModelInput {
     return instanceProfileArn;
   }
 
+  public ServedModelInput setMaxProvisionedThroughput(Long maxProvisionedThroughput) {
+    this.maxProvisionedThroughput = maxProvisionedThroughput;
+    return this;
+  }
+
+  public Long getMaxProvisionedThroughput() {
+    return maxProvisionedThroughput;
+  }
+
+  public ServedModelInput setMinProvisionedThroughput(Long minProvisionedThroughput) {
+    this.minProvisionedThroughput = minProvisionedThroughput;
+    return this;
+  }
+
+  public Long getMinProvisionedThroughput() {
+    return minProvisionedThroughput;
+  }
+
   public ServedModelInput setModelName(String modelName) {
     this.modelName = modelName;
     return this;
@@ -149,6 +175,8 @@ public class ServedModelInput {
     ServedModelInput that = (ServedModelInput) o;
     return Objects.equals(environmentVars, that.environmentVars)
         && Objects.equals(instanceProfileArn, that.instanceProfileArn)
+        && Objects.equals(maxProvisionedThroughput, that.maxProvisionedThroughput)
+        && Objects.equals(minProvisionedThroughput, that.minProvisionedThroughput)
         && Objects.equals(modelName, that.modelName)
         && Objects.equals(modelVersion, that.modelVersion)
         && Objects.equals(name, that.name)
@@ -162,6 +190,8 @@ public class ServedModelInput {
     return Objects.hash(
         environmentVars,
         instanceProfileArn,
+        maxProvisionedThroughput,
+        minProvisionedThroughput,
         modelName,
         modelVersion,
         name,
@@ -175,6 +205,8 @@ public class ServedModelInput {
     return new ToStringer(ServedModelInput.class)
         .add("environmentVars", environmentVars)
         .add("instanceProfileArn", instanceProfileArn)
+        .add("maxProvisionedThroughput", maxProvisionedThroughput)
+        .add("minProvisionedThroughput", minProvisionedThroughput)
         .add("modelName", modelName)
         .add("modelVersion", modelVersion)
         .add("name", name)
