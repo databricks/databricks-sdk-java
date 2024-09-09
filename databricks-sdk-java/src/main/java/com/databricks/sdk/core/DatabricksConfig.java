@@ -592,8 +592,8 @@ public class DatabricksConfig {
   }
 
   public DatabricksConfig setNonProxyHosts(String nonProxyHosts) {
-      this.nonProxyHosts = nonProxyHosts;
-      return this;
+    this.nonProxyHosts = nonProxyHosts;
+    return this;
   }
 
   public boolean isAzure() {
