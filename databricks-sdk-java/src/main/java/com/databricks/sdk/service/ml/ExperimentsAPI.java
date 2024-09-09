@@ -166,7 +166,7 @@ public class ExperimentsAPI {
         GetMetricHistoryResponse::getMetrics,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -235,7 +235,7 @@ public class ExperimentsAPI {
         ListArtifactsResponse::getFiles,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -254,7 +254,7 @@ public class ExperimentsAPI {
         ListExperimentsResponse::getExperiments,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -414,7 +414,7 @@ public class ExperimentsAPI {
         SearchExperimentsResponse::getExperiments,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -435,7 +435,7 @@ public class ExperimentsAPI {
         SearchRunsResponse::getRuns,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

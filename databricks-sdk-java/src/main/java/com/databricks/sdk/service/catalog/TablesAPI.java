@@ -105,7 +105,7 @@ public class TablesAPI {
         ListTablesResponse::getTables,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -137,7 +137,7 @@ public class TablesAPI {
         ListTableSummariesResponse::getTables,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
