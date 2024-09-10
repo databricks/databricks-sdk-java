@@ -112,7 +112,7 @@ public class ModelVersionsAPI {
         ListModelVersionsResponse::getModelVersions,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

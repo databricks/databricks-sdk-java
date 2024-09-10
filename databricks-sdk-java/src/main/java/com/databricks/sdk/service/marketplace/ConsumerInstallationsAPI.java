@@ -65,7 +65,7 @@ public class ConsumerInstallationsAPI {
         ListAllInstallationsResponse::getInstallations,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -88,7 +88,7 @@ public class ConsumerInstallationsAPI {
         ListInstallationsResponse::getInstallations,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
