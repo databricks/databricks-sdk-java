@@ -69,14 +69,6 @@ public class QuerySource {
   @JsonProperty("notebook_id")
   private String notebookId;
 
-  /** Id associated with a DLT pipeline */
-  @JsonProperty("pipeline_id")
-  private String pipelineId;
-
-  /** Id associated with a DLT update */
-  @JsonProperty("pipeline_update_id")
-  private String pipelineUpdateId;
-
   /** String provided by a customer that'll help them identify the query */
   @JsonProperty("query_tags")
   private String queryTags;
@@ -227,24 +219,6 @@ public class QuerySource {
     return notebookId;
   }
 
-  public QuerySource setPipelineId(String pipelineId) {
-    this.pipelineId = pipelineId;
-    return this;
-  }
-
-  public String getPipelineId() {
-    return pipelineId;
-  }
-
-  public QuerySource setPipelineUpdateId(String pipelineUpdateId) {
-    this.pipelineUpdateId = pipelineUpdateId;
-    return this;
-  }
-
-  public String getPipelineUpdateId() {
-    return pipelineUpdateId;
-  }
-
   public QuerySource setQueryTags(String queryTags) {
     this.queryTags = queryTags;
     return this;
@@ -318,8 +292,6 @@ public class QuerySource {
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(jobManagedBy, that.jobManagedBy)
         && Objects.equals(notebookId, that.notebookId)
-        && Objects.equals(pipelineId, that.pipelineId)
-        && Objects.equals(pipelineUpdateId, that.pipelineUpdateId)
         && Objects.equals(queryTags, that.queryTags)
         && Objects.equals(runId, that.runId)
         && Objects.equals(runnableCommandId, that.runnableCommandId)
@@ -345,8 +317,6 @@ public class QuerySource {
         jobId,
         jobManagedBy,
         notebookId,
-        pipelineId,
-        pipelineUpdateId,
         queryTags,
         runId,
         runnableCommandId,
@@ -372,8 +342,6 @@ public class QuerySource {
         .add("jobId", jobId)
         .add("jobManagedBy", jobManagedBy)
         .add("notebookId", notebookId)
-        .add("pipelineId", pipelineId)
-        .add("pipelineUpdateId", pipelineUpdateId)
         .add("queryTags", queryTags)
         .add("runId", runId)
         .add("runnableCommandId", runnableCommandId)

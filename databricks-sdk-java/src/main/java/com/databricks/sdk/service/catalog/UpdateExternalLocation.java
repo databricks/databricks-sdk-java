@@ -25,6 +25,14 @@ public class UpdateExternalLocation {
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
+  /**
+   * Indicates whether fallback mode is enabled for this external location. When fallback mode is
+   * enabled, the access to the location falls back to cluster credentials if UC credentials are not
+   * sufficient.
+   */
+  @JsonProperty("fallback")
+  private Boolean fallback;
+
   /** Force update even if changing url invalidates dependent external tables or mounts. */
   @JsonProperty("force")
   private Boolean force;
@@ -93,6 +101,15 @@ public class UpdateExternalLocation {
 
   public EncryptionDetails getEncryptionDetails() {
     return encryptionDetails;
+  }
+
+  public UpdateExternalLocation setFallback(Boolean fallback) {
+    this.fallback = fallback;
+    return this;
+  }
+
+  public Boolean getFallback() {
+    return fallback;
   }
 
   public UpdateExternalLocation setForce(Boolean force) {
@@ -176,6 +193,7 @@ public class UpdateExternalLocation {
         && Objects.equals(comment, that.comment)
         && Objects.equals(credentialName, that.credentialName)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
+        && Objects.equals(fallback, that.fallback)
         && Objects.equals(force, that.force)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
@@ -193,6 +211,7 @@ public class UpdateExternalLocation {
         comment,
         credentialName,
         encryptionDetails,
+        fallback,
         force,
         isolationMode,
         name,
@@ -210,6 +229,7 @@ public class UpdateExternalLocation {
         .add("comment", comment)
         .add("credentialName", credentialName)
         .add("encryptionDetails", encryptionDetails)
+        .add("fallback", fallback)
         .add("force", force)
         .add("isolationMode", isolationMode)
         .add("name", name)

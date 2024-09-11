@@ -9,7 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class RunForEachTask {
-  /** Controls the number of active iterations task runs. Default is 20, maximum allowed is 100. */
+  /**
+   * An optional maximum allowed number of concurrent runs of the task. Set this value if you want
+   * to be able to execute multiple runs of the task concurrently.
+   */
   @JsonProperty("concurrency")
   private Long concurrency;
 

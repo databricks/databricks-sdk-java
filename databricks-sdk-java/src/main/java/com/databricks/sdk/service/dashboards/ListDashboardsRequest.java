@@ -28,11 +28,7 @@ public class ListDashboardsRequest {
   @QueryParam("show_trashed")
   private Boolean showTrashed;
 
-  /**
-   * Indicates whether to include all metadata from the dashboard in the response. If unset, the
-   * response defaults to `DASHBOARD_VIEW_BASIC` which only includes summary metadata from the
-   * dashboard.
-   */
+  /** `DASHBOARD_VIEW_BASIC`only includes summary metadata from the dashboard. */
   @QueryParam("view")
   private DashboardView view;
 

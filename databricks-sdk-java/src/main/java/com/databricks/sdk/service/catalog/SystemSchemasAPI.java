@@ -68,7 +68,16 @@ public class SystemSchemasAPI {
    */
   public Iterable<SystemSchemaInfo> list(ListSystemSchemasRequest request) {
     return new Paginator<>(
-        request, impl::list, ListSystemSchemasResponse::getSchemas, response -> null);
+        request,
+        impl::list,
+        ListSystemSchemasResponse::getSchemas,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public SystemSchemasService impl() {

@@ -327,7 +327,7 @@ public class ModelRegistryAPI {
         ListModelsResponse::getRegisteredModels,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -366,7 +366,7 @@ public class ModelRegistryAPI {
         ListRegistryWebhooks::getWebhooks,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -413,7 +413,7 @@ public class ModelRegistryAPI {
         SearchModelVersionsResponse::getModelVersions,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -432,7 +432,7 @@ public class ModelRegistryAPI {
         SearchModelsResponse::getRegisteredModels,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

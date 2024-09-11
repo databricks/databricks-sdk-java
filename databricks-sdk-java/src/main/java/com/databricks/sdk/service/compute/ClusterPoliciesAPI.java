@@ -44,10 +44,6 @@ public class ClusterPoliciesAPI {
     impl = mock;
   }
 
-  public CreatePolicyResponse create(String name) {
-    return create(new CreatePolicy().setName(name));
-  }
-
   /**
    * Create a new policy.
    *
@@ -71,8 +67,8 @@ public class ClusterPoliciesAPI {
     impl.delete(request);
   }
 
-  public void edit(String policyId, String name) {
-    edit(new EditPolicy().setPolicyId(policyId).setName(name));
+  public void edit(String policyId) {
+    edit(new EditPolicy().setPolicyId(policyId));
   }
 
   /**

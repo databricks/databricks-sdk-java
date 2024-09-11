@@ -7,5 +7,4 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public enum DashboardView {
   DASHBOARD_VIEW_BASIC,
-  DASHBOARD_VIEW_FULL,
 }

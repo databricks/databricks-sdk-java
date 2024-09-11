@@ -110,7 +110,7 @@ public class VectorSearchIndexesAPI {
         ListVectorIndexesResponse::getVectorIndexes,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

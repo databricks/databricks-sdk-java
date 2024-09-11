@@ -15,6 +15,13 @@ public class ListQueryHistoryRequest {
   private QueryFilter filterBy;
 
   /**
+   * Whether to include the query metrics with each query. Only use this for a small subset of
+   * queries (max_results). Defaults to false.
+   */
+  @QueryParam("include_metrics")
+  private Boolean includeMetrics;
+
+  /**
    * Limit the number of results returned in one page. Must be less than 1000 and the default is
    * 100.
    */
@@ -36,6 +43,15 @@ public class ListQueryHistoryRequest {
 
   public QueryFilter getFilterBy() {
     return filterBy;
+  }
+
+  public ListQueryHistoryRequest setIncludeMetrics(Boolean includeMetrics) {
+    this.includeMetrics = includeMetrics;
+    return this;
+  }
+
+  public Boolean getIncludeMetrics() {
+    return includeMetrics;
   }
 
   public ListQueryHistoryRequest setMaxResults(Long maxResults) {
@@ -62,19 +78,21 @@ public class ListQueryHistoryRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListQueryHistoryRequest that = (ListQueryHistoryRequest) o;
     return Objects.equals(filterBy, that.filterBy)
+        && Objects.equals(includeMetrics, that.includeMetrics)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(pageToken, that.pageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(filterBy, maxResults, pageToken);
+    return Objects.hash(filterBy, includeMetrics, maxResults, pageToken);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListQueryHistoryRequest.class)
         .add("filterBy", filterBy)
+        .add("includeMetrics", includeMetrics)
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .toString();

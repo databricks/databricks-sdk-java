@@ -40,7 +40,7 @@ public class ConsumerFulfillmentsAPI {
         GetListingContentMetadataResponse::getSharedDataObjects,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -66,7 +66,7 @@ public class ConsumerFulfillmentsAPI {
         ListFulfillmentsResponse::getFulfillments,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

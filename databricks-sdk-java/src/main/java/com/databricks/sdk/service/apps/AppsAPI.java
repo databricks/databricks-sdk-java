@@ -243,7 +243,7 @@ public class AppsAPI {
         ListAppsResponse::getApps,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -266,7 +266,7 @@ public class AppsAPI {
         ListAppDeploymentsResponse::getAppDeployments,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

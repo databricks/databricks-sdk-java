@@ -65,7 +65,7 @@ public class PipelineSpec {
    * 'libraries', 'target' or 'catalog' settings.
    */
   @JsonProperty("ingestion_definition")
-  private ManagedIngestionPipelineDefinition ingestionDefinition;
+  private IngestionPipelineDefinition ingestionDefinition;
 
   /** Libraries or code needed by this deployment. */
   @JsonProperty("libraries")
@@ -202,13 +202,12 @@ public class PipelineSpec {
     return id;
   }
 
-  public PipelineSpec setIngestionDefinition(
-      ManagedIngestionPipelineDefinition ingestionDefinition) {
+  public PipelineSpec setIngestionDefinition(IngestionPipelineDefinition ingestionDefinition) {
     this.ingestionDefinition = ingestionDefinition;
     return this;
   }
 
-  public ManagedIngestionPipelineDefinition getIngestionDefinition() {
+  public IngestionPipelineDefinition getIngestionDefinition() {
     return ingestionDefinition;
   }
 

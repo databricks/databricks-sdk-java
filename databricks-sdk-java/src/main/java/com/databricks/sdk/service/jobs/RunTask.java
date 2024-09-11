@@ -13,8 +13,8 @@ import java.util.Objects;
 public class RunTask {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
-   * has an attempt_number of 0\. If the initial run attempt fails, and the job has a retry policy
-   * (`max_retries` \> 0), subsequent runs are created with an `original_attempt_run_id` of the
+   * has an attempt_number of 0. If the initial run attempt fails, and the job has a retry policy
+   * (`max_retries` > 0), subsequent runs are created with an `original_attempt_run_id` of the
    * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
    * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
    */
@@ -240,9 +240,13 @@ public class RunTask {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The current state of the run. */
+  /** Deprecated. Please use the `status` field instead. */
   @JsonProperty("state")
   private RunState state;
+
+  /** The current status of the run */
+  @JsonProperty("status")
+  private RunStatus status;
 
   /**
    * A unique name for the task. This field is used to refer to this task from other tasks. This
@@ -579,6 +583,15 @@ public class RunTask {
     return state;
   }
 
+  public RunTask setStatus(RunStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public RunStatus getStatus() {
+    return status;
+  }
+
   public RunTask setTaskKey(String taskKey) {
     this.taskKey = taskKey;
     return this;
@@ -646,6 +659,7 @@ public class RunTask {
         && Objects.equals(sqlTask, that.sqlTask)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
+        && Objects.equals(status, that.status)
         && Objects.equals(taskKey, that.taskKey)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
         && Objects.equals(webhookNotifications, that.webhookNotifications);
@@ -689,6 +703,7 @@ public class RunTask {
         sqlTask,
         startTime,
         state,
+        status,
         taskKey,
         timeoutSeconds,
         webhookNotifications);
@@ -732,6 +747,7 @@ public class RunTask {
         .add("sqlTask", sqlTask)
         .add("startTime", startTime)
         .add("state", state)
+        .add("status", status)
         .add("taskKey", taskKey)
         .add("timeoutSeconds", timeoutSeconds)
         .add("webhookNotifications", webhookNotifications)

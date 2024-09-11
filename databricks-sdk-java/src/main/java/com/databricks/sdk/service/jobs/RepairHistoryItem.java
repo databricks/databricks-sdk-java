@@ -24,9 +24,13 @@ public class RepairHistoryItem {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The current state of the run. */
+  /** Deprecated. Please use the `status` field instead. */
   @JsonProperty("state")
   private RunState state;
+
+  /** The current status of the run */
+  @JsonProperty("status")
+  private RunStatus status;
 
   /** The run IDs of the task runs that ran as part of this repair history item. */
   @JsonProperty("task_run_ids")
@@ -72,6 +76,15 @@ public class RepairHistoryItem {
     return state;
   }
 
+  public RepairHistoryItem setStatus(RunStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public RunStatus getStatus() {
+    return status;
+  }
+
   public RepairHistoryItem setTaskRunIds(Collection<Long> taskRunIds) {
     this.taskRunIds = taskRunIds;
     return this;
@@ -99,13 +112,14 @@ public class RepairHistoryItem {
         && Objects.equals(id, that.id)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
+        && Objects.equals(status, that.status)
         && Objects.equals(taskRunIds, that.taskRunIds)
         && Objects.equals(typeValue, that.typeValue);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endTime, id, startTime, state, taskRunIds, typeValue);
+    return Objects.hash(endTime, id, startTime, state, status, taskRunIds, typeValue);
   }
 
   @Override
@@ -115,6 +129,7 @@ public class RepairHistoryItem {
         .add("id", id)
         .add("startTime", startTime)
         .add("state", state)
+        .add("status", status)
         .add("taskRunIds", taskRunIds)
         .add("typeValue", typeValue)
         .toString();

@@ -39,7 +39,7 @@ public interface ModelVersionsService {
    * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
    * schema.
    */
-  RegisteredModelInfo get(GetModelVersionRequest getModelVersionRequest);
+  ModelVersionInfo get(GetModelVersionRequest getModelVersionRequest);
 
   /**
    * Get Model Version By Alias.

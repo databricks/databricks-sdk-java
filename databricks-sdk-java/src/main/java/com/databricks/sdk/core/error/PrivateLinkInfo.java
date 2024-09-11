@@ -53,7 +53,8 @@ public class PrivateLinkInfo {
 
   public static boolean isPrivateLinkRedirect(Response resp) {
     return resp.getUrl().getPath().equals("/login.html")
-        && resp.getUrl().getQuery().contains("error=private-link-validation-error");
+        && (resp.getUrl().getQuery() != null
+            && resp.getUrl().getQuery().contains("error=private-link-validation-error"));
   }
 
   static PrivateLinkValidationError createPrivateLinkValidationError(Response resp) {

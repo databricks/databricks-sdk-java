@@ -13,8 +13,8 @@ import java.util.Objects;
 public class Run {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
-   * has an attempt_number of 0\. If the initial run attempt fails, and the job has a retry policy
-   * (`max_retries` \> 0), subsequent runs are created with an `original_attempt_run_id` of the
+   * has an attempt_number of 0. If the initial run attempt fails, and the job has a retry policy
+   * (`max_retries` > 0), subsequent runs are created with an `original_attempt_run_id` of the
    * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
    * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
    */
@@ -103,6 +103,14 @@ public class Run {
   @JsonProperty("job_parameters")
   private Collection<JobParameter> jobParameters;
 
+  /**
+   * ID of the job run that this run belongs to. For legacy and single-task job runs the field is
+   * populated with the job run ID. For task runs, the field is populated with the ID of the job run
+   * that the task run belongs to.
+   */
+  @JsonProperty("job_run_id")
+  private Long jobRunId;
+
   /** A token that can be used to list the next page of sub-resources. */
   @JsonProperty("next_page_token")
   private String nextPageToken;
@@ -183,9 +191,13 @@ public class Run {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The current state of the run. */
+  /** Deprecated. Please use the `status` field instead. */
   @JsonProperty("state")
   private RunState state;
+
+  /** The current status of the run */
+  @JsonProperty("status")
+  private RunStatus status;
 
   /**
    * The list of tasks performed by the run. Each task has its own `run_id` which you can use to
@@ -327,6 +339,15 @@ public class Run {
 
   public Collection<JobParameter> getJobParameters() {
     return jobParameters;
+  }
+
+  public Run setJobRunId(Long jobRunId) {
+    this.jobRunId = jobRunId;
+    return this;
+  }
+
+  public Long getJobRunId() {
+    return jobRunId;
   }
 
   public Run setNextPageToken(String nextPageToken) {
@@ -473,6 +494,15 @@ public class Run {
     return state;
   }
 
+  public Run setStatus(RunStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public RunStatus getStatus() {
+    return status;
+  }
+
   public Run setTasks(Collection<RunTask> tasks) {
     this.tasks = tasks;
     return this;
@@ -518,6 +548,7 @@ public class Run {
         && Objects.equals(jobClusters, that.jobClusters)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(jobParameters, that.jobParameters)
+        && Objects.equals(jobRunId, that.jobRunId)
         && Objects.equals(nextPageToken, that.nextPageToken)
         && Objects.equals(numberInJob, that.numberInJob)
         && Objects.equals(originalAttemptRunId, that.originalAttemptRunId)
@@ -534,6 +565,7 @@ public class Run {
         && Objects.equals(setupDuration, that.setupDuration)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
+        && Objects.equals(status, that.status)
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(trigger, that.trigger)
         && Objects.equals(triggerInfo, that.triggerInfo);
@@ -555,6 +587,7 @@ public class Run {
         jobClusters,
         jobId,
         jobParameters,
+        jobRunId,
         nextPageToken,
         numberInJob,
         originalAttemptRunId,
@@ -571,6 +604,7 @@ public class Run {
         setupDuration,
         startTime,
         state,
+        status,
         tasks,
         trigger,
         triggerInfo);
@@ -592,6 +626,7 @@ public class Run {
         .add("jobClusters", jobClusters)
         .add("jobId", jobId)
         .add("jobParameters", jobParameters)
+        .add("jobRunId", jobRunId)
         .add("nextPageToken", nextPageToken)
         .add("numberInJob", numberInJob)
         .add("originalAttemptRunId", originalAttemptRunId)
@@ -608,6 +643,7 @@ public class Run {
         .add("setupDuration", setupDuration)
         .add("startTime", startTime)
         .add("state", state)
+        .add("status", status)
         .add("tasks", tasks)
         .add("trigger", trigger)
         .add("triggerInfo", triggerInfo)

@@ -2,6 +2,8 @@ package com.databricks.sdk.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.databricks.sdk.core.commons.CommonsHttpClient;
+import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.utils.Environment;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -107,5 +109,51 @@ public class DatabricksConfigTest {
             .getOidcEndpoints()
             .getAuthorizationEndpoint(),
         "https://accounts.cloud.databricks.com/oidc/accounts/1234567890/v1/authorize");
+  }
+
+  @Test
+  public void testDiscoveryEndpoint() throws IOException {
+    String discoveryUrlSuffix = "/test.discovery.url";
+    String discoveryUrlResponse =
+        "{\n"
+            + "  \"authorization_endpoint\": \"https://test.auth.endpoint/oidc/v1/authorize\",\n"
+            + "  \"token_endpoint\": \"https://test.auth.endpoint/oidc/v1/token\"\n"
+            + "}";
+
+    try (FixtureServer server =
+        new FixtureServer().with("GET", discoveryUrlSuffix, discoveryUrlResponse)) {
+
+      String discoveryUrl = server.getUrl() + discoveryUrlSuffix;
+
+      OpenIDConnectEndpoints oidcEndpoints =
+          new DatabricksConfig()
+              .setHost(server.getUrl())
+              .setDiscoveryUrl(discoveryUrl)
+              .setHttpClient(new CommonsHttpClient(30))
+              .getOidcEndpoints();
+
+      assertEquals(
+          oidcEndpoints.getAuthorizationEndpoint(), "https://test.auth.endpoint/oidc/v1/authorize");
+      assertEquals(oidcEndpoints.getTokenEndpoint(), "https://test.auth.endpoint/oidc/v1/token");
+    }
+  }
+
+  @Test
+  public void testNewWithWorkspaceHost() {
+    DatabricksConfig config =
+        new DatabricksConfig()
+            .setAuthType("oauth-m2m")
+            .setClientId("my-client-id")
+            .setClientSecret("my-client-secret")
+            .setAccountId("account-id")
+            .setHost("https://account.cloud.databricks.com");
+    String workspaceHost = "https://workspace.cloud.databricks.com";
+
+    DatabricksConfig newWorkspaceConfig = config.newWithWorkspaceHost(workspaceHost).resolve();
+
+    assert newWorkspaceConfig.getHost().equals(workspaceHost);
+    assert newWorkspaceConfig.getAuthType().equals("oauth-m2m");
+    assert newWorkspaceConfig.getClientId().equals("my-client-id");
+    assert newWorkspaceConfig.getClientSecret().equals("my-client-secret");
   }
 }
