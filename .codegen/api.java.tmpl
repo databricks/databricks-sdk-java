@@ -172,7 +172,7 @@ public class {{.PascalName}}API {
       {{- else if .Pagination.Token -}}
       {
         String token = response.get{{.Pagination.Token.Bind.PascalName}}();
-        if (token == null) {
+        if (token == null || token.isEmpty()) {
           return null;
         }
         return request.set{{.Pagination.Token.PollField.PascalName}}(token);

@@ -259,7 +259,7 @@ public class JobsAPI {
         ListJobsResponse::getJobs,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -278,7 +278,7 @@ public class JobsAPI {
         ListRunsResponse::getRuns,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

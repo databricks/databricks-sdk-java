@@ -104,7 +104,7 @@ public class ProviderExchangesAPI {
         ListExchangesResponse::getExchanges,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -127,7 +127,7 @@ public class ProviderExchangesAPI {
         ListExchangesForListingResponse::getExchangeListing,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -150,7 +150,7 @@ public class ProviderExchangesAPI {
         ListListingsForExchangeResponse::getExchangeListings,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

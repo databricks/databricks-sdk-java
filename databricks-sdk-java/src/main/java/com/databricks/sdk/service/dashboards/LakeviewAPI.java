@@ -145,7 +145,7 @@ public class LakeviewAPI {
         ListDashboardsResponse::getDashboards,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -164,7 +164,7 @@ public class LakeviewAPI {
         ListSchedulesResponse::getSchedules,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -184,7 +184,7 @@ public class LakeviewAPI {
         ListSubscriptionsResponse::getSubscriptions,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

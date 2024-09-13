@@ -154,7 +154,7 @@ public class NetworkConnectivityAPI {
         ListNetworkConnectivityConfigurationsResponse::getItems,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -181,7 +181,7 @@ public class NetworkConnectivityAPI {
         ListNccAzurePrivateEndpointRulesResponse::getItems,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

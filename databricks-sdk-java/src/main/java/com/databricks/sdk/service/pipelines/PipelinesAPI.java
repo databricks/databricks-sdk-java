@@ -223,7 +223,7 @@ public class PipelinesAPI {
         ListPipelineEventsResponse::getEvents,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -242,7 +242,7 @@ public class PipelinesAPI {
         ListPipelinesResponse::getStatuses,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

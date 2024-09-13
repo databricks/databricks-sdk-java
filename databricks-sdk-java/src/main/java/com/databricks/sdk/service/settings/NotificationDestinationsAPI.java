@@ -77,7 +77,7 @@ public class NotificationDestinationsAPI {
         ListNotificationDestinationsResponse::getResults,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
