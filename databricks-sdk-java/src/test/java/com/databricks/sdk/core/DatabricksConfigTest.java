@@ -129,7 +129,7 @@ public class DatabricksConfigTest {
           new DatabricksConfig()
               .setHost(server.getUrl())
               .setDiscoveryUrl(discoveryUrl)
-              .setHttpClient(new CommonsHttpClient(30))
+              .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
               .getOidcEndpoints();
 
       assertEquals(

@@ -132,24 +132,6 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_RATE_LIMIT")
   private Integer rateLimit;
 
-  @ConfigAttribute(env = "PROXY_HOST")
-  private String proxyHost;
-
-  @ConfigAttribute(env = "PROXY_PORT")
-  private Integer proxyPort;
-
-  @ConfigAttribute(env = "PROXY_USERNAME")
-  private String proxyUsername;
-
-  @ConfigAttribute(env = "PROXY_PASSWORD")
-  private String proxyPassword;
-
-  @ConfigAttribute(env = "PROXY_AUTH_TYPE")
-  private ProxyConfig.ProxyAuthType proxyAuthType;
-
-  @ConfigAttribute(env = "USE_SYSTEM_PROPERTIES_HTTP")
-  private Boolean useSystemPropertiesHttp;
-
   private volatile boolean resolved;
   private HeaderFactory headerFactory;
 
@@ -527,60 +509,6 @@ public class DatabricksConfig {
 
   public DatabricksConfig setHttpClient(HttpClient httpClient) {
     this.httpClient = httpClient;
-    return this;
-  }
-
-  public String getProxyHost() {
-    return proxyHost;
-  }
-
-  public DatabricksConfig setProxyHost(String proxyHost) {
-    this.proxyHost = proxyHost;
-    return this;
-  }
-
-  public Integer getProxyPort() {
-    return proxyPort;
-  }
-
-  public DatabricksConfig setProxyPort(Integer proxyPort) {
-    this.proxyPort = proxyPort;
-    return this;
-  }
-
-  public String getProxyUsername() {
-    return proxyUsername;
-  }
-
-  public DatabricksConfig setProxyUsername(String proxyUsername) {
-    this.proxyUsername = proxyUsername;
-    return this;
-  }
-
-  public String getProxyPassword() {
-    return proxyPassword;
-  }
-
-  public DatabricksConfig setProxyPassword(String proxyPassword) {
-    this.proxyPassword = proxyPassword;
-    return this;
-  }
-
-  public ProxyConfig.ProxyAuthType getProxyAuthType() {
-    return proxyAuthType;
-  }
-
-  public DatabricksConfig setProxyAuthType(ProxyConfig.ProxyAuthType proxyAuthType) {
-    this.proxyAuthType = proxyAuthType;
-    return this;
-  }
-
-  public Boolean getUseSystemPropertiesHttp() {
-    return useSystemPropertiesHttp;
-  }
-
-  public DatabricksConfig setUseSystemPropertiesHttp(Boolean useSystemPropertiesHttp) {
-    this.useSystemPropertiesHttp = useSystemPropertiesHttp;
     return this;
   }
 
