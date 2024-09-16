@@ -4,13 +4,14 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get file metadata */
 @Generated
 public class GetMetadataRequest {
   /** The absolute path of the file. */
-  private String filePath;
+  @JsonIgnore private String filePath;
 
   public GetMetadataRequest setFilePath(String filePath) {
     this.filePath = filePath;

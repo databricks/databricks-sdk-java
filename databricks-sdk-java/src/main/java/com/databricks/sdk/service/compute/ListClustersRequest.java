@@ -5,12 +5,14 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List clusters */
 @Generated
 public class ListClustersRequest {
   /** Filters to apply to the list of clusters. */
+  @JsonIgnore
   @QueryParam("filter_by")
   private ListClustersFilterBy filterBy;
 
@@ -18,6 +20,7 @@ public class ListClustersRequest {
    * Use this field to specify the maximum number of results to be returned by the server. The
    * server may further constrain the maximum number of results returned in a single page.
    */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
@@ -25,10 +28,12 @@ public class ListClustersRequest {
    * Use next_page_token or prev_page_token returned from the previous request to list the next or
    * previous page of clusters respectively.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** Sort the list of clusters by a specific criteria. */
+  @JsonIgnore
   @QueryParam("sort_by")
   private ListClustersSortBy sortBy;
 

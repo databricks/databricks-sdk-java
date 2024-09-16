@@ -4,13 +4,14 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Stop a pipeline */
 @Generated
 public class StopRequest {
   /** */
-  private String pipelineId;
+  @JsonIgnore private String pipelineId;
 
   public StopRequest setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;

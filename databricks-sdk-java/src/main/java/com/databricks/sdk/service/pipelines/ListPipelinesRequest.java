@@ -5,6 +5,7 @@ package com.databricks.sdk.service.pipelines;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -20,6 +21,7 @@ public class ListPipelinesRequest {
    *
    * <p>Composite filters are not supported. This field is optional.
    */
+  @JsonIgnore
   @QueryParam("filter")
   private String filter;
 
@@ -29,6 +31,7 @@ public class ListPipelinesRequest {
    * optional. The default value is 25. The maximum value is 100. An error is returned if the value
    * of max_results is greater than 100.
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
@@ -36,10 +39,12 @@ public class ListPipelinesRequest {
    * A list of strings specifying the order of results. Supported order_by fields are id and name.
    * The default is id asc. This field is optional.
    */
+  @JsonIgnore
   @QueryParam("order_by")
   private Collection<String> orderBy;
 
   /** Page token returned by previous call */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

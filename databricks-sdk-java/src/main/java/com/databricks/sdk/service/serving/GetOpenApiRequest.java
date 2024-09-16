@@ -4,13 +4,14 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get the schema for a serving endpoint */
 @Generated
 public class GetOpenApiRequest {
   /** The name of the serving endpoint that the served model belongs to. This field is required. */
-  private String name;
+  @JsonIgnore private String name;
 
   public GetOpenApiRequest setName(String name) {
     this.name = name;

@@ -5,19 +5,22 @@ package com.databricks.sdk.service.marketplace;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get listing content metadata */
 @Generated
 public class GetListingContentMetadataRequest {
   /** */
-  private String listingId;
+  @JsonIgnore private String listingId;
 
   /** */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
   /** */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

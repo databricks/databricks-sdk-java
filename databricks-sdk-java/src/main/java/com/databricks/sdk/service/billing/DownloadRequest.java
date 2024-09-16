@@ -5,12 +5,14 @@ package com.databricks.sdk.service.billing;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Return billable usage logs */
 @Generated
 public class DownloadRequest {
   /** Format: `YYYY-MM`. Last month to return billable usage logs for. This field is required. */
+  @JsonIgnore
   @QueryParam("end_month")
   private String endMonth;
 
@@ -19,10 +21,12 @@ public class DownloadRequest {
    * example the email addresses of cluster creators. Handle this information with care. Defaults to
    * false.
    */
+  @JsonIgnore
   @QueryParam("personal_data")
   private Boolean personalData;
 
   /** Format: `YYYY-MM`. First month to return billable usage logs for. This field is required. */
+  @JsonIgnore
   @QueryParam("start_month")
   private String startMonth;
 

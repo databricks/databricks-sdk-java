@@ -5,13 +5,14 @@ package com.databricks.sdk.service.files;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List directory contents */
 @Generated
 public class ListDirectoryContentsRequest {
   /** The absolute path of a directory. */
-  private String directoryPath;
+  @JsonIgnore private String directoryPath;
 
   /**
    * The maximum number of directory entries to return. The response may contain fewer entries. If
@@ -24,6 +25,7 @@ public class ListDirectoryContentsRequest {
    * <p>If unspecified, at most 1000 directory entries will be returned. The maximum value is 1000.
    * Values above 1000 will be coerced to 1000.
    */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
@@ -35,6 +37,7 @@ public class ListDirectoryContentsRequest {
    * requesting pages of entries until the response contains no `next_page_token`. Note that the
    * number of entries returned must not be used to determine when the listing is complete.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

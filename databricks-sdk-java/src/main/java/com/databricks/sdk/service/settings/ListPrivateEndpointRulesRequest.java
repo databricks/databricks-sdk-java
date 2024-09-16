@@ -5,15 +5,17 @@ package com.databricks.sdk.service.settings;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List private endpoint rules */
 @Generated
 public class ListPrivateEndpointRulesRequest {
   /** Your Network Connectvity Configuration ID. */
-  private String networkConnectivityConfigId;
+  @JsonIgnore private String networkConnectivityConfigId;
 
   /** Pagination token to go to next page based on previous query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

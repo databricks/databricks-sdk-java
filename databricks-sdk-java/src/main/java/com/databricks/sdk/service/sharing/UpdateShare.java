@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class UpdateShare {
   private String comment;
 
   /** The name of the share. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** New name for the share. */
   @JsonProperty("new_name")

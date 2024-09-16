@@ -4,13 +4,14 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class UpdateProviderAnalyticsDashboardRequest {
   /** id is immutable property and can't be updated. */
-  private String id;
+  @JsonIgnore private String id;
 
   /**
    * this is the version of the dashboard template we want to update our user to current expectation

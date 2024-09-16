@@ -4,19 +4,20 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get information for a single resource quota. */
 @Generated
 public class GetQuotaRequest {
   /** Full name of the parent resource. Provide the metastore ID if the parent is a metastore. */
-  private String parentFullName;
+  @JsonIgnore private String parentFullName;
 
   /** Securable type of the quota parent. */
-  private String parentSecurableType;
+  @JsonIgnore private String parentSecurableType;
 
   /** Name of the quota. Follows the pattern of the quota type, with "-quota" added as a suffix. */
-  private String quotaName;
+  @JsonIgnore private String quotaName;
 
   public GetQuotaRequest setParentFullName(String parentFullName) {
     this.parentFullName = parentFullName;

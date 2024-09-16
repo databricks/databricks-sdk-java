@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a query */
 @Generated
 public class GetQueryRequest {
   /** */
-  private String id;
+  @JsonIgnore private String id;
 
   public GetQueryRequest setId(String id) {
     this.id = id;

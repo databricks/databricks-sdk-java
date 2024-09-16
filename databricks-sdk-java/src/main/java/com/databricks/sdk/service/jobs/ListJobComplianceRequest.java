@@ -5,6 +5,7 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List job policy compliance */
@@ -14,6 +15,7 @@ public class ListJobComplianceRequest {
    * Use this field to specify the maximum number of results to be returned by the server. The
    * server may further constrain the maximum number of results returned in a single page.
    */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
@@ -21,10 +23,12 @@ public class ListJobComplianceRequest {
    * A page token that can be used to navigate to the next page or previous page as returned by
    * `next_page_token` or `prev_page_token`.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** Canonical unique identifier for the cluster policy. */
+  @JsonIgnore
   @QueryParam("policy_id")
   private String policyId;
 

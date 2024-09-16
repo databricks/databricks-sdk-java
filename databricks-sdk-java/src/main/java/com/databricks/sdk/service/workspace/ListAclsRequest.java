@@ -5,12 +5,14 @@ package com.databricks.sdk.service.workspace;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Lists ACLs */
 @Generated
 public class ListAclsRequest {
   /** The name of the scope to fetch ACL information from. */
+  @JsonIgnore
   @QueryParam("scope")
   private String scope;
 

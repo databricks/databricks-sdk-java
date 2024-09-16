@@ -5,16 +5,19 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a single job run */
 @Generated
 public class GetRunRequest {
   /** Whether to include the repair history in the response. */
+  @JsonIgnore
   @QueryParam("include_history")
   private Boolean includeHistory;
 
   /** Whether to include resolved parameter values in the response. */
+  @JsonIgnore
   @QueryParam("include_resolved_values")
   private Boolean includeResolvedValues;
 
@@ -22,12 +25,14 @@ public class GetRunRequest {
    * To list the next page or the previous page of job tasks, set this field to the value of the
    * `next_page_token` or `prev_page_token` returned in the GetJob response.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /**
    * The canonical identifier of the run for which to retrieve the metadata. This field is required.
    */
+  @JsonIgnore
   @QueryParam("run_id")
   private Long runId;
 

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.pipelines;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -19,6 +20,7 @@ public class ListPipelineEventsRequest {
    * <p>Composite expressions are supported, for example: level in ('ERROR', 'WARN') AND timestamp>
    * '2021-07-22T06:37:33.083Z'
    */
+  @JsonIgnore
   @QueryParam("filter")
   private String filter;
 
@@ -26,6 +28,7 @@ public class ListPipelineEventsRequest {
    * Max number of entries to return in a single page. The system may return fewer than max_results
    * events in a response, even if there are more events available.
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
@@ -34,6 +37,7 @@ public class ListPipelineEventsRequest {
    * The sort order can be ascending or descending. By default, events are returned in descending
    * order by timestamp.
    */
+  @JsonIgnore
   @QueryParam("order_by")
   private Collection<String> orderBy;
 
@@ -42,11 +46,12 @@ public class ListPipelineEventsRequest {
    * request except max_results. An error is returned if any fields other than max_results are set
    * when this field is set.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** */
-  private String pipelineId;
+  @JsonIgnore private String pipelineId;
 
   public ListPipelineEventsRequest setFilter(String filter) {
     this.filter = filter;

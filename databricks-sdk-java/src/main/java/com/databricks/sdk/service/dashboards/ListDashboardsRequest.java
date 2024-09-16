@@ -5,12 +5,14 @@ package com.databricks.sdk.service.dashboards;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List dashboards */
 @Generated
 public class ListDashboardsRequest {
   /** The number of dashboards to return per page. */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
@@ -18,6 +20,7 @@ public class ListDashboardsRequest {
    * A page token, received from a previous `ListDashboards` call. This token can be used to
    * retrieve the subsequent page.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
@@ -25,10 +28,12 @@ public class ListDashboardsRequest {
    * The flag to include dashboards located in the trash. If unspecified, only active dashboards
    * will be returned.
    */
+  @JsonIgnore
   @QueryParam("show_trashed")
   private Boolean showTrashed;
 
   /** `DASHBOARD_VIEW_BASIC`only includes summary metadata from the dashboard. */
+  @JsonIgnore
   @QueryParam("view")
   private DashboardView view;
 

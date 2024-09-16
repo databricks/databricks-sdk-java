@@ -5,6 +5,7 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List cluster policies */
@@ -14,6 +15,7 @@ public class ListClusterPoliciesRequest {
    * The cluster policy attribute to sort by. * `POLICY_CREATION_TIME` - Sort result list by policy
    * creation time. * `POLICY_NAME` - Sort result list by policy name.
    */
+  @JsonIgnore
   @QueryParam("sort_column")
   private ListSortColumn sortColumn;
 
@@ -21,6 +23,7 @@ public class ListClusterPoliciesRequest {
    * The order in which the policies get listed. * `DESC` - Sort result list in descending order. *
    * `ASC` - Sort result list in ascending order.
    */
+  @JsonIgnore
   @QueryParam("sort_order")
   private ListSortOrder sortOrder;
 

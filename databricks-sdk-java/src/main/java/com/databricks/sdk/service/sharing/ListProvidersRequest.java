@@ -5,6 +5,7 @@ package com.databricks.sdk.service.sharing;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List providers */
@@ -14,6 +15,7 @@ public class ListProvidersRequest {
    * If not provided, all providers will be returned. If no providers exist with this ID, no results
    * will be returned.
    */
+  @JsonIgnore
   @QueryParam("data_provider_global_metastore_id")
   private String dataProviderGlobalMetastoreId;
 
@@ -26,10 +28,12 @@ public class ListProvidersRequest {
    * max_results size, even zero. The only definitive indication that no further providers can be
    * fetched is when the next_page_token is unset from the response.
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

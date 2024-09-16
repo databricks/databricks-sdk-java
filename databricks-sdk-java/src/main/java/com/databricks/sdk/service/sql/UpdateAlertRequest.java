@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class UpdateAlertRequest {
   private UpdateAlertRequestAlert alert;
 
   /** */
-  private String id;
+  @JsonIgnore private String id;
 
   /**
    * Field mask is required to be passed into the PATCH request. Field mask specifies which fields

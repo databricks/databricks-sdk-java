@@ -4,13 +4,14 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a credential */
 @Generated
 public class DeleteGitCredentialRequest {
   /** The ID for the corresponding credential to access. */
-  private Long credentialId;
+  @JsonIgnore private Long credentialId;
 
   public DeleteGitCredentialRequest setCredentialId(Long credentialId) {
     this.credentialId = credentialId;

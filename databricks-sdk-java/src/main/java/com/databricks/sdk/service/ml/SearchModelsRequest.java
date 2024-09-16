@@ -5,6 +5,7 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -16,10 +17,12 @@ public class SearchModelsRequest {
    * automatically as "name LIKE '%my-model-name%'". Single boolean condition, with string values
    * wrapped in single quotes.
    */
+  @JsonIgnore
   @QueryParam("filter")
   private String filter;
 
   /** Maximum number of models desired. Default is 100. Max threshold is 1000. */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
@@ -28,10 +31,12 @@ public class SearchModelsRequest {
    * timestamp with an optional "DESC" or "ASC" annotation, where "ASC" is the default. Tiebreaks
    * are done by model name ASC.
    */
+  @JsonIgnore
   @QueryParam("order_by")
   private Collection<String> orderBy;
 
   /** Pagination token to go to the next page based on a previous search query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

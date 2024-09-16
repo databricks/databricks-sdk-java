@@ -5,17 +5,19 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a metastore */
 @Generated
 public class DeleteAccountMetastoreRequest {
   /** Force deletion even if the metastore is not empty. Default is false. */
+  @JsonIgnore
   @QueryParam("force")
   private Boolean force;
 
   /** Unity Catalog metastore ID */
-  private String metastoreId;
+  @JsonIgnore private String metastoreId;
 
   public DeleteAccountMetastoreRequest setForce(Boolean force) {
     this.force = force;

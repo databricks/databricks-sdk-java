@@ -5,23 +5,27 @@ package com.databricks.sdk.service.pipelines;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List pipeline updates */
 @Generated
 public class ListUpdatesRequest {
   /** Max number of entries to return in a single page. */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Page token returned by previous call */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** The pipeline to return updates for. */
-  private String pipelineId;
+  @JsonIgnore private String pipelineId;
 
   /** If present, returns updates until and including this update_id. */
+  @JsonIgnore
   @QueryParam("until_update_id")
   private String untilUpdateId;
 

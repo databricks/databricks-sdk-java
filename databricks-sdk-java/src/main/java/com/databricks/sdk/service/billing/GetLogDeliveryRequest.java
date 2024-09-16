@@ -4,13 +4,14 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get log delivery configuration */
 @Generated
 public class GetLogDeliveryRequest {
   /** Databricks log delivery configuration ID */
-  private String logDeliveryConfigurationId;
+  @JsonIgnore private String logDeliveryConfigurationId;
 
   public GetLogDeliveryRequest setLogDeliveryConfigurationId(String logDeliveryConfigurationId) {
     this.logDeliveryConfigurationId = logDeliveryConfigurationId;

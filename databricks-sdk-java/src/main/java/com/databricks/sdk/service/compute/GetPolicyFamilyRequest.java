@@ -5,15 +5,17 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get policy family information */
 @Generated
 public class GetPolicyFamilyRequest {
   /** The family ID about which to retrieve information. */
-  private String policyFamilyId;
+  @JsonIgnore private String policyFamilyId;
 
   /** The version number for the family to fetch. Defaults to the latest version. */
+  @JsonIgnore
   @QueryParam("version")
   private Long version;
 

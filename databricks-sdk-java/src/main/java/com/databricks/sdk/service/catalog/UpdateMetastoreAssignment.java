@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public class UpdateMetastoreAssignment {
   private String metastoreId;
 
   /** A workspace ID. */
-  private Long workspaceId;
+  @JsonIgnore private Long workspaceId;
 
   public UpdateMetastoreAssignment setDefaultCatalogName(String defaultCatalogName) {
     this.defaultCatalogName = defaultCatalogName;

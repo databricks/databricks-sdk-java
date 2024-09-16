@@ -4,6 +4,7 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class UpdateScheduleRequest {
   private CronSchedule cronSchedule;
 
   /** UUID identifying the dashboard to which the schedule belongs. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /** The display name for schedule. */
   @JsonProperty("display_name")
@@ -33,7 +34,7 @@ public class UpdateScheduleRequest {
   private SchedulePauseStatus pauseStatus;
 
   /** UUID identifying the schedule. */
-  private String scheduleId;
+  @JsonIgnore private String scheduleId;
 
   public UpdateScheduleRequest setCronSchedule(CronSchedule cronSchedule) {
     this.cronSchedule = cronSchedule;

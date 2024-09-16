@@ -5,12 +5,14 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get the output for a single run */
 @Generated
 public class GetRunOutputRequest {
   /** The canonical identifier for the run. */
+  @JsonIgnore
   @QueryParam("run_id")
   private Long runId;
 

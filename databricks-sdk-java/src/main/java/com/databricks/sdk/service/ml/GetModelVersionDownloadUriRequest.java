@@ -5,16 +5,19 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a model version URI */
 @Generated
 public class GetModelVersionDownloadUriRequest {
   /** Name of the registered model */
+  @JsonIgnore
   @QueryParam("name")
   private String name;
 
   /** Model version number */
+  @JsonIgnore
   @QueryParam("version")
   private String version;
 

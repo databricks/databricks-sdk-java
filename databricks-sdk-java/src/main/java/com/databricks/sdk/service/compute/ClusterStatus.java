@@ -5,12 +5,14 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get status */
 @Generated
 public class ClusterStatus {
   /** Unique identifier of the cluster whose status should be retrieved. */
+  @JsonIgnore
   @QueryParam("cluster_id")
   private String clusterId;
 

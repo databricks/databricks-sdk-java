@@ -5,17 +5,19 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a catalog */
 @Generated
 public class DeleteCatalogRequest {
   /** Force deletion even if the catalog is not empty. */
+  @JsonIgnore
   @QueryParam("force")
   private Boolean force;
 
   /** The name of the catalog. */
-  private String name;
+  @JsonIgnore private String name;
 
   public DeleteCatalogRequest setForce(Boolean force) {
     this.force = force;

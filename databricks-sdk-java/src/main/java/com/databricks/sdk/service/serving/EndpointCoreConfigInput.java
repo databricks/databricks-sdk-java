@@ -4,6 +4,7 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -18,7 +19,7 @@ public class EndpointCoreConfigInput {
   private AutoCaptureConfigInput autoCaptureConfig;
 
   /** The name of the serving endpoint to update. This field is required. */
-  private String name;
+  @JsonIgnore private String name;
 
   /**
    * A list of served entities for the endpoint to serve. A serving endpoint can have up to 15

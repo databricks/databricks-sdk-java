@@ -4,13 +4,14 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get pipeline permission levels */
 @Generated
 public class GetPipelinePermissionLevelsRequest {
   /** The pipeline for which to get or manage permissions. */
-  private String pipelineId;
+  @JsonIgnore private String pipelineId;
 
   public GetPipelinePermissionLevelsRequest setPipelineId(String pipelineId) {
     this.pipelineId = pipelineId;

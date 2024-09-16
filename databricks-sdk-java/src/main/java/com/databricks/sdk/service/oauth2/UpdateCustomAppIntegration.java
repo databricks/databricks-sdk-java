@@ -4,6 +4,7 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Generated
 public class UpdateCustomAppIntegration {
   /** */
-  private String integrationId;
+  @JsonIgnore private String integrationId;
 
   /** List of OAuth redirect urls to be updated in the custom OAuth app integration */
   @JsonProperty("redirect_urls")

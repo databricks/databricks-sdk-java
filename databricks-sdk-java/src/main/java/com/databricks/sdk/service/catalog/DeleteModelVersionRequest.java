@@ -4,16 +4,17 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a Model Version */
 @Generated
 public class DeleteModelVersionRequest {
   /** The three-level (fully qualified) name of the model version */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   /** The integer version number of the model version */
-  private Long version;
+  @JsonIgnore private Long version;
 
   public DeleteModelVersionRequest setFullName(String fullName) {
     this.fullName = fullName;

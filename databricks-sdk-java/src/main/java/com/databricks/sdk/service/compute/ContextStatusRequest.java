@@ -5,16 +5,19 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get status */
 @Generated
 public class ContextStatusRequest {
   /** */
+  @JsonIgnore
   @QueryParam("clusterId")
   private String clusterId;
 
   /** */
+  @JsonIgnore
   @QueryParam("contextId")
   private String contextId;
 

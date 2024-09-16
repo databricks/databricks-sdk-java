@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -15,10 +16,10 @@ public class TransferOwnershipRequest {
   private String newOwner;
 
   /** The ID of the object on which to change ownership. */
-  private TransferOwnershipObjectId objectId;
+  @JsonIgnore private TransferOwnershipObjectId objectId;
 
   /** The type of object on which to change ownership. */
-  private OwnableObjectType objectType;
+  @JsonIgnore private OwnableObjectType objectType;
 
   public TransferOwnershipRequest setNewOwner(String newOwner) {
     this.newOwner = newOwner;

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.workspace;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Export a workspace object */
@@ -23,6 +24,7 @@ public class ExportRequest {
    * is exported depending on the objects type. Directory exports will include notebooks and
    * workspace files.
    */
+  @JsonIgnore
   @QueryParam("format")
   private ExportFormat format;
 
@@ -30,6 +32,7 @@ public class ExportRequest {
    * The absolute path of the object or directory. Exporting a directory is only supported for the
    * `DBC`, `SOURCE`, and `AUTO` format.
    */
+  @JsonIgnore
   @QueryParam("path")
   private String path;
 

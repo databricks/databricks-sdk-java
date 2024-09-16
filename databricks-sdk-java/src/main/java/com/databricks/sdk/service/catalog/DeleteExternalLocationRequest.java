@@ -5,17 +5,19 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete an external location */
 @Generated
 public class DeleteExternalLocationRequest {
   /** Force deletion even if there are dependent external tables or mounts. */
+  @JsonIgnore
   @QueryParam("force")
   private Boolean force;
 
   /** Name of the external location. */
-  private String name;
+  @JsonIgnore private String name;
 
   public DeleteExternalLocationRequest setForce(Boolean force) {
     this.force = force;

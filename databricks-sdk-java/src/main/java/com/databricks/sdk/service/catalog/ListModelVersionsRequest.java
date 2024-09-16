@@ -5,18 +5,20 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List Model Versions */
 @Generated
 public class ListModelVersionsRequest {
   /** The full three-level name of the registered model under which to list model versions */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   /**
    * Whether to include model versions in the response for which the principal can only access
    * selective metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
@@ -27,10 +29,12 @@ public class ListModelVersionsRequest {
    * 0, the page length is set to a server configured value (100, as of 1/3/2024) (recommended); -
    * when set to a value less than 0, an invalid parameter error is returned;
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

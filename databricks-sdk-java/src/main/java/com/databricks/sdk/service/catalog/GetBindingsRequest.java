@@ -5,6 +5,7 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get securable workspace bindings */
@@ -17,18 +18,20 @@ public class GetBindingsRequest {
    * invalid parameter error is returned; - If not set, all the workspace bindings are returned (not
    * recommended).
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** The name of the securable. */
-  private String securableName;
+  @JsonIgnore private String securableName;
 
   /** The type of the securable to bind to a workspace. */
-  private GetBindingsSecurableType securableType;
+  @JsonIgnore private GetBindingsSecurableType securableType;
 
   public GetBindingsRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;

@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get all storage credentials assigned to a metastore */
 @Generated
 public class ListAccountStorageCredentialsRequest {
   /** Unity Catalog metastore ID */
-  private String metastoreId;
+  @JsonIgnore private String metastoreId;
 
   public ListAccountStorageCredentialsRequest setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;

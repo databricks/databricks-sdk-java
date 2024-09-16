@@ -5,20 +5,24 @@ package com.databricks.sdk.service.oauth2;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get custom oauth app integrations */
 @Generated
 public class ListCustomAppIntegrationsRequest {
   /** */
+  @JsonIgnore
   @QueryParam("include_creator_username")
   private Boolean includeCreatorUsername;
 
   /** */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
   /** */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

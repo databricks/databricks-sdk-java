@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a clean room */
 @Generated
 public class DeleteCleanRoomRequest {
   /** The name of the clean room. */
-  private String name;
+  @JsonIgnore private String name;
 
   public DeleteCleanRoomRequest setName(String name) {
     this.name = name;

@@ -5,17 +5,19 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a schema */
 @Generated
 public class DeleteSchemaRequest {
   /** Force deletion even if the schema is not empty. */
+  @JsonIgnore
   @QueryParam("force")
   private Boolean force;
 
   /** Full name of the schema. */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   public DeleteSchemaRequest setForce(Boolean force) {
     this.force = force;

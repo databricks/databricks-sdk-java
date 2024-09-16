@@ -4,16 +4,17 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get an app deployment */
 @Generated
 public class GetAppDeploymentRequest {
   /** The name of the app. */
-  private String appName;
+  @JsonIgnore private String appName;
 
   /** The unique id of the deployment. */
-  private String deploymentId;
+  @JsonIgnore private String deploymentId;
 
   public GetAppDeploymentRequest setAppName(String appName) {
     this.appName = appName;

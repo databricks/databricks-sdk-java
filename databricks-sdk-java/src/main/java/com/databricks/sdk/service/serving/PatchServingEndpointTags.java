@@ -4,6 +4,7 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -19,7 +20,7 @@ public class PatchServingEndpointTags {
   private Collection<String> deleteTags;
 
   /** The name of the serving endpoint who's tags to patch. This field is required. */
-  private String name;
+  @JsonIgnore private String name;
 
   public PatchServingEndpointTags setAddTags(Collection<EndpointTag> addTags) {
     this.addTags = addTags;

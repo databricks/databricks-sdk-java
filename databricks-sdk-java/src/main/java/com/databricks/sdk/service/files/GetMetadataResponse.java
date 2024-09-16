@@ -5,19 +5,23 @@ package com.databricks.sdk.service.files;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Header;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 @Generated
 public class GetMetadataResponse {
   /** */
+  @JsonIgnore
   @Header("content-length")
   private Long contentLength;
 
   /** */
+  @JsonIgnore
   @Header("content-type")
   private String contentType;
 
   /** */
+  @JsonIgnore
   @Header("last-modified")
   private String lastModified;
 

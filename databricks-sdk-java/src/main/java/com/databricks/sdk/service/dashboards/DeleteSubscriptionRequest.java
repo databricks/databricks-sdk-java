@@ -5,26 +5,28 @@ package com.databricks.sdk.service.dashboards;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete schedule subscription */
 @Generated
 public class DeleteSubscriptionRequest {
   /** UUID identifying the dashboard which the subscription belongs. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /**
    * The etag for the subscription. Can be optionally provided to ensure that the subscription has
    * not been modified since the last read.
    */
+  @JsonIgnore
   @QueryParam("etag")
   private String etag;
 
   /** UUID identifying the schedule which the subscription belongs. */
-  private String scheduleId;
+  @JsonIgnore private String scheduleId;
 
   /** UUID identifying the subscription. */
-  private String subscriptionId;
+  @JsonIgnore private String subscriptionId;
 
   public DeleteSubscriptionRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;

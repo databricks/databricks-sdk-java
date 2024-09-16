@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -45,7 +46,7 @@ public class UpdateExternalLocation {
   private IsolationMode isolationMode;
 
   /** Name of the external location. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** New name for the external location. */
   @JsonProperty("new_name")

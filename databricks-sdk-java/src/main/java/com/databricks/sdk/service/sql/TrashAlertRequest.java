@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete an alert */
 @Generated
 public class TrashAlertRequest {
   /** */
-  private String id;
+  @JsonIgnore private String id;
 
   public TrashAlertRequest setId(String id) {
     this.id = id;

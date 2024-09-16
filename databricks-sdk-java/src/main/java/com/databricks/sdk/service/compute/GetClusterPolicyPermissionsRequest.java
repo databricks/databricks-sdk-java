@@ -4,13 +4,14 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get cluster policy permissions */
 @Generated
 public class GetClusterPolicyPermissionsRequest {
   /** The cluster policy for which to get or manage permissions. */
-  private String clusterPolicyId;
+  @JsonIgnore private String clusterPolicyId;
 
   public GetClusterPolicyPermissionsRequest setClusterPolicyId(String clusterPolicyId) {
     this.clusterPolicyId = clusterPolicyId;

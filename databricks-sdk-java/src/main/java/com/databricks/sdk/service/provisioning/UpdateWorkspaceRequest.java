@@ -4,6 +4,7 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
@@ -66,7 +67,7 @@ public class UpdateWorkspaceRequest {
   private String storageCustomerManagedKeyId;
 
   /** Workspace ID. */
-  private Long workspaceId;
+  @JsonIgnore private Long workspaceId;
 
   public UpdateWorkspaceRequest setAwsRegion(String awsRegion) {
     this.awsRegion = awsRegion;

@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a share recipient */
 @Generated
 public class GetRecipientRequest {
   /** Name of the recipient. */
-  private String name;
+  @JsonIgnore private String name;
 
   public GetRecipientRequest setName(String name) {
     this.name = name;

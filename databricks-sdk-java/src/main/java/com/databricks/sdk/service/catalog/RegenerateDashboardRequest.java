@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class RegenerateDashboardRequest {
   /** Full name of the table. */
-  private String tableName;
+  @JsonIgnore private String tableName;
 
   /**
    * Optional argument to specify the warehouse for dashboard regeneration. If not specified, the

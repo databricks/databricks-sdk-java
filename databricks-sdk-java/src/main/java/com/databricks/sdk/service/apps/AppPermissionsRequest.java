@@ -4,6 +4,7 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class AppPermissionsRequest {
   private Collection<AppAccessControlRequest> accessControlList;
 
   /** The app for which to get or manage permissions. */
-  private String appName;
+  @JsonIgnore private String appName;
 
   public AppPermissionsRequest setAccessControlList(
       Collection<AppAccessControlRequest> accessControlList) {

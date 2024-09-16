@@ -5,6 +5,7 @@ package com.databricks.sdk.service.sharing;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -24,13 +25,15 @@ public class UpdateSharePermissions {
    * max_results size, even zero. The only definitive indication that no further permissions can be
    * fetched is when the next_page_token is unset from the response.
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** The name of the share. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** Opaque pagination token to go to next page based on previous query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

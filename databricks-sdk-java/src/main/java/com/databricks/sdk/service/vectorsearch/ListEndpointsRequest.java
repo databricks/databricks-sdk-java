@@ -5,12 +5,14 @@ package com.databricks.sdk.service.vectorsearch;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List all endpoints */
 @Generated
 public class ListEndpointsRequest {
   /** Token for pagination */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

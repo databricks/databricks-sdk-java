@@ -4,13 +4,14 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a repo */
 @Generated
 public class GetRepoRequest {
   /** The ID for the corresponding repo to access. */
-  private Long repoId;
+  @JsonIgnore private Long repoId;
 
   public GetRepoRequest setRepoId(Long repoId) {
     this.repoId = repoId;

@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Gets the metastore assignment for a workspace */
 @Generated
 public class GetAccountMetastoreAssignmentRequest {
   /** Workspace ID. */
-  private Long workspaceId;
+  @JsonIgnore private Long workspaceId;
 
   public GetAccountMetastoreAssignmentRequest setWorkspaceId(Long workspaceId) {
     this.workspaceId = workspaceId;

@@ -4,6 +4,7 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class PermissionsRequest {
   private Collection<AccessControlRequest> accessControlList;
 
   /** The id of the request object. */
-  private String requestObjectId;
+  @JsonIgnore private String requestObjectId;
 
   /**
    * The type of the request object. Can be one of the following: alerts, authorization, clusters,
@@ -23,7 +24,7 @@ public class PermissionsRequest {
    * instance-pools, jobs, notebooks, pipelines, queries, registered-models, repos,
    * serving-endpoints, or warehouses.
    */
-  private String requestObjectType;
+  @JsonIgnore private String requestObjectType;
 
   public PermissionsRequest setAccessControlList(
       Collection<AccessControlRequest> accessControlList) {

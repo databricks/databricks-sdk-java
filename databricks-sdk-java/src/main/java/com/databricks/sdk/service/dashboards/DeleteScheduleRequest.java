@@ -5,23 +5,25 @@ package com.databricks.sdk.service.dashboards;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete dashboard schedule */
 @Generated
 public class DeleteScheduleRequest {
   /** UUID identifying the dashboard to which the schedule belongs. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /**
    * The etag for the schedule. Optionally, it can be provided to verify that the schedule has not
    * been modified from its last retrieval.
    */
+  @JsonIgnore
   @QueryParam("etag")
   private String etag;
 
   /** UUID identifying the schedule. */
-  private String scheduleId;
+  @JsonIgnore private String scheduleId;
 
   public DeleteScheduleRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;

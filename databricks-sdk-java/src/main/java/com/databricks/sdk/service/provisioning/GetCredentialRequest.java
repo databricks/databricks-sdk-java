@@ -4,13 +4,14 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get credential configuration */
 @Generated
 public class GetCredentialRequest {
   /** Databricks Account API credential configuration ID */
-  private String credentialsId;
+  @JsonIgnore private String credentialsId;
 
   public GetCredentialRequest setCredentialsId(String credentialsId) {
     this.credentialsId = credentialsId;

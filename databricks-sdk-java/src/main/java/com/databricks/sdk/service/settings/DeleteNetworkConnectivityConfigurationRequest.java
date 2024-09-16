@@ -4,13 +4,14 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a network connectivity configuration */
 @Generated
 public class DeleteNetworkConnectivityConfigurationRequest {
   /** Your Network Connectvity Configuration ID. */
-  private String networkConnectivityConfigId;
+  @JsonIgnore private String networkConnectivityConfigId;
 
   public DeleteNetworkConnectivityConfigurationRequest setNetworkConnectivityConfigId(
       String networkConnectivityConfigId) {

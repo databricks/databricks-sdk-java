@@ -5,17 +5,19 @@ package com.databricks.sdk.service.sharing;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a clean room */
 @Generated
 public class GetCleanRoomRequest {
   /** Whether to include remote details (central) on the clean room. */
+  @JsonIgnore
   @QueryParam("include_remote_details")
   private Boolean includeRemoteDetails;
 
   /** The name of the clean room. */
-  private String name;
+  @JsonIgnore private String name;
 
   public GetCleanRoomRequest setIncludeRemoteDetails(Boolean includeRemoteDetails) {
     this.includeRemoteDetails = includeRemoteDetails;

@@ -4,13 +4,14 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete an index */
 @Generated
 public class DeleteIndexRequest {
   /** Name of the index */
-  private String indexName;
+  @JsonIgnore private String indexName;
 
   public DeleteIndexRequest setIndexName(String indexName) {
     this.indexName = indexName;

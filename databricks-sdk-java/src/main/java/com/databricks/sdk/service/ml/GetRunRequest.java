@@ -5,12 +5,14 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a run */
 @Generated
 public class GetRunRequest {
   /** ID of the run to fetch. Must be provided. */
+  @JsonIgnore
   @QueryParam("run_id")
   private String runId;
 
@@ -18,6 +20,7 @@ public class GetRunRequest {
    * [Deprecated, use run_id instead] ID of the run to fetch. This field will be removed in a future
    * MLflow version.
    */
+  @JsonIgnore
   @QueryParam("run_uuid")
   private String runUuid;
 

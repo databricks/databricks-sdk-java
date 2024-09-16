@@ -4,6 +4,7 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public class QueryVectorIndexRequest {
   private String filtersJson;
 
   /** Name of the vector index to query. */
-  private String indexName;
+  @JsonIgnore private String indexName;
 
   /** Number of results to return. Defaults to 10. */
   @JsonProperty("num_results")

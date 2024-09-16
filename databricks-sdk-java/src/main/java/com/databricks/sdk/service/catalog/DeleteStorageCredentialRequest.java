@@ -5,17 +5,19 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a credential */
 @Generated
 public class DeleteStorageCredentialRequest {
   /** Force deletion even if there are dependent external locations or external tables. */
+  @JsonIgnore
   @QueryParam("force")
   private Boolean force;
 
   /** Name of the storage credential. */
-  private String name;
+  @JsonIgnore private String name;
 
   public DeleteStorageCredentialRequest setForce(Boolean force) {
     this.force = force;

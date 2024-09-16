@@ -4,6 +4,7 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -14,7 +15,7 @@ public class PutRequest {
   /**
    * The name of the serving endpoint whose rate limits are being updated. This field is required.
    */
-  private String name;
+  @JsonIgnore private String name;
 
   /** The list of endpoint rate limits. */
   @JsonProperty("rate_limits")

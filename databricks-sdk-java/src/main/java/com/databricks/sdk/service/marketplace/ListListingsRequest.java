@@ -5,6 +5,7 @@ package com.databricks.sdk.service.marketplace;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -12,38 +13,47 @@ import java.util.Objects;
 @Generated
 public class ListListingsRequest {
   /** Matches any of the following asset types */
+  @JsonIgnore
   @QueryParam("assets")
   private Collection<AssetType> assets;
 
   /** Matches any of the following categories */
+  @JsonIgnore
   @QueryParam("categories")
   private Collection<Category> categories;
 
   /** Filters each listing based on if it is free. */
+  @JsonIgnore
   @QueryParam("is_free")
   private Boolean isFree;
 
   /** Filters each listing based on if it is a private exchange. */
+  @JsonIgnore
   @QueryParam("is_private_exchange")
   private Boolean isPrivateExchange;
 
   /** Filters each listing based on whether it is a staff pick. */
+  @JsonIgnore
   @QueryParam("is_staff_pick")
   private Boolean isStaffPick;
 
   /** */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
   /** */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** Matches any of the following provider ids */
+  @JsonIgnore
   @QueryParam("provider_ids")
   private Collection<String> providerIds;
 
   /** Matches any of the following tags */
+  @JsonIgnore
   @QueryParam("tags")
   private Collection<ListingTag> tags;
 

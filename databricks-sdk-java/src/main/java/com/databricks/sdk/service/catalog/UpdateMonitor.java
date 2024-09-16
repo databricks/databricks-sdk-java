@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -66,7 +67,7 @@ public class UpdateMonitor {
   private MonitorSnapshot snapshot;
 
   /** Full name of the table. */
-  private String tableName;
+  @JsonIgnore private String tableName;
 
   /** Configuration for monitoring time series tables. */
   @JsonProperty("time_series")

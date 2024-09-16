@@ -4,13 +4,14 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get OAuth Custom App Integration */
 @Generated
 public class GetCustomAppIntegrationRequest {
   /** */
-  private String integrationId;
+  @JsonIgnore private String integrationId;
 
   public GetCustomAppIntegrationRequest setIntegrationId(String integrationId) {
     this.integrationId = integrationId;

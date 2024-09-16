@@ -5,6 +5,7 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -16,6 +17,7 @@ public class ListWebhooksRequest {
    * included in the output. If `events` is not specified, webhooks of all event types are included
    * in the output.
    */
+  @JsonIgnore
   @QueryParam("events")
   private Collection<RegistryWebhookEvent> events;
 
@@ -23,10 +25,12 @@ public class ListWebhooksRequest {
    * If not specified, all webhooks associated with the specified events are listed, regardless of
    * their associated model.
    */
+  @JsonIgnore
   @QueryParam("model_name")
   private String modelName;
 
   /** Token indicating the page of artifact results to fetch */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

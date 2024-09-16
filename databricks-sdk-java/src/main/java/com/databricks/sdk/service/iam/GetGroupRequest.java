@@ -4,13 +4,14 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get group details */
 @Generated
 public class GetGroupRequest {
   /** Unique ID for a group in the Databricks workspace. */
-  private String id;
+  @JsonIgnore private String id;
 
   public GetGroupRequest setId(String id) {
     this.id = id;

@@ -5,20 +5,24 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get command info */
 @Generated
 public class CommandStatusRequest {
   /** */
+  @JsonIgnore
   @QueryParam("clusterId")
   private String clusterId;
 
   /** */
+  @JsonIgnore
   @QueryParam("commandId")
   private String commandId;
 
   /** */
+  @JsonIgnore
   @QueryParam("contextId")
   private String contextId;
 

@@ -5,16 +5,19 @@ package com.databricks.sdk.service.oauth2;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get all the published OAuth apps */
 @Generated
 public class ListOAuthPublishedAppsRequest {
   /** The max number of OAuth published apps to return in one page. */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
   /** A token that can be used to get the next page of results. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

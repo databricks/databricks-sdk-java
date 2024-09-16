@@ -5,16 +5,19 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List all resource quotas under a metastore. */
 @Generated
 public class ListQuotasRequest {
   /** The number of quotas to return. */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque token for the next page of results. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

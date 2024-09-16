@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class SetArtifactAllowlist {
   private Collection<ArtifactMatcher> artifactMatchers;
 
   /** The artifact type of the allowlist. */
-  private ArtifactType artifactType;
+  @JsonIgnore private ArtifactType artifactType;
 
   public SetArtifactAllowlist setArtifactMatchers(Collection<ArtifactMatcher> artifactMatchers) {
     this.artifactMatchers = artifactMatchers;

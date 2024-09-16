@@ -5,17 +5,19 @@ package com.databricks.sdk.service.sharing;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a share */
 @Generated
 public class GetShareRequest {
   /** Query for data to include in the share. */
+  @JsonIgnore
   @QueryParam("include_shared_data")
   private Boolean includeSharedData;
 
   /** The name of the share. */
-  private String name;
+  @JsonIgnore private String name;
 
   public GetShareRequest setIncludeSharedData(Boolean includeSharedData) {
     this.includeSharedData = includeSharedData;

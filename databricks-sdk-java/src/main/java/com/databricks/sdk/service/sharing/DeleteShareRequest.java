@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a share */
 @Generated
 public class DeleteShareRequest {
   /** The name of the share. */
-  private String name;
+  @JsonIgnore private String name;
 
   public DeleteShareRequest setName(String name) {
     this.name = name;
