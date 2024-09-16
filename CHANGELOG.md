@@ -1,5 +1,20 @@
 # Version changelog
 
+## [Release] Release v0.31.1
+
+### New Features and Improvements
+
+ * Remove proxy settings from databricks config and use commons http client builder for connection manager ([#337](https://github.com/databricks/databricks-sdk-java/pull/337)).
+
+
+### Bug Fixes
+
+ * Remove Path Parameters from JSON body ([#344](https://github.com/databricks/databricks-sdk-java/pull/344)).
+ * Stop pagination on empty next page token ([#343](https://github.com/databricks/databricks-sdk-java/pull/343)).
+
+
+
+
 ## [Release] Release v0.31.0
 
 ### New Features and Improvements
