@@ -4,13 +4,14 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get an init script */
 @Generated
 public class GetGlobalInitScriptRequest {
   /** The ID of the global init script. */
-  private String scriptId;
+  @JsonIgnore private String scriptId;
 
   public GetGlobalInitScriptRequest setScriptId(String scriptId) {
     this.scriptId = scriptId;

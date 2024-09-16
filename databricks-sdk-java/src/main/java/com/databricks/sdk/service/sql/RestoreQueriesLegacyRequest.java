@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Restore a query */
 @Generated
 public class RestoreQueriesLegacyRequest {
   /** */
-  private String queryId;
+  @JsonIgnore private String queryId;
 
   public RestoreQueriesLegacyRequest setQueryId(String queryId) {
     this.queryId = queryId;

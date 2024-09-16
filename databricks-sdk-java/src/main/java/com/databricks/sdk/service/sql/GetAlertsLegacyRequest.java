@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get an alert */
 @Generated
 public class GetAlertsLegacyRequest {
   /** */
-  private String alertId;
+  @JsonIgnore private String alertId;
 
   public GetAlertsLegacyRequest setAlertId(String alertId) {
     this.alertId = alertId;

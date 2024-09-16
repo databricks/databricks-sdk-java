@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -14,10 +15,10 @@ public class AccountsUpdateStorageCredential {
   private UpdateStorageCredential credentialInfo;
 
   /** Unity Catalog metastore ID */
-  private String metastoreId;
+  @JsonIgnore private String metastoreId;
 
   /** Name of the storage credential. */
-  private String storageCredentialName;
+  @JsonIgnore private String storageCredentialName;
 
   public AccountsUpdateStorageCredential setCredentialInfo(UpdateStorageCredential credentialInfo) {
     this.credentialInfo = credentialInfo;

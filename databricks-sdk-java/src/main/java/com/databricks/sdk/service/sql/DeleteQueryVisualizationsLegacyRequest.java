@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Remove visualization */
 @Generated
 public class DeleteQueryVisualizationsLegacyRequest {
   /** Widget ID returned by :method:queryvizualisations/create */
-  private String id;
+  @JsonIgnore private String id;
 
   public DeleteQueryVisualizationsLegacyRequest setId(String id) {
     this.id = id;

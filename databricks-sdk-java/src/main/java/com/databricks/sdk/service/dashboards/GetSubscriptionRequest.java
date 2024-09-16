@@ -4,19 +4,20 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get schedule subscription */
 @Generated
 public class GetSubscriptionRequest {
   /** UUID identifying the dashboard which the subscription belongs. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /** UUID identifying the schedule which the subscription belongs. */
-  private String scheduleId;
+  @JsonIgnore private String scheduleId;
 
   /** UUID identifying the subscription. */
-  private String subscriptionId;
+  @JsonIgnore private String subscriptionId;
 
   public GetSubscriptionRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;

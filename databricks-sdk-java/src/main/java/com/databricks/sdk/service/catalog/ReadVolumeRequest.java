@@ -5,6 +5,7 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a Volume */
@@ -14,11 +15,12 @@ public class ReadVolumeRequest {
    * Whether to include volumes in the response for which the principal can only access selective
    * metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /** The three-level (fully qualified) name of the volume */
-  private String name;
+  @JsonIgnore private String name;
 
   public ReadVolumeRequest setIncludeBrowse(Boolean includeBrowse) {
     this.includeBrowse = includeBrowse;

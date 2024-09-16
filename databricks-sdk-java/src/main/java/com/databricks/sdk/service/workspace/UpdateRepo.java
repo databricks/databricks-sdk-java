@@ -4,6 +4,7 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class UpdateRepo {
   private String branch;
 
   /** The ID for the corresponding repo to access. */
-  private Long repoId;
+  @JsonIgnore private Long repoId;
 
   /**
    * If specified, update the sparse checkout settings. The update will fail if sparse checkout is

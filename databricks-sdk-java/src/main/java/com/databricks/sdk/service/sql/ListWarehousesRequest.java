@@ -5,6 +5,7 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List warehouses */
@@ -14,6 +15,7 @@ public class ListWarehousesRequest {
    * Service Principal which will be used to fetch the list of warehouses. If not specified, the
    * user from the session header is used.
    */
+  @JsonIgnore
   @QueryParam("run_as_user_id")
   private Long runAsUserId;
 

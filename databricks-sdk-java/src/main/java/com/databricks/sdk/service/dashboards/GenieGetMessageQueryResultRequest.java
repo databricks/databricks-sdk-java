@@ -4,19 +4,20 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get conversation message SQL query result */
 @Generated
 public class GenieGetMessageQueryResultRequest {
   /** Conversation ID */
-  private String conversationId;
+  @JsonIgnore private String conversationId;
 
   /** Message ID */
-  private String messageId;
+  @JsonIgnore private String messageId;
 
   /** Genie space ID */
-  private String spaceId;
+  @JsonIgnore private String spaceId;
 
   public GenieGetMessageQueryResultRequest setConversationId(String conversationId) {
     this.conversationId = conversationId;

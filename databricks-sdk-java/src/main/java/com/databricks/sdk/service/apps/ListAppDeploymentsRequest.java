@@ -5,19 +5,22 @@ package com.databricks.sdk.service.apps;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List app deployments */
 @Generated
 public class ListAppDeploymentsRequest {
   /** The name of the app. */
-  private String appName;
+  @JsonIgnore private String appName;
 
   /** Upper bound for items returned. */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
   /** Pagination token to go to the next page of apps. Requests first page if absent. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get an external location */
@@ -14,11 +15,12 @@ public class GetExternalLocationRequest {
    * Whether to include external locations in the response for which the principal can only access
    * selective metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /** Name of the external location. */
-  private String name;
+  @JsonIgnore private String name;
 
   public GetExternalLocationRequest setIncludeBrowse(Boolean includeBrowse) {
     this.includeBrowse = includeBrowse;

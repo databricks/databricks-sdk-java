@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
@@ -19,7 +20,7 @@ public class UpdateSchema {
   private EnablePredictiveOptimization enablePredictiveOptimization;
 
   /** Full name of the schema. */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   /** New name for the schema. */
   @JsonProperty("new_name")

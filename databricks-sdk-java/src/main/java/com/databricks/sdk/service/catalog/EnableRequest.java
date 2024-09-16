@@ -4,16 +4,17 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Enable a system schema */
 @Generated
 public class EnableRequest {
   /** The metastore ID under which the system schema lives. */
-  private String metastoreId;
+  @JsonIgnore private String metastoreId;
 
   /** Full name of the system schema. */
-  private String schemaName;
+  @JsonIgnore private String schemaName;
 
   public EnableRequest setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;

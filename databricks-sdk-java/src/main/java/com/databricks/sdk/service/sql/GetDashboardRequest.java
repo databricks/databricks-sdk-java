@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Retrieve a definition */
 @Generated
 public class GetDashboardRequest {
   /** */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   public GetDashboardRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;

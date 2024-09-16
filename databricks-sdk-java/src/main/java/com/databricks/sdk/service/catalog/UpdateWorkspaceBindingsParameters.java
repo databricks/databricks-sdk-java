@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -19,10 +20,10 @@ public class UpdateWorkspaceBindingsParameters {
   private Collection<WorkspaceBinding> remove;
 
   /** The name of the securable. */
-  private String securableName;
+  @JsonIgnore private String securableName;
 
   /** The type of the securable to bind to a workspace. */
-  private UpdateBindingsSecurableType securableType;
+  @JsonIgnore private UpdateBindingsSecurableType securableType;
 
   public UpdateWorkspaceBindingsParameters setAdd(Collection<WorkspaceBinding> add) {
     this.add = add;

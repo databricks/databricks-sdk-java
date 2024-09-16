@@ -5,6 +5,7 @@ package com.databricks.sdk.service.billing;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get all budgets */
@@ -14,6 +15,7 @@ public class ListBudgetConfigurationsRequest {
    * A page token received from a previous get all budget configurations call. This token can be
    * used to retrieve the subsequent page. Requests first page if absent.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

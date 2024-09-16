@@ -5,6 +5,7 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get history of a given metric within a run */
@@ -14,18 +15,22 @@ public class GetHistoryRequest {
    * Maximum number of Metric records to return per paginated request. Default is set to 25,000. If
    * set higher than 25,000, a request Exception will be raised.
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Name of the metric. */
+  @JsonIgnore
   @QueryParam("metric_key")
   private String metricKey;
 
   /** Token indicating the page of metric histories to fetch. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** ID of the run from which to fetch metric values. Must be provided. */
+  @JsonIgnore
   @QueryParam("run_id")
   private String runId;
 
@@ -33,6 +38,7 @@ public class GetHistoryRequest {
    * [Deprecated, use run_id instead] ID of the run from which to fetch metric values. This field
    * will be removed in a future MLflow version.
    */
+  @JsonIgnore
   @QueryParam("run_uuid")
   private String runUuid;
 

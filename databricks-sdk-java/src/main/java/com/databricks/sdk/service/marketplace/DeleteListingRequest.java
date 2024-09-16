@@ -4,13 +4,14 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a listing */
 @Generated
 public class DeleteListingRequest {
   /** */
-  private String id;
+  @JsonIgnore private String id;
 
   public DeleteListingRequest setId(String id) {
     this.id = id;

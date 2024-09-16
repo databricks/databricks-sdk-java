@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Start a warehouse */
 @Generated
 public class StartRequest {
   /** Required. Id of the SQL warehouse. */
-  private String id;
+  @JsonIgnore private String id;
 
   public StartRequest setId(String id) {
     this.id = id;

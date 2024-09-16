@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get boolean reflecting if table exists */
 @Generated
 public class ExistsRequest {
   /** Full name of the table. */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   public ExistsRequest setFullName(String fullName) {
     this.fullName = fullName;

@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Queue a metric refresh for a monitor */
 @Generated
 public class RunRefreshRequest {
   /** Full name of the table. */
-  private String tableName;
+  @JsonIgnore private String tableName;
 
   public RunRefreshRequest setTableName(String tableName) {
     this.tableName = tableName;

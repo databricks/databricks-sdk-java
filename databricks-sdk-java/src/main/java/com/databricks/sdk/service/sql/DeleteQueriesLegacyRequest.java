@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a query */
 @Generated
 public class DeleteQueriesLegacyRequest {
   /** */
-  private String queryId;
+  @JsonIgnore private String queryId;
 
   public DeleteQueriesLegacyRequest setQueryId(String queryId) {
     this.queryId = queryId;

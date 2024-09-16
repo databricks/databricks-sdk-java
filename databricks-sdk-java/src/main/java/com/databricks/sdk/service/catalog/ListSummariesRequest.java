@@ -5,12 +5,14 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List table summaries */
 @Generated
 public class ListSummariesRequest {
   /** Name of parent catalog for tables of interest. */
+  @JsonIgnore
   @QueryParam("catalog_name")
   private String catalogName;
 
@@ -21,10 +23,12 @@ public class ListSummariesRequest {
    * when set to 0, the page length is set to a server configured value (10000, as of 1/5/2024)
    * (recommended); - when set to a value less than 0, an invalid parameter error is returned;
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
@@ -32,12 +36,14 @@ public class ListSummariesRequest {
    * A sql LIKE pattern (% and _) for schema names. All schemas will be returned if not set or
    * empty.
    */
+  @JsonIgnore
   @QueryParam("schema_name_pattern")
   private String schemaNamePattern;
 
   /**
    * A sql LIKE pattern (% and _) for table names. All tables will be returned if not set or empty.
    */
+  @JsonIgnore
   @QueryParam("table_name_pattern")
   private String tableNamePattern;
 

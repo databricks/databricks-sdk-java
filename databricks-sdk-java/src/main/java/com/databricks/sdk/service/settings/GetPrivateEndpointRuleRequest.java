@@ -4,16 +4,17 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a private endpoint rule */
 @Generated
 public class GetPrivateEndpointRuleRequest {
   /** Your Network Connectvity Configuration ID. */
-  private String networkConnectivityConfigId;
+  @JsonIgnore private String networkConnectivityConfigId;
 
   /** Your private endpoint rule ID. */
-  private String privateEndpointRuleId;
+  @JsonIgnore private String privateEndpointRuleId;
 
   public GetPrivateEndpointRuleRequest setNetworkConnectivityConfigId(
       String networkConnectivityConfigId) {

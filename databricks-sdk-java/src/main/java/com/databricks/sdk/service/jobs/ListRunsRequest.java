@@ -5,6 +5,7 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List job runs */
@@ -15,6 +16,7 @@ public class ListRunsRequest {
    * active and completed runs. An active run is a run in the `QUEUED`, `PENDING`, `RUNNING`, or
    * `TERMINATING`. This field cannot be `true` when completed_only is `true`.
    */
+  @JsonIgnore
   @QueryParam("active_only")
   private Boolean activeOnly;
 
@@ -22,14 +24,17 @@ public class ListRunsRequest {
    * If completed_only is `true`, only completed runs are included in the results; otherwise, lists
    * both active and completed runs. This field cannot be `true` when active_only is `true`.
    */
+  @JsonIgnore
   @QueryParam("completed_only")
   private Boolean completedOnly;
 
   /** Whether to include task and cluster details in the response. */
+  @JsonIgnore
   @QueryParam("expand_tasks")
   private Boolean expandTasks;
 
   /** The job for which to list runs. If omitted, the Jobs service lists runs from all jobs. */
+  @JsonIgnore
   @QueryParam("job_id")
   private Long jobId;
 
@@ -37,6 +42,7 @@ public class ListRunsRequest {
    * The number of runs to return. This value must be greater than 0 and less than 25. The default
    * value is 20. If a request specifies a limit of 0, the service instead uses the maximum limit.
    */
+  @JsonIgnore
   @QueryParam("limit")
   private Long limit;
 
@@ -44,6 +50,7 @@ public class ListRunsRequest {
    * The offset of the first run to return, relative to the most recent run. Deprecated since June
    * 2023. Use `page_token` to iterate through the pages instead.
    */
+  @JsonIgnore
   @QueryParam("offset")
   private Long offset;
 
@@ -51,10 +58,12 @@ public class ListRunsRequest {
    * Use `next_page_token` or `prev_page_token` returned from the previous request to list the next
    * or previous page of runs respectively.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** The type of runs to return. For a description of run types, see :method:jobs/getRun. */
+  @JsonIgnore
   @QueryParam("run_type")
   private RunType runType;
 
@@ -62,6 +71,7 @@ public class ListRunsRequest {
    * Show runs that started _at or after_ this value. The value must be a UTC timestamp in
    * milliseconds. Can be combined with _start_time_to_ to filter by a time range.
    */
+  @JsonIgnore
   @QueryParam("start_time_from")
   private Long startTimeFrom;
 
@@ -69,6 +79,7 @@ public class ListRunsRequest {
    * Show runs that started _at or before_ this value. The value must be a UTC timestamp in
    * milliseconds. Can be combined with _start_time_from_ to filter by a time range.
    */
+  @JsonIgnore
   @QueryParam("start_time_to")
   private Long startTimeTo;
 

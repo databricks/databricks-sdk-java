@@ -5,16 +5,19 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List models */
 @Generated
 public class ListModelsRequest {
   /** Maximum number of registered models desired. Max threshold is 1000. */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Pagination token to go to the next page based on a previous query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

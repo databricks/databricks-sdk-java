@@ -4,16 +4,17 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a Registered Model Alias */
 @Generated
 public class DeleteAliasRequest {
   /** The name of the alias */
-  private String alias;
+  @JsonIgnore private String alias;
 
   /** The three-level (fully qualified) name of the registered model */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   public DeleteAliasRequest setAlias(String alias) {
     this.alias = alias;

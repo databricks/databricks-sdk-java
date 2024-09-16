@@ -4,13 +4,14 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get metrics of a serving endpoint */
 @Generated
 public class ExportMetricsRequest {
   /** The name of the serving endpoint to retrieve metrics for. This field is required. */
-  private String name;
+  @JsonIgnore private String name;
 
   public ExportMetricsRequest setName(String name) {
     this.name = name;

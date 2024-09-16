@@ -5,12 +5,14 @@ package com.databricks.sdk.service.iam;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get assignable roles for a resource */
 @Generated
 public class GetAssignableRolesForResourceRequest {
   /** The resource name for which assignable roles will be listed. */
+  @JsonIgnore
   @QueryParam("resource")
   private String resource;
 

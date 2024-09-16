@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get SQL warehouse permissions */
 @Generated
 public class GetWarehousePermissionsRequest {
   /** The SQL warehouse for which to get or manage permissions. */
-  private String warehouseId;
+  @JsonIgnore private String warehouseId;
 
   public GetWarehousePermissionsRequest setWarehouseId(String warehouseId) {
     this.warehouseId = warehouseId;

@@ -5,16 +5,19 @@ package com.databricks.sdk.service.workspace;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a secret */
 @Generated
 public class GetSecretRequest {
   /** The key to fetch secret for. */
+  @JsonIgnore
   @QueryParam("key")
   private String key;
 
   /** The name of the scope to fetch secret information from. */
+  @JsonIgnore
   @QueryParam("scope")
   private String scope;
 

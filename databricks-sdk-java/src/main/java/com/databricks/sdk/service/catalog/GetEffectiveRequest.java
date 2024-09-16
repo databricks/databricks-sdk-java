@@ -5,23 +5,25 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get effective permissions */
 @Generated
 public class GetEffectiveRequest {
   /** Full name of securable. */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   /**
    * If provided, only the effective permissions for the specified principal (user or group) are
    * returned.
    */
+  @JsonIgnore
   @QueryParam("principal")
   private String principal;
 
   /** Type of securable. */
-  private SecurableType securableType;
+  @JsonIgnore private SecurableType securableType;
 
   public GetEffectiveRequest setFullName(String fullName) {
     this.fullName = fullName;

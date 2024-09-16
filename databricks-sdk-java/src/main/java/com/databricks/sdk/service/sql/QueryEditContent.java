@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -42,7 +43,7 @@ public class QueryEditContent {
   private String query;
 
   /** */
-  private String queryId;
+  @JsonIgnore private String queryId;
 
   /**
    * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as

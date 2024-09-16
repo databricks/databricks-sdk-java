@@ -5,15 +5,17 @@ package com.databricks.sdk.service.dashboards;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List dashboard schedules */
 @Generated
 public class ListSchedulesRequest {
   /** UUID identifying the dashboard to which the schedule belongs. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /** The number of schedules to return per page. */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
@@ -21,6 +23,7 @@ public class ListSchedulesRequest {
    * A page token, received from a previous `ListSchedules` call. Use this to retrieve the
    * subsequent page.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

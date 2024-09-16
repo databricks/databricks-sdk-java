@@ -4,13 +4,14 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get app permissions */
 @Generated
 public class GetAppPermissionsRequest {
   /** The app for which to get or manage permissions. */
-  private String appName;
+  @JsonIgnore private String appName;
 
   public GetAppPermissionsRequest setAppName(String appName) {
     this.appName = appName;

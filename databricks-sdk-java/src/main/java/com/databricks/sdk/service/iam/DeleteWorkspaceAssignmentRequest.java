@@ -4,16 +4,17 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete permissions assignment */
 @Generated
 public class DeleteWorkspaceAssignmentRequest {
   /** The ID of the user, service principal, or group. */
-  private Long principalId;
+  @JsonIgnore private Long principalId;
 
   /** The workspace ID for the account. */
-  private Long workspaceId;
+  @JsonIgnore private Long workspaceId;
 
   public DeleteWorkspaceAssignmentRequest setPrincipalId(Long principalId) {
     this.principalId = principalId;

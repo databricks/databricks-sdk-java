@@ -4,13 +4,14 @@ package com.databricks.sdk.service.billing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete budget */
 @Generated
 public class DeleteBudgetConfigurationRequest {
   /** The Databricks budget configuration ID. */
-  private String budgetId;
+  @JsonIgnore private String budgetId;
 
   public DeleteBudgetConfigurationRequest setBudgetId(String budgetId) {
     this.budgetId = budgetId;

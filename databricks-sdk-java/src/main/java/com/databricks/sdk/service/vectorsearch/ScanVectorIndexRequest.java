@@ -4,6 +4,7 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Generated
 public class ScanVectorIndexRequest {
   /** Name of the vector index to scan. */
-  private String indexName;
+  @JsonIgnore private String indexName;
 
   /** Primary key of the last entry returned in the previous scan. */
   @JsonProperty("last_primary_key")

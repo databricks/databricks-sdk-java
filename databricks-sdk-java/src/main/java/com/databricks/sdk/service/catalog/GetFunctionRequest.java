@@ -5,6 +5,7 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a function */
@@ -14,6 +15,7 @@ public class GetFunctionRequest {
    * Whether to include functions in the response for which the principal can only access selective
    * metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
@@ -21,7 +23,7 @@ public class GetFunctionRequest {
    * The fully-qualified name of the function (of the form
    * __catalog_name__.__schema_name__.__function__name__).
    */
-  private String name;
+  @JsonIgnore private String name;
 
   public GetFunctionRequest setIncludeBrowse(Boolean includeBrowse) {
     this.includeBrowse = includeBrowse;

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.marketplace;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Generated
 public class BatchGetListingsRequest {
   /** */
+  @JsonIgnore
   @QueryParam("ids")
   private Collection<String> ids;
 

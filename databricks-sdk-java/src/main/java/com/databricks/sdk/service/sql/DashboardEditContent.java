@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Generated
 public class DashboardEditContent {
   /** */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /**
    * The title of this dashboard that appears in list views and at the top of the dashboard page.

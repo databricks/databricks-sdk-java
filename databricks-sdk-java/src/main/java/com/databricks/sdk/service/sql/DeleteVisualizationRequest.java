@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Remove a visualization */
 @Generated
 public class DeleteVisualizationRequest {
   /** */
-  private String id;
+  @JsonIgnore private String id;
 
   public DeleteVisualizationRequest setId(String id) {
     this.id = id;

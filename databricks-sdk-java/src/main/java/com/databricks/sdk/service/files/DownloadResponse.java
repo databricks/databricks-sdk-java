@@ -5,23 +5,27 @@ package com.databricks.sdk.service.files;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Header;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.InputStream;
 import java.util.Objects;
 
 @Generated
 public class DownloadResponse {
   /** */
+  @JsonIgnore
   @Header("content-length")
   private Long contentLength;
 
   /** */
+  @JsonIgnore
   @Header("content-type")
   private String contentType;
 
   /** */
-  private InputStream contents;
+  @JsonIgnore private InputStream contents;
 
   /** */
+  @JsonIgnore
   @Header("last-modified")
   private String lastModified;
 

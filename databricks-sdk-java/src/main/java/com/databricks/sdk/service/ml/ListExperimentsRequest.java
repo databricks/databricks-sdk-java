@@ -5,6 +5,7 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List experiments */
@@ -16,10 +17,12 @@ public class ListExperimentsRequest {
    * are encouraged to pass max_results explicitly and leverage page_token to iterate through
    * experiments.
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Token indicating the page of experiments to fetch */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
@@ -27,6 +30,7 @@ public class ListExperimentsRequest {
    * Qualifier for type of experiments to be returned. If unspecified, return only active
    * experiments.
    */
+  @JsonIgnore
   @QueryParam("view_type")
   private String viewType;
 

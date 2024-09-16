@@ -4,6 +4,7 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Generated
 public class PartialUpdate {
   /** Unique ID for a user in the Databricks workspace. */
-  private String id;
+  @JsonIgnore private String id;
 
   /** */
   @JsonProperty("Operations")

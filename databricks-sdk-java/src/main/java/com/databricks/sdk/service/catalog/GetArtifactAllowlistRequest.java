@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get an artifact allowlist */
 @Generated
 public class GetArtifactAllowlistRequest {
   /** The artifact type of the allowlist. */
-  private ArtifactType artifactType;
+  @JsonIgnore private ArtifactType artifactType;
 
   public GetArtifactAllowlistRequest setArtifactType(ArtifactType artifactType) {
     this.artifactType = artifactType;

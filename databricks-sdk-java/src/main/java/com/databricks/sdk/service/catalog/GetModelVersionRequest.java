@@ -5,15 +5,17 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a Model Version */
 @Generated
 public class GetModelVersionRequest {
   /** The three-level (fully qualified) name of the model version */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   /** Whether to include aliases associated with the model version in the response */
+  @JsonIgnore
   @QueryParam("include_aliases")
   private Boolean includeAliases;
 
@@ -21,11 +23,12 @@ public class GetModelVersionRequest {
    * Whether to include model versions in the response for which the principal can only access
    * selective metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /** The integer version number of the model version */
-  private Long version;
+  @JsonIgnore private Long version;
 
   public GetModelVersionRequest setFullName(String fullName) {
     this.fullName = fullName;

@@ -4,13 +4,14 @@ package com.databricks.sdk.service.files;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Create a directory */
 @Generated
 public class CreateDirectoryRequest {
   /** The absolute path of a directory. */
-  private String directoryPath;
+  @JsonIgnore private String directoryPath;
 
   public CreateDirectoryRequest setDirectoryPath(String directoryPath) {
     this.directoryPath = directoryPath;

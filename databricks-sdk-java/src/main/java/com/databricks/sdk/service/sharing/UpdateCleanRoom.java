@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -19,7 +20,7 @@ public class UpdateCleanRoom {
   private String comment;
 
   /** The name of the clean room. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** Username of current owner of clean room. */
   @JsonProperty("owner")

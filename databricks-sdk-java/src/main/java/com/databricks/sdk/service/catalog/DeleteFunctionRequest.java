@@ -5,12 +5,14 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a function */
 @Generated
 public class DeleteFunctionRequest {
   /** Force deletion even if the function is notempty. */
+  @JsonIgnore
   @QueryParam("force")
   private Boolean force;
 
@@ -18,7 +20,7 @@ public class DeleteFunctionRequest {
    * The fully-qualified name of the function (of the form
    * __catalog_name__.__schema_name__.__function__name__).
    */
-  private String name;
+  @JsonIgnore private String name;
 
   public DeleteFunctionRequest setForce(Boolean force) {
     this.force = force;

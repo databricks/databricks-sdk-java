@@ -5,6 +5,7 @@ package com.databricks.sdk.service.workspace;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get repos */
@@ -14,6 +15,7 @@ public class ListReposRequest {
    * Token used to get the next page of results. If not specified, returns the first page of results
    * as well as a next page token if there are more results.
    */
+  @JsonIgnore
   @QueryParam("next_page_token")
   private String nextPageToken;
 
@@ -21,6 +23,7 @@ public class ListReposRequest {
    * Filters repos that have paths starting with the given path prefix. If not provided repos from
    * /Repos will be served.
    */
+  @JsonIgnore
   @QueryParam("path_prefix")
   private String pathPrefix;
 

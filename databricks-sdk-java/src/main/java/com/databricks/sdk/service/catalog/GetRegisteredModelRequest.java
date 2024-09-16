@@ -5,15 +5,17 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a Registered Model */
 @Generated
 public class GetRegisteredModelRequest {
   /** The three-level (fully qualified) name of the registered model */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   /** Whether to include registered model aliases in the response */
+  @JsonIgnore
   @QueryParam("include_aliases")
   private Boolean includeAliases;
 
@@ -21,6 +23,7 @@ public class GetRegisteredModelRequest {
    * Whether to include registered models in the response for which the principal can only access
    * selective metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 

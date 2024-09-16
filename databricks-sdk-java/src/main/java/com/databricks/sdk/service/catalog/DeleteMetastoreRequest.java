@@ -5,17 +5,19 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a metastore */
 @Generated
 public class DeleteMetastoreRequest {
   /** Force deletion even if the metastore is not empty. Default is false. */
+  @JsonIgnore
   @QueryParam("force")
   private Boolean force;
 
   /** Unique ID of the metastore. */
-  private String id;
+  @JsonIgnore private String id;
 
   public DeleteMetastoreRequest setForce(Boolean force) {
     this.force = force;

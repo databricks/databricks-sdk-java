@@ -5,12 +5,14 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a transition request */
 @Generated
 public class DeleteTransitionRequestRequest {
   /** User-provided comment on the action. */
+  @JsonIgnore
   @QueryParam("comment")
   private String comment;
 
@@ -18,10 +20,12 @@ public class DeleteTransitionRequestRequest {
    * Username of the user who created this request. Of the transition requests matching the
    * specified details, only the one transition created by this user will be deleted.
    */
+  @JsonIgnore
   @QueryParam("creator")
   private String creator;
 
   /** Name of the model. */
+  @JsonIgnore
   @QueryParam("name")
   private String name;
 
@@ -36,10 +40,12 @@ public class DeleteTransitionRequestRequest {
    *
    * <p>* `Archived`: Archived stage.
    */
+  @JsonIgnore
   @QueryParam("stage")
   private DeleteTransitionRequestStage stage;
 
   /** Version of the model. */
+  @JsonIgnore
   @QueryParam("version")
   private String version;
 

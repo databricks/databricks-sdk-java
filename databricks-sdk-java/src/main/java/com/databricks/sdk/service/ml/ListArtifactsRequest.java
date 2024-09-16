@@ -5,6 +5,7 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get all artifacts */
@@ -17,14 +18,17 @@ public class ListArtifactsRequest {
    * which supports pagination. See [List directory contents | Files
    * API](/api/workspace/files/listdirectorycontents).
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** Filter artifacts matching this path (a relative path from the root artifact directory). */
+  @JsonIgnore
   @QueryParam("path")
   private String path;
 
   /** ID of the run whose artifacts to list. Must be provided. */
+  @JsonIgnore
   @QueryParam("run_id")
   private String runId;
 
@@ -32,6 +36,7 @@ public class ListArtifactsRequest {
    * [Deprecated, use run_id instead] ID of the run whose artifacts to list. This field will be
    * removed in a future MLflow version.
    */
+  @JsonIgnore
   @QueryParam("run_uuid")
   private String runUuid;
 

@@ -4,13 +4,14 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class PublishRequest {
   /** UUID identifying the dashboard to be published. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /**
    * Flag to indicate if the publisher's credentials should be embedded in the published dashboard.

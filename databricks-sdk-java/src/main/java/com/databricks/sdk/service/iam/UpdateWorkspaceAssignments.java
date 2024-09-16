@@ -4,6 +4,7 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -21,10 +22,10 @@ public class UpdateWorkspaceAssignments {
   private Collection<WorkspacePermission> permissions;
 
   /** The ID of the user, service principal, or group. */
-  private Long principalId;
+  @JsonIgnore private Long principalId;
 
   /** The workspace ID for the account. */
-  private Long workspaceId;
+  @JsonIgnore private Long workspaceId;
 
   public UpdateWorkspaceAssignments setPermissions(Collection<WorkspacePermission> permissions) {
     this.permissions = permissions;

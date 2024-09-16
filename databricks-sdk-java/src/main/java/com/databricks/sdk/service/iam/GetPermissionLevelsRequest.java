@@ -4,16 +4,17 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get object permission levels */
 @Generated
 public class GetPermissionLevelsRequest {
   /** <needs content> */
-  private String requestObjectId;
+  @JsonIgnore private String requestObjectId;
 
   /** <needs content> */
-  private String requestObjectType;
+  @JsonIgnore private String requestObjectType;
 
   public GetPermissionLevelsRequest setRequestObjectId(String requestObjectId) {
     this.requestObjectId = requestObjectId;

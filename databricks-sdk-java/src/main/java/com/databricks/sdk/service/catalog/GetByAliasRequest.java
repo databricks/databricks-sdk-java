@@ -5,18 +5,20 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get Model Version By Alias */
 @Generated
 public class GetByAliasRequest {
   /** The name of the alias */
-  private String alias;
+  @JsonIgnore private String alias;
 
   /** The three-level (fully qualified) name of the registered model */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   /** Whether to include aliases associated with the model version in the response */
+  @JsonIgnore
   @QueryParam("include_aliases")
   private Boolean includeAliases;
 

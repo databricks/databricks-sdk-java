@@ -5,15 +5,17 @@ package com.databricks.sdk.service.dashboards;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List schedule subscriptions */
 @Generated
 public class ListSubscriptionsRequest {
   /** UUID identifying the dashboard to which the subscription belongs. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /** The number of subscriptions to return per page. */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
@@ -21,11 +23,12 @@ public class ListSubscriptionsRequest {
    * A page token, received from a previous `ListSubscriptions` call. Use this to retrieve the
    * subsequent page.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** UUID identifying the schedule to which the subscription belongs. */
-  private String scheduleId;
+  @JsonIgnore private String scheduleId;
 
   public ListSubscriptionsRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;

@@ -4,6 +4,7 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -37,7 +38,7 @@ public class GlobalInitScriptUpdateRequest {
   private String script;
 
   /** The ID of the global init script. */
-  private String scriptId;
+  @JsonIgnore private String scriptId;
 
   public GlobalInitScriptUpdateRequest setEnabled(Boolean enabled) {
     this.enabled = enabled;

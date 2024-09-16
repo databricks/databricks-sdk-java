@@ -5,6 +5,7 @@ package com.databricks.sdk.service.billing;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get usage dashboard */
@@ -14,10 +15,12 @@ public class GetBillingUsageDashboardRequest {
    * Workspace level usage dashboard shows usage data for the specified workspace ID. Global level
    * usage dashboard shows usage data for all workspaces in the account.
    */
+  @JsonIgnore
   @QueryParam("dashboard_type")
   private UsageDashboardType dashboardType;
 
   /** The workspace ID of the workspace in which the usage dashboard is created. */
+  @JsonIgnore
   @QueryParam("workspace_id")
   private Long workspaceId;
 

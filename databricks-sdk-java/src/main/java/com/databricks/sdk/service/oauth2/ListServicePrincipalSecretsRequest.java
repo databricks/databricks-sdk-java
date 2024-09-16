@@ -4,13 +4,14 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List service principal secrets */
 @Generated
 public class ListServicePrincipalSecretsRequest {
   /** The service principal ID. */
-  private Long servicePrincipalId;
+  @JsonIgnore private Long servicePrincipalId;
 
   public ListServicePrincipalSecretsRequest setServicePrincipalId(Long servicePrincipalId) {
     this.servicePrincipalId = servicePrincipalId;

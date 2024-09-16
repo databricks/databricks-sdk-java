@@ -4,13 +4,14 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get storage configuration */
 @Generated
 public class GetStorageRequest {
   /** Databricks Account API storage configuration ID. */
-  private String storageConfigurationId;
+  @JsonIgnore private String storageConfigurationId;
 
   public GetStorageRequest setStorageConfigurationId(String storageConfigurationId) {
     this.storageConfigurationId = storageConfigurationId;

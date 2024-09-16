@@ -5,16 +5,19 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List policy families */
 @Generated
 public class ListPolicyFamiliesRequest {
   /** Maximum number of policy families to return. */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** A token that can be used to get the next page of results. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

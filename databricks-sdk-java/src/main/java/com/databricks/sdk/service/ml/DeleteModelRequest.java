@@ -5,12 +5,14 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a model */
 @Generated
 public class DeleteModelRequest {
   /** Registered model unique name identifier. */
+  @JsonIgnore
   @QueryParam("name")
   private String name;
 

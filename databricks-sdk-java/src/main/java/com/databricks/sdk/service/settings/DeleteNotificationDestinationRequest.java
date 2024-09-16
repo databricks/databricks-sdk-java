@@ -4,13 +4,14 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a notification destination */
 @Generated
 public class DeleteNotificationDestinationRequest {
   /** */
-  private String id;
+  @JsonIgnore private String id;
 
   public DeleteNotificationDestinationRequest setId(String id) {
     this.id = id;

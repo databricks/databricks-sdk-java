@@ -5,6 +5,7 @@ package com.databricks.sdk.service.serving;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Header;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -61,6 +62,7 @@ public class QueryEndpointResponse {
    * The name of the served model that served the request. This is useful when there are multiple
    * models behind the same endpoint with traffic split.
    */
+  @JsonIgnore
   @Header("served-model-name")
   private String servedModelName;
 

@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -18,10 +19,10 @@ public class SetRequest {
   /**
    * Object ID. The ACL for the object with this UUID is overwritten by this request's POST content.
    */
-  private String objectId;
+  @JsonIgnore private String objectId;
 
   /** The type of object permission to set. */
-  private ObjectTypePlural objectType;
+  @JsonIgnore private ObjectTypePlural objectType;
 
   public SetRequest setAccessControlList(Collection<AccessControl> accessControlList) {
     this.accessControlList = accessControlList;

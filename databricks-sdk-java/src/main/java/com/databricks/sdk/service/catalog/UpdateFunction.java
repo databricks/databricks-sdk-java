@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class UpdateFunction {
    * The fully-qualified name of the function (of the form
    * __catalog_name__.__schema_name__.__function__name__).
    */
-  private String name;
+  @JsonIgnore private String name;
 
   /** Username of current owner of function. */
   @JsonProperty("owner")

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a list of queries */
@@ -25,18 +26,22 @@ public class ListQueriesLegacyRequest {
    *
    * <p>- `created_by`: The user name of the user that created the query.
    */
+  @JsonIgnore
   @QueryParam("order")
   private String order;
 
   /** Page number to retrieve. */
+  @JsonIgnore
   @QueryParam("page")
   private Long page;
 
   /** Number of queries to return per page. */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
   /** Full text search term */
+  @JsonIgnore
   @QueryParam("q")
   private String q;
 

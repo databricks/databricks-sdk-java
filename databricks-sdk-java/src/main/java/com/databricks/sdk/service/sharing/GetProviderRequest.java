@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a provider */
 @Generated
 public class GetProviderRequest {
   /** Name of the provider. */
-  private String name;
+  @JsonIgnore private String name;
 
   public GetProviderRequest setName(String name) {
     this.name = name;

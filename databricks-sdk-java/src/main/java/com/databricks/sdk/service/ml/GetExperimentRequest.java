@@ -5,12 +5,14 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get an experiment */
 @Generated
 public class GetExperimentRequest {
   /** ID of the associated experiment. */
+  @JsonIgnore
   @QueryParam("experiment_id")
   private String experimentId;
 

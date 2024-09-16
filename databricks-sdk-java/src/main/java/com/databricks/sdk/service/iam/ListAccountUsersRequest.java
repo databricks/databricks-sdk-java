@@ -5,20 +5,24 @@ package com.databricks.sdk.service.iam;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List users */
 @Generated
 public class ListAccountUsersRequest {
   /** Comma-separated list of attributes to return in response. */
+  @JsonIgnore
   @QueryParam("attributes")
   private String attributes;
 
   /** Desired number of results per page. Default is 10000. */
+  @JsonIgnore
   @QueryParam("count")
   private Long count;
 
   /** Comma-separated list of attributes to exclude in response. */
+  @JsonIgnore
   @QueryParam("excludedAttributes")
   private String excludedAttributes;
 
@@ -30,6 +34,7 @@ public class ListAccountUsersRequest {
    *
    * <p>[SCIM RFC]: https://tools.ietf.org/html/rfc7644#section-3.4.2.2
    */
+  @JsonIgnore
   @QueryParam("filter")
   private String filter;
 
@@ -37,14 +42,17 @@ public class ListAccountUsersRequest {
    * Attribute to sort the results. Multi-part paths are supported. For example, `userName`,
    * `name.givenName`, and `emails`.
    */
+  @JsonIgnore
   @QueryParam("sortBy")
   private String sortBy;
 
   /** The order to sort the results. */
+  @JsonIgnore
   @QueryParam("sortOrder")
   private ListSortOrder sortOrder;
 
   /** Specifies the index of the first result. First item is number 1. */
+  @JsonIgnore
   @QueryParam("startIndex")
   private Long startIndex;
 

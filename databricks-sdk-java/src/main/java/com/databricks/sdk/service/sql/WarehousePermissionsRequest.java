@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class WarehousePermissionsRequest {
   private Collection<WarehouseAccessControlRequest> accessControlList;
 
   /** The SQL warehouse for which to get or manage permissions. */
-  private String warehouseId;
+  @JsonIgnore private String warehouseId;
 
   public WarehousePermissionsRequest setAccessControlList(
       Collection<WarehouseAccessControlRequest> accessControlList) {

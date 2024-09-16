@@ -5,6 +5,7 @@ package com.databricks.sdk.service.files;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get the contents of a file */
@@ -14,14 +15,17 @@ public class ReadDbfsRequest {
    * The number of bytes to read starting from the offset. This has a limit of 1 MB, and a default
    * value of 0.5 MB.
    */
+  @JsonIgnore
   @QueryParam("length")
   private Long length;
 
   /** The offset to read from in bytes. */
+  @JsonIgnore
   @QueryParam("offset")
   private Long offset;
 
   /** The path of the file to read. The path should be the absolute DBFS path. */
+  @JsonIgnore
   @QueryParam("path")
   private String path;
 

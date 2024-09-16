@@ -5,6 +5,7 @@ package com.databricks.sdk.service.settings;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get the compliance security profile setting for new workspaces */
@@ -18,6 +19,7 @@ public class GetCspEnablementAccountSettingRequest {
    * an etag from a GET request, and pass it with the DELETE request to identify the rule set
    * version you are deleting.
    */
+  @JsonIgnore
   @QueryParam("etag")
   private String etag;
 

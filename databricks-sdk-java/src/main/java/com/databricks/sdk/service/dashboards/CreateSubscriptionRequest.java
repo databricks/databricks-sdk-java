@@ -4,16 +4,17 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class CreateSubscriptionRequest {
   /** UUID identifying the dashboard to which the subscription belongs. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /** UUID identifying the schedule to which the subscription belongs. */
-  private String scheduleId;
+  @JsonIgnore private String scheduleId;
 
   /** Subscriber details for users and destinations to be added as subscribers to the schedule. */
   @JsonProperty("subscriber")

@@ -4,6 +4,7 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -14,10 +15,10 @@ public class GenieCreateConversationMessageRequest {
   private String content;
 
   /** The ID associated with the conversation. */
-  private String conversationId;
+  @JsonIgnore private String conversationId;
 
   /** The ID associated with the Genie space where the conversation is started. */
-  private String spaceId;
+  @JsonIgnore private String spaceId;
 
   public GenieCreateConversationMessageRequest setContent(String content) {
     this.content = content;

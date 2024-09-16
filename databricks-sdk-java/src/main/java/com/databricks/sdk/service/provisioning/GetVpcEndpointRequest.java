@@ -4,13 +4,14 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a VPC endpoint configuration */
 @Generated
 public class GetVpcEndpointRequest {
   /** Databricks VPC endpoint ID. */
-  private String vpcEndpointId;
+  @JsonIgnore private String vpcEndpointId;
 
   public GetVpcEndpointRequest setVpcEndpointId(String vpcEndpointId) {
     this.vpcEndpointId = vpcEndpointId;

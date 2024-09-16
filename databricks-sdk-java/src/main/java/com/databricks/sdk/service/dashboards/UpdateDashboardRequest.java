@@ -4,13 +4,14 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class UpdateDashboardRequest {
   /** UUID identifying the dashboard. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /** The display name of the dashboard. */
   @JsonProperty("display_name")

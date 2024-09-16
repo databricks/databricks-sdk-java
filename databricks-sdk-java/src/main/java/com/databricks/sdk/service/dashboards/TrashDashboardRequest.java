@@ -4,13 +4,14 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Trash dashboard */
 @Generated
 public class TrashDashboardRequest {
   /** UUID identifying the dashboard. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   public TrashDashboardRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;

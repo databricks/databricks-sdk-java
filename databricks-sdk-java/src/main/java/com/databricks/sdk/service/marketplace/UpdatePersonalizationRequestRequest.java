@@ -4,20 +4,21 @@ package com.databricks.sdk.service.marketplace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class UpdatePersonalizationRequestRequest {
   /** */
-  private String listingId;
+  @JsonIgnore private String listingId;
 
   /** */
   @JsonProperty("reason")
   private String reason;
 
   /** */
-  private String requestId;
+  @JsonIgnore private String requestId;
 
   /** */
   @JsonProperty("share")

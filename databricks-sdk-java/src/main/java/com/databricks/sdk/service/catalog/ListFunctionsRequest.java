@@ -5,12 +5,14 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List functions */
 @Generated
 public class ListFunctionsRequest {
   /** Name of parent catalog for functions of interest. */
+  @JsonIgnore
   @QueryParam("catalog_name")
   private String catalogName;
 
@@ -18,6 +20,7 @@ public class ListFunctionsRequest {
    * Whether to include functions in the response for which the principal can only access selective
    * metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
@@ -28,14 +31,17 @@ public class ListFunctionsRequest {
    * configured value (recommended); - when set to a value less than 0, an invalid parameter error
    * is returned;
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** Parent schema of functions. */
+  @JsonIgnore
   @QueryParam("schema_name")
   private String schemaName;
 

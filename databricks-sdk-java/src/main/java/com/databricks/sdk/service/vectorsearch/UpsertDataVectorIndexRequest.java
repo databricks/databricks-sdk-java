@@ -4,6 +4,7 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class UpsertDataVectorIndexRequest {
   /**
    * Name of the vector index where data is to be upserted. Must be a Direct Vector Access Index.
    */
-  private String indexName;
+  @JsonIgnore private String indexName;
 
   /** JSON string representing the data to be upserted. */
   @JsonProperty("inputs_json")

@@ -5,16 +5,19 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List transition requests */
 @Generated
 public class ListTransitionRequestsRequest {
   /** Name of the model. */
+  @JsonIgnore
   @QueryParam("name")
   private String name;
 
   /** Version of the model. */
+  @JsonIgnore
   @QueryParam("version")
   private String version;
 

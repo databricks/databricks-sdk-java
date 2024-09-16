@@ -5,12 +5,14 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List jobs */
 @Generated
 public class ListJobsRequest {
   /** Whether to include task and cluster details in the response. */
+  @JsonIgnore
   @QueryParam("expand_tasks")
   private Boolean expandTasks;
 
@@ -18,10 +20,12 @@ public class ListJobsRequest {
    * The number of jobs to return. This value must be greater than 0 and less or equal to 100. The
    * default value is 20.
    */
+  @JsonIgnore
   @QueryParam("limit")
   private Long limit;
 
   /** A filter on the list based on the exact (case insensitive) job name. */
+  @JsonIgnore
   @QueryParam("name")
   private String name;
 
@@ -29,6 +33,7 @@ public class ListJobsRequest {
    * The offset of the first job to return, relative to the most recently created job. Deprecated
    * since June 2023. Use `page_token` to iterate through the pages instead.
    */
+  @JsonIgnore
   @QueryParam("offset")
   private Long offset;
 
@@ -36,6 +41,7 @@ public class ListJobsRequest {
    * Use `next_page_token` or `prev_page_token` returned from the previous request to list the next
    * or previous page of jobs respectively.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

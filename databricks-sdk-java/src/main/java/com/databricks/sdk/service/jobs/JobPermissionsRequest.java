@@ -4,6 +4,7 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class JobPermissionsRequest {
   private Collection<JobAccessControlRequest> accessControlList;
 
   /** The job for which to get or manage permissions. */
-  private String jobId;
+  @JsonIgnore private String jobId;
 
   public JobPermissionsRequest setAccessControlList(
       Collection<JobAccessControlRequest> accessControlList) {
