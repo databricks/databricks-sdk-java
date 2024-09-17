@@ -13,6 +13,10 @@ public class CreateAppDeploymentRequest {
   /** The name of the app. */
   @JsonIgnore private String appName;
 
+  /** The unique id of the deployment. */
+  @JsonProperty("deployment_id")
+  private String deploymentId;
+
   /** The mode of which the deployment will manage the source code. */
   @JsonProperty("mode")
   private AppDeploymentMode mode;
@@ -34,6 +38,15 @@ public class CreateAppDeploymentRequest {
 
   public String getAppName() {
     return appName;
+  }
+
+  public CreateAppDeploymentRequest setDeploymentId(String deploymentId) {
+    this.deploymentId = deploymentId;
+    return this;
+  }
+
+  public String getDeploymentId() {
+    return deploymentId;
   }
 
   public CreateAppDeploymentRequest setMode(AppDeploymentMode mode) {
@@ -60,19 +73,21 @@ public class CreateAppDeploymentRequest {
     if (o == null || getClass() != o.getClass()) return false;
     CreateAppDeploymentRequest that = (CreateAppDeploymentRequest) o;
     return Objects.equals(appName, that.appName)
+        && Objects.equals(deploymentId, that.deploymentId)
         && Objects.equals(mode, that.mode)
         && Objects.equals(sourceCodePath, that.sourceCodePath);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(appName, mode, sourceCodePath);
+    return Objects.hash(appName, deploymentId, mode, sourceCodePath);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateAppDeploymentRequest.class)
         .add("appName", appName)
+        .add("deploymentId", deploymentId)
         .add("mode", mode)
         .add("sourceCodePath", sourceCodePath)
         .toString();

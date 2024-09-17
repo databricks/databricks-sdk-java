@@ -238,11 +238,25 @@ public class ServingEndpointsAPI {
   /**
    * Update rate limits of a serving endpoint.
    *
-   * <p>Used to update the rate limits of a serving endpoint. NOTE: only external and foundation
-   * model endpoints are supported as of now.
+   * <p>Used to update the rate limits of a serving endpoint. NOTE: Only foundation model endpoints
+   * are currently supported. For external models, use AI Gateway to manage rate limits.
    */
   public PutResponse put(PutRequest request) {
     return impl.put(request);
+  }
+
+  public PutAiGatewayResponse putAiGateway(String name) {
+    return putAiGateway(new PutAiGatewayRequest().setName(name));
+  }
+
+  /**
+   * Update AI Gateway of a serving endpoint.
+   *
+   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: Only external model endpoints are
+   * currently supported.
+   */
+  public PutAiGatewayResponse putAiGateway(PutAiGatewayRequest request) {
+    return impl.putAiGateway(request);
   }
 
   public QueryEndpointResponse query(String name) {

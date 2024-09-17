@@ -177,8 +177,13 @@ public class ClusterSpec {
   private String policyId;
 
   /**
-   * Decides which runtime engine to be use, e.g. Standard vs. Photon. If unspecified, the runtime
-   * engine is inferred from spark_version.
+   * Determines the cluster's runtime engine, either standard or Photon.
+   *
+   * <p>This field is not compatible with legacy `spark_version` values that contain `-photon-`.
+   * Remove `-photon-` from the `spark_version` and set `runtime_engine` to `PHOTON`.
+   *
+   * <p>If left unspecified, the runtime engine defaults to standard unless the spark_version
+   * contains -photon-, in which case Photon will be used.
    */
   @JsonProperty("runtime_engine")
   private RuntimeEngine runtimeEngine;

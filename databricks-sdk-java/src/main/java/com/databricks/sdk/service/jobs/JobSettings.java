@@ -45,8 +45,11 @@ public class JobSettings {
   private JobEmailNotifications emailNotifications;
 
   /**
-   * A list of task execution environment specifications that can be referenced by tasks of this
-   * job.
+   * A list of task execution environment specifications that can be referenced by serverless tasks
+   * of this job. An environment is required to be present for serverless tasks. For serverless
+   * notebook tasks, the environment is accessible in the notebook environment panel. For other
+   * serverless tasks, the task environment is required to be specified using environment_key in the
+   * task settings.
    */
   @JsonProperty("environments")
   private Collection<JobEnvironment> environments;
@@ -117,12 +120,11 @@ public class JobSettings {
   private QueueSettings queue;
 
   /**
-   * Write-only setting, available only in Create/Update/Reset and Submit calls. Specifies the user
-   * or service principal that the job runs as. If not specified, the job runs as the user who
-   * created the job.
+   * Write-only setting. Specifies the user, service principal or group that the job/pipeline runs
+   * as. If not specified, the job/pipeline runs as the user who created the job/pipeline.
    *
-   * <p>Only `user_name` or `service_principal_name` can be specified. If both are specified, an
-   * error is thrown.
+   * <p>Exactly one of `user_name`, `service_principal_name`, `group_name` should be specified. If
+   * not, an error is thrown.
    */
   @JsonProperty("run_as")
   private JobRunAs runAs;

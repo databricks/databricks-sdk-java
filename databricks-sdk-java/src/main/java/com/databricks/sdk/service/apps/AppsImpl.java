@@ -17,7 +17,7 @@ class AppsImpl implements AppsService {
 
   @Override
   public App create(CreateAppRequest request) {
-    String path = "/api/2.0/preview/apps";
+    String path = "/api/2.0/apps";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -25,16 +25,16 @@ class AppsImpl implements AppsService {
   }
 
   @Override
-  public void delete(DeleteAppRequest request) {
-    String path = String.format("/api/2.0/preview/apps/%s", request.getName());
+  public App delete(DeleteAppRequest request) {
+    String path = String.format("/api/2.0/apps/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    return apiClient.DELETE(path, request, App.class, headers);
   }
 
   @Override
   public AppDeployment deploy(CreateAppDeploymentRequest request) {
-    String path = String.format("/api/2.0/preview/apps/%s/deployments", request.getAppName());
+    String path = String.format("/api/2.0/apps/%s/deployments", request.getAppName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -43,7 +43,7 @@ class AppsImpl implements AppsService {
 
   @Override
   public App get(GetAppRequest request) {
-    String path = String.format("/api/2.0/preview/apps/%s", request.getName());
+    String path = String.format("/api/2.0/apps/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, App.class, headers);
@@ -53,8 +53,7 @@ class AppsImpl implements AppsService {
   public AppDeployment getDeployment(GetAppDeploymentRequest request) {
     String path =
         String.format(
-            "/api/2.0/preview/apps/%s/deployments/%s",
-            request.getAppName(), request.getDeploymentId());
+            "/api/2.0/apps/%s/deployments/%s", request.getAppName(), request.getDeploymentId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, AppDeployment.class, headers);
@@ -79,7 +78,7 @@ class AppsImpl implements AppsService {
 
   @Override
   public ListAppsResponse list(ListAppsRequest request) {
-    String path = "/api/2.0/preview/apps";
+    String path = "/api/2.0/apps";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, ListAppsResponse.class, headers);
@@ -87,7 +86,7 @@ class AppsImpl implements AppsService {
 
   @Override
   public ListAppDeploymentsResponse listDeployments(ListAppDeploymentsRequest request) {
-    String path = String.format("/api/2.0/preview/apps/%s/deployments", request.getAppName());
+    String path = String.format("/api/2.0/apps/%s/deployments", request.getAppName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, ListAppDeploymentsResponse.class, headers);
@@ -103,26 +102,26 @@ class AppsImpl implements AppsService {
   }
 
   @Override
-  public AppDeployment start(StartAppRequest request) {
-    String path = String.format("/api/2.0/preview/apps/%s/start", request.getName());
+  public App start(StartAppRequest request) {
+    String path = String.format("/api/2.0/apps/%s/start", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, AppDeployment.class, headers);
+    return apiClient.POST(path, request, App.class, headers);
   }
 
   @Override
-  public void stop(StopAppRequest request) {
-    String path = String.format("/api/2.0/preview/apps/%s/stop", request.getName());
+  public App stop(StopAppRequest request) {
+    String path = String.format("/api/2.0/apps/%s/stop", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, StopAppResponse.class, headers);
+    return apiClient.POST(path, request, App.class, headers);
   }
 
   @Override
   public App update(UpdateAppRequest request) {
-    String path = String.format("/api/2.0/preview/apps/%s", request.getName());
+    String path = String.format("/api/2.0/apps/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");

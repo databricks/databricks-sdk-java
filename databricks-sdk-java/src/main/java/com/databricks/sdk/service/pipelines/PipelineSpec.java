@@ -11,6 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class PipelineSpec {
+  /** Budget policy of this pipeline. */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /**
    * A catalog in Unity Catalog to publish data from this pipeline to. If `target` is specified,
    * tables in this pipeline are published to a `target` schema inside `catalog` (for example,
@@ -102,6 +106,15 @@ public class PipelineSpec {
   /** Which pipeline trigger to use. Deprecated: Use `continuous` instead. */
   @JsonProperty("trigger")
   private PipelineTrigger trigger;
+
+  public PipelineSpec setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
 
   public PipelineSpec setCatalog(String catalog) {
     this.catalog = catalog;
@@ -288,7 +301,8 @@ public class PipelineSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PipelineSpec that = (PipelineSpec) o;
-    return Objects.equals(catalog, that.catalog)
+    return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(catalog, that.catalog)
         && Objects.equals(channel, that.channel)
         && Objects.equals(clusters, that.clusters)
         && Objects.equals(configuration, that.configuration)
@@ -313,6 +327,7 @@ public class PipelineSpec {
   @Override
   public int hashCode() {
     return Objects.hash(
+        budgetPolicyId,
         catalog,
         channel,
         clusters,
@@ -338,6 +353,7 @@ public class PipelineSpec {
   @Override
   public String toString() {
     return new ToStringer(PipelineSpec.class)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("catalog", catalog)
         .add("channel", channel)
         .add("clusters", clusters)

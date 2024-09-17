@@ -19,6 +19,8 @@ public class SettingsAPI {
 
   private DefaultNamespaceAPI defaultNamespaceAPI;
 
+  private DisableLegacyAccessAPI disableLegacyAccessAPI;
+
   private EnhancedSecurityMonitoringAPI enhancedSecurityMonitoringAPI;
 
   private RestrictWorkspaceAdminsAPI restrictWorkspaceAdminsAPI;
@@ -32,6 +34,8 @@ public class SettingsAPI {
     complianceSecurityProfileAPI = new ComplianceSecurityProfileAPI(apiClient);
 
     defaultNamespaceAPI = new DefaultNamespaceAPI(apiClient);
+
+    disableLegacyAccessAPI = new DisableLegacyAccessAPI(apiClient);
 
     enhancedSecurityMonitoringAPI = new EnhancedSecurityMonitoringAPI(apiClient);
 
@@ -59,6 +63,11 @@ public class SettingsAPI {
    */
   public DefaultNamespaceAPI DefaultNamespace() {
     return defaultNamespaceAPI;
+  }
+
+  /** 'Disabling legacy access' has the following impacts: 1. */
+  public DisableLegacyAccessAPI DisableLegacyAccess() {
+    return disableLegacyAccessAPI;
   }
 
   /** Controls whether enhanced security monitoring is enabled for the current workspace. */
