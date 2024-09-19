@@ -95,10 +95,18 @@ public interface ServingEndpointsService {
   /**
    * Update rate limits of a serving endpoint.
    *
-   * <p>Used to update the rate limits of a serving endpoint. NOTE: only external and foundation
-   * model endpoints are supported as of now.
+   * <p>Used to update the rate limits of a serving endpoint. NOTE: Only foundation model endpoints
+   * are currently supported. For external models, use AI Gateway to manage rate limits.
    */
   PutResponse put(PutRequest putRequest);
+
+  /**
+   * Update AI Gateway of a serving endpoint.
+   *
+   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: Only external model endpoints are
+   * currently supported.
+   */
+  PutAiGatewayResponse putAiGateway(PutAiGatewayRequest putAiGatewayRequest);
 
   /** Query a serving endpoint. */
   QueryEndpointResponse query(QueryEndpointInput queryEndpointInput);

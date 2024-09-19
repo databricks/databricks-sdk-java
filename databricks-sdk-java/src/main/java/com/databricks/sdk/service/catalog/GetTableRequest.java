@@ -27,6 +27,11 @@ public class GetTableRequest {
   @QueryParam("include_delta_metadata")
   private Boolean includeDeltaMetadata;
 
+  /** Whether to include a manifest containing capabilities the table has. */
+  @JsonIgnore
+  @QueryParam("include_manifest_capabilities")
+  private Boolean includeManifestCapabilities;
+
   public GetTableRequest setFullName(String fullName) {
     this.fullName = fullName;
     return this;
@@ -54,6 +59,15 @@ public class GetTableRequest {
     return includeDeltaMetadata;
   }
 
+  public GetTableRequest setIncludeManifestCapabilities(Boolean includeManifestCapabilities) {
+    this.includeManifestCapabilities = includeManifestCapabilities;
+    return this;
+  }
+
+  public Boolean getIncludeManifestCapabilities() {
+    return includeManifestCapabilities;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -61,12 +75,13 @@ public class GetTableRequest {
     GetTableRequest that = (GetTableRequest) o;
     return Objects.equals(fullName, that.fullName)
         && Objects.equals(includeBrowse, that.includeBrowse)
-        && Objects.equals(includeDeltaMetadata, that.includeDeltaMetadata);
+        && Objects.equals(includeDeltaMetadata, that.includeDeltaMetadata)
+        && Objects.equals(includeManifestCapabilities, that.includeManifestCapabilities);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullName, includeBrowse, includeDeltaMetadata);
+    return Objects.hash(fullName, includeBrowse, includeDeltaMetadata, includeManifestCapabilities);
   }
 
   @Override
@@ -75,6 +90,7 @@ public class GetTableRequest {
         .add("fullName", fullName)
         .add("includeBrowse", includeBrowse)
         .add("includeDeltaMetadata", includeDeltaMetadata)
+        .add("includeManifestCapabilities", includeManifestCapabilities)
         .toString();
   }
 }

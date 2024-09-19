@@ -50,6 +50,11 @@ public interface ClustersService {
    *
    * <p>If Databricks acquires at least 85% of the requested on-demand nodes, cluster creation will
    * succeed. Otherwise the cluster will terminate with an informative error message.
+   *
+   * <p>Rather than authoring the cluster's JSON definition from scratch, Databricks recommends
+   * filling out the [create compute UI] and then copying the generated JSON definition from the UI.
+   *
+   * <p>[create compute UI]: https://docs.databricks.com/compute/configure.html
    */
   CreateClusterResponse create(CreateCluster createCluster);
 

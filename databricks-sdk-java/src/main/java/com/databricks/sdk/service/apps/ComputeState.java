@@ -5,12 +5,12 @@ package com.databricks.sdk.service.apps;
 import com.databricks.sdk.support.Generated;
 
 @Generated
-public enum AppState {
-  CREATING,
-  DELETED,
+public enum ComputeState {
+  ACTIVE,
   DELETING,
   ERROR,
-  IDLE,
-  RUNNING,
   STARTING,
+  STOPPED,
+  STOPPING,
+  UPDATING,
 }

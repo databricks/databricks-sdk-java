@@ -8,16 +8,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class AppStatus {
-  /** Message corresponding with the app state. */
+public class ComputeStatus {
+  /** Compute status message */
   @JsonProperty("message")
   private String message;
 
-  /** State of the app. */
+  /** State of the app compute. */
   @JsonProperty("state")
-  private AppState state;
+  private ComputeState state;
 
-  public AppStatus setMessage(String message) {
+  public ComputeStatus setMessage(String message) {
     this.message = message;
     return this;
   }
@@ -26,12 +26,12 @@ public class AppStatus {
     return message;
   }
 
-  public AppStatus setState(AppState state) {
+  public ComputeStatus setState(ComputeState state) {
     this.state = state;
     return this;
   }
 
-  public AppState getState() {
+  public ComputeState getState() {
     return state;
   }
 
@@ -39,7 +39,7 @@ public class AppStatus {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    AppStatus that = (AppStatus) o;
+    ComputeStatus that = (ComputeStatus) o;
     return Objects.equals(message, that.message) && Objects.equals(state, that.state);
   }
 
@@ -50,6 +50,9 @@ public class AppStatus {
 
   @Override
   public String toString() {
-    return new ToStringer(AppStatus.class).add("message", message).add("state", state).toString();
+    return new ToStringer(ComputeStatus.class)
+        .add("message", message)
+        .add("state", state)
+        .toString();
   }
 }

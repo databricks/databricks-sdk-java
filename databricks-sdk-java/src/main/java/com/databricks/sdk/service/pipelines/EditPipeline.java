@@ -17,6 +17,10 @@ public class EditPipeline {
   @JsonProperty("allow_duplicate_names")
   private Boolean allowDuplicateNames;
 
+  /** Budget policy of this pipeline. */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /**
    * A catalog in Unity Catalog to publish data from this pipeline to. If `target` is specified,
    * tables in this pipeline are published to a `target` schema inside `catalog` (for example,
@@ -127,6 +131,15 @@ public class EditPipeline {
 
   public Boolean getAllowDuplicateNames() {
     return allowDuplicateNames;
+  }
+
+  public EditPipeline setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
   }
 
   public EditPipeline setCatalog(String catalog) {
@@ -333,6 +346,7 @@ public class EditPipeline {
     if (o == null || getClass() != o.getClass()) return false;
     EditPipeline that = (EditPipeline) o;
     return Objects.equals(allowDuplicateNames, that.allowDuplicateNames)
+        && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(catalog, that.catalog)
         && Objects.equals(channel, that.channel)
         && Objects.equals(clusters, that.clusters)
@@ -361,6 +375,7 @@ public class EditPipeline {
   public int hashCode() {
     return Objects.hash(
         allowDuplicateNames,
+        budgetPolicyId,
         catalog,
         channel,
         clusters,
@@ -389,6 +404,7 @@ public class EditPipeline {
   public String toString() {
     return new ToStringer(EditPipeline.class)
         .add("allowDuplicateNames", allowDuplicateNames)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("catalog", catalog)
         .add("channel", channel)
         .add("clusters", clusters)

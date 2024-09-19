@@ -127,6 +127,15 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
+  public PutAiGatewayResponse putAiGateway(PutAiGatewayRequest request) {
+    String path = String.format("/api/2.0/serving-endpoints/%s/ai-gateway", request.getName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PUT(path, request, PutAiGatewayResponse.class, headers);
+  }
+
+  @Override
   public QueryEndpointResponse query(QueryEndpointInput request) {
     String path = String.format("/serving-endpoints/%s/invocations", request.getName());
     Map<String, String> headers = new HashMap<>();

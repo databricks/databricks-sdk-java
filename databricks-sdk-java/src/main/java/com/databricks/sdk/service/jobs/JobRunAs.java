@@ -8,12 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Write-only setting, available only in Create/Update/Reset and Submit calls. Specifies the user or
- * service principal that the job runs as. If not specified, the job runs as the user who created
- * the job.
+ * Write-only setting. Specifies the user, service principal or group that the job/pipeline runs as.
+ * If not specified, the job/pipeline runs as the user who created the job/pipeline.
  *
- * <p>Only `user_name` or `service_principal_name` can be specified. If both are specified, an error
- * is thrown.
+ * <p>Exactly one of `user_name`, `service_principal_name`, `group_name` should be specified. If
+ * not, an error is thrown.
  */
 @Generated
 public class JobRunAs {

@@ -37,6 +37,10 @@ public class TokenInfo {
   @JsonProperty("token_id")
   private String tokenId;
 
+  /** If applicable, the ID of the workspace that the token was created in. */
+  @JsonProperty("workspace_id")
+  private Long workspaceId;
+
   public TokenInfo setComment(String comment) {
     this.comment = comment;
     return this;
@@ -100,6 +104,15 @@ public class TokenInfo {
     return tokenId;
   }
 
+  public TokenInfo setWorkspaceId(Long workspaceId) {
+    this.workspaceId = workspaceId;
+    return this;
+  }
+
+  public Long getWorkspaceId() {
+    return workspaceId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -111,13 +124,21 @@ public class TokenInfo {
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(expiryTime, that.expiryTime)
         && Objects.equals(ownerId, that.ownerId)
-        && Objects.equals(tokenId, that.tokenId);
+        && Objects.equals(tokenId, that.tokenId)
+        && Objects.equals(workspaceId, that.workspaceId);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        comment, createdById, createdByUsername, creationTime, expiryTime, ownerId, tokenId);
+        comment,
+        createdById,
+        createdByUsername,
+        creationTime,
+        expiryTime,
+        ownerId,
+        tokenId,
+        workspaceId);
   }
 
   @Override
@@ -130,6 +151,7 @@ public class TokenInfo {
         .add("expiryTime", expiryTime)
         .add("ownerId", ownerId)
         .add("tokenId", tokenId)
+        .add("workspaceId", workspaceId)
         .toString();
   }
 }

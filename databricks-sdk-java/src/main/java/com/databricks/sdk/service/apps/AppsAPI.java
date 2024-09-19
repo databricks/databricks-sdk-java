@@ -33,23 +33,24 @@ public class AppsAPI {
     impl = mock;
   }
 
-  public App waitGetAppIdle(String name) throws TimeoutException {
-    return waitGetAppIdle(name, Duration.ofMinutes(20), null);
+  public App waitGetAppActive(String name) throws TimeoutException {
+    return waitGetAppActive(name, Duration.ofMinutes(20), null);
   }
 
-  public App waitGetAppIdle(String name, Duration timeout, Consumer<App> callback)
+  public App waitGetAppActive(String name, Duration timeout, Consumer<App> callback)
       throws TimeoutException {
     long deadline = System.currentTimeMillis() + timeout.toMillis();
-    java.util.List<AppState> targetStates = Arrays.asList(AppState.IDLE);
-    java.util.List<AppState> failureStates = Arrays.asList(AppState.ERROR);
+    java.util.List<ComputeState> targetStates = Arrays.asList(ComputeState.ACTIVE);
+    java.util.List<ComputeState> failureStates =
+        Arrays.asList(ComputeState.ERROR, ComputeState.STOPPED);
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
       App poll = get(new GetAppRequest().setName(name));
-      AppState status = poll.getStatus().getState();
+      ComputeState status = poll.getComputeStatus().getState();
       statusMessage = String.format("current status: %s", status);
-      if (poll.getStatus() != null) {
-        statusMessage = poll.getStatus().getMessage();
+      if (poll.getComputeStatus() != null) {
+        statusMessage = poll.getComputeStatus().getMessage();
       }
       if (targetStates.contains(status)) {
         return poll;
@@ -58,7 +59,54 @@ public class AppsAPI {
         callback.accept(poll);
       }
       if (failureStates.contains(status)) {
-        String msg = String.format("failed to reach IDLE, got %s: %s", status, statusMessage);
+        String msg = String.format("failed to reach ACTIVE, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("name=%s", name);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
+  public App waitGetAppStopped(String name) throws TimeoutException {
+    return waitGetAppStopped(name, Duration.ofMinutes(20), null);
+  }
+
+  public App waitGetAppStopped(String name, Duration timeout, Consumer<App> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<ComputeState> targetStates = Arrays.asList(ComputeState.STOPPED);
+    java.util.List<ComputeState> failureStates = Arrays.asList(ComputeState.ERROR);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      App poll = get(new GetAppRequest().setName(name));
+      ComputeState status = poll.getComputeStatus().getState();
+      statusMessage = String.format("current status: %s", status);
+      if (poll.getComputeStatus() != null) {
+        statusMessage = poll.getComputeStatus().getMessage();
+      }
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg = String.format("failed to reach STOPPED, got %s: %s", status, statusMessage);
         throw new IllegalStateException(msg);
       }
 
@@ -143,11 +191,11 @@ public class AppsAPI {
   public Wait<App, App> create(CreateAppRequest request) {
     App response = impl.create(request);
     return new Wait<>(
-        (timeout, callback) -> waitGetAppIdle(response.getName(), timeout, callback), response);
+        (timeout, callback) -> waitGetAppActive(response.getName(), timeout, callback), response);
   }
 
-  public void delete(String name) {
-    delete(new DeleteAppRequest().setName(name));
+  public App delete(String name) {
+    return delete(new DeleteAppRequest().setName(name));
   }
 
   /**
@@ -155,13 +203,12 @@ public class AppsAPI {
    *
    * <p>Deletes an app.
    */
-  public void delete(DeleteAppRequest request) {
-    impl.delete(request);
+  public App delete(DeleteAppRequest request) {
+    return impl.delete(request);
   }
 
-  public Wait<AppDeployment, AppDeployment> deploy(String appName, String sourceCodePath) {
-    return deploy(
-        new CreateAppDeploymentRequest().setAppName(appName).setSourceCodePath(sourceCodePath));
+  public Wait<AppDeployment, AppDeployment> deploy(String appName) {
+    return deploy(new CreateAppDeploymentRequest().setAppName(appName));
   }
 
   /**
@@ -286,7 +333,7 @@ public class AppsAPI {
     return impl.setPermissions(request);
   }
 
-  public Wait<AppDeployment, AppDeployment> start(String name) {
+  public Wait<App, App> start(String name) {
     return start(new StartAppRequest().setName(name));
   }
 
@@ -295,17 +342,14 @@ public class AppsAPI {
    *
    * <p>Start the last active deployment of the app in the workspace.
    */
-  public Wait<AppDeployment, AppDeployment> start(StartAppRequest request) {
-    AppDeployment response = impl.start(request);
+  public Wait<App, App> start(StartAppRequest request) {
+    App response = impl.start(request);
     return new Wait<>(
-        (timeout, callback) ->
-            waitGetDeploymentAppSucceeded(
-                request.getName(), response.getDeploymentId(), timeout, callback),
-        response);
+        (timeout, callback) -> waitGetAppActive(response.getName(), timeout, callback), response);
   }
 
-  public void stop(String name) {
-    stop(new StopAppRequest().setName(name));
+  public Wait<App, App> stop(String name) {
+    return stop(new StopAppRequest().setName(name));
   }
 
   /**
@@ -313,8 +357,10 @@ public class AppsAPI {
    *
    * <p>Stops the active deployment of the app in the workspace.
    */
-  public void stop(StopAppRequest request) {
-    impl.stop(request);
+  public Wait<App, App> stop(StopAppRequest request) {
+    App response = impl.stop(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetAppStopped(response.getName(), timeout, callback), response);
   }
 
   public App update(String name) {

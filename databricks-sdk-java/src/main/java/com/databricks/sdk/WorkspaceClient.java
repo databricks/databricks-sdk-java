@@ -44,6 +44,8 @@ import com.databricks.sdk.service.catalog.TableConstraintsAPI;
 import com.databricks.sdk.service.catalog.TableConstraintsService;
 import com.databricks.sdk.service.catalog.TablesAPI;
 import com.databricks.sdk.service.catalog.TablesService;
+import com.databricks.sdk.service.catalog.TemporaryTableCredentialsAPI;
+import com.databricks.sdk.service.catalog.TemporaryTableCredentialsService;
 import com.databricks.sdk.service.catalog.VolumesAPI;
 import com.databricks.sdk.service.catalog.VolumesService;
 import com.databricks.sdk.service.catalog.WorkspaceBindingsAPI;
@@ -270,6 +272,7 @@ public class WorkspaceClient {
   private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
+  private TemporaryTableCredentialsAPI temporaryTableCredentialsAPI;
   private TokenManagementAPI tokenManagementAPI;
   private TokensAPI tokensAPI;
   private UsersAPI usersAPI;
@@ -368,6 +371,7 @@ public class WorkspaceClient {
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
+    temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
     tokenManagementAPI = new TokenManagementAPI(apiClient);
     tokensAPI = new TokensAPI(apiClient);
     usersAPI = new UsersAPI(apiClient);
@@ -1451,7 +1455,9 @@ public class WorkspaceClient {
    * timeouts are approximate, occur server-side, and cannot account for things such as caller
    * delays and network latency from caller to service. - The system will auto-close a statement
    * after one hour if the client stops polling and thus you must poll at least once an hour. - The
-   * results are only available for one hour after success; polling does not extend this.
+   * results are only available for one hour after success; polling does not extend this. - The SQL
+   * Execution API must be used for the entire lifecycle of the statement. For example, you cannot
+   * use the Jobs API to execute the command, and then the SQL Execution API to cancel it.
    *
    * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Databricks SQL Statement
    * Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
@@ -1515,6 +1521,25 @@ public class WorkspaceClient {
    */
   public TablesAPI tables() {
     return tablesAPI;
+  }
+
+  /**
+   * Temporary Table Credentials refer to short-lived, downscoped credentials used to access cloud
+   * storage locationswhere table data is stored in Databricks. These credentials are employed to
+   * provide secure and time-limitedaccess to data in cloud environments such as AWS, Azure, and
+   * Google Cloud. Each cloud provider has its own typeof credentials: AWS uses temporary session
+   * tokens via AWS Security Token Service (STS), Azure utilizesShared Access Signatures (SAS) for
+   * its data storage services, and Google Cloud supports temporary credentialsthrough OAuth
+   * 2.0.Temporary table credentials ensure that data access is limited in scope and duration,
+   * reducing the risk ofunauthorized access or misuse. To use the temporary table credentials API,
+   * a metastore admin needs to enable the external_access_enabled flag (off by default) at the
+   * metastore level, and user needs to be granted the EXTERNAL USE SCHEMA permission at the schema
+   * level by catalog admin. Note that EXTERNAL USE SCHEMA is a schema level permission that can
+   * only be granted by catalog admin explicitly and is not included in schema ownership or ALL
+   * PRIVILEGES on the schema for security reason.
+   */
+  public TemporaryTableCredentialsAPI temporaryTableCredentials() {
+    return temporaryTableCredentialsAPI;
   }
 
   /**
@@ -2528,6 +2553,20 @@ public class WorkspaceClient {
   /** Replace the default TablesAPI with a custom implementation. */
   public WorkspaceClient withTablesAPI(TablesAPI tables) {
     this.tablesAPI = tables;
+    return this;
+  }
+
+  /** Replace the default TemporaryTableCredentialsService with a custom implementation. */
+  public WorkspaceClient withTemporaryTableCredentialsImpl(
+      TemporaryTableCredentialsService temporaryTableCredentials) {
+    return this.withTemporaryTableCredentialsAPI(
+        new TemporaryTableCredentialsAPI(temporaryTableCredentials));
+  }
+
+  /** Replace the default TemporaryTableCredentialsAPI with a custom implementation. */
+  public WorkspaceClient withTemporaryTableCredentialsAPI(
+      TemporaryTableCredentialsAPI temporaryTableCredentials) {
+    this.temporaryTableCredentialsAPI = temporaryTableCredentials;
     return this;
   }
 

@@ -6,8 +6,8 @@ import com.databricks.sdk.support.Generated;
 
 @Generated
 public enum AppDeploymentState {
+  CANCELLED,
   FAILED,
   IN_PROGRESS,
-  STOPPED,
   SUCCEEDED,
 }

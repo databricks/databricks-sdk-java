@@ -10,6 +10,13 @@ import java.util.Objects;
 
 @Generated
 public class ServingEndpointDetailed {
+  /**
+   * The AI Gateway configuration for the serving endpoint. NOTE: Only external model endpoints are
+   * currently supported.
+   */
+  @JsonProperty("ai_gateway")
+  private AiGatewayConfig aiGateway;
+
   /** The config that is currently being served by the endpoint. */
   @JsonProperty("config")
   private EndpointCoreConfigOutput config;
@@ -68,6 +75,15 @@ public class ServingEndpointDetailed {
   /** The task type of the serving endpoint. */
   @JsonProperty("task")
   private String task;
+
+  public ServingEndpointDetailed setAiGateway(AiGatewayConfig aiGateway) {
+    this.aiGateway = aiGateway;
+    return this;
+  }
+
+  public AiGatewayConfig getAiGateway() {
+    return aiGateway;
+  }
 
   public ServingEndpointDetailed setConfig(EndpointCoreConfigOutput config) {
     this.config = config;
@@ -201,7 +217,8 @@ public class ServingEndpointDetailed {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ServingEndpointDetailed that = (ServingEndpointDetailed) o;
-    return Objects.equals(config, that.config)
+    return Objects.equals(aiGateway, that.aiGateway)
+        && Objects.equals(config, that.config)
         && Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
         && Objects.equals(dataPlaneInfo, that.dataPlaneInfo)
@@ -220,6 +237,7 @@ public class ServingEndpointDetailed {
   @Override
   public int hashCode() {
     return Objects.hash(
+        aiGateway,
         config,
         creationTimestamp,
         creator,
@@ -239,6 +257,7 @@ public class ServingEndpointDetailed {
   @Override
   public String toString() {
     return new ToStringer(ServingEndpointDetailed.class)
+        .add("aiGateway", aiGateway)
         .add("config", config)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)

@@ -29,6 +29,11 @@ public class ListTablesRequest {
   @QueryParam("include_delta_metadata")
   private Boolean includeDeltaMetadata;
 
+  /** Whether to include a manifest containing capabilities the table has. */
+  @JsonIgnore
+  @QueryParam("include_manifest_capabilities")
+  private Boolean includeManifestCapabilities;
+
   /**
    * Maximum number of tables to return. If not set, all the tables are returned (not recommended).
    * - when set to a value greater than 0, the page length is the minimum of this value and a server
@@ -86,6 +91,15 @@ public class ListTablesRequest {
     return includeDeltaMetadata;
   }
 
+  public ListTablesRequest setIncludeManifestCapabilities(Boolean includeManifestCapabilities) {
+    this.includeManifestCapabilities = includeManifestCapabilities;
+    return this;
+  }
+
+  public Boolean getIncludeManifestCapabilities() {
+    return includeManifestCapabilities;
+  }
+
   public ListTablesRequest setMaxResults(Long maxResults) {
     this.maxResults = maxResults;
     return this;
@@ -139,6 +153,7 @@ public class ListTablesRequest {
     return Objects.equals(catalogName, that.catalogName)
         && Objects.equals(includeBrowse, that.includeBrowse)
         && Objects.equals(includeDeltaMetadata, that.includeDeltaMetadata)
+        && Objects.equals(includeManifestCapabilities, that.includeManifestCapabilities)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(omitColumns, that.omitColumns)
         && Objects.equals(omitProperties, that.omitProperties)
@@ -152,6 +167,7 @@ public class ListTablesRequest {
         catalogName,
         includeBrowse,
         includeDeltaMetadata,
+        includeManifestCapabilities,
         maxResults,
         omitColumns,
         omitProperties,
@@ -165,6 +181,7 @@ public class ListTablesRequest {
         .add("catalogName", catalogName)
         .add("includeBrowse", includeBrowse)
         .add("includeDeltaMetadata", includeDeltaMetadata)
+        .add("includeManifestCapabilities", includeManifestCapabilities)
         .add("maxResults", maxResults)
         .add("omitColumns", omitColumns)
         .add("omitProperties", omitProperties)

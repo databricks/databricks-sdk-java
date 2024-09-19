@@ -25,7 +25,7 @@ public interface AppsService {
    *
    * <p>Deletes an app.
    */
-  void delete(DeleteAppRequest deleteAppRequest);
+  App delete(DeleteAppRequest deleteAppRequest);
 
   /**
    * Create an app deployment.
@@ -89,14 +89,14 @@ public interface AppsService {
    *
    * <p>Start the last active deployment of the app in the workspace.
    */
-  AppDeployment start(StartAppRequest startAppRequest);
+  App start(StartAppRequest startAppRequest);
 
   /**
    * Stop an app.
    *
    * <p>Stops the active deployment of the app in the workspace.
    */
-  void stop(StopAppRequest stopAppRequest);
+  App stop(StopAppRequest stopAppRequest);
 
   /**
    * Update an app.

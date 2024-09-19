@@ -13,6 +13,14 @@ public class App {
   @JsonProperty("active_deployment")
   private AppDeployment activeDeployment;
 
+  /** */
+  @JsonProperty("app_status")
+  private ApplicationStatus appStatus;
+
+  /** */
+  @JsonProperty("compute_status")
+  private ComputeStatus computeStatus;
+
   /** The creation time of the app. Formatted timestamp in ISO 6801. */
   @JsonProperty("create_time")
   private String createTime;
@@ -44,10 +52,6 @@ public class App {
   @JsonProperty("service_principal_name")
   private String servicePrincipalName;
 
-  /** */
-  @JsonProperty("status")
-  private AppStatus status;
-
   /** The update time of the app. Formatted timestamp in ISO 6801. */
   @JsonProperty("update_time")
   private String updateTime;
@@ -67,6 +71,24 @@ public class App {
 
   public AppDeployment getActiveDeployment() {
     return activeDeployment;
+  }
+
+  public App setAppStatus(ApplicationStatus appStatus) {
+    this.appStatus = appStatus;
+    return this;
+  }
+
+  public ApplicationStatus getAppStatus() {
+    return appStatus;
+  }
+
+  public App setComputeStatus(ComputeStatus computeStatus) {
+    this.computeStatus = computeStatus;
+    return this;
+  }
+
+  public ComputeStatus getComputeStatus() {
+    return computeStatus;
   }
 
   public App setCreateTime(String createTime) {
@@ -132,15 +154,6 @@ public class App {
     return servicePrincipalName;
   }
 
-  public App setStatus(AppStatus status) {
-    this.status = status;
-    return this;
-  }
-
-  public AppStatus getStatus() {
-    return status;
-  }
-
   public App setUpdateTime(String updateTime) {
     this.updateTime = updateTime;
     return this;
@@ -174,6 +187,8 @@ public class App {
     if (o == null || getClass() != o.getClass()) return false;
     App that = (App) o;
     return Objects.equals(activeDeployment, that.activeDeployment)
+        && Objects.equals(appStatus, that.appStatus)
+        && Objects.equals(computeStatus, that.computeStatus)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(creator, that.creator)
         && Objects.equals(description, that.description)
@@ -181,7 +196,6 @@ public class App {
         && Objects.equals(pendingDeployment, that.pendingDeployment)
         && Objects.equals(servicePrincipalId, that.servicePrincipalId)
         && Objects.equals(servicePrincipalName, that.servicePrincipalName)
-        && Objects.equals(status, that.status)
         && Objects.equals(updateTime, that.updateTime)
         && Objects.equals(updater, that.updater)
         && Objects.equals(url, that.url);
@@ -191,6 +205,8 @@ public class App {
   public int hashCode() {
     return Objects.hash(
         activeDeployment,
+        appStatus,
+        computeStatus,
         createTime,
         creator,
         description,
@@ -198,7 +214,6 @@ public class App {
         pendingDeployment,
         servicePrincipalId,
         servicePrincipalName,
-        status,
         updateTime,
         updater,
         url);
@@ -208,6 +223,8 @@ public class App {
   public String toString() {
     return new ToStringer(App.class)
         .add("activeDeployment", activeDeployment)
+        .add("appStatus", appStatus)
+        .add("computeStatus", computeStatus)
         .add("createTime", createTime)
         .add("creator", creator)
         .add("description", description)
@@ -215,7 +232,6 @@ public class App {
         .add("pendingDeployment", pendingDeployment)
         .add("servicePrincipalId", servicePrincipalId)
         .add("servicePrincipalName", servicePrincipalName)
-        .add("status", status)
         .add("updateTime", updateTime)
         .add("updater", updater)
         .add("url", url)

@@ -61,10 +61,6 @@ public class QueryInfo {
   @JsonProperty("query_id")
   private String queryId;
 
-  /** */
-  @JsonProperty("query_source")
-  private QuerySource querySource;
-
   /** The time the query started. */
   @JsonProperty("query_start_time_ms")
   private Long queryStartTimeMs;
@@ -224,15 +220,6 @@ public class QueryInfo {
     return queryId;
   }
 
-  public QueryInfo setQuerySource(QuerySource querySource) {
-    this.querySource = querySource;
-    return this;
-  }
-
-  public QuerySource getQuerySource() {
-    return querySource;
-  }
-
   public QueryInfo setQueryStartTimeMs(Long queryStartTimeMs) {
     this.queryStartTimeMs = queryStartTimeMs;
     return this;
@@ -332,7 +319,6 @@ public class QueryInfo {
         && Objects.equals(plansState, that.plansState)
         && Objects.equals(queryEndTimeMs, that.queryEndTimeMs)
         && Objects.equals(queryId, that.queryId)
-        && Objects.equals(querySource, that.querySource)
         && Objects.equals(queryStartTimeMs, that.queryStartTimeMs)
         && Objects.equals(queryText, that.queryText)
         && Objects.equals(rowsProduced, that.rowsProduced)
@@ -360,7 +346,6 @@ public class QueryInfo {
         plansState,
         queryEndTimeMs,
         queryId,
-        querySource,
         queryStartTimeMs,
         queryText,
         rowsProduced,
@@ -388,7 +373,6 @@ public class QueryInfo {
         .add("plansState", plansState)
         .add("queryEndTimeMs", queryEndTimeMs)
         .add("queryId", queryId)
-        .add("querySource", querySource)
         .add("queryStartTimeMs", queryStartTimeMs)
         .add("queryText", queryText)
         .add("rowsProduced", rowsProduced)
