@@ -123,7 +123,8 @@ public class UserAgent {
       segments.addAll(
               otherInfo.stream()
                       .map(e -> String.format("%s/%s", e.getKey(), e.getValue()))
-                      .collect(Collectors.toSet()));
+                      .collect(Collectors.toSet())
+      );
     }
     return segments.stream().collect(Collectors.joining(" "));
   }
