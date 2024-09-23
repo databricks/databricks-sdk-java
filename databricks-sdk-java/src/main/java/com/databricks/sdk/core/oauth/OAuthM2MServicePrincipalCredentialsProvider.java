@@ -26,7 +26,6 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
         || config.getHost() == null) {
       return null;
     }
-    // TODO: Add cache in getOidcEndpoints
     // TODO: Azure returns 404 for UC workspace after redirecting to
     // https://login.microsoftonline.com/{cfg.azure_tenant_id}/.well-known/oauth-authorization-server
     try {
