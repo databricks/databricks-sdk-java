@@ -121,10 +121,9 @@ public class UserAgent {
     segments.add(String.format("os/%s", osName()));
     synchronized (otherInfo) {
       segments.addAll(
-              otherInfo.stream()
-                      .map(e -> String.format("%s/%s", e.getKey(), e.getValue()))
-                      .collect(Collectors.toSet())
-      );
+          otherInfo.stream()
+              .map(e -> String.format("%s/%s", e.getKey(), e.getValue()))
+              .collect(Collectors.toSet()));
     }
     return segments.stream().collect(Collectors.joining(" "));
   }
