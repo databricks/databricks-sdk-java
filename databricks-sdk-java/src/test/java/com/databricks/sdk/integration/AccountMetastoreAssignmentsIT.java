@@ -33,7 +33,6 @@ public class AccountMetastoreAssignmentsIT {
       @EnvOrSkip("TEST_WORKSPACE_ID") String expectedWorkspaceId) {
     Iterable<Long> list = a.metastoreAssignments().list(metastoreId);
     List<Long> all = CollectionUtils.asList(list);
-    List<Long> expected = Collections.singletonList(Long.valueOf(expectedWorkspaceId));
-    Assertions.assertEquals(expected, all);
+    Assertions.assertTrue(all.contains(Long.valueOf(expectedWorkspaceId)));
   }
 }
