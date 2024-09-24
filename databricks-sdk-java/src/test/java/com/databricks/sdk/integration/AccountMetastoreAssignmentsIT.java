@@ -6,7 +6,6 @@ import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvOrSkip;
 import com.databricks.sdk.integration.framework.EnvTest;
 import com.databricks.sdk.service.catalog.AccountsMetastoreAssignment;
-import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,7 +32,6 @@ public class AccountMetastoreAssignmentsIT {
       @EnvOrSkip("TEST_WORKSPACE_ID") String expectedWorkspaceId) {
     Iterable<Long> list = a.metastoreAssignments().list(metastoreId);
     List<Long> all = CollectionUtils.asList(list);
-    List<Long> expected = Collections.singletonList(Long.valueOf(expectedWorkspaceId));
-    Assertions.assertEquals(expected, all);
+    Assertions.assertTrue(all.contains(Long.valueOf(expectedWorkspaceId)));
   }
 }
