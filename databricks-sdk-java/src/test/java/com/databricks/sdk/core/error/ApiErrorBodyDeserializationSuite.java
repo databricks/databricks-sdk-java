@@ -69,11 +69,10 @@ public class ApiErrorBodyDeserializationSuite {
   void handleNullMetadataFieldInErrorResponse() throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
     String rawResponse =
-            "{\"error_code\":\"METASTORE_DOES_NOT_EXIST\",\"message\":\"No metastore assigned for the current workspace.\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.RequestInfo\",\"request_id\":\"1888e822-f1b5-4996-85eb-0d2b5cc402e6\",\"serving_data\":\"\"}]}";
+        "{\"error_code\":\"METASTORE_DOES_NOT_EXIST\",\"message\":\"No metastore assigned for the current workspace.\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.RequestInfo\",\"request_id\":\"1888e822-f1b5-4996-85eb-0d2b5cc402e6\",\"serving_data\":\"\"}]}";
     ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
 
     assertEquals(error.getErrorCode(), "METASTORE_DOES_NOT_EXIST");
     assertEquals(error.getMessage(), "No metastore assigned for the current workspace.");
   }
-
 }
