@@ -18,6 +18,22 @@ New contributors should look for the following tags when searching for a first c
 
 [good first issue](https://github.com/databricks/databricks-sdk-java/labels/good%20first%20issue)
 
+## Developer Certificate of Origin
+
+To contribute to this repository, you must sign off your commits to certify that you have the right to contribute the code and that it complies with the open source license.
+You can easily do this by adding a "Signed-off-by" line to your commit message to certify your compliance. Please use use your real name as pseudonymous/anonymous contributions are not accepted.
+
+```
+Signed-off-by: Joe Smith <joe.smith@email.com>
+```
+
+If you set your `user.name` and `user.email` git configs, you can sign your commit automatically with git commit -s:
+
+```
+git commit -s -m "Your commit message"
+```
+
+
 ## Contribution Workflow
 
 Code contributions—bug fixes, new development, test improvement—all follow a GitHub-centered workflow. To participate in Databricks Java SDK development, set up a GitHub account. Then:
@@ -43,7 +59,7 @@ Code contributions—bug fixes, new development, test improvement—all follow a
     ```bash
     git add -A
 
-    git commit -m "commit message here"
+    git commit -s -m "commit message here"
     ```
 
 1. Push your changes to your GitHub repo.
