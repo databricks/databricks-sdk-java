@@ -1,5 +1,55 @@
 # Version changelog
 
+## [Release] Release v0.32.0
+
+### Bug Fixes
+
+ * Fix listAccountMetastoreAssignments Integration test ([#350](https://github.com/databricks/databricks-sdk-java/pull/350))
+ * Fix parsing issue in ErrorDetail ([#328](https://github.com/databricks/databricks-sdk-java/pull/328))
+
+### Internal Changes
+
+ * Update SDK to OpenAPI spec ([#346](https://github.com/databricks/databricks-sdk-java/pull/346)).
+ * Add DCO guidelines ([#351](https://github.com/databricks/databricks-sdk-java/pull/351))
+
+
+### API Changes:
+
+ * Added `workspaceClient.disableLegacyAccess()` service and `accountClient.disableLegacyFeatures()` service.
+ * Added `workspaceClient.temporaryTableCredentials()` service.
+ * Added `putAiGateway()` method for `workspaceClient.servingEndpoints()` service.
+ * Added `com.databricks.sdk.service.apps.ApplicationState`, `com.databricks.sdk.service.apps.ApplicationStatus`, `com.databricks.sdk.service.apps.ComputeState` and `com.databricks.sdk.service.apps.ComputeStatus` classes.
+ * Added `com.databricks.sdk.service.catalog.AwsCredentials`, `com.databricks.sdk.service.catalog.AzureUserDelegationSas`, `com.databricks.sdk.service.catalog.GcpOauthToken`, `com.databricks.sdk.service.catalog.GenerateTemporaryTableCredentialRequest`, `com.databricks.sdk.service.catalog.GenerateTemporaryTableCredentialResponse`, `com.databricks.sdk.service.catalog.R2Credentials` and `com.databricks.sdk.service.catalog.TableOperation` classes.
+ * Added `com.databricks.sdk.service.serving.AiGatewayConfig`, `com.databricks.sdk.service.serving.AiGatewayGuardrailParameters`, `com.databricks.sdk.service.serving.AiGatewayGuardrailPiiBehavior`, `com.databricks.sdk.service.serving.AiGatewayGuardrailPiiBehaviorBehavior`, `com.databricks.sdk.service.serving.AiGatewayGuardrails`, `com.databricks.sdk.service.serving.AiGatewayInferenceTableConfig`, `com.databricks.sdk.service.serving.AiGatewayRateLimit`, `com.databricks.sdk.service.serving.AiGatewayRateLimitKey`, `com.databricks.sdk.service.serving.AiGatewayRateLimitRenewalPeriod`, `com.databricks.sdk.service.serving.AiGatewayUsageTrackingConfig`, `com.databricks.sdk.service.serving.PutAiGatewayRequest` and `com.databricks.sdk.service.serving.PutAiGatewayResponse` classes.
+ * Added `com.databricks.sdk.service.settings.BooleanMessage`, `com.databricks.sdk.service.settings.DeleteDisableLegacyAccessRequest`, `com.databricks.sdk.service.settings.DeleteDisableLegacyAccessResponse`, `com.databricks.sdk.service.settings.DeleteDisableLegacyFeaturesRequest`, `com.databricks.sdk.service.settings.DeleteDisableLegacyFeaturesResponse`, `com.databricks.sdk.service.settings.DisableLegacyAccess`, `com.databricks.sdk.service.settings.DisableLegacyFeatures`, `com.databricks.sdk.service.settings.GetDisableLegacyAccessRequest`, `com.databricks.sdk.service.settings.GetDisableLegacyFeaturesRequest`, `com.databricks.sdk.service.settings.UpdateDisableLegacyAccessRequest` and `com.databricks.sdk.service.settings.UpdateDisableLegacyFeaturesRequest` classes.
+ * Added `appStatus` and `computeStatus` fields for `com.databricks.sdk.service.apps.App`.
+ * Added `deploymentId` field for `com.databricks.sdk.service.apps.CreateAppDeploymentRequest`.
+ * Added `externalAccessEnabled` field for `com.databricks.sdk.service.catalog.GetMetastoreSummaryResponse`.
+ * Added `includeManifestCapabilities` field for `com.databricks.sdk.service.catalog.GetTableRequest`.
+ * Added `includeManifestCapabilities` field for `com.databricks.sdk.service.catalog.ListSummariesRequest`.
+ * Added `includeManifestCapabilities` field for `com.databricks.sdk.service.catalog.ListTablesRequest`.
+ * Added `externalAccessEnabled` field for `com.databricks.sdk.service.catalog.MetastoreInfo`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+ * Added `effectiveBudgetPolicyId` field for `com.databricks.sdk.service.pipelines.GetPipelineResponse`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+ * Added `aiGateway` field for `com.databricks.sdk.service.serving.CreateServingEndpoint`.
+ * Added `aiGateway` field for `com.databricks.sdk.service.serving.ServingEndpoint`.
+ * Added `aiGateway` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+ * Added `workspaceId` field for `com.databricks.sdk.service.settings.TokenInfo`.
+ * Changed `delete()`, `start()` and `stop()` methods for `workspaceClient.apps()` service to return `com.databricks.sdk.service.apps.App` class.
+ * Changed `deploy()` method for `workspaceClient.apps()` service with new required argument order.
+ * Changed `sourceCodePath` field for `com.databricks.sdk.service.apps.AppDeployment` to no longer be required.
+ * Changed `sourceCodePath` field for `com.databricks.sdk.service.apps.CreateAppDeploymentRequest` to no longer be required.
+ * Changed `returnParams` and `routineDependencies` fields for `com.databricks.sdk.service.catalog.CreateFunction` to no longer be required.
+ * Removed `com.databricks.sdk.service.apps.AppState`, `com.databricks.sdk.service.apps.AppStatus`, `Object` and `Object` classes.
+ * Removed `com.databricks.sdk.service.sql.ClientCallContext`, `com.databricks.sdk.service.sql.EncodedText`, `com.databricks.sdk.service.sql.EncodedTextEncoding`, `com.databricks.sdk.service.sql.QuerySource`, `com.databricks.sdk.service.sql.QuerySourceDriverInfo`, `com.databricks.sdk.service.sql.QuerySourceEntryPoint`, `com.databricks.sdk.service.sql.QuerySourceJobManager`, `com.databricks.sdk.service.sql.QuerySourceTrigger` and `com.databricks.sdk.service.sql.ServerlessChannelInfo` classes.
+ * Removed `status` field for `com.databricks.sdk.service.apps.App`.
+ * Removed `querySource` field for `com.databricks.sdk.service.sql.QueryInfo`.
+
+OpenAPI SHA: 6f6b1371e640f2dfeba72d365ac566368656f6b6, Date: 2024-09-19
+
+
 ## [Release] Release v0.31.1
 
 ### New Features and Improvements
