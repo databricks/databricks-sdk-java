@@ -2,9 +2,15 @@
 
 ## [Release] Release v0.32.0
 
+### Bug Fixes
+
+ * Fix listAccountMetastoreAssignments Integration test ([#350](https://github.com/databricks/databricks-sdk-java/pull/350))
+ * Fix parsing issue in ErrorDetail ([#328](https://github.com/databricks/databricks-sdk-java/pull/328))
+
 ### Internal Changes
 
  * Update SDK to OpenAPI spec ([#346](https://github.com/databricks/databricks-sdk-java/pull/346)).
+ * Add DCO guidelines ([#351](https://github.com/databricks/databricks-sdk-java/pull/351))
 
 
 ### API Changes:
