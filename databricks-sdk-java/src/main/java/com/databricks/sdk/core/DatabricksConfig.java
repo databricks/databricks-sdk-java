@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import org.apache.http.HttpMessage;
 
 public class DatabricksConfig {
@@ -139,6 +140,7 @@ public class DatabricksConfig {
 
   private Environment env;
 
+  ConcurrentHashMap<String, OpenIDConnectEndpoints> oidcEndpointsCache = new ConcurrentHashMap<>();
   private DatabricksEnvironment databricksEnvironment;
 
   public Environment getEnv() {
@@ -374,13 +376,17 @@ public class DatabricksConfig {
     return this;
   }
 
-  /** @deprecated Use {@link #getAzureUseMsi()} instead. */
+  /**
+   * @deprecated Use {@link #getAzureUseMsi()} instead.
+   */
   @Deprecated()
   public boolean getAzureUseMSI() {
     return azureUseMsi;
   }
 
-  /** @deprecated Use {@link #setAzureUseMsi(boolean)} instead. */
+  /**
+   * @deprecated Use {@link #setAzureUseMsi(boolean)} instead.
+   */
   @Deprecated
   public DatabricksConfig setAzureUseMSI(boolean azureUseMsi) {
     this.azureUseMsi = azureUseMsi;
@@ -545,20 +551,7 @@ public class DatabricksConfig {
     if (discoveryUrl == null) {
       return fetchDefaultOidcEndpoints();
     }
-    return fetchOidcEndpointsFromDiscovery();
-  }
-
-  private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
-    try {
-      Request request = new Request("GET", discoveryUrl);
-      Response resp = getHttpClient().execute(request);
-      if (resp.getStatusCode() == 200) {
-        return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
-      }
-    } catch (IOException e) {
-      throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
-    }
-    return null;
+    return fetchOidcEndpointWithCache(discoveryUrl);
   }
 
   private OpenIDConnectEndpoints fetchDefaultOidcEndpoints() throws IOException {
@@ -582,11 +575,7 @@ public class DatabricksConfig {
     }
 
     String oidcEndpoint = getHost() + "/oidc/.well-known/oauth-authorization-server";
-    Response resp = getHttpClient().execute(new Request("GET", oidcEndpoint));
-    if (resp.getStatusCode() != 200) {
-      return null;
-    }
-    return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
+    return fetchOidcEndpointWithCache(oidcEndpoint);
   }
 
   @Override
@@ -655,5 +644,21 @@ public class DatabricksConfig {
     }
     newConfig.setHost(host);
     return newConfig;
+  }
+
+  private OpenIDConnectEndpoints fetchOidcEndpointWithCache(String oidcEndpoint) {
+    return oidcEndpointsCache.computeIfAbsent(
+        oidcEndpoint,
+        key -> {
+          try {
+            Response resp = getHttpClient().execute(new Request("GET", oidcEndpoint));
+            if (resp.getStatusCode() != 200) {
+              return null;
+            }
+            return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
+          } catch (IOException e) {
+            throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
+          }
+        });
   }
 }
