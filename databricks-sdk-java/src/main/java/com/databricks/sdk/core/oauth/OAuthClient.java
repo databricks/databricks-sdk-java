@@ -107,7 +107,8 @@ public class OAuthClient {
     this.hc = b.hc;
 
     DatabricksConfig config = new DatabricksConfig().setHost(b.host).resolve();
-    OpenIDConnectEndpoints oidc = config.getOidcEndpoints();
+    OidcEndpointsProvider odicEndpointsProvider = new OidcEndpointsProvider(config);
+    OpenIDConnectEndpoints oidc = odicEndpointsProvider.getOidcEndpoints();
     if (oidc == null) {
       throw new DatabricksException(b.host + " does not support OAuth");
     }

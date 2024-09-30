@@ -2,14 +2,9 @@ package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.core.http.HttpClient;
-import com.databricks.sdk.core.http.Request;
-import com.databricks.sdk.core.http.Response;
-import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 import org.apache.http.HttpMessage;
@@ -132,7 +127,6 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_RATE_LIMIT")
   private Integer rateLimit;
 
-  private volatile boolean resolved;
   private HeaderFactory headerFactory;
 
   private HttpClient httpClient;
@@ -539,54 +533,6 @@ public class DatabricksConfig {
       return false;
     }
     return host.startsWith("https://accounts.") || host.startsWith("https://accounts-dod.");
-  }
-
-  public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
-    if (discoveryUrl == null) {
-      return fetchDefaultOidcEndpoints();
-    }
-    return fetchOidcEndpointsFromDiscovery();
-  }
-
-  private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
-    try {
-      Request request = new Request("GET", discoveryUrl);
-      Response resp = getHttpClient().execute(request);
-      if (resp.getStatusCode() == 200) {
-        return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
-      }
-    } catch (IOException e) {
-      throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
-    }
-    return null;
-  }
-
-  private OpenIDConnectEndpoints fetchDefaultOidcEndpoints() throws IOException {
-    if (getHost() == null) {
-      return null;
-    }
-    if (isAzure() && getAzureClientId() != null) {
-      Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
-      request.setRedirectionBehavior(false);
-      Response resp = getHttpClient().execute(request);
-      String realAuthUrl = resp.getFirstHeader("location");
-      if (realAuthUrl == null) {
-        return null;
-      }
-      return new OpenIDConnectEndpoints(
-          realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
-    }
-    if (isAccountClient() && getAccountId() != null) {
-      String prefix = getHost() + "/oidc/accounts/" + getAccountId();
-      return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
-    }
-
-    String oidcEndpoint = getHost() + "/oidc/.well-known/oauth-authorization-server";
-    Response resp = getHttpClient().execute(new Request("GET", oidcEndpoint));
-    if (resp.getStatusCode() != 200) {
-      return null;
-    }
-    return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
   }
 
   @Override

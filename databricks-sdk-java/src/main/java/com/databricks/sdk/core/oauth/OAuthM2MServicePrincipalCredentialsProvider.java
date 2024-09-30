@@ -1,7 +1,6 @@
 package com.databricks.sdk.core.oauth;
 
 import com.databricks.sdk.core.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,7 +11,6 @@ import java.util.Map;
  * /oidc/.well-known/oauth-authorization-server is available on the given host.
  */
 public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsProvider {
-  private final ObjectMapper mapper = new ObjectMapper();
 
   @Override
   public String authType() {
@@ -30,7 +28,8 @@ public class OAuthM2MServicePrincipalCredentialsProvider implements CredentialsP
     // TODO: Azure returns 404 for UC workspace after redirecting to
     // https://login.microsoftonline.com/{cfg.azure_tenant_id}/.well-known/oauth-authorization-server
     try {
-      OpenIDConnectEndpoints jsonResponse = config.getOidcEndpoints();
+      OidcEndpointsProvider provider = new OidcEndpointsProvider(config);
+      OpenIDConnectEndpoints jsonResponse = provider.getOidcEndpoints();
       ClientCredentials tokenSource =
           new ClientCredentials.Builder()
               .withHttpClient(config.getHttpClient())
