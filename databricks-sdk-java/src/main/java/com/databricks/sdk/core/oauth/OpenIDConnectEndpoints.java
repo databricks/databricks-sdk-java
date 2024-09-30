@@ -2,7 +2,6 @@ package com.databricks.sdk.core.oauth;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.net.MalformedURLException;
 
 /**
  * Data class modelling the set of OpenID Connect endpoints, as defined in <a
@@ -17,8 +16,7 @@ public class OpenIDConnectEndpoints {
 
   public OpenIDConnectEndpoints(
       @JsonProperty("token_endpoint") String tokenEndpoint,
-      @JsonProperty("authorization_endpoint") String authorizationEndpoint)
-      throws MalformedURLException {
+      @JsonProperty("authorization_endpoint") String authorizationEndpoint) {
     this.tokenEndpoint = tokenEndpoint;
     this.authorizationEndpoint = authorizationEndpoint;
   }
