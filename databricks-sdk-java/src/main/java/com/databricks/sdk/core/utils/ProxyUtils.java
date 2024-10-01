@@ -62,7 +62,7 @@ public class ProxyUtils {
       builder.setRoutePlanner(
           new CustomRoutePlanner(new HttpHost(proxyHost, proxyPort, proxyScheme), config.getNonProxyHosts()));
     }
-    setupProxyAuth(proxyHost, proxyPort, proxyAuthType, proxyUser, proxyPassword, proxyScheme, builder);
+    setupProxyAuth(proxyHost, proxyPort, proxyAuthType, proxyUser, proxyPassword, builder);
   }
 
   /**
@@ -81,12 +81,11 @@ public class ProxyUtils {
       ProxyConfig.ProxyAuthType proxyAuthType,
       String proxyUser,
       String proxyPassword,
-      String proxyScheme,
       HttpClientBuilder builder) {
     if (proxyAuthType == null) {
       return;
     }
-    AuthScope authScope = new AuthScope(proxyHost, proxyPort, null, proxyScheme);
+    AuthScope authScope = new AuthScope(proxyHost, proxyPort);
     switch (proxyAuthType) {
       case NONE:
         break;
