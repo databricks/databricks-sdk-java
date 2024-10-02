@@ -102,6 +102,30 @@ public class DatabricksConfigTest {
   }
 
   @Test
+  public void testWorkspaceLevelOidcEndpointsRetries() throws IOException {
+    try (FixtureServer server =
+                 new FixtureServer()
+                         .with(
+                                 "GET",
+                                 "/oidc/.well-known/oauth-authorization-server",
+                                 "",
+                                 429)
+                         .with(
+                                 "GET",
+                                 "/oidc/.well-known/oauth-authorization-server",
+                                 "{\"authorization_endpoint\":\"https://test-workspace.cloud.databricks.com/oidc/v1/authorize\"}",
+                                 200)) {
+      DatabricksConfig c =
+              new DatabricksConfig().setHost(server.getUrl()).setAccountId("1234567890");
+      c.resolve(
+              new Environment(new HashMap<>(), new ArrayList<String>(), System.getProperty("os.name")));
+      assertEquals(
+              c.getOidcEndpoints().getAuthorizationEndpoint(),
+              "https://test-workspace.cloud.databricks.com/oidc/v1/authorize");
+    }
+  }
+
+  @Test
   public void testAccountLevelOidcEndpoints() throws IOException {
     assertEquals(
         new DatabricksConfig()

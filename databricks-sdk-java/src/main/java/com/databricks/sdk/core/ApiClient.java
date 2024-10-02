@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +30,43 @@ import org.slf4j.LoggerFactory;
  * guessing
  */
 public class ApiClient {
+  static class Builder {
+    private DatabricksConfig config;
+    private Timer timer;
+    private Function<Void, Map<String, String>> authenticateFunc;
+    private Function<Void, String> getHostFunc;
+    private Function<Void, String> getAuthTypeFunc;
+
+    public Builder withDatabricksConfig(DatabricksConfig config) {
+        this.config = config;
+        return this;
+    }
+
+    public Builder withTimer(Timer timer) {
+        this.timer = timer;
+        return this;
+    }
+
+    public Builder withAuthenticateFunc(Function<Void, Map<String, String>> authenticateFunc) {
+        this.authenticateFunc = authenticateFunc;
+        return this;
+    }
+
+    public Builder withGetHostFunc(Function<Void, String> getHostFunc) {
+        this.getHostFunc = getHostFunc;
+        return this;
+    }
+
+    public Builder withGetAuthTypeFunc(Function<Void, String> getAuthTypeFunc) {
+        this.getAuthTypeFunc = getAuthTypeFunc;
+        return this;
+    }
+
+    public ApiClient build() {
+        return new ApiClient(config, timer, authenticateFunc, getHostFunc, getAuthTypeFunc);
+    }
+  }
+
   private static final Logger LOG = LoggerFactory.getLogger(ApiClient.class);
 
   private final int maxAttempts;
@@ -43,6 +81,9 @@ public class ApiClient {
   private final BodyLogger bodyLogger;
   private final RetryStrategyPicker retryStrategyPicker;
   private final Timer timer;
+  private final Function<Void, Map<String, String>> authenticateFunc;
+  private final Function<Void, String> getHostFunc;
+  private final Function<Void, String> getAuthTypeFunc;
   private static final String RETRY_AFTER_HEADER = "retry-after";
 
   public ApiClient() {
@@ -58,7 +99,16 @@ public class ApiClient {
   }
 
   public ApiClient(DatabricksConfig config, Timer timer) {
+    this(config, timer, v -> config.authenticate(), v -> config.getHost(), v -> config.getAuthType());
+  }
+
+  public ApiClient(DatabricksConfig config, Timer timer, Function<Void, Map<String, String>> authenticateFunc, Function<Void, String> getHostFunc, Function<Void, String> getAuthTypeFunc) {
     this.config = config;
+    this.timer = timer;
+    this.authenticateFunc = authenticateFunc;
+    this.getHostFunc = getHostFunc;
+    this.getAuthTypeFunc = getAuthTypeFunc;
+
     config.resolve();
 
     Integer rateLimit = config.getRateLimit();
@@ -77,8 +127,7 @@ public class ApiClient {
     httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
     retryStrategyPicker = new RequestBasedRetryStrategyPicker(this.config);
-    this.timer = timer;
-  }
+    }
 
   private static <I> void setQuery(Request in, I entity) {
     if (entity == null) {
@@ -245,15 +294,19 @@ public class ApiClient {
       Response out = null;
 
       // Authenticate the request. Failures should not be retried.
-      in.withHeaders(config.authenticate());
+      in.withHeaders(authenticateFunc.apply(null));
 
       // Prepend host to URL only after config.authenticate().
       // This call may configure the host (e.g. in case of notebook native auth).
-      in.withUrl(config.getHost() + path);
+      in.withUrl(getHostFunc.apply(null) + path);
 
       // Set User-Agent with auth type info, which is available only
       // after the first invocation to config.authenticate()
-      String userAgent = String.format("%s auth/%s", UserAgent.asString(), config.getAuthType());
+      String authType = getAuthTypeFunc.apply(null);
+      String userAgent = UserAgent.asString();
+      if (authType != "") {
+          userAgent += String.format(" auth/%s", authType);
+      }
       in.withHeader("User-Agent", userAgent);
 
       // Make the request, catching any exceptions, as we may want to retry.

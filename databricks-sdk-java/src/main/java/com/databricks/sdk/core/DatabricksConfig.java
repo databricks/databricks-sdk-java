@@ -7,6 +7,7 @@ import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
+import com.databricks.sdk.core.utils.SystemTimer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
@@ -581,12 +582,15 @@ public class DatabricksConfig {
       return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
     }
 
-    String oidcEndpoint = getHost() + "/oidc/.well-known/oauth-authorization-server";
-    Response resp = getHttpClient().execute(new Request("GET", oidcEndpoint));
-    if (resp.getStatusCode() != 200) {
-      return null;
-    }
-    return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
+    ApiClient apiClient = new ApiClient.Builder()
+      .withDatabricksConfig(this)
+      .withTimer(new SystemTimer())
+      .withAuthenticateFunc(v -> new HashMap<String, String>())
+      .withGetHostFunc(v -> getHost())
+      .withGetAuthTypeFunc(v -> "")
+      .build();
+
+    return apiClient.GET("/oidc/.well-known/oauth-authorization-server", OpenIDConnectEndpoints.class, new HashMap<>());
   }
 
   @Override

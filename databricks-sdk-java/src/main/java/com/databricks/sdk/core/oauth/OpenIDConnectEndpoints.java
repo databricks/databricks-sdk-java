@@ -11,9 +11,14 @@ import java.net.MalformedURLException;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OpenIDConnectEndpoints {
+  @JsonProperty("token_endpoint")
   private String tokenEndpoint;
 
+  @JsonProperty("authorization_endpoint")
   private String authorizationEndpoint;
+
+  public OpenIDConnectEndpoints() {
+  }
 
   public OpenIDConnectEndpoints(
       @JsonProperty("token_endpoint") String tokenEndpoint,
