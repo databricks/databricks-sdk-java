@@ -26,7 +26,7 @@ public class ExternalBrowserCredentialsProviderTest {
         new FixtureServer.FixtureMapping.Builder()
             .validateMethod("GET")
             .validatePath("/oidc/.well-known/oauth-authorization-server")
-            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}")
+            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}", 200)
             .build();
     try (FixtureServer fixtures = new FixtureServer()) {
       fixtures.with(fixture).with(fixture);
@@ -61,7 +61,7 @@ public class ExternalBrowserCredentialsProviderTest {
         new FixtureServer.FixtureMapping.Builder()
             .validateMethod("GET")
             .validatePath("/oidc/.well-known/oauth-authorization-server")
-            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}")
+            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}", 200)
             .build();
     try (FixtureServer fixtures = new FixtureServer()) {
       fixtures.with(fixture).with(fixture);
