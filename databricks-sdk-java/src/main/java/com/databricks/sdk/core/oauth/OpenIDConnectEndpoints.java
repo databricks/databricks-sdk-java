@@ -17,8 +17,7 @@ public class OpenIDConnectEndpoints {
   @JsonProperty("authorization_endpoint")
   private String authorizationEndpoint;
 
-  public OpenIDConnectEndpoints() {
-  }
+  public OpenIDConnectEndpoints() {}
 
   public OpenIDConnectEndpoints(
       @JsonProperty("token_endpoint") String tokenEndpoint,

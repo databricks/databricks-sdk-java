@@ -38,32 +38,32 @@ public class ApiClient {
     private Function<Void, String> getAuthTypeFunc;
 
     public Builder withDatabricksConfig(DatabricksConfig config) {
-        this.config = config;
-        return this;
+      this.config = config;
+      return this;
     }
 
     public Builder withTimer(Timer timer) {
-        this.timer = timer;
-        return this;
+      this.timer = timer;
+      return this;
     }
 
     public Builder withAuthenticateFunc(Function<Void, Map<String, String>> authenticateFunc) {
-        this.authenticateFunc = authenticateFunc;
-        return this;
+      this.authenticateFunc = authenticateFunc;
+      return this;
     }
 
     public Builder withGetHostFunc(Function<Void, String> getHostFunc) {
-        this.getHostFunc = getHostFunc;
-        return this;
+      this.getHostFunc = getHostFunc;
+      return this;
     }
 
     public Builder withGetAuthTypeFunc(Function<Void, String> getAuthTypeFunc) {
-        this.getAuthTypeFunc = getAuthTypeFunc;
-        return this;
+      this.getAuthTypeFunc = getAuthTypeFunc;
+      return this;
     }
 
     public ApiClient build() {
-        return new ApiClient(config, timer, authenticateFunc, getHostFunc, getAuthTypeFunc);
+      return new ApiClient(config, timer, authenticateFunc, getHostFunc, getAuthTypeFunc);
     }
   }
 
@@ -99,10 +99,20 @@ public class ApiClient {
   }
 
   public ApiClient(DatabricksConfig config, Timer timer) {
-    this(config, timer, v -> config.authenticate(), v -> config.getHost(), v -> config.getAuthType());
+    this(
+        config,
+        timer,
+        v -> config.authenticate(),
+        v -> config.getHost(),
+        v -> config.getAuthType());
   }
 
-  public ApiClient(DatabricksConfig config, Timer timer, Function<Void, Map<String, String>> authenticateFunc, Function<Void, String> getHostFunc, Function<Void, String> getAuthTypeFunc) {
+  public ApiClient(
+      DatabricksConfig config,
+      Timer timer,
+      Function<Void, Map<String, String>> authenticateFunc,
+      Function<Void, String> getHostFunc,
+      Function<Void, String> getAuthTypeFunc) {
     this.config = config;
     this.timer = timer;
     this.authenticateFunc = authenticateFunc;
@@ -127,7 +137,7 @@ public class ApiClient {
     httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
     retryStrategyPicker = new RequestBasedRetryStrategyPicker(this.config);
-    }
+  }
 
   private static <I> void setQuery(Request in, I entity) {
     if (entity == null) {
@@ -305,7 +315,7 @@ public class ApiClient {
       String authType = getAuthTypeFunc.apply(null);
       String userAgent = UserAgent.asString();
       if (authType != "") {
-          userAgent += String.format(" auth/%s", authType);
+        userAgent += String.format(" auth/%s", authType);
       }
       in.withHeader("User-Agent", userAgent);
 

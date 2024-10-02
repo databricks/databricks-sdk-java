@@ -123,7 +123,8 @@ public class FixtureServer implements Closeable {
                 v.validate(exchange);
               }
             };
-        return new FixtureMapping(validation, response, redirectUrl, redirectStatusCode, statusCode);
+        return new FixtureMapping(
+            validation, response, redirectUrl, redirectStatusCode, statusCode);
       }
     }
 
@@ -139,7 +140,11 @@ public class FixtureServer implements Closeable {
     }
 
     FixtureMapping(
-        Validation validation, String response, String redirectUrl, int redirectStatusCode, int statusCode) {
+        Validation validation,
+        String response,
+        String redirectUrl,
+        int redirectStatusCode,
+        int statusCode) {
       this.validation = validation;
       this.response = response;
       this.redirectUrl = redirectUrl;
@@ -226,7 +231,8 @@ public class FixtureServer implements Closeable {
       respond(exchange, 500, body);
     }
 
-    private void respondSuccess(HttpExchange exchange, String body, int statusCode) throws IOException {
+    private void respondSuccess(HttpExchange exchange, String body, int statusCode)
+        throws IOException {
       respond(exchange, statusCode, body);
     }
 
