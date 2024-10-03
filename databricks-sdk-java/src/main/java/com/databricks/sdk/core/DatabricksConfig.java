@@ -581,12 +581,15 @@ public class DatabricksConfig {
       return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
     }
 
-    String oidcEndpoint = getHost() + "/oidc/.well-known/oauth-authorization-server";
-    Response resp = getHttpClient().execute(new Request("GET", oidcEndpoint));
-    if (resp.getStatusCode() != 200) {
-      return null;
-    }
-    return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
+    ApiClient apiClient =
+        new ApiClient.Builder()
+            .withHttpClient(getHttpClient())
+            .withGetHostFunc(v -> getHost())
+            .build();
+    return apiClient.GET(
+        "/oidc/.well-known/oauth-authorization-server",
+        OpenIDConnectEndpoints.class,
+        new HashMap<>());
   }
 
   @Override

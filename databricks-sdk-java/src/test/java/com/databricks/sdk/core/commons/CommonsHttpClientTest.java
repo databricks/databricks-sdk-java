@@ -15,7 +15,7 @@ import org.junit.jupiter.api.Test;
 class CommonsHttpClientTest {
   @Test
   public void itWorks() throws IOException {
-    try (FixtureServer fixtures = new FixtureServer().with("GET", "/foo?x=y", "bar")) {
+    try (FixtureServer fixtures = new FixtureServer().with("GET", "/foo?x=y", "bar", 200)) {
       HttpClient httpClient = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
       Request in = new Request("GET", fixtures.getUrl() + "/foo").withQueryParam("x", "y");
       Response out = httpClient.execute(in);
@@ -34,7 +34,7 @@ class CommonsHttpClientTest {
             .validateHeadersPresent(
                 Collections.singletonMap("Content-Length", Collections.singletonList("3")))
             .validateHeadersAbsent(Collections.singletonList("Transfer-Encoding"))
-            .withResponse("quux")
+            .withResponse("quux", 200)
             .build();
     try (FixtureServer fixtures = new FixtureServer().with(fixture)) {
       HttpClient httpClient = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
@@ -55,7 +55,7 @@ class CommonsHttpClientTest {
             .validateHeadersPresent(
                 Collections.singletonMap("Transfer-Encoding", Collections.singletonList("chunked")))
             .validateHeadersAbsent(Collections.singletonList("Content-Length"))
-            .withResponse("quux")
+            .withResponse("quux", 200)
             .build();
     try (FixtureServer fixtures = new FixtureServer().with(fixture)) {
       HttpClient httpClient = new CommonsHttpClient.Builder().withTimeoutSeconds(30).build();
@@ -102,7 +102,7 @@ class CommonsHttpClientTest {
             new FixtureServer.FixtureMapping.Builder()
                 .validatePath("/login.html?error=private-link-validation-error")
                 .validateMethod("GET")
-                .withResponse("login page")
+                .withResponse("login page", 200)
                 .build());
 
     try (FixtureServer server = new FixtureServer().with(fixtures)) {

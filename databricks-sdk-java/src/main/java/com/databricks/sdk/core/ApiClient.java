@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,13 +30,70 @@ import org.slf4j.LoggerFactory;
  * guessing
  */
 public class ApiClient {
+  public static class Builder {
+    private Timer timer;
+    private Function<Void, Map<String, String>> authenticateFunc;
+    private Function<Void, String> getHostFunc;
+    private Function<Void, String> getAuthTypeFunc;
+    private Integer debugTruncateBytes;
+    private HttpClient httpClient;
+    private String accountId;
+    private RetryStrategyPicker retryStrategyPicker;
+    private boolean isDebugHeaders;
+
+    public Builder withDatabricksConfig(DatabricksConfig config) {
+      this.authenticateFunc = v -> config.authenticate();
+      this.getHostFunc = v -> config.getHost();
+      this.getAuthTypeFunc = v -> config.getAuthType();
+      this.httpClient = config.getHttpClient();
+      this.debugTruncateBytes = config.getDebugTruncateBytes();
+      this.accountId = config.getAccountId();
+      this.retryStrategyPicker = new RequestBasedRetryStrategyPicker(config.getHost());
+      this.isDebugHeaders = config.isDebugHeaders();
+
+      return this;
+    }
+
+    public Builder withTimer(Timer timer) {
+      this.timer = timer;
+      return this;
+    }
+
+    public Builder withAuthenticateFunc(Function<Void, Map<String, String>> authenticateFunc) {
+      this.authenticateFunc = authenticateFunc;
+      return this;
+    }
+
+    public Builder withGetHostFunc(Function<Void, String> getHostFunc) {
+      this.getHostFunc = getHostFunc;
+      return this;
+    }
+
+    public Builder withGetAuthTypeFunc(Function<Void, String> getAuthTypeFunc) {
+      this.getAuthTypeFunc = getAuthTypeFunc;
+      return this;
+    }
+
+    public Builder withHttpClient(HttpClient httpClient) {
+      this.httpClient = httpClient;
+      return this;
+    }
+
+    public Builder withRetryStrategyPicker(RetryStrategyPicker retryStrategyPicker) {
+      this.retryStrategyPicker = retryStrategyPicker;
+      return this;
+    }
+
+    public ApiClient build() {
+      return new ApiClient(this);
+    }
+  }
+
   private static final Logger LOG = LoggerFactory.getLogger(ApiClient.class);
 
   private final int maxAttempts;
 
   private final ObjectMapper mapper;
-
-  private final DatabricksConfig config;
 
   private final Random random;
 
@@ -43,6 +101,11 @@ public class ApiClient {
   private final BodyLogger bodyLogger;
   private final RetryStrategyPicker retryStrategyPicker;
   private final Timer timer;
+  private final Function<Void, Map<String, String>> authenticateFunc;
+  private final Function<Void, String> getHostFunc;
+  private final Function<Void, String> getAuthTypeFunc;
+  private final String accountId;
+  private final boolean isDebugHeaders;
   private static final String RETRY_AFTER_HEADER = "retry-after";
 
   public ApiClient() {
@@ -50,7 +113,7 @@ public class ApiClient {
   }
 
   public String configuredAccountID() {
-    return config.getAccountId();
+    return accountId;
   }
 
   public ApiClient(DatabricksConfig config) {
@@ -58,15 +121,26 @@ public class ApiClient {
   }
 
   public ApiClient(DatabricksConfig config, Timer timer) {
-    this.config = config;
-    config.resolve();
+    this(new Builder().withDatabricksConfig(config.resolve()).withTimer(timer));
+  }
 
-    Integer rateLimit = config.getRateLimit();
-    if (rateLimit == null) {
-      rateLimit = 15;
-    }
+  private ApiClient(Builder builder) {
+    this.timer = builder.timer != null ? builder.timer : new SystemTimer();
+    this.authenticateFunc =
+        builder.authenticateFunc != null
+            ? builder.authenticateFunc
+            : v -> new HashMap<String, String>();
+    this.getHostFunc = builder.getHostFunc != null ? builder.getHostFunc : v -> "";
+    this.getAuthTypeFunc = builder.getAuthTypeFunc != null ? builder.getAuthTypeFunc : v -> "";
+    this.httpClient = builder.httpClient;
+    this.accountId = builder.accountId;
+    this.retryStrategyPicker =
+        builder.retryStrategyPicker != null
+            ? builder.retryStrategyPicker
+            : new RequestBasedRetryStrategyPicker(this.getHostFunc.apply(null));
+    this.isDebugHeaders = builder.isDebugHeaders;
 
-    Integer debugTruncateBytes = config.getDebugTruncateBytes();
+    Integer debugTruncateBytes = builder.debugTruncateBytes;
     if (debugTruncateBytes == null) {
       debugTruncateBytes = 96;
     }
@@ -74,10 +148,7 @@ public class ApiClient {
     maxAttempts = 4;
     mapper = SerDeUtils.createMapper();
     random = new Random();
-    httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
-    retryStrategyPicker = new RequestBasedRetryStrategyPicker(this.config);
-    this.timer = timer;
   }
 
   private static <I> void setQuery(Request in, I entity) {
@@ -203,7 +274,7 @@ public class ApiClient {
       InputStream body = (InputStream) in;
       return new Request(method, path, body);
     } else {
-      String body = serialize(in);
+      String body = (in instanceof String) ? (String) in : serialize(in);
       return new Request(method, path, body);
     }
   }
@@ -245,15 +316,19 @@ public class ApiClient {
       Response out = null;
 
       // Authenticate the request. Failures should not be retried.
-      in.withHeaders(config.authenticate());
+      in.withHeaders(authenticateFunc.apply(null));
 
       // Prepend host to URL only after config.authenticate().
       // This call may configure the host (e.g. in case of notebook native auth).
-      in.withUrl(config.getHost() + path);
+      in.withUrl(getHostFunc.apply(null) + path);
 
       // Set User-Agent with auth type info, which is available only
       // after the first invocation to config.authenticate()
-      String userAgent = String.format("%s auth/%s", UserAgent.asString(), config.getAuthType());
+      String userAgent = UserAgent.asString();
+      String authType = getAuthTypeFunc.apply(null);
+      if (authType != "") {
+        userAgent += String.format(" auth/%s", authType);
+      }
       in.withHeader("User-Agent", userAgent);
 
       // Make the request, catching any exceptions, as we may want to retry.
@@ -347,9 +422,9 @@ public class ApiClient {
     StringBuilder sb = new StringBuilder();
     sb.append("> ");
     sb.append(in.getRequestLine());
-    if (config.isDebugHeaders()) {
+    if (this.isDebugHeaders) {
       sb.append("\n * Host: ");
-      sb.append(config.getHost());
+      sb.append(this.getHostFunc.apply(null));
       in.getHeaders()
           .forEach((header, value) -> sb.append(String.format("\n * %s: %s", header, value)));
     }
