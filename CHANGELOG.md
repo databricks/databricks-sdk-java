@@ -1,5 +1,14 @@
 # Version changelog
 
+## [Release] Release v0.32.1
+
+### Bug Fixes
+
+ * Retry on too many auth requests ([#355](https://github.com/databricks/databricks-sdk-java/pull/355)).
+
+
+
+
 ## [Release] Release v0.32.0
 
 ### Bug Fixes
