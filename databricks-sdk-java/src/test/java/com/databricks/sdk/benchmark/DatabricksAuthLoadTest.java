@@ -2,12 +2,6 @@ package com.databricks.sdk.benchmark;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.databricks.sdk.core.ConfigResolving;
-import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.commons.CommonsHttpClient;
-import com.databricks.sdk.core.utils.GitHubUtils;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.*;
 
 /*
@@ -16,9 +10,11 @@ import java.util.concurrent.*;
  Now that these endpoints are configured to retry upon receiving a 429 error, the test runs successfully.
  However, since this test generates a large number of requests, it should be run manually rather than being included in CI processes.
 */
+/*
 public class DatabricksAuthLoadTest implements GitHubUtils, ConfigResolving {
 
-  // @Test
+  @Test
+  @Disabled
   public void testConcurrentConfigBasicAuthAttrs() throws Exception {
     int numThreads = 200;
     ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
@@ -74,3 +70,4 @@ public class DatabricksAuthLoadTest implements GitHubUtils, ConfigResolving {
     assertEquals(0, failureCount);
   }
 }
+*/
