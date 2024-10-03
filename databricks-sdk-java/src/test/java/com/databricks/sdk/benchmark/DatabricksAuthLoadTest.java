@@ -1,4 +1,4 @@
-package com.databricks.sdk;
+package com.databricks.sdk.benchmark;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,10 +9,16 @@ import com.databricks.sdk.core.utils.GitHubUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-import org.junit.jupiter.api.Test;
 
+/*
+ This test executes the authentication workflow 200 times concurrently and verifies that all 200 runs complete successfully.
+ It is designed to address a previously observed issue where multiple SDK operations needed to authenticate, causing the OIDC endpoints to rate-limit the requests.
+ Now that these endpoints are configured to retry upon receiving a 429 error, the test runs successfully.
+ However, since this test generates a large number of requests, it should be run manually rather than being included in CI processes.
+*/
 public class DatabricksAuthLoadTest implements GitHubUtils, ConfigResolving {
 
+  // @Test
   public void testConcurrentConfigBasicAuthAttrs() throws Exception {
     int numThreads = 200;
     ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
