@@ -7,7 +7,6 @@ import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.oauth.OpenIDConnectEndpoints;
 import com.databricks.sdk.core.utils.Cloud;
 import com.databricks.sdk.core.utils.Environment;
-import com.databricks.sdk.core.utils.SystemTimer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
