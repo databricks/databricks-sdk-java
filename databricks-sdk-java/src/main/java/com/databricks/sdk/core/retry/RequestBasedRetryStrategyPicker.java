@@ -1,6 +1,5 @@
 package com.databricks.sdk.core.retry;
 
-import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.http.Request;
 import java.util.AbstractMap;
 import java.util.Arrays;
@@ -44,8 +43,7 @@ public class RequestBasedRetryStrategyPicker implements RetryStrategyPicker {
                 request ->
                     new AbstractMap.SimpleEntry<>(
                         request.getMethod(),
-                        Pattern.compile(
-                            host + request.getUrl(), Pattern.CASE_INSENSITIVE)))
+                        Pattern.compile(host + request.getUrl(), Pattern.CASE_INSENSITIVE)))
             .collect(Collectors.toList());
   }
 

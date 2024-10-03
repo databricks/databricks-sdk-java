@@ -1,11 +1,11 @@
 package com.databricks.sdk.core.oauth;
 
+import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
-import com.databricks.sdk.core.http.Response;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
+import com.databricks.sdk.core.retry.RequestBasedRetryStrategyPicker;
+import com.databricks.sdk.core.utils.SystemTimer;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
@@ -62,17 +62,27 @@ public abstract class RefreshableTokenSource implements TokenSource {
         headers.put(HttpHeaders.AUTHORIZATION, authHeaderValue);
         break;
     }
-    FormRequest req = new FormRequest(tokenUrl, params);
-    req.withHeaders(headers);
+    headers.put("Content-Type", "application/x-www-form-urlencoded");
     try {
-      Response rawResp = hc.execute(req);
-      OAuthResponse resp = new ObjectMapper().readValue(rawResp.getBody(), OAuthResponse.class);
+      ApiClient apiClient =
+          new ApiClient.Builder()
+              .withHttpClient(hc)
+              .withTimer(new SystemTimer())
+              .withAuthenticateFunc(v -> headers)
+              .withGetAuthTypeFunc(v -> "")
+              .withGetHostFunc(v -> "")
+              .withRetryStrategyPicker(new RequestBasedRetryStrategyPicker(""))
+              .build();
+
+      OAuthResponse resp =
+          apiClient.POST(
+              tokenUrl, FormRequest.wrapValuesInList(params), OAuthResponse.class, headers);
       if (resp.getErrorCode() != null) {
         throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());
       }
       LocalDateTime expiry = LocalDateTime.now().plus(resp.getExpiresIn(), ChronoUnit.SECONDS);
       return new Token(resp.getAccessToken(), resp.getTokenType(), resp.getRefreshToken(), expiry);
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new DatabricksException("Failed to refresh credentials: " + e.getMessage(), e);
     }
   }

@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
  * guessing
  */
 public class ApiClient {
-  static class Builder {
+  public static class Builder {
     private Timer timer;
     private Function<Void, Map<String, String>> authenticateFunc;
     private Function<Void, String> getHostFunc;
@@ -45,8 +45,8 @@ public class ApiClient {
       this.authenticateFunc = v -> config.authenticate();
       this.getHostFunc = v -> config.getHost();
       this.getAuthTypeFunc = v -> config.getAuthType();
-      this.debugTruncateBytes = config.getDebugTruncateBytes();
       this.httpClient = config.getHttpClient();
+      this.debugTruncateBytes = config.getDebugTruncateBytes();
       this.accountId = config.getAccountId();
       this.retryStrategyPicker = new RequestBasedRetryStrategyPicker(config.getHost());
       this.isDebugHeaders = config.isDebugHeaders();
@@ -267,6 +267,8 @@ public class ApiClient {
     } else if (InputStream.class.isAssignableFrom(in.getClass())) {
       InputStream body = (InputStream) in;
       return new Request(method, path, body);
+    } else if (in instanceof String) {
+      return new Request(method, path, (String) in);
     } else {
       String body = serialize(in);
       return new Request(method, path, body);
