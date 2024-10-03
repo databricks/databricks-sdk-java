@@ -31,14 +31,26 @@ import org.slf4j.LoggerFactory;
  */
 public class ApiClient {
   static class Builder {
-    private DatabricksConfig config;
     private Timer timer;
     private Function<Void, Map<String, String>> authenticateFunc;
     private Function<Void, String> getHostFunc;
     private Function<Void, String> getAuthTypeFunc;
+    private Integer debugTruncateBytes;
+    private HttpClient httpClient;
+    private String accountId;
+    private RetryStrategyPicker retryStrategyPicker;
+    private boolean isDebugHeaders;
 
     public Builder withDatabricksConfig(DatabricksConfig config) {
-      this.config = config;
+      this.authenticateFunc = v -> config.authenticate();
+      this.getHostFunc = v -> config.getHost();
+      this.getAuthTypeFunc = v -> config.getAuthType();
+      this.debugTruncateBytes = config.getDebugTruncateBytes();
+      this.httpClient = config.getHttpClient();
+      this.accountId = config.getAccountId();
+      this.retryStrategyPicker = new RequestBasedRetryStrategyPicker(config.getHost());
+      this.isDebugHeaders = config.isDebugHeaders();
+
       return this;
     }
 
@@ -62,8 +74,18 @@ public class ApiClient {
       return this;
     }
 
+    public Builder withHttpClient(HttpClient httpClient) {
+      this.httpClient = httpClient;
+      return this;
+    }
+
+    public Builder withRetryStrategyPicker(RetryStrategyPicker retryStrategyPicker) {
+      this.retryStrategyPicker = retryStrategyPicker;
+      return this;
+    }
+
     public ApiClient build() {
-      return new ApiClient(config, timer, authenticateFunc, getHostFunc, getAuthTypeFunc);
+      return new ApiClient(this);
     }
   }
 
@@ -72,8 +94,6 @@ public class ApiClient {
   private final int maxAttempts;
 
   private final ObjectMapper mapper;
-
-  private final DatabricksConfig config;
 
   private final Random random;
 
@@ -84,6 +104,8 @@ public class ApiClient {
   private final Function<Void, Map<String, String>> authenticateFunc;
   private final Function<Void, String> getHostFunc;
   private final Function<Void, String> getAuthTypeFunc;
+  private final String accountId;
+  private final boolean isDebugHeaders;
   private static final String RETRY_AFTER_HEADER = "retry-after";
 
   public ApiClient() {
@@ -91,7 +113,7 @@ public class ApiClient {
   }
 
   public String configuredAccountID() {
-    return config.getAccountId();
+    return accountId;
   }
 
   public ApiClient(DatabricksConfig config) {
@@ -99,34 +121,20 @@ public class ApiClient {
   }
 
   public ApiClient(DatabricksConfig config, Timer timer) {
-    this(
-        config,
-        timer,
-        v -> config.authenticate(),
-        v -> config.getHost(),
-        v -> config.getAuthType());
+    this(new Builder().withDatabricksConfig(config.resolve()).withTimer(timer));
   }
 
-  public ApiClient(
-      DatabricksConfig config,
-      Timer timer,
-      Function<Void, Map<String, String>> authenticateFunc,
-      Function<Void, String> getHostFunc,
-      Function<Void, String> getAuthTypeFunc) {
-    this.config = config;
-    this.timer = timer;
-    this.authenticateFunc = authenticateFunc;
-    this.getHostFunc = getHostFunc;
-    this.getAuthTypeFunc = getAuthTypeFunc;
+  private ApiClient(Builder builder) {
+    this.timer = builder.timer;
+    this.authenticateFunc = builder.authenticateFunc;
+    this.getHostFunc = builder.getHostFunc;
+    this.getAuthTypeFunc = builder.getAuthTypeFunc;
+    this.httpClient = builder.httpClient;
+    this.accountId = builder.accountId;
+    this.retryStrategyPicker = builder.retryStrategyPicker;
+    this.isDebugHeaders = builder.isDebugHeaders;
 
-    config.resolve();
-
-    Integer rateLimit = config.getRateLimit();
-    if (rateLimit == null) {
-      rateLimit = 15;
-    }
-
-    Integer debugTruncateBytes = config.getDebugTruncateBytes();
+    Integer debugTruncateBytes = builder.debugTruncateBytes;
     if (debugTruncateBytes == null) {
       debugTruncateBytes = 96;
     }
@@ -134,9 +142,7 @@ public class ApiClient {
     maxAttempts = 4;
     mapper = SerDeUtils.createMapper();
     random = new Random();
-    httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
-    retryStrategyPicker = new RequestBasedRetryStrategyPicker(this.config);
   }
 
   private static <I> void setQuery(Request in, I entity) {
@@ -410,9 +416,9 @@ public class ApiClient {
     StringBuilder sb = new StringBuilder();
     sb.append("> ");
     sb.append(in.getRequestLine());
-    if (config.isDebugHeaders()) {
+    if (this.isDebugHeaders) {
       sb.append("\n * Host: ");
-      sb.append(config.getHost());
+      sb.append(this.getHostFunc.apply(null));
       in.getHeaders()
           .forEach((header, value) -> sb.append(String.format("\n * %s: %s", header, value)));
     }

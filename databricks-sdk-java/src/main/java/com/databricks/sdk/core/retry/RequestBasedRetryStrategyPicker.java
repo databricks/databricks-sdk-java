@@ -37,7 +37,7 @@ public class RequestBasedRetryStrategyPicker implements RetryStrategyPicker {
   private static final IdempotentRequestRetryStrategy IDEMPOTENT_RETRY_STRATEGY =
       new IdempotentRequestRetryStrategy();
 
-  public RequestBasedRetryStrategyPicker(DatabricksConfig config) {
+  public RequestBasedRetryStrategyPicker(String host) {
     this.idempotentRequestsPattern =
         IDEMPOTENT_REQUESTS.stream()
             .map(
@@ -45,7 +45,7 @@ public class RequestBasedRetryStrategyPicker implements RetryStrategyPicker {
                     new AbstractMap.SimpleEntry<>(
                         request.getMethod(),
                         Pattern.compile(
-                            config.getHost() + request.getUrl(), Pattern.CASE_INSENSITIVE)))
+                            host + request.getUrl(), Pattern.CASE_INSENSITIVE)))
             .collect(Collectors.toList());
   }
 
