@@ -1,6 +1,3 @@
-// These are auto-generated tests for Unified Authentication
-// In case of editing this file, make sure the change is propagated to all Databricks SDK codebases
-
 package com.databricks.sdk;
 
 import static org.junit.jupiter.api.Assertions.*;

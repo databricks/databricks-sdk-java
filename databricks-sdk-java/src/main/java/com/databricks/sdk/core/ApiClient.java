@@ -125,13 +125,19 @@ public class ApiClient {
   }
 
   private ApiClient(Builder builder) {
-    this.timer = builder.timer;
-    this.authenticateFunc = builder.authenticateFunc;
-    this.getHostFunc = builder.getHostFunc;
-    this.getAuthTypeFunc = builder.getAuthTypeFunc;
+    this.timer = builder.timer != null ? builder.timer : new SystemTimer();
+    this.authenticateFunc =
+        builder.authenticateFunc != null
+            ? builder.authenticateFunc
+            : v -> new HashMap<String, String>();
+    this.getHostFunc = builder.getHostFunc != null ? builder.getHostFunc : v -> "";
+    this.getAuthTypeFunc = builder.getAuthTypeFunc != null ? builder.getAuthTypeFunc : v -> "";
     this.httpClient = builder.httpClient;
     this.accountId = builder.accountId;
-    this.retryStrategyPicker = builder.retryStrategyPicker;
+    this.retryStrategyPicker =
+        builder.retryStrategyPicker != null
+            ? builder.retryStrategyPicker
+            : new RequestBasedRetryStrategyPicker(this.getHostFunc.apply(null));
     this.isDebugHeaders = builder.isDebugHeaders;
 
     Integer debugTruncateBytes = builder.debugTruncateBytes;
@@ -267,10 +273,8 @@ public class ApiClient {
     } else if (InputStream.class.isAssignableFrom(in.getClass())) {
       InputStream body = (InputStream) in;
       return new Request(method, path, body);
-    } else if (in instanceof String) {
-      return new Request(method, path, (String) in);
     } else {
-      String body = serialize(in);
+      String body = (in instanceof String) ? (String) in : serialize(in);
       return new Request(method, path, body);
     }
   }
@@ -321,8 +325,8 @@ public class ApiClient {
       // Set User-Agent with auth type info, which is available only
       // after the first invocation to config.authenticate()
       String userAgent = UserAgent.asString();
-      if (getAuthTypeFunc != null) {
-        String authType = getAuthTypeFunc.apply(null);
+      String authType = getAuthTypeFunc.apply(null);
+      if (authType != "") {
         userAgent += String.format(" auth/%s", authType);
       }
       in.withHeader("User-Agent", userAgent);

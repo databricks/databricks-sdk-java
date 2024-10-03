@@ -4,8 +4,6 @@ import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.core.http.FormRequest;
 import com.databricks.sdk.core.http.HttpClient;
-import com.databricks.sdk.core.retry.RequestBasedRetryStrategyPicker;
-import com.databricks.sdk.core.utils.SystemTimer;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
@@ -64,15 +62,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
     }
     headers.put("Content-Type", "application/x-www-form-urlencoded");
     try {
-      ApiClient apiClient =
-          new ApiClient.Builder()
-              .withHttpClient(hc)
-              .withTimer(new SystemTimer())
-              .withAuthenticateFunc(v -> headers)
-              .withGetAuthTypeFunc(v -> "")
-              .withGetHostFunc(v -> "")
-              .withRetryStrategyPicker(new RequestBasedRetryStrategyPicker(""))
-              .build();
+      ApiClient apiClient = new ApiClient.Builder().withHttpClient(hc).build();
 
       OAuthResponse resp =
           apiClient.POST(
