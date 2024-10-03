@@ -320,9 +320,9 @@ public class ApiClient {
 
       // Set User-Agent with auth type info, which is available only
       // after the first invocation to config.authenticate()
-      String authType = getAuthTypeFunc.apply(null);
       String userAgent = UserAgent.asString();
-      if (authType != "") {
+      if (getAuthTypeFunc != null) {
+        String authType = getAuthTypeFunc.apply(null);
         userAgent += String.format(" auth/%s", authType);
       }
       in.withHeader("User-Agent", userAgent);
