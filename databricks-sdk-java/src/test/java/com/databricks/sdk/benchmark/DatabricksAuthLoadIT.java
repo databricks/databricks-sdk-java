@@ -10,7 +10,6 @@ import com.databricks.sdk.integration.framework.EnvTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
