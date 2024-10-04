@@ -1,41 +1,33 @@
-package com.databricks.sdk.benchmark;
+package com.databricks.sdk.core;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.*;
+import org.junit.jupiter.api.Test;
 
-/*
- This test executes the authentication workflow 200 times concurrently and verifies that all 200 runs complete successfully.
- It is designed to address a previously observed issue where multiple SDK operations needed to authenticate, causing the OIDC endpoints to rate-limit the requests.
- Now that these endpoints are configured to retry upon receiving a 429 error, the test runs successfully.
- However, since this test generates a large number of requests, it should be run manually rather than being included in CI processes.
-*/
-/*
-public class DatabricksAuthLoadTest implements GitHubUtils, ConfigResolving {
+/**
+ * Load tests for the UserAgent class.
+ *
+ * <p>This is not part of the benchmark module because it doesn't make any network requests.
+ */
+public class UserAgentLoadTest {
 
   @Test
-  @Disabled
-  public void testConcurrentConfigBasicAuthAttrs() throws Exception {
+  public void testAsStringConcurrent() throws InterruptedException, ExecutionException {
     int numThreads = 200;
     ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
     List<Future<Boolean>> futures = new ArrayList<>();
     int successCount = 0;
     int failureCount = 0;
 
+    // Add some user agent info
     Callable<Boolean> task =
         () -> {
           try {
-            DatabricksConfig config =
-                new DatabricksConfig()
-                    .setHost("https://dbc-bb03964f-3f59.cloud.databricks.com")
-                    .setClientId("<<REDACTED>>")
-                    .setClientSecret("<<REDACTED>>");
-
-            config.setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
-            config.authenticate();
-
-            assertEquals("oauth-m2m", config.getAuthType());
-
+            UserAgent.withOtherInfo("key1", "value1");
+            UserAgent.asString();
             return true;
           } catch (Exception e) {
             System.err.println(
@@ -70,4 +62,3 @@ public class DatabricksAuthLoadTest implements GitHubUtils, ConfigResolving {
     assertEquals(0, failureCount);
   }
 }
-*/
