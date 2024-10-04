@@ -1,9 +1,9 @@
 package com.databricks.sdk.benchmark;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.databricks.sdk.WorkspaceClient;
 import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.commons.CommonsHttpClient;
 import com.databricks.sdk.integration.framework.EnvContext;
 import com.databricks.sdk.integration.framework.EnvOrSkip;
 import com.databricks.sdk.integration.framework.EnvTest;
@@ -15,25 +15,22 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 /**
- * This test executes the authentication workflow 200 times concurrently and verifies that all 200
- * runs complete successfully. It is designed to address a previously observed issue where multiple
- * SDK operations needed to authenticate, causing the OIDC endpoints to rate-limit the requests. Now
- * that these endpoints are configured to retry upon receiving a 429 error, the test runs
- * successfully. However, since this test generates a large number of requests, it should be run
- * manually rather than being included in CI processes.
+ * This test executes a simple operation 150 times concurrently to verify that the end-to-end
+ * behavior of the SDK is correct under concurrent load. This test is designed to be run manually
+ * rather than being included in CI processes, as it generates a large number of requests.
  */
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
-public class DatabricksAuthLoadTest {
+public class WorkspaceClientLoadTest {
 
   @Test
   @Disabled
-  public void testConcurrentConfigBasicAuthAttrs(
+  public void testConcurrentCurrentUserMe(
       @EnvOrSkip("DATABRICKS_HOST") String host,
       @EnvOrSkip("DATABRICKS_CLIENT_ID") String clientId,
       @EnvOrSkip("DATABRICKS_CLIENT_SECRET") String clientSecret)
       throws Exception {
-    int numThreads = 200;
+    int numThreads = 150;
     ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
     List<Future<Boolean>> futures = new ArrayList<>();
     int successCount = 0;
@@ -48,10 +45,10 @@ public class DatabricksAuthLoadTest {
                     .setClientId(clientId)
                     .setClientSecret(clientSecret);
 
-            config.setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
-            config.authenticate();
+            WorkspaceClient w = new WorkspaceClient(config);
 
-            assertEquals("oauth-m2m", config.getAuthType());
+            // This should not throw an exception.
+            w.currentUser().me();
 
             return true;
           } catch (Exception e) {

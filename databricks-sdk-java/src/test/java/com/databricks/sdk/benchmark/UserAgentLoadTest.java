@@ -1,21 +1,12 @@
 package com.databricks.sdk.benchmark;
 
-import com.databricks.sdk.WorkspaceClient;
-import com.databricks.sdk.core.DatabricksConfig;
-import com.databricks.sdk.core.UserAgent;
-import com.databricks.sdk.integration.framework.EnvContext;
-import com.databricks.sdk.integration.framework.EnvOrSkip;
-import com.databricks.sdk.integration.framework.EnvTest;
-import com.databricks.sdk.service.iam.User;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.databricks.sdk.core.UserAgent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 public class UserAgentLoadTest {
 
