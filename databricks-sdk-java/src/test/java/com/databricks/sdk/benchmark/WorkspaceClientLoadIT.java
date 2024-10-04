@@ -2,28 +2,54 @@ package com.databricks.sdk.benchmark;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.databricks.sdk.core.UserAgent;
+import com.databricks.sdk.WorkspaceClient;
+import com.databricks.sdk.core.DatabricksConfig;
+import com.databricks.sdk.integration.framework.EnvContext;
+import com.databricks.sdk.integration.framework.EnvOrSkip;
+import com.databricks.sdk.integration.framework.EnvTest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-public class UserAgentLoadTest {
+/**
+ * This test executes a simple operation 150 times concurrently to verify that the end-to-end
+ * behavior of the SDK is correct under concurrent load. This test is designed to be run manually
+ * rather than being included in CI processes, as it generates a large number of requests.
+ */
+@EnvContext("workspace")
+@ExtendWith(EnvTest.class)
+public class WorkspaceClientLoadIT {
 
   @Test
-  public void testAsStringConcurrent() throws InterruptedException, ExecutionException {
-    int numThreads = 200;
+  @Disabled
+  public void testConcurrentCurrentUserMe(
+      @EnvOrSkip("DATABRICKS_HOST") String host,
+      @EnvOrSkip("DATABRICKS_CLIENT_ID") String clientId,
+      @EnvOrSkip("DATABRICKS_CLIENT_SECRET") String clientSecret)
+      throws Exception {
+    int numThreads = 150;
     ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
     List<Future<Boolean>> futures = new ArrayList<>();
     int successCount = 0;
     int failureCount = 0;
 
-    // Add some user agent info
     Callable<Boolean> task =
         () -> {
           try {
-            UserAgent.withOtherInfo("key1", "value1");
-            UserAgent.asString();
+            DatabricksConfig config =
+                new DatabricksConfig()
+                    .setHost(host)
+                    .setClientId(clientId)
+                    .setClientSecret(clientSecret);
+
+            WorkspaceClient w = new WorkspaceClient(config);
+
+            // This should not throw an exception.
+            w.currentUser().me();
+
             return true;
           } catch (Exception e) {
             System.err.println(

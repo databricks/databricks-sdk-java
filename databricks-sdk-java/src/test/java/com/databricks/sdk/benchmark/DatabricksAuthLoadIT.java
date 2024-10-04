@@ -24,7 +24,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
  */
 @EnvContext("workspace")
 @ExtendWith(EnvTest.class)
-public class DatabricksAuthLoadTest {
+public class DatabricksAuthLoadIT {
 
   @Test
   @Disabled
