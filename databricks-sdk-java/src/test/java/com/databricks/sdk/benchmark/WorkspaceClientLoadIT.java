@@ -24,7 +24,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class WorkspaceClientLoadIT {
 
   @Test
-  @Disabled
   public void testConcurrentCurrentUserMe(
       @EnvOrSkip("DATABRICKS_HOST") String host,
       @EnvOrSkip("DATABRICKS_CLIENT_ID") String clientId,

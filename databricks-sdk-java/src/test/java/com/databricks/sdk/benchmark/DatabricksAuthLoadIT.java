@@ -27,7 +27,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 public class DatabricksAuthLoadIT {
 
   @Test
-  @Disabled
   public void testConcurrentConfigBasicAuthAttrs(
       @EnvOrSkip("DATABRICKS_HOST") String host,
       @EnvOrSkip("DATABRICKS_CLIENT_ID") String clientId,
