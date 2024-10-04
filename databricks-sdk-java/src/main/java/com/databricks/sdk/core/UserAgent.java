@@ -92,7 +92,9 @@ public class UserAgent {
   public static void withOtherInfo(String key, String value) {
     matchAlphanum(key);
     matchAlphanumOrSemVer(value);
-    otherInfo.add(new Info(key, value));
+    synchronized (otherInfo) {
+      otherInfo.add(new Info(key, value));
+    }
   }
 
   private static String osName() {
@@ -119,10 +121,13 @@ public class UserAgent {
     segments.add(String.format("databricks-sdk-java/%s", version));
     segments.add(String.format("jvm/%s", jvmVersion()));
     segments.add(String.format("os/%s", osName()));
-    segments.addAll(
-        otherInfo.stream()
-            .map(e -> String.format("%s/%s", e.getKey(), e.getValue()))
-            .collect(Collectors.toSet()));
+    // Concurrent iteration over ArrayList must be guarded with synchronized.
+    synchronized (otherInfo) {
+      segments.addAll(
+          otherInfo.stream()
+              .map(e -> String.format("%s/%s", e.getKey(), e.getValue()))
+              .collect(Collectors.toSet()));
+    }
     return segments.stream().collect(Collectors.joining(" "));
   }
 }
