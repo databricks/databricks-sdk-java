@@ -108,6 +108,10 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.1.2</version>
         <configuration>
+          <!--
+          Benchmarks are disabled in normal tests. See
+          databricks-sdk-java/src/test/java/com/databricks/sdk/benchmark/README.md for more information.
+          -->
           <excludes>
             <exclude>**/benchmark/**</exclude>
           </excludes>
@@ -117,6 +121,10 @@
         <artifactId>maven-failsafe-plugin</artifactId>
         <version>3.2.5</version>
         <configuration>
+          <!--
+          Benchmarks are disabled in normal tests. See
+          databricks-sdk-java/src/test/java/com/databricks/sdk/benchmark/README.md for more information.
+          -->
           <excludes>
             <exclude>**/benchmark/**</exclude>
           </excludes>
