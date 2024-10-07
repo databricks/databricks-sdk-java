@@ -1,5 +1,14 @@
 # Version changelog
 
+## [Release] Release v0.32.2
+
+### Bug Fixes
+
+ * Make `UserAgent`'s `otherInfo` thread-safe ([#357](https://github.com/databricks/databricks-sdk-java/pull/357)).
+
+
+
+
 ## [Release] Release v0.32.1
 
 ### Bug Fixes
