@@ -56,4 +56,11 @@ public class UserAgentTest {
     String userAgent = UserAgent.asString();
     Assertions.assertTrue(userAgent.contains("key1/1.0.0-dev+metadata"));
   }
+
+  @Test
+  public void testUserAgentWithSQLDriverUserAgent() {
+    UserAgent.withOtherInfo("Java", "SQLExecHttpClient/HC TEST/42.2.0.2712019");
+    String userAgent = UserAgent.asString();
+    Assertions.assertTrue(userAgent.contains("Java/SQLExecHttpClient/HC TEST/42.2.0.2712019"));
+  }
 }
