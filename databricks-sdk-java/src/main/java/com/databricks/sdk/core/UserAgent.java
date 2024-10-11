@@ -32,7 +32,7 @@ public class UserAgent {
   // TODO: check if reading from
   // /META-INF/maven/com.databricks/databrics-sdk-java/pom.properties
   // or getClass().getPackage().getImplementationVersion() is enough.
-  private static final String version = "0.31.1";
+  private static final String version = "0.32.2";
 
   public static void withProduct(String product, String productVersion) {
     UserAgent.product = product;
@@ -92,7 +92,9 @@ public class UserAgent {
   public static void withOtherInfo(String key, String value) {
     matchAlphanum(key);
     matchAlphanumOrSemVer(value);
-    otherInfo.add(new Info(key, value));
+    synchronized (otherInfo) {
+      otherInfo.add(new Info(key, value));
+    }
   }
 
   private static String osName() {
@@ -119,10 +121,13 @@ public class UserAgent {
     segments.add(String.format("databricks-sdk-java/%s", version));
     segments.add(String.format("jvm/%s", jvmVersion()));
     segments.add(String.format("os/%s", osName()));
-    segments.addAll(
-        otherInfo.stream()
-            .map(e -> String.format("%s/%s", e.getKey(), e.getValue()))
-            .collect(Collectors.toSet()));
+    // Concurrent iteration over ArrayList must be guarded with synchronized.
+    synchronized (otherInfo) {
+      segments.addAll(
+          otherInfo.stream()
+              .map(e -> String.format("%s/%s", e.getKey(), e.getValue()))
+              .collect(Collectors.toSet()));
+    }
     return segments.stream().collect(Collectors.joining(" "));
   }
 }

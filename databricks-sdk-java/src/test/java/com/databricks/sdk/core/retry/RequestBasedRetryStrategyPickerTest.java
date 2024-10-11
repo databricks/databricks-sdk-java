@@ -9,7 +9,7 @@ public class RequestBasedRetryStrategyPickerTest {
   private static final String TEST_URL = "https://test.com";
   private static final DatabricksConfig CONFIG = new DatabricksConfig().setHost(TEST_URL);
   private static final RetryStrategyPicker RETRY_STRATEGY_PICKER =
-      new RequestBasedRetryStrategyPicker(CONFIG);
+      new RequestBasedRetryStrategyPicker(CONFIG.getHost());
 
   @Test
   public void testGetRetryStrategy() {
