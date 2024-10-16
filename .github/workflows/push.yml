@@ -28,6 +28,7 @@ jobs:
       - name: Check formatting
         run: mvn --errors spotless:check
 
+
   unit-tests:
     strategy:
       fail-fast: false

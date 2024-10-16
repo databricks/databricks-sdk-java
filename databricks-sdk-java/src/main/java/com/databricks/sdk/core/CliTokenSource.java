@@ -14,6 +14,8 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CliTokenSource extends RefreshableTokenSource {
   private List<String> cmd;
@@ -21,6 +23,7 @@ public class CliTokenSource extends RefreshableTokenSource {
   private String accessTokenField;
   private String expiryField;
   private Environment env;
+  private static final Logger LOG = LoggerFactory.getLogger(CliTokenSource.class);
 
   public CliTokenSource(
       List<String> cmd,
@@ -68,10 +71,13 @@ public class CliTokenSource extends RefreshableTokenSource {
     try {
       ProcessBuilder processBuilder = new ProcessBuilder(cmd);
       processBuilder.environment().putAll(env.getEnv());
+      LOG.debug("Executing command: " + cmd);
       Process process = processBuilder.start();
-      String stdout = getProcessStream(process.getInputStream());
-      String stderr = getProcessStream(process.getErrorStream());
       int exitCode = process.waitFor();
+      String stdout = getProcessStream(process.getInputStream());
+      LOG.debug("stdout: " + stdout);
+      String stderr = getProcessStream(process.getErrorStream());
+      LOG.debug("stderr: " + stderr);
       if (exitCode != 0) {
         if (stderr.contains("not found")) {
           throw new DatabricksException(stderr);

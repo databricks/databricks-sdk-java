@@ -17,7 +17,7 @@ fi
 
 for arg in "$@"; do
     if [[ "$arg" == "$FAIL_IF" ]]; then
-        echo "Failed"
+        /bin/echo "Failed"
         exit 1
     fi
 done
