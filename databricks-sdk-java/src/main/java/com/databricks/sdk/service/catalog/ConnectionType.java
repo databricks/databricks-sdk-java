@@ -11,6 +11,7 @@ public enum ConnectionType {
   DATABRICKS,
   GLUE,
   HIVE_METASTORE,
+  HTTP,
   MYSQL,
   POSTGRESQL,
   REDSHIFT,

@@ -25,6 +25,13 @@ public class TableSpecificConfig {
   @JsonProperty("scd_type")
   private TableSpecificConfigScdType scdType;
 
+  /**
+   * The column names specifying the logical order of events in the source data. Delta Live Tables
+   * uses this sequencing to handle change events that arrive out of order.
+   */
+  @JsonProperty("sequence_by")
+  private Collection<String> sequenceBy;
+
   public TableSpecificConfig setPrimaryKeys(Collection<String> primaryKeys) {
     this.primaryKeys = primaryKeys;
     return this;
@@ -53,6 +60,15 @@ public class TableSpecificConfig {
     return scdType;
   }
 
+  public TableSpecificConfig setSequenceBy(Collection<String> sequenceBy) {
+    this.sequenceBy = sequenceBy;
+    return this;
+  }
+
+  public Collection<String> getSequenceBy() {
+    return sequenceBy;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -60,12 +76,13 @@ public class TableSpecificConfig {
     TableSpecificConfig that = (TableSpecificConfig) o;
     return Objects.equals(primaryKeys, that.primaryKeys)
         && Objects.equals(salesforceIncludeFormulaFields, that.salesforceIncludeFormulaFields)
-        && Objects.equals(scdType, that.scdType);
+        && Objects.equals(scdType, that.scdType)
+        && Objects.equals(sequenceBy, that.sequenceBy);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(primaryKeys, salesforceIncludeFormulaFields, scdType);
+    return Objects.hash(primaryKeys, salesforceIncludeFormulaFields, scdType, sequenceBy);
   }
 
   @Override
@@ -74,6 +91,7 @@ public class TableSpecificConfig {
         .add("primaryKeys", primaryKeys)
         .add("salesforceIncludeFormulaFields", salesforceIncludeFormulaFields)
         .add("scdType", scdType)
+        .add("sequenceBy", sequenceBy)
         .toString();
   }
 }

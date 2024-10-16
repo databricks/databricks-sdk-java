@@ -1,5 +1,58 @@
 # Version changelog
 
+## [Release] Release v0.33.0
+
+### API Changes:
+
+ * Added `workspaceClient.disableLegacyDbfs()` service.
+ * Added `com.databricks.sdk.service.apps.AppResource`, `com.databricks.sdk.service.apps.AppResourceJob`, `com.databricks.sdk.service.apps.AppResourceJobJobPermission`, `com.databricks.sdk.service.apps.AppResourceSecret`, `com.databricks.sdk.service.apps.AppResourceSecretSecretPermission`, `com.databricks.sdk.service.apps.AppResourceServingEndpoint`, `com.databricks.sdk.service.apps.AppResourceServingEndpointServingEndpointPermission`, `com.databricks.sdk.service.apps.AppResourceSqlWarehouse` and `com.databricks.sdk.service.apps.AppResourceSqlWarehouseSqlWarehousePermission` classes.
+ * Added `com.databricks.sdk.service.pipelines.ReportSpec` class.
+ * Added `com.databricks.sdk.service.settings.DeleteDisableLegacyDbfsRequest`, `com.databricks.sdk.service.settings.DeleteDisableLegacyDbfsResponse`, `com.databricks.sdk.service.settings.DisableLegacyDbfs`, `com.databricks.sdk.service.settings.GetDisableLegacyDbfsRequest` and `com.databricks.sdk.service.settings.UpdateDisableLegacyDbfsRequest` classes.
+ * Added `com.databricks.sdk.service.workspace.CreateCredentialsRequest`, `com.databricks.sdk.service.workspace.CreateRepoRequest`, `com.databricks.sdk.service.workspace.CreateRepoResponse`, `com.databricks.sdk.service.workspace.DeleteCredentialsRequest`, `Object`, `Object`, `com.databricks.sdk.service.workspace.GetCredentialsRequest`, `com.databricks.sdk.service.workspace.GetRepoResponse`, `com.databricks.sdk.service.workspace.ListCredentialsResponse`, `com.databricks.sdk.service.workspace.UpdateCredentialsRequest`, `Object`, `com.databricks.sdk.service.workspace.UpdateRepoRequest` and `Object` classes.
+ * Added `defaultSourceCodePath` and `resources` fields for `com.databricks.sdk.service.apps.App`.
+ * Added `resources` field for `com.databricks.sdk.service.apps.CreateAppRequest`.
+ * Added `resources` field for `com.databricks.sdk.service.apps.UpdateAppRequest`.
+ * Added `unityCatalogProvisioningState` field for `com.databricks.sdk.service.catalog.OnlineTable`.
+ * Added `isTruncated` field for `com.databricks.sdk.service.dashboards.Result`.
+ * Added `effectiveBudgetPolicyId` field for `com.databricks.sdk.service.jobs.BaseJob`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.jobs.CreateJob`.
+ * Added `effectiveBudgetPolicyId` field for `com.databricks.sdk.service.jobs.Job`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.jobs.JobSettings`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+ * Added `schema` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+ * Added `schema` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+ * Added `report` field for `com.databricks.sdk.service.pipelines.IngestionConfig`.
+ * Added `schema` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+ * Added `sequenceBy` field for `com.databricks.sdk.service.pipelines.TableSpecificConfig`.
+ * Added `notifyOnOk` field for `com.databricks.sdk.service.sql.Alert`.
+ * Added `notifyOnOk` field for `com.databricks.sdk.service.sql.CreateAlertRequestAlert`.
+ * Added `notifyOnOk` field for `com.databricks.sdk.service.sql.ListAlertsResponseAlert`.
+ * Added `notifyOnOk` field for `com.databricks.sdk.service.sql.UpdateAlertRequestAlert`.
+ * Added `credentialId`, `gitProvider` and `gitUsername` fields for `com.databricks.sdk.service.workspace.GetCredentialsResponse`.
+ * Changed `create()` method for `workspaceClient.gitCredentials()` service . New request type is `com.databricks.sdk.service.workspace.CreateCredentialsRequest` class.
+ * Changed `delete()` method for `workspaceClient.gitCredentials()` service to return `Object` class.
+ * Changed `delete()` method for `workspaceClient.gitCredentials()` service . New request type is `com.databricks.sdk.service.workspace.DeleteCredentialsRequest` class.
+ * Changed `get()` method for `workspaceClient.gitCredentials()` service . New request type is `com.databricks.sdk.service.workspace.GetCredentialsRequest` class.
+ * Changed `get()` method for `workspaceClient.gitCredentials()` service to return `com.databricks.sdk.service.workspace.GetCredentialsResponse` class.
+ * Changed `list()` method for `workspaceClient.gitCredentials()` service to return `com.databricks.sdk.service.workspace.ListCredentialsResponse` class.
+ * Changed `update()` method for `workspaceClient.gitCredentials()` service . New request type is `com.databricks.sdk.service.workspace.UpdateCredentialsRequest` class.
+ * Changed `update()` method for `workspaceClient.gitCredentials()` service to return `Object` class.
+ * Changed `create()` method for `workspaceClient.repos()` service to return `com.databricks.sdk.service.workspace.CreateRepoResponse` class.
+ * Changed `create()` method for `workspaceClient.repos()` service . New request type is `com.databricks.sdk.service.workspace.CreateRepoRequest` class.
+ * Changed `delete()` method for `workspaceClient.repos()` service to return `Object` class.
+ * Changed `get()` method for `workspaceClient.repos()` service to return `com.databricks.sdk.service.workspace.GetRepoResponse` class.
+ * Changed `update()` method for `workspaceClient.repos()` service to return `Object` class.
+ * Changed `update()` method for `workspaceClient.repos()` service . New request type is `com.databricks.sdk.service.workspace.UpdateRepoRequest` class.
+ * Changed `credentialId` and `gitProvider` fields for `com.databricks.sdk.service.workspace.CreateCredentialsResponse` to be required.
+ * Changed `credentialId` field for `com.databricks.sdk.service.workspace.CredentialInfo` to be required.
+ * Changed `patterns` field for `com.databricks.sdk.service.workspace.SparseCheckout` to `com.databricks.sdk.service.workspace.List` class.
+ * Changed `patterns` field for `com.databricks.sdk.service.workspace.SparseCheckoutUpdate` to `com.databricks.sdk.service.workspace.List` class.
+ * Removed `com.databricks.sdk.service.workspace.CreateCredentials`, `com.databricks.sdk.service.workspace.CreateRepo`, `com.databricks.sdk.service.workspace.DeleteGitCredentialRequest`, `com.databricks.sdk.service.workspace.GetGitCredentialRequest`, `com.databricks.sdk.service.workspace.SparseCheckoutPattern`, `com.databricks.sdk.service.workspace.UpdateCredentials`, `com.databricks.sdk.service.workspace.UpdateRepo` and `Object` classes.
+ * Removed `credentials` field for `com.databricks.sdk.service.workspace.GetCredentialsResponse`.
+
+OpenAPI SHA: cf9c61453990df0f9453670f2fe68e1b128647a2, Date: 2024-10-14
+
+
 ## [Release] Release v0.32.2
 
 ### Bug Fixes

@@ -12,6 +12,14 @@ import java.util.Objects;
 @Generated
 public class JobSettings {
   /**
+   * The id of the user specified budget policy to use for this job. If not specified, a default
+   * budget policy may be applied when creating or modifying the job. See
+   * `effective_budget_policy_id` for the budget policy used by this workload.
+   */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
+  /**
    * An optional continuous property for this job. The continuous property will ensure that there is
    * always one run executing. Only one of `schedule` and `continuous` can be used.
    */
@@ -163,6 +171,15 @@ public class JobSettings {
   /** A collection of system notification IDs to notify when runs of this job begin or complete. */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
+
+  public JobSettings setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
 
   public JobSettings setContinuous(Continuous continuous) {
     this.continuous = continuous;
@@ -367,7 +384,8 @@ public class JobSettings {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     JobSettings that = (JobSettings) o;
-    return Objects.equals(continuous, that.continuous)
+    return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(continuous, that.continuous)
         && Objects.equals(deployment, that.deployment)
         && Objects.equals(description, that.description)
         && Objects.equals(editMode, that.editMode)
@@ -394,6 +412,7 @@ public class JobSettings {
   @Override
   public int hashCode() {
     return Objects.hash(
+        budgetPolicyId,
         continuous,
         deployment,
         description,
@@ -421,6 +440,7 @@ public class JobSettings {
   @Override
   public String toString() {
     return new ToStringer(JobSettings.class)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("continuous", continuous)
         .add("deployment", deployment)
         .add("description", description)

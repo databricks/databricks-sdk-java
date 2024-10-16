@@ -26,7 +26,11 @@ public class UpdateDashboardRequest {
 
   /**
    * The contents of the dashboard in serialized string form. This field is excluded in List
-   * Dashboards responses.
+   * Dashboards responses. Use the [get dashboard API] to retrieve an example response, which
+   * includes the `serialized_dashboard` field. This field provides the structure of the JSON string
+   * that represents the dashboard's layout and components.
+   *
+   * <p>[get dashboard API]: https://docs.databricks.com/api/workspace/lakeview/get
    */
   @JsonProperty("serialized_dashboard")
   private String serializedDashboard;

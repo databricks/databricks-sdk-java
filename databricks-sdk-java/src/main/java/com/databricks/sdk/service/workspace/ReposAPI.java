@@ -35,8 +35,8 @@ public class ReposAPI {
     impl = mock;
   }
 
-  public RepoInfo create(String url, String provider) {
-    return create(new CreateRepo().setUrl(url).setProvider(provider));
+  public CreateRepoResponse create(String url, String provider) {
+    return create(new CreateRepoRequest().setUrl(url).setProvider(provider));
   }
 
   /**
@@ -46,7 +46,7 @@ public class ReposAPI {
    * repos created programmatically must be linked to a remote Git repo, unlike repos created in the
    * browser.
    */
-  public RepoInfo create(CreateRepo request) {
+  public CreateRepoResponse create(CreateRepoRequest request) {
     return impl.create(request);
   }
 
@@ -63,7 +63,7 @@ public class ReposAPI {
     impl.delete(request);
   }
 
-  public RepoInfo get(long repoId) {
+  public GetRepoResponse get(long repoId) {
     return get(new GetRepoRequest().setRepoId(repoId));
   }
 
@@ -72,7 +72,7 @@ public class ReposAPI {
    *
    * <p>Returns the repo with the given repo ID.
    */
-  public RepoInfo get(GetRepoRequest request) {
+  public GetRepoResponse get(GetRepoRequest request) {
     return impl.get(request);
   }
 
@@ -106,8 +106,8 @@ public class ReposAPI {
   /**
    * Get repos.
    *
-   * <p>Returns repos that the calling user has Manage permissions on. Results are paginated with
-   * each page containing twenty repos.
+   * <p>Returns repos that the calling user has Manage permissions on. Use `next_page_token` to
+   * iterate through additional pages.
    */
   public Iterable<RepoInfo> list(ListReposRequest request) {
     return new Paginator<>(
@@ -137,7 +137,7 @@ public class ReposAPI {
   }
 
   public void update(long repoId) {
-    update(new UpdateRepo().setRepoId(repoId));
+    update(new UpdateRepoRequest().setRepoId(repoId));
   }
 
   /**
@@ -146,7 +146,7 @@ public class ReposAPI {
    * <p>Updates the repo to a different branch or tag, or updates the repo to the latest commit on
    * the same branch.
    */
-  public void update(UpdateRepo request) {
+  public void update(UpdateRepoRequest request) {
     impl.update(request);
   }
 

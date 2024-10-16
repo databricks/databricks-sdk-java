@@ -20,8 +20,9 @@ public class ListReposRequest {
   private String nextPageToken;
 
   /**
-   * Filters repos that have paths starting with the given path prefix. If not provided repos from
-   * /Repos will be served.
+   * Filters repos that have paths starting with the given path prefix. If not provided or when
+   * provided an effectively empty prefix (`/` or `/Workspace`) Git folders (repos) from
+   * `/Workspace/Repos` will be served.
    */
   @JsonIgnore
   @QueryParam("path_prefix")

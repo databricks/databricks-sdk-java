@@ -46,6 +46,10 @@ public class Alert {
   @JsonProperty("lifecycle_state")
   private LifecycleState lifecycleState;
 
+  /** Whether to notify alert subscribers when alert returns back to normal. */
+  @JsonProperty("notify_on_ok")
+  private Boolean notifyOnOk;
+
   /** The owner's username. This field is set to "Unavailable" if the user has been deleted. */
   @JsonProperty("owner_user_name")
   private String ownerUserName;
@@ -143,6 +147,15 @@ public class Alert {
     return lifecycleState;
   }
 
+  public Alert setNotifyOnOk(Boolean notifyOnOk) {
+    this.notifyOnOk = notifyOnOk;
+    return this;
+  }
+
+  public Boolean getNotifyOnOk() {
+    return notifyOnOk;
+  }
+
   public Alert setOwnerUserName(String ownerUserName) {
     this.ownerUserName = ownerUserName;
     return this;
@@ -218,6 +231,7 @@ public class Alert {
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(id, that.id)
         && Objects.equals(lifecycleState, that.lifecycleState)
+        && Objects.equals(notifyOnOk, that.notifyOnOk)
         && Objects.equals(ownerUserName, that.ownerUserName)
         && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(queryId, that.queryId)
@@ -237,6 +251,7 @@ public class Alert {
         displayName,
         id,
         lifecycleState,
+        notifyOnOk,
         ownerUserName,
         parentPath,
         queryId,
@@ -256,6 +271,7 @@ public class Alert {
         .add("displayName", displayName)
         .add("id", id)
         .add("lifecycleState", lifecycleState)
+        .add("notifyOnOk", notifyOnOk)
         .add("ownerUserName", ownerUserName)
         .add("parentPath", parentPath)
         .add("queryId", queryId)

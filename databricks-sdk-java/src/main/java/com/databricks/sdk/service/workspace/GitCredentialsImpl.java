@@ -16,7 +16,7 @@ class GitCredentialsImpl implements GitCredentialsService {
   }
 
   @Override
-  public CreateCredentialsResponse create(CreateCredentials request) {
+  public CreateCredentialsResponse create(CreateCredentialsRequest request) {
     String path = "/api/2.0/git-credentials";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
@@ -25,34 +25,35 @@ class GitCredentialsImpl implements GitCredentialsService {
   }
 
   @Override
-  public void delete(DeleteGitCredentialRequest request) {
-    String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
-    Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
-  }
-
-  @Override
-  public CredentialInfo get(GetGitCredentialRequest request) {
+  public void delete(DeleteCredentialsRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, CredentialInfo.class, headers);
+    apiClient.DELETE(path, request, DeleteCredentialsResponse.class, headers);
   }
 
   @Override
-  public GetCredentialsResponse list() {
+  public GetCredentialsResponse get(GetCredentialsRequest request) {
+    String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.GET(path, request, GetCredentialsResponse.class, headers);
+  }
+
+  @Override
+  public ListCredentialsResponse list() {
     String path = "/api/2.0/git-credentials";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, GetCredentialsResponse.class, headers);
+    return apiClient.GET(path, ListCredentialsResponse.class, headers);
   }
 
   @Override
-  public void update(UpdateCredentials request) {
+  public void update(UpdateCredentialsRequest request) {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateResponse.class, headers);
+    apiClient.PATCH(path, request, UpdateCredentialsResponse.class, headers);
   }
 }
