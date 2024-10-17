@@ -6,6 +6,10 @@ on:
   merge_group:
     types: [checks_requested]
 
+permissions:
+  contents: read
+  scripts: write
+
 jobs:
   fmt:
     runs-on: ubuntu-latest

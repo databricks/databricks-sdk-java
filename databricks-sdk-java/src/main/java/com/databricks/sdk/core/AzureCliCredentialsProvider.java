@@ -22,7 +22,7 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
     List<String> cmd =
         new ArrayList<>(
             Arrays.asList(
-                "az", "account", "get-access-token", "--resource", resource, "--output", "json"));
+                "az2", "account", "get-access-token", "--resource", resource, "--output", "json"));
     Optional<String> subscription = getSubscription(config);
     if (subscription.isPresent()) {
       // This will fail if the user has access to the workspace, but not to the subscription
