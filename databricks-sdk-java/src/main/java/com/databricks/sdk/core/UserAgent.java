@@ -47,7 +47,7 @@ public class UserAgent {
   private static final Pattern regexpSemVer =
       Pattern.compile("^" + semVerCore + semVerPrerelease + semVerBuildmetadata + "$");
 
-  private static final Pattern regexpAlphanum = Pattern.compile("^[0-9A-Za-z_\\.\\+-]+$");
+  private static final Pattern regexpAlphanum = Pattern.compile("^[0-9A-Za-z_\\.\\+\\-/ ]+$");
   private static final Pattern regexpAlphanumInverse = Pattern.compile("[^0-9A-Za-z_\\.\\+-]");
 
   /**
