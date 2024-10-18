@@ -34,6 +34,10 @@ public class UpdateAlertRequestAlert {
   @JsonProperty("display_name")
   private String displayName;
 
+  /** Whether to notify alert subscribers when alert returns back to normal. */
+  @JsonProperty("notify_on_ok")
+  private Boolean notifyOnOk;
+
   /** The owner's username. This field is set to "Unavailable" if the user has been deleted. */
   @JsonProperty("owner_user_name")
   private String ownerUserName;
@@ -85,6 +89,15 @@ public class UpdateAlertRequestAlert {
     return displayName;
   }
 
+  public UpdateAlertRequestAlert setNotifyOnOk(Boolean notifyOnOk) {
+    this.notifyOnOk = notifyOnOk;
+    return this;
+  }
+
+  public Boolean getNotifyOnOk() {
+    return notifyOnOk;
+  }
+
   public UpdateAlertRequestAlert setOwnerUserName(String ownerUserName) {
     this.ownerUserName = ownerUserName;
     return this;
@@ -121,6 +134,7 @@ public class UpdateAlertRequestAlert {
         && Objects.equals(customBody, that.customBody)
         && Objects.equals(customSubject, that.customSubject)
         && Objects.equals(displayName, that.displayName)
+        && Objects.equals(notifyOnOk, that.notifyOnOk)
         && Objects.equals(ownerUserName, that.ownerUserName)
         && Objects.equals(queryId, that.queryId)
         && Objects.equals(secondsToRetrigger, that.secondsToRetrigger);
@@ -133,6 +147,7 @@ public class UpdateAlertRequestAlert {
         customBody,
         customSubject,
         displayName,
+        notifyOnOk,
         ownerUserName,
         queryId,
         secondsToRetrigger);
@@ -145,6 +160,7 @@ public class UpdateAlertRequestAlert {
         .add("customBody", customBody)
         .add("customSubject", customSubject)
         .add("displayName", displayName)
+        .add("notifyOnOk", notifyOnOk)
         .add("ownerUserName", ownerUserName)
         .add("queryId", queryId)
         .add("secondsToRetrigger", secondsToRetrigger)

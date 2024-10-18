@@ -5,6 +5,7 @@ package com.databricks.sdk.service.apps;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -19,6 +20,10 @@ public class CreateAppRequest {
    */
   @JsonProperty("name")
   private String name;
+
+  /** Resources for the app. */
+  @JsonProperty("resources")
+  private Collection<AppResource> resources;
 
   public CreateAppRequest setDescription(String description) {
     this.description = description;
@@ -38,17 +43,28 @@ public class CreateAppRequest {
     return name;
   }
 
+  public CreateAppRequest setResources(Collection<AppResource> resources) {
+    this.resources = resources;
+    return this;
+  }
+
+  public Collection<AppResource> getResources() {
+    return resources;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateAppRequest that = (CreateAppRequest) o;
-    return Objects.equals(description, that.description) && Objects.equals(name, that.name);
+    return Objects.equals(description, that.description)
+        && Objects.equals(name, that.name)
+        && Objects.equals(resources, that.resources);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, name);
+    return Objects.hash(description, name, resources);
   }
 
   @Override
@@ -56,6 +72,7 @@ public class CreateAppRequest {
     return new ToStringer(CreateAppRequest.class)
         .add("description", description)
         .add("name", name)
+        .add("resources", resources)
         .toString();
   }
 }

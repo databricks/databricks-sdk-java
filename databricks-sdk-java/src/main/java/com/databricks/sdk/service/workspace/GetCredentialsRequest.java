@@ -7,13 +7,13 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
-/** Delete a credential */
+/** Get a credential entry */
 @Generated
-public class DeleteGitCredentialRequest {
+public class GetCredentialsRequest {
   /** The ID for the corresponding credential to access. */
   @JsonIgnore private Long credentialId;
 
-  public DeleteGitCredentialRequest setCredentialId(Long credentialId) {
+  public GetCredentialsRequest setCredentialId(Long credentialId) {
     this.credentialId = credentialId;
     return this;
   }
@@ -26,7 +26,7 @@ public class DeleteGitCredentialRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    DeleteGitCredentialRequest that = (DeleteGitCredentialRequest) o;
+    GetCredentialsRequest that = (GetCredentialsRequest) o;
     return Objects.equals(credentialId, that.credentialId);
   }
 
@@ -37,8 +37,6 @@ public class DeleteGitCredentialRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteGitCredentialRequest.class)
-        .add("credentialId", credentialId)
-        .toString();
+    return new ToStringer(GetCredentialsRequest.class).add("credentialId", credentialId).toString();
   }
 }

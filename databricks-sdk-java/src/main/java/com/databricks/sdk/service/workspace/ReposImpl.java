@@ -16,27 +16,28 @@ class ReposImpl implements ReposService {
   }
 
   @Override
-  public RepoInfo create(CreateRepo request) {
+  public CreateRepoResponse create(CreateRepoRequest request) {
     String path = "/api/2.0/repos";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, RepoInfo.class, headers);
+    return apiClient.POST(path, request, CreateRepoResponse.class, headers);
   }
 
   @Override
   public void delete(DeleteRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    headers.put("Accept", "application/json");
+    apiClient.DELETE(path, request, DeleteRepoResponse.class, headers);
   }
 
   @Override
-  public RepoInfo get(GetRepoRequest request) {
+  public GetRepoResponse get(GetRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, RepoInfo.class, headers);
+    return apiClient.GET(path, request, GetRepoResponse.class, headers);
   }
 
   @Override
@@ -75,12 +76,12 @@ class ReposImpl implements ReposService {
   }
 
   @Override
-  public void update(UpdateRepo request) {
+  public void update(UpdateRepoRequest request) {
     String path = String.format("/api/2.0/repos/%s", request.getRepoId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateResponse.class, headers);
+    apiClient.PATCH(path, request, UpdateRepoResponse.class, headers);
   }
 
   @Override

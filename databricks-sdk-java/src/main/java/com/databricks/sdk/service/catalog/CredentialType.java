@@ -7,5 +7,6 @@ import com.databricks.sdk.support.Generated;
 /** The type of credential. */
 @Generated
 public enum CredentialType {
+  BEARER_TOKEN,
   USERNAME_PASSWORD,
 }

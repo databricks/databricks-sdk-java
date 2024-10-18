@@ -95,6 +95,13 @@ public class CreatePipeline {
   @JsonProperty("photon")
   private Boolean photon;
 
+  /**
+   * The default schema (database) where tables are read from or published to. The presence of this
+   * field implies that the pipeline is in direct publishing mode.
+   */
+  @JsonProperty("schema")
+  private String schema;
+
   /** Whether serverless compute is enabled for this pipeline. */
   @JsonProperty("serverless")
   private Boolean serverless;
@@ -286,6 +293,15 @@ public class CreatePipeline {
     return photon;
   }
 
+  public CreatePipeline setSchema(String schema) {
+    this.schema = schema;
+    return this;
+  }
+
+  public String getSchema() {
+    return schema;
+  }
+
   public CreatePipeline setServerless(Boolean serverless) {
     this.serverless = serverless;
     return this;
@@ -346,6 +362,7 @@ public class CreatePipeline {
         && Objects.equals(name, that.name)
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
+        && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
         && Objects.equals(target, that.target)
@@ -374,6 +391,7 @@ public class CreatePipeline {
         name,
         notifications,
         photon,
+        schema,
         serverless,
         storage,
         target,
@@ -402,6 +420,7 @@ public class CreatePipeline {
         .add("name", name)
         .add("notifications", notifications)
         .add("photon", photon)
+        .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)
         .add("target", target)

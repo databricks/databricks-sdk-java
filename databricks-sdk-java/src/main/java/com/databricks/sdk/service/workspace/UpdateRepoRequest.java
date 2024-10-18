@@ -9,12 +9,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class UpdateRepo {
+public class UpdateRepoRequest {
   /** Branch that the local version of the repo is checked out to. */
   @JsonProperty("branch")
   private String branch;
 
-  /** The ID for the corresponding repo to access. */
+  /** ID of the Git folder (repo) object in the workspace. */
   @JsonIgnore private Long repoId;
 
   /**
@@ -32,7 +32,7 @@ public class UpdateRepo {
   @JsonProperty("tag")
   private String tag;
 
-  public UpdateRepo setBranch(String branch) {
+  public UpdateRepoRequest setBranch(String branch) {
     this.branch = branch;
     return this;
   }
@@ -41,7 +41,7 @@ public class UpdateRepo {
     return branch;
   }
 
-  public UpdateRepo setRepoId(Long repoId) {
+  public UpdateRepoRequest setRepoId(Long repoId) {
     this.repoId = repoId;
     return this;
   }
@@ -50,7 +50,7 @@ public class UpdateRepo {
     return repoId;
   }
 
-  public UpdateRepo setSparseCheckout(SparseCheckoutUpdate sparseCheckout) {
+  public UpdateRepoRequest setSparseCheckout(SparseCheckoutUpdate sparseCheckout) {
     this.sparseCheckout = sparseCheckout;
     return this;
   }
@@ -59,7 +59,7 @@ public class UpdateRepo {
     return sparseCheckout;
   }
 
-  public UpdateRepo setTag(String tag) {
+  public UpdateRepoRequest setTag(String tag) {
     this.tag = tag;
     return this;
   }
@@ -72,7 +72,7 @@ public class UpdateRepo {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    UpdateRepo that = (UpdateRepo) o;
+    UpdateRepoRequest that = (UpdateRepoRequest) o;
     return Objects.equals(branch, that.branch)
         && Objects.equals(repoId, that.repoId)
         && Objects.equals(sparseCheckout, that.sparseCheckout)
@@ -86,7 +86,7 @@ public class UpdateRepo {
 
   @Override
   public String toString() {
-    return new ToStringer(UpdateRepo.class)
+    return new ToStringer(UpdateRepoRequest.class)
         .add("branch", branch)
         .add("repoId", repoId)
         .add("sparseCheckout", sparseCheckout)

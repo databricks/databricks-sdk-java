@@ -8,11 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class CreateCredentials {
+public class CreateCredentialsRequest {
   /**
-   * Git provider. This field is case-insensitive. The available Git providers are gitHub,
-   * bitbucketCloud, gitLab, azureDevOpsServices, gitHubEnterprise, bitbucketServer,
-   * gitLabEnterpriseEdition and awsCodeCommit.
+   * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
+   * `bitbucketCloud`, `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer`,
+   * `gitLabEnterpriseEdition` and `awsCodeCommit`.
    */
   @JsonProperty("git_provider")
   private String gitProvider;
@@ -30,15 +30,14 @@ public class CreateCredentials {
 
   /**
    * The personal access token used to authenticate to the corresponding Git provider. For certain
-   * providers, support may exist for other types of scoped access tokens. [Learn more]. The
-   * personal access token used to authenticate to the corresponding Git
+   * providers, support may exist for other types of scoped access tokens. [Learn more].
    *
    * <p>[Learn more]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
    */
   @JsonProperty("personal_access_token")
   private String personalAccessToken;
 
-  public CreateCredentials setGitProvider(String gitProvider) {
+  public CreateCredentialsRequest setGitProvider(String gitProvider) {
     this.gitProvider = gitProvider;
     return this;
   }
@@ -47,7 +46,7 @@ public class CreateCredentials {
     return gitProvider;
   }
 
-  public CreateCredentials setGitUsername(String gitUsername) {
+  public CreateCredentialsRequest setGitUsername(String gitUsername) {
     this.gitUsername = gitUsername;
     return this;
   }
@@ -56,7 +55,7 @@ public class CreateCredentials {
     return gitUsername;
   }
 
-  public CreateCredentials setPersonalAccessToken(String personalAccessToken) {
+  public CreateCredentialsRequest setPersonalAccessToken(String personalAccessToken) {
     this.personalAccessToken = personalAccessToken;
     return this;
   }
@@ -69,7 +68,7 @@ public class CreateCredentials {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    CreateCredentials that = (CreateCredentials) o;
+    CreateCredentialsRequest that = (CreateCredentialsRequest) o;
     return Objects.equals(gitProvider, that.gitProvider)
         && Objects.equals(gitUsername, that.gitUsername)
         && Objects.equals(personalAccessToken, that.personalAccessToken);
@@ -82,7 +81,7 @@ public class CreateCredentials {
 
   @Override
   public String toString() {
-    return new ToStringer(CreateCredentials.class)
+    return new ToStringer(CreateCredentialsRequest.class)
         .add("gitProvider", gitProvider)
         .add("gitUsername", gitUsername)
         .add("personalAccessToken", personalAccessToken)
