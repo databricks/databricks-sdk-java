@@ -46,6 +46,10 @@ public class ListAlertsResponseAlert {
   @JsonProperty("lifecycle_state")
   private LifecycleState lifecycleState;
 
+  /** Whether to notify alert subscribers when alert returns back to normal. */
+  @JsonProperty("notify_on_ok")
+  private Boolean notifyOnOk;
+
   /** The owner's username. This field is set to "Unavailable" if the user has been deleted. */
   @JsonProperty("owner_user_name")
   private String ownerUserName;
@@ -139,6 +143,15 @@ public class ListAlertsResponseAlert {
     return lifecycleState;
   }
 
+  public ListAlertsResponseAlert setNotifyOnOk(Boolean notifyOnOk) {
+    this.notifyOnOk = notifyOnOk;
+    return this;
+  }
+
+  public Boolean getNotifyOnOk() {
+    return notifyOnOk;
+  }
+
   public ListAlertsResponseAlert setOwnerUserName(String ownerUserName) {
     this.ownerUserName = ownerUserName;
     return this;
@@ -205,6 +218,7 @@ public class ListAlertsResponseAlert {
         && Objects.equals(displayName, that.displayName)
         && Objects.equals(id, that.id)
         && Objects.equals(lifecycleState, that.lifecycleState)
+        && Objects.equals(notifyOnOk, that.notifyOnOk)
         && Objects.equals(ownerUserName, that.ownerUserName)
         && Objects.equals(queryId, that.queryId)
         && Objects.equals(secondsToRetrigger, that.secondsToRetrigger)
@@ -223,6 +237,7 @@ public class ListAlertsResponseAlert {
         displayName,
         id,
         lifecycleState,
+        notifyOnOk,
         ownerUserName,
         queryId,
         secondsToRetrigger,
@@ -241,6 +256,7 @@ public class ListAlertsResponseAlert {
         .add("displayName", displayName)
         .add("id", id)
         .add("lifecycleState", lifecycleState)
+        .add("notifyOnOk", notifyOnOk)
         .add("ownerUserName", ownerUserName)
         .add("queryId", queryId)
         .add("secondsToRetrigger", secondsToRetrigger)

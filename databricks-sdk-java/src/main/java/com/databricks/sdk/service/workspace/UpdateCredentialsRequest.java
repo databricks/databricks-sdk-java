@@ -9,14 +9,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class UpdateCredentials {
+public class UpdateCredentialsRequest {
   /** The ID for the corresponding credential to access. */
   @JsonIgnore private Long credentialId;
 
   /**
-   * Git provider. This field is case-insensitive. The available Git providers are gitHub,
-   * bitbucketCloud, gitLab, azureDevOpsServices, gitHubEnterprise, bitbucketServer,
-   * gitLabEnterpriseEdition and awsCodeCommit.
+   * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
+   * `bitbucketCloud`, `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer`,
+   * `gitLabEnterpriseEdition` and `awsCodeCommit`.
    */
   @JsonProperty("git_provider")
   private String gitProvider;
@@ -34,15 +34,14 @@ public class UpdateCredentials {
 
   /**
    * The personal access token used to authenticate to the corresponding Git provider. For certain
-   * providers, support may exist for other types of scoped access tokens. [Learn more]. The
-   * personal access token used to authenticate to the corresponding Git
+   * providers, support may exist for other types of scoped access tokens. [Learn more].
    *
    * <p>[Learn more]: https://docs.databricks.com/repos/get-access-tokens-from-git-provider.html
    */
   @JsonProperty("personal_access_token")
   private String personalAccessToken;
 
-  public UpdateCredentials setCredentialId(Long credentialId) {
+  public UpdateCredentialsRequest setCredentialId(Long credentialId) {
     this.credentialId = credentialId;
     return this;
   }
@@ -51,7 +50,7 @@ public class UpdateCredentials {
     return credentialId;
   }
 
-  public UpdateCredentials setGitProvider(String gitProvider) {
+  public UpdateCredentialsRequest setGitProvider(String gitProvider) {
     this.gitProvider = gitProvider;
     return this;
   }
@@ -60,7 +59,7 @@ public class UpdateCredentials {
     return gitProvider;
   }
 
-  public UpdateCredentials setGitUsername(String gitUsername) {
+  public UpdateCredentialsRequest setGitUsername(String gitUsername) {
     this.gitUsername = gitUsername;
     return this;
   }
@@ -69,7 +68,7 @@ public class UpdateCredentials {
     return gitUsername;
   }
 
-  public UpdateCredentials setPersonalAccessToken(String personalAccessToken) {
+  public UpdateCredentialsRequest setPersonalAccessToken(String personalAccessToken) {
     this.personalAccessToken = personalAccessToken;
     return this;
   }
@@ -82,7 +81,7 @@ public class UpdateCredentials {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    UpdateCredentials that = (UpdateCredentials) o;
+    UpdateCredentialsRequest that = (UpdateCredentialsRequest) o;
     return Objects.equals(credentialId, that.credentialId)
         && Objects.equals(gitProvider, that.gitProvider)
         && Objects.equals(gitUsername, that.gitUsername)
@@ -96,7 +95,7 @@ public class UpdateCredentials {
 
   @Override
   public String toString() {
-    return new ToStringer(UpdateCredentials.class)
+    return new ToStringer(UpdateCredentialsRequest.class)
         .add("credentialId", credentialId)
         .add("gitProvider", gitProvider)
         .add("gitUsername", gitUsername)

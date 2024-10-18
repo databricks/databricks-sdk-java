@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Get a repo */
 @Generated
 public class GetRepoRequest {
-  /** The ID for the corresponding repo to access. */
+  /** ID of the Git folder (repo) object in the workspace. */
   @JsonIgnore private Long repoId;
 
   public GetRepoRequest setRepoId(Long repoId) {

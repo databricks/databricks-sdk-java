@@ -23,33 +23,33 @@ public interface GitCredentialsService {
    * so any attempts to create credentials if an entry already exists will fail. Use the PATCH
    * endpoint to update existing credentials, or the DELETE endpoint to delete existing credentials.
    */
-  CreateCredentialsResponse create(CreateCredentials createCredentials);
+  CreateCredentialsResponse create(CreateCredentialsRequest createCredentialsRequest);
 
   /**
    * Delete a credential.
    *
    * <p>Deletes the specified Git credential.
    */
-  void delete(DeleteGitCredentialRequest deleteGitCredentialRequest);
+  void delete(DeleteCredentialsRequest deleteCredentialsRequest);
 
   /**
    * Get a credential entry.
    *
    * <p>Gets the Git credential with the specified credential ID.
    */
-  CredentialInfo get(GetGitCredentialRequest getGitCredentialRequest);
+  GetCredentialsResponse get(GetCredentialsRequest getCredentialsRequest);
 
   /**
    * Get Git credentials.
    *
    * <p>Lists the calling user's Git credentials. One credential per user is supported.
    */
-  GetCredentialsResponse list();
+  ListCredentialsResponse list();
 
   /**
    * Update a credential.
    *
    * <p>Updates the specified Git credential.
    */
-  void update(UpdateCredentials updateCredentials);
+  void update(UpdateCredentialsRequest updateCredentialsRequest);
 }

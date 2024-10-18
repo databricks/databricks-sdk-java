@@ -34,6 +34,10 @@ public class CreateAlertRequestAlert {
   @JsonProperty("display_name")
   private String displayName;
 
+  /** Whether to notify alert subscribers when alert returns back to normal. */
+  @JsonProperty("notify_on_ok")
+  private Boolean notifyOnOk;
+
   /** The workspace path of the folder containing the alert. */
   @JsonProperty("parent_path")
   private String parentPath;
@@ -85,6 +89,15 @@ public class CreateAlertRequestAlert {
     return displayName;
   }
 
+  public CreateAlertRequestAlert setNotifyOnOk(Boolean notifyOnOk) {
+    this.notifyOnOk = notifyOnOk;
+    return this;
+  }
+
+  public Boolean getNotifyOnOk() {
+    return notifyOnOk;
+  }
+
   public CreateAlertRequestAlert setParentPath(String parentPath) {
     this.parentPath = parentPath;
     return this;
@@ -121,6 +134,7 @@ public class CreateAlertRequestAlert {
         && Objects.equals(customBody, that.customBody)
         && Objects.equals(customSubject, that.customSubject)
         && Objects.equals(displayName, that.displayName)
+        && Objects.equals(notifyOnOk, that.notifyOnOk)
         && Objects.equals(parentPath, that.parentPath)
         && Objects.equals(queryId, that.queryId)
         && Objects.equals(secondsToRetrigger, that.secondsToRetrigger);
@@ -129,7 +143,14 @@ public class CreateAlertRequestAlert {
   @Override
   public int hashCode() {
     return Objects.hash(
-        condition, customBody, customSubject, displayName, parentPath, queryId, secondsToRetrigger);
+        condition,
+        customBody,
+        customSubject,
+        displayName,
+        notifyOnOk,
+        parentPath,
+        queryId,
+        secondsToRetrigger);
   }
 
   @Override
@@ -139,6 +160,7 @@ public class CreateAlertRequestAlert {
         .add("customBody", customBody)
         .add("customSubject", customSubject)
         .add("displayName", displayName)
+        .add("notifyOnOk", notifyOnOk)
         .add("parentPath", parentPath)
         .add("queryId", queryId)
         .add("secondsToRetrigger", secondsToRetrigger)

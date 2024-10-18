@@ -23,6 +23,15 @@ public class Job {
   @JsonProperty("creator_user_name")
   private String creatorUserName;
 
+  /**
+   * The id of the budget policy used by this job for cost attribution purposes. This may be set
+   * through (in order of precedence): 1. Budget admins through the account or workspace console 2.
+   * Jobs UI in the job details page and Jobs API using `budget_policy_id` 3. Inferred default based
+   * on accessible budget policies of the run_as identity on job creation or modification.
+   */
+  @JsonProperty("effective_budget_policy_id")
+  private String effectiveBudgetPolicyId;
+
   /** The canonical identifier for this job. */
   @JsonProperty("job_id")
   private Long jobId;
@@ -64,6 +73,15 @@ public class Job {
     return creatorUserName;
   }
 
+  public Job setEffectiveBudgetPolicyId(String effectiveBudgetPolicyId) {
+    this.effectiveBudgetPolicyId = effectiveBudgetPolicyId;
+    return this;
+  }
+
+  public String getEffectiveBudgetPolicyId() {
+    return effectiveBudgetPolicyId;
+  }
+
   public Job setJobId(Long jobId) {
     this.jobId = jobId;
     return this;
@@ -98,6 +116,7 @@ public class Job {
     Job that = (Job) o;
     return Objects.equals(createdTime, that.createdTime)
         && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(runAsUserName, that.runAsUserName)
         && Objects.equals(settings, that.settings);
@@ -105,7 +124,8 @@ public class Job {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdTime, creatorUserName, jobId, runAsUserName, settings);
+    return Objects.hash(
+        createdTime, creatorUserName, effectiveBudgetPolicyId, jobId, runAsUserName, settings);
   }
 
   @Override
@@ -113,6 +133,7 @@ public class Job {
     return new ToStringer(Job.class)
         .add("createdTime", createdTime)
         .add("creatorUserName", creatorUserName)
+        .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
         .add("jobId", jobId)
         .add("runAsUserName", runAsUserName)
         .add("settings", settings)

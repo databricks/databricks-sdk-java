@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class TaskEmailNotifications {
-  /** If true, do not send email to recipients specified in `on_failure` if the run is skipped. */
+  /**
+   * If true, do not send email to recipients specified in `on_failure` if the run is skipped. This
+   * field is `deprecated`. Please use the `notification_settings.no_alert_for_skipped_runs` field.
+   */
   @JsonProperty("no_alert_for_skipped_runs")
   private Boolean noAlertForSkippedRuns;
 

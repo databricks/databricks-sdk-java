@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import java.util.Objects;
 
 @Generated
-public class UpdateResponse {
+public class UpdateCredentialsResponse {
 
   @Override
   public boolean equals(Object o) {
@@ -23,6 +23,6 @@ public class UpdateResponse {
 
   @Override
   public String toString() {
-    return new ToStringer(UpdateResponse.class).toString();
+    return new ToStringer(UpdateCredentialsResponse.class).toString();
   }
 }

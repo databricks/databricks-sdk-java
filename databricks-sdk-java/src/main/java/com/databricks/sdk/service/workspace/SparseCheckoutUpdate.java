@@ -8,9 +8,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Sparse checkout configuration, it contains options like cone patterns. */
 @Generated
 public class SparseCheckoutUpdate {
-  /** List of patterns to include for sparse checkout. */
+  /**
+   * List of sparse checkout cone patterns, see [cone mode handling] for details.
+   *
+   * <p>[cone mode handling]:
+   * https://git-scm.com/docs/git-sparse-checkout#_internalscone_mode_handling
+   */
   @JsonProperty("patterns")
   private Collection<String> patterns;
 

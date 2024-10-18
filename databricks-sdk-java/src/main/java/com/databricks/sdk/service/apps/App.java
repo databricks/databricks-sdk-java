@@ -5,11 +5,15 @@ package com.databricks.sdk.service.apps;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class App {
-  /** The active deployment of the app. */
+  /**
+   * The active deployment of the app. A deployment is considered active when it has been deployed
+   * to the app compute.
+   */
   @JsonProperty("active_deployment")
   private AppDeployment activeDeployment;
 
@@ -29,6 +33,13 @@ public class App {
   @JsonProperty("creator")
   private String creator;
 
+  /**
+   * The default workspace file system path of the source code from which app deployment are
+   * created. This field tracks the workspace source code path of the last active deployment.
+   */
+  @JsonProperty("default_source_code_path")
+  private String defaultSourceCodePath;
+
   /** The description of the app. */
   @JsonProperty("description")
   private String description;
@@ -40,9 +51,16 @@ public class App {
   @JsonProperty("name")
   private String name;
 
-  /** The pending deployment of the app. */
+  /**
+   * The pending deployment of the app. A deployment is considered pending when it is being prepared
+   * for deployment to the app compute.
+   */
   @JsonProperty("pending_deployment")
   private AppDeployment pendingDeployment;
+
+  /** Resources for the app. */
+  @JsonProperty("resources")
+  private Collection<AppResource> resources;
 
   /** */
   @JsonProperty("service_principal_id")
@@ -109,6 +127,15 @@ public class App {
     return creator;
   }
 
+  public App setDefaultSourceCodePath(String defaultSourceCodePath) {
+    this.defaultSourceCodePath = defaultSourceCodePath;
+    return this;
+  }
+
+  public String getDefaultSourceCodePath() {
+    return defaultSourceCodePath;
+  }
+
   public App setDescription(String description) {
     this.description = description;
     return this;
@@ -134,6 +161,15 @@ public class App {
 
   public AppDeployment getPendingDeployment() {
     return pendingDeployment;
+  }
+
+  public App setResources(Collection<AppResource> resources) {
+    this.resources = resources;
+    return this;
+  }
+
+  public Collection<AppResource> getResources() {
+    return resources;
   }
 
   public App setServicePrincipalId(Long servicePrincipalId) {
@@ -191,9 +227,11 @@ public class App {
         && Objects.equals(computeStatus, that.computeStatus)
         && Objects.equals(createTime, that.createTime)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(defaultSourceCodePath, that.defaultSourceCodePath)
         && Objects.equals(description, that.description)
         && Objects.equals(name, that.name)
         && Objects.equals(pendingDeployment, that.pendingDeployment)
+        && Objects.equals(resources, that.resources)
         && Objects.equals(servicePrincipalId, that.servicePrincipalId)
         && Objects.equals(servicePrincipalName, that.servicePrincipalName)
         && Objects.equals(updateTime, that.updateTime)
@@ -209,9 +247,11 @@ public class App {
         computeStatus,
         createTime,
         creator,
+        defaultSourceCodePath,
         description,
         name,
         pendingDeployment,
+        resources,
         servicePrincipalId,
         servicePrincipalName,
         updateTime,
@@ -227,9 +267,11 @@ public class App {
         .add("computeStatus", computeStatus)
         .add("createTime", createTime)
         .add("creator", creator)
+        .add("defaultSourceCodePath", defaultSourceCodePath)
         .add("description", description)
         .add("name", name)
         .add("pendingDeployment", pendingDeployment)
+        .add("resources", resources)
         .add("servicePrincipalId", servicePrincipalId)
         .add("servicePrincipalName", servicePrincipalName)
         .add("updateTime", updateTime)
