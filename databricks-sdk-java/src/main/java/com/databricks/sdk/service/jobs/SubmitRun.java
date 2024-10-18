@@ -14,6 +14,13 @@ public class SubmitRun {
   @JsonProperty("access_control_list")
   private Collection<JobAccessControlRequest> accessControlList;
 
+  /**
+   * The user specified id of the budget policy to use for this one-time run. If not specified, the
+   * run will be not be attributed to any budget policy.
+   */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /** An optional set of email addresses notified when the run begins or completes. */
   @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
@@ -102,6 +109,15 @@ public class SubmitRun {
 
   public Collection<JobAccessControlRequest> getAccessControlList() {
     return accessControlList;
+  }
+
+  public SubmitRun setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
   }
 
   public SubmitRun setEmailNotifications(JobEmailNotifications emailNotifications) {
@@ -218,6 +234,7 @@ public class SubmitRun {
     if (o == null || getClass() != o.getClass()) return false;
     SubmitRun that = (SubmitRun) o;
     return Objects.equals(accessControlList, that.accessControlList)
+        && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(environments, that.environments)
         && Objects.equals(gitSource, that.gitSource)
@@ -236,6 +253,7 @@ public class SubmitRun {
   public int hashCode() {
     return Objects.hash(
         accessControlList,
+        budgetPolicyId,
         emailNotifications,
         environments,
         gitSource,
@@ -254,6 +272,7 @@ public class SubmitRun {
   public String toString() {
     return new ToStringer(SubmitRun.class)
         .add("accessControlList", accessControlList)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("emailNotifications", emailNotifications)
         .add("environments", environments)
         .add("gitSource", gitSource)

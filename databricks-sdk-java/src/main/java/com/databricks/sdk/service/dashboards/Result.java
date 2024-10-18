@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class Result {
+  /** If result is truncated */
+  @JsonProperty("is_truncated")
+  private Boolean isTruncated;
+
   /** Row count of the result */
   @JsonProperty("row_count")
   private Long rowCount;
@@ -19,6 +23,15 @@ public class Result {
    */
   @JsonProperty("statement_id")
   private String statementId;
+
+  public Result setIsTruncated(Boolean isTruncated) {
+    this.isTruncated = isTruncated;
+    return this;
+  }
+
+  public Boolean getIsTruncated() {
+    return isTruncated;
+  }
 
   public Result setRowCount(Long rowCount) {
     this.rowCount = rowCount;
@@ -43,17 +56,20 @@ public class Result {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Result that = (Result) o;
-    return Objects.equals(rowCount, that.rowCount) && Objects.equals(statementId, that.statementId);
+    return Objects.equals(isTruncated, that.isTruncated)
+        && Objects.equals(rowCount, that.rowCount)
+        && Objects.equals(statementId, that.statementId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(rowCount, statementId);
+    return Objects.hash(isTruncated, rowCount, statementId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(Result.class)
+        .add("isTruncated", isTruncated)
         .add("rowCount", rowCount)
         .add("statementId", statementId)
         .toString();

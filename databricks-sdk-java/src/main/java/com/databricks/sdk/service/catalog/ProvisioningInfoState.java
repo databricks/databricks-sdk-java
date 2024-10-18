@@ -10,5 +10,5 @@ public enum ProvisioningInfoState {
   DELETING,
   FAILED,
   PROVISIONING,
-  STATE_UNSPECIFIED,
+  UPDATING,
 }

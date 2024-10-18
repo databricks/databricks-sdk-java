@@ -28,7 +28,7 @@ public interface ReposService {
    * repos created programmatically must be linked to a remote Git repo, unlike repos created in the
    * browser.
    */
-  RepoInfo create(CreateRepo createRepo);
+  CreateRepoResponse create(CreateRepoRequest createRepoRequest);
 
   /**
    * Delete a repo.
@@ -42,7 +42,7 @@ public interface ReposService {
    *
    * <p>Returns the repo with the given repo ID.
    */
-  RepoInfo get(GetRepoRequest getRepoRequest);
+  GetRepoResponse get(GetRepoRequest getRepoRequest);
 
   /**
    * Get repo permission levels.
@@ -62,8 +62,8 @@ public interface ReposService {
   /**
    * Get repos.
    *
-   * <p>Returns repos that the calling user has Manage permissions on. Results are paginated with
-   * each page containing twenty repos.
+   * <p>Returns repos that the calling user has Manage permissions on. Use `next_page_token` to
+   * iterate through additional pages.
    */
   ListReposResponse list(ListReposRequest listReposRequest);
 
@@ -80,7 +80,7 @@ public interface ReposService {
    * <p>Updates the repo to a different branch or tag, or updates the repo to the latest commit on
    * the same branch.
    */
-  void update(UpdateRepo updateRepo);
+  void update(UpdateRepoRequest updateRepoRequest);
 
   /**
    * Update repo permissions.

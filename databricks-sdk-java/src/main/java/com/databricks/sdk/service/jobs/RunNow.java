@@ -76,7 +76,7 @@ public class RunNow {
   @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
 
-  /** */
+  /** Controls whether the pipeline should perform a full refresh */
   @JsonProperty("pipeline_params")
   private PipelineParams pipelineParams;
 

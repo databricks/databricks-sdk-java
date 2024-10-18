@@ -104,6 +104,13 @@ public class EditPipeline {
   @JsonProperty("pipeline_id")
   private String pipelineId;
 
+  /**
+   * The default schema (database) where tables are read from or published to. The presence of this
+   * field implies that the pipeline is in direct publishing mode.
+   */
+  @JsonProperty("schema")
+  private String schema;
+
   /** Whether serverless compute is enabled for this pipeline. */
   @JsonProperty("serverless")
   private Boolean serverless;
@@ -304,6 +311,15 @@ public class EditPipeline {
     return pipelineId;
   }
 
+  public EditPipeline setSchema(String schema) {
+    this.schema = schema;
+    return this;
+  }
+
+  public String getSchema() {
+    return schema;
+  }
+
   public EditPipeline setServerless(Boolean serverless) {
     this.serverless = serverless;
     return this;
@@ -365,6 +381,7 @@ public class EditPipeline {
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
         && Objects.equals(pipelineId, that.pipelineId)
+        && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
         && Objects.equals(target, that.target)
@@ -394,6 +411,7 @@ public class EditPipeline {
         notifications,
         photon,
         pipelineId,
+        schema,
         serverless,
         storage,
         target,
@@ -423,6 +441,7 @@ public class EditPipeline {
         .add("notifications", notifications)
         .add("photon", photon)
         .add("pipelineId", pipelineId)
+        .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)
         .add("target", target)
