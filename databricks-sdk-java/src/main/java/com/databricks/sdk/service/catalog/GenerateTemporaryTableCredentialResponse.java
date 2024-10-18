@@ -24,8 +24,8 @@ public class GenerateTemporaryTableCredentialResponse {
   private AzureUserDelegationSas azureUserDelegationSas;
 
   /**
-   * Server time when the credential will expire, in unix epoch milliseconds since January 1, 1970
-   * at 00:00:00 UTC. The API client is advised to cache the credential given this expiration time.
+   * Server time when the credential will expire, in epoch milliseconds. The API client is advised
+   * to cache the credential given this expiration time.
    */
   @JsonProperty("expiration_time")
   private Long expirationTime;

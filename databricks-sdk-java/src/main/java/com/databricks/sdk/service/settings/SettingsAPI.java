@@ -21,6 +21,8 @@ public class SettingsAPI {
 
   private DisableLegacyAccessAPI disableLegacyAccessAPI;
 
+  private DisableLegacyDbfsAPI disableLegacyDbfsAPI;
+
   private EnhancedSecurityMonitoringAPI enhancedSecurityMonitoringAPI;
 
   private RestrictWorkspaceAdminsAPI restrictWorkspaceAdminsAPI;
@@ -36,6 +38,8 @@ public class SettingsAPI {
     defaultNamespaceAPI = new DefaultNamespaceAPI(apiClient);
 
     disableLegacyAccessAPI = new DisableLegacyAccessAPI(apiClient);
+
+    disableLegacyDbfsAPI = new DisableLegacyDbfsAPI(apiClient);
 
     enhancedSecurityMonitoringAPI = new EnhancedSecurityMonitoringAPI(apiClient);
 
@@ -68,6 +72,14 @@ public class SettingsAPI {
   /** 'Disabling legacy access' has the following impacts: 1. */
   public DisableLegacyAccessAPI DisableLegacyAccess() {
     return disableLegacyAccessAPI;
+  }
+
+  /**
+   * When this setting is on, access to DBFS root and DBFS mounts is disallowed (as well as creation
+   * of new mounts).
+   */
+  public DisableLegacyDbfsAPI DisableLegacyDbfs() {
+    return disableLegacyDbfsAPI;
   }
 
   /** Controls whether enhanced security monitoring is enabled for the current workspace. */

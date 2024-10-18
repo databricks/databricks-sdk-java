@@ -8,18 +8,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
-public class CreateRepo {
+public class CreateRepoRequest {
   /**
    * Desired path for the repo in the workspace. Almost any path in the workspace can be chosen. If
-   * repo is created in /Repos, path must be in the format /Repos/{folder}/{repo-name}.
+   * repo is created in `/Repos`, path must be in the format `/Repos/{folder}/{repo-name}`.
    */
   @JsonProperty("path")
   private String path;
 
   /**
-   * Git provider. This field is case-insensitive. The available Git providers are gitHub,
-   * bitbucketCloud, gitLab, azureDevOpsServices, gitHubEnterprise, bitbucketServer,
-   * gitLabEnterpriseEdition and awsCodeCommit.
+   * Git provider. This field is case-insensitive. The available Git providers are `gitHub`,
+   * `bitbucketCloud`, `gitLab`, `azureDevOpsServices`, `gitHubEnterprise`, `bitbucketServer`,
+   * `gitLabEnterpriseEdition` and `awsCodeCommit`.
    */
   @JsonProperty("provider")
   private String provider;
@@ -35,7 +35,7 @@ public class CreateRepo {
   @JsonProperty("url")
   private String url;
 
-  public CreateRepo setPath(String path) {
+  public CreateRepoRequest setPath(String path) {
     this.path = path;
     return this;
   }
@@ -44,7 +44,7 @@ public class CreateRepo {
     return path;
   }
 
-  public CreateRepo setProvider(String provider) {
+  public CreateRepoRequest setProvider(String provider) {
     this.provider = provider;
     return this;
   }
@@ -53,7 +53,7 @@ public class CreateRepo {
     return provider;
   }
 
-  public CreateRepo setSparseCheckout(SparseCheckout sparseCheckout) {
+  public CreateRepoRequest setSparseCheckout(SparseCheckout sparseCheckout) {
     this.sparseCheckout = sparseCheckout;
     return this;
   }
@@ -62,7 +62,7 @@ public class CreateRepo {
     return sparseCheckout;
   }
 
-  public CreateRepo setUrl(String url) {
+  public CreateRepoRequest setUrl(String url) {
     this.url = url;
     return this;
   }
@@ -75,7 +75,7 @@ public class CreateRepo {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    CreateRepo that = (CreateRepo) o;
+    CreateRepoRequest that = (CreateRepoRequest) o;
     return Objects.equals(path, that.path)
         && Objects.equals(provider, that.provider)
         && Objects.equals(sparseCheckout, that.sparseCheckout)
@@ -89,7 +89,7 @@ public class CreateRepo {
 
   @Override
   public String toString() {
-    return new ToStringer(CreateRepo.class)
+    return new ToStringer(CreateRepoRequest.class)
         .add("path", path)
         .add("provider", provider)
         .add("sparseCheckout", sparseCheckout)

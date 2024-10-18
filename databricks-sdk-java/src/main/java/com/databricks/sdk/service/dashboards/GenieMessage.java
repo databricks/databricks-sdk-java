@@ -48,8 +48,9 @@ public class GenieMessage {
 
   /**
    * MesssageStatus. The possible values are: * `FETCHING_METADATA`: Fetching metadata from the data
-   * sources. * `ASKING_AI`: Waiting for the LLM to respond to the users question. *
-   * `EXECUTING_QUERY`: Executing AI provided SQL query. Get the SQL query result by calling
+   * sources. * `FILTERING_CONTEXT`: Running smart context step to determine relevant context. *
+   * `ASKING_AI`: Waiting for the LLM to respond to the users question. * `EXECUTING_QUERY`:
+   * Executing AI provided SQL query. Get the SQL query result by calling
    * [getMessageQueryResult](:method:genie/getMessageQueryResult) API. **Important: The message
    * status will stay in the `EXECUTING_QUERY` until a client calls
    * [getMessageQueryResult](:method:genie/getMessageQueryResult)**. * `FAILED`: Generating a

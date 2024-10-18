@@ -18,7 +18,7 @@ public class TableSpec {
   private String destinationSchema;
 
   /**
-   * Optional. Destination table name. The pipeline fails If a table with that name already exists.
+   * Optional. Destination table name. The pipeline fails if a table with that name already exists.
    * If not set, the source table name is used.
    */
   @JsonProperty("destination_table")

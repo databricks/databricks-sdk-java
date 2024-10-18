@@ -16,6 +16,14 @@ public class CreateJob {
   private Collection<JobAccessControlRequest> accessControlList;
 
   /**
+   * The id of the user specified budget policy to use for this job. If not specified, a default
+   * budget policy may be applied when creating or modifying the job. See
+   * `effective_budget_policy_id` for the budget policy used by this workload.
+   */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
+  /**
    * An optional continuous property for this job. The continuous property will ensure that there is
    * always one run executing. Only one of `schedule` and `continuous` can be used.
    */
@@ -175,6 +183,15 @@ public class CreateJob {
 
   public Collection<JobAccessControlRequest> getAccessControlList() {
     return accessControlList;
+  }
+
+  public CreateJob setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
   }
 
   public CreateJob setContinuous(Continuous continuous) {
@@ -381,6 +398,7 @@ public class CreateJob {
     if (o == null || getClass() != o.getClass()) return false;
     CreateJob that = (CreateJob) o;
     return Objects.equals(accessControlList, that.accessControlList)
+        && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(continuous, that.continuous)
         && Objects.equals(deployment, that.deployment)
         && Objects.equals(description, that.description)
@@ -409,6 +427,7 @@ public class CreateJob {
   public int hashCode() {
     return Objects.hash(
         accessControlList,
+        budgetPolicyId,
         continuous,
         deployment,
         description,
@@ -437,6 +456,7 @@ public class CreateJob {
   public String toString() {
     return new ToStringer(CreateJob.class)
         .add("accessControlList", accessControlList)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("continuous", continuous)
         .add("deployment", deployment)
         .add("description", description)

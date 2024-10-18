@@ -13,21 +13,13 @@ public class CreateCredentialsResponse {
   @JsonProperty("credential_id")
   private Long credentialId;
 
-  /**
-   * Git provider. This field is case-insensitive. The available Git providers are gitHub,
-   * bitbucketCloud, gitLab, azureDevOpsServices, gitHubEnterprise, bitbucketServer,
-   * gitLabEnterpriseEdition and awsCodeCommit.
-   */
+  /** The Git provider associated with the credential. */
   @JsonProperty("git_provider")
   private String gitProvider;
 
   /**
-   * The username or email provided with your Git provider account, depending on which provider you
-   * are using. For GitHub, GitHub Enterprise Server, or Azure DevOps Services, either email or
-   * username may be used. For GitLab, GitLab Enterprise Edition, email must be used. For AWS
-   * CodeCommit, BitBucket or BitBucket Server, username must be used. For all other providers
-   * please see your provider's Personal Access Token authentication documentation to see what is
-   * supported.
+   * The username or email provided with your Git provider account and associated with the
+   * credential.
    */
   @JsonProperty("git_username")
   private String gitUsername;
