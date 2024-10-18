@@ -104,11 +104,8 @@ public class CommonsHttpClient implements HttpClient {
 
   private static final Logger LOG = LoggerFactory.getLogger(CommonsHttpClient.class);
   private final CloseableHttpClient hc;
-  private int timeout;
 
   private CommonsHttpClient(Builder builder) {
-    HttpClientBuilder httpClientBuilder =
-        HttpClientBuilder.create().setDefaultRequestConfig(makeRequestConfig());
     int timeoutSeconds = 300;
     if (builder.databricksConfig != null
         && builder.databricksConfig.getHttpTimeoutSeconds() != null) {
@@ -117,7 +114,9 @@ public class CommonsHttpClient implements HttpClient {
     if (builder.timeoutSeconds != null) {
       timeoutSeconds = builder.timeoutSeconds;
     }
-    timeout = timeoutSeconds * 1000;
+    int timeout = timeoutSeconds * 1000;
+    HttpClientBuilder httpClientBuilder =
+        HttpClientBuilder.create().setDefaultRequestConfig(makeRequestConfig(timeout));
     if (builder.proxyConfig != null) {
       ProxyUtils.setupProxy(builder.proxyConfig, httpClientBuilder);
     }
@@ -135,7 +134,7 @@ public class CommonsHttpClient implements HttpClient {
     hc = httpClientBuilder.build();
   }
 
-  private RequestConfig makeRequestConfig() {
+  private RequestConfig makeRequestConfig(int timeout) {
     return RequestConfig.custom()
         .setConnectionRequestTimeout(timeout)
         .setConnectTimeout(timeout)
