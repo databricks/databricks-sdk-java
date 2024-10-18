@@ -28,6 +28,15 @@ public class TestOSUtils {
     if (resource == null) {
       fail("Asset not found: " + file);
     }
-    return resource.getFile();
+
+    String filePath = resource.getFile();
+    File f = new File(filePath);
+
+    // Make the file executable
+    if (!f.setExecutable(true)) {
+      fail("Failed to set the file as executable: " + file);
+    }
+
+    return filePath;
   }
 }
