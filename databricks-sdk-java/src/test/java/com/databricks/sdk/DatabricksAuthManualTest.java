@@ -13,7 +13,8 @@ public class DatabricksAuthManualTest implements ConfigResolving {
     StaticEnv env =
         new StaticEnv()
             .with("HOME", TestOSUtils.resource("/testdata/azure"))
-            .with("PATH", "testdata:/bin");
+            .with("PATH", "/bin:testdata")
+            .with("AZ_PATH", TestOSUtils.resource("/testdata/az"));
     String azureWorkspaceResourceId =
         "/subscriptions/123/resourceGroups/abc/providers/Microsoft.Databricks/workspaces/abc123";
     DatabricksConfig config =
@@ -32,7 +33,8 @@ public class DatabricksAuthManualTest implements ConfigResolving {
     StaticEnv env =
         new StaticEnv()
             .with("HOME", TestOSUtils.resource("/testdata/azure"))
-            .with("PATH", "testdata:/bin");
+            .with("PATH", "/bin:testdata")
+            .with("AZ_PATH", TestOSUtils.resource("/testdata/az"));
     String azureWorkspaceResourceId =
         "/subscriptions/123/resourceGroups/abc/providers/Microsoft.Databricks/workspaces/abc123";
     DatabricksConfig config =
@@ -50,7 +52,8 @@ public class DatabricksAuthManualTest implements ConfigResolving {
     StaticEnv env =
         new StaticEnv()
             .with("HOME", TestOSUtils.resource("/testdata/azure"))
-            .with("PATH", "testdata:/bin")
+            .with("PATH", "/bin:testdata")
+            .with("AZ_PATH", TestOSUtils.resource("/testdata/az"))
             .with("FAIL_IF", "https://management.core.windows.net/");
     String azureWorkspaceResourceId =
         "/subscriptions/123/resourceGroups/abc/providers/Microsoft.Databricks/workspaces/abc123";
