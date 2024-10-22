@@ -1,5 +1,19 @@
 # Version changelog
 
+## [Release] Release v0.34.0
+
+### New Features and Improvements
+
+ * Experimental: Make retry strategy configurable ([#363](https://github.com/databricks/databricks-sdk-java/pull/363)).
+
+
+### Bug Fixes
+
+ * CommonHttpsClient Builder - set timeout correctly ([#362](https://github.com/databricks/databricks-sdk-java/pull/362)).
+
+
+
+
 ## [Release] Release v0.33.0
 
 ### Bug Fixes
