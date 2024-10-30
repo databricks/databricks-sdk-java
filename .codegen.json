@@ -31,7 +31,6 @@
   },
   "toolchain": {
     "require": ["mvn", "java"],
-    "setup": ["rm -rf databricks-sdk-java/src/main/java/com/databricks/sdk/service"],
     "post_generate": ["mvn --errors clean test"]
   }
 }

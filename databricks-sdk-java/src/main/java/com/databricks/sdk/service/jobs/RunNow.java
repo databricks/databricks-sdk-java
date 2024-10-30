@@ -42,8 +42,9 @@ public class RunNow {
    * cannot be specified in conjunction with notebook_params. The JSON representation of this field
    * (for example `{"jar_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [Task parameter variables](/jobs.html\"#parameter-variables\") to set parameters
-   * containing information about job runs.
+   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   *
+   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("jar_params")
   private Collection<String> jarParams;

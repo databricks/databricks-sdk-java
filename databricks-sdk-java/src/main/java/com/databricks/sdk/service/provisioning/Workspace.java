@@ -56,6 +56,13 @@ public class Workspace {
   private String deploymentName;
 
   /**
+   * If this workspace is for a external customer, then external_customer_info is populated. If this
+   * workspace is not for a external customer, then external_customer_info is empty.
+   */
+  @JsonProperty("external_customer_info")
+  private ExternalCustomerInfo externalCustomerInfo;
+
+  /**
    * The network settings for the workspace. The configurations are only for Databricks-managed
    * VPCs. It is ignored if you specify a customer-managed VPC in the `network_id` field.", All the
    * IP range configurations must be mutually exclusive. An attempt to create a workspace fails if
@@ -82,6 +89,10 @@ public class Workspace {
   /** The configurations for the GKE cluster of a Databricks workspace. */
   @JsonProperty("gke_config")
   private GkeConfig gkeConfig;
+
+  /** Whether no public IP is enabled for the workspace. */
+  @JsonProperty("is_no_public_ip_enabled")
+  private Boolean isNoPublicIpEnabled;
 
   /**
    * The Google Cloud region of the workspace data plane in your Google account (for example,
@@ -231,6 +242,15 @@ public class Workspace {
     return deploymentName;
   }
 
+  public Workspace setExternalCustomerInfo(ExternalCustomerInfo externalCustomerInfo) {
+    this.externalCustomerInfo = externalCustomerInfo;
+    return this;
+  }
+
+  public ExternalCustomerInfo getExternalCustomerInfo() {
+    return externalCustomerInfo;
+  }
+
   public Workspace setGcpManagedNetworkConfig(GcpManagedNetworkConfig gcpManagedNetworkConfig) {
     this.gcpManagedNetworkConfig = gcpManagedNetworkConfig;
     return this;
@@ -247,6 +267,15 @@ public class Workspace {
 
   public GkeConfig getGkeConfig() {
     return gkeConfig;
+  }
+
+  public Workspace setIsNoPublicIpEnabled(Boolean isNoPublicIpEnabled) {
+    this.isNoPublicIpEnabled = isNoPublicIpEnabled;
+    return this;
+  }
+
+  public Boolean getIsNoPublicIpEnabled() {
+    return isNoPublicIpEnabled;
   }
 
   public Workspace setLocation(String location) {
@@ -363,8 +392,10 @@ public class Workspace {
         && Objects.equals(credentialsId, that.credentialsId)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(deploymentName, that.deploymentName)
+        && Objects.equals(externalCustomerInfo, that.externalCustomerInfo)
         && Objects.equals(gcpManagedNetworkConfig, that.gcpManagedNetworkConfig)
         && Objects.equals(gkeConfig, that.gkeConfig)
+        && Objects.equals(isNoPublicIpEnabled, that.isNoPublicIpEnabled)
         && Objects.equals(location, that.location)
         && Objects.equals(
             managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
@@ -391,8 +422,10 @@ public class Workspace {
         credentialsId,
         customTags,
         deploymentName,
+        externalCustomerInfo,
         gcpManagedNetworkConfig,
         gkeConfig,
+        isNoPublicIpEnabled,
         location,
         managedServicesCustomerManagedKeyId,
         networkId,
@@ -418,8 +451,10 @@ public class Workspace {
         .add("credentialsId", credentialsId)
         .add("customTags", customTags)
         .add("deploymentName", deploymentName)
+        .add("externalCustomerInfo", externalCustomerInfo)
         .add("gcpManagedNetworkConfig", gcpManagedNetworkConfig)
         .add("gkeConfig", gkeConfig)
+        .add("isNoPublicIpEnabled", isNoPublicIpEnabled)
         .add("location", location)
         .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
         .add("networkId", networkId)

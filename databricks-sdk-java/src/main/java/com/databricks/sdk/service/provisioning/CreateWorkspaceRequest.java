@@ -93,6 +93,10 @@ public class CreateWorkspaceRequest {
   @JsonProperty("gke_config")
   private GkeConfig gkeConfig;
 
+  /** Whether no public IP is enabled for the workspace. */
+  @JsonProperty("is_no_public_ip_enabled")
+  private Boolean isNoPublicIpEnabled;
+
   /**
    * The Google Cloud region of the workspace data plane in your Google account. For example,
    * `us-east4`.
@@ -225,6 +229,15 @@ public class CreateWorkspaceRequest {
     return gkeConfig;
   }
 
+  public CreateWorkspaceRequest setIsNoPublicIpEnabled(Boolean isNoPublicIpEnabled) {
+    this.isNoPublicIpEnabled = isNoPublicIpEnabled;
+    return this;
+  }
+
+  public Boolean getIsNoPublicIpEnabled() {
+    return isNoPublicIpEnabled;
+  }
+
   public CreateWorkspaceRequest setLocation(String location) {
     this.location = location;
     return this;
@@ -311,6 +324,7 @@ public class CreateWorkspaceRequest {
         && Objects.equals(deploymentName, that.deploymentName)
         && Objects.equals(gcpManagedNetworkConfig, that.gcpManagedNetworkConfig)
         && Objects.equals(gkeConfig, that.gkeConfig)
+        && Objects.equals(isNoPublicIpEnabled, that.isNoPublicIpEnabled)
         && Objects.equals(location, that.location)
         && Objects.equals(
             managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
@@ -333,6 +347,7 @@ public class CreateWorkspaceRequest {
         deploymentName,
         gcpManagedNetworkConfig,
         gkeConfig,
+        isNoPublicIpEnabled,
         location,
         managedServicesCustomerManagedKeyId,
         networkId,
@@ -354,6 +369,7 @@ public class CreateWorkspaceRequest {
         .add("deploymentName", deploymentName)
         .add("gcpManagedNetworkConfig", gcpManagedNetworkConfig)
         .add("gkeConfig", gkeConfig)
+        .add("isNoPublicIpEnabled", isNoPublicIpEnabled)
         .add("location", location)
         .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
         .add("networkId", networkId)

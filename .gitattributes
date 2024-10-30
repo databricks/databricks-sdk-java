@@ -1578,6 +1578,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/Encryp
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/EncryptionKeysService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/EndpointUseCase.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/ErrorType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/ExternalCustomerInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/GcpKeyInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/GcpManagedNetworkConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/provisioning/GcpNetworkInfo.java linguist-generated=true
@@ -1729,6 +1730,17 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AccountIpA
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AccountSettingsAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AccountSettingsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AccountSettingsService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingAccessPolicy.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingAccessPolicyAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingAccessPolicyAccessPolicyType.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingAccessPolicyImpl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingAccessPolicyService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingAccessPolicySetting.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingApprovedDomains.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingApprovedDomainsAPI.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingApprovedDomainsImpl.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingApprovedDomainsService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AibiDashboardEmbeddingApprovedDomainsSetting.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AutomaticClusterUpdateAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AutomaticClusterUpdateImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/AutomaticClusterUpdateService.java linguist-generated=true
@@ -1821,6 +1833,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/ExchangeTo
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/FetchIpAccessListResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GenericWebhookConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetAccountIpAccessListRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetAibiDashboardEmbeddingAccessPolicySettingRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetAibiDashboardEmbeddingApprovedDomainsSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetAutomaticClusterUpdateSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetComplianceSecurityProfileSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/GetCspEnablementAccountSettingRequest.java linguist-generated=true
@@ -1915,6 +1929,8 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/TokenType.
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/TokensAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/TokensImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/TokensService.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateAibiDashboardEmbeddingAccessPolicySettingRequest.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateAibiDashboardEmbeddingApprovedDomainsSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateAutomaticClusterUpdateSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateComplianceSecurityProfileSettingRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/settings/UpdateCspEnablementAccountSettingRequest.java linguist-generated=true

@@ -29,6 +29,10 @@ public class TokenInfo {
   @JsonProperty("expiry_time")
   private Long expiryTime;
 
+  /** Approximate timestamp for the day the token was last used. Accurate up to 1 day. */
+  @JsonProperty("last_used_day")
+  private Long lastUsedDay;
+
   /** User ID of the user that owns the token. */
   @JsonProperty("owner_id")
   private Long ownerId;
@@ -86,6 +90,15 @@ public class TokenInfo {
     return expiryTime;
   }
 
+  public TokenInfo setLastUsedDay(Long lastUsedDay) {
+    this.lastUsedDay = lastUsedDay;
+    return this;
+  }
+
+  public Long getLastUsedDay() {
+    return lastUsedDay;
+  }
+
   public TokenInfo setOwnerId(Long ownerId) {
     this.ownerId = ownerId;
     return this;
@@ -123,6 +136,7 @@ public class TokenInfo {
         && Objects.equals(createdByUsername, that.createdByUsername)
         && Objects.equals(creationTime, that.creationTime)
         && Objects.equals(expiryTime, that.expiryTime)
+        && Objects.equals(lastUsedDay, that.lastUsedDay)
         && Objects.equals(ownerId, that.ownerId)
         && Objects.equals(tokenId, that.tokenId)
         && Objects.equals(workspaceId, that.workspaceId);
@@ -136,6 +150,7 @@ public class TokenInfo {
         createdByUsername,
         creationTime,
         expiryTime,
+        lastUsedDay,
         ownerId,
         tokenId,
         workspaceId);
@@ -149,6 +164,7 @@ public class TokenInfo {
         .add("createdByUsername", createdByUsername)
         .add("creationTime", creationTime)
         .add("expiryTime", expiryTime)
+        .add("lastUsedDay", lastUsedDay)
         .add("ownerId", ownerId)
         .add("tokenId", tokenId)
         .add("workspaceId", workspaceId)
