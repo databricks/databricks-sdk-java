@@ -7,33 +7,20 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Online Table information. */
+/** Create an Online Table */
 @Generated
 public class CreateOnlineTableRequest {
-  /** Full three-part (catalog, schema, table) name of the table. */
-  @JsonProperty("name")
-  private String name;
+  /** Online Table information. */
+  @JsonProperty("table")
+  private OnlineTable table;
 
-  /** Specification of the online table. */
-  @JsonProperty("spec")
-  private OnlineTableSpec spec;
-
-  public CreateOnlineTableRequest setName(String name) {
-    this.name = name;
+  public CreateOnlineTableRequest setTable(OnlineTable table) {
+    this.table = table;
     return this;
   }
 
-  public String getName() {
-    return name;
-  }
-
-  public CreateOnlineTableRequest setSpec(OnlineTableSpec spec) {
-    this.spec = spec;
-    return this;
-  }
-
-  public OnlineTableSpec getSpec() {
-    return spec;
+  public OnlineTable getTable() {
+    return table;
   }
 
   @Override
@@ -41,19 +28,16 @@ public class CreateOnlineTableRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateOnlineTableRequest that = (CreateOnlineTableRequest) o;
-    return Objects.equals(name, that.name) && Objects.equals(spec, that.spec);
+    return Objects.equals(table, that.table);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, spec);
+    return Objects.hash(table);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(CreateOnlineTableRequest.class)
-        .add("name", name)
-        .add("spec", spec)
-        .toString();
+    return new ToStringer(CreateOnlineTableRequest.class).add("table", table).toString();
   }
 }

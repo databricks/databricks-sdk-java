@@ -179,10 +179,6 @@ public class AppsAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
-  public Wait<App, App> create(String name) {
-    return create(new CreateAppRequest().setName(name));
-  }
-
   /**
    * Create an app.
    *

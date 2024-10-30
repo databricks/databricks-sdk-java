@@ -5,51 +5,22 @@ package com.databricks.sdk.service.apps;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
 import java.util.Objects;
 
+/** Create an app */
 @Generated
 public class CreateAppRequest {
-  /** The description of the app. */
-  @JsonProperty("description")
-  private String description;
+  /** */
+  @JsonProperty("app")
+  private App app;
 
-  /**
-   * The name of the app. The name must contain only lowercase alphanumeric characters and hyphens.
-   * It must be unique within the workspace.
-   */
-  @JsonProperty("name")
-  private String name;
-
-  /** Resources for the app. */
-  @JsonProperty("resources")
-  private Collection<AppResource> resources;
-
-  public CreateAppRequest setDescription(String description) {
-    this.description = description;
+  public CreateAppRequest setApp(App app) {
+    this.app = app;
     return this;
   }
 
-  public String getDescription() {
-    return description;
-  }
-
-  public CreateAppRequest setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public CreateAppRequest setResources(Collection<AppResource> resources) {
-    this.resources = resources;
-    return this;
-  }
-
-  public Collection<AppResource> getResources() {
-    return resources;
+  public App getApp() {
+    return app;
   }
 
   @Override
@@ -57,22 +28,16 @@ public class CreateAppRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateAppRequest that = (CreateAppRequest) o;
-    return Objects.equals(description, that.description)
-        && Objects.equals(name, that.name)
-        && Objects.equals(resources, that.resources);
+    return Objects.equals(app, that.app);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, name, resources);
+    return Objects.hash(app);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(CreateAppRequest.class)
-        .add("description", description)
-        .add("name", name)
-        .add("resources", resources)
-        .toString();
+    return new ToStringer(CreateAppRequest.class).add("app", app).toString();
   }
 }
