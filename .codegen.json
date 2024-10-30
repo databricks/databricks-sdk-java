@@ -1,26 +1,6 @@
 {
-  "formatter": "mvn spotless:apply",
+  "mode": "java_v0",
   "changelog_config": ".codegen/changelog_config.yml",
-  "template_libraries": [
-    ".codegen/lib.tmpl"
-  ],
-  "types": {
-    ".codegen/model.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}.java"
-  },
-  "services": {
-    ".codegen/interface.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}Service.java",
-    ".codegen/api.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}API.java",
-    ".codegen/impl.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/service/{{.Package.Name}}/{{.PascalName}}Impl.java"
-  },
-  "exception_types": {
-    ".codegen/exception.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/platform/{{.PascalName}}.java"
-  },
-  "batch": {
-    ".codegen/workspace.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/WorkspaceClient.java",
-    ".codegen/account.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/AccountClient.java",
-    ".codegen/error-mapper.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/ErrorMapper.java",
-    ".codegen/error-overrides.java.tmpl": "databricks-sdk-java/src/main/java/com/databricks/sdk/core/error/ErrorOverrides.java"
-  },
   "version": {
     "pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n  <version>$VERSION</version>",
     "databricks-sdk-java/pom.xml": "<artifactId>databricks-sdk-parent</artifactId>\n    <version>$VERSION</version>",
@@ -32,6 +12,6 @@
   "toolchain": {
     "require": ["mvn", "java"],
     "setup": ["rm -rf databricks-sdk-java/src/main/java/com/databricks/sdk/service"],
-    "post_generate": ["mvn --errors clean test"]
+    "post_generate": ["mvn spotless:apply","mvn --errors clean test"]
   }
 }
