@@ -3,6 +3,7 @@
 ## [Release] Release v0.34.0
 
 ### New Features and Improvements
+Test
 
  * Experimental: Make retry strategy configurable ([#363](https://github.com/databricks/databricks-sdk-java/pull/363)).
 
