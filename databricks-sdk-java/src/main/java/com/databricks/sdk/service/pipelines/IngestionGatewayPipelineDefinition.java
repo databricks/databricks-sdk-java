@@ -10,11 +10,18 @@ import java.util.Objects;
 @Generated
 public class IngestionGatewayPipelineDefinition {
   /**
-   * Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the
-   * source.
+   * [Deprecated, use connection_name instead] Immutable. The Unity Catalog connection this gateway
+   * pipeline uses to communicate with the source.
    */
   @JsonProperty("connection_id")
   private String connectionId;
+
+  /**
+   * Immutable. The Unity Catalog connection this gateway pipeline uses to communicate with the
+   * source.
+   */
+  @JsonProperty("connection_name")
+  private String connectionName;
 
   /** Required, Immutable. The name of the catalog for the gateway pipeline's storage location. */
   @JsonProperty("gateway_storage_catalog")
@@ -39,6 +46,15 @@ public class IngestionGatewayPipelineDefinition {
 
   public String getConnectionId() {
     return connectionId;
+  }
+
+  public IngestionGatewayPipelineDefinition setConnectionName(String connectionName) {
+    this.connectionName = connectionName;
+    return this;
+  }
+
+  public String getConnectionName() {
+    return connectionName;
   }
 
   public IngestionGatewayPipelineDefinition setGatewayStorageCatalog(String gatewayStorageCatalog) {
@@ -74,6 +90,7 @@ public class IngestionGatewayPipelineDefinition {
     if (o == null || getClass() != o.getClass()) return false;
     IngestionGatewayPipelineDefinition that = (IngestionGatewayPipelineDefinition) o;
     return Objects.equals(connectionId, that.connectionId)
+        && Objects.equals(connectionName, that.connectionName)
         && Objects.equals(gatewayStorageCatalog, that.gatewayStorageCatalog)
         && Objects.equals(gatewayStorageName, that.gatewayStorageName)
         && Objects.equals(gatewayStorageSchema, that.gatewayStorageSchema);
@@ -82,13 +99,18 @@ public class IngestionGatewayPipelineDefinition {
   @Override
   public int hashCode() {
     return Objects.hash(
-        connectionId, gatewayStorageCatalog, gatewayStorageName, gatewayStorageSchema);
+        connectionId,
+        connectionName,
+        gatewayStorageCatalog,
+        gatewayStorageName,
+        gatewayStorageSchema);
   }
 
   @Override
   public String toString() {
     return new ToStringer(IngestionGatewayPipelineDefinition.class)
         .add("connectionId", connectionId)
+        .add("connectionName", connectionName)
         .add("gatewayStorageCatalog", gatewayStorageCatalog)
         .add("gatewayStorageName", gatewayStorageName)
         .add("gatewayStorageSchema", gatewayStorageSchema)

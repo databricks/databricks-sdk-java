@@ -44,51 +44,6 @@ public class PipelinesAPI {
     impl = mock;
   }
 
-  public GetPipelineResponse waitGetPipelineIdle(String pipelineId) throws TimeoutException {
-    return waitGetPipelineIdle(pipelineId, Duration.ofMinutes(20), null);
-  }
-
-  public GetPipelineResponse waitGetPipelineIdle(
-      String pipelineId, Duration timeout, Consumer<GetPipelineResponse> callback)
-      throws TimeoutException {
-    long deadline = System.currentTimeMillis() + timeout.toMillis();
-    java.util.List<PipelineState> targetStates = Arrays.asList(PipelineState.IDLE);
-    java.util.List<PipelineState> failureStates = Arrays.asList(PipelineState.FAILED);
-    String statusMessage = "polling...";
-    int attempt = 1;
-    while (System.currentTimeMillis() < deadline) {
-      GetPipelineResponse poll = get(new GetPipelineRequest().setPipelineId(pipelineId));
-      PipelineState status = poll.getState();
-      statusMessage = poll.getCause();
-      if (targetStates.contains(status)) {
-        return poll;
-      }
-      if (callback != null) {
-        callback.accept(poll);
-      }
-      if (failureStates.contains(status)) {
-        String msg = String.format("failed to reach IDLE, got %s: %s", status, statusMessage);
-        throw new IllegalStateException(msg);
-      }
-
-      String prefix = String.format("pipelineId=%s", pipelineId);
-      int sleep = attempt;
-      if (sleep > 10) {
-        // sleep 10s max per attempt
-        sleep = 10;
-      }
-      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
-      try {
-        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-        throw new DatabricksException("Current thread was interrupted", e);
-      }
-      attempt++;
-    }
-    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
-  }
-
   public GetPipelineResponse waitGetPipelineRunning(String pipelineId) throws TimeoutException {
     return waitGetPipelineRunning(pipelineId, Duration.ofMinutes(20), null);
   }
@@ -113,6 +68,51 @@ public class PipelinesAPI {
       }
       if (failureStates.contains(status)) {
         String msg = String.format("failed to reach RUNNING, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("pipelineId=%s", pipelineId);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
+  public GetPipelineResponse waitGetPipelineIdle(String pipelineId) throws TimeoutException {
+    return waitGetPipelineIdle(pipelineId, Duration.ofMinutes(20), null);
+  }
+
+  public GetPipelineResponse waitGetPipelineIdle(
+      String pipelineId, Duration timeout, Consumer<GetPipelineResponse> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<PipelineState> targetStates = Arrays.asList(PipelineState.IDLE);
+    java.util.List<PipelineState> failureStates = Arrays.asList(PipelineState.FAILED);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      GetPipelineResponse poll = get(new GetPipelineRequest().setPipelineId(pipelineId));
+      PipelineState status = poll.getState();
+      statusMessage = poll.getCause();
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg = String.format("failed to reach IDLE, got %s: %s", status, statusMessage);
         throw new IllegalStateException(msg);
       }
 
@@ -269,7 +269,9 @@ public class PipelinesAPI {
   /**
    * Set pipeline permissions.
    *
-   * <p>Sets permissions on a pipeline. Pipelines can inherit permissions from their root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
+   * object.
    */
   public PipelinePermissions setPermissions(PipelinePermissionsRequest request) {
     return impl.setPermissions(request);

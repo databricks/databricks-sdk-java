@@ -45,6 +45,10 @@ public class Schedule {
   @JsonProperty("update_time")
   private String updateTime;
 
+  /** The warehouse id to run the dashboard with for the schedule. */
+  @JsonProperty("warehouse_id")
+  private String warehouseId;
+
   public Schedule setCreateTime(String createTime) {
     this.createTime = createTime;
     return this;
@@ -117,6 +121,15 @@ public class Schedule {
     return updateTime;
   }
 
+  public Schedule setWarehouseId(String warehouseId) {
+    this.warehouseId = warehouseId;
+    return this;
+  }
+
+  public String getWarehouseId() {
+    return warehouseId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -129,7 +142,8 @@ public class Schedule {
         && Objects.equals(etag, that.etag)
         && Objects.equals(pauseStatus, that.pauseStatus)
         && Objects.equals(scheduleId, that.scheduleId)
-        && Objects.equals(updateTime, that.updateTime);
+        && Objects.equals(updateTime, that.updateTime)
+        && Objects.equals(warehouseId, that.warehouseId);
   }
 
   @Override
@@ -142,7 +156,8 @@ public class Schedule {
         etag,
         pauseStatus,
         scheduleId,
-        updateTime);
+        updateTime,
+        warehouseId);
   }
 
   @Override
@@ -156,6 +171,7 @@ public class Schedule {
         .add("pauseStatus", pauseStatus)
         .add("scheduleId", scheduleId)
         .add("updateTime", updateTime)
+        .add("warehouseId", warehouseId)
         .toString();
   }
 }

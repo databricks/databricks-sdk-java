@@ -1,5 +1,57 @@
 # Version changelog
 
+## [Release] Release v0.35.0
+
+### Internal Changes
+
+ * Add test instructions for external contributors ([#370](https://github.com/databricks/databricks-sdk-java/pull/370)).
+ * Always write message for manual test integration ([#374](https://github.com/databricks/databricks-sdk-java/pull/374)).
+ * Automatically trigger integration tests on PR ([#369](https://github.com/databricks/databricks-sdk-java/pull/369)).
+ * Move templates in the code generator ([#373](https://github.com/databricks/databricks-sdk-java/pull/373)).
+
+
+### API Changes:
+
+ * Added `workspaceClient.aibiDashboardEmbeddingAccessPolicy()` service and `workspaceClient.aibiDashboardEmbeddingApprovedDomains()` service.
+ * Added `workspaceClient.credentials()` service.
+ * Added `appDeployment` field for `com.databricks.sdk.service.apps.CreateAppDeploymentRequest`.
+ * Added `app` field for `com.databricks.sdk.service.apps.CreateAppRequest`.
+ * Added `app` field for `com.databricks.sdk.service.apps.UpdateAppRequest`.
+ * Added `table` field for `com.databricks.sdk.service.catalog.CreateOnlineTableRequest`.
+ * Added `azureAad` field for `com.databricks.sdk.service.catalog.GenerateTemporaryTableCredentialResponse`.
+ * Added `fullName` field for `com.databricks.sdk.service.catalog.StorageCredentialInfo`.
+ * Added `dashboard` field for `com.databricks.sdk.service.dashboards.CreateDashboardRequest`.
+ * Added `schedule` field for `com.databricks.sdk.service.dashboards.CreateScheduleRequest`.
+ * Added `subscription` field for `com.databricks.sdk.service.dashboards.CreateSubscriptionRequest`.
+ * Added `warehouseId` field for `com.databricks.sdk.service.dashboards.Schedule`.
+ * Added `dashboard` field for `com.databricks.sdk.service.dashboards.UpdateDashboardRequest`.
+ * Added `schedule` field for `com.databricks.sdk.service.dashboards.UpdateScheduleRequest`.
+ * Added `only` field for `com.databricks.sdk.service.jobs.RunNow`.
+ * Added `pageToken` field for `com.databricks.sdk.service.oauth2.ListServicePrincipalSecretsRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.oauth2.ListServicePrincipalSecretsResponse`.
+ * Added `connectionName` field for `com.databricks.sdk.service.pipelines.IngestionGatewayPipelineDefinition`.
+ * Added `isNoPublicIpEnabled` field for `com.databricks.sdk.service.provisioning.CreateWorkspaceRequest`.
+ * Added `externalCustomerInfo` and `isNoPublicIpEnabled` fields for `com.databricks.sdk.service.provisioning.Workspace`.
+ * Added `lastUsedDay` field for `com.databricks.sdk.service.settings.TokenInfo`.
+ * Changed `create()` method for `workspaceClient.apps()` service with new required argument order.
+ * Changed `executeMessageQuery()` method for `workspaceClient.genie()` service . New request type is `com.databricks.sdk.service.dashboards.GenieExecuteMessageQueryRequest` class.
+ * Changed `executeMessageQuery()` method for `workspaceClient.genie()` service to type `executeMessageQuery()` method for `workspaceClient.genie()` service.
+ * Changed `create()`, `createSchedule()`, `createSubscription()` and `updateSchedule()` methods for `workspaceClient.lakeview()` service with new required argument order.
+ * Removed `workspaceClient.cleanRooms()` service.
+ * Removed `deploymentId`, `mode` and `sourceCodePath` fields for `com.databricks.sdk.service.apps.CreateAppDeploymentRequest`.
+ * Removed `description`, `name` and `resources` fields for `com.databricks.sdk.service.apps.CreateAppRequest`.
+ * Removed `description` and `resources` fields for `com.databricks.sdk.service.apps.UpdateAppRequest`.
+ * Removed `name` and `spec` fields for `com.databricks.sdk.service.catalog.CreateOnlineTableRequest`.
+ * Removed `displayName`, `parentPath`, `serializedDashboard` and `warehouseId` fields for `com.databricks.sdk.service.dashboards.CreateDashboardRequest`.
+ * Removed `cronSchedule`, `displayName` and `pauseStatus` fields for `com.databricks.sdk.service.dashboards.CreateScheduleRequest`.
+ * Removed `subscriber` field for `com.databricks.sdk.service.dashboards.CreateSubscriptionRequest`.
+ * Removed `displayName`, `etag`, `serializedDashboard` and `warehouseId` fields for `com.databricks.sdk.service.dashboards.UpdateDashboardRequest`.
+ * Removed `cronSchedule`, `displayName`, `etag` and `pauseStatus` fields for `com.databricks.sdk.service.dashboards.UpdateScheduleRequest`.
+ * Removed `prevPageToken` field for `com.databricks.sdk.service.jobs.Run`.
+
+OpenAPI SHA: b63827da33b6ad958f6991435ed04778b39f7fd3, Date: 2024-11-04
+
+
 ## [Release] Release v0.34.0
 
 ### New Features and Improvements

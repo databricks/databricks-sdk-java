@@ -8,31 +8,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Create dashboard schedule */
 @Generated
 public class CreateScheduleRequest {
-  /** The cron expression describing the frequency of the periodic refresh for this schedule. */
-  @JsonProperty("cron_schedule")
-  private CronSchedule cronSchedule;
-
   /** UUID identifying the dashboard to which the schedule belongs. */
   @JsonIgnore private String dashboardId;
 
-  /** The display name for schedule. */
-  @JsonProperty("display_name")
-  private String displayName;
-
-  /** The status indicates whether this schedule is paused or not. */
-  @JsonProperty("pause_status")
-  private SchedulePauseStatus pauseStatus;
-
-  public CreateScheduleRequest setCronSchedule(CronSchedule cronSchedule) {
-    this.cronSchedule = cronSchedule;
-    return this;
-  }
-
-  public CronSchedule getCronSchedule() {
-    return cronSchedule;
-  }
+  /** */
+  @JsonProperty("schedule")
+  private Schedule schedule;
 
   public CreateScheduleRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;
@@ -43,22 +27,13 @@ public class CreateScheduleRequest {
     return dashboardId;
   }
 
-  public CreateScheduleRequest setDisplayName(String displayName) {
-    this.displayName = displayName;
+  public CreateScheduleRequest setSchedule(Schedule schedule) {
+    this.schedule = schedule;
     return this;
   }
 
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  public CreateScheduleRequest setPauseStatus(SchedulePauseStatus pauseStatus) {
-    this.pauseStatus = pauseStatus;
-    return this;
-  }
-
-  public SchedulePauseStatus getPauseStatus() {
-    return pauseStatus;
+  public Schedule getSchedule() {
+    return schedule;
   }
 
   @Override
@@ -66,24 +41,19 @@ public class CreateScheduleRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateScheduleRequest that = (CreateScheduleRequest) o;
-    return Objects.equals(cronSchedule, that.cronSchedule)
-        && Objects.equals(dashboardId, that.dashboardId)
-        && Objects.equals(displayName, that.displayName)
-        && Objects.equals(pauseStatus, that.pauseStatus);
+    return Objects.equals(dashboardId, that.dashboardId) && Objects.equals(schedule, that.schedule);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cronSchedule, dashboardId, displayName, pauseStatus);
+    return Objects.hash(dashboardId, schedule);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateScheduleRequest.class)
-        .add("cronSchedule", cronSchedule)
         .add("dashboardId", dashboardId)
-        .add("displayName", displayName)
-        .add("pauseStatus", pauseStatus)
+        .add("schedule", schedule)
         .toString();
   }
 }
