@@ -17,6 +17,14 @@ public class GenerateTemporaryTableCredentialResponse {
   private AwsCredentials awsTempCredentials;
 
   /**
+   * Azure Active Directory token, essentially the Oauth token for Azure Service Principal or
+   * Managed Identity. Read more at
+   * https://learn.microsoft.com/en-us/azure/databricks/dev-tools/api/latest/aad/service-prin-aad-token
+   */
+  @JsonProperty("azure_aad")
+  private AzureActiveDirectoryToken azureAad;
+
+  /**
    * Azure temporary credentials for API authentication. Read more at
    * https://docs.microsoft.com/en-us/rest/api/storageservices/create-user-delegation-sas
    */
@@ -56,6 +64,15 @@ public class GenerateTemporaryTableCredentialResponse {
 
   public AwsCredentials getAwsTempCredentials() {
     return awsTempCredentials;
+  }
+
+  public GenerateTemporaryTableCredentialResponse setAzureAad(AzureActiveDirectoryToken azureAad) {
+    this.azureAad = azureAad;
+    return this;
+  }
+
+  public AzureActiveDirectoryToken getAzureAad() {
+    return azureAad;
   }
 
   public GenerateTemporaryTableCredentialResponse setAzureUserDelegationSas(
@@ -111,6 +128,7 @@ public class GenerateTemporaryTableCredentialResponse {
     if (o == null || getClass() != o.getClass()) return false;
     GenerateTemporaryTableCredentialResponse that = (GenerateTemporaryTableCredentialResponse) o;
     return Objects.equals(awsTempCredentials, that.awsTempCredentials)
+        && Objects.equals(azureAad, that.azureAad)
         && Objects.equals(azureUserDelegationSas, that.azureUserDelegationSas)
         && Objects.equals(expirationTime, that.expirationTime)
         && Objects.equals(gcpOauthToken, that.gcpOauthToken)
@@ -122,6 +140,7 @@ public class GenerateTemporaryTableCredentialResponse {
   public int hashCode() {
     return Objects.hash(
         awsTempCredentials,
+        azureAad,
         azureUserDelegationSas,
         expirationTime,
         gcpOauthToken,
@@ -133,6 +152,7 @@ public class GenerateTemporaryTableCredentialResponse {
   public String toString() {
     return new ToStringer(GenerateTemporaryTableCredentialResponse.class)
         .add("awsTempCredentials", awsTempCredentials)
+        .add("azureAad", azureAad)
         .add("azureUserDelegationSas", azureUserDelegationSas)
         .add("expirationTime", expirationTime)
         .add("gcpOauthToken", gcpOauthToken)

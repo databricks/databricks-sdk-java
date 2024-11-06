@@ -9,15 +9,15 @@ import java.util.Objects;
 
 @Generated
 public class IngestionConfig {
-  /** Select tables from a specific source report. */
+  /** Select a specific source report. */
   @JsonProperty("report")
   private ReportSpec report;
 
-  /** Select tables from a specific source schema. */
+  /** Select all tables from a specific source schema. */
   @JsonProperty("schema")
   private SchemaSpec schema;
 
-  /** Select tables from a specific source table. */
+  /** Select a specific source table. */
   @JsonProperty("table")
   private TableSpec table;
 

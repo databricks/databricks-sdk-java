@@ -21,7 +21,7 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Dashboard.class, headers);
+    return apiClient.POST(path, request.getDashboard(), Dashboard.class, headers);
   }
 
   @Override
@@ -31,7 +31,7 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Schedule.class, headers);
+    return apiClient.POST(path, request.getSchedule(), Schedule.class, headers);
   }
 
   @Override
@@ -43,7 +43,7 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Subscription.class, headers);
+    return apiClient.POST(path, request.getSubscription(), Subscription.class, headers);
   }
 
   @Override
@@ -177,7 +177,7 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, Dashboard.class, headers);
+    return apiClient.PATCH(path, request.getDashboard(), Dashboard.class, headers);
   }
 
   @Override
@@ -189,6 +189,6 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, Schedule.class, headers);
+    return apiClient.PUT(path, request.getSchedule(), Schedule.class, headers);
   }
 }

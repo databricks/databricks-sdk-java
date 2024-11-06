@@ -124,7 +124,7 @@ public class GenieAPI {
   public GenieGetMessageQueryResultResponse executeMessageQuery(
       String spaceId, String conversationId, String messageId) {
     return executeMessageQuery(
-        new ExecuteMessageQueryRequest()
+        new GenieExecuteMessageQueryRequest()
             .setSpaceId(spaceId)
             .setConversationId(conversationId)
             .setMessageId(messageId));
@@ -136,7 +136,7 @@ public class GenieAPI {
    * <p>Execute the SQL query in the message.
    */
   public GenieGetMessageQueryResultResponse executeMessageQuery(
-      ExecuteMessageQueryRequest request) {
+      GenieExecuteMessageQueryRequest request) {
     return impl.executeMessageQuery(request);
   }
 

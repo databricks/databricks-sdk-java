@@ -22,8 +22,8 @@ public class GetRunRequest {
   private Boolean includeResolvedValues;
 
   /**
-   * To list the next page or the previous page of job tasks, set this field to the value of the
-   * `next_page_token` or `prev_page_token` returned in the GetJob response.
+   * To list the next page of job tasks, set this field to the value of the `next_page_token`
+   * returned in the GetJob response.
    */
   @JsonIgnore
   @QueryParam("page_token")

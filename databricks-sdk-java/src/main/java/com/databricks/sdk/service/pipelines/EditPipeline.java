@@ -69,7 +69,7 @@ public class EditPipeline {
   @JsonProperty("filters")
   private Filters filters;
 
-  /** The definition of a gateway pipeline to support CDC. */
+  /** The definition of a gateway pipeline to support change data capture. */
   @JsonProperty("gateway_definition")
   private IngestionGatewayPipelineDefinition gatewayDefinition;
 
@@ -103,6 +103,10 @@ public class EditPipeline {
   /** Unique identifier for this pipeline. */
   @JsonProperty("pipeline_id")
   private String pipelineId;
+
+  /** Restart window of this pipeline. */
+  @JsonProperty("restart_window")
+  private RestartWindow restartWindow;
 
   /**
    * The default schema (database) where tables are read from or published to. The presence of this
@@ -311,6 +315,15 @@ public class EditPipeline {
     return pipelineId;
   }
 
+  public EditPipeline setRestartWindow(RestartWindow restartWindow) {
+    this.restartWindow = restartWindow;
+    return this;
+  }
+
+  public RestartWindow getRestartWindow() {
+    return restartWindow;
+  }
+
   public EditPipeline setSchema(String schema) {
     this.schema = schema;
     return this;
@@ -381,6 +394,7 @@ public class EditPipeline {
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
         && Objects.equals(pipelineId, that.pipelineId)
+        && Objects.equals(restartWindow, that.restartWindow)
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
@@ -411,6 +425,7 @@ public class EditPipeline {
         notifications,
         photon,
         pipelineId,
+        restartWindow,
         schema,
         serverless,
         storage,
@@ -441,6 +456,7 @@ public class EditPipeline {
         .add("notifications", notifications)
         .add("photon", photon)
         .add("pipelineId", pipelineId)
+        .add("restartWindow", restartWindow)
         .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)

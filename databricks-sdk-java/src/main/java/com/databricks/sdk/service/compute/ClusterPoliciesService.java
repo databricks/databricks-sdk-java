@@ -87,8 +87,9 @@ public interface ClusterPoliciesService {
   /**
    * Set cluster policy permissions.
    *
-   * <p>Sets permissions on a cluster policy. Cluster policies can inherit permissions from their
-   * root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
+   * object.
    */
   ClusterPolicyPermissions setPermissions(
       ClusterPolicyPermissionsRequest clusterPolicyPermissionsRequest);

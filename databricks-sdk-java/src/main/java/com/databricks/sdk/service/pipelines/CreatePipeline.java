@@ -64,7 +64,7 @@ public class CreatePipeline {
   @JsonProperty("filters")
   private Filters filters;
 
-  /** The definition of a gateway pipeline to support CDC. */
+  /** The definition of a gateway pipeline to support change data capture. */
   @JsonProperty("gateway_definition")
   private IngestionGatewayPipelineDefinition gatewayDefinition;
 
@@ -94,6 +94,10 @@ public class CreatePipeline {
   /** Whether Photon is enabled for this pipeline. */
   @JsonProperty("photon")
   private Boolean photon;
+
+  /** Restart window of this pipeline. */
+  @JsonProperty("restart_window")
+  private RestartWindow restartWindow;
 
   /**
    * The default schema (database) where tables are read from or published to. The presence of this
@@ -293,6 +297,15 @@ public class CreatePipeline {
     return photon;
   }
 
+  public CreatePipeline setRestartWindow(RestartWindow restartWindow) {
+    this.restartWindow = restartWindow;
+    return this;
+  }
+
+  public RestartWindow getRestartWindow() {
+    return restartWindow;
+  }
+
   public CreatePipeline setSchema(String schema) {
     this.schema = schema;
     return this;
@@ -362,6 +375,7 @@ public class CreatePipeline {
         && Objects.equals(name, that.name)
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
+        && Objects.equals(restartWindow, that.restartWindow)
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
@@ -391,6 +405,7 @@ public class CreatePipeline {
         name,
         notifications,
         photon,
+        restartWindow,
         schema,
         serverless,
         storage,
@@ -420,6 +435,7 @@ public class CreatePipeline {
         .add("name", name)
         .add("notifications", notifications)
         .add("photon", photon)
+        .add("restartWindow", restartWindow)
         .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)

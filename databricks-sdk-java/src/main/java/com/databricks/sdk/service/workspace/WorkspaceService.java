@@ -98,8 +98,9 @@ public interface WorkspaceService {
   /**
    * Set workspace object permissions.
    *
-   * <p>Sets permissions on a workspace object. Workspace objects can inherit permissions from their
-   * parent objects or root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their parent
+   * objects or root object.
    */
   WorkspaceObjectPermissions setPermissions(
       WorkspaceObjectPermissionsRequest workspaceObjectPermissionsRequest);

@@ -8,36 +8,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Update dashboard */
 @Generated
 public class UpdateDashboardRequest {
+  /** */
+  @JsonProperty("dashboard")
+  private Dashboard dashboard;
+
   /** UUID identifying the dashboard. */
   @JsonIgnore private String dashboardId;
 
-  /** The display name of the dashboard. */
-  @JsonProperty("display_name")
-  private String displayName;
+  public UpdateDashboardRequest setDashboard(Dashboard dashboard) {
+    this.dashboard = dashboard;
+    return this;
+  }
 
-  /**
-   * The etag for the dashboard. Can be optionally provided on updates to ensure that the dashboard
-   * has not been modified since the last read. This field is excluded in List Dashboards responses.
-   */
-  @JsonProperty("etag")
-  private String etag;
-
-  /**
-   * The contents of the dashboard in serialized string form. This field is excluded in List
-   * Dashboards responses. Use the [get dashboard API] to retrieve an example response, which
-   * includes the `serialized_dashboard` field. This field provides the structure of the JSON string
-   * that represents the dashboard's layout and components.
-   *
-   * <p>[get dashboard API]: https://docs.databricks.com/api/workspace/lakeview/get
-   */
-  @JsonProperty("serialized_dashboard")
-  private String serializedDashboard;
-
-  /** The warehouse ID used to run the dashboard. */
-  @JsonProperty("warehouse_id")
-  private String warehouseId;
+  public Dashboard getDashboard() {
+    return dashboard;
+  }
 
   public UpdateDashboardRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;
@@ -48,67 +36,25 @@ public class UpdateDashboardRequest {
     return dashboardId;
   }
 
-  public UpdateDashboardRequest setDisplayName(String displayName) {
-    this.displayName = displayName;
-    return this;
-  }
-
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  public UpdateDashboardRequest setEtag(String etag) {
-    this.etag = etag;
-    return this;
-  }
-
-  public String getEtag() {
-    return etag;
-  }
-
-  public UpdateDashboardRequest setSerializedDashboard(String serializedDashboard) {
-    this.serializedDashboard = serializedDashboard;
-    return this;
-  }
-
-  public String getSerializedDashboard() {
-    return serializedDashboard;
-  }
-
-  public UpdateDashboardRequest setWarehouseId(String warehouseId) {
-    this.warehouseId = warehouseId;
-    return this;
-  }
-
-  public String getWarehouseId() {
-    return warehouseId;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateDashboardRequest that = (UpdateDashboardRequest) o;
-    return Objects.equals(dashboardId, that.dashboardId)
-        && Objects.equals(displayName, that.displayName)
-        && Objects.equals(etag, that.etag)
-        && Objects.equals(serializedDashboard, that.serializedDashboard)
-        && Objects.equals(warehouseId, that.warehouseId);
+    return Objects.equals(dashboard, that.dashboard)
+        && Objects.equals(dashboardId, that.dashboardId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dashboardId, displayName, etag, serializedDashboard, warehouseId);
+    return Objects.hash(dashboard, dashboardId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateDashboardRequest.class)
+        .add("dashboard", dashboard)
         .add("dashboardId", dashboardId)
-        .add("displayName", displayName)
-        .add("etag", etag)
-        .add("serializedDashboard", serializedDashboard)
-        .add("warehouseId", warehouseId)
         .toString();
   }
 }

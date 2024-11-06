@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Create schedule subscription */
 @Generated
 public class CreateSubscriptionRequest {
   /** UUID identifying the dashboard to which the subscription belongs. */
@@ -16,9 +17,9 @@ public class CreateSubscriptionRequest {
   /** UUID identifying the schedule to which the subscription belongs. */
   @JsonIgnore private String scheduleId;
 
-  /** Subscriber details for users and destinations to be added as subscribers to the schedule. */
-  @JsonProperty("subscriber")
-  private Subscriber subscriber;
+  /** */
+  @JsonProperty("subscription")
+  private Subscription subscription;
 
   public CreateSubscriptionRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;
@@ -38,13 +39,13 @@ public class CreateSubscriptionRequest {
     return scheduleId;
   }
 
-  public CreateSubscriptionRequest setSubscriber(Subscriber subscriber) {
-    this.subscriber = subscriber;
+  public CreateSubscriptionRequest setSubscription(Subscription subscription) {
+    this.subscription = subscription;
     return this;
   }
 
-  public Subscriber getSubscriber() {
-    return subscriber;
+  public Subscription getSubscription() {
+    return subscription;
   }
 
   @Override
@@ -54,12 +55,12 @@ public class CreateSubscriptionRequest {
     CreateSubscriptionRequest that = (CreateSubscriptionRequest) o;
     return Objects.equals(dashboardId, that.dashboardId)
         && Objects.equals(scheduleId, that.scheduleId)
-        && Objects.equals(subscriber, that.subscriber);
+        && Objects.equals(subscription, that.subscription);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dashboardId, scheduleId, subscriber);
+    return Objects.hash(dashboardId, scheduleId, subscription);
   }
 
   @Override
@@ -67,7 +68,7 @@ public class CreateSubscriptionRequest {
     return new ToStringer(CreateSubscriptionRequest.class)
         .add("dashboardId", dashboardId)
         .add("scheduleId", scheduleId)
-        .add("subscriber", subscriber)
+        .add("subscription", subscription)
         .toString();
   }
 }

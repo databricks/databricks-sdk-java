@@ -90,7 +90,9 @@ public interface PipelinesService {
   /**
    * Set pipeline permissions.
    *
-   * <p>Sets permissions on a pipeline. Pipelines can inherit permissions from their root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
+   * object.
    */
   PipelinePermissions setPermissions(PipelinePermissionsRequest pipelinePermissionsRequest);
 
