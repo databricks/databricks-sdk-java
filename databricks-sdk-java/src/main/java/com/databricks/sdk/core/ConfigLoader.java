@@ -59,8 +59,7 @@ public class ConfigLoader {
         accessor.setValueOnConfig(cfg, env);
       }
     } catch (DatabricksException e) {
-      String msg =
-              String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
+      String msg = String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
       throw new DatabricksException(msg, e);
     }
   }
@@ -89,6 +88,7 @@ public class ConfigLoader {
 
     INIConfiguration ini = parseDatabricksCfg(configFile, isDefaultConfig);
     if (ini == null) return;
+
     String profile = cfg.getProfile();
     boolean hasExplicitProfile = !isNullOrEmpty(profile);
     if (!hasExplicitProfile) {
@@ -166,22 +166,18 @@ public class ConfigLoader {
       }
       if (authSet.size() <= 1) return;
       String names = String.join(" and ", authSet);
-      throw new DatabricksException(
-              String.format("validate: more than one authorization method configured: %s", names));
+      throw new DatabricksException(String.format("validate: more than one authorization method configured: %s", names));
     } catch (IllegalAccessException e) {
       throw new DatabricksException("Cannot create default config", e);
     }
   }
 
-  public static DatabricksException makeNicerError(
-          String message, Exception e, DatabricksConfig cfg) {
+  public static DatabricksException makeNicerError(String message, Exception e, DatabricksConfig cfg) {
     return makeNicerError(message, e, 200, cfg);
   }
 
-  public static DatabricksException makeNicerError(
-          String message, Exception e, Integer statusCode, DatabricksConfig cfg) {
-    boolean isHttpUnauthorizedOrForbidden =
-            true; // TODO - pass status code with exception, default this to false
+  public static DatabricksException makeNicerError(String message, Exception e, Integer statusCode, DatabricksConfig cfg) {
+    boolean isHttpUnauthorizedOrForbidden = true; // TODO - pass status code with exception, default this to false
     if (statusCode == 401 || statusCode == 402) isHttpUnauthorizedOrForbidden = true;
     String debugString = "";
     if (cfg.getEnv() != null) {
@@ -231,12 +227,12 @@ public class ConfigLoader {
       if (!attrsUsed.isEmpty()) {
         buf.add(String.format("Config: %s", String.join(", ", attrsUsed)));
       } else {
-        buf.add(String.format("Config: <empty>"));
+        buf.add("Config: <empty>");
       }
       if (!envsUsed.isEmpty()) {
         buf.add(String.format("Env: %s", String.join(", ", envsUsed)));
       } else {
-        buf.add(String.format("Env: <none>"));
+        buf.add("Env: <none>");
       }
       return String.join(". ", buf);
     } catch (IllegalAccessException e) {
