@@ -8,42 +8,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Update dashboard schedule */
 @Generated
 public class UpdateScheduleRequest {
-  /** The cron expression describing the frequency of the periodic refresh for this schedule. */
-  @JsonProperty("cron_schedule")
-  private CronSchedule cronSchedule;
-
   /** UUID identifying the dashboard to which the schedule belongs. */
   @JsonIgnore private String dashboardId;
 
-  /** The display name for schedule. */
-  @JsonProperty("display_name")
-  private String displayName;
-
-  /**
-   * The etag for the schedule. Must be left empty on create, must be provided on updates to ensure
-   * that the schedule has not been modified since the last read, and can be optionally provided on
-   * delete.
-   */
-  @JsonProperty("etag")
-  private String etag;
-
-  /** The status indicates whether this schedule is paused or not. */
-  @JsonProperty("pause_status")
-  private SchedulePauseStatus pauseStatus;
+  /** */
+  @JsonProperty("schedule")
+  private Schedule schedule;
 
   /** UUID identifying the schedule. */
   @JsonIgnore private String scheduleId;
-
-  public UpdateScheduleRequest setCronSchedule(CronSchedule cronSchedule) {
-    this.cronSchedule = cronSchedule;
-    return this;
-  }
-
-  public CronSchedule getCronSchedule() {
-    return cronSchedule;
-  }
 
   public UpdateScheduleRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;
@@ -54,31 +30,13 @@ public class UpdateScheduleRequest {
     return dashboardId;
   }
 
-  public UpdateScheduleRequest setDisplayName(String displayName) {
-    this.displayName = displayName;
+  public UpdateScheduleRequest setSchedule(Schedule schedule) {
+    this.schedule = schedule;
     return this;
   }
 
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  public UpdateScheduleRequest setEtag(String etag) {
-    this.etag = etag;
-    return this;
-  }
-
-  public String getEtag() {
-    return etag;
-  }
-
-  public UpdateScheduleRequest setPauseStatus(SchedulePauseStatus pauseStatus) {
-    this.pauseStatus = pauseStatus;
-    return this;
-  }
-
-  public SchedulePauseStatus getPauseStatus() {
-    return pauseStatus;
+  public Schedule getSchedule() {
+    return schedule;
   }
 
   public UpdateScheduleRequest setScheduleId(String scheduleId) {
@@ -95,27 +53,21 @@ public class UpdateScheduleRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateScheduleRequest that = (UpdateScheduleRequest) o;
-    return Objects.equals(cronSchedule, that.cronSchedule)
-        && Objects.equals(dashboardId, that.dashboardId)
-        && Objects.equals(displayName, that.displayName)
-        && Objects.equals(etag, that.etag)
-        && Objects.equals(pauseStatus, that.pauseStatus)
+    return Objects.equals(dashboardId, that.dashboardId)
+        && Objects.equals(schedule, that.schedule)
         && Objects.equals(scheduleId, that.scheduleId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cronSchedule, dashboardId, displayName, etag, pauseStatus, scheduleId);
+    return Objects.hash(dashboardId, schedule, scheduleId);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateScheduleRequest.class)
-        .add("cronSchedule", cronSchedule)
         .add("dashboardId", dashboardId)
-        .add("displayName", displayName)
-        .add("etag", etag)
-        .add("pauseStatus", pauseStatus)
+        .add("schedule", schedule)
         .add("scheduleId", scheduleId)
         .toString();
   }

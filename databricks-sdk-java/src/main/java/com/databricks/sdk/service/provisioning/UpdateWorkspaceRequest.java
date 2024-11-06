@@ -53,6 +53,13 @@ public class UpdateWorkspaceRequest {
   private String networkId;
 
   /**
+   * The ID of the workspace's private access settings configuration object. This parameter is
+   * available only for updating failed workspaces.
+   */
+  @JsonProperty("private_access_settings_id")
+  private String privateAccessSettingsId;
+
+  /**
    * The ID of the workspace's storage configuration object. This parameter is available only for
    * updating failed workspaces.
    */
@@ -124,6 +131,15 @@ public class UpdateWorkspaceRequest {
     return networkId;
   }
 
+  public UpdateWorkspaceRequest setPrivateAccessSettingsId(String privateAccessSettingsId) {
+    this.privateAccessSettingsId = privateAccessSettingsId;
+    return this;
+  }
+
+  public String getPrivateAccessSettingsId() {
+    return privateAccessSettingsId;
+  }
+
   public UpdateWorkspaceRequest setStorageConfigurationId(String storageConfigurationId) {
     this.storageConfigurationId = storageConfigurationId;
     return this;
@@ -163,6 +179,7 @@ public class UpdateWorkspaceRequest {
             managedServicesCustomerManagedKeyId, that.managedServicesCustomerManagedKeyId)
         && Objects.equals(networkConnectivityConfigId, that.networkConnectivityConfigId)
         && Objects.equals(networkId, that.networkId)
+        && Objects.equals(privateAccessSettingsId, that.privateAccessSettingsId)
         && Objects.equals(storageConfigurationId, that.storageConfigurationId)
         && Objects.equals(storageCustomerManagedKeyId, that.storageCustomerManagedKeyId)
         && Objects.equals(workspaceId, that.workspaceId);
@@ -177,6 +194,7 @@ public class UpdateWorkspaceRequest {
         managedServicesCustomerManagedKeyId,
         networkConnectivityConfigId,
         networkId,
+        privateAccessSettingsId,
         storageConfigurationId,
         storageCustomerManagedKeyId,
         workspaceId);
@@ -191,6 +209,7 @@ public class UpdateWorkspaceRequest {
         .add("managedServicesCustomerManagedKeyId", managedServicesCustomerManagedKeyId)
         .add("networkConnectivityConfigId", networkConnectivityConfigId)
         .add("networkId", networkId)
+        .add("privateAccessSettingsId", privateAccessSettingsId)
         .add("storageConfigurationId", storageConfigurationId)
         .add("storageCustomerManagedKeyId", storageCustomerManagedKeyId)
         .add("workspaceId", workspaceId)

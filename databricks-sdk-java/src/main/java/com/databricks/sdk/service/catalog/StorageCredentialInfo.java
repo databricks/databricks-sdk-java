@@ -41,14 +41,15 @@ public class StorageCredentialInfo {
   @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccountResponse databricksGcpServiceAccount;
 
+  /** The full name of the credential. */
+  @JsonProperty("full_name")
+  private String fullName;
+
   /** The unique identifier of the credential. */
   @JsonProperty("id")
   private String id;
 
-  /**
-   * Whether the current securable is accessible from all workspaces or a specific set of
-   * workspaces.
-   */
+  /** */
   @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 
@@ -155,6 +156,15 @@ public class StorageCredentialInfo {
     return databricksGcpServiceAccount;
   }
 
+  public StorageCredentialInfo setFullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
+
   public StorageCredentialInfo setId(String id) {
     this.id = id;
     return this;
@@ -249,6 +259,7 @@ public class StorageCredentialInfo {
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
         && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
+        && Objects.equals(fullName, that.fullName)
         && Objects.equals(id, that.id)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(metastoreId, that.metastoreId)
@@ -271,6 +282,7 @@ public class StorageCredentialInfo {
         createdAt,
         createdBy,
         databricksGcpServiceAccount,
+        fullName,
         id,
         isolationMode,
         metastoreId,
@@ -293,6 +305,7 @@ public class StorageCredentialInfo {
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
         .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
+        .add("fullName", fullName)
         .add("id", id)
         .add("isolationMode", isolationMode)
         .add("metastoreId", metastoreId)

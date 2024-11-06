@@ -132,7 +132,9 @@ public class UsersAPI {
   /**
    * Set password permissions.
    *
-   * <p>Sets permissions on all passwords. Passwords can inherit permissions from their root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
+   * object.
    */
   public PasswordPermissions setPermissions(PasswordPermissionsRequest request) {
     return impl.setPermissions(request);

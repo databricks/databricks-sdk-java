@@ -38,10 +38,7 @@ public class UpdateStorageCredential {
   @JsonProperty("force")
   private Boolean force;
 
-  /**
-   * Whether the current securable is accessible from all workspaces or a specific set of
-   * workspaces.
-   */
+  /** */
   @JsonProperty("isolation_mode")
   private IsolationMode isolationMode;
 

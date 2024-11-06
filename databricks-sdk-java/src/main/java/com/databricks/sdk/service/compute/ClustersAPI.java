@@ -394,7 +394,9 @@ public class ClustersAPI {
   /**
    * Set cluster permissions.
    *
-   * <p>Sets permissions on a cluster. Clusters can inherit permissions from their root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
+   * object.
    */
   public ClusterPermissions setPermissions(ClusterPermissionsRequest request) {
     return impl.setPermissions(request);
