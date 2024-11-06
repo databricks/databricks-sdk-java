@@ -5,17 +5,19 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete an assignment */
 @Generated
 public class UnassignRequest {
   /** Query for the ID of the metastore to delete. */
+  @JsonIgnore
   @QueryParam("metastore_id")
   private String metastoreId;
 
   /** A workspace ID. */
-  private Long workspaceId;
+  @JsonIgnore private Long workspaceId;
 
   public UnassignRequest setMetastoreId(String metastoreId) {
     this.metastoreId = metastoreId;

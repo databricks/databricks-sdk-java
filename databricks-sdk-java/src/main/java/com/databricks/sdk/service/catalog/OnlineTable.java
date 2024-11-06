@@ -18,9 +18,21 @@ public class OnlineTable {
   @JsonProperty("spec")
   private OnlineTableSpec spec;
 
-  /** Online Table status */
+  /** Online Table data synchronization status */
   @JsonProperty("status")
   private OnlineTableStatus status;
+
+  /** Data serving REST API URL for this table */
+  @JsonProperty("table_serving_url")
+  private String tableServingUrl;
+
+  /**
+   * The provisioning state of the online table entity in Unity Catalog. This is distinct from the
+   * state of the data synchronization pipeline (i.e. the table may be in "ACTIVE" but the pipeline
+   * may be in "PROVISIONING" as it runs asynchronously).
+   */
+  @JsonProperty("unity_catalog_provisioning_state")
+  private ProvisioningInfoState unityCatalogProvisioningState;
 
   public OnlineTable setName(String name) {
     this.name = name;
@@ -49,6 +61,25 @@ public class OnlineTable {
     return status;
   }
 
+  public OnlineTable setTableServingUrl(String tableServingUrl) {
+    this.tableServingUrl = tableServingUrl;
+    return this;
+  }
+
+  public String getTableServingUrl() {
+    return tableServingUrl;
+  }
+
+  public OnlineTable setUnityCatalogProvisioningState(
+      ProvisioningInfoState unityCatalogProvisioningState) {
+    this.unityCatalogProvisioningState = unityCatalogProvisioningState;
+    return this;
+  }
+
+  public ProvisioningInfoState getUnityCatalogProvisioningState() {
+    return unityCatalogProvisioningState;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -56,12 +87,14 @@ public class OnlineTable {
     OnlineTable that = (OnlineTable) o;
     return Objects.equals(name, that.name)
         && Objects.equals(spec, that.spec)
-        && Objects.equals(status, that.status);
+        && Objects.equals(status, that.status)
+        && Objects.equals(tableServingUrl, that.tableServingUrl)
+        && Objects.equals(unityCatalogProvisioningState, that.unityCatalogProvisioningState);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, spec, status);
+    return Objects.hash(name, spec, status, tableServingUrl, unityCatalogProvisioningState);
   }
 
   @Override
@@ -70,6 +103,8 @@ public class OnlineTable {
         .add("name", name)
         .add("spec", spec)
         .add("status", status)
+        .add("tableServingUrl", tableServingUrl)
+        .add("unityCatalogProvisioningState", unityCatalogProvisioningState)
         .toString();
   }
 }

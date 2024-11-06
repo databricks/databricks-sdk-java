@@ -5,20 +5,24 @@ package com.databricks.sdk.service.billing;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get all log delivery configurations */
 @Generated
 public class ListLogDeliveryRequest {
   /** Filter by credential configuration ID. */
+  @JsonIgnore
   @QueryParam("credentials_id")
   private String credentialsId;
 
   /** Filter by status `ENABLED` or `DISABLED`. */
+  @JsonIgnore
   @QueryParam("status")
   private LogDeliveryConfigStatus status;
 
   /** Filter by storage configuration ID. */
+  @JsonIgnore
   @QueryParam("storage_configuration_id")
   private String storageConfigurationId;
 

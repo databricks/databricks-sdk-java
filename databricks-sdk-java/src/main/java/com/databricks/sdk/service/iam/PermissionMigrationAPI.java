@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This spec contains undocumented permission migration APIs used in
- * https://github.com/databrickslabs/ucx.
+ * APIs for migrating acl permissions, used only by the ucx tool:
+ * https://github.com/databrickslabs/ucx
  */
 @Generated
 public class PermissionMigrationAPI {
@@ -26,21 +26,17 @@ public class PermissionMigrationAPI {
     impl = mock;
   }
 
-  public PermissionMigrationResponse migratePermissions(
+  public MigratePermissionsResponse migratePermissions(
       long workspaceId, String fromWorkspaceGroupName, String toAccountGroupName) {
     return migratePermissions(
-        new PermissionMigrationRequest()
+        new MigratePermissionsRequest()
             .setWorkspaceId(workspaceId)
             .setFromWorkspaceGroupName(fromWorkspaceGroupName)
             .setToAccountGroupName(toAccountGroupName));
   }
 
-  /**
-   * Migrate Permissions.
-   *
-   * <p>Migrate a batch of permissions from a workspace local group to an account group.
-   */
-  public PermissionMigrationResponse migratePermissions(PermissionMigrationRequest request) {
+  /** Migrate Permissions. */
+  public MigratePermissionsResponse migratePermissions(MigratePermissionsRequest request) {
     return impl.migratePermissions(request);
   }
 

@@ -4,20 +4,22 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get object permissions */
 @Generated
 public class GetPermissionRequest {
   /** The id of the request object. */
-  private String requestObjectId;
+  @JsonIgnore private String requestObjectId;
 
   /**
-   * The type of the request object. Can be one of the following: authorization, clusters,
-   * cluster-policies, directories, experiments, files, instance-pools, jobs, notebooks, pipelines,
-   * registered-models, repos, serving-endpoints, or sql-warehouses.
+   * The type of the request object. Can be one of the following: alerts, authorization, clusters,
+   * cluster-policies, dashboards, dbsql-dashboards, directories, experiments, files,
+   * instance-pools, jobs, notebooks, pipelines, queries, registered-models, repos,
+   * serving-endpoints, or warehouses.
    */
-  private String requestObjectType;
+  @JsonIgnore private String requestObjectType;
 
   public GetPermissionRequest setRequestObjectId(String requestObjectId) {
     this.requestObjectId = requestObjectId;

@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class AccountsUpdateMetastore {
   /** Unity Catalog metastore ID */
-  private String metastoreId;
+  @JsonIgnore private String metastoreId;
 
   /** */
   @JsonProperty("metastore_info")

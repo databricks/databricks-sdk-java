@@ -2,58 +2,159 @@ package com.databricks.sdk.core.commons;
 
 import static org.apache.http.entity.ContentType.APPLICATION_JSON;
 
+import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.core.DatabricksException;
+import com.databricks.sdk.core.ProxyConfig;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import com.databricks.sdk.core.utils.CustomCloseInputStream;
+import com.databricks.sdk.core.utils.ProxyUtils;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
-import org.apache.http.StatusLine;
+import org.apache.http.*;
+import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CommonsHttpClient implements HttpClient {
-  private static final Logger LOG = LoggerFactory.getLogger(CommonsHttpClient.class);
-  private final PoolingHttpClientConnectionManager connectionManager =
-      new PoolingHttpClientConnectionManager();
-  private final CloseableHttpClient hc;
-  private int timeout;
+  /**
+   * Builder for CommonsHttpClient. This class is used to construct instances of CommonsHttpClient
+   * with configurable parameters for the underlying Apache HttpClient.
+   */
+  public static class Builder {
+    private DatabricksConfig databricksConfig;
+    private Integer timeoutSeconds;
+    private ProxyConfig proxyConfig;
+    private SSLConnectionSocketFactory sslSocketFactory;
+    private PoolingHttpClientConnectionManager connectionManager;
+    private HttpRequestRetryHandler requestRetryHandler;
 
-  public CommonsHttpClient(int timeoutSeconds) {
-    timeout = timeoutSeconds * 1000;
-    connectionManager.setMaxTotal(100);
-    hc = makeClosableHttpClient();
+    /**
+     * @param databricksConfig The DatabricksConfig to use for the HttpClient. If the
+     *     DatabricksConfig has an httpTimeoutSeconds set, it will be used as the default timeout
+     *     for the HttpClient.
+     * @return This builder.
+     */
+    public Builder withDatabricksConfig(DatabricksConfig databricksConfig) {
+      this.databricksConfig = databricksConfig;
+      return this;
+    }
+
+    /**
+     * @param timeoutSeconds The timeout in seconds to use for the HttpClient. This will override
+     *     any timeout set in the DatabricksConfig.
+     * @return This builder.
+     */
+    public Builder withTimeoutSeconds(int timeoutSeconds) {
+      this.timeoutSeconds = timeoutSeconds;
+      return this;
+    }
+
+    /**
+     * @param proxyConfig the proxy configuration to use for the HttpClient.
+     * @return This builder.
+     */
+    public Builder withProxyConfig(ProxyConfig proxyConfig) {
+      this.proxyConfig = proxyConfig;
+      return this;
+    }
+
+    /**
+     * @param sslSocketFactory the SSLConnectionSocketFactory to use for the HttpClient.
+     * @return This builder.
+     */
+    public Builder withSslSocketFactory(SSLConnectionSocketFactory sslSocketFactory) {
+      this.sslSocketFactory = sslSocketFactory;
+      return this;
+    }
+
+    /**
+     * @param connectionManager the PoolingHttpClientConnectionManager to use for the HttpClient.
+     * @return This builder.
+     */
+    public Builder withConnectionManager(PoolingHttpClientConnectionManager connectionManager) {
+      this.connectionManager = connectionManager;
+      return this;
+    }
+
+    /**
+     * @param requestRetryHandler the HttpRequestRetryHandler to use for the HttpClient.
+     * @return This builder.
+     *     <p><b>Note:</b> This API is experimental and may change or be removed in future releases
+     *     without notice.
+     */
+    public Builder withRequestRetryHandler(HttpRequestRetryHandler requestRetryHandler) {
+      this.requestRetryHandler = requestRetryHandler;
+      return this;
+    }
+
+    /** Builds a new instance of CommonsHttpClient with the configured parameters. */
+    public CommonsHttpClient build() {
+      return new CommonsHttpClient(this);
+    }
   }
 
-  private RequestConfig makeRequestConfig() {
+  private static final Logger LOG = LoggerFactory.getLogger(CommonsHttpClient.class);
+  private final CloseableHttpClient hc;
+
+  private CommonsHttpClient(Builder builder) {
+    int timeoutSeconds = 300;
+    if (builder.databricksConfig != null
+        && builder.databricksConfig.getHttpTimeoutSeconds() != null) {
+      timeoutSeconds = builder.databricksConfig.getHttpTimeoutSeconds();
+    }
+    if (builder.timeoutSeconds != null) {
+      timeoutSeconds = builder.timeoutSeconds;
+    }
+    int timeout = timeoutSeconds * 1000;
+    HttpClientBuilder httpClientBuilder =
+        HttpClientBuilder.create().setDefaultRequestConfig(makeRequestConfig(timeout));
+    if (builder.proxyConfig != null) {
+      ProxyUtils.setupProxy(builder.proxyConfig, httpClientBuilder);
+    }
+    if (builder.sslSocketFactory != null) {
+      httpClientBuilder.setSSLSocketFactory(builder.sslSocketFactory);
+    }
+    if (builder.connectionManager != null) {
+      httpClientBuilder.setConnectionManager(builder.connectionManager);
+    } else {
+      PoolingHttpClientConnectionManager connectionManager =
+          new PoolingHttpClientConnectionManager();
+      connectionManager.setMaxTotal(100);
+      httpClientBuilder.setConnectionManager(connectionManager);
+    }
+    if (builder.requestRetryHandler != null) {
+      httpClientBuilder.setRetryHandler(builder.requestRetryHandler);
+    }
+    hc = httpClientBuilder.build();
+  }
+
+  private RequestConfig makeRequestConfig(int timeout) {
     return RequestConfig.custom()
         .setConnectionRequestTimeout(timeout)
         .setConnectTimeout(timeout)
         .setSocketTimeout(timeout)
-        .build();
-  }
-
-  private CloseableHttpClient makeClosableHttpClient() {
-    return HttpClientBuilder.create()
-        .setConnectionManager(connectionManager)
-        .setDefaultRequestConfig(makeRequestConfig())
-        .useSystemProperties()
         .build();
   }
 
@@ -65,11 +166,33 @@ public class CommonsHttpClient implements HttpClient {
       request.getParams().setParameter("http.protocol.handle-redirects", false);
     }
     in.getHeaders().forEach(request::setHeader);
-    CloseableHttpResponse response = hc.execute(request);
-    return computeResponse(in, response);
+    HttpContext context = new BasicHttpContext();
+    CloseableHttpResponse response = hc.execute(request, context);
+    return computeResponse(in, context, response);
   }
 
-  private Response computeResponse(Request in, CloseableHttpResponse response) throws IOException {
+  private URL getTargetUrl(HttpContext context) {
+    try {
+      HttpHost targetHost = (HttpHost) context.getAttribute("http.target_host");
+      HttpRequest request = (HttpRequest) context.getAttribute("http.request");
+      URI uri = new URI(request.getRequestLine().getUri());
+      uri =
+          new URI(
+              targetHost.getSchemeName(),
+              null,
+              targetHost.getHostName(),
+              targetHost.getPort(),
+              uri.getPath(),
+              uri.getQuery(),
+              uri.getFragment());
+      return uri.toURL();
+    } catch (MalformedURLException | URISyntaxException e) {
+      throw new DatabricksException("Unable to get target URL", e);
+    }
+  }
+
+  private Response computeResponse(Request in, HttpContext context, CloseableHttpResponse response)
+      throws IOException {
     HttpEntity entity = response.getEntity();
     StatusLine statusLine = response.getStatusLine();
     Map<String, List<String>> hs =
@@ -78,9 +201,10 @@ public class CommonsHttpClient implements HttpClient {
                 Collectors.groupingBy(
                     NameValuePair::getName,
                     Collectors.mapping(NameValuePair::getValue, Collectors.toList())));
+    URL url = getTargetUrl(context);
     if (entity == null) {
       response.close();
-      return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs);
+      return new Response(in, url, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs);
     }
 
     // The Databricks SDK is currently designed to treat all non-application/json responses as
@@ -108,12 +232,13 @@ public class CommonsHttpClient implements HttpClient {
                 }
               });
       return new Response(
-          in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, inputStream);
+          in, url, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, inputStream);
     }
 
     try (InputStream inputStream = entity.getContent()) {
       String body = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
-      return new Response(in, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
+      return new Response(
+          in, url, statusLine.getStatusCode(), statusLine.getReasonPhrase(), hs, body);
     } finally {
       response.close();
     }

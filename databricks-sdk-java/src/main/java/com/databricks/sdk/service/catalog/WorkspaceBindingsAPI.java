@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,7 @@ import org.slf4j.LoggerFactory;
  * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name}) which
  * introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
  *
- * <p>Securables that support binding: - catalog
+ * <p>Securable types that support binding: - catalog - storage_credential - external_location
  */
 @Generated
 public class WorkspaceBindingsAPI {
@@ -54,7 +55,8 @@ public class WorkspaceBindingsAPI {
     return impl.get(request);
   }
 
-  public WorkspaceBindingsResponse getBindings(String securableType, String securableName) {
+  public Iterable<WorkspaceBinding> getBindings(
+      GetBindingsSecurableType securableType, String securableName) {
     return getBindings(
         new GetBindingsRequest().setSecurableType(securableType).setSecurableName(securableName));
   }
@@ -65,8 +67,18 @@ public class WorkspaceBindingsAPI {
    * <p>Gets workspace bindings of the securable. The caller must be a metastore admin or an owner
    * of the securable.
    */
-  public WorkspaceBindingsResponse getBindings(GetBindingsRequest request) {
-    return impl.getBindings(request);
+  public Iterable<WorkspaceBinding> getBindings(GetBindingsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::getBindings,
+        WorkspaceBindingsResponse::getBindings,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public CurrentWorkspaceBindings update(String name) {
@@ -83,7 +95,8 @@ public class WorkspaceBindingsAPI {
     return impl.update(request);
   }
 
-  public WorkspaceBindingsResponse updateBindings(String securableType, String securableName) {
+  public WorkspaceBindingsResponse updateBindings(
+      UpdateBindingsSecurableType securableType, String securableName) {
     return updateBindings(
         new UpdateWorkspaceBindingsParameters()
             .setSecurableType(securableType)

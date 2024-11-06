@@ -10,7 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class TaskEmailNotifications {
-  /** If true, do not send email to recipients specified in `on_failure` if the run is skipped. */
+  /**
+   * If true, do not send email to recipients specified in `on_failure` if the run is skipped. This
+   * field is `deprecated`. Please use the `notification_settings.no_alert_for_skipped_runs` field.
+   */
   @JsonProperty("no_alert_for_skipped_runs")
   private Boolean noAlertForSkippedRuns;
 
@@ -38,6 +41,16 @@ public class TaskEmailNotifications {
    */
   @JsonProperty("on_start")
   private Collection<String> onStart;
+
+  /**
+   * A list of email addresses to notify when any streaming backlog thresholds are exceeded for any
+   * stream. Streaming backlog thresholds can be set in the `health` field using the following
+   * metrics: `STREAMING_BACKLOG_BYTES`, `STREAMING_BACKLOG_RECORDS`, `STREAMING_BACKLOG_SECONDS`,
+   * or `STREAMING_BACKLOG_FILES`. Alerting is based on the 10-minute average of these metrics. If
+   * the issue persists, notifications are resent every 30 minutes.
+   */
+  @JsonProperty("on_streaming_backlog_exceeded")
+  private Collection<String> onStreamingBacklogExceeded;
 
   /**
    * A list of email addresses to be notified when a run successfully completes. A run is considered
@@ -85,6 +98,16 @@ public class TaskEmailNotifications {
     return onStart;
   }
 
+  public TaskEmailNotifications setOnStreamingBacklogExceeded(
+      Collection<String> onStreamingBacklogExceeded) {
+    this.onStreamingBacklogExceeded = onStreamingBacklogExceeded;
+    return this;
+  }
+
+  public Collection<String> getOnStreamingBacklogExceeded() {
+    return onStreamingBacklogExceeded;
+  }
+
   public TaskEmailNotifications setOnSuccess(Collection<String> onSuccess) {
     this.onSuccess = onSuccess;
     return this;
@@ -104,13 +127,19 @@ public class TaskEmailNotifications {
             onDurationWarningThresholdExceeded, that.onDurationWarningThresholdExceeded)
         && Objects.equals(onFailure, that.onFailure)
         && Objects.equals(onStart, that.onStart)
+        && Objects.equals(onStreamingBacklogExceeded, that.onStreamingBacklogExceeded)
         && Objects.equals(onSuccess, that.onSuccess);
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(
-        noAlertForSkippedRuns, onDurationWarningThresholdExceeded, onFailure, onStart, onSuccess);
+        noAlertForSkippedRuns,
+        onDurationWarningThresholdExceeded,
+        onFailure,
+        onStart,
+        onStreamingBacklogExceeded,
+        onSuccess);
   }
 
   @Override
@@ -120,6 +149,7 @@ public class TaskEmailNotifications {
         .add("onDurationWarningThresholdExceeded", onDurationWarningThresholdExceeded)
         .add("onFailure", onFailure)
         .add("onStart", onStart)
+        .add("onStreamingBacklogExceeded", onStreamingBacklogExceeded)
         .add("onSuccess", onSuccess)
         .toString();
   }

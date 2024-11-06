@@ -4,13 +4,14 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete VPC endpoint configuration */
 @Generated
 public class DeleteVpcEndpointRequest {
   /** Databricks VPC endpoint ID. */
-  private String vpcEndpointId;
+  @JsonIgnore private String vpcEndpointId;
 
   public DeleteVpcEndpointRequest setVpcEndpointId(String vpcEndpointId) {
     this.vpcEndpointId = vpcEndpointId;

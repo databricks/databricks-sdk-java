@@ -4,13 +4,14 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a network configuration */
 @Generated
 public class GetNetworkRequest {
   /** Databricks Account API network configuration ID. */
-  private String networkId;
+  @JsonIgnore private String networkId;
 
   public GetNetworkRequest setNetworkId(String networkId) {
     this.networkId = networkId;

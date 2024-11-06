@@ -40,6 +40,10 @@ public class GetMetastoreSummaryResponse {
   @JsonProperty("delta_sharing_scope")
   private GetMetastoreSummaryResponseDeltaSharingScope deltaSharingScope;
 
+  /** Whether to allow non-DBR clients to directly access entities under the metastore. */
+  @JsonProperty("external_access_enabled")
+  private Boolean externalAccessEnabled;
+
   /**
    * Globally unique metastore ID across clouds and regions, of the form
    * `cloud:region:metastore_id`.
@@ -152,6 +156,15 @@ public class GetMetastoreSummaryResponse {
 
   public GetMetastoreSummaryResponseDeltaSharingScope getDeltaSharingScope() {
     return deltaSharingScope;
+  }
+
+  public GetMetastoreSummaryResponse setExternalAccessEnabled(Boolean externalAccessEnabled) {
+    this.externalAccessEnabled = externalAccessEnabled;
+    return this;
+  }
+
+  public Boolean getExternalAccessEnabled() {
+    return externalAccessEnabled;
   }
 
   public GetMetastoreSummaryResponse setGlobalMetastoreId(String globalMetastoreId) {
@@ -268,6 +281,7 @@ public class GetMetastoreSummaryResponse {
             deltaSharingRecipientTokenLifetimeInSeconds,
             that.deltaSharingRecipientTokenLifetimeInSeconds)
         && Objects.equals(deltaSharingScope, that.deltaSharingScope)
+        && Objects.equals(externalAccessEnabled, that.externalAccessEnabled)
         && Objects.equals(globalMetastoreId, that.globalMetastoreId)
         && Objects.equals(metastoreId, that.metastoreId)
         && Objects.equals(name, that.name)
@@ -291,6 +305,7 @@ public class GetMetastoreSummaryResponse {
         deltaSharingOrganizationName,
         deltaSharingRecipientTokenLifetimeInSeconds,
         deltaSharingScope,
+        externalAccessEnabled,
         globalMetastoreId,
         metastoreId,
         name,
@@ -316,6 +331,7 @@ public class GetMetastoreSummaryResponse {
             "deltaSharingRecipientTokenLifetimeInSeconds",
             deltaSharingRecipientTokenLifetimeInSeconds)
         .add("deltaSharingScope", deltaSharingScope)
+        .add("externalAccessEnabled", externalAccessEnabled)
         .add("globalMetastoreId", globalMetastoreId)
         .add("metastoreId", metastoreId)
         .add("name", name)

@@ -7,7 +7,10 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Metrics about query execution. */
+/**
+ * A query metric that encapsulates a set of measurements for a single query. Metrics come from the
+ * driver and are stored in the history service database.
+ */
 @Generated
 public class QueryMetrics {
   /** Time spent loading metadata and optimizing the query, in milliseconds. */
@@ -17,10 +20,6 @@ public class QueryMetrics {
   /** Time spent executing the query, in milliseconds. */
   @JsonProperty("execution_time_ms")
   private Long executionTimeMs;
-
-  /** Reserved for internal use. */
-  @JsonProperty("metadata_time_ms")
-  private Long metadataTimeMs;
 
   /** Total amount of data sent over the network between executor nodes during shuffle, in bytes. */
   @JsonProperty("network_sent_bytes")
@@ -39,10 +38,6 @@ public class QueryMetrics {
    */
   @JsonProperty("photon_total_time_ms")
   private Long photonTotalTimeMs;
-
-  /** Reserved for internal use. */
-  @JsonProperty("planning_time_ms")
-  private Long planningTimeMs;
 
   /**
    * Timestamp of when the query was enqueued waiting for a cluster to be provisioned for the
@@ -64,10 +59,6 @@ public class QueryMetrics {
   @JsonProperty("query_compilation_start_timestamp")
   private Long queryCompilationStartTimestamp;
 
-  /** Reserved for internal use. */
-  @JsonProperty("query_execution_time_ms")
-  private Long queryExecutionTimeMs;
-
   /** Total size of data read by the query, in bytes. */
   @JsonProperty("read_bytes")
   private Long readBytes;
@@ -76,7 +67,7 @@ public class QueryMetrics {
   @JsonProperty("read_cache_bytes")
   private Long readCacheBytes;
 
-  /** Number of files read after pruning. */
+  /** Number of files read after pruning */
   @JsonProperty("read_files_count")
   private Long readFilesCount;
 
@@ -92,7 +83,7 @@ public class QueryMetrics {
   @JsonProperty("result_fetch_time_ms")
   private Long resultFetchTimeMs;
 
-  /** true if the query result was fetched from cache, false otherwise. */
+  /** `true` if the query result was fetched from cache, `false` otherwise. */
   @JsonProperty("result_from_cache")
   private Boolean resultFromCache;
 
@@ -138,15 +129,6 @@ public class QueryMetrics {
     return executionTimeMs;
   }
 
-  public QueryMetrics setMetadataTimeMs(Long metadataTimeMs) {
-    this.metadataTimeMs = metadataTimeMs;
-    return this;
-  }
-
-  public Long getMetadataTimeMs() {
-    return metadataTimeMs;
-  }
-
   public QueryMetrics setNetworkSentBytes(Long networkSentBytes) {
     this.networkSentBytes = networkSentBytes;
     return this;
@@ -172,15 +154,6 @@ public class QueryMetrics {
 
   public Long getPhotonTotalTimeMs() {
     return photonTotalTimeMs;
-  }
-
-  public QueryMetrics setPlanningTimeMs(Long planningTimeMs) {
-    this.planningTimeMs = planningTimeMs;
-    return this;
-  }
-
-  public Long getPlanningTimeMs() {
-    return planningTimeMs;
   }
 
   public QueryMetrics setProvisioningQueueStartTimestamp(Long provisioningQueueStartTimestamp) {
@@ -217,15 +190,6 @@ public class QueryMetrics {
 
   public Long getQueryCompilationStartTimestamp() {
     return queryCompilationStartTimestamp;
-  }
-
-  public QueryMetrics setQueryExecutionTimeMs(Long queryExecutionTimeMs) {
-    this.queryExecutionTimeMs = queryExecutionTimeMs;
-    return this;
-  }
-
-  public Long getQueryExecutionTimeMs() {
-    return queryExecutionTimeMs;
   }
 
   public QueryMetrics setReadBytes(Long readBytes) {
@@ -352,16 +316,13 @@ public class QueryMetrics {
     QueryMetrics that = (QueryMetrics) o;
     return Objects.equals(compilationTimeMs, that.compilationTimeMs)
         && Objects.equals(executionTimeMs, that.executionTimeMs)
-        && Objects.equals(metadataTimeMs, that.metadataTimeMs)
         && Objects.equals(networkSentBytes, that.networkSentBytes)
         && Objects.equals(overloadingQueueStartTimestamp, that.overloadingQueueStartTimestamp)
         && Objects.equals(photonTotalTimeMs, that.photonTotalTimeMs)
-        && Objects.equals(planningTimeMs, that.planningTimeMs)
         && Objects.equals(provisioningQueueStartTimestamp, that.provisioningQueueStartTimestamp)
         && Objects.equals(prunedBytes, that.prunedBytes)
         && Objects.equals(prunedFilesCount, that.prunedFilesCount)
         && Objects.equals(queryCompilationStartTimestamp, that.queryCompilationStartTimestamp)
-        && Objects.equals(queryExecutionTimeMs, that.queryExecutionTimeMs)
         && Objects.equals(readBytes, that.readBytes)
         && Objects.equals(readCacheBytes, that.readCacheBytes)
         && Objects.equals(readFilesCount, that.readFilesCount)
@@ -382,16 +343,13 @@ public class QueryMetrics {
     return Objects.hash(
         compilationTimeMs,
         executionTimeMs,
-        metadataTimeMs,
         networkSentBytes,
         overloadingQueueStartTimestamp,
         photonTotalTimeMs,
-        planningTimeMs,
         provisioningQueueStartTimestamp,
         prunedBytes,
         prunedFilesCount,
         queryCompilationStartTimestamp,
-        queryExecutionTimeMs,
         readBytes,
         readCacheBytes,
         readFilesCount,
@@ -412,16 +370,13 @@ public class QueryMetrics {
     return new ToStringer(QueryMetrics.class)
         .add("compilationTimeMs", compilationTimeMs)
         .add("executionTimeMs", executionTimeMs)
-        .add("metadataTimeMs", metadataTimeMs)
         .add("networkSentBytes", networkSentBytes)
         .add("overloadingQueueStartTimestamp", overloadingQueueStartTimestamp)
         .add("photonTotalTimeMs", photonTotalTimeMs)
-        .add("planningTimeMs", planningTimeMs)
         .add("provisioningQueueStartTimestamp", provisioningQueueStartTimestamp)
         .add("prunedBytes", prunedBytes)
         .add("prunedFilesCount", prunedFilesCount)
         .add("queryCompilationStartTimestamp", queryCompilationStartTimestamp)
-        .add("queryExecutionTimeMs", queryExecutionTimeMs)
         .add("readBytes", readBytes)
         .add("readCacheBytes", readCacheBytes)
         .add("readFilesCount", readFilesCount)

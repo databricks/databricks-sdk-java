@@ -23,20 +23,20 @@ class StatementExecutionImpl implements StatementExecutionService {
   }
 
   @Override
-  public ExecuteStatementResponse executeStatement(ExecuteStatementRequest request) {
+  public StatementResponse executeStatement(ExecuteStatementRequest request) {
     String path = "/api/2.0/sql/statements/";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, ExecuteStatementResponse.class, headers);
+    return apiClient.POST(path, request, StatementResponse.class, headers);
   }
 
   @Override
-  public GetStatementResponse getStatement(GetStatementRequest request) {
+  public StatementResponse getStatement(GetStatementRequest request) {
     String path = String.format("/api/2.0/sql/statements/%s", request.getStatementId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetStatementResponse.class, headers);
+    return apiClient.GET(path, request, StatementResponse.class, headers);
   }
 
   @Override

@@ -10,6 +10,13 @@ import java.util.Objects;
 
 @Generated
 public class ServingEndpointDetailed {
+  /**
+   * The AI Gateway configuration for the serving endpoint. NOTE: Only external model endpoints are
+   * currently supported.
+   */
+  @JsonProperty("ai_gateway")
+  private AiGatewayConfig aiGateway;
+
   /** The config that is currently being served by the endpoint. */
   @JsonProperty("config")
   private EndpointCoreConfigOutput config;
@@ -21,6 +28,14 @@ public class ServingEndpointDetailed {
   /** The email of the user who created the serving endpoint. */
   @JsonProperty("creator")
   private String creator;
+
+  /** Information required to query DataPlane APIs. */
+  @JsonProperty("data_plane_info")
+  private ModelDataPlaneInfo dataPlaneInfo;
+
+  /** Endpoint invocation url if route optimization is enabled for endpoint */
+  @JsonProperty("endpoint_url")
+  private String endpointUrl;
 
   /**
    * System-generated ID of the endpoint. This is used to refer to the endpoint in the Permissions
@@ -45,6 +60,10 @@ public class ServingEndpointDetailed {
   @JsonProperty("permission_level")
   private ServingEndpointDetailedPermissionLevel permissionLevel;
 
+  /** Boolean representing if route optimization has been enabled for the endpoint */
+  @JsonProperty("route_optimized")
+  private Boolean routeOptimized;
+
   /** Information corresponding to the state of the serving endpoint. */
   @JsonProperty("state")
   private EndpointState state;
@@ -56,6 +75,15 @@ public class ServingEndpointDetailed {
   /** The task type of the serving endpoint. */
   @JsonProperty("task")
   private String task;
+
+  public ServingEndpointDetailed setAiGateway(AiGatewayConfig aiGateway) {
+    this.aiGateway = aiGateway;
+    return this;
+  }
+
+  public AiGatewayConfig getAiGateway() {
+    return aiGateway;
+  }
 
   public ServingEndpointDetailed setConfig(EndpointCoreConfigOutput config) {
     this.config = config;
@@ -82,6 +110,24 @@ public class ServingEndpointDetailed {
 
   public String getCreator() {
     return creator;
+  }
+
+  public ServingEndpointDetailed setDataPlaneInfo(ModelDataPlaneInfo dataPlaneInfo) {
+    this.dataPlaneInfo = dataPlaneInfo;
+    return this;
+  }
+
+  public ModelDataPlaneInfo getDataPlaneInfo() {
+    return dataPlaneInfo;
+  }
+
+  public ServingEndpointDetailed setEndpointUrl(String endpointUrl) {
+    this.endpointUrl = endpointUrl;
+    return this;
+  }
+
+  public String getEndpointUrl() {
+    return endpointUrl;
   }
 
   public ServingEndpointDetailed setId(String id) {
@@ -130,6 +176,15 @@ public class ServingEndpointDetailed {
     return permissionLevel;
   }
 
+  public ServingEndpointDetailed setRouteOptimized(Boolean routeOptimized) {
+    this.routeOptimized = routeOptimized;
+    return this;
+  }
+
+  public Boolean getRouteOptimized() {
+    return routeOptimized;
+  }
+
   public ServingEndpointDetailed setState(EndpointState state) {
     this.state = state;
     return this;
@@ -162,14 +217,18 @@ public class ServingEndpointDetailed {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ServingEndpointDetailed that = (ServingEndpointDetailed) o;
-    return Objects.equals(config, that.config)
+    return Objects.equals(aiGateway, that.aiGateway)
+        && Objects.equals(config, that.config)
         && Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
+        && Objects.equals(dataPlaneInfo, that.dataPlaneInfo)
+        && Objects.equals(endpointUrl, that.endpointUrl)
         && Objects.equals(id, that.id)
         && Objects.equals(lastUpdatedTimestamp, that.lastUpdatedTimestamp)
         && Objects.equals(name, that.name)
         && Objects.equals(pendingConfig, that.pendingConfig)
         && Objects.equals(permissionLevel, that.permissionLevel)
+        && Objects.equals(routeOptimized, that.routeOptimized)
         && Objects.equals(state, that.state)
         && Objects.equals(tags, that.tags)
         && Objects.equals(task, that.task);
@@ -178,14 +237,18 @@ public class ServingEndpointDetailed {
   @Override
   public int hashCode() {
     return Objects.hash(
+        aiGateway,
         config,
         creationTimestamp,
         creator,
+        dataPlaneInfo,
+        endpointUrl,
         id,
         lastUpdatedTimestamp,
         name,
         pendingConfig,
         permissionLevel,
+        routeOptimized,
         state,
         tags,
         task);
@@ -194,14 +257,18 @@ public class ServingEndpointDetailed {
   @Override
   public String toString() {
     return new ToStringer(ServingEndpointDetailed.class)
+        .add("aiGateway", aiGateway)
         .add("config", config)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)
+        .add("dataPlaneInfo", dataPlaneInfo)
+        .add("endpointUrl", endpointUrl)
         .add("id", id)
         .add("lastUpdatedTimestamp", lastUpdatedTimestamp)
         .add("name", name)
         .add("pendingConfig", pendingConfig)
         .add("permissionLevel", permissionLevel)
+        .add("routeOptimized", routeOptimized)
         .add("state", state)
         .add("tags", tags)
         .add("task", task)

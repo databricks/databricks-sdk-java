@@ -3,6 +3,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,37 +29,32 @@ public class AlertsAPI {
     impl = mock;
   }
 
-  public Alert create(String name, AlertOptions options, String queryId) {
-    return create(new CreateAlert().setName(name).setOptions(options).setQueryId(queryId));
-  }
-
   /**
    * Create an alert.
    *
-   * <p>Creates an alert. An alert is a Databricks SQL object that periodically runs a query,
-   * evaluates a condition of its result, and notifies users or notification destinations if the
-   * condition was met.
+   * <p>Creates an alert.
    */
-  public Alert create(CreateAlert request) {
+  public Alert create(CreateAlertRequest request) {
     return impl.create(request);
   }
 
-  public void delete(String alertId) {
-    delete(new DeleteAlertRequest().setAlertId(alertId));
+  public void delete(String id) {
+    delete(new TrashAlertRequest().setId(id));
   }
 
   /**
    * Delete an alert.
    *
-   * <p>Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. **Note:**
-   * Unlike queries and dashboards, alerts cannot be moved to the trash.
+   * <p>Moves an alert to the trash. Trashed alerts immediately disappear from searches and list
+   * views, and can no longer trigger. You can restore a trashed alert through the UI. A trashed
+   * alert is permanently deleted after 30 days.
    */
-  public void delete(DeleteAlertRequest request) {
+  public void delete(TrashAlertRequest request) {
     impl.delete(request);
   }
 
-  public Alert get(String alertId) {
-    return get(new GetAlertRequest().setAlertId(alertId));
+  public Alert get(String id) {
+    return get(new GetAlertRequest().setId(id));
   }
 
   /**
@@ -71,17 +67,28 @@ public class AlertsAPI {
   }
 
   /**
-   * Get alerts.
+   * List alerts.
    *
-   * <p>Gets a list of alerts.
+   * <p>Gets a list of alerts accessible to the user, ordered by creation time. **Warning:** Calling
+   * this API concurrently 10 or more times could result in throttling, service degradation, or a
+   * temporary ban.
    */
-  public Iterable<Alert> list() {
-    return impl.list();
+  public Iterable<ListAlertsResponseAlert> list(ListAlertsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListAlertsResponse::getResults,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
-  public void update(String alertId, String name, AlertOptions options, String queryId) {
-    update(
-        new EditAlert().setAlertId(alertId).setName(name).setOptions(options).setQueryId(queryId));
+  public Alert update(String id, String updateMask) {
+    return update(new UpdateAlertRequest().setId(id).setUpdateMask(updateMask));
   }
 
   /**
@@ -89,8 +96,8 @@ public class AlertsAPI {
    *
    * <p>Updates an alert.
    */
-  public void update(EditAlert request) {
-    impl.update(request);
+  public Alert update(UpdateAlertRequest request) {
+    return impl.update(request);
   }
 
   public AlertsService impl() {

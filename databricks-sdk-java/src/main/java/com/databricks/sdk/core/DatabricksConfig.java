@@ -38,6 +38,15 @@ public class DatabricksConfig {
   @ConfigAttribute(env = "DATABRICKS_REDIRECT_URL", auth = "oauth")
   private String redirectUrl;
 
+  /**
+   * The OpenID Connect discovery URL used to retrieve OIDC configuration and endpoints.
+   *
+   * <p><b>Note:</b> This API is experimental and may change or be removed in future releases
+   * without notice.
+   */
+  @ConfigAttribute(env = "DATABRICKS_DISCOVERY_URL")
+  private String discoveryUrl;
+
   @ConfigAttribute(env = "DATABRICKS_USERNAME", auth = "basic")
   private String username;
 
@@ -57,6 +66,9 @@ public class DatabricksConfig {
 
   @ConfigAttribute(env = "DATABRICKS_CLUSTER_ID")
   private String clusterId;
+
+  @ConfigAttribute(env = "DATABRICKS_SERVERLESS_COMPUTE_ID")
+  private String serverlessComputeId;
 
   @ConfigAttribute(env = "DATABRICKS_GOOGLE_SERVICE_ACCOUNT", auth = "google")
   private String googleServiceAccount;
@@ -82,6 +94,12 @@ public class DatabricksConfig {
 
   @ConfigAttribute(env = "ARM_ENVIRONMENT")
   private String azureEnvironment;
+
+  @ConfigAttribute(env = "ACTIONS_ID_TOKEN_REQUEST_URL")
+  private String actionsIdTokenRequestUrl;
+
+  @ConfigAttribute(env = "ACTIONS_ID_TOKEN_REQUEST_TOKEN")
+  private String actionsIdTokenRequestToken;
 
   @ConfigAttribute(env = "DATABRICKS_CLI_PATH")
   private String databricksCliPath;
@@ -156,12 +174,8 @@ public class DatabricksConfig {
     if (httpClient != null) {
       return;
     }
-    int timeout = 300;
-    if (httpTimeoutSeconds != null) {
-      timeout = httpTimeoutSeconds;
-    }
     // eventually it'll get decoupled from config.
-    httpClient = new CommonsHttpClient(timeout);
+    httpClient = new CommonsHttpClient.Builder().withDatabricksConfig(this).build();
   }
 
   public synchronized Map<String, String> authenticate() throws DatabricksException {
@@ -195,6 +209,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setHost(String host) {
     this.host = host;
+    return this;
+  }
+
+  public String getDiscoveryUrl() {
+    return discoveryUrl;
+  }
+
+  public DatabricksConfig setDiscoveryUrl(String discoveryUrl) {
+    this.discoveryUrl = discoveryUrl;
     return this;
   }
 
@@ -240,6 +263,15 @@ public class DatabricksConfig {
 
   public DatabricksConfig setClusterId(String clusterId) {
     this.clusterId = clusterId;
+    return this;
+  }
+
+  public String getServerlessComputeId() {
+    return serverlessComputeId;
+  }
+
+  public DatabricksConfig setServerlessComputeId(String serverlessComputeId) {
+    this.serverlessComputeId = serverlessComputeId;
     return this;
   }
 
@@ -395,6 +427,24 @@ public class DatabricksConfig {
     return this;
   }
 
+  public String getActionsIdTokenRequestUrl() {
+    return actionsIdTokenRequestUrl;
+  }
+
+  public DatabricksConfig setActionsIdTokenRequestUrl(String url) {
+    this.actionsIdTokenRequestUrl = url;
+    return this;
+  }
+
+  public String getActionsIdTokenRequestToken() {
+    return actionsIdTokenRequestToken;
+  }
+
+  public DatabricksConfig setActionsIdTokenRequestToken(String token) {
+    this.actionsIdTokenRequestToken = token;
+    return this;
+  }
+
   public String getEffectiveAzureLoginAppId() {
     return getDatabricksEnvironment().getAzureApplicationId();
   }
@@ -463,6 +513,9 @@ public class DatabricksConfig {
   }
 
   public boolean isAzure() {
+    if (azureWorkspaceResourceId != null) {
+      return true;
+    }
     return this.getDatabricksEnvironment().getCloud() == Cloud.AZURE;
   }
 
@@ -489,10 +542,29 @@ public class DatabricksConfig {
   }
 
   public OpenIDConnectEndpoints getOidcEndpoints() throws IOException {
+    if (discoveryUrl == null) {
+      return fetchDefaultOidcEndpoints();
+    }
+    return fetchOidcEndpointsFromDiscovery();
+  }
+
+  private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
+    try {
+      Request request = new Request("GET", discoveryUrl);
+      Response resp = getHttpClient().execute(request);
+      if (resp.getStatusCode() == 200) {
+        return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
+      }
+    } catch (IOException e) {
+      throw ConfigLoader.makeNicerError(e.getMessage(), e, this);
+    }
+    return null;
+  }
+
+  private OpenIDConnectEndpoints fetchDefaultOidcEndpoints() throws IOException {
     if (getHost() == null) {
       return null;
     }
-
     if (isAzure() && getAzureClientId() != null) {
       Request request = new Request("GET", getHost() + "/oidc/oauth2/v2.0/authorize");
       request.setRedirectionBehavior(false);
@@ -504,17 +576,20 @@ public class DatabricksConfig {
       return new OpenIDConnectEndpoints(
           realAuthUrl.replaceAll("/authorize", "/token"), realAuthUrl);
     }
-    if (getAccountId() != null) {
+    if (isAccountClient() && getAccountId() != null) {
       String prefix = getHost() + "/oidc/accounts/" + getAccountId();
       return new OpenIDConnectEndpoints(prefix + "/v1/token", prefix + "/v1/authorize");
     }
 
-    String oidcEndpoint = getHost() + "/oidc/.well-known/oauth-authorization-server";
-    Response resp = getHttpClient().execute(new Request("GET", oidcEndpoint));
-    if (resp.getStatusCode() != 200) {
-      return null;
-    }
-    return new ObjectMapper().readValue(resp.getBody(), OpenIDConnectEndpoints.class);
+    ApiClient apiClient =
+        new ApiClient.Builder()
+            .withHttpClient(getHttpClient())
+            .withGetHostFunc(v -> getHost())
+            .build();
+    return apiClient.GET(
+        "/oidc/.well-known/oauth-authorization-server",
+        OpenIDConnectEndpoints.class,
+        new HashMap<>());
   }
 
   @Override
@@ -534,15 +609,7 @@ public class DatabricksConfig {
       return this.databricksEnvironment;
     }
 
-    if (this.host != null) {
-      for (DatabricksEnvironment env : DatabricksEnvironment.ALL_ENVIRONMENTS) {
-        if (this.host.endsWith(env.getDnsZone())) {
-          return env;
-        }
-      }
-    }
-
-    if (this.azureWorkspaceResourceId != null) {
+    if (this.host == null && this.azureWorkspaceResourceId != null) {
       String azureEnv = "PUBLIC";
       if (this.azureEnvironment != null) {
         azureEnv = this.azureEnvironment;
@@ -561,7 +628,26 @@ public class DatabricksConfig {
       }
     }
 
-    return DatabricksEnvironment.DEFAULT_ENVIRONMENT;
+    return DatabricksEnvironment.getEnvironmentFromHostname(this.host);
+  }
+
+  private DatabricksConfig clone(Set<String> fieldsToSkip) {
+    DatabricksConfig newConfig = new DatabricksConfig();
+    for (Field f : DatabricksConfig.class.getDeclaredFields()) {
+      if (fieldsToSkip.contains(f.getName())) {
+        continue;
+      }
+      try {
+        f.set(newConfig, f.get(this));
+      } catch (IllegalAccessException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return newConfig;
+  }
+
+  public DatabricksConfig clone() {
+    return clone(new HashSet<>());
   }
 
   public DatabricksConfig newWithWorkspaceHost(String host) {
@@ -577,20 +663,7 @@ public class DatabricksConfig {
                 // For cloud-native OAuth, we need to reauthenticate as the audience has changed, so
                 // don't cache the
                 // header factory.
-                "authType",
                 "headerFactory"));
-    DatabricksConfig newConfig = new DatabricksConfig();
-    for (Field f : DatabricksConfig.class.getDeclaredFields()) {
-      if (fieldsToSkip.contains(f.getName())) {
-        continue;
-      }
-      try {
-        f.set(newConfig, f.get(this));
-      } catch (IllegalAccessException e) {
-        throw new RuntimeException(e);
-      }
-    }
-    newConfig.setHost(host);
-    return newConfig;
+    return clone(fieldsToSkip).setHost(host);
   }
 }

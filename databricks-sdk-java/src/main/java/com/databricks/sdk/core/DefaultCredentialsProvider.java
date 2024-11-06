@@ -1,5 +1,6 @@
 package com.databricks.sdk.core;
 
+import com.databricks.sdk.core.oauth.AzureGithubOidcCredentialsProvider;
 import com.databricks.sdk.core.oauth.AzureServicePrincipalCredentialsProvider;
 import com.databricks.sdk.core.oauth.ExternalBrowserCredentialsProvider;
 import com.databricks.sdk.core.oauth.OAuthM2MServicePrincipalCredentialsProvider;
@@ -17,6 +18,7 @@ public class DefaultCredentialsProvider implements CredentialsProvider {
           PatCredentialsProvider.class,
           BasicCredentialsProvider.class,
           OAuthM2MServicePrincipalCredentialsProvider.class,
+          AzureGithubOidcCredentialsProvider.class,
           AzureServicePrincipalCredentialsProvider.class,
           AzureCliCredentialsProvider.class,
           ExternalBrowserCredentialsProvider.class,

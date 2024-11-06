@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -86,7 +87,11 @@ public class AccountStorageCredentialsAPI {
    * <p>Gets a list of all storage credentials that have been assigned to given metastore.
    */
   public Iterable<StorageCredentialInfo> list(ListAccountStorageCredentialsRequest request) {
-    return impl.list(request);
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListAccountStorageCredentialsResponse::getStorageCredentials,
+        response -> null);
   }
 
   public AccountsStorageCredentialInfo update(String metastoreId, String storageCredentialName) {

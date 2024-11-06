@@ -11,6 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class PipelineSpec {
+  /** Budget policy of this pipeline. */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /**
    * A catalog in Unity Catalog to publish data from this pipeline to. If `target` is specified,
    * tables in this pipeline are published to a `target` schema inside `catalog` (for example,
@@ -36,6 +40,10 @@ public class PipelineSpec {
   @JsonProperty("continuous")
   private Boolean continuous;
 
+  /** Deployment type of this pipeline. */
+  @JsonProperty("deployment")
+  private PipelineDeployment deployment;
+
   /** Whether the pipeline is in Development mode. Defaults to false. */
   @JsonProperty("development")
   private Boolean development;
@@ -48,9 +56,20 @@ public class PipelineSpec {
   @JsonProperty("filters")
   private Filters filters;
 
+  /** The definition of a gateway pipeline to support CDC. */
+  @JsonProperty("gateway_definition")
+  private IngestionGatewayPipelineDefinition gatewayDefinition;
+
   /** Unique identifier for this pipeline. */
   @JsonProperty("id")
   private String id;
+
+  /**
+   * The configuration for a managed ingestion pipeline. These settings cannot be used with the
+   * 'libraries', 'target' or 'catalog' settings.
+   */
+  @JsonProperty("ingestion_definition")
+  private IngestionPipelineDefinition ingestionDefinition;
 
   /** Libraries or code needed by this deployment. */
   @JsonProperty("libraries")
@@ -67,6 +86,13 @@ public class PipelineSpec {
   /** Whether Photon is enabled for this pipeline. */
   @JsonProperty("photon")
   private Boolean photon;
+
+  /**
+   * The default schema (database) where tables are read from or published to. The presence of this
+   * field implies that the pipeline is in direct publishing mode.
+   */
+  @JsonProperty("schema")
+  private String schema;
 
   /** Whether serverless compute is enabled for this pipeline. */
   @JsonProperty("serverless")
@@ -87,6 +113,15 @@ public class PipelineSpec {
   /** Which pipeline trigger to use. Deprecated: Use `continuous` instead. */
   @JsonProperty("trigger")
   private PipelineTrigger trigger;
+
+  public PipelineSpec setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
+  }
 
   public PipelineSpec setCatalog(String catalog) {
     this.catalog = catalog;
@@ -133,6 +168,15 @@ public class PipelineSpec {
     return continuous;
   }
 
+  public PipelineSpec setDeployment(PipelineDeployment deployment) {
+    this.deployment = deployment;
+    return this;
+  }
+
+  public PipelineDeployment getDeployment() {
+    return deployment;
+  }
+
   public PipelineSpec setDevelopment(Boolean development) {
     this.development = development;
     return this;
@@ -160,6 +204,15 @@ public class PipelineSpec {
     return filters;
   }
 
+  public PipelineSpec setGatewayDefinition(IngestionGatewayPipelineDefinition gatewayDefinition) {
+    this.gatewayDefinition = gatewayDefinition;
+    return this;
+  }
+
+  public IngestionGatewayPipelineDefinition getGatewayDefinition() {
+    return gatewayDefinition;
+  }
+
   public PipelineSpec setId(String id) {
     this.id = id;
     return this;
@@ -167,6 +220,15 @@ public class PipelineSpec {
 
   public String getId() {
     return id;
+  }
+
+  public PipelineSpec setIngestionDefinition(IngestionPipelineDefinition ingestionDefinition) {
+    this.ingestionDefinition = ingestionDefinition;
+    return this;
+  }
+
+  public IngestionPipelineDefinition getIngestionDefinition() {
+    return ingestionDefinition;
   }
 
   public PipelineSpec setLibraries(Collection<PipelineLibrary> libraries) {
@@ -203,6 +265,15 @@ public class PipelineSpec {
 
   public Boolean getPhoton() {
     return photon;
+  }
+
+  public PipelineSpec setSchema(String schema) {
+    this.schema = schema;
+    return this;
+  }
+
+  public String getSchema() {
+    return schema;
   }
 
   public PipelineSpec setServerless(Boolean serverless) {
@@ -246,19 +317,24 @@ public class PipelineSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     PipelineSpec that = (PipelineSpec) o;
-    return Objects.equals(catalog, that.catalog)
+    return Objects.equals(budgetPolicyId, that.budgetPolicyId)
+        && Objects.equals(catalog, that.catalog)
         && Objects.equals(channel, that.channel)
         && Objects.equals(clusters, that.clusters)
         && Objects.equals(configuration, that.configuration)
         && Objects.equals(continuous, that.continuous)
+        && Objects.equals(deployment, that.deployment)
         && Objects.equals(development, that.development)
         && Objects.equals(edition, that.edition)
         && Objects.equals(filters, that.filters)
+        && Objects.equals(gatewayDefinition, that.gatewayDefinition)
         && Objects.equals(id, that.id)
+        && Objects.equals(ingestionDefinition, that.ingestionDefinition)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(name, that.name)
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
+        && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
         && Objects.equals(target, that.target)
@@ -268,19 +344,24 @@ public class PipelineSpec {
   @Override
   public int hashCode() {
     return Objects.hash(
+        budgetPolicyId,
         catalog,
         channel,
         clusters,
         configuration,
         continuous,
+        deployment,
         development,
         edition,
         filters,
+        gatewayDefinition,
         id,
+        ingestionDefinition,
         libraries,
         name,
         notifications,
         photon,
+        schema,
         serverless,
         storage,
         target,
@@ -290,19 +371,24 @@ public class PipelineSpec {
   @Override
   public String toString() {
     return new ToStringer(PipelineSpec.class)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("catalog", catalog)
         .add("channel", channel)
         .add("clusters", clusters)
         .add("configuration", configuration)
         .add("continuous", continuous)
+        .add("deployment", deployment)
         .add("development", development)
         .add("edition", edition)
         .add("filters", filters)
+        .add("gatewayDefinition", gatewayDefinition)
         .add("id", id)
+        .add("ingestionDefinition", ingestionDefinition)
         .add("libraries", libraries)
         .add("name", name)
         .add("notifications", notifications)
         .add("photon", photon)
+        .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)
         .add("target", target)

@@ -3,6 +3,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,7 +77,17 @@ public class ProvidersAPI {
    * response. There is no guarantee of a specific ordering of the elements in the array.
    */
   public Iterable<ProviderInfo> list(ListProvidersRequest request) {
-    return impl.list(request).getProviders();
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListProvidersResponse::getProviders,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public Iterable<ProviderShare> listShares(String name) {
@@ -91,7 +102,8 @@ public class ProvidersAPI {
    * <p>* the caller is a metastore admin, or * the caller is the owner.
    */
   public Iterable<ProviderShare> listShares(ListSharesRequest request) {
-    return impl.listShares(request).getShares();
+    return new Paginator<>(
+        request, impl::listShares, ListProviderSharesResponse::getShares, response -> null);
   }
 
   public ProviderInfo update(String name) {

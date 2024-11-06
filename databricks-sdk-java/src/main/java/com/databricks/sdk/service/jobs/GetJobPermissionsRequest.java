@@ -4,13 +4,14 @@ package com.databricks.sdk.service.jobs;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get job permissions */
 @Generated
 public class GetJobPermissionsRequest {
   /** The job for which to get or manage permissions. */
-  private String jobId;
+  @JsonIgnore private String jobId;
 
   public GetJobPermissionsRequest setJobId(String jobId) {
     this.jobId = jobId;

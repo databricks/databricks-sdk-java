@@ -4,13 +4,14 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a service principal */
 @Generated
 public class DeleteAccountServicePrincipalRequest {
   /** Unique ID for a service principal in the Databricks account. */
-  private String id;
+  @JsonIgnore private String id;
 
   public DeleteAccountServicePrincipalRequest setId(String id) {
     this.id = id;

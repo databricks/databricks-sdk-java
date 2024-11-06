@@ -4,6 +4,7 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class ExperimentPermissionsRequest {
   private Collection<ExperimentAccessControlRequest> accessControlList;
 
   /** The experiment for which to get or manage permissions. */
-  private String experimentId;
+  @JsonIgnore private String experimentId;
 
   public ExperimentPermissionsRequest setAccessControlList(
       Collection<ExperimentAccessControlRequest> accessControlList) {

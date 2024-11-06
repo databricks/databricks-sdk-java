@@ -5,12 +5,14 @@ package com.databricks.sdk.service.settings;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Check configuration status */
 @Generated
 public class GetStatusRequest {
   /** */
+  @JsonIgnore
   @QueryParam("keys")
   private String keys;
 

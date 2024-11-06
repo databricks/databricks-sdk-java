@@ -11,6 +11,7 @@ import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -25,7 +26,7 @@ public class ExternalBrowserCredentialsProviderTest {
         new FixtureServer.FixtureMapping.Builder()
             .validateMethod("GET")
             .validatePath("/oidc/.well-known/oauth-authorization-server")
-            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}")
+            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}", 200)
             .build();
     try (FixtureServer fixtures = new FixtureServer()) {
       fixtures.with(fixture).with(fixture);
@@ -34,7 +35,7 @@ public class ExternalBrowserCredentialsProviderTest {
               .setAuthType("external-browser")
               .setHost(fixtures.getUrl())
               .setClientId("test-client-id")
-              .setHttpClient(new CommonsHttpClient(30));
+              .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build());
       config.resolve();
 
       assertEquals("tokenEndPointFromServer", config.getOidcEndpoints().getTokenEndpoint());
@@ -60,7 +61,7 @@ public class ExternalBrowserCredentialsProviderTest {
         new FixtureServer.FixtureMapping.Builder()
             .validateMethod("GET")
             .validatePath("/oidc/.well-known/oauth-authorization-server")
-            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}")
+            .withResponse("{\"token_endpoint\": \"tokenEndPointFromServer\"}", 200)
             .build();
     try (FixtureServer fixtures = new FixtureServer()) {
       fixtures.with(fixture).with(fixture);
@@ -69,7 +70,7 @@ public class ExternalBrowserCredentialsProviderTest {
               .setAuthType("external-browser")
               .setHost(fixtures.getUrl())
               .setClientId("test-client-id")
-              .setHttpClient(new CommonsHttpClient(30))
+              .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
               .setOAuthRedirectUrl("http://localhost:8010")
               .setScopes(Arrays.asList("sql"));
       config.resolve();
@@ -93,16 +94,15 @@ public class ExternalBrowserCredentialsProviderTest {
 
   @Test
   void openIDConnectEndPointsTestAccounts() throws IOException {
-    String testHost = "https://localhost:8080";
     DatabricksConfig config =
         new DatabricksConfig()
             .setAuthType("external-browser")
-            .setHost("https://localhost:8080")
-            .setHttpClient(new CommonsHttpClient(30))
+            .setHost("https://accounts.cloud.databricks.com")
+            .setHttpClient(new CommonsHttpClient.Builder().withTimeoutSeconds(30).build())
             .setAccountId("testAccountId");
     config.resolve();
 
-    String prefix = testHost + "/oidc/accounts/" + config.getAccountId();
+    String prefix = "https://accounts.cloud.databricks.com/oidc/accounts/" + config.getAccountId();
     assertEquals(prefix + "/v1/token", config.getOidcEndpoints().getTokenEndpoint());
     assertEquals(prefix + "/v1/authorize", config.getOidcEndpoints().getAuthorizationEndpoint());
   }
@@ -112,9 +112,10 @@ public class ExternalBrowserCredentialsProviderTest {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
         "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
+    URL url = new URL("https://databricks.com/");
 
     // Mock because it's a POST Request to http client
-    Mockito.doReturn(new Response(response)).when(hc).execute(any(Request.class));
+    Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
 
     Consent testConsent =
         new Consent.Builder()
@@ -157,7 +158,8 @@ public class ExternalBrowserCredentialsProviderTest {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
         "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
-    Mockito.doReturn(new Response(response)).when(hc).execute(any(Request.class));
+    URL url = new URL("https://databricks.com/");
+    Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
 
     ClientCredentials clientCredentials =
         new ClientCredentials.Builder()
@@ -176,7 +178,8 @@ public class ExternalBrowserCredentialsProviderTest {
     HttpClient hc = Mockito.mock(HttpClient.class);
     String response =
         "{\"access_token\": \"accessTokenFromServer\", \"token_type\": \"tokenTypeFromServer\", \"expires_in\": \"10\", \"refresh_token\": \"refreshTokenFromServer\"}";
-    Mockito.doReturn(new Response(response)).when(hc).execute(any(Request.class));
+    URL url = new URL("https://databricks.com/");
+    Mockito.doReturn(new Response(response, url)).when(hc).execute(any(Request.class));
 
     SessionCredentials sessionCredentials =
         new SessionCredentials.Builder()

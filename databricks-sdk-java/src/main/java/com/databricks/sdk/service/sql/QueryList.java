@@ -24,7 +24,7 @@ public class QueryList {
 
   /** List of queries returned. */
   @JsonProperty("results")
-  private Collection<Query> results;
+  private Collection<LegacyQuery> results;
 
   public QueryList setCount(Long count) {
     this.count = count;
@@ -53,12 +53,12 @@ public class QueryList {
     return pageSize;
   }
 
-  public QueryList setResults(Collection<Query> results) {
+  public QueryList setResults(Collection<LegacyQuery> results) {
     this.results = results;
     return this;
   }
 
-  public Collection<Query> getResults() {
+  public Collection<LegacyQuery> getResults() {
     return results;
   }
 

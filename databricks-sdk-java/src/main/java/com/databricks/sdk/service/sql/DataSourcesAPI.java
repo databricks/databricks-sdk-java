@@ -15,6 +15,10 @@ import org.slf4j.LoggerFactory;
  * <p>This API does not support searches. It returns the full list of SQL warehouses in your
  * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
  * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
+ *
+ * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+ *
+ * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
  */
 @Generated
 public class DataSourcesAPI {
@@ -38,6 +42,11 @@ public class DataSourcesAPI {
    * <p>Retrieves a full list of SQL warehouses available in this workspace. All fields that appear
    * in this API response are enumerated for clarity. However, you need only a SQL warehouse's `id`
    * to create new queries against it.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please use
+   * :method:warehouses/list instead. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public Iterable<DataSource> list() {
     return impl.list();

@@ -5,14 +5,21 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List table summaries */
 @Generated
 public class ListSummariesRequest {
   /** Name of parent catalog for tables of interest. */
+  @JsonIgnore
   @QueryParam("catalog_name")
   private String catalogName;
+
+  /** Whether to include a manifest containing capabilities the table has. */
+  @JsonIgnore
+  @QueryParam("include_manifest_capabilities")
+  private Boolean includeManifestCapabilities;
 
   /**
    * Maximum number of summaries for tables to return. If not set, the page length is set to a
@@ -21,10 +28,12 @@ public class ListSummariesRequest {
    * when set to 0, the page length is set to a server configured value (10000, as of 1/5/2024)
    * (recommended); - when set to a value less than 0, an invalid parameter error is returned;
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
@@ -32,12 +41,14 @@ public class ListSummariesRequest {
    * A sql LIKE pattern (% and _) for schema names. All schemas will be returned if not set or
    * empty.
    */
+  @JsonIgnore
   @QueryParam("schema_name_pattern")
   private String schemaNamePattern;
 
   /**
    * A sql LIKE pattern (% and _) for table names. All tables will be returned if not set or empty.
    */
+  @JsonIgnore
   @QueryParam("table_name_pattern")
   private String tableNamePattern;
 
@@ -48,6 +59,15 @@ public class ListSummariesRequest {
 
   public String getCatalogName() {
     return catalogName;
+  }
+
+  public ListSummariesRequest setIncludeManifestCapabilities(Boolean includeManifestCapabilities) {
+    this.includeManifestCapabilities = includeManifestCapabilities;
+    return this;
+  }
+
+  public Boolean getIncludeManifestCapabilities() {
+    return includeManifestCapabilities;
   }
 
   public ListSummariesRequest setMaxResults(Long maxResults) {
@@ -92,6 +112,7 @@ public class ListSummariesRequest {
     if (o == null || getClass() != o.getClass()) return false;
     ListSummariesRequest that = (ListSummariesRequest) o;
     return Objects.equals(catalogName, that.catalogName)
+        && Objects.equals(includeManifestCapabilities, that.includeManifestCapabilities)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(schemaNamePattern, that.schemaNamePattern)
@@ -100,13 +121,20 @@ public class ListSummariesRequest {
 
   @Override
   public int hashCode() {
-    return Objects.hash(catalogName, maxResults, pageToken, schemaNamePattern, tableNamePattern);
+    return Objects.hash(
+        catalogName,
+        includeManifestCapabilities,
+        maxResults,
+        pageToken,
+        schemaNamePattern,
+        tableNamePattern);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListSummariesRequest.class)
         .add("catalogName", catalogName)
+        .add("includeManifestCapabilities", includeManifestCapabilities)
         .add("maxResults", maxResults)
         .add("pageToken", pageToken)
         .add("schemaNamePattern", schemaNamePattern)

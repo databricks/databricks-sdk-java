@@ -15,12 +15,19 @@ public class CreateDashboardRequest {
 
   /**
    * The workspace path of the folder containing the dashboard. Includes leading slash and no
-   * trailing slash.
+   * trailing slash. This field is excluded in List Dashboards responses.
    */
   @JsonProperty("parent_path")
   private String parentPath;
 
-  /** The contents of the dashboard in serialized string form. */
+  /**
+   * The contents of the dashboard in serialized string form. This field is excluded in List
+   * Dashboards responses. Use the [get dashboard API] to retrieve an example response, which
+   * includes the `serialized_dashboard` field. This field provides the structure of the JSON string
+   * that represents the dashboard's layout and components.
+   *
+   * <p>[get dashboard API]: https://docs.databricks.com/api/workspace/lakeview/get
+   */
   @JsonProperty("serialized_dashboard")
   private String serializedDashboard;
 

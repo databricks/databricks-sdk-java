@@ -5,12 +5,14 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List Volumes */
 @Generated
 public class ListVolumesRequest {
   /** The identifier of the catalog */
+  @JsonIgnore
   @QueryParam("catalog_name")
   private String catalogName;
 
@@ -18,6 +20,7 @@ public class ListVolumesRequest {
    * Whether to include volumes in the response for which the principal can only access selective
    * metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
@@ -34,6 +37,7 @@ public class ListVolumesRequest {
    * number of volumes returned in a page may be smaller than this value, including 0, even if there
    * are more pages.
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
@@ -41,10 +45,12 @@ public class ListVolumesRequest {
    * Opaque token returned by a previous request. It must be included in the request to retrieve the
    * next page of results (pagination).
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** The identifier of the schema */
+  @JsonIgnore
   @QueryParam("schema_name")
   private String schemaName;
 

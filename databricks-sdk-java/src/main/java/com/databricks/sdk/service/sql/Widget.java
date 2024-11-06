@@ -24,7 +24,7 @@ public class Widget {
    * constructing ad-hoc visualizations entirely in JSON.
    */
   @JsonProperty("visualization")
-  private Visualization visualization;
+  private LegacyVisualization visualization;
 
   /** Unused field. */
   @JsonProperty("width")
@@ -48,12 +48,12 @@ public class Widget {
     return options;
   }
 
-  public Widget setVisualization(Visualization visualization) {
+  public Widget setVisualization(LegacyVisualization visualization) {
     this.visualization = visualization;
     return this;
   }
 
-  public Visualization getVisualization() {
+  public LegacyVisualization getVisualization() {
     return visualization;
   }
 

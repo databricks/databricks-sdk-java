@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Remove a dashboard */
 @Generated
 public class DeleteDashboardRequest {
   /** */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   public DeleteDashboardRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;

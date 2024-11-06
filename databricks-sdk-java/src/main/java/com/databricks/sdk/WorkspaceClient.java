@@ -8,6 +8,8 @@ import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
 import com.databricks.sdk.mixin.SecretsExt;
+import com.databricks.sdk.service.apps.AppsAPI;
+import com.databricks.sdk.service.apps.AppsService;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsAPI;
 import com.databricks.sdk.service.catalog.ArtifactAllowlistsService;
 import com.databricks.sdk.service.catalog.CatalogsAPI;
@@ -20,16 +22,18 @@ import com.databricks.sdk.service.catalog.FunctionsAPI;
 import com.databricks.sdk.service.catalog.FunctionsService;
 import com.databricks.sdk.service.catalog.GrantsAPI;
 import com.databricks.sdk.service.catalog.GrantsService;
-import com.databricks.sdk.service.catalog.LakehouseMonitorsAPI;
-import com.databricks.sdk.service.catalog.LakehouseMonitorsService;
 import com.databricks.sdk.service.catalog.MetastoresAPI;
 import com.databricks.sdk.service.catalog.MetastoresService;
 import com.databricks.sdk.service.catalog.ModelVersionsAPI;
 import com.databricks.sdk.service.catalog.ModelVersionsService;
 import com.databricks.sdk.service.catalog.OnlineTablesAPI;
 import com.databricks.sdk.service.catalog.OnlineTablesService;
+import com.databricks.sdk.service.catalog.QualityMonitorsAPI;
+import com.databricks.sdk.service.catalog.QualityMonitorsService;
 import com.databricks.sdk.service.catalog.RegisteredModelsAPI;
 import com.databricks.sdk.service.catalog.RegisteredModelsService;
+import com.databricks.sdk.service.catalog.ResourceQuotasAPI;
+import com.databricks.sdk.service.catalog.ResourceQuotasService;
 import com.databricks.sdk.service.catalog.SchemasAPI;
 import com.databricks.sdk.service.catalog.SchemasService;
 import com.databricks.sdk.service.catalog.StorageCredentialsAPI;
@@ -40,6 +44,8 @@ import com.databricks.sdk.service.catalog.TableConstraintsAPI;
 import com.databricks.sdk.service.catalog.TableConstraintsService;
 import com.databricks.sdk.service.catalog.TablesAPI;
 import com.databricks.sdk.service.catalog.TablesService;
+import com.databricks.sdk.service.catalog.TemporaryTableCredentialsAPI;
+import com.databricks.sdk.service.catalog.TemporaryTableCredentialsService;
 import com.databricks.sdk.service.catalog.VolumesAPI;
 import com.databricks.sdk.service.catalog.VolumesService;
 import com.databricks.sdk.service.catalog.WorkspaceBindingsAPI;
@@ -57,8 +63,12 @@ import com.databricks.sdk.service.compute.InstanceProfilesAPI;
 import com.databricks.sdk.service.compute.InstanceProfilesService;
 import com.databricks.sdk.service.compute.LibrariesAPI;
 import com.databricks.sdk.service.compute.LibrariesService;
+import com.databricks.sdk.service.compute.PolicyComplianceForClustersAPI;
+import com.databricks.sdk.service.compute.PolicyComplianceForClustersService;
 import com.databricks.sdk.service.compute.PolicyFamiliesAPI;
 import com.databricks.sdk.service.compute.PolicyFamiliesService;
+import com.databricks.sdk.service.dashboards.GenieAPI;
+import com.databricks.sdk.service.dashboards.GenieService;
 import com.databricks.sdk.service.dashboards.LakeviewAPI;
 import com.databricks.sdk.service.dashboards.LakeviewService;
 import com.databricks.sdk.service.files.DbfsService;
@@ -80,20 +90,46 @@ import com.databricks.sdk.service.iam.UsersAPI;
 import com.databricks.sdk.service.iam.UsersService;
 import com.databricks.sdk.service.jobs.JobsAPI;
 import com.databricks.sdk.service.jobs.JobsService;
+import com.databricks.sdk.service.jobs.PolicyComplianceForJobsAPI;
+import com.databricks.sdk.service.jobs.PolicyComplianceForJobsService;
+import com.databricks.sdk.service.marketplace.ConsumerFulfillmentsAPI;
+import com.databricks.sdk.service.marketplace.ConsumerFulfillmentsService;
+import com.databricks.sdk.service.marketplace.ConsumerInstallationsAPI;
+import com.databricks.sdk.service.marketplace.ConsumerInstallationsService;
+import com.databricks.sdk.service.marketplace.ConsumerListingsAPI;
+import com.databricks.sdk.service.marketplace.ConsumerListingsService;
+import com.databricks.sdk.service.marketplace.ConsumerPersonalizationRequestsAPI;
+import com.databricks.sdk.service.marketplace.ConsumerPersonalizationRequestsService;
+import com.databricks.sdk.service.marketplace.ConsumerProvidersAPI;
+import com.databricks.sdk.service.marketplace.ConsumerProvidersService;
+import com.databricks.sdk.service.marketplace.ProviderExchangeFiltersAPI;
+import com.databricks.sdk.service.marketplace.ProviderExchangeFiltersService;
+import com.databricks.sdk.service.marketplace.ProviderExchangesAPI;
+import com.databricks.sdk.service.marketplace.ProviderExchangesService;
+import com.databricks.sdk.service.marketplace.ProviderFilesAPI;
+import com.databricks.sdk.service.marketplace.ProviderFilesService;
+import com.databricks.sdk.service.marketplace.ProviderListingsAPI;
+import com.databricks.sdk.service.marketplace.ProviderListingsService;
+import com.databricks.sdk.service.marketplace.ProviderPersonalizationRequestsAPI;
+import com.databricks.sdk.service.marketplace.ProviderPersonalizationRequestsService;
+import com.databricks.sdk.service.marketplace.ProviderProviderAnalyticsDashboardsAPI;
+import com.databricks.sdk.service.marketplace.ProviderProviderAnalyticsDashboardsService;
+import com.databricks.sdk.service.marketplace.ProviderProvidersAPI;
+import com.databricks.sdk.service.marketplace.ProviderProvidersService;
 import com.databricks.sdk.service.ml.ExperimentsAPI;
 import com.databricks.sdk.service.ml.ExperimentsService;
 import com.databricks.sdk.service.ml.ModelRegistryAPI;
 import com.databricks.sdk.service.ml.ModelRegistryService;
 import com.databricks.sdk.service.pipelines.PipelinesAPI;
 import com.databricks.sdk.service.pipelines.PipelinesService;
-import com.databricks.sdk.service.serving.AppsAPI;
-import com.databricks.sdk.service.serving.AppsService;
 import com.databricks.sdk.service.serving.ServingEndpointsAPI;
 import com.databricks.sdk.service.serving.ServingEndpointsService;
 import com.databricks.sdk.service.settings.CredentialsManagerAPI;
 import com.databricks.sdk.service.settings.CredentialsManagerService;
 import com.databricks.sdk.service.settings.IpAccessListsAPI;
 import com.databricks.sdk.service.settings.IpAccessListsService;
+import com.databricks.sdk.service.settings.NotificationDestinationsAPI;
+import com.databricks.sdk.service.settings.NotificationDestinationsService;
 import com.databricks.sdk.service.settings.SettingsAPI;
 import com.databricks.sdk.service.settings.SettingsService;
 import com.databricks.sdk.service.settings.TokenManagementAPI;
@@ -113,6 +149,8 @@ import com.databricks.sdk.service.sharing.RecipientsService;
 import com.databricks.sdk.service.sharing.SharesAPI;
 import com.databricks.sdk.service.sharing.SharesService;
 import com.databricks.sdk.service.sql.AlertsAPI;
+import com.databricks.sdk.service.sql.AlertsLegacyAPI;
+import com.databricks.sdk.service.sql.AlertsLegacyService;
 import com.databricks.sdk.service.sql.AlertsService;
 import com.databricks.sdk.service.sql.DashboardWidgetsAPI;
 import com.databricks.sdk.service.sql.DashboardWidgetsService;
@@ -123,10 +161,14 @@ import com.databricks.sdk.service.sql.DataSourcesService;
 import com.databricks.sdk.service.sql.DbsqlPermissionsAPI;
 import com.databricks.sdk.service.sql.DbsqlPermissionsService;
 import com.databricks.sdk.service.sql.QueriesAPI;
+import com.databricks.sdk.service.sql.QueriesLegacyAPI;
+import com.databricks.sdk.service.sql.QueriesLegacyService;
 import com.databricks.sdk.service.sql.QueriesService;
 import com.databricks.sdk.service.sql.QueryHistoryAPI;
 import com.databricks.sdk.service.sql.QueryHistoryService;
 import com.databricks.sdk.service.sql.QueryVisualizationsAPI;
+import com.databricks.sdk.service.sql.QueryVisualizationsLegacyAPI;
+import com.databricks.sdk.service.sql.QueryVisualizationsLegacyService;
 import com.databricks.sdk.service.sql.QueryVisualizationsService;
 import com.databricks.sdk.service.sql.StatementExecutionAPI;
 import com.databricks.sdk.service.sql.StatementExecutionService;
@@ -153,6 +195,7 @@ public class WorkspaceClient {
 
   private AccountAccessControlProxyAPI accountAccessControlProxyAPI;
   private AlertsAPI alertsAPI;
+  private AlertsLegacyAPI alertsLegacyAPI;
   private AppsAPI appsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
@@ -161,6 +204,11 @@ public class WorkspaceClient {
   private ClustersExt clustersAPI;
   private CommandExecutionAPI commandExecutionAPI;
   private ConnectionsAPI connectionsAPI;
+  private ConsumerFulfillmentsAPI consumerFulfillmentsAPI;
+  private ConsumerInstallationsAPI consumerInstallationsAPI;
+  private ConsumerListingsAPI consumerListingsAPI;
+  private ConsumerPersonalizationRequestsAPI consumerPersonalizationRequestsAPI;
+  private ConsumerProvidersAPI consumerProvidersAPI;
   private CredentialsManagerAPI credentialsManagerAPI;
   private CurrentUserAPI currentUserAPI;
   private DashboardWidgetsAPI dashboardWidgetsAPI;
@@ -172,6 +220,7 @@ public class WorkspaceClient {
   private ExternalLocationsAPI externalLocationsAPI;
   private FilesAPI filesAPI;
   private FunctionsAPI functionsAPI;
+  private GenieAPI genieAPI;
   private GitCredentialsAPI gitCredentialsAPI;
   private GlobalInitScriptsAPI globalInitScriptsAPI;
   private GrantsAPI grantsAPI;
@@ -180,25 +229,38 @@ public class WorkspaceClient {
   private InstanceProfilesAPI instanceProfilesAPI;
   private IpAccessListsAPI ipAccessListsAPI;
   private JobsAPI jobsAPI;
-  private LakehouseMonitorsAPI lakehouseMonitorsAPI;
   private LakeviewAPI lakeviewAPI;
   private LibrariesAPI librariesAPI;
   private MetastoresAPI metastoresAPI;
   private ModelRegistryAPI modelRegistryAPI;
   private ModelVersionsAPI modelVersionsAPI;
+  private NotificationDestinationsAPI notificationDestinationsAPI;
   private OnlineTablesAPI onlineTablesAPI;
   private PermissionMigrationAPI permissionMigrationAPI;
   private PermissionsAPI permissionsAPI;
   private PipelinesAPI pipelinesAPI;
+  private PolicyComplianceForClustersAPI policyComplianceForClustersAPI;
+  private PolicyComplianceForJobsAPI policyComplianceForJobsAPI;
   private PolicyFamiliesAPI policyFamiliesAPI;
+  private ProviderExchangeFiltersAPI providerExchangeFiltersAPI;
+  private ProviderExchangesAPI providerExchangesAPI;
+  private ProviderFilesAPI providerFilesAPI;
+  private ProviderListingsAPI providerListingsAPI;
+  private ProviderPersonalizationRequestsAPI providerPersonalizationRequestsAPI;
+  private ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboardsAPI;
+  private ProviderProvidersAPI providerProvidersAPI;
   private ProvidersAPI providersAPI;
+  private QualityMonitorsAPI qualityMonitorsAPI;
   private QueriesAPI queriesAPI;
+  private QueriesLegacyAPI queriesLegacyAPI;
   private QueryHistoryAPI queryHistoryAPI;
   private QueryVisualizationsAPI queryVisualizationsAPI;
+  private QueryVisualizationsLegacyAPI queryVisualizationsLegacyAPI;
   private RecipientActivationAPI recipientActivationAPI;
   private RecipientsAPI recipientsAPI;
   private RegisteredModelsAPI registeredModelsAPI;
   private ReposAPI reposAPI;
+  private ResourceQuotasAPI resourceQuotasAPI;
   private SchemasAPI schemasAPI;
   private SecretsExt secretsAPI;
   private ServicePrincipalsAPI servicePrincipalsAPI;
@@ -210,6 +272,7 @@ public class WorkspaceClient {
   private SystemSchemasAPI systemSchemasAPI;
   private TableConstraintsAPI tableConstraintsAPI;
   private TablesAPI tablesAPI;
+  private TemporaryTableCredentialsAPI temporaryTableCredentialsAPI;
   private TokenManagementAPI tokenManagementAPI;
   private TokensAPI tokensAPI;
   private UsersAPI usersAPI;
@@ -231,6 +294,7 @@ public class WorkspaceClient {
 
     accountAccessControlProxyAPI = new AccountAccessControlProxyAPI(apiClient);
     alertsAPI = new AlertsAPI(apiClient);
+    alertsLegacyAPI = new AlertsLegacyAPI(apiClient);
     appsAPI = new AppsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
@@ -239,6 +303,11 @@ public class WorkspaceClient {
     clustersAPI = new ClustersExt(apiClient);
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
     connectionsAPI = new ConnectionsAPI(apiClient);
+    consumerFulfillmentsAPI = new ConsumerFulfillmentsAPI(apiClient);
+    consumerInstallationsAPI = new ConsumerInstallationsAPI(apiClient);
+    consumerListingsAPI = new ConsumerListingsAPI(apiClient);
+    consumerPersonalizationRequestsAPI = new ConsumerPersonalizationRequestsAPI(apiClient);
+    consumerProvidersAPI = new ConsumerProvidersAPI(apiClient);
     credentialsManagerAPI = new CredentialsManagerAPI(apiClient);
     currentUserAPI = new CurrentUserAPI(apiClient);
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
@@ -250,6 +319,7 @@ public class WorkspaceClient {
     externalLocationsAPI = new ExternalLocationsAPI(apiClient);
     filesAPI = new FilesAPI(apiClient);
     functionsAPI = new FunctionsAPI(apiClient);
+    genieAPI = new GenieAPI(apiClient);
     gitCredentialsAPI = new GitCredentialsAPI(apiClient);
     globalInitScriptsAPI = new GlobalInitScriptsAPI(apiClient);
     grantsAPI = new GrantsAPI(apiClient);
@@ -258,25 +328,38 @@ public class WorkspaceClient {
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
     jobsAPI = new JobsAPI(apiClient);
-    lakehouseMonitorsAPI = new LakehouseMonitorsAPI(apiClient);
     lakeviewAPI = new LakeviewAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
     modelRegistryAPI = new ModelRegistryAPI(apiClient);
     modelVersionsAPI = new ModelVersionsAPI(apiClient);
+    notificationDestinationsAPI = new NotificationDestinationsAPI(apiClient);
     onlineTablesAPI = new OnlineTablesAPI(apiClient);
     permissionMigrationAPI = new PermissionMigrationAPI(apiClient);
     permissionsAPI = new PermissionsAPI(apiClient);
     pipelinesAPI = new PipelinesAPI(apiClient);
+    policyComplianceForClustersAPI = new PolicyComplianceForClustersAPI(apiClient);
+    policyComplianceForJobsAPI = new PolicyComplianceForJobsAPI(apiClient);
     policyFamiliesAPI = new PolicyFamiliesAPI(apiClient);
+    providerExchangeFiltersAPI = new ProviderExchangeFiltersAPI(apiClient);
+    providerExchangesAPI = new ProviderExchangesAPI(apiClient);
+    providerFilesAPI = new ProviderFilesAPI(apiClient);
+    providerListingsAPI = new ProviderListingsAPI(apiClient);
+    providerPersonalizationRequestsAPI = new ProviderPersonalizationRequestsAPI(apiClient);
+    providerProviderAnalyticsDashboardsAPI = new ProviderProviderAnalyticsDashboardsAPI(apiClient);
+    providerProvidersAPI = new ProviderProvidersAPI(apiClient);
     providersAPI = new ProvidersAPI(apiClient);
+    qualityMonitorsAPI = new QualityMonitorsAPI(apiClient);
     queriesAPI = new QueriesAPI(apiClient);
+    queriesLegacyAPI = new QueriesLegacyAPI(apiClient);
     queryHistoryAPI = new QueryHistoryAPI(apiClient);
     queryVisualizationsAPI = new QueryVisualizationsAPI(apiClient);
+    queryVisualizationsLegacyAPI = new QueryVisualizationsLegacyAPI(apiClient);
     recipientActivationAPI = new RecipientActivationAPI(apiClient);
     recipientsAPI = new RecipientsAPI(apiClient);
     registeredModelsAPI = new RegisteredModelsAPI(apiClient);
     reposAPI = new ReposAPI(apiClient);
+    resourceQuotasAPI = new ResourceQuotasAPI(apiClient);
     schemasAPI = new SchemasAPI(apiClient);
     secretsAPI = new SecretsExt(apiClient);
     servicePrincipalsAPI = new ServicePrincipalsAPI(apiClient);
@@ -288,6 +371,7 @@ public class WorkspaceClient {
     systemSchemasAPI = new SystemSchemasAPI(apiClient);
     tableConstraintsAPI = new TableConstraintsAPI(apiClient);
     tablesAPI = new TablesAPI(apiClient);
+    temporaryTableCredentialsAPI = new TemporaryTableCredentialsAPI(apiClient);
     tokenManagementAPI = new TokenManagementAPI(apiClient);
     tokensAPI = new TokensAPI(apiClient);
     usersAPI = new UsersAPI(apiClient);
@@ -332,8 +416,23 @@ public class WorkspaceClient {
   }
 
   /**
-   * Lakehouse Apps run directly on a customer’s Databricks instance, integrate with their data, use
-   * and extend Databricks services, and enable users to interact through single sign-on.
+   * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
+   * object that periodically runs a query, evaluates a condition of its result, and notifies one or
+   * more users and/or notification destinations if the condition was met. Alerts can be scheduled
+   * using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
+   * version. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   */
+  public AlertsLegacyAPI alertsLegacy() {
+    return alertsLegacyAPI;
+  }
+
+  /**
+   * Apps run directly on a customer’s Databricks instance, integrate with their data, use and
+   * extend Databricks services, and enable users to interact through single sign-on.
    */
   public AppsAPI apps() {
     return appsAPI;
@@ -416,10 +515,9 @@ public class WorkspaceClient {
    * terminate and restart an all-purpose cluster. Multiple users can share such clusters to do
    * collaborative interactive analysis.
    *
-   * <p>IMPORTANT: Databricks retains cluster configuration information for up to 200 all-purpose
-   * clusters terminated in the last 30 days and up to 30 job clusters recently terminated by the
-   * job scheduler. To keep an all-purpose cluster configuration even after it has been terminated
-   * for more than 30 days, an administrator can pin a cluster to the cluster list.
+   * <p>IMPORTANT: Databricks retains cluster configuration information for terminated clusters for
+   * 30 days. To keep an all-purpose cluster configuration even after it has been terminated for
+   * more than 30 days, an administrator can pin a cluster to the cluster list.
    */
   public ClustersExt clusters() {
     return clustersAPI;
@@ -427,6 +525,7 @@ public class WorkspaceClient {
 
   /**
    * This API allows execution of Python, Scala, SQL, or R commands on running Databricks Clusters.
+   * This API only supports (classic) all-purpose clusters. Serverless compute is not supported.
    */
   public CommandExecutionAPI commandExecution() {
     return commandExecutionAPI;
@@ -445,6 +544,40 @@ public class WorkspaceClient {
    */
   public ConnectionsAPI connections() {
     return connectionsAPI;
+  }
+
+  /** Fulfillments are entities that allow consumers to preview installations. */
+  public ConsumerFulfillmentsAPI consumerFulfillments() {
+    return consumerFulfillmentsAPI;
+  }
+
+  /**
+   * Installations are entities that allow consumers to interact with Databricks Marketplace
+   * listings.
+   */
+  public ConsumerInstallationsAPI consumerInstallations() {
+    return consumerInstallationsAPI;
+  }
+
+  /**
+   * Listings are the core entities in the Marketplace. They represent the products that are
+   * available for consumption.
+   */
+  public ConsumerListingsAPI consumerListings() {
+    return consumerListingsAPI;
+  }
+
+  /**
+   * Personalization Requests allow customers to interact with the individualized Marketplace
+   * listing flow.
+   */
+  public ConsumerPersonalizationRequestsAPI consumerPersonalizationRequests() {
+    return consumerPersonalizationRequestsAPI;
+  }
+
+  /** Providers are the entities that publish listings to the Marketplace. */
+  public ConsumerProvidersAPI consumerProviders() {
+    return consumerProvidersAPI;
   }
 
   /**
@@ -490,6 +623,10 @@ public class WorkspaceClient {
    * <p>This API does not support searches. It returns the full list of SQL warehouses in your
    * workspace. We advise you to use any text editor, REST client, or `grep` to search the response
    * from this API for the name of your SQL warehouse as it appears in Databricks SQL.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public DataSourcesAPI dataSources() {
     return dataSourcesAPI;
@@ -516,6 +653,10 @@ public class WorkspaceClient {
    *
    * <p>- `CAN_MANAGE`: Allows all actions: read, run, edit, delete, modify permissions (superset of
    * `CAN_RUN`)
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
    */
   public DbsqlPermissionsAPI dbsqlPermissions() {
     return dbsqlPermissionsAPI;
@@ -581,6 +722,16 @@ public class WorkspaceClient {
    */
   public FunctionsAPI functions() {
     return functionsAPI;
+  }
+
+  /**
+   * Genie provides a no-code experience for business users, powered by AI/BI. Analysts set up
+   * spaces that business users can use to ask questions using natural language. Genie uses data
+   * registered to Unity Catalog and requires at least CAN USE permission on a Pro or Serverless SQL
+   * warehouse. Also, Databricks Assistant must be enabled.
+   */
+  public GenieAPI genie() {
+    return genieAPI;
   }
 
   /**
@@ -718,20 +869,6 @@ public class WorkspaceClient {
   }
 
   /**
-   * A monitor computes and monitors data or model quality metrics for a table over time. It
-   * generates metrics tables and a dashboard that you can use to monitor table health and set
-   * alerts.
-   *
-   * <p>Most write operations require the user to be the owner of the table (or its parent schema or
-   * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only
-   * requires the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
-   * **USE_CATALOG**).
-   */
-  public LakehouseMonitorsAPI lakehouseMonitors() {
-    return lakehouseMonitorsAPI;
-  }
-
-  /**
    * These APIs provide specific management operations for Lakeview dashboards. Generic resource
    * management can be done with Workspace API (import, export, get-status, list, delete).
    */
@@ -745,16 +882,12 @@ public class WorkspaceClient {
    *
    * <p>To make third-party or custom code available to notebooks and jobs running on your clusters,
    * you can install a library. Libraries can be written in Python, Java, Scala, and R. You can
-   * upload Java, Scala, and Python libraries and point to external packages in PyPI, Maven, and
+   * upload Python, Java, Scala and R libraries and point to external packages in PyPI, Maven, and
    * CRAN repositories.
    *
    * <p>Cluster libraries can be used by all notebooks running on a cluster. You can install a
    * cluster library directly from a public repository such as PyPI or Maven, using a previously
    * installed workspace library, or using an init script.
-   *
-   * <p>When you install a library on a cluster, a notebook already attached to that cluster will
-   * not immediately see the new library. You must first detach and then reattach the notebook to
-   * the cluster.
    *
    * <p>When you uninstall a library from a cluster, the library is removed only when you restart
    * the cluster. Until you restart the cluster, the status of the uninstalled library appears as
@@ -808,14 +941,24 @@ public class WorkspaceClient {
     return modelVersionsAPI;
   }
 
+  /**
+   * The notification destinations API lets you programmatically manage a workspace's notification
+   * destinations. Notification destinations are used to send notifications for query alerts and
+   * jobs to destinations outside of Databricks. Only workspace admins can create, update, and
+   * delete notification destinations.
+   */
+  public NotificationDestinationsAPI notificationDestinations() {
+    return notificationDestinationsAPI;
+  }
+
   /** Online tables provide lower latency and higher QPS access to data from Delta tables. */
   public OnlineTablesAPI onlineTables() {
     return onlineTablesAPI;
   }
 
   /**
-   * This spec contains undocumented permission migration APIs used in
-   * https://github.com/databrickslabs/ucx.
+   * APIs for migrating acl permissions, used only by the ucx tool:
+   * https://github.com/databrickslabs/ucx
    */
   public PermissionMigrationAPI permissionMigration() {
     return permissionMigrationAPI;
@@ -824,6 +967,8 @@ public class WorkspaceClient {
   /**
    * Permissions API are used to create read, write, edit, update and manage access for various
    * users on different objects and endpoints.
+   *
+   * <p>* **[Apps permissions](:service:apps)** — Manage which users can manage or use apps.
    *
    * <p>* **[Cluster permissions](:service:clusters)** — Manage which users can manage, restart, or
    * attach to clusters.
@@ -861,7 +1006,7 @@ public class WorkspaceClient {
    * tokens.
    *
    * <p>* **[Workspace object permissions](:service:workspace)** — Manage which users can read, run,
-   * edit, or manage directories, files, and notebooks.
+   * edit, or manage alerts, dbsql-dashboards, directories, files, notebooks and queries.
    *
    * <p>For the mapping of the required permissions for specific actions or abilities and other
    * important information, see [Access Control].
@@ -895,6 +1040,39 @@ public class WorkspaceClient {
   }
 
   /**
+   * The policy compliance APIs allow you to view and manage the policy compliance status of
+   * clusters in your workspace.
+   *
+   * <p>A cluster is compliant with its policy if its configuration satisfies all its policy rules.
+   * Clusters could be out of compliance if their policy was updated after the cluster was last
+   * edited.
+   *
+   * <p>The get and list compliance APIs allow you to view the policy compliance status of a
+   * cluster. The enforce compliance API allows you to update a cluster to be compliant with the
+   * current version of its policy.
+   */
+  public PolicyComplianceForClustersAPI policyComplianceForClusters() {
+    return policyComplianceForClustersAPI;
+  }
+
+  /**
+   * The compliance APIs allow you to view and manage the policy compliance status of jobs in your
+   * workspace. This API currently only supports compliance controls for cluster policies.
+   *
+   * <p>A job is in compliance if its cluster configurations satisfy the rules of all their
+   * respective cluster policies. A job could be out of compliance if a cluster policy it uses was
+   * updated after the job was last edited. The job is considered out of compliance if any of its
+   * clusters no longer comply with their updated policies.
+   *
+   * <p>The get and list compliance APIs allow you to view the policy compliance status of a job.
+   * The enforce compliance API allows you to update a job so that it becomes compliant with all of
+   * its policies.
+   */
+  public PolicyComplianceForJobsAPI policyComplianceForJobs() {
+    return policyComplianceForJobsAPI;
+  }
+
+  /**
    * View available policy families. A policy family contains a policy definition providing best
    * practices for configuring clusters for a particular use case.
    *
@@ -909,6 +1087,52 @@ public class WorkspaceClient {
     return policyFamiliesAPI;
   }
 
+  /** Marketplace exchanges filters curate which groups can access an exchange. */
+  public ProviderExchangeFiltersAPI providerExchangeFilters() {
+    return providerExchangeFiltersAPI;
+  }
+
+  /**
+   * Marketplace exchanges allow providers to share their listings with a curated set of customers.
+   */
+  public ProviderExchangesAPI providerExchanges() {
+    return providerExchangesAPI;
+  }
+
+  /**
+   * Marketplace offers a set of file APIs for various purposes such as preview notebooks and
+   * provider icons.
+   */
+  public ProviderFilesAPI providerFiles() {
+    return providerFilesAPI;
+  }
+
+  /**
+   * Listings are the core entities in the Marketplace. They represent the products that are
+   * available for consumption.
+   */
+  public ProviderListingsAPI providerListings() {
+    return providerListingsAPI;
+  }
+
+  /**
+   * Personalization requests are an alternate to instantly available listings. Control the
+   * lifecycle of personalized solutions.
+   */
+  public ProviderPersonalizationRequestsAPI providerPersonalizationRequests() {
+    return providerPersonalizationRequestsAPI;
+  }
+
+  /** Manage templated analytics solution for providers. */
+  public ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboards() {
+    return providerProviderAnalyticsDashboardsAPI;
+  }
+
+  /** Providers are entities that manage assets in Marketplace. */
+  public ProviderProvidersAPI providerProviders() {
+    return providerProvidersAPI;
+  }
+
   /**
    * A data provider is an object representing the organization in the real world who shares the
    * data. A provider contains shares which further contain the shared data.
@@ -918,25 +1142,70 @@ public class WorkspaceClient {
   }
 
   /**
-   * These endpoints are used for CRUD operations on query definitions. Query definitions include
-   * the target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
-   * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+   * A monitor computes and monitors data or model quality metrics for a table over time. It
+   * generates metrics tables and a dashboard that you can use to monitor table health and set
+   * alerts.
+   *
+   * <p>Most write operations require the user to be the owner of the table (or its parent schema or
+   * parent catalog). Viewing the dashboard, computed metrics, or monitor configuration only
+   * requires the user to have **SELECT** privileges on the table (along with **USE_SCHEMA** and
+   * **USE_CATALOG**).
+   */
+  public QualityMonitorsAPI qualityMonitors() {
+    return qualityMonitorsAPI;
+  }
+
+  /**
+   * The queries API can be used to perform CRUD operations on queries. A query is a Databricks SQL
+   * object that includes the target SQL warehouse, query text, name, description, tags, and
+   * parameters. Queries can be scheduled using the `sql_task` type of the Jobs API, e.g.
+   * :method:jobs/create.
    */
   public QueriesAPI queries() {
     return queriesAPI;
   }
 
-  /** Access the history of queries through SQL warehouses. */
+  /**
+   * These endpoints are used for CRUD operations on query definitions. Query definitions include
+   * the target SQL warehouse, query text, name, description, tags, parameters, and visualizations.
+   * Queries can be scheduled using the `sql_task` type of the Jobs API, e.g. :method:jobs/create.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
+   * version. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   */
+  public QueriesLegacyAPI queriesLegacy() {
+    return queriesLegacyAPI;
+  }
+
+  /**
+   * A service responsible for storing and retrieving the list of queries run against SQL endpoints
+   * and serverless compute.
+   */
   public QueryHistoryAPI queryHistory() {
     return queryHistoryAPI;
   }
 
   /**
-   * This is an evolving API that facilitates the addition and removal of vizualisations from
-   * existing queries within the Databricks Workspace. Data structures may change over time.
+   * This is an evolving API that facilitates the addition and removal of visualizations from
+   * existing queries in the Databricks Workspace. Data structures can change over time.
    */
   public QueryVisualizationsAPI queryVisualizations() {
     return queryVisualizationsAPI;
+  }
+
+  /**
+   * This is an evolving API that facilitates the addition and removal of vizualisations from
+   * existing queries within the Databricks Workspace. Data structures may change over time.
+   *
+   * <p>**Note**: A new version of the Databricks SQL API is now available. Please see the latest
+   * version. [Learn more]
+   *
+   * <p>[Learn more]: https://docs.databricks.com/en/sql/dbsql-api-latest.html
+   */
+  public QueryVisualizationsLegacyAPI queryVisualizationsLegacy() {
+    return queryVisualizationsLegacyAPI;
   }
 
   /**
@@ -1018,6 +1287,20 @@ public class WorkspaceClient {
    */
   public ReposAPI repos() {
     return reposAPI;
+  }
+
+  /**
+   * Unity Catalog enforces resource quotas on all securable objects, which limits the number of
+   * resources that can be created. Quotas are expressed in terms of a resource type and a parent
+   * (for example, tables per metastore or schemas per catalog). The resource quota APIs enable you
+   * to monitor your current usage and limits. For more information on resource quotas see the
+   * [Unity Catalog documentation].
+   *
+   * <p>[Unity Catalog documentation]:
+   * https://docs.databricks.com/en/data-governance/unity-catalog/index.html#resource-quotas
+   */
+  public ResourceQuotasAPI resourceQuotas() {
+    return resourceQuotasAPI;
   }
 
   /**
@@ -1172,7 +1455,9 @@ public class WorkspaceClient {
    * timeouts are approximate, occur server-side, and cannot account for things such as caller
    * delays and network latency from caller to service. - The system will auto-close a statement
    * after one hour if the client stops polling and thus you must poll at least once an hour. - The
-   * results are only available for one hour after success; polling does not extend this.
+   * results are only available for one hour after success; polling does not extend this. - The SQL
+   * Execution API must be used for the entire lifecycle of the statement. For example, you cannot
+   * use the Jobs API to execute the command, and then the SQL Execution API to cancel it.
    *
    * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Databricks SQL Statement
    * Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
@@ -1236,6 +1521,25 @@ public class WorkspaceClient {
    */
   public TablesAPI tables() {
     return tablesAPI;
+  }
+
+  /**
+   * Temporary Table Credentials refer to short-lived, downscoped credentials used to access cloud
+   * storage locationswhere table data is stored in Databricks. These credentials are employed to
+   * provide secure and time-limitedaccess to data in cloud environments such as AWS, Azure, and
+   * Google Cloud. Each cloud provider has its own typeof credentials: AWS uses temporary session
+   * tokens via AWS Security Token Service (STS), Azure utilizesShared Access Signatures (SAS) for
+   * its data storage services, and Google Cloud supports temporary credentialsthrough OAuth
+   * 2.0.Temporary table credentials ensure that data access is limited in scope and duration,
+   * reducing the risk ofunauthorized access or misuse. To use the temporary table credentials API,
+   * a metastore admin needs to enable the external_access_enabled flag (off by default) at the
+   * metastore level, and user needs to be granted the EXTERNAL USE SCHEMA permission at the schema
+   * level by catalog admin. Note that EXTERNAL USE SCHEMA is a schema level permission that can
+   * only be granted by catalog admin explicitly and is not included in schema ownership or ALL
+   * PRIVILEGES on the schema for security reason.
+   */
+  public TemporaryTableCredentialsAPI temporaryTableCredentials() {
+    return temporaryTableCredentialsAPI;
   }
 
   /**
@@ -1337,7 +1641,7 @@ public class WorkspaceClient {
    * Please use the new path (/api/2.1/unity-catalog/bindings/{securable_type}/{securable_name})
    * which introduces the ability to bind a securable in READ_ONLY mode (catalogs only).
    *
-   * <p>Securables that support binding: - catalog
+   * <p>Securable types that support binding: - catalog - storage_credential - external_location
    */
   public WorkspaceBindingsAPI workspaceBindings() {
     return workspaceBindingsAPI;
@@ -1370,6 +1674,17 @@ public class WorkspaceClient {
   /** Replace the default AlertsAPI with a custom implementation. */
   public WorkspaceClient withAlertsAPI(AlertsAPI alerts) {
     this.alertsAPI = alerts;
+    return this;
+  }
+
+  /** Replace the default AlertsLegacyService with a custom implementation. */
+  public WorkspaceClient withAlertsLegacyImpl(AlertsLegacyService alertsLegacy) {
+    return this.withAlertsLegacyAPI(new AlertsLegacyAPI(alertsLegacy));
+  }
+
+  /** Replace the default AlertsLegacyAPI with a custom implementation. */
+  public WorkspaceClient withAlertsLegacyAPI(AlertsLegacyAPI alertsLegacy) {
+    this.alertsLegacyAPI = alertsLegacy;
     return this;
   }
 
@@ -1458,6 +1773,67 @@ public class WorkspaceClient {
   /** Replace the default ConnectionsAPI with a custom implementation. */
   public WorkspaceClient withConnectionsAPI(ConnectionsAPI connections) {
     this.connectionsAPI = connections;
+    return this;
+  }
+
+  /** Replace the default ConsumerFulfillmentsService with a custom implementation. */
+  public WorkspaceClient withConsumerFulfillmentsImpl(
+      ConsumerFulfillmentsService consumerFulfillments) {
+    return this.withConsumerFulfillmentsAPI(new ConsumerFulfillmentsAPI(consumerFulfillments));
+  }
+
+  /** Replace the default ConsumerFulfillmentsAPI with a custom implementation. */
+  public WorkspaceClient withConsumerFulfillmentsAPI(ConsumerFulfillmentsAPI consumerFulfillments) {
+    this.consumerFulfillmentsAPI = consumerFulfillments;
+    return this;
+  }
+
+  /** Replace the default ConsumerInstallationsService with a custom implementation. */
+  public WorkspaceClient withConsumerInstallationsImpl(
+      ConsumerInstallationsService consumerInstallations) {
+    return this.withConsumerInstallationsAPI(new ConsumerInstallationsAPI(consumerInstallations));
+  }
+
+  /** Replace the default ConsumerInstallationsAPI with a custom implementation. */
+  public WorkspaceClient withConsumerInstallationsAPI(
+      ConsumerInstallationsAPI consumerInstallations) {
+    this.consumerInstallationsAPI = consumerInstallations;
+    return this;
+  }
+
+  /** Replace the default ConsumerListingsService with a custom implementation. */
+  public WorkspaceClient withConsumerListingsImpl(ConsumerListingsService consumerListings) {
+    return this.withConsumerListingsAPI(new ConsumerListingsAPI(consumerListings));
+  }
+
+  /** Replace the default ConsumerListingsAPI with a custom implementation. */
+  public WorkspaceClient withConsumerListingsAPI(ConsumerListingsAPI consumerListings) {
+    this.consumerListingsAPI = consumerListings;
+    return this;
+  }
+
+  /** Replace the default ConsumerPersonalizationRequestsService with a custom implementation. */
+  public WorkspaceClient withConsumerPersonalizationRequestsImpl(
+      ConsumerPersonalizationRequestsService consumerPersonalizationRequests) {
+    return this.withConsumerPersonalizationRequestsAPI(
+        new ConsumerPersonalizationRequestsAPI(consumerPersonalizationRequests));
+  }
+
+  /** Replace the default ConsumerPersonalizationRequestsAPI with a custom implementation. */
+  public WorkspaceClient withConsumerPersonalizationRequestsAPI(
+      ConsumerPersonalizationRequestsAPI consumerPersonalizationRequests) {
+    this.consumerPersonalizationRequestsAPI = consumerPersonalizationRequests;
+    return this;
+  }
+
+  /** Replace the default ConsumerProvidersService with a custom implementation. */
+  public WorkspaceClient withConsumerProvidersImpl(ConsumerProvidersService consumerProviders) {
+    return this.withConsumerProvidersAPI(new ConsumerProvidersAPI(consumerProviders));
+  }
+
+  /** Replace the default ConsumerProvidersAPI with a custom implementation. */
+  public WorkspaceClient withConsumerProvidersAPI(ConsumerProvidersAPI consumerProviders) {
+    this.consumerProvidersAPI = consumerProviders;
     return this;
   }
 
@@ -1582,6 +1958,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default GenieService with a custom implementation. */
+  public WorkspaceClient withGenieImpl(GenieService genie) {
+    return this.withGenieAPI(new GenieAPI(genie));
+  }
+
+  /** Replace the default GenieAPI with a custom implementation. */
+  public WorkspaceClient withGenieAPI(GenieAPI genie) {
+    this.genieAPI = genie;
+    return this;
+  }
+
   /** Replace the default GitCredentialsService with a custom implementation. */
   public WorkspaceClient withGitCredentialsImpl(GitCredentialsService gitCredentials) {
     return this.withGitCredentialsAPI(new GitCredentialsAPI(gitCredentials));
@@ -1670,17 +2057,6 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default LakehouseMonitorsService with a custom implementation. */
-  public WorkspaceClient withLakehouseMonitorsImpl(LakehouseMonitorsService lakehouseMonitors) {
-    return this.withLakehouseMonitorsAPI(new LakehouseMonitorsAPI(lakehouseMonitors));
-  }
-
-  /** Replace the default LakehouseMonitorsAPI with a custom implementation. */
-  public WorkspaceClient withLakehouseMonitorsAPI(LakehouseMonitorsAPI lakehouseMonitors) {
-    this.lakehouseMonitorsAPI = lakehouseMonitors;
-    return this;
-  }
-
   /** Replace the default LakeviewService with a custom implementation. */
   public WorkspaceClient withLakeviewImpl(LakeviewService lakeview) {
     return this.withLakeviewAPI(new LakeviewAPI(lakeview));
@@ -1736,6 +2112,20 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default NotificationDestinationsService with a custom implementation. */
+  public WorkspaceClient withNotificationDestinationsImpl(
+      NotificationDestinationsService notificationDestinations) {
+    return this.withNotificationDestinationsAPI(
+        new NotificationDestinationsAPI(notificationDestinations));
+  }
+
+  /** Replace the default NotificationDestinationsAPI with a custom implementation. */
+  public WorkspaceClient withNotificationDestinationsAPI(
+      NotificationDestinationsAPI notificationDestinations) {
+    this.notificationDestinationsAPI = notificationDestinations;
+    return this;
+  }
+
   /** Replace the default OnlineTablesService with a custom implementation. */
   public WorkspaceClient withOnlineTablesImpl(OnlineTablesService onlineTables) {
     return this.withOnlineTablesAPI(new OnlineTablesAPI(onlineTables));
@@ -1781,6 +2171,34 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default PolicyComplianceForClustersService with a custom implementation. */
+  public WorkspaceClient withPolicyComplianceForClustersImpl(
+      PolicyComplianceForClustersService policyComplianceForClusters) {
+    return this.withPolicyComplianceForClustersAPI(
+        new PolicyComplianceForClustersAPI(policyComplianceForClusters));
+  }
+
+  /** Replace the default PolicyComplianceForClustersAPI with a custom implementation. */
+  public WorkspaceClient withPolicyComplianceForClustersAPI(
+      PolicyComplianceForClustersAPI policyComplianceForClusters) {
+    this.policyComplianceForClustersAPI = policyComplianceForClusters;
+    return this;
+  }
+
+  /** Replace the default PolicyComplianceForJobsService with a custom implementation. */
+  public WorkspaceClient withPolicyComplianceForJobsImpl(
+      PolicyComplianceForJobsService policyComplianceForJobs) {
+    return this.withPolicyComplianceForJobsAPI(
+        new PolicyComplianceForJobsAPI(policyComplianceForJobs));
+  }
+
+  /** Replace the default PolicyComplianceForJobsAPI with a custom implementation. */
+  public WorkspaceClient withPolicyComplianceForJobsAPI(
+      PolicyComplianceForJobsAPI policyComplianceForJobs) {
+    this.policyComplianceForJobsAPI = policyComplianceForJobs;
+    return this;
+  }
+
   /** Replace the default PolicyFamiliesService with a custom implementation. */
   public WorkspaceClient withPolicyFamiliesImpl(PolicyFamiliesService policyFamilies) {
     return this.withPolicyFamiliesAPI(new PolicyFamiliesAPI(policyFamilies));
@@ -1789,6 +2207,94 @@ public class WorkspaceClient {
   /** Replace the default PolicyFamiliesAPI with a custom implementation. */
   public WorkspaceClient withPolicyFamiliesAPI(PolicyFamiliesAPI policyFamilies) {
     this.policyFamiliesAPI = policyFamilies;
+    return this;
+  }
+
+  /** Replace the default ProviderExchangeFiltersService with a custom implementation. */
+  public WorkspaceClient withProviderExchangeFiltersImpl(
+      ProviderExchangeFiltersService providerExchangeFilters) {
+    return this.withProviderExchangeFiltersAPI(
+        new ProviderExchangeFiltersAPI(providerExchangeFilters));
+  }
+
+  /** Replace the default ProviderExchangeFiltersAPI with a custom implementation. */
+  public WorkspaceClient withProviderExchangeFiltersAPI(
+      ProviderExchangeFiltersAPI providerExchangeFilters) {
+    this.providerExchangeFiltersAPI = providerExchangeFilters;
+    return this;
+  }
+
+  /** Replace the default ProviderExchangesService with a custom implementation. */
+  public WorkspaceClient withProviderExchangesImpl(ProviderExchangesService providerExchanges) {
+    return this.withProviderExchangesAPI(new ProviderExchangesAPI(providerExchanges));
+  }
+
+  /** Replace the default ProviderExchangesAPI with a custom implementation. */
+  public WorkspaceClient withProviderExchangesAPI(ProviderExchangesAPI providerExchanges) {
+    this.providerExchangesAPI = providerExchanges;
+    return this;
+  }
+
+  /** Replace the default ProviderFilesService with a custom implementation. */
+  public WorkspaceClient withProviderFilesImpl(ProviderFilesService providerFiles) {
+    return this.withProviderFilesAPI(new ProviderFilesAPI(providerFiles));
+  }
+
+  /** Replace the default ProviderFilesAPI with a custom implementation. */
+  public WorkspaceClient withProviderFilesAPI(ProviderFilesAPI providerFiles) {
+    this.providerFilesAPI = providerFiles;
+    return this;
+  }
+
+  /** Replace the default ProviderListingsService with a custom implementation. */
+  public WorkspaceClient withProviderListingsImpl(ProviderListingsService providerListings) {
+    return this.withProviderListingsAPI(new ProviderListingsAPI(providerListings));
+  }
+
+  /** Replace the default ProviderListingsAPI with a custom implementation. */
+  public WorkspaceClient withProviderListingsAPI(ProviderListingsAPI providerListings) {
+    this.providerListingsAPI = providerListings;
+    return this;
+  }
+
+  /** Replace the default ProviderPersonalizationRequestsService with a custom implementation. */
+  public WorkspaceClient withProviderPersonalizationRequestsImpl(
+      ProviderPersonalizationRequestsService providerPersonalizationRequests) {
+    return this.withProviderPersonalizationRequestsAPI(
+        new ProviderPersonalizationRequestsAPI(providerPersonalizationRequests));
+  }
+
+  /** Replace the default ProviderPersonalizationRequestsAPI with a custom implementation. */
+  public WorkspaceClient withProviderPersonalizationRequestsAPI(
+      ProviderPersonalizationRequestsAPI providerPersonalizationRequests) {
+    this.providerPersonalizationRequestsAPI = providerPersonalizationRequests;
+    return this;
+  }
+
+  /**
+   * Replace the default ProviderProviderAnalyticsDashboardsService with a custom implementation.
+   */
+  public WorkspaceClient withProviderProviderAnalyticsDashboardsImpl(
+      ProviderProviderAnalyticsDashboardsService providerProviderAnalyticsDashboards) {
+    return this.withProviderProviderAnalyticsDashboardsAPI(
+        new ProviderProviderAnalyticsDashboardsAPI(providerProviderAnalyticsDashboards));
+  }
+
+  /** Replace the default ProviderProviderAnalyticsDashboardsAPI with a custom implementation. */
+  public WorkspaceClient withProviderProviderAnalyticsDashboardsAPI(
+      ProviderProviderAnalyticsDashboardsAPI providerProviderAnalyticsDashboards) {
+    this.providerProviderAnalyticsDashboardsAPI = providerProviderAnalyticsDashboards;
+    return this;
+  }
+
+  /** Replace the default ProviderProvidersService with a custom implementation. */
+  public WorkspaceClient withProviderProvidersImpl(ProviderProvidersService providerProviders) {
+    return this.withProviderProvidersAPI(new ProviderProvidersAPI(providerProviders));
+  }
+
+  /** Replace the default ProviderProvidersAPI with a custom implementation. */
+  public WorkspaceClient withProviderProvidersAPI(ProviderProvidersAPI providerProviders) {
+    this.providerProvidersAPI = providerProviders;
     return this;
   }
 
@@ -1803,6 +2309,17 @@ public class WorkspaceClient {
     return this;
   }
 
+  /** Replace the default QualityMonitorsService with a custom implementation. */
+  public WorkspaceClient withQualityMonitorsImpl(QualityMonitorsService qualityMonitors) {
+    return this.withQualityMonitorsAPI(new QualityMonitorsAPI(qualityMonitors));
+  }
+
+  /** Replace the default QualityMonitorsAPI with a custom implementation. */
+  public WorkspaceClient withQualityMonitorsAPI(QualityMonitorsAPI qualityMonitors) {
+    this.qualityMonitorsAPI = qualityMonitors;
+    return this;
+  }
+
   /** Replace the default QueriesService with a custom implementation. */
   public WorkspaceClient withQueriesImpl(QueriesService queries) {
     return this.withQueriesAPI(new QueriesAPI(queries));
@@ -1811,6 +2328,17 @@ public class WorkspaceClient {
   /** Replace the default QueriesAPI with a custom implementation. */
   public WorkspaceClient withQueriesAPI(QueriesAPI queries) {
     this.queriesAPI = queries;
+    return this;
+  }
+
+  /** Replace the default QueriesLegacyService with a custom implementation. */
+  public WorkspaceClient withQueriesLegacyImpl(QueriesLegacyService queriesLegacy) {
+    return this.withQueriesLegacyAPI(new QueriesLegacyAPI(queriesLegacy));
+  }
+
+  /** Replace the default QueriesLegacyAPI with a custom implementation. */
+  public WorkspaceClient withQueriesLegacyAPI(QueriesLegacyAPI queriesLegacy) {
+    this.queriesLegacyAPI = queriesLegacy;
     return this;
   }
 
@@ -1834,6 +2362,20 @@ public class WorkspaceClient {
   /** Replace the default QueryVisualizationsAPI with a custom implementation. */
   public WorkspaceClient withQueryVisualizationsAPI(QueryVisualizationsAPI queryVisualizations) {
     this.queryVisualizationsAPI = queryVisualizations;
+    return this;
+  }
+
+  /** Replace the default QueryVisualizationsLegacyService with a custom implementation. */
+  public WorkspaceClient withQueryVisualizationsLegacyImpl(
+      QueryVisualizationsLegacyService queryVisualizationsLegacy) {
+    return this.withQueryVisualizationsLegacyAPI(
+        new QueryVisualizationsLegacyAPI(queryVisualizationsLegacy));
+  }
+
+  /** Replace the default QueryVisualizationsLegacyAPI with a custom implementation. */
+  public WorkspaceClient withQueryVisualizationsLegacyAPI(
+      QueryVisualizationsLegacyAPI queryVisualizationsLegacy) {
+    this.queryVisualizationsLegacyAPI = queryVisualizationsLegacy;
     return this;
   }
 
@@ -1879,6 +2421,17 @@ public class WorkspaceClient {
   /** Replace the default ReposAPI with a custom implementation. */
   public WorkspaceClient withReposAPI(ReposAPI repos) {
     this.reposAPI = repos;
+    return this;
+  }
+
+  /** Replace the default ResourceQuotasService with a custom implementation. */
+  public WorkspaceClient withResourceQuotasImpl(ResourceQuotasService resourceQuotas) {
+    return this.withResourceQuotasAPI(new ResourceQuotasAPI(resourceQuotas));
+  }
+
+  /** Replace the default ResourceQuotasAPI with a custom implementation. */
+  public WorkspaceClient withResourceQuotasAPI(ResourceQuotasAPI resourceQuotas) {
+    this.resourceQuotasAPI = resourceQuotas;
     return this;
   }
 
@@ -2000,6 +2553,20 @@ public class WorkspaceClient {
   /** Replace the default TablesAPI with a custom implementation. */
   public WorkspaceClient withTablesAPI(TablesAPI tables) {
     this.tablesAPI = tables;
+    return this;
+  }
+
+  /** Replace the default TemporaryTableCredentialsService with a custom implementation. */
+  public WorkspaceClient withTemporaryTableCredentialsImpl(
+      TemporaryTableCredentialsService temporaryTableCredentials) {
+    return this.withTemporaryTableCredentialsAPI(
+        new TemporaryTableCredentialsAPI(temporaryTableCredentials));
+  }
+
+  /** Replace the default TemporaryTableCredentialsAPI with a custom implementation. */
+  public WorkspaceClient withTemporaryTableCredentialsAPI(
+      TemporaryTableCredentialsAPI temporaryTableCredentials) {
+    this.temporaryTableCredentialsAPI = temporaryTableCredentials;
     return this;
   }
 

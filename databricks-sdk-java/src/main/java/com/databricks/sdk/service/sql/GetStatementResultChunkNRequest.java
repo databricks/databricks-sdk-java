@@ -4,19 +4,20 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get result chunk by index */
 @Generated
 public class GetStatementResultChunkNRequest {
   /** */
-  private Long chunkIndex;
+  @JsonIgnore private Long chunkIndex;
 
   /**
    * The statement ID is returned upon successfully submitting a SQL statement, and is a required
    * reference for all subsequent calls.
    */
-  private String statementId;
+  @JsonIgnore private String statementId;
 
   public GetStatementResultChunkNRequest setChunkIndex(Long chunkIndex) {
     this.chunkIndex = chunkIndex;

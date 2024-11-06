@@ -4,6 +4,7 @@ package com.databricks.sdk.service.vectorsearch;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public class QueryVectorIndexRequest {
   private String filtersJson;
 
   /** Name of the vector index to query. */
-  private String indexName;
+  @JsonIgnore private String indexName;
 
   /** Number of results to return. Defaults to 10. */
   @JsonProperty("num_results")
@@ -34,6 +35,10 @@ public class QueryVectorIndexRequest {
   /** Query text. Required for Delta Sync Index using model endpoint. */
   @JsonProperty("query_text")
   private String queryText;
+
+  /** The query type to use. Choices are `ANN` and `HYBRID`. Defaults to `ANN`. */
+  @JsonProperty("query_type")
+  private String queryType;
 
   /**
    * Query vector. Required for Direct Vector Access Index and Delta Sync Index using self-managed
@@ -91,6 +96,15 @@ public class QueryVectorIndexRequest {
     return queryText;
   }
 
+  public QueryVectorIndexRequest setQueryType(String queryType) {
+    this.queryType = queryType;
+    return this;
+  }
+
+  public String getQueryType() {
+    return queryType;
+  }
+
   public QueryVectorIndexRequest setQueryVector(Collection<Double> queryVector) {
     this.queryVector = queryVector;
     return this;
@@ -119,6 +133,7 @@ public class QueryVectorIndexRequest {
         && Objects.equals(indexName, that.indexName)
         && Objects.equals(numResults, that.numResults)
         && Objects.equals(queryText, that.queryText)
+        && Objects.equals(queryType, that.queryType)
         && Objects.equals(queryVector, that.queryVector)
         && Objects.equals(scoreThreshold, that.scoreThreshold);
   }
@@ -126,7 +141,14 @@ public class QueryVectorIndexRequest {
   @Override
   public int hashCode() {
     return Objects.hash(
-        columns, filtersJson, indexName, numResults, queryText, queryVector, scoreThreshold);
+        columns,
+        filtersJson,
+        indexName,
+        numResults,
+        queryText,
+        queryType,
+        queryVector,
+        scoreThreshold);
   }
 
   @Override
@@ -137,6 +159,7 @@ public class QueryVectorIndexRequest {
         .add("indexName", indexName)
         .add("numResults", numResults)
         .add("queryText", queryText)
+        .add("queryType", queryType)
         .add("queryVector", queryVector)
         .add("scoreThreshold", scoreThreshold)
         .toString();

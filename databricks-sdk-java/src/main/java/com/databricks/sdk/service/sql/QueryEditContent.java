@@ -4,14 +4,16 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class QueryEditContent {
   /**
    * Data source ID maps to the ID of the data source used by the resource and is distinct from the
-   * warehouse ID. [Learn more].
+   * warehouse ID. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
    */
@@ -41,7 +43,7 @@ public class QueryEditContent {
   private String query;
 
   /** */
-  private String queryId;
+  @JsonIgnore private String queryId;
 
   /**
    * Sets the **Run as** role for the object. Must be set to one of `"viewer"` (signifying "run as
@@ -49,6 +51,10 @@ public class QueryEditContent {
    */
   @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
+
+  /** */
+  @JsonProperty("tags")
+  private Collection<String> tags;
 
   public QueryEditContent setDataSourceId(String dataSourceId) {
     this.dataSourceId = dataSourceId;
@@ -113,6 +119,15 @@ public class QueryEditContent {
     return runAsRole;
   }
 
+  public QueryEditContent setTags(Collection<String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Collection<String> getTags() {
+    return tags;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -124,12 +139,13 @@ public class QueryEditContent {
         && Objects.equals(options, that.options)
         && Objects.equals(query, that.query)
         && Objects.equals(queryId, that.queryId)
-        && Objects.equals(runAsRole, that.runAsRole);
+        && Objects.equals(runAsRole, that.runAsRole)
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dataSourceId, description, name, options, query, queryId, runAsRole);
+    return Objects.hash(dataSourceId, description, name, options, query, queryId, runAsRole, tags);
   }
 
   @Override
@@ -142,6 +158,7 @@ public class QueryEditContent {
         .add("query", query)
         .add("queryId", queryId)
         .add("runAsRole", runAsRole)
+        .add("tags", tags)
         .toString();
   }
 }

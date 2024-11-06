@@ -8,5 +8,4 @@ import com.databricks.sdk.support.Generated;
 public enum RestrictWorkspaceAdminsMessageStatus {
   ALLOW_ALL,
   RESTRICT_TOKENS_AND_JOB_RUN_AS,
-  STATUS_UNSPECIFIED,
 }

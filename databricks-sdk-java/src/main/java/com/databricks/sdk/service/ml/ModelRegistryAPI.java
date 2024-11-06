@@ -232,7 +232,11 @@ public class ModelRegistryAPI {
    * <p>Gets the latest version of a registered model.
    */
   public Iterable<ModelVersion> getLatestVersions(GetLatestVersionsRequest request) {
-    return impl.getLatestVersions(request).getModelVersions();
+    return new Paginator<>(
+        request,
+        impl::getLatestVersions,
+        GetLatestVersionsResponse::getModelVersions,
+        response -> null);
   }
 
   public GetModelResponse getModel(String name) {
@@ -323,7 +327,7 @@ public class ModelRegistryAPI {
         ListModelsResponse::getRegisteredModels,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -341,7 +345,11 @@ public class ModelRegistryAPI {
    * <p>Gets a list of all open stage transition requests for the model version.
    */
   public Iterable<Activity> listTransitionRequests(ListTransitionRequestsRequest request) {
-    return impl.listTransitionRequests(request).getRequests();
+    return new Paginator<>(
+        request,
+        impl::listTransitionRequests,
+        ListTransitionRequestsResponse::getRequests,
+        response -> null);
   }
 
   /**
@@ -358,7 +366,7 @@ public class ModelRegistryAPI {
         ListRegistryWebhooks::getWebhooks,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -405,7 +413,7 @@ public class ModelRegistryAPI {
         SearchModelVersionsResponse::getModelVersions,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -424,7 +432,7 @@ public class ModelRegistryAPI {
         SearchModelsResponse::getRegisteredModels,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

@@ -3,7 +3,7 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,16 +68,13 @@ public class WorkspaceAssignmentAPI {
    * workspace.
    */
   public Iterable<PermissionAssignment> list(ListWorkspaceAssignmentRequest request) {
-    return impl.list(request).getPermissionAssignments();
+    return new Paginator<>(
+        request, impl::list, PermissionAssignments::getPermissionAssignments, response -> null);
   }
 
-  public void update(
-      long workspaceId, long principalId, Collection<WorkspacePermission> permissions) {
-    update(
-        new UpdateWorkspaceAssignments()
-            .setWorkspaceId(workspaceId)
-            .setPrincipalId(principalId)
-            .setPermissions(permissions));
+  public PermissionAssignment update(long workspaceId, long principalId) {
+    return update(
+        new UpdateWorkspaceAssignments().setWorkspaceId(workspaceId).setPrincipalId(principalId));
   }
 
   /**
@@ -86,8 +83,8 @@ public class WorkspaceAssignmentAPI {
    * <p>Creates or updates the workspace permissions assignment in a given account and workspace for
    * the specified principal.
    */
-  public void update(UpdateWorkspaceAssignments request) {
-    impl.update(request);
+  public PermissionAssignment update(UpdateWorkspaceAssignments request) {
+    return impl.update(request);
   }
 
   public WorkspaceAssignmentService impl() {

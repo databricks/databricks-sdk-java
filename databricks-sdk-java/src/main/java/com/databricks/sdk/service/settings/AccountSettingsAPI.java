@@ -15,6 +15,8 @@ public class AccountSettingsAPI {
 
   private CspEnablementAccountAPI cspEnablementAccountAPI;
 
+  private DisableLegacyFeaturesAPI disableLegacyFeaturesAPI;
+
   private EsmEnablementAccountAPI esmEnablementAccountAPI;
 
   private PersonalComputeAPI personalComputeAPI;
@@ -24,6 +26,8 @@ public class AccountSettingsAPI {
     impl = new AccountSettingsImpl(apiClient);
 
     cspEnablementAccountAPI = new CspEnablementAccountAPI(apiClient);
+
+    disableLegacyFeaturesAPI = new DisableLegacyFeaturesAPI(apiClient);
 
     esmEnablementAccountAPI = new EsmEnablementAccountAPI(apiClient);
 
@@ -41,6 +45,11 @@ public class AccountSettingsAPI {
    */
   public CspEnablementAccountAPI CspEnablementAccount() {
     return cspEnablementAccountAPI;
+  }
+
+  /** Disable legacy features for new Databricks workspaces. */
+  public DisableLegacyFeaturesAPI DisableLegacyFeatures() {
+    return disableLegacyFeaturesAPI;
   }
 
   /**

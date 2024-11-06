@@ -79,4 +79,16 @@ public class DatabricksEnvironment {
           new DatabricksEnvironment(Cloud.GCP, ".dev.gcp.databricks.com"),
           new DatabricksEnvironment(Cloud.GCP, ".staging.gcp.databricks.com"),
           new DatabricksEnvironment(Cloud.GCP, ".gcp.databricks.com"));
+
+  public static DatabricksEnvironment getEnvironmentFromHostname(String hostname) {
+    if (hostname == null) {
+      return DEFAULT_ENVIRONMENT;
+    }
+    for (DatabricksEnvironment env : ALL_ENVIRONMENTS) {
+      if (hostname.endsWith(env.getDnsZone())) {
+        return env;
+      }
+    }
+    return DEFAULT_ENVIRONMENT;
+  }
 }

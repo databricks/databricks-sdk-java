@@ -21,9 +21,13 @@ public class PipelineLibrary {
   @JsonProperty("maven")
   private com.databricks.sdk.service.compute.MavenLibrary maven;
 
-  /** The path to a notebook that defines a pipeline and is stored in the <Databricks> workspace. */
+  /** The path to a notebook that defines a pipeline and is stored in the Databricks workspace. */
   @JsonProperty("notebook")
   private NotebookLibrary notebook;
+
+  /** URI of the whl to be installed. */
+  @JsonProperty("whl")
+  private String whl;
 
   public PipelineLibrary setFile(FileLibrary file) {
     this.file = file;
@@ -61,6 +65,15 @@ public class PipelineLibrary {
     return notebook;
   }
 
+  public PipelineLibrary setWhl(String whl) {
+    this.whl = whl;
+    return this;
+  }
+
+  public String getWhl() {
+    return whl;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -69,12 +82,13 @@ public class PipelineLibrary {
     return Objects.equals(file, that.file)
         && Objects.equals(jar, that.jar)
         && Objects.equals(maven, that.maven)
-        && Objects.equals(notebook, that.notebook);
+        && Objects.equals(notebook, that.notebook)
+        && Objects.equals(whl, that.whl);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(file, jar, maven, notebook);
+    return Objects.hash(file, jar, maven, notebook, whl);
   }
 
   @Override
@@ -84,6 +98,7 @@ public class PipelineLibrary {
         .add("jar", jar)
         .add("maven", maven)
         .add("notebook", notebook)
+        .add("whl", whl)
         .toString();
   }
 }

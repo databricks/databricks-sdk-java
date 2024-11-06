@@ -45,10 +45,11 @@ class ServingEndpointsImpl implements ServingEndpointsService {
   }
 
   @Override
-  public void exportMetrics(ExportMetricsRequest request) {
+  public ExportMetricsResponse exportMetrics(ExportMetricsRequest request) {
     String path = String.format("/api/2.0/serving-endpoints/%s/metrics", request.getName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.GET(path, request, ExportMetricsResponse.class, headers);
+    headers.put("Accept", "text/plain");
+    return apiClient.GET(path, request, ExportMetricsResponse.class, headers);
   }
 
   @Override
@@ -57,6 +58,14 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, ServingEndpointDetailed.class, headers);
+  }
+
+  @Override
+  public void getOpenApi(GetOpenApiRequest request) {
+    String path = String.format("/api/2.0/serving-endpoints/%s/openapi", request.getName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    apiClient.GET(path, request, GetOpenApiResponse.class, headers);
   }
 
   @Override
@@ -115,6 +124,15 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
     return apiClient.PUT(path, request, PutResponse.class, headers);
+  }
+
+  @Override
+  public PutAiGatewayResponse putAiGateway(PutAiGatewayRequest request) {
+    String path = String.format("/api/2.0/serving-endpoints/%s/ai-gateway", request.getName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.PUT(path, request, PutAiGatewayResponse.class, headers);
   }
 
   @Override

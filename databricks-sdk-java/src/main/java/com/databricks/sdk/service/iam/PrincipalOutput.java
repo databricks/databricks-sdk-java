@@ -7,13 +7,14 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Information about the principal assigned to the workspace. */
 @Generated
 public class PrincipalOutput {
   /** The display name of the principal. */
   @JsonProperty("display_name")
   private String displayName;
 
-  /** The group name of the groupl. Present only if the principal is a group. */
+  /** The group name of the group. Present only if the principal is a group. */
   @JsonProperty("group_name")
   private String groupName;
 

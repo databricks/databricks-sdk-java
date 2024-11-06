@@ -17,21 +17,23 @@ public class ApiErrors {
   private static final Pattern HTML_ERROR_REGEX = Pattern.compile("<pre>(.*)</pre>");
   private static final ErrorMapper ERROR_MAPPER = new ErrorMapper();
 
-  public static DatabricksError checkForRetry(Response out, Exception error) {
+  public static DatabricksError getDatabricksError(Response out, Exception error) {
     if (error != null) {
       // If the endpoint did not respond to the request, interpret the exception.
       return new DatabricksError("IO_ERROR", 523, error);
     } else if (out.getStatusCode() == 429) {
       return new DatabricksError("TOO_MANY_REQUESTS", "Current request has to be retried", 429);
-    } else if (out.getStatusCode() >= 400) {
-      return readErrorFromResponse(out);
-    } else {
-      // The request succeeded; do not retry.
-      return new DatabricksError(out.getStatusCode());
     }
+
+    ApiErrorBody errorBody = readErrorFromResponse(out);
+    return ERROR_MAPPER.apply(out, errorBody);
   }
 
-  private static DatabricksError readErrorFromResponse(Response response) {
+  private static ApiErrorBody readErrorFromResponse(Response response) {
+    // Private link error handling depends purely on the response URL.
+    if (PrivateLinkInfo.isPrivateLinkRedirect(response)) {
+      return new ApiErrorBody();
+    }
     ApiErrorBody errorBody = parseApiError(response);
 
     // Condense API v1.2 and SCIM error string and code into the message and errorCode fields of
@@ -52,7 +54,7 @@ public class ApiErrors {
     if (errorBody.getErrorDetails() == null) {
       errorBody.setErrorDetails(Collections.emptyList());
     }
-    return ERROR_MAPPER.apply(response.getStatusCode(), errorBody);
+    return errorBody;
   }
 
   /**
@@ -62,9 +64,17 @@ public class ApiErrors {
    */
   private static ApiErrorBody parseApiError(Response response) {
     try {
+      InputStream in = response.getBody();
+      if (in == null) {
+        ApiErrorBody errorBody = new ApiErrorBody();
+        errorBody.setMessage(
+            String.format("Status response from server: %s", response.getStatus()));
+        return errorBody;
+      }
+
       // Read the body now, so we can try to parse as JSON and then fallback to old error handling
       // logic.
-      String body = IOUtils.toString(response.getBody(), StandardCharsets.UTF_8);
+      String body = IOUtils.toString(in, StandardCharsets.UTF_8);
       try {
         return MAPPER.readValue(body, ApiErrorBody.class);
       } catch (IOException e) {

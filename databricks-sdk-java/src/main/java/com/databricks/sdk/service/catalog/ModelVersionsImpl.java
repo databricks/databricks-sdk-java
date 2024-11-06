@@ -26,14 +26,14 @@ class ModelVersionsImpl implements ModelVersionsService {
   }
 
   @Override
-  public RegisteredModelInfo get(GetModelVersionRequest request) {
+  public ModelVersionInfo get(GetModelVersionRequest request) {
     String path =
         String.format(
             "/api/2.1/unity-catalog/models/%s/versions/%s",
             request.getFullName(), request.getVersion());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, RegisteredModelInfo.class, headers);
+    return apiClient.GET(path, request, ModelVersionInfo.class, headers);
   }
 
   @Override

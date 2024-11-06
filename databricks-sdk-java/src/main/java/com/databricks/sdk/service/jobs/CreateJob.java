@@ -13,11 +13,15 @@ import java.util.Objects;
 public class CreateJob {
   /** List of permissions to set on the job. */
   @JsonProperty("access_control_list")
-  private Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList;
+  private Collection<JobAccessControlRequest> accessControlList;
 
-  /** A list of compute requirements that can be referenced by tasks of this job. */
-  @JsonProperty("compute")
-  private Collection<JobCompute> compute;
+  /**
+   * The id of the user specified budget policy to use for this job. If not specified, a default
+   * budget policy may be applied when creating or modifying the job. See
+   * `effective_budget_policy_id` for the budget policy used by this workload.
+   */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
 
   /**
    * An optional continuous property for this job. The continuous property will ensure that there is
@@ -31,7 +35,7 @@ public class CreateJob {
   private JobDeployment deployment;
 
   /**
-   * An optional description for the job. The maximum length is 1024 characters in UTF-8 encoding.
+   * An optional description for the job. The maximum length is 27700 characters in UTF-8 encoding.
    */
   @JsonProperty("description")
   private String description;
@@ -51,6 +55,16 @@ public class CreateJob {
    */
   @JsonProperty("email_notifications")
   private JobEmailNotifications emailNotifications;
+
+  /**
+   * A list of task execution environment specifications that can be referenced by serverless tasks
+   * of this job. An environment is required to be present for serverless tasks. For serverless
+   * notebook tasks, the environment is accessible in the notebook environment panel. For other
+   * serverless tasks, the task environment is required to be specified using environment_key in the
+   * task settings.
+   */
+  @JsonProperty("environments")
+  private Collection<JobEnvironment> environments;
 
   /**
    * Used to tell what is the format of the job. This field is ignored in Create/Update/Reset calls.
@@ -118,12 +132,11 @@ public class CreateJob {
   private QueueSettings queue;
 
   /**
-   * Write-only setting, available only in Create/Update/Reset and Submit calls. Specifies the user
-   * or service principal that the job runs as. If not specified, the job runs as the user who
-   * created the job.
+   * Write-only setting. Specifies the user, service principal or group that the job/pipeline runs
+   * as. If not specified, the job/pipeline runs as the user who created the job/pipeline.
    *
-   * <p>Only `user_name` or `service_principal_name` can be specified. If both are specified, an
-   * error is thrown.
+   * <p>Exactly one of `user_name`, `service_principal_name`, `group_name` should be specified. If
+   * not, an error is thrown.
    */
   @JsonProperty("run_as")
   private JobRunAs runAs;
@@ -163,23 +176,22 @@ public class CreateJob {
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
 
-  public CreateJob setAccessControlList(
-      Collection<com.databricks.sdk.service.iam.AccessControlRequest> accessControlList) {
+  public CreateJob setAccessControlList(Collection<JobAccessControlRequest> accessControlList) {
     this.accessControlList = accessControlList;
     return this;
   }
 
-  public Collection<com.databricks.sdk.service.iam.AccessControlRequest> getAccessControlList() {
+  public Collection<JobAccessControlRequest> getAccessControlList() {
     return accessControlList;
   }
 
-  public CreateJob setCompute(Collection<JobCompute> compute) {
-    this.compute = compute;
+  public CreateJob setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
     return this;
   }
 
-  public Collection<JobCompute> getCompute() {
-    return compute;
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
   }
 
   public CreateJob setContinuous(Continuous continuous) {
@@ -225,6 +237,15 @@ public class CreateJob {
 
   public JobEmailNotifications getEmailNotifications() {
     return emailNotifications;
+  }
+
+  public CreateJob setEnvironments(Collection<JobEnvironment> environments) {
+    this.environments = environments;
+    return this;
+  }
+
+  public Collection<JobEnvironment> getEnvironments() {
+    return environments;
   }
 
   public CreateJob setFormat(Format format) {
@@ -377,12 +398,13 @@ public class CreateJob {
     if (o == null || getClass() != o.getClass()) return false;
     CreateJob that = (CreateJob) o;
     return Objects.equals(accessControlList, that.accessControlList)
-        && Objects.equals(compute, that.compute)
+        && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(continuous, that.continuous)
         && Objects.equals(deployment, that.deployment)
         && Objects.equals(description, that.description)
         && Objects.equals(editMode, that.editMode)
         && Objects.equals(emailNotifications, that.emailNotifications)
+        && Objects.equals(environments, that.environments)
         && Objects.equals(format, that.format)
         && Objects.equals(gitSource, that.gitSource)
         && Objects.equals(health, that.health)
@@ -405,12 +427,13 @@ public class CreateJob {
   public int hashCode() {
     return Objects.hash(
         accessControlList,
-        compute,
+        budgetPolicyId,
         continuous,
         deployment,
         description,
         editMode,
         emailNotifications,
+        environments,
         format,
         gitSource,
         health,
@@ -433,12 +456,13 @@ public class CreateJob {
   public String toString() {
     return new ToStringer(CreateJob.class)
         .add("accessControlList", accessControlList)
-        .add("compute", compute)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("continuous", continuous)
         .add("deployment", deployment)
         .add("description", description)
         .add("editMode", editMode)
         .add("emailNotifications", emailNotifications)
+        .add("environments", environments)
         .add("format", format)
         .add("gitSource", gitSource)
         .add("health", health)

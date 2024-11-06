@@ -1,9 +1,13 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.error.ApiErrors;
+import com.databricks.sdk.core.error.PrivateLinkInfo;
 import com.databricks.sdk.core.http.HttpClient;
 import com.databricks.sdk.core.http.Request;
 import com.databricks.sdk.core.http.Response;
+import com.databricks.sdk.core.retry.RequestBasedRetryStrategyPicker;
+import com.databricks.sdk.core.retry.RetryStrategy;
+import com.databricks.sdk.core.retry.RetryStrategyPicker;
 import com.databricks.sdk.core.utils.SerDeUtils;
 import com.databricks.sdk.core.utils.SystemTimer;
 import com.databricks.sdk.core.utils.Timer;
@@ -14,7 +18,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.function.Function;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,26 +30,90 @@ import org.slf4j.LoggerFactory;
  * guessing
  */
 public class ApiClient {
+  public static class Builder {
+    private Timer timer;
+    private Function<Void, Map<String, String>> authenticateFunc;
+    private Function<Void, String> getHostFunc;
+    private Function<Void, String> getAuthTypeFunc;
+    private Integer debugTruncateBytes;
+    private HttpClient httpClient;
+    private String accountId;
+    private RetryStrategyPicker retryStrategyPicker;
+    private boolean isDebugHeaders;
+
+    public Builder withDatabricksConfig(DatabricksConfig config) {
+      this.authenticateFunc = v -> config.authenticate();
+      this.getHostFunc = v -> config.getHost();
+      this.getAuthTypeFunc = v -> config.getAuthType();
+      this.httpClient = config.getHttpClient();
+      this.debugTruncateBytes = config.getDebugTruncateBytes();
+      this.accountId = config.getAccountId();
+      this.retryStrategyPicker = new RequestBasedRetryStrategyPicker(config.getHost());
+      this.isDebugHeaders = config.isDebugHeaders();
+
+      return this;
+    }
+
+    public Builder withTimer(Timer timer) {
+      this.timer = timer;
+      return this;
+    }
+
+    public Builder withAuthenticateFunc(Function<Void, Map<String, String>> authenticateFunc) {
+      this.authenticateFunc = authenticateFunc;
+      return this;
+    }
+
+    public Builder withGetHostFunc(Function<Void, String> getHostFunc) {
+      this.getHostFunc = getHostFunc;
+      return this;
+    }
+
+    public Builder withGetAuthTypeFunc(Function<Void, String> getAuthTypeFunc) {
+      this.getAuthTypeFunc = getAuthTypeFunc;
+      return this;
+    }
+
+    public Builder withHttpClient(HttpClient httpClient) {
+      this.httpClient = httpClient;
+      return this;
+    }
+
+    public Builder withRetryStrategyPicker(RetryStrategyPicker retryStrategyPicker) {
+      this.retryStrategyPicker = retryStrategyPicker;
+      return this;
+    }
+
+    public ApiClient build() {
+      return new ApiClient(this);
+    }
+  }
+
   private static final Logger LOG = LoggerFactory.getLogger(ApiClient.class);
 
   private final int maxAttempts;
 
   private final ObjectMapper mapper;
 
-  private final DatabricksConfig config;
-
   private final Random random;
 
   private final HttpClient httpClient;
   private final BodyLogger bodyLogger;
+  private final RetryStrategyPicker retryStrategyPicker;
   private final Timer timer;
+  private final Function<Void, Map<String, String>> authenticateFunc;
+  private final Function<Void, String> getHostFunc;
+  private final Function<Void, String> getAuthTypeFunc;
+  private final String accountId;
+  private final boolean isDebugHeaders;
+  private static final String RETRY_AFTER_HEADER = "retry-after";
 
   public ApiClient() {
     this(ConfigLoader.getDefault());
   }
 
   public String configuredAccountID() {
-    return config.getAccountId();
+    return accountId;
   }
 
   public ApiClient(DatabricksConfig config) {
@@ -50,25 +121,34 @@ public class ApiClient {
   }
 
   public ApiClient(DatabricksConfig config, Timer timer) {
-    this.config = config;
-    config.resolve();
+    this(new Builder().withDatabricksConfig(config.resolve()).withTimer(timer));
+  }
 
-    Integer rateLimit = config.getRateLimit();
-    if (rateLimit == null) {
-      rateLimit = 15;
-    }
+  private ApiClient(Builder builder) {
+    this.timer = builder.timer != null ? builder.timer : new SystemTimer();
+    this.authenticateFunc =
+        builder.authenticateFunc != null
+            ? builder.authenticateFunc
+            : v -> new HashMap<String, String>();
+    this.getHostFunc = builder.getHostFunc != null ? builder.getHostFunc : v -> "";
+    this.getAuthTypeFunc = builder.getAuthTypeFunc != null ? builder.getAuthTypeFunc : v -> "";
+    this.httpClient = builder.httpClient;
+    this.accountId = builder.accountId;
+    this.retryStrategyPicker =
+        builder.retryStrategyPicker != null
+            ? builder.retryStrategyPicker
+            : new RequestBasedRetryStrategyPicker(this.getHostFunc.apply(null));
+    this.isDebugHeaders = builder.isDebugHeaders;
 
-    Integer debugTruncateBytes = config.getDebugTruncateBytes();
+    Integer debugTruncateBytes = builder.debugTruncateBytes;
     if (debugTruncateBytes == null) {
       debugTruncateBytes = 96;
     }
 
-    maxAttempts = 3;
+    maxAttempts = 4;
     mapper = SerDeUtils.createMapper();
     random = new Random();
-    httpClient = config.getHttpClient();
     bodyLogger = new BodyLogger(mapper, 1024, debugTruncateBytes);
-    this.timer = timer;
   }
 
   private static <I> void setQuery(Request in, I entity) {
@@ -142,6 +222,14 @@ public class ApiClient {
     }
   }
 
+  public <O> O POST(String path, Class<O> target, Map<String, String> headers) {
+    try {
+      return execute(prepareRequest("POST", path, null, headers), target);
+    } catch (IOException e) {
+      throw new DatabricksException("IO error: " + e.getMessage(), e);
+    }
+  }
+
   public <I, O> O POST(String path, I in, Class<O> target, Map<String, String> headers) {
     try {
       return execute(prepareRequest("POST", path, in, headers), target);
@@ -186,7 +274,7 @@ public class ApiClient {
       InputStream body = (InputStream) in;
       return new Request(method, path, body);
     } else {
-      String body = serialize(in);
+      String body = (in instanceof String) ? (String) in : serialize(in);
       return new Request(method, path, body);
     }
   }
@@ -215,11 +303,11 @@ public class ApiClient {
   }
 
   private Response getResponse(Request in) {
-    in.withUrl(config.getHost() + in.getUrl());
-    return executeInner(in);
+    return executeInner(in, in.getUrl());
   }
 
-  private Response executeInner(Request in) {
+  private Response executeInner(Request in, String path) {
+    RetryStrategy retryStrategy = retryStrategyPicker.getRetryStrategy(in);
     int attemptNumber = 0;
     while (true) {
       attemptNumber++;
@@ -228,11 +316,19 @@ public class ApiClient {
       Response out = null;
 
       // Authenticate the request. Failures should not be retried.
-      in.withHeaders(config.authenticate());
+      in.withHeaders(authenticateFunc.apply(null));
+
+      // Prepend host to URL only after config.authenticate().
+      // This call may configure the host (e.g. in case of notebook native auth).
+      in.withUrl(getHostFunc.apply(null) + path);
 
       // Set User-Agent with auth type info, which is available only
       // after the first invocation to config.authenticate()
-      String userAgent = String.format("%s auth/%s", UserAgent.asString(), config.getAuthType());
+      String userAgent = UserAgent.asString();
+      String authType = getAuthTypeFunc.apply(null);
+      if (authType != "") {
+        userAgent += String.format(" auth/%s", authType);
+      }
       in.withHeader("User-Agent", userAgent);
 
       // Make the request, catching any exceptions, as we may want to retry.
@@ -241,26 +337,20 @@ public class ApiClient {
         if (LOG.isDebugEnabled()) {
           LOG.debug(makeLogRecord(in, out));
         }
-        if (out.getStatusCode() < 400) {
-          return out;
-        }
       } catch (IOException e) {
         err = e;
         LOG.debug("Request {} failed", in, e);
       }
 
-      // The request is not retried under three conditions:
-      // 1. The request succeeded (err == null, out != null). In this case, the response is
-      // returned.
-      // 2. The request failed with a non-retriable error (err != null, out == null).
-      // 3. The request failed with a retriable error, but the number of attempts exceeds
-      // maxAttempts.
-      DatabricksError res = ApiErrors.checkForRetry(out, err);
-      if (!res.isRetriable()) {
-        if (res.getErrorCode() == null) {
-          return out;
-        }
-        throw res;
+      // Check if the request succeeded
+      if (isRequestSuccessful(out, err)) {
+        return out;
+      }
+      // The request did not succeed.
+      // Check if the request cannot be retried: if yes, retry after backoff, else throw the error.
+      DatabricksError databricksError = ApiErrors.getDatabricksError(out, err);
+      if (!retryStrategy.isRetriable(databricksError)) {
+        throw databricksError;
       }
       if (attemptNumber == maxAttempts) {
         throw new DatabricksException(
@@ -268,33 +358,73 @@ public class ApiClient {
       }
 
       // Retry after a backoff.
-      int sleepMillis = getBackoffMillis(attemptNumber);
+      long sleepMillis = getBackoffMillis(out, attemptNumber);
       LOG.debug(String.format("Retry %s in %dms", in.getRequestLine(), sleepMillis));
       try {
-        timer.wait(sleepMillis);
+        timer.sleep(sleepMillis);
       } catch (InterruptedException ex) {
         Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", ex);
       }
     }
   }
 
-  private int getBackoffMillis(int attemptNumber) {
-    int maxWait = 10000;
+  private boolean isRequestSuccessful(Response response, Exception e) {
+    return e == null
+        && response.getStatusCode() >= 200
+        && response.getStatusCode() < 300
+        && !PrivateLinkInfo.isPrivateLinkRedirect(response);
+  }
+
+  public long getBackoffMillis(Response response, int attemptNumber) {
+    Optional<Long> backoffMillisInResponse = getBackoffFromRetryAfterHeader(response);
+    if (backoffMillisInResponse.isPresent()) {
+      return backoffMillisInResponse.get();
+    }
+    int minWait = 1000; // 1 second
+    int maxWait = 60000; // 1 minute
     int minJitter = 50;
     int maxJitter = 750;
 
-    int wait = Math.min(maxWait, attemptNumber * 1000);
-    wait += random.nextInt(maxJitter - minJitter + 1) + minJitter;
-    return wait;
+    int wait = Math.min(maxWait, minWait * (1 << (attemptNumber - 1)));
+    int jitter = random.nextInt(maxJitter - minJitter + 1) + minJitter;
+    return wait + jitter;
+  }
+
+  public static Optional<Long> getBackoffFromRetryAfterHeader(Response response) {
+    if (response == null) return Optional.empty();
+    List<String> retryAfterHeader = response.getHeaders(RETRY_AFTER_HEADER);
+    if (retryAfterHeader == null) {
+      return Optional.empty();
+    }
+    long waitTime = 0;
+    for (String retryAfter : retryAfterHeader) {
+      try {
+        // Datetime in header is always in GMT
+        ZonedDateTime retryAfterDate =
+            ZonedDateTime.parse(retryAfter, DateTimeFormatter.RFC_1123_DATE_TIME);
+        ZonedDateTime now = ZonedDateTime.now();
+        waitTime = java.time.Duration.between(now, retryAfterDate).getSeconds();
+      } catch (Exception e) {
+        // If not a date, assume it is seconds
+        try {
+          waitTime = Long.parseLong(retryAfter);
+        } catch (NumberFormatException nfe) {
+          // Just fallback to using exponential backoff
+          return Optional.empty();
+        }
+      }
+    }
+    return Optional.of(waitTime * 1000);
   }
 
   private String makeLogRecord(Request in, Response out) {
     StringBuilder sb = new StringBuilder();
     sb.append("> ");
     sb.append(in.getRequestLine());
-    if (config.isDebugHeaders()) {
+    if (this.isDebugHeaders) {
       sb.append("\n * Host: ");
-      sb.append(config.getHost());
+      sb.append(this.getHostFunc.apply(null));
       in.getHeaders()
           .forEach((header, value) -> sb.append(String.format("\n * %s: %s", header, value)));
     }

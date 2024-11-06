@@ -4,7 +4,7 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 
-/** Whether plans exist for the execution, or the reason why they are missing */
+/** Possible Reasons for which we have not saved plans in the database */
 @Generated
 public enum PlansState {
   EMPTY,

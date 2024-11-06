@@ -3,11 +3,12 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * These APIs enable administrators to manage published oauth app integrations, which is required
+ * These APIs enable administrators to manage published OAuth app integrations, which is required
  * for adding/using Published OAuth App Integration like Tableau Desktop for Databricks in AWS
  * cloud.
  */
@@ -32,7 +33,7 @@ public class PublishedAppIntegrationAPI {
    *
    * <p>Create Published OAuth App Integration.
    *
-   * <p>You can retrieve the published oauth app integration via
+   * <p>You can retrieve the published OAuth app integration via
    * :method:PublishedAppIntegration/get.
    */
   public CreatePublishedAppIntegrationOutput create(CreatePublishedAppIntegration request) {
@@ -46,7 +47,7 @@ public class PublishedAppIntegrationAPI {
   /**
    * Delete Published OAuth App Integration.
    *
-   * <p>Delete an existing Published OAuth App Integration. You can retrieve the published oauth app
+   * <p>Delete an existing Published OAuth App Integration. You can retrieve the published OAuth app
    * integration via :method:PublishedAppIntegration/get.
    */
   public void delete(DeletePublishedAppIntegrationRequest request) {
@@ -69,10 +70,21 @@ public class PublishedAppIntegrationAPI {
   /**
    * Get published oauth app integrations.
    *
-   * <p>Get the list of published oauth app integrations for the specified Databricks account
+   * <p>Get the list of published OAuth app integrations for the specified Databricks account
    */
-  public Iterable<GetPublishedAppIntegrationOutput> list() {
-    return impl.list().getApps();
+  public Iterable<GetPublishedAppIntegrationOutput> list(
+      ListPublishedAppIntegrationsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        GetPublishedAppIntegrationsOutput::getApps,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public void update(String integrationId) {
@@ -82,7 +94,7 @@ public class PublishedAppIntegrationAPI {
   /**
    * Updates Published OAuth App Integration.
    *
-   * <p>Updates an existing published OAuth App Integration. You can retrieve the published oauth
+   * <p>Updates an existing published OAuth App Integration. You can retrieve the published OAuth
    * app integration via :method:PublishedAppIntegration/get.
    */
   public void update(UpdatePublishedAppIntegration request) {

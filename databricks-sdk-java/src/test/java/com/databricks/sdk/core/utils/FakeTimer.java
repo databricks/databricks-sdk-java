@@ -12,7 +12,7 @@ public class FakeTimer implements Timer {
   }
 
   @Override
-  public void wait(int milliseconds) {
+  public void sleep(long milliseconds) {
     currentTimeMillis += milliseconds;
   }
 

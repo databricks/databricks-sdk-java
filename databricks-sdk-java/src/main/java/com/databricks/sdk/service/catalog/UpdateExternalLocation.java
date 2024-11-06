@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -25,12 +26,27 @@ public class UpdateExternalLocation {
   @JsonProperty("encryption_details")
   private EncryptionDetails encryptionDetails;
 
+  /**
+   * Indicates whether fallback mode is enabled for this external location. When fallback mode is
+   * enabled, the access to the location falls back to cluster credentials if UC credentials are not
+   * sufficient.
+   */
+  @JsonProperty("fallback")
+  private Boolean fallback;
+
   /** Force update even if changing url invalidates dependent external tables or mounts. */
   @JsonProperty("force")
   private Boolean force;
 
+  /**
+   * Whether the current securable is accessible from all workspaces or a specific set of
+   * workspaces.
+   */
+  @JsonProperty("isolation_mode")
+  private IsolationMode isolationMode;
+
   /** Name of the external location. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** New name for the external location. */
   @JsonProperty("new_name")
@@ -88,6 +104,15 @@ public class UpdateExternalLocation {
     return encryptionDetails;
   }
 
+  public UpdateExternalLocation setFallback(Boolean fallback) {
+    this.fallback = fallback;
+    return this;
+  }
+
+  public Boolean getFallback() {
+    return fallback;
+  }
+
   public UpdateExternalLocation setForce(Boolean force) {
     this.force = force;
     return this;
@@ -95,6 +120,15 @@ public class UpdateExternalLocation {
 
   public Boolean getForce() {
     return force;
+  }
+
+  public UpdateExternalLocation setIsolationMode(IsolationMode isolationMode) {
+    this.isolationMode = isolationMode;
+    return this;
+  }
+
+  public IsolationMode getIsolationMode() {
+    return isolationMode;
   }
 
   public UpdateExternalLocation setName(String name) {
@@ -160,7 +194,9 @@ public class UpdateExternalLocation {
         && Objects.equals(comment, that.comment)
         && Objects.equals(credentialName, that.credentialName)
         && Objects.equals(encryptionDetails, that.encryptionDetails)
+        && Objects.equals(fallback, that.fallback)
         && Objects.equals(force, that.force)
+        && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
@@ -176,7 +212,9 @@ public class UpdateExternalLocation {
         comment,
         credentialName,
         encryptionDetails,
+        fallback,
         force,
+        isolationMode,
         name,
         newName,
         owner,
@@ -192,7 +230,9 @@ public class UpdateExternalLocation {
         .add("comment", comment)
         .add("credentialName", credentialName)
         .add("encryptionDetails", encryptionDetails)
+        .add("fallback", fallback)
         .add("force", force)
+        .add("isolationMode", isolationMode)
         .add("name", name)
         .add("newName", newName)
         .add("owner", owner)

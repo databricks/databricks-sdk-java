@@ -43,7 +43,7 @@ class AzureCliCredentialsProviderTest {
     AzureCliCredentialsProvider provider = getAzureCliCredentialsProvider(mockTokenSource());
     DatabricksConfig config =
         new DatabricksConfig()
-            .setHost(".azuredatabricks.")
+            .setHost(".azuredatabricks.net")
             .setCredentialsProvider(provider)
             .setAzureWorkspaceResourceId(WORKSPACE_RESOURCE_ID);
     ArgumentCaptor<List<String>> argument = ArgumentCaptor.forClass(List.class);
@@ -70,7 +70,7 @@ class AzureCliCredentialsProviderTest {
 
     DatabricksConfig config =
         new DatabricksConfig()
-            .setHost(".azuredatabricks.")
+            .setHost(".azuredatabricks.net")
             .setCredentialsProvider(provider)
             .setAzureWorkspaceResourceId(WORKSPACE_RESOURCE_ID);
 

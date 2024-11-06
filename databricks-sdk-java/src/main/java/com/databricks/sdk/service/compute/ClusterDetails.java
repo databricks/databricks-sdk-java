@@ -117,11 +117,16 @@ public class ClusterDetails {
    * cluster features and data governance features are available in this mode. * `USER_ISOLATION`: A
    * secure cluster that can be shared by multiple users. Cluster users are fully isolated so that
    * they cannot see each other's data and credentials. Most data governance features are supported
-   * in this mode. But programming languages and cluster features might be limited. *
-   * `LEGACY_TABLE_ACL`: This mode is for users migrating from legacy Table ACL clusters. *
+   * in this mode. But programming languages and cluster features might be limited.
+   *
+   * <p>The following modes are deprecated starting with Databricks Runtime 15.0 and will be removed
+   * for future Databricks Runtime versions:
+   *
+   * <p>* `LEGACY_TABLE_ACL`: This mode is for users migrating from legacy Table ACL clusters. *
    * `LEGACY_PASSTHROUGH`: This mode is for users migrating from legacy Passthrough on high
    * concurrency clusters. * `LEGACY_SINGLE_USER`: This mode is for users migrating from legacy
-   * Passthrough on standard clusters.
+   * Passthrough on standard clusters. * `LEGACY_SINGLE_USER_STANDARD`: This mode provides a way
+   * that doesn’t have UC nor passthrough enabled.
    */
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
@@ -148,7 +153,7 @@ public class ClusterDetails {
 
   /**
    * Node on which the Spark driver resides. The driver node contains the Spark master and the
-   * <Databricks> application that manages the per-notebook Spark REPLs.
+   * Databricks application that manages the per-notebook Spark REPLs.
    */
   @JsonProperty("driver")
   private SparkNode driver;
@@ -244,8 +249,13 @@ public class ClusterDetails {
   private String policyId;
 
   /**
-   * Decides which runtime engine to be use, e.g. Standard vs. Photon. If unspecified, the runtime
-   * engine is inferred from spark_version.
+   * Determines the cluster's runtime engine, either standard or Photon.
+   *
+   * <p>This field is not compatible with legacy `spark_version` values that contain `-photon-`.
+   * Remove `-photon-` from the `spark_version` and set `runtime_engine` to `PHOTON`.
+   *
+   * <p>If left unspecified, the runtime engine defaults to standard unless the spark_version
+   * contains -photon-, in which case Photon will be used.
    */
   @JsonProperty("runtime_engine")
   private RuntimeEngine runtimeEngine;
@@ -300,7 +310,7 @@ public class ClusterDetails {
    * API.
    */
   @JsonProperty("spec")
-  private CreateCluster spec;
+  private ClusterSpec spec;
 
   /**
    * SSH public key contents that will be added to each Spark node in this cluster. The
@@ -676,12 +686,12 @@ public class ClusterDetails {
     return sparkVersion;
   }
 
-  public ClusterDetails setSpec(CreateCluster spec) {
+  public ClusterDetails setSpec(ClusterSpec spec) {
     this.spec = spec;
     return this;
   }
 
-  public CreateCluster getSpec() {
+  public ClusterSpec getSpec() {
     return spec;
   }
 

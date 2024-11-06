@@ -3,6 +3,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -77,8 +78,18 @@ public class SharesAPI {
    * or the owner of the share. There is no guarantee of a specific ordering of the elements in the
    * array.
    */
-  public Iterable<ShareInfo> list() {
-    return impl.list().getShares();
+  public Iterable<ShareInfo> list(ListSharesRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListSharesResponse::getShares,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public com.databricks.sdk.service.catalog.PermissionsList sharePermissions(String name) {
@@ -110,6 +121,8 @@ public class SharesAPI {
    *
    * <p>In the case that the share name is changed, **updateShare** requires that the caller is both
    * the share owner and a metastore admin.
+   *
+   * <p>If there are notebook files in the share, the __storage_root__ field cannot be updated.
    *
    * <p>For each table that is added through this method, the share owner must also have **SELECT**
    * privilege on the table. This privilege must be maintained indefinitely for recipients to be

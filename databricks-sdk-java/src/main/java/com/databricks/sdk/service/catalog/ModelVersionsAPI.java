@@ -49,7 +49,7 @@ public class ModelVersionsAPI {
     impl.delete(request);
   }
 
-  public RegisteredModelInfo get(String fullName, long version) {
+  public ModelVersionInfo get(String fullName, long version) {
     return get(new GetModelVersionRequest().setFullName(fullName).setVersion(version));
   }
 
@@ -63,7 +63,7 @@ public class ModelVersionsAPI {
    * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
    * schema.
    */
-  public RegisteredModelInfo get(GetModelVersionRequest request) {
+  public ModelVersionInfo get(GetModelVersionRequest request) {
     return impl.get(request);
   }
 
@@ -102,7 +102,8 @@ public class ModelVersionsAPI {
    * **USE_CATALOG** privilege on the parent catalog and the **USE_SCHEMA** privilege on the parent
    * schema.
    *
-   * <p>There is no guarantee of a specific ordering of the elements in the response.
+   * <p>There is no guarantee of a specific ordering of the elements in the response. The elements
+   * in the response will not contain any aliases or tags.
    */
   public Iterable<ModelVersionInfo> list(ListModelVersionsRequest request) {
     return new Paginator<>(
@@ -111,7 +112,7 @@ public class ModelVersionsAPI {
         ListModelVersionsResponse::getModelVersions,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

@@ -7,39 +7,34 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Git folder (repo) information. */
 @Generated
 public class RepoInfo {
-  /** Branch that the local version of the repo is checked out to. */
+  /** Name of the current git branch of the git folder (repo). */
   @JsonProperty("branch")
   private String branch;
 
-  /** SHA-1 hash representing the commit ID of the current HEAD of the repo. */
+  /** Current git commit id of the git folder (repo). */
   @JsonProperty("head_commit_id")
   private String headCommitId;
 
-  /** ID of the repo object in the workspace. */
+  /** Id of the git folder (repo) in the Workspace. */
   @JsonProperty("id")
   private Long id;
 
-  /**
-   * Desired path for the repo in the workspace. Must be in the format /Repos/{folder}/{repo-name}.
-   */
+  /** Root path of the git folder (repo) in the Workspace. */
   @JsonProperty("path")
   private String path;
 
-  /**
-   * Git provider. This field is case-insensitive. The available Git providers are gitHub,
-   * bitbucketCloud, gitLab, azureDevOpsServices, gitHubEnterprise, bitbucketServer,
-   * gitLabEnterpriseEdition and awsCodeCommit.
-   */
+  /** Git provider of the remote git repository, e.g. `gitHub`. */
   @JsonProperty("provider")
   private String provider;
 
-  /** */
+  /** Sparse checkout config for the git folder (repo). */
   @JsonProperty("sparse_checkout")
   private SparseCheckout sparseCheckout;
 
-  /** URL of the Git repository to be linked. */
+  /** URL of the remote git repository. */
   @JsonProperty("url")
   private String url;
 

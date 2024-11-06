@@ -3,6 +3,7 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,7 +31,7 @@ public class GitCredentialsAPI {
   }
 
   public CreateCredentialsResponse create(String gitProvider) {
-    return create(new CreateCredentials().setGitProvider(gitProvider));
+    return create(new CreateCredentialsRequest().setGitProvider(gitProvider));
   }
 
   /**
@@ -40,12 +41,12 @@ public class GitCredentialsAPI {
    * so any attempts to create credentials if an entry already exists will fail. Use the PATCH
    * endpoint to update existing credentials, or the DELETE endpoint to delete existing credentials.
    */
-  public CreateCredentialsResponse create(CreateCredentials request) {
+  public CreateCredentialsResponse create(CreateCredentialsRequest request) {
     return impl.create(request);
   }
 
   public void delete(long credentialId) {
-    delete(new DeleteGitCredentialRequest().setCredentialId(credentialId));
+    delete(new DeleteCredentialsRequest().setCredentialId(credentialId));
   }
 
   /**
@@ -53,12 +54,12 @@ public class GitCredentialsAPI {
    *
    * <p>Deletes the specified Git credential.
    */
-  public void delete(DeleteGitCredentialRequest request) {
+  public void delete(DeleteCredentialsRequest request) {
     impl.delete(request);
   }
 
-  public CredentialInfo get(long credentialId) {
-    return get(new GetGitCredentialRequest().setCredentialId(credentialId));
+  public GetCredentialsResponse get(long credentialId) {
+    return get(new GetCredentialsRequest().setCredentialId(credentialId));
   }
 
   /**
@@ -66,7 +67,7 @@ public class GitCredentialsAPI {
    *
    * <p>Gets the Git credential with the specified credential ID.
    */
-  public CredentialInfo get(GetGitCredentialRequest request) {
+  public GetCredentialsResponse get(GetCredentialsRequest request) {
     return impl.get(request);
   }
 
@@ -76,11 +77,13 @@ public class GitCredentialsAPI {
    * <p>Lists the calling user's Git credentials. One credential per user is supported.
    */
   public Iterable<CredentialInfo> list() {
-    return impl.list().getCredentials();
+    return new Paginator<>(
+        null, (Void v) -> impl.list(), ListCredentialsResponse::getCredentials, response -> null);
   }
 
-  public void update(long credentialId) {
-    update(new UpdateCredentials().setCredentialId(credentialId));
+  public void update(long credentialId, String gitProvider) {
+    update(
+        new UpdateCredentialsRequest().setCredentialId(credentialId).setGitProvider(gitProvider));
   }
 
   /**
@@ -88,7 +91,7 @@ public class GitCredentialsAPI {
    *
    * <p>Updates the specified Git credential.
    */
-  public void update(UpdateCredentials request) {
+  public void update(UpdateCredentialsRequest request) {
     impl.update(request);
   }
 

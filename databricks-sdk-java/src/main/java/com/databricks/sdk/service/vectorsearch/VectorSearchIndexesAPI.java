@@ -110,7 +110,7 @@ public class VectorSearchIndexesAPI {
         ListVectorIndexesResponse::getVectorIndexes,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);
@@ -128,6 +128,34 @@ public class VectorSearchIndexesAPI {
    */
   public QueryVectorIndexResponse queryIndex(QueryVectorIndexRequest request) {
     return impl.queryIndex(request);
+  }
+
+  public QueryVectorIndexResponse queryNextPage(String indexName) {
+    return queryNextPage(new QueryVectorIndexNextPageRequest().setIndexName(indexName));
+  }
+
+  /**
+   * Query next page.
+   *
+   * <p>Use `next_page_token` returned from previous `QueryVectorIndex` or
+   * `QueryVectorIndexNextPage` request to fetch next page of results.
+   */
+  public QueryVectorIndexResponse queryNextPage(QueryVectorIndexNextPageRequest request) {
+    return impl.queryNextPage(request);
+  }
+
+  public ScanVectorIndexResponse scanIndex(String indexName) {
+    return scanIndex(new ScanVectorIndexRequest().setIndexName(indexName));
+  }
+
+  /**
+   * Scan an index.
+   *
+   * <p>Scan the specified vector index and return the first `num_results` entries after the
+   * exclusive `primary_key`.
+   */
+  public ScanVectorIndexResponse scanIndex(ScanVectorIndexRequest request) {
+    return impl.scanIndex(request);
   }
 
   public void syncIndex(String indexName) {

@@ -22,10 +22,9 @@ import com.databricks.sdk.support.Generated;
  * terminate and restart an all-purpose cluster. Multiple users can share such clusters to do
  * collaborative interactive analysis.
  *
- * <p>IMPORTANT: Databricks retains cluster configuration information for up to 200 all-purpose
- * clusters terminated in the last 30 days and up to 30 job clusters recently terminated by the job
- * scheduler. To keep an all-purpose cluster configuration even after it has been terminated for
- * more than 30 days, an administrator can pin a cluster to the cluster list.
+ * <p>IMPORTANT: Databricks retains cluster configuration information for terminated clusters for 30
+ * days. To keep an all-purpose cluster configuration even after it has been terminated for more
+ * than 30 days, an administrator can pin a cluster to the cluster list.
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -51,6 +50,11 @@ public interface ClustersService {
    *
    * <p>If Databricks acquires at least 85% of the requested on-demand nodes, cluster creation will
    * succeed. Otherwise the cluster will terminate with an informative error message.
+   *
+   * <p>Rather than authoring the cluster's JSON definition from scratch, Databricks recommends
+   * filling out the [create compute UI] and then copying the generated JSON definition from the UI.
+   *
+   * <p>[create compute UI]: https://docs.databricks.com/compute/configure.html
    */
   CreateClusterResponse create(CreateCluster createCluster);
 
@@ -114,16 +118,10 @@ public interface ClustersService {
   ClusterPermissions getPermissions(GetClusterPermissionsRequest getClusterPermissionsRequest);
 
   /**
-   * List all clusters.
+   * List clusters.
    *
-   * <p>Return information about all pinned clusters, active clusters, up to 200 of the most
-   * recently terminated all-purpose clusters in the past 30 days, and up to 30 of the most recently
-   * terminated job clusters in the past 30 days.
-   *
-   * <p>For example, if there is 1 pinned cluster, 4 active clusters, 45 terminated all-purpose
-   * clusters in the past 30 days, and 50 terminated job clusters in the past 30 days, then this API
-   * returns the 1 pinned cluster, 4 active clusters, all 45 terminated all-purpose clusters, and
-   * the 30 most recently terminated job clusters.
+   * <p>Return information about all pinned and active clusters, and all clusters terminated within
+   * the last 30 days. Clusters terminated prior to this period are not included.
    */
   ListClustersResponse list(ListClustersRequest listClustersRequest);
 
@@ -215,6 +213,20 @@ public interface ClustersService {
    * workspace admins.
    */
   void unpin(UnpinCluster unpinCluster);
+
+  /**
+   * Update cluster configuration (partial).
+   *
+   * <p>Updates the configuration of a cluster to match the partial set of attributes and size.
+   * Denote which fields to update using the `update_mask` field in the request body. A cluster can
+   * be updated if it is in a `RUNNING` or `TERMINATED` state. If a cluster is updated while in a
+   * `RUNNING` state, it will be restarted so that the new attributes can take effect. If a cluster
+   * is updated while in a `TERMINATED` state, it will remain `TERMINATED`. The updated attributes
+   * will take effect the next time the cluster is started using the `clusters/start` API. Attempts
+   * to update a cluster in any other state will be rejected with an `INVALID_STATE` error code.
+   * Clusters created by the Databricks Jobs service cannot be updated.
+   */
+  void update(UpdateCluster updateCluster);
 
   /**
    * Update cluster permissions.

@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class UpdateVolumeRequestContent {
   private String comment;
 
   /** The three-level (fully qualified) name of the volume */
-  private String name;
+  @JsonIgnore private String name;
 
   /** New name for the volume. */
   @JsonProperty("new_name")

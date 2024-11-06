@@ -3,11 +3,13 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/** Access the history of queries through SQL warehouses. */
+/**
+ * A service responsible for storing and retrieving the list of queries run against SQL endpoints
+ * and serverless compute.
+ */
 @Generated
 public class QueryHistoryAPI {
   private static final Logger LOG = LoggerFactory.getLogger(QueryHistoryAPI.class);
@@ -27,22 +29,14 @@ public class QueryHistoryAPI {
   /**
    * List Queries.
    *
-   * <p>List the history of queries through SQL warehouses.
+   * <p>List the history of queries through SQL warehouses, and serverless compute.
    *
-   * <p>You can filter by user ID, warehouse ID, status, and time range.
+   * <p>You can filter by user ID, warehouse ID, status, and time range. Most recently started
+   * queries are returned first (up to max_results in request). The pagination token returned in
+   * response can be used to list subsequent query statuses.
    */
-  public Iterable<QueryInfo> list(ListQueryHistoryRequest request) {
-    return new Paginator<>(
-        request,
-        impl::list,
-        ListQueriesResponse::getRes,
-        response -> {
-          String token = response.getNextPageToken();
-          if (token == null) {
-            return null;
-          }
-          return request.setPageToken(token);
-        });
+  public ListQueriesResponse list(ListQueryHistoryRequest request) {
+    return impl.list(request);
   }
 
   public QueryHistoryService impl() {

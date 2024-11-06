@@ -19,10 +19,13 @@ public class AzureCliCredentialsProvider implements CredentialsProvider {
   }
 
   public CliTokenSource tokenSourceFor(DatabricksConfig config, String resource) {
+    String azPath =
+        Optional.ofNullable(config.getEnv()).map(env -> env.get("AZ_PATH")).orElse("az");
+
     List<String> cmd =
         new ArrayList<>(
             Arrays.asList(
-                "az", "account", "get-access-token", "--resource", resource, "--output", "json"));
+                azPath, "account", "get-access-token", "--resource", resource, "--output", "json"));
     Optional<String> subscription = getSubscription(config);
     if (subscription.isPresent()) {
       // This will fail if the user has access to the workspace, but not to the subscription

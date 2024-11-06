@@ -5,24 +5,29 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get dashboard objects */
 @Generated
 public class ListDashboardsRequest {
   /** Name of dashboard attribute to order by. */
+  @JsonIgnore
   @QueryParam("order")
   private ListOrder order;
 
   /** Page number to retrieve. */
+  @JsonIgnore
   @QueryParam("page")
   private Long page;
 
   /** Number of dashboards to return per page. */
+  @JsonIgnore
   @QueryParam("page_size")
   private Long pageSize;
 
   /** Full text search term. */
+  @JsonIgnore
   @QueryParam("q")
   private String q;
 

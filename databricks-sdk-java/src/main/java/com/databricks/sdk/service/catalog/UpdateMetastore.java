@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -25,7 +26,7 @@ public class UpdateMetastore {
   private UpdateMetastoreDeltaSharingScope deltaSharingScope;
 
   /** Unique ID of the metastore. */
-  private String id;
+  @JsonIgnore private String id;
 
   /** New name for the metastore. */
   @JsonProperty("new_name")

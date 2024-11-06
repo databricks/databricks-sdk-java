@@ -9,15 +9,20 @@ import java.util.Objects;
 
 @Generated
 public class MonitorCronSchedule {
-  /** Whether the schedule is paused or not */
+  /** Read only field that indicates whether a schedule is paused or not. */
   @JsonProperty("pause_status")
   private MonitorCronSchedulePauseStatus pauseStatus;
 
-  /** A cron expression using quartz syntax that describes the schedule for a job. */
+  /**
+   * The expression that determines when to run the monitor. See [examples].
+   *
+   * <p>[examples]:
+   * https://www.quartz-scheduler.org/documentation/quartz-2.3.0/tutorials/crontrigger.html
+   */
   @JsonProperty("quartz_cron_expression")
   private String quartzCronExpression;
 
-  /** A Java timezone id. The schedule for a job will be resolved with respect to this timezone. */
+  /** The timezone id (e.g., ``"PST"``) in which to evaluate the quartz expression. */
   @JsonProperty("timezone_id")
   private String timezoneId;
 

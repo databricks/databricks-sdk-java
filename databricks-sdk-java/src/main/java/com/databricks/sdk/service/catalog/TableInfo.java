@@ -129,7 +129,7 @@ public class TableInfo {
   @JsonProperty("table_constraints")
   private Collection<TableConstraint> tableConstraints;
 
-  /** Name of table, relative to parent schema. */
+  /** The unique identifier of the table. */
   @JsonProperty("table_id")
   private String tableId;
 

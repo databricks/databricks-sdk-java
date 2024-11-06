@@ -5,12 +5,14 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a single job */
 @Generated
 public class GetJobRequest {
   /** The canonical identifier of the job to retrieve information about. This field is required. */
+  @JsonIgnore
   @QueryParam("job_id")
   private Long jobId;
 

@@ -48,6 +48,16 @@ public class NotebookTask {
   @JsonProperty("source")
   private Source source;
 
+  /**
+   * Optional `warehouse_id` to run the notebook on a SQL warehouse. Classic SQL warehouses are NOT
+   * supported, please use serverless or pro SQL warehouses.
+   *
+   * <p>Note that SQL warehouses only support SQL cells; if the notebook contains non-SQL cells, the
+   * run will fail.
+   */
+  @JsonProperty("warehouse_id")
+  private String warehouseId;
+
   public NotebookTask setBaseParameters(Map<String, String> baseParameters) {
     this.baseParameters = baseParameters;
     return this;
@@ -75,6 +85,15 @@ public class NotebookTask {
     return source;
   }
 
+  public NotebookTask setWarehouseId(String warehouseId) {
+    this.warehouseId = warehouseId;
+    return this;
+  }
+
+  public String getWarehouseId() {
+    return warehouseId;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -82,12 +101,13 @@ public class NotebookTask {
     NotebookTask that = (NotebookTask) o;
     return Objects.equals(baseParameters, that.baseParameters)
         && Objects.equals(notebookPath, that.notebookPath)
-        && Objects.equals(source, that.source);
+        && Objects.equals(source, that.source)
+        && Objects.equals(warehouseId, that.warehouseId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(baseParameters, notebookPath, source);
+    return Objects.hash(baseParameters, notebookPath, source, warehouseId);
   }
 
   @Override
@@ -96,6 +116,7 @@ public class NotebookTask {
         .add("baseParameters", baseParameters)
         .add("notebookPath", notebookPath)
         .add("source", source)
+        .add("warehouseId", warehouseId)
         .toString();
   }
 }

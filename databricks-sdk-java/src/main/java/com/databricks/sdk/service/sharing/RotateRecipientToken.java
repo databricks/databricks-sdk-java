@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -18,7 +19,7 @@ public class RotateRecipientToken {
   private Long existingTokenExpireInSeconds;
 
   /** The name of the recipient. */
-  private String name;
+  @JsonIgnore private String name;
 
   public RotateRecipientToken setExistingTokenExpireInSeconds(Long existingTokenExpireInSeconds) {
     this.existingTokenExpireInSeconds = existingTokenExpireInSeconds;

@@ -11,7 +11,10 @@ import java.util.Objects;
 
 @Generated
 public class CreateCluster {
-  /** */
+  /**
+   * When set to true, fixed and default values from the policy will be used for fields that are
+   * omitted. When set to false, only fixed values from the policy will be applied.
+   */
   @JsonProperty("apply_policy_default_values")
   private Boolean applyPolicyDefaultValues;
 
@@ -46,6 +49,13 @@ public class CreateCluster {
   private AzureAttributes azureAttributes;
 
   /**
+   * When specified, this clones libraries from a source cluster during the creation of a new
+   * cluster.
+   */
+  @JsonProperty("clone_from")
+  private CloneCluster cloneFrom;
+
+  /**
    * The configuration for delivering spark logs to a long-term storage destination. Two kinds of
    * destinations (dbfs and s3) are supported. Only one destination can be specified for one
    * cluster. If the conf is given, the logs will be delivered to the destination every `5 mins`.
@@ -61,13 +71,6 @@ public class CreateCluster {
    */
   @JsonProperty("cluster_name")
   private String clusterName;
-
-  /**
-   * Determines whether the cluster was created by a user through the UI, created by the Databricks
-   * Jobs Scheduler, or through an API request. This is the same as cluster_creator, but read only.
-   */
-  @JsonProperty("cluster_source")
-  private ClusterSource clusterSource;
 
   /**
    * Additional tags for cluster resources. Databricks will tag all cluster resources (e.g., AWS
@@ -91,11 +94,16 @@ public class CreateCluster {
    * cluster features and data governance features are available in this mode. * `USER_ISOLATION`: A
    * secure cluster that can be shared by multiple users. Cluster users are fully isolated so that
    * they cannot see each other's data and credentials. Most data governance features are supported
-   * in this mode. But programming languages and cluster features might be limited. *
-   * `LEGACY_TABLE_ACL`: This mode is for users migrating from legacy Table ACL clusters. *
+   * in this mode. But programming languages and cluster features might be limited.
+   *
+   * <p>The following modes are deprecated starting with Databricks Runtime 15.0 and will be removed
+   * for future Databricks Runtime versions:
+   *
+   * <p>* `LEGACY_TABLE_ACL`: This mode is for users migrating from legacy Table ACL clusters. *
    * `LEGACY_PASSTHROUGH`: This mode is for users migrating from legacy Passthrough on high
    * concurrency clusters. * `LEGACY_SINGLE_USER`: This mode is for users migrating from legacy
-   * Passthrough on standard clusters.
+   * Passthrough on standard clusters. * `LEGACY_SINGLE_USER_STANDARD`: This mode provides a way
+   * that doesn’t have UC nor passthrough enabled.
    */
   @JsonProperty("data_security_mode")
   private DataSecurityMode dataSecurityMode;
@@ -176,8 +184,13 @@ public class CreateCluster {
   private String policyId;
 
   /**
-   * Decides which runtime engine to be use, e.g. Standard vs. Photon. If unspecified, the runtime
-   * engine is inferred from spark_version.
+   * Determines the cluster's runtime engine, either standard or Photon.
+   *
+   * <p>This field is not compatible with legacy `spark_version` values that contain `-photon-`.
+   * Remove `-photon-` from the `spark_version` and set `runtime_engine` to `PHOTON`.
+   *
+   * <p>If left unspecified, the runtime engine defaults to standard unless the spark_version
+   * contains -photon-, in which case Photon will be used.
    */
   @JsonProperty("runtime_engine")
   private RuntimeEngine runtimeEngine;
@@ -274,6 +287,15 @@ public class CreateCluster {
     return azureAttributes;
   }
 
+  public CreateCluster setCloneFrom(CloneCluster cloneFrom) {
+    this.cloneFrom = cloneFrom;
+    return this;
+  }
+
+  public CloneCluster getCloneFrom() {
+    return cloneFrom;
+  }
+
   public CreateCluster setClusterLogConf(ClusterLogConf clusterLogConf) {
     this.clusterLogConf = clusterLogConf;
     return this;
@@ -290,15 +312,6 @@ public class CreateCluster {
 
   public String getClusterName() {
     return clusterName;
-  }
-
-  public CreateCluster setClusterSource(ClusterSource clusterSource) {
-    this.clusterSource = clusterSource;
-    return this;
-  }
-
-  public ClusterSource getClusterSource() {
-    return clusterSource;
   }
 
   public CreateCluster setCustomTags(Map<String, String> customTags) {
@@ -491,9 +504,9 @@ public class CreateCluster {
         && Objects.equals(autoterminationMinutes, that.autoterminationMinutes)
         && Objects.equals(awsAttributes, that.awsAttributes)
         && Objects.equals(azureAttributes, that.azureAttributes)
+        && Objects.equals(cloneFrom, that.cloneFrom)
         && Objects.equals(clusterLogConf, that.clusterLogConf)
         && Objects.equals(clusterName, that.clusterName)
-        && Objects.equals(clusterSource, that.clusterSource)
         && Objects.equals(customTags, that.customTags)
         && Objects.equals(dataSecurityMode, that.dataSecurityMode)
         && Objects.equals(dockerImage, that.dockerImage)
@@ -524,9 +537,9 @@ public class CreateCluster {
         autoterminationMinutes,
         awsAttributes,
         azureAttributes,
+        cloneFrom,
         clusterLogConf,
         clusterName,
-        clusterSource,
         customTags,
         dataSecurityMode,
         dockerImage,
@@ -557,9 +570,9 @@ public class CreateCluster {
         .add("autoterminationMinutes", autoterminationMinutes)
         .add("awsAttributes", awsAttributes)
         .add("azureAttributes", azureAttributes)
+        .add("cloneFrom", cloneFrom)
         .add("clusterLogConf", clusterLogConf)
         .add("clusterName", clusterName)
-        .add("clusterSource", clusterSource)
         .add("customTags", customTags)
         .add("dataSecurityMode", dataSecurityMode)
         .add("dockerImage", dockerImage)

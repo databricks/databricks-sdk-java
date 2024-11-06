@@ -4,13 +4,14 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a workspace */
 @Generated
 public class DeleteWorkspaceRequest {
   /** Workspace ID. */
-  private Long workspaceId;
+  @JsonIgnore private Long workspaceId;
 
   public DeleteWorkspaceRequest setWorkspaceId(Long workspaceId) {
     this.workspaceId = workspaceId;

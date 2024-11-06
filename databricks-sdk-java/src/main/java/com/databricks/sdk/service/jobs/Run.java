@@ -8,12 +8,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/** Run was retrieved successfully */
 @Generated
 public class Run {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
-   * has an attempt_number of 0\. If the initial run attempt fails, and the job has a retry policy
-   * (`max_retries` \> 0), subsequent runs are created with an `original_attempt_run_id` of the
+   * has an attempt_number of 0. If the initial run attempt fails, and the job has a retry policy
+   * (`max_retries` > 0), subsequent runs are created with an `original_attempt_run_id` of the
    * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
    * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
    */
@@ -82,6 +83,10 @@ public class Run {
   @JsonProperty("git_source")
   private GitSource gitSource;
 
+  /** Only populated by for-each iterations. The parent for-each task is located in tasks array. */
+  @JsonProperty("iterations")
+  private Collection<RunTask> iterations;
+
   /**
    * A list of job cluster specifications that can be shared and reused by tasks of this job.
    * Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in
@@ -98,6 +103,18 @@ public class Run {
   @JsonProperty("job_parameters")
   private Collection<JobParameter> jobParameters;
 
+  /**
+   * ID of the job run that this run belongs to. For legacy and single-task job runs the field is
+   * populated with the job run ID. For task runs, the field is populated with the ID of the job run
+   * that the task run belongs to.
+   */
+  @JsonProperty("job_run_id")
+  private Long jobRunId;
+
+  /** A token that can be used to list the next page of sub-resources. */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
   /** A unique identifier for this job run. This is set to the same value as `run_id`. */
   @JsonProperty("number_in_job")
   private Long numberInJob;
@@ -112,6 +129,10 @@ public class Run {
   /** The parameters used for this run. */
   @JsonProperty("overriding_parameters")
   private RunParameters overridingParameters;
+
+  /** A token that can be used to list the previous page of sub-resources. */
+  @JsonProperty("prev_page_token")
+  private String prevPageToken;
 
   /** The time in milliseconds that the run has spent in the queue. */
   @JsonProperty("queue_duration")
@@ -170,9 +191,13 @@ public class Run {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The current state of the run. */
+  /** Deprecated. Please use the `status` field instead. */
   @JsonProperty("state")
   private RunState state;
+
+  /** The current status of the run */
+  @JsonProperty("status")
+  private RunStatus status;
 
   /**
    * The list of tasks performed by the run. Each task has its own `run_id` which you can use to
@@ -280,6 +305,15 @@ public class Run {
     return gitSource;
   }
 
+  public Run setIterations(Collection<RunTask> iterations) {
+    this.iterations = iterations;
+    return this;
+  }
+
+  public Collection<RunTask> getIterations() {
+    return iterations;
+  }
+
   public Run setJobClusters(Collection<JobCluster> jobClusters) {
     this.jobClusters = jobClusters;
     return this;
@@ -307,6 +341,24 @@ public class Run {
     return jobParameters;
   }
 
+  public Run setJobRunId(Long jobRunId) {
+    this.jobRunId = jobRunId;
+    return this;
+  }
+
+  public Long getJobRunId() {
+    return jobRunId;
+  }
+
+  public Run setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
   public Run setNumberInJob(Long numberInJob) {
     this.numberInJob = numberInJob;
     return this;
@@ -332,6 +384,15 @@ public class Run {
 
   public RunParameters getOverridingParameters() {
     return overridingParameters;
+  }
+
+  public Run setPrevPageToken(String prevPageToken) {
+    this.prevPageToken = prevPageToken;
+    return this;
+  }
+
+  public String getPrevPageToken() {
+    return prevPageToken;
   }
 
   public Run setQueueDuration(Long queueDuration) {
@@ -433,6 +494,15 @@ public class Run {
     return state;
   }
 
+  public Run setStatus(RunStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public RunStatus getStatus() {
+    return status;
+  }
+
   public Run setTasks(Collection<RunTask> tasks) {
     this.tasks = tasks;
     return this;
@@ -474,12 +544,16 @@ public class Run {
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(iterations, that.iterations)
         && Objects.equals(jobClusters, that.jobClusters)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(jobParameters, that.jobParameters)
+        && Objects.equals(jobRunId, that.jobRunId)
+        && Objects.equals(nextPageToken, that.nextPageToken)
         && Objects.equals(numberInJob, that.numberInJob)
         && Objects.equals(originalAttemptRunId, that.originalAttemptRunId)
         && Objects.equals(overridingParameters, that.overridingParameters)
+        && Objects.equals(prevPageToken, that.prevPageToken)
         && Objects.equals(queueDuration, that.queueDuration)
         && Objects.equals(repairHistory, that.repairHistory)
         && Objects.equals(runDuration, that.runDuration)
@@ -491,6 +565,7 @@ public class Run {
         && Objects.equals(setupDuration, that.setupDuration)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
+        && Objects.equals(status, that.status)
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(trigger, that.trigger)
         && Objects.equals(triggerInfo, that.triggerInfo);
@@ -508,12 +583,16 @@ public class Run {
         endTime,
         executionDuration,
         gitSource,
+        iterations,
         jobClusters,
         jobId,
         jobParameters,
+        jobRunId,
+        nextPageToken,
         numberInJob,
         originalAttemptRunId,
         overridingParameters,
+        prevPageToken,
         queueDuration,
         repairHistory,
         runDuration,
@@ -525,6 +604,7 @@ public class Run {
         setupDuration,
         startTime,
         state,
+        status,
         tasks,
         trigger,
         triggerInfo);
@@ -542,12 +622,16 @@ public class Run {
         .add("endTime", endTime)
         .add("executionDuration", executionDuration)
         .add("gitSource", gitSource)
+        .add("iterations", iterations)
         .add("jobClusters", jobClusters)
         .add("jobId", jobId)
         .add("jobParameters", jobParameters)
+        .add("jobRunId", jobRunId)
+        .add("nextPageToken", nextPageToken)
         .add("numberInJob", numberInJob)
         .add("originalAttemptRunId", originalAttemptRunId)
         .add("overridingParameters", overridingParameters)
+        .add("prevPageToken", prevPageToken)
         .add("queueDuration", queueDuration)
         .add("repairHistory", repairHistory)
         .add("runDuration", runDuration)
@@ -559,6 +643,7 @@ public class Run {
         .add("setupDuration", setupDuration)
         .add("startTime", startTime)
         .add("state", state)
+        .add("status", status)
         .add("tasks", tasks)
         .add("trigger", trigger)
         .add("triggerInfo", triggerInfo)

@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,7 +83,17 @@ public class CatalogsAPI {
    * specific ordering of the elements in the array.
    */
   public Iterable<CatalogInfo> list(ListCatalogsRequest request) {
-    return impl.list(request).getCatalogs();
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListCatalogsResponse::getCatalogs,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public CatalogInfo update(String name) {

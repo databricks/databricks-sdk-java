@@ -5,6 +5,7 @@ package com.databricks.sdk.service.iam;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a rule set */
@@ -18,10 +19,12 @@ public class GetRuleSetRequest {
    * that is get an etag from a GET rule set request, and pass it with the PUT update request to
    * identify the rule set version you are updating.
    */
+  @JsonIgnore
   @QueryParam("etag")
   private String etag;
 
   /** The ruleset name associated with the request. */
+  @JsonIgnore
   @QueryParam("name")
   private String name;
 

@@ -5,12 +5,14 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List schemas */
 @Generated
 public class ListSchemasRequest {
   /** Parent catalog for schemas of interest. */
+  @JsonIgnore
   @QueryParam("catalog_name")
   private String catalogName;
 
@@ -18,6 +20,7 @@ public class ListSchemasRequest {
    * Whether to include schemas in the response for which the principal can only access selective
    * metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
@@ -28,10 +31,12 @@ public class ListSchemasRequest {
    * configured value (recommended); - when set to a value less than 0, an invalid parameter error
    * is returned;
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque pagination token to go to next page based on previous query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

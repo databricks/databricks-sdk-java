@@ -29,7 +29,7 @@ public class PublishedAppOutput {
   @JsonProperty("is_confidential_client")
   private Boolean isConfidentialClient;
 
-  /** Name of the published OAuth app. */
+  /** The display name of the published OAuth app. */
   @JsonProperty("name")
   private String name;
 

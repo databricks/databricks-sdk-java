@@ -1,5 +1,808 @@
 # Version changelog
 
+## [Release] Release v0.34.0
+
+### New Features and Improvements
+
+ * Experimental: Make retry strategy configurable ([#363](https://github.com/databricks/databricks-sdk-java/pull/363)).
+
+
+### Bug Fixes
+
+ * CommonHttpsClient Builder - set timeout correctly ([#362](https://github.com/databricks/databricks-sdk-java/pull/362)).
+
+
+
+
+## [Release] Release v0.33.0
+
+### Bug Fixes
+
+ * Fix Ubuntu unit tests on Github Actions ([#366](https://github.com/databricks/databricks-sdk-java/pull/366)).
+
+
+### API Changes:
+
+ * Added `workspaceClient.disableLegacyDbfs()` service.
+ * Added `com.databricks.sdk.service.apps.AppResource`, `com.databricks.sdk.service.apps.AppResourceJob`, `com.databricks.sdk.service.apps.AppResourceJobJobPermission`, `com.databricks.sdk.service.apps.AppResourceSecret`, `com.databricks.sdk.service.apps.AppResourceSecretSecretPermission`, `com.databricks.sdk.service.apps.AppResourceServingEndpoint`, `com.databricks.sdk.service.apps.AppResourceServingEndpointServingEndpointPermission`, `com.databricks.sdk.service.apps.AppResourceSqlWarehouse` and `com.databricks.sdk.service.apps.AppResourceSqlWarehouseSqlWarehousePermission` classes.
+ * Added `com.databricks.sdk.service.pipelines.ReportSpec` class.
+ * Added `com.databricks.sdk.service.settings.DeleteDisableLegacyDbfsRequest`, `com.databricks.sdk.service.settings.DeleteDisableLegacyDbfsResponse`, `com.databricks.sdk.service.settings.DisableLegacyDbfs`, `com.databricks.sdk.service.settings.GetDisableLegacyDbfsRequest` and `com.databricks.sdk.service.settings.UpdateDisableLegacyDbfsRequest` classes.
+ * Added `com.databricks.sdk.service.workspace.CreateCredentialsRequest`, `com.databricks.sdk.service.workspace.CreateRepoRequest`, `com.databricks.sdk.service.workspace.CreateRepoResponse`, `com.databricks.sdk.service.workspace.DeleteCredentialsRequest`, `Object`, `Object`, `com.databricks.sdk.service.workspace.GetCredentialsRequest`, `com.databricks.sdk.service.workspace.GetRepoResponse`, `com.databricks.sdk.service.workspace.ListCredentialsResponse`, `com.databricks.sdk.service.workspace.UpdateCredentialsRequest`, `Object`, `com.databricks.sdk.service.workspace.UpdateRepoRequest` and `Object` classes.
+ * Added `defaultSourceCodePath` and `resources` fields for `com.databricks.sdk.service.apps.App`.
+ * Added `resources` field for `com.databricks.sdk.service.apps.CreateAppRequest`.
+ * Added `resources` field for `com.databricks.sdk.service.apps.UpdateAppRequest`.
+ * Added `unityCatalogProvisioningState` field for `com.databricks.sdk.service.catalog.OnlineTable`.
+ * Added `isTruncated` field for `com.databricks.sdk.service.dashboards.Result`.
+ * Added `effectiveBudgetPolicyId` field for `com.databricks.sdk.service.jobs.BaseJob`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.jobs.CreateJob`.
+ * Added `effectiveBudgetPolicyId` field for `com.databricks.sdk.service.jobs.Job`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.jobs.JobSettings`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+ * Added `schema` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+ * Added `schema` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+ * Added `report` field for `com.databricks.sdk.service.pipelines.IngestionConfig`.
+ * Added `schema` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+ * Added `sequenceBy` field for `com.databricks.sdk.service.pipelines.TableSpecificConfig`.
+ * Added `notifyOnOk` field for `com.databricks.sdk.service.sql.Alert`.
+ * Added `notifyOnOk` field for `com.databricks.sdk.service.sql.CreateAlertRequestAlert`.
+ * Added `notifyOnOk` field for `com.databricks.sdk.service.sql.ListAlertsResponseAlert`.
+ * Added `notifyOnOk` field for `com.databricks.sdk.service.sql.UpdateAlertRequestAlert`.
+ * Added `credentialId`, `gitProvider` and `gitUsername` fields for `com.databricks.sdk.service.workspace.GetCredentialsResponse`.
+ * Changed `create()` method for `workspaceClient.gitCredentials()` service . New request type is `com.databricks.sdk.service.workspace.CreateCredentialsRequest` class.
+ * Changed `delete()` method for `workspaceClient.gitCredentials()` service to return `Object` class.
+ * Changed `delete()` method for `workspaceClient.gitCredentials()` service . New request type is `com.databricks.sdk.service.workspace.DeleteCredentialsRequest` class.
+ * Changed `get()` method for `workspaceClient.gitCredentials()` service to return `com.databricks.sdk.service.workspace.GetCredentialsResponse` class.
+ * Changed `get()` method for `workspaceClient.gitCredentials()` service . New request type is `com.databricks.sdk.service.workspace.GetCredentialsRequest` class.
+ * Changed `list()` method for `workspaceClient.gitCredentials()` service to return `com.databricks.sdk.service.workspace.ListCredentialsResponse` class.
+ * Changed `update()` method for `workspaceClient.gitCredentials()` service to return `Object` class.
+ * Changed `update()` method for `workspaceClient.gitCredentials()` service . New request type is `com.databricks.sdk.service.workspace.UpdateCredentialsRequest` class.
+ * Changed `create()` method for `workspaceClient.repos()` service . New request type is `com.databricks.sdk.service.workspace.CreateRepoRequest` class.
+ * Changed `create()` method for `workspaceClient.repos()` service to return `com.databricks.sdk.service.workspace.CreateRepoResponse` class.
+ * Changed `delete()` method for `workspaceClient.repos()` service to return `Object` class.
+ * Changed `get()` method for `workspaceClient.repos()` service to return `com.databricks.sdk.service.workspace.GetRepoResponse` class.
+ * Changed `update()` method for `workspaceClient.repos()` service to return `Object` class.
+ * Changed `update()` method for `workspaceClient.repos()` service . New request type is `com.databricks.sdk.service.workspace.UpdateRepoRequest` class.
+ * Changed `credentialId` and `gitProvider` fields for `com.databricks.sdk.service.workspace.CreateCredentialsResponse` to be required.
+ * Changed `credentialId` field for `com.databricks.sdk.service.workspace.CredentialInfo` to be required.
+ * Changed `patterns` field for `com.databricks.sdk.service.workspace.SparseCheckout` to `com.databricks.sdk.service.workspace.List` class.
+ * Changed `patterns` field for `com.databricks.sdk.service.workspace.SparseCheckoutUpdate` to `com.databricks.sdk.service.workspace.List` class.
+ * Removed `com.databricks.sdk.service.workspace.CreateCredentials`, `com.databricks.sdk.service.workspace.CreateRepo`, `com.databricks.sdk.service.workspace.DeleteGitCredentialRequest`, `com.databricks.sdk.service.workspace.GetGitCredentialRequest`, `com.databricks.sdk.service.workspace.SparseCheckoutPattern`, `com.databricks.sdk.service.workspace.UpdateCredentials`, `com.databricks.sdk.service.workspace.UpdateRepo` and `Object` classes.
+ * Removed `credentials` field for `com.databricks.sdk.service.workspace.GetCredentialsResponse`.
+
+OpenAPI SHA: cf9c61453990df0f9453670f2fe68e1b128647a2, Date: 2024-10-14
+
+
+## [Release] Release v0.32.2
+
+### Bug Fixes
+
+ * Make `UserAgent`'s `otherInfo` thread-safe ([#357](https://github.com/databricks/databricks-sdk-java/pull/357)).
+
+
+
+
+## [Release] Release v0.32.1
+
+### Bug Fixes
+
+ * Retry on too many auth requests ([#355](https://github.com/databricks/databricks-sdk-java/pull/355)).
+
+
+
+
+## [Release] Release v0.32.0
+
+### Bug Fixes
+
+ * Fix listAccountMetastoreAssignments Integration test ([#350](https://github.com/databricks/databricks-sdk-java/pull/350))
+ * Fix parsing issue in ErrorDetail ([#328](https://github.com/databricks/databricks-sdk-java/pull/328))
+
+### Internal Changes
+
+ * Update SDK to OpenAPI spec ([#346](https://github.com/databricks/databricks-sdk-java/pull/346)).
+ * Add DCO guidelines ([#351](https://github.com/databricks/databricks-sdk-java/pull/351))
+
+
+### API Changes:
+
+ * Added `workspaceClient.disableLegacyAccess()` service and `accountClient.disableLegacyFeatures()` service.
+ * Added `workspaceClient.temporaryTableCredentials()` service.
+ * Added `putAiGateway()` method for `workspaceClient.servingEndpoints()` service.
+ * Added `com.databricks.sdk.service.apps.ApplicationState`, `com.databricks.sdk.service.apps.ApplicationStatus`, `com.databricks.sdk.service.apps.ComputeState` and `com.databricks.sdk.service.apps.ComputeStatus` classes.
+ * Added `com.databricks.sdk.service.catalog.AwsCredentials`, `com.databricks.sdk.service.catalog.AzureUserDelegationSas`, `com.databricks.sdk.service.catalog.GcpOauthToken`, `com.databricks.sdk.service.catalog.GenerateTemporaryTableCredentialRequest`, `com.databricks.sdk.service.catalog.GenerateTemporaryTableCredentialResponse`, `com.databricks.sdk.service.catalog.R2Credentials` and `com.databricks.sdk.service.catalog.TableOperation` classes.
+ * Added `com.databricks.sdk.service.serving.AiGatewayConfig`, `com.databricks.sdk.service.serving.AiGatewayGuardrailParameters`, `com.databricks.sdk.service.serving.AiGatewayGuardrailPiiBehavior`, `com.databricks.sdk.service.serving.AiGatewayGuardrailPiiBehaviorBehavior`, `com.databricks.sdk.service.serving.AiGatewayGuardrails`, `com.databricks.sdk.service.serving.AiGatewayInferenceTableConfig`, `com.databricks.sdk.service.serving.AiGatewayRateLimit`, `com.databricks.sdk.service.serving.AiGatewayRateLimitKey`, `com.databricks.sdk.service.serving.AiGatewayRateLimitRenewalPeriod`, `com.databricks.sdk.service.serving.AiGatewayUsageTrackingConfig`, `com.databricks.sdk.service.serving.PutAiGatewayRequest` and `com.databricks.sdk.service.serving.PutAiGatewayResponse` classes.
+ * Added `com.databricks.sdk.service.settings.BooleanMessage`, `com.databricks.sdk.service.settings.DeleteDisableLegacyAccessRequest`, `com.databricks.sdk.service.settings.DeleteDisableLegacyAccessResponse`, `com.databricks.sdk.service.settings.DeleteDisableLegacyFeaturesRequest`, `com.databricks.sdk.service.settings.DeleteDisableLegacyFeaturesResponse`, `com.databricks.sdk.service.settings.DisableLegacyAccess`, `com.databricks.sdk.service.settings.DisableLegacyFeatures`, `com.databricks.sdk.service.settings.GetDisableLegacyAccessRequest`, `com.databricks.sdk.service.settings.GetDisableLegacyFeaturesRequest`, `com.databricks.sdk.service.settings.UpdateDisableLegacyAccessRequest` and `com.databricks.sdk.service.settings.UpdateDisableLegacyFeaturesRequest` classes.
+ * Added `appStatus` and `computeStatus` fields for `com.databricks.sdk.service.apps.App`.
+ * Added `deploymentId` field for `com.databricks.sdk.service.apps.CreateAppDeploymentRequest`.
+ * Added `externalAccessEnabled` field for `com.databricks.sdk.service.catalog.GetMetastoreSummaryResponse`.
+ * Added `includeManifestCapabilities` field for `com.databricks.sdk.service.catalog.GetTableRequest`.
+ * Added `includeManifestCapabilities` field for `com.databricks.sdk.service.catalog.ListSummariesRequest`.
+ * Added `includeManifestCapabilities` field for `com.databricks.sdk.service.catalog.ListTablesRequest`.
+ * Added `externalAccessEnabled` field for `com.databricks.sdk.service.catalog.MetastoreInfo`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+ * Added `effectiveBudgetPolicyId` field for `com.databricks.sdk.service.pipelines.GetPipelineResponse`.
+ * Added `budgetPolicyId` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+ * Added `aiGateway` field for `com.databricks.sdk.service.serving.CreateServingEndpoint`.
+ * Added `aiGateway` field for `com.databricks.sdk.service.serving.ServingEndpoint`.
+ * Added `aiGateway` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+ * Added `workspaceId` field for `com.databricks.sdk.service.settings.TokenInfo`.
+ * Changed `delete()`, `start()` and `stop()` methods for `workspaceClient.apps()` service to return `com.databricks.sdk.service.apps.App` class.
+ * Changed `deploy()` method for `workspaceClient.apps()` service with new required argument order.
+ * Changed `sourceCodePath` field for `com.databricks.sdk.service.apps.AppDeployment` to no longer be required.
+ * Changed `sourceCodePath` field for `com.databricks.sdk.service.apps.CreateAppDeploymentRequest` to no longer be required.
+ * Changed `returnParams` and `routineDependencies` fields for `com.databricks.sdk.service.catalog.CreateFunction` to no longer be required.
+ * Removed `com.databricks.sdk.service.apps.AppState`, `com.databricks.sdk.service.apps.AppStatus`, `Object` and `Object` classes.
+ * Removed `com.databricks.sdk.service.sql.ClientCallContext`, `com.databricks.sdk.service.sql.EncodedText`, `com.databricks.sdk.service.sql.EncodedTextEncoding`, `com.databricks.sdk.service.sql.QuerySource`, `com.databricks.sdk.service.sql.QuerySourceDriverInfo`, `com.databricks.sdk.service.sql.QuerySourceEntryPoint`, `com.databricks.sdk.service.sql.QuerySourceJobManager`, `com.databricks.sdk.service.sql.QuerySourceTrigger` and `com.databricks.sdk.service.sql.ServerlessChannelInfo` classes.
+ * Removed `status` field for `com.databricks.sdk.service.apps.App`.
+ * Removed `querySource` field for `com.databricks.sdk.service.sql.QueryInfo`.
+
+OpenAPI SHA: 6f6b1371e640f2dfeba72d365ac566368656f6b6, Date: 2024-09-19
+
+
+## [Release] Release v0.31.1
+
+### New Features and Improvements
+
+ * Remove proxy settings from databricks config and use commons http client builder for connection manager ([#337](https://github.com/databricks/databricks-sdk-java/pull/337)).
+
+
+### Bug Fixes
+
+ * Remove Path Parameters from JSON body ([#344](https://github.com/databricks/databricks-sdk-java/pull/344)).
+ * Stop pagination on empty next page token ([#343](https://github.com/databricks/databricks-sdk-java/pull/343)).
+
+
+
+
+## [Release] Release v0.31.0
+
+### New Features and Improvements
+
+ * Add a way to provide non proxy hosts ([#331](https://github.com/databricks/databricks-sdk-java/pull/331)).
+ * Add support for discovery URL ([#336](https://github.com/databricks/databricks-sdk-java/pull/336)).
+ * Provide SSLSocketFactory in HttpClient ([#333](https://github.com/databricks/databricks-sdk-java/pull/333)).
+
+
+### Bug Fixes
+
+ * DatabricksConfig: newWithWorkspaceHost should retain authType ([#338](https://github.com/databricks/databricks-sdk-java/pull/338)).
+ * Handle login.html incorrect validation for private link ([#340](https://github.com/databricks/databricks-sdk-java/pull/340)).
+
+
+### Internal Changes
+
+ * Fix nightly test failure ([#339](https://github.com/databricks/databricks-sdk-java/pull/339)).
+
+
+### API Changes:
+
+ * Added `regenerateDashboard()` method for `workspaceClient.qualityMonitors()` service.
+ * Added `com.databricks.sdk.service.catalog.RegenerateDashboardRequest` and `com.databricks.sdk.service.catalog.RegenerateDashboardResponse` classes.
+ * Added `com.databricks.sdk.service.jobs.QueueDetails`, `com.databricks.sdk.service.jobs.QueueDetailsCodeCode`, `com.databricks.sdk.service.jobs.RunLifecycleStateV2State`, `com.databricks.sdk.service.jobs.RunStatus`, `com.databricks.sdk.service.jobs.TerminationCodeCode`, `com.databricks.sdk.service.jobs.TerminationDetails` and `com.databricks.sdk.service.jobs.TerminationTypeType` classes.
+ * Added `status` field for `com.databricks.sdk.service.jobs.BaseRun`.
+ * Added `status` field for `com.databricks.sdk.service.jobs.RepairHistoryItem`.
+ * Added `status` field for `com.databricks.sdk.service.jobs.Run`.
+ * Added `status` field for `com.databricks.sdk.service.jobs.RunTask`.
+ * Added `maxProvisionedThroughput` and `minProvisionedThroughput` fields for `com.databricks.sdk.service.serving.ServedModelInput`.
+ * Added `columnsToSync` field for `com.databricks.sdk.service.vectorsearch.DeltaSyncVectorIndexSpecRequest`.
+ * Changed `workloadSize` field for `com.databricks.sdk.service.serving.ServedModelInput` to no longer be required.
+
+OpenAPI SHA: d05898328669a3f8ab0c2ecee37db2673d3ea3f7, Date: 2024-09-04
+
+
+## [Release] Release v0.30.0
+
+### API Changes:
+
+ * Added `workspaceClient.policyComplianceForClusters()` service.
+ * Added `workspaceClient.policyComplianceForJobs()` service.
+ * Added `workspaceClient.resourceQuotas()` service.
+ * Added `com.databricks.sdk.service.catalog.GetQuotaRequest`, `com.databricks.sdk.service.catalog.GetQuotaResponse`, `com.databricks.sdk.service.catalog.ListQuotasRequest`, `com.databricks.sdk.service.catalog.ListQuotasResponse` and `com.databricks.sdk.service.catalog.QuotaInfo` classes.
+ * Added `com.databricks.sdk.service.compute.ClusterCompliance`, `com.databricks.sdk.service.compute.ClusterSettingsChange`, `com.databricks.sdk.service.compute.EnforceClusterComplianceRequest`, `com.databricks.sdk.service.compute.EnforceClusterComplianceResponse`, `com.databricks.sdk.service.compute.GetClusterComplianceRequest`, `com.databricks.sdk.service.compute.GetClusterComplianceResponse`, `com.databricks.sdk.service.compute.ListClusterCompliancesRequest` and `com.databricks.sdk.service.compute.ListClusterCompliancesResponse` classes.
+ * Added `com.databricks.sdk.service.jobs.EnforcePolicyComplianceForJobResponseJobClusterSettingsChange`, `com.databricks.sdk.service.jobs.EnforcePolicyComplianceRequest`, `com.databricks.sdk.service.jobs.EnforcePolicyComplianceResponse`, `com.databricks.sdk.service.jobs.GetPolicyComplianceRequest`, `com.databricks.sdk.service.jobs.GetPolicyComplianceResponse`, `com.databricks.sdk.service.jobs.JobCompliance`, `com.databricks.sdk.service.jobs.ListJobComplianceForPolicyResponse` and `com.databricks.sdk.service.jobs.ListJobComplianceRequest` classes.
+ * Added `fallback` field for `com.databricks.sdk.service.catalog.CreateExternalLocation`.
+ * Added `fallback` field for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+ * Added `fallback` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+ * Added `jobRunId` field for `com.databricks.sdk.service.jobs.BaseRun`.
+ * Added `jobRunId` field for `com.databricks.sdk.service.jobs.Run`.
+ * Added `includeMetrics` field for `com.databricks.sdk.service.sql.ListQueryHistoryRequest`.
+ * Added `statementIds` field for `com.databricks.sdk.service.sql.QueryFilter`.
+ * Removed `com.databricks.sdk.service.sql.ContextFilter` class.
+ * Removed `contextFilter` field for `com.databricks.sdk.service.sql.QueryFilter`.
+ * Removed `pipelineId` and `pipelineUpdateId` fields for `com.databricks.sdk.service.sql.QuerySource`.
+
+OpenAPI SHA: 3eae49b444cac5a0118a3503e5b7ecef7f96527a, Date: 2024-08-21
+
+
+## [Release] Release v0.29.0
+
+### Internal Changes
+
+ * Test that Jobs API endpoints are pinned to 2.1 ([#319](https://github.com/databricks/databricks-sdk-java/pull/319)).
+
+
+### API Changes:
+
+ * Added `update()` method for `workspaceClient.clusters()` service.
+ * Added `com.databricks.sdk.service.compute.UpdateCluster`, `com.databricks.sdk.service.compute.UpdateClusterResource` and `Object` classes.
+ * Added `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.catalog.GetBindingsRequest`.
+ * Added `includeAliases` field for `com.databricks.sdk.service.catalog.GetByAliasRequest`.
+ * Added `includeAliases` field for `com.databricks.sdk.service.catalog.GetModelVersionRequest`.
+ * Added `includeAliases` field for `com.databricks.sdk.service.catalog.GetRegisteredModelRequest`.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.catalog.ListSystemSchemasRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListSystemSchemasResponse`.
+ * Added `aliases` field for `com.databricks.sdk.service.catalog.ModelVersionInfo`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.WorkspaceBindingsResponse`.
+ * Added `version` field for `com.databricks.sdk.service.compute.GetPolicyFamilyRequest`.
+ * Added `id` field for `com.databricks.sdk.service.dashboards.QueryAttachment`.
+ * Added `id` field for `com.databricks.sdk.service.dashboards.TextAttachment`.
+ * Added `expirationTime` field for `com.databricks.sdk.service.sharing.CreateRecipient`.
+ * Added `expirationTime` field for `com.databricks.sdk.service.sharing.UpdateRecipient`.
+ * Changed `create()` and `edit()` methods for `workspaceClient.clusterPolicies()` service with new required argument order.
+ * Changed `get()` method for `workspaceClient.modelVersions()` service to return `com.databricks.sdk.service.catalog.ModelVersionInfo` class.
+ * Changed `name` field for `com.databricks.sdk.service.compute.CreatePolicy` to no longer be required.
+ * Changed `name` field for `com.databricks.sdk.service.compute.EditPolicy` to no longer be required.
+ * Changed `policyFamilyId` field for `com.databricks.sdk.service.compute.GetPolicyFamilyRequest` to `String` class.
+ * Changed `policyFamilies` field for `com.databricks.sdk.service.compute.ListPolicyFamiliesResponse` to no longer be required.
+ * Changed `definition`, `description`, `name` and `policyFamilyId` fields for `com.databricks.sdk.service.compute.PolicyFamily` to no longer be required.
+ * Changed `accessControlList` field for `com.databricks.sdk.service.jobs.CreateJob` to `com.databricks.sdk.service.jobs.JobAccessControlRequestList` class.
+ * Changed `accessControlList` field for `com.databricks.sdk.service.jobs.SubmitRun` to `com.databricks.sdk.service.jobs.JobAccessControlRequestList` class.
+ * Changed `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.CreatePipeline` to `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Changed `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.EditPipeline` to `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Changed `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.PipelineSpec` to `com.databricks.sdk.service.pipelines.IngestionPipelineDefinition` class.
+ * Removed `com.databricks.sdk.service.pipelines.ManagedIngestionPipelineDefinition` class.
+ * Removed `com.databricks.sdk.service.compute.PolicyFamilyId` class.
+
+OpenAPI SHA: f98c07f9c71f579de65d2587bb0292f83d10e55d, Date: 2024-08-12
+
+
+## [Release] Release v0.28.0
+
+### Bug Fixes
+
+ * Add missing token URL and client ID in Github OIDC Credentials Provider ([#322](https://github.com/databricks/databricks-sdk-java/pull/322)).
+
+
+### Internal Changes
+
+ * Add example for workspace unified authentication ([#320](https://github.com/databricks/databricks-sdk-java/pull/320)).
+ * Fix processing of `quoted` titles ([#314](https://github.com/databricks/databricks-sdk-java/pull/314)).
+ * Fixed SqlIT integration tests ([#326](https://github.com/databricks/databricks-sdk-java/pull/326)).
+ * Move PR message validation to a separate workflow ([#312](https://github.com/databricks/databricks-sdk-java/pull/312)).
+ * Trigger the validate workflow in the merge queue ([#313](https://github.com/databricks/databricks-sdk-java/pull/313)).
+ * Update OpenAPI spec ([#316](https://github.com/databricks/databricks-sdk-java/pull/316)).
+
+
+### API Changes:
+
+ * Added `com.databricks.sdk.service.apps` package.
+ * Added `accountClient.usageDashboards()` service.
+ * Added `workspaceClient.alertsLegacy()` service, `workspaceClient.queriesLegacy()` service and `workspaceClient.queryVisualizationsLegacy()` service.
+ * Added `workspaceClient.genie()` service.
+ * Added `workspaceClient.notificationDestinations()` service.
+ * Added `listVisualizations()` method for `workspaceClient.queries()` service.
+ * Added `com.databricks.sdk.service.catalog.GetBindingsSecurableType` and `com.databricks.sdk.service.catalog.UpdateBindingsSecurableType` classes.
+ * Added `com.databricks.sdk.service.pipelines.PipelineStateInfoHealth` class.
+ * Added `com.databricks.sdk.service.billing.ActionConfiguration`, `com.databricks.sdk.service.billing.ActionConfigurationType`, `com.databricks.sdk.service.billing.AlertConfiguration`, `com.databricks.sdk.service.billing.AlertConfigurationQuantityType`, `com.databricks.sdk.service.billing.AlertConfigurationTimePeriod`, `com.databricks.sdk.service.billing.AlertConfigurationTriggerType`, `com.databricks.sdk.service.billing.BudgetConfiguration`, `com.databricks.sdk.service.billing.BudgetConfigurationFilter`, `com.databricks.sdk.service.billing.BudgetConfigurationFilterClause`, `com.databricks.sdk.service.billing.BudgetConfigurationFilterOperator`, `com.databricks.sdk.service.billing.BudgetConfigurationFilterTagClause`, `com.databricks.sdk.service.billing.BudgetConfigurationFilterWorkspaceIdClause`, `com.databricks.sdk.service.billing.CreateBillingUsageDashboardRequest`, `com.databricks.sdk.service.billing.CreateBillingUsageDashboardResponse`, `com.databricks.sdk.service.billing.CreateBudgetConfigurationBudget`, `com.databricks.sdk.service.billing.CreateBudgetConfigurationBudgetActionConfigurations`, `com.databricks.sdk.service.billing.CreateBudgetConfigurationBudgetAlertConfigurations`, `com.databricks.sdk.service.billing.CreateBudgetConfigurationRequest`, `com.databricks.sdk.service.billing.CreateBudgetConfigurationResponse`, `com.databricks.sdk.service.billing.DeleteBudgetConfigurationRequest`, `Object`, `com.databricks.sdk.service.billing.GetBillingUsageDashboardRequest`, `com.databricks.sdk.service.billing.GetBillingUsageDashboardResponse`, `com.databricks.sdk.service.billing.GetBudgetConfigurationRequest`, `com.databricks.sdk.service.billing.GetBudgetConfigurationResponse`, `com.databricks.sdk.service.billing.ListBudgetConfigurationsRequest`, `com.databricks.sdk.service.billing.ListBudgetConfigurationsResponse`, `com.databricks.sdk.service.billing.UpdateBudgetConfigurationBudget`, `com.databricks.sdk.service.billing.UpdateBudgetConfigurationRequest`, `com.databricks.sdk.service.billing.UpdateBudgetConfigurationResponse` and `com.databricks.sdk.service.billing.UsageDashboardType` classes.
+ * Added `com.databricks.sdk.service.compute.ListClustersFilterBy`, `com.databricks.sdk.service.compute.ListClustersSortBy`, `com.databricks.sdk.service.compute.ListClustersSortByDirection` and `com.databricks.sdk.service.compute.ListClustersSortByField` classes.
+ * Added `com.databricks.sdk.service.dashboards.ExecuteMessageQueryRequest`, `com.databricks.sdk.service.dashboards.GenieAttachment`, `com.databricks.sdk.service.dashboards.GenieConversation`, `com.databricks.sdk.service.dashboards.GenieCreateConversationMessageRequest`, `com.databricks.sdk.service.dashboards.GenieGetConversationMessageRequest`, `com.databricks.sdk.service.dashboards.GenieGetMessageQueryResultRequest`, `com.databricks.sdk.service.dashboards.GenieGetMessageQueryResultResponse`, `com.databricks.sdk.service.dashboards.GenieMessage`, `com.databricks.sdk.service.dashboards.GenieStartConversationMessageRequest`, `com.databricks.sdk.service.dashboards.GenieStartConversationResponse`, `com.databricks.sdk.service.dashboards.MessageError`, `com.databricks.sdk.service.dashboards.MessageErrorType`, `com.databricks.sdk.service.dashboards.MessageStatus`, `com.databricks.sdk.service.dashboards.QueryAttachment`, `com.databricks.sdk.service.dashboards.Result` and `com.databricks.sdk.service.dashboards.TextAttachment` classes.
+ * Added `Object`, `com.databricks.sdk.service.iam.MigratePermissionsRequest` and `com.databricks.sdk.service.iam.MigratePermissionsResponse` classes.
+ * Added `com.databricks.sdk.service.oauth2.ListCustomAppIntegrationsRequest` and `com.databricks.sdk.service.oauth2.ListPublishedAppIntegrationsRequest` classes.
+ * Added `com.databricks.sdk.service.serving.GoogleCloudVertexAiConfig` class.
+ * Added `com.databricks.sdk.service.settings.Config`, `com.databricks.sdk.service.settings.CreateNotificationDestinationRequest`, `com.databricks.sdk.service.settings.DeleteNotificationDestinationRequest`, `com.databricks.sdk.service.settings.DestinationType`, `com.databricks.sdk.service.settings.EmailConfig`, `Object`, `com.databricks.sdk.service.settings.GenericWebhookConfig`, `com.databricks.sdk.service.settings.GetNotificationDestinationRequest`, `com.databricks.sdk.service.settings.ListNotificationDestinationsRequest`, `com.databricks.sdk.service.settings.ListNotificationDestinationsResponse`, `com.databricks.sdk.service.settings.ListNotificationDestinationsResult`, `com.databricks.sdk.service.settings.MicrosoftTeamsConfig`, `com.databricks.sdk.service.settings.NotificationDestination`, `com.databricks.sdk.service.settings.PagerdutyConfig`, `com.databricks.sdk.service.settings.SlackConfig` and `com.databricks.sdk.service.settings.UpdateNotificationDestinationRequest` classes.
+ * Added `com.databricks.sdk.service.sql.AlertCondition`, `com.databricks.sdk.service.sql.AlertConditionOperand`, `com.databricks.sdk.service.sql.AlertConditionThreshold`, `com.databricks.sdk.service.sql.AlertOperandColumn`, `com.databricks.sdk.service.sql.AlertOperandValue`, `com.databricks.sdk.service.sql.AlertOperator`, `com.databricks.sdk.service.sql.ClientCallContext`, `com.databricks.sdk.service.sql.ContextFilter`, `com.databricks.sdk.service.sql.CreateAlertRequest`, `com.databricks.sdk.service.sql.CreateAlertRequestAlert`, `com.databricks.sdk.service.sql.CreateQueryRequest`, `com.databricks.sdk.service.sql.CreateQueryRequestQuery`, `com.databricks.sdk.service.sql.CreateQueryVisualizationsLegacyRequest`, `com.databricks.sdk.service.sql.CreateVisualizationRequest`, `com.databricks.sdk.service.sql.CreateVisualizationRequestVisualization`, `com.databricks.sdk.service.sql.DatePrecision`, `com.databricks.sdk.service.sql.DateRange`, `com.databricks.sdk.service.sql.DateRangeValue`, `com.databricks.sdk.service.sql.DateRangeValueDynamicDateRange`, `com.databricks.sdk.service.sql.DateValue`, `com.databricks.sdk.service.sql.DateValueDynamicDate`, `com.databricks.sdk.service.sql.DeleteAlertsLegacyRequest`, `com.databricks.sdk.service.sql.DeleteQueriesLegacyRequest`, `com.databricks.sdk.service.sql.DeleteQueryVisualizationsLegacyRequest`, `com.databricks.sdk.service.sql.DeleteVisualizationRequest`, `Object`, `com.databricks.sdk.service.sql.EncodedText`, `com.databricks.sdk.service.sql.EncodedTextEncoding`, `com.databricks.sdk.service.sql.EnumValue`, `com.databricks.sdk.service.sql.GetAlertsLegacyRequest`, `com.databricks.sdk.service.sql.GetQueriesLegacyRequest`, `com.databricks.sdk.service.sql.LegacyAlert`, `com.databricks.sdk.service.sql.LegacyAlertState`, `com.databricks.sdk.service.sql.LegacyQuery`, `com.databricks.sdk.service.sql.LegacyVisualization`, `com.databricks.sdk.service.sql.LifecycleState`, `com.databricks.sdk.service.sql.ListAlertsRequest`, `com.databricks.sdk.service.sql.ListAlertsResponse`, `com.databricks.sdk.service.sql.ListAlertsResponseAlert`, `com.databricks.sdk.service.sql.ListQueriesLegacyRequest`, `com.databricks.sdk.service.sql.ListQueryObjectsResponse`, `com.databricks.sdk.service.sql.ListQueryObjectsResponseQuery`, `com.databricks.sdk.service.sql.ListVisualizationsForQueryRequest`, `com.databricks.sdk.service.sql.ListVisualizationsForQueryResponse`, `com.databricks.sdk.service.sql.NumericValue`, `com.databricks.sdk.service.sql.QueryBackedValue`, `com.databricks.sdk.service.sql.QueryParameter`, `com.databricks.sdk.service.sql.QuerySource`, `com.databricks.sdk.service.sql.QuerySourceDriverInfo`, `com.databricks.sdk.service.sql.QuerySourceEntryPoint`, `com.databricks.sdk.service.sql.QuerySourceJobManager`, `com.databricks.sdk.service.sql.QuerySourceTrigger`, `com.databricks.sdk.service.sql.RestoreQueriesLegacyRequest`, `com.databricks.sdk.service.sql.RunAsMode`, `com.databricks.sdk.service.sql.ServerlessChannelInfo`, `com.databricks.sdk.service.sql.StatementResponse`, `com.databricks.sdk.service.sql.TextValue`, `com.databricks.sdk.service.sql.TrashAlertRequest`, `com.databricks.sdk.service.sql.TrashQueryRequest`, `com.databricks.sdk.service.sql.UpdateAlertRequest`, `com.databricks.sdk.service.sql.UpdateAlertRequestAlert`, `com.databricks.sdk.service.sql.UpdateQueryRequest`, `com.databricks.sdk.service.sql.UpdateQueryRequestQuery`, `com.databricks.sdk.service.sql.UpdateVisualizationRequest` and `com.databricks.sdk.service.sql.UpdateVisualizationRequestVisualization` classes.
+ * Added `force` field for `com.databricks.sdk.service.catalog.DeleteSchemaRequest`.
+ * Added `filterBy`, `pageSize`, `pageToken` and `sortBy` fields for `com.databricks.sdk.service.compute.ListClustersRequest`.
+ * Added `nextPageToken` and `prevPageToken` fields for `com.databricks.sdk.service.compute.ListClustersResponse`.
+ * Added `pageToken` field for `com.databricks.sdk.service.jobs.GetRunRequest`.
+ * Added `iterations`, `nextPageToken` and `prevPageToken` fields for `com.databricks.sdk.service.jobs.Run`.
+ * Added `createTime`, `createdBy`, `creatorUsername` and `scopes` fields for `com.databricks.sdk.service.oauth2.GetCustomAppIntegrationOutput`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.oauth2.GetCustomAppIntegrationsOutput`.
+ * Added `createTime` and `createdBy` fields for `com.databricks.sdk.service.oauth2.GetPublishedAppIntegrationOutput`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.oauth2.GetPublishedAppIntegrationsOutput`.
+ * Added `enableLocalDiskEncryption` field for `com.databricks.sdk.service.pipelines.PipelineCluster`.
+ * Added `whl` field for `com.databricks.sdk.service.pipelines.PipelineLibrary`.
+ * Added `health` field for `com.databricks.sdk.service.pipelines.PipelineStateInfo`.
+ * Added `ai21labsApiKeyPlaintext` field for `com.databricks.sdk.service.serving.Ai21LabsConfig`.
+ * Added `awsAccessKeyIdPlaintext` and `awsSecretAccessKeyPlaintext` fields for `com.databricks.sdk.service.serving.AmazonBedrockConfig`.
+ * Added `anthropicApiKeyPlaintext` field for `com.databricks.sdk.service.serving.AnthropicConfig`.
+ * Added `cohereApiBase` and `cohereApiKeyPlaintext` fields for `com.databricks.sdk.service.serving.CohereConfig`.
+ * Added `databricksApiTokenPlaintext` field for `com.databricks.sdk.service.serving.DatabricksModelServingConfig`.
+ * Added `googleCloudVertexAiConfig` field for `com.databricks.sdk.service.serving.ExternalModel`.
+ * Added `microsoftEntraClientSecretPlaintext` and `openaiApiKeyPlaintext` fields for `com.databricks.sdk.service.serving.OpenAiConfig`.
+ * Added `palmApiKeyPlaintext` field for `com.databricks.sdk.service.serving.PaLmConfig`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.sharing.GetRecipientSharePermissionsResponse`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.sharing.ListProviderSharesResponse`.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.sharing.ListProvidersRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.sharing.ListProvidersResponse`.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.sharing.ListRecipientsRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.sharing.ListRecipientsResponse`.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.sharing.ListSharesRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.sharing.ListSharesResponse`.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.sharing.SharePermissionsRequest`.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.sharing.UpdateSharePermissions`.
+ * Added `condition`, `createTime`, `customBody`, `customSubject`, `displayName`, `lifecycleState`, `ownerUserName`, `parentPath`, `queryId`, `secondsToRetrigger`, `triggerTime` and `updateTime` fields for `com.databricks.sdk.service.sql.Alert`.
+ * Added `id` field for `com.databricks.sdk.service.sql.GetAlertRequest`.
+ * Added `id` field for `com.databricks.sdk.service.sql.GetQueryRequest`.
+ * Added `pageToken` field for `com.databricks.sdk.service.sql.ListQueriesRequest`.
+ * Added `applyAutoLimit`, `catalog`, `createTime`, `displayName`, `lastModifierUserName`, `lifecycleState`, `ownerUserName`, `parameters`, `parentPath`, `queryText`, `runAsMode`, `schema`, `updateTime` and `warehouseId` fields for `com.databricks.sdk.service.sql.Query`.
+ * Added `contextFilter` field for `com.databricks.sdk.service.sql.QueryFilter`.
+ * Added `querySource` field for `com.databricks.sdk.service.sql.QueryInfo`.
+ * Added `createTime`, `displayName`, `queryId`, `serializedOptions`, `serializedQueryPlan` and `updateTime` fields for `com.databricks.sdk.service.sql.Visualization`.
+ * Changed `create()` method for `accountClient.budgets()` service . New request type is `com.databricks.sdk.service.billing.CreateBudgetConfigurationRequest` class.
+ * Changed `create()` method for `accountClient.budgets()` service to return `com.databricks.sdk.service.billing.CreateBudgetConfigurationResponse` class.
+ * Changed `delete()` method for `accountClient.budgets()` service . New request type is `com.databricks.sdk.service.billing.DeleteBudgetConfigurationRequest` class.
+ * Changed `delete()` method for `accountClient.budgets()` service to return `Object` class.
+ * Changed `get()` method for `accountClient.budgets()` service . New request type is `com.databricks.sdk.service.billing.GetBudgetConfigurationRequest` class.
+ * Changed `get()` method for `accountClient.budgets()` service to return `com.databricks.sdk.service.billing.GetBudgetConfigurationResponse` class.
+ * Changed `list()` method for `accountClient.budgets()` service to require request of `com.databricks.sdk.service.billing.ListBudgetConfigurationsRequest` class.
+ * Changed `list()` method for `accountClient.budgets()` service to return `com.databricks.sdk.service.billing.ListBudgetConfigurationsResponse` class.
+ * Changed `update()` method for `accountClient.budgets()` service to return `com.databricks.sdk.service.billing.UpdateBudgetConfigurationResponse` class.
+ * Changed `update()` method for `accountClient.budgets()` service . New request type is `com.databricks.sdk.service.billing.UpdateBudgetConfigurationRequest` class.
+ * Changed `create()` method for `accountClient.customAppIntegration()` service with new required argument order.
+ * Changed `list()` method for `accountClient.customAppIntegration()` service to require request of `com.databricks.sdk.service.oauth2.ListCustomAppIntegrationsRequest` class.
+ * Changed `list()` method for `accountClient.publishedAppIntegration()` service to require request of `com.databricks.sdk.service.oauth2.ListPublishedAppIntegrationsRequest` class.
+ * Changed `delete()` method for `accountClient.workspaceAssignment()` service to return `Object` class.
+ * Changed `update()` method for `accountClient.workspaceAssignment()` service with new required argument order.
+ * Changed `create()` method for `workspaceClient.alerts()` service . New request type is `com.databricks.sdk.service.sql.CreateAlertRequest` class.
+ * Changed `delete()` method for `workspaceClient.alerts()` service to return `Object` class.
+ * Changed `delete()` method for `workspaceClient.alerts()` service . New request type is `com.databricks.sdk.service.sql.TrashAlertRequest` class.
+ * Changed `get()` method for `workspaceClient.alerts()` service with new required argument order.
+ * Changed `list()` method for `workspaceClient.alerts()` service to require request of `com.databricks.sdk.service.sql.ListAlertsRequest` class.
+ * Changed `list()` method for `workspaceClient.alerts()` service to return `com.databricks.sdk.service.sql.ListAlertsResponse` class.
+ * Changed `update()` method for `workspaceClient.alerts()` service . New request type is `com.databricks.sdk.service.sql.UpdateAlertRequest` class.
+ * Changed `update()` method for `workspaceClient.alerts()` service to return `com.databricks.sdk.service.sql.Alert` class.
+ * Changed `migratePermissions()` method for `workspaceClient.permissionMigration()` service to return `com.databricks.sdk.service.iam.MigratePermissionsResponse` class.
+ * Changed `migratePermissions()` method for `workspaceClient.permissionMigration()` service . New request type is `com.databricks.sdk.service.iam.MigratePermissionsRequest` class.
+ * Changed `create()` method for `workspaceClient.queries()` service . New request type is `com.databricks.sdk.service.sql.CreateQueryRequest` class.
+ * Changed `delete()` method for `workspaceClient.queries()` service to return `Object` class.
+ * Changed `delete()` method for `workspaceClient.queries()` service . New request type is `com.databricks.sdk.service.sql.TrashQueryRequest` class.
+ * Changed `get()` method for `workspaceClient.queries()` service with new required argument order.
+ * Changed `list()` method for `workspaceClient.queries()` service to return `com.databricks.sdk.service.sql.ListQueryObjectsResponse` class.
+ * Changed `update()` method for `workspaceClient.queries()` service . New request type is `com.databricks.sdk.service.sql.UpdateQueryRequest` class.
+ * Changed `create()` method for `workspaceClient.queryVisualizations()` service . New request type is `com.databricks.sdk.service.sql.CreateVisualizationRequest` class.
+ * Changed `delete()` method for `workspaceClient.queryVisualizations()` service . New request type is `com.databricks.sdk.service.sql.DeleteVisualizationRequest` class.
+ * Changed `delete()` method for `workspaceClient.queryVisualizations()` service to return `Object` class.
+ * Changed `update()` method for `workspaceClient.queryVisualizations()` service . New request type is `com.databricks.sdk.service.sql.UpdateVisualizationRequest` class.
+ * Changed `list()` method for `workspaceClient.shares()` service to require request of `com.databricks.sdk.service.sharing.ListSharesRequest` class.
+ * Changed `executeStatement()` and `getStatement()` methods for `workspaceClient.statementExecution()` service to return `com.databricks.sdk.service.sql.StatementResponse` class.
+ * Changed `securableType` field for `com.databricks.sdk.service.catalog.GetBindingsRequest` to `com.databricks.sdk.service.catalog.GetBindingsSecurableType` class.
+ * Changed `securableType` field for `com.databricks.sdk.service.catalog.UpdateWorkspaceBindingsParameters` to `com.databricks.sdk.service.catalog.UpdateBindingsSecurableType` class.
+ * Changed `permissions` field for `com.databricks.sdk.service.iam.UpdateWorkspaceAssignments` to no longer be required.
+ * Changed `name` and `redirectUrls` fields for `com.databricks.sdk.service.oauth2.CreateCustomAppIntegration` to no longer be required.
+ * Changed `ai21labsApiKey` field for `com.databricks.sdk.service.serving.Ai21LabsConfig` to no longer be required.
+ * Changed `awsAccessKeyId` and `awsSecretAccessKey` fields for `com.databricks.sdk.service.serving.AmazonBedrockConfig` to no longer be required.
+ * Changed `anthropicApiKey` field for `com.databricks.sdk.service.serving.AnthropicConfig` to no longer be required.
+ * Changed `cohereApiKey` field for `com.databricks.sdk.service.serving.CohereConfig` to no longer be required.
+ * Changed `databricksApiToken` field for `com.databricks.sdk.service.serving.DatabricksModelServingConfig` to no longer be required.
+ * Changed `palmApiKey` field for `com.databricks.sdk.service.serving.PaLmConfig` to no longer be required.
+ * Changed `tags` field for `com.databricks.sdk.service.sql.Query` to `com.databricks.sdk.service.sql.List` class.
+ * Changed `userIds` and `warehouseIds` fields for `com.databricks.sdk.service.sql.QueryFilter` to `com.databricks.sdk.service.sql.List` class.
+ * Changed `results` field for `com.databricks.sdk.service.sql.QueryList` to `com.databricks.sdk.service.sql.LegacyQueryList` class.
+ * Changed `visualization` field for `com.databricks.sdk.service.sql.Widget` to `com.databricks.sdk.service.sql.LegacyVisualization` class.
+ * Removed `workspaceClient.apps()` service.
+ * Removed `restore()` method for `workspaceClient.queries()` service.
+ * Removed `com.databricks.sdk.service.marketplace.FilterType`, `com.databricks.sdk.service.marketplace.ProviderIconFile`, `com.databricks.sdk.service.marketplace.ProviderIconType`, `com.databricks.sdk.service.marketplace.ProviderListingSummaryInfo`, `com.databricks.sdk.service.marketplace.SortBy` and `com.databricks.sdk.service.marketplace.VisibilityFilter` classes.
+ * Removed `com.databricks.sdk.service.billing.Budget`, `com.databricks.sdk.service.billing.BudgetAlert`, `com.databricks.sdk.service.billing.BudgetList`, `com.databricks.sdk.service.billing.BudgetWithStatus`, `com.databricks.sdk.service.billing.BudgetWithStatusStatusDailyItem`, `com.databricks.sdk.service.billing.DeleteBudgetRequest`, `Object`, `com.databricks.sdk.service.billing.GetBudgetRequest`, `Object`, `com.databricks.sdk.service.billing.WrappedBudget` and `com.databricks.sdk.service.billing.WrappedBudgetWithStatus` classes.
+ * Removed `Object`, `com.databricks.sdk.service.iam.PermissionMigrationRequest` and `com.databricks.sdk.service.iam.PermissionMigrationResponse` classes.
+ * Removed `com.databricks.sdk.service.serving.App`, `com.databricks.sdk.service.serving.AppDeployment`, `com.databricks.sdk.service.serving.AppDeploymentArtifacts`, `com.databricks.sdk.service.serving.AppDeploymentMode`, `com.databricks.sdk.service.serving.AppDeploymentState`, `com.databricks.sdk.service.serving.AppDeploymentStatus`, `com.databricks.sdk.service.serving.AppEnvironment`, `com.databricks.sdk.service.serving.AppState`, `com.databricks.sdk.service.serving.AppStatus`, `com.databricks.sdk.service.serving.CreateAppDeploymentRequest`, `com.databricks.sdk.service.serving.CreateAppRequest`, `com.databricks.sdk.service.serving.DeleteAppRequest`, `com.databricks.sdk.service.serving.EnvVariable`, `com.databricks.sdk.service.serving.GetAppDeploymentRequest`, `com.databricks.sdk.service.serving.GetAppEnvironmentRequest`, `com.databricks.sdk.service.serving.GetAppRequest`, `com.databricks.sdk.service.serving.ListAppDeploymentsRequest`, `com.databricks.sdk.service.serving.ListAppDeploymentsResponse`, `com.databricks.sdk.service.serving.ListAppsRequest`, `com.databricks.sdk.service.serving.ListAppsResponse`, `com.databricks.sdk.service.serving.StartAppRequest`, `com.databricks.sdk.service.serving.StopAppRequest`, `Object` and `com.databricks.sdk.service.serving.UpdateAppRequest` classes.
+ * Removed `com.databricks.sdk.service.sql.CreateQueryVisualizationRequest`, `com.databricks.sdk.service.sql.DeleteAlertRequest`, `com.databricks.sdk.service.sql.DeleteQueryRequest`, `com.databricks.sdk.service.sql.DeleteQueryVisualizationRequest`, `com.databricks.sdk.service.sql.ExecuteStatementResponse`, `com.databricks.sdk.service.sql.GetStatementResponse`, `com.databricks.sdk.service.sql.RestoreQueryRequest`, `com.databricks.sdk.service.sql.StatementId`, `com.databricks.sdk.service.sql.UserId` and `com.databricks.sdk.service.sql.WarehouseId` classes.
+ * Removed `canUseClient` field for `com.databricks.sdk.service.compute.ListClustersRequest`.
+ * Removed `isAscending` and `sortBy` fields for `com.databricks.sdk.service.marketplace.ListListingsRequest`.
+ * Removed `providerSummary` field for `com.databricks.sdk.service.marketplace.Listing`.
+ * Removed `filters` field for `com.databricks.sdk.service.marketplace.ListingSetting`.
+ * Removed `metastoreId` field for `com.databricks.sdk.service.marketplace.ListingSummary`.
+ * Removed `isAscending` and `sortBy` fields for `com.databricks.sdk.service.marketplace.SearchListingsRequest`.
+ * Removed `createdAt`, `lastTriggeredAt`, `name`, `options`, `parent`, `query`, `rearm`, `updatedAt` and `user` fields for `com.databricks.sdk.service.sql.Alert`.
+ * Removed `alertId` field for `com.databricks.sdk.service.sql.GetAlertRequest`.
+ * Removed `queryId` field for `com.databricks.sdk.service.sql.GetQueryRequest`.
+ * Removed `order`, `page` and `q` fields for `com.databricks.sdk.service.sql.ListQueriesRequest`.
+ * Removed `includeMetrics` field for `com.databricks.sdk.service.sql.ListQueryHistoryRequest`.
+ * Removed `canEdit`, `createdAt`, `dataSourceId`, `isArchived`, `isDraft`, `isFavorite`, `isSafe`, `lastModifiedBy`, `lastModifiedById`, `latestQueryDataId`, `name`, `options`, `parent`, `permissionTier`, `query`, `queryHash`, `runAsRole`, `updatedAt`, `user`, `userId` and `visualizations` fields for `com.databricks.sdk.service.sql.Query`.
+ * Removed `statementIds` field for `com.databricks.sdk.service.sql.QueryFilter`.
+ * Removed `canSubscribeToLiveQuery` field for `com.databricks.sdk.service.sql.QueryInfo`.
+ * Removed `metadataTimeMs`, `planningTimeMs` and `queryExecutionTimeMs` fields for `com.databricks.sdk.service.sql.QueryMetrics`.
+ * Removed `createdAt`, `description`, `name`, `options`, `query` and `updatedAt` fields for `com.databricks.sdk.service.sql.Visualization`.
+
+OpenAPI SHA: cde487f4948666f7eff0f7566cd0d2704bb2e2fa, Date: 2024-08-01
+
+
+## 0.27.1
+
+### New Features and Improvements
+ * Specify proxy auth explicitly when using system proxy ([#300](https://github.com/databricks/databricks-sdk-java/pull/300)).
+ * Accept any `HttpRequest` instead of `HttpUriRequest` in `CommonHttpClient` ([#305](https://github.com/databricks/databricks-sdk-java/pull/305)).
+ * Add credential provider for Azure Github OIDC ([#307](https://github.com/databricks/databricks-sdk-java/pull/307)).
+
+### Internal Changes
+ * Add Release tag and Workflow Fix ([#309](https://github.com/databricks/databricks-sdk-java/pull/309)).
+ * Improve Changelog by grouping changes ([#308](https://github.com/databricks/databricks-sdk-java/pull/308)).
+ * Test parsing of error messages with `int` error codes ([#303](https://github.com/databricks/databricks-sdk-java/pull/303)).
+ * Run AccountClientIT test only for aws-prod-ucacct ([#311](https://github.com/databricks/databricks-sdk-java/pull/311)).
+
+
+## 0.27.0
+
+### Improvements
+ 
+ * Support partners in headers for SDK ([#291](https://github.com/databricks/databricks-sdk-java/pull/291)).
+ * Add `serverless_compute_id` field to the config ([#299](https://github.com/databricks/databricks-sdk-java/pull/299)).
+
+
+### Internal Changes
+ 
+ * Ignore DataPlane Services during generation ([#296](https://github.com/databricks/databricks-sdk-java/pull/296)).
+ * Update OpenAPI spec ([#297](https://github.com/databricks/databricks-sdk-java/pull/297)).
+ * Retry failed integration tests ([#298](https://github.com/databricks/databricks-sdk-java/pull/298)).
+
+
+### API Changes:
+
+ * Changed `list()` method for `accountClient.storageCredentials()` service to return `com.databricks.sdk.service.catalog.ListAccountStorageCredentialsResponse` class.
+ * Changed `isolationMode` field for `com.databricks.sdk.service.catalog.CatalogInfo` to `com.databricks.sdk.service.catalog.CatalogIsolationMode` class.
+ * Added `isolationMode` field for `com.databricks.sdk.service.catalog.ExternalLocationInfo`.
+ * Added `maxResults` and `pageToken` fields for `com.databricks.sdk.service.catalog.ListCatalogsRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListCatalogsResponse`.
+ * Added `tableServingUrl` field for `com.databricks.sdk.service.catalog.OnlineTable`.
+ * Added `isolationMode` field for `com.databricks.sdk.service.catalog.StorageCredentialInfo`.
+ * Changed `isolationMode` field for `com.databricks.sdk.service.catalog.UpdateCatalog` to `com.databricks.sdk.service.catalog.CatalogIsolationMode` class.
+ * Added `isolationMode` field for `com.databricks.sdk.service.catalog.UpdateExternalLocation`.
+ * Added `isolationMode` field for `com.databricks.sdk.service.catalog.UpdateStorageCredential`.
+ * Added `com.databricks.sdk.service.catalog.CatalogIsolationMode` and `com.databricks.sdk.service.catalog.ListAccountStorageCredentialsResponse` class.es
+ * Added `createSchedule()`, `createSubscription()`, `deleteSchedule()`, `deleteSubscription()`, `getSchedule()`, `getSubscription()`, `list()`, `listSchedules()`, `listSubscriptions()` and `updateSchedule()` methods for `workspaceClient.lakeview()` service.
+ * Added `com.databricks.sdk.service.dashboards.CreateScheduleRequest`, `com.databricks.sdk.service.dashboards.CreateSubscriptionRequest`, `com.databricks.sdk.service.dashboards.CronSchedule`, `com.databricks.sdk.service.dashboards.DashboardView`, `com.databricks.sdk.service.dashboards.DeleteScheduleRequest`, `com.databricks.sdk.service.dashboards.DeleteSubscriptionRequest`, `com.databricks.sdk.service.dashboards.GetScheduleRequest`, `com.databricks.sdk.service.dashboards.GetSubscriptionRequest`, `com.databricks.sdk.service.dashboards.ListDashboardsRequest`, `com.databricks.sdk.service.dashboards.ListDashboardsResponse`,`com.databricks.sdk.service.dashboards.ListSchedulesRequest`, `com.databricks.sdk.service.dashboards.ListSchedulesResponse`, `com.databricks.sdk.service.dashboards.ListSubscriptionsRequest`, `com.databricks.sdk.service.dashboards.ListSubscriptionsResponse`, `com.databricks.sdk.service.dashboards.Schedule`, `com.databricks.sdk.service.dashboards.SchedulePauseStatus`, `com.databricks.sdk.service.dashboards.Subscriber`, `com.databricks.sdk.service.dashboards.Subscription`, `com.databricks.sdk.service.dashboards.SubscriptionSubscriberDestination`, `com.databricks.sdk.service.dashboards.SubscriptionSubscriberUser`and `com.databricks.sdk.service.dashboards.UpdateScheduleRequest` classes.
+ * Added `terminationCategory` field for `com.databricks.sdk.service.jobs.ForEachTaskErrorMessageStats`.
+ * Added `onStreamingBacklogExceeded` field for `com.databricks.sdk.service.jobs.JobEmailNotifications`.
+ * Added `environmentKey` field for `com.databricks.sdk.service.jobs.RunTask`.
+ * Removed `conditionTask`, `dbtTask`, `notebookTask`, `pipelineTask`, `pythonWheelTask`, `runJobTask`, `sparkJarTask`, `sparkPythonTask`, `sparkSubmitTask` and `sqlTask` fields for `com.databricks.sdk.service.jobs.SubmitRun`.
+ * Added `environments` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+ * Added `dbtTask` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+ * Added `environmentKey` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+ * Added `onStreamingBacklogExceeded` field for `com.databricks.sdk.service.jobs.TaskEmailNotifications`.
+ * Added `periodic` field for `com.databricks.sdk.service.jobs.TriggerSettings`.
+ * Added `onStreamingBacklogExceeded` field for `com.databricks.sdk.service.jobs.WebhookNotifications`.
+ * Added `com.databricks.sdk.service.jobs.PeriodicTriggerConfiguration` and `com.databricks.sdk.service.jobs.PeriodicTriggerConfigurationTimeUnit` classes.
+ * Added `batchGet()` method for `workspaceClient.consumerListings()` service.
+ * Added `batchGet()` method for `workspaceClient.consumerProviders()` service.
+ * Added `providerSummary` field for `com.databricks.sdk.service.marketplace.Listing`.
+ * Added `com.databricks.sdk.service.marketplace.BatchGetListingsRequest`, `com.databricks.sdk.service.marketplace.BatchGetListingsResponse`, `com.databricks.sdk.service.marketplace.BatchGetProvidersRequest`, `com.databricks.sdk.service.marketplace.BatchGetProvidersResponse`, `com.databricks.sdk.service.marketplace.ProviderIconFile`, `com.databricks.sdk.service.marketplace.ProviderIconType`, `com.databricks.sdk.service.marketplace.ProviderListingSummaryInfo` and `com.databricks.sdk.service.oauth2.DataPlaneInfo` classes.
+ * Removed `createDeployment()` method for `workspaceClient.apps()` service.
+ * Added `deploy()` and `start()` methods for `workspaceClient.apps()` service.
+ * Added `workspaceClient.servingEndpointsDataPlane()` service.
+ * Added `servicePrincipalId` field for `com.databricks.sdk.service.serving.App`.
+ * Added `servicePrincipalName` field for `com.databricks.sdk.service.serving.App`.
+ * Added `mode` field for `com.databricks.sdk.service.serving.AppDeployment`.
+ * Added `mode` field for `com.databricks.sdk.service.serving.CreateAppDeploymentRequest`.
+ * Added `dataPlaneInfo` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+ * Added `com.databricks.sdk.service.serving.AppDeploymentMode` class.
+ * Added `com.databricks.sdk.service.serving.ModelDataPlaneInfo` class.
+ * Added `com.databricks.sdk.service.serving.StartAppRequest` class.
+ * Added `queryNextPage()` method for `workspaceClient.vectorSearchIndexes()` service.
+ * Added `queryType` field for `com.databricks.sdk.service.vectorsearch.QueryVectorIndexRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.vectorsearch.QueryVectorIndexResponse`.
+ * Added `com.databricks.sdk.service.vectorsearch.QueryVectorIndexNextPageRequest` class.
+
+OpenAPI SHA: 7437dabb9dadee402c1fc060df4c1ce8cc5369f0, Date: 2024-06-24
+
+## 0.26.0
+
+### Improvements
+
+ * Better error message when private link enabled workspaces reject requests ([#290](https://github.com/databricks/databricks-sdk-java/pull/290)).
+
+### API Changes:
+
+ * Changed `list()` method for `workspaceClient.connections()` service to require request of `com.databricks.sdk.service.catalog.ListConnectionsRequest` class.
+ * Renamed `workspaceClient.lakehouseMonitors()` service to `workspaceClient.qualityMonitors()`.
+ * Renamed `com.databricks.sdk.service.catalog.DeleteLakehouseMonitorRequest` class to `com.databricks.sdk.service.catalog.DeleteQualityMonitorRequest`.
+ * Changed `schemaName` field for `com.databricks.sdk.service.catalog.DisableRequest` to `String` class.
+ * Removed `com.databricks.sdk.service.catalog.DisableSchemaName` class.
+ * Changed `schemaName` field for `com.databricks.sdk.service.catalog.EnableRequest` to `String` class.
+ * Removed `com.databricks.sdk.service.catalog.EnableSchemaName` class.
+ * Renamed `com.databricks.sdk.service.catalog.GetLakehouseMonitorRequest` class to `com.databricks.sdk.service.catalog.GetQualityMonitorRequest`.
+ * Added `nextPageToken` field for `com.databricks.sdk.service.catalog.ListConnectionsResponse`.
+ * Added `dashboardId` field for `com.databricks.sdk.service.catalog.UpdateMonitor`.
+ * Added `com.databricks.sdk.service.catalog.ListConnectionsRequest` class.
+ * Added `com.databricks.sdk.service.catalog.MonitorRefreshListResponse` class.
+ * Changed `clusterStatus()` method for `workspaceClient.libraries()` service to return `com.databricks.sdk.service.compute.ClusterLibraryStatuses` class.
+ * Removed `clusterSource` field for `com.databricks.sdk.service.compute.ClusterAttributes`.
+ * Changed `spec` field for `com.databricks.sdk.service.compute.ClusterDetails` to `com.databricks.sdk.service.compute.ClusterSpec` class.
+ * Removed `cloneFrom` and `clusterSource` fields for `com.databricks.sdk.service.compute.ClusterSpec`.
+ * Removed `com.databricks.sdk.service.compute.ClusterStatusResponse` class.
+ * Removed `clusterSource` field for `com.databricks.sdk.service.compute.CreateCluster`.
+ * Removed `cloneFrom` and `clusterSource` fields for `com.databricks.sdk.service.compute.EditCluster`.
+ * Removed `sortBySpec` field for `com.databricks.sdk.service.marketplace.ListListingsRequest`.
+ * Added `isAscending` field for `com.databricks.sdk.service.marketplace.ListListingsRequest`.
+ * Added `sortBy` field for `com.databricks.sdk.service.marketplace.ListListingsRequest`.
+ * Added `isAscending` field for `com.databricks.sdk.service.marketplace.SearchListingsRequest`.
+ * Removed `com.databricks.sdk.service.marketplace.SortBySpec` and  `com.databricks.sdk.service.marketplace.SortOrder` classes.
+ * Added `gatewayDefinition` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+ * Added `gatewayDefinition` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+ * Added `tableConfiguration` field for `com.databricks.sdk.service.pipelines.ManagedIngestionPipelineDefinition`.
+ * Added `gatewayDefinition` field for `com.databricks.sdk.service.pipelines.PipelineSpec`.
+ * Added `tableConfiguration` field for `com.databricks.sdk.service.pipelines.SchemaSpec`.
+ * Added `tableConfiguration` field for `com.databricks.sdk.service.pipelines.TableSpec`.
+ * Added `com.databricks.sdk.service.pipelines.IngestionGatewayPipelineDefinition` class.
+ * Added `com.databricks.sdk.service.pipelines.TableSpecificConfig` class.
+ * Added `com.databricks.sdk.service.pipelines.TableSpecificConfigScdType` class.
+ * Added `deploymentArtifacts` field for `com.databricks.sdk.service.serving.AppDeployment`.
+ * Added `contents` field for `com.databricks.sdk.service.serving.ExportMetricsResponse`.
+ * Changed `openaiApiKey` field for `com.databricks.sdk.service.serving.OpenAiConfig` to no longer be required.
+ * Added `microsoftEntraClientId`, `microsoftEntraClientSecret` and `microsoftEntraTenantId` fields for `com.databricks.sdk.service.serving.OpenAiConfig`.
+ * Added `com.databricks.sdk.service.serving.AppDeploymentArtifacts` class.
+ * Added `storageRoot` field for `com.databricks.sdk.service.sharing.CreateShare`.
+ * Added `storageLocation` and `storageRoot` fields for `com.databricks.sdk.service.sharing.ShareInfo`.
+ * Added `storageRoot` field for `com.databricks.sdk.service.sharing.UpdateShare`.
+ * Added `scanIndex()` method for `workspaceClient.vectorSearchIndexes()` service.
+ * Added `embeddingWritebackTable` field for `com.databricks.sdk.service.vectorsearch.DeltaSyncVectorIndexSpecRequest`.
+ * Added `embeddingWritebackTable` field for `com.databricks.sdk.service.vectorsearch.DeltaSyncVectorIndexSpecResponse`.
+ * Added `com.databricks.sdk.service.vectorsearch.ListValue`, `com.databricks.sdk.service.vectorsearch.MapStringValueEntry`, `com.databricks.sdk.service.vectorsearch.ScanVectorIndexRequest`, `com.databricks.sdk.service.vectorsearch.ScanVectorIndexResponse`, `com.databricks.sdk.service.vectorsearch.Struct`and `com.databricks.sdk.service.vectorsearch.Value` classes.
+
+OpenAPI SHA: 7eb5ad9a2ed3e3f1055968a2d1014ac92c06fe92, Date: 2024-05-21
+
+## 0.25.0
+
+### New Features and Improvements
+* Fix OIDC Endpoint Fetching in DatabricksConfig for Workspace Clients ([#277](https://github.com/databricks/databricks-sdk-java/pull/277)).
+* Fix NullPointerException when reading error response body ([#276](https://github.com/databricks/databricks-sdk-java/pull/276)).
+* Incorporate host in request after `authenticate()` call ([#282](https://github.com/databricks/databricks-sdk-java/pull/282)).
+* Fix NPE in string function on DatabricksConfig ([#285](https://github.com/databricks/databricks-sdk-java/pull/285)).
+
+### Documentation Changes
+* Add instructions for building a shaded JAR ([#284](https://github.com/databricks/databricks-sdk-java/pull/284)).
+
+### API Changes:
+ * Added `ingestionDefinition` field for `com.databricks.sdk.service.pipelines.CreatePipeline`, `com.databricks.sdk.service.pipelines.EditPipeline` and `com.databricks.sdk.service.pipelines.PipelineSpec`
+ * Changed `create()` method for `workspaceClient.apps()` service . New request type is `com.databricks.sdk.service.serving.CreateAppRequest` class.
+ * Changed `create()` method for `workspaceClient.apps()` service to return `com.databricks.sdk.service.serving.App` class.
+ * Removed `deleteApp()`, `getApp()`, `getApps()` and `getEvents()` method for `workspaceClient.apps()` service.
+* Added `createDeployment()`, `delete()`, `get()`, `getDeployment()`, `getEnvironment()`, `list()`, `listDeployments()`, `stop()`, and `update()` methods for `workspaceClient.apps()` service.
+ * Added `getOpenApi()` method for `workspaceClient.servingEndpoints()` service.
+ * Changed `apps` field for `com.databricks.sdk.service.serving.ListAppsResponse` to `com.databricks.sdk.service.serving.AppList` class.
+ * Added `routeOptimized` field for `com.databricks.sdk.service.serving.CreateServingEndpoint`.
+ * Added `endpointUrl` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+ * Added `routeOptimized` field for `com.databricks.sdk.service.serving.ServingEndpointDetailed`.
+ * Added `tags` field for `com.databricks.sdk.service.sql.DashboardEditContent`. `com.databricks.sdk.service.sql.QueryEditContent` and `com.databricks.sdk.service.sql.QueryPostContent`.
+ * Added `catalog` field for `com.databricks.sdk.service.sql.QueryOptions`.
+ * Added `schema` field for `com.databricks.sdk.service.sql.QueryOptions`.
+ * Added `query` field for `com.databricks.sdk.service.sql.Visualization`.
+ * Added `com.databricks.sdk.service.pipelines.IngestionConfig` class.
+ * Added `com.databricks.sdk.service.pipelines.ManagedIngestionPipelineDefinition` class.
+ * Added `com.databricks.sdk.service.pipelines.SchemaSpec` class.
+ * Added `com.databricks.sdk.service.pipelines.TableSpec` class.
+ * Added `com.databricks.sdk.service.serving.App` class.
+ * Added `com.databricks.sdk.service.serving.AppDeployment` class.
+ * Added `com.databricks.sdk.service.serving.AppDeploymentState` class.
+ * Added `com.databricks.sdk.service.serving.AppDeploymentStatus` class.
+ * Added `com.databricks.sdk.service.serving.AppEnvironment` class.
+ * Added `com.databricks.sdk.service.serving.AppState` class.
+ * Added `com.databricks.sdk.service.serving.AppStatus` class.
+ * Added `com.databricks.sdk.service.serving.CreateAppDeploymentRequest` class.
+ * Added `com.databricks.sdk.service.serving.CreateAppRequest` class.
+ * Added `com.databricks.sdk.service.serving.EnvVariable` class.
+ * Added `com.databricks.sdk.service.serving.GetAppDeploymentRequest` class.
+ * Added `com.databricks.sdk.service.serving.GetAppEnvironmentRequest` class.
+ * Added `com.databricks.sdk.service.serving.GetOpenApiRequest` class.
+ * Added `Object` class.
+ * Added `com.databricks.sdk.service.serving.ListAppDeploymentsRequest` class.
+ * Added `com.databricks.sdk.service.serving.ListAppDeploymentsResponse` class.
+ * Added `com.databricks.sdk.service.serving.ListAppsRequest` class.
+ * Added `com.databricks.sdk.service.serving.StopAppRequest` class.
+ * Added `Object` class.
+ * Added `com.databricks.sdk.service.serving.UpdateAppRequest` class.
+ * Added `com.databricks.sdk.service.settings.ComplianceSecurityProfile` class.
+ * Added `com.databricks.sdk.service.settings.ComplianceSecurityProfileSetting` class.
+ * Added `com.databricks.sdk.service.settings.EnhancedSecurityMonitoring` class.
+ * Added `com.databricks.sdk.service.settings.EnhancedSecurityMonitoringSetting` class.
+ * Added `com.databricks.sdk.service.settings.GetComplianceSecurityProfileSettingRequest` class.
+ * Added `com.databricks.sdk.service.settings.GetEnhancedSecurityMonitoringSettingRequest` class.
+ * Added `com.databricks.sdk.service.settings.UpdateComplianceSecurityProfileSettingRequest` class.
+ * Added `com.databricks.sdk.service.settings.UpdateEnhancedSecurityMonitoringSettingRequest` class.
+ * Added `workspaceClient.complianceSecurityProfile()` service.
+ * Added `workspaceClient.enhancedSecurityMonitoring()` service.
+ * Removed `workspaceClient.cspEnablement()` service.
+ * Removed `workspaceClient.esmEnablement()` service.
+ * Removed `com.databricks.sdk.service.serving.AppEvents` class.
+ * Removed `com.databricks.sdk.service.serving.AppManifest` class.
+ * Removed `com.databricks.sdk.service.serving.AppServiceStatus` class.
+ * Removed `com.databricks.sdk.service.serving.DeleteAppResponse` class.
+ * Removed `com.databricks.sdk.service.serving.DeployAppRequest` class.
+ * Removed `com.databricks.sdk.service.serving.DeploymentStatus` class.
+ * Removed `com.databricks.sdk.service.serving.DeploymentStatusState` class.
+ * Removed `com.databricks.sdk.service.serving.GetAppDeploymentStatusRequest` class.
+ * Removed `com.databricks.sdk.service.serving.GetAppResponse` class.
+ * Removed `com.databricks.sdk.service.serving.GetEventsRequest` class.
+ * Removed `com.databricks.sdk.service.serving.ListAppEventsResponse` class.
+ * Removed `com.databricks.sdk.service.settings.CspEnablement` class.
+ * Removed `com.databricks.sdk.service.settings.CspEnablementSetting` class.
+ * Removed `com.databricks.sdk.service.settings.EsmEnablement` class.
+ * Removed `com.databricks.sdk.service.settings.EsmEnablementSetting` class.
+ * Removed `com.databricks.sdk.service.settings.GetCspEnablementSettingRequest` class.
+ * Removed `com.databricks.sdk.service.settings.GetEsmEnablementSettingRequest` class.
+ * Removed `com.databricks.sdk.service.settings.UpdateCspEnablementSettingRequest` class.
+ * Removed `com.databricks.sdk.service.settings.UpdateEsmEnablementSettingRequest` class.
+
+OpenAPI SHA: 84f9315bc9cdcf3917f764cf608255a74271ab2c, Date: 2024-05-06
+
+### Internal Changes
+* Update SDK to OpenAPI spec ([#280](https://github.com/databricks/databricks-sdk-java/pull/280)).
+* Remove unused script from repository root ([#281](https://github.com/databricks/databricks-sdk-java/pull/281)).
+* Add missing return ([#283](https://github.com/databricks/databricks-sdk-java/pull/283)).
+* Fix test that was picking up configuration from the environment ([#287](https://github.com/databricks/databricks-sdk-java/pull/287)).
+
+
+## 0.24.1
+
+* Fixed interrupt handling ([#272](https://github.com/databricks/databricks-sdk-java/pull/272)).
+* Added README for proxy and minor fix ([#273](https://github.com/databricks/databricks-sdk-java/pull/273)).
+
+
+
+## 0.24.0
+
+* Added retry strategy based on idempotency of requests ([#264](https://github.com/databricks/databricks-sdk-java/pull/264)).
+* Fixde remaining Java integration tests ([#265](https://github.com/databricks/databricks-sdk-java/pull/265)).
+* Fixed one-shot list APIs to not return null ([#266](https://github.com/databricks/databricks-sdk-java/pull/266)).
+* Removed unnecessary secret from example ([#267](https://github.com/databricks/databricks-sdk-java/pull/267)).
+* Fixed one shot pagination ([#268](https://github.com/databricks/databricks-sdk-java/pull/268)).
+* Updated SDK to OpenAPI spec ([#269](https://github.com/databricks/databricks-sdk-java/pull/269)).
+* Added a way to provide proxy details to SDK ([#271](https://github.com/databricks/databricks-sdk-java/pull/271)).
+
+Note: This release contains breaking changes, please see the API changes below for more details. 
+
+API Changes:
+
+ * Added `deployment` field for `com.databricks.sdk.service.pipelines.CreatePipeline`, `com.databricks.sdk.service.pipelines.EditPipeline`, `com.databricks.sdk.service.pipelines.PipelineSpec`.
+ * Added `schemaId` field for `com.databricks.sdk.service.catalog.SchemaInfo`.
+ * Added `operation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Added `requirements` field for `com.databricks.sdk.service.compute.Library`.
+ * Added `warehouseId` field for `com.databricks.sdk.service.jobs.NotebookTask`.
+ * Added `runAs` field for `com.databricks.sdk.service.jobs.SubmitRun`.
+ * Added `com.databricks.sdk.service.catalog.ValidationResultOperation` class.
+ * Added `com.databricks.sdk.service.compute.ClusterStatus` class.
+ * Added `com.databricks.sdk.service.compute.ClusterStatusResponse` class.
+ * Added `com.databricks.sdk.service.compute.LibraryInstallStatus` class.
+ * Added `com.databricks.sdk.service.pipelines.DeploymentKind` class.
+ * Added `com.databricks.sdk.service.pipelines.PipelineDeployment` class.
+ * Removed `awsOperation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Removed `azureOperation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Removed `gcpOperation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Removed `com.databricks.sdk.service.catalog.ValidationResultAwsOperation` class.
+ * Removed `com.databricks.sdk.service.catalog.ValidationResultAzureOperation` class.
+ * Removed `com.databricks.sdk.service.catalog.ValidationResultGcpOperation` class.
+ * Removed `com.databricks.sdk.service.compute.ClusterStatusRequest` class.
+ * Removed `com.databricks.sdk.service.compute.LibraryFullStatusStatus` class.
+ * Changed `clusterStatus()` method for `workspaceClient.libraries()` service . New request type is `com.databricks.sdk.service.compute.ClusterStatus` class.
+ * Changed `clusterStatus()` method for `workspaceClient.libraries()` service to return `com.databricks.sdk.service.compute.ClusterStatusResponse` class.
+ * Changed `status` field for `com.databricks.sdk.service.compute.LibraryFullStatus` to `com.databricks.sdk.service.compute.LibraryInstallStatus` class.
+
+OpenAPI SHA: 06d330f43d92c1be864d4638c672cd0723e20a51, Date: 2024-04-22
+
+
+## 0.23.0
+
+### Improvements and Bug Fixes
+* Introduce more specific exceptions, like `NotFound`, `AlreadyExists`, `BadRequest`, `PermissionDenied`, `InternalError`, and others ([#185](https://github.com/databricks/databricks-sdk-java/pull/185), [#257](https://github.com/databricks/databricks-sdk-java/pull/257)).
+* Lock around field accessibility changes ([#247](https://github.com/databricks/databricks-sdk-java/pull/247)).
+* Fix Changelog ([#258](https://github.com/databricks/databricks-sdk-java/pull/258)).
+* Support post with no body for APIs ([#262](https://github.com/databricks/databricks-sdk-java/pull/262)).
+
+API Changes:
+
+ * Changed `cancelRefresh()` method for `workspaceClient.lakehouseMonitors()` service with new required argument order.
+ * Changed `create()` method for `workspaceClient.lakehouseMonitors()` service with new required argument order.
+ * Changed `delete()` method for `workspaceClient.lakehouseMonitors()` service with new required argument order.
+ * Changed `get()` method for `workspaceClient.lakehouseMonitors()` service with new required argument order.
+ * Changed `getRefresh()` method for `workspaceClient.lakehouseMonitors()` service with new required argument order.
+ * Changed `listRefreshes()` method for `workspaceClient.lakehouseMonitors()` service with new required argument order.
+ * Changed `runRefresh()` method for `workspaceClient.lakehouseMonitors()` service with new required argument order.
+ * Changed `update()` method for `workspaceClient.lakehouseMonitors()` service with new required argument order.
+ * Removed `com.databricks.sdk.service.catalog.AzureManagedIdentity` class.
+ * Removed `fullName` field for `com.databricks.sdk.service.catalog.CancelRefreshRequest`.
+ * Added `tableName` field for `com.databricks.sdk.service.catalog.CancelRefreshRequest`.
+ * Changed `customMetrics` field for `com.databricks.sdk.service.catalog.CreateMonitor` to `com.databricks.sdk.service.catalog.MonitorMetricList` class.
+ * Removed `fullName` field for `com.databricks.sdk.service.catalog.CreateMonitor`.
+ * Changed `inferenceLog` field for `com.databricks.sdk.service.catalog.CreateMonitor` to `com.databricks.sdk.service.catalog.MonitorInferenceLog` class.
+ * Changed `notifications` field for `com.databricks.sdk.service.catalog.CreateMonitor` to `com.databricks.sdk.service.catalog.MonitorNotifications` class.
+ * Changed `snapshot` field for `com.databricks.sdk.service.catalog.CreateMonitor` to `Object` class.
+ * Changed `timeSeries` field for `com.databricks.sdk.service.catalog.CreateMonitor` to `com.databricks.sdk.service.catalog.MonitorTimeSeries` class.
+ * Added `tableName` field for `com.databricks.sdk.service.catalog.CreateMonitor`.
+ * Changed `azureManagedIdentity` field for `com.databricks.sdk.service.catalog.CreateStorageCredential` to `com.databricks.sdk.service.catalog.AzureManagedIdentityRequest` class.
+ * Removed `fullName` field for `com.databricks.sdk.service.catalog.DeleteLakehouseMonitorRequest`.
+ * Added `tableName` field for `com.databricks.sdk.service.catalog.DeleteLakehouseMonitorRequest`.
+ * Removed `fullName` field for `com.databricks.sdk.service.catalog.GetLakehouseMonitorRequest`.
+ * Added `tableName` field for `com.databricks.sdk.service.catalog.GetLakehouseMonitorRequest`.
+ * Removed `fullName` field for `com.databricks.sdk.service.catalog.GetRefreshRequest`.
+ * Added `tableName` field for `com.databricks.sdk.service.catalog.GetRefreshRequest`.
+ * Removed `fullName` field for `com.databricks.sdk.service.catalog.ListRefreshesRequest`.
+ * Added `tableName` field for `com.databricks.sdk.service.catalog.ListRefreshesRequest`.
+ * Changed `quartzCronExpression` field for `com.databricks.sdk.service.catalog.MonitorCronSchedule` to be required.
+ * Changed `timezoneId` field for `com.databricks.sdk.service.catalog.MonitorCronSchedule` to be required.
+ * Removed `com.databricks.sdk.service.catalog.MonitorCustomMetric` class.
+ * Removed `com.databricks.sdk.service.catalog.MonitorCustomMetricType` class.
+ * Removed `com.databricks.sdk.service.catalog.MonitorDestinations` class.
+ * Removed `com.databricks.sdk.service.catalog.MonitorInferenceLogProfileType` class.
+ * Removed `com.databricks.sdk.service.catalog.MonitorInferenceLogProfileTypeProblemType` class.
+ * Changed `customMetrics` field for `com.databricks.sdk.service.catalog.MonitorInfo` to `com.databricks.sdk.service.catalog.MonitorMetricList` class.
+ * Changed `driftMetricsTableName` field for `com.databricks.sdk.service.catalog.MonitorInfo` to be required.
+ * Changed `inferenceLog` field for `com.databricks.sdk.service.catalog.MonitorInfo` to `com.databricks.sdk.service.catalog.MonitorInferenceLog` class.
+ * Changed `monitorVersion` field for `com.databricks.sdk.service.catalog.MonitorInfo` to be required.
+ * Changed `notifications` field for `com.databricks.sdk.service.catalog.MonitorInfo` to `com.databricks.sdk.service.catalog.MonitorNotifications` class.
+ * Changed `profileMetricsTableName` field for `com.databricks.sdk.service.catalog.MonitorInfo` to be required.
+ * Changed `snapshot` field for `com.databricks.sdk.service.catalog.MonitorInfo` to `Object` class.
+ * Changed `status` field for `com.databricks.sdk.service.catalog.MonitorInfo` to be required.
+ * Changed `tableName` field for `com.databricks.sdk.service.catalog.MonitorInfo` to be required.
+ * Changed `timeSeries` field for `com.databricks.sdk.service.catalog.MonitorInfo` to `com.databricks.sdk.service.catalog.MonitorTimeSeries` class.
+ * Removed `com.databricks.sdk.service.catalog.MonitorNotificationsConfig` class.
+ * Changed `refreshId` field for `com.databricks.sdk.service.catalog.MonitorRefreshInfo` to be required.
+ * Changed `startTimeMs` field for `com.databricks.sdk.service.catalog.MonitorRefreshInfo` to be required.
+ * Changed `state` field for `com.databricks.sdk.service.catalog.MonitorRefreshInfo` to be required.
+ * Added `trigger` field for `com.databricks.sdk.service.catalog.MonitorRefreshInfo`.
+ * Removed `Object` class.
+ * Removed `com.databricks.sdk.service.catalog.MonitorTimeSeriesProfileType` class.
+ * Removed `fullName` field for `com.databricks.sdk.service.catalog.RunRefreshRequest`.
+ * Added `tableName` field for `com.databricks.sdk.service.catalog.RunRefreshRequest`.
+ * Changed `azureManagedIdentity` field for `com.databricks.sdk.service.catalog.StorageCredentialInfo` to `com.databricks.sdk.service.catalog.AzureManagedIdentityResponse` class.
+ * Removed `name` field for `com.databricks.sdk.service.catalog.TableRowFilter`.
+ * Added `functionName` field for `com.databricks.sdk.service.catalog.TableRowFilter`.
+ * Changed `customMetrics` field for `com.databricks.sdk.service.catalog.UpdateMonitor` to `com.databricks.sdk.service.catalog.MonitorMetricList` class.
+ * Removed `fullName` field for `com.databricks.sdk.service.catalog.UpdateMonitor`.
+ * Changed `inferenceLog` field for `com.databricks.sdk.service.catalog.UpdateMonitor` to `com.databricks.sdk.service.catalog.MonitorInferenceLog` class.
+ * Changed `notifications` field for `com.databricks.sdk.service.catalog.UpdateMonitor` to `com.databricks.sdk.service.catalog.MonitorNotifications` class.
+ * Changed `snapshot` field for `com.databricks.sdk.service.catalog.UpdateMonitor` to `Object` class.
+ * Changed `timeSeries` field for `com.databricks.sdk.service.catalog.UpdateMonitor` to `com.databricks.sdk.service.catalog.MonitorTimeSeries` class.
+ * Added `tableName` field for `com.databricks.sdk.service.catalog.UpdateMonitor`.
+ * Changed `azureManagedIdentity` field for `com.databricks.sdk.service.catalog.UpdateStorageCredential` to `com.databricks.sdk.service.catalog.AzureManagedIdentityResponse` class.
+ * Changed `azureManagedIdentity` field for `com.databricks.sdk.service.catalog.ValidateStorageCredential` to `com.databricks.sdk.service.catalog.AzureManagedIdentityRequest` class.
+ * Removed `operation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Added `awsOperation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Added `azureOperation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Added `gcpOperation` field for `com.databricks.sdk.service.catalog.ValidationResult`.
+ * Removed `com.databricks.sdk.service.catalog.ValidationResultOperation` class.
+ * Added `com.databricks.sdk.service.catalog.AzureManagedIdentityRequest` class.
+ * Added `com.databricks.sdk.service.catalog.AzureManagedIdentityResponse` class.
+ * Added `com.databricks.sdk.service.catalog.MonitorDestination` class.
+ * Added `com.databricks.sdk.service.catalog.MonitorInferenceLog` class.
+ * Added `com.databricks.sdk.service.catalog.MonitorInferenceLogProblemType` class.
+ * Added `com.databricks.sdk.service.catalog.MonitorMetric` class.
+ * Added `com.databricks.sdk.service.catalog.MonitorMetricType` class.
+ * Added `com.databricks.sdk.service.catalog.MonitorNotifications` class.
+ * Added `com.databricks.sdk.service.catalog.MonitorRefreshInfoTrigger` class.
+ * Added `Object` class.
+ * Added `com.databricks.sdk.service.catalog.MonitorTimeSeries` class.
+ * Added `com.databricks.sdk.service.catalog.ValidationResultAwsOperation` class.
+ * Added `com.databricks.sdk.service.catalog.ValidationResultAzureOperation` class.
+ * Added `com.databricks.sdk.service.catalog.ValidationResultGcpOperation` class.
+ * Added `cloneFrom` field for `com.databricks.sdk.service.compute.ClusterSpec`.
+ * Removed `com.databricks.sdk.service.compute.ComputeSpec` class.
+ * Removed `com.databricks.sdk.service.compute.ComputeSpecKind` class.
+ * Added `cloneFrom` field for `com.databricks.sdk.service.compute.CreateCluster`.
+ * Added `cloneFrom` field for `com.databricks.sdk.service.compute.EditCluster`.
+ * Added `com.databricks.sdk.service.compute.CloneCluster` class.
+ * Added `com.databricks.sdk.service.compute.Environment` class.
+ * Changed `update()` method for `accountClient.workspaceAssignment()` service to return `com.databricks.sdk.service.iam.PermissionAssignment` class.
+ * Removed `Object` class.
+ * Removed `computeKey` field for `com.databricks.sdk.service.jobs.ClusterSpec`.
+ * Removed `compute` field for `com.databricks.sdk.service.jobs.CreateJob`.
+ * Added `environments` field for `com.databricks.sdk.service.jobs.CreateJob`.
+ * Removed `com.databricks.sdk.service.jobs.JobCompute` class.
+ * Removed `compute` field for `com.databricks.sdk.service.jobs.JobSettings`.
+ * Added `environments` field for `com.databricks.sdk.service.jobs.JobSettings`.
+ * Removed `computeKey` field for `com.databricks.sdk.service.jobs.RunTask`.
+ * Removed `com.databricks.sdk.service.jobs.TableTriggerConfiguration` class.
+ * Removed `computeKey` field for `com.databricks.sdk.service.jobs.Task`.
+ * Added `environmentKey` field for `com.databricks.sdk.service.jobs.Task`.
+ * Changed `table` field for `com.databricks.sdk.service.jobs.TriggerSettings` to `com.databricks.sdk.service.jobs.TableUpdateTriggerConfiguration` class.
+ * Changed `tableUpdate` field for `com.databricks.sdk.service.jobs.TriggerSettings` to `com.databricks.sdk.service.jobs.TableUpdateTriggerConfiguration` class.
+ * Added `com.databricks.sdk.service.jobs.JobEnvironment` class.
+ * Added `com.databricks.sdk.service.jobs.TableUpdateTriggerConfiguration` class.
+ * Added `com.databricks.sdk.service.marketplace` package.
+
+OpenAPI SHA: 94684175b8bd65f8701f89729351f8069e8309c9, Date: 2024-04-11
+
+
 ## 0.22.0
 
 Improvements and Bug Fixes

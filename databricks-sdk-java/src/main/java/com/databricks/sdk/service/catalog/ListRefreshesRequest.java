@@ -4,21 +4,22 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List refreshes */
 @Generated
 public class ListRefreshesRequest {
   /** Full name of the table. */
-  private String fullName;
+  @JsonIgnore private String tableName;
 
-  public ListRefreshesRequest setFullName(String fullName) {
-    this.fullName = fullName;
+  public ListRefreshesRequest setTableName(String tableName) {
+    this.tableName = tableName;
     return this;
   }
 
-  public String getFullName() {
-    return fullName;
+  public String getTableName() {
+    return tableName;
   }
 
   @Override
@@ -26,16 +27,16 @@ public class ListRefreshesRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListRefreshesRequest that = (ListRefreshesRequest) o;
-    return Objects.equals(fullName, that.fullName);
+    return Objects.equals(tableName, that.tableName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullName);
+    return Objects.hash(tableName);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListRefreshesRequest.class).add("fullName", fullName).toString();
+    return new ToStringer(ListRefreshesRequest.class).add("tableName", tableName).toString();
   }
 }

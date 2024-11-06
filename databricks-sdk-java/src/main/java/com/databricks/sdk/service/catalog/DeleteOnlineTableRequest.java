@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete an Online Table */
 @Generated
 public class DeleteOnlineTableRequest {
   /** Full three-part (catalog, schema, table) name of the table. */
-  private String name;
+  @JsonIgnore private String name;
 
   public DeleteOnlineTableRequest setName(String name) {
     this.name = name;

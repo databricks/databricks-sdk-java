@@ -4,13 +4,14 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get instance pool permissions */
 @Generated
 public class GetInstancePoolPermissionsRequest {
   /** The instance pool for which to get or manage permissions. */
-  private String instancePoolId;
+  @JsonIgnore private String instancePoolId;
 
   public GetInstancePoolPermissionsRequest setInstancePoolId(String instancePoolId) {
     this.instancePoolId = instancePoolId;

@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a metastore */
 @Generated
 public class GetMetastoreRequest {
   /** Unique ID of the metastore. */
-  private String id;
+  @JsonIgnore private String id;
 
   public GetMetastoreRequest setId(String id) {
     this.id = id;

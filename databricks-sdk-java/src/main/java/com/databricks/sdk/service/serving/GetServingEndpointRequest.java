@@ -4,13 +4,14 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a single serving endpoint */
 @Generated
 public class GetServingEndpointRequest {
   /** The name of the serving endpoint. This field is required. */
-  private String name;
+  @JsonIgnore private String name;
 
   public GetServingEndpointRequest setName(String name) {
     this.name = name;

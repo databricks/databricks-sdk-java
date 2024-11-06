@@ -4,13 +4,14 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get serving endpoint permissions */
 @Generated
 public class GetServingEndpointPermissionsRequest {
   /** The serving endpoint for which to get or manage permissions. */
-  private String servingEndpointId;
+  @JsonIgnore private String servingEndpointId;
 
   public GetServingEndpointPermissionsRequest setServingEndpointId(String servingEndpointId) {
     this.servingEndpointId = servingEndpointId;

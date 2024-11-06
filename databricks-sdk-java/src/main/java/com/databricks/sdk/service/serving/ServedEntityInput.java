@@ -38,11 +38,11 @@ public class ServedEntityInput {
   /**
    * The external model to be served. NOTE: Only one of external_model and (entity_name,
    * entity_version, workload_size, workload_type, and scale_to_zero_enabled) can be specified with
-   * the latter set being used for custom model serving for a Databricks registered model. When an
-   * external_model is present, the served entities list can only have one served_entity object. For
-   * an existing endpoint with external_model, it can not be updated to an endpoint without
+   * the latter set being used for custom model serving for a Databricks registered model. For an
+   * existing endpoint with external_model, it cannot be updated to an endpoint without
    * external_model. If the endpoint is created without external_model, users cannot update it to
-   * add external_model later.
+   * add external_model later. The task type of all external models within an endpoint must be the
+   * same.
    */
   @JsonProperty("external_model")
   private ExternalModel externalModel;

@@ -4,21 +4,28 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class UpdateWorkspaceAssignments {
-  /** Array of permissions assignments to update on the workspace. */
+  /**
+   * Array of permissions assignments to update on the workspace. Valid values are "USER" and
+   * "ADMIN" (case-sensitive). If both "USER" and "ADMIN" are provided, "ADMIN" takes precedence.
+   * Other values will be ignored. Note that excluding this field, or providing unsupported values,
+   * will have the same effect as providing an empty list, which will result in the deletion of all
+   * permissions for the principal.
+   */
   @JsonProperty("permissions")
   private Collection<WorkspacePermission> permissions;
 
   /** The ID of the user, service principal, or group. */
-  private Long principalId;
+  @JsonIgnore private Long principalId;
 
-  /** The workspace ID. */
-  private Long workspaceId;
+  /** The workspace ID for the account. */
+  @JsonIgnore private Long workspaceId;
 
   public UpdateWorkspaceAssignments setPermissions(Collection<WorkspacePermission> permissions) {
     this.permissions = permissions;

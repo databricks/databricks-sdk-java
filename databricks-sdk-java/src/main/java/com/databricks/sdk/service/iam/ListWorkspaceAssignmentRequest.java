@@ -4,13 +4,14 @@ package com.databricks.sdk.service.iam;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get permission assignments */
 @Generated
 public class ListWorkspaceAssignmentRequest {
   /** The workspace ID for the account. */
-  private Long workspaceId;
+  @JsonIgnore private Long workspaceId;
 
   public ListWorkspaceAssignmentRequest setWorkspaceId(Long workspaceId) {
     this.workspaceId = workspaceId;

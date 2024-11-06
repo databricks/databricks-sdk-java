@@ -4,7 +4,7 @@ package com.databricks.sdk.service.oauth2;
 import com.databricks.sdk.support.Generated;
 
 /**
- * These APIs enable administrators to manage custom oauth app integrations, which is required for
+ * These APIs enable administrators to manage custom OAuth app integrations, which is required for
  * adding/using Custom OAuth App Integration like Tableau Cloud for Databricks in AWS cloud.
  *
  * <p>This is the high-level interface, that contains generated methods.
@@ -18,14 +18,14 @@ public interface CustomAppIntegrationService {
    *
    * <p>Create Custom OAuth App Integration.
    *
-   * <p>You can retrieve the custom oauth app integration via :method:CustomAppIntegration/get.
+   * <p>You can retrieve the custom OAuth app integration via :method:CustomAppIntegration/get.
    */
   CreateCustomAppIntegrationOutput create(CreateCustomAppIntegration createCustomAppIntegration);
 
   /**
    * Delete Custom OAuth App Integration.
    *
-   * <p>Delete an existing Custom OAuth App Integration. You can retrieve the custom oauth app
+   * <p>Delete an existing Custom OAuth App Integration. You can retrieve the custom OAuth app
    * integration via :method:CustomAppIntegration/get.
    */
   void delete(DeleteCustomAppIntegrationRequest deleteCustomAppIntegrationRequest);
@@ -40,14 +40,15 @@ public interface CustomAppIntegrationService {
   /**
    * Get custom oauth app integrations.
    *
-   * <p>Get the list of custom oauth app integrations for the specified Databricks account
+   * <p>Get the list of custom OAuth app integrations for the specified Databricks account
    */
-  GetCustomAppIntegrationsOutput list();
+  GetCustomAppIntegrationsOutput list(
+      ListCustomAppIntegrationsRequest listCustomAppIntegrationsRequest);
 
   /**
    * Updates Custom OAuth App Integration.
    *
-   * <p>Updates an existing custom OAuth App Integration. You can retrieve the custom oauth app
+   * <p>Updates an existing custom OAuth App Integration. You can retrieve the custom OAuth app
    * integration via :method:CustomAppIntegration/get.
    */
   void update(UpdateCustomAppIntegration updateCustomAppIntegration);

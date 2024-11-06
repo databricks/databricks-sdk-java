@@ -3,14 +3,30 @@
 package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a schema */
 @Generated
 public class DeleteSchemaRequest {
+  /** Force deletion even if the schema is not empty. */
+  @JsonIgnore
+  @QueryParam("force")
+  private Boolean force;
+
   /** Full name of the schema. */
-  private String fullName;
+  @JsonIgnore private String fullName;
+
+  public DeleteSchemaRequest setForce(Boolean force) {
+    this.force = force;
+    return this;
+  }
+
+  public Boolean getForce() {
+    return force;
+  }
 
   public DeleteSchemaRequest setFullName(String fullName) {
     this.fullName = fullName;
@@ -26,16 +42,19 @@ public class DeleteSchemaRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     DeleteSchemaRequest that = (DeleteSchemaRequest) o;
-    return Objects.equals(fullName, that.fullName);
+    return Objects.equals(force, that.force) && Objects.equals(fullName, that.fullName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fullName);
+    return Objects.hash(force, fullName);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(DeleteSchemaRequest.class).add("fullName", fullName).toString();
+    return new ToStringer(DeleteSchemaRequest.class)
+        .add("force", force)
+        .add("fullName", fullName)
+        .toString();
   }
 }

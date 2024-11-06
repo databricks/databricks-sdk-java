@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +68,8 @@ public class AccountMetastoresAPI {
    * <p>Gets all Unity Catalog metastores associated with an account specified by ID.
    */
   public Iterable<MetastoreInfo> list() {
-    return impl.list().getMetastores();
+    return new Paginator<>(
+        null, (Void v) -> impl.list(), ListMetastoresResponse::getMetastores, response -> null);
   }
 
   public AccountsMetastoreInfo update(String metastoreId) {

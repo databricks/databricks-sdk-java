@@ -7,7 +7,8 @@ import com.databricks.sdk.support.Generated;
 /** Compliance stardard for SHIELD customers */
 @Generated
 public enum ComplianceStandard {
-  COMPLIANCE_STANDARD_UNSPECIFIED,
+  CANADA_PROTECTED_B,
+  CYBER_ESSENTIAL_PLUS,
   FEDRAMP_HIGH,
   FEDRAMP_IL5,
   FEDRAMP_MODERATE,

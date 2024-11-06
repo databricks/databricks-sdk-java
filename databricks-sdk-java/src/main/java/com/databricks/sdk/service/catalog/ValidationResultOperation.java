@@ -9,6 +9,7 @@ import com.databricks.sdk.support.Generated;
 public enum ValidationResultOperation {
   DELETE,
   LIST,
+  PATH_EXISTS,
   READ,
   WRITE,
 }

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a catalog */
@@ -14,11 +15,12 @@ public class GetCatalogRequest {
    * Whether to include catalogs in the response for which the principal can only access selective
    * metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /** The name of the catalog. */
-  private String name;
+  @JsonIgnore private String name;
 
   public GetCatalogRequest setIncludeBrowse(Boolean includeBrowse) {
     this.includeBrowse = includeBrowse;

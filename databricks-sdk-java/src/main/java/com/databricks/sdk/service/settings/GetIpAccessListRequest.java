@@ -4,13 +4,14 @@ package com.databricks.sdk.service.settings;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get access list */
 @Generated
 public class GetIpAccessListRequest {
   /** The ID for the corresponding IP access list */
-  private String ipAccessListId;
+  @JsonIgnore private String ipAccessListId;
 
   public GetIpAccessListRequest setIpAccessListId(String ipAccessListId) {
     this.ipAccessListId = ipAccessListId;

@@ -4,8 +4,8 @@ package com.databricks.sdk.service.iam;
 import com.databricks.sdk.support.Generated;
 
 /**
- * This spec contains undocumented permission migration APIs used in
- * https://github.com/databrickslabs/ucx.
+ * APIs for migrating acl permissions, used only by the ucx tool:
+ * https://github.com/databrickslabs/ucx
  *
  * <p>This is the high-level interface, that contains generated methods.
  *
@@ -13,11 +13,7 @@ import com.databricks.sdk.support.Generated;
  */
 @Generated
 public interface PermissionMigrationService {
-  /**
-   * Migrate Permissions.
-   *
-   * <p>Migrate a batch of permissions from a workspace local group to an account group.
-   */
-  PermissionMigrationResponse migratePermissions(
-      PermissionMigrationRequest permissionMigrationRequest);
+  /** Migrate Permissions. */
+  MigratePermissionsResponse migratePermissions(
+      MigratePermissionsRequest migratePermissionsRequest);
 }

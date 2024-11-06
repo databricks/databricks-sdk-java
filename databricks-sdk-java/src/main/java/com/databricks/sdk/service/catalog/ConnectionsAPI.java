@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,8 +84,18 @@ public class ConnectionsAPI {
    *
    * <p>List all connections.
    */
-  public Iterable<ConnectionInfo> list() {
-    return impl.list().getConnections();
+  public Iterable<ConnectionInfo> list(ListConnectionsRequest request) {
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListConnectionsResponse::getConnections,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public ConnectionInfo update(String name, Map<String, String> options) {

@@ -10,9 +10,25 @@ import java.util.Objects;
 
 @Generated
 public class ListRecipientsResponse {
+  /**
+   * Opaque token to retrieve the next page of results. Absent if there are no more pages.
+   * __page_token__ should be set to this value for the next request (for the next page of results).
+   */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
   /** An array of recipient information objects. */
   @JsonProperty("recipients")
   private Collection<RecipientInfo> recipients;
+
+  public ListRecipientsResponse setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
 
   public ListRecipientsResponse setRecipients(Collection<RecipientInfo> recipients) {
     this.recipients = recipients;
@@ -28,16 +44,20 @@ public class ListRecipientsResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListRecipientsResponse that = (ListRecipientsResponse) o;
-    return Objects.equals(recipients, that.recipients);
+    return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(recipients, that.recipients);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(recipients);
+    return Objects.hash(nextPageToken, recipients);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListRecipientsResponse.class).add("recipients", recipients).toString();
+    return new ToStringer(ListRecipientsResponse.class)
+        .add("nextPageToken", nextPageToken)
+        .add("recipients", recipients)
+        .toString();
   }
 }

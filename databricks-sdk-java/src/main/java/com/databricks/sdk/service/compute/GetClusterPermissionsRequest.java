@@ -4,13 +4,14 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get cluster permissions */
 @Generated
 public class GetClusterPermissionsRequest {
   /** The cluster for which to get or manage permissions. */
-  private String clusterId;
+  @JsonIgnore private String clusterId;
 
   public GetClusterPermissionsRequest setClusterId(String clusterId) {
     this.clusterId = clusterId;

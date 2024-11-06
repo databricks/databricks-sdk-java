@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ public class UpdateStorageCredential {
 
   /** The Azure managed identity configuration. */
   @JsonProperty("azure_managed_identity")
-  private AzureManagedIdentity azureManagedIdentity;
+  private AzureManagedIdentityResponse azureManagedIdentity;
 
   /** The Azure service principal configuration. */
   @JsonProperty("azure_service_principal")
@@ -29,7 +30,7 @@ public class UpdateStorageCredential {
   @JsonProperty("comment")
   private String comment;
 
-  /** The <Databricks> managed GCP service account configuration. */
+  /** The Databricks managed GCP service account configuration. */
   @JsonProperty("databricks_gcp_service_account")
   private DatabricksGcpServiceAccountRequest databricksGcpServiceAccount;
 
@@ -37,8 +38,15 @@ public class UpdateStorageCredential {
   @JsonProperty("force")
   private Boolean force;
 
+  /**
+   * Whether the current securable is accessible from all workspaces or a specific set of
+   * workspaces.
+   */
+  @JsonProperty("isolation_mode")
+  private IsolationMode isolationMode;
+
   /** Name of the storage credential. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** New name for the storage credential. */
   @JsonProperty("new_name")
@@ -66,12 +74,12 @@ public class UpdateStorageCredential {
   }
 
   public UpdateStorageCredential setAzureManagedIdentity(
-      AzureManagedIdentity azureManagedIdentity) {
+      AzureManagedIdentityResponse azureManagedIdentity) {
     this.azureManagedIdentity = azureManagedIdentity;
     return this;
   }
 
-  public AzureManagedIdentity getAzureManagedIdentity() {
+  public AzureManagedIdentityResponse getAzureManagedIdentity() {
     return azureManagedIdentity;
   }
 
@@ -120,6 +128,15 @@ public class UpdateStorageCredential {
 
   public Boolean getForce() {
     return force;
+  }
+
+  public UpdateStorageCredential setIsolationMode(IsolationMode isolationMode) {
+    this.isolationMode = isolationMode;
+    return this;
+  }
+
+  public IsolationMode getIsolationMode() {
+    return isolationMode;
   }
 
   public UpdateStorageCredential setName(String name) {
@@ -179,6 +196,7 @@ public class UpdateStorageCredential {
         && Objects.equals(comment, that.comment)
         && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(force, that.force)
+        && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
@@ -196,6 +214,7 @@ public class UpdateStorageCredential {
         comment,
         databricksGcpServiceAccount,
         force,
+        isolationMode,
         name,
         newName,
         owner,
@@ -213,6 +232,7 @@ public class UpdateStorageCredential {
         .add("comment", comment)
         .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("force", force)
+        .add("isolationMode", isolationMode)
         .add("name", name)
         .add("newName", newName)
         .add("owner", owner)

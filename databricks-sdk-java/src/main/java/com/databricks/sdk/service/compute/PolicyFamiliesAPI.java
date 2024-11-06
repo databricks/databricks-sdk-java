@@ -41,7 +41,7 @@ public class PolicyFamiliesAPI {
   /**
    * Get policy family information.
    *
-   * <p>Retrieve the information for an policy family based on its identifier.
+   * <p>Retrieve the information for an policy family based on its identifier and version
    */
   public PolicyFamily get(GetPolicyFamilyRequest request) {
     return impl.get(request);
@@ -50,7 +50,8 @@ public class PolicyFamiliesAPI {
   /**
    * List policy families.
    *
-   * <p>Retrieve a list of policy families. This API is paginated.
+   * <p>Returns the list of policy definition types available to use at their latest version. This
+   * API is paginated.
    */
   public Iterable<PolicyFamily> list(ListPolicyFamiliesRequest request) {
     return new Paginator<>(
@@ -59,7 +60,7 @@ public class PolicyFamiliesAPI {
         ListPolicyFamiliesResponse::getPolicyFamilies,
         response -> {
           String token = response.getNextPageToken();
-          if (token == null) {
+          if (token == null || token.isEmpty()) {
             return null;
           }
           return request.setPageToken(token);

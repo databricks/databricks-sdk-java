@@ -3,7 +3,6 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,8 +16,8 @@ class AlertsImpl implements AlertsService {
   }
 
   @Override
-  public Alert create(CreateAlert request) {
-    String path = "/api/2.0/preview/sql/alerts";
+  public Alert create(CreateAlertRequest request) {
+    String path = "/api/2.0/sql/alerts";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
@@ -26,35 +25,35 @@ class AlertsImpl implements AlertsService {
   }
 
   @Override
-  public void delete(DeleteAlertRequest request) {
-    String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
+  public void delete(TrashAlertRequest request) {
+    String path = String.format("/api/2.0/sql/alerts/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, Empty.class, headers);
   }
 
   @Override
   public Alert get(GetAlertRequest request) {
-    String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
+    String path = String.format("/api/2.0/sql/alerts/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     return apiClient.GET(path, request, Alert.class, headers);
   }
 
   @Override
-  public Collection<Alert> list() {
-    String path = "/api/2.0/preview/sql/alerts";
+  public ListAlertsResponse list(ListAlertsRequest request) {
+    String path = "/api/2.0/sql/alerts";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.getCollection(path, null, Alert.class, headers);
+    return apiClient.GET(path, request, ListAlertsResponse.class, headers);
   }
 
   @Override
-  public void update(EditAlert request) {
-    String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
+  public Alert update(UpdateAlertRequest request) {
+    String path = String.format("/api/2.0/sql/alerts/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, UpdateResponse.class, headers);
+    return apiClient.PATCH(path, request, Alert.class, headers);
   }
 }

@@ -4,6 +4,7 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class RepoPermissionsRequest {
   private Collection<RepoAccessControlRequest> accessControlList;
 
   /** The repo for which to get or manage permissions. */
-  private String repoId;
+  @JsonIgnore private String repoId;
 
   public RepoPermissionsRequest setAccessControlList(
       Collection<RepoAccessControlRequest> accessControlList) {

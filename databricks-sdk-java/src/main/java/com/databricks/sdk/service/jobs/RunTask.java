@@ -13,8 +13,8 @@ import java.util.Objects;
 public class RunTask {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
-   * has an attempt_number of 0\. If the initial run attempt fails, and the job has a retry policy
-   * (`max_retries` \> 0), subsequent runs are created with an `original_attempt_run_id` of the
+   * has an attempt_number of 0. If the initial run attempt fails, and the job has a retry policy
+   * (`max_retries` > 0), subsequent runs are created with an `original_attempt_run_id` of the
    * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
    * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
    */
@@ -36,13 +36,6 @@ public class RunTask {
    */
   @JsonProperty("cluster_instance")
   private ClusterInstance clusterInstance;
-
-  /**
-   * The key of the compute requirement, specified in `job.settings.compute`, to use for execution
-   * of this task.
-   */
-  @JsonProperty("compute_key")
-  private String computeKey;
 
   /**
    * If condition_task, specifies a condition with an outcome that can be used to control the
@@ -84,6 +77,13 @@ public class RunTask {
    */
   @JsonProperty("end_time")
   private Long endTime;
+
+  /**
+   * The key that references an environment spec in a job. This field is required for Python script,
+   * Python wheel and dbt tasks when using serverless compute.
+   */
+  @JsonProperty("environment_key")
+  private String environmentKey;
 
   /**
    * The time in milliseconds it took to execute the commands in the JAR or notebook until they
@@ -240,9 +240,13 @@ public class RunTask {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The current state of the run. */
+  /** Deprecated. Please use the `status` field instead. */
   @JsonProperty("state")
   private RunState state;
+
+  /** The current status of the run */
+  @JsonProperty("status")
+  private RunStatus status;
 
   /**
    * A unique name for the task. This field is used to refer to this task from other tasks. This
@@ -289,15 +293,6 @@ public class RunTask {
 
   public ClusterInstance getClusterInstance() {
     return clusterInstance;
-  }
-
-  public RunTask setComputeKey(String computeKey) {
-    this.computeKey = computeKey;
-    return this;
-  }
-
-  public String getComputeKey() {
-    return computeKey;
   }
 
   public RunTask setConditionTask(RunConditionTask conditionTask) {
@@ -352,6 +347,15 @@ public class RunTask {
 
   public Long getEndTime() {
     return endTime;
+  }
+
+  public RunTask setEnvironmentKey(String environmentKey) {
+    this.environmentKey = environmentKey;
+    return this;
+  }
+
+  public String getEnvironmentKey() {
+    return environmentKey;
   }
 
   public RunTask setExecutionDuration(Long executionDuration) {
@@ -579,6 +583,15 @@ public class RunTask {
     return state;
   }
 
+  public RunTask setStatus(RunStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public RunStatus getStatus() {
+    return status;
+  }
+
   public RunTask setTaskKey(String taskKey) {
     this.taskKey = taskKey;
     return this;
@@ -614,13 +627,13 @@ public class RunTask {
     return Objects.equals(attemptNumber, that.attemptNumber)
         && Objects.equals(cleanupDuration, that.cleanupDuration)
         && Objects.equals(clusterInstance, that.clusterInstance)
-        && Objects.equals(computeKey, that.computeKey)
         && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
         && Objects.equals(emailNotifications, that.emailNotifications)
         && Objects.equals(endTime, that.endTime)
+        && Objects.equals(environmentKey, that.environmentKey)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(forEachTask, that.forEachTask)
@@ -646,6 +659,7 @@ public class RunTask {
         && Objects.equals(sqlTask, that.sqlTask)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
+        && Objects.equals(status, that.status)
         && Objects.equals(taskKey, that.taskKey)
         && Objects.equals(timeoutSeconds, that.timeoutSeconds)
         && Objects.equals(webhookNotifications, that.webhookNotifications);
@@ -657,13 +671,13 @@ public class RunTask {
         attemptNumber,
         cleanupDuration,
         clusterInstance,
-        computeKey,
         conditionTask,
         dbtTask,
         dependsOn,
         description,
         emailNotifications,
         endTime,
+        environmentKey,
         executionDuration,
         existingClusterId,
         forEachTask,
@@ -689,6 +703,7 @@ public class RunTask {
         sqlTask,
         startTime,
         state,
+        status,
         taskKey,
         timeoutSeconds,
         webhookNotifications);
@@ -700,13 +715,13 @@ public class RunTask {
         .add("attemptNumber", attemptNumber)
         .add("cleanupDuration", cleanupDuration)
         .add("clusterInstance", clusterInstance)
-        .add("computeKey", computeKey)
         .add("conditionTask", conditionTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
         .add("description", description)
         .add("emailNotifications", emailNotifications)
         .add("endTime", endTime)
+        .add("environmentKey", environmentKey)
         .add("executionDuration", executionDuration)
         .add("existingClusterId", existingClusterId)
         .add("forEachTask", forEachTask)
@@ -732,6 +747,7 @@ public class RunTask {
         .add("sqlTask", sqlTask)
         .add("startTime", startTime)
         .add("state", state)
+        .add("status", status)
         .add("taskKey", taskKey)
         .add("timeoutSeconds", timeoutSeconds)
         .add("webhookNotifications", webhookNotifications)

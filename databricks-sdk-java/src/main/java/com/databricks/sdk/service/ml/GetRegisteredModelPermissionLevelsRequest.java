@@ -4,13 +4,14 @@ package com.databricks.sdk.service.ml;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get registered model permission levels */
 @Generated
 public class GetRegisteredModelPermissionLevelsRequest {
   /** The registered model for which to get or manage permissions. */
-  private String registeredModelId;
+  @JsonIgnore private String registeredModelId;
 
   public GetRegisteredModelPermissionLevelsRequest setRegisteredModelId(String registeredModelId) {
     this.registeredModelId = registeredModelId;

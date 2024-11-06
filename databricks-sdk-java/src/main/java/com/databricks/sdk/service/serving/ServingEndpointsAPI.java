@@ -2,7 +2,9 @@
 package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
 import java.time.Duration;
 import java.util.Arrays;
@@ -51,7 +53,8 @@ public class ServingEndpointsAPI {
     java.util.List<EndpointStateConfigUpdate> targetStates =
         Arrays.asList(EndpointStateConfigUpdate.NOT_UPDATING);
     java.util.List<EndpointStateConfigUpdate> failureStates =
-        Arrays.asList(EndpointStateConfigUpdate.UPDATE_FAILED);
+        Arrays.asList(
+            EndpointStateConfigUpdate.UPDATE_FAILED, EndpointStateConfigUpdate.UPDATE_CANCELED);
     String statusMessage = "polling...";
     int attempt = 1;
     while (System.currentTimeMillis() < deadline) {
@@ -81,6 +84,7 @@ public class ServingEndpointsAPI {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
       }
       attempt++;
     }
@@ -124,8 +128,8 @@ public class ServingEndpointsAPI {
     impl.delete(request);
   }
 
-  public void exportMetrics(String name) {
-    exportMetrics(new ExportMetricsRequest().setName(name));
+  public ExportMetricsResponse exportMetrics(String name) {
+    return exportMetrics(new ExportMetricsRequest().setName(name));
   }
 
   /**
@@ -134,8 +138,8 @@ public class ServingEndpointsAPI {
    * <p>Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
    * OpenMetrics exposition format.
    */
-  public void exportMetrics(ExportMetricsRequest request) {
-    impl.exportMetrics(request);
+  public ExportMetricsResponse exportMetrics(ExportMetricsRequest request) {
+    return impl.exportMetrics(request);
   }
 
   public ServingEndpointDetailed get(String name) {
@@ -149,6 +153,20 @@ public class ServingEndpointsAPI {
    */
   public ServingEndpointDetailed get(GetServingEndpointRequest request) {
     return impl.get(request);
+  }
+
+  public void getOpenApi(String name) {
+    getOpenApi(new GetOpenApiRequest().setName(name));
+  }
+
+  /**
+   * Get the schema for a serving endpoint.
+   *
+   * <p>Get the query schema of the serving endpoint in OpenAPI format. The schema contains
+   * information for the supported paths, input and output format and datatypes.
+   */
+  public void getOpenApi(GetOpenApiRequest request) {
+    impl.getOpenApi(request);
   }
 
   public GetServingEndpointPermissionLevelsResponse getPermissionLevels(String servingEndpointId) {
@@ -183,7 +201,8 @@ public class ServingEndpointsAPI {
 
   /** Get all serving endpoints. */
   public Iterable<ServingEndpoint> list() {
-    return impl.list().getEndpoints();
+    return new Paginator<>(
+        null, (Void v) -> impl.list(), ListEndpointsResponse::getEndpoints, response -> null);
   }
 
   public ServerLogsResponse logs(String name, String servedModelName) {
@@ -219,11 +238,25 @@ public class ServingEndpointsAPI {
   /**
    * Update rate limits of a serving endpoint.
    *
-   * <p>Used to update the rate limits of a serving endpoint. NOTE: only external and foundation
-   * model endpoints are supported as of now.
+   * <p>Used to update the rate limits of a serving endpoint. NOTE: Only foundation model endpoints
+   * are currently supported. For external models, use AI Gateway to manage rate limits.
    */
   public PutResponse put(PutRequest request) {
     return impl.put(request);
+  }
+
+  public PutAiGatewayResponse putAiGateway(String name) {
+    return putAiGateway(new PutAiGatewayRequest().setName(name));
+  }
+
+  /**
+   * Update AI Gateway of a serving endpoint.
+   *
+   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: Only external model endpoints are
+   * currently supported.
+   */
+  public PutAiGatewayResponse putAiGateway(PutAiGatewayRequest request) {
+    return impl.putAiGateway(request);
   }
 
   public QueryEndpointResponse query(String name) {

@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -14,7 +15,7 @@ public class UpdateProvider {
   private String comment;
 
   /** Name of the provider. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** New name for the provider. */
   @JsonProperty("new_name")

@@ -21,9 +21,11 @@ public class SqlIT {
     ListQueryHistoryRequest request =
         new ListQueryHistoryRequest()
             .setFilterBy(new QueryFilter().setQueryStartTimeRange(timeRange));
-    Iterable<QueryInfo> queries = w.queryHistory().list(request);
-    for (QueryInfo query : queries) {
-      System.out.println(query);
+    Iterable<QueryInfo> queries = w.queryHistory().list(request).getRes();
+    if (queries != null) {
+      for (QueryInfo query : queries) {
+        System.out.println(query);
+      }
     }
   }
 
@@ -32,9 +34,11 @@ public class SqlIT {
     ListQueryHistoryRequest request =
         new ListQueryHistoryRequest()
             .setFilterBy(new QueryFilter().setUserIds(Arrays.asList(123L, 456L)));
-    Iterable<QueryInfo> queries = w.queryHistory().list(request);
-    for (QueryInfo query : queries) {
-      System.out.println(query);
+    Iterable<QueryInfo> queries = w.queryHistory().list(request).getRes();
+    if (queries != null) {
+      for (QueryInfo query : queries) {
+        System.out.println(query);
+      }
     }
   }
 }

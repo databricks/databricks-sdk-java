@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class UpdateWorkspaceBindings {
   private Collection<Long> assignWorkspaces;
 
   /** The name of the catalog. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** A list of workspace IDs. */
   @JsonProperty("unassign_workspaces")

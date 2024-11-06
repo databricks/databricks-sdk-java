@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -11,7 +12,7 @@ import java.util.Objects;
 @Generated
 public class UpdateTableRequest {
   /** Full name of the table. */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   /** */
   @JsonProperty("owner")

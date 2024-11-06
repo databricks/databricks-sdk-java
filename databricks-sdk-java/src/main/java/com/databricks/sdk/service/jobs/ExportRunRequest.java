@@ -5,16 +5,19 @@ package com.databricks.sdk.service.jobs;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Export and retrieve a job run */
 @Generated
 public class ExportRunRequest {
   /** The canonical identifier for the run. This field is required. */
+  @JsonIgnore
   @QueryParam("run_id")
   private Long runId;
 
   /** Which views to export (CODE, DASHBOARDS, or ALL). Defaults to CODE. */
+  @JsonIgnore
   @QueryParam("views_to_export")
   private ViewsToExport viewsToExport;
 

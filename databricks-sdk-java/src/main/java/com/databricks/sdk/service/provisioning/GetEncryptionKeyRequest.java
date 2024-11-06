@@ -4,13 +4,14 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get encryption key configuration */
 @Generated
 public class GetEncryptionKeyRequest {
   /** Databricks encryption key configuration ID. */
-  private String customerManagedKeyId;
+  @JsonIgnore private String customerManagedKeyId;
 
   public GetEncryptionKeyRequest setCustomerManagedKeyId(String customerManagedKeyId) {
     this.customerManagedKeyId = customerManagedKeyId;

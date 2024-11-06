@@ -4,13 +4,14 @@ package com.databricks.sdk.service.workspace;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a repo */
 @Generated
 public class DeleteRepoRequest {
-  /** The ID for the corresponding repo to access. */
-  private Long repoId;
+  /** ID of the Git folder (repo) object in the workspace. */
+  @JsonIgnore private Long repoId;
 
   public DeleteRepoRequest setRepoId(Long repoId) {
     this.repoId = repoId;

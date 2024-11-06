@@ -12,6 +12,8 @@ import com.databricks.sdk.service.billing.BudgetsAPI;
 import com.databricks.sdk.service.billing.BudgetsService;
 import com.databricks.sdk.service.billing.LogDeliveryAPI;
 import com.databricks.sdk.service.billing.LogDeliveryService;
+import com.databricks.sdk.service.billing.UsageDashboardsAPI;
+import com.databricks.sdk.service.billing.UsageDashboardsService;
 import com.databricks.sdk.service.catalog.AccountMetastoreAssignmentsAPI;
 import com.databricks.sdk.service.catalog.AccountMetastoreAssignmentsService;
 import com.databricks.sdk.service.catalog.AccountMetastoresAPI;
@@ -67,7 +69,6 @@ public class AccountClient {
 
   private AccountAccessControlAPI accessControlAPI;
   private BillableUsageAPI billableUsageAPI;
-  private BudgetsAPI budgetsAPI;
   private CredentialsAPI credentialsAPI;
   private CustomAppIntegrationAPI customAppIntegrationAPI;
   private EncryptionKeysAPI encryptionKeysAPI;
@@ -86,10 +87,12 @@ public class AccountClient {
   private AccountSettingsAPI settingsAPI;
   private StorageAPI storageAPI;
   private AccountStorageCredentialsAPI storageCredentialsAPI;
+  private UsageDashboardsAPI usageDashboardsAPI;
   private AccountUsersAPI usersAPI;
   private VpcEndpointsAPI vpcEndpointsAPI;
   private WorkspaceAssignmentAPI workspaceAssignmentAPI;
   private WorkspacesAPI workspacesAPI;
+  private BudgetsAPI budgetsAPI;
 
   public AccountClient() {
     this(ConfigLoader.getDefault());
@@ -101,7 +104,6 @@ public class AccountClient {
 
     accessControlAPI = new AccountAccessControlAPI(apiClient);
     billableUsageAPI = new BillableUsageAPI(apiClient);
-    budgetsAPI = new BudgetsAPI(apiClient);
     credentialsAPI = new CredentialsAPI(apiClient);
     customAppIntegrationAPI = new CustomAppIntegrationAPI(apiClient);
     encryptionKeysAPI = new EncryptionKeysAPI(apiClient);
@@ -120,10 +122,12 @@ public class AccountClient {
     settingsAPI = new AccountSettingsAPI(apiClient);
     storageAPI = new StorageAPI(apiClient);
     storageCredentialsAPI = new AccountStorageCredentialsAPI(apiClient);
+    usageDashboardsAPI = new UsageDashboardsAPI(apiClient);
     usersAPI = new AccountUsersAPI(apiClient);
     vpcEndpointsAPI = new VpcEndpointsAPI(apiClient);
     workspaceAssignmentAPI = new WorkspaceAssignmentAPI(apiClient);
     workspacesAPI = new WorkspacesAPI(apiClient);
+    budgetsAPI = new BudgetsAPI(apiClient);
   }
 
   /** Constructor for mocks */
@@ -150,14 +154,6 @@ public class AccountClient {
   }
 
   /**
-   * These APIs manage budget configuration including notifications for exceeding a budget for a
-   * period. They can also retrieve the status of each budget.
-   */
-  public BudgetsAPI budgets() {
-    return budgetsAPI;
-  }
-
-  /**
    * These APIs manage credential configurations for this workspace. Databricks needs access to a
    * cross-account service IAM role in your AWS account so that Databricks can deploy clusters in
    * the appropriate VPC for the new workspace. A credential configuration encapsulates this role
@@ -168,7 +164,7 @@ public class AccountClient {
   }
 
   /**
-   * These APIs enable administrators to manage custom oauth app integrations, which is required for
+   * These APIs enable administrators to manage custom OAuth app integrations, which is required for
    * adding/using Custom OAuth App Integration like Tableau Cloud for Databricks in AWS cloud.
    */
   public CustomAppIntegrationAPI customAppIntegration() {
@@ -338,7 +334,7 @@ public class AccountClient {
   }
 
   /**
-   * These APIs enable administrators to manage published oauth app integrations, which is required
+   * These APIs enable administrators to manage published OAuth app integrations, which is required
    * for adding/using Published OAuth App Integration like Tableau Desktop for Databricks in AWS
    * cloud.
    */
@@ -399,6 +395,15 @@ public class AccountClient {
   }
 
   /**
+   * These APIs manage usage dashboards for this account. Usage dashboards enable you to gain
+   * insights into your usage with pre-built dashboards: visualize breakdowns, analyze tag
+   * attributions, and identify cost drivers.
+   */
+  public UsageDashboardsAPI usageDashboards() {
+    return usageDashboardsAPI;
+  }
+
+  /**
    * User identities recognized by Databricks and represented by email addresses.
    *
    * <p>Databricks recommends using SCIM provisioning to sync users and groups automatically from
@@ -439,6 +444,15 @@ public class AccountClient {
     return workspacesAPI;
   }
 
+  /**
+   * These APIs manage budget configurations for this account. Budgets enable you to monitor usage
+   * across your account. You can set up budgets to either track account-wide spending, or apply
+   * filters to track the spending of specific teams, projects, or workspaces.
+   */
+  public BudgetsAPI budgets() {
+    return budgetsAPI;
+  }
+
   /** Replace the default AccountAccessControlService with a custom implementation. */
   public AccountClient withAccessControlImpl(AccountAccessControlService accountAccessControl) {
     return this.withAccessControlAPI(new AccountAccessControlAPI(accountAccessControl));
@@ -458,17 +472,6 @@ public class AccountClient {
   /** Replace the default BillableUsageAPI with a custom implementation. */
   public AccountClient withBillableUsageAPI(BillableUsageAPI billableUsage) {
     this.billableUsageAPI = billableUsage;
-    return this;
-  }
-
-  /** Replace the default BudgetsService with a custom implementation. */
-  public AccountClient withBudgetsImpl(BudgetsService budgets) {
-    return this.withBudgetsAPI(new BudgetsAPI(budgets));
-  }
-
-  /** Replace the default BudgetsAPI with a custom implementation. */
-  public AccountClient withBudgetsAPI(BudgetsAPI budgets) {
-    this.budgetsAPI = budgets;
     return this;
   }
 
@@ -685,6 +688,17 @@ public class AccountClient {
     return this;
   }
 
+  /** Replace the default UsageDashboardsService with a custom implementation. */
+  public AccountClient withUsageDashboardsImpl(UsageDashboardsService usageDashboards) {
+    return this.withUsageDashboardsAPI(new UsageDashboardsAPI(usageDashboards));
+  }
+
+  /** Replace the default UsageDashboardsAPI with a custom implementation. */
+  public AccountClient withUsageDashboardsAPI(UsageDashboardsAPI usageDashboards) {
+    this.usageDashboardsAPI = usageDashboards;
+    return this;
+  }
+
   /** Replace the default AccountUsersService with a custom implementation. */
   public AccountClient withUsersImpl(AccountUsersService accountUsers) {
     return this.withUsersAPI(new AccountUsersAPI(accountUsers));
@@ -726,6 +740,17 @@ public class AccountClient {
   /** Replace the default WorkspacesAPI with a custom implementation. */
   public AccountClient withWorkspacesAPI(WorkspacesAPI workspaces) {
     this.workspacesAPI = workspaces;
+    return this;
+  }
+
+  /** Replace the default BudgetsService with a custom implementation. */
+  public AccountClient withBudgetsImpl(BudgetsService budgets) {
+    return this.withBudgetsAPI(new BudgetsAPI(budgets));
+  }
+
+  /** Replace the default BudgetsAPI with a custom implementation. */
+  public AccountClient withBudgetsAPI(BudgetsAPI budgets) {
+    this.budgetsAPI = budgets;
     return this;
   }
 

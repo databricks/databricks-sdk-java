@@ -10,9 +10,25 @@ import java.util.Objects;
 
 @Generated
 public class ListSharesResponse {
+  /**
+   * Opaque token to retrieve the next page of results. Absent if there are no more pages.
+   * __page_token__ should be set to this value for the next request (for the next page of results).
+   */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
   /** An array of data share information objects. */
   @JsonProperty("shares")
   private Collection<ShareInfo> shares;
+
+  public ListSharesResponse setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
 
   public ListSharesResponse setShares(Collection<ShareInfo> shares) {
     this.shares = shares;
@@ -28,16 +44,19 @@ public class ListSharesResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListSharesResponse that = (ListSharesResponse) o;
-    return Objects.equals(shares, that.shares);
+    return Objects.equals(nextPageToken, that.nextPageToken) && Objects.equals(shares, that.shares);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(shares);
+    return Objects.hash(nextPageToken, shares);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListSharesResponse.class).add("shares", shares).toString();
+    return new ToStringer(ListSharesResponse.class)
+        .add("nextPageToken", nextPageToken)
+        .add("shares", shares)
+        .toString();
   }
 }

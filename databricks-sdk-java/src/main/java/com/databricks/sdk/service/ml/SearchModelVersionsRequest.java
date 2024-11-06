@@ -5,6 +5,7 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -15,10 +16,12 @@ public class SearchModelVersionsRequest {
    * String filter condition, like "name='my-model-name'". Must be a single boolean condition, with
    * string values wrapped in single quotes.
    */
+  @JsonIgnore
   @QueryParam("filter")
   private String filter;
 
   /** Maximum number of models desired. Max threshold is 10K. */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
@@ -27,10 +30,12 @@ public class SearchModelVersionsRequest {
    * or "ASC" annotation, where "ASC" is the default. Tiebreaks are done by latest stage transition
    * timestamp, followed by name ASC, followed by version DESC.
    */
+  @JsonIgnore
   @QueryParam("order_by")
   private Collection<String> orderBy;
 
   /** Pagination token to go to next page based on previous search query. */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

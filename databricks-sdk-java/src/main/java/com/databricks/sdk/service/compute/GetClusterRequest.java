@@ -5,12 +5,14 @@ package com.databricks.sdk.service.compute;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get cluster info */
 @Generated
 public class GetClusterRequest {
   /** The cluster about which to retrieve information. */
+  @JsonIgnore
   @QueryParam("cluster_id")
   private String clusterId;
 

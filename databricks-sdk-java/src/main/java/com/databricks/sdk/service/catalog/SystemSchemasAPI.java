@@ -3,6 +3,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,7 +28,7 @@ public class SystemSchemasAPI {
     impl = mock;
   }
 
-  public void disable(String metastoreId, DisableSchemaName schemaName) {
+  public void disable(String metastoreId, String schemaName) {
     disable(new DisableRequest().setMetastoreId(metastoreId).setSchemaName(schemaName));
   }
 
@@ -41,7 +42,7 @@ public class SystemSchemasAPI {
     impl.disable(request);
   }
 
-  public void enable(String metastoreId, EnableSchemaName schemaName) {
+  public void enable(String metastoreId, String schemaName) {
     enable(new EnableRequest().setMetastoreId(metastoreId).setSchemaName(schemaName));
   }
 
@@ -66,7 +67,17 @@ public class SystemSchemasAPI {
    * metastore admin.
    */
   public Iterable<SystemSchemaInfo> list(ListSystemSchemasRequest request) {
-    return impl.list(request).getSchemas();
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListSystemSchemasResponse::getSchemas,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public SystemSchemasService impl() {

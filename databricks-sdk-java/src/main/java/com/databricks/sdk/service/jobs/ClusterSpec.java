@@ -11,13 +11,6 @@ import java.util.Objects;
 @Generated
 public class ClusterSpec {
   /**
-   * The key of the compute requirement, specified in `job.settings.compute`, to use for execution
-   * of this task.
-   */
-  @JsonProperty("compute_key")
-  private String computeKey;
-
-  /**
    * If existing_cluster_id, the ID of an existing cluster that is used for all runs. When running
    * jobs or tasks on an existing cluster, you may need to manually restart the cluster if it stops
    * responding. We suggest running jobs and tasks on new clusters for greater reliability
@@ -42,15 +35,6 @@ public class ClusterSpec {
   /** If new_cluster, a description of a new cluster that is created for each run. */
   @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
-
-  public ClusterSpec setComputeKey(String computeKey) {
-    this.computeKey = computeKey;
-    return this;
-  }
-
-  public String getComputeKey() {
-    return computeKey;
-  }
 
   public ClusterSpec setExistingClusterId(String existingClusterId) {
     this.existingClusterId = existingClusterId;
@@ -94,8 +78,7 @@ public class ClusterSpec {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ClusterSpec that = (ClusterSpec) o;
-    return Objects.equals(computeKey, that.computeKey)
-        && Objects.equals(existingClusterId, that.existingClusterId)
+    return Objects.equals(existingClusterId, that.existingClusterId)
         && Objects.equals(jobClusterKey, that.jobClusterKey)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(newCluster, that.newCluster);
@@ -103,13 +86,12 @@ public class ClusterSpec {
 
   @Override
   public int hashCode() {
-    return Objects.hash(computeKey, existingClusterId, jobClusterKey, libraries, newCluster);
+    return Objects.hash(existingClusterId, jobClusterKey, libraries, newCluster);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ClusterSpec.class)
-        .add("computeKey", computeKey)
         .add("existingClusterId", existingClusterId)
         .add("jobClusterKey", jobClusterKey)
         .add("libraries", libraries)

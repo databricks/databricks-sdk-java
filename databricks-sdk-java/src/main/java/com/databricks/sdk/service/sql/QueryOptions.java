@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class QueryOptions {
+  /** The name of the catalog to execute this query in. */
+  @JsonProperty("catalog")
+  private String catalog;
+
   /**
    * The timestamp when this query was moved to trash. Only present when the `is_archived` property
    * is `true`. Trashed items are deleted after thirty days.
@@ -20,6 +24,19 @@ public class QueryOptions {
   /** */
   @JsonProperty("parameters")
   private Collection<Parameter> parameters;
+
+  /** The name of the schema to execute this query in. */
+  @JsonProperty("schema")
+  private String schema;
+
+  public QueryOptions setCatalog(String catalog) {
+    this.catalog = catalog;
+    return this;
+  }
+
+  public String getCatalog() {
+    return catalog;
+  }
 
   public QueryOptions setMovedToTrashAt(String movedToTrashAt) {
     this.movedToTrashAt = movedToTrashAt;
@@ -39,25 +56,38 @@ public class QueryOptions {
     return parameters;
   }
 
+  public QueryOptions setSchema(String schema) {
+    this.schema = schema;
+    return this;
+  }
+
+  public String getSchema() {
+    return schema;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     QueryOptions that = (QueryOptions) o;
-    return Objects.equals(movedToTrashAt, that.movedToTrashAt)
-        && Objects.equals(parameters, that.parameters);
+    return Objects.equals(catalog, that.catalog)
+        && Objects.equals(movedToTrashAt, that.movedToTrashAt)
+        && Objects.equals(parameters, that.parameters)
+        && Objects.equals(schema, that.schema);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(movedToTrashAt, parameters);
+    return Objects.hash(catalog, movedToTrashAt, parameters, schema);
   }
 
   @Override
   public String toString() {
     return new ToStringer(QueryOptions.class)
+        .add("catalog", catalog)
         .add("movedToTrashAt", movedToTrashAt)
         .add("parameters", parameters)
+        .add("schema", schema)
         .toString();
   }
 }

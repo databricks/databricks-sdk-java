@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
@@ -13,12 +14,16 @@ public class UpdateRecipient {
   @JsonProperty("comment")
   private String comment;
 
+  /** Expiration timestamp of the token, in epoch milliseconds. */
+  @JsonProperty("expiration_time")
+  private Long expirationTime;
+
   /** IP Access List */
   @JsonProperty("ip_access_list")
   private IpAccessList ipAccessList;
 
   /** Name of the recipient. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** New name for the recipient. */
   @JsonProperty("new_name")
@@ -43,6 +48,15 @@ public class UpdateRecipient {
 
   public String getComment() {
     return comment;
+  }
+
+  public UpdateRecipient setExpirationTime(Long expirationTime) {
+    this.expirationTime = expirationTime;
+    return this;
+  }
+
+  public Long getExpirationTime() {
+    return expirationTime;
   }
 
   public UpdateRecipient setIpAccessList(IpAccessList ipAccessList) {
@@ -96,6 +110,7 @@ public class UpdateRecipient {
     if (o == null || getClass() != o.getClass()) return false;
     UpdateRecipient that = (UpdateRecipient) o;
     return Objects.equals(comment, that.comment)
+        && Objects.equals(expirationTime, that.expirationTime)
         && Objects.equals(ipAccessList, that.ipAccessList)
         && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
@@ -105,13 +120,15 @@ public class UpdateRecipient {
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, ipAccessList, name, newName, owner, propertiesKvpairs);
+    return Objects.hash(
+        comment, expirationTime, ipAccessList, name, newName, owner, propertiesKvpairs);
   }
 
   @Override
   public String toString() {
     return new ToStringer(UpdateRecipient.class)
         .add("comment", comment)
+        .add("expirationTime", expirationTime)
         .add("ipAccessList", ipAccessList)
         .add("name", name)
         .add("newName", newName)

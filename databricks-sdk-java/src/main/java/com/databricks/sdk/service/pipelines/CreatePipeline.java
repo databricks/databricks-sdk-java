@@ -15,6 +15,10 @@ public class CreatePipeline {
   @JsonProperty("allow_duplicate_names")
   private Boolean allowDuplicateNames;
 
+  /** Budget policy of this pipeline. */
+  @JsonProperty("budget_policy_id")
+  private String budgetPolicyId;
+
   /**
    * A catalog in Unity Catalog to publish data from this pipeline to. If `target` is specified,
    * tables in this pipeline are published to a `target` schema inside `catalog` (for example,
@@ -40,6 +44,10 @@ public class CreatePipeline {
   @JsonProperty("continuous")
   private Boolean continuous;
 
+  /** Deployment type of this pipeline. */
+  @JsonProperty("deployment")
+  private PipelineDeployment deployment;
+
   /** Whether the pipeline is in Development mode. Defaults to false. */
   @JsonProperty("development")
   private Boolean development;
@@ -56,9 +64,20 @@ public class CreatePipeline {
   @JsonProperty("filters")
   private Filters filters;
 
+  /** The definition of a gateway pipeline to support CDC. */
+  @JsonProperty("gateway_definition")
+  private IngestionGatewayPipelineDefinition gatewayDefinition;
+
   /** Unique identifier for this pipeline. */
   @JsonProperty("id")
   private String id;
+
+  /**
+   * The configuration for a managed ingestion pipeline. These settings cannot be used with the
+   * 'libraries', 'target' or 'catalog' settings.
+   */
+  @JsonProperty("ingestion_definition")
+  private IngestionPipelineDefinition ingestionDefinition;
 
   /** Libraries or code needed by this deployment. */
   @JsonProperty("libraries")
@@ -75,6 +94,13 @@ public class CreatePipeline {
   /** Whether Photon is enabled for this pipeline. */
   @JsonProperty("photon")
   private Boolean photon;
+
+  /**
+   * The default schema (database) where tables are read from or published to. The presence of this
+   * field implies that the pipeline is in direct publishing mode.
+   */
+  @JsonProperty("schema")
+  private String schema;
 
   /** Whether serverless compute is enabled for this pipeline. */
   @JsonProperty("serverless")
@@ -103,6 +129,15 @@ public class CreatePipeline {
 
   public Boolean getAllowDuplicateNames() {
     return allowDuplicateNames;
+  }
+
+  public CreatePipeline setBudgetPolicyId(String budgetPolicyId) {
+    this.budgetPolicyId = budgetPolicyId;
+    return this;
+  }
+
+  public String getBudgetPolicyId() {
+    return budgetPolicyId;
   }
 
   public CreatePipeline setCatalog(String catalog) {
@@ -150,6 +185,15 @@ public class CreatePipeline {
     return continuous;
   }
 
+  public CreatePipeline setDeployment(PipelineDeployment deployment) {
+    this.deployment = deployment;
+    return this;
+  }
+
+  public PipelineDeployment getDeployment() {
+    return deployment;
+  }
+
   public CreatePipeline setDevelopment(Boolean development) {
     this.development = development;
     return this;
@@ -186,6 +230,15 @@ public class CreatePipeline {
     return filters;
   }
 
+  public CreatePipeline setGatewayDefinition(IngestionGatewayPipelineDefinition gatewayDefinition) {
+    this.gatewayDefinition = gatewayDefinition;
+    return this;
+  }
+
+  public IngestionGatewayPipelineDefinition getGatewayDefinition() {
+    return gatewayDefinition;
+  }
+
   public CreatePipeline setId(String id) {
     this.id = id;
     return this;
@@ -193,6 +246,15 @@ public class CreatePipeline {
 
   public String getId() {
     return id;
+  }
+
+  public CreatePipeline setIngestionDefinition(IngestionPipelineDefinition ingestionDefinition) {
+    this.ingestionDefinition = ingestionDefinition;
+    return this;
+  }
+
+  public IngestionPipelineDefinition getIngestionDefinition() {
+    return ingestionDefinition;
   }
 
   public CreatePipeline setLibraries(Collection<PipelineLibrary> libraries) {
@@ -229,6 +291,15 @@ public class CreatePipeline {
 
   public Boolean getPhoton() {
     return photon;
+  }
+
+  public CreatePipeline setSchema(String schema) {
+    this.schema = schema;
+    return this;
+  }
+
+  public String getSchema() {
+    return schema;
   }
 
   public CreatePipeline setServerless(Boolean serverless) {
@@ -273,20 +344,25 @@ public class CreatePipeline {
     if (o == null || getClass() != o.getClass()) return false;
     CreatePipeline that = (CreatePipeline) o;
     return Objects.equals(allowDuplicateNames, that.allowDuplicateNames)
+        && Objects.equals(budgetPolicyId, that.budgetPolicyId)
         && Objects.equals(catalog, that.catalog)
         && Objects.equals(channel, that.channel)
         && Objects.equals(clusters, that.clusters)
         && Objects.equals(configuration, that.configuration)
         && Objects.equals(continuous, that.continuous)
+        && Objects.equals(deployment, that.deployment)
         && Objects.equals(development, that.development)
         && Objects.equals(dryRun, that.dryRun)
         && Objects.equals(edition, that.edition)
         && Objects.equals(filters, that.filters)
+        && Objects.equals(gatewayDefinition, that.gatewayDefinition)
         && Objects.equals(id, that.id)
+        && Objects.equals(ingestionDefinition, that.ingestionDefinition)
         && Objects.equals(libraries, that.libraries)
         && Objects.equals(name, that.name)
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
+        && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
         && Objects.equals(target, that.target)
@@ -297,20 +373,25 @@ public class CreatePipeline {
   public int hashCode() {
     return Objects.hash(
         allowDuplicateNames,
+        budgetPolicyId,
         catalog,
         channel,
         clusters,
         configuration,
         continuous,
+        deployment,
         development,
         dryRun,
         edition,
         filters,
+        gatewayDefinition,
         id,
+        ingestionDefinition,
         libraries,
         name,
         notifications,
         photon,
+        schema,
         serverless,
         storage,
         target,
@@ -321,20 +402,25 @@ public class CreatePipeline {
   public String toString() {
     return new ToStringer(CreatePipeline.class)
         .add("allowDuplicateNames", allowDuplicateNames)
+        .add("budgetPolicyId", budgetPolicyId)
         .add("catalog", catalog)
         .add("channel", channel)
         .add("clusters", clusters)
         .add("configuration", configuration)
         .add("continuous", continuous)
+        .add("deployment", deployment)
         .add("development", development)
         .add("dryRun", dryRun)
         .add("edition", edition)
         .add("filters", filters)
+        .add("gatewayDefinition", gatewayDefinition)
         .add("id", id)
+        .add("ingestionDefinition", ingestionDefinition)
         .add("libraries", libraries)
         .add("name", name)
         .add("notifications", notifications)
         .add("photon", photon)
+        .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)
         .add("target", target)

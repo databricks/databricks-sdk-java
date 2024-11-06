@@ -10,6 +10,7 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.io.IOUtils;
@@ -24,6 +25,7 @@ public class FixtureServer implements Closeable {
     public static class Builder {
       private ArrayList<Validation> validations = new ArrayList<>();
       private String response;
+      private int statusCode;
       private String redirectUrl;
       private int redirectStatusCode;
 
@@ -102,8 +104,9 @@ public class FixtureServer implements Closeable {
         return this;
       }
 
-      public Builder withResponse(String response) {
+      public Builder withResponse(String response, int statusCode) {
         this.response = response;
+        this.statusCode = statusCode;
         return this;
       }
 
@@ -120,7 +123,8 @@ public class FixtureServer implements Closeable {
                 v.validate(exchange);
               }
             };
-        return new FixtureMapping(validation, response, redirectUrl, redirectStatusCode);
+        return new FixtureMapping(
+            validation, response, redirectUrl, redirectStatusCode, statusCode);
       }
     }
 
@@ -128,6 +132,7 @@ public class FixtureServer implements Closeable {
     private final String response;
     private String redirectUrl;
     private int redirectStatusCode;
+    private int statusCode;
 
     FixtureMapping(Validation validation, String response) {
       this.validation = validation;
@@ -135,11 +140,16 @@ public class FixtureServer implements Closeable {
     }
 
     FixtureMapping(
-        Validation validation, String response, String redirectUrl, int redirectStatusCode) {
+        Validation validation,
+        String response,
+        String redirectUrl,
+        int redirectStatusCode,
+        int statusCode) {
       this.validation = validation;
       this.response = response;
       this.redirectUrl = redirectUrl;
       this.redirectStatusCode = redirectStatusCode;
+      this.statusCode = statusCode;
     }
 
     Validation getValidation() {
@@ -148,6 +158,10 @@ public class FixtureServer implements Closeable {
 
     String getResponse() {
       return response;
+    }
+
+    int getStatusCode() {
+      return statusCode;
     }
 
     public String getRedirectUrl() {
@@ -197,7 +211,7 @@ public class FixtureServer implements Closeable {
         respondRedirect(exchange, response.getRedirectUrl(), response.getRedirectStatusCode());
         return;
       }
-      respondSuccess(exchange, response.getResponse());
+      respondSuccess(exchange, response.getResponse(), response.getStatusCode());
     }
 
     private void respond(HttpExchange exchange, int statusCode, String body) throws IOException {
@@ -217,8 +231,9 @@ public class FixtureServer implements Closeable {
       respond(exchange, 500, body);
     }
 
-    private void respondSuccess(HttpExchange exchange, String body) throws IOException {
-      respond(exchange, 200, body);
+    private void respondSuccess(HttpExchange exchange, String body, int statusCode)
+        throws IOException {
+      respond(exchange, statusCode, body);
     }
 
     private void respondRedirect(HttpExchange exchange, String location, int statusCode)
@@ -229,18 +244,23 @@ public class FixtureServer implements Closeable {
     }
   }
 
-  public FixtureServer with(String method, String path, String response) {
+  public FixtureServer with(String method, String path, String response, int statusCode) {
     FixtureMapping fixture =
         new FixtureMapping.Builder()
             .validateMethod(method)
             .validatePath(path)
-            .withResponse(response)
+            .withResponse(response, statusCode)
             .build();
     return with(fixture);
   }
 
   public FixtureServer with(FixtureMapping fixture) {
     fixtures.add(fixture);
+    return this;
+  }
+
+  public FixtureServer with(Collection<FixtureMapping> fs) {
+    fixtures.addAll(fs);
     return this;
   }
 

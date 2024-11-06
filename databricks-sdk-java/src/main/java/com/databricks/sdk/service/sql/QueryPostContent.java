@@ -5,13 +5,14 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
 public class QueryPostContent {
   /**
    * Data source ID maps to the ID of the data source used by the resource and is distinct from the
-   * warehouse ID. [Learn more].
+   * warehouse ID. [Learn more]
    *
    * <p>[Learn more]: https://docs.databricks.com/api/workspace/datasources/list
    */
@@ -50,6 +51,10 @@ public class QueryPostContent {
    */
   @JsonProperty("run_as_role")
   private RunAsRole runAsRole;
+
+  /** */
+  @JsonProperty("tags")
+  private Collection<String> tags;
 
   public QueryPostContent setDataSourceId(String dataSourceId) {
     this.dataSourceId = dataSourceId;
@@ -114,6 +119,15 @@ public class QueryPostContent {
     return runAsRole;
   }
 
+  public QueryPostContent setTags(Collection<String> tags) {
+    this.tags = tags;
+    return this;
+  }
+
+  public Collection<String> getTags() {
+    return tags;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -125,12 +139,13 @@ public class QueryPostContent {
         && Objects.equals(options, that.options)
         && Objects.equals(parent, that.parent)
         && Objects.equals(query, that.query)
-        && Objects.equals(runAsRole, that.runAsRole);
+        && Objects.equals(runAsRole, that.runAsRole)
+        && Objects.equals(tags, that.tags);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dataSourceId, description, name, options, parent, query, runAsRole);
+    return Objects.hash(dataSourceId, description, name, options, parent, query, runAsRole, tags);
   }
 
   @Override
@@ -143,6 +158,7 @@ public class QueryPostContent {
         .add("parent", parent)
         .add("query", query)
         .add("runAsRole", runAsRole)
+        .add("tags", tags)
         .toString();
   }
 }

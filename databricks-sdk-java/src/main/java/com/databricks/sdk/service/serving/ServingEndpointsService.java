@@ -41,7 +41,7 @@ public interface ServingEndpointsService {
    * <p>Retrieves the metrics associated with the provided serving endpoint in either Prometheus or
    * OpenMetrics exposition format.
    */
-  void exportMetrics(ExportMetricsRequest exportMetricsRequest);
+  ExportMetricsResponse exportMetrics(ExportMetricsRequest exportMetricsRequest);
 
   /**
    * Get a single serving endpoint.
@@ -49,6 +49,14 @@ public interface ServingEndpointsService {
    * <p>Retrieves the details for a single serving endpoint.
    */
   ServingEndpointDetailed get(GetServingEndpointRequest getServingEndpointRequest);
+
+  /**
+   * Get the schema for a serving endpoint.
+   *
+   * <p>Get the query schema of the serving endpoint in OpenAPI format. The schema contains
+   * information for the supported paths, input and output format and datatypes.
+   */
+  void getOpenApi(GetOpenApiRequest getOpenApiRequest);
 
   /**
    * Get serving endpoint permission levels.
@@ -87,10 +95,18 @@ public interface ServingEndpointsService {
   /**
    * Update rate limits of a serving endpoint.
    *
-   * <p>Used to update the rate limits of a serving endpoint. NOTE: only external and foundation
-   * model endpoints are supported as of now.
+   * <p>Used to update the rate limits of a serving endpoint. NOTE: Only foundation model endpoints
+   * are currently supported. For external models, use AI Gateway to manage rate limits.
    */
   PutResponse put(PutRequest putRequest);
+
+  /**
+   * Update AI Gateway of a serving endpoint.
+   *
+   * <p>Used to update the AI Gateway of a serving endpoint. NOTE: Only external model endpoints are
+   * currently supported.
+   */
+  PutAiGatewayResponse putAiGateway(PutAiGatewayRequest putAiGatewayRequest);
 
   /** Query a serving endpoint. */
   QueryEndpointResponse query(QueryEndpointInput queryEndpointInput);

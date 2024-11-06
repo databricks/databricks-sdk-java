@@ -25,6 +25,10 @@ public class CreateRecipient {
   @JsonProperty("data_recipient_global_metastore_id")
   private String dataRecipientGlobalMetastoreId;
 
+  /** Expiration timestamp of the token, in epoch milliseconds. */
+  @JsonProperty("expiration_time")
+  private Long expirationTime;
+
   /** IP Access List */
   @JsonProperty("ip_access_list")
   private IpAccessList ipAccessList;
@@ -73,6 +77,15 @@ public class CreateRecipient {
 
   public String getDataRecipientGlobalMetastoreId() {
     return dataRecipientGlobalMetastoreId;
+  }
+
+  public CreateRecipient setExpirationTime(Long expirationTime) {
+    this.expirationTime = expirationTime;
+    return this;
+  }
+
+  public Long getExpirationTime() {
+    return expirationTime;
   }
 
   public CreateRecipient setIpAccessList(IpAccessList ipAccessList) {
@@ -128,6 +141,7 @@ public class CreateRecipient {
     return Objects.equals(authenticationType, that.authenticationType)
         && Objects.equals(comment, that.comment)
         && Objects.equals(dataRecipientGlobalMetastoreId, that.dataRecipientGlobalMetastoreId)
+        && Objects.equals(expirationTime, that.expirationTime)
         && Objects.equals(ipAccessList, that.ipAccessList)
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
@@ -141,6 +155,7 @@ public class CreateRecipient {
         authenticationType,
         comment,
         dataRecipientGlobalMetastoreId,
+        expirationTime,
         ipAccessList,
         name,
         owner,
@@ -154,6 +169,7 @@ public class CreateRecipient {
         .add("authenticationType", authenticationType)
         .add("comment", comment)
         .add("dataRecipientGlobalMetastoreId", dataRecipientGlobalMetastoreId)
+        .add("expirationTime", expirationTime)
         .add("ipAccessList", ipAccessList)
         .add("name", name)
         .add("owner", owner)

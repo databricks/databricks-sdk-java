@@ -4,6 +4,7 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -27,7 +28,7 @@ public class StartUpdate {
   private Collection<String> fullRefreshSelection;
 
   /** */
-  private String pipelineId;
+  @JsonIgnore private String pipelineId;
 
   /**
    * A list of tables to update without fullRefresh. If both refresh_selection and

@@ -12,8 +12,8 @@ import java.util.Objects;
 public class BaseRun {
   /**
    * The sequence number of this run attempt for a triggered job run. The initial attempt of a run
-   * has an attempt_number of 0\. If the initial run attempt fails, and the job has a retry policy
-   * (`max_retries` \> 0), subsequent runs are created with an `original_attempt_run_id` of the
+   * has an attempt_number of 0. If the initial run attempt fails, and the job has a retry policy
+   * (`max_retries` > 0), subsequent runs are created with an `original_attempt_run_id` of the
    * original attempt’s ID and an incrementing `attempt_number`. Runs are retried only until they
    * succeed, and the maximum `attempt_number` is the same as the `max_retries` value for the job.
    */
@@ -98,6 +98,14 @@ public class BaseRun {
   @JsonProperty("job_parameters")
   private Collection<JobParameter> jobParameters;
 
+  /**
+   * ID of the job run that this run belongs to. For legacy and single-task job runs the field is
+   * populated with the job run ID. For task runs, the field is populated with the ID of the job run
+   * that the task run belongs to.
+   */
+  @JsonProperty("job_run_id")
+  private Long jobRunId;
+
   /** A unique identifier for this job run. This is set to the same value as `run_id`. */
   @JsonProperty("number_in_job")
   private Long numberInJob;
@@ -170,9 +178,13 @@ public class BaseRun {
   @JsonProperty("start_time")
   private Long startTime;
 
-  /** The current state of the run. */
+  /** Deprecated. Please use the `status` field instead. */
   @JsonProperty("state")
   private RunState state;
+
+  /** The current status of the run */
+  @JsonProperty("status")
+  private RunStatus status;
 
   /**
    * The list of tasks performed by the run. Each task has its own `run_id` which you can use to
@@ -307,6 +319,15 @@ public class BaseRun {
     return jobParameters;
   }
 
+  public BaseRun setJobRunId(Long jobRunId) {
+    this.jobRunId = jobRunId;
+    return this;
+  }
+
+  public Long getJobRunId() {
+    return jobRunId;
+  }
+
   public BaseRun setNumberInJob(Long numberInJob) {
     this.numberInJob = numberInJob;
     return this;
@@ -433,6 +454,15 @@ public class BaseRun {
     return state;
   }
 
+  public BaseRun setStatus(RunStatus status) {
+    this.status = status;
+    return this;
+  }
+
+  public RunStatus getStatus() {
+    return status;
+  }
+
   public BaseRun setTasks(Collection<RunTask> tasks) {
     this.tasks = tasks;
     return this;
@@ -477,6 +507,7 @@ public class BaseRun {
         && Objects.equals(jobClusters, that.jobClusters)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(jobParameters, that.jobParameters)
+        && Objects.equals(jobRunId, that.jobRunId)
         && Objects.equals(numberInJob, that.numberInJob)
         && Objects.equals(originalAttemptRunId, that.originalAttemptRunId)
         && Objects.equals(overridingParameters, that.overridingParameters)
@@ -491,6 +522,7 @@ public class BaseRun {
         && Objects.equals(setupDuration, that.setupDuration)
         && Objects.equals(startTime, that.startTime)
         && Objects.equals(state, that.state)
+        && Objects.equals(status, that.status)
         && Objects.equals(tasks, that.tasks)
         && Objects.equals(trigger, that.trigger)
         && Objects.equals(triggerInfo, that.triggerInfo);
@@ -511,6 +543,7 @@ public class BaseRun {
         jobClusters,
         jobId,
         jobParameters,
+        jobRunId,
         numberInJob,
         originalAttemptRunId,
         overridingParameters,
@@ -525,6 +558,7 @@ public class BaseRun {
         setupDuration,
         startTime,
         state,
+        status,
         tasks,
         trigger,
         triggerInfo);
@@ -545,6 +579,7 @@ public class BaseRun {
         .add("jobClusters", jobClusters)
         .add("jobId", jobId)
         .add("jobParameters", jobParameters)
+        .add("jobRunId", jobRunId)
         .add("numberInJob", numberInJob)
         .add("originalAttemptRunId", originalAttemptRunId)
         .add("overridingParameters", overridingParameters)
@@ -559,6 +594,7 @@ public class BaseRun {
         .add("setupDuration", setupDuration)
         .add("startTime", startTime)
         .add("state", state)
+        .add("status", status)
         .add("tasks", tasks)
         .add("trigger", trigger)
         .add("triggerInfo", triggerInfo)

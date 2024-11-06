@@ -4,6 +4,7 @@ package com.databricks.sdk.service.provisioning;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -38,7 +39,7 @@ public class UpsertPrivateAccessSettingsRequest {
   private PrivateAccessLevel privateAccessLevel;
 
   /** Databricks Account API private access settings ID. */
-  private String privateAccessSettingsId;
+  @JsonIgnore private String privateAccessSettingsId;
 
   /** The human-readable name of the private access settings object. */
   @JsonProperty("private_access_settings_name")

@@ -2,7 +2,6 @@
 package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
-import java.util.Collection;
 
 /**
  * The alerts API can be used to perform CRUD operations on alerts. An alert is a Databricks SQL
@@ -19,19 +18,18 @@ public interface AlertsService {
   /**
    * Create an alert.
    *
-   * <p>Creates an alert. An alert is a Databricks SQL object that periodically runs a query,
-   * evaluates a condition of its result, and notifies users or notification destinations if the
-   * condition was met.
+   * <p>Creates an alert.
    */
-  Alert create(CreateAlert createAlert);
+  Alert create(CreateAlertRequest createAlertRequest);
 
   /**
    * Delete an alert.
    *
-   * <p>Deletes an alert. Deleted alerts are no longer accessible and cannot be restored. **Note:**
-   * Unlike queries and dashboards, alerts cannot be moved to the trash.
+   * <p>Moves an alert to the trash. Trashed alerts immediately disappear from searches and list
+   * views, and can no longer trigger. You can restore a trashed alert through the UI. A trashed
+   * alert is permanently deleted after 30 days.
    */
-  void delete(DeleteAlertRequest deleteAlertRequest);
+  void delete(TrashAlertRequest trashAlertRequest);
 
   /**
    * Get an alert.
@@ -41,16 +39,18 @@ public interface AlertsService {
   Alert get(GetAlertRequest getAlertRequest);
 
   /**
-   * Get alerts.
+   * List alerts.
    *
-   * <p>Gets a list of alerts.
+   * <p>Gets a list of alerts accessible to the user, ordered by creation time. **Warning:** Calling
+   * this API concurrently 10 or more times could result in throttling, service degradation, or a
+   * temporary ban.
    */
-  Collection<Alert> list();
+  ListAlertsResponse list(ListAlertsRequest listAlertsRequest);
 
   /**
    * Update an alert.
    *
    * <p>Updates an alert.
    */
-  void update(EditAlert editAlert);
+  Alert update(UpdateAlertRequest updateAlertRequest);
 }

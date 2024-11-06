@@ -8,13 +8,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/**
- * Contains the result data of a single chunk when using `INLINE` disposition. When using
- * `EXTERNAL_LINKS` disposition, the array `external_links` is used instead to provide presigned
- * URLs to the result data in cloud storage. Exactly one of these alternatives is used. (While the
- * `external_links` array prepares the API to return multiple links in a single response. Currently
- * only a single link is returned.)
- */
 @Generated
 public class ResultData {
   /**

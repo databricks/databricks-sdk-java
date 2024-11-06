@@ -4,16 +4,17 @@ package com.databricks.sdk.service.serving;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get build logs for a served model */
 @Generated
 public class BuildLogsRequest {
   /** The name of the serving endpoint that the served model belongs to. This field is required. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** The name of the served model that build logs will be retrieved for. This field is required. */
-  private String servedModelName;
+  @JsonIgnore private String servedModelName;
 
   public BuildLogsRequest setName(String name) {
     this.name = name;

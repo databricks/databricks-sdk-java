@@ -5,28 +5,39 @@ package com.databricks.sdk.service.sql;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List Queries */
 @Generated
 public class ListQueryHistoryRequest {
   /** A filter to limit query history results. This field is optional. */
+  @JsonIgnore
   @QueryParam("filter_by")
   private QueryFilter filterBy;
 
-  /** Whether to include metrics about query. */
+  /**
+   * Whether to include the query metrics with each query. Only use this for a small subset of
+   * queries (max_results). Defaults to false.
+   */
+  @JsonIgnore
   @QueryParam("include_metrics")
   private Boolean includeMetrics;
 
-  /** Limit the number of results returned in one page. The default is 100. */
+  /**
+   * Limit the number of results returned in one page. Must be less than 1000 and the default is
+   * 100.
+   */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /**
    * A token that can be used to get the next page of results. The token can contains characters
    * that need to be encoded before using it in a URL. For example, the character '+' needs to be
-   * replaced by %2B.
+   * replaced by %2B. This field is optional.
    */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 

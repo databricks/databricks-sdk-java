@@ -10,6 +10,10 @@ import java.util.Objects;
 
 @Generated
 public class TableRowFilter {
+  /** The full name of the row filter SQL UDF. */
+  @JsonProperty("function_name")
+  private String functionName;
+
   /**
    * The list of table columns to be passed as input to the row filter function. The column types
    * should match the types of the filter function arguments.
@@ -17,9 +21,14 @@ public class TableRowFilter {
   @JsonProperty("input_column_names")
   private Collection<String> inputColumnNames;
 
-  /** The full name of the row filter SQL UDF. */
-  @JsonProperty("name")
-  private String name;
+  public TableRowFilter setFunctionName(String functionName) {
+    this.functionName = functionName;
+    return this;
+  }
+
+  public String getFunctionName() {
+    return functionName;
+  }
 
   public TableRowFilter setInputColumnNames(Collection<String> inputColumnNames) {
     this.inputColumnNames = inputColumnNames;
@@ -30,34 +39,25 @@ public class TableRowFilter {
     return inputColumnNames;
   }
 
-  public TableRowFilter setName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  public String getName() {
-    return name;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     TableRowFilter that = (TableRowFilter) o;
-    return Objects.equals(inputColumnNames, that.inputColumnNames)
-        && Objects.equals(name, that.name);
+    return Objects.equals(functionName, that.functionName)
+        && Objects.equals(inputColumnNames, that.inputColumnNames);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(inputColumnNames, name);
+    return Objects.hash(functionName, inputColumnNames);
   }
 
   @Override
   public String toString() {
     return new ToStringer(TableRowFilter.class)
+        .add("functionName", functionName)
         .add("inputColumnNames", inputColumnNames)
-        .add("name", name)
         .toString();
   }
 }

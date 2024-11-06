@@ -4,13 +4,14 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a Volume */
 @Generated
 public class DeleteVolumeRequest {
   /** The three-level (fully qualified) name of the volume */
-  private String name;
+  @JsonIgnore private String name;
 
   public DeleteVolumeRequest setName(String name) {
     this.name = name;

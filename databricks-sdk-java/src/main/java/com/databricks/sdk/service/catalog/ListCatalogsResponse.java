@@ -14,6 +14,13 @@ public class ListCatalogsResponse {
   @JsonProperty("catalogs")
   private Collection<CatalogInfo> catalogs;
 
+  /**
+   * Opaque token to retrieve the next page of results. Absent if there are no more pages.
+   * __page_token__ should be set to this value for the next request (for the next page of results).
+   */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
   public ListCatalogsResponse setCatalogs(Collection<CatalogInfo> catalogs) {
     this.catalogs = catalogs;
     return this;
@@ -23,21 +30,34 @@ public class ListCatalogsResponse {
     return catalogs;
   }
 
+  public ListCatalogsResponse setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListCatalogsResponse that = (ListCatalogsResponse) o;
-    return Objects.equals(catalogs, that.catalogs);
+    return Objects.equals(catalogs, that.catalogs)
+        && Objects.equals(nextPageToken, that.nextPageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(catalogs);
+    return Objects.hash(catalogs, nextPageToken);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListCatalogsResponse.class).add("catalogs", catalogs).toString();
+    return new ToStringer(ListCatalogsResponse.class)
+        .add("catalogs", catalogs)
+        .add("nextPageToken", nextPageToken)
+        .toString();
   }
 }

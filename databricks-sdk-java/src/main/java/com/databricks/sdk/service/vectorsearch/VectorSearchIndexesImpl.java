@@ -67,6 +67,25 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
   }
 
   @Override
+  public QueryVectorIndexResponse queryNextPage(QueryVectorIndexNextPageRequest request) {
+    String path =
+        String.format("/api/2.0/vector-search/indexes/%s/query-next-page", request.getIndexName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, QueryVectorIndexResponse.class, headers);
+  }
+
+  @Override
+  public ScanVectorIndexResponse scanIndex(ScanVectorIndexRequest request) {
+    String path = String.format("/api/2.0/vector-search/indexes/%s/scan", request.getIndexName());
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    headers.put("Content-Type", "application/json");
+    return apiClient.POST(path, request, ScanVectorIndexResponse.class, headers);
+  }
+
+  @Override
   public void syncIndex(SyncIndexRequest request) {
     String path = String.format("/api/2.0/vector-search/indexes/%s/sync", request.getIndexName());
     Map<String, String> headers = new HashMap<>();

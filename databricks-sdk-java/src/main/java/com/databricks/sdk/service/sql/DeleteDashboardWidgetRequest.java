@@ -4,13 +4,14 @@ package com.databricks.sdk.service.sql;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Remove widget */
 @Generated
 public class DeleteDashboardWidgetRequest {
   /** Widget ID returned by :method:dashboardwidgets/create */
-  private String id;
+  @JsonIgnore private String id;
 
   public DeleteDashboardWidgetRequest setId(String id) {
     this.id = id;

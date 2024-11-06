@@ -4,6 +4,7 @@ package com.databricks.sdk.service.pipelines;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class PipelinePermissionsRequest {
   private Collection<PipelineAccessControlRequest> accessControlList;
 
   /** The pipeline for which to get or manage permissions. */
-  private String pipelineId;
+  @JsonIgnore private String pipelineId;
 
   public PipelinePermissionsRequest setAccessControlList(
       Collection<PipelineAccessControlRequest> accessControlList) {

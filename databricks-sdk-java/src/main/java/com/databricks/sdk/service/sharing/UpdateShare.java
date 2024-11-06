@@ -4,6 +4,7 @@ package com.databricks.sdk.service.sharing;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class UpdateShare {
   private String comment;
 
   /** The name of the share. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** New name for the share. */
   @JsonProperty("new_name")
@@ -24,6 +25,10 @@ public class UpdateShare {
   /** Username of current owner of share. */
   @JsonProperty("owner")
   private String owner;
+
+  /** Storage root URL for the share. */
+  @JsonProperty("storage_root")
+  private String storageRoot;
 
   /** Array of shared data object updates. */
   @JsonProperty("updates")
@@ -65,6 +70,15 @@ public class UpdateShare {
     return owner;
   }
 
+  public UpdateShare setStorageRoot(String storageRoot) {
+    this.storageRoot = storageRoot;
+    return this;
+  }
+
+  public String getStorageRoot() {
+    return storageRoot;
+  }
+
   public UpdateShare setUpdates(Collection<SharedDataObjectUpdate> updates) {
     this.updates = updates;
     return this;
@@ -83,12 +97,13 @@ public class UpdateShare {
         && Objects.equals(name, that.name)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
+        && Objects.equals(storageRoot, that.storageRoot)
         && Objects.equals(updates, that.updates);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(comment, name, newName, owner, updates);
+    return Objects.hash(comment, name, newName, owner, storageRoot, updates);
   }
 
   @Override
@@ -98,6 +113,7 @@ public class UpdateShare {
         .add("name", name)
         .add("newName", newName)
         .add("owner", owner)
+        .add("storageRoot", storageRoot)
         .add("updates", updates)
         .toString();
   }

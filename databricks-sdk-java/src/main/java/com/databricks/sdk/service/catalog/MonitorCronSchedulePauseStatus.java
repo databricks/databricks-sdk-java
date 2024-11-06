@@ -4,7 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Whether the schedule is paused or not */
+/** Read only field that indicates whether a schedule is paused or not. */
 @Generated
 public enum MonitorCronSchedulePauseStatus {
   PAUSED,

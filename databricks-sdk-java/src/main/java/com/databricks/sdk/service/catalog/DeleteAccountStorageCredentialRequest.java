@@ -5,20 +5,22 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a storage credential */
 @Generated
 public class DeleteAccountStorageCredentialRequest {
   /** Force deletion even if the Storage Credential is not empty. Default is false. */
+  @JsonIgnore
   @QueryParam("force")
   private Boolean force;
 
   /** Unity Catalog metastore ID */
-  private String metastoreId;
+  @JsonIgnore private String metastoreId;
 
   /** Name of the storage credential. */
-  private String storageCredentialName;
+  @JsonIgnore private String storageCredentialName;
 
   public DeleteAccountStorageCredentialRequest setForce(Boolean force) {
     this.force = force;

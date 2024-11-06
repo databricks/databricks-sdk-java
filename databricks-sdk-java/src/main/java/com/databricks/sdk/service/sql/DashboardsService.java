@@ -40,8 +40,8 @@ public interface DashboardsService {
    *
    * <p>Fetch a paginated list of dashboard objects.
    *
-   * <p>### **Warning: Calling this API concurrently 10 or more times could result in throttling,
-   * service degradation, or a temporary ban.**
+   * <p>**Warning**: Calling this API concurrently 10 or more times could result in throttling,
+   * service degradation, or a temporary ban.
    */
   ListResponse list(ListDashboardsRequest listDashboardsRequest);
 

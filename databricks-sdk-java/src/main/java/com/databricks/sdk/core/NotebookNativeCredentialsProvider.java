@@ -44,6 +44,7 @@ public class NotebookNativeCredentialsProvider implements CredentialsProvider {
       TokenAndUrl testTokenAndUrl = getTokenAndUrl(notebook);
       if (testTokenAndUrl.url == null) {
         LOG.debug("Workspace URL is not available, skipping runtime auth");
+        return null;
       }
       config.setHost(testTokenAndUrl.url);
 

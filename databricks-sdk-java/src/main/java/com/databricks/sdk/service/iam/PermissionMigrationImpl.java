@@ -16,11 +16,11 @@ class PermissionMigrationImpl implements PermissionMigrationService {
   }
 
   @Override
-  public PermissionMigrationResponse migratePermissions(PermissionMigrationRequest request) {
+  public MigratePermissionsResponse migratePermissions(MigratePermissionsRequest request) {
     String path = "/api/2.0/permissionmigration";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, PermissionMigrationResponse.class, headers);
+    return apiClient.POST(path, request, MigratePermissionsResponse.class, headers);
   }
 }

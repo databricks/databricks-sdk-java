@@ -2,6 +2,7 @@
 package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.DatabricksException;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.Paginator;
 import com.databricks.sdk.support.Wait;
@@ -31,10 +32,9 @@ import org.slf4j.LoggerFactory;
  * terminate and restart an all-purpose cluster. Multiple users can share such clusters to do
  * collaborative interactive analysis.
  *
- * <p>IMPORTANT: Databricks retains cluster configuration information for up to 200 all-purpose
- * clusters terminated in the last 30 days and up to 30 job clusters recently terminated by the job
- * scheduler. To keep an all-purpose cluster configuration even after it has been terminated for
- * more than 30 days, an administrator can pin a cluster to the cluster list.
+ * <p>IMPORTANT: Databricks retains cluster configuration information for terminated clusters for 30
+ * days. To keep an all-purpose cluster configuration even after it has been terminated for more
+ * than 30 days, an administrator can pin a cluster to the cluster list.
  */
 @Generated
 public class ClustersAPI {
@@ -90,6 +90,7 @@ public class ClustersAPI {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
       }
       attempt++;
     }
@@ -134,6 +135,7 @@ public class ClustersAPI {
         Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
       }
       attempt++;
     }
@@ -168,6 +170,11 @@ public class ClustersAPI {
    *
    * <p>If Databricks acquires at least 85% of the requested on-demand nodes, cluster creation will
    * succeed. Otherwise the cluster will terminate with an informative error message.
+   *
+   * <p>Rather than authoring the cluster's JSON definition from scratch, Databricks recommends
+   * filling out the [create compute UI] and then copying the generated JSON definition from the UI.
+   *
+   * <p>[create compute UI]: https://docs.databricks.com/compute/configure.html
    */
   public Wait<ClusterDetails, CreateClusterResponse> create(CreateCluster request) {
     CreateClusterResponse response = impl.create(request);
@@ -232,12 +239,7 @@ public class ClustersAPI {
    */
   public Iterable<ClusterEvent> events(GetEvents request) {
     return new Paginator<>(
-        request,
-        impl::events,
-        GetEventsResponse::getEvents,
-        response -> {
-          return response.getNextPage();
-        });
+        request, impl::events, GetEventsResponse::getEvents, response -> response.getNextPage());
   }
 
   public ClusterDetails get(String clusterId) {
@@ -282,19 +284,23 @@ public class ClustersAPI {
   }
 
   /**
-   * List all clusters.
+   * List clusters.
    *
-   * <p>Return information about all pinned clusters, active clusters, up to 200 of the most
-   * recently terminated all-purpose clusters in the past 30 days, and up to 30 of the most recently
-   * terminated job clusters in the past 30 days.
-   *
-   * <p>For example, if there is 1 pinned cluster, 4 active clusters, 45 terminated all-purpose
-   * clusters in the past 30 days, and 50 terminated job clusters in the past 30 days, then this API
-   * returns the 1 pinned cluster, 4 active clusters, all 45 terminated all-purpose clusters, and
-   * the 30 most recently terminated job clusters.
+   * <p>Return information about all pinned and active clusters, and all clusters terminated within
+   * the last 30 days. Clusters terminated prior to this period are not included.
    */
   public Iterable<ClusterDetails> list(ListClustersRequest request) {
-    return impl.list(request).getClusters();
+    return new Paginator<>(
+        request,
+        impl::list,
+        ListClustersResponse::getClusters,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   /**
@@ -438,6 +444,28 @@ public class ClustersAPI {
    */
   public void unpin(UnpinCluster request) {
     impl.unpin(request);
+  }
+
+  public Wait<ClusterDetails, Void> update(String clusterId, String updateMask) {
+    return update(new UpdateCluster().setClusterId(clusterId).setUpdateMask(updateMask));
+  }
+
+  /**
+   * Update cluster configuration (partial).
+   *
+   * <p>Updates the configuration of a cluster to match the partial set of attributes and size.
+   * Denote which fields to update using the `update_mask` field in the request body. A cluster can
+   * be updated if it is in a `RUNNING` or `TERMINATED` state. If a cluster is updated while in a
+   * `RUNNING` state, it will be restarted so that the new attributes can take effect. If a cluster
+   * is updated while in a `TERMINATED` state, it will remain `TERMINATED`. The updated attributes
+   * will take effect the next time the cluster is started using the `clusters/start` API. Attempts
+   * to update a cluster in any other state will be rejected with an `INVALID_STATE` error code.
+   * Clusters created by the Databricks Jobs service cannot be updated.
+   */
+  public Wait<ClusterDetails, Void> update(UpdateCluster request) {
+    impl.update(request);
+    return new Wait<>(
+        (timeout, callback) -> waitGetClusterRunning(request.getClusterId(), timeout, callback));
   }
 
   public ClusterPermissions updatePermissions(String clusterId) {

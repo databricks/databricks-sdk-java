@@ -4,13 +4,14 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get published dashboard */
 @Generated
 public class GetPublishedDashboardRequest {
   /** UUID identifying the dashboard to be published. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   public GetPublishedDashboardRequest setDashboardId(String dashboardId) {
     this.dashboardId = dashboardId;

@@ -5,6 +5,7 @@ package com.databricks.sdk.service.ml;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a model tag */
@@ -14,10 +15,12 @@ public class DeleteModelTagRequest {
    * Name of the tag. The name must be an exact match; wild-card deletion is not supported. Maximum
    * size is 250 bytes.
    */
+  @JsonIgnore
   @QueryParam("key")
   private String key;
 
   /** Name of the registered model that the tag was logged under. */
+  @JsonIgnore
   @QueryParam("name")
   private String name;
 

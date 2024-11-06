@@ -10,6 +10,13 @@ import java.util.Objects;
 
 @Generated
 public class ServingEndpoint {
+  /**
+   * The AI Gateway configuration for the serving endpoint. NOTE: Only external model endpoints are
+   * currently supported.
+   */
+  @JsonProperty("ai_gateway")
+  private AiGatewayConfig aiGateway;
+
   /** The config that is currently being served by the endpoint. */
   @JsonProperty("config")
   private EndpointCoreConfigSummary config;
@@ -48,6 +55,15 @@ public class ServingEndpoint {
   /** The task type of the serving endpoint. */
   @JsonProperty("task")
   private String task;
+
+  public ServingEndpoint setAiGateway(AiGatewayConfig aiGateway) {
+    this.aiGateway = aiGateway;
+    return this;
+  }
+
+  public AiGatewayConfig getAiGateway() {
+    return aiGateway;
+  }
 
   public ServingEndpoint setConfig(EndpointCoreConfigSummary config) {
     this.config = config;
@@ -135,7 +151,8 @@ public class ServingEndpoint {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ServingEndpoint that = (ServingEndpoint) o;
-    return Objects.equals(config, that.config)
+    return Objects.equals(aiGateway, that.aiGateway)
+        && Objects.equals(config, that.config)
         && Objects.equals(creationTimestamp, that.creationTimestamp)
         && Objects.equals(creator, that.creator)
         && Objects.equals(id, that.id)
@@ -149,12 +166,22 @@ public class ServingEndpoint {
   @Override
   public int hashCode() {
     return Objects.hash(
-        config, creationTimestamp, creator, id, lastUpdatedTimestamp, name, state, tags, task);
+        aiGateway,
+        config,
+        creationTimestamp,
+        creator,
+        id,
+        lastUpdatedTimestamp,
+        name,
+        state,
+        tags,
+        task);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ServingEndpoint.class)
+        .add("aiGateway", aiGateway)
         .add("config", config)
         .add("creationTimestamp", creationTimestamp)
         .add("creator", creator)

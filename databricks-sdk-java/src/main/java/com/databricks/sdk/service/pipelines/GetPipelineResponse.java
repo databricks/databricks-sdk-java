@@ -22,6 +22,10 @@ public class GetPipelineResponse {
   @JsonProperty("creator_user_name")
   private String creatorUserName;
 
+  /** Serverless budget policy ID of this pipeline. */
+  @JsonProperty("effective_budget_policy_id")
+  private String effectiveBudgetPolicyId;
+
   /** The health of a pipeline. */
   @JsonProperty("health")
   private GetPipelineResponseHealth health;
@@ -79,6 +83,15 @@ public class GetPipelineResponse {
 
   public String getCreatorUserName() {
     return creatorUserName;
+  }
+
+  public GetPipelineResponse setEffectiveBudgetPolicyId(String effectiveBudgetPolicyId) {
+    this.effectiveBudgetPolicyId = effectiveBudgetPolicyId;
+    return this;
+  }
+
+  public String getEffectiveBudgetPolicyId() {
+    return effectiveBudgetPolicyId;
   }
 
   public GetPipelineResponse setHealth(GetPipelineResponseHealth health) {
@@ -161,6 +174,7 @@ public class GetPipelineResponse {
     return Objects.equals(cause, that.cause)
         && Objects.equals(clusterId, that.clusterId)
         && Objects.equals(creatorUserName, that.creatorUserName)
+        && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
         && Objects.equals(health, that.health)
         && Objects.equals(lastModified, that.lastModified)
         && Objects.equals(latestUpdates, that.latestUpdates)
@@ -177,6 +191,7 @@ public class GetPipelineResponse {
         cause,
         clusterId,
         creatorUserName,
+        effectiveBudgetPolicyId,
         health,
         lastModified,
         latestUpdates,
@@ -193,6 +208,7 @@ public class GetPipelineResponse {
         .add("cause", cause)
         .add("clusterId", clusterId)
         .add("creatorUserName", creatorUserName)
+        .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
         .add("health", health)
         .add("lastModified", lastModified)
         .add("latestUpdates", latestUpdates)

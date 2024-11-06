@@ -15,11 +15,15 @@ public class SettingsAPI {
 
   private AutomaticClusterUpdateAPI automaticClusterUpdateAPI;
 
-  private CspEnablementAPI cspEnablementAPI;
+  private ComplianceSecurityProfileAPI complianceSecurityProfileAPI;
 
   private DefaultNamespaceAPI defaultNamespaceAPI;
 
-  private EsmEnablementAPI esmEnablementAPI;
+  private DisableLegacyAccessAPI disableLegacyAccessAPI;
+
+  private DisableLegacyDbfsAPI disableLegacyDbfsAPI;
+
+  private EnhancedSecurityMonitoringAPI enhancedSecurityMonitoringAPI;
 
   private RestrictWorkspaceAdminsAPI restrictWorkspaceAdminsAPI;
 
@@ -29,11 +33,15 @@ public class SettingsAPI {
 
     automaticClusterUpdateAPI = new AutomaticClusterUpdateAPI(apiClient);
 
-    cspEnablementAPI = new CspEnablementAPI(apiClient);
+    complianceSecurityProfileAPI = new ComplianceSecurityProfileAPI(apiClient);
 
     defaultNamespaceAPI = new DefaultNamespaceAPI(apiClient);
 
-    esmEnablementAPI = new EsmEnablementAPI(apiClient);
+    disableLegacyAccessAPI = new DisableLegacyAccessAPI(apiClient);
+
+    disableLegacyDbfsAPI = new DisableLegacyDbfsAPI(apiClient);
+
+    enhancedSecurityMonitoringAPI = new EnhancedSecurityMonitoringAPI(apiClient);
 
     restrictWorkspaceAdminsAPI = new RestrictWorkspaceAdminsAPI(apiClient);
   }
@@ -49,8 +57,8 @@ public class SettingsAPI {
   }
 
   /** Controls whether to enable the compliance security profile for the current workspace. */
-  public CspEnablementAPI CspEnablement() {
-    return cspEnablementAPI;
+  public ComplianceSecurityProfileAPI ComplianceSecurityProfile() {
+    return complianceSecurityProfileAPI;
   }
 
   /**
@@ -61,9 +69,22 @@ public class SettingsAPI {
     return defaultNamespaceAPI;
   }
 
+  /** 'Disabling legacy access' has the following impacts: 1. */
+  public DisableLegacyAccessAPI DisableLegacyAccess() {
+    return disableLegacyAccessAPI;
+  }
+
+  /**
+   * When this setting is on, access to DBFS root and DBFS mounts is disallowed (as well as creation
+   * of new mounts).
+   */
+  public DisableLegacyDbfsAPI DisableLegacyDbfs() {
+    return disableLegacyDbfsAPI;
+  }
+
   /** Controls whether enhanced security monitoring is enabled for the current workspace. */
-  public EsmEnablementAPI EsmEnablement() {
-    return esmEnablementAPI;
+  public EnhancedSecurityMonitoringAPI EnhancedSecurityMonitoring() {
+    return enhancedSecurityMonitoringAPI;
   }
 
   /**

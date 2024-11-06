@@ -4,16 +4,17 @@ package com.databricks.sdk.service.oauth2;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete service principal secret */
 @Generated
 public class DeleteServicePrincipalSecretRequest {
   /** The secret ID. */
-  private String secretId;
+  @JsonIgnore private String secretId;
 
   /** The service principal ID. */
-  private Long servicePrincipalId;
+  @JsonIgnore private Long servicePrincipalId;
 
   public DeleteServicePrincipalSecretRequest setSecretId(String secretId) {
     this.secretId = secretId;

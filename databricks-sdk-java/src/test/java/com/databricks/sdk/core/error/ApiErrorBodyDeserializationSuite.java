@@ -22,6 +22,19 @@ public class ApiErrorBodyDeserializationSuite {
     assertEquals(error.getApi12Error(), "theerror");
   }
 
+  void deserializeErrorResponseWitIntErrorCode() throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    String rawResponse =
+        "{\"error_code\":42,\"message\":\"themessage\",\"detail\":\"thescimdetail\",\"status\":\"thescimstatus\",\"scimType\":\"thescimtype\",\"error\":\"theerror\"}";
+    ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
+    assertEquals(error.getErrorCode(), "42");
+    assertEquals(error.getMessage(), "themessage");
+    assertEquals(error.getScimDetail(), "thescimdetail");
+    assertEquals(error.getScimStatus(), "thescimstatus");
+    assertEquals(error.getScimType(), "thescimtype");
+    assertEquals(error.getApi12Error(), "theerror");
+  }
+
   @Test
   void deserializeDetailedResponse() throws JsonProcessingException {
     ObjectMapper mapper = new ObjectMapper();
@@ -50,5 +63,16 @@ public class ApiErrorBodyDeserializationSuite {
     ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
     assertEquals(error.getErrorCode(), "theerrorcode");
     assertEquals(error.getMessage(), "themessage");
+  }
+
+  @Test
+  void handleNullMetadataFieldInErrorResponse() throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
+    String rawResponse =
+        "{\"error_code\":\"METASTORE_DOES_NOT_EXIST\",\"message\":\"No metastore assigned for the current workspace.\",\"details\":[{\"@type\":\"type.googleapis.com/google.rpc.RequestInfo\",\"request_id\":\"1888e822-f1b5-4996-85eb-0d2b5cc402e6\",\"serving_data\":\"\"}]}";
+    ApiErrorBody error = mapper.readValue(rawResponse, ApiErrorBody.class);
+
+    assertEquals(error.getErrorCode(), "METASTORE_DOES_NOT_EXIST");
+    assertEquals(error.getMessage(), "No metastore assigned for the current workspace.");
   }
 }

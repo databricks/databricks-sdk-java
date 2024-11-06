@@ -4,13 +4,14 @@ package com.databricks.sdk.service.dashboards;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class UpdateDashboardRequest {
   /** UUID identifying the dashboard. */
-  private String dashboardId;
+  @JsonIgnore private String dashboardId;
 
   /** The display name of the dashboard. */
   @JsonProperty("display_name")
@@ -18,12 +19,19 @@ public class UpdateDashboardRequest {
 
   /**
    * The etag for the dashboard. Can be optionally provided on updates to ensure that the dashboard
-   * has not been modified since the last read.
+   * has not been modified since the last read. This field is excluded in List Dashboards responses.
    */
   @JsonProperty("etag")
   private String etag;
 
-  /** The contents of the dashboard in serialized string form. */
+  /**
+   * The contents of the dashboard in serialized string form. This field is excluded in List
+   * Dashboards responses. Use the [get dashboard API] to retrieve an example response, which
+   * includes the `serialized_dashboard` field. This field provides the structure of the JSON string
+   * that represents the dashboard's layout and components.
+   *
+   * <p>[get dashboard API]: https://docs.databricks.com/api/workspace/lakeview/get
+   */
   @JsonProperty("serialized_dashboard")
   private String serializedDashboard;
 

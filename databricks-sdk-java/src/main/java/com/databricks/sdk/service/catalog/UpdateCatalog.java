@@ -4,6 +4,7 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Map;
 import java.util.Objects;
@@ -23,10 +24,10 @@ public class UpdateCatalog {
    * workspaces.
    */
   @JsonProperty("isolation_mode")
-  private IsolationMode isolationMode;
+  private CatalogIsolationMode isolationMode;
 
   /** The name of the catalog. */
-  private String name;
+  @JsonIgnore private String name;
 
   /** New name for the catalog. */
   @JsonProperty("new_name")
@@ -59,12 +60,12 @@ public class UpdateCatalog {
     return enablePredictiveOptimization;
   }
 
-  public UpdateCatalog setIsolationMode(IsolationMode isolationMode) {
+  public UpdateCatalog setIsolationMode(CatalogIsolationMode isolationMode) {
     this.isolationMode = isolationMode;
     return this;
   }
 
-  public IsolationMode getIsolationMode() {
+  public CatalogIsolationMode getIsolationMode() {
     return isolationMode;
   }
 

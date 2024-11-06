@@ -17,6 +17,10 @@ public class ForEachTaskErrorMessageStats {
   @JsonProperty("error_message")
   private String errorMessage;
 
+  /** Describes the termination reason for the error message. */
+  @JsonProperty("termination_category")
+  private String terminationCategory;
+
   public ForEachTaskErrorMessageStats setCount(Long count) {
     this.count = count;
     return this;
@@ -35,17 +39,28 @@ public class ForEachTaskErrorMessageStats {
     return errorMessage;
   }
 
+  public ForEachTaskErrorMessageStats setTerminationCategory(String terminationCategory) {
+    this.terminationCategory = terminationCategory;
+    return this;
+  }
+
+  public String getTerminationCategory() {
+    return terminationCategory;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ForEachTaskErrorMessageStats that = (ForEachTaskErrorMessageStats) o;
-    return Objects.equals(count, that.count) && Objects.equals(errorMessage, that.errorMessage);
+    return Objects.equals(count, that.count)
+        && Objects.equals(errorMessage, that.errorMessage)
+        && Objects.equals(terminationCategory, that.terminationCategory);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(count, errorMessage);
+    return Objects.hash(count, errorMessage, terminationCategory);
   }
 
   @Override
@@ -53,6 +68,7 @@ public class ForEachTaskErrorMessageStats {
     return new ToStringer(ForEachTaskErrorMessageStats.class)
         .add("count", count)
         .add("errorMessage", errorMessage)
+        .add("terminationCategory", terminationCategory)
         .toString();
   }
 }

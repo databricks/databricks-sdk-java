@@ -5,6 +5,7 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List Registered Models */
@@ -14,6 +15,7 @@ public class ListRegisteredModelsRequest {
    * The identifier of the catalog under which to list registered models. If specified, schema_name
    * must be specified.
    */
+  @JsonIgnore
   @QueryParam("catalog_name")
   private String catalogName;
 
@@ -21,18 +23,32 @@ public class ListRegisteredModelsRequest {
    * Whether to include registered models in the response for which the principal can only access
    * selective metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /**
-   * Max number of registered models to return. If catalog and schema are unspecified, max_results
-   * must be specified. If max_results is unspecified, we return all results, starting from the page
-   * specified by page_token.
+   * Max number of registered models to return.
+   *
+   * <p>If both catalog and schema are specified: - when max_results is not specified, the page
+   * length is set to a server configured value (10000, as of 4/2/2024). - when set to a value
+   * greater than 0, the page length is the minimum of this value and a server configured value
+   * (10000, as of 4/2/2024); - when set to 0, the page length is set to a server configured value
+   * (10000, as of 4/2/2024); - when set to a value less than 0, an invalid parameter error is
+   * returned;
+   *
+   * <p>If neither schema nor catalog is specified: - when max_results is not specified, the page
+   * length is set to a server configured value (100, as of 4/2/2024). - when set to a value greater
+   * than 0, the page length is the minimum of this value and a server configured value (1000, as of
+   * 4/2/2024); - when set to 0, the page length is set to a server configured value (100, as of
+   * 4/2/2024); - when set to a value less than 0, an invalid parameter error is returned;
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Opaque token to send for the next page of results (pagination). */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
@@ -40,6 +56,7 @@ public class ListRegisteredModelsRequest {
    * The identifier of the schema under which to list registered models. If specified, catalog_name
    * must be specified.
    */
+  @JsonIgnore
   @QueryParam("schema_name")
   private String schemaName;
 

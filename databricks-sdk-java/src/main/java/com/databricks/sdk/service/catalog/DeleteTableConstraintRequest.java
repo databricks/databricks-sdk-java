@@ -5,6 +5,7 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Delete a table constraint */
@@ -14,15 +15,17 @@ public class DeleteTableConstraintRequest {
    * If true, try deleting all child constraints of the current constraint. If false, reject this
    * operation if the current constraint has any child constraints.
    */
+  @JsonIgnore
   @QueryParam("cascade")
   private Boolean cascade;
 
   /** The name of the constraint to delete. */
+  @JsonIgnore
   @QueryParam("constraint_name")
   private String constraintName;
 
   /** Full name of the table referenced by the constraint. */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   public DeleteTableConstraintRequest setCascade(Boolean cascade) {
     this.cascade = cascade;

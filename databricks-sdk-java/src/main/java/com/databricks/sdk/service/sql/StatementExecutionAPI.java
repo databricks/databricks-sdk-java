@@ -89,7 +89,9 @@ import org.slf4j.LoggerFactory;
  * server-side, and cannot account for things such as caller delays and network latency from caller
  * to service. - The system will auto-close a statement after one hour if the client stops polling
  * and thus you must poll at least once an hour. - The results are only available for one hour after
- * success; polling does not extend this.
+ * success; polling does not extend this. - The SQL Execution API must be used for the entire
+ * lifecycle of the statement. For example, you cannot use the Jobs API to execute the command, and
+ * then the SQL Execution API to cancel it.
  *
  * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Databricks SQL Statement
  * Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
@@ -124,17 +126,17 @@ public class StatementExecutionAPI {
     impl.cancelExecution(request);
   }
 
-  public ExecuteStatementResponse executeStatement(String statement, String warehouseId) {
+  public StatementResponse executeStatement(String statement, String warehouseId) {
     return executeStatement(
         new ExecuteStatementRequest().setStatement(statement).setWarehouseId(warehouseId));
   }
 
   /** Execute a SQL statement. */
-  public ExecuteStatementResponse executeStatement(ExecuteStatementRequest request) {
+  public StatementResponse executeStatement(ExecuteStatementRequest request) {
     return impl.executeStatement(request);
   }
 
-  public GetStatementResponse getStatement(String statementId) {
+  public StatementResponse getStatement(String statementId) {
     return getStatement(new GetStatementRequest().setStatementId(statementId));
   }
 
@@ -149,7 +151,7 @@ public class StatementExecutionAPI {
    *
    * <p>**NOTE** This call currently might take up to 5 seconds to get the latest status and result.
    */
-  public GetStatementResponse getStatement(GetStatementRequest request) {
+  public StatementResponse getStatement(GetStatementRequest request) {
     return impl.getStatement(request);
   }
 

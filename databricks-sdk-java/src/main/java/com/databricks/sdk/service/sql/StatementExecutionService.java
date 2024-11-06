@@ -86,7 +86,9 @@ import com.databricks.sdk.support.Generated;
  * server-side, and cannot account for things such as caller delays and network latency from caller
  * to service. - The system will auto-close a statement after one hour if the client stops polling
  * and thus you must poll at least once an hour. - The results are only available for one hour after
- * success; polling does not extend this.
+ * success; polling does not extend this. - The SQL Execution API must be used for the entire
+ * lifecycle of the statement. For example, you cannot use the Jobs API to execute the command, and
+ * then the SQL Execution API to cancel it.
  *
  * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Databricks SQL Statement
  * Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
@@ -106,7 +108,7 @@ public interface StatementExecutionService {
   void cancelExecution(CancelExecutionRequest cancelExecutionRequest);
 
   /** Execute a SQL statement. */
-  ExecuteStatementResponse executeStatement(ExecuteStatementRequest executeStatementRequest);
+  StatementResponse executeStatement(ExecuteStatementRequest executeStatementRequest);
 
   /**
    * Get status, manifest, and result first chunk.
@@ -119,7 +121,7 @@ public interface StatementExecutionService {
    *
    * <p>**NOTE** This call currently might take up to 5 seconds to get the latest status and result.
    */
-  GetStatementResponse getStatement(GetStatementRequest getStatementRequest);
+  StatementResponse getStatement(GetStatementRequest getStatementRequest);
 
   /**
    * Get result chunk by index.

@@ -51,14 +51,11 @@ public class RunParameters {
   @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
 
-  /** */
+  /** Controls whether the pipeline should perform a full refresh */
   @JsonProperty("pipeline_params")
   private PipelineParams pipelineParams;
 
-  /**
-   * A map from keys to values for jobs with Python wheel task, for example `"python_named_params":
-   * {"name": "task", "data": "dbfs:/path/to/data.json"}`.
-   */
+  /** */
   @JsonProperty("python_named_params")
   private Map<String, String> pythonNamedParams;
 

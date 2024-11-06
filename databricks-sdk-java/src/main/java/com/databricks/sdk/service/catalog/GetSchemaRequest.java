@@ -5,18 +5,20 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** Get a schema */
 @Generated
 public class GetSchemaRequest {
   /** Full name of the schema. */
-  private String fullName;
+  @JsonIgnore private String fullName;
 
   /**
    * Whether to include schemas in the response for which the principal can only access selective
    * metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 

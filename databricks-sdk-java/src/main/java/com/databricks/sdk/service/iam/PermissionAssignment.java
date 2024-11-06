@@ -8,6 +8,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
+/**
+ * The output format for existing workspace PermissionAssignment records, which contains some info
+ * for user consumption.
+ */
 @Generated
 public class PermissionAssignment {
   /** Error response associated with a workspace permission assignment, if any. */

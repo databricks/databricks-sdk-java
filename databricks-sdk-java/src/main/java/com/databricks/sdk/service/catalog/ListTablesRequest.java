@@ -5,12 +5,14 @@ package com.databricks.sdk.service.catalog;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.QueryParam;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Objects;
 
 /** List tables */
 @Generated
 public class ListTablesRequest {
   /** Name of parent catalog for tables of interest. */
+  @JsonIgnore
   @QueryParam("catalog_name")
   private String catalogName;
 
@@ -18,12 +20,19 @@ public class ListTablesRequest {
    * Whether to include tables in the response for which the principal can only access selective
    * metadata for
    */
+  @JsonIgnore
   @QueryParam("include_browse")
   private Boolean includeBrowse;
 
   /** Whether delta metadata should be included in the response. */
+  @JsonIgnore
   @QueryParam("include_delta_metadata")
   private Boolean includeDeltaMetadata;
+
+  /** Whether to include a manifest containing capabilities the table has. */
+  @JsonIgnore
+  @QueryParam("include_manifest_capabilities")
+  private Boolean includeManifestCapabilities;
 
   /**
    * Maximum number of tables to return. If not set, all the tables are returned (not recommended).
@@ -31,22 +40,27 @@ public class ListTablesRequest {
    * configured value; - when set to 0, the page length is set to a server configured value
    * (recommended); - when set to a value less than 0, an invalid parameter error is returned;
    */
+  @JsonIgnore
   @QueryParam("max_results")
   private Long maxResults;
 
   /** Whether to omit the columns of the table from the response or not. */
+  @JsonIgnore
   @QueryParam("omit_columns")
   private Boolean omitColumns;
 
   /** Whether to omit the properties of the table from the response or not. */
+  @JsonIgnore
   @QueryParam("omit_properties")
   private Boolean omitProperties;
 
   /** Opaque token to send for the next page of results (pagination). */
+  @JsonIgnore
   @QueryParam("page_token")
   private String pageToken;
 
   /** Parent schema of tables. */
+  @JsonIgnore
   @QueryParam("schema_name")
   private String schemaName;
 
@@ -75,6 +89,15 @@ public class ListTablesRequest {
 
   public Boolean getIncludeDeltaMetadata() {
     return includeDeltaMetadata;
+  }
+
+  public ListTablesRequest setIncludeManifestCapabilities(Boolean includeManifestCapabilities) {
+    this.includeManifestCapabilities = includeManifestCapabilities;
+    return this;
+  }
+
+  public Boolean getIncludeManifestCapabilities() {
+    return includeManifestCapabilities;
   }
 
   public ListTablesRequest setMaxResults(Long maxResults) {
@@ -130,6 +153,7 @@ public class ListTablesRequest {
     return Objects.equals(catalogName, that.catalogName)
         && Objects.equals(includeBrowse, that.includeBrowse)
         && Objects.equals(includeDeltaMetadata, that.includeDeltaMetadata)
+        && Objects.equals(includeManifestCapabilities, that.includeManifestCapabilities)
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(omitColumns, that.omitColumns)
         && Objects.equals(omitProperties, that.omitProperties)
@@ -143,6 +167,7 @@ public class ListTablesRequest {
         catalogName,
         includeBrowse,
         includeDeltaMetadata,
+        includeManifestCapabilities,
         maxResults,
         omitColumns,
         omitProperties,
@@ -156,6 +181,7 @@ public class ListTablesRequest {
         .add("catalogName", catalogName)
         .add("includeBrowse", includeBrowse)
         .add("includeDeltaMetadata", includeDeltaMetadata)
+        .add("includeManifestCapabilities", includeManifestCapabilities)
         .add("maxResults", maxResults)
         .add("omitColumns", omitColumns)
         .add("omitProperties", omitProperties)

@@ -4,6 +4,7 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,7 +16,7 @@ public class ClusterPermissionsRequest {
   private Collection<ClusterAccessControlRequest> accessControlList;
 
   /** The cluster for which to get or manage permissions. */
-  private String clusterId;
+  @JsonIgnore private String clusterId;
 
   public ClusterPermissionsRequest setAccessControlList(
       Collection<ClusterAccessControlRequest> accessControlList) {

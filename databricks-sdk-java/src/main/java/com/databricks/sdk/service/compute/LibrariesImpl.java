@@ -24,7 +24,7 @@ class LibrariesImpl implements LibrariesService {
   }
 
   @Override
-  public ClusterLibraryStatuses clusterStatus(ClusterStatusRequest request) {
+  public ClusterLibraryStatuses clusterStatus(ClusterStatus request) {
     String path = "/api/2.0/libraries/cluster-status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");

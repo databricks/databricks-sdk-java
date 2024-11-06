@@ -16,53 +16,53 @@ class BudgetsImpl implements BudgetsService {
   }
 
   @Override
-  public WrappedBudgetWithStatus create(WrappedBudget request) {
-    String path = String.format("/api/2.0/accounts/%s/budget", apiClient.configuredAccountID());
+  public CreateBudgetConfigurationResponse create(CreateBudgetConfigurationRequest request) {
+    String path = String.format("/api/2.1/accounts/%s/budgets", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, WrappedBudgetWithStatus.class, headers);
+    return apiClient.POST(path, request, CreateBudgetConfigurationResponse.class, headers);
   }
 
   @Override
-  public void delete(DeleteBudgetRequest request) {
+  public void delete(DeleteBudgetConfigurationRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts/%s/budget/%s",
+            "/api/2.1/accounts/%s/budgets/%s",
             apiClient.configuredAccountID(), request.getBudgetId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.DELETE(path, request, DeleteBudgetConfigurationResponse.class, headers);
   }
 
   @Override
-  public WrappedBudgetWithStatus get(GetBudgetRequest request) {
+  public GetBudgetConfigurationResponse get(GetBudgetConfigurationRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts/%s/budget/%s",
+            "/api/2.1/accounts/%s/budgets/%s",
             apiClient.configuredAccountID(), request.getBudgetId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, WrappedBudgetWithStatus.class, headers);
+    return apiClient.GET(path, request, GetBudgetConfigurationResponse.class, headers);
   }
 
   @Override
-  public BudgetList list() {
-    String path = String.format("/api/2.0/accounts/%s/budget", apiClient.configuredAccountID());
+  public ListBudgetConfigurationsResponse list(ListBudgetConfigurationsRequest request) {
+    String path = String.format("/api/2.1/accounts/%s/budgets", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, BudgetList.class, headers);
+    return apiClient.GET(path, request, ListBudgetConfigurationsResponse.class, headers);
   }
 
   @Override
-  public void update(WrappedBudget request) {
+  public UpdateBudgetConfigurationResponse update(UpdateBudgetConfigurationRequest request) {
     String path =
         String.format(
-            "/api/2.0/accounts/%s/budget/%s",
+            "/api/2.1/accounts/%s/budgets/%s",
             apiClient.configuredAccountID(), request.getBudgetId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateResponse.class, headers);
+    return apiClient.PUT(path, request, UpdateBudgetConfigurationResponse.class, headers);
   }
 }

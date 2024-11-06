@@ -3,6 +3,7 @@ package com.databricks.sdk.service.compute;
 
 import com.databricks.sdk.core.ApiClient;
 import com.databricks.sdk.support.Generated;
+import com.databricks.sdk.support.Paginator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,10 +44,6 @@ public class ClusterPoliciesAPI {
     impl = mock;
   }
 
-  public CreatePolicyResponse create(String name) {
-    return create(new CreatePolicy().setName(name));
-  }
-
   /**
    * Create a new policy.
    *
@@ -70,8 +67,8 @@ public class ClusterPoliciesAPI {
     impl.delete(request);
   }
 
-  public void edit(String policyId, String name) {
-    edit(new EditPolicy().setPolicyId(policyId).setName(name));
+  public void edit(String policyId) {
+    edit(new EditPolicy().setPolicyId(policyId));
   }
 
   /**
@@ -133,7 +130,8 @@ public class ClusterPoliciesAPI {
    * <p>Returns a list of policies accessible by the requesting user.
    */
   public Iterable<Policy> list(ListClusterPoliciesRequest request) {
-    return impl.list(request).getPolicies();
+    return new Paginator<>(
+        request, impl::list, ListPoliciesResponse::getPolicies, response -> null);
   }
 
   public ClusterPolicyPermissions setPermissions(String clusterPolicyId) {

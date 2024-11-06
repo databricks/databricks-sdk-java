@@ -4,12 +4,16 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 @Generated
 public class CreateMetastoreAssignment {
-  /** The name of the default catalog in the metastore. */
+  /**
+   * The name of the default catalog in the metastore. This field is depracted. Please use "Default
+   * Namespace API" to configure the default catalog for a Databricks workspace.
+   */
   @JsonProperty("default_catalog_name")
   private String defaultCatalogName;
 
@@ -18,7 +22,7 @@ public class CreateMetastoreAssignment {
   private String metastoreId;
 
   /** A workspace ID. */
-  private Long workspaceId;
+  @JsonIgnore private Long workspaceId;
 
   public CreateMetastoreAssignment setDefaultCatalogName(String defaultCatalogName) {
     this.defaultCatalogName = defaultCatalogName;
