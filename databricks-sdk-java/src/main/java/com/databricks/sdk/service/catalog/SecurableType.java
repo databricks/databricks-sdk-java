@@ -14,6 +14,9 @@ public enum SecurableType {
   @JsonProperty("connection")
   CONNECTION,
 
+  @JsonProperty("credential")
+  CREDENTIAL,
+
   @JsonProperty("external_location")
   EXTERNAL_LOCATION,
 

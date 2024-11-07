@@ -341,7 +341,9 @@ public class JobsAPI {
   /**
    * Set job permissions.
    *
-   * <p>Sets permissions on a job. Jobs can inherit permissions from their root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
+   * object.
    */
   public JobPermissions setPermissions(JobPermissionsRequest request) {
     return impl.setPermissions(request);

@@ -13,6 +13,10 @@ public class SettingsAPI {
 
   private final SettingsService impl;
 
+  private AibiDashboardEmbeddingAccessPolicyAPI aibiDashboardEmbeddingAccessPolicyAPI;
+
+  private AibiDashboardEmbeddingApprovedDomainsAPI aibiDashboardEmbeddingApprovedDomainsAPI;
+
   private AutomaticClusterUpdateAPI automaticClusterUpdateAPI;
 
   private ComplianceSecurityProfileAPI complianceSecurityProfileAPI;
@@ -30,6 +34,11 @@ public class SettingsAPI {
   /** Regular-use constructor */
   public SettingsAPI(ApiClient apiClient) {
     impl = new SettingsImpl(apiClient);
+
+    aibiDashboardEmbeddingAccessPolicyAPI = new AibiDashboardEmbeddingAccessPolicyAPI(apiClient);
+
+    aibiDashboardEmbeddingApprovedDomainsAPI =
+        new AibiDashboardEmbeddingApprovedDomainsAPI(apiClient);
 
     automaticClusterUpdateAPI = new AutomaticClusterUpdateAPI(apiClient);
 
@@ -49,6 +58,19 @@ public class SettingsAPI {
   /** Constructor for mocks */
   public SettingsAPI(SettingsService mock) {
     impl = mock;
+  }
+
+  /**
+   * Controls whether AI/BI published dashboard embedding is enabled, conditionally enabled, or
+   * disabled at the workspace level.
+   */
+  public AibiDashboardEmbeddingAccessPolicyAPI AibiDashboardEmbeddingAccessPolicy() {
+    return aibiDashboardEmbeddingAccessPolicyAPI;
+  }
+
+  /** Controls the list of domains approved to host the embedded AI/BI dashboards. */
+  public AibiDashboardEmbeddingApprovedDomainsAPI AibiDashboardEmbeddingApprovedDomains() {
+    return aibiDashboardEmbeddingApprovedDomainsAPI;
   }
 
   /** Controls whether automatic cluster update is enabled for the current workspace. */

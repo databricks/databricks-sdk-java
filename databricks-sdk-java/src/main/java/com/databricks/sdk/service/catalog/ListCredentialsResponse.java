@@ -1,6 +1,6 @@
 // Code generated from OpenAPI specs by Databricks SDK Generator. DO NOT EDIT.
 
-package com.databricks.sdk.service.sharing;
+package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
@@ -9,10 +9,10 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Generated
-public class ListCleanRoomsResponse {
-  /** An array of clean rooms. Remote details (central) are not included. */
-  @JsonProperty("clean_rooms")
-  private Collection<CleanRoomInfo> cleanRooms;
+public class ListCredentialsResponse {
+  /** */
+  @JsonProperty("credentials")
+  private Collection<CredentialInfo> credentials;
 
   /**
    * Opaque token to retrieve the next page of results. Absent if there are no more pages.
@@ -21,16 +21,16 @@ public class ListCleanRoomsResponse {
   @JsonProperty("next_page_token")
   private String nextPageToken;
 
-  public ListCleanRoomsResponse setCleanRooms(Collection<CleanRoomInfo> cleanRooms) {
-    this.cleanRooms = cleanRooms;
+  public ListCredentialsResponse setCredentials(Collection<CredentialInfo> credentials) {
+    this.credentials = credentials;
     return this;
   }
 
-  public Collection<CleanRoomInfo> getCleanRooms() {
-    return cleanRooms;
+  public Collection<CredentialInfo> getCredentials() {
+    return credentials;
   }
 
-  public ListCleanRoomsResponse setNextPageToken(String nextPageToken) {
+  public ListCredentialsResponse setNextPageToken(String nextPageToken) {
     this.nextPageToken = nextPageToken;
     return this;
   }
@@ -43,20 +43,20 @@ public class ListCleanRoomsResponse {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ListCleanRoomsResponse that = (ListCleanRoomsResponse) o;
-    return Objects.equals(cleanRooms, that.cleanRooms)
+    ListCredentialsResponse that = (ListCredentialsResponse) o;
+    return Objects.equals(credentials, that.credentials)
         && Objects.equals(nextPageToken, that.nextPageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(cleanRooms, nextPageToken);
+    return Objects.hash(credentials, nextPageToken);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(ListCleanRoomsResponse.class)
-        .add("cleanRooms", cleanRooms)
+    return new ToStringer(ListCredentialsResponse.class)
+        .add("credentials", credentials)
         .add("nextPageToken", nextPageToken)
         .toString();
   }

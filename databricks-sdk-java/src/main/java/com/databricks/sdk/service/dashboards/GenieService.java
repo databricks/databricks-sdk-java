@@ -30,7 +30,7 @@ public interface GenieService {
    * <p>Execute the SQL query in the message.
    */
   GenieGetMessageQueryResultResponse executeMessageQuery(
-      ExecuteMessageQueryRequest executeMessageQueryRequest);
+      GenieExecuteMessageQueryRequest genieExecuteMessageQueryRequest);
 
   /**
    * Get conversation message.

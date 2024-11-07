@@ -21,7 +21,7 @@ class AppsImpl implements AppsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, App.class, headers);
+    return apiClient.POST(path, request.getApp(), App.class, headers);
   }
 
   @Override
@@ -38,7 +38,7 @@ class AppsImpl implements AppsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, AppDeployment.class, headers);
+    return apiClient.POST(path, request.getAppDeployment(), AppDeployment.class, headers);
   }
 
   @Override
@@ -125,7 +125,7 @@ class AppsImpl implements AppsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, App.class, headers);
+    return apiClient.PATCH(path, request.getApp(), App.class, headers);
   }
 
   @Override

@@ -11,15 +11,15 @@ import java.util.Objects;
 @Generated
 public class IngestionPipelineDefinition {
   /**
-   * Immutable. The Unity Catalog connection this ingestion pipeline uses to communicate with the
-   * source. Specify either ingestion_gateway_id or connection_name.
+   * Immutable. The Unity Catalog connection that this ingestion pipeline uses to communicate with
+   * the source. This is used with connectors for applications like Salesforce, Workday, and so on.
    */
   @JsonProperty("connection_name")
   private String connectionName;
 
   /**
-   * Immutable. Identifier for the ingestion gateway used by this ingestion pipeline to communicate
-   * with the source. Specify either ingestion_gateway_id or connection_name.
+   * Immutable. Identifier for the gateway that is used by this ingestion pipeline to communicate
+   * with the source database. This is used with connectors to databases like SQL Server.
    */
   @JsonProperty("ingestion_gateway_id")
   private String ingestionGatewayId;

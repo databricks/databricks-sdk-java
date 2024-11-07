@@ -16,6 +16,8 @@ import com.databricks.sdk.service.catalog.CatalogsAPI;
 import com.databricks.sdk.service.catalog.CatalogsService;
 import com.databricks.sdk.service.catalog.ConnectionsAPI;
 import com.databricks.sdk.service.catalog.ConnectionsService;
+import com.databricks.sdk.service.catalog.CredentialsAPI;
+import com.databricks.sdk.service.catalog.CredentialsService;
 import com.databricks.sdk.service.catalog.ExternalLocationsAPI;
 import com.databricks.sdk.service.catalog.ExternalLocationsService;
 import com.databricks.sdk.service.catalog.FunctionsAPI;
@@ -138,8 +140,6 @@ import com.databricks.sdk.service.settings.TokensAPI;
 import com.databricks.sdk.service.settings.TokensService;
 import com.databricks.sdk.service.settings.WorkspaceConfAPI;
 import com.databricks.sdk.service.settings.WorkspaceConfService;
-import com.databricks.sdk.service.sharing.CleanRoomsAPI;
-import com.databricks.sdk.service.sharing.CleanRoomsService;
 import com.databricks.sdk.service.sharing.ProvidersAPI;
 import com.databricks.sdk.service.sharing.ProvidersService;
 import com.databricks.sdk.service.sharing.RecipientActivationAPI;
@@ -199,7 +199,6 @@ public class WorkspaceClient {
   private AppsAPI appsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
-  private CleanRoomsAPI cleanRoomsAPI;
   private ClusterPoliciesAPI clusterPoliciesAPI;
   private ClustersExt clustersAPI;
   private CommandExecutionAPI commandExecutionAPI;
@@ -209,6 +208,7 @@ public class WorkspaceClient {
   private ConsumerListingsAPI consumerListingsAPI;
   private ConsumerPersonalizationRequestsAPI consumerPersonalizationRequestsAPI;
   private ConsumerProvidersAPI consumerProvidersAPI;
+  private CredentialsAPI credentialsAPI;
   private CredentialsManagerAPI credentialsManagerAPI;
   private CurrentUserAPI currentUserAPI;
   private DashboardWidgetsAPI dashboardWidgetsAPI;
@@ -298,7 +298,6 @@ public class WorkspaceClient {
     appsAPI = new AppsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
-    cleanRoomsAPI = new CleanRoomsAPI(apiClient);
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
     clustersAPI = new ClustersExt(apiClient);
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
@@ -308,6 +307,7 @@ public class WorkspaceClient {
     consumerListingsAPI = new ConsumerListingsAPI(apiClient);
     consumerPersonalizationRequestsAPI = new ConsumerPersonalizationRequestsAPI(apiClient);
     consumerProvidersAPI = new ConsumerProvidersAPI(apiClient);
+    credentialsAPI = new CredentialsAPI(apiClient);
     credentialsManagerAPI = new CredentialsManagerAPI(apiClient);
     currentUserAPI = new CurrentUserAPI(apiClient);
     dashboardWidgetsAPI = new DashboardWidgetsAPI(apiClient);
@@ -460,18 +460,6 @@ public class WorkspaceClient {
   }
 
   /**
-   * A clean room is a secure, privacy-protecting environment where two or more parties can share
-   * sensitive enterprise data, including customer data, for measurements, insights, activation and
-   * other use cases.
-   *
-   * <p>To create clean rooms, you must be a metastore admin or a user with the
-   * **CREATE_CLEAN_ROOM** privilege.
-   */
-  public CleanRoomsAPI cleanRooms() {
-    return cleanRoomsAPI;
-  }
-
-  /**
    * You can use cluster policies to control users' ability to configure clusters based on a set of
    * rules. These rules specify which attributes or attribute values can be used during cluster
    * creation. Cluster policies have ACLs that limit their use to specific users and groups.
@@ -578,6 +566,19 @@ public class WorkspaceClient {
   /** Providers are the entities that publish listings to the Marketplace. */
   public ConsumerProvidersAPI consumerProviders() {
     return consumerProvidersAPI;
+  }
+
+  /**
+   * A credential represents an authentication and authorization mechanism for accessing services on
+   * your cloud tenant. Each credential is subject to Unity Catalog access-control policies that
+   * control which users and groups can access the credential.
+   *
+   * <p>To create credentials, you must be a Databricks account admin or have the `CREATE SERVICE
+   * CREDENTIAL privilege. The user who creates the credential can delegate ownership to another
+   * user or group to manage permissions on it
+   */
+  public CredentialsAPI credentials() {
+    return credentialsAPI;
   }
 
   /**
@@ -1453,11 +1454,11 @@ public class WorkspaceClient {
    * might have already completed execution when the cancel request arrives. Polling for status
    * until a terminal state is reached is a reliable way to determine the final state. - Wait
    * timeouts are approximate, occur server-side, and cannot account for things such as caller
-   * delays and network latency from caller to service. - The system will auto-close a statement
-   * after one hour if the client stops polling and thus you must poll at least once an hour. - The
-   * results are only available for one hour after success; polling does not extend this. - The SQL
-   * Execution API must be used for the entire lifecycle of the statement. For example, you cannot
-   * use the Jobs API to execute the command, and then the SQL Execution API to cancel it.
+   * delays and network latency from caller to service. - To guarantee that the statement is kept
+   * alive, you must poll at least once every 15 minutes. - The results are only available for one
+   * hour after success; polling does not extend this. - The SQL Execution API must be used for the
+   * entire lifecycle of the statement. For example, you cannot use the Jobs API to execute the
+   * command, and then the SQL Execution API to cancel it.
    *
    * <p>[Apache Arrow Columnar]: https://arrow.apache.org/overview/ [Databricks SQL Statement
    * Execution API tutorial]: https://docs.databricks.com/sql/api/sql-execution-tutorial.html
@@ -1721,17 +1722,6 @@ public class WorkspaceClient {
     return this;
   }
 
-  /** Replace the default CleanRoomsService with a custom implementation. */
-  public WorkspaceClient withCleanRoomsImpl(CleanRoomsService cleanRooms) {
-    return this.withCleanRoomsAPI(new CleanRoomsAPI(cleanRooms));
-  }
-
-  /** Replace the default CleanRoomsAPI with a custom implementation. */
-  public WorkspaceClient withCleanRoomsAPI(CleanRoomsAPI cleanRooms) {
-    this.cleanRoomsAPI = cleanRooms;
-    return this;
-  }
-
   /** Replace the default ClusterPoliciesService with a custom implementation. */
   public WorkspaceClient withClusterPoliciesImpl(ClusterPoliciesService clusterPolicies) {
     return this.withClusterPoliciesAPI(new ClusterPoliciesAPI(clusterPolicies));
@@ -1834,6 +1824,17 @@ public class WorkspaceClient {
   /** Replace the default ConsumerProvidersAPI with a custom implementation. */
   public WorkspaceClient withConsumerProvidersAPI(ConsumerProvidersAPI consumerProviders) {
     this.consumerProvidersAPI = consumerProviders;
+    return this;
+  }
+
+  /** Replace the default CredentialsService with a custom implementation. */
+  public WorkspaceClient withCredentialsImpl(CredentialsService credentials) {
+    return this.withCredentialsAPI(new CredentialsAPI(credentials));
+  }
+
+  /** Replace the default CredentialsAPI with a custom implementation. */
+  public WorkspaceClient withCredentialsAPI(CredentialsAPI credentials) {
+    this.credentialsAPI = credentials;
     return this;
   }
 

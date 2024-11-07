@@ -4,34 +4,27 @@ package com.databricks.sdk.service.apps;
 
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Collection;
 import java.util.Objects;
 
+/** Update an app */
 @Generated
 public class UpdateAppRequest {
-  /** The description of the app. */
-  @JsonProperty("description")
-  private String description;
+  /** */
+  @JsonProperty("app")
+  private App app;
 
-  /**
-   * The name of the app. The name must contain only lowercase alphanumeric characters and hyphens.
-   * It must be unique within the workspace.
-   */
-  @JsonProperty("name")
-  private String name;
+  /** The name of the app. */
+  @JsonIgnore private String name;
 
-  /** Resources for the app. */
-  @JsonProperty("resources")
-  private Collection<AppResource> resources;
-
-  public UpdateAppRequest setDescription(String description) {
-    this.description = description;
+  public UpdateAppRequest setApp(App app) {
+    this.app = app;
     return this;
   }
 
-  public String getDescription() {
-    return description;
+  public App getApp() {
+    return app;
   }
 
   public UpdateAppRequest setName(String name) {
@@ -43,36 +36,21 @@ public class UpdateAppRequest {
     return name;
   }
 
-  public UpdateAppRequest setResources(Collection<AppResource> resources) {
-    this.resources = resources;
-    return this;
-  }
-
-  public Collection<AppResource> getResources() {
-    return resources;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     UpdateAppRequest that = (UpdateAppRequest) o;
-    return Objects.equals(description, that.description)
-        && Objects.equals(name, that.name)
-        && Objects.equals(resources, that.resources);
+    return Objects.equals(app, that.app) && Objects.equals(name, that.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, name, resources);
+    return Objects.hash(app, name);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(UpdateAppRequest.class)
-        .add("description", description)
-        .add("name", name)
-        .add("resources", resources)
-        .toString();
+    return new ToStringer(UpdateAppRequest.class).add("app", app).add("name", name).toString();
   }
 }

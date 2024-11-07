@@ -93,6 +93,57 @@ public class CommandExecutionAPI {
     throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
   }
 
+  public ContextStatusResponse waitContextStatusCommandExecutionRunning(
+      String clusterId, String contextId) throws TimeoutException {
+    return waitContextStatusCommandExecutionRunning(
+        clusterId, contextId, Duration.ofMinutes(20), null);
+  }
+
+  public ContextStatusResponse waitContextStatusCommandExecutionRunning(
+      String clusterId,
+      String contextId,
+      Duration timeout,
+      Consumer<ContextStatusResponse> callback)
+      throws TimeoutException {
+    long deadline = System.currentTimeMillis() + timeout.toMillis();
+    java.util.List<ContextStatus> targetStates = Arrays.asList(ContextStatus.RUNNING);
+    java.util.List<ContextStatus> failureStates = Arrays.asList(ContextStatus.ERROR);
+    String statusMessage = "polling...";
+    int attempt = 1;
+    while (System.currentTimeMillis() < deadline) {
+      ContextStatusResponse poll =
+          contextStatus(new ContextStatusRequest().setClusterId(clusterId).setContextId(contextId));
+      ContextStatus status = poll.getStatus();
+      statusMessage = String.format("current status: %s", status);
+      if (targetStates.contains(status)) {
+        return poll;
+      }
+      if (callback != null) {
+        callback.accept(poll);
+      }
+      if (failureStates.contains(status)) {
+        String msg = String.format("failed to reach RUNNING, got %s: %s", status, statusMessage);
+        throw new IllegalStateException(msg);
+      }
+
+      String prefix = String.format("clusterId=%s, contextId=%s", clusterId, contextId);
+      int sleep = attempt;
+      if (sleep > 10) {
+        // sleep 10s max per attempt
+        sleep = 10;
+      }
+      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
+      try {
+        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        throw new DatabricksException("Current thread was interrupted", e);
+      }
+      attempt++;
+    }
+    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
+  }
+
   public CommandStatusResponse waitCommandStatusCommandExecutionFinishedOrError(
       String clusterId, String commandId, String contextId) throws TimeoutException {
     return waitCommandStatusCommandExecutionFinishedOrError(
@@ -137,57 +188,6 @@ public class CommandExecutionAPI {
       String prefix =
           String.format(
               "clusterId=%s, commandId=%s, contextId=%s", clusterId, commandId, contextId);
-      int sleep = attempt;
-      if (sleep > 10) {
-        // sleep 10s max per attempt
-        sleep = 10;
-      }
-      LOG.info("{}: ({}) {} (sleeping ~{}s)", prefix, status, statusMessage, sleep);
-      try {
-        Thread.sleep((long) (sleep * 1000L + Math.random() * 1000));
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-        throw new DatabricksException("Current thread was interrupted", e);
-      }
-      attempt++;
-    }
-    throw new TimeoutException(String.format("timed out after %s: %s", timeout, statusMessage));
-  }
-
-  public ContextStatusResponse waitContextStatusCommandExecutionRunning(
-      String clusterId, String contextId) throws TimeoutException {
-    return waitContextStatusCommandExecutionRunning(
-        clusterId, contextId, Duration.ofMinutes(20), null);
-  }
-
-  public ContextStatusResponse waitContextStatusCommandExecutionRunning(
-      String clusterId,
-      String contextId,
-      Duration timeout,
-      Consumer<ContextStatusResponse> callback)
-      throws TimeoutException {
-    long deadline = System.currentTimeMillis() + timeout.toMillis();
-    java.util.List<ContextStatus> targetStates = Arrays.asList(ContextStatus.RUNNING);
-    java.util.List<ContextStatus> failureStates = Arrays.asList(ContextStatus.ERROR);
-    String statusMessage = "polling...";
-    int attempt = 1;
-    while (System.currentTimeMillis() < deadline) {
-      ContextStatusResponse poll =
-          contextStatus(new ContextStatusRequest().setClusterId(clusterId).setContextId(contextId));
-      ContextStatus status = poll.getStatus();
-      statusMessage = String.format("current status: %s", status);
-      if (targetStates.contains(status)) {
-        return poll;
-      }
-      if (callback != null) {
-        callback.accept(poll);
-      }
-      if (failureStates.contains(status)) {
-        String msg = String.format("failed to reach RUNNING, got %s: %s", status, statusMessage);
-        throw new IllegalStateException(msg);
-      }
-
-      String prefix = String.format("clusterId=%s, contextId=%s", clusterId, contextId);
       int sleep = attempt;
       if (sleep > 10) {
         // sleep 10s max per attempt

@@ -7,68 +7,20 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Create dashboard */
 @Generated
 public class CreateDashboardRequest {
-  /** The display name of the dashboard. */
-  @JsonProperty("display_name")
-  private String displayName;
+  /** */
+  @JsonProperty("dashboard")
+  private Dashboard dashboard;
 
-  /**
-   * The workspace path of the folder containing the dashboard. Includes leading slash and no
-   * trailing slash. This field is excluded in List Dashboards responses.
-   */
-  @JsonProperty("parent_path")
-  private String parentPath;
-
-  /**
-   * The contents of the dashboard in serialized string form. This field is excluded in List
-   * Dashboards responses. Use the [get dashboard API] to retrieve an example response, which
-   * includes the `serialized_dashboard` field. This field provides the structure of the JSON string
-   * that represents the dashboard's layout and components.
-   *
-   * <p>[get dashboard API]: https://docs.databricks.com/api/workspace/lakeview/get
-   */
-  @JsonProperty("serialized_dashboard")
-  private String serializedDashboard;
-
-  /** The warehouse ID used to run the dashboard. */
-  @JsonProperty("warehouse_id")
-  private String warehouseId;
-
-  public CreateDashboardRequest setDisplayName(String displayName) {
-    this.displayName = displayName;
+  public CreateDashboardRequest setDashboard(Dashboard dashboard) {
+    this.dashboard = dashboard;
     return this;
   }
 
-  public String getDisplayName() {
-    return displayName;
-  }
-
-  public CreateDashboardRequest setParentPath(String parentPath) {
-    this.parentPath = parentPath;
-    return this;
-  }
-
-  public String getParentPath() {
-    return parentPath;
-  }
-
-  public CreateDashboardRequest setSerializedDashboard(String serializedDashboard) {
-    this.serializedDashboard = serializedDashboard;
-    return this;
-  }
-
-  public String getSerializedDashboard() {
-    return serializedDashboard;
-  }
-
-  public CreateDashboardRequest setWarehouseId(String warehouseId) {
-    this.warehouseId = warehouseId;
-    return this;
-  }
-
-  public String getWarehouseId() {
-    return warehouseId;
+  public Dashboard getDashboard() {
+    return dashboard;
   }
 
   @Override
@@ -76,24 +28,16 @@ public class CreateDashboardRequest {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateDashboardRequest that = (CreateDashboardRequest) o;
-    return Objects.equals(displayName, that.displayName)
-        && Objects.equals(parentPath, that.parentPath)
-        && Objects.equals(serializedDashboard, that.serializedDashboard)
-        && Objects.equals(warehouseId, that.warehouseId);
+    return Objects.equals(dashboard, that.dashboard);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(displayName, parentPath, serializedDashboard, warehouseId);
+    return Objects.hash(dashboard);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(CreateDashboardRequest.class)
-        .add("displayName", displayName)
-        .add("parentPath", parentPath)
-        .add("serializedDashboard", serializedDashboard)
-        .add("warehouseId", warehouseId)
-        .toString();
+    return new ToStringer(CreateDashboardRequest.class).add("dashboard", dashboard).toString();
   }
 }
