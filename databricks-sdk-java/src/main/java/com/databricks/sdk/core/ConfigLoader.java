@@ -41,7 +41,7 @@ public class ConfigLoader {
     }
   }
 
-  static void loadFromEnvironmentVariables(DatabricksConfig cfg) throws IllegalAccessException {
+  static void loadFromEnvironmentVariables(DatabricksConfig cfg) {
     if (cfg.getEnv() == null) {
       return;
     }
@@ -58,15 +58,16 @@ public class ConfigLoader {
         }
         accessor.setValueOnConfig(cfg, env);
       }
-    } catch (DatabricksException e) {
-      String msg = String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
+    } catch (DatabricksException | IllegalAccessException e) {
+      String msg =
+          String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
       throw new DatabricksException(msg, e);
     }
   }
 
   static void loadFromConfig(DatabricksConfig cfg) throws IllegalAccessException {
     if (isNullOrEmpty(cfg.getProfile())
-            && (isAnyAuthConfigured(cfg)
+        && (isAnyAuthConfigured(cfg)
             || !isNullOrEmpty(cfg.getHost())
             || !isNullOrEmpty(cfg.getAzureWorkspaceResourceId()))) {
       return;
@@ -94,14 +95,13 @@ public class ConfigLoader {
     if (!hasExplicitProfile) {
       profile = "DEFAULT";
     }
-
     SubnodeConfiguration section = ini.getSection(profile);
-    if (section == null && !hasExplicitProfile) {
+    boolean sectionNotPresent = section == null || section.isEmpty();
+    if (sectionNotPresent && !hasExplicitProfile) {
       LOG.info("{} has no {} profile configured", configFile, profile);
       return;
     }
-
-    if (section == null) {
+    if (sectionNotPresent) {
       String msg = String.format("resolve: %s has no %s profile configured", configFile, profile);
       throw new DatabricksException(msg);
     }
@@ -166,18 +166,22 @@ public class ConfigLoader {
       }
       if (authSet.size() <= 1) return;
       String names = String.join(" and ", authSet);
-      throw new DatabricksException(String.format("validate: more than one authorization method configured: %s", names));
+      throw new DatabricksException(
+          String.format("validate: more than one authorization method configured: %s", names));
     } catch (IllegalAccessException e) {
       throw new DatabricksException("Cannot create default config", e);
     }
   }
 
-  public static DatabricksException makeNicerError(String message, Exception e, DatabricksConfig cfg) {
+  public static DatabricksException makeNicerError(
+      String message, Exception e, DatabricksConfig cfg) {
     return makeNicerError(message, e, 200, cfg);
   }
 
-  public static DatabricksException makeNicerError(String message, Exception e, Integer statusCode, DatabricksConfig cfg) {
-    boolean isHttpUnauthorizedOrForbidden = true; // TODO - pass status code with exception, default this to false
+  public static DatabricksException makeNicerError(
+      String message, Exception e, Integer statusCode, DatabricksConfig cfg) {
+    boolean isHttpUnauthorizedOrForbidden =
+        true; // TODO - pass status code with exception, default this to false
     if (statusCode == 401 || statusCode == 402) isHttpUnauthorizedOrForbidden = true;
     String debugString = "";
     if (cfg.getEnv() != null) {
