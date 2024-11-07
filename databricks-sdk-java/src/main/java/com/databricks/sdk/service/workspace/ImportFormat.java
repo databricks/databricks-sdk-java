@@ -23,6 +23,7 @@ public enum ImportFormat {
   // directories.
   HTML, // The notebook is imported as an HTML file.
   JUPYTER, // The notebook is imported as a Jupyter/IPython Notebook file.
+  RAW,
   R_MARKDOWN, // The notebook is imported from R Markdown format.
   SOURCE, // The notebook or directory is imported as source code.
 }

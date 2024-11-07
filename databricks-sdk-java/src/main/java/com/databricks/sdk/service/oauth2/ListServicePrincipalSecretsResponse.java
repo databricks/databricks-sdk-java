@@ -10,9 +10,22 @@ import java.util.Objects;
 
 @Generated
 public class ListServicePrincipalSecretsResponse {
+  /** A token, which can be sent as `page_token` to retrieve the next page. */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
+
   /** List of the secrets */
   @JsonProperty("secrets")
   private Collection<SecretInfo> secrets;
+
+  public ListServicePrincipalSecretsResponse setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
+  }
 
   public ListServicePrincipalSecretsResponse setSecrets(Collection<SecretInfo> secrets) {
     this.secrets = secrets;
@@ -28,17 +41,19 @@ public class ListServicePrincipalSecretsResponse {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     ListServicePrincipalSecretsResponse that = (ListServicePrincipalSecretsResponse) o;
-    return Objects.equals(secrets, that.secrets);
+    return Objects.equals(nextPageToken, that.nextPageToken)
+        && Objects.equals(secrets, that.secrets);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(secrets);
+    return Objects.hash(nextPageToken, secrets);
   }
 
   @Override
   public String toString() {
     return new ToStringer(ListServicePrincipalSecretsResponse.class)
+        .add("nextPageToken", nextPageToken)
         .add("secrets", secrets)
         .toString();
   }

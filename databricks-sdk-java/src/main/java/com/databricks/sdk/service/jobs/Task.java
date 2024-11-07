@@ -11,16 +11,16 @@ import java.util.Objects;
 @Generated
 public class Task {
   /**
-   * If condition_task, specifies a condition with an outcome that can be used to control the
-   * execution of other tasks. Does not require a cluster to execute and does not support retries or
-   * notifications.
+   * The task evaluates a condition that can be used to control the execution of other tasks when
+   * the `condition_task` field is present. The condition task does not require a cluster to execute
+   * and does not support retries or notifications.
    */
   @JsonProperty("condition_task")
   private ConditionTask conditionTask;
 
   /**
-   * If dbt_task, indicates that this must execute a dbt task. It requires both Databricks SQL and
-   * the ability to use a serverless or a pro SQL warehouse.
+   * The task runs one or more dbt commands when the `dbt_task` field is present. The dbt task
+   * requires both Databricks SQL and the ability to use a serverless or a pro SQL warehouse.
    */
   @JsonProperty("dbt_task")
   private DbtTask dbtTask;
@@ -64,7 +64,10 @@ public class Task {
   @JsonProperty("existing_cluster_id")
   private String existingClusterId;
 
-  /** If for_each_task, indicates that this task must execute the nested task within it. */
+  /**
+   * The task executes a nested task for every input provided when the `for_each_task` field is
+   * present.
+   */
   @JsonProperty("for_each_task")
   private ForEachTask forEachTask;
 
@@ -106,10 +109,7 @@ public class Task {
   @JsonProperty("new_cluster")
   private com.databricks.sdk.service.compute.ClusterSpec newCluster;
 
-  /**
-   * If notebook_task, indicates that this task must run a notebook. This field may not be specified
-   * in conjunction with spark_jar_task.
-   */
+  /** The task runs a notebook when the `notebook_task` field is present. */
   @JsonProperty("notebook_task")
   private NotebookTask notebookTask;
 
@@ -120,11 +120,14 @@ public class Task {
   @JsonProperty("notification_settings")
   private TaskNotificationSettings notificationSettings;
 
-  /** If pipeline_task, indicates that this task must execute a Pipeline. */
+  /**
+   * The task triggers a pipeline update when the `pipeline_task` field is present. Only pipelines
+   * configured to use triggered more are supported.
+   */
   @JsonProperty("pipeline_task")
   private PipelineTask pipelineTask;
 
-  /** If python_wheel_task, indicates that this job must execute a PythonWheel. */
+  /** The task runs a Python wheel when the `python_wheel_task` field is present. */
   @JsonProperty("python_wheel_task")
   private PythonWheelTask pythonWheelTask;
 
@@ -148,21 +151,21 @@ public class Task {
   @JsonProperty("run_if")
   private RunIf runIf;
 
-  /** If run_job_task, indicates that this task must execute another job. */
+  /** The task triggers another job when the `run_job_task` field is present. */
   @JsonProperty("run_job_task")
   private RunJobTask runJobTask;
 
-  /** If spark_jar_task, indicates that this task must run a JAR. */
+  /** The task runs a JAR when the `spark_jar_task` field is present. */
   @JsonProperty("spark_jar_task")
   private SparkJarTask sparkJarTask;
 
-  /** If spark_python_task, indicates that this task must run a Python file. */
+  /** The task runs a Python file when the `spark_python_task` field is present. */
   @JsonProperty("spark_python_task")
   private SparkPythonTask sparkPythonTask;
 
   /**
-   * If `spark_submit_task`, indicates that this task must be launched by the spark submit script.
-   * This task can run only on new clusters.
+   * (Legacy) The task runs the spark-submit script when the `spark_submit_task` field is present.
+   * This task can run only on new clusters and is not compatible with serverless compute.
    *
    * <p>In the `new_cluster` specification, `libraries` and `spark_conf` are not supported. Instead,
    * use `--jars` and `--py-files` to add Java and Python libraries and `--conf` to set the Spark
@@ -180,7 +183,10 @@ public class Task {
   @JsonProperty("spark_submit_task")
   private SparkSubmitTask sparkSubmitTask;
 
-  /** If sql_task, indicates that this job must execute a SQL task. */
+  /**
+   * The task runs a SQL query or file, or it refreshes a SQL alert or a legacy SQL dashboard when
+   * the `sql_task` field is present.
+   */
   @JsonProperty("sql_task")
   private SqlTask sqlTask;
 

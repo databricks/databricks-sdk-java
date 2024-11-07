@@ -76,7 +76,8 @@ public interface WarehousesService {
   /**
    * Set SQL warehouse permissions.
    *
-   * <p>Sets permissions on a SQL warehouse. SQL warehouses can inherit permissions from their root
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
    * object.
    */
   WarehousePermissions setPermissions(WarehousePermissionsRequest warehousePermissionsRequest);

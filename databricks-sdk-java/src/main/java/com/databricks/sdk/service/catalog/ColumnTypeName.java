@@ -28,4 +28,5 @@ public enum ColumnTypeName {
   TIMESTAMP,
   TIMESTAMP_NTZ,
   USER_DEFINED_TYPE,
+  VARIANT,
 }

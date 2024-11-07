@@ -8,28 +8,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** Create an app deployment */
 @Generated
 public class CreateAppDeploymentRequest {
+  /** */
+  @JsonProperty("app_deployment")
+  private AppDeployment appDeployment;
+
   /** The name of the app. */
   @JsonIgnore private String appName;
 
-  /** The unique id of the deployment. */
-  @JsonProperty("deployment_id")
-  private String deploymentId;
+  public CreateAppDeploymentRequest setAppDeployment(AppDeployment appDeployment) {
+    this.appDeployment = appDeployment;
+    return this;
+  }
 
-  /** The mode of which the deployment will manage the source code. */
-  @JsonProperty("mode")
-  private AppDeploymentMode mode;
-
-  /**
-   * The workspace file system path of the source code used to create the app deployment. This is
-   * different from `deployment_artifacts.source_code_path`, which is the path used by the deployed
-   * app. The former refers to the original source code location of the app in the workspace during
-   * deployment creation, whereas the latter provides a system generated stable snapshotted source
-   * code path used by the deployment.
-   */
-  @JsonProperty("source_code_path")
-  private String sourceCodePath;
+  public AppDeployment getAppDeployment() {
+    return appDeployment;
+  }
 
   public CreateAppDeploymentRequest setAppName(String appName) {
     this.appName = appName;
@@ -40,56 +36,25 @@ public class CreateAppDeploymentRequest {
     return appName;
   }
 
-  public CreateAppDeploymentRequest setDeploymentId(String deploymentId) {
-    this.deploymentId = deploymentId;
-    return this;
-  }
-
-  public String getDeploymentId() {
-    return deploymentId;
-  }
-
-  public CreateAppDeploymentRequest setMode(AppDeploymentMode mode) {
-    this.mode = mode;
-    return this;
-  }
-
-  public AppDeploymentMode getMode() {
-    return mode;
-  }
-
-  public CreateAppDeploymentRequest setSourceCodePath(String sourceCodePath) {
-    this.sourceCodePath = sourceCodePath;
-    return this;
-  }
-
-  public String getSourceCodePath() {
-    return sourceCodePath;
-  }
-
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CreateAppDeploymentRequest that = (CreateAppDeploymentRequest) o;
-    return Objects.equals(appName, that.appName)
-        && Objects.equals(deploymentId, that.deploymentId)
-        && Objects.equals(mode, that.mode)
-        && Objects.equals(sourceCodePath, that.sourceCodePath);
+    return Objects.equals(appDeployment, that.appDeployment)
+        && Objects.equals(appName, that.appName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(appName, deploymentId, mode, sourceCodePath);
+    return Objects.hash(appDeployment, appName);
   }
 
   @Override
   public String toString() {
     return new ToStringer(CreateAppDeploymentRequest.class)
+        .add("appDeployment", appDeployment)
         .add("appName", appName)
-        .add("deploymentId", deploymentId)
-        .add("mode", mode)
-        .add("sourceCodePath", sourceCodePath)
         .toString();
   }
 }

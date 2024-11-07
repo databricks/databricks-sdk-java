@@ -21,7 +21,7 @@ class OnlineTablesImpl implements OnlineTablesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, OnlineTable.class, headers);
+    return apiClient.POST(path, request.getTable(), OnlineTable.class, headers);
   }
 
   @Override

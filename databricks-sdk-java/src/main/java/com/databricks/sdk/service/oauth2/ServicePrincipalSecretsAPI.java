@@ -80,7 +80,16 @@ public class ServicePrincipalSecretsAPI {
    */
   public Iterable<SecretInfo> list(ListServicePrincipalSecretsRequest request) {
     return new Paginator<>(
-        request, impl::list, ListServicePrincipalSecretsResponse::getSecrets, response -> null);
+        request,
+        impl::list,
+        ListServicePrincipalSecretsResponse::getSecrets,
+        response -> {
+          String token = response.getNextPageToken();
+          if (token == null || token.isEmpty()) {
+            return null;
+          }
+          return request.setPageToken(token);
+        });
   }
 
   public ServicePrincipalSecretsService impl() {

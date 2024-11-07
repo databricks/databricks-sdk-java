@@ -58,7 +58,9 @@ public interface TokenManagementService {
   /**
    * Set token permissions.
    *
-   * <p>Sets permissions on all tokens. Tokens can inherit permissions from their root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
+   * object.
    */
   TokenPermissions setPermissions(TokenPermissionsRequest tokenPermissionsRequest);
 
