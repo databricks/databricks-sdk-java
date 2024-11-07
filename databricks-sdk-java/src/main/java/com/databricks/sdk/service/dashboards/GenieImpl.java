@@ -29,7 +29,7 @@ class GenieImpl implements GenieService {
 
   @Override
   public GenieGetMessageQueryResultResponse executeMessageQuery(
-      ExecuteMessageQueryRequest request) {
+      GenieExecuteMessageQueryRequest request) {
     String path =
         String.format(
             "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/execute-query",

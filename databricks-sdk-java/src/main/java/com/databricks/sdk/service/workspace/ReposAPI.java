@@ -130,7 +130,9 @@ public class ReposAPI {
   /**
    * Set repo permissions.
    *
-   * <p>Sets permissions on a repo. Repos can inherit permissions from their root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
+   * object.
    */
   public RepoPermissions setPermissions(RepoPermissionsRequest request) {
     return impl.setPermissions(request);

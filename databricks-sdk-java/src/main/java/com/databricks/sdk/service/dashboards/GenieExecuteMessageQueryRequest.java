@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /** Execute SQL query in a conversation message */
 @Generated
-public class ExecuteMessageQueryRequest {
+public class GenieExecuteMessageQueryRequest {
   /** Conversation ID */
   @JsonIgnore private String conversationId;
 
@@ -19,7 +19,7 @@ public class ExecuteMessageQueryRequest {
   /** Genie space ID */
   @JsonIgnore private String spaceId;
 
-  public ExecuteMessageQueryRequest setConversationId(String conversationId) {
+  public GenieExecuteMessageQueryRequest setConversationId(String conversationId) {
     this.conversationId = conversationId;
     return this;
   }
@@ -28,7 +28,7 @@ public class ExecuteMessageQueryRequest {
     return conversationId;
   }
 
-  public ExecuteMessageQueryRequest setMessageId(String messageId) {
+  public GenieExecuteMessageQueryRequest setMessageId(String messageId) {
     this.messageId = messageId;
     return this;
   }
@@ -37,7 +37,7 @@ public class ExecuteMessageQueryRequest {
     return messageId;
   }
 
-  public ExecuteMessageQueryRequest setSpaceId(String spaceId) {
+  public GenieExecuteMessageQueryRequest setSpaceId(String spaceId) {
     this.spaceId = spaceId;
     return this;
   }
@@ -50,7 +50,7 @@ public class ExecuteMessageQueryRequest {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ExecuteMessageQueryRequest that = (ExecuteMessageQueryRequest) o;
+    GenieExecuteMessageQueryRequest that = (GenieExecuteMessageQueryRequest) o;
     return Objects.equals(conversationId, that.conversationId)
         && Objects.equals(messageId, that.messageId)
         && Objects.equals(spaceId, that.spaceId);
@@ -63,7 +63,7 @@ public class ExecuteMessageQueryRequest {
 
   @Override
   public String toString() {
-    return new ToStringer(ExecuteMessageQueryRequest.class)
+    return new ToStringer(GenieExecuteMessageQueryRequest.class)
         .add("conversationId", conversationId)
         .add("messageId", messageId)
         .add("spaceId", spaceId)

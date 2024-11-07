@@ -631,6 +631,25 @@ public class DatabricksConfig {
     return DatabricksEnvironment.getEnvironmentFromHostname(this.host);
   }
 
+  private DatabricksConfig clone(Set<String> fieldsToSkip) {
+    DatabricksConfig newConfig = new DatabricksConfig();
+    for (Field f : DatabricksConfig.class.getDeclaredFields()) {
+      if (fieldsToSkip.contains(f.getName())) {
+        continue;
+      }
+      try {
+        f.set(newConfig, f.get(this));
+      } catch (IllegalAccessException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return newConfig;
+  }
+
+  public DatabricksConfig clone() {
+    return clone(new HashSet<>());
+  }
+
   public DatabricksConfig newWithWorkspaceHost(String host) {
     Set<String> fieldsToSkip =
         new HashSet<>(
@@ -645,18 +664,6 @@ public class DatabricksConfig {
                 // don't cache the
                 // header factory.
                 "headerFactory"));
-    DatabricksConfig newConfig = new DatabricksConfig();
-    for (Field f : DatabricksConfig.class.getDeclaredFields()) {
-      if (fieldsToSkip.contains(f.getName())) {
-        continue;
-      }
-      try {
-        f.set(newConfig, f.get(this));
-      } catch (IllegalAccessException e) {
-        throw new RuntimeException(e);
-      }
-    }
-    newConfig.setHost(host);
-    return newConfig;
+    return clone(fieldsToSkip).setHost(host);
   }
 }

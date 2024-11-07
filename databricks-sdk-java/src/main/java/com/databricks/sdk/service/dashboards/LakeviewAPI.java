@@ -27,10 +27,6 @@ public class LakeviewAPI {
     impl = mock;
   }
 
-  public Dashboard create(String displayName) {
-    return create(new CreateDashboardRequest().setDisplayName(displayName));
-  }
-
   /**
    * Create dashboard.
    *
@@ -40,9 +36,8 @@ public class LakeviewAPI {
     return impl.create(request);
   }
 
-  public Schedule createSchedule(String dashboardId, CronSchedule cronSchedule) {
-    return createSchedule(
-        new CreateScheduleRequest().setDashboardId(dashboardId).setCronSchedule(cronSchedule));
+  public Schedule createSchedule(String dashboardId) {
+    return createSchedule(new CreateScheduleRequest().setDashboardId(dashboardId));
   }
 
   /** Create dashboard schedule. */
@@ -50,13 +45,9 @@ public class LakeviewAPI {
     return impl.createSchedule(request);
   }
 
-  public Subscription createSubscription(
-      String dashboardId, String scheduleId, Subscriber subscriber) {
+  public Subscription createSubscription(String dashboardId, String scheduleId) {
     return createSubscription(
-        new CreateSubscriptionRequest()
-            .setDashboardId(dashboardId)
-            .setScheduleId(scheduleId)
-            .setSubscriber(subscriber));
+        new CreateSubscriptionRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
   }
 
   /** Create schedule subscription. */
@@ -256,12 +247,9 @@ public class LakeviewAPI {
     return impl.update(request);
   }
 
-  public Schedule updateSchedule(String dashboardId, String scheduleId, CronSchedule cronSchedule) {
+  public Schedule updateSchedule(String dashboardId, String scheduleId) {
     return updateSchedule(
-        new UpdateScheduleRequest()
-            .setDashboardId(dashboardId)
-            .setScheduleId(scheduleId)
-            .setCronSchedule(cronSchedule));
+        new UpdateScheduleRequest().setDashboardId(dashboardId).setScheduleId(scheduleId));
   }
 
   /** Update dashboard schedule. */

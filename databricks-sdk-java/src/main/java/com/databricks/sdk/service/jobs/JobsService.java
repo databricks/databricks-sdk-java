@@ -156,7 +156,9 @@ public interface JobsService {
   /**
    * Set job permissions.
    *
-   * <p>Sets permissions on a job. Jobs can inherit permissions from their root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
+   * object.
    */
   JobPermissions setPermissions(JobPermissionsRequest jobPermissionsRequest);
 

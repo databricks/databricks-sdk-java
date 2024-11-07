@@ -13,6 +13,9 @@ public enum GetBindingsSecurableType {
   @JsonProperty("external_location")
   EXTERNAL_LOCATION,
 
+  @JsonProperty("service_credential")
+  SERVICE_CREDENTIAL,
+
   @JsonProperty("storage_credential")
   STORAGE_CREDENTIAL,
 }
