@@ -7,7 +7,6 @@ import com.databricks.sdk.core.ConfigLoader;
 import com.databricks.sdk.core.DatabricksConfig;
 import com.databricks.sdk.mixin.ClustersExt;
 import com.databricks.sdk.mixin.DbfsExt;
-import com.databricks.sdk.mixin.JobsExt;
 import com.databricks.sdk.mixin.SecretsExt;
 import com.databricks.sdk.service.apps.AppsAPI;
 import com.databricks.sdk.service.apps.AppsService;
@@ -91,6 +90,7 @@ import com.databricks.sdk.service.iam.ServicePrincipalsAPI;
 import com.databricks.sdk.service.iam.ServicePrincipalsService;
 import com.databricks.sdk.service.iam.UsersAPI;
 import com.databricks.sdk.service.iam.UsersService;
+import com.databricks.sdk.service.jobs.JobsAPI;
 import com.databricks.sdk.service.jobs.JobsService;
 import com.databricks.sdk.service.jobs.PolicyComplianceForJobsAPI;
 import com.databricks.sdk.service.jobs.PolicyComplianceForJobsService;
@@ -228,7 +228,7 @@ public class WorkspaceClient {
   private InstancePoolsAPI instancePoolsAPI;
   private InstanceProfilesAPI instanceProfilesAPI;
   private IpAccessListsAPI ipAccessListsAPI;
-  private JobsExt jobsAPI;
+  private JobsAPI jobsAPI;
   private LakeviewAPI lakeviewAPI;
   private LibrariesAPI librariesAPI;
   private MetastoresAPI metastoresAPI;
@@ -327,7 +327,7 @@ public class WorkspaceClient {
     instancePoolsAPI = new InstancePoolsAPI(apiClient);
     instanceProfilesAPI = new InstanceProfilesAPI(apiClient);
     ipAccessListsAPI = new IpAccessListsAPI(apiClient);
-    jobsAPI = new JobsExt(apiClient);
+    jobsAPI = new JobsAPI(apiClient);
     lakeviewAPI = new LakeviewAPI(apiClient);
     librariesAPI = new LibrariesAPI(apiClient);
     metastoresAPI = new MetastoresAPI(apiClient);
@@ -865,7 +865,7 @@ public class WorkspaceClient {
    * https://docs.databricks.com/dev-tools/cli/secrets-cli.html [Secrets utility]:
    * https://docs.databricks.com/dev-tools/databricks-utils.html#dbutils-secrets
    */
-  public JobsExt jobs() {
+  public JobsAPI jobs() {
     return jobsAPI;
   }
 
@@ -2049,11 +2049,11 @@ public class WorkspaceClient {
 
   /** Replace the default JobsService with a custom implementation. */
   public WorkspaceClient withJobsImpl(JobsService jobs) {
-    return this.withJobsAPI(new JobsExt(jobs));
+    return this.withJobsAPI(new JobsAPI(jobs));
   }
 
   /** Replace the default JobsAPI with a custom implementation. */
-  public WorkspaceClient withJobsAPI(JobsExt jobs) {
+  public WorkspaceClient withJobsAPI(JobsAPI jobs) {
     this.jobsAPI = jobs;
     return this;
   }
