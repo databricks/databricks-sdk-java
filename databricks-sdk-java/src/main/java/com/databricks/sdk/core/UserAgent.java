@@ -48,7 +48,7 @@ public class UserAgent {
       Pattern.compile("^" + semVerCore + semVerPrerelease + semVerBuildmetadata + "$");
 
   private static final Pattern regexpAlphanum = Pattern.compile("^[0-9A-Za-z_\\.\\+\\-/ ]+$");
-  private static final Pattern regexpAlphanumInverse = Pattern.compile("[^0-9A-Za-z_\\.\\+-]");
+  private static final Pattern regexpAlphanumInverse = Pattern.compile("[^0-9A-Za-z_\\.\\+\\-/ ]");
 
   /**
    * Replaces all non-alphanumeric characters with a hyphen. Use this to ensure that the user agent
