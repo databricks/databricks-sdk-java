@@ -142,8 +142,9 @@ public class ClusterPoliciesAPI {
   /**
    * Set cluster policy permissions.
    *
-   * <p>Sets permissions on a cluster policy. Cluster policies can inherit permissions from their
-   * root object.
+   * <p>Sets permissions on an object, replacing existing permissions if they exist. Deletes all
+   * direct permissions if none are specified. Objects can inherit permissions from their root
+   * object.
    */
   public ClusterPolicyPermissions setPermissions(ClusterPolicyPermissionsRequest request) {
     return impl.setPermissions(request);

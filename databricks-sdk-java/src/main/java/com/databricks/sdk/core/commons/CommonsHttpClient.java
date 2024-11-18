@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.*;
+import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.*;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -47,6 +48,7 @@ public class CommonsHttpClient implements HttpClient {
     private ProxyConfig proxyConfig;
     private SSLConnectionSocketFactory sslSocketFactory;
     private PoolingHttpClientConnectionManager connectionManager;
+    private HttpRequestRetryHandler requestRetryHandler;
 
     /**
      * @param databricksConfig The DatabricksConfig to use for the HttpClient. If the
@@ -96,6 +98,17 @@ public class CommonsHttpClient implements HttpClient {
       return this;
     }
 
+    /**
+     * @param requestRetryHandler the HttpRequestRetryHandler to use for the HttpClient.
+     * @return This builder.
+     *     <p><b>Note:</b> This API is experimental and may change or be removed in future releases
+     *     without notice.
+     */
+    public Builder withRequestRetryHandler(HttpRequestRetryHandler requestRetryHandler) {
+      this.requestRetryHandler = requestRetryHandler;
+      return this;
+    }
+
     /** Builds a new instance of CommonsHttpClient with the configured parameters. */
     public CommonsHttpClient build() {
       return new CommonsHttpClient(this);
@@ -104,11 +117,8 @@ public class CommonsHttpClient implements HttpClient {
 
   private static final Logger LOG = LoggerFactory.getLogger(CommonsHttpClient.class);
   private final CloseableHttpClient hc;
-  private int timeout;
 
   private CommonsHttpClient(Builder builder) {
-    HttpClientBuilder httpClientBuilder =
-        HttpClientBuilder.create().setDefaultRequestConfig(makeRequestConfig());
     int timeoutSeconds = 300;
     if (builder.databricksConfig != null
         && builder.databricksConfig.getHttpTimeoutSeconds() != null) {
@@ -117,7 +127,9 @@ public class CommonsHttpClient implements HttpClient {
     if (builder.timeoutSeconds != null) {
       timeoutSeconds = builder.timeoutSeconds;
     }
-    timeout = timeoutSeconds * 1000;
+    int timeout = timeoutSeconds * 1000;
+    HttpClientBuilder httpClientBuilder =
+        HttpClientBuilder.create().setDefaultRequestConfig(makeRequestConfig(timeout));
     if (builder.proxyConfig != null) {
       ProxyUtils.setupProxy(builder.proxyConfig, httpClientBuilder);
     }
@@ -132,10 +144,13 @@ public class CommonsHttpClient implements HttpClient {
       connectionManager.setMaxTotal(100);
       httpClientBuilder.setConnectionManager(connectionManager);
     }
+    if (builder.requestRetryHandler != null) {
+      httpClientBuilder.setRetryHandler(builder.requestRetryHandler);
+    }
     hc = httpClientBuilder.build();
   }
 
-  private RequestConfig makeRequestConfig() {
+  private RequestConfig makeRequestConfig(int timeout) {
     return RequestConfig.custom()
         .setConnectionRequestTimeout(timeout)
         .setConnectTimeout(timeout)

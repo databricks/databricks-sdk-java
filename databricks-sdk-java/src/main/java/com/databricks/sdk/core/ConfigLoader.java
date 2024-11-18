@@ -1,16 +1,17 @@
 package com.databricks.sdk.core;
 
 import com.databricks.sdk.core.utils.Environment;
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.*;
-import org.ini4j.Ini;
-import org.ini4j.Profile;
+import org.apache.commons.configuration2.INIConfiguration;
+import org.apache.commons.configuration2.SubnodeConfiguration;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +41,7 @@ public class ConfigLoader {
     }
   }
 
-  static void loadFromEnvironmentVariables(DatabricksConfig cfg) throws IllegalAccessException {
+  static void loadFromEnvironmentVariables(DatabricksConfig cfg) {
     if (cfg.getEnv() == null) {
       return;
     }
@@ -57,7 +58,7 @@ public class ConfigLoader {
         }
         accessor.setValueOnConfig(cfg, env);
       }
-    } catch (DatabricksException e) {
+    } catch (DatabricksException | IllegalAccessException e) {
       String msg =
           String.format("%s auth: %s", cfg.getCredentialsProvider().authType(), e.getMessage());
       throw new DatabricksException(msg, e);
@@ -86,27 +87,27 @@ public class ConfigLoader {
       configFile = configFile.replaceFirst("^~", userHome);
     }
 
-    Ini ini = parseDatabricksCfg(configFile, isDefaultConfig);
+    INIConfiguration ini = parseDatabricksCfg(configFile, isDefaultConfig);
     if (ini == null) return;
+
     String profile = cfg.getProfile();
     boolean hasExplicitProfile = !isNullOrEmpty(profile);
     if (!hasExplicitProfile) {
       profile = "DEFAULT";
     }
-
-    Profile.Section section = ini.get(profile);
-    if (section == null && !hasExplicitProfile) {
+    SubnodeConfiguration section = ini.getSection(profile);
+    boolean sectionNotPresent = section == null || section.isEmpty();
+    if (sectionNotPresent && !hasExplicitProfile) {
       LOG.info("{} has no {} profile configured", configFile, profile);
       return;
     }
-
-    if (section == null) {
+    if (sectionNotPresent) {
       String msg = String.format("resolve: %s has no %s profile configured", configFile, profile);
       throw new DatabricksException(msg);
     }
 
     for (ConfigAttributeAccessor accessor : accessors) {
-      String value = section.get(accessor.getName());
+      String value = section.getString(accessor.getName());
       if (!isNullOrEmpty(accessor.getValueFromConfig(cfg))) {
         continue;
       }
@@ -114,18 +115,18 @@ public class ConfigLoader {
     }
   }
 
-  private static Ini parseDatabricksCfg(String configFile, boolean isDefaultConfig) {
-    Ini ini = new Ini();
-    try {
-      ini.load(new File(configFile));
+  private static INIConfiguration parseDatabricksCfg(String configFile, boolean isDefaultConfig) {
+    INIConfiguration iniConfig = new INIConfiguration();
+    try (FileReader reader = new FileReader(configFile)) {
+      iniConfig.read(reader);
     } catch (FileNotFoundException e) {
       if (isDefaultConfig) {
         return null;
       }
-    } catch (IOException e) {
+    } catch (IOException | ConfigurationException e) {
       throw new DatabricksException("Cannot load " + configFile, e);
     }
-    return ini;
+    return iniConfig;
   }
 
   public static void fixHostIfNeeded(DatabricksConfig cfg) {
@@ -230,12 +231,12 @@ public class ConfigLoader {
       if (!attrsUsed.isEmpty()) {
         buf.add(String.format("Config: %s", String.join(", ", attrsUsed)));
       } else {
-        buf.add(String.format("Config: <empty>"));
+        buf.add("Config: <empty>");
       }
       if (!envsUsed.isEmpty()) {
         buf.add(String.format("Env: %s", String.join(", ", envsUsed)));
       } else {
-        buf.add(String.format("Env: <none>"));
+        buf.add("Env: <none>");
       }
       return String.join(". ", buf);
     } catch (IllegalAccessException e) {

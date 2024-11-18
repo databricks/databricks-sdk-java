@@ -56,7 +56,7 @@ public class PipelineSpec {
   @JsonProperty("filters")
   private Filters filters;
 
-  /** The definition of a gateway pipeline to support CDC. */
+  /** The definition of a gateway pipeline to support change data capture. */
   @JsonProperty("gateway_definition")
   private IngestionGatewayPipelineDefinition gatewayDefinition;
 
@@ -86,6 +86,10 @@ public class PipelineSpec {
   /** Whether Photon is enabled for this pipeline. */
   @JsonProperty("photon")
   private Boolean photon;
+
+  /** Restart window of this pipeline. */
+  @JsonProperty("restart_window")
+  private RestartWindow restartWindow;
 
   /**
    * The default schema (database) where tables are read from or published to. The presence of this
@@ -267,6 +271,15 @@ public class PipelineSpec {
     return photon;
   }
 
+  public PipelineSpec setRestartWindow(RestartWindow restartWindow) {
+    this.restartWindow = restartWindow;
+    return this;
+  }
+
+  public RestartWindow getRestartWindow() {
+    return restartWindow;
+  }
+
   public PipelineSpec setSchema(String schema) {
     this.schema = schema;
     return this;
@@ -334,6 +347,7 @@ public class PipelineSpec {
         && Objects.equals(name, that.name)
         && Objects.equals(notifications, that.notifications)
         && Objects.equals(photon, that.photon)
+        && Objects.equals(restartWindow, that.restartWindow)
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
@@ -361,6 +375,7 @@ public class PipelineSpec {
         name,
         notifications,
         photon,
+        restartWindow,
         schema,
         serverless,
         storage,
@@ -388,6 +403,7 @@ public class PipelineSpec {
         .add("name", name)
         .add("notifications", notifications)
         .add("photon", photon)
+        .add("restartWindow", restartWindow)
         .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)

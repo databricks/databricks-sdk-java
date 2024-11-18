@@ -48,7 +48,7 @@ public class EditCluster {
   @JsonProperty("azure_attributes")
   private AzureAttributes azureAttributes;
 
-  /** ID of the cluser */
+  /** ID of the cluster */
   @JsonProperty("cluster_id")
   private String clusterId;
 

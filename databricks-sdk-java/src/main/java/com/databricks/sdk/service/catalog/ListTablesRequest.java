@@ -54,6 +54,14 @@ public class ListTablesRequest {
   @QueryParam("omit_properties")
   private Boolean omitProperties;
 
+  /**
+   * Whether to omit the username of the table (e.g. owner, updated_by, created_by) from the
+   * response or not.
+   */
+  @JsonIgnore
+  @QueryParam("omit_username")
+  private Boolean omitUsername;
+
   /** Opaque token to send for the next page of results (pagination). */
   @JsonIgnore
   @QueryParam("page_token")
@@ -127,6 +135,15 @@ public class ListTablesRequest {
     return omitProperties;
   }
 
+  public ListTablesRequest setOmitUsername(Boolean omitUsername) {
+    this.omitUsername = omitUsername;
+    return this;
+  }
+
+  public Boolean getOmitUsername() {
+    return omitUsername;
+  }
+
   public ListTablesRequest setPageToken(String pageToken) {
     this.pageToken = pageToken;
     return this;
@@ -157,6 +174,7 @@ public class ListTablesRequest {
         && Objects.equals(maxResults, that.maxResults)
         && Objects.equals(omitColumns, that.omitColumns)
         && Objects.equals(omitProperties, that.omitProperties)
+        && Objects.equals(omitUsername, that.omitUsername)
         && Objects.equals(pageToken, that.pageToken)
         && Objects.equals(schemaName, that.schemaName);
   }
@@ -171,6 +189,7 @@ public class ListTablesRequest {
         maxResults,
         omitColumns,
         omitProperties,
+        omitUsername,
         pageToken,
         schemaName);
   }
@@ -185,6 +204,7 @@ public class ListTablesRequest {
         .add("maxResults", maxResults)
         .add("omitColumns", omitColumns)
         .add("omitProperties", omitProperties)
+        .add("omitUsername", omitUsername)
         .add("pageToken", pageToken)
         .add("schemaName", schemaName)
         .toString();

@@ -130,10 +130,6 @@ public class Run {
   @JsonProperty("overriding_parameters")
   private RunParameters overridingParameters;
 
-  /** A token that can be used to list the previous page of sub-resources. */
-  @JsonProperty("prev_page_token")
-  private String prevPageToken;
-
   /** The time in milliseconds that the run has spent in the queue. */
   @JsonProperty("queue_duration")
   private Long queueDuration;
@@ -386,15 +382,6 @@ public class Run {
     return overridingParameters;
   }
 
-  public Run setPrevPageToken(String prevPageToken) {
-    this.prevPageToken = prevPageToken;
-    return this;
-  }
-
-  public String getPrevPageToken() {
-    return prevPageToken;
-  }
-
   public Run setQueueDuration(Long queueDuration) {
     this.queueDuration = queueDuration;
     return this;
@@ -553,7 +540,6 @@ public class Run {
         && Objects.equals(numberInJob, that.numberInJob)
         && Objects.equals(originalAttemptRunId, that.originalAttemptRunId)
         && Objects.equals(overridingParameters, that.overridingParameters)
-        && Objects.equals(prevPageToken, that.prevPageToken)
         && Objects.equals(queueDuration, that.queueDuration)
         && Objects.equals(repairHistory, that.repairHistory)
         && Objects.equals(runDuration, that.runDuration)
@@ -592,7 +578,6 @@ public class Run {
         numberInJob,
         originalAttemptRunId,
         overridingParameters,
-        prevPageToken,
         queueDuration,
         repairHistory,
         runDuration,
@@ -631,7 +616,6 @@ public class Run {
         .add("numberInJob", numberInJob)
         .add("originalAttemptRunId", originalAttemptRunId)
         .add("overridingParameters", overridingParameters)
-        .add("prevPageToken", prevPageToken)
         .add("queueDuration", queueDuration)
         .add("repairHistory", repairHistory)
         .add("runDuration", runDuration)

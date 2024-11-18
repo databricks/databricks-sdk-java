@@ -42,8 +42,9 @@ public class RunNow {
    * cannot be specified in conjunction with notebook_params. The JSON representation of this field
    * (for example `{"jar_params":["john doe","35"]}`) cannot exceed 10,000 bytes.
    *
-   * <p>Use [Task parameter variables](/jobs.html\"#parameter-variables\") to set parameters
-   * containing information about job runs.
+   * <p>Use [Task parameter variables] to set parameters containing information about job runs.
+   *
+   * <p>[Task parameter variables]: https://docs.databricks.com/jobs.html#parameter-variables
    */
   @JsonProperty("jar_params")
   private Collection<String> jarParams;
@@ -75,6 +76,13 @@ public class RunNow {
    */
   @JsonProperty("notebook_params")
   private Map<String, String> notebookParams;
+
+  /**
+   * A list of task keys to run inside of the job. If this field is not provided, all tasks in the
+   * job will be run.
+   */
+  @JsonProperty("only")
+  private Collection<String> only;
 
   /** Controls whether the pipeline should perform a full refresh */
   @JsonProperty("pipeline_params")
@@ -188,6 +196,15 @@ public class RunNow {
     return notebookParams;
   }
 
+  public RunNow setOnly(Collection<String> only) {
+    this.only = only;
+    return this;
+  }
+
+  public Collection<String> getOnly() {
+    return only;
+  }
+
   public RunNow setPipelineParams(PipelineParams pipelineParams) {
     this.pipelineParams = pipelineParams;
     return this;
@@ -253,6 +270,7 @@ public class RunNow {
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(jobParameters, that.jobParameters)
         && Objects.equals(notebookParams, that.notebookParams)
+        && Objects.equals(only, that.only)
         && Objects.equals(pipelineParams, that.pipelineParams)
         && Objects.equals(pythonNamedParams, that.pythonNamedParams)
         && Objects.equals(pythonParams, that.pythonParams)
@@ -270,6 +288,7 @@ public class RunNow {
         jobId,
         jobParameters,
         notebookParams,
+        only,
         pipelineParams,
         pythonNamedParams,
         pythonParams,
@@ -287,6 +306,7 @@ public class RunNow {
         .add("jobId", jobId)
         .add("jobParameters", jobParameters)
         .add("notebookParams", notebookParams)
+        .add("only", only)
         .add("pipelineParams", pipelineParams)
         .add("pythonNamedParams", pythonNamedParams)
         .add("pythonParams", pythonParams)
