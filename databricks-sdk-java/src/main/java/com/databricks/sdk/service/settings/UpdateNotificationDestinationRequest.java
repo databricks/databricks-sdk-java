@@ -21,7 +21,7 @@ public class UpdateNotificationDestinationRequest {
   @JsonProperty("display_name")
   private String displayName;
 
-  /** */
+  /** UUID identifying notification destination. */
   @JsonIgnore private String id;
 
   public UpdateNotificationDestinationRequest setConfig(Config config) {

@@ -24,7 +24,7 @@ public class UpdateWorkspaceAssignments {
   /** The ID of the user, service principal, or group. */
   @JsonIgnore private Long principalId;
 
-  /** The workspace ID for the account. */
+  /** The workspace ID. */
   @JsonIgnore private Long workspaceId;
 
   public UpdateWorkspaceAssignments setPermissions(Collection<WorkspacePermission> permissions) {

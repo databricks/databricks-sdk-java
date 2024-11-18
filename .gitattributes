@@ -269,6 +269,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/FunctionsAP
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/FunctionsImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/FunctionsService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GcpOauthToken.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GcpServiceAccountKey.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GenerateTemporaryServiceCredentialAzureOptions.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GenerateTemporaryServiceCredentialRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/catalog/GenerateTemporaryTableCredentialRequest.java linguist-generated=true

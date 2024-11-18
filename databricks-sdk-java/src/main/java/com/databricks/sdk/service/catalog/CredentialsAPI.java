@@ -32,10 +32,19 @@ public class CredentialsAPI {
     impl = mock;
   }
 
+  public CredentialInfo createCredential(String name) {
+    return createCredential(new CreateCredentialRequest().setName(name));
+  }
+
   /**
    * Create a credential.
    *
-   * <p>Creates a new credential.
+   * <p>Creates a new credential. The type of credential to be created is determined by the
+   * **purpose** field, which should be either **SERVICE** or **STORAGE**.
+   *
+   * <p>The caller must be a metastore admin or have the metastore privilege
+   * **CREATE_STORAGE_CREDENTIAL** for storage credentials, or **CREATE_SERVICE_CREDENTIAL** for
+   * service credentials.
    */
   public CredentialInfo createCredential(CreateCredentialRequest request) {
     return impl.createCredential(request);
@@ -48,10 +57,16 @@ public class CredentialsAPI {
   /**
    * Delete a credential.
    *
-   * <p>Deletes a credential from the metastore. The caller must be an owner of the credential.
+   * <p>Deletes a service or storage credential from the metastore. The caller must be an owner of
+   * the credential.
    */
   public void deleteCredential(DeleteCredentialRequest request) {
     impl.deleteCredential(request);
+  }
+
+  public TemporaryCredentials generateTemporaryServiceCredential(String credentialName) {
+    return generateTemporaryServiceCredential(
+        new GenerateTemporaryServiceCredentialRequest().setCredentialName(credentialName));
   }
 
   /**
@@ -73,8 +88,8 @@ public class CredentialsAPI {
   /**
    * Get a credential.
    *
-   * <p>Gets a credential from the metastore. The caller must be a metastore admin, the owner of the
-   * credential, or have any permission on the credential.
+   * <p>Gets a service or storage credential from the metastore. The caller must be a metastore
+   * admin, the owner of the credential, or have any permission on the credential.
    */
   public CredentialInfo getCredential(GetCredentialRequest request) {
     return impl.getCredential(request);
@@ -110,7 +125,7 @@ public class CredentialsAPI {
   /**
    * Update a credential.
    *
-   * <p>Updates a credential on the metastore.
+   * <p>Updates a service or storage credential on the metastore.
    *
    * <p>The caller must be the owner of the credential or a metastore admin or have the `MANAGE`
    * permission. If the caller is a metastore admin, only the __owner__ field can be changed.
@@ -124,9 +139,18 @@ public class CredentialsAPI {
    *
    * <p>Validates a credential.
    *
-   * <p>Either the __credential_name__ or the cloud-specific credential must be provided.
+   * <p>For service credentials (purpose is **SERVICE**), either the __credential_name__ or the
+   * cloud-specific credential must be provided.
    *
-   * <p>The caller must be a metastore admin or the credential owner.
+   * <p>For storage credentials (purpose is **STORAGE**), at least one of __external_location_name__
+   * and __url__ need to be provided. If only one of them is provided, it will be used for
+   * validation. And if both are provided, the __url__ will be used for validation, and
+   * __external_location_name__ will be ignored when checking overlapping urls. Either the
+   * __credential_name__ or the cloud-specific credential must be provided.
+   *
+   * <p>The caller must be a metastore admin or the credential owner or have the required permission
+   * on the metastore and the credential (e.g., **CREATE_EXTERNAL_LOCATION** when purpose is
+   * **STORAGE**).
    */
   public ValidateCredentialResponse validateCredential(ValidateCredentialRequest request) {
     return impl.validateCredential(request);

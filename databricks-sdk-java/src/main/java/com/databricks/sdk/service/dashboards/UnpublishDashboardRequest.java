@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Unpublish dashboard */
 @Generated
 public class UnpublishDashboardRequest {
-  /** UUID identifying the dashboard to be published. */
+  /** UUID identifying the published dashboard. */
   @JsonIgnore private String dashboardId;
 
   public UnpublishDashboardRequest setDashboardId(String dashboardId) {

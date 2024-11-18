@@ -63,6 +63,10 @@ public class App {
   private Collection<AppResource> resources;
 
   /** */
+  @JsonProperty("service_principal_client_id")
+  private String servicePrincipalClientId;
+
+  /** */
   @JsonProperty("service_principal_id")
   private Long servicePrincipalId;
 
@@ -172,6 +176,15 @@ public class App {
     return resources;
   }
 
+  public App setServicePrincipalClientId(String servicePrincipalClientId) {
+    this.servicePrincipalClientId = servicePrincipalClientId;
+    return this;
+  }
+
+  public String getServicePrincipalClientId() {
+    return servicePrincipalClientId;
+  }
+
   public App setServicePrincipalId(Long servicePrincipalId) {
     this.servicePrincipalId = servicePrincipalId;
     return this;
@@ -232,6 +245,7 @@ public class App {
         && Objects.equals(name, that.name)
         && Objects.equals(pendingDeployment, that.pendingDeployment)
         && Objects.equals(resources, that.resources)
+        && Objects.equals(servicePrincipalClientId, that.servicePrincipalClientId)
         && Objects.equals(servicePrincipalId, that.servicePrincipalId)
         && Objects.equals(servicePrincipalName, that.servicePrincipalName)
         && Objects.equals(updateTime, that.updateTime)
@@ -252,6 +266,7 @@ public class App {
         name,
         pendingDeployment,
         resources,
+        servicePrincipalClientId,
         servicePrincipalId,
         servicePrincipalName,
         updateTime,
@@ -272,6 +287,7 @@ public class App {
         .add("name", name)
         .add("pendingDeployment", pendingDeployment)
         .add("resources", resources)
+        .add("servicePrincipalClientId", servicePrincipalClientId)
         .add("servicePrincipalId", servicePrincipalId)
         .add("servicePrincipalName", servicePrincipalName)
         .add("updateTime", updateTime)

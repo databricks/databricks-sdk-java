@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Get budget */
 @Generated
 public class GetBudgetConfigurationRequest {
-  /** The Databricks budget configuration ID. */
+  /** The budget configuration ID */
   @JsonIgnore private String budgetId;
 
   public GetBudgetConfigurationRequest setBudgetId(String budgetId) {

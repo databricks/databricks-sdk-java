@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Delete a repo */
 @Generated
 public class DeleteRepoRequest {
-  /** ID of the Git folder (repo) object in the workspace. */
+  /** The ID for the corresponding repo to delete. */
   @JsonIgnore private Long repoId;
 
   public DeleteRepoRequest setRepoId(Long repoId) {
