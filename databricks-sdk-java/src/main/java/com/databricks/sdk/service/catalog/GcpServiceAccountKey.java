@@ -10,15 +10,15 @@ import java.util.Objects;
 /** GCP long-lived credential. GCP Service Account. */
 @Generated
 public class GcpServiceAccountKey {
-  /** The email of the service account. [Create:REQ Update:OPT]. */
+  /** The email of the service account. */
   @JsonProperty("email")
   private String email;
 
-  /** The service account's RSA private key. [Create:REQ Update:OPT] */
+  /** The service account's RSA private key. */
   @JsonProperty("private_key")
   private String privateKey;
 
-  /** The ID of the service account's private key. [Create:REQ Update:OPT] */
+  /** The ID of the service account's private key. */
   @JsonProperty("private_key_id")
   private String privateKeyId;
 

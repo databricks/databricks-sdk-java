@@ -25,7 +25,6 @@ public class CreateCredentialRequest {
   @JsonProperty("comment")
   private String comment;
 
-  /** TODO(UC-978): Document GCP service account key usage for service credentials. */
   @JsonProperty("gcp_service_account_key")
   private GcpServiceAccountKey gcpServiceAccountKey;
 
