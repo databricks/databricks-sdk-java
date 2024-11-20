@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Delete a token */
 @Generated
 public class DeleteTokenManagementRequest {
-  /** The ID of the token to get. */
+  /** The ID of the token to revoke. */
   @JsonIgnore private String tokenId;
 
   public DeleteTokenManagementRequest setTokenId(String tokenId) {

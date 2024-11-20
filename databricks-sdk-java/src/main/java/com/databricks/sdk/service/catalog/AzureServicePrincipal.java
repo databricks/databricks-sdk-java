@@ -7,6 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
+/** The Azure service principal configuration. */
 @Generated
 public class AzureServicePrincipal {
   /** The application ID of the application registration within the referenced AAD tenant. */

@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Get OAuth Custom App Integration */
 @Generated
 public class GetCustomAppIntegrationRequest {
-  /** */
+  /** The OAuth app integration ID. */
   @JsonIgnore private String integrationId;
 
   public GetCustomAppIntegrationRequest setIntegrationId(String integrationId) {

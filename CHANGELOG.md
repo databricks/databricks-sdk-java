@@ -1,5 +1,27 @@
 # Version changelog
 
+## [Release] Release v0.36.0
+
+### Internal Changes
+
+ * Update Jobs GetRun API to support paginated responses for jobs and ForEach tasks ([#386](https://github.com/databricks/databricks-sdk-java/pull/386)).
+
+### API Changes:
+
+ * Added `servicePrincipalClientId` field for `com.databricks.sdk.service.apps.App`.
+ * Added `azureServicePrincipal`, `gcpServiceAccountKey` and `readOnly` fields for `com.databricks.sdk.service.catalog.CreateCredentialRequest`.
+ * Added `azureServicePrincipal`, `readOnly` and `usedForManagedStorage` fields for `com.databricks.sdk.service.catalog.CredentialInfo`.
+ * Added `azureServicePrincipal` and `readOnly` fields for `com.databricks.sdk.service.catalog.UpdateCredentialRequest`.
+ * Added `externalLocationName`, `readOnly` and `url` fields for `com.databricks.sdk.service.catalog.ValidateCredentialRequest`.
+ * Added `isDir` field for `com.databricks.sdk.service.catalog.ValidateCredentialResponse`.
+ * Changed `createCredential()` and `generateTemporaryServiceCredential()` methods for `workspaceClient.credentials()` service with new required argument order.
+ * Changed `accessConnectorId` field for `com.databricks.sdk.service.catalog.AzureManagedIdentity` to be required.
+ * Changed `accessConnectorId` field for `com.databricks.sdk.service.catalog.AzureManagedIdentity` to be required.
+ * Changed `name` field for `com.databricks.sdk.service.catalog.CreateCredentialRequest` to be required.
+ * Changed `credentialName` field for `com.databricks.sdk.service.catalog.GenerateTemporaryServiceCredentialRequest` to be required.
+
+OpenAPI SHA: f2385add116e3716c8a90a0b68e204deb40f996c, Date: 2024-11-15
+
 ## [Release] Release v0.35.0
 
 ### New Features and Improvements

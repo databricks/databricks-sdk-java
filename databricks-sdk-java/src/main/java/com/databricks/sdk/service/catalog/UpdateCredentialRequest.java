@@ -18,11 +18,18 @@ public class UpdateCredentialRequest {
   @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
+  /** The Azure service principal configuration. */
+  @JsonProperty("azure_service_principal")
+  private AzureServicePrincipal azureServicePrincipal;
+
   /** Comment associated with the credential. */
   @JsonProperty("comment")
   private String comment;
 
-  /** Force update even if there are dependent services. */
+  /**
+   * Force an update even if there are dependent services (when purpose is **SERVICE**) or dependent
+   * external locations and external tables (when purpose is **STORAGE**).
+   */
   @JsonProperty("force")
   private Boolean force;
 
@@ -43,6 +50,13 @@ public class UpdateCredentialRequest {
   /** Username of current owner of credential. */
   @JsonProperty("owner")
   private String owner;
+
+  /**
+   * Whether the credential is usable only for read operations. Only applicable when purpose is
+   * **STORAGE**.
+   */
+  @JsonProperty("read_only")
+  private Boolean readOnly;
 
   /** Supply true to this argument to skip validation of the updated credential. */
   @JsonProperty("skip_validation")
@@ -65,6 +79,16 @@ public class UpdateCredentialRequest {
 
   public AzureManagedIdentity getAzureManagedIdentity() {
     return azureManagedIdentity;
+  }
+
+  public UpdateCredentialRequest setAzureServicePrincipal(
+      AzureServicePrincipal azureServicePrincipal) {
+    this.azureServicePrincipal = azureServicePrincipal;
+    return this;
+  }
+
+  public AzureServicePrincipal getAzureServicePrincipal() {
+    return azureServicePrincipal;
   }
 
   public UpdateCredentialRequest setComment(String comment) {
@@ -121,6 +145,15 @@ public class UpdateCredentialRequest {
     return owner;
   }
 
+  public UpdateCredentialRequest setReadOnly(Boolean readOnly) {
+    this.readOnly = readOnly;
+    return this;
+  }
+
+  public Boolean getReadOnly() {
+    return readOnly;
+  }
+
   public UpdateCredentialRequest setSkipValidation(Boolean skipValidation) {
     this.skipValidation = skipValidation;
     return this;
@@ -137,12 +170,14 @@ public class UpdateCredentialRequest {
     UpdateCredentialRequest that = (UpdateCredentialRequest) o;
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
+        && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
         && Objects.equals(comment, that.comment)
         && Objects.equals(force, that.force)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(nameArg, that.nameArg)
         && Objects.equals(newName, that.newName)
         && Objects.equals(owner, that.owner)
+        && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(skipValidation, that.skipValidation);
   }
 
@@ -151,12 +186,14 @@ public class UpdateCredentialRequest {
     return Objects.hash(
         awsIamRole,
         azureManagedIdentity,
+        azureServicePrincipal,
         comment,
         force,
         isolationMode,
         nameArg,
         newName,
         owner,
+        readOnly,
         skipValidation);
   }
 
@@ -165,12 +202,14 @@ public class UpdateCredentialRequest {
     return new ToStringer(UpdateCredentialRequest.class)
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
+        .add("azureServicePrincipal", azureServicePrincipal)
         .add("comment", comment)
         .add("force", force)
         .add("isolationMode", isolationMode)
         .add("nameArg", nameArg)
         .add("newName", newName)
         .add("owner", owner)
+        .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)
         .toString();
   }

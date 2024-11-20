@@ -17,9 +17,16 @@ public class CreateCredentialRequest {
   @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
+  /** The Azure service principal configuration. */
+  @JsonProperty("azure_service_principal")
+  private AzureServicePrincipal azureServicePrincipal;
+
   /** Comment associated with the credential. */
   @JsonProperty("comment")
   private String comment;
+
+  @JsonProperty("gcp_service_account_key")
+  private GcpServiceAccountKey gcpServiceAccountKey;
 
   /**
    * The credential name. The name must be unique among storage and service credentials within the
@@ -31,6 +38,13 @@ public class CreateCredentialRequest {
   /** Indicates the purpose of the credential. */
   @JsonProperty("purpose")
   private CredentialPurpose purpose;
+
+  /**
+   * Whether the credential is usable only for read operations. Only applicable when purpose is
+   * **STORAGE**.
+   */
+  @JsonProperty("read_only")
+  private Boolean readOnly;
 
   /**
    * Optional. Supplying true to this argument skips validation of the created set of credentials.
@@ -57,6 +71,16 @@ public class CreateCredentialRequest {
     return azureManagedIdentity;
   }
 
+  public CreateCredentialRequest setAzureServicePrincipal(
+      AzureServicePrincipal azureServicePrincipal) {
+    this.azureServicePrincipal = azureServicePrincipal;
+    return this;
+  }
+
+  public AzureServicePrincipal getAzureServicePrincipal() {
+    return azureServicePrincipal;
+  }
+
   public CreateCredentialRequest setComment(String comment) {
     this.comment = comment;
     return this;
@@ -64,6 +88,16 @@ public class CreateCredentialRequest {
 
   public String getComment() {
     return comment;
+  }
+
+  public CreateCredentialRequest setGcpServiceAccountKey(
+      GcpServiceAccountKey gcpServiceAccountKey) {
+    this.gcpServiceAccountKey = gcpServiceAccountKey;
+    return this;
+  }
+
+  public GcpServiceAccountKey getGcpServiceAccountKey() {
+    return gcpServiceAccountKey;
   }
 
   public CreateCredentialRequest setName(String name) {
@@ -84,6 +118,15 @@ public class CreateCredentialRequest {
     return purpose;
   }
 
+  public CreateCredentialRequest setReadOnly(Boolean readOnly) {
+    this.readOnly = readOnly;
+    return this;
+  }
+
+  public Boolean getReadOnly() {
+    return readOnly;
+  }
+
   public CreateCredentialRequest setSkipValidation(Boolean skipValidation) {
     this.skipValidation = skipValidation;
     return this;
@@ -100,15 +143,27 @@ public class CreateCredentialRequest {
     CreateCredentialRequest that = (CreateCredentialRequest) o;
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
+        && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
         && Objects.equals(comment, that.comment)
+        && Objects.equals(gcpServiceAccountKey, that.gcpServiceAccountKey)
         && Objects.equals(name, that.name)
         && Objects.equals(purpose, that.purpose)
+        && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(skipValidation, that.skipValidation);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(awsIamRole, azureManagedIdentity, comment, name, purpose, skipValidation);
+    return Objects.hash(
+        awsIamRole,
+        azureManagedIdentity,
+        azureServicePrincipal,
+        comment,
+        gcpServiceAccountKey,
+        name,
+        purpose,
+        readOnly,
+        skipValidation);
   }
 
   @Override
@@ -116,9 +171,12 @@ public class CreateCredentialRequest {
     return new ToStringer(CreateCredentialRequest.class)
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
+        .add("azureServicePrincipal", azureServicePrincipal)
         .add("comment", comment)
+        .add("gcpServiceAccountKey", gcpServiceAccountKey)
         .add("name", name)
         .add("purpose", purpose)
+        .add("readOnly", readOnly)
         .add("skipValidation", skipValidation)
         .toString();
   }

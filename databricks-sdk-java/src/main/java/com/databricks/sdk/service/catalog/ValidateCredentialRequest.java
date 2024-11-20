@@ -21,9 +21,27 @@ public class ValidateCredentialRequest {
   @JsonProperty("credential_name")
   private String credentialName;
 
+  /**
+   * The name of an existing external location to validate. Only applicable for storage credentials
+   * (purpose is **STORAGE**.)
+   */
+  @JsonProperty("external_location_name")
+  private String externalLocationName;
+
   /** The purpose of the credential. This should only be used when the credential is specified. */
   @JsonProperty("purpose")
   private CredentialPurpose purpose;
+
+  /**
+   * Whether the credential is only usable for read operations. Only applicable for storage
+   * credentials (purpose is **STORAGE**.)
+   */
+  @JsonProperty("read_only")
+  private Boolean readOnly;
+
+  /** The external location url to validate. Only applicable when purpose is **STORAGE**. */
+  @JsonProperty("url")
+  private String url;
 
   public ValidateCredentialRequest setAwsIamRole(AwsIamRole awsIamRole) {
     this.awsIamRole = awsIamRole;
@@ -53,6 +71,15 @@ public class ValidateCredentialRequest {
     return credentialName;
   }
 
+  public ValidateCredentialRequest setExternalLocationName(String externalLocationName) {
+    this.externalLocationName = externalLocationName;
+    return this;
+  }
+
+  public String getExternalLocationName() {
+    return externalLocationName;
+  }
+
   public ValidateCredentialRequest setPurpose(CredentialPurpose purpose) {
     this.purpose = purpose;
     return this;
@@ -60,6 +87,24 @@ public class ValidateCredentialRequest {
 
   public CredentialPurpose getPurpose() {
     return purpose;
+  }
+
+  public ValidateCredentialRequest setReadOnly(Boolean readOnly) {
+    this.readOnly = readOnly;
+    return this;
+  }
+
+  public Boolean getReadOnly() {
+    return readOnly;
+  }
+
+  public ValidateCredentialRequest setUrl(String url) {
+    this.url = url;
+    return this;
+  }
+
+  public String getUrl() {
+    return url;
   }
 
   @Override
@@ -70,12 +115,22 @@ public class ValidateCredentialRequest {
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(credentialName, that.credentialName)
-        && Objects.equals(purpose, that.purpose);
+        && Objects.equals(externalLocationName, that.externalLocationName)
+        && Objects.equals(purpose, that.purpose)
+        && Objects.equals(readOnly, that.readOnly)
+        && Objects.equals(url, that.url);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(awsIamRole, azureManagedIdentity, credentialName, purpose);
+    return Objects.hash(
+        awsIamRole,
+        azureManagedIdentity,
+        credentialName,
+        externalLocationName,
+        purpose,
+        readOnly,
+        url);
   }
 
   @Override
@@ -84,7 +139,10 @@ public class ValidateCredentialRequest {
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
         .add("credentialName", credentialName)
+        .add("externalLocationName", externalLocationName)
         .add("purpose", purpose)
+        .add("readOnly", readOnly)
+        .add("url", url)
         .toString();
   }
 }

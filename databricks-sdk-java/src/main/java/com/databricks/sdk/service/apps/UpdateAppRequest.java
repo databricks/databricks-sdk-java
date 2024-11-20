@@ -15,7 +15,10 @@ public class UpdateAppRequest {
   @JsonProperty("app")
   private App app;
 
-  /** The name of the app. */
+  /**
+   * The name of the app. The name must contain only lowercase alphanumeric characters and hyphens.
+   * It must be unique within the workspace.
+   */
   @JsonIgnore private String name;
 
   public UpdateAppRequest setApp(App app) {

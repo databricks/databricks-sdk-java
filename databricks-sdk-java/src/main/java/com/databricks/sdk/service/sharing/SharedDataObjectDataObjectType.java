@@ -7,6 +7,8 @@ import com.databricks.sdk.support.Generated;
 /** The type of the data object. */
 @Generated
 public enum SharedDataObjectDataObjectType {
+  FEATURE_SPEC,
+  FUNCTION,
   MATERIALIZED_VIEW,
   MODEL,
   NOTEBOOK_FILE,

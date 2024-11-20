@@ -131,8 +131,8 @@ public class JobSettings {
    * Write-only setting. Specifies the user, service principal or group that the job/pipeline runs
    * as. If not specified, the job/pipeline runs as the user who created the job/pipeline.
    *
-   * <p>Exactly one of `user_name`, `service_principal_name`, `group_name` should be specified. If
-   * not, an error is thrown.
+   * <p>Either `user_name` or `service_principal_name` should be specified. If not, an error is
+   * thrown.
    */
   @JsonProperty("run_as")
   private JobRunAs runAs;

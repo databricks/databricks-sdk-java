@@ -17,6 +17,10 @@ public class CredentialInfo {
   @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
+  /** The Azure service principal configuration. */
+  @JsonProperty("azure_service_principal")
+  private AzureServicePrincipal azureServicePrincipal;
+
   /** Comment associated with the credential. */
   @JsonProperty("comment")
   private String comment;
@@ -63,6 +67,13 @@ public class CredentialInfo {
   @JsonProperty("purpose")
   private CredentialPurpose purpose;
 
+  /**
+   * Whether the credential is usable only for read operations. Only applicable when purpose is
+   * **STORAGE**.
+   */
+  @JsonProperty("read_only")
+  private Boolean readOnly;
+
   /** Time at which this credential was last modified, in epoch milliseconds. */
   @JsonProperty("updated_at")
   private Long updatedAt;
@@ -70,6 +81,13 @@ public class CredentialInfo {
   /** Username of user who last modified the credential. */
   @JsonProperty("updated_by")
   private String updatedBy;
+
+  /**
+   * Whether this credential is the current metastore's root storage credential. Only applicable
+   * when purpose is **STORAGE**.
+   */
+  @JsonProperty("used_for_managed_storage")
+  private Boolean usedForManagedStorage;
 
   public CredentialInfo setAwsIamRole(AwsIamRole awsIamRole) {
     this.awsIamRole = awsIamRole;
@@ -87,6 +105,15 @@ public class CredentialInfo {
 
   public AzureManagedIdentity getAzureManagedIdentity() {
     return azureManagedIdentity;
+  }
+
+  public CredentialInfo setAzureServicePrincipal(AzureServicePrincipal azureServicePrincipal) {
+    this.azureServicePrincipal = azureServicePrincipal;
+    return this;
+  }
+
+  public AzureServicePrincipal getAzureServicePrincipal() {
+    return azureServicePrincipal;
   }
 
   public CredentialInfo setComment(String comment) {
@@ -179,6 +206,15 @@ public class CredentialInfo {
     return purpose;
   }
 
+  public CredentialInfo setReadOnly(Boolean readOnly) {
+    this.readOnly = readOnly;
+    return this;
+  }
+
+  public Boolean getReadOnly() {
+    return readOnly;
+  }
+
   public CredentialInfo setUpdatedAt(Long updatedAt) {
     this.updatedAt = updatedAt;
     return this;
@@ -197,6 +233,15 @@ public class CredentialInfo {
     return updatedBy;
   }
 
+  public CredentialInfo setUsedForManagedStorage(Boolean usedForManagedStorage) {
+    this.usedForManagedStorage = usedForManagedStorage;
+    return this;
+  }
+
+  public Boolean getUsedForManagedStorage() {
+    return usedForManagedStorage;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -204,6 +249,7 @@ public class CredentialInfo {
     CredentialInfo that = (CredentialInfo) o;
     return Objects.equals(awsIamRole, that.awsIamRole)
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
+        && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
@@ -214,8 +260,10 @@ public class CredentialInfo {
         && Objects.equals(name, that.name)
         && Objects.equals(owner, that.owner)
         && Objects.equals(purpose, that.purpose)
+        && Objects.equals(readOnly, that.readOnly)
         && Objects.equals(updatedAt, that.updatedAt)
-        && Objects.equals(updatedBy, that.updatedBy);
+        && Objects.equals(updatedBy, that.updatedBy)
+        && Objects.equals(usedForManagedStorage, that.usedForManagedStorage);
   }
 
   @Override
@@ -223,6 +271,7 @@ public class CredentialInfo {
     return Objects.hash(
         awsIamRole,
         azureManagedIdentity,
+        azureServicePrincipal,
         comment,
         createdAt,
         createdBy,
@@ -233,8 +282,10 @@ public class CredentialInfo {
         name,
         owner,
         purpose,
+        readOnly,
         updatedAt,
-        updatedBy);
+        updatedBy,
+        usedForManagedStorage);
   }
 
   @Override
@@ -242,6 +293,7 @@ public class CredentialInfo {
     return new ToStringer(CredentialInfo.class)
         .add("awsIamRole", awsIamRole)
         .add("azureManagedIdentity", azureManagedIdentity)
+        .add("azureServicePrincipal", azureServicePrincipal)
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
@@ -252,8 +304,10 @@ public class CredentialInfo {
         .add("name", name)
         .add("owner", owner)
         .add("purpose", purpose)
+        .add("readOnly", readOnly)
         .add("updatedAt", updatedAt)
         .add("updatedBy", updatedBy)
+        .add("usedForManagedStorage", usedForManagedStorage)
         .toString();
   }
 }
