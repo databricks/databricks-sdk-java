@@ -13,8 +13,11 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.*;
 import org.apache.http.HttpMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DatabricksConfig {
+  private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(env = "DATABRICKS_HOST")
@@ -545,7 +548,19 @@ public class DatabricksConfig {
     if (discoveryUrl == null) {
       return fetchDefaultOidcEndpoints();
     }
-    return fetchOidcEndpointsFromDiscovery();
+    try {
+      OpenIDConnectEndpoints oidcEndpoints = fetchOidcEndpointsFromDiscovery();
+      if (oidcEndpoints != null) {
+        return oidcEndpoints;
+      }
+    } catch (Exception e) {
+      LOG.debug(
+          "Failed to fetch OIDC Endpoints using discovery URL: {}. Error: {}. \nDefaulting to fetch OIDC using default endpoint.",
+          discoveryUrl,
+          e.getMessage(),
+          e);
+    }
+    return fetchDefaultOidcEndpoints();
   }
 
   private OpenIDConnectEndpoints fetchOidcEndpointsFromDiscovery() {
