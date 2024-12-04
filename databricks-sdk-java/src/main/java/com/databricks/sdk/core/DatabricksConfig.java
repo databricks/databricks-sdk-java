@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DatabricksConfig {
-  private static final Logger LOG = LoggerFactory.getLogger(DefaultCredentialsProvider.class);
+  private static final Logger LOG = LoggerFactory.getLogger(DatabricksConfig.class);
   private CredentialsProvider credentialsProvider = new DefaultCredentialsProvider();
 
   @ConfigAttribute(env = "DATABRICKS_HOST")
@@ -647,6 +647,7 @@ public class DatabricksConfig {
   }
 
   private DatabricksConfig clone(Set<String> fieldsToSkip) {
+    fieldsToSkip.add("LOG");
     DatabricksConfig newConfig = new DatabricksConfig();
     for (Field f : DatabricksConfig.class.getDeclaredFields()) {
       if (fieldsToSkip.contains(f.getName())) {
