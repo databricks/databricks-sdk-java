@@ -554,7 +554,7 @@ public class DatabricksConfig {
         return oidcEndpoints;
       }
     } catch (Exception e) {
-      LOG.debug(
+      LOG.warn(
           "Failed to fetch OIDC Endpoints using discovery URL: {}. Error: {}. \nDefaulting to fetch OIDC using default endpoint.",
           discoveryUrl,
           e.getMessage(),
