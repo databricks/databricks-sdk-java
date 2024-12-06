@@ -17,6 +17,16 @@ class AibiDashboardEmbeddingApprovedDomainsImpl
   }
 
   @Override
+  public DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse delete(
+      DeleteAibiDashboardEmbeddingApprovedDomainsSettingRequest request) {
+    String path = "/api/2.0/settings/types/aibi_dash_embed_ws_apprvd_domains/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.DELETE(
+        path, request, DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse.class, headers);
+  }
+
+  @Override
   public AibiDashboardEmbeddingApprovedDomainsSetting get(
       GetAibiDashboardEmbeddingApprovedDomainsSettingRequest request) {
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_apprvd_domains/names/default";

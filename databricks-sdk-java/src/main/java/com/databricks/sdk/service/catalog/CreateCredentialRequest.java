@@ -17,7 +17,7 @@ public class CreateCredentialRequest {
   @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
-  /** The Azure service principal configuration. */
+  /** The Azure service principal configuration. Only applicable when purpose is **STORAGE**. */
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
@@ -25,8 +25,9 @@ public class CreateCredentialRequest {
   @JsonProperty("comment")
   private String comment;
 
-  @JsonProperty("gcp_service_account_key")
-  private GcpServiceAccountKey gcpServiceAccountKey;
+  /** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
+  @JsonProperty("databricks_gcp_service_account")
+  private DatabricksGcpServiceAccount databricksGcpServiceAccount;
 
   /**
    * The credential name. The name must be unique among storage and service credentials within the
@@ -90,14 +91,14 @@ public class CreateCredentialRequest {
     return comment;
   }
 
-  public CreateCredentialRequest setGcpServiceAccountKey(
-      GcpServiceAccountKey gcpServiceAccountKey) {
-    this.gcpServiceAccountKey = gcpServiceAccountKey;
+  public CreateCredentialRequest setDatabricksGcpServiceAccount(
+      DatabricksGcpServiceAccount databricksGcpServiceAccount) {
+    this.databricksGcpServiceAccount = databricksGcpServiceAccount;
     return this;
   }
 
-  public GcpServiceAccountKey getGcpServiceAccountKey() {
-    return gcpServiceAccountKey;
+  public DatabricksGcpServiceAccount getDatabricksGcpServiceAccount() {
+    return databricksGcpServiceAccount;
   }
 
   public CreateCredentialRequest setName(String name) {
@@ -145,7 +146,7 @@ public class CreateCredentialRequest {
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
         && Objects.equals(comment, that.comment)
-        && Objects.equals(gcpServiceAccountKey, that.gcpServiceAccountKey)
+        && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(name, that.name)
         && Objects.equals(purpose, that.purpose)
         && Objects.equals(readOnly, that.readOnly)
@@ -159,7 +160,7 @@ public class CreateCredentialRequest {
         azureManagedIdentity,
         azureServicePrincipal,
         comment,
-        gcpServiceAccountKey,
+        databricksGcpServiceAccount,
         name,
         purpose,
         readOnly,
@@ -173,7 +174,7 @@ public class CreateCredentialRequest {
         .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
         .add("comment", comment)
-        .add("gcpServiceAccountKey", gcpServiceAccountKey)
+        .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("name", name)
         .add("purpose", purpose)
         .add("readOnly", readOnly)

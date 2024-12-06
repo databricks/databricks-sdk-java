@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** The Azure service principal configuration. */
+/** The Azure service principal configuration. Only applicable when purpose is **STORAGE**. */
 @Generated
 public class AzureServicePrincipal {
   /** The application ID of the application registration within the referenced AAD tenant. */

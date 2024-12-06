@@ -52,6 +52,12 @@ import com.databricks.sdk.service.catalog.VolumesAPI;
 import com.databricks.sdk.service.catalog.VolumesService;
 import com.databricks.sdk.service.catalog.WorkspaceBindingsAPI;
 import com.databricks.sdk.service.catalog.WorkspaceBindingsService;
+import com.databricks.sdk.service.cleanrooms.CleanRoomAssetsAPI;
+import com.databricks.sdk.service.cleanrooms.CleanRoomAssetsService;
+import com.databricks.sdk.service.cleanrooms.CleanRoomTaskRunsAPI;
+import com.databricks.sdk.service.cleanrooms.CleanRoomTaskRunsService;
+import com.databricks.sdk.service.cleanrooms.CleanRoomsAPI;
+import com.databricks.sdk.service.cleanrooms.CleanRoomsService;
 import com.databricks.sdk.service.compute.ClusterPoliciesAPI;
 import com.databricks.sdk.service.compute.ClusterPoliciesService;
 import com.databricks.sdk.service.compute.ClustersService;
@@ -199,6 +205,9 @@ public class WorkspaceClient {
   private AppsAPI appsAPI;
   private ArtifactAllowlistsAPI artifactAllowlistsAPI;
   private CatalogsAPI catalogsAPI;
+  private CleanRoomAssetsAPI cleanRoomAssetsAPI;
+  private CleanRoomTaskRunsAPI cleanRoomTaskRunsAPI;
+  private CleanRoomsAPI cleanRoomsAPI;
   private ClusterPoliciesAPI clusterPoliciesAPI;
   private ClustersExt clustersAPI;
   private CommandExecutionAPI commandExecutionAPI;
@@ -298,6 +307,9 @@ public class WorkspaceClient {
     appsAPI = new AppsAPI(apiClient);
     artifactAllowlistsAPI = new ArtifactAllowlistsAPI(apiClient);
     catalogsAPI = new CatalogsAPI(apiClient);
+    cleanRoomAssetsAPI = new CleanRoomAssetsAPI(apiClient);
+    cleanRoomTaskRunsAPI = new CleanRoomTaskRunsAPI(apiClient);
+    cleanRoomsAPI = new CleanRoomsAPI(apiClient);
     clusterPoliciesAPI = new ClusterPoliciesAPI(apiClient);
     clustersAPI = new ClustersExt(apiClient);
     commandExecutionAPI = new CommandExecutionAPI(apiClient);
@@ -460,6 +472,28 @@ public class WorkspaceClient {
   }
 
   /**
+   * Clean room assets are data and code objects — Tables, volumes, and notebooks that are shared
+   * with the clean room.
+   */
+  public CleanRoomAssetsAPI cleanRoomAssets() {
+    return cleanRoomAssetsAPI;
+  }
+
+  /** Clean room task runs are the executions of notebooks in a clean room. */
+  public CleanRoomTaskRunsAPI cleanRoomTaskRuns() {
+    return cleanRoomTaskRunsAPI;
+  }
+
+  /**
+   * A clean room uses Delta Sharing and serverless compute to provide a secure and
+   * privacy-protecting environment where multiple parties can work together on sensitive enterprise
+   * data without direct access to each other’s data.
+   */
+  public CleanRoomsAPI cleanRooms() {
+    return cleanRoomsAPI;
+  }
+
+  /**
    * You can use cluster policies to control users' ability to configure clusters based on a set of
    * rules. These rules specify which attributes or attribute values can be used during cluster
    * creation. Cluster policies have ACLs that limit their use to specific users and groups.
@@ -574,8 +608,8 @@ public class WorkspaceClient {
    * control which users and groups can access the credential.
    *
    * <p>To create credentials, you must be a Databricks account admin or have the `CREATE SERVICE
-   * CREDENTIAL privilege. The user who creates the credential can delegate ownership to another
-   * user or group to manage permissions on it
+   * CREDENTIAL` privilege. The user who creates the credential can delegate ownership to another
+   * user or group to manage permissions on it.
    */
   public CredentialsAPI credentials() {
     return credentialsAPI;
@@ -1719,6 +1753,39 @@ public class WorkspaceClient {
   /** Replace the default CatalogsAPI with a custom implementation. */
   public WorkspaceClient withCatalogsAPI(CatalogsAPI catalogs) {
     this.catalogsAPI = catalogs;
+    return this;
+  }
+
+  /** Replace the default CleanRoomAssetsService with a custom implementation. */
+  public WorkspaceClient withCleanRoomAssetsImpl(CleanRoomAssetsService cleanRoomAssets) {
+    return this.withCleanRoomAssetsAPI(new CleanRoomAssetsAPI(cleanRoomAssets));
+  }
+
+  /** Replace the default CleanRoomAssetsAPI with a custom implementation. */
+  public WorkspaceClient withCleanRoomAssetsAPI(CleanRoomAssetsAPI cleanRoomAssets) {
+    this.cleanRoomAssetsAPI = cleanRoomAssets;
+    return this;
+  }
+
+  /** Replace the default CleanRoomTaskRunsService with a custom implementation. */
+  public WorkspaceClient withCleanRoomTaskRunsImpl(CleanRoomTaskRunsService cleanRoomTaskRuns) {
+    return this.withCleanRoomTaskRunsAPI(new CleanRoomTaskRunsAPI(cleanRoomTaskRuns));
+  }
+
+  /** Replace the default CleanRoomTaskRunsAPI with a custom implementation. */
+  public WorkspaceClient withCleanRoomTaskRunsAPI(CleanRoomTaskRunsAPI cleanRoomTaskRuns) {
+    this.cleanRoomTaskRunsAPI = cleanRoomTaskRuns;
+    return this;
+  }
+
+  /** Replace the default CleanRoomsService with a custom implementation. */
+  public WorkspaceClient withCleanRoomsImpl(CleanRoomsService cleanRooms) {
+    return this.withCleanRoomsAPI(new CleanRoomsAPI(cleanRooms));
+  }
+
+  /** Replace the default CleanRoomsAPI with a custom implementation. */
+  public WorkspaceClient withCleanRoomsAPI(CleanRoomsAPI cleanRooms) {
+    this.cleanRoomsAPI = cleanRooms;
     return this;
   }
 
