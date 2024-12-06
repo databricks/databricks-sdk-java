@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
  * control which users and groups can access the credential.
  *
  * <p>To create credentials, you must be a Databricks account admin or have the `CREATE SERVICE
- * CREDENTIAL privilege. The user who creates the credential can delegate ownership to another user
- * or group to manage permissions on it
+ * CREDENTIAL` privilege. The user who creates the credential can delegate ownership to another user
+ * or group to manage permissions on it.
  */
 @Generated
 public class CredentialsAPI {

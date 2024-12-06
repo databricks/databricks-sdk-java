@@ -4,7 +4,6 @@ package com.databricks.sdk.service.catalog;
 
 import com.databricks.sdk.support.Generated;
 
-/** Name of type (INT, STRUCT, MAP, etc.). */
 @Generated
 public enum ColumnTypeName {
   ARRAY,

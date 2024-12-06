@@ -15,6 +15,15 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AibiDashboardEmbeddingAccessPolicyService {
   /**
+   * Delete the AI/BI dashboard embedding access policy.
+   *
+   * <p>Delete the AI/BI dashboard embedding access policy, reverting back to the default.
+   */
+  DeleteAibiDashboardEmbeddingAccessPolicySettingResponse delete(
+      DeleteAibiDashboardEmbeddingAccessPolicySettingRequest
+          deleteAibiDashboardEmbeddingAccessPolicySettingRequest);
+
+  /**
    * Retrieve the AI/BI dashboard embedding access policy.
    *
    * <p>Retrieves the AI/BI dashboard embedding access policy. The default setting is

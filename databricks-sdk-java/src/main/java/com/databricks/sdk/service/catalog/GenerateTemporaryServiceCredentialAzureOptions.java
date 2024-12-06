@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Collection;
 import java.util.Objects;
 
-/** Options to customize the requested temporary credential */
+/** The Azure cloud options to customize the requested temporary credential */
 @Generated
 public class GenerateTemporaryServiceCredentialAzureOptions {
   /**

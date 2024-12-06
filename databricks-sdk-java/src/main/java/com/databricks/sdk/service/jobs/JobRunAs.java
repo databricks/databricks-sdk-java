@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * Write-only setting. Specifies the user, service principal or group that the job/pipeline runs as.
- * If not specified, the job/pipeline runs as the user who created the job/pipeline.
+ * Write-only setting. Specifies the user or service principal that the job runs as. If not
+ * specified, the job runs as the user who created the job.
  *
  * <p>Either `user_name` or `service_principal_name` should be specified. If not, an error is
  * thrown.

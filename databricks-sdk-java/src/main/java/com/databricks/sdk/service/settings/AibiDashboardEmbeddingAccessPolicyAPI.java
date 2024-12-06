@@ -29,6 +29,16 @@ public class AibiDashboardEmbeddingAccessPolicyAPI {
   }
 
   /**
+   * Delete the AI/BI dashboard embedding access policy.
+   *
+   * <p>Delete the AI/BI dashboard embedding access policy, reverting back to the default.
+   */
+  public DeleteAibiDashboardEmbeddingAccessPolicySettingResponse delete(
+      DeleteAibiDashboardEmbeddingAccessPolicySettingRequest request) {
+    return impl.delete(request);
+  }
+
+  /**
    * Retrieve the AI/BI dashboard embedding access policy.
    *
    * <p>Retrieves the AI/BI dashboard embedding access policy. The default setting is

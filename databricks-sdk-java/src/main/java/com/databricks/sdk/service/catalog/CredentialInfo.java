@@ -17,7 +17,7 @@ public class CredentialInfo {
   @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
-  /** The Azure service principal configuration. */
+  /** The Azure service principal configuration. Only applicable when purpose is **STORAGE**. */
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
@@ -32,6 +32,10 @@ public class CredentialInfo {
   /** Username of credential creator. */
   @JsonProperty("created_by")
   private String createdBy;
+
+  /** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
+  @JsonProperty("databricks_gcp_service_account")
+  private DatabricksGcpServiceAccount databricksGcpServiceAccount;
 
   /** The full name of the credential. */
   @JsonProperty("full_name")
@@ -141,6 +145,16 @@ public class CredentialInfo {
 
   public String getCreatedBy() {
     return createdBy;
+  }
+
+  public CredentialInfo setDatabricksGcpServiceAccount(
+      DatabricksGcpServiceAccount databricksGcpServiceAccount) {
+    this.databricksGcpServiceAccount = databricksGcpServiceAccount;
+    return this;
+  }
+
+  public DatabricksGcpServiceAccount getDatabricksGcpServiceAccount() {
+    return databricksGcpServiceAccount;
   }
 
   public CredentialInfo setFullName(String fullName) {
@@ -253,6 +267,7 @@ public class CredentialInfo {
         && Objects.equals(comment, that.comment)
         && Objects.equals(createdAt, that.createdAt)
         && Objects.equals(createdBy, that.createdBy)
+        && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(fullName, that.fullName)
         && Objects.equals(id, that.id)
         && Objects.equals(isolationMode, that.isolationMode)
@@ -275,6 +290,7 @@ public class CredentialInfo {
         comment,
         createdAt,
         createdBy,
+        databricksGcpServiceAccount,
         fullName,
         id,
         isolationMode,
@@ -297,6 +313,7 @@ public class CredentialInfo {
         .add("comment", comment)
         .add("createdAt", createdAt)
         .add("createdBy", createdBy)
+        .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("fullName", fullName)
         .add("id", id)
         .add("isolationMode", isolationMode)

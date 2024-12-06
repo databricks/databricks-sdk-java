@@ -9,6 +9,10 @@ import java.util.Objects;
 
 @Generated
 public class QueryAttachment {
+  /** */
+  @JsonProperty("cached_query_schema")
+  private QuerySchema cachedQuerySchema;
+
   /** Description of the query */
   @JsonProperty("description")
   private String description;
@@ -39,6 +43,15 @@ public class QueryAttachment {
   /** Name of the query */
   @JsonProperty("title")
   private String title;
+
+  public QueryAttachment setCachedQuerySchema(QuerySchema cachedQuerySchema) {
+    this.cachedQuerySchema = cachedQuerySchema;
+    return this;
+  }
+
+  public QuerySchema getCachedQuerySchema() {
+    return cachedQuerySchema;
+  }
 
   public QueryAttachment setDescription(String description) {
     this.description = description;
@@ -108,7 +121,8 @@ public class QueryAttachment {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     QueryAttachment that = (QueryAttachment) o;
-    return Objects.equals(description, that.description)
+    return Objects.equals(cachedQuerySchema, that.cachedQuerySchema)
+        && Objects.equals(description, that.description)
         && Objects.equals(id, that.id)
         && Objects.equals(instructionId, that.instructionId)
         && Objects.equals(instructionTitle, that.instructionTitle)
@@ -120,12 +134,20 @@ public class QueryAttachment {
   @Override
   public int hashCode() {
     return Objects.hash(
-        description, id, instructionId, instructionTitle, lastUpdatedTimestamp, query, title);
+        cachedQuerySchema,
+        description,
+        id,
+        instructionId,
+        instructionTitle,
+        lastUpdatedTimestamp,
+        query,
+        title);
   }
 
   @Override
   public String toString() {
     return new ToStringer(QueryAttachment.class)
+        .add("cachedQuerySchema", cachedQuerySchema)
         .add("description", description)
         .add("id", id)
         .add("instructionId", instructionId)

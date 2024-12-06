@@ -18,7 +18,7 @@ public class PartitionValue {
   private PartitionValueOp op;
 
   /**
-   * The key of a Delta Sharing recipient's property. For example `databricks-account-id`. When this
+   * The key of a Delta Sharing recipient's property. For example "databricks-account-id". When this
    * field is set, field `value` can not be set.
    */
   @JsonProperty("recipient_property_key")

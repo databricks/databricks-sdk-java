@@ -18,13 +18,17 @@ public class UpdateCredentialRequest {
   @JsonProperty("azure_managed_identity")
   private AzureManagedIdentity azureManagedIdentity;
 
-  /** The Azure service principal configuration. */
+  /** The Azure service principal configuration. Only applicable when purpose is **STORAGE**. */
   @JsonProperty("azure_service_principal")
   private AzureServicePrincipal azureServicePrincipal;
 
   /** Comment associated with the credential. */
   @JsonProperty("comment")
   private String comment;
+
+  /** GCP long-lived credential. Databricks-created Google Cloud Storage service account. */
+  @JsonProperty("databricks_gcp_service_account")
+  private DatabricksGcpServiceAccount databricksGcpServiceAccount;
 
   /**
    * Force an update even if there are dependent services (when purpose is **SERVICE**) or dependent
@@ -100,6 +104,16 @@ public class UpdateCredentialRequest {
     return comment;
   }
 
+  public UpdateCredentialRequest setDatabricksGcpServiceAccount(
+      DatabricksGcpServiceAccount databricksGcpServiceAccount) {
+    this.databricksGcpServiceAccount = databricksGcpServiceAccount;
+    return this;
+  }
+
+  public DatabricksGcpServiceAccount getDatabricksGcpServiceAccount() {
+    return databricksGcpServiceAccount;
+  }
+
   public UpdateCredentialRequest setForce(Boolean force) {
     this.force = force;
     return this;
@@ -172,6 +186,7 @@ public class UpdateCredentialRequest {
         && Objects.equals(azureManagedIdentity, that.azureManagedIdentity)
         && Objects.equals(azureServicePrincipal, that.azureServicePrincipal)
         && Objects.equals(comment, that.comment)
+        && Objects.equals(databricksGcpServiceAccount, that.databricksGcpServiceAccount)
         && Objects.equals(force, that.force)
         && Objects.equals(isolationMode, that.isolationMode)
         && Objects.equals(nameArg, that.nameArg)
@@ -188,6 +203,7 @@ public class UpdateCredentialRequest {
         azureManagedIdentity,
         azureServicePrincipal,
         comment,
+        databricksGcpServiceAccount,
         force,
         isolationMode,
         nameArg,
@@ -204,6 +220,7 @@ public class UpdateCredentialRequest {
         .add("azureManagedIdentity", azureManagedIdentity)
         .add("azureServicePrincipal", azureServicePrincipal)
         .add("comment", comment)
+        .add("databricksGcpServiceAccount", databricksGcpServiceAccount)
         .add("force", force)
         .add("isolationMode", isolationMode)
         .add("nameArg", nameArg)

@@ -41,7 +41,7 @@ public class FunctionParameterInfo {
   @JsonProperty("type_json")
   private String typeJson;
 
-  /** Name of type (INT, STRUCT, MAP, etc.). */
+  /** */
   @JsonProperty("type_name")
   private ColumnTypeName typeName;
 
