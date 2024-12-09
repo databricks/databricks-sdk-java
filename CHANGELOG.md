@@ -1,5 +1,28 @@
 # Version changelog
 
+## [Release] Release v0.37.0
+
+### Internal Changes
+
+ * Update SDK to OpenAPI spec ([#389](https://github.com/databricks/databricks-sdk-java/pull/389)).
+
+
+### API Changes:
+
+ * Added `com.databricks.sdk.service.cleanrooms` package.
+ * Added `delete()` method for `workspaceClient.aibiDashboardEmbeddingAccessPolicy()` service.
+ * Added `delete()` method for `workspaceClient.aibiDashboardEmbeddingApprovedDomains()` service.
+ * Added `databricksGcpServiceAccount` field for `com.databricks.sdk.service.catalog.CreateCredentialRequest`.
+ * Added `databricksGcpServiceAccount` field for `com.databricks.sdk.service.catalog.CredentialInfo`.
+ * Added `gcpOptions` field for `com.databricks.sdk.service.catalog.GenerateTemporaryServiceCredentialRequest`.
+ * Added `databricksGcpServiceAccount` field for `com.databricks.sdk.service.catalog.UpdateCredentialRequest`.
+ * Added `cachedQuerySchema` field for `com.databricks.sdk.service.dashboards.QueryAttachment`.
+ * Added .
+ * Removed `gcpServiceAccountKey` field for `com.databricks.sdk.service.catalog.CreateCredentialRequest`.
+
+OpenAPI SHA: 7016dcbf2e011459416cf408ce21143bcc4b3a25, Date: 2024-12-05
+
+
 ## [Release] Release v0.36.0
 
 ### Internal Changes
