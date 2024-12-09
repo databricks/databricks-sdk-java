@@ -92,8 +92,8 @@ public class FilesAPI {
   /**
    * Download a file.
    *
-   * <p>Downloads a file of up to 5 GiB. The file contents are the response body. This is a standard
-   * HTTP file download, not a JSON RPC.
+   * <p>Downloads a file. The file contents are the response body. This is a standard HTTP file
+   * download, not a JSON RPC. It supports the Range and If-Unmodified-Since HTTP headers.
    */
   public DownloadResponse download(DownloadRequest request) {
     return impl.download(request);

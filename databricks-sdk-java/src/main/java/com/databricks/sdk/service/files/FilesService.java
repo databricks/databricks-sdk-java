@@ -55,8 +55,8 @@ public interface FilesService {
   /**
    * Download a file.
    *
-   * <p>Downloads a file of up to 5 GiB. The file contents are the response body. This is a standard
-   * HTTP file download, not a JSON RPC.
+   * <p>Downloads a file. The file contents are the response body. This is a standard HTTP file
+   * download, not a JSON RPC. It supports the Range and If-Unmodified-Since HTTP headers.
    */
   DownloadResponse download(DownloadRequest downloadRequest);
 

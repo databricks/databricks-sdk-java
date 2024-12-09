@@ -14,6 +14,16 @@ import com.databricks.sdk.support.Generated;
 @Generated
 public interface AibiDashboardEmbeddingApprovedDomainsService {
   /**
+   * Delete AI/BI dashboard embedding approved domains.
+   *
+   * <p>Delete the list of domains approved to host embedded AI/BI dashboards, reverting back to the
+   * default empty list.
+   */
+  DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse delete(
+      DeleteAibiDashboardEmbeddingApprovedDomainsSettingRequest
+          deleteAibiDashboardEmbeddingApprovedDomainsSettingRequest);
+
+  /**
    * Retrieve the list of domains approved to host embedded AI/BI dashboards.
    *
    * <p>Retrieves the list of domains approved to host embedded AI/BI dashboards.

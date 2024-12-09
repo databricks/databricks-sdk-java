@@ -16,6 +16,16 @@ class AibiDashboardEmbeddingAccessPolicyImpl implements AibiDashboardEmbeddingAc
   }
 
   @Override
+  public DeleteAibiDashboardEmbeddingAccessPolicySettingResponse delete(
+      DeleteAibiDashboardEmbeddingAccessPolicySettingRequest request) {
+    String path = "/api/2.0/settings/types/aibi_dash_embed_ws_acc_policy/names/default";
+    Map<String, String> headers = new HashMap<>();
+    headers.put("Accept", "application/json");
+    return apiClient.DELETE(
+        path, request, DeleteAibiDashboardEmbeddingAccessPolicySettingResponse.class, headers);
+  }
+
+  @Override
   public AibiDashboardEmbeddingAccessPolicySetting get(
       GetAibiDashboardEmbeddingAccessPolicySettingRequest request) {
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_acc_policy/names/default";

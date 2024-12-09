@@ -29,6 +29,17 @@ public class AibiDashboardEmbeddingApprovedDomainsAPI {
   }
 
   /**
+   * Delete AI/BI dashboard embedding approved domains.
+   *
+   * <p>Delete the list of domains approved to host embedded AI/BI dashboards, reverting back to the
+   * default empty list.
+   */
+  public DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse delete(
+      DeleteAibiDashboardEmbeddingApprovedDomainsSettingRequest request) {
+    return impl.delete(request);
+  }
+
+  /**
    * Retrieve the list of domains approved to host embedded AI/BI dashboards.
    *
    * <p>Retrieves the list of domains approved to host embedded AI/BI dashboards.
