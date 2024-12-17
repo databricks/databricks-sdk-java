@@ -7,7 +7,7 @@ import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
-/** Stores the run state of the clean room notebook V1 task. */
+/** Stores the run state of the clean rooms notebook task. */
 @Generated
 public class CleanRoomTaskRunState {
   /**

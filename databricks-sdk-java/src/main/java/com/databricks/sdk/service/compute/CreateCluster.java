@@ -88,13 +88,19 @@ public class CreateCluster {
    * Data security mode decides what data governance model to use when accessing data from a
    * cluster.
    *
-   * <p>* `NONE`: No security isolation for multiple users sharing the cluster. Data governance
-   * features are not available in this mode. * `SINGLE_USER`: A secure cluster that can only be
-   * exclusively used by a single user specified in `single_user_name`. Most programming languages,
-   * cluster features and data governance features are available in this mode. * `USER_ISOLATION`: A
-   * secure cluster that can be shared by multiple users. Cluster users are fully isolated so that
-   * they cannot see each other's data and credentials. Most data governance features are supported
-   * in this mode. But programming languages and cluster features might be limited.
+   * <p>The following modes can only be used with `kind`. * `DATA_SECURITY_MODE_AUTO`: Databricks
+   * will choose the most appropriate access mode depending on your compute configuration. *
+   * `DATA_SECURITY_MODE_STANDARD`: Alias for `USER_ISOLATION`. * `DATA_SECURITY_MODE_DEDICATED`:
+   * Alias for `SINGLE_USER`.
+   *
+   * <p>The following modes can be used regardless of `kind`. * `NONE`: No security isolation for
+   * multiple users sharing the cluster. Data governance features are not available in this mode. *
+   * `SINGLE_USER`: A secure cluster that can only be exclusively used by a single user specified in
+   * `single_user_name`. Most programming languages, cluster features and data governance features
+   * are available in this mode. * `USER_ISOLATION`: A secure cluster that can be shared by multiple
+   * users. Cluster users are fully isolated so that they cannot see each other's data and
+   * credentials. Most data governance features are supported in this mode. But programming
+   * languages and cluster features might be limited.
    *
    * <p>The following modes are deprecated starting with Databricks Runtime 15.0 and will be removed
    * for future Databricks Runtime versions:
@@ -156,6 +162,26 @@ public class CreateCluster {
   /** The optional ID of the instance pool to which the cluster belongs. */
   @JsonProperty("instance_pool_id")
   private String instancePoolId;
+
+  /**
+   * This field can only be used with `kind`.
+   *
+   * <p>When set to true, Databricks will automatically set single node related `custom_tags`,
+   * `spark_conf`, and `num_workers`
+   */
+  @JsonProperty("is_single_node")
+  private Boolean isSingleNode;
+
+  /**
+   * The kind of compute described by this compute specification.
+   *
+   * <p>Depending on `kind`, different validations and default values will be applied.
+   *
+   * <p>The first usage of this value is for the simple cluster form where it sets `kind =
+   * CLASSIC_PREVIEW`.
+   */
+  @JsonProperty("kind")
+  private Kind kind;
 
   /**
    * This field encodes, through a single value, the resources available to each of the Spark nodes
@@ -237,6 +263,15 @@ public class CreateCluster {
    */
   @JsonProperty("ssh_public_keys")
   private Collection<String> sshPublicKeys;
+
+  /**
+   * This field can only be used with `kind`.
+   *
+   * <p>`effective_spark_version` is determined by `spark_version` (DBR release), this field
+   * `use_ml_runtime`, and whether `node_type_id` is gpu node or not.
+   */
+  @JsonProperty("use_ml_runtime")
+  private Boolean useMlRuntime;
 
   /** */
   @JsonProperty("workload_type")
@@ -404,6 +439,24 @@ public class CreateCluster {
     return instancePoolId;
   }
 
+  public CreateCluster setIsSingleNode(Boolean isSingleNode) {
+    this.isSingleNode = isSingleNode;
+    return this;
+  }
+
+  public Boolean getIsSingleNode() {
+    return isSingleNode;
+  }
+
+  public CreateCluster setKind(Kind kind) {
+    this.kind = kind;
+    return this;
+  }
+
+  public Kind getKind() {
+    return kind;
+  }
+
   public CreateCluster setNodeTypeId(String nodeTypeId) {
     this.nodeTypeId = nodeTypeId;
     return this;
@@ -485,6 +538,15 @@ public class CreateCluster {
     return sshPublicKeys;
   }
 
+  public CreateCluster setUseMlRuntime(Boolean useMlRuntime) {
+    this.useMlRuntime = useMlRuntime;
+    return this;
+  }
+
+  public Boolean getUseMlRuntime() {
+    return useMlRuntime;
+  }
+
   public CreateCluster setWorkloadType(WorkloadType workloadType) {
     this.workloadType = workloadType;
     return this;
@@ -517,6 +579,8 @@ public class CreateCluster {
         && Objects.equals(gcpAttributes, that.gcpAttributes)
         && Objects.equals(initScripts, that.initScripts)
         && Objects.equals(instancePoolId, that.instancePoolId)
+        && Objects.equals(isSingleNode, that.isSingleNode)
+        && Objects.equals(kind, that.kind)
         && Objects.equals(nodeTypeId, that.nodeTypeId)
         && Objects.equals(numWorkers, that.numWorkers)
         && Objects.equals(policyId, that.policyId)
@@ -526,6 +590,7 @@ public class CreateCluster {
         && Objects.equals(sparkEnvVars, that.sparkEnvVars)
         && Objects.equals(sparkVersion, that.sparkVersion)
         && Objects.equals(sshPublicKeys, that.sshPublicKeys)
+        && Objects.equals(useMlRuntime, that.useMlRuntime)
         && Objects.equals(workloadType, that.workloadType);
   }
 
@@ -550,6 +615,8 @@ public class CreateCluster {
         gcpAttributes,
         initScripts,
         instancePoolId,
+        isSingleNode,
+        kind,
         nodeTypeId,
         numWorkers,
         policyId,
@@ -559,6 +626,7 @@ public class CreateCluster {
         sparkEnvVars,
         sparkVersion,
         sshPublicKeys,
+        useMlRuntime,
         workloadType);
   }
 
@@ -583,6 +651,8 @@ public class CreateCluster {
         .add("gcpAttributes", gcpAttributes)
         .add("initScripts", initScripts)
         .add("instancePoolId", instancePoolId)
+        .add("isSingleNode", isSingleNode)
+        .add("kind", kind)
         .add("nodeTypeId", nodeTypeId)
         .add("numWorkers", numWorkers)
         .add("policyId", policyId)
@@ -592,6 +662,7 @@ public class CreateCluster {
         .add("sparkEnvVars", sparkEnvVars)
         .add("sparkVersion", sparkVersion)
         .add("sshPublicKeys", sshPublicKeys)
+        .add("useMlRuntime", useMlRuntime)
         .add("workloadType", workloadType)
         .toString();
   }

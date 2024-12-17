@@ -202,7 +202,8 @@ public class BaseRun {
    * previously failed run. This occurs when you request to re-run the job in case of failures. *
    * `RUN_JOB_TASK`: Indicates a run that is triggered using a Run Job task. * `FILE_ARRIVAL`:
    * Indicates a run that is triggered by a file arrival. * `TABLE`: Indicates a run that is
-   * triggered by a table update.
+   * triggered by a table update. * `CONTINUOUS_RESTART`: Indicates a run created by user to
+   * manually restart a continuous job run.
    */
   @JsonProperty("trigger")
   private TriggerType trigger;
