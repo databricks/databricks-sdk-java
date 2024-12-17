@@ -22,6 +22,14 @@ public class RunTask {
   private Long attemptNumber;
 
   /**
+   * The task runs a [clean rooms] notebook when the `clean_rooms_notebook_task` field is present.
+   *
+   * <p>[clean rooms]: https://docs.databricks.com/en/clean-rooms/index.html
+   */
+  @JsonProperty("clean_rooms_notebook_task")
+  private CleanRoomsNotebookTask cleanRoomsNotebookTask;
+
+  /**
    * The time in milliseconds it took to terminate the cluster and clean up any associated
    * artifacts. The duration of a task run is the sum of the `setup_duration`, `execution_duration`,
    * and the `cleanup_duration`. The `cleanup_duration` field is set to 0 for multitask job runs.
@@ -281,6 +289,15 @@ public class RunTask {
 
   public Long getAttemptNumber() {
     return attemptNumber;
+  }
+
+  public RunTask setCleanRoomsNotebookTask(CleanRoomsNotebookTask cleanRoomsNotebookTask) {
+    this.cleanRoomsNotebookTask = cleanRoomsNotebookTask;
+    return this;
+  }
+
+  public CleanRoomsNotebookTask getCleanRoomsNotebookTask() {
+    return cleanRoomsNotebookTask;
   }
 
   public RunTask setCleanupDuration(Long cleanupDuration) {
@@ -631,6 +648,7 @@ public class RunTask {
     if (o == null || getClass() != o.getClass()) return false;
     RunTask that = (RunTask) o;
     return Objects.equals(attemptNumber, that.attemptNumber)
+        && Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
         && Objects.equals(cleanupDuration, that.cleanupDuration)
         && Objects.equals(clusterInstance, that.clusterInstance)
         && Objects.equals(conditionTask, that.conditionTask)
@@ -675,6 +693,7 @@ public class RunTask {
   public int hashCode() {
     return Objects.hash(
         attemptNumber,
+        cleanRoomsNotebookTask,
         cleanupDuration,
         clusterInstance,
         conditionTask,
@@ -719,6 +738,7 @@ public class RunTask {
   public String toString() {
     return new ToStringer(RunTask.class)
         .add("attemptNumber", attemptNumber)
+        .add("cleanRoomsNotebookTask", cleanRoomsNotebookTask)
         .add("cleanupDuration", cleanupDuration)
         .add("clusterInstance", clusterInstance)
         .add("conditionTask", conditionTask)

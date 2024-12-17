@@ -1,5 +1,25 @@
 # Version changelog
 
+## [Release] Release v0.38.0
+
+### API Changes:
+
+ * Added `accountClient.federationPolicy()` service and `accountClient.servicePrincipalFederationPolicy()` service.
+ * Added `isSingleNode`, `kind` and `useMlRuntime` fields for `com.databricks.sdk.service.compute.ClusterAttributes`.
+ * Added `isSingleNode`, `kind` and `useMlRuntime` fields for `com.databricks.sdk.service.compute.ClusterDetails`.
+ * Added `isSingleNode`, `kind` and `useMlRuntime` fields for `com.databricks.sdk.service.compute.ClusterSpec`.
+ * Added `isSingleNode`, `kind` and `useMlRuntime` fields for `com.databricks.sdk.service.compute.CreateCluster`.
+ * Added `isSingleNode`, `kind` and `useMlRuntime` fields for `com.databricks.sdk.service.compute.EditCluster`.
+ * Added `isSingleNode`, `kind` and `useMlRuntime` fields for `com.databricks.sdk.service.compute.UpdateClusterResource`.
+ * Added `updateParameterSyntax` field for `com.databricks.sdk.service.dashboards.MigrateDashboardRequest`.
+ * Added `cleanRoomsNotebookTask` field for `com.databricks.sdk.service.jobs.RunTask`.
+ * Added `cleanRoomsNotebookTask` field for `com.databricks.sdk.service.jobs.SubmitTask`.
+ * Added `cleanRoomsNotebookTask` field for `com.databricks.sdk.service.jobs.Task`.
+ * Changed `daysOfWeek` field for `com.databricks.sdk.service.pipelines.RestartWindow` to type `com.databricks.sdk.service.pipelines.RestartWindowDaysOfWeekList` class.
+
+OpenAPI SHA: a6a317df8327c9b1e5cb59a03a42ffa2aabeef6d, Date: 2024-12-16
+
+
 ## [Release] Release v0.37.0
 
 ### Internal Changes

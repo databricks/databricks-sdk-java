@@ -5,6 +5,7 @@ package com.databricks.sdk.service.pipelines;
 import com.databricks.sdk.support.Generated;
 import com.databricks.sdk.support.ToStringer;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Collection;
 import java.util.Objects;
 
 @Generated
@@ -14,7 +15,7 @@ public class RestartWindow {
    * start_hour). If not specified all days of the week will be used.
    */
   @JsonProperty("days_of_week")
-  private RestartWindowDaysOfWeek daysOfWeek;
+  private Collection<RestartWindowDaysOfWeek> daysOfWeek;
 
   /**
    * An integer between 0 and 23 denoting the start hour for the restart window in the 24-hour day.
@@ -31,12 +32,12 @@ public class RestartWindow {
   @JsonProperty("time_zone_id")
   private String timeZoneId;
 
-  public RestartWindow setDaysOfWeek(RestartWindowDaysOfWeek daysOfWeek) {
+  public RestartWindow setDaysOfWeek(Collection<RestartWindowDaysOfWeek> daysOfWeek) {
     this.daysOfWeek = daysOfWeek;
     return this;
   }
 
-  public RestartWindowDaysOfWeek getDaysOfWeek() {
+  public Collection<RestartWindowDaysOfWeek> getDaysOfWeek() {
     return daysOfWeek;
   }
 

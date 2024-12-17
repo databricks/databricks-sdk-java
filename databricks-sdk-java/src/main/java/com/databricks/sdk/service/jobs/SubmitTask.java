@@ -11,6 +11,14 @@ import java.util.Objects;
 @Generated
 public class SubmitTask {
   /**
+   * The task runs a [clean rooms] notebook when the `clean_rooms_notebook_task` field is present.
+   *
+   * <p>[clean rooms]: https://docs.databricks.com/en/clean-rooms/index.html
+   */
+  @JsonProperty("clean_rooms_notebook_task")
+  private CleanRoomsNotebookTask cleanRoomsNotebookTask;
+
+  /**
    * The task evaluates a condition that can be used to control the execution of other tasks when
    * the `condition_task` field is present. The condition task does not require a cluster to execute
    * and does not support retries or notifications.
@@ -169,6 +177,15 @@ public class SubmitTask {
    */
   @JsonProperty("webhook_notifications")
   private WebhookNotifications webhookNotifications;
+
+  public SubmitTask setCleanRoomsNotebookTask(CleanRoomsNotebookTask cleanRoomsNotebookTask) {
+    this.cleanRoomsNotebookTask = cleanRoomsNotebookTask;
+    return this;
+  }
+
+  public CleanRoomsNotebookTask getCleanRoomsNotebookTask() {
+    return cleanRoomsNotebookTask;
+  }
 
   public SubmitTask setConditionTask(ConditionTask conditionTask) {
     this.conditionTask = conditionTask;
@@ -391,7 +408,8 @@ public class SubmitTask {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     SubmitTask that = (SubmitTask) o;
-    return Objects.equals(conditionTask, that.conditionTask)
+    return Objects.equals(cleanRoomsNotebookTask, that.cleanRoomsNotebookTask)
+        && Objects.equals(conditionTask, that.conditionTask)
         && Objects.equals(dbtTask, that.dbtTask)
         && Objects.equals(dependsOn, that.dependsOn)
         && Objects.equals(description, that.description)
@@ -420,6 +438,7 @@ public class SubmitTask {
   @Override
   public int hashCode() {
     return Objects.hash(
+        cleanRoomsNotebookTask,
         conditionTask,
         dbtTask,
         dependsOn,
@@ -449,6 +468,7 @@ public class SubmitTask {
   @Override
   public String toString() {
     return new ToStringer(SubmitTask.class)
+        .add("cleanRoomsNotebookTask", cleanRoomsNotebookTask)
         .add("conditionTask", conditionTask)
         .add("dbtTask", dbtTask)
         .add("dependsOn", dependsOn)
