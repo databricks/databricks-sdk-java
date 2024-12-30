@@ -32,6 +32,8 @@ public class ClustersIT {
 
     List<ClusterEvent> all = CollectionUtils.asList(events);
 
+    // Add newline
+
     CollectionUtils.assertUnique(all);
   }
 
