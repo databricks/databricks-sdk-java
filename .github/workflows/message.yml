@@ -24,9 +24,9 @@ jobs:
           TITLE: ${{ github.event.pull_request.title }}
         run: |
           TAG=$(echo "$TITLE" | sed -ne 's/\[\(.*\)\].*/\1/p')
-          if grep -q "tag: \"\[$TAG\]\"" .codegen/changelog_config.yml; then 
+          if grep -q "tag: \"\[$TAG\]\"" .codegen/changelog_config.yml; then
             echo "Valid tag found: [$TAG]"
-          else 
-            echo "Invalid or missing tag in commit message: [$TAG]" 
+          else
+            echo "Invalid or missing tag in commit message: [$TAG]"
             exit 1
           fi
