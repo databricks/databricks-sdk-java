@@ -1,5 +1,33 @@
 # Version changelog
 
+## [Release] Release v0.39.0
+
+### Internal Changes
+
+ * Migrate workflows that need write access to use hosted runners ([#397](https://github.com/databricks/databricks-sdk-java/pull/397)).
+
+
+### API Changes:
+
+ * Added `noCompute` field for `com.databricks.sdk.service.apps.CreateAppRequest`.
+ * Added `hasMore` field for `com.databricks.sdk.service.jobs.BaseJob`.
+ * Added `hasMore` field for `com.databricks.sdk.service.jobs.BaseRun`.
+ * Added `pageToken` field for `com.databricks.sdk.service.jobs.GetJobRequest`.
+ * Added `hasMore` and `nextPageToken` fields for `com.databricks.sdk.service.jobs.Job`.
+ * Added `hasMore` field for `com.databricks.sdk.service.jobs.Run`.
+ * Added `runAs` field for `com.databricks.sdk.service.pipelines.CreatePipeline`.
+ * Added `runAs` field for `com.databricks.sdk.service.pipelines.EditPipeline`.
+ * Added `authorizationDetails` and `endpointUrl` fields for `com.databricks.sdk.service.serving.DataPlaneInfo`.
+ * Added .
+ * Changed `update()` method for `accountClient.federationPolicy()` service with new required argument order.
+ * Changed `update()` method for `accountClient.servicePrincipalFederationPolicy()` service with new required argument order.
+ * Changed `updateMask` field for `com.databricks.sdk.service.oauth2.UpdateAccountFederationPolicyRequest` to no longer be required.
+ * Changed `updateMask` field for `com.databricks.sdk.service.oauth2.UpdateServicePrincipalFederationPolicyRequest` to no longer be required.
+ * Changed `daysOfWeek` field for `com.databricks.sdk.service.pipelines.RestartWindow` to type `com.databricks.sdk.service.pipelines.DayOfWeekList` class.
+
+OpenAPI SHA: 779817ed8d63031f5ea761fbd25ee84f38feec0d, Date: 2025-01-08
+
+
 ## [Release] Release v0.38.0
 
 ### API Changes:

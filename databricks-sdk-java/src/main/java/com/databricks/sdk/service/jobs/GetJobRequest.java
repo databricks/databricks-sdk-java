@@ -16,6 +16,14 @@ public class GetJobRequest {
   @QueryParam("job_id")
   private Long jobId;
 
+  /**
+   * Use `next_page_token` returned from the previous GetJob to request the next page of the job's
+   * sub-resources.
+   */
+  @JsonIgnore
+  @QueryParam("page_token")
+  private String pageToken;
+
   public GetJobRequest setJobId(Long jobId) {
     this.jobId = jobId;
     return this;
@@ -25,21 +33,33 @@ public class GetJobRequest {
     return jobId;
   }
 
+  public GetJobRequest setPageToken(String pageToken) {
+    this.pageToken = pageToken;
+    return this;
+  }
+
+  public String getPageToken() {
+    return pageToken;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     GetJobRequest that = (GetJobRequest) o;
-    return Objects.equals(jobId, that.jobId);
+    return Objects.equals(jobId, that.jobId) && Objects.equals(pageToken, that.pageToken);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(jobId);
+    return Objects.hash(jobId, pageToken);
   }
 
   @Override
   public String toString() {
-    return new ToStringer(GetJobRequest.class).add("jobId", jobId).toString();
+    return new ToStringer(GetJobRequest.class)
+        .add("jobId", jobId)
+        .add("pageToken", pageToken)
+        .toString();
   }
 }

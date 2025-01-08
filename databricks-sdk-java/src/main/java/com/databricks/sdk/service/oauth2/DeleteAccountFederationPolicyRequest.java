@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Delete account federation policy */
 @Generated
 public class DeleteAccountFederationPolicyRequest {
-  /** */
+  /** The identifier for the federation policy. */
   @JsonIgnore private String policyId;
 
   public DeleteAccountFederationPolicyRequest setPolicyId(String policyId) {

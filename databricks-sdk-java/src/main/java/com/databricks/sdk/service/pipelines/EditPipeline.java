@@ -109,6 +109,17 @@ public class EditPipeline {
   private RestartWindow restartWindow;
 
   /**
+   * Write-only setting, available only in Create/Update calls. Specifies the user or service
+   * principal that the pipeline runs as. If not specified, the pipeline runs as the user who
+   * created the pipeline.
+   *
+   * <p>Only `user_name` or `service_principal_name` can be specified. If both are specified, an
+   * error is thrown.
+   */
+  @JsonProperty("run_as")
+  private RunAs runAs;
+
+  /**
    * The default schema (database) where tables are read from or published to. The presence of this
    * field implies that the pipeline is in direct publishing mode.
    */
@@ -324,6 +335,15 @@ public class EditPipeline {
     return restartWindow;
   }
 
+  public EditPipeline setRunAs(RunAs runAs) {
+    this.runAs = runAs;
+    return this;
+  }
+
+  public RunAs getRunAs() {
+    return runAs;
+  }
+
   public EditPipeline setSchema(String schema) {
     this.schema = schema;
     return this;
@@ -395,6 +415,7 @@ public class EditPipeline {
         && Objects.equals(photon, that.photon)
         && Objects.equals(pipelineId, that.pipelineId)
         && Objects.equals(restartWindow, that.restartWindow)
+        && Objects.equals(runAs, that.runAs)
         && Objects.equals(schema, that.schema)
         && Objects.equals(serverless, that.serverless)
         && Objects.equals(storage, that.storage)
@@ -426,6 +447,7 @@ public class EditPipeline {
         photon,
         pipelineId,
         restartWindow,
+        runAs,
         schema,
         serverless,
         storage,
@@ -457,6 +479,7 @@ public class EditPipeline {
         .add("photon", photon)
         .add("pipelineId", pipelineId)
         .add("restartWindow", restartWindow)
+        .add("runAs", runAs)
         .add("schema", schema)
         .add("serverless", serverless)
         .add("storage", storage)

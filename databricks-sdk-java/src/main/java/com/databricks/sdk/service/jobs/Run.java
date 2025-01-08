@@ -83,6 +83,14 @@ public class Run {
   @JsonProperty("git_source")
   private GitSource gitSource;
 
+  /**
+   * Indicates if the run has more sub-resources (`tasks`, `job_clusters`) that are not shown. They
+   * can be accessed via :method:jobs/getrun endpoint. It is only relevant for API 2.2
+   * :method:jobs/listruns requests with `expand_tasks=true`.
+   */
+  @JsonProperty("has_more")
+  private Boolean hasMore;
+
   /** Only populated by for-each iterations. The parent for-each task is located in tasks array. */
   @JsonProperty("iterations")
   private Collection<RunTask> iterations;
@@ -90,7 +98,8 @@ public class Run {
   /**
    * A list of job cluster specifications that can be shared and reused by tasks of this job.
    * Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in
-   * task settings.
+   * task settings. If more than 100 job clusters are available, you can paginate through them using
+   * :method:jobs/getrun.
    */
   @JsonProperty("job_clusters")
   private Collection<JobCluster> jobClusters;
@@ -197,7 +206,9 @@ public class Run {
 
   /**
    * The list of tasks performed by the run. Each task has its own `run_id` which you can use to
-   * call `JobsGetOutput` to retrieve the run resutls.
+   * call `JobsGetOutput` to retrieve the run resutls. If more than 100 tasks are available, you can
+   * paginate through them using :method:jobs/getrun. Use the `next_page_token` field at the object
+   * root to determine if more results are available.
    */
   @JsonProperty("tasks")
   private Collection<RunTask> tasks;
@@ -300,6 +311,15 @@ public class Run {
 
   public GitSource getGitSource() {
     return gitSource;
+  }
+
+  public Run setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+  public Boolean getHasMore() {
+    return hasMore;
   }
 
   public Run setIterations(Collection<RunTask> iterations) {
@@ -532,6 +552,7 @@ public class Run {
         && Objects.equals(endTime, that.endTime)
         && Objects.equals(executionDuration, that.executionDuration)
         && Objects.equals(gitSource, that.gitSource)
+        && Objects.equals(hasMore, that.hasMore)
         && Objects.equals(iterations, that.iterations)
         && Objects.equals(jobClusters, that.jobClusters)
         && Objects.equals(jobId, that.jobId)
@@ -570,6 +591,7 @@ public class Run {
         endTime,
         executionDuration,
         gitSource,
+        hasMore,
         iterations,
         jobClusters,
         jobId,
@@ -608,6 +630,7 @@ public class Run {
         .add("endTime", endTime)
         .add("executionDuration", executionDuration)
         .add("gitSource", gitSource)
+        .add("hasMore", hasMore)
         .add("iterations", iterations)
         .add("jobClusters", jobClusters)
         .add("jobId", jobId)

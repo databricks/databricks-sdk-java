@@ -31,6 +31,14 @@ public class BaseJob {
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
+  /**
+   * Indicates if the job has more sub-resources (`tasks`, `job_clusters`) that are not shown. They
+   * can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
+   * :method:jobs/list requests with `expand_tasks=true`.
+   */
+  @JsonProperty("has_more")
+  private Boolean hasMore;
+
   /** The canonical identifier for this job. */
   @JsonProperty("job_id")
   private Long jobId;
@@ -69,6 +77,15 @@ public class BaseJob {
     return effectiveBudgetPolicyId;
   }
 
+  public BaseJob setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+  public Boolean getHasMore() {
+    return hasMore;
+  }
+
   public BaseJob setJobId(Long jobId) {
     this.jobId = jobId;
     return this;
@@ -95,13 +112,15 @@ public class BaseJob {
     return Objects.equals(createdTime, that.createdTime)
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(hasMore, that.hasMore)
         && Objects.equals(jobId, that.jobId)
         && Objects.equals(settings, that.settings);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdTime, creatorUserName, effectiveBudgetPolicyId, jobId, settings);
+    return Objects.hash(
+        createdTime, creatorUserName, effectiveBudgetPolicyId, hasMore, jobId, settings);
   }
 
   @Override
@@ -110,6 +129,7 @@ public class BaseJob {
         .add("createdTime", createdTime)
         .add("creatorUserName", creatorUserName)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
+        .add("hasMore", hasMore)
         .add("jobId", jobId)
         .add("settings", settings)
         .toString();
