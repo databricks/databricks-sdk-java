@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Get account federation policy */
 @Generated
 public class GetAccountFederationPolicyRequest {
-  /** */
+  /** The identifier for the federation policy. */
   @JsonIgnore private String policyId;
 
   public GetAccountFederationPolicyRequest setPolicyId(String policyId) {

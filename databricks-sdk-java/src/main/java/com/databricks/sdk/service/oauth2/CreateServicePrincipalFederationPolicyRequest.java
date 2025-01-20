@@ -17,8 +17,9 @@ public class CreateServicePrincipalFederationPolicyRequest {
   private FederationPolicy policy;
 
   /**
-   * The identifier for the federation policy. If unspecified, the id will be assigned by
-   * Databricks.
+   * The identifier for the federation policy. The identifier must contain only lowercase
+   * alphanumeric characters, numbers, hyphens, and slashes. If unspecified, the id will be assigned
+   * by Databricks.
    */
   @JsonIgnore
   @QueryParam("policy_id")

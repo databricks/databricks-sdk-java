@@ -90,7 +90,8 @@ public class JobSettings {
   /**
    * A list of job cluster specifications that can be shared and reused by tasks of this job.
    * Libraries cannot be declared in a shared job cluster. You must declare dependent libraries in
-   * task settings.
+   * task settings. If more than 100 job clusters are available, you can paginate through them using
+   * :method:jobs/get.
    */
   @JsonProperty("job_clusters")
   private Collection<JobCluster> jobClusters;
@@ -152,7 +153,11 @@ public class JobSettings {
   @JsonProperty("tags")
   private Map<String, String> tags;
 
-  /** A list of task specifications to be executed by this job. */
+  /**
+   * A list of task specifications to be executed by this job. If more than 100 tasks are available,
+   * you can paginate through them using :method:jobs/get. Use the `next_page_token` field at the
+   * object root to determine if more results are available.
+   */
   @JsonProperty("tasks")
   private Collection<Task> tasks;
 

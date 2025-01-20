@@ -10,7 +10,7 @@ import java.util.Objects;
 /** Get service principal federation policy */
 @Generated
 public class GetServicePrincipalFederationPolicyRequest {
-  /** */
+  /** The identifier for the federation policy. */
   @JsonIgnore private String policyId;
 
   /** The service principal id for the federation policy. */

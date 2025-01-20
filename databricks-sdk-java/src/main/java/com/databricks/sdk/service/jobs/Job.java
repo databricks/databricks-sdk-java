@@ -32,9 +32,21 @@ public class Job {
   @JsonProperty("effective_budget_policy_id")
   private String effectiveBudgetPolicyId;
 
+  /**
+   * Indicates if the job has more sub-resources (`tasks`, `job_clusters`) that are not shown. They
+   * can be accessed via :method:jobs/get endpoint. It is only relevant for API 2.2
+   * :method:jobs/list requests with `expand_tasks=true`.
+   */
+  @JsonProperty("has_more")
+  private Boolean hasMore;
+
   /** The canonical identifier for this job. */
   @JsonProperty("job_id")
   private Long jobId;
+
+  /** A token that can be used to list the next page of sub-resources. */
+  @JsonProperty("next_page_token")
+  private String nextPageToken;
 
   /**
    * The email of an active workspace user or the application ID of a service principal that the job
@@ -82,6 +94,15 @@ public class Job {
     return effectiveBudgetPolicyId;
   }
 
+  public Job setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+  public Boolean getHasMore() {
+    return hasMore;
+  }
+
   public Job setJobId(Long jobId) {
     this.jobId = jobId;
     return this;
@@ -89,6 +110,15 @@ public class Job {
 
   public Long getJobId() {
     return jobId;
+  }
+
+  public Job setNextPageToken(String nextPageToken) {
+    this.nextPageToken = nextPageToken;
+    return this;
+  }
+
+  public String getNextPageToken() {
+    return nextPageToken;
   }
 
   public Job setRunAsUserName(String runAsUserName) {
@@ -117,7 +147,9 @@ public class Job {
     return Objects.equals(createdTime, that.createdTime)
         && Objects.equals(creatorUserName, that.creatorUserName)
         && Objects.equals(effectiveBudgetPolicyId, that.effectiveBudgetPolicyId)
+        && Objects.equals(hasMore, that.hasMore)
         && Objects.equals(jobId, that.jobId)
+        && Objects.equals(nextPageToken, that.nextPageToken)
         && Objects.equals(runAsUserName, that.runAsUserName)
         && Objects.equals(settings, that.settings);
   }
@@ -125,7 +157,14 @@ public class Job {
   @Override
   public int hashCode() {
     return Objects.hash(
-        createdTime, creatorUserName, effectiveBudgetPolicyId, jobId, runAsUserName, settings);
+        createdTime,
+        creatorUserName,
+        effectiveBudgetPolicyId,
+        hasMore,
+        jobId,
+        nextPageToken,
+        runAsUserName,
+        settings);
   }
 
   @Override
@@ -134,7 +173,9 @@ public class Job {
         .add("createdTime", createdTime)
         .add("creatorUserName", creatorUserName)
         .add("effectiveBudgetPolicyId", effectiveBudgetPolicyId)
+        .add("hasMore", hasMore)
         .add("jobId", jobId)
+        .add("nextPageToken", nextPageToken)
         .add("runAsUserName", runAsUserName)
         .add("settings", settings)
         .toString();

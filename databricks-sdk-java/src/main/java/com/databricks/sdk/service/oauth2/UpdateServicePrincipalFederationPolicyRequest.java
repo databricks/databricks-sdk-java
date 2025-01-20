@@ -16,16 +16,18 @@ public class UpdateServicePrincipalFederationPolicyRequest {
   @JsonProperty("policy")
   private FederationPolicy policy;
 
-  /** */
+  /** The identifier for the federation policy. */
   @JsonIgnore private String policyId;
 
   /** The service principal id for the federation policy. */
   @JsonIgnore private Long servicePrincipalId;
 
   /**
-   * Field mask is required to be passed into the PATCH request. Field mask specifies which fields
-   * of the setting payload will be updated. The field mask needs to be supplied as single string.
-   * To specify multiple fields in the field mask, use comma as the separator (no space).
+   * The field mask specifies which fields of the policy to update. To specify multiple fields in
+   * the field mask, use comma as the separator (no space). The special value '*' indicates that all
+   * fields should be updated (full replacement). If unspecified, all fields that are set in the
+   * policy provided in the update request will overwrite the corresponding fields in the existing
+   * policy. Example value: 'description,oidc_policy.audiences'.
    */
   @JsonIgnore
   @QueryParam("update_mask")

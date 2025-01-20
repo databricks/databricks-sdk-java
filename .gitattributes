@@ -1521,7 +1521,6 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/CreateServic
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/CustomAppIntegrationAPI.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/CustomAppIntegrationImpl.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/CustomAppIntegrationService.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/DataPlaneInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/DeleteAccountFederationPolicyRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/DeleteCustomAppIntegrationOutput.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/oauth2/DeleteCustomAppIntegrationRequest.java linguist-generated=true
@@ -1574,6 +1573,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/CreatePip
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/CreatePipelineResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/CronTrigger.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/DataPlaneId.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/DayOfWeek.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/DeletePipelineRequest.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/DeletePipelineResponse.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/DeploymentKind.java linguist-generated=true
@@ -1628,7 +1628,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Pipelines
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/PipelinesService.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/ReportSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/RestartWindow.java linguist-generated=true
-databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/RestartWindowDaysOfWeek.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/RunAs.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/SchemaSpec.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/Sequencing.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/pipelines/SerializedException.java linguist-generated=true
@@ -1751,6 +1751,7 @@ databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/ChatMessage
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/ChatMessageRole.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/CohereConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/CreateServingEndpoint.java linguist-generated=true
+databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/DataPlaneInfo.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/DatabricksModelServingConfig.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/DataframeSplitInput.java linguist-generated=true
 databricks-sdk-java/src/main/java/com/databricks/sdk/service/serving/DeleteResponse.java linguist-generated=true

@@ -182,6 +182,11 @@ public class JobsAPI {
    * Get a single job.
    *
    * <p>Retrieves the details for a single job.
+   *
+   * <p>In Jobs API 2.2, requests for a single job support pagination of `tasks` and `job_clusters`
+   * when either exceeds 100 elements. Use the `next_page_token` field to check for more results and
+   * pass its value as the `page_token` in subsequent requests. Arrays with fewer than 100 elements
+   * in a page will be empty on later pages.
    */
   public Job get(GetJobRequest request) {
     return impl.get(request);
@@ -220,7 +225,12 @@ public class JobsAPI {
   /**
    * Get a single job run.
    *
-   * <p>Retrieve the metadata of a run.
+   * <p>Retrieves the metadata of a run.
+   *
+   * <p>In Jobs API 2.2, requests for a single job run support pagination of `tasks` and
+   * `job_clusters` when either exceeds 100 elements. Use the `next_page_token` field to check for
+   * more results and pass its value as the `page_token` in subsequent requests. Arrays with fewer
+   * than 100 elements in a page will be empty on later pages.
    */
   public Run getRun(GetRunRequest request) {
     return impl.getRun(request);

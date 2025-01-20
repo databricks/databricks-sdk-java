@@ -11,15 +11,14 @@ import java.util.Objects;
 public class ModelDataPlaneInfo {
   /** Information required to query DataPlane API 'query' endpoint. */
   @JsonProperty("query_info")
-  private com.databricks.sdk.service.oauth2.DataPlaneInfo queryInfo;
+  private DataPlaneInfo queryInfo;
 
-  public ModelDataPlaneInfo setQueryInfo(
-      com.databricks.sdk.service.oauth2.DataPlaneInfo queryInfo) {
+  public ModelDataPlaneInfo setQueryInfo(DataPlaneInfo queryInfo) {
     this.queryInfo = queryInfo;
     return this;
   }
 
-  public com.databricks.sdk.service.oauth2.DataPlaneInfo getQueryInfo() {
+  public DataPlaneInfo getQueryInfo() {
     return queryInfo;
   }
 

@@ -18,8 +18,13 @@ public class FederationPolicy {
   private String description;
 
   /**
-   * Name of the federation policy. The name must contain only lowercase alphanumeric characters,
-   * numbers, and hyphens. It must be unique within the account.
+   * Resource name for the federation policy. Example values include
+   * `accounts/<account-id>/federationPolicies/my-federation-policy` for Account Federation
+   * Policies, and
+   * `accounts/<account-id>/servicePrincipals/<service-principal-id>/federationPolicies/my-federation-policy`
+   * for Service Principal Federation Policies. Typically an output parameter, which does not need
+   * to be specified in create or update requests. If specified in a request, must match the value
+   * in the request URL.
    */
   @JsonProperty("name")
   private String name;

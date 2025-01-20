@@ -125,12 +125,11 @@ public class ServicePrincipalFederationPolicyAPI {
         });
   }
 
-  public FederationPolicy update(long servicePrincipalId, String policyId, String updateMask) {
+  public FederationPolicy update(long servicePrincipalId, String policyId) {
     return update(
         new UpdateServicePrincipalFederationPolicyRequest()
             .setServicePrincipalId(servicePrincipalId)
-            .setPolicyId(policyId)
-            .setUpdateMask(updateMask));
+            .setPolicyId(policyId));
   }
 
   /** Update service principal federation policy. */

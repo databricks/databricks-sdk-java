@@ -104,9 +104,8 @@ public class AccountFederationPolicyAPI {
         });
   }
 
-  public FederationPolicy update(String policyId, String updateMask) {
-    return update(
-        new UpdateAccountFederationPolicyRequest().setPolicyId(policyId).setUpdateMask(updateMask));
+  public FederationPolicy update(String policyId) {
+    return update(new UpdateAccountFederationPolicyRequest().setPolicyId(policyId));
   }
 
   /** Update account federation policy. */

@@ -9,7 +9,7 @@ import com.databricks.sdk.support.Generated;
  * start_hour). If not specified all days of the week will be used.
  */
 @Generated
-public enum RestartWindowDaysOfWeek {
+public enum DayOfWeek {
   FRIDAY,
   MONDAY,
   SATURDAY,
