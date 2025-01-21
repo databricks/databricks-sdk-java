@@ -21,7 +21,7 @@ class ProviderFilesImpl implements ProviderFilesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateFileResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateFileResponse.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class ProviderFilesImpl implements ProviderFilesService {
     String path = String.format("/api/2.0/marketplace-provider/files/%s", request.getFileId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteFileResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteFileResponse.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class ProviderFilesImpl implements ProviderFilesService {
     String path = String.format("/api/2.0/marketplace-provider/files/%s", request.getFileId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetFileResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetFileResponse.class, headers);
   }
 
   @Override
@@ -45,6 +45,6 @@ class ProviderFilesImpl implements ProviderFilesService {
     String path = "/api/2.0/marketplace-provider/files";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListFilesResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListFilesResponse.class, headers);
   }
 }

@@ -21,7 +21,7 @@ class QueryVisualizationsImpl implements QueryVisualizationsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Visualization.class, headers);
+    return apiClient.execute("POST", path, request, Visualization.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class QueryVisualizationsImpl implements QueryVisualizationsService {
     String path = String.format("/api/2.0/sql/visualizations/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Empty.class, headers);
+    apiClient.execute("DELETE", path, request, Empty.class, headers);
   }
 
   @Override
@@ -38,6 +38,6 @@ class QueryVisualizationsImpl implements QueryVisualizationsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, Visualization.class, headers);
+    return apiClient.execute("PATCH", path, request, Visualization.class, headers);
   }
 }

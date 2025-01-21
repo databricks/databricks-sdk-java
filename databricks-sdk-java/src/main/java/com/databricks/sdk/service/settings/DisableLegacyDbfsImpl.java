@@ -20,7 +20,8 @@ class DisableLegacyDbfsImpl implements DisableLegacyDbfsService {
     String path = "/api/2.0/settings/types/disable_legacy_dbfs/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteDisableLegacyDbfsResponse.class, headers);
+    return apiClient.execute(
+        "DELETE", path, request, DeleteDisableLegacyDbfsResponse.class, headers);
   }
 
   @Override
@@ -28,7 +29,7 @@ class DisableLegacyDbfsImpl implements DisableLegacyDbfsService {
     String path = "/api/2.0/settings/types/disable_legacy_dbfs/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, DisableLegacyDbfs.class, headers);
+    return apiClient.execute("GET", path, request, DisableLegacyDbfs.class, headers);
   }
 
   @Override
@@ -37,6 +38,6 @@ class DisableLegacyDbfsImpl implements DisableLegacyDbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, DisableLegacyDbfs.class, headers);
+    return apiClient.execute("PATCH", path, request, DisableLegacyDbfs.class, headers);
   }
 }

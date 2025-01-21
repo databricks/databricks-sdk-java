@@ -24,7 +24,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, AccountsStorageCredentialInfo.class, headers);
+    return apiClient.execute("POST", path, request, AccountsStorageCredentialInfo.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             request.getStorageCredentialName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -50,7 +50,7 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             request.getStorageCredentialName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AccountsStorageCredentialInfo.class, headers);
+    return apiClient.execute("GET", path, request, AccountsStorageCredentialInfo.class, headers);
   }
 
   @Override
@@ -61,7 +61,8 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
             apiClient.configuredAccountID(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAccountStorageCredentialsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, ListAccountStorageCredentialsResponse.class, headers);
   }
 
   @Override
@@ -75,6 +76,6 @@ class AccountStorageCredentialsImpl implements AccountStorageCredentialsService 
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, AccountsStorageCredentialInfo.class, headers);
+    return apiClient.execute("PUT", path, request, AccountsStorageCredentialInfo.class, headers);
   }
 }

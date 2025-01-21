@@ -23,7 +23,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, ServicePrincipal.class, headers);
+    return apiClient.execute("POST", path, request, ServicePrincipal.class, headers);
   }
 
   @Override
@@ -33,7 +33,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals/%s",
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -44,7 +44,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ServicePrincipal.class, headers);
+    return apiClient.execute("GET", path, request, ServicePrincipal.class, headers);
   }
 
   @Override
@@ -54,7 +54,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
             "/api/2.0/accounts/%s/scim/v2/ServicePrincipals", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListServicePrincipalResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListServicePrincipalResponse.class, headers);
   }
 
   @Override
@@ -66,7 +66,7 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, PatchResponse.class, headers);
+    apiClient.execute("PATCH", path, request, PatchResponse.class, headers);
   }
 
   @Override
@@ -78,6 +78,6 @@ class AccountServicePrincipalsImpl implements AccountServicePrincipalsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, UpdateResponse.class, headers);
+    apiClient.execute("PUT", path, request, UpdateResponse.class, headers);
   }
 }

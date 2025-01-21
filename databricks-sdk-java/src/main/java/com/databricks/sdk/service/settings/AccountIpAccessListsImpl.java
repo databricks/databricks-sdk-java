@@ -22,7 +22,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateIpAccessListResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateIpAccessListResponse.class, headers);
   }
 
   @Override
@@ -33,7 +33,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
             apiClient.configuredAccountID(), request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -44,7 +44,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
             apiClient.configuredAccountID(), request.getIpAccessListId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetIpAccessListResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetIpAccessListResponse.class, headers);
   }
 
   @Override
@@ -53,7 +53,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
         String.format("/api/2.0/accounts/%s/ip-access-lists", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, GetIpAccessListsResponse.class, headers);
+    return apiClient.execute("GET", path, null, GetIpAccessListsResponse.class, headers);
   }
 
   @Override
@@ -65,7 +65,7 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, ReplaceResponse.class, headers);
+    apiClient.execute("PUT", path, request, ReplaceResponse.class, headers);
   }
 
   @Override
@@ -77,6 +77,6 @@ class AccountIpAccessListsImpl implements AccountIpAccessListsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateResponse.class, headers);
+    apiClient.execute("PATCH", path, request, UpdateResponse.class, headers);
   }
 }

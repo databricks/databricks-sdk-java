@@ -24,7 +24,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, CreateResponse.class, headers);
+    apiClient.execute("POST", path, request, CreateResponse.class, headers);
   }
 
   @Override
@@ -35,7 +35,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getWorkspaceId(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -46,7 +46,7 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AccountsMetastoreAssignment.class, headers);
+    return apiClient.execute("GET", path, request, AccountsMetastoreAssignment.class, headers);
   }
 
   @Override
@@ -58,7 +58,8 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
             apiClient.configuredAccountID(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAccountMetastoreAssignmentsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, ListAccountMetastoreAssignmentsResponse.class, headers);
   }
 
   @Override
@@ -70,6 +71,6 @@ class AccountMetastoreAssignmentsImpl implements AccountMetastoreAssignmentsServ
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, UpdateResponse.class, headers);
+    apiClient.execute("PUT", path, request, UpdateResponse.class, headers);
   }
 }

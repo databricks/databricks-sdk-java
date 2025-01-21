@@ -22,7 +22,8 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, ApproveTransitionRequestResponse.class, headers);
+    return apiClient.execute(
+        "POST", path, request, ApproveTransitionRequestResponse.class, headers);
   }
 
   @Override
@@ -31,7 +32,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateCommentResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateCommentResponse.class, headers);
   }
 
   @Override
@@ -40,7 +41,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateModelResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateModelResponse.class, headers);
   }
 
   @Override
@@ -49,7 +50,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateModelVersionResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateModelVersionResponse.class, headers);
   }
 
   @Override
@@ -58,7 +59,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateTransitionRequestResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateTransitionRequestResponse.class, headers);
   }
 
   @Override
@@ -67,7 +68,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateWebhookResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateWebhookResponse.class, headers);
   }
 
   @Override
@@ -75,7 +76,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/comments/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteCommentResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteCommentResponse.class, headers);
   }
 
   @Override
@@ -83,7 +84,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteModelResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteModelResponse.class, headers);
   }
 
   @Override
@@ -91,7 +92,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/delete-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteModelTagResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteModelTagResponse.class, headers);
   }
 
   @Override
@@ -99,7 +100,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteModelVersionResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteModelVersionResponse.class, headers);
   }
 
   @Override
@@ -107,7 +108,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/delete-tag";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteModelVersionTagResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteModelVersionTagResponse.class, headers);
   }
 
   @Override
@@ -115,7 +116,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/transition-requests/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteTransitionRequestResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteTransitionRequestResponse.class, headers);
   }
 
   @Override
@@ -123,7 +124,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registry-webhooks/delete";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteWebhookResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteWebhookResponse.class, headers);
   }
 
   @Override
@@ -132,7 +133,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, GetLatestVersionsResponse.class, headers);
+    return apiClient.execute("POST", path, request, GetLatestVersionsResponse.class, headers);
   }
 
   @Override
@@ -140,7 +141,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/databricks/registered-models/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetModelResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetModelResponse.class, headers);
   }
 
   @Override
@@ -148,7 +149,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetModelVersionResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetModelVersionResponse.class, headers);
   }
 
   @Override
@@ -157,7 +158,8 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/get-download-uri";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetModelVersionDownloadUriResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GetModelVersionDownloadUriResponse.class, headers);
   }
 
   @Override
@@ -169,7 +171,8 @@ class ModelRegistryImpl implements ModelRegistryService {
             request.getRegisteredModelId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetRegisteredModelPermissionLevelsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GetRegisteredModelPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -178,7 +181,7 @@ class ModelRegistryImpl implements ModelRegistryService {
         String.format("/api/2.0/permissions/registered-models/%s", request.getRegisteredModelId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, RegisteredModelPermissions.class, headers);
+    return apiClient.execute("GET", path, request, RegisteredModelPermissions.class, headers);
   }
 
   @Override
@@ -186,7 +189,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListModelsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListModelsResponse.class, headers);
   }
 
   @Override
@@ -195,7 +198,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/transition-requests/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListTransitionRequestsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListTransitionRequestsResponse.class, headers);
   }
 
   @Override
@@ -203,7 +206,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registry-webhooks/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListRegistryWebhooks.class, headers);
+    return apiClient.execute("GET", path, request, ListRegistryWebhooks.class, headers);
   }
 
   @Override
@@ -212,7 +215,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, RejectTransitionRequestResponse.class, headers);
+    return apiClient.execute("POST", path, request, RejectTransitionRequestResponse.class, headers);
   }
 
   @Override
@@ -221,7 +224,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, RenameModelResponse.class, headers);
+    return apiClient.execute("POST", path, request, RenameModelResponse.class, headers);
   }
 
   @Override
@@ -229,7 +232,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/model-versions/search";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, SearchModelVersionsResponse.class, headers);
+    return apiClient.execute("GET", path, request, SearchModelVersionsResponse.class, headers);
   }
 
   @Override
@@ -237,7 +240,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     String path = "/api/2.0/mlflow/registered-models/search";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, SearchModelsResponse.class, headers);
+    return apiClient.execute("GET", path, request, SearchModelsResponse.class, headers);
   }
 
   @Override
@@ -246,7 +249,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, SetModelTagResponse.class, headers);
+    apiClient.execute("POST", path, request, SetModelTagResponse.class, headers);
   }
 
   @Override
@@ -255,7 +258,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, SetModelVersionTagResponse.class, headers);
+    apiClient.execute("POST", path, request, SetModelVersionTagResponse.class, headers);
   }
 
   @Override
@@ -265,7 +268,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, RegisteredModelPermissions.class, headers);
+    return apiClient.execute("PUT", path, request, RegisteredModelPermissions.class, headers);
   }
 
   @Override
@@ -274,7 +277,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, TestRegistryWebhookResponse.class, headers);
+    return apiClient.execute("POST", path, request, TestRegistryWebhookResponse.class, headers);
   }
 
   @Override
@@ -283,7 +286,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, TransitionStageResponse.class, headers);
+    return apiClient.execute("POST", path, request, TransitionStageResponse.class, headers);
   }
 
   @Override
@@ -292,7 +295,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, UpdateCommentResponse.class, headers);
+    return apiClient.execute("PATCH", path, request, UpdateCommentResponse.class, headers);
   }
 
   @Override
@@ -301,7 +304,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateModelResponse.class, headers);
+    apiClient.execute("PATCH", path, request, UpdateModelResponse.class, headers);
   }
 
   @Override
@@ -310,7 +313,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateModelVersionResponse.class, headers);
+    apiClient.execute("PATCH", path, request, UpdateModelVersionResponse.class, headers);
   }
 
   @Override
@@ -320,7 +323,7 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, RegisteredModelPermissions.class, headers);
+    return apiClient.execute("PATCH", path, request, RegisteredModelPermissions.class, headers);
   }
 
   @Override
@@ -329,6 +332,6 @@ class ModelRegistryImpl implements ModelRegistryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateWebhookResponse.class, headers);
+    apiClient.execute("PATCH", path, request, UpdateWebhookResponse.class, headers);
   }
 }

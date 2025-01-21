@@ -20,7 +20,7 @@ class ConsumerProvidersImpl implements ConsumerProvidersService {
     String path = "/api/2.1/marketplace-consumer/providers:batchGet";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, BatchGetProvidersResponse.class, headers);
+    return apiClient.execute("GET", path, request, BatchGetProvidersResponse.class, headers);
   }
 
   @Override
@@ -28,7 +28,7 @@ class ConsumerProvidersImpl implements ConsumerProvidersService {
     String path = String.format("/api/2.1/marketplace-consumer/providers/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetProviderResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetProviderResponse.class, headers);
   }
 
   @Override
@@ -36,6 +36,6 @@ class ConsumerProvidersImpl implements ConsumerProvidersService {
     String path = "/api/2.1/marketplace-consumer/providers";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListProvidersResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListProvidersResponse.class, headers);
   }
 }

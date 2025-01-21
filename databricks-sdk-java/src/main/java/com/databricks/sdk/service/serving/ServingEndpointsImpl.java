@@ -24,7 +24,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
             request.getName(), request.getServedModelName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, BuildLogsResponse.class, headers);
+    return apiClient.execute("GET", path, request, BuildLogsResponse.class, headers);
   }
 
   @Override
@@ -33,7 +33,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, ServingEndpointDetailed.class, headers);
+    return apiClient.execute("POST", path, request, ServingEndpointDetailed.class, headers);
   }
 
   @Override
@@ -41,7 +41,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -49,7 +49,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s/metrics", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "text/plain");
-    return apiClient.GET(path, request, ExportMetricsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ExportMetricsResponse.class, headers);
   }
 
   @Override
@@ -57,7 +57,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ServingEndpointDetailed.class, headers);
+    return apiClient.execute("GET", path, request, ServingEndpointDetailed.class, headers);
   }
 
   @Override
@@ -65,7 +65,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = String.format("/api/2.0/serving-endpoints/%s/openapi", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.GET(path, request, GetOpenApiResponse.class, headers);
+    apiClient.execute("GET", path, request, GetOpenApiResponse.class, headers);
   }
 
   @Override
@@ -77,7 +77,8 @@ class ServingEndpointsImpl implements ServingEndpointsService {
             request.getServingEndpointId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetServingEndpointPermissionLevelsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GetServingEndpointPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -86,7 +87,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
         String.format("/api/2.0/permissions/serving-endpoints/%s", request.getServingEndpointId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ServingEndpointPermissions.class, headers);
+    return apiClient.execute("GET", path, request, ServingEndpointPermissions.class, headers);
   }
 
   @Override
@@ -94,7 +95,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     String path = "/api/2.0/serving-endpoints";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListEndpointsResponse.class, headers);
+    return apiClient.execute("GET", path, null, ListEndpointsResponse.class, headers);
   }
 
   @Override
@@ -105,7 +106,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
             request.getName(), request.getServedModelName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ServerLogsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ServerLogsResponse.class, headers);
   }
 
   @Override
@@ -123,7 +124,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, PutResponse.class, headers);
+    return apiClient.execute("PUT", path, request, PutResponse.class, headers);
   }
 
   @Override
@@ -132,7 +133,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, PutAiGatewayResponse.class, headers);
+    return apiClient.execute("PUT", path, request, PutAiGatewayResponse.class, headers);
   }
 
   @Override
@@ -141,7 +142,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, QueryEndpointResponse.class, headers);
+    return apiClient.execute("POST", path, request, QueryEndpointResponse.class, headers);
   }
 
   @Override
@@ -151,7 +152,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, ServingEndpointPermissions.class, headers);
+    return apiClient.execute("PUT", path, request, ServingEndpointPermissions.class, headers);
   }
 
   @Override
@@ -160,7 +161,7 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, ServingEndpointDetailed.class, headers);
+    return apiClient.execute("PUT", path, request, ServingEndpointDetailed.class, headers);
   }
 
   @Override
@@ -170,6 +171,6 @@ class ServingEndpointsImpl implements ServingEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, ServingEndpointPermissions.class, headers);
+    return apiClient.execute("PATCH", path, request, ServingEndpointPermissions.class, headers);
   }
 }

@@ -21,7 +21,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, AddBlockResponse.class, headers);
+    apiClient.execute("POST", path, request, AddBlockResponse.class, headers);
   }
 
   @Override
@@ -30,7 +30,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, CloseResponse.class, headers);
+    apiClient.execute("POST", path, request, CloseResponse.class, headers);
   }
 
   @Override
@@ -39,7 +39,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateResponse.class, headers);
   }
 
   @Override
@@ -48,7 +48,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, DeleteResponse.class, headers);
+    apiClient.execute("POST", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -56,7 +56,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/get-status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, FileInfo.class, headers);
+    return apiClient.execute("GET", path, request, FileInfo.class, headers);
   }
 
   @Override
@@ -64,7 +64,7 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListStatusResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListStatusResponse.class, headers);
   }
 
   @Override
@@ -73,7 +73,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, MkDirsResponse.class, headers);
+    apiClient.execute("POST", path, request, MkDirsResponse.class, headers);
   }
 
   @Override
@@ -82,7 +82,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, MoveResponse.class, headers);
+    apiClient.execute("POST", path, request, MoveResponse.class, headers);
   }
 
   @Override
@@ -91,7 +91,7 @@ class DbfsImpl implements DbfsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, PutResponse.class, headers);
+    apiClient.execute("POST", path, request, PutResponse.class, headers);
   }
 
   @Override
@@ -99,6 +99,6 @@ class DbfsImpl implements DbfsService {
     String path = "/api/2.0/dbfs/read";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ReadResponse.class, headers);
+    return apiClient.execute("GET", path, request, ReadResponse.class, headers);
   }
 }

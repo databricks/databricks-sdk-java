@@ -21,7 +21,8 @@ class UsageDashboardsImpl implements UsageDashboardsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateBillingUsageDashboardResponse.class, headers);
+    return apiClient.execute(
+        "POST", path, request, CreateBillingUsageDashboardResponse.class, headers);
   }
 
   @Override
@@ -29,6 +30,6 @@ class UsageDashboardsImpl implements UsageDashboardsService {
     String path = String.format("/api/2.0/accounts/%s/dashboard", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetBillingUsageDashboardResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetBillingUsageDashboardResponse.class, headers);
   }
 }

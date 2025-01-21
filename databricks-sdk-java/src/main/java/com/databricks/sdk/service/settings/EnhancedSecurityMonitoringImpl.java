@@ -21,7 +21,8 @@ class EnhancedSecurityMonitoringImpl implements EnhancedSecurityMonitoringServic
     String path = "/api/2.0/settings/types/shield_esm_enablement_ws_db/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, EnhancedSecurityMonitoringSetting.class, headers);
+    return apiClient.execute(
+        "GET", path, request, EnhancedSecurityMonitoringSetting.class, headers);
   }
 
   @Override
@@ -31,6 +32,7 @@ class EnhancedSecurityMonitoringImpl implements EnhancedSecurityMonitoringServic
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, EnhancedSecurityMonitoringSetting.class, headers);
+    return apiClient.execute(
+        "PATCH", path, request, EnhancedSecurityMonitoringSetting.class, headers);
   }
 }

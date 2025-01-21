@@ -65,7 +65,7 @@ public abstract class RefreshableTokenSource implements TokenSource {
       ApiClient apiClient = new ApiClient.Builder().withHttpClient(hc).build();
 
       OAuthResponse resp =
-          apiClient.POST(
+          apiClient.execute("POST",
               tokenUrl, FormRequest.wrapValuesInList(params), OAuthResponse.class, headers);
       if (resp.getErrorCode() != null) {
         throw new IllegalArgumentException(resp.getErrorCode() + ": " + resp.getErrorSummary());

@@ -21,7 +21,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getAsset(), CleanRoomAsset.class, headers);
+    return apiClient.execute("POST", path, request.getAsset(), CleanRoomAsset.class, headers);
   }
 
   @Override
@@ -32,7 +32,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
             request.getCleanRoomName(), request.getAssetType(), request.getAssetFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteCleanRoomAssetResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteCleanRoomAssetResponse.class, headers);
   }
 
   @Override
@@ -43,7 +43,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
             request.getCleanRoomName(), request.getAssetType(), request.getAssetFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, CleanRoomAsset.class, headers);
+    return apiClient.execute("GET", path, request, CleanRoomAsset.class, headers);
   }
 
   @Override
@@ -51,7 +51,7 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
     String path = String.format("/api/2.0/clean-rooms/%s/assets", request.getCleanRoomName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListCleanRoomAssetsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListCleanRoomAssetsResponse.class, headers);
   }
 
   @Override
@@ -63,6 +63,6 @@ class CleanRoomAssetsImpl implements CleanRoomAssetsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request.getAsset(), CleanRoomAsset.class, headers);
+    return apiClient.execute("PATCH", path, request.getAsset(), CleanRoomAsset.class, headers);
   }
 }

@@ -22,7 +22,7 @@ class QualityMonitorsImpl implements QualityMonitorsService {
             "/api/2.1/unity-catalog/tables/%s/monitor/refreshes/%s/cancel",
             request.getTableName(), request.getRefreshId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.POST(path, null, CancelRefreshResponse.class, headers);
+    apiClient.execute("POST", path, null, CancelRefreshResponse.class, headers);
   }
 
   @Override
@@ -31,14 +31,14 @@ class QualityMonitorsImpl implements QualityMonitorsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, MonitorInfo.class, headers);
+    return apiClient.execute("POST", path, request, MonitorInfo.class, headers);
   }
 
   @Override
   public void delete(DeleteQualityMonitorRequest request) {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -46,7 +46,7 @@ class QualityMonitorsImpl implements QualityMonitorsService {
     String path = String.format("/api/2.1/unity-catalog/tables/%s/monitor", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, MonitorInfo.class, headers);
+    return apiClient.execute("GET", path, request, MonitorInfo.class, headers);
   }
 
   @Override
@@ -57,7 +57,7 @@ class QualityMonitorsImpl implements QualityMonitorsService {
             request.getTableName(), request.getRefreshId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, MonitorRefreshInfo.class, headers);
+    return apiClient.execute("GET", path, request, MonitorRefreshInfo.class, headers);
   }
 
   @Override
@@ -66,7 +66,7 @@ class QualityMonitorsImpl implements QualityMonitorsService {
         String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, MonitorRefreshListResponse.class, headers);
+    return apiClient.execute("GET", path, request, MonitorRefreshListResponse.class, headers);
   }
 
   @Override
@@ -77,7 +77,7 @@ class QualityMonitorsImpl implements QualityMonitorsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, RegenerateDashboardResponse.class, headers);
+    return apiClient.execute("POST", path, request, RegenerateDashboardResponse.class, headers);
   }
 
   @Override
@@ -86,7 +86,7 @@ class QualityMonitorsImpl implements QualityMonitorsService {
         String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getTableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.POST(path, null, MonitorRefreshInfo.class, headers);
+    return apiClient.execute("POST", path, null, MonitorRefreshInfo.class, headers);
   }
 
   @Override
@@ -95,6 +95,6 @@ class QualityMonitorsImpl implements QualityMonitorsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, MonitorInfo.class, headers);
+    return apiClient.execute("PUT", path, request, MonitorInfo.class, headers);
   }
 }

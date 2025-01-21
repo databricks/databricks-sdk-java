@@ -21,7 +21,7 @@ class GitCredentialsImpl implements GitCredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateCredentialsResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateCredentialsResponse.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class GitCredentialsImpl implements GitCredentialsService {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteCredentialsResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteCredentialsResponse.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class GitCredentialsImpl implements GitCredentialsService {
     String path = String.format("/api/2.0/git-credentials/%s", request.getCredentialId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetCredentialsResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetCredentialsResponse.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class GitCredentialsImpl implements GitCredentialsService {
     String path = "/api/2.0/git-credentials";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListCredentialsResponse.class, headers);
+    return apiClient.execute("GET", path, null, ListCredentialsResponse.class, headers);
   }
 
   @Override
@@ -54,6 +54,6 @@ class GitCredentialsImpl implements GitCredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateCredentialsResponse.class, headers);
+    apiClient.execute("PATCH", path, request, UpdateCredentialsResponse.class, headers);
   }
 }

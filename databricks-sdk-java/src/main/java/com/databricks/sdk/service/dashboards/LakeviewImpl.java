@@ -21,7 +21,7 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getDashboard(), Dashboard.class, headers);
+    return apiClient.execute("POST", path, request.getDashboard(), Dashboard.class, headers);
   }
 
   @Override
@@ -31,7 +31,7 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getSchedule(), Schedule.class, headers);
+    return apiClient.execute("POST", path, request.getSchedule(), Schedule.class, headers);
   }
 
   @Override
@@ -43,7 +43,7 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getSubscription(), Subscription.class, headers);
+    return apiClient.execute("POST", path, request.getSubscription(), Subscription.class, headers);
   }
 
   @Override
@@ -54,7 +54,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteScheduleResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteScheduleResponse.class, headers);
   }
 
   @Override
@@ -65,7 +65,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId(), request.getSubscriptionId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteSubscriptionResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteSubscriptionResponse.class, headers);
   }
 
   @Override
@@ -73,7 +73,7 @@ class LakeviewImpl implements LakeviewService {
     String path = String.format("/api/2.0/lakeview/dashboards/%s", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, Dashboard.class, headers);
+    return apiClient.execute("GET", path, request, Dashboard.class, headers);
   }
 
   @Override
@@ -82,7 +82,7 @@ class LakeviewImpl implements LakeviewService {
         String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, PublishedDashboard.class, headers);
+    return apiClient.execute("GET", path, request, PublishedDashboard.class, headers);
   }
 
   @Override
@@ -93,7 +93,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, Schedule.class, headers);
+    return apiClient.execute("GET", path, request, Schedule.class, headers);
   }
 
   @Override
@@ -104,7 +104,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId(), request.getSubscriptionId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, Subscription.class, headers);
+    return apiClient.execute("GET", path, request, Subscription.class, headers);
   }
 
   @Override
@@ -112,7 +112,7 @@ class LakeviewImpl implements LakeviewService {
     String path = "/api/2.0/lakeview/dashboards";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListDashboardsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListDashboardsResponse.class, headers);
   }
 
   @Override
@@ -121,7 +121,7 @@ class LakeviewImpl implements LakeviewService {
         String.format("/api/2.0/lakeview/dashboards/%s/schedules", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListSchedulesResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListSchedulesResponse.class, headers);
   }
 
   @Override
@@ -132,7 +132,7 @@ class LakeviewImpl implements LakeviewService {
             request.getDashboardId(), request.getScheduleId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListSubscriptionsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListSubscriptionsResponse.class, headers);
   }
 
   @Override
@@ -141,7 +141,7 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Dashboard.class, headers);
+    return apiClient.execute("POST", path, request, Dashboard.class, headers);
   }
 
   @Override
@@ -151,7 +151,7 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, PublishedDashboard.class, headers);
+    return apiClient.execute("POST", path, request, PublishedDashboard.class, headers);
   }
 
   @Override
@@ -159,7 +159,7 @@ class LakeviewImpl implements LakeviewService {
     String path = String.format("/api/2.0/lakeview/dashboards/%s", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, TrashDashboardResponse.class, headers);
+    apiClient.execute("DELETE", path, request, TrashDashboardResponse.class, headers);
   }
 
   @Override
@@ -168,7 +168,7 @@ class LakeviewImpl implements LakeviewService {
         String.format("/api/2.0/lakeview/dashboards/%s/published", request.getDashboardId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, UnpublishDashboardResponse.class, headers);
+    apiClient.execute("DELETE", path, request, UnpublishDashboardResponse.class, headers);
   }
 
   @Override
@@ -177,7 +177,7 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request.getDashboard(), Dashboard.class, headers);
+    return apiClient.execute("PATCH", path, request.getDashboard(), Dashboard.class, headers);
   }
 
   @Override
@@ -189,6 +189,6 @@ class LakeviewImpl implements LakeviewService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request.getSchedule(), Schedule.class, headers);
+    return apiClient.execute("PUT", path, request.getSchedule(), Schedule.class, headers);
   }
 }

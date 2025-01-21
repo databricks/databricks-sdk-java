@@ -22,7 +22,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             "/api/2.1/unity-catalog/models/%s/versions/%s",
             request.getFullName(), request.getVersion());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -33,7 +33,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getVersion());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ModelVersionInfo.class, headers);
+    return apiClient.execute("GET", path, request, ModelVersionInfo.class, headers);
   }
 
   @Override
@@ -44,7 +44,7 @@ class ModelVersionsImpl implements ModelVersionsService {
             request.getFullName(), request.getAlias());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ModelVersionInfo.class, headers);
+    return apiClient.execute("GET", path, request, ModelVersionInfo.class, headers);
   }
 
   @Override
@@ -52,7 +52,7 @@ class ModelVersionsImpl implements ModelVersionsService {
     String path = String.format("/api/2.1/unity-catalog/models/%s/versions", request.getFullName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListModelVersionsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListModelVersionsResponse.class, headers);
   }
 
   @Override
@@ -64,6 +64,6 @@ class ModelVersionsImpl implements ModelVersionsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, ModelVersionInfo.class, headers);
+    return apiClient.execute("PATCH", path, request, ModelVersionInfo.class, headers);
   }
 }

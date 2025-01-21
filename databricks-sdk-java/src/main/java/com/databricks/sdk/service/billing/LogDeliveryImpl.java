@@ -22,7 +22,7 @@ class LogDeliveryImpl implements LogDeliveryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, WrappedLogDeliveryConfiguration.class, headers);
+    return apiClient.execute("POST", path, request, WrappedLogDeliveryConfiguration.class, headers);
   }
 
   @Override
@@ -33,7 +33,7 @@ class LogDeliveryImpl implements LogDeliveryService {
             apiClient.configuredAccountID(), request.getLogDeliveryConfigurationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, WrappedLogDeliveryConfiguration.class, headers);
+    return apiClient.execute("GET", path, request, WrappedLogDeliveryConfiguration.class, headers);
   }
 
   @Override
@@ -42,7 +42,7 @@ class LogDeliveryImpl implements LogDeliveryService {
         String.format("/api/2.0/accounts/%s/log-delivery", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, WrappedLogDeliveryConfigurations.class, headers);
+    return apiClient.execute("GET", path, request, WrappedLogDeliveryConfigurations.class, headers);
   }
 
   @Override
@@ -54,6 +54,6 @@ class LogDeliveryImpl implements LogDeliveryService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, PatchStatusResponse.class, headers);
+    apiClient.execute("PATCH", path, request, PatchStatusResponse.class, headers);
   }
 }

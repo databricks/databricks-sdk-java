@@ -21,7 +21,8 @@ class ProviderPersonalizationRequestsImpl implements ProviderPersonalizationRequ
     String path = "/api/2.0/marketplace-provider/personalization-requests";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAllPersonalizationRequestsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, ListAllPersonalizationRequestsResponse.class, headers);
   }
 
   @Override
@@ -33,6 +34,7 @@ class ProviderPersonalizationRequestsImpl implements ProviderPersonalizationRequ
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, UpdatePersonalizationRequestResponse.class, headers);
+    return apiClient.execute(
+        "PUT", path, request, UpdatePersonalizationRequestResponse.class, headers);
   }
 }

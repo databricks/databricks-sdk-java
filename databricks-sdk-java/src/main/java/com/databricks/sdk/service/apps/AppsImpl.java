@@ -21,7 +21,7 @@ class AppsImpl implements AppsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getApp(), App.class, headers);
+    return apiClient.execute("POST", path, request.getApp(), App.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/apps/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, App.class, headers);
+    return apiClient.execute("DELETE", path, request, App.class, headers);
   }
 
   @Override
@@ -38,7 +38,8 @@ class AppsImpl implements AppsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getAppDeployment(), AppDeployment.class, headers);
+    return apiClient.execute(
+        "POST", path, request.getAppDeployment(), AppDeployment.class, headers);
   }
 
   @Override
@@ -46,7 +47,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/apps/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, App.class, headers);
+    return apiClient.execute("GET", path, request, App.class, headers);
   }
 
   @Override
@@ -56,7 +57,7 @@ class AppsImpl implements AppsService {
             "/api/2.0/apps/%s/deployments/%s", request.getAppName(), request.getDeploymentId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AppDeployment.class, headers);
+    return apiClient.execute("GET", path, request, AppDeployment.class, headers);
   }
 
   @Override
@@ -65,7 +66,7 @@ class AppsImpl implements AppsService {
         String.format("/api/2.0/permissions/apps/%s/permissionLevels", request.getAppName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetAppPermissionLevelsResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetAppPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -73,7 +74,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/permissions/apps/%s", request.getAppName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AppPermissions.class, headers);
+    return apiClient.execute("GET", path, request, AppPermissions.class, headers);
   }
 
   @Override
@@ -81,7 +82,7 @@ class AppsImpl implements AppsService {
     String path = "/api/2.0/apps";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAppsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListAppsResponse.class, headers);
   }
 
   @Override
@@ -89,7 +90,7 @@ class AppsImpl implements AppsService {
     String path = String.format("/api/2.0/apps/%s/deployments", request.getAppName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAppDeploymentsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListAppDeploymentsResponse.class, headers);
   }
 
   @Override
@@ -98,7 +99,7 @@ class AppsImpl implements AppsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, AppPermissions.class, headers);
+    return apiClient.execute("PUT", path, request, AppPermissions.class, headers);
   }
 
   @Override
@@ -107,7 +108,7 @@ class AppsImpl implements AppsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, App.class, headers);
+    return apiClient.execute("POST", path, request, App.class, headers);
   }
 
   @Override
@@ -116,7 +117,7 @@ class AppsImpl implements AppsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, App.class, headers);
+    return apiClient.execute("POST", path, request, App.class, headers);
   }
 
   @Override
@@ -125,7 +126,7 @@ class AppsImpl implements AppsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request.getApp(), App.class, headers);
+    return apiClient.execute("PATCH", path, request.getApp(), App.class, headers);
   }
 
   @Override
@@ -134,6 +135,6 @@ class AppsImpl implements AppsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, AppPermissions.class, headers);
+    return apiClient.execute("PATCH", path, request, AppPermissions.class, headers);
   }
 }

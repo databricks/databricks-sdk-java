@@ -21,7 +21,7 @@ class ExternalLocationsImpl implements ExternalLocationsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, ExternalLocationInfo.class, headers);
+    return apiClient.execute("POST", path, request, ExternalLocationInfo.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class ExternalLocationsImpl implements ExternalLocationsService {
     String path = String.format("/api/2.1/unity-catalog/external-locations/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class ExternalLocationsImpl implements ExternalLocationsService {
     String path = String.format("/api/2.1/unity-catalog/external-locations/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ExternalLocationInfo.class, headers);
+    return apiClient.execute("GET", path, request, ExternalLocationInfo.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class ExternalLocationsImpl implements ExternalLocationsService {
     String path = "/api/2.1/unity-catalog/external-locations";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListExternalLocationsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListExternalLocationsResponse.class, headers);
   }
 
   @Override
@@ -54,6 +54,6 @@ class ExternalLocationsImpl implements ExternalLocationsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, ExternalLocationInfo.class, headers);
+    return apiClient.execute("PATCH", path, request, ExternalLocationInfo.class, headers);
   }
 }

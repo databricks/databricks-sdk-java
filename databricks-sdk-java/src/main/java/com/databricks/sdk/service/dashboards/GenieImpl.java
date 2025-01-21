@@ -24,7 +24,7 @@ class GenieImpl implements GenieService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, GenieMessage.class, headers);
+    return apiClient.execute("POST", path, request, GenieMessage.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.POST(path, null, GenieGetMessageQueryResultResponse.class, headers);
+    return apiClient.execute("POST", path, null, GenieGetMessageQueryResultResponse.class, headers);
   }
 
   @Override
@@ -47,7 +47,7 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GenieMessage.class, headers);
+    return apiClient.execute("GET", path, request, GenieMessage.class, headers);
   }
 
   @Override
@@ -59,7 +59,8 @@ class GenieImpl implements GenieService {
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GenieGetMessageQueryResultResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GenieGetMessageQueryResultResponse.class, headers);
   }
 
   @Override
@@ -70,6 +71,6 @@ class GenieImpl implements GenieService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, GenieStartConversationResponse.class, headers);
+    return apiClient.execute("POST", path, request, GenieStartConversationResponse.class, headers);
   }
 }

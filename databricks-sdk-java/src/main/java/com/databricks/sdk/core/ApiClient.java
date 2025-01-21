@@ -198,65 +198,10 @@ public class ApiClient {
     }
   }
 
-  public <O> O HEAD(String path, Class<O> target, Map<String, String> headers) {
-    return HEAD(path, null, target, headers);
-  }
-
-  public <I, O> O HEAD(String path, I in, Class<O> target, Map<String, String> headers) {
+  public <I, O> O execute(
+      String method, String path, I in, Class<O> target, Map<String, String> headers) {
     try {
-      return execute(prepareRequest("HEAD", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <O> O GET(String path, Class<O> target, Map<String, String> headers) {
-    return GET(path, null, target, headers);
-  }
-
-  public <I, O> O GET(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("GET", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <O> O POST(String path, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("POST", path, null, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <I, O> O POST(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("POST", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <I, O> O PUT(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("PUT", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <I, O> O PATCH(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("PATCH", path, in, headers), target);
-    } catch (IOException e) {
-      throw new DatabricksException("IO error: " + e.getMessage(), e);
-    }
-  }
-
-  public <I, O> O DELETE(String path, I in, Class<O> target, Map<String, String> headers) {
-    try {
-      return execute(prepareRequest("DELETE", path, in, headers), target);
+      return execute(prepareRequest(method, path, in, headers), target);
     } catch (IOException e) {
       throw new DatabricksException("IO error: " + e.getMessage(), e);
     }

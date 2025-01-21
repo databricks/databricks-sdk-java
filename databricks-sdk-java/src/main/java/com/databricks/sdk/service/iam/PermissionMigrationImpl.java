@@ -21,6 +21,6 @@ class PermissionMigrationImpl implements PermissionMigrationService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, MigratePermissionsResponse.class, headers);
+    return apiClient.execute("POST", path, request, MigratePermissionsResponse.class, headers);
   }
 }

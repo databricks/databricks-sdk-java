@@ -21,7 +21,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateExperimentResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateExperimentResponse.class, headers);
   }
 
   @Override
@@ -30,7 +30,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateRunResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateRunResponse.class, headers);
   }
 
   @Override
@@ -39,7 +39,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, DeleteExperimentResponse.class, headers);
+    apiClient.execute("POST", path, request, DeleteExperimentResponse.class, headers);
   }
 
   @Override
@@ -48,7 +48,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, DeleteRunResponse.class, headers);
+    apiClient.execute("POST", path, request, DeleteRunResponse.class, headers);
   }
 
   @Override
@@ -57,7 +57,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, DeleteRunsResponse.class, headers);
+    return apiClient.execute("POST", path, request, DeleteRunsResponse.class, headers);
   }
 
   @Override
@@ -66,7 +66,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, DeleteTagResponse.class, headers);
+    apiClient.execute("POST", path, request, DeleteTagResponse.class, headers);
   }
 
   @Override
@@ -74,7 +74,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/get-by-name";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetExperimentResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetExperimentResponse.class, headers);
   }
 
   @Override
@@ -82,7 +82,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetExperimentResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetExperimentResponse.class, headers);
   }
 
   @Override
@@ -90,7 +90,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/metrics/get-history";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetMetricHistoryResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetMetricHistoryResponse.class, headers);
   }
 
   @Override
@@ -101,7 +101,8 @@ class ExperimentsImpl implements ExperimentsService {
             "/api/2.0/permissions/experiments/%s/permissionLevels", request.getExperimentId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetExperimentPermissionLevelsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GetExperimentPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -109,7 +110,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = String.format("/api/2.0/permissions/experiments/%s", request.getExperimentId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ExperimentPermissions.class, headers);
+    return apiClient.execute("GET", path, request, ExperimentPermissions.class, headers);
   }
 
   @Override
@@ -117,7 +118,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/runs/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetRunResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetRunResponse.class, headers);
   }
 
   @Override
@@ -125,7 +126,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/artifacts/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListArtifactsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListArtifactsResponse.class, headers);
   }
 
   @Override
@@ -133,7 +134,7 @@ class ExperimentsImpl implements ExperimentsService {
     String path = "/api/2.0/mlflow/experiments/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListExperimentsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListExperimentsResponse.class, headers);
   }
 
   @Override
@@ -142,7 +143,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, LogBatchResponse.class, headers);
+    apiClient.execute("POST", path, request, LogBatchResponse.class, headers);
   }
 
   @Override
@@ -151,7 +152,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, LogInputsResponse.class, headers);
+    apiClient.execute("POST", path, request, LogInputsResponse.class, headers);
   }
 
   @Override
@@ -160,7 +161,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, LogMetricResponse.class, headers);
+    apiClient.execute("POST", path, request, LogMetricResponse.class, headers);
   }
 
   @Override
@@ -169,7 +170,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, LogModelResponse.class, headers);
+    apiClient.execute("POST", path, request, LogModelResponse.class, headers);
   }
 
   @Override
@@ -178,7 +179,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, LogParamResponse.class, headers);
+    apiClient.execute("POST", path, request, LogParamResponse.class, headers);
   }
 
   @Override
@@ -187,7 +188,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, RestoreExperimentResponse.class, headers);
+    apiClient.execute("POST", path, request, RestoreExperimentResponse.class, headers);
   }
 
   @Override
@@ -196,7 +197,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, RestoreRunResponse.class, headers);
+    apiClient.execute("POST", path, request, RestoreRunResponse.class, headers);
   }
 
   @Override
@@ -205,7 +206,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, RestoreRunsResponse.class, headers);
+    return apiClient.execute("POST", path, request, RestoreRunsResponse.class, headers);
   }
 
   @Override
@@ -214,7 +215,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, SearchExperimentsResponse.class, headers);
+    return apiClient.execute("POST", path, request, SearchExperimentsResponse.class, headers);
   }
 
   @Override
@@ -223,7 +224,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, SearchRunsResponse.class, headers);
+    return apiClient.execute("POST", path, request, SearchRunsResponse.class, headers);
   }
 
   @Override
@@ -232,7 +233,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, SetExperimentTagResponse.class, headers);
+    apiClient.execute("POST", path, request, SetExperimentTagResponse.class, headers);
   }
 
   @Override
@@ -241,7 +242,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, ExperimentPermissions.class, headers);
+    return apiClient.execute("PUT", path, request, ExperimentPermissions.class, headers);
   }
 
   @Override
@@ -250,7 +251,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, SetTagResponse.class, headers);
+    apiClient.execute("POST", path, request, SetTagResponse.class, headers);
   }
 
   @Override
@@ -259,7 +260,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, UpdateExperimentResponse.class, headers);
+    apiClient.execute("POST", path, request, UpdateExperimentResponse.class, headers);
   }
 
   @Override
@@ -268,7 +269,7 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, ExperimentPermissions.class, headers);
+    return apiClient.execute("PATCH", path, request, ExperimentPermissions.class, headers);
   }
 
   @Override
@@ -277,6 +278,6 @@ class ExperimentsImpl implements ExperimentsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, UpdateRunResponse.class, headers);
+    return apiClient.execute("POST", path, request, UpdateRunResponse.class, headers);
   }
 }

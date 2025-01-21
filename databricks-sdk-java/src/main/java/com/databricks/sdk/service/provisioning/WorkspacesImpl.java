@@ -22,7 +22,7 @@ class WorkspacesImpl implements WorkspacesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Workspace.class, headers);
+    return apiClient.execute("POST", path, request, Workspace.class, headers);
   }
 
   @Override
@@ -33,7 +33,7 @@ class WorkspacesImpl implements WorkspacesService {
             apiClient.configuredAccountID(), request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -44,7 +44,7 @@ class WorkspacesImpl implements WorkspacesService {
             apiClient.configuredAccountID(), request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, Workspace.class, headers);
+    return apiClient.execute("GET", path, request, Workspace.class, headers);
   }
 
   @Override
@@ -64,6 +64,6 @@ class WorkspacesImpl implements WorkspacesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateResponse.class, headers);
+    apiClient.execute("PATCH", path, request, UpdateResponse.class, headers);
   }
 }

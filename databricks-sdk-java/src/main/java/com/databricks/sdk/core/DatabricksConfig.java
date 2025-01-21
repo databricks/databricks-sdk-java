@@ -586,8 +586,9 @@ public class DatabricksConfig {
             .withHttpClient(getHttpClient())
             .withGetHostFunc(v -> getHost())
             .build();
-    return apiClient.GET(
+    return apiClient.execute("GET",
         "/oidc/.well-known/oauth-authorization-server",
+        null,
         OpenIDConnectEndpoints.class,
         new HashMap<>());
   }

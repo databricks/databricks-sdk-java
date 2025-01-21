@@ -21,7 +21,7 @@ class ProviderProviderAnalyticsDashboardsImpl
     String path = "/api/2.0/marketplace-provider/analytics_dashboard";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.POST(path, ProviderAnalyticsDashboard.class, headers);
+    return apiClient.execute("POST", path, null, ProviderAnalyticsDashboard.class, headers);
   }
 
   @Override
@@ -29,7 +29,8 @@ class ProviderProviderAnalyticsDashboardsImpl
     String path = "/api/2.0/marketplace-provider/analytics_dashboard";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListProviderAnalyticsDashboardResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, null, ListProviderAnalyticsDashboardResponse.class, headers);
   }
 
   @Override
@@ -37,7 +38,8 @@ class ProviderProviderAnalyticsDashboardsImpl
     String path = "/api/2.0/marketplace-provider/analytics_dashboard/latest";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, GetLatestVersionProviderAnalyticsDashboardResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, null, GetLatestVersionProviderAnalyticsDashboardResponse.class, headers);
   }
 
   @Override
@@ -48,6 +50,7 @@ class ProviderProviderAnalyticsDashboardsImpl
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, UpdateProviderAnalyticsDashboardResponse.class, headers);
+    return apiClient.execute(
+        "PUT", path, request, UpdateProviderAnalyticsDashboardResponse.class, headers);
   }
 }

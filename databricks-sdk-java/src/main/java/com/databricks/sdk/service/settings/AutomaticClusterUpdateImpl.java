@@ -20,7 +20,7 @@ class AutomaticClusterUpdateImpl implements AutomaticClusterUpdateService {
     String path = "/api/2.0/settings/types/automatic_cluster_update/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AutomaticClusterUpdateSetting.class, headers);
+    return apiClient.execute("GET", path, request, AutomaticClusterUpdateSetting.class, headers);
   }
 
   @Override
@@ -29,6 +29,6 @@ class AutomaticClusterUpdateImpl implements AutomaticClusterUpdateService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, AutomaticClusterUpdateSetting.class, headers);
+    return apiClient.execute("PATCH", path, request, AutomaticClusterUpdateSetting.class, headers);
   }
 }

@@ -21,7 +21,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, LegacyQuery.class, headers);
+    return apiClient.execute("POST", path, request, LegacyQuery.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     String path = String.format("/api/2.0/preview/sql/queries/%s", request.getQueryId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, LegacyQuery.class, headers);
+    return apiClient.execute("GET", path, request, LegacyQuery.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     String path = "/api/2.0/preview/sql/queries";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, QueryList.class, headers);
+    return apiClient.execute("GET", path, request, QueryList.class, headers);
   }
 
   @Override
@@ -53,7 +53,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     String path = String.format("/api/2.0/preview/sql/queries/trash/%s", request.getQueryId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, null, RestoreResponse.class, headers);
+    apiClient.execute("POST", path, null, RestoreResponse.class, headers);
   }
 
   @Override
@@ -62,6 +62,6 @@ class QueriesLegacyImpl implements QueriesLegacyService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, LegacyQuery.class, headers);
+    return apiClient.execute("POST", path, request, LegacyQuery.class, headers);
   }
 }

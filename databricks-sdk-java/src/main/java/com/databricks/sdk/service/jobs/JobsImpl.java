@@ -21,7 +21,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, CancelAllRunsResponse.class, headers);
+    apiClient.execute("POST", path, request, CancelAllRunsResponse.class, headers);
   }
 
   @Override
@@ -30,7 +30,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, CancelRunResponse.class, headers);
+    apiClient.execute("POST", path, request, CancelRunResponse.class, headers);
   }
 
   @Override
@@ -39,7 +39,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateResponse.class, headers);
   }
 
   @Override
@@ -48,7 +48,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, DeleteResponse.class, headers);
+    apiClient.execute("POST", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -57,7 +57,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, DeleteRunResponse.class, headers);
+    apiClient.execute("POST", path, request, DeleteRunResponse.class, headers);
   }
 
   @Override
@@ -65,7 +65,7 @@ class JobsImpl implements JobsService {
     String path = "/api/2.1/jobs/runs/export";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ExportRunOutput.class, headers);
+    return apiClient.execute("GET", path, request, ExportRunOutput.class, headers);
   }
 
   @Override
@@ -73,7 +73,7 @@ class JobsImpl implements JobsService {
     String path = "/api/2.1/jobs/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, Job.class, headers);
+    return apiClient.execute("GET", path, request, Job.class, headers);
   }
 
   @Override
@@ -82,7 +82,7 @@ class JobsImpl implements JobsService {
         String.format("/api/2.0/permissions/jobs/%s/permissionLevels", request.getJobId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetJobPermissionLevelsResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetJobPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -90,7 +90,7 @@ class JobsImpl implements JobsService {
     String path = String.format("/api/2.0/permissions/jobs/%s", request.getJobId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, JobPermissions.class, headers);
+    return apiClient.execute("GET", path, request, JobPermissions.class, headers);
   }
 
   @Override
@@ -98,7 +98,7 @@ class JobsImpl implements JobsService {
     String path = "/api/2.1/jobs/runs/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, Run.class, headers);
+    return apiClient.execute("GET", path, request, Run.class, headers);
   }
 
   @Override
@@ -106,7 +106,7 @@ class JobsImpl implements JobsService {
     String path = "/api/2.1/jobs/runs/get-output";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, RunOutput.class, headers);
+    return apiClient.execute("GET", path, request, RunOutput.class, headers);
   }
 
   @Override
@@ -114,7 +114,7 @@ class JobsImpl implements JobsService {
     String path = "/api/2.1/jobs/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListJobsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListJobsResponse.class, headers);
   }
 
   @Override
@@ -122,7 +122,7 @@ class JobsImpl implements JobsService {
     String path = "/api/2.1/jobs/runs/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListRunsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListRunsResponse.class, headers);
   }
 
   @Override
@@ -131,7 +131,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, RepairRunResponse.class, headers);
+    return apiClient.execute("POST", path, request, RepairRunResponse.class, headers);
   }
 
   @Override
@@ -140,7 +140,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, ResetResponse.class, headers);
+    apiClient.execute("POST", path, request, ResetResponse.class, headers);
   }
 
   @Override
@@ -149,7 +149,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, RunNowResponse.class, headers);
+    return apiClient.execute("POST", path, request, RunNowResponse.class, headers);
   }
 
   @Override
@@ -158,7 +158,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, JobPermissions.class, headers);
+    return apiClient.execute("PUT", path, request, JobPermissions.class, headers);
   }
 
   @Override
@@ -167,7 +167,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, SubmitRunResponse.class, headers);
+    return apiClient.execute("POST", path, request, SubmitRunResponse.class, headers);
   }
 
   @Override
@@ -176,7 +176,7 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, UpdateResponse.class, headers);
+    apiClient.execute("POST", path, request, UpdateResponse.class, headers);
   }
 
   @Override
@@ -185,6 +185,6 @@ class JobsImpl implements JobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, JobPermissions.class, headers);
+    return apiClient.execute("PATCH", path, request, JobPermissions.class, headers);
   }
 }

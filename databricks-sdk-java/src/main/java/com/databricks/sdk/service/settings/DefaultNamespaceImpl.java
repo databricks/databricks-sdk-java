@@ -21,7 +21,8 @@ class DefaultNamespaceImpl implements DefaultNamespaceService {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteDefaultNamespaceSettingResponse.class, headers);
+    return apiClient.execute(
+        "DELETE", path, request, DeleteDefaultNamespaceSettingResponse.class, headers);
   }
 
   @Override
@@ -29,7 +30,7 @@ class DefaultNamespaceImpl implements DefaultNamespaceService {
     String path = "/api/2.0/settings/types/default_namespace_ws/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, DefaultNamespaceSetting.class, headers);
+    return apiClient.execute("GET", path, request, DefaultNamespaceSetting.class, headers);
   }
 
   @Override
@@ -38,6 +39,6 @@ class DefaultNamespaceImpl implements DefaultNamespaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, DefaultNamespaceSetting.class, headers);
+    return apiClient.execute("PATCH", path, request, DefaultNamespaceSetting.class, headers);
   }
 }

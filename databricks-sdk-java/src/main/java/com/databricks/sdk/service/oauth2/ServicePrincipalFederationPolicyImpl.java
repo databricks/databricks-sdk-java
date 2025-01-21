@@ -24,7 +24,7 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getPolicy(), FederationPolicy.class, headers);
+    return apiClient.execute("POST", path, request.getPolicy(), FederationPolicy.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             request.getPolicyId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -50,7 +50,7 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             request.getPolicyId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, FederationPolicy.class, headers);
+    return apiClient.execute("GET", path, request, FederationPolicy.class, headers);
   }
 
   @Override
@@ -62,7 +62,7 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListFederationPoliciesResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListFederationPoliciesResponse.class, headers);
   }
 
   @Override
@@ -76,6 +76,6 @@ class ServicePrincipalFederationPolicyImpl implements ServicePrincipalFederation
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request.getPolicy(), FederationPolicy.class, headers);
+    return apiClient.execute("PATCH", path, request.getPolicy(), FederationPolicy.class, headers);
   }
 }

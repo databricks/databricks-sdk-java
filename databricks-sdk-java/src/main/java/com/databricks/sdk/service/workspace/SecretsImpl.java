@@ -21,7 +21,7 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, CreateScopeResponse.class, headers);
+    apiClient.execute("POST", path, request, CreateScopeResponse.class, headers);
   }
 
   @Override
@@ -30,7 +30,7 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, DeleteAclResponse.class, headers);
+    apiClient.execute("POST", path, request, DeleteAclResponse.class, headers);
   }
 
   @Override
@@ -39,7 +39,7 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, DeleteScopeResponse.class, headers);
+    apiClient.execute("POST", path, request, DeleteScopeResponse.class, headers);
   }
 
   @Override
@@ -48,7 +48,7 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, DeleteSecretResponse.class, headers);
+    apiClient.execute("POST", path, request, DeleteSecretResponse.class, headers);
   }
 
   @Override
@@ -56,7 +56,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AclItem.class, headers);
+    return apiClient.execute("GET", path, request, AclItem.class, headers);
   }
 
   @Override
@@ -64,7 +64,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/get";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetSecretResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetSecretResponse.class, headers);
   }
 
   @Override
@@ -72,7 +72,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/acls/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAclsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListAclsResponse.class, headers);
   }
 
   @Override
@@ -80,7 +80,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/scopes/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListScopesResponse.class, headers);
+    return apiClient.execute("GET", path, null, ListScopesResponse.class, headers);
   }
 
   @Override
@@ -88,7 +88,7 @@ class SecretsImpl implements SecretsService {
     String path = "/api/2.0/secrets/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListSecretsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListSecretsResponse.class, headers);
   }
 
   @Override
@@ -97,7 +97,7 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, PutAclResponse.class, headers);
+    apiClient.execute("POST", path, request, PutAclResponse.class, headers);
   }
 
   @Override
@@ -106,6 +106,6 @@ class SecretsImpl implements SecretsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, PutSecretResponse.class, headers);
+    apiClient.execute("POST", path, request, PutSecretResponse.class, headers);
   }
 }

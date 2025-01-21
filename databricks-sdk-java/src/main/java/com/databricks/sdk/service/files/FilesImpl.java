@@ -23,7 +23,7 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/directories%s",
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     Map<String, String> headers = new HashMap<>();
-    apiClient.PUT(path, null, CreateDirectoryResponse.class, headers);
+    apiClient.execute("PUT", path, null, CreateDirectoryResponse.class, headers);
   }
 
   @Override
@@ -32,7 +32,7 @@ class FilesImpl implements FilesService {
         String.format(
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -42,7 +42,7 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/directories%s",
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteDirectoryResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteDirectoryResponse.class, headers);
   }
 
   @Override
@@ -52,7 +52,7 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/octet-stream");
-    return apiClient.GET(path, request, DownloadResponse.class, headers);
+    return apiClient.execute("GET", path, request, DownloadResponse.class, headers);
   }
 
   @Override
@@ -62,7 +62,7 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/directories%s",
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     Map<String, String> headers = new HashMap<>();
-    apiClient.HEAD(path, request, GetDirectoryMetadataResponse.class, headers);
+    apiClient.execute("HEAD", path, request, GetDirectoryMetadataResponse.class, headers);
   }
 
   @Override
@@ -71,7 +71,7 @@ class FilesImpl implements FilesService {
         String.format(
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     Map<String, String> headers = new HashMap<>();
-    return apiClient.HEAD(path, request, GetMetadataResponse.class, headers);
+    return apiClient.execute("HEAD", path, request, GetMetadataResponse.class, headers);
   }
 
   @Override
@@ -82,7 +82,7 @@ class FilesImpl implements FilesService {
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListDirectoryResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListDirectoryResponse.class, headers);
   }
 
   @Override
@@ -92,6 +92,6 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/files%s", Encoding.encodeMultiSegmentPathParameter(request.getFilePath()));
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/octet-stream");
-    apiClient.PUT(path, request.getContents(), UploadResponse.class, headers);
+    apiClient.execute("PUT", path, request.getContents(), UploadResponse.class, headers);
   }
 }

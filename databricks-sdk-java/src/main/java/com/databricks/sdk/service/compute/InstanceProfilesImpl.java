@@ -21,7 +21,7 @@ class InstanceProfilesImpl implements InstanceProfilesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, AddResponse.class, headers);
+    apiClient.execute("POST", path, request, AddResponse.class, headers);
   }
 
   @Override
@@ -30,7 +30,7 @@ class InstanceProfilesImpl implements InstanceProfilesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, EditResponse.class, headers);
+    apiClient.execute("POST", path, request, EditResponse.class, headers);
   }
 
   @Override
@@ -38,7 +38,7 @@ class InstanceProfilesImpl implements InstanceProfilesService {
     String path = "/api/2.0/instance-profiles/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListInstanceProfilesResponse.class, headers);
+    return apiClient.execute("GET", path, null, ListInstanceProfilesResponse.class, headers);
   }
 
   @Override
@@ -47,6 +47,6 @@ class InstanceProfilesImpl implements InstanceProfilesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, RemoveResponse.class, headers);
+    apiClient.execute("POST", path, request, RemoveResponse.class, headers);
   }
 }

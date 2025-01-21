@@ -21,7 +21,7 @@ class ProviderExchangeFiltersImpl implements ProviderExchangeFiltersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateExchangeFilterResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateExchangeFilterResponse.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class ProviderExchangeFiltersImpl implements ProviderExchangeFiltersService {
     String path = String.format("/api/2.0/marketplace-exchange/filters/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteExchangeFilterResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteExchangeFilterResponse.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class ProviderExchangeFiltersImpl implements ProviderExchangeFiltersService {
     String path = "/api/2.0/marketplace-exchange/filters";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListExchangeFiltersResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListExchangeFiltersResponse.class, headers);
   }
 
   @Override
@@ -46,6 +46,6 @@ class ProviderExchangeFiltersImpl implements ProviderExchangeFiltersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, UpdateExchangeFilterResponse.class, headers);
+    return apiClient.execute("PUT", path, request, UpdateExchangeFilterResponse.class, headers);
   }
 }

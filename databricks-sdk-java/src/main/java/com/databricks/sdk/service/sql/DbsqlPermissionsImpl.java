@@ -23,7 +23,7 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
             request.getObjectType(), request.getObjectId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetResponse.class, headers);
   }
 
   @Override
@@ -35,7 +35,7 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, SetResponse.class, headers);
+    return apiClient.execute("POST", path, request, SetResponse.class, headers);
   }
 
   @Override
@@ -47,6 +47,6 @@ class DbsqlPermissionsImpl implements DbsqlPermissionsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Success.class, headers);
+    return apiClient.execute("POST", path, request, Success.class, headers);
   }
 }

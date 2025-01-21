@@ -20,6 +20,7 @@ class CleanRoomTaskRunsImpl implements CleanRoomTaskRunsService {
     String path = String.format("/api/2.0/clean-rooms/%s/runs", request.getCleanRoomName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListCleanRoomNotebookTaskRunsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, ListCleanRoomNotebookTaskRunsResponse.class, headers);
   }
 }

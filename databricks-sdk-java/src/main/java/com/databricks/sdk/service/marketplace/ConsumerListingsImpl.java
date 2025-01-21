@@ -20,7 +20,7 @@ class ConsumerListingsImpl implements ConsumerListingsService {
     String path = "/api/2.1/marketplace-consumer/listings:batchGet";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, BatchGetListingsResponse.class, headers);
+    return apiClient.execute("GET", path, request, BatchGetListingsResponse.class, headers);
   }
 
   @Override
@@ -28,7 +28,7 @@ class ConsumerListingsImpl implements ConsumerListingsService {
     String path = String.format("/api/2.1/marketplace-consumer/listings/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetListingResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetListingResponse.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class ConsumerListingsImpl implements ConsumerListingsService {
     String path = "/api/2.1/marketplace-consumer/listings";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListListingsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListListingsResponse.class, headers);
   }
 
   @Override
@@ -44,6 +44,6 @@ class ConsumerListingsImpl implements ConsumerListingsService {
     String path = "/api/2.1/marketplace-consumer/search-listings";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, SearchListingsResponse.class, headers);
+    return apiClient.execute("GET", path, request, SearchListingsResponse.class, headers);
   }
 }

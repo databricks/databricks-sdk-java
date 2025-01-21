@@ -23,7 +23,7 @@ class CspEnablementAccountImpl implements CspEnablementAccountService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, CspEnablementAccountSetting.class, headers);
+    return apiClient.execute("GET", path, request, CspEnablementAccountSetting.class, headers);
   }
 
   @Override
@@ -35,6 +35,6 @@ class CspEnablementAccountImpl implements CspEnablementAccountService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, CspEnablementAccountSetting.class, headers);
+    return apiClient.execute("PATCH", path, request, CspEnablementAccountSetting.class, headers);
   }
 }

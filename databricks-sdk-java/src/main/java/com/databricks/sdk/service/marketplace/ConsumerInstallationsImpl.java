@@ -23,7 +23,7 @@ class ConsumerInstallationsImpl implements ConsumerInstallationsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Installation.class, headers);
+    return apiClient.execute("POST", path, request, Installation.class, headers);
   }
 
   @Override
@@ -34,7 +34,7 @@ class ConsumerInstallationsImpl implements ConsumerInstallationsService {
             request.getListingId(), request.getInstallationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteInstallationResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteInstallationResponse.class, headers);
   }
 
   @Override
@@ -42,7 +42,7 @@ class ConsumerInstallationsImpl implements ConsumerInstallationsService {
     String path = "/api/2.1/marketplace-consumer/installations";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAllInstallationsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListAllInstallationsResponse.class, headers);
   }
 
   @Override
@@ -52,7 +52,7 @@ class ConsumerInstallationsImpl implements ConsumerInstallationsService {
             "/api/2.1/marketplace-consumer/listings/%s/installations", request.getListingId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListInstallationsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListInstallationsResponse.class, headers);
   }
 
   @Override
@@ -64,6 +64,6 @@ class ConsumerInstallationsImpl implements ConsumerInstallationsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, UpdateInstallationResponse.class, headers);
+    return apiClient.execute("PUT", path, request, UpdateInstallationResponse.class, headers);
   }
 }

@@ -22,7 +22,7 @@ class AlertsLegacyImpl implements AlertsLegacyService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, LegacyAlert.class, headers);
+    return apiClient.execute("POST", path, request, LegacyAlert.class, headers);
   }
 
   @Override
@@ -30,7 +30,7 @@ class AlertsLegacyImpl implements AlertsLegacyService {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -38,7 +38,7 @@ class AlertsLegacyImpl implements AlertsLegacyService {
     String path = String.format("/api/2.0/preview/sql/alerts/%s", request.getAlertId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, LegacyAlert.class, headers);
+    return apiClient.execute("GET", path, request, LegacyAlert.class, headers);
   }
 
   @Override
@@ -55,6 +55,6 @@ class AlertsLegacyImpl implements AlertsLegacyService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, UpdateResponse.class, headers);
+    apiClient.execute("PUT", path, request, UpdateResponse.class, headers);
   }
 }

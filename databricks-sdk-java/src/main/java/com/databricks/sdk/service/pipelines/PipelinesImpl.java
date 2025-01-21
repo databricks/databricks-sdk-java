@@ -21,7 +21,7 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreatePipelineResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreatePipelineResponse.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeletePipelineResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeletePipelineResponse.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetPipelineResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetPipelineResponse.class, headers);
   }
 
   @Override
@@ -48,7 +48,8 @@ class PipelinesImpl implements PipelinesService {
             "/api/2.0/permissions/pipelines/%s/permissionLevels", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetPipelinePermissionLevelsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GetPipelinePermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -56,7 +57,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/permissions/pipelines/%s", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, PipelinePermissions.class, headers);
+    return apiClient.execute("GET", path, request, PipelinePermissions.class, headers);
   }
 
   @Override
@@ -66,7 +67,7 @@ class PipelinesImpl implements PipelinesService {
             "/api/2.0/pipelines/%s/updates/%s", request.getPipelineId(), request.getUpdateId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetUpdateResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetUpdateResponse.class, headers);
   }
 
   @Override
@@ -74,7 +75,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/events", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListPipelineEventsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListPipelineEventsResponse.class, headers);
   }
 
   @Override
@@ -82,7 +83,7 @@ class PipelinesImpl implements PipelinesService {
     String path = "/api/2.0/pipelines";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListPipelinesResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListPipelinesResponse.class, headers);
   }
 
   @Override
@@ -90,7 +91,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/updates", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListUpdatesResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListUpdatesResponse.class, headers);
   }
 
   @Override
@@ -99,7 +100,7 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, PipelinePermissions.class, headers);
+    return apiClient.execute("PUT", path, request, PipelinePermissions.class, headers);
   }
 
   @Override
@@ -108,7 +109,7 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, StartUpdateResponse.class, headers);
+    return apiClient.execute("POST", path, request, StartUpdateResponse.class, headers);
   }
 
   @Override
@@ -116,7 +117,7 @@ class PipelinesImpl implements PipelinesService {
     String path = String.format("/api/2.0/pipelines/%s/stop", request.getPipelineId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.POST(path, null, StopPipelineResponse.class, headers);
+    apiClient.execute("POST", path, null, StopPipelineResponse.class, headers);
   }
 
   @Override
@@ -125,7 +126,7 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, EditPipelineResponse.class, headers);
+    apiClient.execute("PUT", path, request, EditPipelineResponse.class, headers);
   }
 
   @Override
@@ -134,6 +135,6 @@ class PipelinesImpl implements PipelinesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, PipelinePermissions.class, headers);
+    return apiClient.execute("PATCH", path, request, PipelinePermissions.class, headers);
   }
 }

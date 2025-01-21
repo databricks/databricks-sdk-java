@@ -21,7 +21,8 @@ class BudgetsImpl implements BudgetsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateBudgetConfigurationResponse.class, headers);
+    return apiClient.execute(
+        "POST", path, request, CreateBudgetConfigurationResponse.class, headers);
   }
 
   @Override
@@ -32,7 +33,7 @@ class BudgetsImpl implements BudgetsService {
             apiClient.configuredAccountID(), request.getBudgetId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteBudgetConfigurationResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteBudgetConfigurationResponse.class, headers);
   }
 
   @Override
@@ -43,7 +44,7 @@ class BudgetsImpl implements BudgetsService {
             apiClient.configuredAccountID(), request.getBudgetId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetBudgetConfigurationResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetBudgetConfigurationResponse.class, headers);
   }
 
   @Override
@@ -51,7 +52,7 @@ class BudgetsImpl implements BudgetsService {
     String path = String.format("/api/2.1/accounts/%s/budgets", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListBudgetConfigurationsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListBudgetConfigurationsResponse.class, headers);
   }
 
   @Override
@@ -63,6 +64,7 @@ class BudgetsImpl implements BudgetsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, UpdateBudgetConfigurationResponse.class, headers);
+    return apiClient.execute(
+        "PUT", path, request, UpdateBudgetConfigurationResponse.class, headers);
   }
 }

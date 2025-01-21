@@ -21,7 +21,7 @@ class OnlineTablesImpl implements OnlineTablesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getTable(), OnlineTable.class, headers);
+    return apiClient.execute("POST", path, request.getTable(), OnlineTable.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class OnlineTablesImpl implements OnlineTablesService {
     String path = String.format("/api/2.0/online-tables/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -37,6 +37,6 @@ class OnlineTablesImpl implements OnlineTablesService {
     String path = String.format("/api/2.0/online-tables/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, OnlineTable.class, headers);
+    return apiClient.execute("GET", path, request, OnlineTable.class, headers);
   }
 }

@@ -28,6 +28,6 @@ class WorkspaceConfImpl implements WorkspaceConfService {
     String path = "/api/2.0/workspace-conf";
     Map<String, String> headers = new HashMap<>();
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, SetStatusResponse.class, headers);
+    apiClient.execute("PATCH", path, request, SetStatusResponse.class, headers);
   }
 }

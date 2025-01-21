@@ -21,7 +21,7 @@ class ProviderProvidersImpl implements ProviderProvidersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateProviderResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateProviderResponse.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class ProviderProvidersImpl implements ProviderProvidersService {
     String path = String.format("/api/2.0/marketplace-provider/providers/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteProviderResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteProviderResponse.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class ProviderProvidersImpl implements ProviderProvidersService {
     String path = String.format("/api/2.0/marketplace-provider/providers/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetProviderResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetProviderResponse.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class ProviderProvidersImpl implements ProviderProvidersService {
     String path = "/api/2.0/marketplace-provider/providers";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListProvidersResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListProvidersResponse.class, headers);
   }
 
   @Override
@@ -54,6 +54,6 @@ class ProviderProvidersImpl implements ProviderProvidersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, UpdateProviderResponse.class, headers);
+    return apiClient.execute("PUT", path, request, UpdateProviderResponse.class, headers);
   }
 }

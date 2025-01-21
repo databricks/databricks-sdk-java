@@ -21,7 +21,7 @@ class QueryVisualizationsLegacyImpl implements QueryVisualizationsLegacyService 
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, LegacyVisualization.class, headers);
+    return apiClient.execute("POST", path, request, LegacyVisualization.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class QueryVisualizationsLegacyImpl implements QueryVisualizationsLegacyService 
     String path = String.format("/api/2.0/preview/sql/visualizations/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -38,6 +38,6 @@ class QueryVisualizationsLegacyImpl implements QueryVisualizationsLegacyService 
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, LegacyVisualization.class, headers);
+    return apiClient.execute("POST", path, request, LegacyVisualization.class, headers);
   }
 }

@@ -21,6 +21,6 @@ class CredentialsManagerImpl implements CredentialsManagerService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, ExchangeTokenResponse.class, headers);
+    return apiClient.execute("POST", path, request, ExchangeTokenResponse.class, headers);
   }
 }

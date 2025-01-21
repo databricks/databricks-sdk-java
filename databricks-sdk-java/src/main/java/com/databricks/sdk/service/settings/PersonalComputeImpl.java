@@ -23,7 +23,8 @@ class PersonalComputeImpl implements PersonalComputeService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeletePersonalComputeSettingResponse.class, headers);
+    return apiClient.execute(
+        "DELETE", path, request, DeletePersonalComputeSettingResponse.class, headers);
   }
 
   @Override
@@ -34,7 +35,7 @@ class PersonalComputeImpl implements PersonalComputeService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, PersonalComputeSetting.class, headers);
+    return apiClient.execute("GET", path, request, PersonalComputeSetting.class, headers);
   }
 
   @Override
@@ -46,6 +47,6 @@ class PersonalComputeImpl implements PersonalComputeService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, PersonalComputeSetting.class, headers);
+    return apiClient.execute("PATCH", path, request, PersonalComputeSetting.class, headers);
   }
 }

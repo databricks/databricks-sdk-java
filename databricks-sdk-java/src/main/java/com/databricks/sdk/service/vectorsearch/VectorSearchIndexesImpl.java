@@ -21,7 +21,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateVectorIndexResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateVectorIndexResponse.class, headers);
   }
 
   @Override
@@ -31,14 +31,14 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, DeleteDataVectorIndexResponse.class, headers);
+    return apiClient.execute("POST", path, request, DeleteDataVectorIndexResponse.class, headers);
   }
 
   @Override
   public void deleteIndex(DeleteIndexRequest request) {
     String path = String.format("/api/2.0/vector-search/indexes/%s", request.getIndexName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteIndexResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteIndexResponse.class, headers);
   }
 
   @Override
@@ -46,7 +46,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = String.format("/api/2.0/vector-search/indexes/%s", request.getIndexName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, VectorIndex.class, headers);
+    return apiClient.execute("GET", path, request, VectorIndex.class, headers);
   }
 
   @Override
@@ -54,7 +54,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     String path = "/api/2.0/vector-search/indexes";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListVectorIndexesResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListVectorIndexesResponse.class, headers);
   }
 
   @Override
@@ -63,7 +63,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, QueryVectorIndexResponse.class, headers);
+    return apiClient.execute("POST", path, request, QueryVectorIndexResponse.class, headers);
   }
 
   @Override
@@ -73,7 +73,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, QueryVectorIndexResponse.class, headers);
+    return apiClient.execute("POST", path, request, QueryVectorIndexResponse.class, headers);
   }
 
   @Override
@@ -82,14 +82,14 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, ScanVectorIndexResponse.class, headers);
+    return apiClient.execute("POST", path, request, ScanVectorIndexResponse.class, headers);
   }
 
   @Override
   public void syncIndex(SyncIndexRequest request) {
     String path = String.format("/api/2.0/vector-search/indexes/%s/sync", request.getIndexName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.POST(path, null, SyncIndexResponse.class, headers);
+    apiClient.execute("POST", path, null, SyncIndexResponse.class, headers);
   }
 
   @Override
@@ -99,6 +99,6 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, UpsertDataVectorIndexResponse.class, headers);
+    return apiClient.execute("POST", path, request, UpsertDataVectorIndexResponse.class, headers);
   }
 }

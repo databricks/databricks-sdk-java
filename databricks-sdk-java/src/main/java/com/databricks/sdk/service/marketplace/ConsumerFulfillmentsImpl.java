@@ -21,7 +21,8 @@ class ConsumerFulfillmentsImpl implements ConsumerFulfillmentsService {
         String.format("/api/2.1/marketplace-consumer/listings/%s/content", request.getListingId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetListingContentMetadataResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GetListingContentMetadataResponse.class, headers);
   }
 
   @Override
@@ -31,6 +32,6 @@ class ConsumerFulfillmentsImpl implements ConsumerFulfillmentsService {
             "/api/2.1/marketplace-consumer/listings/%s/fulfillments", request.getListingId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListFulfillmentsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListFulfillmentsResponse.class, headers);
   }
 }

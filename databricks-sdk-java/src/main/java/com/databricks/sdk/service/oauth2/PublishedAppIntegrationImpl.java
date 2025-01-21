@@ -24,7 +24,8 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreatePublishedAppIntegrationOutput.class, headers);
+    return apiClient.execute(
+        "POST", path, request, CreatePublishedAppIntegrationOutput.class, headers);
   }
 
   @Override
@@ -35,7 +36,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeletePublishedAppIntegrationOutput.class, headers);
+    apiClient.execute("DELETE", path, request, DeletePublishedAppIntegrationOutput.class, headers);
   }
 
   @Override
@@ -46,7 +47,7 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetPublishedAppIntegrationOutput.class, headers);
+    return apiClient.execute("GET", path, request, GetPublishedAppIntegrationOutput.class, headers);
   }
 
   @Override
@@ -57,7 +58,8 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetPublishedAppIntegrationsOutput.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GetPublishedAppIntegrationsOutput.class, headers);
   }
 
   @Override
@@ -69,6 +71,6 @@ class PublishedAppIntegrationImpl implements PublishedAppIntegrationService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdatePublishedAppIntegrationOutput.class, headers);
+    apiClient.execute("PATCH", path, request, UpdatePublishedAppIntegrationOutput.class, headers);
   }
 }

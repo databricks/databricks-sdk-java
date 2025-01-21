@@ -21,7 +21,7 @@ class NotificationDestinationsImpl implements NotificationDestinationsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, NotificationDestination.class, headers);
+    return apiClient.execute("POST", path, request, NotificationDestination.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class NotificationDestinationsImpl implements NotificationDestinationsService {
     String path = String.format("/api/2.0/notification-destinations/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Empty.class, headers);
+    apiClient.execute("DELETE", path, request, Empty.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class NotificationDestinationsImpl implements NotificationDestinationsService {
     String path = String.format("/api/2.0/notification-destinations/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, NotificationDestination.class, headers);
+    return apiClient.execute("GET", path, request, NotificationDestination.class, headers);
   }
 
   @Override
@@ -45,7 +45,8 @@ class NotificationDestinationsImpl implements NotificationDestinationsService {
     String path = "/api/2.0/notification-destinations";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListNotificationDestinationsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, ListNotificationDestinationsResponse.class, headers);
   }
 
   @Override
@@ -54,6 +55,6 @@ class NotificationDestinationsImpl implements NotificationDestinationsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, NotificationDestination.class, headers);
+    return apiClient.execute("PATCH", path, request, NotificationDestination.class, headers);
   }
 }

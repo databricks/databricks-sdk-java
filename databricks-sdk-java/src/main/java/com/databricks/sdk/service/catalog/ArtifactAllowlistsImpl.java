@@ -21,7 +21,7 @@ class ArtifactAllowlistsImpl implements ArtifactAllowlistsService {
         String.format("/api/2.1/unity-catalog/artifact-allowlists/%s", request.getArtifactType());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ArtifactAllowlistInfo.class, headers);
+    return apiClient.execute("GET", path, request, ArtifactAllowlistInfo.class, headers);
   }
 
   @Override
@@ -31,6 +31,6 @@ class ArtifactAllowlistsImpl implements ArtifactAllowlistsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, ArtifactAllowlistInfo.class, headers);
+    return apiClient.execute("PUT", path, request, ArtifactAllowlistInfo.class, headers);
   }
 }

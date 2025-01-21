@@ -24,7 +24,8 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, NetworkConnectivityConfiguration.class, headers);
+    return apiClient.execute(
+        "POST", path, request, NetworkConnectivityConfiguration.class, headers);
   }
 
   @Override
@@ -37,7 +38,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, NccAzurePrivateEndpointRule.class, headers);
+    return apiClient.execute("POST", path, request, NccAzurePrivateEndpointRule.class, headers);
   }
 
   @Override
@@ -49,7 +50,8 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteNetworkConnectivityConfigurationResponse.class, headers);
+    apiClient.execute(
+        "DELETE", path, request, DeleteNetworkConnectivityConfigurationResponse.class, headers);
   }
 
   @Override
@@ -63,7 +65,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             request.getPrivateEndpointRuleId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, NccAzurePrivateEndpointRule.class, headers);
+    return apiClient.execute("DELETE", path, request, NccAzurePrivateEndpointRule.class, headers);
   }
 
   @Override
@@ -75,7 +77,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, NetworkConnectivityConfiguration.class, headers);
+    return apiClient.execute("GET", path, request, NetworkConnectivityConfiguration.class, headers);
   }
 
   @Override
@@ -88,7 +90,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             request.getPrivateEndpointRuleId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, NccAzurePrivateEndpointRule.class, headers);
+    return apiClient.execute("GET", path, request, NccAzurePrivateEndpointRule.class, headers);
   }
 
   @Override
@@ -99,8 +101,8 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             "/api/2.0/accounts/%s/network-connectivity-configs", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(
-        path, request, ListNetworkConnectivityConfigurationsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, ListNetworkConnectivityConfigurationsResponse.class, headers);
   }
 
   @Override
@@ -112,6 +114,7 @@ class NetworkConnectivityImpl implements NetworkConnectivityService {
             apiClient.configuredAccountID(), request.getNetworkConnectivityConfigId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListNccAzurePrivateEndpointRulesResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, ListNccAzurePrivateEndpointRulesResponse.class, headers);
   }
 }

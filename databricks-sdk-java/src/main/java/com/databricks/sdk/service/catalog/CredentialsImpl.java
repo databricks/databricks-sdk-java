@@ -21,7 +21,7 @@ class CredentialsImpl implements CredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CredentialInfo.class, headers);
+    return apiClient.execute("POST", path, request, CredentialInfo.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class CredentialsImpl implements CredentialsService {
     String path = String.format("/api/2.1/unity-catalog/credentials/%s", request.getNameArg());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteCredentialResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteCredentialResponse.class, headers);
   }
 
   @Override
@@ -39,7 +39,7 @@ class CredentialsImpl implements CredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, TemporaryCredentials.class, headers);
+    return apiClient.execute("POST", path, request, TemporaryCredentials.class, headers);
   }
 
   @Override
@@ -47,7 +47,7 @@ class CredentialsImpl implements CredentialsService {
     String path = String.format("/api/2.1/unity-catalog/credentials/%s", request.getNameArg());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, CredentialInfo.class, headers);
+    return apiClient.execute("GET", path, request, CredentialInfo.class, headers);
   }
 
   @Override
@@ -55,7 +55,7 @@ class CredentialsImpl implements CredentialsService {
     String path = "/api/2.1/unity-catalog/credentials";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListCredentialsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListCredentialsResponse.class, headers);
   }
 
   @Override
@@ -64,7 +64,7 @@ class CredentialsImpl implements CredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, CredentialInfo.class, headers);
+    return apiClient.execute("PATCH", path, request, CredentialInfo.class, headers);
   }
 
   @Override
@@ -73,6 +73,6 @@ class CredentialsImpl implements CredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, ValidateCredentialResponse.class, headers);
+    return apiClient.execute("POST", path, request, ValidateCredentialResponse.class, headers);
   }
 }

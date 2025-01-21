@@ -21,14 +21,14 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, EndpointInfo.class, headers);
+    return apiClient.execute("POST", path, request, EndpointInfo.class, headers);
   }
 
   @Override
   public void deleteEndpoint(DeleteEndpointRequest request) {
     String path = String.format("/api/2.0/vector-search/endpoints/%s", request.getEndpointName());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteEndpointResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteEndpointResponse.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
     String path = String.format("/api/2.0/vector-search/endpoints/%s", request.getEndpointName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, EndpointInfo.class, headers);
+    return apiClient.execute("GET", path, request, EndpointInfo.class, headers);
   }
 
   @Override
@@ -44,6 +44,6 @@ class VectorSearchEndpointsImpl implements VectorSearchEndpointsService {
     String path = "/api/2.0/vector-search/endpoints";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListEndpointResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListEndpointResponse.class, headers);
   }
 }

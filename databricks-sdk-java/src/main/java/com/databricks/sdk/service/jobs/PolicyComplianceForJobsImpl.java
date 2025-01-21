@@ -21,7 +21,7 @@ class PolicyComplianceForJobsImpl implements PolicyComplianceForJobsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, EnforcePolicyComplianceResponse.class, headers);
+    return apiClient.execute("POST", path, request, EnforcePolicyComplianceResponse.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class PolicyComplianceForJobsImpl implements PolicyComplianceForJobsService {
     String path = "/api/2.0/policies/jobs/get-compliance";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetPolicyComplianceResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetPolicyComplianceResponse.class, headers);
   }
 
   @Override
@@ -37,6 +37,7 @@ class PolicyComplianceForJobsImpl implements PolicyComplianceForJobsService {
     String path = "/api/2.0/policies/jobs/list-compliance";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListJobComplianceForPolicyResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, ListJobComplianceForPolicyResponse.class, headers);
   }
 }

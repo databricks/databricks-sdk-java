@@ -21,7 +21,7 @@ class AlertsImpl implements AlertsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Alert.class, headers);
+    return apiClient.execute("POST", path, request, Alert.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class AlertsImpl implements AlertsService {
     String path = String.format("/api/2.0/sql/alerts/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Empty.class, headers);
+    apiClient.execute("DELETE", path, request, Empty.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class AlertsImpl implements AlertsService {
     String path = String.format("/api/2.0/sql/alerts/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, Alert.class, headers);
+    return apiClient.execute("GET", path, request, Alert.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class AlertsImpl implements AlertsService {
     String path = "/api/2.0/sql/alerts";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAlertsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListAlertsResponse.class, headers);
   }
 
   @Override
@@ -54,6 +54,6 @@ class AlertsImpl implements AlertsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, Alert.class, headers);
+    return apiClient.execute("PATCH", path, request, Alert.class, headers);
   }
 }

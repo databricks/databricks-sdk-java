@@ -22,8 +22,12 @@ class AibiDashboardEmbeddingApprovedDomainsImpl
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_apprvd_domains/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(
-        path, request, DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse.class, headers);
+    return apiClient.execute(
+        "DELETE",
+        path,
+        request,
+        DeleteAibiDashboardEmbeddingApprovedDomainsSettingResponse.class,
+        headers);
   }
 
   @Override
@@ -32,8 +36,8 @@ class AibiDashboardEmbeddingApprovedDomainsImpl
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_apprvd_domains/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(
-        path, request, AibiDashboardEmbeddingApprovedDomainsSetting.class, headers);
+    return apiClient.execute(
+        "GET", path, request, AibiDashboardEmbeddingApprovedDomainsSetting.class, headers);
   }
 
   @Override
@@ -43,7 +47,7 @@ class AibiDashboardEmbeddingApprovedDomainsImpl
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(
-        path, request, AibiDashboardEmbeddingApprovedDomainsSetting.class, headers);
+    return apiClient.execute(
+        "PATCH", path, request, AibiDashboardEmbeddingApprovedDomainsSetting.class, headers);
   }
 }

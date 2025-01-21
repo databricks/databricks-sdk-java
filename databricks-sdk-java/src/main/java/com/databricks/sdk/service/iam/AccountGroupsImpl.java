@@ -22,7 +22,7 @@ class AccountGroupsImpl implements AccountGroupsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Group.class, headers);
+    return apiClient.execute("POST", path, request, Group.class, headers);
   }
 
   @Override
@@ -32,7 +32,7 @@ class AccountGroupsImpl implements AccountGroupsService {
             "/api/2.0/accounts/%s/scim/v2/Groups/%s",
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -43,7 +43,7 @@ class AccountGroupsImpl implements AccountGroupsService {
             apiClient.configuredAccountID(), request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, Group.class, headers);
+    return apiClient.execute("GET", path, request, Group.class, headers);
   }
 
   @Override
@@ -52,7 +52,7 @@ class AccountGroupsImpl implements AccountGroupsService {
         String.format("/api/2.0/accounts/%s/scim/v2/Groups", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListGroupsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListGroupsResponse.class, headers);
   }
 
   @Override
@@ -64,7 +64,7 @@ class AccountGroupsImpl implements AccountGroupsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, PatchResponse.class, headers);
+    apiClient.execute("PATCH", path, request, PatchResponse.class, headers);
   }
 
   @Override
@@ -76,6 +76,6 @@ class AccountGroupsImpl implements AccountGroupsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, UpdateResponse.class, headers);
+    apiClient.execute("PUT", path, request, UpdateResponse.class, headers);
   }
 }

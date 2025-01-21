@@ -21,7 +21,7 @@ class ProviderListingsImpl implements ProviderListingsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateListingResponse.class, headers);
+    return apiClient.execute("POST", path, request, CreateListingResponse.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class ProviderListingsImpl implements ProviderListingsService {
     String path = String.format("/api/2.0/marketplace-provider/listings/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteListingResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteListingResponse.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class ProviderListingsImpl implements ProviderListingsService {
     String path = String.format("/api/2.0/marketplace-provider/listings/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetListingResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetListingResponse.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class ProviderListingsImpl implements ProviderListingsService {
     String path = "/api/2.0/marketplace-provider/listings";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetListingsResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetListingsResponse.class, headers);
   }
 
   @Override
@@ -54,6 +54,6 @@ class ProviderListingsImpl implements ProviderListingsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, UpdateListingResponse.class, headers);
+    return apiClient.execute("PUT", path, request, UpdateListingResponse.class, headers);
   }
 }

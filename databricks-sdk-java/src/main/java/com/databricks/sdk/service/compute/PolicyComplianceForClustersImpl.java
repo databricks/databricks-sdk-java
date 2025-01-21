@@ -22,7 +22,8 @@ class PolicyComplianceForClustersImpl implements PolicyComplianceForClustersServ
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, EnforceClusterComplianceResponse.class, headers);
+    return apiClient.execute(
+        "POST", path, request, EnforceClusterComplianceResponse.class, headers);
   }
 
   @Override
@@ -30,7 +31,7 @@ class PolicyComplianceForClustersImpl implements PolicyComplianceForClustersServ
     String path = "/api/2.0/policies/clusters/get-compliance";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetClusterComplianceResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetClusterComplianceResponse.class, headers);
   }
 
   @Override
@@ -38,6 +39,6 @@ class PolicyComplianceForClustersImpl implements PolicyComplianceForClustersServ
     String path = "/api/2.0/policies/clusters/list-compliance";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListClusterCompliancesResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListClusterCompliancesResponse.class, headers);
   }
 }

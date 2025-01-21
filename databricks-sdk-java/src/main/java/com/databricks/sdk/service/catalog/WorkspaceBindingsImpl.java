@@ -21,7 +21,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
         String.format("/api/2.1/unity-catalog/workspace-bindings/catalogs/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, CurrentWorkspaceBindings.class, headers);
+    return apiClient.execute("GET", path, request, CurrentWorkspaceBindings.class, headers);
   }
 
   @Override
@@ -32,7 +32,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
             request.getSecurableType(), request.getSecurableName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, WorkspaceBindingsResponse.class, headers);
+    return apiClient.execute("GET", path, request, WorkspaceBindingsResponse.class, headers);
   }
 
   @Override
@@ -42,7 +42,7 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, CurrentWorkspaceBindings.class, headers);
+    return apiClient.execute("PATCH", path, request, CurrentWorkspaceBindings.class, headers);
   }
 
   @Override
@@ -54,6 +54,6 @@ class WorkspaceBindingsImpl implements WorkspaceBindingsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, WorkspaceBindingsResponse.class, headers);
+    return apiClient.execute("PATCH", path, request, WorkspaceBindingsResponse.class, headers);
   }
 }

@@ -20,6 +20,6 @@ class CurrentUserImpl implements CurrentUserService {
     String path = "/api/2.0/preview/scim/v2/Me";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, User.class, headers);
+    return apiClient.execute("GET", path, null, User.class, headers);
   }
 }

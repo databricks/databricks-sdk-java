@@ -24,7 +24,8 @@ class AccountAccessControlImpl implements AccountAccessControlService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetAssignableRolesForResourceResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GetAssignableRolesForResourceResponse.class, headers);
   }
 
   @Override
@@ -35,7 +36,7 @@ class AccountAccessControlImpl implements AccountAccessControlService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, RuleSetResponse.class, headers);
+    return apiClient.execute("GET", path, request, RuleSetResponse.class, headers);
   }
 
   @Override
@@ -47,6 +48,6 @@ class AccountAccessControlImpl implements AccountAccessControlService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, RuleSetResponse.class, headers);
+    return apiClient.execute("PUT", path, request, RuleSetResponse.class, headers);
   }
 }

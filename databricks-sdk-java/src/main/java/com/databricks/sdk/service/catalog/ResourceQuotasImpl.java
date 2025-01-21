@@ -23,7 +23,7 @@ class ResourceQuotasImpl implements ResourceQuotasService {
             request.getParentSecurableType(), request.getParentFullName(), request.getQuotaName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetQuotaResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetQuotaResponse.class, headers);
   }
 
   @Override
@@ -31,6 +31,6 @@ class ResourceQuotasImpl implements ResourceQuotasService {
     String path = "/api/2.1/unity-catalog/resource-quotas/all-resource-quotas";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListQuotasResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListQuotasResponse.class, headers);
   }
 }

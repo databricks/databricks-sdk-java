@@ -24,7 +24,8 @@ class ConsumerPersonalizationRequestsImpl implements ConsumerPersonalizationRequ
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreatePersonalizationRequestResponse.class, headers);
+    return apiClient.execute(
+        "POST", path, request, CreatePersonalizationRequestResponse.class, headers);
   }
 
   @Override
@@ -35,7 +36,8 @@ class ConsumerPersonalizationRequestsImpl implements ConsumerPersonalizationRequ
             request.getListingId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetPersonalizationRequestResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GetPersonalizationRequestResponse.class, headers);
   }
 
   @Override
@@ -44,6 +46,7 @@ class ConsumerPersonalizationRequestsImpl implements ConsumerPersonalizationRequ
     String path = "/api/2.1/marketplace-consumer/personalization-requests";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListAllPersonalizationRequestsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, ListAllPersonalizationRequestsResponse.class, headers);
   }
 }

@@ -23,7 +23,8 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, CreateCustomAppIntegrationOutput.class, headers);
+    return apiClient.execute(
+        "POST", path, request, CreateCustomAppIntegrationOutput.class, headers);
   }
 
   @Override
@@ -34,7 +35,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteCustomAppIntegrationOutput.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteCustomAppIntegrationOutput.class, headers);
   }
 
   @Override
@@ -45,7 +46,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             apiClient.configuredAccountID(), request.getIntegrationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetCustomAppIntegrationOutput.class, headers);
+    return apiClient.execute("GET", path, request, GetCustomAppIntegrationOutput.class, headers);
   }
 
   @Override
@@ -55,7 +56,7 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
             "/api/2.0/accounts/%s/oauth2/custom-app-integrations", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetCustomAppIntegrationsOutput.class, headers);
+    return apiClient.execute("GET", path, request, GetCustomAppIntegrationsOutput.class, headers);
   }
 
   @Override
@@ -67,6 +68,6 @@ class CustomAppIntegrationImpl implements CustomAppIntegrationService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateCustomAppIntegrationOutput.class, headers);
+    apiClient.execute("PATCH", path, request, UpdateCustomAppIntegrationOutput.class, headers);
   }
 }

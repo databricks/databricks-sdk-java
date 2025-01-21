@@ -20,7 +20,8 @@ class LibrariesImpl implements LibrariesService {
     String path = "/api/2.0/libraries/all-cluster-statuses";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListAllClusterLibraryStatusesResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, null, ListAllClusterLibraryStatusesResponse.class, headers);
   }
 
   @Override
@@ -28,7 +29,7 @@ class LibrariesImpl implements LibrariesService {
     String path = "/api/2.0/libraries/cluster-status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ClusterLibraryStatuses.class, headers);
+    return apiClient.execute("GET", path, request, ClusterLibraryStatuses.class, headers);
   }
 
   @Override
@@ -37,7 +38,7 @@ class LibrariesImpl implements LibrariesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, InstallLibrariesResponse.class, headers);
+    apiClient.execute("POST", path, request, InstallLibrariesResponse.class, headers);
   }
 
   @Override
@@ -46,6 +47,6 @@ class LibrariesImpl implements LibrariesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, UninstallLibrariesResponse.class, headers);
+    apiClient.execute("POST", path, request, UninstallLibrariesResponse.class, headers);
   }
 }

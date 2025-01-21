@@ -21,7 +21,7 @@ class QueriesImpl implements QueriesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, Query.class, headers);
+    return apiClient.execute("POST", path, request, Query.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/sql/queries/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, Empty.class, headers);
+    apiClient.execute("DELETE", path, request, Empty.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/sql/queries/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, Query.class, headers);
+    return apiClient.execute("GET", path, request, Query.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class QueriesImpl implements QueriesService {
     String path = "/api/2.0/sql/queries";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListQueryObjectsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListQueryObjectsResponse.class, headers);
   }
 
   @Override
@@ -54,7 +54,8 @@ class QueriesImpl implements QueriesService {
     String path = String.format("/api/2.0/sql/queries/%s/visualizations", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListVisualizationsForQueryResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, ListVisualizationsForQueryResponse.class, headers);
   }
 
   @Override
@@ -63,6 +64,6 @@ class QueriesImpl implements QueriesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, Query.class, headers);
+    return apiClient.execute("PATCH", path, request, Query.class, headers);
   }
 }

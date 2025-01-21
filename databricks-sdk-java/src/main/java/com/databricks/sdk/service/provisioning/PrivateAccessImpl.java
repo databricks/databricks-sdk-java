@@ -24,7 +24,7 @@ class PrivateAccessImpl implements PrivateAccessService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, PrivateAccessSettings.class, headers);
+    return apiClient.execute("POST", path, request, PrivateAccessSettings.class, headers);
   }
 
   @Override
@@ -35,7 +35,7 @@ class PrivateAccessImpl implements PrivateAccessService {
             apiClient.configuredAccountID(), request.getPrivateAccessSettingsId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -46,7 +46,7 @@ class PrivateAccessImpl implements PrivateAccessService {
             apiClient.configuredAccountID(), request.getPrivateAccessSettingsId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, PrivateAccessSettings.class, headers);
+    return apiClient.execute("GET", path, request, PrivateAccessSettings.class, headers);
   }
 
   @Override
@@ -68,6 +68,6 @@ class PrivateAccessImpl implements PrivateAccessService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, ReplaceResponse.class, headers);
+    apiClient.execute("PUT", path, request, ReplaceResponse.class, headers);
   }
 }

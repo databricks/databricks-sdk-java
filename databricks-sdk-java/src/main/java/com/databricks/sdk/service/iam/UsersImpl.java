@@ -21,14 +21,14 @@ class UsersImpl implements UsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, User.class, headers);
+    return apiClient.execute("POST", path, request, User.class, headers);
   }
 
   @Override
   public void delete(DeleteUserRequest request) {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class UsersImpl implements UsersService {
     String path = String.format("/api/2.0/preview/scim/v2/Users/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, User.class, headers);
+    return apiClient.execute("GET", path, request, User.class, headers);
   }
 
   @Override
@@ -44,7 +44,7 @@ class UsersImpl implements UsersService {
     String path = "/api/2.0/permissions/authorization/passwords/permissionLevels";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, GetPasswordPermissionLevelsResponse.class, headers);
+    return apiClient.execute("GET", path, null, GetPasswordPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -52,7 +52,7 @@ class UsersImpl implements UsersService {
     String path = "/api/2.0/permissions/authorization/passwords";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, PasswordPermissions.class, headers);
+    return apiClient.execute("GET", path, null, PasswordPermissions.class, headers);
   }
 
   @Override
@@ -60,7 +60,7 @@ class UsersImpl implements UsersService {
     String path = "/api/2.0/preview/scim/v2/Users";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListUsersResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListUsersResponse.class, headers);
   }
 
   @Override
@@ -69,7 +69,7 @@ class UsersImpl implements UsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, PatchResponse.class, headers);
+    apiClient.execute("PATCH", path, request, PatchResponse.class, headers);
   }
 
   @Override
@@ -78,7 +78,7 @@ class UsersImpl implements UsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, PasswordPermissions.class, headers);
+    return apiClient.execute("PUT", path, request, PasswordPermissions.class, headers);
   }
 
   @Override
@@ -87,7 +87,7 @@ class UsersImpl implements UsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, UpdateResponse.class, headers);
+    apiClient.execute("PUT", path, request, UpdateResponse.class, headers);
   }
 
   @Override
@@ -96,6 +96,6 @@ class UsersImpl implements UsersService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, PasswordPermissions.class, headers);
+    return apiClient.execute("PATCH", path, request, PasswordPermissions.class, headers);
   }
 }

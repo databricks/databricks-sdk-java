@@ -24,7 +24,7 @@ class StorageImpl implements StorageService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, StorageConfiguration.class, headers);
+    return apiClient.execute("POST", path, request, StorageConfiguration.class, headers);
   }
 
   @Override
@@ -35,7 +35,7 @@ class StorageImpl implements StorageService {
             apiClient.configuredAccountID(), request.getStorageConfigurationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -46,7 +46,7 @@ class StorageImpl implements StorageService {
             apiClient.configuredAccountID(), request.getStorageConfigurationId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, StorageConfiguration.class, headers);
+    return apiClient.execute("GET", path, request, StorageConfiguration.class, headers);
   }
 
   @Override

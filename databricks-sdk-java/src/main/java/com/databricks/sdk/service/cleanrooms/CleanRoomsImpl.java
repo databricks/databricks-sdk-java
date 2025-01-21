@@ -21,7 +21,7 @@ class CleanRoomsImpl implements CleanRoomsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getCleanRoom(), CleanRoom.class, headers);
+    return apiClient.execute("POST", path, request.getCleanRoom(), CleanRoom.class, headers);
   }
 
   @Override
@@ -32,8 +32,12 @@ class CleanRoomsImpl implements CleanRoomsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(
-        path, request.getOutputCatalog(), CreateCleanRoomOutputCatalogResponse.class, headers);
+    return apiClient.execute(
+        "POST",
+        path,
+        request.getOutputCatalog(),
+        CreateCleanRoomOutputCatalogResponse.class,
+        headers);
   }
 
   @Override
@@ -41,7 +45,7 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = String.format("/api/2.0/clean-rooms/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -49,7 +53,7 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = String.format("/api/2.0/clean-rooms/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, CleanRoom.class, headers);
+    return apiClient.execute("GET", path, request, CleanRoom.class, headers);
   }
 
   @Override
@@ -57,7 +61,7 @@ class CleanRoomsImpl implements CleanRoomsService {
     String path = "/api/2.0/clean-rooms";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListCleanRoomsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListCleanRoomsResponse.class, headers);
   }
 
   @Override
@@ -66,6 +70,6 @@ class CleanRoomsImpl implements CleanRoomsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, CleanRoom.class, headers);
+    return apiClient.execute("PATCH", path, request, CleanRoom.class, headers);
   }
 }

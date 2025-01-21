@@ -21,7 +21,7 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, DeleteResponse.class, headers);
+    apiClient.execute("POST", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/export";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ExportResponse.class, headers);
+    return apiClient.execute("GET", path, request, ExportResponse.class, headers);
   }
 
   @Override
@@ -41,7 +41,8 @@ class WorkspaceImpl implements WorkspaceService {
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetWorkspaceObjectPermissionLevelsResponse.class, headers);
+    return apiClient.execute(
+        "GET", path, request, GetWorkspaceObjectPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -52,7 +53,7 @@ class WorkspaceImpl implements WorkspaceService {
             request.getWorkspaceObjectType(), request.getWorkspaceObjectId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, WorkspaceObjectPermissions.class, headers);
+    return apiClient.execute("GET", path, request, WorkspaceObjectPermissions.class, headers);
   }
 
   @Override
@@ -60,7 +61,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/get-status";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ObjectInfo.class, headers);
+    return apiClient.execute("GET", path, request, ObjectInfo.class, headers);
   }
 
   @Override
@@ -69,7 +70,7 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, ImportResponse.class, headers);
+    apiClient.execute("POST", path, request, ImportResponse.class, headers);
   }
 
   @Override
@@ -77,7 +78,7 @@ class WorkspaceImpl implements WorkspaceService {
     String path = "/api/2.0/workspace/list";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListResponse.class, headers);
   }
 
   @Override
@@ -86,7 +87,7 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.POST(path, request, MkdirsResponse.class, headers);
+    apiClient.execute("POST", path, request, MkdirsResponse.class, headers);
   }
 
   @Override
@@ -98,7 +99,7 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, WorkspaceObjectPermissions.class, headers);
+    return apiClient.execute("PUT", path, request, WorkspaceObjectPermissions.class, headers);
   }
 
   @Override
@@ -110,6 +111,6 @@ class WorkspaceImpl implements WorkspaceService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, WorkspaceObjectPermissions.class, headers);
+    return apiClient.execute("PATCH", path, request, WorkspaceObjectPermissions.class, headers);
   }
 }

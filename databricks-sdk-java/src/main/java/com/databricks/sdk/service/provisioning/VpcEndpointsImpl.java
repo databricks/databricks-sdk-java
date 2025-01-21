@@ -23,7 +23,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, VpcEndpoint.class, headers);
+    return apiClient.execute("POST", path, request, VpcEndpoint.class, headers);
   }
 
   @Override
@@ -34,7 +34,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
             apiClient.configuredAccountID(), request.getVpcEndpointId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class VpcEndpointsImpl implements VpcEndpointsService {
             apiClient.configuredAccountID(), request.getVpcEndpointId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, VpcEndpoint.class, headers);
+    return apiClient.execute("GET", path, request, VpcEndpoint.class, headers);
   }
 
   @Override

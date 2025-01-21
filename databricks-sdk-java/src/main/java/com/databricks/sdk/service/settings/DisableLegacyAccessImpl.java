@@ -20,7 +20,8 @@ class DisableLegacyAccessImpl implements DisableLegacyAccessService {
     String path = "/api/2.0/settings/types/disable_legacy_access/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteDisableLegacyAccessResponse.class, headers);
+    return apiClient.execute(
+        "DELETE", path, request, DeleteDisableLegacyAccessResponse.class, headers);
   }
 
   @Override
@@ -28,7 +29,7 @@ class DisableLegacyAccessImpl implements DisableLegacyAccessService {
     String path = "/api/2.0/settings/types/disable_legacy_access/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, DisableLegacyAccess.class, headers);
+    return apiClient.execute("GET", path, request, DisableLegacyAccess.class, headers);
   }
 
   @Override
@@ -37,6 +38,6 @@ class DisableLegacyAccessImpl implements DisableLegacyAccessService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, DisableLegacyAccess.class, headers);
+    return apiClient.execute("PATCH", path, request, DisableLegacyAccess.class, headers);
   }
 }

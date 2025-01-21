@@ -23,7 +23,8 @@ class DisableLegacyFeaturesImpl implements DisableLegacyFeaturesService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(path, request, DeleteDisableLegacyFeaturesResponse.class, headers);
+    return apiClient.execute(
+        "DELETE", path, request, DeleteDisableLegacyFeaturesResponse.class, headers);
   }
 
   @Override
@@ -34,7 +35,7 @@ class DisableLegacyFeaturesImpl implements DisableLegacyFeaturesService {
             apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, DisableLegacyFeatures.class, headers);
+    return apiClient.execute("GET", path, request, DisableLegacyFeatures.class, headers);
   }
 
   @Override
@@ -46,6 +47,6 @@ class DisableLegacyFeaturesImpl implements DisableLegacyFeaturesService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, DisableLegacyFeatures.class, headers);
+    return apiClient.execute("PATCH", path, request, DisableLegacyFeatures.class, headers);
   }
 }

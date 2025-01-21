@@ -20,7 +20,7 @@ class ComplianceSecurityProfileImpl implements ComplianceSecurityProfileService 
     String path = "/api/2.0/settings/types/shield_csp_enablement_ws_db/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ComplianceSecurityProfileSetting.class, headers);
+    return apiClient.execute("GET", path, request, ComplianceSecurityProfileSetting.class, headers);
   }
 
   @Override
@@ -30,6 +30,7 @@ class ComplianceSecurityProfileImpl implements ComplianceSecurityProfileService 
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, ComplianceSecurityProfileSetting.class, headers);
+    return apiClient.execute(
+        "PATCH", path, request, ComplianceSecurityProfileSetting.class, headers);
   }
 }

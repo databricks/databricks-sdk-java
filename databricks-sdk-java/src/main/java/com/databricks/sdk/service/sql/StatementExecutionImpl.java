@@ -19,7 +19,7 @@ class StatementExecutionImpl implements StatementExecutionService {
   public void cancelExecution(CancelExecutionRequest request) {
     String path = String.format("/api/2.0/sql/statements/%s/cancel", request.getStatementId());
     Map<String, String> headers = new HashMap<>();
-    apiClient.POST(path, null, CancelExecutionResponse.class, headers);
+    apiClient.execute("POST", path, null, CancelExecutionResponse.class, headers);
   }
 
   @Override
@@ -28,7 +28,7 @@ class StatementExecutionImpl implements StatementExecutionService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, StatementResponse.class, headers);
+    return apiClient.execute("POST", path, request, StatementResponse.class, headers);
   }
 
   @Override
@@ -36,7 +36,7 @@ class StatementExecutionImpl implements StatementExecutionService {
     String path = String.format("/api/2.0/sql/statements/%s", request.getStatementId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, StatementResponse.class, headers);
+    return apiClient.execute("GET", path, request, StatementResponse.class, headers);
   }
 
   @Override
@@ -47,6 +47,6 @@ class StatementExecutionImpl implements StatementExecutionService {
             request.getStatementId(), request.getChunkIndex());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ResultData.class, headers);
+    return apiClient.execute("GET", path, request, ResultData.class, headers);
   }
 }

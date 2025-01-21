@@ -21,8 +21,8 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
     String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(
-        path, request, DeleteRestrictWorkspaceAdminsSettingResponse.class, headers);
+    return apiClient.execute(
+        "DELETE", path, request, DeleteRestrictWorkspaceAdminsSettingResponse.class, headers);
   }
 
   @Override
@@ -30,7 +30,7 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
     String path = "/api/2.0/settings/types/restrict_workspace_admins/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, RestrictWorkspaceAdminsSetting.class, headers);
+    return apiClient.execute("GET", path, request, RestrictWorkspaceAdminsSetting.class, headers);
   }
 
   @Override
@@ -40,6 +40,6 @@ class RestrictWorkspaceAdminsImpl implements RestrictWorkspaceAdminsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, RestrictWorkspaceAdminsSetting.class, headers);
+    return apiClient.execute("PATCH", path, request, RestrictWorkspaceAdminsSetting.class, headers);
   }
 }

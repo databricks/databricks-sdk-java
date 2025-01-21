@@ -21,7 +21,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, StorageCredentialInfo.class, headers);
+    return apiClient.execute("POST", path, request, StorageCredentialInfo.class, headers);
   }
 
   @Override
@@ -29,7 +29,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
     String path = String.format("/api/2.1/unity-catalog/storage-credentials/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -37,7 +37,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
     String path = String.format("/api/2.1/unity-catalog/storage-credentials/%s", request.getName());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, StorageCredentialInfo.class, headers);
+    return apiClient.execute("GET", path, request, StorageCredentialInfo.class, headers);
   }
 
   @Override
@@ -45,7 +45,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
     String path = "/api/2.1/unity-catalog/storage-credentials";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListStorageCredentialsResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListStorageCredentialsResponse.class, headers);
   }
 
   @Override
@@ -54,7 +54,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, StorageCredentialInfo.class, headers);
+    return apiClient.execute("PATCH", path, request, StorageCredentialInfo.class, headers);
   }
 
   @Override
@@ -63,6 +63,7 @@ class StorageCredentialsImpl implements StorageCredentialsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, ValidateStorageCredentialResponse.class, headers);
+    return apiClient.execute(
+        "POST", path, request, ValidateStorageCredentialResponse.class, headers);
   }
 }

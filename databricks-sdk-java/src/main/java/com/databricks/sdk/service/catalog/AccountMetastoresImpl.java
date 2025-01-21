@@ -21,7 +21,7 @@ class AccountMetastoresImpl implements AccountMetastoresService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, AccountsMetastoreInfo.class, headers);
+    return apiClient.execute("POST", path, request, AccountsMetastoreInfo.class, headers);
   }
 
   @Override
@@ -32,7 +32,7 @@ class AccountMetastoresImpl implements AccountMetastoresService {
             apiClient.configuredAccountID(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -43,7 +43,7 @@ class AccountMetastoresImpl implements AccountMetastoresService {
             apiClient.configuredAccountID(), request.getMetastoreId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AccountsMetastoreInfo.class, headers);
+    return apiClient.execute("GET", path, request, AccountsMetastoreInfo.class, headers);
   }
 
   @Override
@@ -51,7 +51,7 @@ class AccountMetastoresImpl implements AccountMetastoresService {
     String path = String.format("/api/2.0/accounts/%s/metastores", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListMetastoresResponse.class, headers);
+    return apiClient.execute("GET", path, null, ListMetastoresResponse.class, headers);
   }
 
   @Override
@@ -63,6 +63,6 @@ class AccountMetastoresImpl implements AccountMetastoresService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, AccountsMetastoreInfo.class, headers);
+    return apiClient.execute("PUT", path, request, AccountsMetastoreInfo.class, headers);
   }
 }

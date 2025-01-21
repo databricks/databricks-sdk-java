@@ -22,7 +22,7 @@ class AccountFederationPolicyImpl implements AccountFederationPolicyService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request.getPolicy(), FederationPolicy.class, headers);
+    return apiClient.execute("POST", path, request.getPolicy(), FederationPolicy.class, headers);
   }
 
   @Override
@@ -33,7 +33,7 @@ class AccountFederationPolicyImpl implements AccountFederationPolicyService {
             apiClient.configuredAccountID(), request.getPolicyId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -44,7 +44,7 @@ class AccountFederationPolicyImpl implements AccountFederationPolicyService {
             apiClient.configuredAccountID(), request.getPolicyId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, FederationPolicy.class, headers);
+    return apiClient.execute("GET", path, request, FederationPolicy.class, headers);
   }
 
   @Override
@@ -53,7 +53,7 @@ class AccountFederationPolicyImpl implements AccountFederationPolicyService {
         String.format("/api/2.0/accounts/%s/federationPolicies", apiClient.configuredAccountID());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ListFederationPoliciesResponse.class, headers);
+    return apiClient.execute("GET", path, request, ListFederationPoliciesResponse.class, headers);
   }
 
   @Override
@@ -65,6 +65,6 @@ class AccountFederationPolicyImpl implements AccountFederationPolicyService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request.getPolicy(), FederationPolicy.class, headers);
+    return apiClient.execute("PATCH", path, request.getPolicy(), FederationPolicy.class, headers);
   }
 }

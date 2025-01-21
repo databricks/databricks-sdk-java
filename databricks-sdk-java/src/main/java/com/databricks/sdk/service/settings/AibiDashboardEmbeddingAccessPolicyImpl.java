@@ -21,8 +21,12 @@ class AibiDashboardEmbeddingAccessPolicyImpl implements AibiDashboardEmbeddingAc
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_acc_policy/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.DELETE(
-        path, request, DeleteAibiDashboardEmbeddingAccessPolicySettingResponse.class, headers);
+    return apiClient.execute(
+        "DELETE",
+        path,
+        request,
+        DeleteAibiDashboardEmbeddingAccessPolicySettingResponse.class,
+        headers);
   }
 
   @Override
@@ -31,7 +35,8 @@ class AibiDashboardEmbeddingAccessPolicyImpl implements AibiDashboardEmbeddingAc
     String path = "/api/2.0/settings/types/aibi_dash_embed_ws_acc_policy/names/default";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, AibiDashboardEmbeddingAccessPolicySetting.class, headers);
+    return apiClient.execute(
+        "GET", path, request, AibiDashboardEmbeddingAccessPolicySetting.class, headers);
   }
 
   @Override
@@ -41,6 +46,7 @@ class AibiDashboardEmbeddingAccessPolicyImpl implements AibiDashboardEmbeddingAc
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, AibiDashboardEmbeddingAccessPolicySetting.class, headers);
+    return apiClient.execute(
+        "PATCH", path, request, AibiDashboardEmbeddingAccessPolicySetting.class, headers);
   }
 }

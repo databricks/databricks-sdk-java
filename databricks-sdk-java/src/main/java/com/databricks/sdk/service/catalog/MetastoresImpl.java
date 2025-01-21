@@ -22,7 +22,7 @@ class MetastoresImpl implements MetastoresService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PUT(path, request, AssignResponse.class, headers);
+    apiClient.execute("PUT", path, request, AssignResponse.class, headers);
   }
 
   @Override
@@ -31,7 +31,7 @@ class MetastoresImpl implements MetastoresService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.POST(path, request, MetastoreInfo.class, headers);
+    return apiClient.execute("POST", path, request, MetastoreInfo.class, headers);
   }
 
   @Override
@@ -39,7 +39,7 @@ class MetastoresImpl implements MetastoresService {
     String path = "/api/2.1/unity-catalog/current-metastore-assignment";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, MetastoreAssignment.class, headers);
+    return apiClient.execute("GET", path, null, MetastoreAssignment.class, headers);
   }
 
   @Override
@@ -47,7 +47,7 @@ class MetastoresImpl implements MetastoresService {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, DeleteResponse.class, headers);
+    apiClient.execute("DELETE", path, request, DeleteResponse.class, headers);
   }
 
   @Override
@@ -55,7 +55,7 @@ class MetastoresImpl implements MetastoresService {
     String path = String.format("/api/2.1/unity-catalog/metastores/%s", request.getId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, MetastoreInfo.class, headers);
+    return apiClient.execute("GET", path, request, MetastoreInfo.class, headers);
   }
 
   @Override
@@ -63,7 +63,7 @@ class MetastoresImpl implements MetastoresService {
     String path = "/api/2.1/unity-catalog/metastores";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, ListMetastoresResponse.class, headers);
+    return apiClient.execute("GET", path, null, ListMetastoresResponse.class, headers);
   }
 
   @Override
@@ -71,7 +71,7 @@ class MetastoresImpl implements MetastoresService {
     String path = "/api/2.1/unity-catalog/metastore_summary";
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, GetMetastoreSummaryResponse.class, headers);
+    return apiClient.execute("GET", path, null, GetMetastoreSummaryResponse.class, headers);
   }
 
   @Override
@@ -80,7 +80,7 @@ class MetastoresImpl implements MetastoresService {
         String.format("/api/2.1/unity-catalog/workspaces/%s/metastore", request.getWorkspaceId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    apiClient.DELETE(path, request, UnassignResponse.class, headers);
+    apiClient.execute("DELETE", path, request, UnassignResponse.class, headers);
   }
 
   @Override
@@ -89,7 +89,7 @@ class MetastoresImpl implements MetastoresService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, MetastoreInfo.class, headers);
+    return apiClient.execute("PATCH", path, request, MetastoreInfo.class, headers);
   }
 
   @Override
@@ -99,6 +99,6 @@ class MetastoresImpl implements MetastoresService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    apiClient.PATCH(path, request, UpdateAssignmentResponse.class, headers);
+    apiClient.execute("PATCH", path, request, UpdateAssignmentResponse.class, headers);
   }
 }

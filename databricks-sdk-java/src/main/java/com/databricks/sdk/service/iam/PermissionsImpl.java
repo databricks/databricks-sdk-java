@@ -23,7 +23,7 @@ class PermissionsImpl implements PermissionsService {
             request.getRequestObjectType(), request.getRequestObjectId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, ObjectPermissions.class, headers);
+    return apiClient.execute("GET", path, request, ObjectPermissions.class, headers);
   }
 
   @Override
@@ -34,7 +34,7 @@ class PermissionsImpl implements PermissionsService {
             request.getRequestObjectType(), request.getRequestObjectId());
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
-    return apiClient.GET(path, request, GetPermissionLevelsResponse.class, headers);
+    return apiClient.execute("GET", path, request, GetPermissionLevelsResponse.class, headers);
   }
 
   @Override
@@ -46,7 +46,7 @@ class PermissionsImpl implements PermissionsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PUT(path, request, ObjectPermissions.class, headers);
+    return apiClient.execute("PUT", path, request, ObjectPermissions.class, headers);
   }
 
   @Override
@@ -58,6 +58,6 @@ class PermissionsImpl implements PermissionsService {
     Map<String, String> headers = new HashMap<>();
     headers.put("Accept", "application/json");
     headers.put("Content-Type", "application/json");
-    return apiClient.PATCH(path, request, ObjectPermissions.class, headers);
+    return apiClient.execute("PATCH", path, request, ObjectPermissions.class, headers);
   }
 }
