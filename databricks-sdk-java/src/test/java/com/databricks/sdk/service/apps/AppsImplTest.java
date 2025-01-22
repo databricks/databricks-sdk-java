@@ -1,16 +1,14 @@
 package com.databricks.sdk.service.apps;
 
-import com.databricks.sdk.core.ApiClient;
-import static org.mockito.ArgumentMatchers.*;
-import com.databricks.sdk.core.http.Request;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.io.IOException;
-
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import com.databricks.sdk.core.ApiClient;
+import com.databricks.sdk.core.http.Request;
+import java.io.IOException;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class AppsImplTest {
   @Test
