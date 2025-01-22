@@ -23,7 +23,7 @@ class QualityMonitorsImpl implements QualityMonitorsService {
             "/api/2.1/unity-catalog/tables/%s/monitor/refreshes/%s/cancel",
             request.getTableName(), request.getRefreshId());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       apiClient.execute(req, CancelRefreshResponse.class);
     } catch (IOException e) {
@@ -121,7 +121,7 @@ class QualityMonitorsImpl implements QualityMonitorsService {
     String path =
         String.format("/api/2.1/unity-catalog/tables/%s/monitor/refreshes", request.getTableName());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, MonitorRefreshInfo.class);

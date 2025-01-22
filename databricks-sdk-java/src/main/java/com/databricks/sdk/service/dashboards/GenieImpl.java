@@ -41,7 +41,7 @@ class GenieImpl implements GenieService {
             "/api/2.0/genie/spaces/%s/conversations/%s/messages/%s/execute-query",
             request.getSpaceId(), request.getConversationId(), request.getMessageId());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, GenieGetMessageQueryResultResponse.class);

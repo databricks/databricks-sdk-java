@@ -23,7 +23,7 @@ class ServicePrincipalSecretsImpl implements ServicePrincipalSecretsService {
             "/api/2.0/accounts/%s/servicePrincipals/%s/credentials/secrets",
             apiClient.configuredAccountID(), request.getServicePrincipalId());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       return apiClient.execute(req, CreateServicePrincipalSecretResponse.class);

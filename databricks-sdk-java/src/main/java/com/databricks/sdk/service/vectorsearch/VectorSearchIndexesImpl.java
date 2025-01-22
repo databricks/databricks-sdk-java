@@ -130,7 +130,7 @@ class VectorSearchIndexesImpl implements VectorSearchIndexesService {
   public void syncIndex(SyncIndexRequest request) {
     String path = String.format("/api/2.0/vector-search/indexes/%s/sync", request.getIndexName());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       apiClient.execute(req, SyncIndexResponse.class);
     } catch (IOException e) {

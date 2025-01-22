@@ -73,7 +73,7 @@ class QueriesLegacyImpl implements QueriesLegacyService {
   public void restore(RestoreQueriesLegacyRequest request) {
     String path = String.format("/api/2.0/preview/sql/queries/trash/%s", request.getQueryId());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, RestoreResponse.class);

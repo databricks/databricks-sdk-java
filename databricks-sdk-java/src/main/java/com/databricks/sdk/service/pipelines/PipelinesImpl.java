@@ -171,7 +171,7 @@ class PipelinesImpl implements PipelinesService {
   public void stop(StopRequest request) {
     String path = String.format("/api/2.0/pipelines/%s/stop", request.getPipelineId());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, StopPipelineResponse.class);

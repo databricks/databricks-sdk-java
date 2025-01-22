@@ -20,7 +20,7 @@ class StatementExecutionImpl implements StatementExecutionService {
   public void cancelExecution(CancelExecutionRequest request) {
     String path = String.format("/api/2.0/sql/statements/%s/cancel", request.getStatementId());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       apiClient.execute(req, CancelExecutionResponse.class);
     } catch (IOException e) {

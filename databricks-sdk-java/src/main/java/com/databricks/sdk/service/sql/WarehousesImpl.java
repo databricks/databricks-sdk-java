@@ -157,7 +157,7 @@ class WarehousesImpl implements WarehousesService {
   public void start(StartRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/start", request.getId());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, StartWarehouseResponse.class);
@@ -170,7 +170,7 @@ class WarehousesImpl implements WarehousesService {
   public void stop(StopRequest request) {
     String path = String.format("/api/2.0/sql/warehouses/%s/stop", request.getId());
     try {
-      Request req = new Request("POST", path, apiClient.serialize(request));
+      Request req = new Request("POST", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, StopWarehouseResponse.class);

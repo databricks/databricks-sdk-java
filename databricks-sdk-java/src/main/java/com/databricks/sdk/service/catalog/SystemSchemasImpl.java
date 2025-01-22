@@ -39,7 +39,7 @@ class SystemSchemasImpl implements SystemSchemasService {
             "/api/2.1/unity-catalog/metastores/%s/systemschemas/%s",
             request.getMetastoreId(), request.getSchemaName());
     try {
-      Request req = new Request("PUT", path, apiClient.serialize(request));
+      Request req = new Request("PUT", path);
       ApiClient.setQuery(req, request);
       req.withHeader("Accept", "application/json");
       apiClient.execute(req, EnableResponse.class);

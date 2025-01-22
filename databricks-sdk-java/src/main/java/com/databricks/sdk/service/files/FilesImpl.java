@@ -24,7 +24,7 @@ class FilesImpl implements FilesService {
             "/api/2.0/fs/directories%s",
             Encoding.encodeMultiSegmentPathParameter(request.getDirectoryPath()));
     try {
-      Request req = new Request("PUT", path, apiClient.serialize(request));
+      Request req = new Request("PUT", path);
       ApiClient.setQuery(req, request);
       apiClient.execute(req, CreateDirectoryResponse.class);
     } catch (IOException e) {
