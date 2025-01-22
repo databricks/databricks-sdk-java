@@ -60,7 +60,7 @@ public class JobsExt extends JobsAPI {
       }
       Collection<RepairHistoryItem> newRepairHistory = currRun.getRepairHistory();
       if (newRepairHistory != null) {
-          run.getRepairHistory().addAll(newRepairHistory);
+        run.getRepairHistory().addAll(newRepairHistory);
       }
       run.setNextPageToken(currRun.getNextPageToken());
     }

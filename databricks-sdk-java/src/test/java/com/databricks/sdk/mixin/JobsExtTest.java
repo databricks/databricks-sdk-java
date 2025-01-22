@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import com.databricks.sdk.service.jobs.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.jupiter.api.Test;
@@ -29,7 +28,6 @@ public class JobsExtTest {
     addTasks(thirdPage, 4L);
     addJobParameters(thirdPage, "parameterKey5");
 
-
     when(service.getRun(any())).thenReturn(firstPage).thenReturn(secondPage).thenReturn(thirdPage);
 
     JobsExt jobsExt = new JobsExt(service);
@@ -41,7 +39,13 @@ public class JobsExtTest {
     Run expectedRun = new Run();
     addTasks(expectedRun, 0L, 1L, 2L, 3L, 4L);
     addJobClusters(expectedRun, "clusterKey1", "clusterKey2", "clusterKey3");
-    addJobParameters(expectedRun, "parameterKey1", "parameterKey2", "parameterKey3", "parameterKey4", "parameterKey5");
+    addJobParameters(
+        expectedRun,
+        "parameterKey1",
+        "parameterKey2",
+        "parameterKey3",
+        "parameterKey4",
+        "parameterKey5");
 
     assertEquals(expectedRun, run);
     verify(service, times(3)).getRun(any());
